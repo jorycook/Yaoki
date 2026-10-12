@@ -45,7 +45,7 @@ const NOW = Date.UTC(2026, 9, 12, 15);
   for (const { id, day } of days) {
     const cur = '&cur=' + id;
     // teach pages and comparison
-    for (const tp of [0, 1]) {
+    for (const tp of day.grammar.points.length ? [0, 1] : []) {
       const { page, logs } = await open('Teach', cur + '&tp=' + tp);
       await check(page, logs, `${id} teach ${tp + 1}`);
       await page.close();
@@ -108,7 +108,18 @@ const NOW = Date.UTC(2026, 9, 12, 15);
       await check(page, logs, `${id} scene check ${k + 1}`);
       await page.close();
     }
-    // reading or listening: every option
+    // reading or listening: every option (listening waits for its clip, or its stand-in time without sound)
+    if (day.skill.kind === 'listening') {
+      for (let k = 0; k < day.skill.item.options.length; k++) {
+        const { page, logs } = await open('Listening', cur);
+        if (k === 0) await check(page, logs, `${id} listening before`);
+        await tap(page, 'button[aria-label="Play audio"]');
+        await page.waitForFunction(() => !document.querySelector('button[aria-pressed][disabled]'), null, { timeout: 120000 });
+        await tap(page, `button[aria-pressed] >> nth=${k}`);
+        await check(page, logs, `${id} listening option ${k + 1}`);
+        await page.close();
+      }
+    }
     if (day.skill.kind === 'reading') {
       for (let k = 0; k < day.skill.item.options.length; k++) {
         const { page, logs } = await open('Reading', cur);

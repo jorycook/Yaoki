@@ -37,6 +37,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 16px; font-size: 12px; font-weight: 800; color: #5A6382">{{ q.kind }}</div>
+<sc-if value="{{ q.hasPassage }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="margin-top: 8px; max-height: 260px; overflow-y: auto; flex-shrink: 0; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.85; white-space: pre-line">{{ q.passageText }}</div></sc-if>
 <div lang="ja" style="margin-top: 8px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if><sc-if value="{{ g.star }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if></sc-for></div>
 <div lang="ja" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
@@ -188,7 +189,7 @@ const wrongCount = rows.filter((r) => r.bad).length;
 const low = !s.done && s.t <= 30;
 const many = list.length > 6;
 return {
-q: { ...q, kind: q.type + '　' + (q.label || ''), segs },
+q: { ...q, kind: q.type + '　' + (q.label || ''), segs, hasPassage: !!q.passage, passageText: C.plain(q.passage || '') },
 opts,
 asking: !s.done,
 done: s.done,

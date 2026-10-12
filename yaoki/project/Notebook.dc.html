@@ -97,7 +97,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
 /* a question as the notebook quotes it: the sentence or the question, shortened to one line */
 function quote(C, it) {
-if (it.kind === 'star') return [{ t: '…' + C.plain(it.before).slice(-8) + ' ＿ ＿ ★ ＿ ' + C.plain(it.after).slice(0, 10), line: 'none' }];
+if (it.kind === 'star') return [{ t: '…' + C.plain(it.before).slice(-8) + ' ' + ['＿', '＿', '＿', '＿'].map((b, k) => (k === it.star ? '★' : b)).join(' ') + ' ' + C.plain(it.after).slice(0, 10), line: 'none' }];
 const segs = C.rich(it.q, { ruby: false, hl: false });
 const out = [];
 let room = 21;

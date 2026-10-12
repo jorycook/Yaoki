@@ -109,7 +109,7 @@ await png('icons/favicon-32.png', 32, 0.82);
 const preactDir = path.join(HERE, 'node_modules/preact');
 copy(path.join(preactDir, 'dist/preact.min.js'), 'assets/preact.min.js');
 for (const f of ['yk-runtime.js', 'yk-app.js', 'app.css']) copy(path.join(SRC, f), 'assets/' + f);
-for (const f of ['sound.js', 'sound-mock.js', 'sound-lessons.js', 'course.js', 'course-n2.js']) copy(path.join(PROJECT, f), 'assets/' + f);
+for (const f of ['sound.js', 'sound-mock.js', 'sound-lessons.js', 'sound-course.js', 'course.js', 'course-n2.js']) copy(path.join(PROJECT, f), 'assets/' + f);
 copy(path.join(SRC, 'index.html'), 'index.html');
 copy(path.join(SRC, 'manifest.webmanifest'), 'manifest.webmanifest');
 const ofl = read(path.join(FONTS, 'kleeone/OFL.txt')).split('\n').slice(1).join('\n').trim();
@@ -154,7 +154,7 @@ fs.rmSync(PREVIEW, { recursive: true, force: true });
 fs.mkdirSync(path.join(PREVIEW, 'assets'), { recursive: true });
 const preactVersion = JSON.parse(read(path.join(preactDir, 'package.json'))).version;
 const stamp = `Yaoki prototype ${APP_VERSION} · ${day} · ${digest.slice(0, 6)} · preview`;
-for (const f of ['yk-runtime.js', 'sound.js', 'sound-mock.js', 'sound-lessons.js', 'course.js', 'course-n2.js', 'screens.js', 'yk-app.js']) fs.copyFileSync(path.join(OUT, 'assets', f), path.join(PREVIEW, 'assets', f));
+for (const f of ['yk-runtime.js', 'sound.js', 'sound-mock.js', 'sound-lessons.js', 'sound-course.js', 'course.js', 'course-n2.js', 'screens.js', 'yk-app.js']) fs.copyFileSync(path.join(OUT, 'assets', f), path.join(PREVIEW, 'assets', f));
 fs.writeFileSync(path.join(PREVIEW, 'yaoki-app.html'), `<title>Yaoki App</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap">
 <style>
@@ -173,6 +173,7 @@ ${read(path.join(OUT, 'assets/screens.css')).trim()}
 <script src="assets/yk-app.js"></script>
 <script async src="assets/sound-mock.js"></script>
 <script async src="assets/sound-lessons.js"></script>
+<script async src="assets/sound-course.js"></script>
 `);
 
 const size = walk(OUT).reduce((n, f) => n + fs.statSync(f).size, 0);

@@ -94,6 +94,16 @@ const units = syllabus.units.map((u) => {
       markup(where + '.passage', day.skill.passage);
       item(where + '.skill', day.skill.item, { ...ctx, step: 'skill' });
     } else bad(where, 'no reading or listening');
+    /* every spoken thing gets a clip name; tts/course_clips.py makes the clips under these names (sound-course.js) */
+    const key = (k) => k.replace(/[^A-Za-z0-9]+/g, '_');
+    (g.points || []).forEach((p) => (p.examples || []).forEach((e, n) => { if (!e.clip) e.clip = key('x_' + p.id + '_' + (n + 1)); }));
+    if (day.scene) (day.scene.words || []).forEach((w) => { if (!w.clip) w.clip = key('s_' + where + '_' + w.id); });
+    if (day.skill && day.skill.kind === 'listening') {
+      if (!Array.isArray(day.skill.audio) || !day.skill.audio.length) bad(where, 'a listening lesson needs audio: the lines to synthesise');
+      else day.skill.audio.forEach((l, n) => { if (!Array.isArray(l) || !['N', 'M', 'F'].includes(l[0]) || !l[1]) bad(where, `audio line ${n + 1} must be [N|M|F, text, respelling or null]`); });
+      if (!day.skill.item.clip) day.skill.item.clip = key('l_' + where);
+      items[day.skill.item.id].clip = day.skill.item.clip;
+    }
     days.push({ ...day, title });
   }
   (content.test || []).forEach((it) => item(`u${u.n}.test`, it, { unit: u.n, step: 'test' }));

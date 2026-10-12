@@ -37,7 +37,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <a href="Teach.dc.html" onClick="{{ toTeach }}" aria-label="Grammar: open the teach page" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
 <div style="width: 46px; height: 46px; border-radius: 14px; background: #E8ECFB; color: #2F4FD0; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">文</div>
 <div style="flex-grow: 1; display: flex; flex-direction: column">
-<div style="font-size: 12px; font-weight: 700; color: #5A6382">文法　Grammar · 2 patterns</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ grammarLine }}</div>
 <div style="font-size: 16px; font-weight: 800">{{ title }}</div>
 </div>
 <sc-if value="{{ c1.done }}" hint-placeholder-val="{{ false }}">
@@ -154,6 +154,7 @@ return {
 dayLabel: '第' + (+m[1]) + '週 · ' + (+m[2]) + '日目',
 dayN: +m[2],
 title: day.title,
+grammarLine: day.grammar && day.grammar.points && day.grammar.points.length ? '文法　Grammar · ' + day.grammar.points.length + ' patterns' : '文法　Grammar · the week side by side',
 wordCount: (scene.words || []).length,
 sceneTitle: (scene.ja || '') + '　' + (scene.en || ''),
 skillIcon: listening ? '聴' : '読',
@@ -169,7 +170,7 @@ allDone,
 open: !allDone,
 toMain: nav('Main'),
 /* the teach pages start from the first pattern */
-toTeach: (e) => { if (this.props.save) this.props.save({ tp: 0 }); nav('Teach')(e); },
+toTeach: (e) => { if (this.props.save) this.props.save({ tp: 0 }); nav(day.grammar && day.grammar.points && day.grammar.points.length ? 'Teach' : 'Compare')(e); },
 toDrill: nav('Drill'),
 toExam: (e) => { if (this.props.save) this.props.save({ set: 'day' }); nav('Exam')(e); },
 toScene: nav('Scene'),

@@ -7,6 +7,7 @@
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
 <script src="./course.js"></script>
+<script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
 </head>
 <body>
@@ -159,7 +160,7 @@ this.setState({ picks: this.state.picks.map((p, j) => (j === this.state.i ? n : 
 };
 });
 let segs;
-if (q.starQ) segs = [{ t: C.plain(q.before) + ' ＿ ＿ ★ ＿ ' + C.plain(q.after), plain: true, line: 'none' }];
+if (q.starQ) segs = [{ t: C.plain(q.before) + ' ' + ['＿', '＿', '＿', '＿'].map((b, k) => (k === q.star ? '★' : b)).join(' ') + ' ' + C.plain(q.after), plain: true, line: 'none' }];
 else segs = C.rich(q.q, { hl: false });
 const context = q.passage || q.script || '';
 const streak = answered ? (correct ? (entry.step || 0) + 1 : 0) : entry.step || 0;

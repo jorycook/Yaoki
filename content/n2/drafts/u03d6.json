@@ -1,0 +1,525 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "Ask two questions: what comes before the form (a person, a noun or a clause), and what comes after it (a judgement, a notice, a duty or resolve, praise, a regret, a guess or a suggestion). Together they leave only one of the ten.",
+   "forms": [
+    {
+     "form": "〜ことから",
+     "tag": "根拠 · grounds for a judgement",
+     "mark": "dot",
+     "ja": "机の上にかぎが置いてあった{ことから}、父はもう帰っていると分かった。",
+     "en": "The keys were on the desk, so I knew Dad was already home."
+    },
+    {
+     "form": "〜につき",
+     "tag": "掲示・案内 · formal notice",
+     "mark": "dot",
+     "ja": "売り切れ{につき}、本日の販売は終了いたしました。",
+     "en": "Sold out: today's sales have ended."
+    },
+    {
+     "form": "〜以上（は）",
+     "tag": "当然〜べき · given that, then",
+     "mark": "dot",
+     "ja": "お金を借りた{以上は}、約束の日までに返すべきだ。",
+     "en": "Once you borrow money, you should pay it back by the agreed day."
+    },
+    {
+     "form": "〜からには",
+     "tag": "決意 · now that, I will",
+     "mark": "dot",
+     "ja": "自分の店を開く{からには}、この町で一番の店にしたい。",
+     "en": "Since I'm opening my own shop, I want it to be the best in town."
+    },
+    {
+     "form": "〜だけに",
+     "tag": "なおさら · all the more",
+     "mark": "dot",
+     "ja": "長年住んだ町{だけに}、離れるのは本当につらい。",
+     "en": "It's the town I've lived in for years, so leaving is all the harder."
+    },
+    {
+     "form": "〜だけあって",
+     "tag": "さすが · lives up to it",
+     "mark": "dot",
+     "ja": "さすが料理人の息子{だけあって}、彼は包丁の使い方がうまい。",
+     "en": "As you'd expect of a chef's son, he handles a knife well."
+    },
+    {
+     "form": "〜ばかりに",
+     "tag": "悪い結果 · just because",
+     "mark": "down",
+     "ja": "名前を書き忘れた{ばかりに}、テストが0点になった。",
+     "en": "Just because I forgot to write my name, I got zero on the test."
+    },
+    {
+     "form": "〜あまり",
+     "tag": "〜すぎて · so much that",
+     "mark": "up",
+     "ja": "話に夢中になる{あまり}、降りる駅を通り過ぎてしまった。",
+     "en": "I was so caught up in talking that I went past my stop."
+    },
+    {
+     "form": "〜のことだから",
+     "tag": "人柄から推測 · knowing X",
+     "mark": "dot",
+     "ja": "料理好きの田中さん{のことだから}、パーティーには何か作ってくるだろう。",
+     "en": "Knowing Tanaka loves cooking, she'll probably bring something she made."
+    },
+    {
+     "form": "〜ことだし",
+     "tag": "理由の一つ・提案 · since…, let's",
+     "mark": "dot",
+     "ja": "宿題も終わった{ことだし}、少し散歩でもしてこよう。",
+     "en": "My homework's done, so I'll go for a little walk."
+    }
+   ],
+   "check": {
+    "id": "u03d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "レストランで",
+    "q": "一流のシェフが作っている（　　）、この店の料理はどれもおいしい。",
+    "options": [
+     "ばかりに",
+     "だけあって",
+     "からには"
+    ],
+    "answer": 2,
+    "why": [
+     "ばかりに leads to a result the speaker regrets. Good food is not one.",
+     "A cause, and a good result that lives up to it: praise.",
+     "からには leads to a resolve or a duty, not a description of the food."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u03d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "財布を^ポケットに入れたまま洗濯した^（　　）、中のカードが^全部使えなくなってしまった^。",
+    "options": [
+     "だけあって",
+     "ばかりに",
+     "だけに",
+     "あまり"
+    ],
+    "answer": 2,
+    "why": [
+     "だけあって praises. Ruined cards are not praise.",
+     "One careless act, and a bad result the speaker regrets.",
+     "だけに needs a situation that makes a feeling stronger, as in 期待していただけに. A single careless act is not one.",
+     "あまり needs a feeling or an effort taken too far. Washing a wallet by mistake is neither."
+    ]
+   },
+   {
+    "id": "u03d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^親友の結婚式だった^（　　）、仕事で出席できなかったのが^とても残念だ^。",
+    "options": [
+     "ばかりに",
+     "あまり",
+     "だけあって",
+     "だけに"
+    ],
+    "answer": 4,
+    "why": [
+     "ばかりに would make the wedding the cause of missing it. Work was the cause.",
+     "あまり does not follow だった; it needs a feeling, as in 悲しさのあまり.",
+     "だけあって praises. 残念だ is not praise.",
+     "Because it was a best friend's wedding, missing it is all the more disappointing."
+    ]
+   },
+   {
+    "id": "u03d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この公園は、^昔ここに大きな池があった^（　　）、^「大池公園」と名付けられた^。",
+    "options": [
+     "ことから",
+     "以上は",
+     "からには",
+     "だけに"
+    ],
+    "answer": 1,
+    "why": [
+     "A fact, and a name that comes from it.",
+     "以上は leads to a duty or a firm conclusion, not to how a place got its name.",
+     "からには leads to the speaker's resolve, not to a name.",
+     "だけに makes a feeling stronger. Giving a name is not a feeling."
+    ]
+   },
+   {
+    "id": "u03d6.d4",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "大学院に",
+    "after": "したい。",
+    "tiles": [
+     "進む",
+     "からには",
+     "世界に",
+     "通用する研究を"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "からには follows the plain form of a verb. What does 世界に go with?",
+    "full": "大学院に進む{からには}世界に通用する研究をしたい。",
+    "explain": "進む is the plain form before からには. 世界に goes with 通用する, and 通用する研究を is what the speaker wants to do."
+   },
+   {
+    "id": "u03d6.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^チームの一員である^（　　）、自分の都合だけで^練習を休むべきではない^。",
+    "options": [
+     "ばかりに",
+     "以上は",
+     "だけあって",
+     "のことだから"
+    ],
+    "answer": 2,
+    "why": [
+     "ばかりに leads to a result the speaker regrets, not to べきではない.",
+     "Given that you are a member, there is a duty: 以上は ... べきではない.",
+     "だけあって praises a result that has happened. べきではない is advice, not praise.",
+     "のことだから follows a noun for a person, not である, and leads to a guess."
+    ]
+   },
+   {
+    "id": "u03d6.d6",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^よく気がつく^田中さん（　　）、もう飲み物を用意してくれている^だろう^。",
+    "options": [
+     "ばかりに",
+     "ことだし",
+     "のことだから",
+     "からには"
+    ],
+    "answer": 3,
+    "why": [
+     "ばかりに cannot follow a noun directly, and it leads to a regretted result, not a guess.",
+     "ことだし cannot follow a noun directly, and it leads to a suggestion, not a guess.",
+     "Someone whose character you know, then a guess with だろう.",
+     "からには cannot follow a noun directly, and it leads to a resolve, not a guess."
+    ]
+   },
+   {
+    "id": "u03d6.d7",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^みんなそろった^（　　）、そろそろ^始めましょうか^。",
+    "options": [
+     "のことだから",
+     "あまり",
+     "ばかりに",
+     "ことだし"
+    ],
+    "answer": 4,
+    "why": [
+     "のことだから follows a noun for a person (山田さんのことだから), not a verb.",
+     "あまり needs a feeling taken too far, and it cannot lead to a suggestion.",
+     "ばかりに leads to a regretted result, never to a suggestion.",
+     "One reason, then a suggestion (〜ましょうか)."
+    ]
+   },
+   {
+    "id": "u03d6.d8",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "彼は",
+    "after": "ことに挑戦しなくなった。",
+    "tiles": [
+     "失敗を",
+     "恐れる",
+     "あまり",
+     "新しい"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "Which verb sits before あまり? What does 新しい describe?",
+    "full": "彼は失敗を恐れる{あまり}新しいことに挑戦しなくなった。",
+    "explain": "失敗を恐れる is the fear, in the dictionary form before あまり. 新しい describes こと."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u03d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "本日は貸切（　　）、一般のお客様はご利用いただけません。",
+    "options": [
+     "ことから",
+     "だけに",
+     "につき",
+     "あまり"
+    ],
+    "answer": 3,
+    "explain": "A formal notice: noun + につき. ことから would need な or である after a noun, あまり would need の, and だけに (all the more) does not fit a notice."
+   },
+   {
+    "id": "u03d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このホテルは百年の歴史がある（　　）、ロビーの家具も一つ一つが立派だ。",
+    "options": [
+     "だけあって",
+     "ばかりに",
+     "ことだし",
+     "からには"
+    ],
+    "answer": 1,
+    "explain": "A cause, and praise that lives up to it: だけあって. ばかりに needs a regretted result, ことだし a suggestion, and からには a resolve or a duty."
+   },
+   {
+    "id": "u03d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "マラソンに",
+    "after": "やめるわけにはいかない。",
+    "tiles": [
+     "出る",
+     "と決めた",
+     "以上は",
+     "途中で"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "full": "マラソンに出ると決めた{以上は}途中でやめるわけにはいかない。",
+    "explain": "出る, と決めた, 以上は, 途中で. 以上は follows the plain form 決めた, and 途中で goes with やめる."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "市立図書館で",
+  "en": "At the city library",
+  "intro": "Tap every word you would read at the counter and on the notices.",
+  "words": [
+   {
+    "id": "lend",
+    "word": "貸出",
+    "reading": "かしだし",
+    "gloss": "lending, check-out",
+    "parts": [
+     [
+      "貸",
+      "かし",
+      "lend"
+     ],
+     [
+      "出",
+      "だし",
+      "out"
+     ]
+    ]
+   },
+   {
+    "id": "return",
+    "word": "返却",
+    "reading": "へんきゃく",
+    "gloss": "return (of something borrowed)",
+    "parts": [
+     [
+      "返",
+      "ヘン",
+      "give back"
+     ],
+     [
+      "却",
+      "キャク",
+      "back, away"
+     ]
+    ]
+   },
+   {
+    "id": "user",
+    "word": "利用者",
+    "reading": "りようしゃ",
+    "gloss": "user",
+    "parts": [
+     [
+      "利用",
+      "りよう",
+      "use"
+     ],
+     [
+      "者",
+      "シャ",
+      "person: 学者"
+     ]
+    ]
+   },
+   {
+    "id": "view",
+    "word": "閲覧",
+    "reading": "えつらん",
+    "gloss": "reading, viewing (on site)",
+    "parts": [
+     [
+      "閲",
+      "エツ",
+      "look over"
+     ],
+     [
+      "覧",
+      "ラン",
+      "look at: 一覧"
+     ]
+    ]
+   },
+   {
+    "id": "register",
+    "word": "登録",
+    "reading": "とうろく",
+    "gloss": "registration",
+    "parts": [
+     [
+      "登",
+      "トウ",
+      "put on a list"
+     ],
+     [
+      "録",
+      "ロク",
+      "record: 記録"
+     ]
+    ]
+   },
+   {
+    "id": "count",
+    "word": "冊数",
+    "reading": "さっすう",
+    "gloss": "number of books",
+    "parts": [
+     [
+      "冊",
+      "サツ",
+      "counter for books"
+     ],
+     [
+      "数",
+      "スウ",
+      "number"
+     ]
+    ]
+   },
+   {
+    "id": "new",
+    "word": "新着",
+    "reading": "しんちゃく",
+    "gloss": "new arrivals",
+    "parts": [
+     [
+      "新",
+      "シン",
+      "new"
+     ],
+     [
+      "着",
+      "チャク",
+      "arrive: 到着"
+     ]
+    ]
+   },
+   {
+    "id": "food",
+    "word": "飲食",
+    "reading": "いんしょく",
+    "gloss": "eating and drinking",
+    "parts": [
+     [
+      "飲",
+      "イン",
+      "drink"
+     ],
+     [
+      "食",
+      "ショク",
+      "eat"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u03d6.k1",
+   "kind": "choice",
+   "type": "表記",
+   "label": "How the exam asks it",
+   "q": "借りた本は、一階のカウンターに_へんきゃく_してください。",
+   "options": [
+    "変却",
+    "返脚",
+    "返却",
+    "反却"
+   ],
+   "answer": 3,
+   "explain": "返 is \"give back\", as in 返事 and 返す, and 却 is キャク: 返却. 変 means \"change\", 反 means \"against\", and 脚 (キャク) means \"leg\"."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "主張",
+  "en": "The writer's main point",
+  "ask": "What is the writer's main point?",
+  "seconds": 100,
+  "passage": "最近、駅前の図書館が夜九時まで開くようになった。仕事帰りに寄れることから、会社員の利用者が増えているという。私も週に一度は通っている。^ただ^、残念なのは、借りた本を期限が過ぎても返さない人が少なくないことだ。人気のある本ほど予約が多いだけに、一人が遅れると何人もが待たされることになる。図書館はみんなのお金で運営されている。公共の物を借りる以上、決められた日までに返すのは^当然ではないだろうか^。一人一人がその意識を持つことが、図書館をもっと使いやすくする^いちばんの近道だと思う^。",
+  "strategy": "The opening is background. Look after ただ, and at the sentences that end in 〜ではないだろうか and 〜と思う.",
+  "item": {
+   "id": "u03d6.r1",
+   "kind": "choice",
+   "type": "読解・主張",
+   "q": "筆者がいちばん言いたいことは何か。",
+   "options": [
+    "図書館は、もっと遅くまで開くべきだ。",
+    "借りた本は、決められた日までに返すべきだ。",
+    "人気のある本は、予約しないと借りられない。",
+    "図書館の利用者を、もっと増やすべきだ。"
+   ],
+   "short": [
+    "もっと遅くまで開くべき",
+    "決められた日までに返すべき",
+    "人気の本は予約が必要",
+    "利用者を増やすべき"
+   ],
+   "answer": 2,
+   "explain": "After ただ, the writer turns to a problem: books returned late. The view is given with 〜当然ではないだろうか and repeated at the end with その意識 and 〜と思う.",
+   "why": [
+    "Option 1 is background. The library already opens until nine, and the writer does not ask for more.",
+    "",
+    "Option 3 is not said. The text says popular books have many reservations, not that you must reserve them.",
+    "Option 4 is background. The writer reports that users have increased but does not argue for more."
+   ]
+  }
+ }
+}

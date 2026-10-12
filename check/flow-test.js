@@ -11,7 +11,9 @@ const DAY1 = Date.UTC(2026, 9, 12, 15);   // Monday 12 October 2026, noon in Asu
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
   const prep = (page) => page.addInitScript((t) => { window.__ykNow = t; }, DAY1);
-  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Goal', fontsCss, prep);
+  // days 1 to 3 of unit 3 already done, so day 4 (the original sample day) is next
+  const done = encodeURIComponent(JSON.stringify({ u03d1: { g: 3, k: 1, r: 1 }, u03d2: { g: 3, k: 1, r: 1 }, u03d3: { g: 3, k: 1, r: 1 } }));
+  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Goal&done=' + done, fontsCss, prep);
   let fails = 0;
   const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + msg); } };
   const tile = async (t) => { await page.locator('button').filter({ hasText: new RegExp('^\\s*' + t + '\\s*$') }).first().click({ timeout: 5000 }); await page.waitForTimeout(150); };
@@ -41,7 +43,7 @@ const DAY1 = Date.UTC(2026, 9, 12, 15);   // Monday 12 October 2026, noon in Asu
   // ---------- week path ----------
   await at('03-main', '原因・理由');
   ok(await has('〜ばかりに・〜あまり'), 'main: the written day should be today');
-  ok(await has('準備中'), 'main: days not written yet should say so');
+  ok((await page.locator('a[aria-label^="Day 3, done"]').count()) === 1, 'main: the days already done should be stamped');
   ok(await has('あと55日'), 'main: days left to the exam');
   await click('a:has-text("はじめる")', 700);
 

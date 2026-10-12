@@ -81,19 +81,19 @@ const placed = (page) => page.evaluate(() => {
     ok((await text(page)).includes('原因・理由'), 'Start should lead to the week path');
     await click(page, 'a:has-text("はじめる")', 700);
     await click(page, 'a:has-text("Start with the teach page")', 700);
-    await click(page, 'a:has-text("Next: 〜あまり")', 600);
+    await click(page, 'a:has-text("Next: 〜につき")', 600);
     await click(page, 'a:has-text("Compare")', 700);
     await click(page, 'a:has-text("Start the drill")', 700);
     await click(page, 'button:has-text("あまり")');
     await click(page, 'button:has-text("Check")', 600);
     ok((await text(page)).includes('Saved to your mistake notebook'), 'the drill should record the mistake');
     const s1 = await saved(page);
-    ok(s1 && s1.started === true && s1.plan && s1.plan.exam === '2026-12-06' && s1.mistakes.length === 1 && s1.mistakes[0].src === 'u03d4.d1' && s1.done.u03d4 && s1.done.u03d4.g === 1, 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
+    ok(s1 && s1.started === true && s1.plan && s1.plan.exam === '2026-12-06' && s1.mistakes.length === 1 && s1.mistakes[0].src === 'u03d1.d1' && s1.done.u03d1 && s1.done.u03d1.g === 1, 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
     await page.reload();
     await ready(page);
     ok((await text(page)).includes('原因・理由') && !(await text(page)).includes('目標を決めよう'), 'after closing and reopening, the app should open on the week path');
     await click(page, 'nav a:has-text("Notebook")', 600);
-    ok((await text(page)).includes('寝坊した') && (await text(page)).includes('あまり'), 'the saved mistake should be in the notebook after reopening');
+    ok((await text(page)).includes('道がぬれていた') && (await text(page)).includes('あまり'), 'the saved mistake should be in the notebook after reopening');
     await page.screenshot({ path: path.join(out, 'app-notebook-restored.png') });
 
     // ---------- 2. the menu ----------
@@ -358,7 +358,7 @@ const placed = (page) => page.evaluate(() => {
     await page.waitForTimeout(2500);
     // still on the teach page: no restart in the middle of a lesson
     ok((await page.evaluate(() => window.__ykBuild)) === v1, 'a new build should not restart the app in the middle of a lesson');
-    ok((await text(page)).includes('〜ばかりに'), 'the lesson should still be up while the new build waits');
+    ok((await text(page)).includes('〜ことから'), 'the lesson should still be up while the new build waits');
     await click(page, 'a[aria-label="Close lesson"]', 600);
     await click(page, 'a[aria-label="Back to the week path"]', 600);
     await page.waitForFunction((old) => window.__ykBuild && window.__ykBuild !== old, v1, { timeout: 15000 }).catch(() => {});

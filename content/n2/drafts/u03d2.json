@@ -1,0 +1,497 @@
+{
+ "title": "〜以上（は）・〜からには",
+ "grammar": {
+  "points": [
+   {
+    "id": "u03d2.p1",
+    "form": "〜以上（は）",
+    "gloss": "now that / since … (must, should)",
+    "connect": [
+     {
+      "pos": "動・い形",
+      "rule": "普通形 ＋ {以上（は）}"
+     },
+     {
+      "pos": "な形・名詞",
+      "rule": "〜である／〜だった ＋ {以上（は）}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "締切を過ぎた{以上}、申込は受け付けられません。",
+      "en": "Since the deadline has passed, we cannot accept your application."
+     },
+     {
+      "ja": "会員である{以上は}、規則を守っていただきます。",
+      "en": "As long as you are a member, we ask you to follow the rules."
+     }
+    ],
+    "watch": {
+     "note": "The first part is a fact you cannot change. What follows is a judgement, a duty, a resolve or a request, not a plain report of what happened.",
+     "bad": "雨が降っている以上、試合は中止になった。",
+     "good": "雨が降っている以上、試合は中止にするしかない。"
+    }
+   },
+   {
+    "id": "u03d2.p2",
+    "form": "〜からには",
+    "gloss": "now that … (I will / I must)",
+    "connect": [
+     {
+      "pos": "動・い形",
+      "rule": "普通形 ＋ {からには}"
+     },
+     {
+      "pos": "な形・名詞",
+      "rule": "〜である／〜だった ＋ {からには}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "留学する{からには}、日本語だけでなく専門の勉強もしっかりやりたい。",
+      "en": "Now that I am going to study abroad, I want to work hard at my subject as well as at Japanese."
+     },
+     {
+      "ja": "一度約束した{からには}、必ず守ります。",
+      "en": "Now that I have promised, I will keep my word."
+     }
+    ],
+    "watch": {
+     "note": "からには is not a plain \"because\". It needs a step that commits you before it, and a resolve, a duty or a strong wish after it. For an ordinary reason, use から.",
+     "bad": "疲れたからには、早く寝た。",
+     "good": "疲れたから、早く寝た。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "以上は and からには often swap freely, but 以上は tends to sound formal and logical and からには personal and determined, while ことから only gives the grounds for a judgement or a name.",
+   "forms": [
+    {
+     "form": "〜以上は",
+     "tag": "当然〜べき · given that, then",
+     "mark": "dot",
+     "ja": "契約を結んだ{以上は}、条件を守るべきだ。",
+     "en": "Once you have signed a contract, you should keep its terms."
+    },
+    {
+     "form": "〜からには",
+     "tag": "決意 · now that, I will",
+     "mark": "dot",
+     "ja": "代表に選ばれた{からには}、全力を尽くしたい。",
+     "en": "Now that I have been chosen to represent us, I want to give it everything."
+    },
+    {
+     "form": "〜ことから",
+     "tag": "根拠 · judging from the fact that",
+     "mark": "dot",
+     "ja": "署名がない{ことから}、この申込は無効だと判断された。",
+     "en": "Since there was no signature, the application was judged invalid."
+    }
+   ],
+   "check": {
+    "id": "u03d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "山の名前",
+    "q": "形が富士山に似ている（　　）、この山は「北の富士」と呼ばれている。",
+    "options": [
+     "以上は",
+     "からには",
+     "ことから"
+    ],
+    "answer": 3,
+    "why": [
+     "以上は leads to a duty, a resolve or a judgement. A name people use is none of these.",
+     "からには needs a resolve or a duty after it, and a name is neither.",
+     "ことから gives the grounds for a name: 〜ことから「…」と呼ばれている."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u03d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "契約書に署名する（　　）、^内容をよく理解しておくべきだ^。",
+    "options": [
+     "以上は",
+     "おかげで",
+     "ことから",
+     "わりに"
+    ],
+    "answer": 1,
+    "why": [
+     "If you are going to sign, then you should understand it: a duty follows 以上は.",
+     "おかげで thanks a cause for a good result. A duty does not follow it.",
+     "ことから gives grounds taken from a known fact. Signing has not happened yet.",
+     "わりに contrasts: \"for something that …\". There is no contrast here."
+    ]
+   },
+   {
+    "id": "u03d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "自分で^やると決めた^（　　）、^途中で投げ出すわけにはいかない^。",
+    "options": [
+     "おかげで",
+     "からには",
+     "ものの",
+     "ことから"
+    ],
+    "answer": 2,
+    "why": [
+     "おかげで needs a good result after it, not a duty.",
+     "A decision that commits you, then \"I can't give up\": a resolve follows からには.",
+     "ものの means \"although\", and nothing here goes against the decision.",
+     "ことから gives grounds for a judgement about facts, not a personal duty like this."
+    ]
+   },
+   {
+    "id": "u03d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^プロである^（　　）、^結果で評価されるのは当然だ^。",
+    "options": [
+     "わりに",
+     "以上",
+     "ものの",
+     "おかげで"
+    ],
+    "answer": 2,
+    "why": [
+     "わりに sets up a surprise, and 当然だ says there is none.",
+     "Noun + である + 以上, then a judgement: 当然だ.",
+     "ものの means \"although\", but being a pro and being judged on results go together.",
+     "おかげで needs a good result after it. 当然だ is a judgement, not a result."
+    ]
+   },
+   {
+    "id": "u03d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^日本で働く^（　　）、敬語くらいはきちんと^使えるようになりたい^。",
+    "options": [
+     "ものの",
+     "ことから",
+     "からには",
+     "わりに"
+    ],
+    "answer": 3,
+    "why": [
+     "ものの means \"although\", and the wish does not go against working in Japan.",
+     "ことから does not lead to a wish like 〜たい.",
+     "A commitment (working in Japan), then a strong wish: からには.",
+     "わりに contrasts, and a wish does not contrast with working in Japan."
+    ]
+   },
+   {
+    "id": "u03d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "一度仕事を",
+    "after": "通すべきだ。",
+    "tiles": [
+     "引き受けた",
+     "以上は",
+     "最後まで",
+     "やり"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "What does 仕事を need right after it? やり must sit right before 通す.",
+    "full": "一度仕事を引き受けた{以上は}最後までやり通すべきだ。",
+    "explain": "仕事を takes the verb 引き受けた, and 以上は follows it. やり joins 通す to make やり通す, so 最後まで comes just before やり."
+   },
+   {
+    "id": "u03d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "試験を",
+    "after": "したい。",
+    "tiles": [
+     "受ける",
+     "からには",
+     "一回で",
+     "合格"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "試験を needs its verb first. Which noun goes with したい?",
+    "full": "試験を受ける{からには}一回で合格したい。",
+    "explain": "試験を受ける, then からには after the plain form. 合格 joins したい, and 一回で says how: 一回で合格したい."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u03d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "会社の代表として出席する（　　）、個人的な意見を言うわけにはいかない。",
+    "options": [
+     "ものの",
+     "以上は",
+     "わりに",
+     "につき"
+    ],
+    "answer": 2,
+    "explain": "Attending as the company's representative is a fact that brings a duty: 以上は. ものの and わりに set up a contrast that is not here, and につき follows a noun, not a verb."
+   },
+   {
+    "id": "u03d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ここまで来た（　　）、もう後には引けない。",
+    "options": [
+     "おかげで",
+     "ものの",
+     "からには",
+     "ことから"
+    ],
+    "answer": 3,
+    "explain": "Having come this far commits the speaker, and a resolve follows: からには. おかげで needs a good result, ものの means \"although\", and ことから gives grounds for a judgement, not a resolve."
+   },
+   {
+    "id": "u03d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "親に",
+    "after": "ばかりはいられない。",
+    "tiles": [
+     "学費を",
+     "出してもらっている",
+     "以上",
+     "遊んで"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "full": "親に学費を出してもらっている{以上}遊んでばかりはいられない。",
+    "explain": "学費を, 出してもらっている, 以上, 遊んで. 以上 follows the verb, and 遊んで must sit right before ばかりはいられない."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "学生寮の申込ページで",
+  "en": "On a student dorm application page",
+  "intro": "Tap every word you would have to understand before you sign up.",
+  "words": [
+   {
+    "id": "contract",
+    "word": "契約",
+    "reading": "けいやく",
+    "gloss": "contract",
+    "parts": [
+     [
+      "契",
+      "ケイ",
+      "pledge: 契機"
+     ],
+     [
+      "約",
+      "ヤク",
+      "promise: 約束"
+     ]
+    ]
+   },
+   {
+    "id": "apply",
+    "word": "申込",
+    "reading": "もうしこみ",
+    "gloss": "application",
+    "parts": [
+     [
+      "申",
+      "もうし",
+      "say (humbly)"
+     ],
+     [
+      "込",
+      "こみ",
+      "put in"
+     ]
+    ]
+   },
+   {
+    "id": "deadline",
+    "word": "締切",
+    "reading": "しめきり",
+    "gloss": "deadline (closing date)",
+    "parts": [
+     [
+      "締",
+      "しめ",
+      "fasten, close"
+     ],
+     [
+      "切",
+      "きり",
+      "cut off"
+     ]
+    ]
+   },
+   {
+    "id": "limit",
+    "word": "期限",
+    "reading": "きげん",
+    "gloss": "time limit, due date",
+    "parts": [
+     [
+      "期",
+      "キ",
+      "period: 期間"
+     ],
+     [
+      "限",
+      "ゲン",
+      "limit: 制限"
+     ]
+    ]
+   },
+   {
+    "id": "renew",
+    "word": "更新",
+    "reading": "こうしん",
+    "gloss": "renewal",
+    "parts": [
+     [
+      "更",
+      "コウ",
+      "change: 変更"
+     ],
+     [
+      "新",
+      "シン",
+      "new"
+     ]
+    ]
+   },
+   {
+    "id": "cancel",
+    "word": "解約",
+    "reading": "かいやく",
+    "gloss": "cancelling a contract",
+    "parts": [
+     [
+      "解",
+      "カイ",
+      "undo: 解決"
+     ],
+     [
+      "約",
+      "ヤク",
+      "agreement"
+     ]
+    ]
+   },
+   {
+    "id": "terms",
+    "word": "条件",
+    "reading": "じょうけん",
+    "gloss": "conditions, terms",
+    "parts": [
+     [
+      "条",
+      "ジョウ",
+      "clause: 条約"
+     ],
+     [
+      "件",
+      "ケン",
+      "matter: 事件"
+     ]
+    ]
+   },
+   {
+    "id": "sign",
+    "word": "署名",
+    "reading": "しょめい",
+    "gloss": "signature",
+    "parts": [
+     [
+      "署",
+      "ショ",
+      "sign; office: 部署"
+     ],
+     [
+      "名",
+      "メイ",
+      "name"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u03d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "書類の提出_期限_は三月十日です。",
+   "options": [
+    "きげん",
+    "きかん",
+    "ごげん",
+    "きけん"
+   ],
+   "answer": 1,
+   "explain": "期限 is きげん: 期 is キ as in 期間, and 限 is ゲン as in 制限. きかん is 期間 (a period), きけん is 危険 (danger), and ごげん is not a reading of 期限."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "理由",
+  "en": "Finding the reason",
+  "ask": "Why does the writer now read every contract to the end?",
+  "seconds": 90,
+  "passage": "以前の私は、契約書を最後まで読んだことがなかった。細かい字で書かれた条件は、どれも同じに見えたからだ。ところが、二年前に引っ越しをしようとして部屋の契約を解約したとき、思いがけない費用を請求された。期限の二か月前までに知らせなければ、一か月分の家賃を払うという条件があったのだ。確かに、署名した書類にはそう書いてあった。^それ以来^、私はどんな契約でも最後まで読むようにしている。自分で署名する以上は、知らなかったでは済まされない^からだ^。",
+  "strategy": "Find where the writer's habit changes (それ以来), then read the sentence that ends in からだ.",
+  "item": {
+   "id": "u03d2.r1",
+   "kind": "choice",
+   "type": "読解・理由",
+   "q": "筆者が契約書を最後まで読むようになったのはなぜか。",
+   "options": [
+    "細かい字で書かれた条件は、どれも同じだとわかったから。",
+    "署名した以上、知らなかったでは済まないとわかったから。",
+    "部屋を貸す会社に、最後まで読むように言われたから。",
+    "解約の費用は払わなくてもいいと知ったから。"
+   ],
+   "short": [
+    "条件はどれも同じ",
+    "知らなかったでは済まない",
+    "会社に言われた",
+    "解約の費用は払わなくていい"
+   ],
+   "answer": 2,
+   "explain": "After それ以来 the writer states the new habit, and the next sentence gives its reason with 〜からだ.",
+   "why": [
+    "Option 1 is the writer's old view, the reason they used to skip the conditions.",
+    "",
+    "Option 3 is not in the text. Nobody told the writer to read contracts.",
+    "Option 4 is the opposite. The writer had to pay an unexpected cost."
+   ]
+  }
+ }
+}

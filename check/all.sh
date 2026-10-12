@@ -22,8 +22,8 @@ run "interruptions, full run"     FULL=1 timeout 480 bash run.sh pause-test.js
 run "interruptions, held back"    HELDBACK=1 timeout 300 bash run.sh pause-test.js
 run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run.sh pause-test.js
 run "interruptions, mode 2"       OMELETTE=1 timeout 300 bash run.sh pause-test.js
-run "content sweep"                timeout 900 bash run.sh content-sweep.js
-run "content sweep, mode 2"        OMELETTE=1 timeout 900 bash run.sh content-sweep.js
+run "content sweep"                timeout 2400 bash run.sh content-sweep.js
+run "content sweep, mode 2"        OMELETTE=1 timeout 2400 bash run.sh content-sweep.js
 run "sound decode"                timeout 120 bash run.sh sound-test.js
 pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
 for mode in "" OMELETTE; do
