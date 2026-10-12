@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <title>Week test result</title>
 <script src="./support.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course.js"></script>
 </head>
 <body>
 <x-dc>
@@ -21,68 +23,131 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <div style="display: flex; align-items: center; height: 44px">
 <a href="Main.dc.html" onClick="{{ toMain }}" aria-label="Close" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div style="flex-grow: 1; text-align: center; font-size: 15px; font-weight: 800">第3週 · 週テスト</div>
+<div style="flex-grow: 1; text-align: center; font-size: 15px; font-weight: 800">{{ heading }}</div>
 <div style="width: 34px"></div>
 </div>
 
+<sc-if value="{{ intro }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; font-weight: 800; color: #C7361E">週テスト　WEEK TEST</div>
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">{{ unitJa }}</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ count }} questions in the exam's own formats, on one 20-minute clock. No hints and no furigana; answers and reasons at the end. Every mistake goes into your notebook.</div>
+</div>
+<div style="margin-top: 14px; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 14px; font-weight: 800">分野別　By area</div>
+<sc-for list="{{ plan }}" as="a" hint-placeholder-count="3">
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">{{ a.ja }} <span style="font-weight: 500; color: #5A6382">{{ a.en }}</span></div><div style="font-size: 14px; font-weight: 800">{{ a.of }}問</div></div>
+</sc-for>
+</div>
+<div style="flex-grow: 1"></div>
+<a href="Exam.dc.html" onClick="{{ start }}" style="height: 54px; border-radius: 16px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 4px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">はじめる　Start the test</a>
+</sc-if>
+
+<sc-if value="{{ notReady }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 20px; padding: 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 14px; font-weight: 700; line-height: 1.5">準備中　This week test is not written yet.</div>
+<div style="flex-grow: 1"></div>
+</sc-if>
+
+<sc-if value="{{ result }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 6px; display: flex; align-items: center; gap: 12px">
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">正解数　Correct answers</div>
-<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 56px; font-weight: 800; line-height: 1.05">18</h1><div style="font-size: 20px; font-weight: 700; color: #5A6382">/ 24</div></div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5">18:40 of 20:00 · no hints · audio played once</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 56px; font-weight: 800; line-height: 1.05">{{ r.score }}</h1><div style="font-size: 20px; font-weight: 700; color: #5A6382">/ {{ r.of }}</div></div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ r.used }} of 20:00 · no hints</div>
 </div>
-<div role="img" aria-label="Stamp: well done" style="width: 124px; height: 124px; box-sizing: border-box; border-radius: 50%; border: 4px solid #E2452B; padding: 5px; transform: rotate(-9deg); animation: yk-stamp 550ms ease-out 150ms both; flex-shrink: 0; display: flex">
-<div lang="ja" style="flex-grow: 1; border-radius: 50%; border: 2px solid #E2452B; color: #C7361E; font-size: 17px; font-weight: 800; line-height: 1.35; display: flex; flex-direction: column; align-items: center; justify-content: center"><div>よく</div><div>できました</div></div>
+<div role="img" aria-label="{{ r.stampLabel }}" style="width: 124px; height: 124px; box-sizing: border-box; border-radius: 50%; border: 4px solid #E2452B; padding: 5px; transform: rotate(-9deg); animation: yk-stamp 550ms ease-out 150ms both; flex-shrink: 0; display: flex">
+<div lang="ja" style="flex-grow: 1; border-radius: 50%; border: 2px solid #E2452B; color: #C7361E; font-weight: 800; line-height: 1.35; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: {{ r.stampSize }}"><sc-for list="{{ r.stamp }}" as="l" hint-placeholder-count="2"><div>{{ l.t }}</div></sc-for></div>
 </div>
 </div>
 
 <div style="margin-top: 14px; padding: 10px 14px; border-radius: 16px; background: #FDEBE6; display: flex; align-items: center; gap: 10px">
 <div aria-hidden="true" style="width: 30px; height: 30px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #C7361E; color: #C7361E; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(-8deg); flex-shrink: 0">済</div>
-<div style="font-size: 13px; font-weight: 800">スタンプカード完成　Week 3: 7 of 7</div>
+<div style="font-size: 13px; font-weight: 800">{{ r.cardLine }}</div>
 </div>
 
 <div style="margin-top: 12px; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 11px">
 <div style="font-size: 14px; font-weight: 800">分野別　By area</div>
-
-<div role="img" aria-label="Kanji and vocabulary: 7 of 8" style="display: flex; flex-direction: column; gap: 5px">
-<div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">文字・語彙 <span style="font-weight: 500; color: #5A6382">Kanji, vocabulary</span></div><div style="font-size: 14px; font-weight: 800">7 / 8</div></div>
-<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="width: 87.5%; height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0"></div></div>
+<sc-for list="{{ r.areas }}" as="a" hint-placeholder-count="4">
+<div role="img" aria-label="{{ a.aria }}" style="display: flex; flex-direction: column; gap: 5px">
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">{{ a.ja }} <span style="font-weight: 500; color: #5A6382">{{ a.en }}</span></div><div style="font-size: 14px; font-weight: 800">{{ a.right }} / {{ a.of }}</div></div>
+<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0; width: {{ a.w }}"></div></div>
+<sc-if value="{{ a.weak }}" hint-placeholder-val="{{ false }}"><div style="align-self: flex-start; display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 10px; background: #FFF4D6; font-size: 12px; font-weight: 800"><svg width="13" height="13" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>苦手　Weak spot</div></sc-if>
+</div>
+</sc-for>
 </div>
 
-<div role="img" aria-label="Grammar: 5 of 8. Weak spot: star sentences, 1 of 3" style="display: flex; flex-direction: column; gap: 5px">
-<div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">文法 <span style="font-weight: 500; color: #5A6382">Grammar</span></div><div style="font-size: 14px; font-weight: 800">5 / 8</div></div>
-<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="width: 62.5%; height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0"></div></div>
-<div style="align-self: flex-start; display: flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 10px; background: #FFF4D6; font-size: 12px; font-weight: 800"><svg width="13" height="13" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>苦手　Weak spot: star sentences, 1 of 3</div>
-</div>
-
-<div role="img" aria-label="Reading: 3 of 4" style="display: flex; flex-direction: column; gap: 5px">
-<div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">読解 <span style="font-weight: 500; color: #5A6382">Reading</span></div><div style="font-size: 14px; font-weight: 800">3 / 4</div></div>
-<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="width: 75%; height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0"></div></div>
-</div>
-
-<div role="img" aria-label="Listening: 3 of 4" style="display: flex; flex-direction: column; gap: 5px">
-<div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">聴解 <span style="font-weight: 500; color: #5A6382">Listening</span></div><div style="font-size: 14px; font-weight: 800">3 / 4</div></div>
-<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="width: 75%; height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0"></div></div>
-</div>
-</div>
-
+<sc-if value="{{ r.anyWrong }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
-<div style="font-size: 13px; font-weight: 700; line-height: 1.45">6 mistakes went into your notebook, each with its explanation.</div>
+<div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ r.wrongLine }}</div>
 </div>
+</sc-if>
 
 <div style="flex-grow: 1"></div>
+<sc-if value="{{ r.anyWrong }}" hint-placeholder-val="{{ true }}">
 <a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">間違いを見る　Review mistakes</a>
-<a href="Main.dc.html" onClick="{{ toMain }}" style="margin-top: 8px; height: 44px; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">第4週へ　On to week 4</a>
+</sc-if>
+<a href="Main.dc.html" onClick="{{ toMain }}" style="margin-top: 8px; height: 44px; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ r.onward }}</a>
+</sc-if>
 
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* the teacher's stamp: 80% and up, 60% and up, and below that */
+const STAMPS = [[0.8, ['たいへん', 'よく', 'できました'], '15px', 'Stamp: excellent'], [0.6, ['よく', 'できました'], '17px', 'Stamp: well done'], [0, ['がんばり', 'ましょう'], '17px', 'Stamp: keep at it']];
+const AREAS = [['vocab', '文字・語彙', 'Kanji, vocabulary'], ['grammar', '文法', 'Grammar'], ['reading', '読解', 'Reading'], ['listening', '聴解', 'Listening']];
 class Component extends DCLogic {
 renderVals() {
+const C = window.ykCourse;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+/* on its own this artboard shows the designed moment: a result of 18 of 24 */
+const app = this.props.app || { sid: 'u03t', unit: C.unit(3), tests: { u03t: { id: 'u03t', score: 18, of: 24, used: 1120, areas: { vocab: { right: 7, of: 8 }, grammar: { right: 5, of: 8 }, reading: { right: 3, of: 4 }, listening: { right: 3, of: 4 } } } } };
+const unit = app.unit || C.unit(3);
+const sid = C.sid(unit.n, 't');
+const res = (app.tests || {})[sid];
+const test = unit.test || [];
+const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
+let r = { score: 0, of: 0, areas: [], stamp: [] };
+if (res) {
+const share = res.of ? res.score / res.of : 0;
+const stamp = STAMPS.find((x) => share >= x[0]);
+const wrong = res.of - res.score;
+r = {
+score: res.score,
+of: res.of,
+used: fmt(res.used || 0),
+stamp: stamp[1].map((t) => ({ t })),
+stampSize: stamp[2],
+stampLabel: stamp[3],
+cardLine: 'スタンプカード完成　Week ' + unit.n + ': 7 of 7',
+areas: AREAS.filter((a) => res.areas && res.areas[a[0]]).map((a) => {
+const x = res.areas[a[0]];
+return { ja: a[1], en: a[2], right: x.right, of: x.of, w: (x.of ? (x.right / x.of) * 100 : 0).toFixed(1) + '%', weak: x.of > 0 && x.right / x.of < 0.5, aria: a[2] + ': ' + x.right + ' of ' + x.of };
+}),
+anyWrong: wrong > 0,
+wrongLine: wrong === 1 ? '1 mistake went into your notebook, with its explanation.' : wrong + ' mistakes went into your notebook, each with its explanation.',
+onward: C.unit(unit.n + 1) ? '第' + (unit.n + 1) + '週へ　On to week ' + (unit.n + 1) : 'もどる　Back',
+};
+}
+const counts = {};
+test.forEach((it) => { const a = C.area(it.type); counts[a.key] = (counts[a.key] || 0) + 1; });
 return {
-toMain: nav('Main'),
+heading: '第' + unit.n + '週 · 週テスト',
+unitJa: unit.ja + '　' + unit.en,
+count: test.length,
+plan: AREAS.filter((a) => counts[a[0]]).map((a) => ({ ja: a[1], en: a[2], of: counts[a[0]] })),
+intro: !res && test.length > 0,
+notReady: !res && test.length === 0,
+result: !!res,
+r,
+start: (e) => {
+if (this.props.save) this.props.save({ cur: sid, set: 'test' });
+nav('Exam')(e);
+},
+toMain: (e) => {
+if (this.props.save) this.props.save({ cur: null });
+nav('Main')(e);
+},
 toNotebook: nav('Notebook'),
 };
 }

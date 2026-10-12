@@ -9,20 +9,17 @@ run() {
   echo "=== app: $label"
   env "$@" 2>&1 | grep -E "$F" | cut -c1-400
 }
-run "main flow, sound"            timeout 300 bash run-app.sh e2e.js
+run "day flow, sound"              timeout 300 bash run-app.sh flow-test.js
 run "mock, sound"                 timeout 480 bash run-app.sh e2e-mock.js
-run "main flow, held back"        HELDBACK=1 timeout 300 bash run-app.sh e2e.js
 run "mock, held back"             HELDBACK=1 timeout 300 bash run-app.sh e2e-mock.js
-run "main flow, bad clips"        BADCLIPS=1 timeout 300 bash run-app.sh e2e.js
 run "mock, bad clips"             BADCLIPS=1 timeout 300 bash run-app.sh e2e-mock.js
-run "main flow, no scripts"       NOSOUND=1 timeout 300 bash run-app.sh e2e.js
+run "day flow, no scripts"         NOSOUND=1 timeout 300 bash run-app.sh flow-test.js
 run "mock, no scripts"            NOSOUND=1 timeout 300 bash run-app.sh e2e-mock.js
 run "interruptions, sound"        timeout 300 bash run-app.sh pause-test.js
 run "interruptions, full run"     FULL=1 timeout 480 bash run-app.sh pause-test.js
 run "interruptions, held back"    HELDBACK=1 timeout 300 bash run-app.sh pause-test.js
 run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run-app.sh pause-test.js
-run "notebook entries"            timeout 200 bash run-app.sh nb-check.js
-run "answer-state sweep"          NOSOUND=1 timeout 300 bash run-app.sh sweep.js
+run "content sweep"                timeout 900 bash run-app.sh content-sweep.js
 pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
 echo "=== app: mock time-up"
 FAST_MOCK=1 bash run-app.sh step.js 'TShell?screen=MockRun' '[{"click":"button:has-text(\"Start\")","after":800},{"wait":3600},{"text":"[lang=ja]:has-text(\"時間切れ\")"},{"shot":"app-fm-timeup"}]' 2>&1 | cut -c1-300

@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <title>Reading skill</title>
 <script src="./support.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course.js"></script>
 </head>
 <body>
 <x-dc>
@@ -21,18 +23,18 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <div style="display: flex; align-items: center; gap: 10px; height: 44px">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div role="img" aria-label="Question 2 of 4" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="width: 25%; height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0"></div></div>
-<div style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 800"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }} <span style="font-size: 11px; font-weight: 700; color: #5A6382">/ 1:30</span></div>
+<div role="img" aria-label="{{ barLabel }}" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="width: 25%; height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0"></div></div>
+<div style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 800"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }} <span style="font-size: 11px; font-weight: 700; color: #5A6382">/ {{ limit }}</span></div>
 </div>
 
 <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px">
-<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">読解スキル · 筆者の考え</div>
-<div style="font-size: 12px; font-weight: 700; color: #5A6382">Where is the writer's own view?</div>
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">読解スキル · {{ skillJa }}</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ ask }}</div>
 </div>
 
-<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7">最近は、わからないことがあると、すぐにスマートフォンで検索する人が多い。確かに、答えは数秒で見つかる。<span style="border-radius: 4px; padding: 0 2px; transition: background 200ms; background: {{ hl }}">しかし</span>、苦労せずに手に入れた答えは、記憶に残りにくいものだ。多少時間がかかるとしても、まずは自分の頭で考えてみる。そうした過程を経てこそ、知識は身につく<span style="border-radius: 4px; padding: 0 2px; transition: background 200ms; background: {{ hl }}">のではないだろうか</span>。</div>
+<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7"><sc-for list="{{ passage }}" as="g" hint-placeholder-count="5"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px; transition: background 300ms">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; transition: background 300ms">{{ g.t }}</span></sc-if></sc-for></div>
 
-<h1 lang="ja" style="margin: 14px 0 0; font-size: 17px; font-weight: 800">筆者の考えに合うのはどれか。</h1>
+<h1 lang="ja" style="margin: 14px 0 0; font-size: 17px; font-weight: 800">{{ question }}</h1>
 
 <div lang="ja" style="margin-top: 10px; display: flex; flex-direction: column; gap: 9px">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
@@ -43,7 +45,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 16px; padding: 10px 14px; border-radius: 16px; background: #FFF4D6; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 11px; font-weight: 800">コツ　STRATEGY · drill only</div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.45">Skip what "many people" do. Look after しかし, and at how the last sentence ends.</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ strategy }}</div>
 </div>
 </sc-if>
 
@@ -59,11 +61,11 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
 <sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
 <div style="flex-grow: 1; font-size: 20px; font-weight: 800">{{ verdictJa }} <span style="font-size: 14px; font-weight: 700">{{ verdictEn }}</span></div>
-<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 800">正解　2</div></sc-if>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 800">正解　{{ answerN }}</div></sc-if>
 </div>
 <div style="padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">解説　Why</div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.45">The writer's own view follows しかし. The ending 〜のではないだろうか offers it as an opinion.</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ explain }}</div>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; align-items: flex-start; gap: 8px">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your pick" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -111,23 +113,20 @@ clearInterval(this.timer);
 renderVals() {
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const seg = (t, r) => ({ t, r: r || '', plain: !r });
-const ANSWER = 2;
-const OPTIONS = {
-1: { short: '検索は時間のむだ', segs: [seg('検索することは時間のむだだ。')] },
-2: { short: '自分で考えたほうが身につく', segs: [seg('まず自分で考えたほうが身につく。')] },
-3: { short: 'すぐ見つかる答えは信用できない', segs: [seg('すぐ見つかる答えは信用できない。')] },
-4: { short: 'すぐ検索すべきだ', segs: [seg('わからないことはすぐ検索すべきだ。')] },
-};
-const WHY_NOT = {
-1: 'Option 1 goes too far. The writer accepts that searching finds the answer in seconds.',
-3: 'Option 3 is not in the text. Such answers are hard to remember, not wrong.',
-4: 'Option 4 is what many people do in the first sentence, not what the writer advises.',
-};
+const C = window.ykCourse;
+const app = this.props.app || { day: C.day('u03d4') };
+const sk = (app.day && app.day.skill) || { item: { options: [], why: [] } };
+const it = sk.item || { options: [], why: [] };
+const ANSWER = it.answer;
+const OPTIONS = {};
+it.options.forEach((o, k) => { OPTIONS[k + 1] = { short: (it.short && it.short[k]) || C.plain(o), segs: C.rich(o).map((g) => ({ t: g.t, r: g.r, plain: !g.r })) }; });
+const WHY_NOT = {};
+(it.why || []).forEach((w, k) => { if (w) WHY_NOT[k + 1] = w; });
+const limit = sk.seconds || 90;
 const correct = s.checked && s.pick === ANSWER;
 const wrong = s.checked && s.pick !== ANSWER;
 /* once checked, only the right answer and a wrong pick stay on screen, to make room for the explanation */
-const opts = [1, 2, 3, 4].filter((n) => !s.checked || n === ANSWER || n === s.pick).map((n) => {
+const opts = it.options.map((_, k) => k + 1).filter((n) => !s.checked || n === ANSWER || n === s.pick).map((n) => {
 const on = s.pick === n;
 let look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 700, numColor: '#5A6382', press: 'none' };
 if (!s.checked && on) look = { border: '2.5px solid #2F4FD0', bg: '#E8ECFB', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#2F4FD0', press: 'translateY(3px)' };
@@ -151,7 +150,15 @@ const ss = s.t % 60;
 return {
 opts,
 /* once checked, the two signposts light up: the turn at しかし and the opinion ending */
-hl: s.checked ? '#FFE9B0' : 'transparent',
+passage: C.rich(sk.passage, { clue: s.checked ? 'mark' : null }),
+skillJa: sk.ja,
+ask: sk.ask,
+question: C.plain(it.q),
+strategy: sk.strategy,
+explain: it.explain || '',
+answerN: ANSWER,
+limit: Math.floor(limit / 60) + ':' + (limit % 60 < 10 ? '0' : '') + (limit % 60),
+barLabel: 'Reading skill: ' + sk.ja,
 clock: mm + ':' + (ss < 10 ? '0' : '') + ss,
 asking: !s.checked,
 checked: s.checked,
@@ -168,12 +175,12 @@ sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
 tone: wrong ? '#C7361E' : '#0B7A6B',
 check: () => {
 if (s.pick === null) return;
-if (s.pick !== ANSWER && this.props.miss) this.props.miss({ src: 'reading', wrong: OPTIONS[s.pick].short });
+if (s.pick !== ANSWER && this.props.miss) this.props.miss({ src: it.id, wrong: OPTIONS[s.pick].short });
 this.setState({ checked: true });
 },
 toToday: nav('Today'),
 toDone: (e) => {
-if (this.props.save) this.props.save({ r: 1 });
+if (this.props.save) this.props.save({ prog: { r: 1 } });
 nav('Today')(e);
 },
 };
