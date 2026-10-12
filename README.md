@@ -10,6 +10,7 @@ Yaoki is a JLPT study app prototype (N2 sample content). This folder holds every
 | `yaoki/project/` | The design canvas's files: 27 screens (`*.dc.html`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`). 17 of the screens make up the app. |
 | `yaoki-app/` | The app around the screens: `src/` (runtime, shell, install page, offline worker, page, manifest), `build.mjs`, `fonts.py`. |
 | `check/` | The tests (Playwright). |
+| `price-lens/` | A separate app: Price Lens, which converts prices on price tags using the phone's camera. See its own README. |
 
 ## Build
 
