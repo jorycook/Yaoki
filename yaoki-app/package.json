@@ -1,0 +1,17 @@
+{
+  "name": "yaoki-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Yaoki, a JLPT study app prototype: the installable web app built from the design canvas's screens.",
+  "scripts": {
+    "fonts": "bash fetch-fonts.sh",
+    "build": "node build.mjs",
+    "build:test": "YK_OUT=dist-test YK_BUILD_DATE='test build' node build.mjs"
+  },
+  "dependencies": {
+    "preact": "10.29.8"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4"
+  }
+}

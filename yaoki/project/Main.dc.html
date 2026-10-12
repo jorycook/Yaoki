@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week path</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px">
+<button aria-label="Level N2, change level" onClick="{{ openMenu }}" style="height: 44px; padding: 0 16px; border-radius: 22px; border: 2px solid #1B2440; background: #FFFFFF; font-weight: 800; font-size: 16px">N2</button>
+<div style="flex-grow: 1"></div>
+<div style="display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 22px; background: #FFFFFF; border: 2px solid #DDE1EC">
+<div style="width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; color: #C7361E; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(-10deg)">済</div>
+<div style="font-weight: 800; font-size: 15px">{{ stamps }}</div>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 22px; background: #FFFFFF; border: 2px solid #DDE1EC">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<div style="font-weight: 800; font-size: 15px">あと39日</div>
+</div>
+</div>
+
+<div style="margin: 12px 16px 8px; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">第3週 · Week 3 of 8</div>
+<div style="font-size: 26px; font-weight: 800; line-height: 1.2">原因・理由</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">Cause and reason</div>
+</div>
+<svg viewBox="0 0 100 100" width="60" height="60" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px" role="img" aria-label="{{ cardLabel }}">
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; transform: rotate(-9deg)">済</div>
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; transform: rotate(6deg)">済</div>
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; transform: rotate(-4deg)">済</div>
+<sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
+<div style="height: 40px; border-radius: 50%; border: 2.5px dashed #2F4FD0; background: #E8ECFB; color: #2F4FD0; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">4</div>
+</sc-if>
+<sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; animation: yk-stamp 450ms ease-out both">済</div>
+</sc-if>
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #DDE1EC; color: #5A6382; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">5</div>
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #DDE1EC; color: #5A6382; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">6</div>
+<div style="height: 40px; border-radius: 12px; border: 2.5px solid #1B2440; background: #F2B43A; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">試</div>
+</div>
+</div>
+
+<div style="position: relative; flex-grow: 1; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
+<svg width="390" height="478" viewBox="0 0 390 478" fill="none" aria-hidden="true" style="position: absolute; left: 0; top: 0"><polyline points="64,34 104,98 132,162 104,250 64,326 110,386 180,438" stroke="#C9D0E3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 13"/><polyline points="64,34 104,98 132,162 104,250" stroke="#E2452B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+<button aria-label="Day 1, done" style="position: absolute; left: 38px; top: 8px; width: 52px; height: 52px; border-radius: 50%; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; transform: rotate(-8deg)">済</button>
+<div style="position: absolute; left: 102px; top: 16px; display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">1日目</div>
+<div style="font-size: 14px; font-weight: 700">〜ことから・〜につき</div>
+</div>
+
+<button aria-label="Day 2, done" style="position: absolute; left: 78px; top: 72px; width: 52px; height: 52px; border-radius: 50%; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; transform: rotate(7deg)">済</button>
+<div style="position: absolute; left: 142px; top: 80px; display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">2日目</div>
+<div style="font-size: 14px; font-weight: 700">〜以上（は）・〜からには</div>
+</div>
+
+<button aria-label="Day 3, done" style="position: absolute; left: 106px; top: 136px; width: 52px; height: 52px; border-radius: 50%; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; transform: rotate(-5deg)">済</button>
+<div style="position: absolute; left: 170px; top: 144px; display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">3日目</div>
+<div style="font-size: 14px; font-weight: 700">〜だけに・〜だけあって</div>
+</div>
+
+<sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Day 4, today. Open today's spread" style="position: absolute; left: 70px; top: 216px; width: 68px; height: 68px; box-sizing: border-box; border-radius: 50%; border: 3px solid #1B2440; background: #2F4FD0; box-shadow: 0 5px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 26px; display: flex; align-items: center; justify-content: center">4</a>
+<div style="position: absolute; left: 150px; top: 190px; width: 224px; box-sizing: border-box; padding: 12px 14px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 11px; font-weight: 800; color: #2F4FD0; white-space: nowrap">今日 TODAY · 3 lessons · 30 min</div>
+<div style="font-size: 16px; font-weight: 800">〜ばかりに・〜あまり</div>
+<a href="Today.dc.html" onClick="{{ toToday }}" style="margin-top: 6px; height: 44px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">はじめる　Start</a>
+</div>
+</sc-if>
+<sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Day 4, done. Review today's spread" style="position: absolute; left: 78px; top: 224px; width: 52px; height: 52px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; animation: yk-stamp 450ms ease-out both">済</a>
+<div style="position: absolute; left: 150px; top: 198px; width: 224px; box-sizing: border-box; padding: 12px 14px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 11px; font-weight: 800; color: #C7361E; white-space: nowrap">4日目 · 済 DONE TODAY</div>
+<div style="font-size: 16px; font-weight: 800">〜ばかりに・〜あまり</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">Day 5 opens tomorrow. The week test waits on day 7.</div>
+</div>
+</sc-if>
+
+<button aria-label="Day 5, locked" style="position: absolute; left: 38px; top: 300px; width: 52px; height: 52px; border-radius: 50%; border: 3px solid #C9D0E3; background: #E6E9F3; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></button>
+<div style="position: absolute; left: 102px; top: 324px; display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">5日目</div>
+<div style="font-size: 14px; font-weight: 700; color: #5A6382">〜のことだから・〜ことだし</div>
+</div>
+
+<button aria-label="Day 6, locked" style="position: absolute; left: 84px; top: 360px; width: 52px; height: 52px; border-radius: 50%; border: 3px solid #C9D0E3; background: #E6E9F3; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></button>
+<div style="position: absolute; left: 148px; top: 366px; display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">6日目</div>
+<div style="font-size: 14px; font-weight: 700; color: #5A6382">まとめ：似ている文法</div>
+</div>
+
+<a href="WeekTest.dc.html" onClick="{{ toTest }}" aria-label="Day 7, week test" style="position: absolute; left: 150px; top: 408px; width: 60px; height: 60px; box-sizing: border-box; border-radius: 18px; border: 3px solid #1B2440; background: #F2B43A; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center">試</a>
+<div style="position: absolute; left: 224px; top: 412px; width: 150px; display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">7日目</div>
+<div style="font-size: 14px; font-weight: 800">週テスト</div>
+<div style="font-size: 11px; font-weight: 500; color: #5A6382">exam format · timed</div>
+</div>
+</div>
+
+<nav aria-label="Main" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
+<a href="Main.dc.html" onClick="{{ toMain }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"menu":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const app = this.props.app || {};
+const done = app.g === 3 && app.k === 1 && app.r === 1;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+return {
+done,
+open: !done,
+stamps: done ? 18 : 17,
+cardLabel: done
+? 'Stamp card: days 1 to 4 stamped, day 7 is the week test'
+: 'Stamp card: days 1 to 3 stamped, day 4 is today, day 7 is the week test',
+/* the installed app hands in a menu to open from the level chip; on the canvas the chip stays a picture */
+openMenu: this.props.menu,
+toMain: nav('Main'),
+toToday: nav('Today'),
+toTest: nav('WeekTest'),
+toNotebook: nav('Notebook'),
+toMock: nav('Mock'),
+toReadiness: nav('Readiness'),
+};
+}
+}
+</script>
+</body>
+</html>

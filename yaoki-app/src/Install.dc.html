@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Add to Home Screen</title>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@keyframes yk-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 100%; box-sizing: border-box; padding: 18px 20px 18px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow-y: auto; animation: yk-in 220ms ease-out">
+
+<div style="flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+<svg viewBox="0 0 100 100" width="76" height="76" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<h1 lang="ja" style="margin: 0; font-size: 24px; font-weight: 800; line-height: 1.3">ホーム画面に追加</h1>
+<div style="font-size: 15px; font-weight: 700; color: #5A6382">Add Yaoki to your Home Screen</div>
+</div>
+
+<div style="flex-shrink: 0; margin-top: 10px; font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5; text-align: center">Yaoki then opens full screen like an app, works offline and keeps your progress on this {{ device }}.</div>
+
+<div style="flex-shrink: 0; margin-top: 14px; padding: 4px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column">
+
+<div style="padding: 11px 0; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #E9ECF4">
+<div style="width: 30px; height: 30px; border-radius: 50%; background: #1B2440; color: #FFFFFF; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">1</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 1px">
+<div style="font-size: 15px; font-weight: 800">Tap Share</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">The square with an arrow. If it is hidden, tap the ••• button first.</div>
+</div>
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M12 15V3M8 7l4-4 4 4"/><path d="M7 11H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-1"/></svg>
+</div>
+
+<div style="padding: 11px 0; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #E9ECF4">
+<div style="width: 30px; height: 30px; border-radius: 50%; background: #1B2440; color: #FFFFFF; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">2</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 1px">
+<div style="font-size: 15px; font-weight: 800">Tap Add to Home Screen</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">Scroll down the list to find it, then tap Add. Not there? Open this page in Safari first.</div>
+</div>
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8.5v7M8.5 12h7"/></svg>
+</div>
+
+<div style="padding: 11px 0; display: flex; align-items: center; gap: 12px">
+<div style="width: 30px; height: 30px; border-radius: 50%; background: #1B2440; color: #FFFFFF; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">3</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 1px">
+<div style="font-size: 15px; font-weight: 800">Open Yaoki from its icon</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">Open it once while you are online. After that it also works offline.</div>
+</div>
+<div style="width: 30px; height: 30px; border-radius: 8px; background: #F2B43A; border: 2px solid #1B2440; box-sizing: border-box; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg viewBox="0 0 100 100" width="20" height="20" aria-hidden="true"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B" stroke="#1B2440" stroke-width="4"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="61" cy="42" r="6" fill="#1B2440"/></svg></div>
+</div>
+
+</div>
+
+<div style="flex-grow: 1; flex-shrink: 0; min-height: 14px"></div>
+
+<div style="flex-shrink: 0; font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45; text-align: center">You can also keep going here in the browser. Nothing is installed that way, and the screens are smaller.</div>
+<button onClick="{{ useBrowser }}" style="flex-shrink: 0; margin-top: 10px; margin-bottom: 2px; height: 52px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 14px; white-space: nowrap"><span lang="ja">ブラウザで続ける</span>　Continue in the browser</button>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{}'>
+class Component extends DCLogic {
+renderVals() {
+return {
+/* shown in Safari on an iPhone before the app is on the Home Screen; once per visit */
+useBrowser: () => window.ykApp.useBrowser(),
+device: window.ykApp.device,
+};
+}
+}
+</script>
+</body>
+</html>

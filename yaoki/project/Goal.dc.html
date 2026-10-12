@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Set the goal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+button:disabled{cursor:default}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 20px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden; position: relative">
+
+<div style="display: flex; align-items: center; gap: 12px; height: 44px">
+<button aria-label="Back" style="width: 44px; height: 44px; margin-left: -10px; border: 0; background: none; padding: 0; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+<div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px" role="img" aria-label="Step 2 of 3">
+<div style="height: 8px; border-radius: 4px; background: #2F4FD0"></div>
+<div style="height: 8px; border-radius: 4px; background: #2F4FD0"></div>
+<div style="height: 8px; border-radius: 4px; background: #DDE1EC"></div>
+</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 16px; margin-top: 8px">
+<svg viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="{{ darumaLabel }}" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440" style="opacity: {{ pupil }}; transition: opacity 300ms ease-out"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.25">目標を決めよう</h1>
+<sc-if value="{{ blank }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 14px; font-weight: 500; color: #5A6382; line-height: 1.45">Set a goal and Yaoki gets one eye. He gets the other when you pass.</div>
+</sc-if>
+<sc-if value="{{ painted }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 14px; font-weight: 700; color: #C7361E; line-height: 1.45">片目が入りました。 One eye in. One to go.</div>
+</sc-if>
+</div>
+</div>
+
+<div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 800">レベル　Level</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
+<button aria-pressed="{{ l.on }}" onClick="{{ l.pick }}" style="height: 48px; border-radius: 14px; font-weight: 800; font-size: 16px; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}</button>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382"><span lang="ja">N1は別のアプリです。</span> N1 has its own app.</div>
+</div>
+
+<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 800">試験日　Exam date</div>
+<button aria-haspopup="dialog" onClick="{{ openSheet }}" style="height: 68px; padding: 0 16px; border-radius: 16px; border: 2px solid #1B2440; background: #FFFFFF; display: flex; align-items: center; gap: 12px; text-align: left">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 17px; font-weight: 800">2026年12月6日（日）</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">Sunday 6 December 2026</div>
+</div>
+<div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">あと57日</div>
+</button>
+</div>
+
+<div style="margin-top: 18px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 800">1日の勉強時間　Daily study time</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ paces }}" as="p" hint-placeholder-count="3">
+<button aria-pressed="{{ p.on }}" onClick="{{ p.pick }}" style="height: 76px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: {{ p.border }}; background: {{ p.bg }}; box-shadow: {{ p.shadow }}; color: {{ p.color }}"><div style="font-size: 20px; font-weight: 800">{{ p.big }}</div><div style="font-size: 12px; font-weight: {{ p.subWeight }}; color: {{ p.subColor }}">{{ p.small }}</div></button>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: #E8ECFB; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 15px; font-weight: 800">8週間プラン　Your 8-week plan</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.5">Each week: 6 study days, then a timed week test on day 7. Starts tomorrow, ends the day before the exam.</div>
+</div>
+
+<div style="flex-grow: 1"></div>
+<sc-if value="{{ blank }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ paint }}" style="height: 54px; border-radius: 16px; background: #C7361E; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">片目を入れる　Paint the first eye</button>
+</sc-if>
+<sc-if value="{{ painted }}" hint-placeholder-val="{{ false }}">
+<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">はじめる　Start</a>
+</sc-if>
+
+<sc-if value="{{ sheet }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
+<button aria-label="Close" onClick="{{ closeSheet }}" style="flex-grow: 1; border: 0; padding: 0; background: transparent"></button>
+<div role="dialog" aria-modal="true" aria-label="Choose your exam date" style="padding: 10px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out">
+<div aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #C9D0E3"></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">試験日をえらぶ <span style="font-size: 13px; font-weight: 700; color: #5A6382">Choose your exam date</span></h2>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">The JLPT is held twice a year, in July and in December.</div>
+</div>
+<button aria-pressed="{{ yes }}" onClick="{{ closeSheet }}" style="height: 68px; padding: 0 14px; border-radius: 16px; border: 2.5px solid #2F4FD0; background: #E8ECFB; display: flex; align-items: center; gap: 12px; text-align: left">
+<div aria-hidden="true" style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1B2440; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><div style="width: 10px; height: 10px; border-radius: 50%; background: #2F4FD0"></div></div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 17px; font-weight: 800">2026年12月6日（日）</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">Sunday 6 December 2026</div>
+</div>
+<div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">あと57日</div>
+</button>
+<button disabled="{{ yes }}" style="height: 68px; padding: 0 14px; border-radius: 16px; border: 2px dashed #C9D0E3; background: #F4F5F9; color: #5A6382; display: flex; align-items: center; gap: 12px; text-align: left">
+<div aria-hidden="true" style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C9D0E3; background: #FFFFFF; flex-shrink: 0"></div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 17px; font-weight: 800">2027年7月</div>
+<div style="font-size: 12px; font-weight: 500">July 2027 · date not announced yet</div>
+</div>
+<div style="padding: 6px 10px; border-radius: 10px; background: #EEF0F6; font-size: 13px; font-weight: 800">未発表</div>
+</button>
+<button onClick="{{ closeSheet }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">決定　Confirm</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { level: 'N2', pace: 30, painted: false, sheet: false };
+}
+renderVals() {
+const s = this.state;
+const look = (on) => on
+? { border: '2px solid #1B2440', bg: '#2F4FD0', shadow: '0 3px 0 #1B2440', color: '#FFFFFF' }
+: { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#1B2440' };
+/* this app covers N5 to N2; N1 is a separate app */
+const levels = ['N5', 'N4', 'N3', 'N2'].map((label) => {
+const on = s.level === label;
+return { label, on, pick: () => this.setState({ level: label }), ...look(on) };
+});
+const paces = [
+{ min: 20, big: '20分', small: 'かるく Light' },
+{ min: 30, big: '30分', small: 'ふつう Regular' },
+{ min: 45, big: '45分', small: 'しっかり Solid' },
+].map((p) => {
+const on = s.pace === p.min;
+return { ...p, on, pick: () => this.setState({ pace: p.min }), ...look(on), subColor: on ? '#FFFFFF' : '#5A6382', subWeight: on ? 700 : 500 };
+});
+return {
+levels,
+paces,
+painted: s.painted,
+blank: !s.painted,
+pupil: s.painted ? 1 : 0,
+darumaLabel: s.painted ? 'Yaoki, a daruma with one eye painted' : 'Yaoki, a daruma with both eyes still blank',
+paint: () => this.setState({ painted: true }),
+sheet: s.sheet,
+yes: true,
+openSheet: () => this.setState({ sheet: true }),
+closeSheet: () => this.setState({ sheet: false }),
+toMain: (e) => { const go = this.props.go; if (go) { e.preventDefault(); go('Main'); } },
+};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+#!/bin/bash
+# Runs the whole test matrix and prints one line per run. usage: bash all.sh
+HERE="$(cd "$(dirname "$0")" && pwd)"
+cd "$HERE"
+F='FAIL|PASS|PROBLEMS|problem\(s\)|console problems: \[.+\]|STEP FAILED|Error|took'
+run() { # label, env..., script
+  local label="$1"; shift
+  pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
+  echo "=== $label"
+  env "$@" 2>&1 | grep -E "$F" | cut -c1-400
+}
+run "main flow, sound"            timeout 300 bash run.sh e2e.js
+run "mock, sound"                 timeout 480 bash run.sh e2e-mock.js
+run "main flow, held back"        HELDBACK=1 timeout 300 bash run.sh e2e.js
+run "mock, held back"             HELDBACK=1 timeout 300 bash run.sh e2e-mock.js
+run "main flow, bad clips"        BADCLIPS=1 timeout 300 bash run.sh e2e.js
+run "mock, bad clips"             BADCLIPS=1 timeout 300 bash run.sh e2e-mock.js
+run "main flow, no scripts"       NOSOUND=1 timeout 300 bash run.sh e2e.js
+run "mock, no scripts"            NOSOUND=1 timeout 300 bash run.sh e2e-mock.js
+run "main flow, mode 2, sound"    OMELETTE=1 timeout 300 bash run.sh e2e.js
+run "mock, mode 2, sound"         OMELETTE=1 timeout 480 bash run.sh e2e-mock.js
+run "interruptions, sound"        timeout 300 bash run.sh pause-test.js
+run "interruptions, full run"     FULL=1 timeout 480 bash run.sh pause-test.js
+run "interruptions, held back"    HELDBACK=1 timeout 300 bash run.sh pause-test.js
+run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run.sh pause-test.js
+run "interruptions, mode 2"       OMELETTE=1 timeout 300 bash run.sh pause-test.js
+run "notebook entries"            timeout 200 bash run.sh nb-check.js
+run "answer-state sweep"          NOSOUND=1 timeout 300 bash run.sh sweep.js
+run "answer-state sweep, mode 2"  OMELETTE=1 NOSOUND=1 timeout 300 bash run.sh sweep.js
+run "sound decode"                timeout 120 bash run.sh sound-test.js
+pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
+for mode in "" OMELETTE; do
+  echo "=== every board${mode:+, mode 2}"
+  if [ -n "$mode" ]; then OUT=$(OMELETTE=1 bash run.sh rt-check.js 2>&1); else OUT=$(bash run.sh rt-check.js 2>&1); fi
+  echo "$OUT" | grep -c "root=844/844 unresolved=0" | sed 's/$/ boards clean/'
+  echo "$OUT" | grep -vE "^== .* root=844/844 unresolved=0$" | cut -c1-300
+  sleep 0.5
+done
+echo "=== mock time-up"
+FAST_MOCK=1 bash run.sh step.js 'TShell?screen=MockRun' '[{"click":"button:has-text(\"Start\")","after":800},{"wait":3600},{"text":"[lang=ja]:has-text(\"時間切れ\")"},{"shot":"fm-timeup"}]' 2>&1 | cut -c1-300
+sleep 0.5
+echo "=== exam-style time-up"
+FAST_EXAM=1 bash run.sh step.js 'TShell?screen=Exam' '[{"wait":5200},{"text":"div:has-text(\"Time is up\") >> nth=-1"},{"shot":"fe-timeup"}]' 2>&1 | cut -c1-300
+echo "=== done"

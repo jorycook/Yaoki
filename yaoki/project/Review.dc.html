@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Notebook review</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./sound-lessons.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px">
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" aria-label="Leave the review" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="{{ barLabel }}" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0; transition: width 250ms ease-out; width: {{ barW }}"></div></div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">復習 REVIEW</div>
+</div>
+
+<sc-if value="{{ session }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 6px; display: flex; align-items: center; gap: 8px">
+<div style="padding: 3px 9px; border-radius: 8px; font-size: 12px; font-weight: 800; background: {{ it.tagBg }}; color: {{ it.tagColor }}">{{ it.tag }}</div>
+<div style="flex-grow: 1; font-size: 12px; font-weight: 700; color: #5A6382">{{ pos }} / 9</div>
+<div role="img" aria-label="{{ pipLabel }}" style="display: flex; gap: 4px"><sc-for list="{{ pips }}" as="p" hint-placeholder-count="3"><div style="width: 11px; height: 11px; box-sizing: border-box; border-radius: 50%; border: {{ p.border }}; background: {{ p.bg }}"></div></sc-for></div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">in a row</div>
+</div>
+
+<sc-if value="{{ it.isChoice }}" hint-placeholder-val="{{ true }}">
+<div lang="ja" style="margin-top: 12px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600; line-height: 2.1"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.r }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 8px">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+<button disabled="{{ o.off }}" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 54px; padding: 0 12px; border-radius: 14px; display: flex; align-items: center; gap: 6px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}"><span style="font-size: 12px; color: #5A6382">{{ o.n }}</span><span style="flex-grow: 1; white-space: nowrap">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ it.isListen }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; align-items: center; gap: 14px">
+<button aria-label="Play audio" onClick="{{ play }}" style="width: 54px; height: 54px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
+<div aria-hidden="true" style="flex-grow: 1; height: 40px; display: flex; align-items: center; justify-content: space-between">
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="20">
+<div style="width: 4px; border-radius: 2px; height: {{ b.h }}; background: {{ b.bg }}"></div>
+</sc-for>
+</div>
+</div>
+<div style="margin-top: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
+<button disabled="{{ o.off }}" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 21px; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}">{{ o.n }}<sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+</sc-for>
+</div>
+<sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center">まず聞いてください　Listen first, then choose 1, 2 or 3.</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ answered }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px; animation: yk-up 220ms ease-out">
+<div style="display: flex; align-items: center; gap: 8px">
+<sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true" style="flex-shrink: 0"><circle cx="12" cy="12" r="9"/></svg></sc-if>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
+<div style="flex-grow: 1; font-size: 17px; font-weight: 800">{{ verdictJa }} <span style="font-size: 13px; font-weight: 700">{{ verdictEn }}</span></div>
+<div lang="ja" style="font-size: 13px; font-weight: 800">正解　{{ it.rightLabel }}</div>
+</div>
+<sc-if value="{{ it.isListen }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7">{{ it.prompt }}</div>
+<sc-for list="{{ replies }}" as="r" hint-placeholder-count="3">
+<div style="display: flex; align-items: flex-start; gap: 8px">
+<sc-if value="{{ r.ok }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 3px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ r.no }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 3px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45"><strong lang="ja" style="font-weight: 800">{{ r.text }}</strong><sc-if value="{{ r.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　{{ r.note }}</div>
+</div>
+</sc-for>
+</sc-if>
+<sc-if value="{{ it.isChoice }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ it.why }}</div>
+</sc-if>
+<div lang="ja" style="font-size: 12px; font-weight: 700; color: #5A6382">前回　Last time you chose: {{ it.last }}</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div role="img" aria-label="{{ trackLabel }}" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-size: 11px; font-weight: 800; text-align: center">
+<sc-for list="{{ track }}" as="c" hint-placeholder-count="4">
+<div style="padding: 5px 0; border-radius: 10px; transition: background 200ms; border: {{ c.border }}; background: {{ c.bg }}; color: {{ c.color }}">{{ c.ja }}<br>{{ c.en }}</div>
+</sc-for>
+</div>
+<div style="min-height: 34px; line-height: 17px; font-size: {{ noteSize }}; font-weight: {{ noteWeight }}; color: {{ noteColor }}">{{ trackNote }}</div>
+</div>
+<button disabled="{{ nextOff }}" onClick="{{ next }}" style="margin-top: 8px; height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; background: {{ nextBg }}; border: {{ nextBorder }}; box-shadow: {{ nextShadow }}; color: {{ nextColor }}">{{ nextLabel }}</button>
+</sc-if>
+
+<sc-if value="{{ summary }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1"></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+<div style="width: 96px; height: 96px; box-sizing: border-box; border-radius: 50%; border: 4px solid #E2452B; color: #C7361E; font-size: 40px; font-weight: 800; display: flex; align-items: center; justify-content: center; animation: yk-stamp 500ms ease-out both" aria-hidden="true">済</div>
+<h1 style="margin: 10px 0 0; font-size: 26px; font-weight: 800">復習おわり</h1>
+<div style="font-size: 14px; font-weight: 500; color: #5A6382">Review done. All 9 items for today.</div>
+</div>
+<div style="margin-top: 24px; padding: 6px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column">
+<sc-for list="{{ stats }}" as="t" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: {{ t.rule }}">
+<div style="width: 40px; font-size: 26px; font-weight: 800; text-align: right">{{ t.n }}</div>
+<div style="display: flex; flex-direction: column">
+<div lang="ja" style="font-size: 15px; font-weight: 800">{{ t.ja }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">{{ t.en }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex-grow: 2"></div>
+<a href="Notebook.dc.html" onClick="{{ toDone }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">ノートへ　Back to the notebook</a>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+const ruby = (t, r) => ({ t, r, plain: false });
+const text = (t, underline) => ({ t, r: '', plain: true, line: underline ? '2px solid #1B2440' : 'none' });
+/* the last two of today's nine due items: one that moves a step, one that can leave the notebook */
+const ITEMS = [
+{
+isChoice: true,
+isListen: false,
+tag: '漢字読み',
+tagBg: '#FDEBE6',
+tagColor: '#C7361E',
+streak: 1,
+segs: [text('時間がないので、あいさつは'), text('省略', true), text('します。')],
+options: ['しょうりゃく', 'せいりゃく', 'しょうらく', 'せいらく'],
+answer: 1,
+rightLabel: '1 しょうりゃく',
+last: 'せいりゃく',
+why: '省 is ショウ in 省略 and セイ in 反省. 略 is リャク.',
+},
+{
+isChoice: false,
+isListen: true,
+tag: '即時応答',
+tagBg: '#E0F3EF',
+tagColor: '#0B7A6B',
+streak: 2,
+prompt: '男：この資料、会議の前に目を通しておいてくれる？',
+options: ['1', '2', '3'],
+replies: ['1 はい、通しておいてください。', '2 はい、会議までに読んでおきます。', '3 ええ、会議はもう終わりました。'],
+notes: ['Asks him to do it. He asked you.', 'Accepts. 目を通す is to look something over.', 'Says the meeting is over. He wants it read before then.'],
+answer: 2,
+rightLabel: '2',
+last: '通しておいてください',
+},
+];
+const STEPS = [['あした', '1 day'], ['3日後', '3 days'], ['1週間後', '7 days'], ['卒業', 'cleared']];
+const HEIGHTS = [12, 22, 30, 16, 34, 24, 12, 28, 36, 20, 14, 26, 32, 18, 10, 24, 30, 18, 12, 22];
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* inside the prototype the session starts unanswered; on its own the artboard shows the designed moment (item 8 answered right, moving a step) */
+this.state = { i: 0, picks: props && props.go ? [null, null] : [1, null], played: false, playing: false, progress: 0, summary: false };
+}
+componentWillUnmount() {
+clearInterval(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+renderVals() {
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const it = ITEMS[s.i];
+const pick = s.picks[s.i];
+const answered = pick !== null;
+const correct = answered && pick === it.answer;
+const wrong = answered && !correct;
+const locked = it.isListen && !s.played;
+const opts = it.options.map((label, k) => {
+const n = k + 1;
+const on = pick === n;
+let look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 800 };
+if (locked) look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700 };
+if (answered) {
+if (n === it.answer) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3EF', shadow: 'none', color: '#1B2440', weight: 800 };
+else if (on) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440', weight: 800 };
+else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700 };
+}
+return {
+n,
+label,
+on,
+off: locked || answered,
+right: answered && n === it.answer,
+bad: answered && on && n !== it.answer,
+pick: () => { if (!locked && !answered) this.setState({ picks: s.picks.map((p, j) => (j === s.i ? n : p)) }); },
+...look,
+};
+});
+/* where the item goes next: one step further, out of the notebook, or back to the start */
+const streak = answered ? (correct ? it.streak + 1 : 0) : it.streak;
+/* before the answer the track marks where the item stands; after it, where the item goes */
+const target = !answered ? it.streak : correct ? Math.min(streak, 3) : 0;
+const tone = !correct ? '#C7361E' : target === 3 ? '#0B7A6B' : '#2F4FD0';
+const track = STEPS.map((st, n) => {
+let look = { border: '2px solid transparent', bg: '#E8ECFB', color: '#1B2440' };
+if (n === target) look = answered ? { border: '2px solid ' + tone, bg: tone, color: '#FFFFFF' } : { border: '2px solid #1B2440', bg: '#FFFFFF', color: '#1B2440' };
+return { ja: st[0], en: st[1], ...look };
+});
+const ahead = it.streak + 1 === 3 ? 'cleared, out of the notebook' : 'on to ' + STEPS[it.streak + 1][1];
+const trackNote = !answered ? 'Now at ' + STEPS[it.streak][1] + '. Right: ' + ahead + '. Wrong: back to 1 day.' : !correct ? 'Back to the start. It returns tomorrow.' : target === 3 ? '3 of 3 in a row. 卒業！ It leaves your notebook.' : streak + ' of 3 in a row. Next time: in ' + STEPS[target][1] + '.';
+/* the line and its three replies are one clip: the waveform fills while it plays, then the answers unlock. If the sound cannot play, the waveform fills for a short stand-in time instead */
+const play = () => {
+clearInterval(this.timer);
+const snd = window.ykSound;
+let sound = !!(snd && snd.has('r_item') && snd.unlock() && snd.play('r_item'));
+let heard = false;
+const started = Date.now();
+this.setState({ playing: true, progress: 0 });
+this.timer = setInterval(() => {
+const gone = Date.now() - started;
+/* without sound the waveform fills for the stand-in time */
+let done = gone / 2200;
+if (sound) {
+/* with sound it keeps time with the clip itself, which may start a moment after the tap */
+const on = snd.on();
+const at = snd.at ? snd.at() : gone;
+if (on && at > 0) heard = true;
+/* the sound stopped after it had started (a call, the app put aside): stop waiting, it can be played again */
+if (heard && (!on || at < 0)) { done = 1; snd.stop(); }
+/* it never started: a browser can hold the audio back even after a tap. Stop waiting after a second,
+   or after a few seconds where sound has come out before */
+else if (!heard && (!snd.has('r_item') || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; snd.stop(); }
+else done = Math.max(0, at) / snd.ms('r_item');
+/* the clip has come to its end by itself */
+if (snd.over && snd.over() >= 0) done = 1;
+}
+if (done >= 1) {
+clearInterval(this.timer);
+this.setState({ playing: false, played: true, progress: 1 });
+} else {
+this.setState({ progress: done });
+}
+}, 80);
+};
+const last = s.i === ITEMS.length - 1;
+const ok1 = s.picks[0] === ITEMS[0].answer;
+const ok2 = s.picks[1] === ITEMS[1].answer;
+const back = (ok1 ? 0 : 1) + (ok2 ? 0 : 1);
+const stat = (n, ja, en, first) => ({ n, ja, en, rule: first ? 'none' : '2px solid #EEF0F6' });
+return {
+it,
+opts,
+session: !s.summary,
+summary: s.summary,
+answered,
+correct,
+wrong,
+waiting: locked,
+pos: 8 + s.i,
+barW: (s.summary ? 100 : Math.round(((7 + s.i + (answered ? 1 : 0)) / 9) * 100)) + '%',
+barLabel: s.summary ? 'All 9 items reviewed' : 'Item ' + (8 + s.i) + ' of 9',
+pips: [0, 1, 2].map((n) => (n < streak ? { border: '2px solid #0B7A6B', bg: '#0B7A6B' } : { border: '2px solid #C9D0E3', bg: 'transparent' })),
+pipLabel: streak + ' of 3 correct in a row',
+verdictJa: wrong ? 'おしい！' : 'せいかい！',
+verdictEn: wrong ? 'Not quite' : 'Correct',
+track,
+trackNote,
+trackLabel: 'Review spacing: 1 day, 3 days, 7 days, cleared. ' + trackNote,
+noteSize: answered ? '13px' : '12px',
+noteWeight: answered ? 800 : 700,
+noteColor: answered ? '#1B2440' : '#5A6382',
+nextOff: !answered,
+nextBg: answered ? '#2F4FD0' : '#EEF0F6',
+nextBorder: answered ? '2px solid #1B2440' : '2px solid #C9D0E3',
+nextShadow: answered ? '0 4px 0 #1B2440' : 'none',
+nextColor: answered ? '#FFFFFF' : '#5A6382',
+replies: it.isListen ? it.replies.map((text, k) => ({ text, note: it.notes[k], ok: k + 1 === it.answer, no: k + 1 !== it.answer, mine: wrong && pick === k + 1 })) : [],
+bars: HEIGHTS.map((h, n) => ({ h: h + 'px', bg: n < Math.round(s.progress * HEIGHTS.length) ? '#2F4FD0' : '#C9D0E3' })),
+playBg: s.playing ? '#F2B43A' : '#2F4FD0',
+playInk: s.playing ? '#1B2440' : '#FFFFFF',
+play,
+nextLabel: last ? 'おわる　Finish' : 'つぎへ　Next',
+next: () => {
+clearInterval(this.timer);
+if (window.ykSound) window.ykSound.stop();
+if (last) this.setState({ summary: true });
+else this.setState({ i: s.i + 1, played: false, playing: false, progress: 0 });
+},
+stats: [
+stat(9 - back - (ok2 ? 1 : 0), 'つぎのステップへ', 'moved one step further apart', true),
+stat(ok2 ? 1 : 0, '卒業', 'cleared: out of the notebook'),
+stat(back, 'あしたもう一度', 'back to the start, due tomorrow'),
+],
+toNotebook: nav('Notebook'),
+toDone: (e) => {
+if (this.props.save) this.props.save({ rev: { kanji: ok1, listen: ok2, at: Date.now() } });
+nav('Notebook')(e);
+},
+};
+}
+}
+</script>
+</body>
+</html>

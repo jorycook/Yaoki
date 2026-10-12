@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Full mock result</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column">
+
+<div style="flex-shrink: 0; padding: 50px 16px 10px; background: #1B2440; color: #FFFFFF; display: flex; align-items: center; gap: 8px">
+<a href="Mock.dc.html" aria-label="Back to the mock exam tab" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+<div style="flex-grow: 1; height: 44px; display: flex; flex-direction: column; justify-content: center">
+<div lang="ja" style="font-size: 16px; font-weight: 800">第1回 模試　結果</div>
+<div style="font-size: 11px; font-weight: 500; color: #C9D0E3">Mock 1 result · 11月7日（土）</div>
+</div>
+</div>
+
+<div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+
+<div style="padding: 12px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">予想得点　Estimated total</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 46px; font-weight: 800; line-height: 1.1">{{ total }}</h1><div style="font-size: 18px; font-weight: 700; color: #5A6382">/ 180</div></div>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 17px; background: #E0F3EF; border: 2px solid #0B7A6B; font-size: 14px; font-weight: 800; flex-shrink: 0">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg>
+<div lang="ja">合格圏</div>
+</div>
+</div>
+<div role="img" aria-label="{{ totalAria }}" style="display: flex; flex-direction: column; gap: 6px">
+<div style="position: relative; height: 14px">
+<div style="height: 14px; border-radius: 7px; background: #D9E0F8; overflow: hidden"><div style="width: {{ totalW }}; height: 14px; border-radius: 0 4px 4px 0; background: #2F4FD0"></div></div>
+<div style="position: absolute; left: 50%; top: -4px; width: 2px; height: 22px; background: #1B2440"></div>
+</div>
+<div style="position: relative; height: 14px; font-size: 11px; font-weight: 700; color: #5A6382">
+<div style="position: absolute; left: 0">0</div>
+<div lang="ja" style="position: absolute; left: 50%; transform: translateX(-50%); color: #1B2440; white-space: nowrap">合格点 90</div>
+<div style="position: absolute; right: 0">180</div>
+</div>
+</div>
+<div style="font-size: 12px; font-weight: 700; line-height: 1.45">The total clears 90 and every section clears 19.</div>
+</div>
+
+<div style="margin-top: 10px; padding: 10px 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 7px">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex-grow: 1; font-size: 13px; font-weight: 800">得点区分　Scoring sections</div>
+<div style="width: 2px; height: 14px; background: #1B2440"></div>
+<div lang="ja" style="font-size: 11px; font-weight: 700; color: #5A6382">基準点 19 / 60</div>
+</div>
+<sc-for list="{{ sections }}" as="s" hint-placeholder-count="3">
+<div role="img" aria-label="{{ s.aria }}" style="display: flex; flex-direction: column; gap: 3px">
+<div style="display: flex; align-items: baseline; gap: 6px">
+<div style="flex-grow: 1; font-size: 13px; font-weight: 700"><span lang="ja">{{ s.ja }}</span> <span style="font-weight: 500; color: #5A6382">{{ s.en }}</span></div>
+<div style="font-size: 16px; font-weight: 800">{{ s.score }}</div><div style="font-size: 11px; font-weight: 700; color: #5A6382">/60</div>
+</div>
+<div style="position: relative; height: 8px">
+<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="width: {{ s.w }}; height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0"></div></div>
+<div style="position: absolute; left: 31.7%; top: -3px; width: 2px; height: 14px; background: #1B2440"></div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top: 10px; display: flex; align-items: baseline; gap: 8px">
+<div style="flex-grow: 1; font-size: 11px; font-weight: 800; color: #C7361E">問題別　BY QUESTION TYPE</div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">{{ rawLine }}</div>
+</div>
+<div lang="ja" style="margin-top: 4px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px">
+<sc-for list="{{ columns }}" as="c" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{ c.groups }}" as="g" hint-placeholder-count="2">
+<div style="display: flex; align-items: baseline; gap: 6px; padding: 1px 0; margin-top: {{ g.top }}; border-bottom: 2px solid #1B2440; font-size: 12px; font-weight: 800; line-height: 17px"><div style="flex-grow: 1">{{ g.name }}</div><div style="font-variant-numeric: tabular-nums">{{ g.tally }}</div></div>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+<div style="display: flex; align-items: baseline; gap: 6px; padding: 0 4px; margin: 1px -4px 0; border-radius: 5px; font-size: 12px; font-weight: 500; line-height: 18px; background: {{ r.bg }}"><div style="flex-grow: 1; white-space: nowrap">{{ r.name }}</div><div style="font-weight: 800; font-variant-numeric: tabular-nums; color: {{ r.ink }}">{{ r.tally }}</div></div>
+</sc-for>
+</sc-for>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top: 8px; display: flex; align-items: flex-start; gap: 8px; font-size: 12px; font-weight: 500; line-height: 1.45">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
+<div><strong lang="ja" style="font-weight: 800">時間切れ：言語知識・読解</strong>　2 questions left blank.</div>
+</div>
+
+<div style="flex-grow: 1"></div>
+<div style="margin-top: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="Notebook.dc.html" style="height: 52px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; white-space: nowrap">{{ reviewLabel }}</a>
+<a href="Readiness.dc.html" style="height: 52px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; white-space: nowrap">合格判定へ　Readiness</a>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+/* a designed result for a full mock: the N2 item types with the number of questions the two most recent papers had for each (101 in all) */
+const TYPES = [
+{ name: '文字・語彙', rows: [['漢字読み', 5, 5], ['表記', 4, 5], ['語形成', 2, 3], ['文脈規定', 5, 7], ['言い換え類義', 4, 5], ['用法', 2, 5]] },
+{ name: '文法', rows: [['文の文法1', 8, 12], ['文の文法2', 3, 5], ['文章の文法', 3, 4]] },
+{ name: '読解', rows: [['内容理解（短文）', 4, 5], ['内容理解（中文）', 5, 8], ['統合理解', 1, 2], ['主張理解（長文）', 1, 3], ['情報検索', 2, 2]] },
+{ name: '聴解', rows: [['課題理解', 3, 5], ['ポイント理解', 3, 6], ['概要理解', 2, 5], ['即時応答', 7, 11], ['統合理解', 1, 3]] },
+];
+class Component extends DCLogic {
+renderVals() {
+const sum = (rows, k) => rows.reduce((n, r) => n + r[k], 0);
+/* under half right is marked as a weak spot */
+const group = (g, first) => ({
+name: g.name,
+tally: sum(g.rows, 1) + '/' + sum(g.rows, 2),
+top: first ? '0' : '6px',
+rows: g.rows.map((r) => {
+const low = r[1] / r[2] < 0.5;
+return { name: r[0], tally: r[1] + '/' + r[2], bg: low ? '#FDEBE6' : 'transparent', ink: low ? '#C7361E' : '#1B2440' };
+}),
+});
+/* each scoring section is the share of right answers out of 60; grammar counts with vocabulary */
+const share = (right, all) => Math.round((right / all) * 60);
+const lang = share(sum(TYPES[0].rows, 1) + sum(TYPES[1].rows, 1), sum(TYPES[0].rows, 2) + sum(TYPES[1].rows, 2));
+const read = share(sum(TYPES[2].rows, 1), sum(TYPES[2].rows, 2));
+const listen = share(sum(TYPES[3].rows, 1), sum(TYPES[3].rows, 2));
+const section = (ja, en, score) => ({ ja, en, score, w: ((score / 60) * 100).toFixed(1) + '%', aria: en + ': ' + score + ' of 60, pass mark 19' });
+const total = lang + read + listen;
+const rightAll = TYPES.reduce((n, g) => n + sum(g.rows, 1), 0);
+const all = TYPES.reduce((n, g) => n + sum(g.rows, 2), 0);
+return {
+total,
+totalW: ((total / 180) * 100).toFixed(1) + '%',
+totalAria: 'Estimated total ' + total + ' of 180. Overall pass mark 90.',
+rawLine: rightAll + ' / ' + all + ' correct',
+reviewLabel: '間違い ' + (all - rightAll) + '問　Review',
+sections: [section('言語知識', 'Vocabulary, grammar', lang), section('読解', 'Reading', read), section('聴解', 'Listening', listen)],
+columns: [{ groups: [group(TYPES[0], true), group(TYPES[1], false)] }, { groups: [group(TYPES[2], true), group(TYPES[3], false)] }],
+};
+}
+}
+</script>
+</body>
+</html>

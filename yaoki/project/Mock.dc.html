@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mock</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:disabled{cursor:default}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px">
+<h1 style="margin: 0; flex-grow: 1; font-size: 22px; font-weight: 800">模擬試験 <span style="font-size: 14px; font-weight: 700; color: #5A6382">Mock exam · N2</span></h1>
+<div style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<div style="font-weight: 800; font-size: 14px">あと39日</div>
+</div>
+</div>
+
+<div style="margin: 8px 16px 0; font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Two full papers at real length: one halfway through the plan, one about a week before the exam.</div>
+
+<div style="margin: 12px 16px 0; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="flex-grow: 1; display: flex; align-items: baseline; gap: 8px">
+<div lang="ja" style="font-size: 20px; font-weight: 800">ミニ模試</div>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">Mini mock</div>
+</div>
+<div lang="ja" style="height: 28px; padding: 0 10px; border-radius: 14px; background: #FFF4D6; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; flex-shrink: 0">12問 · 約15分</div>
+</div>
+<sc-if value="{{ fresh }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">実際の試験と同じ形式を、短時間で体験できます。</strong> Both sections, the break and a result, in the real format. Open any time.</div>
+<a href="MockRun.dc.html" onClick="{{ toRun }}" style="height: 50px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">はじめる　Start</a>
+</sc-if>
+<sc-if value="{{ taken }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 12px">
+<div aria-hidden="true" style="width: 44px; height: 44px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 19px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: rotate(-9deg)">済</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">前回の結果　Last result</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="font-size: 28px; font-weight: 800; line-height: 1.15">{{ score }}</div><div style="font-size: 14px; font-weight: 700; color: #5A6382">/ 12</div></div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="MockResult.dc.html" onClick="{{ toRun }}" style="height: 50px; border-radius: 14px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; white-space: nowrap">結果を見る　Result</a>
+<a href="MockRun.dc.html" onClick="{{ again }}" style="height: 50px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; white-space: nowrap">もう一度　Again</a>
+</div>
+</sc-if>
+</div>
+
+<div style="margin: 14px 16px 0; padding: 12px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="flex-grow: 1; display: flex; align-items: baseline; gap: 8px">
+<div style="font-size: 20px; font-weight: 800">第1回 模試</div>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">Mock 1</div>
+</div>
+<div role="img" aria-label="Locked. Opens in 10 days." style="display: flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #F4F5F9; border: 2px solid #C9D0E3; font-size: 12px; font-weight: 800; color: #5A6382">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+<div>10日後</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 14px; font-weight: 800">第4週が終わると受けられます</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">Unlocks after week 4 · 11月7日（土）</div>
+</div>
+
+<div style="height: 2px; background: #DDE1EC"></div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{ papers }}" as="p" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column; gap: 5px">
+<div style="display: flex; align-items: center; gap: 6px">
+<div style="width: 14px; flex-shrink: 0; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ p.n }}</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
+<div lang="ja" style="font-size: 13px; font-weight: 700; white-space: nowrap">{{ p.ja }}</div>
+<div style="font-size: 11px; font-weight: 500; color: #5A6382">{{ p.en }}</div>
+</div>
+<div style="display: flex; align-items: baseline; gap: 3px; flex-shrink: 0"><div style="font-size: 16px; font-weight: 800">{{ p.min }}</div><div style="font-size: 11px; font-weight: 700; color: #5A6382">分</div></div>
+</div>
+<div style="margin-left: 20px; height: 8px; border-radius: 4px; background: #E8ECFB"><div style="width: {{ p.w }}; height: 8px; border-radius: 4px; background: #2F4FD0"></div></div>
+</div>
+</sc-for>
+</div>
+
+<div style="display: flex; align-items: baseline; gap: 8px">
+<div lang="ja" style="font-size: 13px; font-weight: 800">合計 101問 · 155分</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">2 h 35 min, plus a break</div>
+</div>
+
+</div>
+
+<div style="margin: 12px 16px 0; padding: 12px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 10px">
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; align-items: baseline; gap: 8px">
+<div style="font-size: 16px; font-weight: 800">第2回 模試</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">Mock 2</div>
+</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; white-space: nowrap">Unlocks after week 7 · 11月28日（土）</div>
+</div>
+<div role="img" aria-label="Locked. Opens in 31 days." style="display: flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #F4F5F9; border: 2px solid #C9D0E3; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+<div>31日後</div>
+</div>
+</div>
+
+<div style="flex-grow: 1"></div>
+<nav aria-label="Main" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
+<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* N2 has two test sections: vocabulary, grammar and reading share one clock */
+const PAPERS = [
+{ n: '1', ja: '言語知識（文字・語彙・文法）・読解', en: 'Vocabulary, grammar, reading', min: '105', w: '100%' },
+{ n: '2', ja: '聴解', en: 'Listening', min: '50', w: '47.6%' },
+];
+class Component extends DCLogic {
+renderVals() {
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+/* the mini mock can be taken at any time; once it is done the card shows the last result */
+const mock = this.props.app && this.props.app.mock;
+const taken = !!(mock && mock.done);
+return {
+papers: PAPERS,
+fresh: !taken,
+taken,
+score: taken ? mock.score : 0,
+/* Result reopens the finished run. Again goes to the briefing, and the last result stays on the card until a new run is handed in */
+toRun: (e) => {
+if (this.props.save && mock && mock.again) this.props.save({ mock: { ...mock, again: false } });
+nav('MockRun')(e);
+},
+again: (e) => {
+if (this.props.save && mock) this.props.save({ mock: { ...mock, again: true } });
+nav('MockRun')(e);
+},
+toMain: nav('Main'),
+toNotebook: nav('Notebook'),
+toMock: nav('Mock'),
+toReadiness: nav('Readiness'),
+};
+}
+}
+</script>
+</body>
+</html>
