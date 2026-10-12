@@ -9,6 +9,7 @@ Yaoki is a JLPT study app prototype (N2 sample content). This folder holds every
 | `docs/` | The built app, served by GitHub Pages at https://jorycook.github.io/Yaoki/. This is all a phone needs. |
 | `yaoki/project/` | The design canvas's files: 27 screens (`*.dc.html`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`). 17 of the screens make up the app. |
 | `yaoki-app/` | The app around the screens: `src/` (runtime, shell, install page, offline worker, page, manifest), `build.mjs`, `fonts.py`. |
+| `docs/reader/` | Yaoki Reader, served at https://jorycook.github.io/Yaoki/reader/. It has no build step: these files are its source. |
 | `check/` | The tests (Playwright). |
 
 ## Build
@@ -44,8 +45,37 @@ bash run-app.sh app-test.js      # app-only checks: saved progress, sizes, offli
 node preview-test.js             # the page shown inside Claude
 ```
 
+For the reader:
+
+```
+cd check
+bash run-reader.sh reader-test.js    # serves docs/ at /Yaoki/ as GitHub Pages does, with the app's offline worker running
+```
+
+`BACKUP=<a reader backup file>` also loads that file and opens every text in it.
+
 `all.sh` runs the same suites against the design canvas's own runtime. That needs the canvas runtime file, which is not part of this folder (see `setup-site.sh` for where it is expected).
+
+## The reader
+
+Yaoki Reader shows Japanese text with the furigana hidden; touching a phrase shows its reading, word meanings and any grammar pattern in it, and letting go hides them again. Texts are pasted in (up to 30,000 characters each) and analysed in the browser: nothing is sent anywhere.
+
+| File | What it is |
+|---|---|
+| `docs/reader/index.html` | The whole page: library, add form, reader, settings, backups. |
+| `docs/reader/engine/analyzer.js` | Phrases, readings, glosses and grammar notes (analysis version 4). |
+| `docs/reader/engine/kuromoji.js`, `engine/dict/` | kuromoji.js 0.1.2 and the IPA dictionary, its loader changed to read the dictionary as base64 text. |
+| `docs/reader/engine/jm-1.txt`, `jm-2.txt` | A shortened JMdict word list (2020 edition, from the `jamdict-data` 1.5 package). The script that made it is not in this repository. |
+| `docs/reader/engine/worker.js`, `boot.js` | Runs the engine off the page's main thread. |
+
+About 36 MB is downloaded the first time a text is analysed in a visit; opening a text that was already analysed in that browser needs none of it.
+
+**Saving.** On GitHub Pages the reader keeps its texts in the browser it is used in (`localStorage`, under keys starting `yomu.`; analyses in IndexedDB `yomu-reader`). The app's own saved progress is left alone. **Save a backup** writes the library to a file and **Load a backup** reads one, which is how texts move between devices or browsers. Texts already in the library are skipped. When the same page runs as a Claude artifact it saves to the artifact's own store instead.
+
+Nothing a reader adds goes into this repository. Only the built-in sample (片目のだるま) is published.
 
 ## Licences
 
 Third-party parts are listed in `docs/licenses.txt`: Preact (MIT), the typefaces M PLUS Rounded 1c and Klee One (SIL Open Font License 1.1), and the synthetic voices (Kokoro-82M, Apache-2.0; two voices built from Koniwa recordings, CC BY 3.0).
+
+The reader's are in `docs/reader/licenses.txt`: JMdict (EDRDG, CC BY-SA 4.0, and the shortened word list under the same licence), kuromoji.js (Apache-2.0, with the mecab-ipadic notice) and the typefaces it loads from Google Fonts (SIL Open Font License 1.1).
