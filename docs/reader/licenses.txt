@@ -113,6 +113,19 @@ from and not be held liable to the user for any such damages as noted
 above as far as the program is concerned.
 ˜˜
 
+== Aozora Bunko (works to read) ==
+aozora/catalog.txt is a list of works made from the index Aozora Bunko publishes
+(https://www.aozora.gr.jp/index_pages/list_person_all_extended_utf8.zip): titles,
+authors and file names of the works whose copyright has ended, no text of any work.
+The texts themselves are fetched by the reader, when someone asks for one, from
+aozorahack's copy of Aozora Bunko's text files
+(https://github.com/aozorahack/aozorabunko_text), or read from a file the reader
+downloaded from Aozora Bunko. Aozora Bunko's rules for using its files:
+https://www.aozora.gr.jp/guide/kijyunn.html
+aozora/jisx0213.json lists characters by their place in JIS X 0213, made with
+Python's euc_jis_2004 codec, to fill in the characters Aozora's Shift_JIS files
+can only describe.
+
 == Typefaces ==
 Noto Serif JP, Klee One and M PLUS Rounded 1c are loaded from Google Fonts and are
 licensed under the SIL Open Font License 1.1.

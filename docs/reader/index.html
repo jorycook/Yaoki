@@ -76,8 +76,8 @@ button { cursor: pointer; }
 .tag { flex-shrink: 0; padding: 2px 9px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-family: var(--ui); font-size: 11px; font-weight: 800; }
 
 /* library */
-#texts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-#texts li { display: flex; align-items: center; gap: 6px; min-width: 0; }
+#texts, .works { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+#texts li, .works li { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .text-card { flex: 1; min-width: 0; text-align: left; padding: 12px 14px; border-radius: 18px; background: var(--card); border: 2px solid var(--outline); box-shadow: 0 3px 0 var(--hard); display: flex; flex-direction: column; gap: 3px; }
 .text-card:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--hard); }
 .tc-top { display: flex; align-items: center; gap: 8px; min-width: 0; }
@@ -170,6 +170,23 @@ body.no-gram .lg { display: none; }
 #looked .r { font-size: 12px; font-weight: 700; color: var(--muted); }
 #looked .g { flex: 1 1 100%; font-size: 13px; }
 #toast { position: fixed; z-index: 60; left: 50%; bottom: calc(76px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); max-width: calc(100% - 32px); padding: 10px 16px; border-radius: 14px; background: var(--ink); color: var(--ground); font-size: 13px; font-weight: 700; }
+/* Aozora Bunko */
+.check { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; font-weight: 800; }
+.check input { width: 22px; height: 22px; margin: 0; accent-color: var(--accent); }
+.sub-h { margin: 6px 0 0; font-size: 13px; font-weight: 800; color: var(--muted); }
+.tc-by { font-size: 13px; font-weight: 700; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.work-h { margin: 0; font-family: var(--jp); font-size: 24px; font-weight: 600; line-height: 1.35; text-wrap: balance; }
+.work-h small { display: block; font-size: 15px; color: var(--muted); }
+.work-by { font-family: var(--jp); font-size: 15px; font-weight: 600; }
+.parts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.parts li { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 2px solid var(--line); }
+.parts .pt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.parts .pn { font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.parts .ps { font-family: var(--jp); font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.parts .mini { flex-shrink: 0; min-width: 72px; }
+.mini.done { background: var(--accent-soft); border-color: var(--accent-ink); color: var(--accent-ink); }
+.steps { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; font-weight: 700; line-height: 1.6; }
+.steps .linklike { display: inline; min-height: 0; padding: 4px 0; }
 @media (prefers-reduced-motion: reduce) { .track i { transition: none; } .btn:active, .text-card:active { transform: none; } }
 </style>
 </head>
@@ -185,6 +202,7 @@ body.no-gram .lg { display: none; }
     <div class="scroll">
       <p class="hint" style="margin:0">Read Japanese with the furigana hidden. Touch a phrase to see its reading and meaning; let go and it hides again.</p>
       <button class="btn" id="go-add" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span><span lang="ja">文を追加</span>　Add a text</span></button>
+      <button class="btn quiet" id="go-aoz" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg><span><span lang="ja">青空文庫から</span>　From Aozora Bunko</span></button>
       <ul id="texts"></ul>
       <div id="lib-state" class="hint"></div>
       <div class="backup">
@@ -221,7 +239,32 @@ body.no-gram .lg { display: none; }
       </div>
       <button class="btn" id="add-go" type="submit"><span><span lang="ja">読む</span>　Read it</span></button>
       <p class="hint" style="margin:0">Readings and meanings are added automatically on your device. They are sometimes wrong, mostly for names and words with more than one reading.</p>
+      <button class="linklike" id="add-to-aoz" type="button">Or find a story or novel on Aozora Bunko</button>
     </form>
+  </section>
+
+  <section class="view" id="v-aoz" hidden>
+    <header class="bar">
+      <button class="icon-btn lead" id="aoz-back" type="button" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="brand" style="font-size:17px"><span lang="ja">青空文庫</span> <small>Aozora Bunko</small></div>
+    </header>
+    <div class="scroll" id="aoz-scroll">
+      <div id="aoz-find" style="display:contents">
+        <p class="hint" style="margin:0">Aozora Bunko is a free library of Japanese writing that is out of copyright: stories, novels, essays and poems. Find a work by its title or author, in Japanese or in roman letters, or paste the address of its Aozora Bunko page.</p>
+        <form class="field" id="aoz-form" role="search" novalidate>
+          <label for="aoz-q">Title or author</label>
+          <input id="aoz-q" type="search" lang="ja" autocomplete="off" enterkeyhint="search" placeholder="蜘蛛の糸、宮沢賢治、soseki">
+        </form>
+        <label class="check"><input type="checkbox" id="aoz-modern" checked><span>Modern spelling only <span lang="ja">新字新仮名</span></span></label>
+        <div class="hint" id="aoz-state" role="status"></div>
+        <ul class="works" id="aoz-results"></ul>
+        <div class="notebox"><b>Downloaded a work from Aozora Bunko?</b> Load its .zip or .txt file here and it is read the same way.
+          <div><button class="linklike" id="aoz-file-btn" type="button">Load an Aozora Bunko file</button></div>
+        </div>
+      </div>
+      <div id="aoz-work" style="display:contents" hidden></div>
+    </div>
+    <input type="file" id="aoz-file" accept=".zip,.txt,application/zip,text/plain" hidden>
   </section>
 
   <section class="view" id="v-read" hidden>
@@ -286,6 +329,7 @@ body.no-gram .lg { display: none; }
     <p><b>Word splitting and readings</b> use kuromoji.js (Apache-2.0) with the IPA dictionary from the mecab-ipadic project. That dictionary predates 2019, so for words it only knows in pieces (令和, 一本, 八日) the reading is taken from JMdict instead.</p>
     <p><b>Typefaces:</b> Noto Serif JP (print) and Klee One (textbook), both under the SIL Open Font License.</p>
     <p><b>Limits.</b> Everything is worked out by rule on your device, with no person checking it. Readings can be wrong where a word has several (降る and 降りる, 今日, names). Meanings show the first common sense of a word, which is not always the one the sentence uses. Grammar notes cover about ninety common patterns. Older spelling (旧仮名遣い) is not handled well.</p>
+    <p><b>Aozora Bunko</b> (青空文庫, aozora.gr.jp) is a library of Japanese works whose copyright has ended, typed in and checked by volunteers. The list of works this page searches is made from Aozora Bunko's own index and holds only works out of copyright. The texts are fetched from aozorahack's copy of Aozora Bunko's files on GitHub, since Aozora Bunko's own site cannot be read by other pages; works added or corrected since that copy was last updated can be loaded from the file Aozora Bunko offers for download. Ruby (furigana) and notes in Aozora's text format are taken out, so the readings you see are this page's own.</p>
     <p><b>Your texts.</b> Text you add is saved so you can come back to it. Only add text you are free to keep a copy of.</p>
     <p>Full licence texts: <a href="licenses.txt">licenses.txt</a>.</p>
   </div>
@@ -294,6 +338,7 @@ body.no-gram .lg { display: none; }
 
 <div id="toast" role="status" hidden></div>
 
+<script src="aozora/aozora.js"></script>
 <script>
 (function () {
 'use strict';
@@ -459,7 +504,7 @@ function initStore() {
       S.db = db; S.mode = 'db';
       S.texts = snap.docs.map(function (d) {
         var x = d.data() || {};
-        return { id: d.id, title: x.title || '', text: x.text || '', created: x.created || 0, seen: (x.seen || []).slice(), n: x.n || 0, av: x.av || 0 };
+        return { id: d.id, title: x.title || '', by: x.by || '', text: x.text || '', created: x.created || 0, seen: (x.seen || []).slice(), n: x.n || 0, av: x.av || 0 };
       });
       return true;
     }).catch(function () { return null; });
@@ -472,7 +517,7 @@ function saveLocal() { return LS.set('yomu.texts', S.texts.filter(function (t) {
 function createText(t) {
   if (S.mode === 'db') {
     var ref = S.db.collection('texts').doc();
-    return ref.set({ title: t.title, text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n, av: t.av }).then(function () { t.id = ref.id; });
+    return ref.set({ title: t.title, by: t.by || '', text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n, av: t.av }).then(function () { t.id = ref.id; });
   }
   t.id = 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
   S.texts.unshift(t);
@@ -504,7 +549,7 @@ function removeText(t) {
 
 /* ---------- views ---------- */
 function show(view) {
-  ['lib', 'add', 'read'].forEach(function (v) { $('v-' + v).hidden = v !== view; });
+  ['lib', 'add', 'aoz', 'read'].forEach(function (v) { $('v-' + v).hidden = v !== view; });
   release();
 }
 function firstLine(text) { return text.replace(/\s+/g, ' ').trim(); }
@@ -534,6 +579,7 @@ function renderLibrary() {
       top.appendChild(title);
       if (t.sample) top.appendChild(el('span', 'tag', 'Sample'));
       card.appendChild(top);
+      if (t.by) { var by = el('span', 'tc-by', t.by); by.lang = 'ja'; card.appendChild(by); }
       var prev = el('span', 'tc-prev', firstLine(t.text).slice(0, 60)); prev.lang = 'ja';
       card.appendChild(prev);
       var seen = (t.seen || []).length;
@@ -561,7 +607,7 @@ function renderLibrary() {
 var BACKUP_APP = 'yaoki-reader';
 function exportLibrary() {
   var list = S.texts.filter(function (t) { return !t.temp; }).map(function (t) {
-    return { title: t.title, text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n || 0, av: t.av || 0 };
+    return { title: t.title, by: t.by || '', text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n || 0, av: t.av || 0 };
   });
   if (!list.length) { toast('There are no texts of yours to save yet.'); return; }
   var data = { app: BACKUP_APP, version: 1, exported: new Date().toISOString(), texts: list };
@@ -578,7 +624,8 @@ function cleanEntry(x) {
   var text = x.text.slice(0, MAX);
   var title = (typeof x.title === 'string' && x.title.trim() ? x.title.trim() : firstLine(text).slice(0, 16)).slice(0, 60);
   var seen = Array.isArray(x.seen) ? x.seen.filter(function (i) { return typeof i === 'number' && i >= 0 && i % 1 === 0; }) : [];
-  return { title: title, text: text, created: typeof x.created === 'number' ? x.created : Date.now(), seen: seen,
+  var by = typeof x.by === 'string' ? x.by.trim().slice(0, 60) : '';
+  return { title: title, by: by, text: text, created: typeof x.created === 'number' ? x.created : Date.now(), seen: seen,
     n: typeof x.n === 'number' ? x.n : 0, av: typeof x.av === 'number' ? x.av : 0 };
 }
 function importLibrary(file) {
@@ -662,6 +709,229 @@ function submitAdd(e) {
   }).catch(function (err) {
     addBusy(false);
     addProblem('The dictionary did not load (' + ((err && err.message) || 'unknown error') + '). Check your connection and press Read it again.');
+  });
+}
+
+/* ---------- Aozora Bunko: find a work, fetch it or read its downloaded file, add it in parts ---------- */
+var AZ = window.YomuAozora;
+var PART = 12000;      /* a part of a long work is about this many characters, never more than MAX */
+var PICKS = [92, 637, 628, 43754, 473, 1567, 799, 42, 127, 43015];   /* short works to start with */
+var Z = { cat: null, catP: null, jisP: null, work: null, parts: [], added: [], busy: false, seq: 0 };
+
+function loadCatalog() {
+  if (!Z.catP) {
+    Z.catP = fetch('aozora/catalog.txt').then(function (r) {
+      if (!r.ok) throw new Error('answered ' + r.status);
+      return r.text();
+    }).then(function (t) { Z.cat = AZ.parseCatalog(t); return Z.cat; });
+    Z.catP.catch(function () { Z.catP = null; });
+  }
+  return Z.catP;
+}
+function loadJisTable() {
+  if (!Z.jisP) Z.jisP = fetch('aozora/jisx0213.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  return Z.jisP;
+}
+function openAozora() {
+  show('aoz');
+  aozPanel('find');
+  aozSearch();
+  loadCatalog().then(aozSearch, function (err) {
+    $('aoz-state').textContent = 'The list of works did not load (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.';
+  });
+}
+function aozPanel(which) {
+  $('aoz-find').hidden = which !== 'find';
+  $('aoz-work').hidden = which !== 'work';
+  $('aoz-scroll').scrollTop = 0;
+}
+function kindTag(w) { return w.kind === 0 ? null : el('span', 'tag', w.kind === 4 ? AZ.KINDS[4] : 'Old spelling'); }
+function workCard(w) {
+  var li = el('li');
+  var card = el('button', 'text-card'); card.type = 'button';
+  var top = el('span', 'tc-top');
+  var title = el('span', 'tc-title', w.title + (w.sub ? '　' + w.sub : '')); title.lang = 'ja';
+  top.appendChild(title);
+  var tag = kindTag(w);
+  if (tag) top.appendChild(tag);
+  card.appendChild(top);
+  var by = el('span', 'tc-by', w.by + (w.trans ? '　' + w.trans + ' 訳' : '')); by.lang = 'ja';
+  card.appendChild(by);
+  card.addEventListener('click', function () { openWork(w); });
+  li.appendChild(card);
+  return li;
+}
+function aozSearch() {
+  var list = $('aoz-results'), st = $('aoz-state'), q = $('aoz-q').value;
+  list.textContent = '';
+  if (!Z.cat) { st.textContent = 'Loading the list of works.'; return; }
+  if (!q.trim()) {
+    var picks = PICKS.map(function (id) { return Z.cat.byId[id]; }).filter(Boolean);
+    st.textContent = '';
+    var h = el('li'); h.appendChild(el('h3', 'sub-h', 'Short works to start with')); list.appendChild(h);
+    picks.forEach(function (w) { list.appendChild(workCard(w)); });
+    return;
+  }
+  var r = AZ.search(Z.cat, q, { modern: $('aoz-modern').checked });
+  r.works.forEach(function (w) { list.appendChild(workCard(w)); });
+  if (!r.total) {
+    var all = $('aoz-modern').checked ? AZ.search(Z.cat, q, {}).total : 0;
+    st.textContent = all
+      ? 'No works in modern spelling match. ' + all + (all === 1 ? ' work in old spelling does' : ' works in old spelling do') + ': clear “Modern spelling only” to see ' + (all === 1 ? 'it' : 'them') + '.'
+      : r.url ? 'That work is not in the list. Only works out of copyright are listed.'
+      : 'No works match. Only works out of copyright are listed; try the author’s name, or part of the title.';
+  } else st.textContent = r.total > r.works.length ? 'The first ' + r.works.length + ' of ' + num(r.total) + ' works. Type more to narrow it down.' : num(r.total) + (r.total === 1 ? ' work' : ' works') + '.';
+}
+
+/* a work: w is its catalog entry, or null for a file someone loaded (then info holds what the file says) */
+function openWork(w, info) {
+  var seq = ++Z.seq;
+  Z.work = w; Z.parts = []; Z.added = [];
+  aozPanel('work');
+  var box = $('aoz-work');
+  box.textContent = '';
+  var title = w ? w.title : info.title, sub = w ? w.sub : '';
+  var by = w ? w.by + (w.trans ? '　' + w.trans + ' 訳' : '') : info.author;
+  Z.meta = { title: title || 'Untitled', by: by || '' };
+  var h = el('h2', 'work-h', title || 'Untitled'); h.lang = 'ja';
+  if (sub) { var sm = el('small', null, sub); h.appendChild(sm); }
+  box.appendChild(h);
+  if (by) { var b = el('div', 'work-by', by); b.lang = 'ja'; box.appendChild(b); }
+  if (w) {
+    var links = el('div', 'foot-links');
+    var a = el('a', 'linklike', 'Its page on Aozora Bunko'); a.href = AZ.cardUrl(w); a.target = '_blank'; a.rel = 'noopener';
+    links.appendChild(a);
+    box.appendChild(links);
+    if (w.kind !== 0) box.appendChild(el('div', 'notebox', 'This work is in old spelling (' + AZ.KINDS[w.kind] + '). Readings and meanings are often wrong for old spelling, so a work marked 新字新仮名 is easier to start with.'));
+  }
+  var status = el('div', 'progress');
+  var msg = el('div', 'hint', w ? 'Fetching the text.' : 'Reading the file.'); msg.setAttribute('role', 'status');
+  status.appendChild(msg);
+  box.appendChild(status);
+  var got = w ? AZ.fetchWork(w).then(function (r) { return r.raw; }) : Promise.resolve(info.raw);
+  got.then(function (raw) {
+    return (AZ.needsTable(raw) ? loadJisTable() : Promise.resolve(null)).then(function (jis) { return AZ.parseText(raw, jis); });
+  }).then(function (parsed) {
+    if (seq !== Z.seq) return;
+    status.remove();
+    Z.parts = AZ.splitParts(parsed.lines, PART, MAX);
+    if (!Z.parts.length) { box.appendChild(el('div', 'problem', 'There is no text in it to read.')); return; }
+    renderParts(box);
+  }).catch(function (err) {
+    if (seq !== Z.seq) return;
+    status.remove();
+    if (!w) { box.appendChild(el('div', 'problem', 'That file could not be read (' + ((err && err.message) || 'unknown error') + ').')); return; }
+    box.appendChild(el('div', 'problem', err && err.missing
+      ? 'This work could not be fetched here: it was added to Aozora Bunko, or corrected, after the copy this page reads from was made.'
+      : 'The text could not be fetched (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.'));
+    var p = el('p', 'hint', 'You can still add it from Aozora Bunko’s own file:'); p.style.margin = '0';
+    box.appendChild(p);
+    var ol = el('ol', 'steps');
+    var s1 = el('li'), dl = el('a', 'linklike', 'Download the work’s zip file'); dl.href = AZ.zipUrl(w); dl.target = '_blank'; dl.rel = 'noopener';
+    s1.appendChild(dl); s1.appendChild(document.createTextNode(' from Aozora Bunko.'));
+    var s2 = el('li'), ld = el('button', 'linklike', 'Load that file here'); ld.type = 'button';
+    ld.addEventListener('click', pickAozoraFile);
+    s2.appendChild(ld); s2.appendChild(document.createTextNode('. It is read on your device; you do not need to unzip it.'));
+    ol.appendChild(s1); ol.appendChild(s2);
+    box.appendChild(ol);
+    if (!err || !err.missing) {
+      var again = el('button', 'btn quiet', 'Try again'); again.type = 'button';
+      again.addEventListener('click', function () { openWork(w); });
+      box.appendChild(again);
+    }
+  });
+}
+function partTitle(i) {
+  var n = Z.parts.length, tail = n > 1 ? '（' + (i + 1) + '/' + n + '）' : '';
+  return Z.meta.title.slice(0, 60 - tail.length) + tail;
+}
+function existing(text) { return S.texts.filter(function (t) { return t.text === text; })[0] || null; }
+function renderParts(box) {
+  var n = Z.parts.length, total = 0;
+  Z.parts.forEach(function (p) { total += p.text.length; });
+  Z.added = Z.parts.map(function (p) { return existing(p.text); });
+  var list = el('ul', 'parts');
+  box.appendChild(el('div', 'hint', num(total) + ' characters' + (n > 1 ? ', in ' + n + ' parts. Each part is a text of its own in your library, so you can read one at a time.' : '.')));
+  if (n > 1) {
+    var all = el('button', 'btn', ''); all.type = 'button'; all.id = 'aoz-add-all';
+    box.appendChild(all);
+  }
+  Z.parts.forEach(function (p, i) {
+    var li = el('li');
+    var tx = el('span', 'pt');
+    tx.appendChild(el('span', 'pn', (n > 1 ? 'Part ' + (i + 1) + ' of ' + n + ' · ' : '') + num(p.text.length) + ' characters'));
+    var s = el('span', 'ps', p.head ? p.head + '　' + p.start : p.start); s.lang = 'ja';
+    tx.appendChild(s);
+    li.appendChild(tx);
+    var b = el('button', 'mini'); b.type = 'button'; b.setAttribute('data-part', i);
+    b.addEventListener('click', function () {
+      if (Z.added[i]) { openReader(Z.added[i]); return; }
+      addParts([i]).then(function (ok) { if (ok && n === 1) openReader(Z.added[i]); });
+    });
+    li.appendChild(b);
+    list.appendChild(li);
+  });
+  box.appendChild(list);
+  if (all) all.addEventListener('click', function () {
+    var todo = [];
+    Z.added.forEach(function (t, i) { if (!t) todo.push(i); });
+    if (!todo.length) { show('lib'); renderLibrary(); return; }
+    addParts(todo).then(function (ok) {
+      if (!ok) return;
+      show('lib'); renderLibrary();
+      toast('Added ' + todo.length + (todo.length === 1 ? ' part' : ' parts') + ' of ' + Z.meta.title + '. Each one is prepared when you first open it.');
+    });
+  });
+  partButtons();
+}
+function partButtons() {
+  var n = Z.parts.length;
+  Array.prototype.forEach.call(document.querySelectorAll('#aoz-work [data-part]'), function (b) {
+    var t = Z.added[+b.getAttribute('data-part')];
+    b.textContent = t ? 'Read' : n === 1 ? 'Add and read' : 'Add';
+    b.className = t ? 'mini done' : 'mini';
+    b.disabled = Z.busy;
+  });
+  var all = $('aoz-add-all');
+  if (all) {
+    var left = Z.added.filter(function (t) { return !t; }).length;
+    all.textContent = left === n ? 'Add all ' + n + ' parts' : left ? 'Add the other ' + left + (left === 1 ? ' part' : ' parts') : 'All parts are in your library';
+    all.disabled = Z.busy;
+  }
+}
+/* adds the parts in idx (in order); part 1 gets the newest time so the parts are listed in reading order */
+function addParts(idx) {
+  if (Z.busy) return Promise.resolve(false);
+  Z.busy = true; partButtons();
+  var parts = Z.parts, meta = Z.meta, added = Z.added, seq = Z.seq, n = parts.length, now = Date.now();
+  /* parts added before keep their place: the new ones are timed to fit around them */
+  added.some(function (t, j) { if (t && !t.sample) { now = t.created - (n - j); return true; } return false; });
+  return idx.reduce(function (p, i) {
+    return p.then(function () {
+      if (added[i]) return;
+      var t = { title: partTitle(i), by: meta.by.slice(0, 60), text: parts[i].text, created: now + (n - i), seen: [], n: 0, av: 0 };
+      return createText(t).then(function () { S.texts.unshift(t); added[i] = t; });
+    });
+  }, Promise.resolve()).then(function () { return true; }, function (err) {
+    toast('Could not save it (' + ((err && err.code) || (err && err.message) || 'unknown') + '). The browser’s storage may be full: delete some texts and try again.');
+    return false;
+  }).then(function (ok) {
+    S.texts.sort(function (a, b) { return b.created - a.created; });
+    if (S.mode !== 'db') saveLocal();
+    Z.busy = false;
+    if (seq === Z.seq) partButtons();
+    return ok;
+  });
+}
+function pickAozoraFile() { $('aoz-file').value = ''; $('aoz-file').click(); }
+function readAozoraFile(file) {
+  if (file.size > 20 * 1024 * 1024) { toast('That file is too big to be an Aozora Bunko text.'); return; }
+  file.arrayBuffer().then(function (b) { return AZ.bytesToText(new Uint8Array(b)); }).then(function (raw) {
+    if (!/[぀-ヿ㐀-鿿]/.test(raw)) throw new Error('it holds no Japanese text');
+    var head = AZ.parseText(raw.split(/\r?\n\s*\r?\n/)[0] + '\n\n');
+    openWork(null, { title: head.title || file.name.replace(/\.(zip|txt)$/i, ''), author: head.author, raw: raw });
+  }).catch(function (err) {
+    toast('That file could not be read (' + ((err && err.message) || 'unknown error') + ').');
   });
 }
 
@@ -916,6 +1186,18 @@ function renderLooked() {
 /* ---------- wiring ---------- */
 $('go-add').addEventListener('click', function () { addProblem(''); show('add'); });
 $('add-back').addEventListener('click', function () { show('lib'); renderLibrary(); });
+$('go-aoz').addEventListener('click', openAozora);
+$('add-to-aoz').addEventListener('click', openAozora);
+$('aoz-back').addEventListener('click', function () {
+  if (!$('aoz-work').hidden) { Z.seq++; aozPanel('find'); return; }
+  show('lib'); renderLibrary();
+});
+$('aoz-form').addEventListener('submit', function (e) { e.preventDefault(); aozSearch(); $('aoz-q').blur(); });
+var aozTimer = 0;
+$('aoz-q').addEventListener('input', function () { clearTimeout(aozTimer); aozTimer = setTimeout(aozSearch, 200); });
+$('aoz-modern').addEventListener('change', aozSearch);
+$('aoz-file-btn').addEventListener('click', pickAozoraFile);
+$('aoz-file').addEventListener('change', function () { var f = this.files && this.files[0]; if (f) readAozoraFile(f); });
 $('read-back').addEventListener('click', function () {
   clearTimeout(seenTimer);
   if (S.cur) persistSeen(S.cur);
