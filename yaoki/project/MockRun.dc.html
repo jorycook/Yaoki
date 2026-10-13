@@ -96,6 +96,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 
 <sc-if value="{{ v.paper }}" hint-placeholder-val="{{ false }}">
 <div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+<div data-paper-scroll style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 4px; display: flex; flex-direction: column">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div lang="ja" style="flex-grow: 1; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ q.mondai }}</div>
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ pos }}</div>
@@ -148,7 +149,8 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <button onClick="{{ toggleFlag }}" aria-pressed="{{ flagOn }}" style="height: 44px; padding: 0 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; border: {{ flagBorder }}; background: {{ flagBg }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ flagFill }}" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg>あとで見直す　Flag</button>
 </div>
 
-<div style="flex-grow: 1"></div>
+</div>
+<div style="flex-shrink: 0; height: 10px"></div>
 <div style="display: grid; grid-template-columns: 1.1fr 1.6fr; gap: 10px">
 <button disabled="{{ first }}" onClick="{{ prev }}" style="height: 54px; padding: 0; border-radius: 16px; font-weight: 800; font-size: 15px; white-space: nowrap; background: #FFFFFF; border: {{ prevBorder }}; color: {{ prevInk }}; box-shadow: {{ prevShadow }}">まえへ　Previous</button>
 <button onClick="{{ next }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; white-space: nowrap; font-size: {{ nextSize }}">{{ nextLabel }}</button>
@@ -680,7 +682,9 @@ if (document.visibilityState === 'hidden' && s.view === 'listening' && s.live &&
 document.addEventListener('visibilitychange', this.onHide);
 if (this.state.live) this.clockOn();
 }
-componentDidUpdate(prev) {
+componentDidUpdate(prev, was) {
+/* a long question scrolls on its own; the next one starts at its top */
+if (was && (was.i !== this.state.i || was.sec !== this.state.sec)) document.querySelectorAll('[data-paper-scroll]').forEach((el) => { el.scrollTop = 0; });
 if (!this.props.go && prev && prev.view !== this.props.view) {
 this.clockOff();
 this.hush();

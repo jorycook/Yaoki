@@ -26,6 +26,7 @@ run "content sweep"                timeout 2400 bash run.sh content-sweep.js
 run "content sweep, mode 2"        OMELETTE=1 timeout 2400 bash run.sh content-sweep.js
 run "content sweep, N5"           LEVEL=N5 NOSOUND=1 timeout 2400 bash run.sh content-sweep.js
 run "N5 mini mock"                timeout 400 bash run.sh n5-mock.js
+run "N4 mini mock"                timeout 400 bash run.sh n4-mock.js
 run "sound decode"                timeout 120 bash run.sh sound-test.js
 pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
 for mode in "" OMELETTE; do

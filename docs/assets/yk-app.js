@@ -82,6 +82,8 @@
         return { src: src, wrong: String(m.wrong || ''), at: +m.at || C.now(), step: +m.step || 0, due: dateOk(m.due) ? m.due : C.today(C.now()), cleared: !!m.cleared, last: m.last || '' };
       }).filter(Boolean);
       s.mock = obj(from.mock) && from.mock.done ? from.mock : null;
+      s.mocks = {};
+      Object.keys(obj(from.mocks) || {}).forEach(function (k) { var m = from.mocks[k]; if (levels[k] && obj(m) && m.done) s.mocks[k] = m; });
       if (typeof from.cur === 'string' && C.session(from.cur)) s.cur = from.cur;
       s.tp = from.tp === 1 ? 1 : 0;
       s.set = from.set === 'test' ? 'test' : 'day';
@@ -95,7 +97,7 @@
   function remember(s) {
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
-    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
     var text = JSON.stringify(keep);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
