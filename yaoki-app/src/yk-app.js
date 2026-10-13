@@ -55,7 +55,7 @@
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
       s.screen = query.get('screen') || 'Goal';
-      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day' };
+      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day' };
       if (from.started && !from.plan) from.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit' };
       if (query.get('now')) window.__ykNow = +query.get('now');
     } else {
@@ -64,8 +64,15 @@
     }
     if (from) {
       s.started = !!from.started;
-      var plan = obj(from.plan);
-      s.plan = plan && dateOk(plan.start) && dateOk(plan.exam) ? { start: plan.start, exam: plan.exam, pace: plan.pace === 'steady' ? 'steady' : 'fit', minutes: plan.minutes || 30 } : null;
+      var planOk = function (p) { p = obj(p); return p && dateOk(p.start) && dateOk(p.exam) ? { start: p.start, exam: p.exam, pace: p.pace === 'steady' ? 'steady' : 'fit', minutes: p.minutes || 30 } : null; };
+      s.plan = planOk(from.plan);
+      /* the level the learner is on (saves from before there were several levels are N2), and the plans of the others */
+      var levels = {};
+      C.levels().forEach(function (x) { levels[x.level] = x.ready; });
+      s.level = typeof from.level === 'string' && levels[from.level] ? from.level : s.started ? 'N2' : null;
+      s.plans = {};
+      Object.keys(obj(from.plans) || {}).forEach(function (k) { if (levels[k] && planOk(from.plans[k])) s.plans[k] = planOk(from.plans[k]); });
+      C.setLevel(s.level || 'N2');
       s.done = obj(from.done) || {};
       s.tests = obj(from.tests) || {};
       s.mistakes = (Array.isArray(from.mistakes) ? from.mistakes : []).map(function (m) {
@@ -88,7 +95,7 @@
   function remember(s) {
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
-    var keep = { v: 2, started: !!s.started, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
     var text = JSON.stringify(keep);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }

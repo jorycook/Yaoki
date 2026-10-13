@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 <script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
@@ -175,7 +176,8 @@ wrong: answered && !right,
 verdict: right ? 'せいかい！ ' + it.answer + ' ' + answer : 'おしい！ 正解は ' + it.answer + ' ' + answer + '。 Saved to your notebook.',
 explain: it.explain || (it.why ? it.why[(s.quiz || 1) - 1] : ''),
 tone: right ? '#0B7A6B' : '#C7361E',
-choiceCols: 'repeat(' + Math.max(1, it.options.length) + ', minmax(0, 1fr))',
+/* four short readings sit in one row; longer options take two columns, sentences one */
+choiceCols: (() => { const w = Math.max(0, ...it.options.map((o) => C.plain(o).length)); const n = w <= 3 ? it.options.length : w <= 9 ? 2 : 1; return 'repeat(' + Math.max(1, n) + ', minmax(0, 1fr))'; })(),
 choices: it.options.map((o, k) => ({
 label: (k + 1) + ' ' + o,
 pick: () => {

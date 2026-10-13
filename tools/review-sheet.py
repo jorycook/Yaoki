@@ -1,15 +1,20 @@
 """Build a unit's review sheet for the native-speaking reviewer.
-usage: python3 tools/review-sheet.py 3   ->  content/n2/review/u03-review.html
-Reads content/n2/uNN.json, units.json and review/uNN-flags.json; the page template is tools/review-sheet.html.
+usage: python3 tools/review-sheet.py 3        ->  content/n2/review/u03-review.html
+       python3 tools/review-sheet.py n5 1     ->  content/n5/review/u01-review.html
+Reads content/<level>/uNN.json, units.json and review/uNN-flags.json; the page template is tools/review-sheet.html.
 Every row is one thing to judge: a teach page, a comparison, an item, a scene's words, a reading or listening lesson.
 Flagged rows (red, then amber) come first; the rest follow day by day in a compact form."""
 import html, json, re, sys, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-n = int(sys.argv[1])
-U = json.load(open(f'{ROOT}/content/n2/u{n:02d}.json', encoding='utf-8'))
-SYL = json.load(open(f'{ROOT}/content/n2/units.json', encoding='utf-8'))
-FL = json.load(open(f'{ROOT}/content/n2/review/u{n:02d}-flags.json', encoding='utf-8'))
+args = sys.argv[1:]
+lvdir = args.pop(0) if args and not args[0].isdigit() else 'n2'
+n = int(args[0])
+pre = '' if lvdir == 'n2' else lvdir
+U = json.load(open(f'{ROOT}/content/{lvdir}/u{n:02d}.json', encoding='utf-8'))
+SYL = json.load(open(f'{ROOT}/content/{lvdir}/units.json', encoding='utf-8'))
+FL = json.load(open(f'{ROOT}/content/{lvdir}/review/u{n:02d}-flags.json', encoding='utf-8'))
+LEVEL = SYL['level']
 flags = FL['flags']
 syl = next(x for x in (SYL['units'] if isinstance(SYL, dict) else SYL) if x.get('n', x.get('unit')) == n)
 
@@ -70,6 +75,9 @@ add('syllabus', 'Unit', 'Syllabus', 'Unit ' + str(n) + ': ' + e((syl['ja'] + ' '
 if flags.get('syllabus') is None:
     rows[-1]['level'] = 'amber'
     rows[-1]['note'] = FL.get('syllabus', '')
+# questions about the way the whole level is written (spacing, readings), when the flags ask them
+for k, q in enumerate(FL.get('style', [])):
+    rows.append({'id': f'style.{k + 1}', 'group': 'Unit', 'label': 'Style', 'head': e(q[0]), 'body': '', 'level': 'amber', 'note': q[1]})
 
 for key in sorted(U['days'], key=int):
     d = U['days'][key]
@@ -92,7 +100,7 @@ for key in sorted(U['days'], key=int):
         add(it['id'], grp, 'Exam-style · ' + it.get('type', ''), f'<span lang="ja">{filled(it)}</span>', options(it))
     s = d['scene']
     words = ''.join(f'<tr><td lang="ja">{e(w["word"])}</td><td lang="ja">{e(w["reading"])}</td><td>{e(w["gloss"])}</td></tr>' for w in s['words'])
-    add(f'u{n:02d}d{key}.k', grp, 'Scene words', f'<span lang="ja">{e(s["ja"])}</span> <span class="en">{e(s["en"])}</span>: ' +
+    add(f'{pre}u{n:02d}d{key}.k', grp, 'Scene words', f'<span lang="ja">{e(s["ja"])}</span> <span class="en">{e(s["en"])}</span>: ' +
         '<span lang="ja">' + '、'.join(e(w['word']) for w in s['words']) + '</span>', f'<table class="words">{words}</table>')
     add(s['check']['id'], grp, 'Scene check · ' + s['check'].get('type', ''), f'<span lang="ja">{filled(s["check"])}</span>', options(s['check']))
     sk = d['skill']
@@ -101,7 +109,7 @@ for key in sorted(U['days'], key=int):
         body = f'<p lang="ja" class="passage">{rich(sk["passage"])}</p><p lang="ja"><b>{e(plain(it["q"]))}</b></p>' + options(it)
         head = f'Reading · {e(sk["en"])}: <span lang="ja">{e(plain(it["q"]))}</span>'
     else:
-        body = '<div class="passage" lang="ja">' + ''.join(f'<p>{e(l)}</p>' for l in it.get('script', [])) + f'</div><p lang="ja"><b>{e(plain(sk.get("ask", "")))}</b></p>' + options(it)
+        body = (f'<p class="small">The picture: {e(sk["situation"])}</p>' if sk.get('situation') else '') + '<div class="passage" lang="ja">' + ''.join(f'<p>{e(l)}</p>' for l in it.get('script', [])) + f'</div><p lang="ja"><b>{e(plain(sk.get("ask", "")))}</b></p>' + options(it)
         head = f'Listening · {e(sk["en"])}: <span lang="ja">{e(plain(it["q"]))[:60]}</span>'
     add(it['id'], grp, 'Reading' if sk['kind'] == 'reading' else 'Listening', head, body)
 
@@ -124,9 +132,9 @@ if missing:
     sys.exit('flags for unknown rows: ' + ', '.join(missing))
 
 tpl = open(f'{ROOT}/tools/review-sheet.html', encoding='utf-8').read()
-page = tpl.replace('__UNIT__', str(n)).replace('__FN__', '<span lang="ja" style="white-space:nowrap">' + e(syl['ja']) + '</span> ' + e(syl['en'])).replace(
+page = tpl.replace('__LEVEL__', LEVEL).replace('__LSKEY__', ('' if lvdir == 'n2' else lvdir + '-') + 'u' + str(n)).replace('__UNIT__', str(n)).replace('__FN__', '<span lang="ja" style="white-space:nowrap">' + e(syl['ja']) + '</span> ' + e(syl['en'])).replace(
     '__ROWS__', json.dumps(rows, ensure_ascii=False).replace('</', '<\\/'))
-out = f'{ROOT}/content/n2/review/u{n:02d}-review.html'
+out = f'{ROOT}/content/{lvdir}/review/u{n:02d}-review.html'
 open(out, 'w', encoding='utf-8').write(page)
 lv = {}
 for r in rows:

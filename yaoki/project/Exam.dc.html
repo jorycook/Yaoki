@@ -5,6 +5,7 @@
 <title>Exam-style step</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 </head>
 <body>
@@ -91,7 +92,7 @@ test: { seconds: 1200, title: '週テスト　WEEK TEST', note: 'Exam format, on
 /* a star question is asked as on the paper: the four tiles numbered, and the number for the star is the answer */
 function asAsked(it) {
 if (it.kind !== 'star') return it;
-return { ...it, options: it.bank.map((t) => it.tiles[t]), answer: it.bank.indexOf(it.star) + 1, starQ: true };
+return { ...it, options: it.bank.map((t) => window.ykCourse.plain(it.tiles[t])), answer: it.bank.indexOf(it.star) + 1, starQ: true };
 }
 class Component extends DCLogic {
 constructor(props) {
@@ -168,7 +169,7 @@ press: on ? 'translateY(3px)' : 'none',
 /* exam conditions: no readings over the kanji. A star question shows its blanks */
 let segs;
 if (q.starQ) {
-segs = [{ t: q.before, text: true, ws: 'nowrap' }, { blank: true }, { blank: true }, { blank: true }, { blank: true }, { t: q.after, text: true, ws: 'nowrap' }];
+segs = [{ t: C.plain(q.before), text: true, ws: 'normal' }, { blank: true }, { blank: true }, { blank: true }, { blank: true }, { t: C.plain(q.after), text: true, ws: 'normal' }];
 segs[1 + q.star] = { star: true };
 } else segs = C.rich(q.q, { ruby: false, hl: false }).map((g) => ({ t: g.t, text: true, ws: 'normal' }));
 const last = s.i === list.length - 1;

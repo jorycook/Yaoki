@@ -44,9 +44,14 @@
 </div>
 
 <sc-if value="{{ asking }}">
-<div style="padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 3px">
-<div style="font-size: 13px; font-weight: 800"><span lang="ja">レベル</span>　Level · N2</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">This prototype is being filled in unit by unit. Days that are not written yet are marked 準備中. The other levels have no content yet.</div>
+<div style="padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 800"><span lang="ja">レベル</span>　Level · {{ level }}</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
+<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 44px; border-radius: 12px; font-weight: 800; font-size: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">Each level keeps its own plan and notebook. The course is being written unit by unit; days not written yet are marked 準備中.</div>
 </div>
 
 <div style="padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
@@ -102,9 +107,23 @@ const s = this.state;
 const at = {};
 SCREENS.forEach((n) => { at[n] = s.screen === n; });
 const closeMenu = () => { clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); this.setState({ menu: false, confirm: false, testing: false }); };
+const app = window.ykCourse.view(s);
+/* the menu changes level: the level's own plan comes back, or its goal screen the first time */
+const levels = app.levels.map((x) => {
+const on = x.level === app.level;
+const off = !x.ready;
+return {
+label: x.level, on, off, aria: x.level + (off ? ', not written yet' : on ? ', current level' : ''),
+border: on ? '2px solid #1B2440' : off ? '2px dashed #DDE1EC' : '2px solid #DDE1EC',
+bg: on ? '#2F4FD0' : '#FFFFFF', color: on ? '#FFFFFF' : off ? '#9AA1B5' : '#1B2440',
+pick: () => { if (off) return; closeMenu(); this.h.level(x.level); },
+};
+});
 return {
 at,
-app: window.ykCourse.view(s),
+app,
+level: app.level,
+levels,
 go: this.h.go,
 save: this.h.save,
 miss: this.h.miss,

@@ -1,0 +1,3356 @@
+{
+  "days": {
+    "1": {
+      "title": "ここ／そこ／あそこ・こちら／そちら／あちら",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u02d1.p1",
+            "form": "ここ／そこ／あそこ／どこ",
+            "gloss": "here, there, over there, where",
+            "connect": [
+              {
+                "pos": "A place word as the topic, then a noun",
+                "rule": "{ここ} ＋ は ＋ 〜 ＋ です"
+              },
+              {
+                "pos": "Noun (a thing or a place), then the place word",
+                "rule": "〜 ＋ は ＋ {あそこ} ＋ です"
+              },
+              {
+                "pos": "Noun, asking where it is",
+                "rule": "〜 ＋ は ＋ {どこ} ＋ ですか"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "{ここ}は[駅|えき]です。",
+                "en": "This place is the station."
+              },
+              {
+                "ja": "トイレは{どこ}ですか。",
+                "en": "Where is the toilet?"
+              }
+            ],
+            "watch": {
+              "note": "ここ is a place word and stands on its own. To point at a noun, use この, as in このみせ.",
+              "bad": "ここみせはやすいです。",
+              "good": "このみせはやすいです。"
+            }
+          },
+          {
+            "id": "n5u02d1.p2",
+            "form": "こちら／そちら／あちら／どちら",
+            "gloss": "this way, that way (polite); this person",
+            "connect": [
+              {
+                "pos": "Noun, then the polite place word",
+                "rule": "〜 ＋ は ＋ {あちら} ＋ です"
+              },
+              {
+                "pos": "Noun, asking where politely",
+                "rule": "〜 ＋ は ＋ {どちら} ＋ ですか"
+              },
+              {
+                "pos": "Introducing a person, then the person's name",
+                "rule": "{こちら} ＋ は ＋ 〜さん ＋ です"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[店|みせ]の[人|ひと]：トイレは{あちら}です。",
+                "en": "Shop staff: The toilet is over there."
+              },
+              {
+                "ja": "{こちら}は[山川|やまかわ]さんです。",
+                "en": "This is Mr Yamakawa."
+              }
+            ],
+            "watch": {
+              "note": "For a person in front of you, say こちら, not これ. これ is for things.",
+              "bad": "これはやまかわさんです。",
+              "good": "こちらはやまかわさんです。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "Three pointing words: one points at a place, one points politely at a place or a person, and one points at a thing.",
+          "forms": [
+            {
+              "form": "ここ",
+              "tag": "ばしょ · a place (here)",
+              "mark": "dot",
+              "ja": "{ここ}は[学校|がっこう]です。",
+              "en": "This place is a school."
+            },
+            {
+              "form": "こちら",
+              "tag": "ていねい · polite (this way, this person)",
+              "mark": "up",
+              "ja": "[駅|えき]は{こちら}です。",
+              "en": "The station is this way."
+            },
+            {
+              "form": "これ",
+              "tag": "もの · a thing (this)",
+              "mark": "dot",
+              "ja": "{これ}は[本|ほん]です。",
+              "en": "This is a book."
+            }
+          ],
+          "check": {
+            "id": "n5u02d1.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "ともだちをしょうかいする",
+            "q": "[先生|せんせい]、（　　）は^[友|とも]だちのリンさん^です。",
+            "options": [
+              "これ",
+              "こちら",
+              "ここ"
+            ],
+            "answer": 2,
+            "why": [
+              "これ points at a thing. Lin is a person.",
+              "こちら points politely at a person in front of you. You are talking to your teacher, so the polite word fits.",
+              "ここ points at a place. Lin is a person, not a place."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u02d1.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「すみません。[駅|えき]は（　　）ですか。」\nB「^あそこです^。」",
+            "options": [
+              "どこ",
+              "なん",
+              "だれ",
+              "いつ"
+            ],
+            "answer": 1,
+            "why": [
+              "B answers with a place, あそこ, so A asked where the station is.",
+              "なん asks what something is. B's answer is a place.",
+              "だれ asks who. A station is not a person.",
+              "いつ asks when. B's answer is a place, not a time."
+            ]
+          },
+          {
+            "id": "n5u02d1.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「すみません、[学校|がっこう]は（　　）ですか。」\nB「^あの[白|しろ]いたてもの^です。」",
+            "options": [
+              "ここ",
+              "そこ",
+              "あそこ",
+              "どこ"
+            ],
+            "answer": 4,
+            "why": [
+              "ここ would say the school is right here, but A does not know where it is and asks.",
+              "そこ would say the school is near B. A is asking, and B answers with a place.",
+              "あそこ is how B answers (あの白いたてもの). A does not know yet, so A cannot say it.",
+              "A does not know where the school is, so A asks with どこ, and B answers with あの白いたてもの."
+            ]
+          },
+          {
+            "id": "n5u02d1.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[店|みせ]の[人|ひと]「エレベーターは（　　）です。^どうぞ^。」",
+            "options": [
+              "あちら",
+              "あの",
+              "どちら",
+              "だれ"
+            ],
+            "answer": 1,
+            "why": [
+              "Shop staff speak politely, and あちら is the polite way to say あそこ, over there.",
+              "あの needs a noun right after it, as in あのドア. Here です follows.",
+              "どちら asks where. The sentence ends in です, not ですか: she is telling, not asking.",
+              "だれ asks who. An elevator is not a person, and this is not a question."
+            ]
+          },
+          {
+            "id": "n5u02d1.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「^お[国|くに]^は（　　）ですか。」\nB「ブラジルです。」",
+            "options": [
+              "どれ",
+              "だれ",
+              "いつ",
+              "どちら"
+            ],
+            "answer": 4,
+            "why": [
+              "どれ asks which one of several things you can see or point at. A country is not in front of you.",
+              "だれ asks who. A country is not a person.",
+              "いつ asks when. Brazil is not a time.",
+              "どちら is the polite way to ask where. お国はどちらですか is how you politely ask someone's country."
+            ]
+          },
+          {
+            "id": "n5u02d1.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「すみません。",
+            "after": "か。」\nB「あそこです。」",
+            "tiles": [
+              "[山川|やまかわ]",
+              "[大学|だいがく]は",
+              "どこ",
+              "です"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "The place you ask about comes first, with は. どこ sits right before です.",
+            "full": "A「すみません。[山川|やまかわ][大学|だいがく]は{どこ}ですか。」\nB「あそこです。」",
+            "explain": "山川 is the name of the university, so it sits right before 大学は, the topic. どこ asks where, and ですか closes the question."
+          },
+          {
+            "id": "n5u02d1.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[先生|せんせい]、",
+            "after": "です。",
+            "tiles": [
+              "こちらは",
+              "わたしの",
+              "[友|とも]だちの",
+              "リンさん"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "Start with the polite word for the person you introduce. Then say who she is.",
+            "full": "[先生|せんせい]、{こちら}はわたしの[友|とも]だちのリンさんです。",
+            "explain": "こちらは is the topic: the person you are introducing. わたしの goes with 友だち, and 友だちの tells who Lin is, so it sits right before リンさん."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u02d1.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「すみません。トイレは　どこですか。」\nB「（　　）です。あの　白い　ドアです。」",
+            "options": [
+              "これ",
+              "どれ",
+              "あの",
+              "あそこ"
+            ],
+            "answer": 4,
+            "explain": "A asks where, and B points at あの白いドア, far from both of them, so あそこ. これ points at a thing near the speaker, どれ asks a question, and あの needs a noun right after it."
+          },
+          {
+            "id": "n5u02d1.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「山川さんの　会社は　（　　）ですか。」\nB「駅の　前です。」",
+            "options": [
+              "だれ",
+              "どちら",
+              "いつ",
+              "いくら"
+            ],
+            "answer": 2,
+            "explain": "B answers with a place, 駅の前, so A asked where, politely: どちら. だれ asks who, いつ asks when, and いくら asks how much."
+          },
+          {
+            "id": "n5u02d1.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません。",
+            "after": "か。",
+            "tiles": [
+              "山川",
+              "駅は",
+              "こちら",
+              "です"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "full": "すみません。山川駅は{こちら}ですか。",
+            "explain": "山川, 駅は, こちら, です. 山川 is the name of the station, so it comes right before 駅は, the topic. こちら then says \"this way\", and ですか asks."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "駅のまわりのちず",
+        "en": "A map of the streets around the station",
+        "intro": "Tap each word on the map and the signs you see when you leave the station.",
+        "words": [
+          {
+            "id": "station",
+            "word": "駅",
+            "reading": "えき",
+            "gloss": "station",
+            "parts": [
+              [
+                "駅",
+                "エキ",
+                "station"
+              ]
+            ]
+          },
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "shop",
+            "word": "店",
+            "reading": "みせ",
+            "gloss": "shop",
+            "parts": [
+              [
+                "店",
+                "みせ",
+                "shop"
+              ]
+            ]
+          },
+          {
+            "id": "school",
+            "word": "学校",
+            "reading": "がっこう",
+            "gloss": "school",
+            "parts": [
+              [
+                "学",
+                "ガッ",
+                "study"
+              ],
+              [
+                "校",
+                "コウ",
+                "school"
+              ]
+            ]
+          },
+          {
+            "id": "river",
+            "word": "川",
+            "reading": "かわ",
+            "gloss": "river",
+            "parts": [
+              [
+                "川",
+                "かわ",
+                "river"
+              ]
+            ]
+          },
+          {
+            "id": "road",
+            "word": "道",
+            "reading": "みち",
+            "gloss": "road, street",
+            "parts": [
+              [
+                "道",
+                "みち",
+                "road, way"
+              ]
+            ]
+          },
+          {
+            "id": "right",
+            "word": "右",
+            "reading": "みぎ",
+            "gloss": "right",
+            "parts": [
+              [
+                "右",
+                "みぎ",
+                "right"
+              ]
+            ]
+          },
+          {
+            "id": "left",
+            "word": "左",
+            "reading": "ひだり",
+            "gloss": "left",
+            "parts": [
+              [
+                "左",
+                "ひだり",
+                "left"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u02d1.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "_出口_は　あそこです。",
+          "options": [
+            "でくち",
+            "てぐち",
+            "でぐち",
+            "だぐち"
+          ],
+          "answer": 3,
+          "explain": "出口 is でぐち: 出 is で, and in this word 口 is read ぐち, as in 北口 (きたぐち). でくち keeps く without the dakuten, てぐち drops the dakuten on で, and だぐち has the wrong vowel."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "課題理解",
+        "en": "Task comprehension",
+        "ask": "男の人は　はじめに　どこへ　行きますか。",
+        "audio": [
+          [
+            "N",
+            "日本語学校で、女の人と男の人が話しています。男の人は、はじめに、どこへ行きますか。",
+            "にほんごがっこうで、おんなのひとと　おとこのひとが　はなしています。おとこのひとは、はじめに、どこへ　いきますか。"
+          ],
+          [
+            "M",
+            "すみません。山川先生のへやはどこですか。",
+            "すみません。やまかわせんせいのへやはどこですか。"
+          ],
+          [
+            "F",
+            "山川先生のへやは、あそこですよ。でも、山川先生は、いま、しょくどうです。",
+            "やまかわせんせいのへやは、あそこですよ。でも、やまかわせんせいは、いま、しょくどうです。"
+          ],
+          [
+            "M",
+            "そうですか。しょくどうはどこですか。",
+            null
+          ],
+          [
+            "F",
+            "一かいです。あ、でも、そのまえに、こちらのうけつけで名前を書いてください。",
+            "いっかいです。あ、でも、そのまえに、こちらのうけつけで　なまえを　かいてください。"
+          ],
+          [
+            "M",
+            "はい。うけつけは、こちらですね。",
+            null
+          ],
+          [
+            "F",
+            "ええ、そうです。",
+            null
+          ],
+          [
+            "N",
+            "男の人は、はじめに、どこへ行きますか。",
+            "おとこのひとは、はじめに、どこへ　いきますか。"
+          ]
+        ],
+        "item": {
+          "id": "n5u02d1.r1",
+          "kind": "choice",
+          "type": "課題理解",
+          "q": "男の人は　はじめに　どこへ　行きますか。",
+          "script": [
+            "ナレーター：日本語学校で、女の人と男の人が話しています。男の人は、はじめに、どこへ行きますか。",
+            "男：すみません。山川先生のへやはどこですか。",
+            "女：山川先生のへやは、あそこですよ。でも、山川先生は、いま、しょくどうです。",
+            "男：そうですか。しょくどうはどこですか。",
+            "女：一かいです。あ、でも、そのまえに、こちらのうけつけで名前を書いてください。",
+            "男：はい。うけつけは、こちらですね。",
+            "女：ええ、そうです。",
+            "ナレーター：男の人は、はじめに、どこへ行きますか。"
+          ],
+          "options": [
+            "先生の　へや",
+            "しょくどう",
+            "うけつけ",
+            "きょうしつ"
+          ],
+          "printed": true,
+          "short": [
+            "先生の へや",
+            "しょくどう",
+            "うけつけ",
+            "きょうしつ"
+          ],
+          "answer": 3,
+          "why": [
+            "The man asks about the teacher's room, but the teacher is not there now. He is in the cafeteria.",
+            "The teacher is in the cafeteria, but the woman says そのまえに: before that, write your name at the reception desk.",
+            "そのまえに means \"before that\". He writes his name at the reception desk first, and checks with うけつけは、こちらですね.",
+            "Nobody talks about a classroom."
+          ]
+        }
+      }
+    },
+    "2": {
+      "title": "あります・います",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u02d2.p1",
+            "form": "あります",
+            "gloss": "there is (things, plants)",
+            "connect": [
+              {
+                "pos": "Thing or plant",
+                "rule": "〜 ＋ が ＋ {あります}"
+              },
+              {
+                "pos": "Question",
+                "rule": "〜 ＋ が ＋ {ありますか}"
+              },
+              {
+                "pos": "Not there",
+                "rule": "〜 ＋ は ＋ {ありません}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "あそこに[大|おお]きい[木|き]が{あります}。",
+                "en": "There is a big tree over there."
+              },
+              {
+                "ja": "すみません、[今|いま]、コーヒーは{ありません}。",
+                "en": "Sorry, we don't have any coffee right now."
+              }
+            ],
+            "watch": {
+              "note": "ありません means \"there isn't\". じゃありません means \"it is not\". To say a thing is not there, use は or が with ありません.",
+              "bad": "ここにペンじゃありません。",
+              "good": "ここにペンはありません。"
+            }
+          },
+          {
+            "id": "n5u02d2.p2",
+            "form": "います",
+            "gloss": "there is (people, animals)",
+            "connect": [
+              {
+                "pos": "Person or animal",
+                "rule": "〜 ＋ が ＋ {います}"
+              },
+              {
+                "pos": "Question",
+                "rule": "〜 ＋ は ＋ {いますか}"
+              },
+              {
+                "pos": "Not there",
+                "rule": "〜 ＋ は ＋ {いません}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[川|かわ]に[魚|さかな]が{います}。",
+                "en": "There are fish in the river."
+              },
+              {
+                "ja": "[先生|せんせい]は{いますか}。……いいえ、{いません}。",
+                "en": "Is the teacher here? No, she isn't."
+              }
+            ],
+            "watch": {
+              "note": "People and animals take います, even fish and birds. あります is only for things and plants, so あります for a dog sounds wrong.",
+              "bad": "こうえんにいぬがあります。",
+              "good": "こうえんにいぬがいます。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "あります and います both say that something is there. です says what something is.",
+          "forms": [
+            {
+              "form": "あります",
+              "tag": "もの · things, plants",
+              "mark": "dot",
+              "ja": "[本|ほん]が{あります}。",
+              "en": "There is a book."
+            },
+            {
+              "form": "います",
+              "tag": "いきもの · people, animals",
+              "mark": "dot",
+              "ja": "ねこが{います}。",
+              "en": "There is a cat."
+            },
+            {
+              "form": "〜です",
+              "tag": "なに · what it is",
+              "mark": "dot",
+              "ja": "これは[本|ほん]{です}。",
+              "en": "This is a book."
+            }
+          ],
+          "check": {
+            "id": "n5u02d2.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "こうえんで",
+            "q": "こうえんに[子|こ]どもが（　　）。",
+            "options": [
+              "あります",
+              "います",
+              "です"
+            ],
+            "answer": 2,
+            "why": [
+              "あります is for things and plants. Children are people.",
+              "Children are people, so they take います.",
+              "です says what something is, as in これは本です. 子どもがです is not a sentence."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u02d2.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：^[水|みず]^がありますか。B：はい、（　　）。",
+            "options": [
+              "あります",
+              "います",
+              "です",
+              "ありません"
+            ],
+            "answer": 1,
+            "why": [
+              "Water is a thing, so it takes あります. The yes answer repeats the verb: はい、あります.",
+              "います is for people and animals. Water is a thing.",
+              "はい、です is not an answer. The answer repeats the verb of the question.",
+              "ありません means \"there isn't\". It clashes with はい."
+            ]
+          },
+          {
+            "id": "n5u02d2.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "あそこに^いぬ^が（　　）。",
+            "options": [
+              "います",
+              "あります",
+              "ありません",
+              "じゃありません"
+            ],
+            "answer": 1,
+            "why": [
+              "A dog is an animal, so it takes います.",
+              "あります is for things and plants, not for a dog.",
+              "ありません is the no form of あります, so it is also wrong for a dog.",
+              "じゃありません means \"it is not\". It does not follow が."
+            ]
+          },
+          {
+            "id": "n5u02d2.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：^ペン^がありますか。B：いいえ、（　　）。",
+            "options": [
+              "ありません",
+              "いません",
+              "じゃありません",
+              "あります"
+            ],
+            "answer": 1,
+            "why": [
+              "A pen is a thing, so the no answer is ありません.",
+              "いません is for people and animals. A pen is a thing.",
+              "じゃありません means \"it is not\" and needs a noun before it. Here B says the pen is not there.",
+              "あります means \"there is\". It clashes with いいえ."
+            ]
+          },
+          {
+            "id": "n5u02d2.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：[川|かわ]に^[魚|さかな]^がいますか。B：いいえ、（　　）。",
+            "options": [
+              "いません",
+              "ありません",
+              "じゃありません",
+              "います"
+            ],
+            "answer": 1,
+            "why": [
+              "Fish are animals, so the no answer is いません.",
+              "ありません is for things and plants. Fish are animals.",
+              "じゃありません means \"it is not\" and needs a noun before it. Here B says there are no fish.",
+              "います means \"there is\". It clashes with いいえ."
+            ]
+          },
+          {
+            "id": "n5u02d2.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A：その[店|みせ]に[日本語|にほんご]の",
+            "after": "。B：はい、あります。",
+            "tiles": [
+              "[本|ほん]",
+              "が",
+              "あります",
+              "か"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "日本語の needs a noun right after it. か always comes last.",
+            "full": "A：その[店|みせ]に[日本語|にほんご]の[本|ほん]が{あります}か。B：はい、あります。",
+            "explain": "日本語の describes 本, so 本 comes first. が follows the thing, then あります, and か at the end makes the question."
+          },
+          {
+            "id": "n5u02d2.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "あそこに",
+            "after": "。[名前|なまえ]はケンくんです。",
+            "tiles": [
+              "[男|おとこ]の",
+              "[子|こ]",
+              "が",
+              "います"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              3,
+              1,
+              0
+            ],
+            "hint": "男の needs a noun right after it. Which verb goes with a child?",
+            "full": "あそこに[男|おとこ]の[子|こ]が{います}。[名前|なまえ]はケンくんです。",
+            "explain": "男の describes 子, so they go together first. が follows the person, and a boy takes います."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u02d2.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "あそこに　大きい　木が（　　）。",
+            "options": [
+              "あります",
+              "います",
+              "です",
+              "でした"
+            ],
+            "answer": 1,
+            "explain": "A tree is a plant, so it takes あります. います is for people and animals. です and でした say what something is, and cannot follow が here."
+          },
+          {
+            "id": "n5u02d2.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：きょうしつに　だれか　いますか。B：はい、先生が（　　）。",
+            "options": [
+              "あります",
+              "います",
+              "いません",
+              "です"
+            ],
+            "answer": 2,
+            "explain": "A teacher is a person, so います. あります is for things and plants. いません clashes with はい, and 先生がです is not a sentence."
+          },
+          {
+            "id": "n5u02d2.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "あの　川には",
+            "after": "よ。",
+            "tiles": [
+              "小さい",
+              "魚",
+              "が",
+              "います"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "full": "あの　川には　小さい　{魚}が　いますよ。",
+            "explain": "小さい, 魚, が, います. 小さい describes 魚, so it sits right before it. が follows the fish, and fish take います."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "こうえんで",
+        "en": "At the park",
+        "intro": "Tap every word you can find on the park map and the notice board.",
+        "words": [
+          {
+            "id": "entrance",
+            "word": "入口",
+            "reading": "いりぐち",
+            "gloss": "entrance",
+            "parts": [
+              [
+                "入",
+                "いり",
+                "go in"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "flower",
+            "word": "花",
+            "reading": "はな",
+            "gloss": "flower",
+            "parts": [
+              [
+                "花",
+                "はな",
+                "flower"
+              ]
+            ]
+          },
+          {
+            "id": "tree",
+            "word": "木",
+            "reading": "き",
+            "gloss": "tree",
+            "parts": [
+              [
+                "木",
+                "き",
+                "tree, wood"
+              ]
+            ]
+          },
+          {
+            "id": "river",
+            "word": "川",
+            "reading": "かわ",
+            "gloss": "river",
+            "parts": [
+              [
+                "川",
+                "かわ",
+                "river"
+              ]
+            ]
+          },
+          {
+            "id": "fish",
+            "word": "魚",
+            "reading": "さかな",
+            "gloss": "fish",
+            "parts": [
+              [
+                "魚",
+                "さかな",
+                "fish"
+              ]
+            ]
+          },
+          {
+            "id": "closed",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "closed, day off",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          },
+          {
+            "id": "children",
+            "word": "子ども",
+            "reading": "こども",
+            "gloss": "child, children",
+            "parts": [
+              [
+                "子",
+                "こ",
+                "child"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u02d2.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "こうえんに　きれいな　_花_が　たくさん　あります。",
+          "options": [
+            "はな",
+            "くさ",
+            "き",
+            "そら"
+          ],
+          "answer": 1,
+          "explain": "花 is read はな, \"flower\". くさ means grass, a different word, き (tree) is 木, and そら (sky) is 空."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "What is in the park, and what is not there?",
+        "seconds": 90,
+        "passage": "ケンさん、こんにちは。わたしの　うちの　ちかくに　こうえんが　あります。こうえんには　川が　あります。川には　^魚が　います^。^花は　あまり　ありません^が、大きい　木が　たくさん　あります。^子どもは　あまり　いません^。でも、いつも　^白い　ねこが　います^。こんど　いっしょに　行きませんか。マリア",
+        "strategy": "Sort each sentence: あります or います means it is there, ありません or いません means it is not, and あまり before them means not much.",
+        "item": {
+          "id": "n5u02d2.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "こうえんに　ついて、ただしい　ものは　どれですか。",
+          "options": [
+            "川に　魚は　いません。",
+            "花が　たくさん　あります。",
+            "白い　ねこが　います。",
+            "子どもが　たくさん　います。"
+          ],
+          "short": [
+            "魚はいない",
+            "花がたくさん",
+            "白いねこがいる",
+            "子どもがたくさん"
+          ],
+          "answer": 3,
+          "explain": "Maria writes いつも白いねこがいます: there is always a white cat in the park.",
+          "why": [
+            "Maria writes 川には魚がいます: there are fish in the river.",
+            "Maria writes 花はあまりありません: there are not many flowers. The trees are what there are a lot of.",
+            "",
+            "Maria writes 子どもはあまりいません: there are not many children."
+          ]
+        }
+      }
+    },
+    "3": {
+      "title": "〜に〜があります・〜は〜にあります",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u02d3.p1",
+            "form": "〜に〜があります／〜に〜がいます",
+            "gloss": "there is … in (a place)",
+            "connect": [
+              {
+                "pos": "Place, then a thing",
+                "rule": "〜{に}〜{があります}"
+              },
+              {
+                "pos": "Place, then a person or animal",
+                "rule": "〜{に}〜{がいます}"
+              },
+              {
+                "pos": "Question: what or who is there",
+                "rule": "〜{に}[何|なに]{がありますか}／〜{に}だれ{がいますか}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[一|いっ]かい{に}[花|はな]や{があります}。",
+                "en": "There is a flower shop on the first floor."
+              },
+              {
+                "ja": "[入口|いりぐち]{に}[店|みせ]の[人|ひと]{がいます}。",
+                "en": "There is a shop assistant at the entrance."
+              }
+            ],
+            "watch": {
+              "note": "The place comes first and the new thing takes が. A question word like 何 or だれ never takes は. Use が: 何がありますか.",
+              "bad": "あそこに何はありますか。",
+              "good": "あそこに何がありますか。"
+            }
+          },
+          {
+            "id": "n5u02d3.p2",
+            "form": "〜は〜にあります／〜は〜にいます",
+            "gloss": "(the thing or person) is in (a place)",
+            "connect": [
+              {
+                "pos": "Thing, then place",
+                "rule": "〜{は}〜{にあります}"
+              },
+              {
+                "pos": "Person or animal, then place",
+                "rule": "〜{は}〜{にいます}"
+              },
+              {
+                "pos": "Question: where",
+                "rule": "〜{は}どこ{にありますか}／〜{は}どこ{にいますか}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[水|みず]{は}あそこ{にあります}。",
+                "en": "The water is over there."
+              },
+              {
+                "ja": "[母|はは]{は}[二|に]かい{にいます}。",
+                "en": "My mother is on the second floor."
+              }
+            ],
+            "watch": {
+              "note": "To say where someone or something is, the place takes に. で is for the place where you do something, as in 店で買います.",
+              "bad": "母は店でいます。",
+              "good": "母は店にいます。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three join a thing and a place. The word order and が or は show what the listener already knows.",
+          "forms": [
+            {
+              "form": "〜に〜があります",
+              "tag": "なにが？ · what is there (new)",
+              "mark": "dot",
+              "ja": "[二|に]かい{に}[本|ほん]や{があります}。",
+              "en": "There is a bookshop on the second floor."
+            },
+            {
+              "form": "〜は〜にあります",
+              "tag": "どこに？ · where a known thing is",
+              "mark": "dot",
+              "ja": "[本|ほん]や{は}[二|に]かい{にあります}。",
+              "en": "The bookshop is on the second floor."
+            },
+            {
+              "form": "〜は〜です",
+              "tag": "ばしょ · short way to say where",
+              "mark": "dot",
+              "ja": "[本|ほん]や{は}[二|に]かい{です}。",
+              "en": "The bookshop is on the second floor (short form)."
+            }
+          ],
+          "check": {
+            "id": "n5u02d3.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "スーパーで",
+            "q": "すみません、[二|に]かいに[何|なに]（　　）ありますか。",
+            "options": [
+              "が",
+              "は",
+              "に"
+            ],
+            "answer": 1,
+            "why": [
+              "The place comes first with に, and the thing you ask about takes が: 何がありますか.",
+              "A question word like 何 never takes は.",
+              "に already marks the place (二かい). 何 is the thing, not a place."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u02d3.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^あそこに^いぬ（　　）いますよ。",
+            "options": [
+              "が",
+              "を",
+              "で",
+              "へ"
+            ],
+            "answer": 1,
+            "why": [
+              "The place comes first with に, and the dog is new information, so が.",
+              "を marks what you do something to. いる does not take を.",
+              "で marks where you do something. Here いぬ is who is there, not a place.",
+              "へ marks where you go. いぬ is not a place you go to."
+            ]
+          },
+          {
+            "id": "n5u02d3.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[本|ほん]やは^[二|に]かい^（　　）あります。",
+            "options": [
+              "に",
+              "を",
+              "が",
+              "へ"
+            ],
+            "answer": 1,
+            "why": [
+              "二かい is where the bookshop is, and the place before あります takes に.",
+              "を marks what you do something to. あります does not take を.",
+              "The bookshop already has は. 二かいが would make the second floor the thing that exists.",
+              "へ marks where you go. あります does not take へ."
+            ]
+          },
+          {
+            "id": "n5u02d3.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：お[父|とう]さんは（　　）いますか。　B：^[入口|いりぐち]にいます^。",
+            "options": [
+              "どこに",
+              "どこが",
+              "どこを",
+              "だれが"
+            ],
+            "answer": 1,
+            "why": [
+              "B answers with a place (入口に), so A asked where: どこにいますか.",
+              "どこ is a place, so it takes に here, not が.",
+              "いる does not take を.",
+              "A already named the person (お父さんは). B answers with a place, not a person."
+            ]
+          },
+          {
+            "id": "n5u02d3.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：[一|いっ]かいに^[何|なに]が^ありますか。　B：（　　）。",
+            "options": [
+              "[水|みず]と[花|はな]があります",
+              "[水|みず]と[花|はな]がいます",
+              "[水|みず]と[花|はな]はどこですか",
+              "[水|みず]と[花|はな]にあります"
+            ],
+            "answer": 1,
+            "why": [
+              "A asks 何がありますか, so B names the things with が and uses あります.",
+              "Water and flowers are things, so あります, not います.",
+              "B must answer A's question, not ask a new one.",
+              "に marks the place. Water and flowers are the things that are there, so they take が."
+            ]
+          },
+          {
+            "id": "n5u02d3.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[店|みせ]の[入口|いりぐち]に",
+            "after": "よ。",
+            "tiles": [
+              "[安|やす]い",
+              "[花|はな]",
+              "が",
+              "あります"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "The place (入口に) is already first. What is there, and which word marks it?",
+            "full": "[店|みせ]の[入口|いりぐち]に[安|やす]い[花|はな]{があります}よ。",
+            "explain": "安い goes right before 花. The new thing takes が, and あります comes last: 店の入口に安い花がありますよ, \"There are cheap flowers at the shop entrance.\""
+          },
+          {
+            "id": "n5u02d3.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A：すみません、[花|はな]はどこですか。　B：[花|はな]",
+            "after": "よ。",
+            "tiles": [
+              "は",
+              "[二|に]かい",
+              "に",
+              "あります"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "hint": "A already asked about the flowers, so they take は. Which tile marks the place?",
+            "full": "A：すみません、[花|はな]はどこですか。　B：[花|はな]{は}[二|に]かい{にあります}よ。",
+            "explain": "は goes right after 花 because A already knows about the flowers. Then the place 二かい with に, and あります last: 花は二かいにありますよ."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u02d3.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：きょうしつに　だれが　いますか。　B：先生（　　）　います。",
+            "options": [
+              "が",
+              "を",
+              "に",
+              "で"
+            ],
+            "answer": 1,
+            "explain": "A asks だれがいますか, so B names the new person with が. いる does not take を, に would make 先生 a place, and で marks where you do something."
+          },
+          {
+            "id": "n5u02d3.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "母は　いま　二かい（　　）。",
+            "options": [
+              "に　あります",
+              "に　います",
+              "が　います",
+              "で　います"
+            ],
+            "answer": 2,
+            "explain": "母 is a person, so います, and the place where she is takes に. あります is for things, 二かいが would make the floor the one who is there, and で is for where you do something."
+          },
+          {
+            "id": "n5u02d3.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしの　うちの　ちかくに",
+            "after": "。",
+            "tiles": [
+              "大きい",
+              "店",
+              "が",
+              "あります"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              2,
+              0
+            ],
+            "full": "わたしの　うちの　ちかくに　大きい　店{が}　あります。",
+            "explain": "大きい, 店, が, あります. The place (ちかくに) comes first, 大きい goes right before 店, the new thing takes が, and あります comes last."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "スーパーで",
+        "en": "At a supermarket",
+        "intro": "Tap every word you would read on the signs above the aisles and the doors.",
+        "words": [
+          {
+            "id": "entrance",
+            "word": "入口",
+            "reading": "いりぐち",
+            "gloss": "entrance",
+            "parts": [
+              [
+                "入",
+                "いり",
+                "go in"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "fish",
+            "word": "魚",
+            "reading": "さかな",
+            "gloss": "fish",
+            "parts": [
+              [
+                "魚",
+                "さかな",
+                "fish"
+              ]
+            ]
+          },
+          {
+            "id": "water",
+            "word": "水",
+            "reading": "みず",
+            "gloss": "water",
+            "parts": [
+              [
+                "水",
+                "みず",
+                "water"
+              ]
+            ]
+          },
+          {
+            "id": "flower",
+            "word": "花",
+            "reading": "はな",
+            "gloss": "flower",
+            "parts": [
+              [
+                "花",
+                "はな",
+                "flower"
+              ]
+            ]
+          },
+          {
+            "id": "floor2",
+            "word": "二かい",
+            "reading": "にかい",
+            "gloss": "second floor",
+            "parts": [
+              [
+                "二",
+                "ニ",
+                "two"
+              ]
+            ]
+          },
+          {
+            "id": "price",
+            "word": "百円",
+            "reading": "ひゃくえん",
+            "gloss": "100 yen",
+            "parts": [
+              [
+                "百",
+                "ヒャク",
+                "hundred"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "toilet",
+            "word": "お手あらい",
+            "reading": "おてあらい",
+            "gloss": "restroom, toilet",
+            "parts": [
+              [
+                "手",
+                "て",
+                "hand"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u02d3.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "店の　_入口_に　花が　あります。",
+          "options": [
+            "いりくち",
+            "いりぐち",
+            "にゅうぐち",
+            "いれくち"
+          ],
+          "answer": 2,
+          "explain": "入口 is read いりぐち, \"entrance\": 入 is いり and 口 becomes ぐち, as in 出口 (でぐち). いりくち misses the change to ぐ, and にゅうぐち and いれくち are not words."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "発話表現",
+        "en": "Expressions",
+        "situation": "In a supermarket, a man holding an empty basket looks around for the water and turns to a shop assistant.",
+        "ask": "店で　水を　買いたいです。店の　人に　何と　いいますか。",
+        "item": {
+          "id": "n5u02d3.r1",
+          "kind": "choice",
+          "type": "発話表現",
+          "q": "店で　水を　買いたいです。店の　人に　何と　いいますか。",
+          "script": [
+            "ナレーター：店で　水を　買いたいです。店の　人に　何と　いいますか。",
+            "ナレーター：1",
+            "男：すみません、水は　どこに　いますか。",
+            "ナレーター：2",
+            "男：すみません、あそこに　水が　ありますよ。",
+            "ナレーター：3",
+            "男：すみません、水は　どこに　ありますか。"
+          ],
+          "options": [
+            "すみません、水は　どこに　いますか。",
+            "すみません、あそこに　水が　ありますよ。",
+            "すみません、水は　どこに　ありますか。"
+          ],
+          "printed": false,
+          "short": [
+            "水は　どこに　いますか",
+            "あそこに　水が　ありますよ",
+            "水は　どこに　ありますか"
+          ],
+          "answer": 3,
+          "why": [
+            "Water is a thing, so the question needs あります, not います.",
+            "This tells the assistant where the water is. The man does not know, so he needs to ask.",
+            ""
+          ]
+        },
+        "audio": [
+          [
+            "N",
+            "店で　水を　買いたいです。店の　人に　何と　いいますか。",
+            "みせで　みずを　かいたいです。みせの　ひとに　なんと　いいますか。"
+          ],
+          [
+            "N",
+            "1",
+            "いち"
+          ],
+          [
+            "M",
+            "すみません、水は　どこに　いますか。",
+            "すみません、みずは　どこに　いますか。"
+          ],
+          [
+            "N",
+            "2",
+            "に"
+          ],
+          [
+            "M",
+            "すみません、あそこに　水が　ありますよ。",
+            "すみません、あそこに　みずが　ありますよ。"
+          ],
+          [
+            "N",
+            "3",
+            "さん"
+          ],
+          [
+            "M",
+            "すみません、水は　どこに　ありますか。",
+            "すみません、みずは　どこに　ありますか。"
+          ]
+        ]
+      }
+    },
+    "4": {
+      "title": "〜の上／中／前・〜や〜など",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u02d4.p1",
+            "form": "〜の上／中／前",
+            "gloss": "on, in, in front of (where exactly)",
+            "connect": [
+              {
+                "pos": "Noun (the thing you measure from) + position word",
+                "rule": "〜 ＋ {の} ＋ {[上|うえ]}／{[下|した]}／{[中|なか]}／{[外|そと]} ＋ に"
+              },
+              {
+                "pos": "Noun + position word",
+                "rule": "〜 ＋ {の} ＋ {[前|まえ]}／{[後|うし]ろ}／{[右|みぎ]}／{[左|ひだり]}／{となり} ＋ に"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "つくえ{の[上|うえ]}に[日本語|にほんご]の[本|ほん]があります。",
+                "en": "There is a Japanese book on the desk."
+              },
+              {
+                "ja": "ねこはいす{の[下|した]}にいます。",
+                "en": "The cat is under the chair."
+              }
+            ],
+            "watch": {
+              "note": "Put の between the thing and the position word. The thing comes first: つくえの下 is \"under the desk\".",
+              "bad": "かばんはつくえ下にあります。",
+              "good": "かばんはつくえの下にあります。"
+            }
+          },
+          {
+            "id": "n5u02d4.p2",
+            "form": "〜や〜（など）",
+            "gloss": "A and B (and other things)",
+            "connect": [
+              {
+                "pos": "Two nouns, as examples",
+                "rule": "〜 ＋ {や} ＋ 〜"
+              },
+              {
+                "pos": "Two nouns, and more like them",
+                "rule": "〜 ＋ {や} ＋ 〜 ＋ {など}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "かばんの[中|なか]に[本|ほん]{や}ノートがあります。",
+                "en": "In the bag there are books, notebooks and so on."
+              },
+              {
+                "ja": "れいぞうこに[魚|さかな]{や}くだもの{など}があります。",
+                "en": "In the fridge there is fish, fruit and other things."
+              }
+            ],
+            "watch": {
+              "note": "や joins two or more nouns and hints that there are other things too. With only one noun, you cannot say 本や. Say 本など (books and so on).",
+              "bad": "つくえの上に本やがあります。",
+              "good": "つくえの上に本などがあります。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three come right after a noun. の上 says where something is; や and と list things.",
+          "forms": [
+            {
+              "form": "〜の上",
+              "tag": "ばしょ · where",
+              "mark": "dot",
+              "ja": "つくえ{の[上|うえ]}にペンがあります。",
+              "en": "There is a pen on the desk."
+            },
+            {
+              "form": "〜や〜",
+              "tag": "いくつか · and others",
+              "mark": "up",
+              "ja": "つくえの[上|うえ]にペン{や}ノートがあります。",
+              "en": "On the desk there are pens, notebooks and other things."
+            },
+            {
+              "form": "〜と〜",
+              "tag": "ぜんぶ · and (that is all)",
+              "mark": "dot",
+              "ja": "つくえの[上|うえ]にペン{と}ノートがあります。",
+              "en": "On the desk there are a pen and a notebook."
+            }
+          ],
+          "check": {
+            "id": "n5u02d4.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "はこの中",
+            "q": "A：はこの[中|なか]に[何|なに]がありますか。　B：ペン（　　）けしゴムです。^それだけです^。",
+            "options": [
+              "の",
+              "や",
+              "と"
+            ],
+            "answer": 3,
+            "why": [
+              "ペンのけしゴム would be \"the pen's eraser\". B is listing two things.",
+              "や hints that there are other things too, but B says それだけです: that is all.",
+              "B names everything in the box, so と: a pen and an eraser, nothing else."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u02d4.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "つくえ（　　）^[上|うえ]^に[本|ほん]があります。",
+            "options": [
+              "の",
+              "に",
+              "と",
+              "が"
+            ],
+            "answer": 1,
+            "why": [
+              "The thing, then の, then the position word: つくえの上, on the desk.",
+              "に comes after the position word (上に), not between つくえ and 上.",
+              "つくえと上 would mean \"the desk and the top\", two separate things.",
+              "が marks what is there. Here 本が already does that."
+            ]
+          },
+          {
+            "id": "n5u02d4.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "わたしは^[山川|やまかわ]さんの[右|みぎ]^にいます。[山川|やまかわ]さんはわたしの（　　）にいます。",
+            "options": [
+              "[右|みぎ]",
+              "[左|ひだり]",
+              "[前|まえ]",
+              "[上|うえ]"
+            ],
+            "answer": 2,
+            "why": [
+              "Two people side by side cannot both be on the other's right.",
+              "If I am on Ms. Yamakawa's right, she is on my left.",
+              "We are side by side, so she is not in front of me.",
+              "A person standing next to me is not above me."
+            ]
+          },
+          {
+            "id": "n5u02d4.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "かばんの[中|なか]に[本|ほん]（　　）ノート^など^があります。",
+            "options": [
+              "や",
+              "の",
+              "も",
+              "を"
+            ],
+            "answer": 1,
+            "why": [
+              "や joins the two nouns, and など says there are other things too.",
+              "本のノート would be \"a book's notebook\", which makes no sense.",
+              "本もノートなど does not join the two things. も means \"too\".",
+              "を marks the thing you act on with a verb. あります does not take を."
+            ]
+          },
+          {
+            "id": "n5u02d4.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[店|みせ]には^いろいろなもの^があります。パン（　　）ぎゅうにゅうなどです。",
+            "options": [
+              "の",
+              "や",
+              "で",
+              "を"
+            ],
+            "answer": 2,
+            "why": [
+              "パンのぎゅうにゅう would be \"bread's milk\", which makes no sense.",
+              "The shop has many things, so や gives two examples and など says there are more.",
+              "で does not join two nouns in a list.",
+              "を needs a verb that acts on something. です does not take を."
+            ]
+          },
+          {
+            "id": "n5u02d4.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしのかばんは",
+            "after": "あります。",
+            "tiles": [
+              "[中山|なかやま]さんの",
+              "いすの",
+              "[下|した]",
+              "に"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "Whose chair is it? Then the chair, then the position word, then に.",
+            "full": "わたしのかばんは[中山|なかやま]さんのいす{の[下|した]}にあります。",
+            "explain": "中山さんのいす is Mr. Nakayama's chair. いすの下 is under the chair, and に comes after the position word: under Mr. Nakayama's chair."
+          },
+          {
+            "id": "n5u02d4.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "れいぞうこの[中|なか]に[魚|さかな]",
+            "after": "あります。",
+            "tiles": [
+              "や",
+              "くだもの",
+              "など",
+              "が"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "hint": "や goes between two nouns. など comes after the last noun, and が after など.",
+            "full": "れいぞうこの[中|なか]に[魚|さかな]{や}くだものなどがあります。",
+            "explain": "魚やくだもの joins the two foods, など says there are more, and が marks what is there before あります."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u02d4.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ぎんこうは　えきの　前（　　）あります。",
+            "options": [
+              "を",
+              "で",
+              "に",
+              "が"
+            ],
+            "answer": 3,
+            "explain": "The place where something is takes に: えきの前に あります. を needs an action verb, で marks where an action happens, and ぎんこうは already says what is there, so が does not fit."
+          },
+          {
+            "id": "n5u02d4.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "テーブルの　上に　りんご（　　）バナナなどが　あります。",
+            "options": [
+              "の",
+              "や",
+              "を",
+              "へ"
+            ],
+            "answer": 2,
+            "explain": "や joins two nouns, and など says there is more: apples, bananas and so on. りんごのバナナ makes no sense, を needs an action verb, and へ shows a direction."
+          },
+          {
+            "id": "n5u02d4.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "かぎは　テレビの　",
+            "after": "　あります。",
+            "tiles": [
+              "前の",
+              "テーブルの",
+              "上",
+              "に"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              3,
+              1,
+              0
+            ],
+            "full": "かぎは　テレビの　前の　{テーブルの}　上に　あります。",
+            "explain": "前の, テーブルの, 上, に: the key is on the table in front of the TV. テレビの前の テーブル is the table in front of the TV, and テーブルの上に says it is on top of that table."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "きょうしつのえ",
+        "en": "A picture of a classroom",
+        "intro": "Tap each label on the picture of the classroom.",
+        "words": [
+          {
+            "id": "on",
+            "word": "上",
+            "reading": "うえ",
+            "gloss": "on, above, top",
+            "parts": [
+              [
+                "上",
+                "うえ",
+                "up, above"
+              ]
+            ]
+          },
+          {
+            "id": "under",
+            "word": "下",
+            "reading": "した",
+            "gloss": "under, below",
+            "parts": [
+              [
+                "下",
+                "した",
+                "down, below"
+              ]
+            ]
+          },
+          {
+            "id": "in",
+            "word": "中",
+            "reading": "なか",
+            "gloss": "in, inside",
+            "parts": [
+              [
+                "中",
+                "なか",
+                "middle, inside"
+              ]
+            ]
+          },
+          {
+            "id": "outside",
+            "word": "外",
+            "reading": "そと",
+            "gloss": "outside",
+            "parts": [
+              [
+                "外",
+                "そと",
+                "outside"
+              ]
+            ]
+          },
+          {
+            "id": "front",
+            "word": "前",
+            "reading": "まえ",
+            "gloss": "in front, the front",
+            "parts": [
+              [
+                "前",
+                "まえ",
+                "front, before"
+              ]
+            ]
+          },
+          {
+            "id": "back",
+            "word": "後ろ",
+            "reading": "うしろ",
+            "gloss": "behind, the back",
+            "parts": [
+              [
+                "後",
+                "うし",
+                "behind, after"
+              ]
+            ]
+          },
+          {
+            "id": "right",
+            "word": "右",
+            "reading": "みぎ",
+            "gloss": "right",
+            "parts": [
+              [
+                "右",
+                "みぎ",
+                "right"
+              ]
+            ]
+          },
+          {
+            "id": "left",
+            "word": "左",
+            "reading": "ひだり",
+            "gloss": "left",
+            "parts": [
+              [
+                "左",
+                "ひだり",
+                "left"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u02d4.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "まどの　_外_に　大きい　木が　あります。",
+          "options": [
+            "なか",
+            "そと",
+            "うち",
+            "しろ"
+          ],
+          "answer": 2,
+          "explain": "外 is そと, outside. なか is 中 (inside), うち means inside or home and is not read from 外 here, and しろ means white."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "Where is the key?",
+        "seconds": 90,
+        "passage": "アンナさんへ　へやの　かぎは　つくえの　上に　ありません。^つくえの　となりの　本だなの　中^に　あります。本だなの　上にも　はこが　ありますが、はこの　中には　ペンや　ノートなどが　あります。れいぞうこに　パンや　くだものが　あります。どうぞ。　けい子より",
+        "strategy": "Find かぎ, then read past ありません to the sentence that says where it really is.",
+        "item": {
+          "id": "n5u02d4.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "かぎは　どこに　ありますか。",
+          "options": [
+            "つくえの　上",
+            "本だなの　中",
+            "本だなの　上の　はこの　中",
+            "れいぞうこの　中"
+          ],
+          "short": [
+            "つくえの上",
+            "本だなの中",
+            "本だなの上のはこの中",
+            "れいぞうこの中"
+          ],
+          "answer": 2,
+          "explain": "The note says the key is not on the desk (ありません). The next sentence says it is in the bookshelf next to the desk: 本だなの中.",
+          "why": [
+            "The note says つくえの上に ありません: it is not on the desk.",
+            "",
+            "The box on the bookshelf has pens, notebooks and so on, not the key.",
+            "The fridge has bread and fruit, not the key."
+          ]
+        }
+      }
+    },
+    "5": {
+      "title": "いくつ／いくら・〜ぐらい／〜ごろ",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u02d5.p1",
+            "form": "いくつ・いくら",
+            "gloss": "how many (how old) / how much money",
+            "connect": [
+              {
+                "pos": "Noun (things you count)",
+                "rule": "〜は {いくつ} ありますか"
+              },
+              {
+                "pos": "Noun (asking a price)",
+                "rule": "〜は {いくら} ですか"
+              },
+              {
+                "pos": "Noun (asking someone's age)",
+                "rule": "〜は （お）{いくつ} ですか"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "いすは{いくつ}ありますか。",
+                "en": "How many chairs are there?"
+              },
+              {
+                "ja": "このかばんは{いくら}ですか。",
+                "en": "How much is this bag?"
+              }
+            ],
+            "watch": {
+              "note": "いくら asks about money. いくつ asks how many, or how old. To ask the price of a bag, use いくら.",
+              "bad": "すみません、このかばんはいくつですか。",
+              "good": "すみません、このかばんはいくらですか。"
+            }
+          },
+          {
+            "id": "n5u02d5.p2",
+            "form": "〜ぐらい／くらい・〜ごろ",
+            "gloss": "about (an amount) / around (a time)",
+            "connect": [
+              {
+                "pos": "Number, amount or length of time",
+                "rule": "〜 ＋ {ぐらい}／{くらい}"
+              },
+              {
+                "pos": "Clock time or day",
+                "rule": "〜 ＋ {ごろ}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[駅|えき]まで[十分|じゅっぷん]{ぐらい}です。",
+                "en": "It's about ten minutes to the station."
+              },
+              {
+                "ja": "[十一時|じゅういちじ]{ごろ}ねます。",
+                "en": "I go to bed around eleven."
+              }
+            ],
+            "watch": {
+              "note": "ごろ is for a point in time, like a clock time. 二時間 is a length of time, so use ぐらい.",
+              "bad": "日本語を二時間ごろべんきょうしました。",
+              "good": "日本語を二時間ぐらいべんきょうしました。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three go in a question about a number. What changes is what kind of number you want.",
+          "forms": [
+            {
+              "form": "いくつ",
+              "tag": "かず · how many",
+              "mark": "dot",
+              "ja": "りんごは{いくつ}ありますか。",
+              "en": "How many apples are there?"
+            },
+            {
+              "form": "いくら",
+              "tag": "おかね · how much money",
+              "mark": "dot",
+              "ja": "りんごは{いくら}ですか。",
+              "en": "How much are the apples?"
+            },
+            {
+              "form": "何時ごろ",
+              "tag": "じかん · around what time",
+              "mark": "dot",
+              "ja": "[何時|なんじ]{ごろ}[来|き]ますか。",
+              "en": "Around what time will you come?"
+            }
+          ],
+          "check": {
+            "id": "n5u02d5.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "くだものやで",
+            "q": "A「このりんごは（　　）ですか。」B「^[一|ひと]つ[百円|ひゃくえん]^です。」",
+            "options": [
+              "いくつ",
+              "いくら",
+              "[何時|なんじ]ごろ"
+            ],
+            "answer": 2,
+            "why": [
+              "いくつ asks how many. B answers with a price, 百円.",
+              "B answers with a price, so A asked how much with いくら.",
+              "何時ごろ asks about a time. B answers with a price."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u02d5.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "（[店|みせ]で）A「すみません、このパンは（　　）ですか。」B「^[百五十円|ひゃくごじゅうえん]^です。」",
+            "options": [
+              "いくら",
+              "いくつ",
+              "[何時|なんじ]",
+              "どこ"
+            ],
+            "answer": 1,
+            "why": [
+              "B answers with a price, so A asks how much with いくら.",
+              "いくつ asks how many or how old. B answers with a price.",
+              "何時 asks what time it is. B answers with a price.",
+              "どこ asks where. B answers with a price."
+            ]
+          },
+          {
+            "id": "n5u02d5.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "A「いすは（　　）ありますか。」B「^[四|よっ]つ^あります。」",
+            "options": [
+              "いくら",
+              "いくつ",
+              "[何|なに]",
+              "だれ"
+            ],
+            "answer": 2,
+            "why": [
+              "いくら asks about money. B counts the chairs.",
+              "B counts the chairs with 四つ, so A asks how many with いくつ.",
+              "何 asks what. It cannot ask how many, and B gives a number.",
+              "だれ asks who. Chairs are not people, and B gives a number."
+            ]
+          },
+          {
+            "id": "n5u02d5.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "この[本|ほん]は^[千円|せんえん]^（　　）でした。",
+            "options": [
+              "ごろ",
+              "いくら",
+              "ぐらい",
+              "いくつ"
+            ],
+            "answer": 3,
+            "why": [
+              "ごろ is for a point in time, like a clock time. 千円 is an amount of money.",
+              "いくら asks a question. This sentence tells a price; it does not ask one.",
+              "千円 is an amount of money, so \"about\" is ぐらい.",
+              "いくつ asks how many. This sentence does not ask anything."
+            ]
+          },
+          {
+            "id": "n5u02d5.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "まいあさ^[七時|しちじ]^（　　）おきます。",
+            "options": [
+              "ごろ",
+              "など",
+              "いくつ",
+              "や"
+            ],
+            "answer": 1,
+            "why": [
+              "七時 is a clock time, so \"around seven\" is 七時ごろ.",
+              "など ends a list of things, as in パンやたまごなど. It does not follow a clock time here.",
+              "いくつ asks how many. This sentence tells a time; it does not ask.",
+              "や joins two nouns in a list. Nothing follows it here."
+            ]
+          },
+          {
+            "id": "n5u02d5.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「ここから[駅|えき]まで[何分|なんぷん]ぐらいかかりますか。」B「そうですね、",
+            "after": "。」",
+            "tiles": [
+              "[二十分|にじゅっぷん]",
+              "ぐらい",
+              "かかります",
+              "よ"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "A asks about a length of time. ぐらい comes right after the number, and よ comes last.",
+            "full": "A「ここから[駅|えき]まで[何分|なんぷん]ぐらいかかりますか。」B「そうですね、[二十分|にじゅっぷん]{ぐらい}かかりますよ。」",
+            "explain": "二十分 is a length of time, so ぐらい goes right after it. かかります follows, and よ ends the sentence because B tells A something new."
+          },
+          {
+            "id": "n5u02d5.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「",
+            "after": "。」B「[五|いつ]つあります。」",
+            "tiles": [
+              "その",
+              "りんごは",
+              "いくつ",
+              "ありますか"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "hint": "B answers with a number of apples. その goes before a noun, and the question word comes before ありますか.",
+            "full": "A「そのりんごは{いくつ}ありますか。」B「[五|いつ]つあります。」",
+            "explain": "その goes right before りんごは, the topic. B counts with 五つ, so A asks いくつ, and ありますか ends the question."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u02d5.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "A「この　ノートは　（　　）ですか。」B「二百円です。」",
+            "options": [
+              "いくつ",
+              "何時",
+              "いくら",
+              "だれ"
+            ],
+            "answer": 3,
+            "explain": "B answers with a price, so A asks how much with いくら. いくつ asks how many or how old, 何時 asks the time, and だれ asks who."
+          },
+          {
+            "id": "n5u02d5.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "きのうは　八時間（　　）　ねました。",
+            "options": [
+              "ごろ",
+              "ぐらい",
+              "いくら",
+              "いくつ"
+            ],
+            "answer": 2,
+            "explain": "八時間 is a length of time, so \"about eight hours\" is ぐらい. ごろ is only for a point in time, like 八時. いくら and いくつ ask questions, and this sentence does not ask."
+          },
+          {
+            "id": "n5u02d5.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「あした　何時ごろ　来ますか。」B「",
+            "after": "よ。」",
+            "tiles": [
+              "九時",
+              "ごろ",
+              "に",
+              "行きます"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "A「あした　何時ごろ　来ますか。」B「九時{ごろ}に　行きますよ。」",
+            "explain": "九時, ごろ, に, 行きます. ごろ comes right after the clock time, に follows ごろ, and 行きます goes before よ."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "カフェで",
+        "en": "At a café",
+        "intro": "Tap every word on the menu you would read to order and pay.",
+        "words": [
+          {
+            "id": "water",
+            "word": "水",
+            "reading": "みず",
+            "gloss": "water",
+            "parts": [
+              [
+                "水",
+                "みず",
+                "water"
+              ]
+            ]
+          },
+          {
+            "id": "fish",
+            "word": "魚",
+            "reading": "さかな",
+            "gloss": "fish",
+            "parts": [
+              [
+                "魚",
+                "さかな",
+                "fish"
+              ]
+            ]
+          },
+          {
+            "id": "one",
+            "word": "一つ",
+            "reading": "ひとつ",
+            "gloss": "one (thing)",
+            "parts": [
+              [
+                "一",
+                "ひと",
+                "one"
+              ]
+            ]
+          },
+          {
+            "id": "two",
+            "word": "二つ",
+            "reading": "ふたつ",
+            "gloss": "two (things)",
+            "parts": [
+              [
+                "二",
+                "ふた",
+                "two"
+              ]
+            ]
+          },
+          {
+            "id": "y300",
+            "word": "三百円",
+            "reading": "さんびゃくえん",
+            "gloss": "300 yen",
+            "parts": [
+              [
+                "三",
+                "サン",
+                "three"
+              ],
+              [
+                "百",
+                "ビャク",
+                "hundred"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "y600",
+            "word": "六百円",
+            "reading": "ろっぴゃくえん",
+            "gloss": "600 yen",
+            "parts": [
+              [
+                "六",
+                "ロッ",
+                "six"
+              ],
+              [
+                "百",
+                "ピャク",
+                "hundred"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "y1000",
+            "word": "千円",
+            "reading": "せんえん",
+            "gloss": "1,000 yen",
+            "parts": [
+              [
+                "千",
+                "セン",
+                "thousand"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "pm",
+            "word": "午後",
+            "reading": "ごご",
+            "gloss": "afternoon, p.m.",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "後",
+                "ゴ",
+                "after"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u02d5.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "この　ケーキは　_六百円_です。",
+          "options": [
+            "ろっぴゃくえん",
+            "ろくひゃくえん",
+            "ろっびゃくえん",
+            "ろくびゃくえん"
+          ],
+          "answer": 1,
+          "explain": "六 and 百 join as ろっぴゃく, with a small っ and ぴゃ, as in はっぴゃく (八百). The other three spellings are not words. Compare さんびゃく (三百), which takes びゃく."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "即時応答",
+        "en": "Quick response",
+        "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+        "item": {
+          "id": "n5u02d5.r1",
+          "kind": "choice",
+          "type": "即時応答",
+          "q": "男：すみません、この　りんごは　一つ　いくらですか。",
+          "script": [
+            "男：すみません、このりんごは一ついくらですか。",
+            "ナレーター：1",
+            "女：はい、一つです。",
+            "ナレーター：2",
+            "女：百二十円です。",
+            "ナレーター：3",
+            "女：三つあります。"
+          ],
+          "options": [
+            "はい、一つです。",
+            "百二十円です。",
+            "三つあります。"
+          ],
+          "printed": false,
+          "short": [
+            "はい、一つです",
+            "百二十円です",
+            "三つあります"
+          ],
+          "answer": 2,
+          "why": [
+            "The man asks a price with いくら, not a yes-or-no question. 一つ in his question only means \"for one\".",
+            "He asks how much one apple is, and she gives the price.",
+            "三つあります says how many there are. That answers いくつ, not いくら."
+          ]
+        },
+        "audio": [
+          [
+            "M",
+            "すみません、このりんごは一ついくらですか。",
+            "すみません、このりんごはひとついくらですか。"
+          ],
+          [
+            "N",
+            "1",
+            null
+          ],
+          [
+            "F",
+            "はい、一つです。",
+            "はい、ひとつです。"
+          ],
+          [
+            "N",
+            "2",
+            null
+          ],
+          [
+            "F",
+            "百二十円です。",
+            "ひゃくにじゅうえんです。"
+          ],
+          [
+            "N",
+            "3",
+            null
+          ],
+          [
+            "F",
+            "三つあります。",
+            "みっつあります。"
+          ]
+        ]
+      }
+    },
+    "6": {
+      "title": "まとめ：似ている文法",
+      "grammar": {
+        "points": [],
+        "compare": {
+          "intro": "To tell this unit's points apart, ask what the blank is about: a thing or a person or animal (あります or います), a new thing or one already named (〜に〜があります or 〜は〜にあります), a place or a thing (ここ or これ), a price or a number of things (いくら or いくつ), and about what time or about how long (ごろ or ぐらい).",
+          "forms": [
+            {
+              "form": "あります／います",
+              "tag": "もの・ひとやどうぶつ · thing or living thing",
+              "mark": "dot",
+              "ja": "[外|そと]に[木|き]{があります}。[木|き]の[下|した]に[子|こ]ども{がいます}。",
+              "en": "There is a tree outside. There is a child under the tree."
+            },
+            {
+              "form": "〜に〜があります／〜は〜にあります",
+              "tag": "あたらしい・しっている · new thing or known thing",
+              "mark": "dot",
+              "ja": "[五|ご]かい{に}レストラン{が}あります。レストラン{は}[五|ご]かい{に}あります。",
+              "en": "There is a restaurant on the fifth floor. The restaurant is on the fifth floor."
+            },
+            {
+              "form": "〜ごろ／〜ぐらい",
+              "tag": "なんじ・どのぐらい · what time or how long",
+              "mark": "dot",
+              "ja": "[九時|くじ]{ごろ}ホテルを[出|で]ます。[駅|えき]まで[五分|ごふん]{ぐらい}です。",
+              "en": "I leave the hotel around nine. It is about five minutes to the station."
+            }
+          ],
+          "check": {
+            "id": "n5u02d6.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "ホテルで",
+            "q": "ロビーに^[山川|やまかわ]さん^が（　　）よ。",
+            "options": [
+              "あります",
+              "います",
+              "です"
+            ],
+            "answer": 2,
+            "why": [
+              "あります is for things. 山川さん is a person.",
+              "山川さん is a person, so います: \"Mr. Yamakawa is in the lobby.\"",
+              "ロビーに already says where, so the sentence needs a verb for being there. 山川さんがですよ is not Japanese."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u02d6.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^[電話|でんわ]^は[一|いっ]かいの[入口|いりぐち]の[右|みぎ]に（　　）。",
+            "options": [
+              "あります",
+              "います",
+              "です",
+              "など"
+            ],
+            "answer": 1,
+            "why": [
+              "A phone is a thing, and 電話は〜にあります says where the phone is.",
+              "います is for people and animals. A phone is a thing.",
+              "右に needs a verb after it. With です you would say 右です, without に.",
+              "など comes after a list of things, as in 本やノートなど. It cannot take the place of the verb."
+            ]
+          },
+          {
+            "id": "n5u02d6.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the question word",
+            "q": "A：このホテルには、へやが（　　）ありますか。B：^[百|ひゃく]ぐらい^あります。",
+            "options": [
+              "いくら",
+              "いくつ",
+              "[何時|なんじ]ごろ",
+              "どこに"
+            ],
+            "answer": 2,
+            "why": [
+              "いくら asks a price. B answers with a number of rooms.",
+              "B says about a hundred, so A asked how many: いくつ.",
+              "何時ごろ asks about what time. 百ぐらい is not a time.",
+              "どこに asks where. B answers how many, not where."
+            ]
+          },
+          {
+            "id": "n5u02d6.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：リンさんはどこにいますか。B：（　　）にいますよ。^あのまどの[前|まえ]^です。",
+            "options": [
+              "あれ",
+              "こちら",
+              "あそこ",
+              "あの"
+            ],
+            "answer": 3,
+            "why": [
+              "あれ points at a thing, not a place. You cannot be \"in\" あれ here.",
+              "こちら points to the speaker's side, but B says あのまど, a window far from both people.",
+              "Lin is by a window far from both people (あの), so B points at that place: あそこ.",
+              "あの needs a noun right after it, as in あのまど. It cannot come before に."
+            ]
+          },
+          {
+            "id": "n5u02d6.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the particle",
+            "q": "ホテルのへやの[中|なか]（　　）テレビやれいぞうこが^あります^。",
+            "options": [
+              "で",
+              "に",
+              "を",
+              "が"
+            ],
+            "answer": 2,
+            "why": [
+              "で marks the place where you do something. あります says where a thing is, so it takes に.",
+              "With あります, the place where things are takes に: へやの中に.",
+              "を marks the thing an action is done to. あります is not that kind of verb.",
+              "が already comes after テレビやれいぞうこ. へやの中 is the place, not the thing that is there."
+            ]
+          },
+          {
+            "id": "n5u02d6.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A：[山川|やまかわ]さんはどこにいますか。B：",
+            "after": "よ。",
+            "tiles": [
+              "あの",
+              "[車|くるま]の",
+              "[中|なか]に",
+              "います"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "Which car? Then where in the car? A person comes last with います.",
+            "full": "A：[山川|やまかわ]さんはどこにいますか。B：あの{[車|くるま]の}[中|なか]にいますよ。",
+            "explain": "あの車 is that car over there. 車の中に is inside the car. 山川さん is a person, so います comes last: he is in that car."
+          },
+          {
+            "id": "n5u02d6.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[一|いっ]かいの",
+            "after": "があります。",
+            "tiles": [
+              "[店|みせ]",
+              "の[中|なか]に",
+              "パンや",
+              "[水|みず]など"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "First say the place, then list what is there.",
+            "full": "[一|いっ]かいの[店|みせ]{の[中|なか]に}パン{や}[水|みず]{など}があります。",
+            "explain": "一かいの店 is the shop on the first floor, and の中に says inside it. Then the list: パンや comes first and 水など closes it, right before があります."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u02d6.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ホテルの　ロビーに　だれ（　　）　いますか。",
+            "options": [
+              "が",
+              "は",
+              "を",
+              "で"
+            ],
+            "answer": 1,
+            "explain": "ロビーに　だれが　いますか asks who is in the lobby: the person who is there takes が. だれ is a question word, and a question word does not take は. を marks the thing an action is done to, and います has none. で marks where you do something; here the place already has に."
+          },
+          {
+            "id": "n5u02d6.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「ホテルから　駅まで　どのぐらい　かかりますか。」\nB「十五分（　　）です。」",
+            "options": [
+              "ごろ",
+              "ぐらい",
+              "いくら",
+              "など"
+            ],
+            "answer": 2,
+            "explain": "A asks how long it takes, so B gives about how long: 十五分ぐらい. ごろ goes with a point in time, like 九時ごろ, not with how long something takes. いくら asks a price. など comes after a list of things."
+          },
+          {
+            "id": "n5u02d6.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「トイレは　どこに　ありますか。」B「",
+            "after": "ありますよ。」",
+            "tiles": [
+              "あそこの",
+              "エレベーターの",
+              "右",
+              "に"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "A「トイレは　どこに　ありますか。」B「あそこの　エレベーターの　{右}に　ありますよ。」",
+            "explain": "あそこの, エレベーターの, 右, に. あそこの points at the elevator over there, エレベーターの右 is to the right of it, and に comes after the position word, right before あります."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "ビルのあんないばん",
+        "en": "The floor guide in an office building",
+        "intro": "Tap each word on the floor guide by the elevator.",
+        "words": [
+          {
+            "id": "1st floor",
+            "word": "一かい",
+            "reading": "いっかい",
+            "gloss": "first floor (street level)",
+            "parts": [
+              [
+                "一",
+                "イッ",
+                "one"
+              ]
+            ]
+          },
+          {
+            "id": "5th floor",
+            "word": "五かい",
+            "reading": "ごかい",
+            "gloss": "fifth floor",
+            "parts": [
+              [
+                "五",
+                "ゴ",
+                "five"
+              ]
+            ]
+          },
+          {
+            "id": "phone",
+            "word": "電話",
+            "reading": "でんわ",
+            "gloss": "telephone",
+            "parts": [
+              [
+                "電",
+                "デン",
+                "electricity"
+              ],
+              [
+                "話",
+                "ワ",
+                "talk"
+              ]
+            ]
+          },
+          {
+            "id": "men",
+            "word": "男",
+            "reading": "おとこ",
+            "gloss": "men (on a toilet door)",
+            "parts": [
+              [
+                "男",
+                "おとこ",
+                "man"
+              ]
+            ]
+          },
+          {
+            "id": "women",
+            "word": "女",
+            "reading": "おんな",
+            "gloss": "women (on a toilet door)",
+            "parts": [
+              [
+                "女",
+                "おんな",
+                "woman"
+              ]
+            ]
+          },
+          {
+            "id": "company",
+            "word": "会社",
+            "reading": "かいしゃ",
+            "gloss": "company, office",
+            "parts": [
+              [
+                "会",
+                "カイ",
+                "meet"
+              ],
+              [
+                "社",
+                "シャ",
+                "company"
+              ]
+            ]
+          },
+          {
+            "id": "east exit",
+            "word": "東口",
+            "reading": "ひがしぐち",
+            "gloss": "east entrance or exit",
+            "parts": [
+              [
+                "東",
+                "ひがし",
+                "east"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "west exit",
+            "word": "西口",
+            "reading": "にしぐち",
+            "gloss": "west entrance or exit",
+            "parts": [
+              [
+                "西",
+                "にし",
+                "west"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u02d6.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "ビルの　_西口_の　前に　電話が　あります。",
+          "options": [
+            "ひがしぐち",
+            "にしぐち",
+            "にしくち",
+            "せいぐち"
+          ],
+          "answer": 2,
+          "explain": "西口 is にしぐち: 西 (にし, west) and 口, which becomes ぐち after にし. ひがしぐち is 東口, the east side. にしくち misses the change from く to ぐ, and せいぐち is not a word."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "情報検索",
+        "en": "Finding information",
+        "ask": "Which floor of the building do you need?",
+        "seconds": 90,
+        "passage": "さくらビル\n五かい　山川会社\n四かい　^日本語学校^\n三かい　レストラン（午前十一時から　午後十時まで）\n二かい　^本や^、カメラの　店\n一かい　きっさてん、電話\n※　トイレは　二かいと　四かいに　あります。",
+        "strategy": "Look for the shop that sells books, 本や, and do not stop at the first line with 日本語.",
+        "item": {
+          "id": "n5u02d6.r1",
+          "kind": "choice",
+          "type": "読解・情報検索",
+          "q": "リーさんは　日本語の　本を　買いたいです。何かいへ　行きますか。",
+          "options": [
+            "一かい",
+            "二かい",
+            "四かい",
+            "五かい"
+          ],
+          "short": [
+            "1かい",
+            "2かい",
+            "4かい",
+            "5かい"
+          ],
+          "answer": 2,
+          "explain": "Books are sold at a 本や, and the guide puts the 本や on the second floor. The fourth floor has 日本語 in its name, but it is a school, not a shop.",
+          "why": [
+            "The first floor has a café and a phone, not books.",
+            "",
+            "四かい is a Japanese school. It has 日本語 in its name, but it does not sell books.",
+            "The fifth floor is a company office."
+          ]
+        }
+      }
+    }
+  },
+  "test": [
+    {
+      "id": "n5u02t.1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "ぎんこうは　駅の　_左_に　あります。",
+      "options": [
+        "みぎ",
+        "ひだり",
+        "ひがし",
+        "にし"
+      ],
+      "answer": 2,
+      "explain": "左 is ひだり, left. みぎ is 右 (right), which looks like 左 but has 口 at the bottom. ひがし is 東 (east) and にし is 西 (west)."
+    },
+    {
+      "id": "n5u02t.2",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "つくえの　上に　りんごが　_三つ_　あります。",
+      "options": [
+        "みつ",
+        "さんつ",
+        "みっつ",
+        "さっつ"
+      ],
+      "answer": 3,
+      "explain": "三つ is みっつ, with a small っ. みつ leaves out the small っ, and さんつ and さっつ use さん, the reading of 三 in words like 三百 or 三人. None of them is a word for three things."
+    },
+    {
+      "id": "n5u02t.3",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "こうえんの　_いりぐち_に　大きい　木が　あります。",
+      "options": [
+        "人口",
+        "入日",
+        "入口",
+        "人日"
+      ],
+      "answer": 3,
+      "explain": "いりぐち is 入口: 入 (go in) with 口 (opening). 人 looks like 入 but is ひと (person), so 人口 is another word (population), not いりぐち. 入日 and 人日 have 日 (day) in place of 口."
+    },
+    {
+      "id": "n5u02t.4",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "_みず_は　れいぞうこの　中に　あります。",
+      "options": [
+        "水",
+        "木",
+        "小",
+        "少"
+      ],
+      "answer": 1,
+      "explain": "みず is 水 (water). 木 is き (tree), 小 is the 小 of 小さい (small), and 少 is the 少 of 少し (a little). They look a little like 水 but none of them is read みず."
+    },
+    {
+      "id": "n5u02t.5",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "本やは　この　ビルの　三（　　）に　あります。",
+      "options": [
+        "つ",
+        "かい",
+        "まい",
+        "にん"
+      ],
+      "answer": 2,
+      "explain": "A shop in a building is on a floor, and floors are counted with かい: 三かい. 三つ counts things, 三まい counts flat things such as paper, and 三にん counts people. Only かい says where in the building."
+    },
+    {
+      "id": "n5u02t.6",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "ここは　（　　）です。本が　たくさん　あります。",
+      "options": [
+        "ぎんこう",
+        "しょくどう",
+        "びょういん",
+        "としょかん"
+      ],
+      "answer": 4,
+      "explain": "A place with a lot of books is a library, としょかん. A bank (ぎんこう) has money, a cafeteria (しょくどう) has food, and a hospital (びょういん) has doctors; none of them is known for having many books."
+    },
+    {
+      "id": "n5u02t.7",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "_ぎんこうは　ゆうびんきょくの　右に　あります_。",
+      "options": [
+        "ゆうびんきょくは　ぎんこうの　右に　あります。",
+        "ゆうびんきょくは　ぎんこうの　左に　あります。",
+        "ぎんこうは　ゆうびんきょくの　左に　あります。",
+        "ゆうびんきょくは　ぎんこうの　前に　あります。"
+      ],
+      "answer": 2,
+      "explain": "If the bank is on the right of the post office, the post office is on the left of the bank. Option 1 puts the post office on the right, option 3 moves the bank to the left, and option 4 puts the post office in front, not beside it."
+    },
+    {
+      "id": "n5u02t.8",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "ここは　_お手あらい_です。",
+      "options": [
+        "ここは　だいどころです。",
+        "ここは　げんかんです。",
+        "ここは　おふろです。",
+        "ここは　トイレです。"
+      ],
+      "answer": 4,
+      "explain": "お手あらい and トイレ are two words for the same room, the toilet. だいどころ is the kitchen, げんかん is the entrance of a house where you take off your shoes, and おふろ is the bath."
+    },
+    {
+      "id": "n5u02t.9",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the word",
+      "q": "A「すみません。この　ちかくに　ぎんこうは　ありますか。」B「ええ、（　　）に　ありますよ。あの　たかい　たてものです。」",
+      "options": [
+        "ここ",
+        "あそこ",
+        "あれ",
+        "どこ"
+      ],
+      "answer": 2,
+      "explain": "B points to a tall building over there (あの), so the bank is あそこ, a place far from both people. ここ would mean the place where they are standing, which does not fit あの. あれ is a thing, not a place, so あれにあります does not say where. どこ asks a question, but B is answering one."
+    },
+    {
+      "id": "n5u02t.10",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the word",
+      "q": "（パーティーで）A「中山さん、（　　）は　わたしの　クラスの　キムさんです。」B「はじめまして。中山です。」",
+      "options": [
+        "この",
+        "ここ",
+        "こちら",
+        "どちら"
+      ],
+      "answer": 3,
+      "explain": "When you introduce someone who is with you, you say こちらは, the polite \"this person\". この must have a noun right after it, so この cannot stand before は. ここ is a place, and a place cannot be キムさん. どちら is a question word, and A is not asking anything."
+    },
+    {
+      "id": "n5u02t.11",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "へやに　テレビは　ありますが、つくえは　（　　）。",
+      "options": [
+        "います",
+        "あります",
+        "いません",
+        "ありません"
+      ],
+      "answer": 4,
+      "explain": "が here means \"but\", so the second half says the opposite of the first: there is a TV but no desk. A desk is a thing, so it takes ありません. あります would not be the opposite of the first half, and います and いません are for people and animals, not for a desk."
+    },
+    {
+      "id": "n5u02t.12",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the particle",
+      "q": "A「ジョンさんは　どこですか。」B「ジョンさんは　いま　としょかん（　　）　います。」",
+      "options": [
+        "に",
+        "で",
+        "を",
+        "へ"
+      ],
+      "answer": 1,
+      "explain": "To say where someone is, the place takes に before います: としょかんにいます. で marks the place where you do an action (としょかんでべんきょうします), but います only says where he is. を and へ do not mark the place where someone is."
+    },
+    {
+      "id": "n5u02t.13",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the word",
+      "q": "つくえの　上に　ノートや　じしょ（　　）が　あります。",
+      "options": [
+        "の",
+        "ぐらい",
+        "ごろ",
+        "など"
+      ],
+      "answer": 4,
+      "explain": "や lists a few examples, and など after the last one means \"and other things like that\": ノートやじしょなど. じしょのが あります does not make sense here. ぐらい is for an amount such as a number or a time span, and ごろ is for a point in time; じしょ is neither."
+    },
+    {
+      "id": "n5u02t.14",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the word",
+      "q": "A「おとうとさんは　（　　）ですか。」B「八つです。」",
+      "options": [
+        "いくら",
+        "いくつ",
+        "いつ",
+        "どれ"
+      ],
+      "answer": 2,
+      "explain": "B answers 八つです, eight years old, so A asks a child's age with いくつ. いくら asks a price, and a person has no price. いつ asks when, and 八つ is not a time. どれ asks which one, and 八つです does not pick one out."
+    },
+    {
+      "id": "n5u02t.15",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the word",
+      "q": "きょうしつに　学生が　二十人（　　）　います。",
+      "options": [
+        "ごろ",
+        "いくら",
+        "ぐらい",
+        "いくつ"
+      ],
+      "answer": 3,
+      "explain": "二十人 is a number of people, and ぐらい after an amount means \"about\": about twenty students. ごろ means \"around\" only with a point in time, such as 三時ごろ, not with a number of people. いくら and いくつ are question words, and this sentence is not a question."
+    },
+    {
+      "id": "n5u02t.16",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「あ、あの　木の　",
+      "after": "が　いますよ。」B「ええ、かわいいですね。」",
+      "tiles": [
+        "下",
+        "に",
+        "白い",
+        "ねこ"
+      ],
+      "star": 2,
+      "bank": [
+        3,
+        0,
+        2,
+        1
+      ],
+      "full": "A「あ、あの　木の　下に　{白い}　ねこが　いますよ。」B「ええ、かわいいですね。」",
+      "explain": "下, に, 白い, ねこ. 木の needs a position word after it, so 下 comes first: 木の下 (under the tree). に marks that place. 白い describes ねこ, so it comes right before it, and ねこ goes before が います, because a cat is alive and takes います."
+    },
+    {
+      "id": "n5u02t.17",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「わたしの　さいふは　どこですか。」B「かばんの　",
+      "after": "ありますよ。」",
+      "tiles": [
+        "中",
+        "の",
+        "小さい",
+        "はこに"
+      ],
+      "star": 1,
+      "bank": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "full": "A「わたしの　さいふは　どこですか。」B「かばんの　中{の}　小さい　はこに　ありますよ。」",
+      "explain": "中, の, 小さい, はこに. かばんの中 is the inside of the bag. の joins it to the box: the small box in the bag. 小さい describes はこ, so it comes right before it, and はこに, with に for the place, goes before あります."
+    },
+    {
+      "id": "n5u02t.18",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「あしたは　何時から　うちに　いますか。」B「",
+      "after": "いますよ。」",
+      "tiles": [
+        "午後",
+        "五時",
+        "ごろ",
+        "から"
+      ],
+      "star": 2,
+      "bank": [
+        1,
+        3,
+        0,
+        2
+      ],
+      "full": "A「あしたは　何時から　うちに　いますか。」B「午後　五時{ごろ}から　いますよ。」",
+      "explain": "午後, 五時, ごろ, から. 午後 (p.m.) comes before the hour, as in 午後五時. ごろ (around) goes right after the time, and から (from) comes last, answering A's 何時から."
+    },
+    {
+      "id": "n5u02t.19",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "ジョンさん\nわたしの　あたらしい　へやは　二かいです。へやには　ベッドと　つくえが　あります。テレビは　ありません。つくえの　上に　とけいが　あります。まどの　外に　高い　木が　あります。木の　上には　ときどき　白い　とりが　います。\nゆき",
+      "q": "ゆきさんの　へやに　ない　ものは　どれですか。",
+      "options": [
+        "ベッド",
+        "つくえ",
+        "テレビ",
+        "とけい"
+      ],
+      "answer": 3,
+      "short": [
+        "ベッド",
+        "つくえ",
+        "テレビ",
+        "とけい"
+      ],
+      "explain": "ゆき writes テレビはありません: there is no TV. The room has a bed and a desk (ベッドとつくえがあります), and the clock is on the desk (つくえの上にとけいがあります)."
+    },
+    {
+      "id": "n5u02t.20",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "ジョンさん\nわたしの　あたらしい　へやは　二かいです。へやには　ベッドと　つくえが　あります。テレビは　ありません。つくえの　上に　とけいが　あります。まどの　外に　高い　木が　あります。木の　上には　ときどき　白い　とりが　います。\nゆき",
+      "q": "ただしい　ものは　どれですか。",
+      "options": [
+        "ゆきさんの　へやは　一かいに　あります。",
+        "とけいは　つくえの　下に　あります。",
+        "高い　木は　へやの　中に　あります。",
+        "白い　とりは　ときどき　木の　上に　います。"
+      ],
+      "answer": 4,
+      "short": [
+        "へやは一かい",
+        "とけいはつくえの下",
+        "木はへやの中",
+        "とりは木の上"
+      ],
+      "explain": "ゆき writes 木の上にはときどき白いとりがいます: sometimes a white bird is in the tree. The room is on 二かい, not 一かい. The clock is on the desk (上), not under it (下). The tall tree is outside the window (まどの外), not in the room."
+    },
+    {
+      "id": "n5u02t.21",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "パンの　店「やまの　パン」\nメロンパン　一つ　百五十円\nカレーパン　一つ　二百円\nサンドイッチ　一つ　三百五十円\n午後　五時から　パンと　サンドイッチは　ぜんぶ　一つ　百円です。\n店の　前に　テーブルと　いすが　あります。どうぞ。",
+      "q": "リンさんは　午後　二時に　この　店で　カレーパンを　二つ　買います。いくらですか。",
+      "options": [
+        "百円",
+        "二百円",
+        "四百円",
+        "七百円"
+      ],
+      "answer": 3,
+      "short": [
+        "百円",
+        "二百円",
+        "四百円",
+        "七百円"
+      ],
+      "explain": "At two in the afternoon the 五時から price does not apply yet, so a カレーパン is 二百円 each, and two are 四百円. 百円 is the after-five price of one. 二百円 is one at the normal price, or two after five. 七百円 is two sandwiches."
+    },
+    {
+      "id": "n5u02t.22",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "パンの　店「やまの　パン」\nメロンパン　一つ　百五十円\nカレーパン　一つ　二百円\nサンドイッチ　一つ　三百五十円\n午後　五時から　パンと　サンドイッチは　ぜんぶ　一つ　百円です。\n店の　前に　テーブルと　いすが　あります。どうぞ。",
+      "q": "キムさんは　午後　六時に　この　店で　メロンパンを　一つと　サンドイッチを　一つ　買います。いくらですか。",
+      "options": [
+        "二百円",
+        "二百五十円",
+        "四百円",
+        "五百円"
+      ],
+      "answer": 1,
+      "short": [
+        "二百円",
+        "二百五十円",
+        "四百円",
+        "五百円"
+      ],
+      "explain": "Six p.m. is after five, and from five everything is 百円 each, so two things are 二百円. 五百円 is the normal price (百五十円 and 三百五十円). 二百五十円 takes the normal price for the メロンパン only, and 四百円 is the price of two カレーパン before five."
+    },
+    {
+      "id": "n5u02t.23",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "マイクさん\nあした　いっしょに　えいがを　見ませんか。えいがは　午後　二時からです。えいがかんは　駅から　あるいて　十分ぐらいです。わたしは　一時半ごろ　駅の　東口の　前に　います。東口の　前には　大きい　花やが　あります。\nゆか",
+      "q": "ゆかさんは　あした　何時ごろ　どこに　いますか。",
+      "options": [
+        "一時半ごろ　えいがかんの　前",
+        "一時半ごろ　駅の　東口の　前",
+        "二時ごろ　駅の　東口の　前",
+        "二時ごろ　えいがかんの　前"
+      ],
+      "answer": 2,
+      "short": [
+        "一時半 えいがかん",
+        "一時半 東口",
+        "二時 東口",
+        "二時 えいがかん"
+      ],
+      "explain": "ゆか writes 一時半ごろ駅の東口の前にいます. 二時 is when the film starts, not when she waits. She waits at the station's east exit, not in front of the cinema, which is ten minutes away."
+    },
+    {
+      "id": "n5u02t.24",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "マイクさん\nあした　いっしょに　えいがを　見ませんか。えいがは　午後　二時からです。えいがかんは　駅から　あるいて　十分ぐらいです。わたしは　一時半ごろ　駅の　東口の　前に　います。東口の　前には　大きい　花やが　あります。\nゆか",
+      "q": "ただしい　ものは　どれですか。",
+      "options": [
+        "えいがは　一時半からです。",
+        "えいがかんは　駅の　中に　あります。",
+        "駅から　えいがかんまで　十分ぐらいです。",
+        "花やは　駅の　西口の　前に　あります。"
+      ],
+      "answer": 3,
+      "short": [
+        "えいがは一時半から",
+        "えいがかんは駅の中",
+        "駅から十分ぐらい",
+        "花やは西口"
+      ],
+      "explain": "ゆか writes えいがかんは駅からあるいて十分ぐらいです. The film starts at 二時; 一時半 is when she will be at the station. The cinema is a ten-minute walk away, so it is not inside the station. The flower shop is in front of the east exit (東口), not the west exit."
+    }
+  ]
+}

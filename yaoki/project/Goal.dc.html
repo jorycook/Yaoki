@@ -5,6 +5,7 @@
 <title>Set the goal</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 </head>
 <body>
@@ -49,7 +50,7 @@ button:disabled{cursor:default}
 <div style="font-size: 13px; font-weight: 800">レベル　Level</div>
 <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
 <sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
-<button aria-pressed="{{ l.on }}" onClick="{{ l.pick }}" style="height: 48px; border-radius: 14px; font-weight: 800; font-size: 16px; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}</button>
+<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 48px; border-radius: 14px; font-weight: 800; font-size: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
 </sc-for>
 </div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382"><span lang="ja">N1は別のアプリです。</span> N1 has its own app.</div>
@@ -132,7 +133,9 @@ button:disabled{cursor:default}
 class Component extends DCLogic {
 constructor(props) {
 super(props);
-this.state = { level: 'N2', pace: 30, fit: 'fit', painted: false, sheet: false };
+/* the level the learner is on, or N2 the first time */
+const lv = (props && props.app && props.app.level) || (window.ykCourse && window.ykCourse.level()) || 'N2';
+this.state = { level: lv, pace: 30, fit: 'fit', painted: false, sheet: false };
 }
 renderVals() {
 const s = this.state;
@@ -140,9 +143,14 @@ const look = (on) => on
 ? { border: '2px solid #1B2440', bg: '#2F4FD0', shadow: '0 3px 0 #1B2440', color: '#FFFFFF' }
 : { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#1B2440' };
 /* this app covers N5 to N2; N1 is a separate app */
+const C = window.ykCourse;
+const written = {};
+C.levels().forEach((x) => { written[x.level] = x.ready; });
 const levels = ['N5', 'N4', 'N3', 'N2'].map((label) => {
 const on = s.level === label;
-return { label, on, pick: () => this.setState({ level: label }), ...look(on) };
+const off = !written[label];
+const lk = off ? { border: '2px dashed #DDE1EC', bg: '#F4F5F9', shadow: 'none', color: '#9AA1B5' } : look(on);
+return { label, on, off, aria: label + (off ? ', not written yet' : ''), pick: () => { if (!off) this.setState({ level: label }); }, ...lk };
 });
 const paces = [
 { min: 20, big: '20分', small: 'かるく Light' },
@@ -152,13 +160,13 @@ const paces = [
 const on = s.pace === p.min;
 return { ...p, on, pick: () => this.setState({ pace: p.min }), ...look(on), subColor: on ? '#FFFFFF' : '#5A6382', subWeight: on ? 700 : 500 };
 });
-const C = window.ykCourse;
 const exam = '2026-12-06';
 const today = C.today(C.now());
 const settings = { start: today, exam, pace: s.fit };
-const fitsOneADay = C.fits(settings);
-const units = C.units().length;
-const sessions = C.sessions().length;
+/* the plan is worked out for the level picked here, which may not be the one the learner is on yet */
+const fitsOneADay = C.withLevel(s.level, () => C.fits(settings));
+const units = C.withLevel(s.level, () => C.units().length);
+const sessions = C.withLevel(s.level, () => C.sessions().length);
 const room = Math.max(1, C.daysBetween(today, exam) - 7);
 /* how far one session a day gets before the exam */
 const reach = Math.min(units, Math.floor(room / C.DAYS_PER_UNIT));
@@ -190,7 +198,7 @@ openSheet: () => this.setState({ sheet: true }),
 closeSheet: () => this.setState({ sheet: false }),
 toMain: (e) => {
 const go = this.props.go;
-if (this.props.save) this.props.save({ plan: { start: today, exam, pace: s.fit, minutes: s.pace }, cur: null });
+if (this.props.save) this.props.save({ level: s.level, plan: { start: today, exam, pace: s.fit, minutes: s.pace }, cur: null });
 if (go) { e.preventDefault(); go('Main'); }
 },
 };

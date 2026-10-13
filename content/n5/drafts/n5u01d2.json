@@ -1,0 +1,500 @@
+{
+ "title": "〜か・〜も",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u01d2.p1",
+    "form": "〜か",
+    "gloss": "question ending: …?",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ です ＋ {か}"
+     },
+     {
+      "pos": "Answer: yes",
+      "rule": "はい、{そうです}。"
+     },
+     {
+      "pos": "Answer: no",
+      "rule": "いいえ、{ちがいます}。"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "リンさんは[学生|がくせい]です{か}。……はい、そうです。",
+      "en": "Lin, are you a student? Yes, I am."
+     },
+     {
+      "ja": "やまださんは[先生|せんせい]です{か}。……いいえ、ちがいます。[学生|がくせい]です。",
+      "en": "Is Ms Yamada a teacher? No, she isn't. She's a student."
+     }
+    ],
+    "watch": {
+     "note": "In polite talk, keep です before か. 学生か on its own sounds rough, not polite.",
+     "bad": "リンさんは学生か。",
+     "good": "リンさんは学生ですか。"
+    }
+   },
+   {
+    "id": "n5u01d2.p2",
+    "form": "〜も",
+    "gloss": "also, too",
+    "connect": [
+     {
+      "pos": "Noun, in place of は",
+      "rule": "〜 ＋ {も}（は → も）"
+     },
+     {
+      "pos": "Noun, in place of が",
+      "rule": "〜 ＋ {も}（が → も）"
+     },
+     {
+      "pos": "Two nouns",
+      "rule": "〜{も}　〜{も}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "わたしは[学生|がくせい]です。リンさん{も}[学生|がくせい]です。",
+      "en": "I am a student. Lin is a student too."
+     },
+     {
+      "ja": "[本|ほん]があります。ノート{も}あります。",
+      "en": "There is a book. There is a notebook too."
+     }
+    ],
+    "watch": {
+     "note": "も takes the place of は. Do not use both together.",
+     "bad": "リンさんはも学生です。",
+     "good": "リンさんも学生です。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "Three small words that change a です sentence: は gives the topic, も says \"too\", and か at the end asks.",
+   "forms": [
+    {
+     "form": "〜か",
+     "tag": "しつもん · question",
+     "mark": "dot",
+     "ja": "リンさんは[学生|がくせい]です{か}。",
+     "en": "Is Lin a student?"
+    },
+    {
+     "form": "〜も",
+     "tag": "おなじ · also, too",
+     "mark": "up",
+     "ja": "キムさん{も}[学生|がくせい]です。",
+     "en": "Kim is a student too."
+    },
+    {
+     "form": "〜は",
+     "tag": "トピック · as for",
+     "mark": "dot",
+     "ja": "やまださん{は}[先生|せんせい]です。",
+     "en": "Ms Yamada is a teacher."
+    }
+   ],
+   "check": {
+    "id": "n5u01d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "クラスで",
+    "q": "A：やまださんは[先生|せんせい]ですか。B：いいえ、ちがいます。やまださん（　　）[学生|がくせい]です。",
+    "options": [
+     "は",
+     "も",
+     "か"
+    ],
+    "answer": 1,
+    "why": [
+     "B now says what Ms Yamada really is: やまださんは学生です.",
+     "も means \"too\". Nobody else in this talk is a student, so there is nothing to add to.",
+     "か between names means \"or\", but no second name follows here."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u01d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：キムさんは[先生|せんせい]です（　　）。B：^はい、そうです^。",
+    "options": [
+     "か",
+     "も",
+     "は",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "か after です makes a question, and B answers it with はい、そうです.",
+     "も goes after a noun, as in キムさんも. It cannot end a sentence after です.",
+     "は goes after a noun, as in キムさんは. It cannot end a sentence after です.",
+     "を marks what a verb acts on. It cannot follow です."
+    ]
+   },
+   {
+    "id": "n5u01d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：それは[日本語|にほんご]の[本|ほん]ですか。B：いいえ、（　　）。^ノートです^。",
+    "options": [
+     "ちがいます",
+     "そうです",
+     "そうですか",
+     "ちがいますか"
+    ],
+    "answer": 1,
+    "why": [
+     "After いいえ, ちがいます says \"that's not right\". Then B says what it really is: a notebook.",
+     "そうです means \"yes, that's right\". It clashes with いいえ, and B goes on to say it is a notebook.",
+     "そうですか means \"oh, I see\". It reacts to news. It does not answer A's question.",
+     "ちがいますか asks a question back. B is answering here, not asking."
+    ]
+   },
+   {
+    "id": "n5u01d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "やまださん（　　）^キムさんも^[学生|がくせい]です。",
+    "options": [
+     "も",
+     "は",
+     "か",
+     "が"
+    ],
+    "answer": 1,
+    "why": [
+     "Both people are students: AもBも. キムさんも asks for も after やまださん too.",
+     "は does not pair with キムさんも. When two names share the sentence like this, each one takes も.",
+     "か between names means \"or\", and then キムさん would not take も.",
+     "が does not pair with キムさんも either. Each name takes も."
+    ]
+   },
+   {
+    "id": "n5u01d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：^わたしは[学生|がくせい]です^。B：あ、わたし（　　）です。",
+    "options": [
+     "も",
+     "は",
+     "か",
+     "が"
+    ],
+    "answer": 1,
+    "why": [
+     "わたしもです means \"me too\": B is a student as well. も replaces the は of わたしは学生です.",
+     "わたしはです is not a sentence. は needs a word before です, as in わたしは学生です.",
+     "か cannot sit between わたし and です. To ask, か goes at the end: ですか.",
+     "わたしがです is not a sentence. が also needs a word before です."
+    ]
+   },
+   {
+    "id": "n5u01d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "やまださんは",
+    "after": "。",
+    "tiles": [
+     "[日本語|にほんご]の",
+     "[先生|せんせい]",
+     "です",
+     "か"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "What kind of teacher? 日本語の sits right before 先生. か always comes last.",
+    "full": "やまださんは[日本語|にほんご]の[先生|せんせい]です{か}。",
+    "explain": "日本語の describes 先生, so it goes first. Then です, and か at the very end turns the sentence into a question."
+   },
+   {
+    "id": "n5u01d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：わたしは[日本語|にほんご]の[学生|がくせい]です。B：",
+    "after": "です。",
+    "tiles": [
+     "わたし",
+     "も",
+     "[日本語|にほんご]の",
+     "[学生|がくせい]"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "B is a Japanese student too. Which tile can follow わたし?",
+    "full": "A：わたしは[日本語|にほんご]の[学生|がくせい]です。B：わたし{も}[日本語|にほんご]の[学生|がくせい]です。",
+    "explain": "B says the same thing as A, so わたし takes も in place of は. 日本語の must sit right before 学生."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u01d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：すみません。これは　出口ですか。B：はい、（　　）。",
+    "options": [
+     "そうです",
+     "ちがいます",
+     "そうですか",
+     "なんですか"
+    ],
+    "answer": 1,
+    "explain": "はい goes with そうです: \"yes, it is\". はい、ちがいます contradicts itself. そうですか only reacts to news, and なんですか asks a new question instead of answering."
+   },
+   {
+    "id": "n5u01d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "つくえの　上に、本も　ノート（　　）　あります。",
+    "options": [
+     "も",
+     "は",
+     "が",
+     "を"
+    ],
+    "answer": 1,
+    "explain": "本も comes first, so ノート takes も too: 本もノートもあります, \"both a book and a notebook\". は and が cannot pair with 本も like this, and を is not used with あります."
+   },
+   {
+    "id": "n5u01d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：",
+    "after": "。B：はい、そうです。",
+    "tiles": [
+     "これも",
+     "先生の",
+     "本",
+     "ですか"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "A：これも　{先生の}　本ですか。B：はい、そうです。",
+    "explain": "これも, 先生の, 本, ですか. これも starts the question, 先生の must sit right before 本, and ですか ends it."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "きょうしつで",
+  "en": "In the classroom",
+  "intro": "Tap every label and notice you can see on the classroom wall.",
+  "words": [
+   {
+    "id": "book",
+    "word": "本",
+    "reading": "ほん",
+    "gloss": "book",
+    "parts": [
+     [
+      "本",
+      "ホン",
+      "book; origin"
+     ]
+    ]
+   },
+   {
+    "id": "teacher",
+    "word": "先生",
+    "reading": "せんせい",
+    "gloss": "teacher",
+    "parts": [
+     [
+      "先",
+      "セン",
+      "ahead"
+     ],
+     [
+      "生",
+      "セイ",
+      "life, live"
+     ]
+    ]
+   },
+   {
+    "id": "student",
+    "word": "学生",
+    "reading": "がくせい",
+    "gloss": "student",
+    "parts": [
+     [
+      "学",
+      "ガク",
+      "study"
+     ],
+     [
+      "生",
+      "セイ",
+      "life, live"
+     ]
+    ]
+   },
+   {
+    "id": "entrance",
+    "word": "入口",
+    "reading": "いりぐち",
+    "gloss": "entrance",
+    "parts": [
+     [
+      "入",
+      "いり",
+      "go in"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "exit",
+    "word": "出口",
+    "reading": "でぐち",
+    "gloss": "exit",
+    "parts": [
+     [
+      "出",
+      "で",
+      "go out"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "name",
+    "word": "名前",
+    "reading": "なまえ",
+    "gloss": "name",
+    "parts": [
+     [
+      "名",
+      "な",
+      "name"
+     ],
+     [
+      "前",
+      "まえ",
+      "front, before"
+     ]
+    ]
+   },
+   {
+    "id": "japanese",
+    "word": "日本語",
+    "reading": "にほんご",
+    "gloss": "Japanese (language)",
+    "parts": [
+     [
+      "日",
+      "ニ",
+      "sun, day"
+     ],
+     [
+      "本",
+      "ホン",
+      "origin"
+     ],
+     [
+      "語",
+      "ゴ",
+      "language, word"
+     ]
+    ]
+   },
+   {
+    "id": "break",
+    "word": "休み",
+    "reading": "やすみ",
+    "gloss": "break, day off",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u01d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "すみません、_出口_は　どこですか。",
+   "options": [
+    "でぐち",
+    "でくち",
+    "しゅつぐち",
+    "だしぐち"
+   ],
+   "answer": 1,
+   "explain": "出口 is でぐち: 出 read で, and 口 becomes ぐち after it, as in 入口 (いりぐち). でくち misses that change, しゅつ is the reading in other words, and だしぐち is not a word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Who is each sentence about, and what is that person?",
+  "seconds": 90,
+  "passage": "みなさん、はじめまして。リンです。中国から　来ました。今、^大学生^です。ともだちの　ワンさんは　^日本語の　先生^です。でも、^わたしの　先生じゃ　ありません^。ワンさん^も　中国人^です。どうぞ　よろしく。",
+  "strategy": "Track the names: what is said about リンさん, what about ワンさん, and what も after a name adds.",
+  "item": {
+   "id": "n5u01d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "ただしい　ものは　どれですか。",
+   "options": [
+    "リンさんは　日本語の　先生です。",
+    "ワンさんは　中国人です。",
+    "ワンさんは　リンさんの　先生です。",
+    "ワンさんは　大学生です。"
+   ],
+   "short": [
+    "リン：日本語の先生",
+    "ワン：中国人",
+    "ワン：リンの先生",
+    "ワン：大学生"
+   ],
+   "answer": 2,
+   "explain": "ワンさんも中国人です: も means Wang is Chinese too, like Lin.",
+   "why": [
+    "Lin is a university student. The Japanese teacher is Wang.",
+    "",
+    "Wang is a teacher, but Lin says わたしの先生じゃありません: not my teacher.",
+    "Lin is the university student. Wang is a teacher."
+   ]
+  }
+ }
+}

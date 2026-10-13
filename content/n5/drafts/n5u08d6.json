@@ -1,0 +1,446 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "To tell this unit's points apart, ask how many things you compare (より／のほうが and どちら for two, の中でいちばん for three or more, どちらも／どれも for all of them), whether something changes by itself (くなる／になる) or someone changes it (くする／にする), and whether the ending is negative: だけ and しか both mean only, but しか always needs a negative ending.",
+   "forms": [
+    {
+     "form": "〜くなります",
+     "tag": "かわる · it becomes (い adjective)",
+     "mark": "dot",
+     "ja": "このシャツは[先週|せんしゅう]より[安|やす]{くなりました}。",
+     "en": "This shirt has got cheaper than last week."
+    },
+    {
+     "form": "〜くします",
+     "tag": "かえる · someone makes it (い adjective)",
+     "mark": "dot",
+     "ja": "[店|みせ]の[人|ひと]がシャツを[安|やす]{くしました}。",
+     "en": "The shop staff made the shirt cheaper."
+    },
+    {
+     "form": "〜にします",
+     "tag": "〜に＋する · make it (noun, な adjective)",
+     "mark": "dot",
+     "ja": "[店|みせ]の[人|ひと]がシャツを[千円|せんえん]{にしました}。",
+     "en": "The shop staff made the shirt 1,000 yen."
+    }
+   ],
+   "check": {
+    "id": "n5u08d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "セールのかばん",
+    "q": "セールですから、[店|みせ]の[人|ひと]^が^かばん^を^[安|やす]く（　　）。",
+    "options": [
+     "なりました",
+     "しました",
+     "にしました"
+    ],
+    "answer": 2,
+    "why": [
+     "なりました says something changed by itself, and that thing takes が: かばんが安くなりました. With 店の人が and かばんを, it does not fit.",
+     "店の人が is the person who acts and かばんを is the thing changed, so 安くしました: the shop staff made the bags cheaper.",
+     "安く already has く. に goes after a noun or a な adjective, like 千円にしました, not after 安く."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u08d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "A：^うどんとそば^、（　　）にしますか。B：そばにします。",
+    "options": [
+     "どれ",
+     "どちら",
+     "どちらも",
+     "いちばん"
+    ],
+    "answer": 2,
+    "why": [
+     "どれ is for three or more things. Here there are only two.",
+     "A offers two things, うどん and そば, so A asks with どちら: which will you have?",
+     "どちらも means both. It answers a question; it cannot ask which one, and どちらもにしますか is not said.",
+     "いちばん needs a group of three or more and a word that asks, like どれがいちばん. いちばんにしますか does not ask which one."
+    ]
+   },
+   {
+    "id": "n5u08d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "このセールは[今日|きょう]（　　）^です^よ。",
+    "options": [
+     "しか",
+     "より",
+     "だけ",
+     "どれも"
+    ],
+    "answer": 3,
+    "why": [
+     "しか needs a negative ending, like 今日しかありません. Here the ending is です.",
+     "より compares two things, but nothing is compared here. 今日よりです is not said.",
+     "The ending です is positive, so \"only today\" is 今日だけです.",
+     "どれも is about three or more things. It cannot follow 今日."
+    ]
+   },
+   {
+    "id": "n5u08d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[新|あたら]しい[店|みせ]がたくさんできて、この[道|みち]^が^（　　）。",
+    "options": [
+     "にぎやかくなりました",
+     "にぎやかになりました",
+     "にぎやかにしました",
+     "にぎやかくしました"
+    ],
+    "answer": 2,
+    "why": [
+     "にぎやか is a な adjective, so にぎやかく is not a form.",
+     "この道が is the thing that changed, so use なりました. にぎやか is a な adjective, so it takes に: the street got lively.",
+     "しました needs someone who acts and a thing with を. Here この道が is the thing that changed.",
+     "にぎやかく is not a form, and しました does not fit この道が either."
+    ]
+   },
+   {
+    "id": "n5u08d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "このかばんは[三|みっ]つの^[中|なか]で^（　　）[大|おお]きいです。",
+    "options": [
+     "より",
+     "のほうが",
+     "どちらも",
+     "いちばん"
+    ],
+    "answer": 4,
+    "why": [
+     "より follows the thing you measure against, like あのかばんより. It cannot come after 中で.",
+     "のほうが follows the winner of two, like このかばんのほうが. It cannot come after 中で.",
+     "どちらも is about two things, and it says the same about both. Here one bag out of three is picked.",
+     "三つの中で gives a group of three, so いちばん picks the one: this bag is the biggest of the three."
+    ]
+   },
+   {
+    "id": "n5u08d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "セールでも、このシャツは[前|まえ]より",
+    "after": "。",
+    "tiles": [
+     "[百円|ひゃくえん]",
+     "しか",
+     "[安|やす]く",
+     "なりませんでした"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "How much comes first, then しか. しか needs a negative ending, and 安い changes before なる.",
+    "full": "セールでも、このシャツは[前|まえ]より[百円|ひゃくえん]しか{[安|やす]く}なりませんでした。",
+    "explain": "百円, しか, 安く, なりませんでした. 百円しか needs a negative ending, so it goes with なりませんでした. 安い becomes 安く before なる: \"Even in the sale, this shirt only got 100 yen cheaper than before.\""
+   },
+   {
+    "id": "n5u08d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：[何|なに]にしますか。B：メニューの",
+    "after": "します。",
+    "tiles": [
+     "[中|なか]で",
+     "いちばん",
+     "[安|やす]いの",
+     "に"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "メニューの needs 中で to make the group. 安いの means \"the cheap one\", and に comes right before します.",
+    "full": "A：[何|なに]にしますか。B：メニューの[中|なか]でいちばん{[安|やす]いの}にします。",
+    "explain": "中で, いちばん, 安いの, に. メニューの中で is the group, いちばん安いの is the cheapest one, and にします says what you choose: \"I'll have the cheapest one on the menu.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u08d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the answer",
+    "q": "この　店の　ケーキは　どれも　おいしいですが、チーズケーキが　（　　）　すきです。",
+    "options": [
+     "どちらも",
+     "だけ",
+     "いちばん",
+     "しか"
+    ],
+    "answer": 3,
+    "explain": "どれも shows there are many cakes, and the speaker picks one: チーズケーキが　いちばん　すきです, I like the cheesecake best. どちらも is about two things and does not pick one. だけ cannot come after が here, and しか needs a negative ending, but the ending is すきです."
+   },
+   {
+    "id": "n5u08d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the answer",
+    "q": "あつく　なりましたから、かみを　（　　）。",
+    "options": [
+     "みじかく　なりました",
+     "みじかく　しました",
+     "みじかいに　しました",
+     "みじかいに　なりました"
+    ],
+    "answer": 2,
+    "explain": "かみを has を, so someone changed the hair: みじかく　しました, I had my hair cut short. なりました needs が (かみが　みじかく　なりました), so it does not fit after かみを. みじかい is an い adjective, so it takes く, not に."
+   },
+   {
+    "id": "n5u08d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「どちらの　かばんに　しますか。」\nB「",
+    "after": "、それに　します。」",
+    "tiles": [
+     "白い",
+     "かばんの",
+     "ほうが",
+     "安いですから"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "full": "A「どちらの　かばんに　しますか。」\nB「白い　かばんの　{ほうが}　安いですから、それに　します。」",
+    "explain": "白い, かばんの, ほうが, 安いですから. 白い goes before かばん, a noun needs の before ほうが, and から gives the reason for the choice: \"The white bag is cheaper, so I'll take that one.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "古本の店のセール",
+  "en": "A sale poster at a second-hand bookshop",
+  "intro": "Tap each word on the bookshop's sale poster with its old and new prices.",
+  "words": [
+   {
+    "id": "used-book",
+    "word": "古本",
+    "reading": "ふるほん",
+    "gloss": "second-hand book",
+    "parts": [
+     [
+      "古",
+      "ふる",
+      "old"
+     ],
+     [
+      "本",
+      "ホン",
+      "book"
+     ]
+    ]
+   },
+   {
+    "id": "this-week",
+    "word": "今週",
+    "reading": "こんしゅう",
+    "gloss": "this week",
+    "parts": [
+     [
+      "今",
+      "コン",
+      "now"
+     ],
+     [
+      "週",
+      "シュウ",
+      "week"
+     ]
+    ]
+   },
+   {
+    "id": "next-week",
+    "word": "来週",
+    "reading": "らいしゅう",
+    "gloss": "next week",
+    "parts": [
+     [
+      "来",
+      "ライ",
+      "come, next"
+     ],
+     [
+      "週",
+      "シュウ",
+      "week"
+     ]
+    ]
+   },
+   {
+    "id": "foreign-language",
+    "word": "外国語",
+    "reading": "がいこくご",
+    "gloss": "foreign language",
+    "parts": [
+     [
+      "外",
+      "ガイ",
+      "outside"
+     ],
+     [
+      "国",
+      "コク",
+      "country"
+     ],
+     [
+      "語",
+      "ゴ",
+      "language"
+     ]
+    ]
+   },
+   {
+    "id": "2000-yen",
+    "word": "二千円",
+    "reading": "にせんえん",
+    "gloss": "2,000 yen",
+    "parts": [
+     [
+      "二",
+      "ニ",
+      "two"
+     ],
+     [
+      "千",
+      "セン",
+      "thousand"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "800-yen",
+    "word": "八百円",
+    "reading": "はっぴゃくえん",
+    "gloss": "800 yen",
+    "parts": [
+     [
+      "八",
+      "ハッ",
+      "eight"
+     ],
+     [
+      "百",
+      "ピャク",
+      "hundred"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "cheaply",
+    "word": "安く",
+    "reading": "やすく",
+    "gloss": "cheaper, cheaply (from 安い)",
+    "parts": [
+     [
+      "安",
+      "やす",
+      "cheap"
+     ]
+    ]
+   },
+   {
+    "id": "every-day",
+    "word": "毎日",
+    "reading": "まいにち",
+    "gloss": "every day",
+    "parts": [
+     [
+      "毎",
+      "マイ",
+      "every"
+     ],
+     [
+      "日",
+      "ニチ",
+      "day"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u08d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　本は　今週だけ　_八百円_です。",
+   "options": [
+    "はちひゃくえん",
+    "はっぴゃくえん",
+    "はっひゃくえん",
+    "はちびゃくえん"
+   ],
+   "answer": 2,
+   "explain": "八百円 is read はっぴゃくえん: 八 becomes はっ and 百 becomes ぴゃく. はちひゃくえん, はっひゃくえん and はちびゃくえん are not how 800 is said."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which item at the café will get cheaper from next month?",
+  "seconds": 90,
+  "passage": "山川カフェの　おしらせ\n来月から　すこし　かわります。\n（今月　→　来月）\nコーヒー　三百円　→　三百五十円\nこうちゃ　三百円（かわりません）\nケーキ　四百円　→　四百五十円\n^サンドイッチ　五百円　→　四百五十円^\nこれからも　よろしく　おねがいします。",
+  "strategy": "Compare the two prices on each line and find the one where the second price, next month's, is lower.",
+  "item": {
+   "id": "n5u08d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "来月から　安く　なる　ものは　どれですか。",
+   "options": [
+    "コーヒー",
+    "こうちゃ",
+    "ケーキ",
+    "サンドイッチ"
+   ],
+   "short": [
+    "コーヒー",
+    "こうちゃ",
+    "ケーキ",
+    "サンドイッチ"
+   ],
+   "answer": 4,
+   "explain": "The sandwich line reads 五百円　→　四百五十円: 500 yen this month, 450 yen next month. It is the only price that goes down.",
+   "why": [
+    "Coffee goes from 300 yen to 350 yen, so it gets more expensive.",
+    "Tea stays at 300 yen (かわりません, no change).",
+    "Cake goes from 400 yen to 450 yen, so it gets more expensive.",
+    ""
+   ]
+  }
+ }
+}

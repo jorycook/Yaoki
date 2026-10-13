@@ -1,0 +1,531 @@
+{
+ "title": "いくつ／いくら・〜ぐらい／〜ごろ",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u02d5.p1",
+    "form": "いくつ・いくら",
+    "gloss": "how many (how old) / how much money",
+    "connect": [
+     {
+      "pos": "Noun (things you count)",
+      "rule": "〜は {いくつ} ありますか"
+     },
+     {
+      "pos": "Noun (asking a price)",
+      "rule": "〜は {いくら} ですか"
+     },
+     {
+      "pos": "Noun (asking someone's age)",
+      "rule": "〜は （お）{いくつ} ですか"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "いすは{いくつ}ありますか。",
+      "en": "How many chairs are there?"
+     },
+     {
+      "ja": "このかばんは{いくら}ですか。",
+      "en": "How much is this bag?"
+     }
+    ],
+    "watch": {
+     "note": "いくら asks about money. いくつ asks how many, or how old. To ask the price of a bag, use いくら.",
+     "bad": "すみません、このかばんはいくつですか。",
+     "good": "すみません、このかばんはいくらですか。"
+    }
+   },
+   {
+    "id": "n5u02d5.p2",
+    "form": "〜ぐらい／くらい・〜ごろ",
+    "gloss": "about (an amount) / around (a time)",
+    "connect": [
+     {
+      "pos": "Number, amount or length of time",
+      "rule": "〜 ＋ {ぐらい}／{くらい}"
+     },
+     {
+      "pos": "Clock time or day",
+      "rule": "〜 ＋ {ごろ}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[駅|えき]まで[十分|じゅっぷん]{ぐらい}です。",
+      "en": "It's about ten minutes to the station."
+     },
+     {
+      "ja": "[十一時|じゅういちじ]{ごろ}ねます。",
+      "en": "I go to bed around eleven."
+     }
+    ],
+    "watch": {
+     "note": "ごろ is for a point in time, like a clock time. 二時間 is a length of time, so use ぐらい.",
+     "bad": "日本語を二時間ごろべんきょうしました。",
+     "good": "日本語を二時間ぐらいべんきょうしました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three go in a question about a number. What changes is what kind of number you want.",
+   "forms": [
+    {
+     "form": "いくつ",
+     "tag": "かず · how many",
+     "mark": "dot",
+     "ja": "りんごは{いくつ}ありますか。",
+     "en": "How many apples are there?"
+    },
+    {
+     "form": "いくら",
+     "tag": "おかね · how much money",
+     "mark": "dot",
+     "ja": "りんごは{いくら}ですか。",
+     "en": "How much are the apples?"
+    },
+    {
+     "form": "何時ごろ",
+     "tag": "じかん · around what time",
+     "mark": "dot",
+     "ja": "[何時|なんじ]{ごろ}[来|き]ますか。",
+     "en": "Around what time will you come?"
+    }
+   ],
+   "check": {
+    "id": "n5u02d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "くだものやで",
+    "q": "A「このりんごは（　　）ですか。」B「^[一|ひと]つ[百円|ひゃくえん]^です。」",
+    "options": [
+     "いくつ",
+     "いくら",
+     "[何時|なんじ]ごろ"
+    ],
+    "answer": 2,
+    "why": [
+     "いくつ asks how many. B answers with a price, 百円.",
+     "B answers with a price, so A asked how much with いくら.",
+     "何時ごろ asks about a time. B answers with a price."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u02d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "（[店|みせ]で）A「すみません、このパンは（　　）ですか。」B「^[百五十円|ひゃくごじゅうえん]^です。」",
+    "options": [
+     "いくら",
+     "いくつ",
+     "[何時|なんじ]",
+     "どこ"
+    ],
+    "answer": 1,
+    "why": [
+     "B answers with a price, so A asks how much with いくら.",
+     "いくつ asks how many or how old. B answers with a price.",
+     "何時 asks what time it is. B answers with a price.",
+     "どこ asks where. B answers with a price."
+    ]
+   },
+   {
+    "id": "n5u02d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "A「いすは（　　）ありますか。」B「^[四|よっ]つ^あります。」",
+    "options": [
+     "いくら",
+     "いくつ",
+     "[何|なに]",
+     "だれ"
+    ],
+    "answer": 2,
+    "why": [
+     "いくら asks about money. B counts the chairs.",
+     "B counts the chairs with 四つ, so A asks how many with いくつ.",
+     "何 asks what. It cannot ask how many, and B gives a number.",
+     "だれ asks who. Chairs are not people, and B gives a number."
+    ]
+   },
+   {
+    "id": "n5u02d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "この[本|ほん]は^[千円|せんえん]^（　　）でした。",
+    "options": [
+     "ごろ",
+     "いくら",
+     "ぐらい",
+     "いくつ"
+    ],
+    "answer": 3,
+    "why": [
+     "ごろ is for a point in time, like a clock time. 千円 is an amount of money.",
+     "いくら asks a question. This sentence tells a price; it does not ask one.",
+     "千円 is an amount of money, so \"about\" is ぐらい.",
+     "いくつ asks how many. This sentence does not ask anything."
+    ]
+   },
+   {
+    "id": "n5u02d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "まいあさ^[七時|しちじ]^（　　）おきます。",
+    "options": [
+     "ごろ",
+     "など",
+     "いくつ",
+     "や"
+    ],
+    "answer": 1,
+    "why": [
+     "七時 is a clock time, so \"around seven\" is 七時ごろ.",
+     "など ends a list of things, as in パンやたまごなど. It does not follow a clock time here.",
+     "いくつ asks how many. This sentence tells a time; it does not ask.",
+     "や joins two nouns in a list. Nothing follows it here."
+    ]
+   },
+   {
+    "id": "n5u02d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「ここから[駅|えき]まで[何分|なんぷん]ぐらいかかりますか。」B「そうですね、",
+    "after": "。」",
+    "tiles": [
+     "[二十分|にじゅっぷん]",
+     "ぐらい",
+     "かかります",
+     "よ"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "A asks about a length of time. ぐらい comes right after the number, and よ comes last.",
+    "full": "A「ここから[駅|えき]まで[何分|なんぷん]ぐらいかかりますか。」B「そうですね、[二十分|にじゅっぷん]{ぐらい}かかりますよ。」",
+    "explain": "二十分 is a length of time, so ぐらい goes right after it. かかります follows, and よ ends the sentence because B tells A something new."
+   },
+   {
+    "id": "n5u02d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「",
+    "after": "。」B「[五|いつ]つあります。」",
+    "tiles": [
+     "その",
+     "りんごは",
+     "いくつ",
+     "ありますか"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "B answers with a number of apples. その goes before a noun, and the question word comes before ありますか.",
+    "full": "A「そのりんごは{いくつ}ありますか。」B「[五|いつ]つあります。」",
+    "explain": "その goes right before りんごは, the topic. B counts with 五つ, so A asks いくつ, and ありますか ends the question."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u02d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "A「この　ノートは　（　　）ですか。」B「二百円です。」",
+    "options": [
+     "いくつ",
+     "何時",
+     "いくら",
+     "だれ"
+    ],
+    "answer": 3,
+    "explain": "B answers with a price, so A asks how much with いくら. いくつ asks how many or how old, 何時 asks the time, and だれ asks who."
+   },
+   {
+    "id": "n5u02d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "きのうは　八時間（　　）　ねました。",
+    "options": [
+     "ごろ",
+     "ぐらい",
+     "いくら",
+     "いくつ"
+    ],
+    "answer": 2,
+    "explain": "八時間 is a length of time, so \"about eight hours\" is ぐらい. ごろ is only for a point in time, like 八時. いくら and いくつ ask questions, and this sentence does not ask."
+   },
+   {
+    "id": "n5u02d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「あした　何時ごろ　来ますか。」B「",
+    "after": "よ。」",
+    "tiles": [
+     "九時",
+     "ごろ",
+     "に",
+     "行きます"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "A「あした　何時ごろ　来ますか。」B「九時{ごろ}に　行きますよ。」",
+    "explain": "九時, ごろ, に, 行きます. ごろ comes right after the clock time, に follows ごろ, and 行きます goes before よ."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "カフェで",
+  "en": "At a café",
+  "intro": "Tap every word on the menu you would read to order and pay.",
+  "words": [
+   {
+    "id": "water",
+    "word": "水",
+    "reading": "みず",
+    "gloss": "water",
+    "parts": [
+     [
+      "水",
+      "みず",
+      "water"
+     ]
+    ]
+   },
+   {
+    "id": "fish",
+    "word": "魚",
+    "reading": "さかな",
+    "gloss": "fish",
+    "parts": [
+     [
+      "魚",
+      "さかな",
+      "fish"
+     ]
+    ]
+   },
+   {
+    "id": "one",
+    "word": "一つ",
+    "reading": "ひとつ",
+    "gloss": "one (thing)",
+    "parts": [
+     [
+      "一",
+      "ひと",
+      "one"
+     ]
+    ]
+   },
+   {
+    "id": "two",
+    "word": "二つ",
+    "reading": "ふたつ",
+    "gloss": "two (things)",
+    "parts": [
+     [
+      "二",
+      "ふた",
+      "two"
+     ]
+    ]
+   },
+   {
+    "id": "y300",
+    "word": "三百円",
+    "reading": "さんびゃくえん",
+    "gloss": "300 yen",
+    "parts": [
+     [
+      "三",
+      "サン",
+      "three"
+     ],
+     [
+      "百",
+      "ビャク",
+      "hundred"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "y600",
+    "word": "六百円",
+    "reading": "ろっぴゃくえん",
+    "gloss": "600 yen",
+    "parts": [
+     [
+      "六",
+      "ロッ",
+      "six"
+     ],
+     [
+      "百",
+      "ピャク",
+      "hundred"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "y1000",
+    "word": "千円",
+    "reading": "せんえん",
+    "gloss": "1,000 yen",
+    "parts": [
+     [
+      "千",
+      "セン",
+      "thousand"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "pm",
+    "word": "午後",
+    "reading": "ごご",
+    "gloss": "afternoon, p.m.",
+    "parts": [
+     [
+      "午",
+      "ゴ",
+      "noon"
+     ],
+     [
+      "後",
+      "ゴ",
+      "after"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u02d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　ケーキは　_六百円_です。",
+   "options": [
+    "ろっぴゃくえん",
+    "ろくひゃくえん",
+    "ろっびゃくえん",
+    "ろくびゃくえん"
+   ],
+   "answer": 1,
+   "explain": "六 and 百 join as ろっぴゃく, with a small っ and ぴゃ, as in はっぴゃく (八百). The other three spellings are not words. Compare さんびゃく (三百), which takes びゃく."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "即時応答",
+  "en": "Quick response",
+  "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+  "item": {
+   "id": "n5u02d5.r1",
+   "kind": "choice",
+   "type": "即時応答",
+   "q": "男：すみません、この　りんごは　一つ　いくらですか。",
+   "script": [
+    "男：すみません、このりんごは一ついくらですか。",
+    "ナレーター：1",
+    "女：はい、一つです。",
+    "ナレーター：2",
+    "女：百二十円です。",
+    "ナレーター：3",
+    "女：三つあります。"
+   ],
+   "options": [
+    "はい、一つです。",
+    "百二十円です。",
+    "三つあります。"
+   ],
+   "printed": false,
+   "short": [
+    "はい、一つです",
+    "百二十円です",
+    "三つあります"
+   ],
+   "answer": 2,
+   "why": [
+    "The man asks a price with いくら, not a yes-or-no question. 一つ in his question only means \"for one\".",
+    "He asks how much one apple is, and she gives the price.",
+    "三つあります says how many there are. That answers いくつ, not いくら."
+   ]
+  },
+  "audio": [
+   [
+    "M",
+    "すみません、このりんごは一ついくらですか。",
+    "すみません、このりんごはひとついくらですか。"
+   ],
+   [
+    "N",
+    "1",
+    null
+   ],
+   [
+    "F",
+    "はい、一つです。",
+    "はい、ひとつです。"
+   ],
+   [
+    "N",
+    "2",
+    null
+   ],
+   [
+    "F",
+    "百二十円です。",
+    "ひゃくにじゅうえんです。"
+   ],
+   [
+    "N",
+    "3",
+    null
+   ],
+   [
+    "F",
+    "三つあります。",
+    "みっつあります。"
+   ]
+  ]
+ }
+}

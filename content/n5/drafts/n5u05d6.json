@@ -1,0 +1,441 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "To tell this unit's points apart, look at what comes before the blank: a clock time takes に, a start and an end take から and まで, the dictionary form goes before 前に, the た-form before 後で, the te-form before から, the ます form without ます before ながら, とき follows a noun with の, an adjective or a verb, たり comes in pairs and ends with します, and もう means already while まだです means not yet.",
+   "forms": [
+    {
+     "form": "〜る前に",
+     "tag": "まえに · before: dictionary form",
+     "mark": "dot",
+     "ja": "[会社|かいしゃ]へ[行|い]く{[前|まえ]に}、コーヒーを[飲|の]みます。",
+     "en": "Before I go to the office, I drink coffee."
+    },
+    {
+     "form": "〜た後で",
+     "tag": "あとで · after: た-form",
+     "mark": "dot",
+     "ja": "ごはんを[食|た]べた{[後|あと]で}、コーヒーを[飲|の]みます。",
+     "en": "After I eat, I drink coffee."
+    },
+    {
+     "form": "〜てから",
+     "tag": "てから · first this, then that: te-form",
+     "mark": "dot",
+     "ja": "ごはんを[食|た]べ{てから}、[会社|かいしゃ]へ[行|い]きます。",
+     "en": "I eat first, and then I go to the office."
+    }
+   ],
+   "check": {
+    "id": "n5u05d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ひるごはんを^[食|た]べた^（　　）、[少|すこ]し[休|やす]みます。",
+    "options": [
+     "[前|まえ]に",
+     "[後|あと]で",
+     "てから"
+    ],
+    "answer": 2,
+    "why": [
+     "前に comes after the dictionary form: 食べる前に. 食べた does not go before 前に.",
+     "食べた is the た-form, and the た-form goes before 後で: 食べた後で, after I eat lunch.",
+     "てから joins the te-form: 食べてから. 食べた is not a te-form."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u05d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particles",
+    "q": "[学校|がっこう]は[八時|はちじ][半|はん]（　　）^[三時|さんじ]まで^です。わたしは[毎日|まいにち][七時|しちじ]（　　）^おきます^。",
+    "options": [
+     "に／に",
+     "から／に",
+     "まで／に",
+     "から／で"
+    ],
+    "answer": 2,
+    "why": [
+     "The second に is right, but the first is not. With まで for the end, the start takes から.",
+     "The start of the school day takes から, paired with 三時まで. The time you get up is one point in time, so it takes に.",
+     "まで marks an end. 八時半まで三時まで gives two ends and no start.",
+     "から is right for the start. But a clock time with おきます takes に, not で."
+    ]
+   },
+   {
+    "id": "n5u05d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[母|はは]はいつも^ねる^（　　）、ラジオを[聞|き]きます。",
+    "options": [
+     "[前|まえ]に",
+     "[後|あと]で",
+     "てから",
+     "ながら"
+    ],
+    "answer": 1,
+    "why": [
+     "ねる is the dictionary form, the form that goes before 前に: she listens to the radio before she goes to bed.",
+     "後で needs the た-form: ねた後で. ねる does not go before 後で.",
+     "から in this pattern joins the te-form, as in 食べてから. ねる is not a te-form.",
+     "ながら goes on the ます form without ます, as in 聞きながら. ねる is the dictionary form, so it does not fit."
+    ]
+   },
+   {
+    "id": "n5u05d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the words",
+    "q": "この[店|みせ]は[十時|じゅうじ]から[七時|しちじ]（　　）です。^[今|いま]はよるの[八時|はちじ]^ですから、（　　）[買|か]いものができません。",
+    "options": [
+     "まで／もう",
+     "まで／まだ",
+     "に／もう",
+     "から／まだ"
+    ],
+    "answer": 1,
+    "why": [
+     "十時から pairs with 七時まで for the closing time. It is eight at night now, after closing, so もう〜ません: you can't shop any more.",
+     "まで is right, but まだ〜ません means not yet, as if the shop opens later. At eight at night it has already closed.",
+     "With 十時から, the end takes まで, not に. もう is right.",
+     "The opening time already has から, so the closing time needs まで. And まだ means not yet, but the shop has already closed."
+    ]
+   },
+   {
+    "id": "n5u05d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the words",
+    "q": "あつい（　　）、テレビを^[見|み]^（　　）アイスを[食|た]べます。",
+    "options": [
+     "とき／ながら",
+     "のとき／ながら",
+     "とき／たり",
+     "のとき／から"
+    ],
+    "answer": 1,
+    "why": [
+     "あつい is an い-adjective, so とき comes right after it. 見 is the ます form without ます, so ながら fits: I watch TV while I eat ice cream.",
+     "ながら is right, but an い-adjective takes no の before とき: あついとき.",
+     "とき is right, but たり needs a second たり and します at the end. This sentence ends in 食べます.",
+     "An い-adjective takes no の before とき. And から in this pattern joins the te-form, 見て, not 見."
+    ]
+   },
+   {
+    "id": "n5u05d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "テストが",
+    "after": "[読|よ]んだりしました。",
+    "tiles": [
+     "おわった",
+     "[後|あと]で",
+     "[友|とも]だちと[話|はな]したり",
+     "[本|ほん]を"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "Which form goes before 後で? Which tile goes with 読んだり at the end?",
+    "full": "テストがおわった[後|あと]で{[友|とも]だちと[話|はな]したり}[本|ほん]を[読|よ]んだりしました。",
+    "explain": "おわった is the た-form, so it goes right before 後で. Then the two たり actions follow: 友だちと話したり first, then 本を, which goes with 読んだりしました at the end."
+   },
+   {
+    "id": "n5u05d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「もう[本|ほん]を[買|か]いましたか。」B「いいえ、",
+    "after": "[買|か]います。」",
+    "tiles": [
+     "まだです。",
+     "ぎんこうへ",
+     "[行|い]って",
+     "から"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "How do you answer not yet? Then: first one action, then the other. Which tile can join から?",
+    "full": "A「もう[本|ほん]を[買|か]いましたか。」B「いいえ、まだです。ぎんこうへ{[行|い]って}から[買|か]います。」",
+    "explain": "いいえ、まだです answers もう〜ましたか: not yet. Then ぎんこうへ行ってから: 行って is the te-form, and から joins it to say first the bank, then buying the book."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u05d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the answer",
+    "q": "A「もう　ひるごはんを　食べましたか。」\nB「いいえ、（　　）。じゅぎょうが　おわった　後で　食べます。」",
+    "options": [
+     "まだです",
+     "もう　食べました",
+     "食べませんでした",
+     "もう　ありません"
+    ],
+    "answer": 1,
+    "explain": "B has not eaten yet and will eat after class, so the answer to もう〜ましたか is いいえ、まだです. もう　食べました says B has eaten, which does not go with いいえ. 食べませんでした tells about a past time B did not eat, not \"not yet\". もう　ありません means there is none left, which does not answer the question."
+   },
+   {
+    "id": "n5u05d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "父は　毎あさ　新聞を　読んで（　　）、会社へ　行きます。",
+    "options": [
+     "から",
+     "前に",
+     "後で",
+     "とき"
+    ],
+    "answer": 1,
+    "explain": "読んで is the te-form, and から joins it: 読んでから, first the paper, then work. 前に needs the dictionary form (読む前に) and 後で needs the た-form (読んだ後で). とき does not join a te-form either. Only から fits after 読んで."
+   },
+   {
+    "id": "n5u05d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "しごとの　",
+    "after": "日本語を　べんきょうします。",
+    "tiles": [
+     "後で",
+     "六時",
+     "から",
+     "八時まで"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "full": "しごとの　後で　{六時}　から　八時まで　日本語を　べんきょうします。",
+    "explain": "後で, 六時, から, 八時まで. しごとの goes with 後で: after work. Then the start comes first with から, 六時から, and the end comes after it with まで, 八時まで."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "学校のホワイトボード",
+  "en": "A day plan on a school whiteboard",
+  "intro": "Tap each word on the whiteboard where the teacher wrote the plan for next week's trip.",
+  "words": [
+   {
+    "id": "next-week",
+    "word": "来週",
+    "reading": "らいしゅう",
+    "gloss": "next week",
+    "parts": [
+     [
+      "来",
+      "ライ",
+      "come"
+     ],
+     [
+      "週",
+      "シュウ",
+      "week"
+     ]
+    ]
+   },
+   {
+    "id": "wednesday",
+    "word": "水よう日",
+    "reading": "すいようび",
+    "gloss": "Wednesday",
+    "parts": [
+     [
+      "水",
+      "スイ",
+      "water, Wednesday"
+     ],
+     [
+      "日",
+      "び",
+      "day"
+     ]
+    ]
+   },
+   {
+    "id": "eight-thirty",
+    "word": "八時半",
+    "reading": "はちじはん",
+    "gloss": "half past eight",
+    "parts": [
+     [
+      "八",
+      "ハチ",
+      "eight"
+     ],
+     [
+      "時",
+      "ジ",
+      "o'clock, time"
+     ],
+     [
+      "半",
+      "ハン",
+      "half"
+     ]
+    ]
+   },
+   {
+    "id": "front",
+    "word": "前",
+    "reading": "まえ",
+    "gloss": "front; before",
+    "parts": [
+     [
+      "前",
+      "まえ",
+      "front, before"
+     ]
+    ]
+   },
+   {
+    "id": "top",
+    "word": "上",
+    "reading": "うえ",
+    "gloss": "top, on top of",
+    "parts": [
+     [
+      "上",
+      "うえ",
+      "up, above"
+     ]
+    ]
+   },
+   {
+    "id": "four-fifteen",
+    "word": "四時十五分",
+    "reading": "よじじゅうごふん",
+    "gloss": "a quarter past four, 4:15",
+    "parts": [
+     [
+      "四",
+      "よ",
+      "four"
+     ],
+     [
+      "時",
+      "ジ",
+      "o'clock, time"
+     ],
+     [
+      "十",
+      "ジュウ",
+      "ten"
+     ],
+     [
+      "五",
+      "ゴ",
+      "five"
+     ],
+     [
+      "分",
+      "フン",
+      "minute"
+     ]
+    ]
+   },
+   {
+    "id": "rain",
+    "word": "雨",
+    "reading": "あめ",
+    "gloss": "rain",
+    "parts": [
+     [
+      "雨",
+      "あめ",
+      "rain"
+     ]
+    ]
+   },
+   {
+    "id": "thursday",
+    "word": "木よう日",
+    "reading": "もくようび",
+    "gloss": "Thursday",
+    "parts": [
+     [
+      "木",
+      "モク",
+      "tree, Thursday"
+     ],
+     [
+      "日",
+      "び",
+      "day"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u05d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "バスは　_四時十五分_に　学校へ　かえります。",
+   "options": [
+    "よじじゅうごふん",
+    "よんじじゅうごふん",
+    "しじじゅうごふん",
+    "よじじゅうごぷん"
+   ],
+   "answer": 1,
+   "explain": "四時 is always よじ, and 十五分 is じゅうごふん, so 四時十五分 is よじじゅうごふん. よんじ and しじ are not used for four o'clock, and 五 is followed by ふん, not ぷん."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "What time does the class get back to school?",
+  "seconds": 90,
+  "passage": "来週の　水よう日　山へ　行きます\n八時半　学校の　前\n九時　バスが　出ます\n十二時　山の　上で　ひるごはん\n二時半　バスが　山を　出ます\n^四時十五分　学校に　かえります^\n雨の　日は　木よう日に　行きます。",
+  "strategy": "Find the line with 学校に　かえります and read the time at the start of it.",
+  "item": {
+   "id": "n5u05d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "みんなは　何時に　学校に　かえりますか。",
+   "options": [
+    "九時",
+    "十二時",
+    "二時半",
+    "四時十五分"
+   ],
+   "short": [
+    "9:00",
+    "12:00",
+    "2:30",
+    "4:15"
+   ],
+   "answer": 4,
+   "explain": "The line 四時十五分　学校に　かえります gives the time the class gets back to school: a quarter past four.",
+   "why": [
+    "At nine the bus leaves the school.",
+    "Twelve is lunch on top of the mountain.",
+    "Half past two is when the bus leaves the mountain, not when it gets to the school.",
+    ""
+   ]
+  }
+ }
+}

@@ -1,0 +1,522 @@
+{
+ "title": "〜て、〜・〜てください",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u06d1.p1",
+    "form": "〜て、〜",
+    "gloss": "do … and (then) …",
+    "connect": [
+     {
+      "pos": "る-verbs, like 食べます, 見ます, おきます: drop ます and add て",
+      "rule": "[食|た]べます → [食|た]べ{て}"
+     },
+     {
+      "pos": "う-verbs: the sound before ます changes. き → いて (but 行きます → 行って), ぎ → いで, み・び・に → んで, い・ち・り → って, し → して",
+      "rule": "[書|か]い{て}・[行|い]っ{て}・[読|よ]ん{で}・[話|はな]し{て}・まっ{て}"
+     },
+     {
+      "pos": "します and 来ます are special. Join actions in order with 〜て、〜; the last verb says when (〜ます or 〜ました)",
+      "rule": "します → し{て}・[来|き]ます → [来|き]{て}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あさおき{て}、かおをあらっ{て}、ごはんを[食|た]べます。",
+      "en": "In the morning I get up, wash my face and eat breakfast."
+     },
+     {
+      "ja": "[駅|えき]で[電車|でんしゃ]をおり{て}、[友|とも]だちに[会|あ]いました。",
+      "en": "I got off the train at the station and met a friend."
+     }
+    ],
+    "watch": {
+     "note": "With う-verbs you cannot just add て. The sound changes first: 書きます becomes 書いて, never 書きて.",
+     "bad": "てがみを書きて、出しました。",
+     "good": "てがみを書いて、出しました。"
+    }
+   },
+   {
+    "id": "n5u06d1.p2",
+    "form": "〜てください",
+    "gloss": "please do …",
+    "connect": [
+     {
+      "pos": "Verb, て form: 〜て is a て form such as 書いて, 見て, して",
+      "rule": "〜て{ください}"
+     },
+     {
+      "pos": "To sound softer, start with すみませんが",
+      "rule": "すみませんが、〜て{ください}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[九時|くじ]に[駅|えき]の[前|まえ]に[来|き]て{ください}。",
+      "en": "Please come to the front of the station at nine."
+     },
+     {
+      "ja": "すみませんが、ちょっとまって{ください}。",
+      "en": "Sorry, please wait a moment."
+     }
+    ],
+    "watch": {
+     "note": "ください goes after the て form, not after the ます form.",
+     "bad": "もう一ど言いますください。",
+     "good": "もう一ど言ってください。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three ask something of someone: てください asks them to do something, をください asks for a thing, and ませんか invites them to do something with you.",
+   "forms": [
+    {
+     "form": "〜てください",
+     "tag": "おねがい · please do",
+     "mark": "dot",
+     "ja": "ドアをしめて{ください}。",
+     "en": "Please close the door."
+    },
+    {
+     "form": "〜をください",
+     "tag": "ほしいもの · please give me (a thing)",
+     "mark": "dot",
+     "ja": "コーヒー{をください}。",
+     "en": "A coffee, please."
+    },
+    {
+     "form": "〜ませんか",
+     "tag": "さそう · won't you (with me)?",
+     "mark": "dot",
+     "ja": "いっしょに[行|い]き{ませんか}。",
+     "en": "Won't you come with me?"
+    }
+   ],
+   "check": {
+    "id": "n5u06d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "店で",
+    "q": "すみません、その[白|しろ]いペン（　　）。",
+    "options": [
+     "をください",
+     "てください",
+     "ませんか"
+    ],
+    "answer": 1,
+    "why": [
+     "ペン is a thing, so you ask for it with をください: that white pen, please.",
+     "てください goes after a verb in the て form, like 書いて. ペン is a noun.",
+     "ませんか goes after a verb, as in 行きませんか. It cannot come after a noun."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u06d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "よる、[本|ほん]を（　　）^、ねます^。",
+    "options": [
+     "[読|よ]んで",
+     "[読|よ]みて",
+     "[読|よ]いて",
+     "[読|よ]って"
+    ],
+    "answer": 1,
+    "why": [
+     "読みます has み before ます, so it becomes 読んで: I read, then I sleep.",
+     "う-verbs do not just add て. み changes to んで.",
+     "いて is for verbs with き before ます, like 書きます → 書いて.",
+     "って is for verbs with い, ち or り before ます, like かいます → かって."
+    ]
+   },
+   {
+    "id": "n5u06d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[駅|えき]へ（　　）、^[電車|でんしゃ]にのります^。",
+    "options": [
+     "[行|い]いて",
+     "[行|い]って",
+     "[行|い]きて",
+     "[行|い]んで"
+    ],
+    "answer": 2,
+    "why": [
+     "Most verbs with き become いて, but 行きます is the exception.",
+     "行きます becomes 行って: I go to the station, then I get on the train.",
+     "う-verbs do not just add て. 行きます becomes 行って.",
+     "んで is for verbs with み, び or に before ます, like 読みます → 読んで."
+    ]
+   },
+   {
+    "id": "n5u06d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "すみません、ここに[名前|なまえ]を（　　）^ください^。",
+    "options": [
+     "[書|か]きます",
+     "[書|か]いて",
+     "[書|か]きて",
+     "[書|か]いで"
+    ],
+    "answer": 2,
+    "why": [
+     "ください never goes after the ます form.",
+     "書きます has き before ます, so it becomes 書いて: please write your name here.",
+     "う-verbs do not just add て. き changes to い: 書いて.",
+     "いで is for verbs with ぎ before ます, like およぎます → およいで. 書きます takes て."
+    ]
+   },
+   {
+    "id": "n5u06d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[今日|きょう]、うちでしゅくだいを（　　）^ください^。",
+    "options": [
+     "して",
+     "しって",
+     "するて",
+     "します"
+    ],
+    "answer": 1,
+    "why": [
+     "します becomes して: please do your homework at home today.",
+     "There is no small っ in the て form of します. It is just して.",
+     "する never takes て directly. The て form is して.",
+     "ください never goes after the ます form."
+    ]
+   },
+   {
+    "id": "n5u06d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[駅|えき]で",
+    "after": "。",
+    "tiles": [
+     "[電車|でんしゃ]を",
+     "おりて",
+     "バスに",
+     "のります"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "Getting off the train comes first, with て. Which tile goes with おりて? The second action ends the sentence.",
+    "full": "[駅|えき]で[電車|でんしゃ]をおり{て}バスにのります。",
+    "explain": "電車をおりて is the first action, so it comes first, in the て form. バスにのります is the second action, and its ます ending closes the sentence."
+   },
+   {
+    "id": "n5u06d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません、もう",
+    "after": "。",
+    "tiles": [
+     "[少|すこ]し",
+     "ゆっくり",
+     "[話|はな]して",
+     "ください"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "もう少し is one phrase: a little more. ください comes last, right after the て form.",
+    "full": "すみません、もう[少|すこ]しゆっくり[話|はな]して{ください}。",
+    "explain": "もう少し means a little more, so 少し sits right after もう. ゆっくり describes how to speak, so it comes before 話して. ください follows the て form and ends the request."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u06d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "友だちを　三十分　（　　）、いっしょに　えいがを　見ました。",
+    "options": [
+     "まちて",
+     "まつて",
+     "まって",
+     "まんで"
+    ],
+    "answer": 3,
+    "explain": "まちます has ち before ます, so it becomes まって: I waited thirty minutes for my friend, then we saw a film together. まちて and まつて are not forms of this verb, and んで is for verbs with み, び or に, like よみます → よんで."
+   },
+   {
+    "id": "n5u06d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "先生「では、本の　十ページを　（　　）　ください。」",
+    "options": [
+     "見て",
+     "見って",
+     "見んで",
+     "見ます"
+    ],
+    "answer": 1,
+    "explain": "見ます is a る-verb: drop ます and add て, so 見てください, please look at page ten. 見って and 見んで are not forms of 見ます, and ください never goes after the ます form."
+   },
+   {
+    "id": "n5u06d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "まどを　",
+    "after": "　ください。",
+    "tiles": [
+     "あけて",
+     "へやの",
+     "そうじを",
+     "して"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "まどを　あけて　へやの　{そうじを}　して　ください。",
+    "explain": "あけて, へやの, そうじを, して. まどを goes with あけて, the first action. へやの describes そうじ, and そうじを して is the second action, right before ください."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "テストのプリント",
+  "en": "A test instruction sheet",
+  "intro": "Tap each word on the instruction sheet your teacher hands out before a test.",
+  "words": [
+   {
+    "id": "name",
+    "word": "名前",
+    "reading": "なまえ",
+    "gloss": "name",
+    "parts": [
+     [
+      "名",
+      "な",
+      "name"
+     ],
+     [
+      "前",
+      "まえ",
+      "front"
+     ]
+    ]
+   },
+   {
+    "id": "write",
+    "word": "書いて",
+    "reading": "かいて",
+    "gloss": "write (て form)",
+    "parts": [
+     [
+      "書",
+      "か",
+      "write"
+     ]
+    ]
+   },
+   {
+    "id": "read",
+    "word": "読んで",
+    "reading": "よんで",
+    "gloss": "read (て form)",
+    "parts": [
+     [
+      "読",
+      "よ",
+      "read"
+     ]
+    ]
+   },
+   {
+    "id": "put-in",
+    "word": "入れて",
+    "reading": "いれて",
+    "gloss": "put in (て form)",
+    "parts": [
+     [
+      "入",
+      "い",
+      "enter, put in"
+     ]
+    ]
+   },
+   {
+    "id": "hand-in",
+    "word": "出して",
+    "reading": "だして",
+    "gloss": "hand in, take out (て form)",
+    "parts": [
+     [
+      "出",
+      "だ",
+      "go out, put out"
+     ]
+    ]
+   },
+   {
+    "id": "back",
+    "word": "後ろ",
+    "reading": "うしろ",
+    "gloss": "behind, the back",
+    "parts": [
+     [
+      "後",
+      "うし",
+      "behind, after"
+     ]
+    ]
+   },
+   {
+    "id": "time",
+    "word": "時間",
+    "reading": "じかん",
+    "gloss": "time (allowed)",
+    "parts": [
+     [
+      "時",
+      "ジ",
+      "time, o'clock"
+     ],
+     [
+      "間",
+      "カン",
+      "between"
+     ]
+    ]
+   },
+   {
+    "id": "forty-min",
+    "word": "四十分",
+    "reading": "よんじゅっぷん",
+    "gloss": "forty minutes",
+    "parts": [
+     [
+      "四",
+      "よん",
+      "four"
+     ],
+     [
+      "十",
+      "ジュッ",
+      "ten"
+     ],
+     [
+      "分",
+      "プン",
+      "minute"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u06d1.k1",
+   "kind": "choice",
+   "type": "文脈規定",
+   "label": "How the exam asks it",
+   "q": "テストの　前に、本を　かばんに　（　　）　ください。",
+   "options": [
+    "入れて",
+    "出して",
+    "読んで",
+    "書いて"
+   ],
+   "answer": 1,
+   "explain": "かばんに means into the bag, so 入れて: please put your book in your bag before the test. 出して would need かばんから (out of the bag). 読んで and 書いて do not go with かばんに."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "発話表現",
+  "en": "Expressions",
+  "situation": "On a hot day in class, a woman turns to the man sitting next to the closed window.",
+  "ask": "へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+  "item": {
+   "id": "n5u06d1.r1",
+   "kind": "choice",
+   "type": "発話表現",
+   "q": "へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+   "script": [
+    "ナレーター：へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+    "ナレーター：1",
+    "女：すみません、まどを　あけましたか。",
+    "ナレーター：2",
+    "女：すみません、まどを　しめて　ください。",
+    "ナレーター：3",
+    "女：すみません、まどを　あけて　ください。"
+   ],
+   "options": [
+    "すみません、まどを　あけましたか。",
+    "すみません、まどを　しめて　ください。",
+    "すみません、まどを　あけて　ください。"
+   ],
+   "printed": false,
+   "short": [
+    "まどをあけましたか",
+    "まどをしめてください",
+    "まどをあけてください"
+   ],
+   "answer": 3,
+   "why": [
+    "あけましたか asks if he already opened it. It does not ask him to open it.",
+    "しめて means close. The room is hot and the window is already closed, so she wants it open.",
+    ""
+   ]
+  },
+  "audio": [
+   [
+    "N",
+    "へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+    "へやが　あついです。まどの　そばの　ひとに　なんと　いいますか。"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "F",
+    "すみません、まどを　あけましたか。",
+    null
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "F",
+    "すみません、まどを　しめて　ください。",
+    null
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "F",
+    "すみません、まどを　あけて　ください。",
+    null
+   ]
+  ]
+ }
+}

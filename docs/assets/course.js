@@ -9,7 +9,35 @@
   var STEPS = [1, 3, 7];            /* a mistake comes back after 1 day, then 3, then 7; the next right answer clears it */
   var DAYS_PER_UNIT = 7;            /* 5 study days, まとめ, week test */
 
-  function data() { return window.__ykCourseData || { units: [], items: {} }; }
+  /* ---------- levels ----------
+     Each level's lessons are their own data file (course-n5.js, course-n2.js …), all loaded side by side.
+     One level is current at a time: the learner's (state.level, N2 for saves made before there were several).
+     Session ids carry the level, except N2's, which keep the names they had before (u03d4, u03t). */
+  var ORDER = ['N5', 'N4', 'N3', 'N2'];
+  var LEVEL = 'N2';
+  function all() {
+    var c = window.__ykCourses || {};
+    if (!c.N2 && window.__ykCourseData) c = Object.assign({ N2: window.__ykCourseData }, c);
+    return c;
+  }
+  function dataOf(lv) { return all()[lv] || { units: [], items: {} }; }
+  function data() { return dataOf(LEVEL); }
+  function prefix(lv) { return lv === 'N2' ? '' : lv.toLowerCase(); }
+  C.level = function () { return LEVEL; };
+  C.setLevel = function (lv) { if (lv && all()[lv]) LEVEL = lv; else if (!lv) LEVEL = 'N2'; return LEVEL; };
+  /* run fn with another level current, for screens that compare levels (the goal screen) */
+  C.withLevel = function (lv, fn) { var was = LEVEL; C.setLevel(lv); try { return fn(); } finally { LEVEL = was; } };
+  /* the levels of this app, in course order, and whether any of their days are written */
+  C.levels = function () {
+    return ORDER.map(function (lv) {
+      var d = all()[lv];
+      var ready = 0;
+      if (d) d.units.forEach(function (u) { (u.days || []).forEach(function (x) { if (x && x.grammar) ready++; }); });
+      return { level: lv, ready: ready > 0, days: ready, units: d ? d.units.length : 0 };
+    });
+  };
+  /* the level a session or item id belongs to */
+  C.levelOf = function (id) { var m = /^n(\d)/.exec(id || ''); return m ? 'N' + m[1] : 'N2'; };
 
   /* ---------- text markup ----------
      {ばかりに}        highlighted (the pattern being taught)
@@ -87,7 +115,7 @@
     });
     return list;
   };
-  function sid(u, d) { return 'u' + (u < 10 ? '0' : '') + u + (d === 't' ? 't' : 'd' + d); }
+  function sid(u, d) { return prefix(LEVEL) + 'u' + (u < 10 ? '0' : '') + u + (d === 't' ? 't' : 'd' + d); }
   C.sid = sid;
   C.session = function (id) {
     var all = C.sessions();
@@ -95,13 +123,21 @@
     return null;
   };
   C.day = function (id) {
-    var m = /^u(\d+)d(\d)$/.exec(id || '');
+    var m = /^(?:n\d)?u(\d+)d(\d)$/.exec(id || '');
     if (!m) return null;
-    var u = C.unit(+m[1]);
+    var us = dataOf(C.levelOf(id)).units || [];
+    var u = null;
+    for (var i = 0; i < us.length; i++) if (us[i].n === +m[1]) u = us[i];
     return u && u.days ? u.days[+m[2] - 1] || null : null;
   };
-  /* any question by its id: lesson items, week test items and the mini mock's */
-  C.item = function (id) { return (data().items || {})[id] || null; };
+  /* any question by its id, at any level: lesson items, week test items and the mini mock's */
+  C.item = function (id) {
+    var c = all();
+    var own = (dataOf(C.levelOf(id)).items || {})[id];
+    if (own) return own;
+    for (var k in c) if (c[k].items && c[k].items[id]) return c[k].items[id];
+    return null;
+  };
 
   /* ---------- progress ----------
      done[sessionId] = { g: grammar step 0-3 (teach read, drill done, exam-style done), k: scene 0/1, r: reading or listening 0/1 }
@@ -199,7 +235,7 @@
      the screens: app (what to show), go (change screen), save (record progress), miss (a wrong answer). */
   C.now = function () { return window.__ykNow || Date.now(); };
   C.fresh = function () {
-    return { screen: 'Goal', started: false, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null };
+    return { screen: 'Goal', started: false, level: null, plans: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null };
   };
   /* the session a screen works on: the one picked on the week path, else the next one due */
   C.current = function (state, status) {
@@ -209,12 +245,35 @@
     var all = C.sessions().filter(function (x) { return x.ready; });
     return all.length ? all[0].id : null;
   };
+  /* ---------- sound by unit ----------
+     N2's clips load with the page (sound-course.js). Other levels have one clip file per unit
+     (sound-course-n5-u03.js), fetched next to course.js when a unit is first in use, so the
+     phone never holds every unit's sound at once. */
+  var soundAsked = {};
+  C.soundFile = function (lv, unit) { return lv === 'N2' ? '' : 'sound-course-' + lv.toLowerCase() + '-u' + pad(unit) + '.js'; };
+  C.needSound = function (lv, unit) {
+    var f = C.soundFile(lv, unit);
+    if (!f || soundAsked[f] || typeof document === 'undefined') return;
+    soundAsked[f] = true;
+    var base = '';
+    var tags = document.getElementsByTagName('script');
+    for (var i = 0; i < tags.length; i++) { var src = tags[i].getAttribute('src') || ''; if (/(^|\/)course\.js$/.test(src)) base = src.replace(/course\.js$/, ''); }
+    var el = document.createElement('script');
+    el.async = true;
+    el.src = base + f;
+    (document.head || document.body || document.documentElement).appendChild(el);
+  };
+  function unitOfId(id) { var m = /^(?:n\d)?u(\d+)/.exec(id || ''); return m ? +m[1] : 0; }
   C.view = function (state) {
+    C.setLevel(state.level || 'N2');
     var status = C.status(state, C.now());
     var sid = C.current(state, status);
     var session = null;
     status.plan.forEach(function (p) { if (p.id === sid) session = p; });
-    var unitN = session ? session.unit : 3;
+    var unitN = session ? session.unit : C.units().length ? C.units()[0].n : 1;
+    /* this unit's sound, and that of the units the notebook will ask about */
+    C.needSound(LEVEL, unitN);
+    (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
     return {
       status: status,
       plan: state.plan,
@@ -227,18 +286,40 @@
       tests: state.tests || {},
       tp: state.tp || 0,
       set: state.set || 'day',
-      mistakes: state.mistakes || [],
-      mock: state.mock || null
+      /* the notebook shows this level's mistakes; the others wait for a return to their level */
+      mistakes: (state.mistakes || []).filter(function (m) { return C.levelOf(m.src) === LEVEL || (LEVEL === 'N2' && /^(mock|listening)/.test(m.src)); }),
+      mock: state.mock || null,
+      level: LEVEL,
+      levels: C.levels()
     };
   };
   C.handlers = function (get, set) {
     return {
       go: function (to) { set(function (st) { return { screen: to, started: st.started || to !== 'Goal' }; }); },
+      /* change level: this level's plan is put aside and the other level's comes back (or its goal screen, the first time) */
+      level: function (lv) {
+        set(function (st) {
+          var was = st.level || 'N2';
+          if (lv === was) return { screen: st.plan ? 'Main' : 'Goal' };
+          var plans = Object.assign({}, st.plans || {});
+          plans[was] = st.plan;
+          var back = plans[lv] || null;
+          return { level: lv, plans: plans, plan: back, cur: null, tp: 0, screen: back ? 'Main' : 'Goal' };
+        });
+      },
       save: function (patch) {
         set(function (st) {
+          C.setLevel(st.level || 'N2');
           var out = {};
           Object.keys(patch).forEach(function (k) { if (k !== 'prog' && k !== 'result') out[k] = patch[k]; });
-          var sid = C.current(st, C.status(st, C.now()));
+          /* the goal screen can set a new level: the old level's plan is kept for a return */
+          if (patch.level && patch.level !== (st.level || 'N2')) {
+            var plans = Object.assign({}, st.plans || {});
+            plans[st.level || 'N2'] = st.plan;
+            out.plans = plans;
+            C.setLevel(patch.level);
+          }
+          var sid = patch.prog ? C.current(st, C.status(st, C.now())) : null;
           if (patch.prog && sid) {
             var done = Object.assign({}, st.done || {});
             var had = done[sid] || {};
@@ -269,7 +350,7 @@
     var t = type || '';
     if (/漢字|表記|語形成|文脈|言い換え|用法|語彙/.test(t)) return { key: 'vocab', ja: '文字・語彙', en: 'Kanji, vocabulary', tagBg: '#FDEBE6', tagColor: '#C7361E' };
     if (/文法/.test(t)) return { key: 'grammar', ja: '文法', en: 'Grammar', tagBg: '#E8ECFB', tagColor: '#2F4FD0' };
-    if (/課題|ポイント|概要|即時|聴/.test(t)) return { key: 'listening', ja: '聴解', en: 'Listening', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
+    if (/課題|ポイント|概要|即時|発話|聴/.test(t)) return { key: 'listening', ja: '聴解', en: 'Listening', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
     return { key: 'reading', ja: '読解', en: 'Reading', tagBg: '#FFF4D6', tagColor: '#1B2440' };
   };
 })();

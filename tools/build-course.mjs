@@ -1,20 +1,26 @@
-// Builds yaoki/project/course-n2.js from content/n2/*.json and checks every item on the way.
+// Builds yaoki/project/course-<level>.js from content/<level>/*.json for every level folder, and checks every item on the way.
 // usage: node tools/build-course.mjs          (exits 1 and lists the problems if anything is wrong)
 //
-// The generated file sets window.__ykCourseData = { level, units: [...], items: { id: item } }.
-// It is loaded next to course.js by the screens on the design canvas and by the app.
+// Each generated file sets window.__ykCourses[LEVEL] = { level, units: [...], items: { id: item } }
+// (course-n2.js also sets window.__ykCourseData, its name before there were several levels).
+// They are loaded next to course.js by the screens on the design canvas and by the app.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SRC = path.join(ROOT, 'content', 'n2');
-const OUT = path.join(ROOT, 'yaoki', 'project', 'course-n2.js');
+/* the kanji a level may use, where the course keeps to a list (N5: the N5 kanji only; everything else in kana) */
+const KANJI = {
+  N5: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚']),
+};
+/* labels the app shows from the data that are not part of the Japanese the learner reads */
+const LABEL_KEYS = new Set(['type', 'label', 'title', 'tag', 'id', 'clip', 'kind', 'step', 'form']);
 
 const problems = [];
-const bad = (where, msg) => problems.push(where + ': ' + msg);
-const syllabus = JSON.parse(fs.readFileSync(path.join(SRC, 'units.json'), 'utf8'));
-const items = {};
+let LEVEL = '';
+const bad = (where, msg) => problems.push(LEVEL + ' ' + where + ': ' + msg);
+let items = {};
+const allIds = new Set();
 
 // the markup must balance: {…} highlight, _…_ underline, ^…^ clue, [base|reading] ruby
 function markup(where, text) {
@@ -29,7 +35,8 @@ function markup(where, text) {
 function item(where, it, ctx) {
   if (!it || typeof it !== 'object') return bad(where, 'missing item');
   if (!it.id) bad(where, 'item without an id');
-  else if (items[it.id]) bad(where, 'duplicate item id ' + it.id);
+  else if (items[it.id] || allIds.has(it.id)) bad(where, 'duplicate item id ' + it.id);
+  else allIds.add(it.id);
   if (!it.type) bad(it.id || where, 'item without a type (the exam item type, such as 文の文法1)');
   if (it.kind === 'choice') {
     if (!it.q) bad(it.id, 'choice item without q');
@@ -38,12 +45,14 @@ function item(where, it, ctx) {
     else {
       if (!(it.answer >= 1 && it.answer <= it.options.length)) bad(it.id, 'answer must be 1 to ' + it.options.length);
       if (new Set(it.options).size !== it.options.length) bad(it.id, 'two options are the same');
+      /* the notebook and exam conditions show options without readings, so they must differ there too */
+      else if (new Set(it.options.map((o) => String(o).replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1').replace(/[{}_^]/g, ''))).size !== it.options.length) bad(it.id, 'two options read the same once their readings are removed');
       it.options.forEach((o, k) => markup(`${it.id}.options[${k}]`, o));
       if (it.why && it.why.length !== it.options.length) bad(it.id, 'why must have one line per option');
       if (it.short && it.short.length !== it.options.length) bad(it.id, 'short must have one entry per option');
       if (!it.why && !it.explain) bad(it.id, 'needs why (one line per option) or explain');
       if (it.why) it.why.forEach((w, k) => { if (k + 1 !== it.answer && !w && !it.explain) bad(it.id, `no reason for wrong option ${k + 1}`); });
-      if (typeof it.q === 'string' && !/（　　）|_[^_]+_|★/.test(it.q) && !/読解|内容理解|主張|情報検索|課題|概要|即時|ポイント|統合|用法/.test(it.type)) bad(it.id, 'q has no （　　） blank and no _underlined_ word');
+      if (typeof it.q === 'string' && !/（　　）|_[^_]+_|★/.test(it.q) && !/読解|内容理解|主張|情報検索|課題|概要|即時|ポイント|統合|用法|発話/.test(it.type)) bad(it.id, 'q has no （　　） blank and no _underlined_ word');
     }
   } else if (it.kind === 'star') {
     if (!Array.isArray(it.tiles) || it.tiles.length !== 4) bad(it.id, 'a star item has exactly four tiles, in the right order');
@@ -56,12 +65,35 @@ function item(where, it, ctx) {
     markup(it.id + '.full', it.full);
     const joined = (it.before || '') + (it.tiles || []).join('') + (it.after || '');
     const plainFull = String(it.full || '').replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1').replace(/[{}_^]/g, '');
-    if (plainFull !== joined) bad(it.id, `full "${plainFull}" is not before + tiles + after "${joined}"`);
+    /* spaces between phrases (as the N5 paper writes) do not count */
+    const sp = (x) => x.replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1').replace(/[{}_^]/g, '').replace(/[ 　]/g, '');
+    if (sp(plainFull) !== sp(joined)) bad(it.id, `full "${plainFull}" is not before + tiles + after "${joined}"`);
   } else bad(it.id || where, 'kind must be choice or star');
   ['explain', 'hint'].forEach((k) => markup(`${it.id}.${k}`, it[k]));
   items[it.id] = { ...it, ...ctx };
 }
 
+function kanjiCheck(where, v, key) {
+  const allowed = KANJI[LEVEL];
+  if (!allowed) return;
+  if (typeof v === 'string') {
+    if (LABEL_KEYS.has(key)) return;
+    /* the skill's own name (内容理解 …) is a label too */
+    if (/\.skill\.(ja|en)$/.test(where)) return;
+    /* a reading's base text is checked; the reading itself is kana */
+    const text = v.replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1');
+    const off = [...new Set([...text].filter((c) => /\p{Script=Han}/u.test(c) && !allowed.has(c)))];
+    if (off.length) bad(where, `kanji above ${LEVEL}: ${off.join(' ')} in "${v.slice(0, 40)}"`);
+  } else if (Array.isArray(v)) v.forEach((x, k) => kanjiCheck(where, x, key));
+  else if (v && typeof v === 'object') Object.entries(v).forEach(([k, x]) => kanjiCheck(where + '.' + k, x, k));
+}
+
+function buildLevel(dir) {
+const SRC = path.join(ROOT, 'content', dir);
+const syllabus = JSON.parse(fs.readFileSync(path.join(SRC, 'units.json'), 'utf8'));
+LEVEL = syllabus.level;
+items = {};
+const pre = LEVEL === 'N2' ? '' : LEVEL.toLowerCase();
 const units = syllabus.units.map((u) => {
   const file = path.join(SRC, `u${String(u.n).padStart(2, '0')}.json`);
   const content = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : { days: {}, test: [] };
@@ -70,7 +102,8 @@ const units = syllabus.units.map((u) => {
     const title = d <= 5 ? u.days[d - 1] : 'まとめ：似ている文法';
     const day = (content.days || {})[d];
     if (!day) { days.push({ title }); continue; }
-    const where = `u${u.n}d${d}`;
+    const where = `${pre}u${u.n}d${d}`;
+    kanjiCheck(where, day, '');
     const ctx = { unit: u.n, day: d };
     if (day.title !== title) bad(where, `title "${day.title}" differs from the syllabus "${title}"`);
     const g = day.grammar || {};
@@ -106,19 +139,27 @@ const units = syllabus.units.map((u) => {
     }
     days.push({ ...day, title });
   }
-  (content.test || []).forEach((it) => item(`u${u.n}.test`, it, { unit: u.n, step: 'test' }));
+  kanjiCheck(`${pre}u${u.n}.test`, content.test || [], '');
+  (content.test || []).forEach((it) => item(`${pre}u${u.n}.test`, it, { unit: u.n, step: 'test' }));
   return { n: u.n, ja: u.ja, en: u.en, days, test: content.test || [] };
 });
 
 // the mini mock's questions, so the notebook can show and re-ask the ones that were missed
-const mini = JSON.parse(fs.readFileSync(path.join(SRC, 'mini.json'), 'utf8'));
-mini.items.forEach((it) => item('mini', it, { step: 'mock' }));
+const miniFile = path.join(SRC, 'mini.json');
+if (fs.existsSync(miniFile)) JSON.parse(fs.readFileSync(miniFile, 'utf8')).items.forEach((it) => item('mini', it, { step: 'mock' }));
+return { dir, level: LEVEL, about: syllabus.about, units, items };
+}
 
+const built = fs.readdirSync(path.join(ROOT, 'content')).filter((d) => fs.existsSync(path.join(ROOT, 'content', d, 'units.json'))).sort().map(buildLevel);
 if (problems.length) {
   console.log(problems.length + ' problem(s) in the course content:\n  ' + problems.join('\n  '));
   process.exit(1);
 }
-const body = JSON.stringify({ level: syllabus.level, units, items });
-fs.writeFileSync(OUT, `/* Generated by tools/build-course.mjs from content/n2/*.json. Do not edit: change the content and rebuild. */\nwindow.__ykCourseData = ${body};\n`);
-const ready = units.reduce((n, u) => n + u.days.filter((d) => d.grammar).length, 0);
-console.log(`course-n2.js: ${units.length} units, ${ready} study days written, ${Object.keys(items).length} items, ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
+for (const b of built) {
+  const OUT = path.join(ROOT, 'yaoki', 'project', `course-${b.dir}.js`);
+  const body = JSON.stringify({ level: b.level, units: b.units, items: b.items });
+  const alias = b.level === 'N2' ? `window.__ykCourseData = window.__ykCourses.N2;\n` : '';
+  fs.writeFileSync(OUT, `/* Generated by tools/build-course.mjs from content/${b.dir}/*.json. Do not edit: change the content and rebuild. */\nwindow.__ykCourses = window.__ykCourses || {};\nwindow.__ykCourses.${b.level} = ${body};\n${alias}`);
+  const ready = b.units.reduce((n, u) => n + u.days.filter((d) => d.grammar).length, 0);
+  console.log(`course-${b.dir}.js: ${b.units.length} units, ${ready} study days written, ${Object.keys(b.items).length} items, ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
+}

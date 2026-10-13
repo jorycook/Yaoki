@@ -5,6 +5,7 @@
 <title>Drill with explanation</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 </head>
 <body>
@@ -43,13 +44,13 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">★に入るのはどれ？</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382">Put the four tiles in order. Your answer is the tile on the star.</div>
 <div lang="ja" style="margin-top: 6px; padding: 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">
-<div style="white-space: nowrap">{{ before }}</div>
+<div><sc-for list="{{ before }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <sc-for list="{{ slots }}" as="s" hint-placeholder-count="4">
-<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; font-size: 16px; font-weight: 600; white-space: nowrap; background: {{ s.bg }}">{{ s.t }}</button></sc-if>
+<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; font-size: 16px; font-weight: 600; white-space: nowrap; background: {{ s.bg }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
 <sc-if value="{{ s.emptyStar }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="Empty star slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #1B2440; background: #FFF4D6; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></div></sc-if>
 <sc-if value="{{ s.emptyPlain }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="Empty slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #C9D0E3; background: #F4F5F9"></div></sc-if>
 </sc-for>
-<div style="white-space: nowrap">{{ after }}</div>
+<div><sc-for list="{{ after }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 <sc-if value="{{ starAsking }}" hint-placeholder-val="{{ true }}">
 <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ true }}">
@@ -64,7 +65,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="margin-top: 8px; font-size: 12px; font-weight: 800; color: #5A6382">タイル　Tiles</div>
 <div lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
 <sc-for list="{{ bank }}" as="b" hint-placeholder-count="4">
-<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" style="height: 54px; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600">{{ b.t }}</button></sc-if>
+<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" aria-label="{{ b.label }}" style="height: 54px; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
 <sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
 </sc-for>
 </div>
@@ -139,8 +140,9 @@ slots = s.slots.map((t, k) => ({
 filled: t !== null,
 emptyStar: t === null && k === it.star,
 emptyPlain: t === null && k !== it.star,
-t: t !== null ? it.tiles[t] : '',
-aria: t !== null ? (k === it.star ? 'On the star: ' : 'Placed: ') + it.tiles[t] + '. Tap to take it back' : '',
+t: t !== null ? C.plain(it.tiles[t]) : '',
+segs: t !== null ? C.rich(it.tiles[t], { hl: false }).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) : [],
+aria: t !== null ? (k === it.star ? 'On the star: ' : 'Placed: ') + C.plain(it.tiles[t]) + '. Tap to take it back' : '',
 bg: k === it.star ? '#FFE9B0' : '#E8ECFB',
 remove: () => { if (!this.state.checked) this.setState({ slots: this.state.slots.map((x, j) => (j === k ? null : x)) }); },
 }));
@@ -149,7 +151,9 @@ const here = !s.slots.includes(t);
 return {
 here,
 gone: !here,
-t: it.tiles[t],
+t: C.plain(it.tiles[t]),
+label: C.plain(it.tiles[t]),
+segs: C.rich(it.tiles[t], { hl: false }).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })),
 place: () => {
 const at = this.state.slots.indexOf(null);
 if (at < 0) return;
@@ -160,7 +164,7 @@ this.setState({ slots: this.state.slots.map((x, j) => (j === at ? t : x)) });
 this.ready = placed === 4;
 /* the notebook names the tile that was put on the star; when that tile was right and only the order was off, it says so */
 const onStar = s.slots[it.star];
-mine = onStar === it.star ? '順番が違う' : onStar !== null ? it.tiles[onStar] : '';
+mine = onStar === it.star ? '順番が違う' : onStar !== null ? C.plain(it.tiles[onStar]) : '';
 } else {
 correct = s.checked && s.pick === it.answer;
 const long = it.options.some((o) => C.plain(o).length > 7);
@@ -190,8 +194,8 @@ isStar: star,
 q: C.rich(it.q, { clue: s.checked ? 'line' : null }),
 cols: this.cols,
 opts,
-before: it.before || '',
-after: it.after || '',
+before: C.rich(it.before || '', { hl: false }).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })),
+after: C.rich(it.after || '', { hl: false }).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })),
 slots,
 bank,
 starAsking: star && !s.checked,

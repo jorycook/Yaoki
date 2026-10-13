@@ -1,0 +1,261 @@
+{
+ "title": "〜てから・〜とき",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u05d3.p1",
+    "form": "〜てから",
+    "gloss": "after doing A, then B",
+    "connect": [
+     {"pos": "Verb, te-form (ends in て or で)", "rule": "[食|た]べ{てから}、〜／[読|よ]ん{でから}、〜"},
+     {"pos": "Te-forms to learn as fixed shapes for now (unit 6 teaches how to make them)", "rule": "[食|た]べます→[食|た]べ{て}／[見|み]ます→[見|み]{て}／します→し{て}／[行|い]きます→[行|い]{って}"},
+     {"pos": "More fixed te-forms for now", "rule": "[読|よ]みます→[読|よ]{んで}／[飲|の]みます→[飲|の]{んで}／かえります→かえ{って}／あらいます→あら{って}"}
+    ],
+    "examples": [
+     {"ja": "うちへかえっ{てから}、[本|ほん]を[読|よ]みます。", "en": "After I get home, I read a book."},
+     {"ja": "[手|て]をあらっ{てから}、ごはんを[食|た]べましょう。", "en": "Let's wash our hands and then eat."}
+    ],
+    "watch": {
+     "note": "から goes after the te-form. It does not join the ます stem: 読みてから is wrong. Say 読んでから.",
+     "bad": "本を読みてから、ねます。",
+     "good": "本を読んでから、ねます。"
+    }
+   },
+   {
+    "id": "n5u05d3.p2",
+    "form": "〜とき",
+    "gloss": "when …, at the time of …",
+    "connect": [
+     {"pos": "Noun (〜 is a noun such as 子ども): add の", "rule": "〜の{とき}／[子|こ]どもの{とき}"},
+     {"pos": "な-adjective: keep な", "rule": "ひまな{とき}"},
+     {"pos": "い-adjective, or a verb in its dictionary form (行く, not 行きます)", "rule": "さむい{とき}／[日本|にほん]へ[行|い]く{とき}"}
+    ],
+    "examples": [
+     {"ja": "[子|こ]どもの{とき}、よく[川|かわ]でおよぎました。", "en": "When I was a child, I often swam in the river."},
+     {"ja": "さむい{とき}は、あたたかいおちゃを[飲|の]みます。", "en": "When it is cold, I drink hot tea."}
+    ],
+    "watch": {
+     "note": "A noun needs の before とき. 子どもとき is wrong.",
+     "bad": "子どもとき、魚がきらいでした。",
+     "good": "子どものとき、魚がきらいでした。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "てから and 後で both put two things in order. とき says when something happens.",
+   "forms": [
+    {"form": "〜てから", "tag": "〜て＋から · A first, then B", "mark": "dot", "ja": "しゅくだいをし{てから}、あそびます。", "en": "I do my homework, and then I play."},
+    {"form": "〜とき", "tag": "〜の／〜な／〜い＋とき · at the time when", "mark": "dot", "ja": "ひまな{とき}、[本|ほん]を[読|よ]みます。", "en": "When I am free, I read books."},
+    {"form": "〜の後で", "tag": "〜の＋後で · after an event", "mark": "dot", "ja": "じゅぎょうの{[後|あと]で}、[友|とも]だちと[話|はな]します。", "en": "After class, I talk with my friends."}
+   ],
+   "check": {
+    "id": "n5u05d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "むかしのはなし",
+    "q": "わたしは[子|こ]ども（　　）、[魚|さかな]がきらいでした。",
+    "options": ["てから", "のとき", "の[後|あと]で"],
+    "answer": 2,
+    "why": [
+     "てから goes after a verb in the te-form. 子ども is a noun.",
+     "子ども is a noun, so の joins it to とき: \"when I was a child\".",
+     "の後で means \"after\". \"After a child\" makes no sense here."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u05d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[手|て]を（　　）、^ごはんを[食|た]べます^。",
+    "options": ["あらいてから", "あらってから", "あらうてから", "あらいから"],
+    "answer": 2,
+    "why": [
+     "あらいて is not a word. The te-form of あらいます is あらって.",
+     "あらって is the te-form of あらいます. あらってから: wash first, then eat.",
+     "あらうて is not a word. Use the te-form あらって.",
+     "から does not join あらい. For \"after\", use the te-form: あらってから."
+    ]
+   },
+   {
+    "id": "n5u05d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：^いつ^テレビを[見|み]ますか。B：しゅくだいを（　　）[見|み]ます。",
+    "options": ["してから", "するから", "しから", "しますてから"],
+    "answer": 1,
+    "why": [
+     "して is the te-form of します. してから answers いつ: after the homework.",
+     "するから means \"because I do\", not \"after\". It does not answer いつ.",
+     "から does not join し. Use the te-form: してから.",
+     "てから does not go after します. Use the te-form: してから."
+    ]
+   },
+   {
+    "id": "n5u05d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[大学生|だいがくせい]^（　　）、よくテニスをしました。",
+    "options": ["とき", "のとき", "なとき", "でとき"],
+    "answer": 2,
+    "why": [
+     "大学生 is a noun. A noun needs の before とき.",
+     "大学生 is a noun, so の joins it to とき: \"when I was a university student\".",
+     "な is for な-adjectives such as ひま. 大学生 is a noun.",
+     "で does not join a noun to とき. Use の."
+    ]
+   },
+   {
+    "id": "n5u05d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "（　　）^とき^、[友|とも]だちに[電話|でんわ]をします。",
+    "options": ["ひま", "ひまな", "ひまだ", "ひまい"],
+    "answer": 2,
+    "why": [
+     "ひま is a な-adjective. It keeps な before とき: ひまなとき.",
+     "ひま is a な-adjective, and な joins it to とき: \"when I am free\".",
+     "だ ends a sentence. ひまだ cannot come right before とき.",
+     "ひまい is not a word. ひま is a な-adjective."
+    ]
+   },
+   {
+    "id": "n5u05d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[毎|まい]ばん",
+    "after": "[見|み]ます。",
+    "tiles": ["しゅくだいを", "して", "から", "テレビを"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "から comes right after the te-form して. What do you do first?",
+    "full": "[毎|まい]ばんしゅくだいをして{から}テレビを[見|み]ます。",
+    "explain": "しゅくだいを, して, から, テレビを. してから puts the homework first, and テレビを goes with 見ます: \"Every evening I do my homework and then watch TV.\""
+   },
+   {
+    "id": "n5u05d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[日本|にほん]へ",
+    "after": "を[買|か]いました。",
+    "tiles": ["[行|い]く", "とき", "[新|あたら]しい", "かばん"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "日本へ goes with 行く, and とき follows it. 新しい goes right before the thing you bought.",
+    "full": "[日本|にほん]へ[行|い]く{とき}[新|あたら]しいかばんを[買|か]いました。",
+    "explain": "行く, とき, 新しい, かばん. 日本へ行くとき is \"when I went to Japan\", and 新しい describes かばん: \"When I went to Japan, I bought a new bag.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u05d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あさは　シャワーを　あびて（　　）、　ごはんを　食べます。",
+    "options": ["まえに", "とき", "から", "ので"],
+    "answer": 3,
+    "explain": "あびて is the te-form, and から after it gives the order: shower first, then breakfast. まえに and とき follow the dictionary form (あびる), not the te-form, and ので never follows the te-form."
+   },
+   {
+    "id": "n5u05d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "へやが　しずか（　　）　とき、　本を　読みます。",
+    "options": ["の", "な", "に", "で"],
+    "answer": 2,
+    "explain": "しずか is a な-adjective, so it keeps な before とき: \"When the room is quiet, I read.\" の is for a noun (子どもの　とき), and に and で cannot join a word to とき."
+   },
+   {
+    "id": "n5u05d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "毎あさ",
+    "after": "読みます。",
+    "tiles": ["コーヒーを", "飲んで", "から", "新聞を"],
+    "star": 2,
+    "bank": [3, 0, 2, 1],
+    "full": "毎あさ　コーヒーを　飲んで　{から}　新聞を　読みます。",
+    "explain": "コーヒーを, 飲んで, から, 新聞を. 飲んでから puts the coffee first, and 新聞を goes with 読みます: \"Every morning I drink coffee and then read the newspaper.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "としょかんで",
+  "en": "At a library",
+  "intro": "Tap every word you would read on the notice at the library door.",
+  "words": [
+   {"id": "entrance", "word": "入口", "reading": "いりぐち", "gloss": "entrance", "parts": [["入", "いり", "enter"], ["口", "ぐち", "mouth, opening"]]},
+   {"id": "exit", "word": "出口", "reading": "でぐち", "gloss": "exit", "parts": [["出", "で", "go out"], ["口", "ぐち", "mouth, opening"]]},
+   {"id": "closed", "word": "休み", "reading": "やすみ", "gloss": "closed (day), holiday", "parts": [["休", "やす", "rest"]]},
+   {"id": "hours", "word": "時間", "reading": "じかん", "gloss": "hours, time", "parts": [["時", "ジ", "time, hour"], ["間", "カン", "between, interval"]]},
+   {"id": "book", "word": "本", "reading": "ほん", "gloss": "book", "parts": [["本", "ホン", "book, origin"]]},
+   {"id": "talk", "word": "話す", "reading": "はなす", "gloss": "to talk", "parts": [["話", "はな", "talk"]]},
+   {"id": "food", "word": "食べもの", "reading": "たべもの", "gloss": "food", "parts": [["食", "た", "eat"]]},
+   {"id": "drinks", "word": "飲みもの", "reading": "のみもの", "gloss": "drinks", "parts": [["飲", "の", "drink"]]}
+  ],
+  "check": {
+   "id": "n5u05d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "としょかんの　_入口_は　あちらです。",
+   "options": ["いりくち", "でぐち", "いりぐち", "にゅうぐち"],
+   "answer": 3,
+   "explain": "入口, \"entrance\", is read いりぐち: 口 becomes ぐち after いり. でぐち is 出口, \"exit\". いりくち and にゅうぐち are not words."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人は　うちへ　かえってから、　はじめに　何を　しますか。",
+  "audio": [
+   ["N", "女の人と男の人が話しています。女の人はうちへかえってから、はじめに何をしますか。", "おんなのひとと　おとこのひとが　はなしています。おんなのひとは　うちへ　かえってから、はじめに　なにを　しますか。"],
+   ["M", "川口さん、きょう、しごとの後で、いっしょにごはんを食べませんか。", "かわぐちさん、きょう、しごとの　あとで、いっしょに　ごはんを　たべませんか。"],
+   ["F", "すみません。きょうはとしょかんへ行きます。本をかえします。", "すみません。きょうは　としょかんへ　いきます。ほんを　かえします。"],
+   ["M", "そうですか。", null],
+   ["F", "としょかんへ行ってから、スーパーで買いものをします。", "としょかんへ　いってから、スーパーで　かいものを　します。"],
+   ["M", "たいへんですね。うちへかえってから、すぐばんごはんをつくりますか。", null],
+   ["F", "いいえ。うちへかえってから、はじめに母に電話をします。ばんごはんはその後です。", "いいえ。うちへ　かえってから、はじめに　ははに　でんわを　します。ばんごはんは　その　あとです。"],
+   ["M", "そうですか。", null],
+   ["N", "女の人はうちへかえってから、はじめに何をしますか。", "おんなのひとは　うちへ　かえってから、はじめに　なにを　しますか。"]
+  ],
+  "item": {
+   "id": "n5u05d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人は　うちへ　かえってから、　はじめに　何を　しますか。",
+   "script": [
+    "ナレーター：女の人と男の人が話しています。女の人はうちへかえってから、はじめに何をしますか。",
+    "男：川口さん、きょう、しごとの後で、いっしょにごはんを食べませんか。",
+    "女：すみません。きょうはとしょかんへ行きます。本をかえします。",
+    "男：そうですか。",
+    "女：としょかんへ行ってから、スーパーで買いものをします。",
+    "男：たいへんですね。うちへかえってから、すぐばんごはんをつくりますか。",
+    "女：いいえ。うちへかえってから、はじめに母に電話をします。ばんごはんはその後です。",
+    "男：そうですか。",
+    "ナレーター：女の人はうちへかえってから、はじめに何をしますか。"
+   ],
+   "options": ["としょかんへ　行きます", "スーパーで　買いものを　します", "母に　電話を　します", "ばんごはんを　つくります"],
+   "printed": true,
+   "short": ["としょかんへ 行く", "スーパーで 買いもの", "母に 電話", "ばんごはん"],
+   "answer": 3,
+   "why": [
+    "She goes to the library before she gets home (としょかんへ行ってから、スーパーで…).",
+    "She shops at the supermarket after the library, also before she gets home.",
+    "At home she first calls her mother: うちへかえってから、はじめに母に電話をします.",
+    "The man asks about dinner, but she says いいえ. Dinner comes after the call (ばんごはんはその後です)."
+   ]
+  }
+ }
+}

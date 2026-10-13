@@ -5,6 +5,7 @@
 <title>Reading skill</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 </head>
 <body>
@@ -33,7 +34,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 
 <div style="flex: 1 1 auto; min-height: 120px; overflow-y: auto; margin: 0 -16px; padding: 0 16px 14px; display: flex; flex-direction: column">
-<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7"><sc-for list="{{ passage }}" as="g" hint-placeholder-count="5"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px; transition: background 300ms">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; transition: background 300ms">{{ g.t }}</span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; white-space: pre-line"><sc-for list="{{ passage }}" as="g" hint-placeholder-count="5"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px; transition: background 300ms">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; transition: background 300ms">{{ g.t }}</span></sc-if></sc-for></div>
 
 <h1 lang="ja" style="margin: 14px 0 0; font-size: 17px; font-weight: 800">{{ question }}</h1>
 

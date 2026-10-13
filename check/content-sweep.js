@@ -8,6 +8,8 @@ const { chromium } = require('playwright');
 const { openBoard, inspect, site, out } = require('./rt-check.js');
 
 const NOW = Date.UTC(2026, 9, 12, 15);
+/* LEVEL=N5 sweeps another level's days (N2 by default) */
+const LEVEL = process.env.LEVEL || 'N2';
 
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
@@ -15,7 +17,7 @@ const NOW = Date.UTC(2026, 9, 12, 15);
   let problems = 0;
   let shots = 0;
   const open = async (screen, extra) => {
-    const q = 'TShell.dc.html?screen=' + screen + '&now=' + NOW + (extra || '');
+    const q = 'TShell.dc.html?screen=' + screen + '&now=' + NOW + '&level=' + LEVEL + (extra || '');
     return openBoard(browser, q, fontsCss);
   };
   const check = async (page, logs, label) => {
@@ -29,17 +31,21 @@ const NOW = Date.UTC(2026, 9, 12, 15);
     }
   };
   const tap = (page, sel) => page.locator(sel).first().click({ timeout: 4000 }).then(() => page.waitForTimeout(250));
-  const tile = (page, t) => page.locator('button').filter({ hasText: new RegExp('^\\s*' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*$') }).first().click({ timeout: 4000 }).then(() => page.waitForTimeout(120));
+  /* a tile is found by its name: the tile's text without readings */
+  const plainOf = (t) => t.replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1').replace(/[{}_^]/g, '');
+  const tile = (page, t) => page.locator(`button[aria-label="${plainOf(t)}"]`).first().click({ timeout: 4000 }).then(() => page.waitForTimeout(120));
 
   // the course as the app sees it
   const probe = await open('Main');
-  const course = await probe.page.evaluate(() => {
+  const course = await probe.page.evaluate((lv) => {
     const C = window.ykCourse;
+    C.setLevel(lv);
     return { days: C.sessions().filter((s) => s.ready && s.kind !== 'test').map((s) => ({ id: s.id, day: C.day(s.id) })), tests: C.sessions().filter((s) => s.ready && s.kind === 'test').map((s) => ({ id: s.id, unit: s.unit, test: C.unit(s.unit).test })) };
-  });
+  }, LEVEL);
   await probe.page.close();
   const only = (process.env.DAYS || '').split(',').filter(Boolean);
-  const days = course.days.filter((d) => !only.length || only.includes(d.id));
+  /* SKIPDAYS=1 goes straight to the notebook and its review */
+  const days = process.env.SKIPDAYS ? [] : course.days.filter((d) => !only.length || only.includes(d.id));
   console.log(`written days: ${course.days.map((d) => d.id).join(', ')}; checking ${days.length}`);
 
   for (const { id, day } of days) {
@@ -90,7 +96,7 @@ const NOW = Date.UTC(2026, 9, 12, 15);
         const n = it.kind === 'star' ? it.bank.indexOf(it.star) + 1 : it.answer;
         const pick = mode === 'right' ? n : n === 1 ? 2 : 1;
         await tap(page, `button[aria-pressed] >> nth=${pick - 1}`);
-        if (i === 0) await check(page, logs, `${id} exam question`);
+        if (mode === 'wrong') await check(page, logs, `${id} exam question ${i + 1}`);
         await tap(page, i === day.grammar.exam.length - 1 ? 'button:has-text("Finish")' : 'button:has-text("Next")');
       }
       await check(page, logs, `${id} exam result ${mode}`);
@@ -116,6 +122,8 @@ const NOW = Date.UTC(2026, 9, 12, 15);
         await tap(page, 'button[aria-label="Play audio"]');
         await page.waitForFunction(() => !document.querySelector('button[aria-pressed][disabled]'), null, { timeout: 120000 });
         await tap(page, `button[aria-pressed] >> nth=${k}`);
+        /* the answer sheet slides up; look once it has settled */
+        await page.waitForTimeout(350);
         await check(page, logs, `${id} listening option ${k + 1}`);
         await page.close();
       }
@@ -134,8 +142,9 @@ const NOW = Date.UTC(2026, 9, 12, 15);
   // the notebook and the review with every item due, each with its longest wrong answer
   const items = await (async () => {
     const { page } = await open('Main');
-    const list = await page.evaluate(() => {
+    const list = await page.evaluate((lv) => {
       const C = window.ykCourse;
+      C.setLevel(lv);
       const all = [];
       C.sessions().filter((s) => s.ready).forEach((s) => {
         const d = C.day(s.id);
@@ -143,34 +152,41 @@ const NOW = Date.UTC(2026, 9, 12, 15);
         const its = s.kind === 'test' ? C.unit(s.unit).test : [...g.drill, ...g.exam, d.scene.check, d.skill.item];
         its.forEach((it) => all.push(it));
       });
-      for (let n = 1; n <= 12; n++) all.push(C.item('mock' + n));
+      if (lv === 'N2') for (let n = 1; n <= 12; n++) all.push(C.item('mock' + n));
       return all.map((it) => {
         let wrong = '';
         if (it.kind === 'star') wrong = it.tiles.filter((_, k) => k !== it.star).sort((a, b) => b.length - a.length)[0];
         else wrong = it.options.map((o, k) => (it.short && it.short[k]) || C.plain(o)).filter((_, k) => k + 1 !== it.answer).sort((a, b) => b.length - a.length)[0];
         return { src: it.id, wrong };
       });
-    });
+    }, LEVEL);
     await page.close();
     return list;
   })();
   const today = '2026-10-12';
-  const m = encodeURIComponent(JSON.stringify(items.map((x, k) => ({ ...x, at: NOW - k * 1000, step: k % 3, due: today }))));
-  {
-    const { page, logs } = await open('Notebook', '&m=' + m);
-    await check(page, logs, 'notebook with everything');
-    await page.close();
-  }
-  {
-    const { page, logs } = await open('Review', '&m=' + m);
-    for (let k = 0; k < items.length; k++) {
-      await check(page, logs, `review ${items[k].src} asked`);
-      await tap(page, 'button[aria-pressed] >> nth=0');
-      await check(page, logs, `review ${items[k].src} answered`);
-      await tap(page, k === items.length - 1 ? 'button:has-text("Finish")' : 'button:has-text("Next")');
+  /* with DAYS set, only those days' items; and the notebook is opened in batches, because the whole list
+     no longer fits in one address (the test server refuses request lines over 64 KB) */
+  const mine = only.length ? items.filter((x) => only.some((d) => x.src.startsWith(d + '.'))) : items;
+  const BATCH = 100;
+  for (let b = 0; b < mine.length; b += BATCH) {
+    const part = mine.slice(b, b + BATCH);
+    const m = encodeURIComponent(JSON.stringify(part.map((x, k) => ({ ...x, at: NOW - k * 1000, step: k % 3, due: today }))));
+    {
+      const { page, logs } = await open('Notebook', '&m=' + m);
+      await check(page, logs, `notebook with items ${b + 1} to ${b + part.length}`);
+      await page.close();
     }
-    await check(page, logs, 'review summary');
-    await page.close();
+    {
+      const { page, logs } = await open('Review', '&m=' + m);
+      for (let k = 0; k < part.length; k++) {
+        await check(page, logs, `review ${part[k].src} asked`);
+        await tap(page, 'button[aria-pressed] >> nth=0');
+        await check(page, logs, `review ${part[k].src} answered`);
+        await tap(page, k === part.length - 1 ? 'button:has-text("Finish")' : 'button:has-text("Next")');
+      }
+      await check(page, logs, `review summary ${b + 1} to ${b + part.length}`);
+      await page.close();
+    }
   }
 
   await browser.close();

@@ -1,0 +1,475 @@
+{
+ "title": "あります・います",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u02d2.p1",
+    "form": "あります",
+    "gloss": "there is (things, plants)",
+    "connect": [
+     {
+      "pos": "Thing or plant",
+      "rule": "〜 ＋ が ＋ {あります}"
+     },
+     {
+      "pos": "Question",
+      "rule": "〜 ＋ が ＋ {ありますか}"
+     },
+     {
+      "pos": "Not there",
+      "rule": "〜 ＋ は ＋ {ありません}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あそこに[大|おお]きい[木|き]が{あります}。",
+      "en": "There is a big tree over there."
+     },
+     {
+      "ja": "すみません、[今|いま]、コーヒーは{ありません}。",
+      "en": "Sorry, we don't have any coffee right now."
+     }
+    ],
+    "watch": {
+     "note": "ありません means \"there isn't\". じゃありません means \"it is not\". To say a thing is not there, use は or が with ありません.",
+     "bad": "ここにペンじゃありません。",
+     "good": "ここにペンはありません。"
+    }
+   },
+   {
+    "id": "n5u02d2.p2",
+    "form": "います",
+    "gloss": "there is (people, animals)",
+    "connect": [
+     {
+      "pos": "Person or animal",
+      "rule": "〜 ＋ が ＋ {います}"
+     },
+     {
+      "pos": "Question",
+      "rule": "〜 ＋ は ＋ {いますか}"
+     },
+     {
+      "pos": "Not there",
+      "rule": "〜 ＋ は ＋ {いません}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[川|かわ]に[魚|さかな]が{います}。",
+      "en": "There are fish in the river."
+     },
+     {
+      "ja": "[先生|せんせい]は{いますか}。……いいえ、{いません}。",
+      "en": "Is the teacher here? No, she isn't."
+     }
+    ],
+    "watch": {
+     "note": "People and animals take います, even fish and birds. あります is only for things and plants, so あります for a dog sounds wrong.",
+     "bad": "こうえんにいぬがあります。",
+     "good": "こうえんにいぬがいます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "あります and います both say that something is there. です says what something is.",
+   "forms": [
+    {
+     "form": "あります",
+     "tag": "もの · things, plants",
+     "mark": "dot",
+     "ja": "[本|ほん]が{あります}。",
+     "en": "There is a book."
+    },
+    {
+     "form": "います",
+     "tag": "いきもの · people, animals",
+     "mark": "dot",
+     "ja": "ねこが{います}。",
+     "en": "There is a cat."
+    },
+    {
+     "form": "〜です",
+     "tag": "なに · what it is",
+     "mark": "dot",
+     "ja": "これは[本|ほん]{です}。",
+     "en": "This is a book."
+    }
+   ],
+   "check": {
+    "id": "n5u02d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "こうえんで",
+    "q": "こうえんに[子|こ]どもが（　　）。",
+    "options": [
+     "あります",
+     "います",
+     "です"
+    ],
+    "answer": 2,
+    "why": [
+     "あります is for things and plants. Children are people.",
+     "Children are people, so they take います.",
+     "です says what something is, as in これは本です. 子どもがです is not a sentence."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u02d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：^[水|みず]^がありますか。B：はい、（　　）。",
+    "options": [
+     "あります",
+     "います",
+     "です",
+     "ありません"
+    ],
+    "answer": 1,
+    "why": [
+     "Water is a thing, so it takes あります. The yes answer repeats the verb: はい、あります.",
+     "います is for people and animals. Water is a thing.",
+     "はい、です is not an answer. The answer repeats the verb of the question.",
+     "ありません means \"there isn't\". It clashes with はい."
+    ]
+   },
+   {
+    "id": "n5u02d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あそこに^いぬ^が（　　）。",
+    "options": [
+     "います",
+     "あります",
+     "ありません",
+     "じゃありません"
+    ],
+    "answer": 1,
+    "why": [
+     "A dog is an animal, so it takes います.",
+     "あります is for things and plants, not for a dog.",
+     "ありません is the no form of あります, so it is also wrong for a dog.",
+     "じゃありません means \"it is not\". It does not follow が."
+    ]
+   },
+   {
+    "id": "n5u02d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：^ペン^がありますか。B：いいえ、（　　）。",
+    "options": [
+     "ありません",
+     "いません",
+     "じゃありません",
+     "あります"
+    ],
+    "answer": 1,
+    "why": [
+     "A pen is a thing, so the no answer is ありません.",
+     "いません is for people and animals. A pen is a thing.",
+     "じゃありません means \"it is not\" and needs a noun before it. Here B says the pen is not there.",
+     "あります means \"there is\". It clashes with いいえ."
+    ]
+   },
+   {
+    "id": "n5u02d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：[川|かわ]に^[魚|さかな]^がいますか。B：いいえ、（　　）。",
+    "options": [
+     "いません",
+     "ありません",
+     "じゃありません",
+     "います"
+    ],
+    "answer": 1,
+    "why": [
+     "Fish are animals, so the no answer is いません.",
+     "ありません is for things and plants. Fish are animals.",
+     "じゃありません means \"it is not\" and needs a noun before it. Here B says there are no fish.",
+     "います means \"there is\". It clashes with いいえ."
+    ]
+   },
+   {
+    "id": "n5u02d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：その[店|みせ]に[日本語|にほんご]の",
+    "after": "。B：はい、あります。",
+    "tiles": [
+     "[本|ほん]",
+     "が",
+     "あります",
+     "か"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "日本語の needs a noun right after it. か always comes last.",
+    "full": "A：その[店|みせ]に[日本語|にほんご]の[本|ほん]が{あります}か。B：はい、あります。",
+    "explain": "日本語の describes 本, so 本 comes first. が follows the thing, then あります, and か at the end makes the question."
+   },
+   {
+    "id": "n5u02d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あそこに",
+    "after": "。[名前|なまえ]はケンくんです。",
+    "tiles": [
+     "[男|おとこ]の",
+     "[子|こ]",
+     "が",
+     "います"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "男の needs a noun right after it. Which verb goes with a child?",
+    "full": "あそこに[男|おとこ]の[子|こ]が{います}。[名前|なまえ]はケンくんです。",
+    "explain": "男の describes 子, so they go together first. が follows the person, and a boy takes います."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u02d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あそこに　大きい　木が（　　）。",
+    "options": [
+     "あります",
+     "います",
+     "です",
+     "でした"
+    ],
+    "answer": 1,
+    "explain": "A tree is a plant, so it takes あります. います is for people and animals. です and でした say what something is, and cannot follow が here."
+   },
+   {
+    "id": "n5u02d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：きょうしつに　だれか　いますか。B：はい、先生が（　　）。",
+    "options": [
+     "あります",
+     "います",
+     "いません",
+     "です"
+    ],
+    "answer": 2,
+    "explain": "A teacher is a person, so います. あります is for things and plants. いません clashes with はい, and 先生がです is not a sentence."
+   },
+   {
+    "id": "n5u02d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの　川には",
+    "after": "よ。",
+    "tiles": [
+     "小さい",
+     "魚",
+     "が",
+     "います"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "full": "あの　川には　小さい　{魚}が　いますよ。",
+    "explain": "小さい, 魚, が, います. 小さい describes 魚, so it sits right before it. が follows the fish, and fish take います."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "こうえんで",
+  "en": "At the park",
+  "intro": "Tap every word you can find on the park map and the notice board.",
+  "words": [
+   {
+    "id": "entrance",
+    "word": "入口",
+    "reading": "いりぐち",
+    "gloss": "entrance",
+    "parts": [
+     [
+      "入",
+      "いり",
+      "go in"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "exit",
+    "word": "出口",
+    "reading": "でぐち",
+    "gloss": "exit",
+    "parts": [
+     [
+      "出",
+      "で",
+      "go out"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "flower",
+    "word": "花",
+    "reading": "はな",
+    "gloss": "flower",
+    "parts": [
+     [
+      "花",
+      "はな",
+      "flower"
+     ]
+    ]
+   },
+   {
+    "id": "tree",
+    "word": "木",
+    "reading": "き",
+    "gloss": "tree",
+    "parts": [
+     [
+      "木",
+      "き",
+      "tree, wood"
+     ]
+    ]
+   },
+   {
+    "id": "river",
+    "word": "川",
+    "reading": "かわ",
+    "gloss": "river",
+    "parts": [
+     [
+      "川",
+      "かわ",
+      "river"
+     ]
+    ]
+   },
+   {
+    "id": "fish",
+    "word": "魚",
+    "reading": "さかな",
+    "gloss": "fish",
+    "parts": [
+     [
+      "魚",
+      "さかな",
+      "fish"
+     ]
+    ]
+   },
+   {
+    "id": "closed",
+    "word": "休み",
+    "reading": "やすみ",
+    "gloss": "closed, day off",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ]
+    ]
+   },
+   {
+    "id": "children",
+    "word": "子ども",
+    "reading": "こども",
+    "gloss": "child, children",
+    "parts": [
+     [
+      "子",
+      "こ",
+      "child"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u02d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "こうえんに　きれいな　_花_が　たくさん　あります。",
+   "options": [
+    "はな",
+    "くさ",
+    "き",
+    "そら"
+   ],
+   "answer": 1,
+   "explain": "花 is read はな, \"flower\". くさ means grass, a different word, き (tree) is 木, and そら (sky) is 空."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What is in the park, and what is not there?",
+  "seconds": 90,
+  "passage": "ケンさん、こんにちは。わたしの　うちの　ちかくに　こうえんが　あります。こうえんには　川が　あります。川には　^魚が　います^。^花は　あまり　ありません^が、大きい　木が　たくさん　あります。^子どもは　あまり　いません^。でも、いつも　^白い　ねこが　います^。こんど　いっしょに　行きませんか。マリア",
+  "strategy": "Sort each sentence: あります or います means it is there, ありません or いません means it is not, and あまり before them means not much.",
+  "item": {
+   "id": "n5u02d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "こうえんに　ついて、ただしい　ものは　どれですか。",
+   "options": [
+    "川に　魚は　いません。",
+    "花が　たくさん　あります。",
+    "白い　ねこが　います。",
+    "子どもが　たくさん　います。"
+   ],
+   "short": [
+    "魚はいない",
+    "花がたくさん",
+    "白いねこがいる",
+    "子どもがたくさん"
+   ],
+   "answer": 3,
+   "explain": "Maria writes いつも白いねこがいます: there is always a white cat in the park.",
+   "why": [
+    "Maria writes 川には魚がいます: there are fish in the river.",
+    "Maria writes 花はあまりありません: there are not many flowers. The trees are what there are a lot of.",
+    "",
+    "Maria writes 子どもはあまりいません: there are not many children."
+   ]
+  }
+ }
+}

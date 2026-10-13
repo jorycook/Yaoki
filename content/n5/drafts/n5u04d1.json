@@ -1,0 +1,451 @@
+{
+  "title": "い形容詞・な形容詞",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u04d1.p1",
+        "form": "〜いです・〜くないです",
+        "gloss": "is ~, is not ~ (い-adjectives)",
+        "connect": [
+          {
+            "pos": "い-adjective, yes: add です",
+            "rule": "[大|おお]きい{です}"
+          },
+          {
+            "pos": "い-adjective, no: change the last い to く, then add ないです",
+            "rule": "[大|おお]きい → [大|おお]き{くないです}"
+          },
+          {
+            "pos": "Before a noun (〜): the adjective as it is",
+            "rule": "{[大|おお]きい} ＋ 〜"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "このアパートは[新|あたら]しい{です}。",
+            "en": "This apartment is new."
+          },
+          {
+            "ja": "このへやは[高|たか]{くないです}。",
+            "en": "This room is not expensive."
+          }
+        ],
+        "watch": {
+          "note": "いい is special. Its no form is よくないです, not いくないです.",
+          "bad": "このへやはあまりいくないです。",
+          "good": "このへやはあまりよくないです。"
+        }
+      },
+      {
+        "id": "n5u04d1.p2",
+        "form": "〜です・〜じゃありません",
+        "gloss": "is ~, is not ~ (な-adjectives)",
+        "connect": [
+          {
+            "pos": "な-adjective, yes: add です",
+            "rule": "しずか{です}"
+          },
+          {
+            "pos": "な-adjective, no: add じゃありません",
+            "rule": "しずか{じゃありません}"
+          },
+          {
+            "pos": "Before a noun (〜): add な",
+            "rule": "しずか{な} ＋ 〜"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "ここはしずか{な}へやです。",
+            "en": "This is a quiet room."
+          },
+          {
+            "ja": "[駅|えき]の[前|まえ]はしずか{じゃありません}。",
+            "en": "The area in front of the station is not quiet."
+          }
+        ],
+        "watch": {
+          "note": "きれい and きらい end in い, but they are な-adjectives. Their no form is きれいじゃありません and きらいじゃありません, never きれくないです.",
+          "bad": "このへやはきれくないです。",
+          "good": "このへやはきれいじゃありません。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "Before a noun, an い-adjective joins it as it is, a な-adjective adds な, and a noun adds の, as you saw in unit 1.",
+      "forms": [
+        {
+          "form": "〜い＋〜",
+          "tag": "大きい本 · a big book (い-adjective)",
+          "mark": "dot",
+          "ja": "[大|おお]き{い}[本|ほん]です。",
+          "en": "It is a big book."
+        },
+        {
+          "form": "〜な＋〜",
+          "tag": "しずかなへや · a quiet room (な-adjective)",
+          "mark": "dot",
+          "ja": "しずか{な}へやです。",
+          "en": "It is a quiet room."
+        },
+        {
+          "form": "〜の＋〜",
+          "tag": "日本の本 · a book from Japan (noun)",
+          "mark": "dot",
+          "ja": "[日本|にほん]{の}[本|ほん]です。",
+          "en": "It is a book from Japan."
+        }
+      ],
+      "check": {
+        "id": "n5u04d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "へやのはなし",
+        "q": "A「このへや、どうですか。」\nB「^きれい^（　　）ですね。」",
+        "options": [
+          "きれいなへや",
+          "きれいへや",
+          "きれいのへや"
+        ],
+        "answer": 1,
+        "why": [
+          "きれい is a な-adjective, so it takes な before the noun へや.",
+          "きれい ends in い, but it is a な-adjective, not an い-adjective. It cannot join へや as it is.",
+          "の joins a noun to a noun. きれい is a な-adjective, so it takes な."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u04d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「そのへやは[大|おお]きいですか。」\nB「^いいえ^、あまり（　　）。」",
+        "options": [
+          "[大|おお]きいです",
+          "[大|おお]きくないです",
+          "[大|おお]きいじゃありません",
+          "[大|おお]きくです"
+        ],
+        "answer": 2,
+        "why": [
+          "B starts with いいえ, and あまり in the sense \"not very\" goes with a no ending. 大きいです is the yes form.",
+          "大きい is an い-adjective: the last い becomes く, then ないです. B says it is not very big.",
+          "じゃありません is the no ending for a noun or a な-adjective. 大きい is an い-adjective, so it becomes 大きくないです.",
+          "大きく needs ない after it. 大きくです is not a form."
+        ]
+      },
+      {
+        "id": "n5u04d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「[駅|えき]の[前|まえ]のレストランはどうですか。」\nB「^あまり^（　　）。[高|たか]いです。」",
+        "options": [
+          "いいです",
+          "いくないです",
+          "よくないです",
+          "いいじゃありません"
+        ],
+        "answer": 3,
+        "why": [
+          "あまり in the sense \"not very\" goes with a no ending, and B goes on to say it is expensive.",
+          "いい is special: its no form is よくないです. いくないです is not a form.",
+          "B is not happy with the restaurant: あまりよくないです, it is not very good. The no form of いい is よくないです.",
+          "じゃありません is for a noun or a な-adjective. いい is an い-adjective, and its no form is よくないです."
+        ]
+      },
+      {
+        "id": "n5u04d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「[中山|なかやま]さんのへやはしずかですか。」\nB「^いいえ^、（　　）。」",
+        "options": [
+          "しずかです",
+          "しずかくないです",
+          "しずかじゃありません",
+          "しずかないです"
+        ],
+        "answer": 3,
+        "why": [
+          "しずかです means yes, it is quiet. B starts with いいえ.",
+          "くないです is the no ending for an い-adjective. しずか is a な-adjective, so it takes じゃありません.",
+          "しずか is a な-adjective, so the no form is しずかじゃありません.",
+          "しずかないです is not a form. A な-adjective takes じゃありません."
+        ]
+      },
+      {
+        "id": "n5u04d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[駅|えき]のちかくに^しずか^（　　）こうえんがあります。",
+        "options": [
+          "な",
+          "の",
+          "い",
+          "です"
+        ],
+        "answer": 1,
+        "why": [
+          "しずか is a な-adjective, so it takes な before the noun こうえん.",
+          "の joins a noun to a noun. しずか is a な-adjective, so it takes な.",
+          "しずか is a な-adjective. It has no い, so しずかい is not a word.",
+          "です ends a sentence. It does not come between しずか and the noun こうえん."
+        ]
+      },
+      {
+        "id": "n5u04d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[駅|えき]の[前|まえ]に",
+        "after": "。",
+        "tiles": [
+          "[新|あたら]しい",
+          "[店|みせ]",
+          "が",
+          "あります"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "The い-adjective goes right before the noun it describes. Then が and the verb.",
+        "full": "[駅|えき]の[前|まえ]に{[新|あたら]しい}[店|みせ]があります。",
+        "explain": "新しい is an い-adjective, so it goes right before 店 with nothing between them. が marks the thing that is there, and あります ends the sentence."
+      },
+      {
+        "id": "n5u04d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このへやは",
+        "after": "。",
+        "tiles": [
+          "あまり",
+          "しずか",
+          "じゃ",
+          "ありません"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "あまり comes before the describing word. The no ending comes last.",
+        "full": "このへやはあまりしずか{じゃありません}。",
+        "explain": "あまり goes before しずか: not very quiet. しずか is a な-adjective, so its no ending じゃありません follows it at the end."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u04d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「その　カメラ、高いですか。」\nB「いいえ、あまり　（　　）。」",
+        "options": [
+          "高いです",
+          "高いじゃありません",
+          "高くないです",
+          "高くないですか"
+        ],
+        "answer": 3,
+        "explain": "B says いいえ, and あまり in the sense \"not very\" goes with a no ending. 高い is an い-adjective, so it becomes 高くないです. 高いです is the yes form. じゃありません is for a noun or a な-adjective, not an い-adjective. 高くないですか is a question, but B is answering."
+      },
+      {
+        "id": "n5u04d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「中山さんの　へやは　きれいですか。」\nB「いいえ、あまり　（　　）。」",
+        "options": [
+          "きれいです",
+          "きれいじゃありません",
+          "きれくないです",
+          "きれいくないです"
+        ],
+        "answer": 2,
+        "explain": "きれい ends in い, but it is a な-adjective, so its no form is きれいじゃありません. B says いいえ and あまり, so the yes form きれいです does not fit. きれくないです and きれいくないです treat きれい as an い-adjective, which it is not."
+      },
+      {
+        "id": "n5u04d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "山川さんは　",
+        "after": "です。",
+        "tiles": [
+          "とても",
+          "きれい",
+          "な",
+          "人"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "山川さんは　とても　きれい{な}人です。",
+        "explain": "とても, きれい, な, 人. とても goes before the describing word: very pretty. きれい is a な-adjective, so な joins it to the noun 人. Ms. Yamakawa is a very pretty person."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "アパートのはりがみ",
+    "en": "A room-for-rent notice",
+    "intro": "Tap each word on the notice for a room for rent in the window of a small apartment office.",
+    "words": [
+      {
+        "id": "station",
+        "word": "駅",
+        "reading": "えき",
+        "gloss": "station",
+        "parts": [
+          ["駅", "エキ", "station"]
+        ]
+      },
+      {
+        "id": "north-exit",
+        "word": "北口",
+        "reading": "きたぐち",
+        "gloss": "north exit",
+        "parts": [
+          ["北", "きた", "north"],
+          ["口", "ぐち", "mouth, opening"]
+        ]
+      },
+      {
+        "id": "five-minutes",
+        "word": "五分",
+        "reading": "ごふん",
+        "gloss": "five minutes",
+        "parts": [
+          ["五", "ゴ", "five"],
+          ["分", "フン", "minute"]
+        ]
+      },
+      {
+        "id": "new",
+        "word": "新しい",
+        "reading": "あたらしい",
+        "gloss": "new",
+        "parts": [
+          ["新", "あたら", "new"]
+        ]
+      },
+      {
+        "id": "big",
+        "word": "大きい",
+        "reading": "おおきい",
+        "gloss": "big",
+        "parts": [
+          ["大", "おお", "big"]
+        ]
+      },
+      {
+        "id": "cheap",
+        "word": "安い",
+        "reading": "やすい",
+        "gloss": "cheap",
+        "parts": [
+          ["安", "やす", "cheap"]
+        ]
+      },
+      {
+        "id": "every-month",
+        "word": "毎月",
+        "reading": "まいつき",
+        "gloss": "every month",
+        "parts": [
+          ["毎", "マイ", "every"],
+          ["月", "つき", "month"]
+        ]
+      },
+      {
+        "id": "fifty-thousand-yen",
+        "word": "五万円",
+        "reading": "ごまんえん",
+        "gloss": "50,000 yen",
+        "parts": [
+          ["五", "ゴ", "five"],
+          ["万", "マン", "ten thousand"],
+          ["円", "エン", "yen"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n5u04d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "この　アパートは　_新しい_です。",
+      "options": [
+        "あらたしい",
+        "あたしい",
+        "あたらしい",
+        "しんしい"
+      ],
+      "answer": 3,
+      "explain": "新しい is あたらしい. あらたしい swaps two sounds, あたしい drops ら, and しんしい uses シン, another reading of 新, but 新しい is never read that way."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "発話表現",
+    "en": "Expressions",
+    "situation": "On a sunny summer day, a man wiping sweat from his face meets a friend in the street.",
+    "ask": "友だちに　あいました。何と　いいますか。",
+    "item": {
+      "id": "n5u04d1.r1",
+      "kind": "choice",
+      "type": "発話表現",
+      "q": "友だちに　あいました。何と　いいますか。",
+      "script": [
+        "ナレーター：友だちに　あいました。何と　いいますか。",
+        "ナレーター：1",
+        "男：きょうは　さむいですね。",
+        "ナレーター：2",
+        "男：きょうは　あついですね。",
+        "ナレーター：3",
+        "男：きょうは　あつくないですね。"
+      ],
+      "options": [
+        "きょうは　さむいですね。",
+        "きょうは　あついですね。",
+        "きょうは　あつくないですね。"
+      ],
+      "printed": false,
+      "short": [
+        "さむいですね",
+        "あついですね",
+        "あつくないですね"
+      ],
+      "answer": 2,
+      "why": [
+        "さむい means cold. It is a sunny summer day and he is wiping sweat.",
+        "",
+        "あつくないです means it is not hot. The man is sweating, so it is hot."
+      ]
+    },
+    "audio": [
+      ["N", "友だちに　あいました。何と　いいますか。", "ともだちに　あいました。なんと　いいますか。"],
+      ["N", "1", "いち"],
+      ["M", "きょうは　さむいですね。", null],
+      ["N", "2", "に"],
+      ["M", "きょうは　あついですね。", null],
+      ["N", "3", "さん"],
+      ["M", "きょうは　あつくないですね。", null]
+    ]
+  }
+}

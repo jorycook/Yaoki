@@ -1,0 +1,535 @@
+{
+ "title": "〜がほしい・〜たい",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u04d5.p1",
+    "form": "〜がほしいです",
+    "gloss": "I want (a thing)",
+    "connect": [
+     {
+      "pos": "Noun (the thing you want)",
+      "rule": "〜が{ほしいです}"
+     },
+     {
+      "pos": "Noun, saying you do not want it",
+      "rule": "〜は{ほしくないです}"
+     },
+     {
+      "pos": "Asking what someone wants",
+      "rule": "[何|なに]が{ほしいですか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[新|あたら]しい[車|くるま]が{ほしいです}。",
+      "en": "I want a new car."
+     },
+     {
+      "ja": "A「たんじょう[日|び]に[何|なに]が{ほしいですか}。」B「[白|しろ]いかばんが{ほしいです}。」",
+      "en": "A: What do you want for your birthday? B: I want a white bag."
+     }
+    ],
+    "watch": {
+     "note": "The thing you want takes が, not を. Also, use ほしいです for your own wishes, or in a question to the person you are talking to.",
+     "bad": "わたしは新しい車をほしいです。",
+     "good": "わたしは新しい車がほしいです。"
+    }
+   },
+   {
+    "id": "n5u04d5.p2",
+    "form": "〜たいです",
+    "gloss": "I want to (do)",
+    "connect": [
+     {
+      "pos": "Verb, ます form",
+      "rule": "〜ます → 〜{たいです}"
+     },
+     {
+      "pos": "Verb, not wanting to",
+      "rule": "〜ます → 〜{たくないです}"
+     },
+     {
+      "pos": "Verb with an object",
+      "rule": "〜を／が 〜{たいです}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[日|にち]よう[日|び]は[山|やま]へ[行|い]き{たいです}。",
+      "en": "On Sunday I want to go to the mountains."
+     },
+     {
+      "ja": "[今日|きょう]は[魚|さかな]を[食|た]べ{たくないです}。",
+      "en": "I don't want to eat fish today."
+     }
+    ],
+    "watch": {
+     "note": "たい joins the verb in the shape it has before ます: 行きます → 行きたいです. It does not join 行く.",
+     "bad": "わたしは日本へ行くたいです。",
+     "good": "わたしは日本へ行きたいです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "ほしい wants a thing, たい wants to do something, and すき says what you like in general.",
+   "forms": [
+    {
+     "form": "〜がほしいです",
+     "tag": "ほしい · want a thing",
+     "mark": "dot",
+     "ja": "[新|あたら]しいかさが{ほしいです}。",
+     "en": "I want a new umbrella."
+    },
+    {
+     "form": "〜たいです",
+     "tag": "したい · want to do",
+     "mark": "dot",
+     "ja": "かさを[買|か]い{たいです}。",
+     "en": "I want to buy an umbrella."
+    },
+    {
+     "form": "〜がすきです",
+     "tag": "すき · like",
+     "mark": "dot",
+     "ja": "[花|はな]が{すきです}。",
+     "en": "I like flowers."
+    }
+   ],
+   "check": {
+    "id": "n5u04d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "たんじょう日",
+    "q": "A「^たんじょう[日|び]に^[何|なに]が（　　）。」B「^[新|あたら]しいとけい^です。」",
+    "options": [
+     "ほしいですか",
+     "[行|い]きたいですか",
+     "すきですか"
+    ],
+    "answer": 1,
+    "why": [
+     "A asks what B wants as a birthday present, and B names a thing: a new watch.",
+     "行きたい is about a place you want to go. 何が does not fit it, and a watch is not a place.",
+     "すき asks what you like in general. It does not go with たんじょう日に, and B names one new thing to get."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u04d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "[新|あたら]しいかばん（　　）^ほしいです^。",
+    "options": [
+     "が",
+     "を",
+     "で",
+     "に"
+    ],
+    "answer": 1,
+    "why": [
+     "With ほしい, the thing you want takes が.",
+     "ほしい is not a verb like 買います. The thing you want takes が, not を.",
+     "で marks where or with what you do something. The bag is the thing you want.",
+     "に does not mark the thing you want. Here the bag needs が."
+    ]
+   },
+   {
+    "id": "n5u04d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[日|にち]よう[日|び]は、うちでゆっくり（　　）。",
+    "options": [
+     "[休|やす]みたいです",
+     "[休|やす]むたいです",
+     "[休|やす]みますたいです",
+     "[休|やす]みほしいです"
+    ],
+    "answer": 1,
+    "why": [
+     "休みます without ます is 休み, and たいです joins it: \"I want to rest.\"",
+     "たい does not join 休む. It joins 休み, the shape before ます.",
+     "たい takes the place of ます. You do not keep ます.",
+     "ほしい goes after a thing with が. For doing something, use たい."
+    ]
+   },
+   {
+    "id": "n5u04d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[今日|きょう]はつかれました。^どこへも^[行|い]き（　　）。",
+    "options": [
+     "たくないです",
+     "たいです",
+     "ましょう",
+     "たいですか"
+    ],
+    "answer": 1,
+    "why": [
+     "どこへも needs a \"not\" ending: \"I don't want to go anywhere.\"",
+     "どこへも goes with a \"not\" ending, and たいです is not one.",
+     "どこへも goes with a \"not\" ending. Also, the speaker is tired, not inviting anyone.",
+     "どこへも goes with a \"not\" ending, and the speaker is talking about himself, not asking."
+    ]
+   },
+   {
+    "id": "n5u04d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「この[白|しろ]いかさ、[安|やす]いですよ。」B「かさは^うちに[三本|さんぼん]^あります。^[今|いま]は^（　　）。」",
+    "options": [
+     "ほしくないです",
+     "ほしいくないです",
+     "ほしいじゃないです",
+     "ほしかったです"
+    ],
+    "answer": 1,
+    "why": [
+     "B has three umbrellas at home, so he does not want one now. ほしい → ほしくないです.",
+     "For \"not\", ほしい drops い and takes くない: ほしくない, not ほしいくない.",
+     "じゃない is for nouns and な words. ほしい is an い word: ほしくないです.",
+     "ほしかったです is the past, \"I wanted it\". B says 今は, now."
+    ]
+   },
+   {
+    "id": "n5u04d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「たんじょう[日|び]に[何|なに]がほしいですか。」B「",
+    "after": "。」",
+    "tiles": [
+     "[白|しろ]い",
+     "かばん",
+     "が",
+     "ほしいです"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "白い describes the thing. The thing you want takes が, and ほしいです comes last.",
+    "full": "A「たんじょう[日|び]に[何|なに]がほしいですか。」B「[白|しろ]いかばんが{ほしいです}。」",
+    "explain": "白い comes before かばん, which it describes. が marks the thing B wants, and ほしいです ends the answer."
+   },
+   {
+    "id": "n5u04d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[今日|きょう]はあついですね。つめたい",
+    "after": "。",
+    "tiles": [
+     "ジュース",
+     "が",
+     "[飲|の]み",
+     "たいです"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "つめたい describes a drink. たいです joins the verb without ます.",
+    "full": "[今日|きょう]はあついですね。つめたいジュースが[飲|の]み{たいです}。",
+    "explain": "つめたい describes ジュース. With たい the object can take が, and 飲み (飲みます without ます) takes たいです."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u04d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「今日の　ばんごはんは　何が　いいですか。」B「カレーが　（　　）。」",
+    "options": [
+     "食べたいです",
+     "食べました",
+     "食べたくないです",
+     "食べませんか"
+    ],
+    "answer": 1,
+    "explain": "A asks what would be good for dinner tonight, and B names curry: 食べたいです. 食べました is the past. 食べたくないです does not answer \"what would be good?\". 食べませんか invites, but B is answering a question."
+   },
+   {
+    "id": "n5u04d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「たんじょう日に　何が　ほしいですか。」B「何も　（　　）。」",
+    "options": [
+     "ほしくないです",
+     "ほしいです",
+     "ほしいですか",
+     "ほしいでした"
+    ],
+    "answer": 1,
+    "explain": "何も goes with a \"not\" ending: \"I don't want anything.\" ほしいです and ほしいですか are not \"not\" endings. ほしいでした is not a correct form; the past of ほしい is ほしかったです."
+   },
+   {
+    "id": "n5u04d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「来年は　何を　したいですか。」B「",
+    "after": "。」",
+    "tiles": [
+     "新しい",
+     "車",
+     "を",
+     "買いたいです"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "full": "A「来年は　何を　したいですか。」B「新しい車を{買いたいです}。」",
+    "explain": "新しい, 車, を, 買いたいです. 新しい describes 車, を marks what B wants to buy, and 買いたいです comes last."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "ほしいものリスト",
+  "en": "A birthday wish list",
+  "intro": "Tap every word on the list you would read to know what she wants and how much it costs.",
+  "words": [
+   {
+    "id": "new",
+    "word": "新しい",
+    "reading": "あたらしい",
+    "gloss": "new",
+    "parts": [
+     [
+      "新",
+      "あたら",
+      "new"
+     ]
+    ]
+   },
+   {
+    "id": "white",
+    "word": "白い",
+    "reading": "しろい",
+    "gloss": "white",
+    "parts": [
+     [
+      "白",
+      "しろ",
+      "white"
+     ]
+    ]
+   },
+   {
+    "id": "big",
+    "word": "大きい",
+    "reading": "おおきい",
+    "gloss": "big",
+    "parts": [
+     [
+      "大",
+      "おお",
+      "big"
+     ]
+    ]
+   },
+   {
+    "id": "book",
+    "word": "本",
+    "reading": "ほん",
+    "gloss": "book",
+    "parts": [
+     [
+      "本",
+      "ホン",
+      "book; origin"
+     ]
+    ]
+   },
+   {
+    "id": "flower",
+    "word": "花",
+    "reading": "はな",
+    "gloss": "flower",
+    "parts": [
+     [
+      "花",
+      "はな",
+      "flower"
+     ]
+    ]
+   },
+   {
+    "id": "car",
+    "word": "車",
+    "reading": "くるま",
+    "gloss": "car",
+    "parts": [
+     [
+      "車",
+      "くるま",
+      "car, wheel"
+     ]
+    ]
+   },
+   {
+    "id": "1000",
+    "word": "千円",
+    "reading": "せんえん",
+    "gloss": "1,000 yen",
+    "parts": [
+     [
+      "千",
+      "セン",
+      "thousand"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "10000",
+    "word": "一万円",
+    "reading": "いちまんえん",
+    "gloss": "10,000 yen",
+    "parts": [
+     [
+      "一",
+      "イチ",
+      "one"
+     ],
+     [
+      "万",
+      "マン",
+      "ten thousand"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u04d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "たんじょう日に　_白い_　花が　ほしいです。",
+   "options": [
+    "しろい",
+    "くろい",
+    "あかい",
+    "あおい"
+   ],
+   "answer": 1,
+   "explain": "白い is read しろい, \"white\". くろい is black, あかい is red and あおい is blue; they are written with other kanji."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "二人は　何を　買いますか。",
+  "audio": [
+   [
+    "N",
+    "店で、女の人と男の人が話しています。二人は、何を買いますか。",
+    "みせで、おんなのひとと　おとこのひとが　はなしています。ふたりは、なにを　かいますか。"
+   ],
+   [
+    "F",
+    "あしたは、リンさんのたんじょう日ですね。何を買いましょうか。",
+    "あしたは、リンさんの　たんじょうびですね。なにを　かいましょうか。"
+   ],
+   [
+    "M",
+    "本はどうですか。",
+    null
+   ],
+   [
+    "F",
+    "うーん、リンさんのへやには、本がたくさんありますよ。",
+    null
+   ],
+   [
+    "M",
+    "そうですか。じゃあ、このかばんは？大きくて、いいですね。ぼくもほしいです。",
+    "そうですか。じゃあ、この　かばんは？　おおきくて、いいですね。ぼくも　ほしいです。"
+   ],
+   [
+    "F",
+    "いいですね。でも、一万円ですよ。ちょっと高いです。",
+    "いいですね。でも、いちまんえんですよ。ちょっと　たかいです。"
+   ],
+   [
+    "M",
+    "そうですね。じゃあ、花はどうですか。この白い花、きれいですよ。",
+    "そうですね。じゃあ、はなは　どうですか。この　しろい　はな、きれいですよ。"
+   ],
+   [
+    "F",
+    "ええ、いいですね。花を買いましょう。",
+    "ええ、いいですね。はなを　かいましょう。"
+   ],
+   [
+    "N",
+    "二人は、何を買いますか。",
+    "ふたりは、なにを　かいますか。"
+   ]
+  ],
+  "item": {
+   "id": "n5u04d5.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "二人は　何を　買いますか。",
+   "script": [
+    "ナレーター：店で、女の人と男の人が話しています。二人は、何を買いますか。",
+    "女：あしたは、リンさんのたんじょう日ですね。何を買いましょうか。",
+    "男：本はどうですか。",
+    "女：うーん、リンさんのへやには、本がたくさんありますよ。",
+    "男：そうですか。じゃあ、このかばんは？大きくて、いいですね。ぼくもほしいです。",
+    "女：いいですね。でも、一万円ですよ。ちょっと高いです。",
+    "男：そうですね。じゃあ、花はどうですか。この白い花、きれいですよ。",
+    "女：ええ、いいですね。花を買いましょう。",
+    "ナレーター：二人は、何を買いますか。"
+   ],
+   "options": [
+    "本",
+    "大きい　かばん",
+    "白い　花",
+    "かばんと　花"
+   ],
+   "printed": true,
+   "short": [
+    "本",
+    "大きい かばん",
+    "白い 花",
+    "かばんと 花"
+   ],
+   "answer": 3,
+   "why": [
+    "The woman says Lin already has many books in her room.",
+    "The man likes the bag, but the woman says it is 一万円, a little expensive.",
+    "The man suggests the white flowers, and the woman agrees: 花を買いましょう.",
+    "They talk about both, but they do not buy the bag. It is too expensive."
+   ]
+  }
+ }
+}

@@ -1,0 +1,426 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "To tell the ten apart, look at what sits next to the blank: between two nouns you need の or と, after the topic you need は or も, before a noun この (これ stands alone), and at the very end です, じゃありません, か, ね or よ.",
+   "forms": [
+    {
+     "form": "〜は／〜も",
+     "tag": "ちがう・おなじ · topic or \"too\"",
+     "mark": "dot",
+     "ja": "[今日|きょう]{は}[休|やす]みです。あした{も}[休|やす]みです。",
+     "en": "Today is a day off. Tomorrow is a day off too."
+    },
+    {
+     "form": "これ／この",
+     "tag": "ひとりで・＋もの · alone or + noun",
+     "mark": "dot",
+     "ja": "{これ}はわたしのペンです。{この}ペンは[安|やす]いです。",
+     "en": "This is my pen. This pen is cheap."
+    },
+    {
+     "form": "〜の／〜と",
+     "tag": "どんな・AとB · of or and",
+     "mark": "dot",
+     "ja": "これは[日本語|にほんご]{の}[本|ほん]{と}ノートです。",
+     "en": "These are a Japanese book and a notebook."
+    }
+   ],
+   "check": {
+    "id": "n5u01d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "がっこうで",
+    "q": "A：この[白|しろ]いノートは^だれの^ですか。B：[先生|せんせい]（　　）です。",
+    "options": [
+     "と",
+     "の",
+     "も"
+    ],
+    "answer": 2,
+    "why": [
+     "先生とです would mean \"with the teacher\". A asked whose notebook it is.",
+     "A asks だれの, \"whose\". 先生のです answers it: it is the teacher's.",
+     "先生もです would mean \"the teacher too\". It does not say whose the notebook is."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u01d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[今週|こんしゅう]は[休|やす]みです。^[来週|らいしゅう]^（　　）^[休|やす]みです^。",
+    "options": [
+     "と",
+     "か",
+     "も",
+     "を"
+    ],
+    "answer": 3,
+    "why": [
+     "と joins two nouns, as in 今週と来週は休みです. Here 来週 stands alone before 休みです, so と has nothing to join.",
+     "来週か休みです is not a sentence. A question か goes at the very end, after です.",
+     "This week is a day off, and next week is the same, so も: \"next week too\".",
+     "を marks the thing an action is done to. 休みです is not an action."
+    ]
+   },
+   {
+    "id": "n5u01d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[先週|せんしゅう]^（　　）テストはどれですか。",
+    "options": [
+     "この",
+     "の",
+     "と",
+     "これ"
+    ],
+    "answer": 2,
+    "why": [
+     "この points at a thing near you. It cannot come right after 先週.",
+     "先週のテスト is \"last week's test\": の joins the two nouns.",
+     "と means \"and\". 先週とテスト would be \"last week and the test\".",
+     "これ stands alone and never comes before a noun. 先週これテスト is not Japanese."
+    ]
+   },
+   {
+    "id": "n5u01d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "（^ふたりでカレンダーを[見|み]ています^。）A「わあ、[毎日|まいにち]クラスがあります（　　）。」B「^ほんとうですね^。」",
+    "options": [
+     "よ",
+     "ね",
+     "か",
+     "を"
+    ],
+    "answer": 2,
+    "why": [
+     "よ tells news the other person does not know. B is looking at the same calendar.",
+     "Both can see the calendar, so A shares what they both see: ね. B agrees.",
+     "か asks. A can see the answer, and B replies by agreeing, not answering.",
+     "を marks the thing an action is done to. It cannot end a sentence."
+    ]
+   },
+   {
+    "id": "n5u01d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[父|ちち]は[先生|せんせい]です^。[母|はは]^も^[先生|せんせい]（　　）。",
+    "options": [
+     "です",
+     "じゃありません",
+     "ます",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "も says the mother is the same as the father. He is a teacher, so she is a teacher too: 先生です.",
+     "This would say she is not a teacher. That does not match も after \"father is a teacher\".",
+     "ます goes after a verb. 先生 is a noun.",
+     "を marks the thing an action is done to. The sentence would have no ending."
+    ]
+   },
+   {
+    "id": "n5u01d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません、",
+    "after": "ですか。",
+    "tiles": [
+     "この",
+     "クラスは",
+     "[何時|なんじ]",
+     "から"
+    ],
+    "star": 0,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "この is followed by a noun. Which tile is a noun?",
+    "full": "すみません、{この}クラスは[何時|なんじ]からですか。",
+    "explain": "この needs a noun right after it, and クラスは is the topic. Then 何時から asks the start time, and ですか closes the question."
+   },
+   {
+    "id": "n5u01d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「[午後|ごご]もクラスがありますか。」B「はい、",
+    "after": "よ。」",
+    "tiles": [
+     "[午後|ごご]は",
+     "[中山|なかやま][先生|せんせい]の",
+     "クラス",
+     "です"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "Start with the topic. Whose class is it?",
+    "full": "A「[午後|ごご]もクラスがありますか。」B「はい、[午後|ごご]は[中山|なかやま][先生|せんせい]{の}クラスですよ。」",
+    "explain": "午後は is the topic, so it comes first. 中山先生の tells whose class, so it sits right before クラス. です closes the sentence, and よ after it tells A something new."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u01d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "マリアさん（　　）　トムさんは　この　学校の　学生です。",
+    "options": [
+     "の",
+     "と",
+     "も",
+     "を"
+    ],
+    "answer": 2,
+    "explain": "と joins two people: マリアさんとトムさん are both students here. の would make Tom \"Maria's Tom\", which makes no sense. マリアさんも　トムさんは does not work: for both you would need マリアさんも　トムさんも. を marks the thing an action is done to."
+   },
+   {
+    "id": "n5u01d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「あしたは　休みですか。」\nB「いいえ、あしたも　クラスが　あります（　　）。」",
+    "options": [
+     "ね",
+     "か",
+     "よ",
+     "を"
+    ],
+    "answer": 3,
+    "explain": "A did not know and asked, so B tells new information: よ. ね is for something both people already know, but A just asked. か would turn B's answer into a question, and を cannot end a sentence."
+   },
+   {
+    "id": "n5u01d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「これは　あなたの　かさですか。」B「いいえ、",
+    "after": "。友だちのです。」",
+    "tiles": [
+     "それは",
+     "わたしの",
+     "かさ",
+     "じゃありません"
+    ],
+    "star": 3,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "full": "A「これは　あなたの　かさですか。」B「いいえ、それはわたしのかさ{じゃありません}。友だちのです。」",
+    "explain": "それは, わたしの, かさ, じゃありません. それは is the topic: the umbrella is near A, so B says それ. わたしの goes before かさ, and じゃありません comes last, after the noun."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "日本語学校のカレンダー",
+  "en": "The week's calendar at a language school",
+  "intro": "Tap each word on the calendar by the front door of your language school.",
+  "words": [
+   {
+    "id": "Mon",
+    "word": "月",
+    "reading": "げつ",
+    "gloss": "Mon. (short label for Monday)",
+    "parts": [
+     [
+      "月",
+      "ゲツ",
+      "moon, month"
+     ]
+    ]
+   },
+   {
+    "id": "every day",
+    "word": "毎日",
+    "reading": "まいにち",
+    "gloss": "every day",
+    "parts": [
+     [
+      "毎",
+      "マイ",
+      "every"
+     ],
+     [
+      "日",
+      "ニチ",
+      "sun, day"
+     ]
+    ]
+   },
+   {
+    "id": "this week",
+    "word": "今週",
+    "reading": "こんしゅう",
+    "gloss": "this week",
+    "parts": [
+     [
+      "今",
+      "コン",
+      "now"
+     ],
+     [
+      "週",
+      "シュウ",
+      "week"
+     ]
+    ]
+   },
+   {
+    "id": "last week",
+    "word": "先週",
+    "reading": "せんしゅう",
+    "gloss": "last week",
+    "parts": [
+     [
+      "先",
+      "セン",
+      "ahead, before"
+     ],
+     [
+      "週",
+      "シュウ",
+      "week"
+     ]
+    ]
+   },
+   {
+    "id": "day off",
+    "word": "休み",
+    "reading": "やすみ",
+    "gloss": "day off, no class",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ]
+    ]
+   },
+   {
+    "id": "morning",
+    "word": "午前",
+    "reading": "ごぜん",
+    "gloss": "morning, a.m.",
+    "parts": [
+     [
+      "午",
+      "ゴ",
+      "noon"
+     ],
+     [
+      "前",
+      "ゼン",
+      "before"
+     ]
+    ]
+   },
+   {
+    "id": "afternoon",
+    "word": "午後",
+    "reading": "ごご",
+    "gloss": "afternoon, p.m.",
+    "parts": [
+     [
+      "午",
+      "ゴ",
+      "noon"
+     ],
+     [
+      "後",
+      "ゴ",
+      "after"
+     ]
+    ]
+   },
+   {
+    "id": "time",
+    "word": "時間",
+    "reading": "じかん",
+    "gloss": "time, hour(s)",
+    "parts": [
+     [
+      "時",
+      "ジ",
+      "time, hour"
+     ],
+     [
+      "間",
+      "カン",
+      "between"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u01d6.k1",
+   "kind": "choice",
+   "type": "表記",
+   "label": "How the exam asks it",
+   "q": "あしたの　_ごご_は　テストが　あります。",
+   "options": [
+    "午前",
+    "五後",
+    "午後",
+    "後午"
+   ],
+   "answer": 3,
+   "explain": "ごご is 午後: 午 (noon) and 後 (after). 午前 is ごぜん, the morning. 五後 uses 五, the number five, not 午. 後午 has the two kanji the wrong way round."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which line of the notice holds the one fact you need?",
+  "seconds": 90,
+  "passage": "さくら日本語学校\n今週の　かいわの　クラス\n十二日（月）　午後　二時〜三時\n十三日（火）　^午前^　十時〜十一時\n十五日（木）　午後　二時〜三時\n^十六日（金）　午前^　十時〜十一時\n※　^十三日は　先生が　休みです。クラスは　ありません。^",
+  "strategy": "Read the question first, then look only at the lines with 午前, and check the note at the bottom.",
+  "item": {
+   "id": "n5u01d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "リンさんは　午前の　かいわの　クラスに　出たいです。何日に　学校へ　行きますか。",
+   "options": [
+    "十二日",
+    "十三日",
+    "十五日",
+    "十六日"
+   ],
+   "short": [
+    "12日",
+    "13日",
+    "15日",
+    "16日"
+   ],
+   "answer": 4,
+   "explain": "Only two lines say 午前: the 13th and the 16th. The note says the teacher is off on the 13th and there is no class, so Lin goes on the 16th.",
+   "why": [
+    "The class on the 12th is 午後, in the afternoon.",
+    "The 13th has a morning class, but the note says the teacher is off and there is no class.",
+    "The class on the 15th is 午後, in the afternoon.",
+    ""
+   ]
+  }
+ }
+}

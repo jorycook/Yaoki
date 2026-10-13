@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 <script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
@@ -108,7 +109,7 @@ const STEPS = [['あした', '1 day'], ['3日後', '3 days'], ['1週間後', '7 
 /* a star question is asked as on the paper: the four tiles numbered */
 function asAsked(it) {
 if (it.kind !== 'star') return it;
-return { ...it, options: it.bank.map((t) => it.tiles[t]), answer: it.bank.indexOf(it.star) + 1, starQ: true };
+return { ...it, options: it.bank.map((t) => window.ykCourse.plain(it.tiles[t])), answer: it.bank.indexOf(it.star) + 1, starQ: true };
 }
 class Component extends DCLogic {
 constructor(props) {

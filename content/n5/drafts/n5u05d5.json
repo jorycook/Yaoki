@@ -1,0 +1,556 @@
+{
+  "title": "もう・まだ",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u05d5.p1",
+        "form": "もう",
+        "gloss": "already; not any more",
+        "connect": [
+          {
+            "pos": "Verb, past polite (ました)",
+            "rule": "{もう}〜ました"
+          },
+          {
+            "pos": "Asking if it has happened",
+            "rule": "{もう}〜ましたか"
+          },
+          {
+            "pos": "With a \"not\" ending: not any more",
+            "rule": "{もう}〜ません"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "ひるごはんは{もう}[食|た]べました。",
+            "en": "I have already eaten lunch."
+          },
+          {
+            "ja": "A「[白|しろ]いかさはありますか。」B「すみません、{もう}ありません。」",
+            "en": "A: Do you have white umbrellas? B: Sorry, there are none left."
+          }
+        ],
+        "watch": {
+          "note": "\"Already\" is もう. まだ means \"not yet\" or \"still\", so it does not fit a finished action like 食べました.",
+          "bad": "ひるごはんはまだ食べました。",
+          "good": "ひるごはんはもう食べました。"
+        }
+      },
+      {
+        "id": "n5u05d5.p2",
+        "form": "まだ",
+        "gloss": "not yet; still",
+        "connect": [
+          {
+            "pos": "Answering もう〜ましたか: not yet",
+            "rule": "いいえ、{まだ}です"
+          },
+          {
+            "pos": "Noun: still",
+            "rule": "{まだ}〜です"
+          },
+          {
+            "pos": "With あります: still have",
+            "rule": "{まだ}〜があります"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "A「もうきっぷを[買|か]いましたか。」B「いいえ、{まだ}です。」",
+            "en": "A: Have you bought the ticket yet? B: No, not yet."
+          },
+          {
+            "ja": "[外|そと]は{まだ}[雨|あめ]です。",
+            "en": "It is still raining outside."
+          }
+        ],
+        "watch": {
+          "note": "To answer \"not yet\", say いいえ、まだです. 食べませんでした tells about a past time you did not eat, so it does not mean \"not yet\".",
+          "bad": "A「もう食べましたか。」B「いいえ、まだ食べませんでした。」",
+          "good": "A「もう食べましたか。」B「いいえ、まだです。」"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "もう says it has already happened, まだ says it has not happened yet, and ませんでした says you did not do it at some time in the past.",
+      "forms": [
+        {
+          "form": "もう〜ました",
+          "tag": "もう · already",
+          "mark": "dot",
+          "ja": "しゅくだいは{もう}しました。",
+          "en": "I have already done my homework."
+        },
+        {
+          "form": "まだです",
+          "tag": "まだ · not yet",
+          "mark": "down",
+          "ja": "しゅくだいは{まだ}です。",
+          "en": "My homework is not done yet."
+        },
+        {
+          "form": "〜ませんでした",
+          "tag": "しませんでした · did not",
+          "mark": "down",
+          "ja": "きのうはしゅくだいを{しませんでした}。",
+          "en": "I did not do my homework yesterday."
+        }
+      ],
+      "check": {
+        "id": "n5u05d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "しゅくだい",
+        "q": "A「もうしゅくだいをしましたか。」B「^いいえ^、（　　）。^これからします^。」",
+        "options": [
+          "まだです",
+          "もうしました",
+          "しませんでした"
+        ],
+        "answer": 1,
+        "why": [
+          "B says いいえ and will do it from now, so it is not done yet: まだです.",
+          "もうしました means it is already done, but B says いいえ and これからします.",
+          "しませんでした tells about a past time. It does not answer もう〜ましたか; for \"not yet\" say まだです."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u05d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「いっしょにひるごはんを[食|た]べませんか。」B「^すみません^、^もう^（　　）。」",
+        "options": [
+          "[食|た]べました",
+          "[食|た]べましょう",
+          "[食|た]べませんか",
+          "[食|た]べたいです"
+        ],
+        "answer": 1,
+        "why": [
+          "B has already eaten, so B says sorry: もう食べました, \"I have already eaten.\"",
+          "食べましょう says yes to the plan, but B says すみません to turn it down.",
+          "食べませんか is an invitation. A is the one inviting; B is answering.",
+          "B says すみません to say no. もう食べたいです does not turn A down."
+        ]
+      },
+      {
+        "id": "n5u05d5.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「あんパンはありますか。」B「^すみません^、[今日|きょう]は^もう^（　　）。」",
+        "options": [
+          "ありません",
+          "あります",
+          "ありました",
+          "ありませんでした"
+        ],
+        "answer": 1,
+        "why": [
+          "もう with a \"not\" ending means \"not any more\": they are sold out now.",
+          "すみません tells us the news is bad. もうあります does not say they are gone.",
+          "ありました is the past. The customer asks about now.",
+          "ありませんでした is the past. The bread is gone now, so the shop says ありません."
+        ]
+      },
+      {
+        "id": "n5u05d5.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the answer",
+        "q": "A「もう[駅|えき]につきましたか。」B「^いいえ^、（　　）。^あと[五分|ごふん]ぐらいです^。」",
+        "options": [
+          "まだです",
+          "もうつきました",
+          "つきませんでした",
+          "もうありません"
+        ],
+        "answer": 1,
+        "why": [
+          "B is not at the station yet; five more minutes. いいえ、まだです is \"not yet\".",
+          "もうつきました means he has arrived, but he says いいえ and five more minutes.",
+          "つきませんでした tells about a past time. To answer もう〜ましたか with \"not yet\", say まだです.",
+          "もうありません means \"there is none any more\". It does not answer \"have you arrived?\"."
+        ]
+      },
+      {
+        "id": "n5u05d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "[電車|でんしゃ]は[九時|くじ]です。^[今|いま]は[八時|はちじ]です^。（　　）[時間|じかん]がありますね。",
+        "options": [
+          "まだ",
+          "もう",
+          "いつ",
+          "ぜんぜん"
+        ],
+        "answer": 1,
+        "why": [
+          "It is eight and the train is at nine, so there is still time: まだ時間があります.",
+          "With an hour left, the speaker means \"still\", and that is まだ. もう here would sound like time is running out.",
+          "いつ asks \"when\". This sentence is not a question.",
+          "ぜんぜん goes with a \"not\" ending like ありません. Here the verb is あります."
+        ]
+      },
+      {
+        "id": "n5u05d5.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "すみません、[九時|くじ]の",
+        "after": "。",
+        "tiles": [
+          "[電車|でんしゃ]",
+          "は",
+          "もう",
+          "[出|で]ました"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "hint": "九時の describes a noun. Then the topic with は, then もう before the verb.",
+        "full": "すみません、[九時|くじ]の[電車|でんしゃ]は{もう}[出|で]ました。",
+        "explain": "九時の goes before 電車. は makes the train the topic, and もう comes before 出ました: \"The nine o'clock train has already left.\""
+      },
+      {
+        "id": "n5u05d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A「おとうとさんは[大学生|だいがくせい]ですか。」B「いいえ、おとうとは",
+        "after": "。」",
+        "tiles": [
+          "まだ",
+          "[十六|じゅうろく]",
+          "さい",
+          "です"
+        ],
+        "star": 0,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "まだ comes before the noun it is about. さい follows the number, and です comes last.",
+        "full": "A「おとうとさんは[大学生|だいがくせい]ですか。」B「いいえ、おとうとは{まだ}[十六|じゅうろく]さいです。」",
+        "explain": "まだ comes first, then 十六さい (sixteen years old), then です: \"He is still sixteen.\""
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u05d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「この　本、もう　読みましたか。」B「はい、（　　）。おもしろかったです。」",
+        "options": [
+          "もう　読みました",
+          "まだ　読みました",
+          "まだです",
+          "もう　読みます"
+        ],
+        "answer": 1,
+        "explain": "B says はい and おもしろかったです, so B has finished the book: もう読みました. まだ does not go with a finished action like 読みました. まだです means \"not yet\", which does not fit はい. もう読みます talks about now or later, but B already read it."
+      },
+      {
+        "id": "n5u05d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "A「山下さんは　まだ　会社に　いますか。」B「いいえ、（　　）　いません。五時に　かえりました。」",
+        "options": [
+          "もう",
+          "まだ",
+          "たくさん",
+          "すこし"
+        ],
+        "answer": 1,
+        "explain": "山下さん went home at five, so he is not at the office any more: もういません. まだいません would mean he has not come yet. たくさん and すこし tell how many or how much, and do not fit one person who has left."
+      },
+      {
+        "id": "n5u05d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A「何か　飲みませんか。」B「いいですね。でも、つめたい",
+        "after": "よ。」",
+        "tiles": [
+          "ジュース",
+          "は",
+          "もう",
+          "ありません"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "A「何か　飲みませんか。」B「いいですね。でも、つめたいジュースは{もう}ありませんよ。」",
+        "explain": "ジュース, は, もう, ありません. つめたい describes ジュース, は makes it the topic, and もう with ありません means \"there is none left\"."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "駅の電車の時間",
+    "en": "A train board at a small station",
+    "intro": "Tap every word on the board you need to know which trains have left and which are still to come.",
+    "words": [
+      {
+        "id": "train",
+        "word": "電車",
+        "reading": "でんしゃ",
+        "gloss": "train",
+        "parts": [
+          [
+            "電",
+            "デン",
+            "electricity"
+          ],
+          [
+            "車",
+            "シャ",
+            "vehicle"
+          ]
+        ]
+      },
+      {
+        "id": "station",
+        "word": "駅",
+        "reading": "えき",
+        "gloss": "station",
+        "parts": [
+          [
+            "駅",
+            "エキ",
+            "station"
+          ]
+        ]
+      },
+      {
+        "id": "pm",
+        "word": "午後",
+        "reading": "ごご",
+        "gloss": "p.m., afternoon",
+        "parts": [
+          [
+            "午",
+            "ゴ",
+            "noon"
+          ],
+          [
+            "後",
+            "ゴ",
+            "after"
+          ]
+        ]
+      },
+      {
+        "id": "3oclock",
+        "word": "三時",
+        "reading": "さんじ",
+        "gloss": "three o'clock",
+        "parts": [
+          [
+            "三",
+            "サン",
+            "three"
+          ],
+          [
+            "時",
+            "ジ",
+            "o'clock, time"
+          ]
+        ]
+      },
+      {
+        "id": "20min",
+        "word": "二十分",
+        "reading": "にじゅっぷん",
+        "gloss": "twenty minutes; :20",
+        "parts": [
+          [
+            "二",
+            "ニ",
+            "two"
+          ],
+          [
+            "十",
+            "ジュッ",
+            "ten"
+          ],
+          [
+            "分",
+            "プン",
+            "minute"
+          ]
+        ]
+      },
+      {
+        "id": "left",
+        "word": "出ました",
+        "reading": "でました",
+        "gloss": "has left",
+        "parts": [
+          [
+            "出",
+            "で",
+            "go out, leave"
+          ]
+        ]
+      },
+      {
+        "id": "coming",
+        "word": "来ます",
+        "reading": "きます",
+        "gloss": "will come",
+        "parts": [
+          [
+            "来",
+            "き",
+            "come"
+          ]
+        ]
+      },
+      {
+        "id": "northexit",
+        "word": "北口",
+        "reading": "きたぐち",
+        "gloss": "north exit",
+        "parts": [
+          [
+            "北",
+            "きた",
+            "north"
+          ],
+          [
+            "口",
+            "ぐち",
+            "mouth, opening"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n5u05d5.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "三時の　電車は　もう　_出ました_。",
+      "options": [
+        "でました",
+        "だしました",
+        "きました",
+        "いました"
+      ],
+      "answer": 1,
+      "explain": "出ました is read でました, \"has left\". だしました would be written 出しました, with し. きました (来ました) and いました are other verbs."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "男の人は　このあと　何を　しますか。",
+    "audio": [
+      [
+        "N",
+        "女の人と男の人が話しています。男の人は、このあと何をしますか。",
+        "おんなのひとと　おとこのひとが　はなしています。おとこのひとは、このあと　なにを　しますか。"
+      ],
+      [
+        "F",
+        "あしたから、りょこうですね。もう、きっぷを買いましたか。",
+        "あしたから、りょこうですね。もう、きっぷを　かいましたか。"
+      ],
+      [
+        "M",
+        "はい、きのう、駅で買いました。",
+        "はい、きのう、えきで　かいました。"
+      ],
+      [
+        "F",
+        "ホテルは？",
+        null
+      ],
+      [
+        "M",
+        "ホテルにも、もう電話しました。",
+        "ホテルにも、もう　でんわしました。"
+      ],
+      [
+        "F",
+        "じゃあ、かばんに、もうふくを入れましたか。",
+        "じゃあ、かばんに、もう　ふくを　いれましたか。"
+      ],
+      [
+        "M",
+        "いいえ、まだです。",
+        null
+      ],
+      [
+        "F",
+        "え、まだですか。あしたの電車は、あさ七時ですよ。",
+        "え、まだですか。あしたの　でんしゃは、あさ　しちじですよ。"
+      ],
+      [
+        "M",
+        "そうですね。じゃあ、今から入れます。おかしは、あした駅で買います。",
+        "そうですね。じゃあ、いまから　いれます。おかしは、あした　えきで　かいます。"
+      ],
+      [
+        "N",
+        "男の人は、このあと何をしますか。",
+        "おとこのひとは、このあと　なにを　しますか。"
+      ]
+    ],
+    "item": {
+      "id": "n5u05d5.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "男の人は　このあと　何を　しますか。",
+      "script": [
+        "ナレーター：女の人と男の人が話しています。男の人は、このあと何をしますか。",
+        "女：あしたから、りょこうですね。もう、きっぷを買いましたか。",
+        "男：はい、きのう、駅で買いました。",
+        "女：ホテルは？",
+        "男：ホテルにも、もう電話しました。",
+        "女：じゃあ、かばんに、もうふくを入れましたか。",
+        "男：いいえ、まだです。",
+        "女：え、まだですか。あしたの電車は、あさ七時ですよ。",
+        "男：そうですね。じゃあ、今から入れます。おかしは、あした駅で買います。",
+        "ナレーター：男の人は、このあと何をしますか。"
+      ],
+      "options": [
+        "きっぷを　買います",
+        "ホテルに　電話します",
+        "かばんに　ふくを　入れます",
+        "おかしを　買います"
+      ],
+      "printed": true,
+      "short": [
+        "きっぷを 買う",
+        "ホテルに 電話",
+        "ふくを 入れる",
+        "おかしを 買う"
+      ],
+      "answer": 3,
+      "why": [
+        "He already bought the ticket yesterday at the station: はい、きのう、駅で買いました.",
+        "He already called the hotel: もう電話しました.",
+        "He has not packed yet (いいえ、まだです), and he says 今から入れます, \"I'll pack now.\"",
+        "He will buy snacks tomorrow at the station, not now."
+      ]
+    }
+  }
+}

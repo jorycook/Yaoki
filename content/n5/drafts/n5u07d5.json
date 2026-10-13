@@ -1,0 +1,536 @@
+{
+ "title": "〜ほうがいい・〜なければならない",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u07d5.p1",
+    "form": "〜ほうがいいです",
+    "gloss": "you had better …",
+    "connect": [
+     {
+      "pos": "Verb, た form (from day 2)",
+      "rule": "ねる→ねた{ほうがいいです}／[飲|の]む→[飲|の]んだ{ほうがいいです}"
+     },
+     {
+      "pos": "Verb, ない form: you had better not",
+      "rule": "[食|た]べる→[食|た]べない{ほうがいいです}"
+     },
+     {
+      "pos": "To a friend, drop です",
+      "rule": "[休|やす]んだ{ほうがいい}よ"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[今日|きょう]は、はやくねた{ほうがいいです}よ。",
+      "en": "You had better go to bed early today."
+     },
+     {
+      "ja": "あついですから、[外|そと]へ[出|で]ない{ほうがいいです}。",
+      "en": "It is hot, so you had better not go outside."
+     }
+    ],
+    "watch": {
+     "note": "Use the plain form before ほうがいいです: 飲んだ or 飲まない. The polite ます form does not go before ほう.",
+     "bad": "このくすりを飲みますほうがいいです。",
+     "good": "このくすりを飲んだほうがいいです。"
+    }
+   },
+   {
+    "id": "n5u07d5.p2",
+    "form": "〜なければなりません",
+    "gloss": "must; have to",
+    "connect": [
+     {
+      "pos": "Verb, ない form: take off the last い and add ければなりません",
+      "rule": "[行|い]かない→[行|い]かな{ければなりません}"
+     },
+     {
+      "pos": "It works the same for every verb",
+      "rule": "[食|た]べな{ければなりません}／しな{ければなりません}／[来|こ]な{ければなりません}"
+     },
+     {
+      "pos": "Asking \"Do I have to …?\"",
+      "rule": "[名前|なまえ]を[書|か]かな{ければなりませんか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[来週|らいしゅう]、[国|くに]へかえらな{ければなりません}。",
+      "en": "I have to go back to my country next week."
+     },
+     {
+      "ja": "ごはんの[後|あと]で、このくすりを[飲|の]まな{ければなりません}。",
+      "en": "I must take this medicine after meals."
+     }
+    ],
+    "watch": {
+     "note": "Take off the い of ない first: 行かない becomes 行かなければ. 行かないければ is wrong.",
+     "bad": "あしたは学校へ行かないければなりません。",
+     "good": "あしたは学校へ行かなければなりません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three talk about what to do: one is advice, one is a must, and one says there is no need.",
+   "forms": [
+    {
+     "form": "ねたほうがいいです",
+     "tag": "アドバイス · had better",
+     "mark": "dot",
+     "ja": "[今日|きょう]は、はやくねた{ほうがいいです}。",
+     "en": "You had better go to bed early today."
+    },
+    {
+     "form": "[行|い]かなければなりません",
+     "tag": "しなければ · must",
+     "mark": "up",
+     "ja": "あしたは、[学校|がっこう]へ[行|い]かな{ければなりません}。",
+     "en": "I have to go to school tomorrow."
+    },
+    {
+     "form": "[行|い]かなくてもいいです",
+     "tag": "しなくても · no need",
+     "mark": "down",
+     "ja": "あしたは[休|やす]みですから、[行|い]かな{くてもいいです}。",
+     "en": "Tomorrow is a day off, so you don't have to go."
+    }
+   ],
+   "check": {
+    "id": "n5u07d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "テスト",
+    "q": "^あしたはテストです^から、[今日|きょう]はべんきょうし（　　）。",
+    "options": [
+     "なくてもいいです",
+     "なければなりません",
+     "ないほうがいいです"
+    ],
+    "answer": 2,
+    "why": [
+     "しなくてもいいです means \"you don't have to study\". With a test tomorrow, that does not make sense.",
+     "There is a test tomorrow, so you must study today: べんきょうしなければなりません.",
+     "しないほうがいいです is advice not to study. Before a test, that is the wrong advice."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u07d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^かぜ^ですね。[今日|きょう]はおふろに（　　）ほうがいいですよ。",
+    "options": [
+     "[入|はい]りません",
+     "[入|はい]らない",
+     "[入|はい]って",
+     "[入|はい]らなくて"
+    ],
+    "answer": 2,
+    "why": [
+     "入りません is the polite ending. Before ほうがいいです, use the plain form: 入らない.",
+     "You have a cold, so the advice is not to take a bath. ない form + ほうがいいです means \"you had better not\".",
+     "入って is the te-form. 入ってほうがいい is not Japanese.",
+     "入らなくて is the te-form of 入らない. It does not go before ほうがいいです."
+    ]
+   },
+   {
+    "id": "n5u07d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "のどがいたいですね。このくすりを（　　）^ほうがいいです^よ。",
+    "options": [
+     "[飲|の]んだ",
+     "[飲|の]みます",
+     "[飲|の]んで",
+     "[飲|の]み"
+    ],
+    "answer": 1,
+    "why": [
+     "飲んだ is the た form. た form + ほうがいいです gives advice: \"you had better take this medicine\".",
+     "飲みます is the polite ending. The plain form goes before ほう: 飲んだ.",
+     "飲んで is the te-form. 飲んでほうがいい is not Japanese.",
+     "飲み is the ます form without ます. It goes before に行きます, not before ほうがいいです."
+    ]
+   },
+   {
+    "id": "n5u07d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あしたは[九時|くじ]に[駅|えき]へ（　　）^なりません^。",
+    "options": [
+     "[行|い]かないければ",
+     "[行|い]きなければ",
+     "[行|い]かなければ",
+     "[行|い]ってければ"
+    ],
+    "answer": 3,
+    "why": [
+     "The い of 行かない must come off first: 行かな + ければ. 行かないければ is not Japanese.",
+     "行き is the ます form without ます. This pattern starts from the ない form 行かない, not from 行きます.",
+     "Take 行かない, drop the last い, add ければなりません: \"I have to go to the station at nine.\"",
+     "行って is the te-form. 行ってければ is not Japanese."
+    ]
+   },
+   {
+    "id": "n5u07d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "A：あしたは[休|やす]みですか。B：^いいえ^、あしたも[会社|かいしゃ]へ[行|い]か（　　）。",
+    "options": [
+     "なくてもいいです",
+     "ないほうがいいです",
+     "ないでください",
+     "なければなりません"
+    ],
+    "answer": 4,
+    "why": [
+     "行かなくてもいいです means \"I don't have to go\". B said いいえ, tomorrow is not a day off, so that does not fit.",
+     "行かないほうがいいです is advice not to go. After いいえ, B is saying tomorrow is a work day, so this does not fit.",
+     "行かないでください asks someone else not to go. B is talking about B's own day.",
+     "いいえ means tomorrow is not a day off, so B has to go: 行かなければなりません."
+    ]
+   },
+   {
+    "id": "n5u07d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "かぜですから、[今日|きょう]は",
+    "after": "いいです。",
+    "tiles": [
+     "うち",
+     "で",
+     "[休|やす]んだ",
+     "ほうが"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "First where, with で. Then the た form, then ほうが right before いいです.",
+    "full": "かぜですから、[今日|きょう]はうちで[休|やす]んだ{ほうが}いいです。",
+    "explain": "うちで says where, 休んだ is the た form, and ほうがいいです comes last: \"You have a cold, so you had better rest at home today.\""
+   },
+   {
+    "id": "n5u07d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このくすりは、ごはんの",
+    "after": "。",
+    "tiles": [
+     "[後|あと]で",
+     "[飲|の]まな",
+     "ければ",
+     "なりません"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "ごはんの needs a word after it that says when. Then 飲まな + ければ + なりません.",
+    "full": "このくすりは、ごはんの[後|あと]で[飲|の]まな{ければなりません}。",
+    "explain": "ごはんの後で says when, and 飲まなければなりません says it is a must: \"You have to take this medicine after meals.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u07d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「のどが　いたいです。」B「じゃあ、つめたい　ものは（　　）　ほうが　いいですよ。」",
+    "options": [
+     "食べません",
+     "食べない",
+     "食べないで",
+     "食べなくて"
+    ],
+    "answer": 2,
+    "explain": "A has a sore throat, so B advises not eating cold things: 食べないほうがいいです. 食べません is the polite ending and cannot go before ほう. 食べないで and 食べなくて are te-forms, and neither goes before ほうがいいです."
+   },
+   {
+    "id": "n5u07d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「あしたも　学校へ　来ますか。」B「はい。テストが　ありますから、八時に（　　）　なりません。」",
+    "options": [
+     "来ないければ",
+     "来なくても",
+     "来て",
+     "来なければ"
+    ],
+    "answer": 4,
+    "explain": "B has a test, so B must come at eight: 来なければなりません. 来ないければ keeps the い of ない, which must come off. 来なくても goes with いいです (don't have to), not なりません. 来てなりません is not Japanese."
+   },
+   {
+    "id": "n5u07d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「あしたは　山へ　行きます。」B「山は　さむいですよ。",
+    "after": "　いいですよ。」",
+    "tiles": [
+     "コートを",
+     "もって",
+     "行った",
+     "ほうが"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "full": "A「あしたは　山へ　行きます。」B「山は　さむいですよ。コートを　もって　行った　{ほうが}　いいですよ。」",
+    "explain": "コートを, もって, 行った, ほうが. コートを is what to take, もって行った is the た form of もって行く, and ほうが comes right before いいです: \"You had better take a coat.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "いしゃの　カード",
+  "en": "A card the doctor gives you at a small clinic",
+  "intro": "Tap every word on the card you need to know when to take your medicine and what to do at home.",
+  "words": [
+   {
+    "id": "everyday",
+    "word": "毎日",
+    "reading": "まいにち",
+    "gloss": "every day",
+    "parts": [
+     [
+      "毎",
+      "マイ",
+      "every"
+     ],
+     [
+      "日",
+      "にち",
+      "day"
+     ]
+    ]
+   },
+   {
+    "id": "water",
+    "word": "水",
+    "reading": "みず",
+    "gloss": "water",
+    "parts": [
+     [
+      "水",
+      "みず",
+      "water"
+     ]
+    ]
+   },
+   {
+    "id": "drink",
+    "word": "飲む",
+    "reading": "のむ",
+    "gloss": "drink; take (medicine)",
+    "parts": [
+     [
+      "飲",
+      "の",
+      "drink"
+     ]
+    ]
+   },
+   {
+    "id": "eat",
+    "word": "食べる",
+    "reading": "たべる",
+    "gloss": "eat",
+    "parts": [
+     [
+      "食",
+      "た",
+      "eat"
+     ]
+    ]
+   },
+   {
+    "id": "before",
+    "word": "前",
+    "reading": "まえ",
+    "gloss": "before",
+    "parts": [
+     [
+      "前",
+      "まえ",
+      "before, front"
+     ]
+    ]
+   },
+   {
+    "id": "after",
+    "word": "後",
+    "reading": "あと",
+    "gloss": "after",
+    "parts": [
+     [
+      "後",
+      "あと",
+      "after"
+     ]
+    ]
+   },
+   {
+    "id": "rest",
+    "word": "休む",
+    "reading": "やすむ",
+    "gloss": "rest; take a day off",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ]
+    ]
+   },
+   {
+    "id": "pm",
+    "word": "午後",
+    "reading": "ごご",
+    "gloss": "p.m., afternoon",
+    "parts": [
+     [
+      "午",
+      "ゴ",
+      "noon"
+     ],
+     [
+      "後",
+      "ゴ",
+      "after"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u07d5.k1",
+   "kind": "choice",
+   "type": "文脈規定",
+   "label": "How the exam asks it",
+   "q": "かぜですから、今日は　うちで（　　）　ほうが　いいです。",
+   "options": [
+    "出かけた",
+    "はたらいた",
+    "休んだ",
+    "およいだ"
+   ],
+   "answer": 3,
+   "explain": "With a cold, the advice is to rest at home: 休んだほうがいいです. 出かけた (went out) does not go with うちで. はたらいた (worked) and およいだ (swam) are not good advice for someone with a cold."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "男の人は　この　あと　はじめに　何を　しなければ　なりませんか。",
+  "audio": [
+   [
+    "N",
+    "びょういんで、いしゃと男の人が話しています。男の人は、このあと、はじめに何をしなければなりませんか。",
+    "びょういんで、いしゃと　おとこのひとが　はなしています。おとこのひとは、このあと、はじめに　なにを　しなければ　なりませんか。"
+   ],
+   [
+    "F",
+    "かぜですね。今日は、はやくうちへかえって、休んだほうがいいですよ。",
+    "かぜですね。きょうは、はやく　うちへ　かえって、やすんだ　ほうが　いいですよ。"
+   ],
+   [
+    "M",
+    "はい。午後は、会社を休みます。",
+    "はい。ごごは、かいしゃを　やすみます。"
+   ],
+   [
+    "F",
+    "それから、このくすりを飲まなければなりません。ごはんの後で、飲んでください。",
+    "それから、この　くすりを　のまなければ　なりません。ごはんの　あとで、のんで　ください。"
+   ],
+   [
+    "M",
+    "あのう、今日は、まだひるごはんを食べていません。",
+    "あのう、きょうは、まだ　ひるごはんを　たべていません。"
+   ],
+   [
+    "F",
+    "じゃあ、くすりの前に、何か食べなければなりませんね。",
+    "じゃあ、くすりの　まえに、なにか　たべなければ　なりませんね。"
+   ],
+   [
+    "M",
+    "はい。駅の前の店で何か食べてから、うちへかえります。",
+    "はい。えきの　まえの　みせで　なにか　たべてから、うちへ　かえります。"
+   ],
+   [
+    "F",
+    "そうですね。うちでは、水をたくさん飲んで、はやくねたほうがいいですよ。",
+    "そうですね。うちでは、みずを　たくさん　のんで、はやく　ねた　ほうが　いいですよ。"
+   ],
+   [
+    "M",
+    "わかりました。ありがとうございました。",
+    null
+   ],
+   [
+    "N",
+    "男の人は、このあと、はじめに何をしなければなりませんか。",
+    "おとこのひとは、このあと、はじめに　なにを　しなければ　なりませんか。"
+   ]
+  ],
+  "item": {
+   "id": "n5u07d5.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "男の人は　この　あと　はじめに　何を　しなければ　なりませんか。",
+   "script": [
+    "ナレーター：びょういんで、いしゃと男の人が話しています。男の人は、このあと、はじめに何をしなければなりませんか。",
+    "女：かぜですね。今日は、はやくうちへかえって、休んだほうがいいですよ。",
+    "男：はい。午後は、会社を休みます。",
+    "女：それから、このくすりを飲まなければなりません。ごはんの後で、飲んでください。",
+    "男：あのう、今日は、まだひるごはんを食べていません。",
+    "女：じゃあ、くすりの前に、何か食べなければなりませんね。",
+    "男：はい。駅の前の店で何か食べてから、うちへかえります。",
+    "女：そうですね。うちでは、水をたくさん飲んで、はやくねたほうがいいですよ。",
+    "男：わかりました。ありがとうございました。",
+    "ナレーター：男の人は、このあと、はじめに何をしなければなりませんか。"
+   ],
+   "options": [
+    "くすりを　飲む",
+    "ごはんを　食べる",
+    "水を　飲む",
+    "うちで　ねる"
+   ],
+   "printed": true,
+   "short": [
+    "くすりを飲む",
+    "ごはんを食べる",
+    "水を飲む",
+    "うちでねる"
+   ],
+   "answer": 2,
+   "why": [
+    "The medicine is taken after a meal, and he has not had lunch yet, so the medicine comes after eating.",
+    "He has not eaten lunch, and the doctor says he must eat before the medicine. He will eat at a shop near the station first.",
+    "The doctor says to drink a lot of water at home, after he goes back.",
+    "Going to bed early is advice for later, at home. He eats first."
+   ]
+  }
+ }
+}

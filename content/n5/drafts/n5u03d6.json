@@ -1,0 +1,451 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "To tell this unit's points apart, ask three things: when it happens and whether it happens (〜ます, 〜ません, 〜ました, 〜ませんでした), what job the noun does (を for the thing, へ or に for where you go, に for where something is, で for where you do it or what you use), and whether you are inviting or saying yes (〜ませんか or 〜ましょう).",
+   "forms": [
+    {
+     "form": "〜に／〜で",
+     "tag": "いる・する · being there or doing there",
+     "mark": "dot",
+     "ja": "こうえん{に}[子|こ]どもがいます。こうえん{で}[子|こ]どもがあそびます。",
+     "en": "There are children in the park. The children play in the park."
+    },
+    {
+     "form": "〜へ／〜を",
+     "tag": "どこへ・なにを · where to, or what",
+     "mark": "dot",
+     "ja": "[新|あたら]しいきっさてん{へ}[行|い]きます。コーヒー{を}[飲|の]みます。",
+     "en": "I go to the new café. I drink coffee."
+    },
+    {
+     "form": "〜ませんか／〜ましょう",
+     "tag": "さそう・こたえる · inviting or saying yes",
+     "mark": "dot",
+     "ja": "A「[今|いま]から[外|そと]で[食|た]べ{ませんか}。」B「ええ、[食|た]べ{ましょう}。」",
+     "en": "A: Shall we go and eat out now? B: Yes, let's."
+    }
+   ],
+   "check": {
+    "id": "n5u03d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "まちで",
+    "q": "[学校|がっこう]の[前|まえ]（　　）^きっさてんがあります^。",
+    "options": [
+     "で",
+     "に",
+     "を"
+    ],
+    "answer": 2,
+    "why": [
+     "で marks where you do something. あります only says where the café is, so the place takes に.",
+     "With あります, the place where a thing is takes に: 学校の前に.",
+     "を marks the thing an action is done to. あります is not that kind of verb, and the café already has が."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u03d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「^きのう^、[中川|なかがわ]さんと[山|やま]へ（　　）。」B「はい、^[行|い]きました^。」",
+    "options": [
+     "[行|い]きましたか",
+     "[行|い]きませんか",
+     "[行|い]きましょう",
+     "[行|い]きます"
+    ],
+    "answer": 1,
+    "why": [
+     "きのう is past and B answers はい, 行きました, so A asked about the past: 行きましたか.",
+     "行きませんか invites someone to go later. You cannot invite someone to yesterday.",
+     "行きましょう suggests going later, and B's はい, 行きました does not answer a suggestion.",
+     "行きます is not past, so it does not fit きのう, and without か it is not a question."
+    ]
+   },
+   {
+    "id": "n5u03d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "[母|はは]は[月|げつ]よう[日|び]と[木|もく]よう[日|び]に[本|ほん]や（　　）^はたらきます^。",
+    "options": [
+     "へ",
+     "を",
+     "に",
+     "で"
+    ],
+    "answer": 4,
+    "why": [
+     "へ marks where you go, with verbs like 行きます. はたらきます is something you do at a place.",
+     "を marks the thing an action is done to. 本や is where she works, not what she works on.",
+     "に goes with verbs like 行きます, 来ます or あります in this unit. はたらきます is an action done there, so it takes で.",
+     "The bookshop is where she does the work, so で: 本やではたらきます."
+    ]
+   },
+   {
+    "id": "n5u03d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「つめたいジュースがありますよ。[飲|の]み（　　）。」B「^ありがとうございます^。いただきます。」",
+    "options": [
+     "ませんか",
+     "ません",
+     "ましたか",
+     "ませんでした"
+    ],
+    "answer": 1,
+    "why": [
+     "A offers a drink: 飲みませんか, \"won't you have some?\" B thanks A and takes it.",
+     "飲みません says \"I don't drink\". B would not thank A for that.",
+     "飲みましたか asks about the past. B's いただきます takes a drink now.",
+     "飲みませんでした says \"I didn't drink\". It is not an offer, so B's thanks do not fit."
+    ]
+   },
+   {
+    "id": "n5u03d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the phrase",
+    "q": "A「^きのう^、[何|なに]をしましたか。」B「[友|とも]だちと[駅|えき]の[前|まえ]のデパート（　　）。」",
+    "options": [
+     "でごはんを[食|た]べました",
+     "へごはんを[食|た]べました",
+     "でごはんを[食|た]べます",
+     "にごはんを[食|た]べません"
+    ],
+    "answer": 1,
+    "why": [
+     "The store is where they ate, so で, and きのう needs the past: 食べました.",
+     "へ marks where you go. 食べました is done at the store, so the place takes で.",
+     "で is right, but 食べます is not past. A asked about きのう.",
+     "に does not mark where you eat, and 食べません is neither past nor an answer to \"what did you do\"."
+    ]
+   },
+   {
+    "id": "n5u03d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「[金|きん]よう[日|び]の[午後|ごご]、",
+    "after": "。」B「いいですね。[会|あ]いましょう。」",
+    "tiles": [
+     "[駅|えき]の",
+     "[中|なか]の",
+     "きっさてんで",
+     "[会|あ]いませんか"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "Where is the café? Start with the biggest place. The invitation comes last.",
+    "full": "A「[金|きん]よう[日|び]の[午後|ごご]、[駅|えき]の[中|なか]の{きっさてんで}[会|あ]いませんか。」B「いいですね。[会|あ]いましょう。」",
+    "explain": "駅の中の describes the café: the one inside the station. きっさてんで says where you meet, so it takes で, and 会いませんか invites. B says yes with 会いましょう."
+   },
+   {
+    "id": "n5u03d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[先週|せんしゅう]の[金|きん]よう[日|び]、うちに",
+    "after": "。",
+    "tiles": [
+     "[父|ちち]の",
+     "[会社|かいしゃ]の",
+     "[人|ひと]が",
+     "[来|き]ました"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     2,
+     0
+    ],
+    "hint": "Whose company? Which person? 先週 tells you the time, and the verb comes last.",
+    "full": "[先週|せんしゅう]の[金|きん]よう[日|び]、うちに[父|ちち]の{[会社|かいしゃ]の}[人|ひと]が[来|き]ました。",
+    "explain": "父の会社の人 is someone from father's company. 人が is the one who came, うちに is where they came to, and 先週 needs the past: 来ました."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u03d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きのう　デパートへ　行きましたが、何も　（　　）。",
+    "options": [
+     "買いませんでした",
+     "買いました",
+     "買いませんか",
+     "買いましょう"
+    ],
+    "answer": 1,
+    "explain": "何も with a negative means \"nothing\", and きのう needs the past: 何も買いませんでした. 買いました is not negative, so it does not go with 何も. 買いませんか invites and 買いましょう suggests; neither fits a story about yesterday."
+   },
+   {
+    "id": "n5u03d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "A「日よう日、いっしょに　こうえん（　　）　テニスを　しませんか。」\nB「ええ、しましょう。」",
+    "options": [
+     "で",
+     "へ",
+     "を",
+     "に"
+    ],
+    "answer": 1,
+    "explain": "The park is where you play tennis, so で: こうえんで　テニスを　します. へ marks where you go, with 行きます. を already marks テニス. に would need a verb like 行きます or あります."
+   },
+   {
+    "id": "n5u03d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「きのう　ばんごはんは　どこで　食べましたか。」B「",
+    "after": "。」",
+    "tiles": [
+     "友だちの",
+     "うち",
+     "で",
+     "食べました"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "A「きのう　ばんごはんは　どこで　食べましたか。」B「友だちの　{うち}で　食べました。」",
+    "explain": "友だちの, うち, で, 食べました. 友だちの needs a noun after it, うち. で follows the place where they ate, and the verb comes last in the past, like A's question."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "学校のけいじばん",
+  "en": "The notice board at a language school",
+  "intro": "Tap each word on the notices pinned to the board in the hallway.",
+  "words": [
+   {
+    "id": "this-week",
+    "word": "今週",
+    "reading": "こんしゅう",
+    "gloss": "this week",
+    "parts": [
+     [
+      "今",
+      "コン",
+      "now"
+     ],
+     [
+      "週",
+      "シュウ",
+      "week"
+     ]
+    ]
+   },
+   {
+    "id": "next-month",
+    "word": "来月",
+    "reading": "らいげつ",
+    "gloss": "next month",
+    "parts": [
+     [
+      "来",
+      "ライ",
+      "come, next"
+     ],
+     [
+      "月",
+      "ゲツ",
+      "month, moon"
+     ]
+    ]
+   },
+   {
+    "id": "friday",
+    "word": "金よう日",
+    "reading": "きんようび",
+    "gloss": "Friday",
+    "parts": [
+     [
+      "金",
+      "キン",
+      "gold, money"
+     ],
+     [
+      "日",
+      "び",
+      "day"
+     ]
+    ]
+   },
+   {
+    "id": "teacher",
+    "word": "先生",
+    "reading": "せんせい",
+    "gloss": "teacher",
+    "parts": [
+     [
+      "先",
+      "セン",
+      "ahead"
+     ],
+     [
+      "生",
+      "セイ",
+      "life"
+     ]
+    ]
+   },
+   {
+    "id": "student",
+    "word": "学生",
+    "reading": "がくせい",
+    "gloss": "student",
+    "parts": [
+     [
+      "学",
+      "ガク",
+      "study"
+     ],
+     [
+      "生",
+      "セイ",
+      "life"
+     ]
+    ]
+   },
+   {
+    "id": "half9",
+    "word": "九時半",
+    "reading": "くじはん",
+    "gloss": "half past nine",
+    "parts": [
+     [
+      "九",
+      "ク",
+      "nine"
+     ],
+     [
+      "時",
+      "ジ",
+      "o'clock, time"
+     ],
+     [
+      "半",
+      "ハン",
+      "half"
+     ]
+    ]
+   },
+   {
+    "id": "15min",
+    "word": "十五分",
+    "reading": "じゅうごふん",
+    "gloss": "fifteen minutes",
+    "parts": [
+     [
+      "十",
+      "ジュウ",
+      "ten"
+     ],
+     [
+      "五",
+      "ゴ",
+      "five"
+     ],
+     [
+      "分",
+      "フン",
+      "minute"
+     ]
+    ]
+   },
+   {
+    "id": "break",
+    "word": "休み時間",
+    "reading": "やすみじかん",
+    "gloss": "break (between classes)",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ],
+     [
+      "時",
+      "ジ",
+      "time"
+     ],
+     [
+      "間",
+      "カン",
+      "between, a space of time"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u03d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "日本語の　クラスは　_九時半_に　はじまります。",
+   "options": [
+    "くじはん",
+    "きゅうじはん",
+    "くじばん",
+    "きゅうじぱん"
+   ],
+   "answer": 1,
+   "explain": "九時半 is くじはん: nine o'clock is くじ, and 半 is はん. きゅうじ is not used for the time, and 半 does not change to ばん or ぱん after 時."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "What time do the students come to school on Friday?",
+  "seconds": 90,
+  "passage": "日本語クラス　今週の　よてい\n月よう日〜木よう日\n　午前九時〜十二時　クラス（201きょうしつ）\n^金よう日^\n　^午前は　休みです^。\n　^午後一時^〜三時半　中川先生と　えいがを　見ます（305きょうしつ）\n土よう日・日よう日　休み",
+  "strategy": "Find the line for 金よう日 and read only the times under it.",
+  "item": {
+   "id": "n5u03d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "学生は　金よう日に　何時に　学校へ　来ますか。",
+   "options": [
+    "午前九時",
+    "十二時",
+    "午後一時",
+    "三時半"
+   ],
+   "short": [
+    "9:00",
+    "12:00",
+    "1:00",
+    "3:30"
+   ],
+   "answer": 3,
+   "explain": "Under 金よう日, the morning is 休み, and the film starts at 午後一時. So the students come at one in the afternoon.",
+   "why": [
+    "Nine o'clock is the start time from Monday to Thursday. On Friday the morning is off.",
+    "Twelve is when the Monday to Thursday class ends.",
+    "",
+    "Half past three is when the Friday film ends, not when students arrive."
+   ]
+  }
+ }
+}

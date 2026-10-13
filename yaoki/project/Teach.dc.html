@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 <script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
@@ -39,7 +40,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 15px; font-weight: 700; color: #5A6382">{{ pt.gloss }}</div>
 </div>
 <div style="display: flex; gap: 6px; padding-bottom: 4px">
-<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap">N2</div>
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap">{{ levelLabel }}</div>
 <div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap">{{ unitJa }}</div>
 </div>
 </div>
@@ -129,6 +130,7 @@ this.timer = setTimeout(() => this.setState({ playing: -1 }), sound ? snd.ms(key
 };
 const last = tp >= points.length - 1;
 return {
+levelLabel: app.level || C.level(),
 pt: { ...pt, watch: pt.watch || {} },
 unitJa: app.unit ? app.unit.ja : '',
 dots: [0, 1, 2].map((i) => ({ bg: i <= tp ? '#2F4FD0' : '#DDE1EC' })),

@@ -5,6 +5,7 @@
 <title>Mistake notebook</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 </head>
 <body>
@@ -110,7 +111,7 @@ out.push({ t, line: g.line });
 return out;
 }
 function answerOf(C, it) {
-if (it.kind === 'star') return it.tiles[it.star];
+if (it.kind === 'star') return C.plain(it.tiles[it.star]);
 return C.plain((it.short && it.short[it.answer - 1]) || it.options[it.answer - 1]);
 }
 class Component extends DCLogic {

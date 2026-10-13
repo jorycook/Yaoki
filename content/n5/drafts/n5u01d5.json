@@ -1,0 +1,539 @@
+{
+ "title": "〜ね・〜よ",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u01d5.p1",
+    "form": "〜ね",
+    "gloss": "…, isn't it? / …, right?",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ です ＋ {ね}"
+     },
+     {
+      "pos": "Adjective (い word)",
+      "rule": "〜い ＋ です ＋ {ね}"
+     },
+     {
+      "pos": "Verb, ます form",
+      "rule": "〜ます ＋ {ね}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[今日|きょう]はさむいです{ね}。",
+      "en": "It's cold today, isn't it?"
+     },
+     {
+      "ja": "[出口|でぐち]はあそこです{ね}。",
+      "en": "The exit is over there, right?"
+     }
+    ],
+    "watch": {
+     "note": "ね asks the listener to agree with something they know or feel too. Do not use it for news about yourself, like your name when you first meet.",
+     "bad": "はじめまして。わたしはキムですね。",
+     "good": "はじめまして。わたしはキムです。"
+    }
+   },
+   {
+    "id": "n5u01d5.p2",
+    "form": "〜よ",
+    "gloss": "I'm telling you (new to you)",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ です ＋ {よ}"
+     },
+     {
+      "pos": "Verb, ます form",
+      "rule": "〜ます ＋ {よ}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[東口|ひがしぐち]はあちらです{よ}。",
+      "en": "The east exit is that way."
+     },
+     {
+      "ja": "この[電車|でんしゃ]は[九時|くじ]に[出|で]ます{よ}。",
+      "en": "This train leaves at nine, just so you know."
+     }
+    ],
+    "watch": {
+     "note": "Your friend says さむいですね. You feel the cold too, so agree with ね. よ here sounds like you are telling them something they do not know.",
+     "bad": "ええ、さむいですよ。",
+     "good": "ええ、さむいですね。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three end the same sentence. What changes is who knows the answer.",
+   "forms": [
+    {
+     "form": "〜ね",
+     "tag": "いっしょ · you know it too",
+     "mark": "dot",
+     "ja": "[西口|にしぐち]はこちらです{ね}。",
+     "en": "The west exit is this way, right?"
+    },
+    {
+     "form": "〜よ",
+     "tag": "おしえる · this is new to you",
+     "mark": "up",
+     "ja": "[西口|にしぐち]はこちらです{よ}。",
+     "en": "The west exit is this way (I'm telling you)."
+    },
+    {
+     "form": "〜か",
+     "tag": "しつもん · I don't know",
+     "mark": "dot",
+     "ja": "[西口|にしぐち]はこちらです{か}。",
+     "en": "Is the west exit this way?"
+    }
+   ],
+   "check": {
+    "id": "n5u01d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "駅で",
+    "q": "（わたしは^しっています^。[友|とも]だちは^しりません^。）あの[人|ひと]はもり[先生|せんせい]です（　　）。",
+    "options": [
+     "ね",
+     "よ",
+     "か"
+    ],
+    "answer": 2,
+    "why": [
+     "ね asks your friend to agree, but your friend does not know her.",
+     "You know and your friend does not, so you tell them with よ.",
+     "か asks a question, but you already know who she is."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u01d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "（ふたりは^いっしょに[空|そら]を[見|み]ています^。）A「いい[天気|てんき]です（　　）。」B「ええ、そうですね。」",
+    "options": [
+     "ね",
+     "よ",
+     "か",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "Both can see the sky, so A shares a feeling B has too. B agrees with そうですね.",
+     "よ tells B something new, but B can see the sky too.",
+     "か asks a question, but A can see the weather. B's そうですね agrees; it does not answer a question.",
+     "を marks the thing a verb acts on. It cannot end a sentence after です."
+    ]
+   },
+   {
+    "id": "n5u01d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "（Bさんは^しりません^。）A「Bさん、あの[人|ひと]はわたしの[母|はは]です（　　）。」",
+    "options": [
+     "か",
+     "ね",
+     "よ",
+     "も"
+    ],
+    "answer": 3,
+    "why": [
+     "か asks a question, but A knows who her own mother is.",
+     "ね asks B to agree, but B does not know this.",
+     "B does not know, so A tells B something new with よ.",
+     "も means \"too\". It cannot end a sentence after です."
+    ]
+   },
+   {
+    "id": "n5u01d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "（ふたりは^いっしょに^ラーメンを[食|た]べています。）A「このラーメンはおいしいです（　　）。」",
+    "options": [
+     "よ",
+     "ね",
+     "を",
+     "と"
+    ],
+    "answer": 2,
+    "why": [
+     "よ tells B something new, but B is eating the same ramen.",
+     "Both are eating it, so A shares a feeling B has too.",
+     "を marks the thing a verb acts on. It cannot end a sentence after です.",
+     "と joins two nouns, as in パンとたまご. It cannot end this sentence."
+    ]
+   },
+   {
+    "id": "n5u01d5.d4",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「すみません、[西口|にしぐち]はどこですか。」B「[西口|にしぐち]は",
+    "after": "。」",
+    "tiles": [
+     "あの",
+     "ビルの",
+     "[前|まえ]です",
+     "よ"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "A asks, so A does not know. Which ending tells new information, and where does it go?",
+    "full": "A「すみません、[西口|にしぐち]はどこですか。」B「[西口|にしぐち]はあのビルの[前|まえ]です{よ}。」",
+    "explain": "あの goes before ビルの, and ビルの before 前です: \"in front of that building\". よ comes last because B tells A something A does not know."
+   },
+   {
+    "id": "n5u01d5.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "（^Aさんは[電車|でんしゃ]を[見|み]ました^。Bさんは[見|み]ませんでした。）A「あ、[電車|でんしゃ]が[来|き]ます（　　）。」",
+    "options": [
+     "ね",
+     "か",
+     "よ",
+     "を"
+    ],
+    "answer": 3,
+    "why": [
+     "ね asks B to agree, but B did not see the train.",
+     "か asks a question, but A saw the train and knows.",
+     "A saw it and B did not, so A tells B something new with よ.",
+     "を marks the thing a verb acts on. It cannot end a sentence after ます."
+    ]
+   },
+   {
+    "id": "n5u01d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「",
+    "after": "。」B「ええ、そうですね。」",
+    "tiles": [
+     "[今日|きょう]は",
+     "いい",
+     "[天気|てんき]",
+     "ですね"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "A and B both feel the weather. いい describes a noun, and the ending that shares a feeling comes last.",
+    "full": "A「[今日|きょう]はいい[天気|てんき]です{ね}。」B「ええ、そうですね。」",
+    "explain": "今日は comes first as the topic. いい goes right before 天気, and ですね ends the sentence because A shares a feeling B has too."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u01d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "A「Bさん、いすの　上に　かさが　あります（　　）。」B「あ、わたしのです。ありがとうございます。」",
+    "options": [
+     "ね",
+     "よ",
+     "か",
+     "を"
+    ],
+    "answer": 2,
+    "explain": "B did not know and says thank you, so A tells B something new with よ. ね would ask B to agree with something B already knows, か would ask about an umbrella A can see, and を cannot end a sentence."
+   },
+   {
+    "id": "n5u01d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "（ふたりで　駅まで　あるいて　います。）A「今日は　あついです（　　）。」B「ええ、ほんとうに。」",
+    "options": [
+     "か",
+     "よ",
+     "ね",
+     "を"
+    ],
+    "answer": 3,
+    "explain": "They are walking together and both feel the heat, so A shares the feeling with ね and B agrees. か would ask something A can feel, よ would tell B something B already feels, and を cannot end a sentence."
+   },
+   {
+    "id": "n5u01d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「バスは　どこから　出ますか。」B「",
+    "after": "よ。」",
+    "tiles": [
+     "北口の",
+     "前",
+     "から",
+     "出ます"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "A「バスは　どこから　出ますか。」B「北口の　前{から}　出ますよ。」",
+    "explain": "北口の, 前, から, 出ます. 北口の describes 前, から follows the place the bus leaves from, and 出ます goes before よ."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅で",
+  "en": "At the station",
+  "intro": "Tap every sign you would read to find your train and your way out.",
+  "words": [
+   {
+    "id": "exit",
+    "word": "出口",
+    "reading": "でぐち",
+    "gloss": "exit",
+    "parts": [
+     [
+      "出",
+      "で",
+      "go out"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, mouth"
+     ]
+    ]
+   },
+   {
+    "id": "entrance",
+    "word": "入口",
+    "reading": "いりぐち",
+    "gloss": "entrance",
+    "parts": [
+     [
+      "入",
+      "いり",
+      "go in"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, mouth"
+     ]
+    ]
+   },
+   {
+    "id": "east",
+    "word": "東口",
+    "reading": "ひがしぐち",
+    "gloss": "east exit",
+    "parts": [
+     [
+      "東",
+      "ひがし",
+      "east"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, mouth"
+     ]
+    ]
+   },
+   {
+    "id": "west",
+    "word": "西口",
+    "reading": "にしぐち",
+    "gloss": "west exit",
+    "parts": [
+     [
+      "西",
+      "にし",
+      "west"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, mouth"
+     ]
+    ]
+   },
+   {
+    "id": "south",
+    "word": "南口",
+    "reading": "みなみぐち",
+    "gloss": "south exit",
+    "parts": [
+     [
+      "南",
+      "みなみ",
+      "south"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, mouth"
+     ]
+    ]
+   },
+   {
+    "id": "north",
+    "word": "北口",
+    "reading": "きたぐち",
+    "gloss": "north exit",
+    "parts": [
+     [
+      "北",
+      "きた",
+      "north"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, mouth"
+     ]
+    ]
+   },
+   {
+    "id": "train",
+    "word": "電車",
+    "reading": "でんしゃ",
+    "gloss": "train",
+    "parts": [
+     [
+      "電",
+      "デン",
+      "electricity"
+     ],
+     [
+      "車",
+      "シャ",
+      "vehicle"
+     ]
+    ]
+   },
+   {
+    "id": "station",
+    "word": "駅",
+    "reading": "えき",
+    "gloss": "station",
+    "parts": [
+     [
+      "駅",
+      "エキ",
+      "station"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u01d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_北口_で　ともだちを　まちます。",
+   "options": [
+    "きたぐち",
+    "きたくち",
+    "みなみぐち",
+    "ひがしぐち"
+   ],
+   "answer": 1,
+   "explain": "北 is きた, and in 北口 the 口 is read ぐち, as in 出口 and 入口. きたくち is not a word. みなみぐち is 南口 and ひがしぐち is 東口."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "男の人は　どの　出口から　出ますか。",
+  "audio": [
+   [
+    "N",
+    "駅で、男の人と女の人が話しています。男の人はどの出口から出ますか。",
+    null
+   ],
+   [
+    "M",
+    "すみません。山川大学は東口ですか。",
+    "すみません。やまかわだいがくはひがしぐちですか。"
+   ],
+   [
+    "F",
+    "山川大学ですか。東口じゃありません。北口ですよ。",
+    "やまかわだいがくですか。ひがしぐちじゃありません。きたぐちですよ。"
+   ],
+   [
+    "M",
+    "北口ですね。ありがとうございます。",
+    "きたぐちですね。ありがとうございます。"
+   ],
+   [
+    "F",
+    "あ、すみません。北口は山川デパートです。山川大学は西口ですよ。",
+    "あ、すみません。きたぐちはやまかわデパートです。やまかわだいがくはにしぐちですよ。"
+   ],
+   [
+    "M",
+    "西口ですね。わかりました。",
+    "にしぐちですね。わかりました。"
+   ],
+   [
+    "N",
+    "男の人はどの出口から出ますか。",
+    null
+   ]
+  ],
+  "item": {
+   "id": "n5u01d5.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "男の人は　どの　出口から　出ますか。",
+   "script": [
+    "ナレーター：駅で、男の人と女の人が話しています。男の人はどの出口から出ますか。",
+    "男：すみません。山川大学は東口ですか。",
+    "女：山川大学ですか。東口じゃありません。北口ですよ。",
+    "男：北口ですね。ありがとうございます。",
+    "女：あ、すみません。北口は山川デパートです。山川大学は西口ですよ。",
+    "男：西口ですね。わかりました。",
+    "ナレーター：男の人はどの出口から出ますか。"
+   ],
+   "options": [
+    "東口",
+    "西口",
+    "南口",
+    "北口"
+   ],
+   "printed": true,
+   "short": [
+    "東口",
+    "西口",
+    "南口",
+    "北口"
+   ],
+   "answer": 2,
+   "why": [
+    "The man asks about the east exit, but the woman says 東口じゃありません.",
+    "The woman corrects herself: 山川大学は西口ですよ. The man checks with 西口ですね.",
+    "Nobody talks about the south exit.",
+    "The woman says 北口 first, then corrects it: the north exit is for the department store."
+   ]
+  }
+ }
+}

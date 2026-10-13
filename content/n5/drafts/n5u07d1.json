@@ -1,0 +1,510 @@
+{
+ "title": "辞書形・ない形",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u07d1.p1",
+    "form": "辞書形",
+    "gloss": "dictionary form (plain present)",
+    "connect": [
+     {
+      "pos": "る-verbs, like 食べます, 見ます, おきます: drop ます and add る",
+      "rule": "[食|た]べます → [食|た]べ{る}・[見|み]ます → [見|み]{る}"
+     },
+     {
+      "pos": "う-verbs: the sound before ます moves from the い-row to the う-row (い → う, き → く, み → む, ち → つ, り → る)",
+      "rule": "[買|か]います → [買|か]{う}・[書|か]きます → [書|か]{く}・[行|い]きます → [行|い]{く}・[飲|の]みます → [飲|の]{む}・まちます → ま{つ}"
+     },
+     {
+      "pos": "します and 来ます are special. With friends and family, the dictionary form takes the place of 〜ます",
+      "rule": "します → {する}・[来|き]ます → {[来|く]る}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あした、[友|とも]だちと[山|やま]へ[行|い]{く}よ。",
+      "en": "I'm going to the mountains with a friend tomorrow."
+     },
+     {
+      "ja": "[今|いま]から[何|なに]を{する}？",
+      "en": "What are you going to do now?"
+     }
+    ],
+    "watch": {
+     "note": "With friends, the dictionary form is the whole verb. Do not add です after it. To be polite, use the ます form instead: 行きます.",
+     "bad": "あした、わたしも行くです。",
+     "good": "あした、わたしも行く。"
+    }
+   },
+   {
+    "id": "n5u07d1.p2",
+    "form": "ない形",
+    "gloss": "plain negative (do not …)",
+    "connect": [
+     {
+      "pos": "る-verbs: drop る and add ない",
+      "rule": "[食|た]べる → [食|た]べ{ない}・[見|み]る → [見|み]{ない}"
+     },
+     {
+      "pos": "う-verbs: the last sound moves to the あ-row, then ない. う becomes わ, not あ. Some verbs that end in る are う-verbs too: 入る → 入らない",
+      "rule": "[書|か]く → [書|か]か{ない}・[飲|の]む → [飲|の]ま{ない}・まつ → また{ない}・[買|か]う → [買|か]わ{ない}"
+     },
+     {
+      "pos": "する and 来る are special (来ない is read こない). The opposite of ある is just ない",
+      "rule": "する → {しない}・[来|く]る → {[来|こ]ない}・ある → {ない}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あしたは[学校|がっこう]へ[行|い]か{ない}。",
+      "en": "I'm not going to school tomorrow."
+     },
+     {
+      "ja": "[父|ちち]はコーヒーを[飲|の]ま{ない}。",
+      "en": "My dad doesn't drink coffee."
+     }
+    ],
+    "watch": {
+     "note": "When the verb ends in う, the う becomes わ before ない, not あ: 買う → 買わない.",
+     "bad": "今日は何も買あない。",
+     "good": "今日は何も買わない。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three talk about the same habit. Who you are talking to, and yes or no, decide the form.",
+   "forms": [
+    {
+     "form": "辞書形",
+     "tag": "ともだちと · plain, to friends",
+     "mark": "dot",
+     "ja": "[毎日|まいにち]、[新聞|しんぶん]を[読|よ]{む}。",
+     "en": "I read the newspaper every day (to a friend)."
+    },
+    {
+     "form": "ない形",
+     "tag": "ひてい · plain, not",
+     "mark": "down",
+     "ja": "[新聞|しんぶん]は[読|よ]ま{ない}。",
+     "en": "I don't read the newspaper (to a friend)."
+    },
+    {
+     "form": "〜ます",
+     "tag": "ていねい · polite",
+     "mark": "dot",
+     "ja": "[毎日|まいにち]、[新聞|しんぶん]を[読|よ]み{ます}。",
+     "en": "I read the newspaper every day (polite)."
+    }
+   ],
+   "check": {
+    "id": "n5u07d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "先生に",
+    "q": "[先生|せんせい]、あしたも[学校|がっこう]に（　　）か。",
+    "options": [
+     "[来|く]る",
+     "[来|こ]ない",
+     "[来|き]ます"
+    ],
+    "answer": 3,
+    "why": [
+     "来る is the plain form, for friends. 来るか to a teacher sounds rough.",
+     "来ないか is a rough, casual invitation, and it asks the wrong thing. You are asking if the teacher comes.",
+     "You speak to a teacher politely, so use the ます form: 来ますか."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u07d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：[今|いま]から[何|なに]を^する^？B：[本|ほん]を（　　）よ。",
+    "options": [
+     "[読|よ]る",
+     "[読|よ]む",
+     "[読|よ]く",
+     "[読|よ]みる"
+    ],
+    "answer": 2,
+    "why": [
+     "Only the sound before ます changes, and み becomes む, not る.",
+     "A asks in the plain form, so B answers in it too. 読みます has み before ます, so the dictionary form is 読む.",
+     "く is for verbs with き before ます, like 書きます → 書く.",
+     "読みます is a う-verb. Do not keep み and add る; み changes to む."
+    ]
+   },
+   {
+    "id": "n5u07d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：あした、テニス（　　）？B：^うん、いいね^！",
+    "options": [
+     "しる",
+     "すく",
+     "する",
+     "しく"
+    ],
+    "answer": 3,
+    "why": [
+     "し comes from します, but the dictionary form of します is する. しる is a different verb (to know).",
+     "く is for verbs with き before ます, like 書きます → 書く. します is special.",
+     "します is special: its dictionary form is する. A plain question between friends: テニス、する？",
+     "しく is not a form of します."
+    ]
+   },
+   {
+    "id": "n5u07d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[今日|きょう]は[店|みせ]で^[何|なに]も^（　　）。",
+    "options": [
+     "[買|か]あない",
+     "[買|か]いない",
+     "[買|か]らない",
+     "[買|か]わない"
+    ],
+    "answer": 4,
+    "why": [
+     "The last sound moves to the あ-row, but う is special: it becomes わ, not あ.",
+     "い is the sound in 買います. ない does not go after the ます-form sound.",
+     "ら is for う-verbs that end in る, like 入る → 入らない. 買う ends in う.",
+     "何も needs a negative verb. 買う ends in う, which becomes わ: 買わない."
+    ]
+   },
+   {
+    "id": "n5u07d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：[山川|やまかわ]さんも[来|く]る？B：^ううん^、[山川|やまかわ]さんは（　　）よ。",
+    "options": [
+     "こない",
+     "きない",
+     "くない",
+     "こらない"
+    ],
+    "answer": 1,
+    "why": [
+     "ううん means no, so B needs the ない form. 来る is special: its ない form is こない.",
+     "き is the sound in 来ます. The ない form uses こ instead.",
+     "く stays only in くる. Before ない it changes to こ.",
+     "来る is not a う-verb, so there is no ら. It is just こ + ない."
+    ]
+   },
+   {
+    "id": "n5u07d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あしたは",
+    "after": "よ。",
+    "tiles": [
+     "[七時|しちじ]に",
+     "おきて",
+     "[学校|がっこう]へ",
+     "[行|い]く"
+    ],
+    "star": 3,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "First the time, then getting up in the て form. The dictionary form 行く ends the casual sentence, right before よ.",
+    "full": "あしたは[七時|しちじ]におきて[学校|がっこう]へ[行|い]{く}よ。",
+    "explain": "七時に says when you get up, so it comes right before おきて. 学校へ goes with 行く, and 行く, the plain form, ends the sentence before よ."
+   },
+   {
+    "id": "n5u07d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[日|にち]よう[日|び]は",
+    "after": "よ。",
+    "tiles": [
+     "うちに",
+     "いて",
+     "どこへも",
+     "[行|い]かない"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "どこへも needs a negative verb right after it. うちに goes with いて.",
+    "full": "[日|にち]よう[日|び]はうちにいてどこへも[行|い]か{ない}よ。",
+    "explain": "うちにいて (I stay at home) is the first part, in the て form. どこへも goes with a negative, so it sits right before 行かない, which ends the sentence before よ."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u07d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「あした　何を　する？」　B「友だちと　山へ　（　　）よ。」",
+    "options": [
+     "行る",
+     "行く",
+     "行む",
+     "行きる"
+    ],
+    "answer": 2,
+    "explain": "行きます has き before ます, so the dictionary form is 行く: I'm going to the mountains with a friend. 行る and 行む change き to the wrong sound, and 行きる keeps き, which a う-verb never does."
+   },
+   {
+    "id": "n5u07d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「この　ケーキ、食べる？」　B「ううん、今は　（　　）。」",
+    "options": [
+     "食べらない",
+     "食べるない",
+     "食べない",
+     "食べかない"
+    ],
+    "answer": 3,
+    "explain": "食べる is a る-verb: drop る and add ない, so 食べない, not now. 食べらない and 食べかない treat it like a う-verb, and 食べるない keeps る."
+   },
+   {
+    "id": "n5u07d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あした　友だちと　",
+    "after": "よ。",
+    "tiles": [
+     "えいがを",
+     "見て",
+     "ばんごはんを",
+     "食べる"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "full": "あした　友だちと　えいがを　{見て}　ばんごはんを　食べるよ。",
+    "explain": "えいがを, 見て, ばんごはんを, 食べる. えいがを goes with 見て, the first action. ばんごはんを 食べる is the second action, and the dictionary form ends the sentence before よ."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "ドアのメモ",
+  "en": "A note on the door",
+  "intro": "Your friend came by while you were out and left a note on your door. Tap each word on it.",
+  "words": [
+   {
+    "id": "today",
+    "word": "今日",
+    "reading": "きょう",
+    "gloss": "today",
+    "parts": [
+     [
+      "今日",
+      "きょう",
+      "today (a special reading for the two kanji together)"
+     ]
+    ]
+   },
+   {
+    "id": "three",
+    "word": "三時",
+    "reading": "さんじ",
+    "gloss": "three o'clock",
+    "parts": [
+     [
+      "三",
+      "サン",
+      "three"
+     ],
+     [
+      "時",
+      "ジ",
+      "o'clock, time"
+     ]
+    ]
+   },
+   {
+    "id": "later",
+    "word": "後で",
+    "reading": "あとで",
+    "gloss": "later",
+    "parts": [
+     [
+      "後",
+      "あと",
+      "after, later"
+     ]
+    ]
+   },
+   {
+    "id": "come",
+    "word": "来る",
+    "reading": "くる",
+    "gloss": "come",
+    "parts": [
+     [
+      "来",
+      "く",
+      "come"
+     ]
+    ]
+   },
+   {
+    "id": "go",
+    "word": "行く",
+    "reading": "いく",
+    "gloss": "go",
+    "parts": [
+     [
+      "行",
+      "い",
+      "go"
+     ]
+    ]
+   },
+   {
+    "id": "eat",
+    "word": "食べる",
+    "reading": "たべる",
+    "gloss": "eat",
+    "parts": [
+     [
+      "食",
+      "た",
+      "eat"
+     ]
+    ]
+   },
+   {
+    "id": "drink",
+    "word": "飲む",
+    "reading": "のむ",
+    "gloss": "drink",
+    "parts": [
+     [
+      "飲",
+      "の",
+      "drink"
+     ]
+    ]
+   },
+   {
+    "id": "see",
+    "word": "見る",
+    "reading": "みる",
+    "gloss": "see, watch",
+    "parts": [
+     [
+      "見",
+      "み",
+      "see"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u07d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_後で_　電話するね。",
+   "options": [
+    "うしろで",
+    "あとで",
+    "ごで",
+    "まえで"
+   ],
+   "answer": 2,
+   "explain": "後で is read あとで, later: I'll call you later. うしろ (behind) is written 後ろ, with ろ. ご is the reading in 午後, but ごで is not a word. まえ is 前."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "即時応答",
+  "en": "Quick response",
+  "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+  "item": {
+   "id": "n5u07d1.r1",
+   "kind": "choice",
+   "type": "即時応答",
+   "q": "男：あした、うちに　来る？",
+   "script": [
+    "男：あした、うちに　来る？",
+    "ナレーター：1",
+    "女：うん、来ない。",
+    "ナレーター：2",
+    "女：うん、行く。",
+    "ナレーター：3",
+    "女：ううん、行く。"
+   ],
+   "options": [
+    "うん、来ない。",
+    "うん、行く。",
+    "ううん、行く。"
+   ],
+   "printed": false,
+   "short": [
+    "うん、来ない",
+    "うん、行く",
+    "ううん、行く"
+   ],
+   "answer": 2,
+   "why": [
+    "うん means yes, but 来ない means she won't come. The two halves do not match.",
+    "A plain question gets a plain answer. When you go to the other person's place, you say 行く, not 来る.",
+    "ううん means no, but 行く says she will go. The two halves do not match."
+   ]
+  },
+  "audio": [
+   [
+    "M",
+    "あした、うちに　来る？",
+    "あした、うちに　くる？"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "F",
+    "うん、来ない。",
+    "うん、こない。"
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "F",
+    "うん、行く。",
+    "うん、いく。"
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "F",
+    "ううん、行く。",
+    "ううん、いく。"
+   ]
+  ]
+ }
+}

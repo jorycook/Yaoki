@@ -1,4 +1,4 @@
-<title>Yaoki N2 Unit __UNIT__ Review</title>
+<title>Yaoki __LEVEL__ Unit __UNIT__ Review</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
@@ -77,14 +77,14 @@ textarea{width:100%;box-sizing:border-box;min-height:64px;border:1px solid var(-
 
 <div class="wrap">
   <header style="display:flex;flex-direction:column;gap:8px">
-    <div class="small" style="font-weight:800;letter-spacing:.08em">YAOKI N2 · CONTENT REVIEW</div>
+    <div class="small" style="font-weight:800;letter-spacing:.08em">YAOKI __LEVEL__ · CONTENT REVIEW</div>
     <h1>Unit __UNIT__: __FN__</h1>
-    <p class="lede">Everything in this unit, written as draft content for a JLPT N2 study app. Each row is one thing to judge. The rows marked amber or red are the ones I am least sure about; they come first.</p>
+    <p class="lede">Everything in this unit, written as draft content for a JLPT __LEVEL__ study app. Each row is one thing to judge. The rows marked amber or red are the ones I am least sure about; they come first.</p>
   </header>
   <section class="howto">
     <p><b>Please mark each row OK or Fix.</b> For Fix, a word in the note box is enough: what is wrong, or the better wording.</p>
     <p class="small">Flagged rows have the question I want answered. The other rows show the sentence with the answer in place; open "Options and reasons" only if something looks off. About 2 hours for this pilot unit; later units will be shorter, using your corrections as rules.</p>
-    <p class="small">What to look for: one right answer only (a wrong option a native speaker could accept is a bug), natural Japanese, N2 level, and English reasons that state a true rule.</p>
+    <p class="small">What to look for: one right answer only (a wrong option a native speaker could accept is a bug), natural Japanese, __LEVEL__ level, and English reasons that state a true rule.</p>
   </section>
 
   <div class="bar" role="toolbar" aria-label="Filter and progress">
@@ -102,7 +102,7 @@ textarea{width:100%;box-sizing:border-box;min-height:64px;border:1px solid var(-
 
 <script>
 const ROWS = __ROWS__;
-const LS = 'yaoki-review-u__UNIT__';
+const LS = 'yaoki-review-__LSKEY__';
 const marks = {};
 try { Object.assign(marks, JSON.parse(localStorage.getItem(LS) || '{}')); } catch (e) {}
 let filter = 'all';
@@ -216,7 +216,7 @@ document.querySelectorAll('.chip').forEach((c) => c.onclick = () => {
 });
 
 document.getElementById('copy').onclick = async () => {
-  const lines = ['Yaoki N2 unit __UNIT__ review'];
+  const lines = ['Yaoki __LEVEL__ unit __UNIT__ review'];
   ROWS.forEach((r) => {
     const m = marks[r.id] || {};
     if (!m.state && !m.note) return;

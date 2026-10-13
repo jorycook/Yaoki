@@ -1,0 +1,455 @@
+{
+  "title": "〜ます・〜ません",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u03d1.p1",
+        "form": "〜ます",
+        "gloss": "do, will do (polite)",
+        "connect": [
+          {
+            "pos": "A habit: a word like \"every day\", then the verb",
+            "rule": "[毎日|まいにち] ＋ [行|い]き{ます}"
+          },
+          {
+            "pos": "A plan: a word like \"tomorrow\", then the verb",
+            "rule": "あした ＋ [来|き]{ます}"
+          },
+          {
+            "pos": "Noun (the thing you eat, see, buy…), を, then the verb",
+            "rule": "〜 ＋ を ＋ [食|た]べ{ます}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[毎日|まいにち][七時|しちじ]におき{ます}。",
+            "en": "I get up at seven every day."
+          },
+          {
+            "ja": "あした[友|とも]だちと[山|やま]へ[行|い]き{ます}。",
+            "en": "Tomorrow I will go to the mountains with a friend."
+          }
+        ],
+        "watch": {
+          "note": "ます joins the ます stem of the verb, not the dictionary form. 飲む becomes 飲みます, and 行く becomes 行きます.",
+          "bad": "毎日コーヒーを飲むます。",
+          "good": "毎日コーヒーを飲みます。"
+        }
+      },
+      {
+        "id": "n5u03d1.p2",
+        "form": "〜ません",
+        "gloss": "do not, will not (polite)",
+        "connect": [
+          {
+            "pos": "Verb, polite form: change ます to ません",
+            "rule": "[行|い]きます → [行|い]き{ません}"
+          },
+          {
+            "pos": "Not much: あまり before the verb",
+            "rule": "あまり ＋ [見|み]{ません}"
+          },
+          {
+            "pos": "Answering no to a question with 〜ますか",
+            "rule": "いいえ、[飲|の]み{ません}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[日|にち]よう[日|び]は[学校|がっこう]へ[行|い]き{ません}。",
+            "en": "I don't go to school on Sundays."
+          },
+          {
+            "ja": "わたしはコーヒーを[飲|の]み{ません}。",
+            "en": "I don't drink coffee."
+          }
+        ],
+        "watch": {
+          "note": "じゃありません is the no ending for a noun, as in 学生じゃありません. A verb changes ます to ません.",
+          "bad": "あしたは学校へ行くじゃありません。",
+          "good": "あしたは学校へ行きません。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "Two endings for a verb, one for yes and one for no, and the no ending for a noun that you met in unit 1.",
+      "forms": [
+        {
+          "form": "〜ます",
+          "tag": "します · do, will do",
+          "mark": "dot",
+          "ja": "[毎日|まいにち]テレビを[見|み]{ます}。",
+          "en": "I watch TV every day."
+        },
+        {
+          "form": "〜ません",
+          "tag": "しません · don't, won't",
+          "mark": "down",
+          "ja": "[父|ちち]はテレビを[見|み]{ません}。",
+          "en": "My father doesn't watch TV."
+        },
+        {
+          "form": "〜じゃありません",
+          "tag": "じゃない · is not (after a noun)",
+          "mark": "down",
+          "ja": "あれはテレビ{じゃありません}。",
+          "en": "That is not a TV."
+        }
+      ],
+      "check": {
+        "id": "n5u03d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "あさごはんのはなし",
+        "q": "A「あさごはんを[食|た]べますか。」\nB「^いいえ^、（　　）。」",
+        "options": [
+          "[食|た]べます",
+          "[食|た]べません",
+          "[食|た]べるじゃありません"
+        ],
+        "answer": 2,
+        "why": [
+          "食べます means yes, I eat it. B starts with いいえ, so B needs the no ending.",
+          "B says いいえ, so the verb takes the no ending: 食べます becomes 食べません.",
+          "じゃありません comes after a noun. 食べる is a verb, so its no ending is 食べません."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u03d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「[毎日|まいにち]コーヒーを[飲|の]みますか。」\nB「^はい^、[毎日|まいにち]（　　）。」",
+        "options": [
+          "[飲|の]むます",
+          "[飲|の]みません",
+          "[飲|の]みます",
+          "[飲|の]みですか"
+        ],
+        "answer": 3,
+        "why": [
+          "ます joins the ます stem 飲み, not the dictionary form 飲む.",
+          "飲みません means I don't drink it. B starts with はい, so B drinks it.",
+          "B says はい, so B repeats the yes form: 飲みます, I drink it every day.",
+          "です does not come right after a verb stem, and B is answering, not asking."
+        ]
+      },
+      {
+        "id": "n5u03d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あした[友|とも]だちと^テニスを^（　　）。",
+        "options": [
+          "きます",
+          "するます",
+          "あります",
+          "します"
+        ],
+        "answer": 4,
+        "why": [
+          "きます is the polite form of 来る, come. You cannot come tennis.",
+          "する changes completely: its polite form is します, not するます.",
+          "あります says that a thing is there. It does not take テニスを.",
+          "You play tennis with する, and the polite form of する is します. With あした it is a plan."
+        ]
+      },
+      {
+        "id": "n5u03d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「[日|にち]よう[日|び]も[学校|がっこう]へ[行|い]きますか。」\nB「^いいえ^、[日|にち]よう[日|び]は（　　）。」",
+        "options": [
+          "[行|い]きます",
+          "[行|い]くじゃありません",
+          "[行|い]きません",
+          "[行|い]きませんか"
+        ],
+        "answer": 3,
+        "why": [
+          "行きます means yes, I go. B starts with いいえ.",
+          "じゃありません comes after a noun. 行く is a verb, so its no ending is 行きません.",
+          "B says いいえ, so the verb takes the no ending: 行きます becomes 行きません.",
+          "行きませんか invites someone: won't you go? B is answering A's question, not inviting."
+        ]
+      },
+      {
+        "id": "n5u03d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "わたしはテレビを^あまり^（　　）。",
+        "options": [
+          "[見|み]ます",
+          "[見|み]ません",
+          "[見|み]るません",
+          "[見|み]じゃありません"
+        ],
+        "answer": 2,
+        "why": [
+          "あまり in the sense \"not much\" goes with a no ending. 見ます is the yes form.",
+          "あまり with the no ending says \"not much\": I don't watch TV much.",
+          "ません joins the ます stem 見, not the dictionary form 見る.",
+          "じゃありません comes after a noun. 見る is a verb, so its no ending is 見ません."
+        ]
+      },
+      {
+        "id": "n5u03d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "わたしは[毎日|まいにち]あさ",
+        "after": "。",
+        "tiles": [
+          "[七時|しちじ]",
+          "に",
+          "おき",
+          "ます"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "The time comes first, with に right after it. Then the verb, with ます at the end.",
+        "full": "わたしは[毎日|まいにち]あさ[七時|しちじ]におき{ます}。",
+        "explain": "に marks the time, so it comes right after 七時. おき is the ます stem of おきる, and ます joins it at the end of the sentence."
+      },
+      {
+        "id": "n5u03d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A「[土|ど]よう[日|び]も[会社|かいしゃ]へ[行|い]きますか。」\nB「いいえ、[土|ど]よう[日|び]は",
+        "after": "。」",
+        "tiles": [
+          "[会社|かいしゃ]",
+          "へ",
+          "[行|い]き",
+          "ません"
+        ],
+        "star": 3,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "hint": "Say where first, with へ. The verb comes last, with the no ending.",
+        "full": "A「[土|ど]よう[日|び]も[会社|かいしゃ]へ[行|い]きますか。」\nB「いいえ、[土|ど]よう[日|び]は[会社|かいしゃ]へ[行|い]き{ません}。」",
+        "explain": "へ shows where you go, so it comes right after 会社. B says いいえ, so 行き takes the no ending ません."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u03d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「中山さんは　毎日　何時に　うちを　出ますか。」\nB「七時に　（　　）。」",
+        "options": [
+          "出ません",
+          "出るます",
+          "出ます",
+          "出ますか"
+        ],
+        "answer": 3,
+        "explain": "A asks what time B leaves home every day, and B answers with the time: 七時に出ます. 出ません says B does not leave at seven, which does not answer the question. 出るます is not a form: ます joins 出, the ます stem. 出ますか would be a question, but B is answering."
+      },
+      {
+        "id": "n5u03d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「よく　本を　読みますか。」\nB「いいえ、あまり　（　　）。」",
+        "options": [
+          "読みます",
+          "読むません",
+          "読みましょう",
+          "読みません"
+        ],
+        "answer": 4,
+        "explain": "B says いいえ, and あまり in the sense \"not much\" goes with a no ending: あまり読みません, I don't read much. 読みます is the yes form. 読むません is not a form: ません joins 読み. 読みましょう means let's read, which does not answer A."
+      },
+      {
+        "id": "n5u03d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "先生は　あした　",
+        "after": "。",
+        "tiles": [
+          "午前",
+          "十時",
+          "に",
+          "来ます"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "full": "先生は　あした　午前十時に{来ます}。",
+        "explain": "午前, 十時, に, 来ます. 午前 comes before the hour, as in 午前十時, ten in the morning. に marks the time, so it follows 十時. The verb 来ます ends the sentence: the teacher will come tomorrow."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "れいぞうこの一週間のよてい",
+    "en": "A weekly schedule on the fridge",
+    "intro": "Tap each word on the family's schedule stuck to the fridge door.",
+    "words": [
+      {
+        "id": "every-day",
+        "word": "毎日",
+        "reading": "まいにち",
+        "gloss": "every day",
+        "parts": [
+          ["毎", "マイ", "every"],
+          ["日", "ニチ", "day"]
+        ]
+      },
+      {
+        "id": "morning",
+        "word": "午前",
+        "reading": "ごぜん",
+        "gloss": "morning (before noon), a.m.",
+        "parts": [
+          ["午", "ゴ", "noon"],
+          ["前", "ゼン", "before"]
+        ]
+      },
+      {
+        "id": "afternoon",
+        "word": "午後",
+        "reading": "ごご",
+        "gloss": "afternoon, p.m.",
+        "parts": [
+          ["午", "ゴ", "noon"],
+          ["後", "ゴ", "after"]
+        ]
+      },
+      {
+        "id": "day-off",
+        "word": "休み",
+        "reading": "やすみ",
+        "gloss": "day off, holiday",
+        "parts": [
+          ["休", "やす", "rest"]
+        ]
+      },
+      {
+        "id": "saturday",
+        "word": "土よう日",
+        "reading": "どようび",
+        "gloss": "Saturday",
+        "parts": [
+          ["土", "ド", "earth, soil"],
+          ["日", "び", "day"]
+        ]
+      },
+      {
+        "id": "next-week",
+        "word": "来週",
+        "reading": "らいしゅう",
+        "gloss": "next week",
+        "parts": [
+          ["来", "ライ", "come, next"],
+          ["週", "シュウ", "week"]
+        ]
+      },
+      {
+        "id": "school",
+        "word": "学校",
+        "reading": "がっこう",
+        "gloss": "school",
+        "parts": [
+          ["学", "ガッ", "study"],
+          ["校", "コウ", "school"]
+        ]
+      },
+      {
+        "id": "company",
+        "word": "会社",
+        "reading": "かいしゃ",
+        "gloss": "company, office",
+        "parts": [
+          ["会", "カイ", "meet"],
+          ["社", "シャ", "company"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n5u03d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "_来週_　友だちと　山へ　行きます。",
+      "options": [
+        "らいしゅ",
+        "きしゅう",
+        "らいしゅう",
+        "らいじゅう"
+      ],
+      "answer": 3,
+      "explain": "来週 is らいしゅう: in this word 来 is read ライ and 週 is read シュウ. らいしゅ drops the long う, きしゅう uses き from 来ます, and らいじゅう adds a dakuten that is not there."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "ポイント理解",
+    "en": "Point comprehension",
+    "ask": "女の人は　あしたの　午後　何を　しますか。",
+    "audio": [
+      ["N", "男の人と女の人が話しています。女の人は、あしたの午後、何をしますか。", "おとこのひとと　おんなのひとが　はなしています。おんなのひとは、あしたの　ごご、なにを　しますか。"],
+      ["M", "中山さん、あしたは休みですね。何をしますか。", "なかやまさん、あしたは　やすみですね。なにを　しますか。"],
+      ["F", "午前は、うちでそうじをします。", "ごぜんは、うちで　そうじを　します。"],
+      ["M", "午後は、デパートへ行きますか。", "ごごは、デパートへ　いきますか。"],
+      ["F", "いいえ、行きません。友だちとえいがを見ます。", "いいえ、いきません。ともだちと　えいがを　みます。"],
+      ["M", "いいですね。わたしは、あしたも会社です。", "いいですね。わたしは、あしたも　かいしゃです。"],
+      ["N", "女の人は、あしたの午後、何をしますか。", "おんなのひとは、あしたの　ごご、なにを　しますか。"]
+    ],
+    "item": {
+      "id": "n5u03d1.r1",
+      "kind": "choice",
+      "type": "ポイント理解",
+      "q": "女の人は　あしたの　午後　何を　しますか。",
+      "script": [
+        "ナレーター：男の人と女の人が話しています。女の人は、あしたの午後、何をしますか。",
+        "男：中山さん、あしたは休みですね。何をしますか。",
+        "女：午前は、うちでそうじをします。",
+        "男：午後は、デパートへ行きますか。",
+        "女：いいえ、行きません。友だちとえいがを見ます。",
+        "男：いいですね。わたしは、あしたも会社です。",
+        "ナレーター：女の人は、あしたの午後、何をしますか。"
+      ],
+      "options": [
+        "うちで　そうじを　します",
+        "デパートへ　行きます",
+        "友だちと　えいがを　見ます",
+        "会社へ　行きます"
+      ],
+      "printed": true,
+      "short": [
+        "うちで そうじ",
+        "デパートへ 行く",
+        "友だちと えいが",
+        "会社へ 行く"
+      ],
+      "answer": 3,
+      "why": [
+        "She cleans the house in the morning (午前), not in the afternoon.",
+        "The man asks if she goes to the department store, and she says いいえ、行きません.",
+        "In the afternoon she says 友だちとえいがを見ます: she will watch a film with a friend.",
+        "The man is the one who goes to work tomorrow (あしたも会社です). She has the day off."
+      ]
+    }
+  }
+}

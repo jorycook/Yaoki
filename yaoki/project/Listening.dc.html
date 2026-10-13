@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
 <script src="./course.js"></script>
 <script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
@@ -64,7 +65,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 </div>
 <sc-if value="{{ answered }}" hint-placeholder-val="{{ true }}">
-<div style="flex-shrink: 0; max-height: 500px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<div style="flex-shrink: 0; box-sizing: border-box; max-height: 540px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
 <div style="display: flex; align-items: center; gap: 10px">
 <sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
@@ -216,7 +217,8 @@ nav(fromDay ? 'Today' : 'Readiness')(e);
 badge: fromDay ? '練習 DRILL' : '練習 DRILL',
 kicker: '聴解 · ' + it.type + '　' + (sk.en || ''),
 ask: sk.ask,
-note: it.printed ? 'The choices are printed, as on the paper.' : 'Nothing is printed until you answer, just like the exam.',
+/* 発話表現 shows a picture on the paper; here a line describes it */
+note: sk.situation ? 'The picture: ' + sk.situation : it.printed ? 'The choices are printed, as on the paper.' : 'Nothing is printed until you answer, just like the exam.',
 cols: it.printed ? '1fr' : 'repeat(' + it.options.length + ', minmax(0, 1fr))',
 waitNote: 'Listen first, then choose ' + it.options.map((_, k) => k + 1).join(', ').replace(/, (\d)$/, ' or $1') + '.',
 hasSlow: !!it.slowClip,

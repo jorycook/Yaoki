@@ -23,7 +23,7 @@ a = "this.state = window.ykCourse.fresh();"
 b = ("const q = new URLSearchParams(location.search); const j = (k, d) => { try { return JSON.parse(q.get(k) || 'null') || d; } catch (e) { return d; } }; "
      "if (q.get('now')) window.__ykNow = +q.get('now'); "
      "const screen = q.get('screen') || 'Goal'; "
-     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day' };")
+     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day' };")
 if a not in s: sys.exit('TShell patch did not apply')
 open(dst, 'w', encoding='utf-8').write(s.replace(a, b))
 PY

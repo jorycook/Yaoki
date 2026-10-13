@@ -1,0 +1,266 @@
+{
+ "title": "〜から（理由）・〜が（でも）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u07d3.p1",
+    "form": "〜から",
+    "gloss": "because …, so …",
+    "connect": [
+     {"pos": "Verb or い adjective, polite or plain form", "rule": "[行|い]きます{から}／[行|い]く{から}／ねむい{から}"},
+     {"pos": "〜 is a noun or a な adjective: add です or だ", "rule": "〜です{から}／〜だ{から}（[雨|あめ]だ{から}）"},
+     {"pos": "Answering どうして (why): the reason, then から", "rule": "どうしてですか。…[時間|じかん]がありません{から}。"}
+    ],
+    "examples": [
+     {"ja": "[今日|きょう]は[雨|あめ]です{から}、タクシーで[行|い]きます。", "en": "It's raining today, so I'll go by taxi."},
+     {"ja": "ねむい{から}、もうねます。", "en": "I'm sleepy, so I'm going to bed now."}
+    ],
+    "watch": {
+     "note": "After a noun, put です or だ before から. 雨から means \"from the rain\", not \"because it's raining\".",
+     "bad": "雨から、今日は行きません。",
+     "good": "雨ですから、今日は行きません。"
+    }
+   },
+   {
+    "id": "n5u07d3.p2",
+    "form": "〜が",
+    "gloss": "…, but …",
+    "connect": [
+     {"pos": "Verb or い adjective, polite form", "rule": "[行|い]きます{が}／[高|たか]いです{が}"},
+     {"pos": "〜 is a noun or a な adjective: add です", "rule": "〜です{が}（しずかです{が}）"},
+     {"pos": "The second part goes against what the first part makes you expect", "rule": "[高|たか]いです{が}、おいしいです。"}
+    ],
+    "examples": [
+     {"ja": "この[店|みせ]は[小|ちい]さいです{が}、[安|やす]いです。", "en": "This shop is small, but it's cheap."},
+     {"ja": "[本|ほん]は[読|よ]みます{が}、[新聞|しんぶん]は[読|よ]みません。", "en": "I read books, but I don't read newspapers."}
+    ],
+    "watch": {
+     "note": "でも cannot sit at the end of the first part. Use が there, or end the sentence and start the next one with でも.",
+     "bad": "このかばんは高いでも、買います。",
+     "good": "このかばんは高いですが、買います。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three join two ideas: から gives a reason, and が and でも both say \"but\".",
+   "forms": [
+    {"form": "〜から", "tag": "〜です＋から · because, so", "mark": "dot", "ja": "おなかがすきました{から}、パンを[食|た]べます。", "en": "I'm hungry, so I'll eat some bread."},
+    {"form": "〜が", "tag": "〜です＋が · but", "mark": "dot", "ja": "このへやはせまいです{が}、あかるいです。", "en": "This room is small, but it's bright."},
+    {"form": "でも", "tag": "〜。でも、〜 · but (starts the next sentence)", "mark": "dot", "ja": "この[店|みせ]は[高|たか]いです。{でも}、おいしいです。", "en": "This shop is expensive. But it's good."}
+   ],
+   "check": {
+    "id": "n5u07d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "ピクニック",
+    "q": "[天気|てんき]がいいです（　　）、[外|そと]で[食|た]べましょう。",
+    "options": ["から", "が", "でも"],
+    "answer": 1,
+    "why": [
+     "The good weather is the reason for eating outside: \"The weather is nice, so let's eat outside.\"",
+     "が means \"but\". Nice weather and eating outside do not go against each other.",
+     "でも starts a new sentence (いいです。でも、…). It cannot come right after いいです inside one sentence, and \"but\" does not fit the meaning either."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u07d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^ねつがありました^（　　）、[学校|がっこう]を[休|やす]みました。",
+    "options": ["が", "から", "でも", "も"],
+    "answer": 2,
+    "why": [
+     "が means \"but\". Having a fever is not something that goes against staying home.",
+     "The fever is the reason: \"I had a fever, so I stayed home from school.\"",
+     "でも starts a new sentence (ありました。でも、…). It cannot follow ありました inside one sentence.",
+     "も means \"too\" and goes after a noun. It cannot join two sentences."
+    ]
+   },
+   {
+    "id": "n5u07d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[今日|きょう]は^[日|にち]よう[日|び]^（　　）、[学校|がっこう]は[休|やす]みです。",
+    "options": ["から", "いから", "ですが", "だから"],
+    "answer": 4,
+    "why": [
+     "日よう日 is a noun, so it needs だ or です before から. 日よう日から means \"from Sunday\".",
+     "いから is not a form. い belongs to い adjectives such as ねむい, and 日よう日 is a noun.",
+     "ですが means \"but\". Sunday and school being closed do not go against each other.",
+     "Noun + だから gives the reason: \"Today is Sunday, so there is no school.\""
+    ]
+   },
+   {
+    "id": "n5u07d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このアパートはひろいです（　　）、^[古|ふる]いです^。",
+    "options": ["から", "を", "が", "でも"],
+    "answer": 3,
+    "why": [
+     "から gives a reason, but being big is not the reason the flat is old.",
+     "を marks the thing you do something to. It cannot join two sentences.",
+     "Big is good and old is not, so が (but) joins them: \"This flat is big, but it's old.\"",
+     "でも starts a new sentence (ひろいです。でも、…). It cannot follow ひろいです inside one sentence."
+    ]
+   },
+   {
+    "id": "n5u07d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[毎日|まいにち][電車|でんしゃ]で[会社|かいしゃ]へ[行|い]きます（　　）、^[今日|きょう]はバスで[行|い]きました^。",
+    "options": ["でも", "まで", "から", "が"],
+    "answer": 4,
+    "why": [
+     "でも starts a new sentence (行きます。でも、…). It cannot follow 行きます inside one sentence.",
+     "まで means \"until\" or \"as far as\". 行きますまで is not correct.",
+     "から gives a reason, but going by train every day is not the reason for taking the bus today.",
+     "Every day it is the train, but today it was the bus: \"I go to work by train every day, but today I went by bus.\""
+    ]
+   },
+   {
+    "id": "n5u07d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "おなかが",
+    "after": "ません。",
+    "tiles": ["いたいです", "から", "[何|なに]も", "[食|た]べ"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "おなかが goes with いたいです, and から comes right after the reason. 何も goes before the verb with ません.",
+    "full": "おなかがいたいです{から}[何|なに]も[食|た]べません。",
+    "explain": "いたいです, から, 何も, 食べ. The stomachache is the reason, so から follows いたいです: \"My stomach hurts, so I won't eat anything.\""
+   },
+   {
+    "id": "n5u07d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この[店|みせ]は",
+    "after": "ありません。",
+    "tiles": ["ひろい", "ですが、", "あまり", "きれいじゃ"],
+    "star": 3,
+    "bank": [3, 1, 0, 2],
+    "hint": "ひろい goes with ですが、. あまり needs a negative, so it goes before きれいじゃ ありません.",
+    "full": "この[店|みせ]はひろい{ですが}、あまりきれいじゃありません。",
+    "explain": "ひろい, ですが、, あまり, きれいじゃ. ですが joins the good point and the bad point, and あまり goes with the negative: \"This shop is big, but it's not very clean.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u07d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "今日は　雨（　　）、　テニスは　しません。",
+    "options": ["から", "だから", "まで", "が"],
+    "answer": 2,
+    "explain": "雨 is a noun, so it needs だ before から: 雨だから, \"because it's raining\". 雨から means \"from the rain\", and 雨まで means \"until the rain\". 雨が needs a verb after it, such as ふります."
+   },
+   {
+    "id": "n5u07d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしの　へやは　せまいです（　　）、　まどが　大きくて　あかるいです。",
+    "options": ["から", "も", "が", "と"],
+    "answer": 3,
+    "explain": "The room is small (bad), but the window is big and bright (good), so が, \"but\", joins them. から would make the small room the reason for the big window. も and と cannot join two sentences here."
+   },
+   {
+    "id": "n5u07d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あしたは　テストが",
+    "after": "します。",
+    "tiles": ["あります", "から", "今日は", "べんきょう"],
+    "star": 1,
+    "bank": [2, 3, 1, 0],
+    "full": "あしたは　テストが　あります　{から}　今日は　べんきょう　します。",
+    "explain": "あります, から, 今日は, べんきょう. テストが あります is the reason, so から follows it, and 今日は べんきょう します is the result: \"I have a test tomorrow, so I'll study today.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "店のドアで",
+  "en": "On a shop door",
+  "intro": "Tap every word you would read on the notice taped to the shop door.",
+  "words": [
+   {"id": "shop", "word": "店", "reading": "みせ", "gloss": "shop", "parts": [["店", "みせ", "shop"]]},
+   {"id": "closed", "word": "休み", "reading": "やすみ", "gloss": "closed (day), holiday", "parts": [["休", "やす", "rest"]]},
+   {"id": "rain", "word": "雨", "reading": "あめ", "gloss": "rain", "parts": [["雨", "あめ", "rain"]]},
+   {"id": "weather", "word": "天気", "reading": "てんき", "gloss": "weather", "parts": [["天", "テン", "sky, heaven"], ["気", "キ", "air, spirit"]]},
+   {"id": "afternoon", "word": "午後", "reading": "ごご", "gloss": "afternoon, p.m.", "parts": [["午", "ゴ", "noon"], ["後", "ゴ", "after"]]},
+   {"id": "four", "word": "四時", "reading": "よじ", "gloss": "four o'clock", "parts": [["四", "よ", "four"], ["時", "ジ", "o'clock, time"]]},
+   {"id": "monday", "word": "月よう日", "reading": "げつようび", "gloss": "Monday", "parts": [["月", "ゲツ", "moon, month"], ["日", "び", "day"]]},
+   {"id": "morning", "word": "午前", "reading": "ごぜん", "gloss": "morning, a.m.", "parts": [["午", "ゴ", "noon"], ["前", "ゼン", "before"]]}
+  ],
+  "check": {
+   "id": "n5u07d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "雨ですから、　店は　午後　_四時_に　しまります。",
+   "options": ["よんじ", "よじ", "しじ", "よっじ"],
+   "answer": 2,
+   "explain": "四時, \"four o'clock\", is read よじ. 四 is often よん (四百, よんひゃく), but before 時 it is よ. しじ is not used for the time, and よっじ is not a word."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人は　どうして　土よう日に　えいがに　行きませんか。",
+  "audio": [
+   ["N", "男の人と女の人が話しています。女の人はどうして土よう日にえいがに行きませんか。", "おとこのひとと　おんなのひとが　はなしています。おんなのひとは　どうして　どようびに　えいがに　いきませんか。"],
+   ["M", "山下さん、土よう日にいっしょにえいがを見ませんか。", "やましたさん、どようびに　いっしょに　えいがを　みませんか。"],
+   ["F", "すみません。土よう日はちょっと…。", "すみません。どようびは　ちょっと…。"],
+   ["M", "しごとですか。", null],
+   ["F", "いいえ、しごとは休みですが、母が国から来ます。いっしょにごはんを食べます。", "いいえ、しごとは　やすみですが、ははが　くにから　きます。いっしょに　ごはんを　たべます。"],
+   ["M", "そうですか。じゃあ、日よう日はどうですか。", "そうですか。じゃあ、にちようびは　どうですか。"],
+   ["F", "日よう日はいいですよ。えいがはだいすきですから。", "にちようびは　いいですよ。えいがは　だいすきですから。"],
+   ["M", "じゃ、日よう日に行きましょう。", "じゃ、にちようびに　いきましょう。"],
+   ["N", "女の人はどうして土よう日にえいがに行きませんか。", "おんなのひとは　どうして　どようびに　えいがに　いきませんか。"]
+  ],
+  "item": {
+   "id": "n5u07d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人は　どうして　土よう日に　えいがに　行きませんか。",
+   "script": [
+    "ナレーター：男の人と女の人が話しています。女の人はどうして土よう日にえいがに行きませんか。",
+    "男：山下さん、土よう日にいっしょにえいがを見ませんか。",
+    "女：すみません。土よう日はちょっと…。",
+    "男：しごとですか。",
+    "女：いいえ、しごとは休みですが、母が国から来ます。いっしょにごはんを食べます。",
+    "男：そうですか。じゃあ、日よう日はどうですか。",
+    "女：日よう日はいいですよ。えいがはだいすきですから。",
+    "男：じゃ、日よう日に行きましょう。",
+    "ナレーター：女の人はどうして土よう日にえいがに行きませんか。"
+   ],
+   "options": [
+    "しごとが　あるから",
+    "かぜを　ひいたから",
+    "お母さんが　来るから",
+    "えいがが　すきじゃないから"
+   ],
+   "printed": true,
+   "short": ["しごと", "かぜ", "お母さんが 来る", "えいがが すきじゃない"],
+   "answer": 3,
+   "why": [
+    "The man guesses work, but she says いいえ、しごとは休みです.",
+    "Nobody talks about a cold.",
+    "しごとは休みですが、母が国から来ます: her mother is coming, and they will eat together.",
+    "She says えいがはだいすきですから, and she agrees to go on Sunday."
+   ]
+  }
+ }
+}
