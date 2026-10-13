@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { chromium, devices } = require('playwright');
+// the level the app was built for (YK_LEVEL=N1 for the N1 app): its name, its menu chip and a few words of its lessons
+const LV = require('./level.js');
 
 const BASE = 'http://localhost:8765/';
 const out = path.join(__dirname, 'out');
@@ -83,7 +85,7 @@ const placed = (page) => page.evaluate(() => {
     await click(page, 'a:has-text("Start with the teach page")', 700);
     await click(page, 'a:has-text("Next")', 700);
     await click(page, 'a:has-text("Start the drill")', 700);
-    await click(page, 'button:has-text("あまり")');
+    await click(page, 'button:has-text("' + LV.drillWrong + '")');
     await click(page, 'button:has-text("Check")', 600);
     ok((await text(page)).includes('Saved to your mistake notebook'), 'the drill should record the mistake');
     const s1 = await saved(page);
@@ -92,12 +94,12 @@ const placed = (page) => page.evaluate(() => {
     await ready(page);
     ok((await text(page)).includes('原因・理由') && !(await text(page)).includes('目標を決めよう'), 'after closing and reopening, the app should open on the week path');
     await click(page, 'nav a:has-text("Notebook")', 600);
-    ok((await text(page)).includes('寝坊した') && (await text(page)).includes('あまり'), 'the saved mistake should be in the notebook after reopening');
+    ok((await text(page)).includes(LV.drillLine) && (await text(page)).includes(LV.drillWrong), 'the saved mistake should be in the notebook after reopening');
     await page.screenshot({ path: path.join(out, 'app-notebook-restored.png') });
 
     // ---------- 2. the menu ----------
     await click(page, 'nav a:has-text("Path")', 600);
-    await click(page, 'button[aria-label^="Level N2"]', 500);
+    await click(page, 'button[aria-label^="Level ' + LV.LEVEL + '"]', 500);
     ok((await text(page)).includes('メニュー') && (await text(page)).includes('Sound check'), 'the level chip should open the menu');
     ok((await text(page)).includes('saved on this device only'), 'the menu should say where progress is kept');
     ok(!(await text(page)).includes('offline'), 'with no offline copy asked for, the menu should not talk about offline use');
@@ -146,7 +148,7 @@ const placed = (page) => page.evaluate(() => {
     await page.goto(BASE);
     await ready(page);
     const t = await text(page);
-    ok(t.includes('Add Yaoki to your Home Screen') && t.includes('Tap Share'), 'Safari on an iPhone should get the Add to Home Screen page');
+    ok(t.includes('Add ' + LV.appName + ' to your Home Screen') && t.includes('Tap Share'), 'Safari on an iPhone should get the Add to Home Screen page');
     ok(t.includes('on this iPhone'), 'the install page should name the device');
     const box = await page.evaluate(() => { const r = document.querySelector('#yk-stage').getBoundingClientRect(); return { w: Math.round(r.width), h: Math.round(r.height), vw: innerWidth, vh: innerHeight, sh: document.querySelector('#yk-stage > .sc-host > div').scrollHeight, ch: document.querySelector('#yk-stage > .sc-host > div').clientHeight }; });
     ok(box.w === box.vw && Math.abs(box.h - box.vh) <= 1, 'the install page should fill the browser, got ' + JSON.stringify(box));
@@ -328,7 +330,7 @@ const placed = (page) => page.evaluate(() => {
     }
     await click(page, 'button:has-text("Paint the first eye")');
     await click(page, 'a:has-text("Start")', 700);
-    await click(page, 'button[aria-label^="Level N2"]', 500);
+    await click(page, 'button[aria-label^="Level ' + LV.LEVEL + '"]', 500);
     ok((await text(page)).includes('The app is stored for offline use.'), 'once the offline copy is in, the menu should say so');
     await click(page, 'button:has-text("Close")', 400);
     await ctx.setOffline(true);
@@ -357,7 +359,7 @@ const placed = (page) => page.evaluate(() => {
     await page.waitForTimeout(2500);
     // still on the teach page: no restart in the middle of a lesson
     ok((await page.evaluate(() => window.__ykBuild)) === v1, 'a new build should not restart the app in the middle of a lesson');
-    ok((await text(page)).includes('〜ばかりに'), 'the lesson should still be up while the new build waits');
+    ok((await text(page)).includes(LV.teachTitle), 'the lesson should still be up while the new build waits');
     await click(page, 'a[aria-label="Close lesson"]', 600);
     await click(page, 'a[aria-label="Back to the week path"]', 600);
     await page.waitForFunction((old) => window.__ykBuild && window.__ykBuild !== old, v1, { timeout: 15000 }).catch(() => {});

@@ -8,6 +8,8 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const { openBoard, inspect, site, out } = require('./rt-check.js');
+// the level's own clip lengths and mock tab text (YK_LEVEL=N1 for the N1 app)
+const LV = require('./level.js');
 
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
@@ -66,11 +68,11 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
     console.log(`${name}: root=${info.rootH}` + (bad ? ' PROBLEMS ' + JSON.stringify({ e: info.errors, i: info.issues, u: info.unresolved }) : ''));
     ok(!bad, name + ': layout or runtime problems');
   };
-  // the last clip that started: the first listening clip (14.08 s), picked up "into" milliseconds from its start
+  // the last clip that started: the first listening clip, picked up "into" milliseconds from its start
   const pickedUp = async (label, before, lo, hi) => {
     const st = await starts();
     const last = st[st.length - 1];
-    ok(st.length === before + 1 && Math.abs(last.d - 14080) < 120, `${label}: the clip that was cut should start once more, got ${JSON.stringify(st.slice(-2))}`);
+    ok(st.length === before + 1 && Math.abs(last.d - LV.clips.m10_q) < 120, `${label}: the clip that was cut should start once more, got ${JSON.stringify(st.slice(-2))}`);
     ok(last.o >= lo && last.o <= hi, `${label}: it should pick up between ${lo} and ${hi} ms into the clip, got ${last.o}`);
     return last.o;
   };
@@ -114,7 +116,7 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
   await page.waitForTimeout(2200);
   if (SOUND) {
     ok(await on(), 'sound should be playing two seconds into listening');
-    ok((await starts()).some((a) => Math.abs(a.d - 14080) < 120 && a.o === 0), 'the first listening clip should have started from its beginning');
+    ok((await starts()).some((a) => Math.abs(a.d - LV.clips.m10_q) < 120 && a.o === 0), 'the first listening clip should have started from its beginning');
     const pos = await at();
     ok(pos > 1500 && pos < 3200, 'the part should keep time with the clip, which is about 2.4 s in, got ' + pos);
   }
@@ -190,11 +192,11 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
     console.log('   rest of the listening section took ' + Math.round(took / 1000) + ' s');
     if (SOUND) {
       const st = (await starts()).slice(from);
-      const want = [14080, 34080, 5050, 33990, 23000, 9260, 12180];
+      const want = LV.mockClips;
       ok(st.length === 7 && st.every((a, k) => Math.abs(a.d - want[k]) < 120), 'after resuming: wrong clips or order: ' + JSON.stringify(st.map((a) => a.d)));
       ok(st.every((a, k) => k === 0 || (a.o === 0 && a.t >= st[k - 1].t + st[k - 1].d - st[k - 1].o)), 'after resuming: a clip started before the one before it had ended: ' + JSON.stringify(st));
       // the first clip had already played a few seconds
-      ok(took > 138000 && took < 160000, 'after resuming: expected about two and a half minutes, took ' + took);
+      ok(took > LV.listeningMs - 18500 && took < LV.listeningMs + 3600, 'after resuming: expected about ' + Math.round(LV.listeningMs / 1000) + ' s less the part already heard, took ' + took);
     }
     ok(!(await sheetUp()), 'the sheet should not come back in a clean stretch');
     await shot('03-result');
@@ -257,7 +259,7 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
     ok(await sheetUp(), 'last interruption: sheet expected');
     n = (await starts()).length;
     await click('[role=dialog][aria-label="Listening paused"] a:has-text("Quit")', 700);
-    ok(await has('101問'), 'Quit on the sheet should lead back to the mock tab');
+    ok(await has(LV.tabCount), 'Quit on the sheet should lead back to the mock tab');
     await page.waitForTimeout(1500);
     ok((await starts()).length === n, 'after quitting nothing should play');
     await shot('05-quit');

@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exam-style step</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Leave the exam-style step" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="{{ dotsLabel }}" style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+<div style="height: 10px; border-radius: 5px; background: {{ d.bg }}"></div>
+</sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; font-size: 13px; font-weight: 800; border: 2px solid {{ clockEdge }}; color: {{ clockInk }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }}</div>
+</div>
+
+<div style="margin-top: 6px; padding: 8px 12px; border-radius: 12px; background: #1B2440; color: #FFFFFF; display: flex; flex-direction: column; gap: 1px">
+<div style="font-size: 12px; font-weight: 800">本番　EXAM-STYLE</div>
+<div style="font-size: 11px; font-weight: 500; color: #DDE1EC">No hints, no furigana. Answers come at the end.</div>
+</div>
+
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 16px; font-size: 12px; font-weight: 800; color: #5A6382">{{ q.kind }}</div>
+<div lang="ja" style="margin-top: 8px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if><sc-if value="{{ g.star }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 50px; padding: 0 14px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="font-size: 12px; font-weight: 800; color: {{ o.numColor }}">{{ o.n }}</span><span>{{ o.label }}</span></button>
+</sc-for>
+</div>
+<div style="flex-grow: 1"></div>
+<button disabled="{{ noPick }}" onClick="{{ next }}" style="height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">{{ nextLabel }}</button>
+</sc-if>
+
+<sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; display: flex; align-items: flex-end; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: {{ doneInk }}">{{ doneLabel }}</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 44px; font-weight: 800; line-height: 1.1">{{ score }}</h1><div style="font-size: 18px; font-weight: 700; color: #5A6382">/ 3</div></div>
+</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382; text-align: right; line-height: 1.5; padding-bottom: 6px">{{ used }} of 2:30</div>
+</div>
+<div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+<div style="padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800">
+<sc-if value="{{ r.ok }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ r.bad }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div style="flex-grow: 1">{{ r.title }}</div>
+<sc-if value="{{ r.bad }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="font-weight: 700; color: #5A6382">{{ r.yours }}</div></sc-if>
+</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.6"><sc-for list="{{ r.full }}" as="g" hint-placeholder-count="3"><span style="border-radius: 4px; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-for></div>
+<div style="font-size: 12px; font-weight: 500; line-height: 1.45">{{ r.why }}</div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ anyWrong }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
+{{ savedLine }}
+</div>
+</sc-if>
+<div style="flex-grow: 1"></div>
+<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">つぎへ　Next</a>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["question","result"],"default":"question"},"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+const T = (t, keep) => ({ t, text: true, ws: keep ? 'nowrap' : 'normal' });
+const BLANK = { blank: true };
+const STAR = { star: true };
+const plain = (t) => ({ t, bg: 'transparent', pad: '0' });
+const mark = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px' });
+const TOTAL = 150;
+const QUESTIONS = [
+{
+src: 'exam1',
+type: '文の文法1',
+kind: '文の文法1　Choose the form',
+segs: [T('めったに見られない皆既日食（　　）、多くの人が空を見上げていた。')],
+options: ['にしては', 'とあって', 'とはいえ', 'にひきかえ'],
+answer: 2,
+full: [plain('めったに見られない皆既日食'), mark('とあって'), plain('、多くの人が空を見上げていた。')],
+why: 'A rare event and a scene that was observed. にしては and とはいえ set up a contrast, and にひきかえ compares two things.',
+},
+{
+src: 'exam2',
+type: '文の文法1',
+kind: '文の文法1　Choose the form',
+segs: [T('人間は弱い存在である（　　）、互いに支え合って生きていくのだ。')],
+options: ['とあって', 'ばこそ', 'ゆえに', 'ものを'],
+answer: 3,
+full: [plain('人間は弱い存在である'), mark('ゆえに'), plain('、互いに支え合って生きていくのだ。')],
+why: 'である + ゆえに is the formal, written "because", here for a general truth. とあって needs a special occasion, ばこそ follows the ば-form, and ものを carries regret.',
+},
+{
+src: 'exam3',
+type: '文の文法2',
+kind: '文の文法2　Build the sentence',
+segs: [T('テレビで', true), BLANK, BLANK, STAR, BLANK, T('長い行列ができていた。', true)],
+options: ['前には', 'とあって', '店の', '紹介された'],
+answer: 3,
+full: [plain('テレビで紹介されたとあって'), mark('店の'), plain('前には長い行列ができていた。')],
+why: '紹介された, とあって, 店の, 前には. とあって follows the plain form, and 店の must sit right before 前には.',
+},
+];
+/* the designed moments shown when the artboard is not inside the prototype */
+const DESIGNED = {
+question: { i: 1, answers: [2, 3, null], t: 102, done: false },
+result: { i: 2, answers: [2, 3, 4], t: 42, done: true },
+};
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = props && props.go
+? { i: 0, answers: [null, null, null], t: TOTAL, done: false }
+: { ...DESIGNED[props && props.view === 'result' ? 'result' : 'question'] };
+}
+componentDidMount() {
+if (!this.props.go) return;
+/* the clock follows real time, so it keeps running when the app is put aside */
+this.ends = Date.now() + this.state.t * 1000;
+this.last = Date.now();
+this.timer = setInterval(() => {
+if (this.state.done) return;
+const now = Date.now();
+/* the phone's clock was set back: the deadline goes back with it */
+if (now < this.last - 1000) this.ends -= this.last - now;
+this.last = now;
+const t = Math.max(0, Math.ceil((this.ends - now) / 1000));
+if (t <= 0) this.finish(0);
+else if (t !== this.state.t) this.setState({ t });
+}, 200);
+}
+componentDidUpdate(prev) {
+/* the view tweak switches the designed moment when the artboard stands alone */
+if (!this.props.go && prev && prev.view !== this.props.view) this.setState({ ...DESIGNED[this.props.view === 'result' ? 'result' : 'question'] });
+}
+componentWillUnmount() {
+clearInterval(this.timer);
+}
+finish(t) {
+const answers = this.state.answers;
+if (this.props.miss) {
+QUESTIONS.forEach((q, n) => {
+if (answers[n] !== q.answer) this.props.miss({ src: q.src, wrong: answers[n] ? q.options[answers[n] - 1] : '無解答' });
+});
+}
+clearInterval(this.timer);
+this.setState({ done: true, t });
+}
+renderVals() {
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
+const q = QUESTIONS[s.i];
+const picked = s.answers[s.i];
+const opts = q.options.map((label, k) => {
+const n = k + 1;
+const on = picked === n;
+return {
+n,
+label,
+on,
+pick: () => this.setState({ answers: s.answers.map((a, j) => (j === s.i ? n : a)) }),
+border: on ? '2.5px solid #2F4FD0' : '2px solid #1B2440',
+bg: on ? '#E8ECFB' : '#FFFFFF',
+shadow: on ? 'none' : '0 3px 0 #1B2440',
+weight: on ? 800 : 700,
+numColor: on ? '#2F4FD0' : '#5A6382',
+press: on ? 'translateY(3px)' : 'none',
+};
+});
+const last = s.i === QUESTIONS.length - 1;
+const rows = QUESTIONS.map((item, n) => {
+const a = s.answers[n];
+const ok = a === item.answer;
+return {
+ok,
+bad: !ok,
+title: (n + 1) + ' · ' + item.type,
+yours: 'あなたの答え：' + (a ? item.options[a - 1] : '無解答'),
+full: item.full,
+why: item.why,
+};
+});
+const wrongCount = rows.filter((r) => r.bad).length;
+const low = !s.done && s.t <= 30;
+return {
+q,
+opts,
+asking: !s.done,
+done: s.done,
+dots: QUESTIONS.map((_, n) => ({ bg: s.done || n < s.i ? '#2F4FD0' : n === s.i ? '#1B2440' : '#DDE1EC' })),
+dotsLabel: s.done ? 'Exam-style step finished' : 'Question ' + (s.i + 1) + ' of 3',
+doneLabel: s.done && s.t === 0 ? '時間切れ　Time is up' : '本番 おわり　Exam-style done',
+doneInk: s.done && s.t === 0 ? '#C7361E' : '#5A6382',
+clock: fmt(s.t),
+clockEdge: low ? '#C7361E' : '#DDE1EC',
+clockInk: low ? '#C7361E' : '#1B2440',
+noPick: !picked,
+nextLabel: last ? 'おわる　Finish' : 'つぎへ　Next',
+ck: picked
+? { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' }
+: { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' },
+next: () => {
+if (!picked) return;
+if (last) this.finish(s.t);
+else this.setState({ i: s.i + 1 });
+},
+score: rows.length - wrongCount,
+used: fmt(TOTAL - s.t),
+rows,
+anyWrong: wrongCount > 0,
+savedLine: wrongCount === 1 ? '1 mistake saved to your notebook. It comes back tomorrow.' : wrongCount + ' mistakes saved to your notebook. They come back tomorrow.',
+toToday: nav('Today'),
+toDone: (e) => {
+if (this.props.save) this.props.save({ g: 3 });
+nav('Today')(e);
+},
+};
+}
+}
+</script>
+</body>
+</html>

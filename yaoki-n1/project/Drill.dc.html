@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drill with explanation</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="Question 5 of 10" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="width: 40%; height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0"></div></div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">練習 DRILL</div>
+</div>
+
+<div style="padding: 6px 16px 0; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">文の文法1　Choose the form</div>
+<div lang="ja" style="padding: 10px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 2.1">年に一度の花火大会（　　）、<span style="border-bottom: 3px solid {{ clue }}">駅前は朝から人でごった返している</span>。</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 8px">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 50px; padding: 0 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}"><span style="font-size: 12px; color: {{ o.numColor }}">{{ o.n }}</span><span style="flex-grow: 1">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+</sc-for>
+</div>
+</div>
+
+<div style="flex-grow: 1"></div>
+
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 0 16px 34px; display: flex; flex-direction: column">
+<button disabled="{{ noPick }}" onClick="{{ check }}" style="height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">こたえる　Check</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ checked }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+<div style="flex-grow: 1; font-size: 20px; font-weight: 800">おしい！ <span style="font-size: 14px; font-weight: 700">Not quite</span></div>
+<div style="font-size: 13px; font-weight: 800">正解　1 とあって</div>
+</div>
+</sc-if>
+<sc-if value="{{ correct }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg>
+<div style="flex-grow: 1; font-size: 20px; font-weight: 800">せいかい！ <span style="font-size: 14px; font-weight: 700">Correct</span></div>
+</div>
+</sc-if>
+
+<div style="padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">解説　Why each option</div>
+<div style="display: flex; align-items: flex-start; gap: 8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="8.5"/></svg>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.4"><strong style="font-weight: 800">1 とあって</strong>　A special occasion, and a scene the speaker observes.</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.4"><strong style="font-weight: 800">2 とあれば</strong><sc-if value="{{ picked2 }}" hint-placeholder-val="{{ true }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　"If it is for…": a condition, then what someone is willing to do, as in 君の頼みとあれば.</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.4"><strong style="font-weight: 800">3 といえども</strong><sc-if value="{{ picked3 }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　"Even though": what follows would go against expectations.</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.4"><strong style="font-weight: 800">4 ときたら</strong><sc-if value="{{ picked4 }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　"As for…": a complaint about someone or something close by.</div>
+</div>
+</div>
+
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
+Saved to your mistake notebook. It comes back tomorrow.
+</div>
+</sc-if>
+<a href="Star.dc.html" onClick="{{ toStar }}" style="height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* inside the prototype the question starts unanswered; on its own the artboard shows the designed moment (a wrong answer, explained) */
+this.state = props && props.go ? { pick: null, checked: false } : { pick: 2, checked: true };
+}
+renderVals() {
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const ANSWER = 1;
+const LABELS = { 1: 'とあって', 2: 'とあれば', 3: 'といえども', 4: 'ときたら' };
+const opts = [1, 2, 3, 4].map((n) => {
+const on = s.pick === n;
+let look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 800, numColor: '#5A6382' };
+if (!s.checked && on) look = { border: '2.5px solid #2F4FD0', bg: '#E8ECFB', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#2F4FD0' };
+if (s.checked) {
+if (n === ANSWER) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3EF', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#5A6382' };
+else if (on) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#5A6382' };
+else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700, numColor: '#5A6382' };
+}
+return {
+n,
+label: LABELS[n],
+on,
+right: s.checked && n === ANSWER,
+bad: s.checked && on && n !== ANSWER,
+pick: () => this.setState({ pick: n, checked: false }),
+...look,
+};
+});
+const correct = s.checked && s.pick === ANSWER;
+const wrong = s.checked && s.pick !== ANSWER;
+return {
+opts,
+asking: !s.checked,
+checked: s.checked,
+correct,
+wrong,
+noPick: s.pick === null,
+clue: s.checked ? '#F2B43A' : 'transparent',
+ck: s.pick === null
+? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' }
+: { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' },
+picked2: wrong && s.pick === 2,
+picked3: wrong && s.pick === 3,
+picked4: wrong && s.pick === 4,
+sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
+tone: wrong ? '#C7361E' : '#0B7A6B',
+check: () => {
+if (s.pick === null) return;
+if (s.pick !== ANSWER && this.props.miss) this.props.miss({ src: 'drill', wrong: LABELS[s.pick] });
+this.setState({ checked: true });
+},
+toToday: nav('Today'),
+toStar: nav('Star'),
+};
+}
+}
+</script>
+</body>
+</html>

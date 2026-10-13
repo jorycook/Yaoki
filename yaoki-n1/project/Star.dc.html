@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Star sentence</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="Question 6 of 10" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="width: 50%; height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0"></div></div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">練習 DRILL</div>
+</div>
+
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">文の文法2　Build the sentence</div>
+<h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">★に入るのはどれ？</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">Put the four tiles in order. Your answer is the tile on the star.</div>
+</div>
+
+<div lang="ja" style="margin-top: 16px; padding: 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">
+<div style="white-space: nowrap">彼女は責任感が強すぎる</div>
+<sc-for list="{{ slots }}" as="s" hint-placeholder-count="4">
+<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; font-size: 16px; font-weight: 600; white-space: nowrap; background: {{ s.bg }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.r }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ s.emptyStar }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="Empty star slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #1B2440; background: #FFF4D6; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></div></sc-if>
+<sc-if value="{{ s.emptyPlain }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="Empty slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #C9D0E3; background: #F4F5F9"></div></sc-if>
+</sc-for>
+<div style="white-space: nowrap">求めようとしない。</div>
+</div>
+
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 16px; display: flex; align-items: flex-end; gap: 10px">
+<svg viewBox="0 0 100 100" width="48" height="48" role="img" aria-label="Yaoki" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<div style="flex-grow: 1; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 11px; font-weight: 800; color: #C7361E">ヒント　HINT · drill only</div>
+<div style="font-size: 13px; font-weight: 700; line-height: 1.45">ゆえに can follow a plain form with が in between. Which tile sits right after 強すぎる?</div>
+</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">タイル　Tiles</div>
+<div lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
+<sc-for list="{{ bank }}" as="b" hint-placeholder-count="4">
+<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" style="height: 54px; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.r }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
+</sc-for>
+</div>
+</div>
+<button disabled="{{ notFull }}" onClick="{{ check }}" style="margin-top: 22px; height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">こたえる　Check</button>
+</sc-if>
+
+<sc-if value="{{ checked }}" hint-placeholder-val="{{ false }}">
+<div style="margin: 0 -16px -34px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<div style="display: flex; align-items: center; gap: 10px">
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
+<sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
+<div style="flex-grow: 1; font-size: 20px; font-weight: 800">{{ verdictJa }} <span style="font-size: 14px; font-weight: 700">{{ verdictEn }}</span></div>
+<div style="display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800">正解<svg width="15" height="15" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="2" stroke-linejoin="round" role="img" aria-label="star"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>周囲の</div>
+</div>
+<div style="padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">解説　The sentence</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 2">彼女は責任感が強すぎるが<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">ゆえに</span>周囲の助けを求めようとしない。</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45">強すぎる takes が before ゆえに, so the first two tiles are fixed. 周囲の has to sit right before 助けを.</div>
+</div>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
+Saved to your mistake notebook. It comes back tomorrow.
+</div>
+</sc-if>
+<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* inside the prototype all four tiles start in the bank; on its own the artboard shows the designed moment (two placed) */
+this.state = { slots: props && props.go ? [null, null, null, null] : ['A', 'B', null, null], checked: false };
+}
+renderVals() {
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const seg = (t, r) => ({ t, r: r || '', plain: !r });
+const TILES = {
+A: { text: 'が', segs: [seg('が')] },
+B: { text: 'ゆえに', segs: [seg('ゆえに')] },
+C: { text: '周囲の', segs: [seg('周囲の')] },
+D: { text: '助けを', segs: [seg('助けを')] },
+};
+const ORDER = ['A', 'B', 'C', 'D'];
+const STAR = 2;
+const placed = s.slots.filter(Boolean);
+const full = placed.length === 4;
+const correct = s.checked && s.slots.every((id, i) => id === ORDER[i]);
+const wrong = s.checked && !correct;
+const slots = s.slots.map((id, i) => ({
+filled: !!id,
+emptyStar: !id && i === STAR,
+emptyPlain: !id && i !== STAR,
+segs: id ? TILES[id].segs : [],
+aria: id ? (i === STAR ? 'On the star: ' : 'Placed: ') + TILES[id].text + '. Tap to take it back' : '',
+bg: i === STAR ? '#FFE9B0' : '#E8ECFB',
+remove: () => this.setState({ slots: s.slots.map((x, j) => (j === i ? null : x)), checked: false }),
+}));
+const bank = ['C', 'B', 'D', 'A'].map((id) => {
+const here = !s.slots.includes(id);
+return {
+here,
+gone: !here,
+segs: TILES[id].segs,
+place: () => {
+const at = s.slots.indexOf(null);
+if (at < 0) return;
+this.setState({ slots: s.slots.map((x, j) => (j === at ? id : x)) });
+},
+};
+});
+return {
+slots,
+bank,
+asking: !s.checked,
+checked: s.checked,
+correct,
+wrong,
+notFull: !full,
+ck: full
+? { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' }
+: { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' },
+verdictJa: wrong ? 'おしい！' : 'せいかい！',
+verdictEn: wrong ? 'Not quite' : 'Correct',
+sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
+tone: wrong ? '#C7361E' : '#0B7A6B',
+check: () => {
+if (!full) return;
+const ok = s.slots.every((id, i) => id === ORDER[i]);
+/* the notebook names the tile that was put on the star; when that tile was right and only the order was off, it says so */
+const onStar = s.slots[STAR];
+if (!ok && this.props.miss) this.props.miss({ src: 'star', wrong: onStar === ORDER[STAR] ? '順番が違う' : TILES[onStar].text });
+this.setState({ checked: true });
+},
+toToday: nav('Today'),
+toDone: (e) => {
+const app = this.props.app;
+if (this.props.save) this.props.save({ g: Math.max((app && app.g) || 0, 2) });
+nav('Today')(e);
+},
+};
+}
+}
+</script>
+</body>
+</html>

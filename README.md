@@ -1,13 +1,16 @@
 # Yaoki: source of the iPhone web app prototype
 
-Yaoki is a JLPT study app prototype (N2 sample content). This folder holds everything needed to rebuild the installable web app. The design itself lives on the design canvas "Yaoki JLPT App"; the screens here are copies of the canvas's files.
+Yaoki is a JLPT study app prototype. There are two apps, built from the same shell: one for N5 to N2 (N2 sample content) and one for N1 (N1 sample content). This folder holds everything needed to rebuild both installable web apps. The design itself lives on the design canvas "Yaoki JLPT App"; the screens here are copies of the canvas's files.
 
 ## What is where
 
 | Folder | What it holds |
 |---|---|
 | `docs/` | The built app, served by GitHub Pages at https://jorycook.github.io/Yaoki/. This is all a phone needs. |
+| `docs/n1/` | The built N1 app, served at https://jorycook.github.io/Yaoki/n1/. |
 | `yaoki/project/` | The design canvas's files: 27 screens (`*.dc.html`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`). 17 of the screens make up the app. |
+| `yaoki-n1/project/` | The same 27 files with N1 content, for the N1 app (and for an N1 copy of the canvas, "Yaoki JLPT App · N1"). |
+| `yaoki-n1/make-sound.py` | Makes the N1 app's spoken clips. |
 | `yaoki-app/` | The app around the screens: `src/` (runtime, shell, install page, offline worker, page, manifest), `build.mjs`, `fonts.py`. |
 | `docs/reader/` | Yaoki Reader, served at https://jorycook.github.io/Yaoki/reader/. It has no build step: these files are its source. |
 | `reader-tools/` | Scripts that make the reader's Aozora Bunko files (the catalog of works, the JIS X 0213 table). |
@@ -22,19 +25,22 @@ cd yaoki-app
 npm install            # preact and sharp
 bash fetch-fonts.sh    # the two typefaces, into ../fonts-src
 node build.mjs         # writes dist/ (the app) and dist-preview/ (the page shown inside Claude)
+YK_LEVEL=N1 node build.mjs    # the N1 app: writes dist-n1/ and dist-n1-preview/
 ```
 
-`dist/` is what `docs/` is a copy of: after a build, replace `docs/` with it and push. Settings, all optional: `YK_OUT` (output folder), `YK_APP_VERSION` (default 0.1), `YK_BUILD_DATE` (default today), `YK_PROJECT` and `YK_FONTS` (where the screens and the typefaces are).
+`dist/` is what `docs/` is a copy of, and `dist-n1/` what `docs/n1/` is a copy of: after a build, replace the app's files with it and push. Leave `docs/reader/` and `docs/n1/` alone when replacing the N5 to N2 app in `docs/`. Settings, all optional: `YK_LEVEL` (`N2`, the default, or `N1`), `YK_OUT` (output folder, relative to `yaoki-app/`), `YK_APP_VERSION` (default 0.1), `YK_BUILD_DATE` (default today), `YK_PROJECT` and `YK_FONTS` (where the screens and the typefaces are).
+
+The two apps share everything in `yaoki-app/src/`. What differs is set in `LEVELS` at the top of `build.mjs`: the screens folder, the name on the Home Screen ("Yaoki" and "Yaoki N1"), the level line in the menu and the icon colour (gold and indigo).
 
 ## Put it on the web
 
 Copy the contents of `docs/` (or `yaoki-app/dist/`) to any https address. Every address inside the app is relative, so a sub-folder works. This repository is set up for GitHub Pages: Settings → Pages → Deploy from a branch, `main`, folder `/docs`. The empty `.nojekyll` file tells GitHub to serve the files as they are.
 
-On the iPhone: open the address in Safari, tap Share, then Add to Home Screen, then open Yaoki from its icon once while online.
+On the iPhone: open the address in Safari, tap Share, then Add to Home Screen, then open Yaoki from its icon once while online. The N1 app is added the same way from its own address (`/Yaoki/n1/`). The two apps keep separate progress and separate offline copies, and either can be on a phone without the other.
 
 ## Change a screen
 
-Edit the screen file in `yaoki/project/`, then build again. The same file runs on the design canvas, so publish it there too to keep the two alike. A new build has a new version; phones that have the app fetch it by themselves and switch to it at a quiet moment.
+Edit the screen file in `yaoki/project/` (or `yaoki-n1/project/` for N1), then build again. The same file runs on the design canvas, so publish it there too to keep the two alike. A new build has a new version; phones that have the app fetch it by themselves and switch to it at a quiet moment.
 
 ## Tests
 
@@ -45,6 +51,8 @@ bash all-app.sh                  # the click-through suites against the app buil
 bash run-app.sh app-test.js      # app-only checks: saved progress, sizes, offline, updates
 node preview-test.js             # the page shown inside Claude
 ```
+
+`YK_LEVEL=N1` in front of any of these builds and tests the N1 app instead (`YK_LEVEL=N1 bash all-app.sh`). The click-throughs have N1 versions (`e2e-n1.js`, `e2e-mock-n1.js`, `nb-check-n1.js`, `sweep-n1.js`); the other checks read the level's clip lengths and words from `level.js`. `bash run-app.sh screens-app.js` opens every screen of the app on its own and reports anything that leaves the frame. `node two-apps-test.js` serves `docs/` as GitHub Pages does and checks that the two apps keep their own progress and offline copies.
 
 For the reader:
 
@@ -59,6 +67,12 @@ bash run-reader.sh aozora-test.js    # Aozora Bunko: search, fetch, parts, a dow
 `BACKUP=<a reader backup file>` also loads that file and opens every text in it.
 
 `all.sh` runs the same suites against the design canvas's own runtime. That needs the canvas runtime file, which is not part of this folder (see `setup-site.sh` for where it is expected).
+
+## The N1 app
+
+The same app, with N1 content: one sample day in week 3 of the 8-week plan (原因・理由: 〜とあって and 〜ゆえに, with 〜こととて to compare), kanji read in a scene (station notices when the trains stop: 運転見合わせ, 架線, 復旧, 振替輸送 and more, asked as 漢字読み), a reading-skill item on finding the writer's claim, a quick-response listening drill (〜ものを), notebook entries and their review, and a 12-question mini mock in the N1 format: 漢字読み, 文脈規定, 言い換え類義, 用法, the three grammar types, a short text and 統合理解, then 課題理解, 概要理解 and 即時応答. The mock tab and the readiness screen use N1's figures: 110 and 55 minutes, a pass mark of 100 of 180, 19 in each section. All questions and texts are written for this app.
+
+The spoken clips are made with the same text-to-speech model as the N5 to N2 app (Kokoro-82M), with its narrator and man voices; the woman's voice is Kokoro's jf_alpha. `python3 make-sound.py` in `yaoki-n1/` makes them again (Python 3.10 to 3.12 with `kokoro` 0.9.4, `misaki[ja]` and the UniDic dictionary from `python3 -m unidic download`, and ffmpeg); the texts it speaks are in the script.
 
 ## The reader
 
@@ -91,6 +105,6 @@ Nothing a reader adds goes into this repository. Only the built-in sample (片�
 
 ## Licences
 
-Third-party parts are listed in `docs/licenses.txt`: Preact (MIT), the typefaces M PLUS Rounded 1c and Klee One (SIL Open Font License 1.1), and the synthetic voices (Kokoro-82M, Apache-2.0; two voices built from Koniwa recordings, CC BY 3.0).
+Third-party parts are listed in `docs/licenses.txt` (and the same list in `docs/n1/licenses.txt`): Preact (MIT), the typefaces M PLUS Rounded 1c and Klee One (SIL Open Font License 1.1), and the synthetic voices (Kokoro-82M, Apache-2.0; two voices built from Koniwa recordings, CC BY 3.0).
 
 The reader's are in `docs/reader/licenses.txt`: Aozora Bunko (the catalog of works, and where the texts come from), JMdict (EDRDG, CC BY-SA 4.0, and the shortened word list under the same licence), kuromoji.js (Apache-2.0, with the mecab-ipadic notice) and the typefaces it loads from Google Fonts (SIL Open Font License 1.1).

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kanji in a scene</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./sound-lessons.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="{{ progressLabel }}" style="flex-grow: 1; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px">
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="8">
+<div style="height: 10px; border-radius: 5px; background: {{ b.bg }}"></div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #C7361E">学習 LEARN</div>
+</div>
+
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">駅の掲示 <span style="font-size: 15px; font-weight: 700; color: #5A6382">Station notices</span></h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">Tap every word you would have to read. {{ count }} of 8 found.</div>
+</div>
+
+<div lang="ja" style="margin-top: 12px; padding: 10px; border-radius: 20px; background: #E9ECF4; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px">
+<div style="padding: 8px 10px; border-radius: 12px; background: #1B2440; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="width: 40px; font-size: 12px; font-weight: 700">中央線</div>
+<button onClick="{{ w.halt.tap }}" aria-pressed="{{ w.halt.on }}" style="position: relative; height: 46px; padding: 0 12px; border-radius: 10px; background: #2A3560; color: #F2B43A; font-size: 17px; font-weight: 800; border: {{ w.halt.edge }}; outline: {{ w.halt.ring }}; box-shadow: {{ w.halt.glow }}">運転見合わせ<sc-if value="{{ w.halt.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+<div style="flex-grow: 1"></div>
+<div style="font-size: 14px; font-weight: 700">上下線</div>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<button onClick="{{ w.wire.tap }}" aria-pressed="{{ w.wire.on }}" style="position: relative; height: 46px; padding: 0 10px; border-radius: 10px; background: none; color: #FFFFFF; font-size: 16px; font-weight: 700; border: {{ w.wire.edge }}; outline: {{ w.wire.ring }}; box-shadow: {{ w.wire.glow }}">架線<sc-if value="{{ w.wire.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+<div style="font-size: 14px; font-weight: 700; white-space: nowrap">点検のため</div>
+<div style="flex-grow: 1"></div>
+<button onClick="{{ w.restore.tap }}" aria-pressed="{{ w.restore.on }}" style="position: relative; height: 46px; padding: 0 10px; border-radius: 10px; background: none; color: #FFFFFF; font-size: 16px; font-weight: 700; border: {{ w.restore.edge }}; outline: {{ w.restore.ring }}; box-shadow: {{ w.restore.glow }}">復旧<sc-if value="{{ w.restore.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+<div style="font-size: 14px; font-weight: 700; white-space: nowrap">見込み 18:30</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<button onClick="{{ w.transfer.tap }}" aria-pressed="{{ w.transfer.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #F2B43A; font-size: 15px; font-weight: 800; outline: {{ w.transfer.ring }}; box-shadow: {{ w.transfer.glow }}">振替輸送<sc-if value="{{ w.transfer.badge }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+<button onClick="{{ w.delay.tap }}" aria-pressed="{{ w.delay.on }}" style="position: relative; height: 46px; padding: 0; border-radius: 8px; border: 2px solid #1B2440; background: #2F4FD0; color: #FFFFFF; font-size: 15px; font-weight: 800; white-space: nowrap; outline: {{ w.delay.ring }}; box-shadow: {{ w.delay.glow }}">遅延証明書<sc-if value="{{ w.delay.badge }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+<button onClick="{{ w.refund.tap }}" aria-pressed="{{ w.refund.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.refund.ring }}; box-shadow: {{ w.refund.glow }}">払い戻し<sc-if value="{{ w.refund.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<button onClick="{{ w.detour.tap }}" aria-pressed="{{ w.detour.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.detour.ring }}; box-shadow: {{ w.detour.glow }}">迂回<sc-if value="{{ w.detour.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+<button onClick="{{ w.limit.tap }}" aria-pressed="{{ w.limit.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #0B7A6B; color: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.limit.ring }}; box-shadow: {{ w.limit.glow }}">入場規制<sc-if value="{{ w.limit.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+</div>
+</div>
+
+<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.1; white-space: nowrap; flex-shrink: 0; font-size: {{ d.size }}">{{ d.word }}</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div lang="ja" style="font-weight: 800; font-size: {{ d.rsize }}">{{ d.reading }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">{{ d.gloss }}</div>
+</div>
+<button aria-label="Play the word" onClick="{{ play }}" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ d.kanji }}" as="k" hint-placeholder-count="2">
+<div style="padding: 8px 10px; border-radius: 12px; background: #F4F5F9; display: flex; align-items: center; gap: 10px">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; white-space: nowrap; flex-shrink: 0; font-size: {{ k.size }}">{{ k.c }}</div>
+<div style="min-width: 0; display: flex; flex-direction: column"><div lang="ja" style="font-size: 12px; font-weight: 800">{{ k.on }}</div><div style="font-size: 12px; font-weight: 500; color: #5A6382">{{ k.mean }}</div></div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 8px">
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 12px; font-weight: 800">試験ではこう出る　How the exam asks it · 漢字読み</div>
+</sc-if>
+<sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800">
+<sc-if value="{{ right }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div>{{ verdict }}</div>
+</div>
+</sc-if>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">点検が終わり、運転が<span style="border-bottom: 2px solid #1B2440">復旧</span>した。</div>
+<sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
+<div lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ choices }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.pick }}" style="height: 44px; padding: 0; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800">{{ c.label }}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 44px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+</sc-if>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* the designed moment: three words found, 復旧 open */
+this.state = { found: ['transfer', 'delay', 'restore'], sel: 'restore', quiz: null, playing: false };
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+renderVals() {
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const k = (c, on, mean) => ({ c, on, mean, size: c.length >= 4 ? '18px' : c.length === 3 ? '22px' : '26px' });
+/* each word is shown as its two building blocks: at N1 the exam asks for readings (漢字読み), and a block can change its sound where it joins the next, as フク and キュウ make ふっきゅう */
+const WORDS = {
+halt: { word: '運転見合わせ', reading: 'うんてんみあわせ', gloss: 'service suspended', kanji: [k('運転', 'うんてん', 'running trains'), k('見合わせ', 'みあわせ', 'holding off')] },
+wire: { word: '架線', reading: 'かせん', gloss: 'overhead power line', kanji: [k('架', 'カ', 'span: 架橋'), k('線', 'セン', 'line: 路線')] },
+restore: { word: '復旧', reading: 'ふっきゅう', gloss: 'back in service', kanji: [k('復', 'フク', 'return: 回復'), k('旧', 'キュウ', 'former: 旧姓')] },
+transfer: { word: '振替輸送', reading: 'ふりかえゆそう', gloss: 'transfer to other lines', kanji: [k('振替', 'ふりかえ', 'switching'), k('輸送', 'ゆそう', 'transport')] },
+delay: { word: '遅延証明書', reading: 'ちえんしょうめいしょ', gloss: 'delay certificate', kanji: [k('遅延', 'ちえん', 'delay'), k('証明書', 'しょうめいしょ', 'certificate')] },
+refund: { word: '払い戻し', reading: 'はらいもどし', gloss: 'refund', kanji: [k('払い', 'はらい', 'paying'), k('戻し', 'もどし', 'giving back')] },
+detour: { word: '迂回', reading: 'うかい', gloss: 'detour, going around', kanji: [k('迂', 'ウ', 'roundabout'), k('回', 'カイ', 'go around')] },
+limit: { word: '入場規制', reading: 'にゅうじょうきせい', gloss: 'entry restricted', kanji: [k('入場', 'にゅうじょう', 'entering'), k('規制', 'きせい', 'restriction')] },
+};
+const w = {};
+Object.keys(WORDS).forEach((id) => {
+const on = s.sel === id;
+const found = s.found.includes(id);
+w[id] = {
+on,
+badge: found && !on,
+edge: found ? '2px solid #6E7BA8' : '2px dashed #6E7BA8',
+ring: on ? '3px solid #F2B43A' : 'none',
+glow: on ? '0 0 0 5px #1B2440' : 'none',
+tap: () => {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+this.setState({ sel: id, found: found ? s.found : s.found.concat(id), playing: false });
+},
+};
+});
+const cur = WORDS[s.sel];
+const len = cur.word.length;
+const READINGS = { 1: 'ふっきゅう', 2: 'ふくきゅう', 3: 'ふっきょう', 4: 'ふくぎゅう' };
+const answered = s.quiz !== null;
+const right = answered && s.quiz === 1;
+return {
+w,
+count: s.found.length,
+progressLabel: s.found.length + ' of 8 words found',
+bars: [0, 1, 2, 3, 4, 5, 6, 7].map((i) => ({ bg: i < s.found.length ? '#C7361E' : '#DDE1EC' })),
+d: { ...cur, size: len >= 6 ? '20px' : len === 5 ? '22px' : len === 4 ? '28px' : len === 3 ? '34px' : '40px', rsize: cur.reading.length > 8 ? '14px' : '16px' },
+playBg: s.playing ? '#F2B43A' : '#E8ECFB',
+/* each word is a short clip: the button stays lit while it is said. If the sound cannot play, it just lights up for a moment */
+play: () => {
+clearTimeout(this.timer);
+const snd = window.ykSound;
+const key = 's_' + s.sel;
+const sound = !!(snd && snd.has(key) && snd.unlock() && snd.play(key));
+this.setState({ playing: true });
+this.timer = setTimeout(() => this.setState({ playing: false }), sound ? snd.ms(key) + 150 : 1200);
+},
+asking: !answered,
+answered,
+right,
+wrong: answered && !right,
+verdict: right ? 'せいかい！ 1 ふっきゅう' : 'おしい！ 正解は 1 ふっきゅう。 Saved to your notebook.',
+tone: right ? '#0B7A6B' : '#C7361E',
+choices: [1, 2, 3, 4].map((n) => ({
+label: n + ' ' + READINGS[n],
+pick: () => {
+if (n !== 1 && this.props.miss) this.props.miss({ src: 'scene', wrong: READINGS[n] });
+this.setState({ quiz: n });
+},
+})),
+toToday: nav('Today'),
+toDone: (e) => {
+if (this.props.save) this.props.save({ k: 1 });
+nav('Today')(e);
+},
+};
+}
+}
+</script>
+</body>
+</html>

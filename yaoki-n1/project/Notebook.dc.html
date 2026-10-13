@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mistake notebook</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; padding: 0 16px; height: 44px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 22px; font-weight: 800">間違いノート <span style="font-size: 14px; font-weight: 700; color: #5A6382">Mistake notebook</span></h1>
+</div>
+
+<sc-if value="{{ due }}" hint-placeholder-val="{{ true }}">
+<div style="margin: 8px 16px 0; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">今日の復習　Due today</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="font-size: 44px; font-weight: 800; line-height: 1.1">9</div><div style="font-size: 14px; font-weight: 700; color: #5A6382">items · about 5 min</div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700; text-align: right">
+<div>文法 4</div><div>文字・語彙 3</div><div>聴解 2</div>
+</div>
+</div>
+<a href="Review.dc.html" onClick="{{ toReview }}" style="height: 50px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">復習する　Review now</a>
+</div>
+</sc-if>
+<sc-if value="{{ caughtUp }}" hint-placeholder-val="{{ false }}">
+<div style="margin: 8px 16px 0; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">今日の復習　Due today</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="font-size: 44px; font-weight: 800; line-height: 1.1">0</div><div style="font-size: 14px; font-weight: 700; color: #5A6382">items · all caught up</div></div>
+<div style="margin-top: 4px; font-size: 13px; font-weight: 800">おつかれさま！ <span style="font-weight: 500; color: #5A6382">Next review: tomorrow</span></div>
+</div>
+<div style="width: 56px; height: 56px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 24px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: yk-stamp 500ms ease-out both" aria-hidden="true">済</div>
+</div>
+</sc-if>
+
+<div style="margin: 14px 16px 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">A mistake leaves the notebook after three correct answers in a row, each a little further apart.</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-size: 11px; font-weight: 800; text-align: center">
+<div style="padding: 7px 0; border-radius: 10px; background: #E8ECFB">あした<br>1 day</div>
+<div style="padding: 7px 0; border-radius: 10px; background: #E8ECFB">3日後<br>3 days</div>
+<div style="padding: 7px 0; border-radius: 10px; background: #E8ECFB">1週間後<br>7 days</div>
+<div style="padding: 7px 0; border-radius: 10px; background: #E0F3EF">卒業<br>cleared</div>
+</div>
+</div>
+
+<div style="margin: 14px 16px 0; font-size: 14px; font-weight: 800">最近の間違い　Recent mistakes</div>
+
+<div style="margin: 8px 16px 0; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+<div style="flex-shrink: 0; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 5px">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 800; background: {{ r.tagBg }}; color: {{ r.tagColor }}">{{ r.tag }}</div>
+<div style="flex-grow: 1; font-size: 11px; font-weight: 700; color: #5A6382">{{ r.due }}</div>
+<div role="img" aria-label="{{ r.pipLabel }}" style="display: flex; gap: 4px"><sc-for list="{{ r.pipList }}" as="p" hint-placeholder-count="3"><div style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: {{ p.border }}; background: {{ p.bg }}"></div></sc-for></div>
+</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600"><sc-for list="{{ r.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
+<div lang="ja" style="display: flex; flex-wrap: wrap; align-items: center; gap: 3px 6px; font-size: 13px; font-weight: 800">
+<span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="You answered" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg><span style="color: #5A6382">{{ r.wrong }}</span></span>
+<span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg><span>{{ r.right }}</span></span>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ cleared }}" hint-placeholder-val="{{ false }}">
+<div style="flex-shrink: 0; padding: 10px 14px; border-radius: 16px; background: #E0F3EF; display: flex; align-items: center; gap: 10px">
+<div style="padding: 2px 8px; border-radius: 8px; background: #0B7A6B; color: #FFFFFF; font-size: 11px; font-weight: 800; flex-shrink: 0">卒業</div>
+<div style="font-size: 12px; font-weight: 700; line-height: 1.4">Cleared today: <span lang="ja">…お目通しいただけましたか。</span></div>
+</div>
+</sc-if>
+</div>
+
+<div style="flex-grow: 1"></div>
+<nav aria-label="Main" style="flex-shrink: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
+<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() {
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const t = (text, underline) => ({ t: text, line: underline ? '2px solid #1B2440' : 'none' });
+const INDIGO = { tagBg: '#E8ECFB', tagColor: '#2F4FD0' };
+const VERMILION = { tagBg: '#FDEBE6', tagColor: '#C7361E' };
+const TEAL = { tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
+const GOLD = { tagBg: '#FFF4D6', tagColor: '#1B2440' };
+/* what each exercise leaves behind when it is answered wrong */
+const SOURCES = {
+drill: { tag: '文の文法1', ...INDIGO, segs: [t('年に一度の花火大会（　　）、駅前は…')], right: 'とあって' },
+star: { tag: '文の文法2', ...INDIGO, segs: [t('…強すぎる ＿ ＿ ★ ＿ 求めようとしない。')], right: '周囲の' },
+exam1: { tag: '文の文法1', ...INDIGO, segs: [t('…皆既日食（　　）、多くの人が…')], right: 'とあって' },
+exam2: { tag: '文の文法1', ...INDIGO, segs: [t('人間は弱い存在である（　　）、…')], right: 'ゆえに' },
+exam3: { tag: '文の文法2', ...INDIGO, segs: [t('テレビで ＿ ＿ ★ ＿ 長い行列が…')], right: '店の' },
+scene: { tag: '漢字読み', ...VERMILION, segs: [t('点検が終わり、運転が'), t('復旧', true), t('した。')], right: 'ふっきゅう' },
+reading: { tag: '読解・筆者の主張', ...GOLD, segs: [t('筆者の主張に合うのはどれか。')], right: '効率だけで判断すべきでない' },
+listening: { tag: '即時応答', ...TEAL, segs: [t('女：言ってくれれば、手伝ったものを。')], right: 'ごめん、忙しそうだったから' },
+mock1: { tag: '漢字読み', ...VERMILION, segs: [t('彼は取材に応じることを'), t('拒んだ', true), t('。')], right: 'こばんだ' },
+mock2: { tag: '文脈規定', ...VERMILION, segs: [t('両社の交渉は（　　）に乗り上げ、…')], right: '暗礁' },
+mock3: { tag: '言い換え類義', ...VERMILION, segs: [t('…方法は、'), t('ことごとく', true), t('失敗に終わった。')], right: 'すべて' },
+mock4: { tag: '用法', ...VERMILION, segs: [t('ひたむき')], right: 'ひたむきに練習を重ね' },
+mock5: { tag: '文の文法1', ...INDIGO, segs: [t('…命にかかわること（　　）、…')], right: 'とあれば' },
+mock6: { tag: '文の文法2', ...INDIGO, segs: [t('毎日とは ＿ ＿ ★ ＿ ほしい。')], right: '週に一度は' },
+mock7: { tag: '文章の文法', ...INDIGO, segs: [t('…同じ働きをしている（　　）。')], right: 'といっても過言ではない' },
+mock8: { tag: '内容理解（短文）', ...GOLD, segs: [t('筆者の考えに合うのはどれか。')], right: '失敗から学ぶことが成長につながる' },
+mock9: { tag: '統合理解', ...GOLD, segs: [t('AとBは、小学校での英語教育について…')], right: 'どちらも意欲の面の効果を認める' },
+mock10: { tag: '課題理解', ...TEAL, segs: [t('男の人は、このあとまず何を…')], right: '出席者の人数を確認する' },
+mock11: { tag: '概要理解', ...TEAL, segs: [t('先生は、何について話していますか。')], right: '読む量と読み方の変化' },
+mock12: { tag: '即時応答', ...TEAL, segs: [t('女：部長、お言葉を返すようですが…')], right: 'どこが気になるのか聞かせて' },
+};
+/* older entries already in the notebook: both are due today */
+const KANJI = { tag: '漢字読み', ...VERMILION, segs: [t('新しい制度は、来年4月に'), t('発足', true), t('する。')], wrong: 'はっそく', right: 'ほっそく', due: 'due today', pips: 1 };
+const LISTEN = { tag: '即時応答', ...TEAL, segs: [t('男：…資料、お目通しいただけましたか。')], wrong: 'まだお送りしていません', right: '拝見しました', due: 'due today', pips: 2 };
+/* on its own this artboard shows the designed moment: the drill question was just answered with とあれば, nothing reviewed yet */
+const app = this.props.app || { mistakes: [{ src: 'drill', wrong: 'とあれば' }], rev: null };
+const rev = app.rev || null;
+/* after today's review the older entries move a step, go back to the start, or leave */
+let older = [{ ...KANJI, at: 0 }, { ...LISTEN, at: 0 }];
+if (rev) {
+older = [{ ...KANJI, at: rev.at || 1, due: rev.kanji ? 'in 7 days' : 'back tomorrow', pips: rev.kanji ? 2 : 0 }];
+if (!rev.listen) older.push({ ...LISTEN, at: rev.at || 1, due: 'back tomorrow', pips: 0 });
+}
+const fresh = (app.mistakes || []).filter((m) => SOURCES[m.src]).map((m) => ({ ...SOURCES[m.src], at: m.at || 1, wrong: m.wrong, due: 'back tomorrow', pips: 0 }));
+/* the list shows the three entries touched most recently, by a new mistake or by today's review */
+const rows = fresh.concat(older).sort((a, b) => b.at - a.at).slice(0, 3).map((r) => ({
+...r,
+pipLabel: r.pips + ' of 3 correct in a row',
+pipList: [0, 1, 2].map((i) => (i < r.pips ? { border: '2px solid #0B7A6B', bg: '#0B7A6B' } : { border: '2px solid #C9D0E3', bg: 'transparent' })),
+}));
+return {
+rows,
+due: !rev,
+caughtUp: !!rev,
+cleared: !!(rev && rev.listen),
+toMain: nav('Main'),
+toNotebook: nav('Notebook'),
+toMock: nav('Mock'),
+toReadiness: nav('Readiness'),
+toReview: nav('Review'),
+};
+}
+}
+</script>
+</body>
+</html>

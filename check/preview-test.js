@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const { chromium } = require('playwright');
+// the level the app was built for (YK_LEVEL=N1 for the N1 app)
+const LV = require('./level.js');
 const DIR = path.join(__dirname, '..', 'yaoki-app', process.env.PREVIEW_DIR || 'dist-test-preview');
 const PREACT = fs.readFileSync(path.join(__dirname, '..', 'yaoki-app', 'node_modules', 'preact', 'dist', 'preact.min.js'));
 const fontsCss = fs.readFileSync(path.join(__dirname, 'site', 'fonts.css'), 'utf8');
@@ -45,7 +47,7 @@ const server = http.createServer((req, res) => {
     await page.locator('button:has-text("Paint the first eye")').first().click(); await page.waitForTimeout(400);
     await page.locator('a:has-text("Start")').first().click(); await page.waitForTimeout(700);
     ok((await t()).includes('原因・理由'), name + ': Start should reach the week path');
-    await page.locator('button[aria-label^="Level N2"]').first().click(); await page.waitForTimeout(500);
+    await page.locator('button[aria-label^="Level ' + LV.LEVEL + '"]').first().click(); await page.waitForTimeout(500);
     ok((await t()).includes('preview'), name + ': the menu should show the preview build stamp');
     const r = await page.evaluate(() => { const b = document.querySelector('#yk-stage').getBoundingClientRect(); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), vw: innerWidth, vh: innerHeight, scroll: document.documentElement.scrollHeight, sw: !!navigator.serviceWorker && !!navigator.serviceWorker.controller }; });
     // on a short frame the design's empty top zone (42 of its 844 px) is left out above the frame; nothing else may stick out
