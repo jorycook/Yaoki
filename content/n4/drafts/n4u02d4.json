@@ -1,0 +1,264 @@
+{
+  "title": "〜ところだ・〜たばかりだ",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u02d4.p1",
+        "form": "〜ところだ",
+        "gloss": "about to; in the middle of; just did",
+        "connect": [
+          { "pos": "Verb, dictionary form: about to do it", "rule": "出かける ＋ {ところです}" },
+          { "pos": "Verb, ている form: in the middle of it", "rule": "食べている ＋ {ところです}" },
+          { "pos": "Verb, た form: it has just ended", "rule": "[終|お]わった ＋ {ところです}" }
+        ],
+        "examples": [
+          { "ja": "今から出かける{ところです}。", "en": "I'm just about to go out." },
+          { "ja": "今、駅に[着|つ]いた{ところです}。", "en": "I've just this moment arrived at the station." }
+        ],
+        "watch": {
+          "note": "たところ is for something that ended a moment ago. With a time long ago like 先月, use たばかり.",
+          "bad": "先月日本に来たところです。",
+          "good": "先月日本に来たばかりです。"
+        }
+      },
+      {
+        "id": "n4u02d4.p2",
+        "form": "〜たばかりだ",
+        "gloss": "only just did (it feels recent)",
+        "connect": [
+          { "pos": "Verb, た form", "rule": "買った ＋ {ばかりです}" },
+          { "pos": "Before a noun (〜 is the noun): add の", "rule": "買った{ばかりの} ＋ 〜" }
+        ],
+        "examples": [
+          { "ja": "先月日本に来た{ばかりです}。", "en": "I only came to Japan last month." },
+          { "ja": "買った{ばかりの}[自転車|じてんしゃ]がこわれました。", "en": "The bike I only just bought broke." }
+        ],
+        "watch": {
+          "note": "Before a noun, ばかり needs の.",
+          "bad": "これは買ったばかりかばんです。",
+          "good": "これは買ったばかりのかばんです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "たところ means a moment ago, たばかり means a short time ago in the speaker's feeling (even last week), and たことがある is not \"just\" at all but an experience.",
+      "forms": [
+        {
+          "form": "〜たところだ",
+          "tag": "おわったすぐあと · a moment ago",
+          "mark": "dot",
+          "ja": "今、[家|いえ]に[帰|かえ]った{ところです}。",
+          "en": "I've just this minute got home."
+        },
+        {
+          "form": "〜たばかりだ",
+          "tag": "きもちではすこし前 · it feels recent",
+          "mark": "dot",
+          "ja": "先週この[町|まち]にひっこした{ばかりです}。",
+          "en": "I only moved to this town last week."
+        },
+        {
+          "form": "〜たことがある",
+          "tag": "けいけん · an experience",
+          "mark": "dot",
+          "ja": "前に[北海道|ほっかいどう]へ行った{ことがあります}。",
+          "en": "I've been to Hokkaido before."
+        }
+      ],
+      "check": {
+        "id": "n4u02d4.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "あたらしい会社",
+        "q": "^先月^この会社に入った（　　）。^まだ^わからないことが多いです。",
+        "options": ["ところです", "ばかりです", "ことがあります"],
+        "answer": 2,
+        "why": [
+          "たところ is for a moment ago. 先月 is a month ago, too long for it.",
+          "先月 is a month ago, but it still feels new: まだ わからない. That is たばかり.",
+          "たことがある tells an experience. It does not go with 先月 and まだ here: the speaker still works at this company."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u02d4.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「もしもし、今どこですか。」「まだ[家|いえ]です。^これから^（　　）ところです。」",
+        "options": ["出かける", "出かけた", "出かけている", "出かけて"],
+        "answer": 1,
+        "why": [
+          "これから says it has not started yet. Dictionary form + ところ: about to go out.",
+          "出かけたところ means you have just left, but the speaker is still at home.",
+          "ている + ところ means in the middle of it, but これから says it has not started.",
+          "The て form does not go before ところ."
+        ]
+      },
+      {
+        "id": "n4u02d4.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「レポートはもう[終|お]わりましたか。」「^いいえ^、^今も^（　　）ところです。」",
+        "options": ["書いている", "書く", "書いた", "書いて"],
+        "answer": 1,
+        "why": [
+          "今も says it is still going on now. ている + ところ: in the middle of writing.",
+          "書くところ means about to start, but 今も says the writing is already going on.",
+          "書いたところ means just finished, but the answer is いいえ: it is not finished.",
+          "The て form does not go before ところ."
+        ]
+      },
+      {
+        "id": "n4u02d4.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「その[時計|とけい]、新しいですか。」「ええ、^おととい^（　　）ばかりです。」",
+        "options": ["もらった", "もらう", "もらっている", "もらわない"],
+        "answer": 1,
+        "why": [
+          "おととい is in the past. The た form + ばかり: I only got it the day before yesterday.",
+          "Here the speaker means \"only just got it\", and that needs the た form. おととい is also in the past.",
+          "\"Only just did\" needs the た form, not ている.",
+          "The speaker has the watch, so \"did not get it\" makes no sense."
+        ]
+      },
+      {
+        "id": "n4u02d4.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "これは^先週^買った（　　）くつです。",
+        "options": ["ばかりの", "ばかり", "ところの", "ところ"],
+        "answer": 1,
+        "why": [
+          "先週 feels recent to the speaker, and before the noun くつ, ばかり takes の.",
+          "くつ is a noun, so ばかり needs の before it.",
+          "Here ところ cannot link to くつ, and 先週 is too long ago for たところ.",
+          "ところ cannot come right before くつ, and 先週 is too long ago for たところ."
+        ]
+      },
+      {
+        "id": "n4u02d4.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "「今どこですか。」「ちょうど",
+        "after": "です。」",
+        "tiles": ["駅の", "前に", "[着|つ]いた", "ところ"],
+        "star": 2,
+        "bank": [2, 0, 3, 1],
+        "hint": "Where is the speaker? The た form goes right before ところ.",
+        "full": "「今どこですか。」「ちょうど駅の前に[着|つ]いた{ところ}です。」",
+        "explain": "駅の goes with 前に: in front of the station. 着いた is the た form, so 着いたところ means \"I have just arrived\"."
+      },
+      {
+        "id": "n4u02d4.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[兄|あに]は[去年|きょねん]",
+        "after": "です。",
+        "tiles": ["大学を", "出た", "ばかりの", "[会社員|かいしゃいん]"],
+        "star": 2,
+        "bank": [3, 2, 0, 1],
+        "hint": "What did he do last year? ばかりの comes before a noun.",
+        "full": "[兄|あに]は[去年|きょねん]大学を出た{ばかりの}[会社員|かいしゃいん]です。",
+        "explain": "大学を goes with 出た. 出たばかり means he only just finished university, and の joins it to the noun 会社員."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u02d4.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「もう　昼ご飯を　食べましたか。」「いいえ、今から　（　　）　ところです。」",
+        "options": ["食べる", "食べた", "食べて", "食べている"],
+        "answer": 1,
+        "explain": "今から says the meal has not started, so the dictionary form 食べる + ところ: about to eat. 食べた means just finished, but the answer is いいえ. 食べて cannot go before ところ. 食べている means in the middle of eating, which does not fit 今から."
+      },
+      {
+        "id": "n4u02d4.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「日本は　どうですか。」「先月　来た　（　　）です。まだ　よく　わかりません。」",
+        "options": ["ばかり", "ところ", "ほう", "こと"],
+        "answer": 1,
+        "explain": "先月 is a month ago, but it still feels new to the speaker (まだ よく わかりません), so 来たばかりです. たところ is only for a moment ago, so it does not fit 先月. 来たほうです and 来たことです make no sense here."
+      },
+      {
+        "id": "n4u02d4.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "姉は　今　友だちと",
+        "after": "、少し　待って　ください。",
+        "tiles": ["電話を", "している", "ところ", "ですから"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "full": "姉は　今　友だちと　電話を　している　{ところ}ですから、少し　待って　ください。",
+        "explain": "電話を, している, ところ, ですから. 電話を goes with している, and ている + ところ means she is in the middle of the call. ですから gives the reason for 待って ください."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "注文した品物のページ",
+    "en": "The status page for an online order",
+    "intro": "Tap each word on the order page that tells you what you ordered, where it is and what it costs.",
+    "words": [
+      { "id": "order", "word": "注文", "reading": "ちゅうもん", "gloss": "order (for goods)", "parts": [["注", "チュウ", "pour; note"], ["文", "モン", "writing"]] },
+      { "id": "goods", "word": "品物", "reading": "しなもの", "gloss": "goods, the item", "parts": [["品", "しな", "article, goods"], ["物", "もの", "thing"]] },
+      { "id": "shipped", "word": "発送", "reading": "はっそう", "gloss": "sending out, shipping", "parts": [["発", "ハッ", "set off"], ["送", "ソウ", "send"]] },
+      { "id": "fee", "word": "送料", "reading": "そうりょう", "gloss": "shipping fee", "parts": [["送", "ソウ", "send"], ["料", "リョウ", "fee"]] },
+      { "id": "free", "word": "無料", "reading": "むりょう", "gloss": "free (no charge)", "parts": [["無", "ム", "nothing"], ["料", "リョウ", "fee"]] },
+      { "id": "weight", "word": "重さ", "reading": "おもさ", "gloss": "weight", "parts": [["重", "おも", "heavy"]] },
+      { "id": "driver", "word": "運転手", "reading": "うんてんしゅ", "gloss": "driver", "parts": [["運", "ウン", "carry"], ["転", "テン", "turn, roll"], ["手", "シュ", "hand; person"]] },
+      { "id": "soldout", "word": "品切れ", "reading": "しなぎれ", "gloss": "sold out", "parts": [["品", "しな", "article, goods"], ["切", "ぎ", "cut"]] }
+    ],
+    "check": {
+      "id": "n4u02d4.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "_品物_は　あした　とどきます。",
+      "options": ["しなもの", "ひんもの", "しなぶつ", "ひんぶつ"],
+      "answer": 1,
+      "explain": "品物 is しなもの, both kanji read the Japanese way: 品 しな and 物 もの. ひんもの, しなぶつ and ひんぶつ are not words."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（中文）",
+    "en": "Mid-length passage",
+    "ask": "What did the writer do when the shop's email came?",
+    "seconds": 100,
+    "passage": "先週、インターネットで　自転車を　注文しました。今朝、店から　メールが　来ました。「品物は　今、トラックで　運んで　いる　ところです。午後　3時ごろ　着く　よていです。」　わたしは　^出かける　ところでした^が、^家で　待つ　ことに　しました^。自転車は　3時すぎに　着きました。今、こうえんまで　のって　行って、　帰った　ところです。あしたから、これで　会社へ　行きます。",
+    "strategy": "Look at the verb before each ところ: it tells you whether the action had not started, was going on, or had just ended.",
+    "item": {
+      "id": "n4u02d4.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（中文）",
+      "q": "「わたし」に　ついて　正しい　ものは　どれですか。",
+      "options": [
+        "メールが　来た　とき、自転車は　まだ　店に　あった。",
+        "出かけて、3時すぎに　家に　帰った。",
+        "出かけないで、家で　自転車を　待った。",
+        "今から　自転車で　こうえんへ　行く　ところだ。"
+      ],
+      "short": ["自転車はまだ店にあった", "出かけて3時すぎに帰った", "家で自転車を待った", "今からこうえんへ行く"],
+      "answer": 3,
+      "explain": "The writer was about to go out (出かける ところでした), but decided to wait at home (家で 待つ ことに しました).",
+      "why": [
+        "The email says the bike is on a truck now (運んで いる ところ), so it had already left the shop.",
+        "The writer was about to go out, but did not go: が turns it round and the writer waited at home.",
+        "",
+        "帰った ところ: the writer has just come back from the park, not about to go."
+      ]
+    }
+  }
+}

@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
 <script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
 <script src="./course.js"></script>
 </head>
 <body>
@@ -89,7 +90,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <a href="Main.dc.html" onClick="{{ toMain }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
 <a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
 <a href="Mock.dc.html" onClick="{{ toMock }}" aria-disabled="{{ mockOff }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: {{ mockInk }}; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ mockLabel }}</a>
-<a href="Readiness.dc.html" onClick="{{ toReadiness }}" aria-disabled="{{ mockOff }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: {{ mockInk }}; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>{{ readyLabel }}</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" aria-disabled="{{ readyOff }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: {{ readyInk }}; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>{{ readyLabel }}</a>
 </nav>
 
 </div>
@@ -190,13 +191,15 @@ openMenu: this.props.menu || nav('Goal'),
 levelLabel: lv,
 levelAria: 'Level ' + lv + ', change level',
 /* the mock exam and the readiness check exist for N2 only so far */
-mockOff: lv !== 'N2',
-mockInk: lv !== 'N2' ? '#B9BFD0' : '#5A6382',
-mockLabel: lv !== 'N2' ? '模試 準備中' : 'Mock exam',
+mockOff: false,
+mockInk: '#5A6382',
+readyOff: lv !== 'N2',
+readyInk: lv !== 'N2' ? '#B9BFD0' : '#5A6382',
+mockLabel: 'Mock exam',
 readyLabel: lv !== 'N2' ? '判定 準備中' : 'Readiness',
 toMain: nav('Main'),
 toNotebook: nav('Notebook'),
-toMock: lv !== 'N2' ? (e) => e.preventDefault() : nav('Mock'),
+toMock: nav('Mock'),
 toReadiness: lv !== 'N2' ? (e) => e.preventDefault() : nav('Readiness'),
 };
 }

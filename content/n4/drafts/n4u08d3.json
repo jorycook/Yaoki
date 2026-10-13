@@ -1,0 +1,465 @@
+{
+ "title": "使役形・〜に〜させる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u08d3.p1",
+    "form": "使役形（〜せる・〜させる）",
+    "gloss": "causative form: make or let do",
+    "connect": [
+     {
+      "pos": "Group 1 verb: change the last sound to the あ row, then add せる",
+      "rule": "書く→書か{せる}、[待|ま]つ→[待|ま]た{せる}、言う→言わ{せる}"
+     },
+     {
+      "pos": "Group 2 verb: drop る, then add させる",
+      "rule": "食べる→食べ{させる}、見る→見{させる}"
+     },
+     {
+      "pos": "Irregular verbs",
+      "rule": "する→{させる}、来る→[来|こ]{させる}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "先生は学生に日本の[歌|うた]を[歌|うた]わ{せました}。",
+      "en": "The teacher had the students sing a Japanese song."
+     },
+     {
+      "ja": "母はいつも[弟|おとうと]に[犬|いぬ]のさんぽを{させます}。",
+      "en": "My mother always has my younger brother walk the dog."
+     }
+    ],
+    "watch": {
+     "note": "Group 1 verbs take せる, not させる. Do not add an extra さ: 読む becomes 読ませる.",
+     "bad": "子どもに本を読まさせます。",
+     "good": "子どもに本を読ませます。"
+    }
+   },
+   {
+    "id": "n4u08d3.p2",
+    "form": "〜に〜させる・〜を〜させる",
+    "gloss": "make or let someone do",
+    "connect": [
+     {
+      "pos": "Action with an object (〜を): the person who does it takes に",
+      "rule": "〜に〜を食べ{させる}"
+     },
+     {
+      "pos": "Verb with no object (play, go, run): the person who does it takes を",
+      "rule": "〜をあそば{せる}、〜を[走|はし]ら{せる}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "毎日、子どもに[野菜|やさい]を食べ{させています}。",
+      "en": "I make my child eat vegetables every day."
+     },
+     {
+      "ja": "[日曜日|にちようび]は、子どもをこうえんであそば{せます}。",
+      "en": "On Sundays I let my child play in the park."
+     }
+    ],
+    "watch": {
+     "note": "When the action already has an object with を, the person who does it takes に. One verb cannot have two を like this.",
+     "bad": "母は子どもを野菜を食べさせました。",
+     "good": "母は子どもに野菜を食べさせました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three have two people and one action. What changes is who decides and who does the action.",
+   "forms": [
+    {
+     "form": "〜させる",
+     "tag": "させる · make or let someone do",
+     "mark": "dot",
+     "ja": "母は[弟|おとうと]に車を[洗|あら]わ{せました}。",
+     "en": "Mother made my brother wash the car. Mother decides, and he does it."
+    },
+    {
+     "form": "〜てもらう",
+     "tag": "たのんでしてもらう · get someone to do (a favour)",
+     "mark": "dot",
+     "ja": "わたしは[弟|おとうと]に車を[洗|あら]って{もらいました}。",
+     "en": "I got my brother to wash the car for me. I asked, and he did it as a favour."
+    },
+    {
+     "form": "〜られる（受身）",
+     "tag": "受身 · something is done to you",
+     "mark": "dot",
+     "ja": "[弟|おとうと]は母に{しかられました}。",
+     "en": "My brother was scolded by mother. Mother does it, and he receives it."
+    }
+   ],
+   "check": {
+    "id": "n4u08d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Make, ask, or receive?",
+    "q": "コーチは、^れんしゅうにおくれた^せんしゅを（　　）。",
+    "options": [
+     "[走|はし]ってもらいました",
+     "[走|はし]らせました",
+     "[走|はし]られました"
+    ],
+    "answer": 2,
+    "why": [
+     "てもらう is a favour you ask for, and the person takes に, not を. Running because you were late is not a favour to the coach.",
+     "The coach decides and the late player runs: 走らせました. 走る has no object, so the player takes を.",
+     "走られました is the passive: something done to the coach. It cannot take せんしゅを, and nothing was done to the coach."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u08d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "先生は^学生に^[漢字|かんじ]を五回（　　）。",
+    "options": [
+     "書きさせました",
+     "書かせました",
+     "書かさせました",
+     "書けさせました"
+    ],
+    "answer": 2,
+    "why": [
+     "書き is the ます stem. The causative changes く to か, then adds せる.",
+     "書く is Group 1: 書か + せる. The teacher made the students write the kanji five times.",
+     "書く is Group 1, so it takes せる. 書かさせる adds an extra さ.",
+     "書け is the stem of the potential form (書ける). It is not used to make the causative."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "店長は、いそがしい[日曜日|にちようび]だけ、^アルバイトの学生を^朝早く（　　）。",
+    "options": [
+     "きさせます",
+     "くさせます",
+     "こらせます",
+     "こさせます"
+    ],
+    "answer": 4,
+    "why": [
+     "来る changes its sound to こ before させる. き is the sound of the ます form (きます).",
+     "く is the sound of the dictionary form (くる). It does not take させる.",
+     "来る is irregular. It takes させる, not らせる.",
+     "来る becomes こさせる: the manager has the part-time students come early, only on busy Sundays."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "母は子ども（　　）^[野菜|やさい]を^たくさん食べさせました。",
+    "options": [
+     "に",
+     "を",
+     "が",
+     "で"
+    ],
+    "answer": 1,
+    "why": [
+     "食べる already has an object (野菜を), so the child who eats takes に.",
+     "野菜 already takes を. 子どもを and 野菜を cannot both go with 食べさせました.",
+     "母は is the one who makes the child eat. 子どもが would be a second subject for the same verb.",
+     "で marks a place or a means. It does not mark the person who does the action."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨がやんだので、^子どもたちを^外で（　　）。",
+    "options": [
+     "あそばれました",
+     "あそびさせました",
+     "あそばせました",
+     "あそんでもらいました"
+    ],
+    "answer": 3,
+    "why": [
+     "あそばれる is the passive. Nothing was done to the speaker here, and the passive does not take 子どもたちを.",
+     "あそぶ is Group 1, so ぶ changes to ば, then せる. あそびさせる is not a form.",
+     "あそぶ has no object, so the children take を: the rain stopped, so I let the children play outside.",
+     "てもらう needs the person with に, and the children playing is not a favour to the speaker."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "母は[弟|おとうと]にへやを",
+    "after": "行かせました。",
+    "tiles": [
+     "そうじ",
+     "させて",
+     "から",
+     "あそびに"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "へやを goes with one action. What does mother make him do first, and where does she let him go after?",
+    "full": "母は[弟|おとうと]にへやをそうじ{させて}からあそびに行かせました。",
+    "explain": "へやを そうじ comes first, then させて から (after making him do it). あそびに goes with 行かせました: mother made my brother clean his room, then let him go out to play."
+   },
+   {
+    "id": "n4u08d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "母は子どもを",
+    "after": "行きました。",
+    "tiles": [
+     "こうえんで",
+     "あそばせて",
+     "から",
+     "買い物に"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "子どもを goes with a verb that has no object. Which verb is it, and where does the child do it?",
+    "full": "母は子どもをこうえんで{あそばせて}から買い物に行きました。",
+    "explain": "子どもを goes with あそばせて (あそぶ has no object, so the child takes を). こうえんで comes before it, and 買い物に goes with 行きました: mother let the child play in the park, then went shopping."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u08d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "先生は　毎週　学生に　日本語で　スピーチを　（　　）。",
+    "options": [
+     "しさせます",
+     "すさせます",
+     "させます",
+     "しせます"
+    ],
+    "answer": 3,
+    "explain": "する is irregular: its causative is させる. The teacher has the students give a speech in Japanese every week. しさせます and すさせます add させ to a stem of する, and しせます is not a form."
+   },
+   {
+    "id": "n4u08d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "母は　弟（　　）　駅前の　店まで　パンを　買いに　行かせました。",
+    "options": [
+     "で",
+     "を",
+     "が",
+     "へ"
+    ],
+    "answer": 2,
+    "explain": "行く has no object, so the person who goes takes を: mother sent my brother to the shop in front of the station to buy bread. で marks a place or a means, 弟が would be a second subject next to 母は, and へ marks a direction, not the person who does the action."
+   },
+   {
+    "id": "n4u08d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "これは　先生が　",
+    "after": "です。",
+    "tiles": [
+     "学生",
+     "に",
+     "書かせた",
+     "作文"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     2,
+     0
+    ],
+    "full": "これは　先生が　学生　に　{書かせた}　作文です。",
+    "explain": "学生, に, 書かせた, 作文. 学生に is the person who writes, and 先生が 学生に 書かせた describes 作文: this is an essay the teacher had the students write."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "サッカークラブのきまり",
+  "en": "The rules sheet of a children's football club",
+  "intro": "A children's football club gives parents a sheet of rules. Tap each word on it.",
+  "words": [
+   {
+    "id": "gather",
+    "word": "集合",
+    "reading": "しゅうごう",
+    "gloss": "meeting up, gathering",
+    "parts": [
+     ["集", "シュウ", "gather"],
+     ["合", "ゴウ", "fit, join"]
+    ]
+   },
+   {
+    "id": "ground",
+    "word": "運動場",
+    "reading": "うんどうじょう",
+    "gloss": "sports ground",
+    "parts": [
+     ["運", "ウン", "carry"],
+     ["動", "ドウ", "move"],
+     ["場", "ジョウ", "place"]
+    ]
+   },
+   {
+    "id": "match",
+    "word": "試合",
+    "reading": "しあい",
+    "gloss": "match, game",
+    "parts": [
+     ["試", "シ", "try, test"],
+     ["合", "あい", "fit, meet"]
+    ]
+   },
+   {
+    "id": "bring",
+    "word": "持ち物",
+    "reading": "もちもの",
+    "gloss": "things to bring",
+    "parts": [
+     ["持", "も", "hold"],
+     ["物", "もの", "thing"]
+    ]
+   },
+   {
+    "id": "drink",
+    "word": "飲み物",
+    "reading": "のみもの",
+    "gloss": "drink",
+    "parts": [
+     ["飲", "の", "drink"],
+     ["物", "もの", "thing"]
+    ]
+   },
+   {
+    "id": "caution",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "gloss": "care, attention",
+    "parts": [
+     ["注", "チュウ", "pour, pay attention"],
+     ["意", "イ", "mind, meaning"]
+    ]
+   },
+   {
+    "id": "fee",
+    "word": "料金",
+    "reading": "りょうきん",
+    "gloss": "fee",
+    "parts": [
+     ["料", "リョウ", "fee, materials"],
+     ["金", "キン", "money, gold"]
+    ]
+   },
+   {
+    "id": "family",
+    "word": "家族",
+    "reading": "かぞく",
+    "gloss": "family",
+    "parts": [
+     ["家", "カ", "house"],
+     ["族", "ゾク", "family, tribe"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u08d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "子どもたちが　_運動場_で　サッカーを　して　います。",
+   "options": [
+    "うんとうじょう",
+    "うんどうば",
+    "うんどじょう",
+    "うんどうじょう"
+   ],
+   "answer": 4,
+   "explain": "運動場 is read うんどうじょう, a sports ground: the children are playing football on the sports ground. うんとうじょう has と instead of ど, うんどうば uses the wrong reading of 場 for this word, and うんどじょう drops the long う."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人は　子どもに　毎日　何を　させて　いますか。",
+  "audio": [
+   ["N", "女の人と男の人が話しています。女の人は、子どもに毎日何をさせていますか。", "おんなのひととおとこのひとがはなしています。おんなのひとは、こどもにまいにちなにをさせていますか。"],
+   ["M", "山田さんの子ども、サッカーが上手になりましたね。毎日れんしゅうさせているんですか。", "やまださんのこども、サッカーがじょうずになりましたね。まいにちれんしゅうさせているんですか。"],
+   ["F", "いいえ、クラブのれんしゅうは土曜日だけなんです。", "いいえ、クラブのれんしゅうはどようびだけなんです。"],
+   ["M", "そうですか。じゃあ、家では何かさせていますか。", "そうですか。じゃあ、いえではなにかさせていますか。"],
+   ["F", "ええ。毎朝、学校に行く前に、家の近くを三十分走らせています。", "ええ。まいあさ、がっこうにいくまえに、いえのちかくをさんじゅっぷんはしらせています。"],
+   ["M", "へえ、毎朝ですか。犬のさんぽもさせているんですか。", "へえ、まいあさですか。いぬのさんぽもさせているんですか。"],
+   ["F", "いいえ、さんぽは主人が行きます。", "いいえ、さんぽはしゅじんがいきます。"],
+   ["M", "野菜はどうですか。体にいいですから、たくさん食べさせたほうがいいですよ。", "やさいはどうですか。からだにいいですから、たくさんたべさせたほうがいいですよ。"],
+   ["F", "そうなんですが、野菜はきらいで……。むりに食べさせるのは、やめました。", "そうなんですが、やさいはきらいで……。むりにたべさせるのは、やめました。"],
+   ["N", "女の人は、子どもに毎日何をさせていますか。", "おんなのひとは、こどもにまいにちなにをさせていますか。"]
+  ],
+  "item": {
+   "id": "n4u08d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人は　子どもに　毎日　何を　させて　いますか。",
+   "script": [
+    "ナレーター：女の人と男の人が話しています。女の人は、子どもに毎日何をさせていますか。",
+    "男：山田さんの子ども、サッカーが上手になりましたね。毎日れんしゅうさせているんですか。",
+    "女：いいえ、クラブのれんしゅうは土曜日だけなんです。",
+    "男：そうですか。じゃあ、家では何かさせていますか。",
+    "女：ええ。毎朝、学校に行く前に、家の近くを三十分走らせています。",
+    "男：へえ、毎朝ですか。犬のさんぽもさせているんですか。",
+    "女：いいえ、さんぽは主人が行きます。",
+    "男：野菜はどうですか。体にいいですから、たくさん食べさせたほうがいいですよ。",
+    "女：そうなんですが、野菜はきらいで……。むりに食べさせるのは、やめました。",
+    "ナレーター：女の人は、子どもに毎日何をさせていますか。"
+   ],
+   "options": [
+    "サッカーの　れんしゅう",
+    "野菜を　食べる",
+    "家の　近くを　走る",
+    "犬の　さんぽ"
+   ],
+   "printed": true,
+   "short": [
+    "サッカー",
+    "野菜",
+    "家の近くを走る",
+    "犬のさんぽ"
+   ],
+   "answer": 3,
+   "why": [
+    "クラブのれんしゅうは土曜日だけ: football practice is only on Saturdays, not every day.",
+    "The woman says むりに食べさせるのは、やめました: she stopped making her child eat vegetables.",
+    "毎朝、学校に行く前に、家の近くを三十分走らせています: every morning she has her child run near the house.",
+    "さんぽは主人が行きます: her husband walks the dog, not the child."
+   ],
+   "explain": null
+  }
+ }
+}

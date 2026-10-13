@@ -1,0 +1,247 @@
+{
+ "title": "〜かもしれない・〜はずがない",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u07d4.p1",
+    "form": "〜かもしれない",
+    "gloss": "maybe, might",
+    "connect": [
+     {"pos": "Verb or い-adjective, plain form (also negative and past)", "rule": "ふる{かもしれません}、[寒|さむ]い{かもしれません}"},
+     {"pos": "Noun, with no だ", "rule": "〜{かもしれません}"},
+     {"pos": "な-adjective, with no だ", "rule": "しずか{かもしれません}"}
+    ],
+    "examples": [
+     {"ja": "午後から雨がふる{かもしれません}。かさを[持|も]っていきましょう。", "en": "It might rain this afternoon. Let's take an umbrella."},
+     {"ja": "あの人は[田中|たなか]さんのお[兄|にい]さん{かもしれません}。[顔|かお]がよくにています。", "en": "That man might be Tanaka's older brother. Their faces look very alike."}
+    ],
+    "watch": {
+     "note": "After a noun or a な-adjective, かもしれない comes straight after the word, with no だ. For the past, use だった: 雨だったかもしれません.",
+     "bad": "あしたは雨だかもしれません。",
+     "good": "あしたは雨かもしれません。"
+    }
+   },
+   {
+    "id": "n4u07d4.p2",
+    "form": "〜はずがない",
+    "gloss": "it can't be that …, there's no way",
+    "connect": [
+     {"pos": "Verb or い-adjective, plain form", "rule": "来る{はずがありません}、高い{はずがありません}"},
+     {"pos": "な-adjective, with な", "rule": "しずかな{はずがありません}"},
+     {"pos": "Noun, with の", "rule": "〜の{はずがありません}"}
+    ],
+    "examples": [
+     {"ja": "[兄|あに]は今アメリカにいますから、この[町|まち]にいる{はずがありません}。", "en": "My older brother is in America now, so he can't be in this town."},
+     {"ja": "[林|はやし]さんはやさいがきらいですから、サラダを[注文|ちゅうもん]した{はずがありません}。", "en": "Hayashi hates vegetables, so there's no way she ordered a salad."}
+    ],
+    "watch": {
+     "note": "A noun takes の before はず, and a な-adjective takes な. はずがない is stronger than ないはずだ: not just I expect not, but it can't be.",
+     "bad": "あの人が先生はずがありません。",
+     "good": "あの人が先生のはずがありません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "かもしれない leaves a guess open, はずだ is a confident guess (ないはずだ: confident that something is not so), and はずがない goes further: it cannot be.",
+   "forms": [
+    {"form": "〜かもしれない", "tag": "かのうせい · maybe", "mark": "dot", "ja": "この店は今日休み{かもしれません}。", "en": "This shop might be closed today."},
+    {"form": "〜はずだ", "tag": "きっと · should be (fairly sure)", "mark": "up", "ja": "この店は[日曜日|にちようび]も[開|あ]いている{はずです}。", "en": "This shop should be open on Sundays too."},
+    {"form": "〜はずがない", "tag": "ありえない · can't be", "mark": "down", "ja": "この店が休み{のはずがありません}。毎日[開|あ]いていますから。", "en": "This shop can't be closed. It is open every day."}
+   ],
+   "check": {
+    "id": "n4u07d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Sure, maybe, or impossible?",
+    "q": "このへやのかぎは^[私|わたし]しか[持|も]っていません^。ほかの人がへやに入った（　　）。",
+    "options": ["はずです", "かもしれません", "はずがありません"],
+    "answer": 3,
+    "why": [
+     "はずです says the speaker is sure someone did go in. Only the speaker has the key, so that does not follow.",
+     "かもしれません leaves it open. Only the speaker has the key, so no one else could go in.",
+     "Only the speaker has the key, so someone else going into the room is impossible: はずがありません."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u07d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[山田|やまだ]さんは今日、^ひま^（　　）。電話してみましょう。",
+    "options": ["ひまだかもしれません", "ひまなかもしれません", "ひまかもしれません", "ひまのかもしれません"],
+    "answer": 3,
+    "why": [
+     "かもしれない does not take だ. ひま is a な-adjective, so かもしれません comes straight after it.",
+     "かもしれない joins ひま with nothing between them. な does not go here.",
+     "ひま is a な-adjective, so かもしれません joins it directly: Yamada might be free today.",
+     "の does not come between ひま and かもしれません."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the meaning",
+    "q": "^空が[暗|くら]くなってきました^。雨が（　　）から、かさを[持|も]っていきましょう。",
+    "options": ["ふるはずがありません", "ふらないはずです", "ふらないかもしれません", "ふるかもしれません"],
+    "answer": 4,
+    "why": [
+     "The sky is getting dark, so rain is not impossible. And no rain is no reason to take an umbrella.",
+     "ふらないはずです says the speaker is fairly sure it won't rain. That is no reason to take an umbrella.",
+     "It might not rain is no reason to take an umbrella.",
+     "The sky is getting dark, so it might rain: a good reason to take an umbrella."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あの人は^高校生^ですよ。先生（　　）。",
+    "options": ["のはずがありません", "なはずがありません", "はずがありません", "だはずがありません"],
+    "answer": 1,
+    "why": [
+     "先生 is a noun, so の joins it to はず. He is a high school student, so he can't be a teacher.",
+     "な joins a な-adjective to はず. 先生 is a noun, so it takes の.",
+     "A noun does not join はず directly. It needs の.",
+     "だ does not come before はず. A noun takes の."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the meaning",
+    "q": "[林|はやし]さんは^来週までアメリカを[旅行|りょこう]しています^。あしたのパーティーには（　　）。",
+    "options": ["来るはずです", "来るはずがありません", "来るかもしれません", "来たはずです"],
+    "answer": 2,
+    "why": [
+     "はずです says the speaker is sure she will come, but she is away until next week.",
+     "She is in America until next week, so she can't come to the party tomorrow.",
+     "かもしれません leaves it open, but she is away until next week, so she can't come.",
+     "The party is tomorrow, so the past 来た does not fit. And she is away anyway."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "駅で見つかったかさは、",
+    "after": "。",
+    "tiles": ["[妹|いもうと]が", "なくした", "もの", "かもしれません"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "妹がなくした describes もの. A noun takes かもしれません with no だ.",
+    "full": "駅で見つかったかさは、[妹|いもうと]がなくしたもの{かもしれません}。",
+    "explain": "妹が and なくした describe もの: the thing my sister lost. もの is a noun, so かもしれません comes right after it, with no だ: the umbrella found at the station might be the one my sister lost."
+   },
+   {
+    "id": "n4u07d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[森|もり]さんはまじめな人ですから、",
+    "after": "ありません。",
+    "tiles": ["[大切|たいせつ]な", "やくそくを", "わすれる", "はずが"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "大切な describes a noun. The dictionary form comes before はずが.",
+    "full": "[森|もり]さんはまじめな人ですから、[大切|たいせつ]なやくそくをわすれる{はずが}ありません。",
+    "explain": "大切な describes やくそく, and やくそくを goes with わすれる. The dictionary form わすれる comes before はずが, then ありません: Mori is a serious person, so there's no way he would forget an important promise."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u07d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "となりの　へやから　何も　聞こえません。山田さんは　（　　）。",
+    "options": ["ねて　いる　はずが　ありません", "出かけた　かもしれません", "友だちと　話して　いる　かもしれません", "パーティーを　して　いる　はずです"],
+    "answer": 2,
+    "explain": "No sound comes from next door, so Yamada might have gone out: 出かけたかもしれません. A silent room fits sleeping, so ねているはずがありません does not follow. Talking with a friend or having a party would make noise, so those two do not fit."
+   },
+   {
+    "id": "n4u07d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "田中さんは　毎日　この　道を　通って　います。この　道を　知らない　（　　）。",
+    "options": ["かもしれません", "はずです", "ことが　できます", "はずが　ありません"],
+    "answer": 4,
+    "explain": "Tanaka uses this road every day, so there's no way he doesn't know it: 知らないはずがありません. 知らないかもしれません and 知らないはずです both guess that he doesn't know it, which goes against using it every day. 知らないことができます does not make sense."
+   },
+   {
+    "id": "n4u07d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "森さんは　肉が　きらいですから、あの　",
+    "after": "ありません。",
+    "tiles": ["ハンバーグを", "ぜんぶ", "食べた", "はずが"],
+    "star": 2,
+    "bank": [1, 3, 0, 2],
+    "full": "森さんは　肉が　きらいですから、あの　ハンバーグを　ぜんぶ　食べた　{はずが}　ありません。",
+    "explain": "ハンバーグを, ぜんぶ, 食べた, はずが. あの needs a noun, so ハンバーグを comes first. ぜんぶ comes before the verb, and the past 食べた comes before はずが: Mori hates meat, so there's no way she ate all of that hamburger."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅のおとし物のお知らせ",
+  "en": "A lost-property notice at the station",
+  "intro": "A notice by the station office lists things people have lost and how to get them back. Tap each word on it.",
+  "words": [
+   {"id": "office", "word": "駅員室", "reading": "えきいんしつ", "gloss": "station office", "parts": [["駅", "エキ", "station"], ["員", "イン", "member, staff"], ["室", "シツ", "room"]]},
+   {"id": "item", "word": "品物", "reading": "しなもの", "gloss": "item, goods", "parts": [["品", "しな", "goods"], ["物", "もの", "thing"]]},
+   {"id": "owner", "word": "持ち主", "reading": "もちぬし", "gloss": "owner", "parts": [["持", "も", "hold"], ["主", "ぬし", "master, owner"]]},
+   {"id": "place", "word": "場所", "reading": "ばしょ", "gloss": "place", "parts": [["場", "ば", "place"], ["所", "ショ", "place"]]},
+   {"id": "address", "word": "住所", "reading": "じゅうしょ", "gloss": "address", "parts": [["住", "ジュウ", "live"], ["所", "ショ", "place"]]},
+   {"id": "brown", "word": "茶色", "reading": "ちゃいろ", "gloss": "brown", "parts": [["茶", "チャ", "tea"], ["色", "いろ", "colour"]]},
+   {"id": "photo", "word": "写真", "reading": "しゃしん", "gloss": "photo", "parts": [["写", "シャ", "copy"], ["真", "シン", "true"]]},
+   {"id": "evening", "word": "夕方", "reading": "ゆうがた", "gloss": "early evening", "parts": [["夕", "ゆう", "evening"], ["方", "がた", "side, direction"]]}
+  ],
+  "check": {
+   "id": "n4u07d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　紙に　_住所_と　名前を　書いて　ください。",
+   "options": ["じゅしょ", "じゅうしょ", "じゅうじょ", "しゅうしょ"],
+   "answer": 2,
+   "explain": "住所 is read じゅうしょ, an address: please write your address and name on this paper. じゅしょ drops the long う, じゅうじょ has じょ instead of しょ, and しゅうしょ has しゅ instead of じゅ."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "Why is the writer sure the umbrella is not on the train, and where might it be?",
+  "seconds": 100,
+  "passage": "きのうの　夕方、かさを　なくしました。母に　もらった　青い　かさです。\nはじめは　電車の　中に　わすれたかもしれないと　思いました。でも、電車に　乗った　とき、雨が　ふって　いたので、^かさは　ずっと　手に　持って　いました^。電車の　中に　わすれた　はずが　ありません。\n駅を　出た　あと、本屋に　よりました。本屋の　入口で、かさを　かさ立てに　入れました。本屋を　出た　とき、雨は　もう　やんで　いました。かさは　まだ　そこに　あるかもしれません。今日、学校の　帰りに　本屋へ　行って　みる　つもりです。",
+  "strategy": "Find the sentence with はずがありません and read the sentence just before it for the reason.",
+  "item": {
+   "id": "n4u07d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "この　人は　どうして　電車の　中に　かさを　わすれた　はずが　ないと　思って　いますか。",
+   "options": ["電車の　中で　ずっと　かさを　手に　持って　いたから。", "電車に　乗った　とき、雨が　やんで　いたから。", "電車の　中は　こんで　いなかったから。", "母に　もらった　大切な　かさだから。"],
+   "short": ["ずっと手に持っていた", "雨がやんでいた", "こんでいなかった", "大切なかさ"],
+   "answer": 1,
+   "explain": "It was raining on the train, so the writer held the umbrella the whole time: かさは　ずっと　手に　持って　いました. So it can't have been left there.",
+   "why": [
+    "",
+    "It was raining when the writer got on the train. The rain had stopped later, when the writer left the bookshop.",
+    "The passage says nothing about how crowded the train was.",
+    "It was a present from the writer's mother, but that is not the reason it can't be on the train."
+   ]
+  }
+ }
+}

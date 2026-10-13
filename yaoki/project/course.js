@@ -235,7 +235,7 @@
      the screens: app (what to show), go (change screen), save (record progress), miss (a wrong answer). */
   C.now = function () { return window.__ykNow || Date.now(); };
   C.fresh = function () {
-    return { screen: 'Goal', started: false, level: null, plans: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null };
+    return { screen: 'Goal', started: false, level: null, plans: {}, mocks: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null };
   };
   /* the session a screen works on: the one picked on the week path, else the next one due */
   C.current = function (state, status) {
@@ -273,6 +273,8 @@
     var unitN = session ? session.unit : C.units().length ? C.units()[0].n : 1;
     /* this unit's sound, and that of the units the notebook will ask about */
     C.needSound(LEVEL, unitN);
+    /* the level's mini mock sound (unit 0) is small; fetch it with the first unit */
+    C.needSound(LEVEL, 0);
     (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
     return {
       status: status,
@@ -304,7 +306,10 @@
           var plans = Object.assign({}, st.plans || {});
           plans[was] = st.plan;
           var back = plans[lv] || null;
-          return { level: lv, plans: plans, plan: back, cur: null, tp: 0, screen: back ? 'Main' : 'Goal' };
+          /* each level has its own mini mock result too */
+          var mocks = Object.assign({}, st.mocks || {});
+          mocks[was] = st.mock || null;
+          return { level: lv, plans: plans, plan: back, mocks: mocks, mock: mocks[lv] || null, cur: null, tp: 0, screen: back ? 'Main' : 'Goal' };
         });
       },
       save: function (patch) {
@@ -317,6 +322,10 @@
             var plans = Object.assign({}, st.plans || {});
             plans[st.level || 'N2'] = st.plan;
             out.plans = plans;
+            var mocks = Object.assign({}, st.mocks || {});
+            mocks[st.level || 'N2'] = st.mock || null;
+            out.mocks = mocks;
+            if (!('mock' in patch)) out.mock = mocks[patch.level] || null;
             C.setLevel(patch.level);
           }
           var sid = patch.prog ? C.current(st, C.status(st, C.now())) : null;

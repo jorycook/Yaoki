@@ -1,0 +1,554 @@
+{
+ "title": "〜ので・〜のに",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u06d1.p1",
+    "form": "〜ので",
+    "gloss": "because, so (soft and polite)",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "[止|と]まった{ので}、いたい{ので}"
+     },
+     {
+      "pos": "Noun or な-adjective: だ becomes な",
+      "rule": "〜{なので}、ひま{なので}"
+     },
+     {
+      "pos": "Polite form, for very polite speech",
+      "rule": "おくれます{ので}、休みです{ので}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "電車が[止|と]まった{ので}、少しおくれます。",
+      "en": "The train stopped, so I will be a little late."
+     },
+     {
+      "ja": "今日はかぜ{なので}、学校を休みます。",
+      "en": "I have a cold today, so I am staying home from school."
+     }
+    ],
+    "watch": {
+     "note": "After a noun or a な-adjective, だ changes to な before ので. ので does not join a noun directly.",
+     "bad": "今日は雨ので、うちにいます。",
+     "good": "今日は雨なので、うちにいます。"
+    }
+   },
+   {
+    "id": "n4u06d1.p2",
+    "form": "〜のに",
+    "gloss": "although, even though (surprise or regret)",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "[勉強|べんきょう]した{のに}、[寒|さむ]い{のに}"
+     },
+     {
+      "pos": "Noun or な-adjective: だ becomes な",
+      "rule": "〜{なのに}、ひま{なのに}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[早|はや]く[家|いえ]を出た{のに}、[間|ま]に[合|あ]いませんでした。",
+      "en": "I left home early, but I still did not make it in time."
+     },
+     {
+      "ja": "[日曜日|にちようび]{なのに}、[仕事|しごと]に行かなければなりません。",
+      "en": "Even though it is Sunday, I have to go to work."
+     }
+    ],
+    "watch": {
+     "note": "What comes after のに is a fact that is not what you expected. It cannot be a request, an invitation or your own plan.",
+     "bad": "雨なのに、出かけましょう。",
+     "good": "雨ですが、出かけましょう。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "ので and から both give a reason; のに joins two things that do not match.",
+   "forms": [
+    {
+     "form": "〜ので",
+     "tag": "りゆう・ていねい · because (soft, polite)",
+     "mark": "dot",
+     "ja": "[頭|あたま]がいたい{ので}、[早|はや]く[帰|かえ]ってもいいですか。",
+     "en": "I have a headache, so may I go home early?"
+    },
+    {
+     "form": "〜のに",
+     "tag": "いがい · even though (not as expected)",
+     "mark": "down",
+     "ja": "[薬|くすり]を飲んだ{のに}、まだねつが下がりません。",
+     "en": "I took medicine, but my fever still has not gone down."
+    },
+    {
+     "form": "〜から",
+     "tag": "りゆう · because (direct)",
+     "mark": "dot",
+     "ja": "時間がない{から}、タクシーで行こう。",
+     "en": "There is no time, so let's take a taxi."
+    }
+   ],
+   "check": {
+    "id": "n4u06d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which form?",
+    "q": "あしたは[試験|しけん]（　　）、今日は[早|はや]くねます。",
+    "options": [
+     "ので",
+     "なので",
+     "のに"
+    ],
+    "answer": 2,
+    "why": [
+     "試験 is a noun, and ので does not join a noun directly. It needs な first.",
+     "After a noun, だ becomes な: 試験なので. The test tomorrow is the reason for going to bed early.",
+     "A test is a reason to sleep early, not something that goes against it. Also, after a noun it would be なのに."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u06d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "電車が^[止|と]まっていた^（　　）、会社に少しおくれました。",
+    "options": [
+     "ので",
+     "なので",
+     "のに",
+     "ても"
+    ],
+    "answer": 1,
+    "why": [
+     "止まっていた is a verb in the plain form, so ので joins it directly. The stopped train is the reason for being late.",
+     "な comes before ので only after a noun or a な-adjective. 止まっていた is a verb.",
+     "A stopped train is a reason to be late, not a surprise against it.",
+     "ても joins the te-form (止まっていても). 止まっていたても is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^あしたは休み^（　　）、ゆっくりねようと思います。",
+    "options": [
+     "ので",
+     "なのに",
+     "だので",
+     "なので"
+    ],
+    "answer": 4,
+    "why": [
+     "休み is a noun, and ので does not join a noun directly. It needs な first.",
+     "A day off is a reason to sleep late, not something that goes against it. And a plan like ねよう cannot follow のに.",
+     "だ changes to な before ので. だので is not used.",
+     "After a noun, だ becomes な: 休みなので. Tomorrow is a day off, so I will sleep in."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "毎日^[勉強|べんきょう]した^（　　）、[試験|しけん]はあまりできませんでした。",
+    "options": [
+     "ので",
+     "から",
+     "のに",
+     "なのに"
+    ],
+    "answer": 3,
+    "why": [
+     "Studying every day is not a reason for doing badly in a test.",
+     "Same as ので: studying every day is not a reason for doing badly.",
+     "I studied every day, but the result was not what I expected: のに joins the plain form 勉強した.",
+     "な comes before のに only after a noun or a な-adjective. 勉強した is a verb."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このレストランは^いつもにぎやか^（　　）、今日はだれもいません。",
+    "options": [
+     "なので",
+     "なのに",
+     "のに",
+     "ので"
+    ],
+    "answer": 2,
+    "why": [
+     "Being busy is not a reason for nobody being there today.",
+     "にぎやか is a な-adjective, so it takes な: it is usually busy, but today there is nobody, which is a surprise.",
+     "にぎやか is a な-adjective, so のに needs な before it.",
+     "ので also needs な after a な-adjective, and being busy is not a reason for nobody being there."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません、今日は",
+    "after": "休んでもいいですか。",
+    "tiles": [
+     "[頭|あたま]が",
+     "いたい",
+     "ので",
+     "[仕事|しごと]を"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "ので follows the plain form of the adjective. What do you want a day off from?",
+    "full": "すみません、今日は[頭|あたま]がいたい{ので}[仕事|しごと]を休んでもいいですか。",
+    "explain": "頭が goes with いたい, and ので joins いたい to give the reason. 仕事を goes with 休んでも: I have a headache today, so may I take the day off work?"
+   },
+   {
+    "id": "n4u06d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[日曜日|にちようび]",
+    "after": "[働|はたら]かなければなりません。",
+    "tiles": [
+     "なのに",
+     "朝",
+     "[早|はや]く",
+     "から"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "日曜日 is a noun, so it takes な before のに. When does the work start?",
+    "full": "[日曜日|にちようび]{なのに}朝[早|はや]くから[働|はたら]かなければなりません。",
+    "explain": "日曜日 is a noun, so なのに comes right after it. 朝早くから (from early in the morning) comes before the verb: even though it is Sunday, I have to work from early in the morning."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u06d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あしたは　大事な　試験が　ある（　　）、今日は　早く　ねます。",
+    "options": [
+     "のに",
+     "ので",
+     "なので",
+     "ても"
+    ],
+    "answer": 2,
+    "explain": "ある is a verb in the plain form, so ので joins it directly: I have an important test tomorrow, so I will go to bed early today. のに would mean the test goes against sleeping early, which it does not. なので is only for nouns and な-adjectives. ても needs the te-form (あっても), so あるても is not a form."
+   },
+   {
+    "id": "n4u06d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この　薬は　高かった（　　）、ぜんぜん　ききませんでした。",
+    "options": [
+     "ので",
+     "から",
+     "なのに",
+     "のに"
+    ],
+    "answer": 4,
+    "explain": "The medicine was expensive, but it did not work at all: not what you would expect, so のに. ので and から would make the high price the reason it did not work. なのに is only for nouns and な-adjectives, not 高かった."
+   },
+   {
+    "id": "n4u06d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません。",
+    "after": "少し　おくれます。",
+    "tiles": [
+     "電車が",
+     "止まって",
+     "いる",
+     "ので"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "full": "すみません。電車が　止まって　いる　{ので}　少し　おくれます。",
+    "explain": "電車が, 止まって, いる, ので. 止まっている (has stopped) takes 電車が as its subject, and ので comes after the plain form いる to give the reason: the train has stopped, so I will be a little late."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "アルバイト先への休みのれんらく",
+  "en": "A message saying you can't come in",
+  "intro": "A message to a part-time job says why someone will be late or away today. Tap each word on it.",
+  "words": [
+   {
+    "id": "illness",
+    "word": "病気",
+    "reading": "びょうき",
+    "gloss": "illness, sick",
+    "parts": [
+     [
+      "病",
+      "ビョウ",
+      "ill"
+     ],
+     [
+      "気",
+      "キ",
+      "spirit"
+     ]
+    ]
+   },
+   {
+    "id": "hospital",
+    "word": "病院",
+    "reading": "びょういん",
+    "gloss": "hospital, clinic",
+    "parts": [
+     [
+      "病",
+      "ビョウ",
+      "ill"
+     ],
+     [
+      "院",
+      "イン",
+      "institution"
+     ]
+    ]
+   },
+   {
+    "id": "head",
+    "word": "頭",
+    "reading": "あたま",
+    "gloss": "head",
+    "parts": [
+     [
+      "頭",
+      "あたま",
+      "head"
+     ]
+    ]
+   },
+   {
+    "id": "medicine",
+    "word": "薬",
+    "reading": "くすり",
+    "gloss": "medicine",
+    "parts": [
+     [
+      "薬",
+      "くすり",
+      "medicine"
+     ]
+    ]
+   },
+   {
+    "id": "getup",
+    "word": "起きる",
+    "reading": "おきる",
+    "gloss": "get up, wake up",
+    "parts": [
+     [
+      "起",
+      "お",
+      "get up"
+     ]
+    ]
+   },
+   {
+    "id": "stop",
+    "word": "止まる",
+    "reading": "とまる",
+    "gloss": "stop (a train, a bus)",
+    "parts": [
+     [
+      "止",
+      "と",
+      "stop"
+     ]
+    ]
+   },
+   {
+    "id": "urgent",
+    "word": "急用",
+    "reading": "きゅうよう",
+    "gloss": "urgent business",
+    "parts": [
+     [
+      "急",
+      "キュウ",
+      "hurry"
+     ],
+     [
+      "用",
+      "ヨウ",
+      "business, use"
+     ]
+    ]
+   },
+   {
+    "id": "work",
+    "word": "仕事",
+    "reading": "しごと",
+    "gloss": "work, job",
+    "parts": [
+     [
+      "仕",
+      "シ",
+      "serve"
+     ],
+     [
+      "事",
+      "ごと",
+      "thing, matter"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u06d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "きのうは　_急用_で　アルバイトを　休みました。",
+   "options": [
+    "きゅうよう",
+    "きゅよう",
+    "きょうよう",
+    "きゅうよ"
+   ],
+   "answer": 1,
+   "explain": "急用 is read きゅうよう, urgent business: I missed my part-time job yesterday because something urgent came up. きゅよう drops the long う in きゅう, きょうよう has きょ instead of きゅ, and きゅうよ drops the long う in よう."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "男の人は　この　あと、まず　何を　しますか。",
+  "audio": [
+   [
+    "N",
+    "男の人が店長に電話をしています。男の人はこのあと、まず何をしますか。",
+    "おとこのひとがてんちょうにでんわをしています。おとこのひとはこのあと、まずなにをしますか。"
+   ],
+   [
+    "M",
+    "もしもし、店長ですか。田中です。すみません、電車が止まっているので、少しおくれます。",
+    "もしもし、てんちょうですか。たなかです。すみません、でんしゃがとまっているので、すこしおくれます。"
+   ],
+   [
+    "F",
+    "え、そうですか。今、どこですか。",
+    "え、そうですか。いま、どこですか。"
+   ],
+   [
+    "M",
+    "駅です。早く家を出たのに、すみません。タクシーで行きましょうか。",
+    "えきです。はやくいえをでたのに、すみません。タクシーでいきましょうか。"
+   ],
+   [
+    "F",
+    "いえ、朝は道がこんでいるので、タクシーは時間がかかりますよ。駅の前から店の近くまで行くバスがありますから、それに乗ってください。",
+    "いえ、あさはみちがこんでいるので、タクシーはじかんがかかりますよ。えきのまえからみせのちかくまでいくバスがありますから、それにのってください。"
+   ],
+   [
+    "M",
+    "わかりました。",
+    null
+   ],
+   [
+    "F",
+    "あ、でも、バスに乗る前に、山田さんに電話してくれませんか。山田さんは今日休みなんですが、来られるかどうか聞いてほしいんです。",
+    "あ、でも、バスにのるまえに、やまださんにでんわしてくれませんか。やまださんはきょうやすみなんですが、こられるかどうかきいてほしいんです。"
+   ],
+   [
+    "M",
+    "はい、すぐ電話します。",
+    "はい、すぐでんわします。"
+   ],
+   [
+    "F",
+    "おねがいします。山田さんと話したら、わたしにもう一度れんらくしてください。",
+    "おねがいします。やまださんとはなしたら、わたしにもういちどれんらくしてください。"
+   ],
+   [
+    "M",
+    "わかりました。",
+    null
+   ],
+   [
+    "N",
+    "男の人はこのあと、まず何をしますか。",
+    "おとこのひとはこのあと、まずなにをしますか。"
+   ]
+  ],
+  "item": {
+   "id": "n4u06d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "男の人は　この　あと、まず　何を　しますか。",
+   "script": [
+    "ナレーター：男の人が店長に電話をしています。男の人はこのあと、まず何をしますか。",
+    "男：もしもし、店長ですか。田中です。すみません、電車が止まっているので、少しおくれます。",
+    "女：え、そうですか。今、どこですか。",
+    "男：駅です。早く家を出たのに、すみません。タクシーで行きましょうか。",
+    "女：いえ、朝は道がこんでいるので、タクシーは時間がかかりますよ。駅の前から店の近くまで行くバスがありますから、それに乗ってください。",
+    "男：わかりました。",
+    "女：あ、でも、バスに乗る前に、山田さんに電話してくれませんか。山田さんは今日休みなんですが、来られるかどうか聞いてほしいんです。",
+    "男：はい、すぐ電話します。",
+    "女：おねがいします。山田さんと話したら、わたしにもう一度れんらくしてください。",
+    "男：わかりました。",
+    "ナレーター：男の人はこのあと、まず何をしますか。"
+   ],
+   "options": [
+    "タクシーに　乗る",
+    "バスに　乗る",
+    "山田さんに　電話する",
+    "店長に　電話する"
+   ],
+   "printed": true,
+   "short": [
+    "タクシーに乗る",
+    "バスに乗る",
+    "山田さんに電話",
+    "店長に電話"
+   ],
+   "answer": 3,
+   "why": [
+    "The manager says the roads are busy in the morning, so a taxi would take longer. He does not take one.",
+    "He takes the bus, but the manager says バスに乗る前に: something comes before it.",
+    "The manager asks him to call 山田さん before getting on the bus, and he says すぐ電話します.",
+    "He calls the manager again only after talking to 山田さん (山田さんと話したら)."
+   ],
+   "explain": null
+  }
+ }
+}

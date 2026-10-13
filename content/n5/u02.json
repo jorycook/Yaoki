@@ -125,18 +125,19 @@
             "label": "Choose the form",
             "q": "A「すみません。[駅|えき]は（　　）ですか。」\nB「^あそこです^。」",
             "options": [
-              "どこ",
-              "なん",
               "だれ",
-              "いつ"
+              "いつ",
+              "どこ",
+              "なん"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "B answers with a place, あそこ, so A asked where the station is.",
-              "なん asks what something is. B's answer is a place.",
               "だれ asks who. A station is not a person.",
-              "いつ asks when. B's answer is a place, not a time."
-            ]
+              "いつ asks when. B's answer is a place, not a time.",
+              "B answers with a place, あそこ, so A asked where the station is.",
+              "なん asks what something is. B's answer is a place."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d1.d2",
@@ -145,18 +146,19 @@
             "label": "Choose the form",
             "q": "A「すみません、[学校|がっこう]は（　　）ですか。」\nB「^あの[白|しろ]いたてもの^です。」",
             "options": [
-              "ここ",
               "そこ",
               "あそこ",
-              "どこ"
+              "どこ",
+              "ここ"
             ],
-            "answer": 4,
+            "answer": 3,
             "why": [
-              "ここ would say the school is right here, but A does not know where it is and asks.",
               "そこ would say the school is near B. A is asking, and B answers with a place.",
               "あそこ is how B answers (あの白いたてもの). A does not know yet, so A cannot say it.",
-              "A does not know where the school is, so A asks with どこ, and B answers with あの白いたてもの."
-            ]
+              "A does not know where the school is, so A asks with どこ, and B answers with あの白いたてもの.",
+              "ここ would say the school is right here, but A does not know where it is and asks."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d1.d3",
@@ -165,18 +167,19 @@
             "label": "Choose the form",
             "q": "[店|みせ]の[人|ひと]「エレベーターは（　　）です。^どうぞ^。」",
             "options": [
+              "だれ",
               "あちら",
               "あの",
-              "どちら",
-              "だれ"
+              "どちら"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "だれ asks who. An elevator is not a person, and this is not a question.",
               "Shop staff speak politely, and あちら is the polite way to say あそこ, over there.",
               "あの needs a noun right after it, as in あのドア. Here です follows.",
-              "どちら asks where. The sentence ends in です, not ですか: she is telling, not asking.",
-              "だれ asks who. An elevator is not a person, and this is not a question."
-            ]
+              "どちら asks where. The sentence ends in です, not ですか: she is telling, not asking."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d1.d4",
@@ -185,18 +188,19 @@
             "label": "Choose the form",
             "q": "A「^お[国|くに]^は（　　）ですか。」\nB「ブラジルです。」",
             "options": [
-              "どれ",
-              "だれ",
               "いつ",
-              "どちら"
+              "どちら",
+              "どれ",
+              "だれ"
             ],
-            "answer": 4,
+            "answer": 2,
             "why": [
-              "どれ asks which one of several things you can see or point at. A country is not in front of you.",
-              "だれ asks who. A country is not a person.",
               "いつ asks when. Brazil is not a time.",
-              "どちら is the polite way to ask where. お国はどちらですか is how you politely ask someone's country."
-            ]
+              "どちら is the polite way to ask where. お国はどちらですか is how you politely ask someone's country.",
+              "どれ asks which one of several things you can see or point at. A country is not in front of you.",
+              "だれ asks who. A country is not a person."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d1.d5",
@@ -255,12 +259,12 @@
             "label": "Choose the form",
             "q": "A「すみません。トイレは　どこですか。」\nB「（　　）です。あの　白い　ドアです。」",
             "options": [
-              "これ",
               "どれ",
               "あの",
-              "あそこ"
+              "あそこ",
+              "これ"
             ],
-            "answer": 4,
+            "answer": 3,
             "explain": "A asks where, and B points at あの白いドア, far from both of them, so あそこ. これ points at a thing near the speaker, どれ asks a question, and あの needs a noun right after it."
           },
           {
@@ -270,12 +274,12 @@
             "label": "Choose the form",
             "q": "A「山川さんの　会社は　（　　）ですか。」\nB「駅の　前です。」",
             "options": [
+              "いくら",
               "だれ",
               "どちら",
-              "いつ",
-              "いくら"
+              "いつ"
             ],
-            "answer": 2,
+            "answer": 3,
             "explain": "B answers with a place, 駅の前, so A asked where, politely: どちら. だれ asks who, いつ asks when, and いくら asks how much."
           },
           {
@@ -502,25 +506,26 @@
             "ナレーター：男の人は、はじめに、どこへ行きますか。"
           ],
           "options": [
-            "先生の　へや",
             "しょくどう",
             "うけつけ",
-            "きょうしつ"
+            "きょうしつ",
+            "先生の　へや"
           ],
           "printed": true,
           "short": [
-            "先生の へや",
             "しょくどう",
             "うけつけ",
-            "きょうしつ"
+            "きょうしつ",
+            "先生の へや"
           ],
-          "answer": 3,
+          "answer": 2,
           "why": [
-            "The man asks about the teacher's room, but the teacher is not there now. He is in the cafeteria.",
             "The teacher is in the cafeteria, but the woman says そのまえに: before that, write your name at the reception desk.",
             "そのまえに means \"before that\". He writes his name at the reception desk first, and checks with うけつけは、こちらですね.",
-            "Nobody talks about a classroom."
-          ]
+            "Nobody talks about a classroom.",
+            "The man asks about the teacher's room, but the teacher is not there now. He is in the cafeteria."
+          ],
+          "explain": null
         }
       }
     },
@@ -649,18 +654,19 @@
             "label": "Choose the form",
             "q": "A：^[水|みず]^がありますか。B：はい、（　　）。",
             "options": [
-              "あります",
               "います",
               "です",
-              "ありません"
+              "ありません",
+              "あります"
             ],
-            "answer": 1,
+            "answer": 4,
             "why": [
-              "Water is a thing, so it takes あります. The yes answer repeats the verb: はい、あります.",
               "います is for people and animals. Water is a thing.",
               "はい、です is not an answer. The answer repeats the verb of the question.",
-              "ありません means \"there isn't\". It clashes with はい."
-            ]
+              "ありません means \"there isn't\". It clashes with はい.",
+              "Water is a thing, so it takes あります. The yes answer repeats the verb: はい、あります."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d2.d2",
@@ -689,18 +695,19 @@
             "label": "Choose the form",
             "q": "A：^ペン^がありますか。B：いいえ、（　　）。",
             "options": [
-              "ありません",
-              "いません",
               "じゃありません",
-              "あります"
+              "あります",
+              "ありません",
+              "いません"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "A pen is a thing, so the no answer is ありません.",
-              "いません is for people and animals. A pen is a thing.",
               "じゃありません means \"it is not\" and needs a noun before it. Here B says the pen is not there.",
-              "あります means \"there is\". It clashes with いいえ."
-            ]
+              "あります means \"there is\". It clashes with いいえ.",
+              "A pen is a thing, so the no answer is ありません.",
+              "いません is for people and animals. A pen is a thing."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d2.d4",
@@ -709,18 +716,19 @@
             "label": "Choose the form",
             "q": "A：[川|かわ]に^[魚|さかな]^がいますか。B：いいえ、（　　）。",
             "options": [
-              "いません",
-              "ありません",
               "じゃありません",
-              "います"
+              "います",
+              "いません",
+              "ありません"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "Fish are animals, so the no answer is いません.",
-              "ありません is for things and plants. Fish are animals.",
               "じゃありません means \"it is not\" and needs a noun before it. Here B says there are no fish.",
-              "います means \"there is\". It clashes with いいえ."
-            ]
+              "います means \"there is\". It clashes with いいえ.",
+              "Fish are animals, so the no answer is いません.",
+              "ありません is for things and plants. Fish are animals."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d2.d5",
@@ -779,12 +787,12 @@
             "label": "Choose the form",
             "q": "あそこに　大きい　木が（　　）。",
             "options": [
+              "でした",
               "あります",
               "います",
-              "です",
-              "でした"
+              "です"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "A tree is a plant, so it takes あります. います is for people and animals. です and でした say what something is, and cannot follow が here."
           },
           {
@@ -954,12 +962,12 @@
           "label": "How the exam asks it",
           "q": "こうえんに　きれいな　_花_が　たくさん　あります。",
           "options": [
-            "はな",
-            "くさ",
             "き",
-            "そら"
+            "そら",
+            "はな",
+            "くさ"
           ],
-          "answer": 1,
+          "answer": 3,
           "explain": "花 is read はな, \"flower\". くさ means grass, a different word, き (tree) is 木, and そら (sky) is 空."
         }
       },
@@ -1104,16 +1112,17 @@
             "label": "スーパーで",
             "q": "すみません、[二|に]かいに[何|なに]（　　）ありますか。",
             "options": [
+              "に",
               "が",
-              "は",
-              "に"
+              "は"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "に already marks the place (二かい). 何 is the thing, not a place.",
               "The place comes first with に, and the thing you ask about takes が: 何がありますか.",
-              "A question word like 何 never takes は.",
-              "に already marks the place (二かい). 何 is the thing, not a place."
-            ]
+              "A question word like 何 never takes は."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -1144,18 +1153,19 @@
             "label": "Choose the form",
             "q": "[本|ほん]やは^[二|に]かい^（　　）あります。",
             "options": [
+              "へ",
               "に",
               "を",
-              "が",
-              "へ"
+              "が"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "へ marks where you go. あります does not take へ.",
               "二かい is where the bookshop is, and the place before あります takes に.",
               "を marks what you do something to. あります does not take を.",
-              "The bookshop already has は. 二かいが would make the second floor the thing that exists.",
-              "へ marks where you go. あります does not take へ."
-            ]
+              "The bookshop already has は. 二かいが would make the second floor the thing that exists."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d3.d3",
@@ -1164,18 +1174,19 @@
             "label": "Choose the form",
             "q": "A：お[父|とう]さんは（　　）いますか。　B：^[入口|いりぐち]にいます^。",
             "options": [
+              "だれが",
               "どこに",
               "どこが",
-              "どこを",
-              "だれが"
+              "どこを"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "A already named the person (お父さんは). B answers with a place, not a person.",
               "B answers with a place (入口に), so A asked where: どこにいますか.",
               "どこ is a place, so it takes に here, not が.",
-              "いる does not take を.",
-              "A already named the person (お父さんは). B answers with a place, not a person."
-            ]
+              "いる does not take を."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d3.d4",
@@ -1254,12 +1265,12 @@
             "label": "Choose the form",
             "q": "A：きょうしつに　だれが　いますか。　B：先生（　　）　います。",
             "options": [
+              "で",
               "が",
               "を",
-              "に",
-              "で"
+              "に"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "A asks だれがいますか, so B names the new person with が. いる does not take を, に would make 先生 a place, and で marks where you do something."
           },
           {
@@ -1269,12 +1280,12 @@
             "label": "Choose the form",
             "q": "母は　いま　二かい（　　）。",
             "options": [
-              "に　あります",
-              "に　います",
               "が　います",
-              "で　います"
+              "で　います",
+              "に　あります",
+              "に　います"
             ],
-            "answer": 2,
+            "answer": 4,
             "explain": "母 is a person, so います, and the place where she is takes に. あります is for things, 二かいが would make the floor the one who is there, and で is for where you do something."
           },
           {
@@ -1434,12 +1445,12 @@
           "label": "How the exam asks it",
           "q": "店の　_入口_に　花が　あります。",
           "options": [
-            "いりくち",
             "いりぐち",
             "にゅうぐち",
-            "いれくち"
+            "いれくち",
+            "いりくち"
           ],
-          "answer": 2,
+          "answer": 1,
           "explain": "入口 is read いりぐち, \"entrance\": 入 is いり and 口 becomes ぐち, as in 出口 (でぐち). いりくち misses the change to ぐ, and にゅうぐち and いれくち are not words."
         }
       },
@@ -1617,16 +1628,17 @@
             "label": "はこの中",
             "q": "A：はこの[中|なか]に[何|なに]がありますか。　B：ペン（　　）けしゴムです。^それだけです^。",
             "options": [
+              "と",
               "の",
-              "や",
-              "と"
+              "や"
             ],
-            "answer": 3,
+            "answer": 1,
             "why": [
+              "B names everything in the box, so と: a pen and an eraser, nothing else.",
               "ペンのけしゴム would be \"the pen's eraser\". B is listing two things.",
-              "や hints that there are other things too, but B says それだけです: that is all.",
-              "B names everything in the box, so と: a pen and an eraser, nothing else."
-            ]
+              "や hints that there are other things too, but B says それだけです: that is all."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -1637,18 +1649,19 @@
             "label": "Choose the form",
             "q": "つくえ（　　）^[上|うえ]^に[本|ほん]があります。",
             "options": [
-              "の",
-              "に",
               "と",
-              "が"
+              "が",
+              "の",
+              "に"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "The thing, then の, then the position word: つくえの上, on the desk.",
-              "に comes after the position word (上に), not between つくえ and 上.",
               "つくえと上 would mean \"the desk and the top\", two separate things.",
-              "が marks what is there. Here 本が already does that."
-            ]
+              "が marks what is there. Here 本が already does that.",
+              "The thing, then の, then the position word: つくえの上, on the desk.",
+              "に comes after the position word (上に), not between つくえ and 上."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d4.d2",
@@ -1657,18 +1670,19 @@
             "label": "Choose the word",
             "q": "わたしは^[山川|やまかわ]さんの[右|みぎ]^にいます。[山川|やまかわ]さんはわたしの（　　）にいます。",
             "options": [
-              "[右|みぎ]",
-              "[左|ひだり]",
               "[前|まえ]",
-              "[上|うえ]"
+              "[上|うえ]",
+              "[右|みぎ]",
+              "[左|ひだり]"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "Two people side by side cannot both be on the other's right.",
-              "If I am on Ms. Yamakawa's right, she is on my left.",
               "We are side by side, so she is not in front of me.",
-              "A person standing next to me is not above me."
-            ]
+              "A person standing next to me is not above me.",
+              "Two people side by side cannot both be on the other's right.",
+              "If I am on Ms. Yamakawa's right, she is on my left."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d4.d3",
@@ -1697,18 +1711,19 @@
             "label": "Choose the form",
             "q": "[店|みせ]には^いろいろなもの^があります。パン（　　）ぎゅうにゅうなどです。",
             "options": [
+              "を",
               "の",
               "や",
-              "で",
-              "を"
+              "で"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "を needs a verb that acts on something. です does not take を.",
               "パンのぎゅうにゅう would be \"bread's milk\", which makes no sense.",
               "The shop has many things, so や gives two examples and など says there are more.",
-              "で does not join two nouns in a list.",
-              "を needs a verb that acts on something. です does not take を."
-            ]
+              "で does not join two nouns in a list."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d4.d5",
@@ -1767,12 +1782,12 @@
             "label": "Choose the form",
             "q": "ぎんこうは　えきの　前（　　）あります。",
             "options": [
-              "を",
               "で",
               "に",
-              "が"
+              "が",
+              "を"
             ],
-            "answer": 3,
+            "answer": 2,
             "explain": "The place where something is takes に: えきの前に あります. を needs an action verb, で marks where an action happens, and ぎんこうは already says what is there, so が does not fit."
           },
           {
@@ -1782,12 +1797,12 @@
             "label": "Choose the form",
             "q": "テーブルの　上に　りんご（　　）バナナなどが　あります。",
             "options": [
+              "へ",
               "の",
               "や",
-              "を",
-              "へ"
+              "を"
             ],
-            "answer": 2,
+            "answer": 3,
             "explain": "や joins two nouns, and など says there is more: apples, bananas and so on. りんごのバナナ makes no sense, を needs an action verb, and へ shows a direction."
           },
           {
@@ -1932,12 +1947,12 @@
           "label": "How the exam asks it",
           "q": "まどの　_外_に　大きい　木が　あります。",
           "options": [
-            "なか",
             "そと",
             "うち",
-            "しろ"
+            "しろ",
+            "なか"
           ],
-          "answer": 2,
+          "answer": 1,
           "explain": "外 is そと, outside. なか is 中 (inside), うち means inside or home and is not read from 外 here, and しろ means white."
         }
       },
@@ -1955,24 +1970,24 @@
           "type": "読解・内容理解（短文）",
           "q": "かぎは　どこに　ありますか。",
           "options": [
-            "つくえの　上",
-            "本だなの　中",
             "本だなの　上の　はこの　中",
-            "れいぞうこの　中"
+            "れいぞうこの　中",
+            "つくえの　上",
+            "本だなの　中"
           ],
           "short": [
-            "つくえの上",
-            "本だなの中",
             "本だなの上のはこの中",
-            "れいぞうこの中"
+            "れいぞうこの中",
+            "つくえの上",
+            "本だなの中"
           ],
-          "answer": 2,
+          "answer": 4,
           "explain": "The note says the key is not on the desk (ありません). The next sentence says it is in the bookshelf next to the desk: 本だなの中.",
           "why": [
-            "The note says つくえの上に ありません: it is not on the desk.",
-            "",
             "The box on the bookshelf has pens, notebooks and so on, not the key.",
-            "The fridge has bread and fruit, not the key."
+            "The fridge has bread and fruit, not the key.",
+            "The note says つくえの上に ありません: it is not on the desk.",
+            ""
           ]
         }
       }
@@ -2078,16 +2093,17 @@
             "label": "くだものやで",
             "q": "A「このりんごは（　　）ですか。」B「^[一|ひと]つ[百円|ひゃくえん]^です。」",
             "options": [
+              "[何時|なんじ]ごろ",
               "いくつ",
-              "いくら",
-              "[何時|なんじ]ごろ"
+              "いくら"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "何時ごろ asks about a time. B answers with a price.",
               "いくつ asks how many. B answers with a price, 百円.",
-              "B answers with a price, so A asked how much with いくら.",
-              "何時ごろ asks about a time. B answers with a price."
-            ]
+              "B answers with a price, so A asked how much with いくら."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -2098,18 +2114,19 @@
             "label": "Choose the word",
             "q": "（[店|みせ]で）A「すみません、このパンは（　　）ですか。」B「^[百五十円|ひゃくごじゅうえん]^です。」",
             "options": [
+              "どこ",
               "いくら",
               "いくつ",
-              "[何時|なんじ]",
-              "どこ"
+              "[何時|なんじ]"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "どこ asks where. B answers with a price.",
               "B answers with a price, so A asks how much with いくら.",
               "いくつ asks how many or how old. B answers with a price.",
-              "何時 asks what time it is. B answers with a price.",
-              "どこ asks where. B answers with a price."
-            ]
+              "何時 asks what time it is. B answers with a price."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d5.d2",
@@ -2118,18 +2135,19 @@
             "label": "Choose the word",
             "q": "A「いすは（　　）ありますか。」B「^[四|よっ]つ^あります。」",
             "options": [
-              "いくら",
               "いくつ",
               "[何|なに]",
-              "だれ"
+              "だれ",
+              "いくら"
             ],
-            "answer": 2,
+            "answer": 1,
             "why": [
-              "いくら asks about money. B counts the chairs.",
               "B counts the chairs with 四つ, so A asks how many with いくつ.",
               "何 asks what. It cannot ask how many, and B gives a number.",
-              "だれ asks who. Chairs are not people, and B gives a number."
-            ]
+              "だれ asks who. Chairs are not people, and B gives a number.",
+              "いくら asks about money. B counts the chairs."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d5.d3",
@@ -2138,18 +2156,19 @@
             "label": "Choose the word",
             "q": "この[本|ほん]は^[千円|せんえん]^（　　）でした。",
             "options": [
-              "ごろ",
-              "いくら",
               "ぐらい",
-              "いくつ"
+              "いくつ",
+              "ごろ",
+              "いくら"
             ],
-            "answer": 3,
+            "answer": 1,
             "why": [
-              "ごろ is for a point in time, like a clock time. 千円 is an amount of money.",
-              "いくら asks a question. This sentence tells a price; it does not ask one.",
               "千円 is an amount of money, so \"about\" is ぐらい.",
-              "いくつ asks how many. This sentence does not ask anything."
-            ]
+              "いくつ asks how many. This sentence does not ask anything.",
+              "ごろ is for a point in time, like a clock time. 千円 is an amount of money.",
+              "いくら asks a question. This sentence tells a price; it does not ask one."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d5.d4",
@@ -2158,18 +2177,19 @@
             "label": "Choose the word",
             "q": "まいあさ^[七時|しちじ]^（　　）おきます。",
             "options": [
-              "ごろ",
-              "など",
               "いくつ",
-              "や"
+              "や",
+              "ごろ",
+              "など"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "七時 is a clock time, so \"around seven\" is 七時ごろ.",
-              "など ends a list of things, as in パンやたまごなど. It does not follow a clock time here.",
               "いくつ asks how many. This sentence tells a time; it does not ask.",
-              "や joins two nouns in a list. Nothing follows it here."
-            ]
+              "や joins two nouns in a list. Nothing follows it here.",
+              "七時 is a clock time, so \"around seven\" is 七時ごろ.",
+              "など ends a list of things, as in パンやたまごなど. It does not follow a clock time here."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d5.d5",
@@ -2228,12 +2248,12 @@
             "label": "Choose the word",
             "q": "A「この　ノートは　（　　）ですか。」B「二百円です。」",
             "options": [
-              "いくつ",
-              "何時",
               "いくら",
-              "だれ"
+              "だれ",
+              "いくつ",
+              "何時"
             ],
-            "answer": 3,
+            "answer": 1,
             "explain": "B answers with a price, so A asks how much with いくら. いくつ asks how many or how old, 何時 asks the time, and だれ asks who."
           },
           {
@@ -2243,12 +2263,12 @@
             "label": "Choose the word",
             "q": "きのうは　八時間（　　）　ねました。",
             "options": [
-              "ごろ",
               "ぐらい",
               "いくら",
-              "いくつ"
+              "いくつ",
+              "ごろ"
             ],
-            "answer": 2,
+            "answer": 1,
             "explain": "八時間 is a length of time, so \"about eight hours\" is ぐらい. ごろ is only for a point in time, like 八時. いくら and いくつ ask questions, and this sentence does not ask."
           },
           {
@@ -2423,12 +2443,12 @@
           "label": "How the exam asks it",
           "q": "この　ケーキは　_六百円_です。",
           "options": [
+            "ろくびゃくえん",
             "ろっぴゃくえん",
             "ろくひゃくえん",
-            "ろっびゃくえん",
-            "ろくびゃくえん"
+            "ろっびゃくえん"
           ],
-          "answer": 1,
+          "answer": 2,
           "explain": "六 and 百 join as ろっぴゃく, with a small っ and ぴゃ, as in はっぴゃく (八百). The other three spellings are not words. Compare さんびゃく (三百), which takes びゃく."
         }
       },
@@ -2544,16 +2564,17 @@
             "label": "ホテルで",
             "q": "ロビーに^[山川|やまかわ]さん^が（　　）よ。",
             "options": [
+              "です",
               "あります",
-              "います",
-              "です"
+              "います"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "ロビーに already says where, so the sentence needs a verb for being there. 山川さんがですよ is not Japanese.",
               "あります is for things. 山川さん is a person.",
-              "山川さん is a person, so います: \"Mr. Yamakawa is in the lobby.\"",
-              "ロビーに already says where, so the sentence needs a verb for being there. 山川さんがですよ is not Japanese."
-            ]
+              "山川さん is a person, so います: \"Mr. Yamakawa is in the lobby.\""
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -2584,18 +2605,19 @@
             "label": "Choose the question word",
             "q": "A：このホテルには、へやが（　　）ありますか。B：^[百|ひゃく]ぐらい^あります。",
             "options": [
-              "いくら",
-              "いくつ",
               "[何時|なんじ]ごろ",
-              "どこに"
+              "どこに",
+              "いくら",
+              "いくつ"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "いくら asks a price. B answers with a number of rooms.",
-              "B says about a hundred, so A asked how many: いくつ.",
               "何時ごろ asks about what time. 百ぐらい is not a time.",
-              "どこに asks where. B answers how many, not where."
-            ]
+              "どこに asks where. B answers how many, not where.",
+              "いくら asks a price. B answers with a number of rooms.",
+              "B says about a hundred, so A asked how many: いくつ."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d6.d3",
@@ -2604,18 +2626,19 @@
             "label": "Choose the form",
             "q": "A：リンさんはどこにいますか。B：（　　）にいますよ。^あのまどの[前|まえ]^です。",
             "options": [
-              "あれ",
-              "こちら",
               "あそこ",
-              "あの"
+              "あの",
+              "あれ",
+              "こちら"
             ],
-            "answer": 3,
+            "answer": 1,
             "why": [
-              "あれ points at a thing, not a place. You cannot be \"in\" あれ here.",
-              "こちら points to the speaker's side, but B says あのまど, a window far from both people.",
               "Lin is by a window far from both people (あの), so B points at that place: あそこ.",
-              "あの needs a noun right after it, as in あのまど. It cannot come before に."
-            ]
+              "あの needs a noun right after it, as in あのまど. It cannot come before に.",
+              "あれ points at a thing, not a place. You cannot be \"in\" あれ here.",
+              "こちら points to the speaker's side, but B says あのまど, a window far from both people."
+            ],
+            "explain": null
           },
           {
             "id": "n5u02d6.d4",
@@ -2694,12 +2717,12 @@
             "label": "Choose the form",
             "q": "ホテルの　ロビーに　だれ（　　）　いますか。",
             "options": [
-              "が",
-              "は",
               "を",
-              "で"
+              "で",
+              "が",
+              "は"
             ],
-            "answer": 1,
+            "answer": 3,
             "explain": "ロビーに　だれが　いますか asks who is in the lobby: the person who is there takes が. だれ is a question word, and a question word does not take は. を marks the thing an action is done to, and います has none. で marks where you do something; here the place already has に."
           },
           {
@@ -2709,12 +2732,12 @@
             "label": "Choose the form",
             "q": "A「ホテルから　駅まで　どのぐらい　かかりますか。」\nB「十五分（　　）です。」",
             "options": [
-              "ごろ",
               "ぐらい",
               "いくら",
-              "など"
+              "など",
+              "ごろ"
             ],
-            "answer": 2,
+            "answer": 1,
             "explain": "A asks how long it takes, so B gives about how long: 十五分ぐらい. ごろ goes with a point in time, like 九時ごろ, not with how long something takes. いくら asks a price. など comes after a list of things."
           },
           {
@@ -2879,12 +2902,12 @@
           "label": "How the exam asks it",
           "q": "ビルの　_西口_の　前に　電話が　あります。",
           "options": [
-            "ひがしぐち",
-            "にしぐち",
             "にしくち",
-            "せいぐち"
+            "せいぐち",
+            "ひがしぐち",
+            "にしぐち"
           ],
-          "answer": 2,
+          "answer": 4,
           "explain": "西口 is にしぐち: 西 (にし, west) and 口, which becomes ぐち after にし. ひがしぐち is 東口, the east side. にしくち misses the change from く to ぐ, and せいぐち is not a word."
         }
       },
@@ -2933,12 +2956,12 @@
       "label": "Kanji reading",
       "q": "ぎんこうは　駅の　_左_に　あります。",
       "options": [
-        "みぎ",
-        "ひだり",
         "ひがし",
-        "にし"
+        "にし",
+        "みぎ",
+        "ひだり"
       ],
-      "answer": 2,
+      "answer": 4,
       "explain": "左 is ひだり, left. みぎ is 右 (right), which looks like 左 but has 口 at the bottom. ひがし is 東 (east) and にし is 西 (west)."
     },
     {
@@ -2948,12 +2971,12 @@
       "label": "Kanji reading",
       "q": "つくえの　上に　りんごが　_三つ_　あります。",
       "options": [
+        "さっつ",
         "みつ",
         "さんつ",
-        "みっつ",
-        "さっつ"
+        "みっつ"
       ],
-      "answer": 3,
+      "answer": 4,
       "explain": "三つ is みっつ, with a small っ. みつ leaves out the small っ, and さんつ and さっつ use さん, the reading of 三 in words like 三百 or 三人. None of them is a word for three things."
     },
     {
@@ -2963,12 +2986,12 @@
       "label": "Kanji spelling",
       "q": "こうえんの　_いりぐち_に　大きい　木が　あります。",
       "options": [
+        "人日",
         "人口",
         "入日",
-        "入口",
-        "人日"
+        "入口"
       ],
-      "answer": 3,
+      "answer": 4,
       "explain": "いりぐち is 入口: 入 (go in) with 口 (opening). 人 looks like 入 but is ひと (person), so 人口 is another word (population), not いりぐち. 入日 and 人日 have 日 (day) in place of 口."
     },
     {
@@ -2978,12 +3001,12 @@
       "label": "Kanji spelling",
       "q": "_みず_は　れいぞうこの　中に　あります。",
       "options": [
-        "水",
         "木",
         "小",
-        "少"
+        "少",
+        "水"
       ],
-      "answer": 1,
+      "answer": 4,
       "explain": "みず is 水 (water). 木 is き (tree), 小 is the 小 of 小さい (small), and 少 is the 少 of 少し (a little). They look a little like 水 but none of them is read みず."
     },
     {
@@ -2993,12 +3016,12 @@
       "label": "Word in context",
       "q": "本やは　この　ビルの　三（　　）に　あります。",
       "options": [
-        "つ",
         "かい",
         "まい",
-        "にん"
+        "にん",
+        "つ"
       ],
-      "answer": 2,
+      "answer": 1,
       "explain": "A shop in a building is on a floor, and floors are counted with かい: 三かい. 三つ counts things, 三まい counts flat things such as paper, and 三にん counts people. Only かい says where in the building."
     },
     {
@@ -3023,13 +3046,13 @@
       "label": "Same meaning",
       "q": "_ぎんこうは　ゆうびんきょくの　右に　あります_。",
       "options": [
-        "ゆうびんきょくは　ぎんこうの　右に　あります。",
         "ゆうびんきょくは　ぎんこうの　左に　あります。",
         "ぎんこうは　ゆうびんきょくの　左に　あります。",
-        "ゆうびんきょくは　ぎんこうの　前に　あります。"
+        "ゆうびんきょくは　ぎんこうの　前に　あります。",
+        "ゆうびんきょくは　ぎんこうの　右に　あります。"
       ],
-      "answer": 2,
-      "explain": "If the bank is on the right of the post office, the post office is on the left of the bank. Option 1 puts the post office on the right, option 3 moves the bank to the left, and option 4 puts the post office in front, not beside it."
+      "answer": 1,
+      "explain": "If the bank is on the right of the post office, the post office is on the left of the bank. Option 4 puts the post office on the right, option 2 moves the bank to the left, and option 3 puts the post office in front, not beside it."
     },
     {
       "id": "n5u02t.8",
@@ -3038,12 +3061,12 @@
       "label": "Same meaning",
       "q": "ここは　_お手あらい_です。",
       "options": [
-        "ここは　だいどころです。",
         "ここは　げんかんです。",
         "ここは　おふろです。",
-        "ここは　トイレです。"
+        "ここは　トイレです。",
+        "ここは　だいどころです。"
       ],
-      "answer": 4,
+      "answer": 3,
       "explain": "お手あらい and トイレ are two words for the same room, the toilet. だいどころ is the kitchen, げんかん is the entrance of a house where you take off your shoes, and おふろ is the bath."
     },
     {
@@ -3068,12 +3091,12 @@
       "label": "Choose the word",
       "q": "（パーティーで）A「中山さん、（　　）は　わたしの　クラスの　キムさんです。」B「はじめまして。中山です。」",
       "options": [
-        "この",
         "ここ",
         "こちら",
-        "どちら"
+        "どちら",
+        "この"
       ],
-      "answer": 3,
+      "answer": 2,
       "explain": "When you introduce someone who is with you, you say こちらは, the polite \"this person\". この must have a noun right after it, so この cannot stand before は. ここ is a place, and a place cannot be キムさん. どちら is a question word, and A is not asking anything."
     },
     {
@@ -3083,12 +3106,12 @@
       "label": "Choose the form",
       "q": "へやに　テレビは　ありますが、つくえは　（　　）。",
       "options": [
+        "ありません",
         "います",
         "あります",
-        "いません",
-        "ありません"
+        "いません"
       ],
-      "answer": 4,
+      "answer": 1,
       "explain": "が here means \"but\", so the second half says the opposite of the first: there is a TV but no desk. A desk is a thing, so it takes ありません. あります would not be the opposite of the first half, and います and いません are for people and animals, not for a desk."
     },
     {
@@ -3098,12 +3121,12 @@
       "label": "Choose the particle",
       "q": "A「ジョンさんは　どこですか。」B「ジョンさんは　いま　としょかん（　　）　います。」",
       "options": [
+        "へ",
         "に",
         "で",
-        "を",
-        "へ"
+        "を"
       ],
-      "answer": 1,
+      "answer": 2,
       "explain": "To say where someone is, the place takes に before います: としょかんにいます. で marks the place where you do an action (としょかんでべんきょうします), but います only says where he is. を and へ do not mark the place where someone is."
     },
     {
@@ -3113,12 +3136,12 @@
       "label": "Choose the word",
       "q": "つくえの　上に　ノートや　じしょ（　　）が　あります。",
       "options": [
-        "の",
         "ぐらい",
         "ごろ",
-        "など"
+        "など",
+        "の"
       ],
-      "answer": 4,
+      "answer": 3,
       "explain": "や lists a few examples, and など after the last one means \"and other things like that\": ノートやじしょなど. じしょのが あります does not make sense here. ぐらい is for an amount such as a number or a time span, and ごろ is for a point in time; じしょ is neither."
     },
     {
@@ -3128,12 +3151,12 @@
       "label": "Choose the word",
       "q": "A「おとうとさんは　（　　）ですか。」B「八つです。」",
       "options": [
-        "いくら",
         "いくつ",
         "いつ",
-        "どれ"
+        "どれ",
+        "いくら"
       ],
-      "answer": 2,
+      "answer": 1,
       "explain": "B answers 八つです, eight years old, so A asks a child's age with いくつ. いくら asks a price, and a person has no price. いつ asks when, and 八つ is not a time. どれ asks which one, and 八つです does not pick one out."
     },
     {
@@ -3143,12 +3166,12 @@
       "label": "Choose the word",
       "q": "きょうしつに　学生が　二十人（　　）　います。",
       "options": [
-        "ごろ",
         "いくら",
         "ぐらい",
-        "いくつ"
+        "いくつ",
+        "ごろ"
       ],
-      "answer": 3,
+      "answer": 2,
       "explain": "二十人 is a number of people, and ぐらい after an amount means \"about\": about twenty students. ごろ means \"around\" only with a point in time, such as 三時ごろ, not with a number of people. いくら and いくつ are question words, and this sentence is not a question."
     },
     {
@@ -3250,17 +3273,17 @@
       "passage": "ジョンさん\nわたしの　あたらしい　へやは　二かいです。へやには　ベッドと　つくえが　あります。テレビは　ありません。つくえの　上に　とけいが　あります。まどの　外に　高い　木が　あります。木の　上には　ときどき　白い　とりが　います。\nゆき",
       "q": "ただしい　ものは　どれですか。",
       "options": [
+        "白い　とりは　ときどき　木の　上に　います。",
         "ゆきさんの　へやは　一かいに　あります。",
         "とけいは　つくえの　下に　あります。",
-        "高い　木は　へやの　中に　あります。",
-        "白い　とりは　ときどき　木の　上に　います。"
+        "高い　木は　へやの　中に　あります。"
       ],
-      "answer": 4,
+      "answer": 1,
       "short": [
+        "とりは木の上",
         "へやは一かい",
         "とけいはつくえの下",
-        "木はへやの中",
-        "とりは木の上"
+        "木はへやの中"
       ],
       "explain": "ゆき writes 木の上にはときどき白いとりがいます: sometimes a white bird is in the tree. The room is on 二かい, not 一かい. The clock is on the desk (上), not under it (下). The tall tree is outside the window (まどの外), not in the room."
     },
@@ -3338,17 +3361,17 @@
       "passage": "マイクさん\nあした　いっしょに　えいがを　見ませんか。えいがは　午後　二時からです。えいがかんは　駅から　あるいて　十分ぐらいです。わたしは　一時半ごろ　駅の　東口の　前に　います。東口の　前には　大きい　花やが　あります。\nゆか",
       "q": "ただしい　ものは　どれですか。",
       "options": [
+        "花やは　駅の　西口の　前に　あります。",
         "えいがは　一時半からです。",
         "えいがかんは　駅の　中に　あります。",
-        "駅から　えいがかんまで　十分ぐらいです。",
-        "花やは　駅の　西口の　前に　あります。"
+        "駅から　えいがかんまで　十分ぐらいです。"
       ],
-      "answer": 3,
+      "answer": 4,
       "short": [
+        "花やは西口",
         "えいがは一時半から",
         "えいがかんは駅の中",
-        "駅から十分ぐらい",
-        "花やは西口"
+        "駅から十分ぐらい"
       ],
       "explain": "ゆか writes えいがかんは駅からあるいて十分ぐらいです. The film starts at 二時; 一時半 is when she will be at the station. The cinema is a ten-minute walk away, so it is not inside the station. The flower shop is in front of the east exit (東口), not the west exit."
     }

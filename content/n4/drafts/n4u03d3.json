@@ -1,0 +1,265 @@
+{
+  "title": "自動詞・他動詞",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u03d3.p1",
+        "form": "〜が＋あく・つく・とまる",
+        "gloss": "something opens, comes on, stops (intransitive)",
+        "connect": [
+          {"pos": "Noun: a door, a window, a shop", "rule": "〜が ＋ {[開|あ]きます}"},
+          {"pos": "Noun: a light, a TV, an air conditioner", "rule": "〜が ＋ {つきます}"},
+          {"pos": "Noun: a car, a bus, a clock", "rule": "〜が ＋ {[止|と]まります}"}
+        ],
+        "examples": [
+          {"ja": "[風|かぜ]でドアが{[開|あ]きました}。", "en": "The door opened in the wind."},
+          {"ja": "駅の前でバスが{[止|と]まりました}。", "en": "The bus stopped in front of the station."}
+        ],
+        "watch": {
+          "note": "止まる tells what the thing does by itself, so the thing takes が. To say a person stops it, use 止める with を.",
+          "bad": "駅の前で車を止まりました。",
+          "good": "駅の前で車が止まりました。"
+        }
+      },
+      {
+        "id": "n4u03d3.p2",
+        "form": "〜を＋あける・つける・とめる",
+        "gloss": "someone opens, turns on, stops something (transitive)",
+        "connect": [
+          {"pos": "Noun: what someone opens", "rule": "〜を ＋ {[開|あ]けます}"},
+          {"pos": "Noun: what someone turns on", "rule": "〜を ＋ {つけます}"},
+          {"pos": "Noun: what someone stops or parks", "rule": "〜を ＋ {[止|と]めます}"}
+        ],
+        "examples": [
+          {"ja": "[暑|あつ]いので、まどを{[開|あ]けました}。", "en": "It was hot, so I opened the window."},
+          {"ja": "[暗|くら]くなったので、電気を{つけました}。", "en": "It got dark, so I turned on the light."}
+        ],
+        "watch": {
+          "note": "つける is something a person does to a thing. The thing takes を, and the person takes は or が.",
+          "bad": "わたしは電気がつけました。",
+          "good": "わたしは電気をつけました。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three describe an open window, but each one tells you something different about it.",
+      "forms": [
+        {"form": "〜があいています", "tag": "ようす · it is open", "mark": "dot", "ja": "まどが{[開|あ]いています}。[寒|さむ]いですね。", "en": "The window is open. It's cold, isn't it?"},
+        {"form": "〜があけてあります", "tag": "じゅんび · someone opened it on purpose", "mark": "dot", "ja": "[暑|あつ]いので、まどが{[開|あ]けてあります}。", "en": "It's hot, so the window has been opened (and left open)."},
+        {"form": "〜をあけています", "tag": "動作 · someone is opening it now", "mark": "dot", "ja": "[田中|たなか]さんがまどを{[開|あ]けています}。", "en": "Mr Tanaka is opening the window."}
+      ],
+      "check": {
+        "id": "n4u03d3.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "風の日",
+        "q": "^[風|かぜ]で^ドアが（　　）。",
+        "options": ["[開|あ]いています", "[開|あ]けてあります", "[開|あ]けています"],
+        "answer": 1,
+        "why": [
+          "The wind opened the door and it is still open, so ドアが＋開いています: \"The door is open because of the wind.\"",
+          "てあります means a person opened it on purpose. Here the wind did it, so it does not fit with 風で.",
+          "開けています is a person opening something now, and the thing takes を. ドアが cannot come before it."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u03d3.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the particle",
+        "q": "^だれもさわっていないのに^、テレビ（　　）[急|きゅう]につきました。",
+        "options": ["が", "を", "の", "で"],
+        "answer": 1,
+        "why": [
+          "つく is what the TV does by itself, so the TV takes が: \"Nobody touched it, but the TV suddenly came on.\"",
+          "を marks a thing a person acts on. つきます has no such thing. With を you need つけます.",
+          "の joins a noun to a noun. Here a verb, つきました, follows.",
+          "で marks a place or a means. The TV is the thing that came on."
+        ]
+      },
+      {
+        "id": "n4u03d3.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[暗|くら]いので、^電気を^（　　）ください。",
+        "options": ["つけて", "ついて", "つけた", "つく"],
+        "answer": 1,
+        "why": [
+          "電気を needs the verb a person does, つける, in the te-form before ください: \"It's dark, so please turn on the light.\"",
+          "つく has no を. With 電気を you need つける.",
+          "The た form cannot come before ください.",
+          "The dictionary form cannot come before ください, and つく does not take を."
+        ]
+      },
+      {
+        "id": "n4u03d3.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あれ、^ドアが^（　　）ね。だれが[開|あ]けたんでしょう。",
+        "options": ["[開|あ]いています", "[開|あ]けています", "[開|あ]きましょう", "[開|あ]けましょう"],
+        "answer": 1,
+        "why": [
+          "ドアが goes with 開く, and ている shows the state now: \"Oh, the door is open. I wonder who opened it.\"",
+          "開ける takes を, not が. ドアが開けています does not work.",
+          "ましょう is for people. A door cannot decide to open.",
+          "開ける takes を, and ましょう invites people. Neither fits ドアが."
+        ]
+      },
+      {
+        "id": "n4u03d3.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the particle",
+        "q": "[寒|さむ]いですから、まど（　　）^しめましょう^。",
+        "options": ["を", "が", "に", "で"],
+        "answer": 1,
+        "why": [
+          "しめる is something people do to the window, so the window takes を: \"It's cold, so let's close the window.\"",
+          "が would make the window the one doing it. With が you need しまる, and ましょう cannot go with it.",
+          "に marks a place or a goal. The window is the thing you close.",
+          "で marks a place or a means. The window is the thing you close."
+        ]
+      },
+      {
+        "id": "n4u03d3.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あれ、だれもいない",
+        "after": "ね。",
+        "tiles": ["のに、", "へやの", "電気が", "ついています"],
+        "star": 2,
+        "bank": [3, 0, 2, 1],
+        "hint": "What comes right after いない to say \"even though\"? へやの describes 電気, and つく takes が.",
+        "full": "あれ、だれもいないのに、へやの電気が{ついています}ね。",
+        "explain": "のに、, へやの, 電気が, ついています. のに means \"even though\", へやの describes 電気, and the light is on by itself, so 電気が＋ついています: \"Huh, nobody is here, but the room's light is on.\""
+      },
+      {
+        "id": "n4u03d3.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "すみません、",
+        "after": "ください。",
+        "tiles": ["その", "まどを", "しめて", "おいて"],
+        "star": 2,
+        "bank": [2, 0, 3, 1],
+        "hint": "その comes before a noun. しめる is done to the window, so which particle does まど take? ておく comes after the te-form.",
+        "full": "すみません、そのまどを{しめて}おいてください。",
+        "explain": "その, まどを, しめて, おいて. その describes まど, しめる is something you do to the window so it takes を, and しめて＋おいてください asks someone to close it now: \"Excuse me, could you close that window?\""
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u03d3.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "電気が　（　　）　いますから、　へやに　だれか　いると　思います。",
+        "options": ["ついて", "つけて", "つき", "つけ"],
+        "answer": 1,
+        "explain": "電気が goes with つく, and ついています shows that the light is on now: \"The light is on, so I think someone is in the room.\" つけて needs を and a person doing it, and つき and つけ (the ます stem) cannot come before います."
+      },
+      {
+        "id": "n4u03d3.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "ここは　バスが　止まる　ところです。　ここに　車を　（　　）　ないで　ください。",
+        "options": ["止め", "止まら", "止まり", "止めら"],
+        "answer": 1,
+        "explain": "車を needs 止める, the verb a person does, and its ない form is 止めない: \"This is where the bus stops. Please don't park your car here.\" 止まらない has no を, so it does not go with 車を. 止まり and 止めら are not ない forms."
+      },
+      {
+        "id": "n4u03d3.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "へやを",
+        "after": "つけて　あります。",
+        "tiles": ["あたたかく", "する", "ために", "ストーブが"],
+        "star": 2,
+        "bank": [3, 1, 0, 2],
+        "full": "へやを　あたたかく　する　{ために}　ストーブが　つけて　あります。",
+        "explain": "あたたかく, する, ために, ストーブが. へやをあたたかくする is the purpose before ために, and with てあります the thing takes が: \"The heater has been turned on to warm the room.\""
+      }
+    ]
+  },
+  "scene": {
+    "ja": "建物のお知らせ",
+    "en": "A notice by the entrance of an office building",
+    "intro": "Tap every word you would read on the notice about doors, lights and windows.",
+    "words": [
+      {"id": "building", "word": "建物", "reading": "たてもの", "gloss": "building", "parts": [["建", "たて", "build"], ["物", "もの", "thing"]]},
+      {"id": "open", "word": "開ける", "reading": "あける", "gloss": "open (something)", "parts": [["開", "あ", "open"]]},
+      {"id": "stop", "word": "止める", "reading": "とめる", "gloss": "stop, park (something)", "parts": [["止", "と", "stop"]]},
+      {"id": "bicycle", "word": "自転車", "reading": "じてんしゃ", "gloss": "bicycle", "parts": [["自", "ジ", "self"], ["転", "テン", "turn, roll"], ["車", "シャ", "vehicle"]]},
+      {"id": "use", "word": "使う", "reading": "つかう", "gloss": "use", "parts": [["使", "つか", "use"]]},
+      {"id": "care", "word": "注意", "reading": "ちゅうい", "gloss": "care, caution", "parts": [["注", "チュウ", "pour, attention"], ["意", "イ", "mind, meaning"]]},
+      {"id": "night", "word": "夜", "reading": "よる", "gloss": "night, evening", "parts": [["夜", "よる", "night"]]},
+      {"id": "basement", "word": "地下", "reading": "ちか", "gloss": "basement, underground", "parts": [["地", "チ", "ground"], ["下", "カ", "below"]]}
+    ],
+    "check": {
+      "id": "n4u03d3.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "地下に　自転車を　_止めて_　ください。",
+      "options": ["とめて", "とまって", "しめて", "つめて"],
+      "answer": 1,
+      "explain": "止めて, \"park\", is read とめて here, from 止める. とまって would be written 止まって, the verb with が. しめて is a different verb (close), and つめて (pack) is not read from 止."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "ポイント理解",
+    "en": "Point comprehension",
+    "ask": "女の人は　帰る　前に　何を　しなければ　なりませんか。",
+    "audio": [
+      ["N", "会社のビルで、男の人と女の人が話しています。女の人は、帰る前に何をしなければなりませんか。", "かいしゃのビルで、おとこのひととおんなのひとがはなしています。おんなのひとは、かえるまえになにをしなければなりませんか。"],
+      ["M", "山下さん、ビルのお知らせを読みましたか。", "やましたさん、ビルのおしらせをよみましたか。"],
+      ["F", "はい。夜は入口のドアがしまるんですね。わたしがしめなくてもいいですか。", "はい。よるはいりぐちのドアがしまるんですね。わたしがしめなくてもいいですか。"],
+      ["M", "ええ。ドアは九時にしまりますから、だいじょうぶです。", "ええ。ドアはくじにしまりますから、だいじょうぶです。"],
+      ["F", "へやの電気はどうですか。", null],
+      ["M", "電気も十時にぜんぶきえます。けさなくてもいいですよ。", "でんきもじゅうじにぜんぶきえます。けさなくてもいいですよ。"],
+      ["F", "そうですか。じゃ、まどは？", null],
+      ["M", "まどは、帰る前に自分でしめてください。", "まどは、かえるまえにじぶんでしめてください。"],
+      ["F", "わかりました。エアコンは？", null],
+      ["M", "エアコンは九時に止まります。", "エアコンはくじにとまります。"],
+      ["N", "女の人は、帰る前に何をしなければなりませんか。", "おんなのひとは、かえるまえになにをしなければなりませんか。"]
+    ],
+    "item": {
+      "id": "n4u03d3.r1",
+      "kind": "choice",
+      "type": "ポイント理解",
+      "q": "女の人は　帰る　前に　何を　しなければ　なりませんか。",
+      "script": [
+        "ナレーター：会社のビルで、男の人と女の人が話しています。女の人は、帰る前に何をしなければなりませんか。",
+        "男：山下さん、ビルのお知らせを読みましたか。",
+        "女：はい。夜は入口のドアがしまるんですね。わたしがしめなくてもいいですか。",
+        "男：ええ。ドアは九時にしまりますから、だいじょうぶです。",
+        "女：へやの電気はどうですか。",
+        "男：電気も十時にぜんぶきえます。けさなくてもいいですよ。",
+        "女：そうですか。じゃ、まどは？",
+        "男：まどは、帰る前に自分でしめてください。",
+        "女：わかりました。エアコンは？",
+        "男：エアコンは九時に止まります。",
+        "ナレーター：女の人は、帰る前に何をしなければなりませんか。"
+      ],
+      "options": ["ドアを　しめる", "電気を　けす", "まどを　しめる", "エアコンを　止める"],
+      "printed": true,
+      "short": ["ドアを しめる", "電気を けす", "まどを しめる", "エアコンを 止める"],
+      "answer": 3,
+      "why": [
+        "The door closes by itself at nine: ドアは九時にしまります. She does not need to close it.",
+        "The lights go off by themselves at ten: 電気も十時にぜんぶきえます. けさなくてもいいです.",
+        "The man says まどは、帰る前に自分でしめてください. The windows are the one thing she must close herself.",
+        "The air conditioner stops by itself at nine: エアコンは九時に止まります."
+      ]
+    }
+  }
+}

@@ -9,14 +9,19 @@ import html, json, re, sys, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 args = sys.argv[1:]
 lvdir = args.pop(0) if args and not args[0].isdigit() else 'n2'
-n = int(args[0])
+MINI = args[0] == 'mini'          # python3 tools/review-sheet.py n5 mini: the level's mini mock
+n = 0 if MINI else int(args[0])
 pre = '' if lvdir == 'n2' else lvdir
-U = json.load(open(f'{ROOT}/content/{lvdir}/u{n:02d}.json', encoding='utf-8'))
+name = 'mini' if MINI else f'u{n:02d}'
+if MINI:
+    U = {'days': {}, 'test': json.load(open(f'{ROOT}/content/{lvdir}/mini.json', encoding='utf-8'))['items']}
+else:
+    U = json.load(open(f'{ROOT}/content/{lvdir}/u{n:02d}.json', encoding='utf-8'))
 SYL = json.load(open(f'{ROOT}/content/{lvdir}/units.json', encoding='utf-8'))
-FL = json.load(open(f'{ROOT}/content/{lvdir}/review/u{n:02d}-flags.json', encoding='utf-8'))
+FL = json.load(open(f'{ROOT}/content/{lvdir}/review/{name}-flags.json', encoding='utf-8'))
 LEVEL = SYL['level']
 flags = FL['flags']
-syl = next(x for x in (SYL['units'] if isinstance(SYL, dict) else SYL) if x.get('n', x.get('unit')) == n)
+syl = {'n': 0, 'ja': 'ミニ模試', 'en': 'Mini mock', 'days': []} if MINI else next(x for x in (SYL['units'] if isinstance(SYL, dict) else SYL) if x.get('n', x.get('unit')) == n)
 
 e = lambda s: html.escape(s or '', quote=False)
 
@@ -70,9 +75,9 @@ def add(rid, group, label, head, body, flag_key=None):
                  'level': f[0] if f else 'green', 'note': f[1] if f else ''})
 
 
-add('syllabus', 'Unit', 'Syllabus', 'Unit ' + str(n) + ': ' + e((syl['ja'] + ' ' + syl['en'])) + '. ' +
+if not MINI: add('syllabus', 'Unit', 'Syllabus', 'Unit ' + str(n) + ': ' + e((syl['ja'] + ' ' + syl['en'])) + '. ' +
     ' · '.join(e(t) for t in (syl.get('days') or [])), '', 'syllabus')
-if flags.get('syllabus') is None:
+if not MINI and flags.get('syllabus') is None:
     rows[-1]['level'] = 'amber'
     rows[-1]['note'] = FL.get('syllabus', '')
 # questions about the way the whole level is written (spacing, readings), when the flags ask them
@@ -119,7 +124,11 @@ for it in U['test']:
     if it.get('passage') and it['passage'] not in seen:
         seen.add(it['passage'])
         body = f'<p lang="ja" class="passage">{rich(it["passage"])}</p>'
-    add(it['id'], 'Week test', 'Test · ' + it.get('type', ''), f'<span lang="ja">{filled(it)}</span>', body + options(it))
+    if it.get('parts'):
+        body = '<div class="passage" lang="ja">' + ''.join(f'<p>{e(l)}</p>' for l in str(it.get('script', '')).split(chr(10))) + '</div>' + body
+    if it.get('order'):
+        it = {**it, 'kind': 'star', 'before': it.get('before', ''), 'after': it.get('after', ''), 'tiles': [it['options'][o - 1] for o in it['order']], 'star': it['star'], 'bank': [it['order'].index(k + 1) for k in range(4)], 'hint': ''}
+    add(it['id'], 'Mini mock' if MINI else 'Week test', ('Mock · ' if MINI else 'Test · ') + it.get('type', ''), f'<span lang="ja">{filled(it)}</span>', body + options(it))
 
 for k, v in flags.items():
     if k.startswith('sound.'):
@@ -132,9 +141,9 @@ if missing:
     sys.exit('flags for unknown rows: ' + ', '.join(missing))
 
 tpl = open(f'{ROOT}/tools/review-sheet.html', encoding='utf-8').read()
-page = tpl.replace('__LEVEL__', LEVEL).replace('__LSKEY__', ('' if lvdir == 'n2' else lvdir + '-') + 'u' + str(n)).replace('__UNIT__', str(n)).replace('__FN__', '<span lang="ja" style="white-space:nowrap">' + e(syl['ja']) + '</span> ' + e(syl['en'])).replace(
+page = tpl.replace('__HEAD__', 'Mini Mock' if MINI else 'Unit ' + str(n)).replace('__LEVEL__', LEVEL).replace('__LSKEY__', ('' if lvdir == 'n2' else lvdir + '-') + ('mini' if MINI else 'u' + str(n))).replace('__UNIT__', 'mini mock' if MINI else str(n)).replace('__FN__', 'the 12 questions' if MINI else '<span lang="ja" style="white-space:nowrap">' + e(syl['ja']) + '</span> ' + e(syl['en'])).replace(
     '__ROWS__', json.dumps(rows, ensure_ascii=False).replace('</', '<\\/'))
-out = f'{ROOT}/content/{lvdir}/review/u{n:02d}-review.html'
+out = f'{ROOT}/content/{lvdir}/review/{name}-review.html'
 open(out, 'w', encoding='utf-8').write(page)
 lv = {}
 for r in rows:

@@ -1,0 +1,551 @@
+{
+ "title": "使役受身・〜させられる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u08d5.p1",
+    "form": "使役受身形（〜させられる）",
+    "gloss": "be made to do (causative passive)",
+    "connect": [
+     {
+      "pos": "る-verb: drop る and add させられる",
+      "rule": "食べる → 食べ{させられる}"
+     },
+     {
+      "pos": "う-verb: change the last sound to the あ sound and add せられる. The short される is common too, but not for verbs ending in す",
+      "rule": "書く → 書か{せられる}／書か{される}、話す → 話さ{せられる}"
+     },
+     {
+      "pos": "The two irregular verbs, 来る and する",
+      "rule": "来る → 来{させられる}、する → {させられる}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "先生に[漢字|かんじ]を[十回|じゅっかい]ずつ{書かされました}。",
+      "en": "The teacher made me write each kanji ten times."
+     },
+     {
+      "ja": "[日曜日|にちようび]なのに、[朝|あさ]七時に学校へ{来させられました}。",
+      "en": "Even though it was Sunday, we were made to come to school at seven in the morning."
+     }
+    ],
+    "watch": {
+     "note": "The short される form is only for う-verbs that do not end in す. A verb ending in す, like 出す or 話す, keeps the long form させられる.",
+     "bad": "先生に毎日作文を出さされます。",
+     "good": "先生に毎日作文を出させられます。"
+    }
+   },
+   {
+    "id": "n4u08d5.p2",
+    "form": "〜に〜させられる",
+    "gloss": "be made to do (when you did not want to)",
+    "connect": [
+     {
+      "pos": "Noun: the person who made you do it",
+      "rule": "〜{に}書かされる"
+     },
+     {
+      "pos": "Noun: the thing you had to do keeps を",
+      "rule": "〜を{させられる}"
+     },
+     {
+      "pos": "Verb, causative passive, polite past: it already happened",
+      "rule": "[待|ま]た{されました}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "子どものころ、父{に}[毎朝|まいあさ]ぎゅうにゅうを{飲まされました}。",
+      "en": "When I was a child, my father made me drink milk every morning."
+     },
+     {
+      "ja": "友だち{に}駅で一時間も{[待|ま]たされました}。",
+      "en": "My friend kept me waiting at the station for a whole hour."
+     }
+    ],
+    "watch": {
+     "note": "You are the one who does the action, and the person who made you takes に. Without られる, the sentence turns round: 母に食べさせました means you made your mother eat.",
+     "bad": "子どものころ、わたしは母に野菜を食べさせました。",
+     "good": "子どものころ、わたしは母に野菜を食べさせられました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three put another person with に. What changes is who does the action and who wanted it.",
+   "forms": [
+    {
+     "form": "受身",
+     "tag": "される · done to me",
+     "mark": "down",
+     "ja": "れんしゅうにおくれて、コーチに{しかられました}。",
+     "en": "I was late for practice, and the coach scolded me."
+    },
+    {
+     "form": "使役",
+     "tag": "させる · make someone do",
+     "mark": "dot",
+     "ja": "コーチは一年生にボールを{[運|はこ]ばせました}。",
+     "en": "The coach made the first-years carry the balls."
+    },
+    {
+     "form": "使役受身",
+     "tag": "させられる · made to do",
+     "mark": "down",
+     "ja": "一年生はコーチにボールを{[運|はこ]ばされました}。",
+     "en": "The first-years were made to carry the balls by the coach."
+    }
+   ],
+   "check": {
+    "id": "n4u08d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Who did the running?",
+    "q": "きのうのれんしゅうでは、コーチに一時間も（　　）、^足がいたいです^。",
+    "options": [
+     "[走|はし]られて",
+     "[走|はし]らせて",
+     "[走|はし]らされて"
+    ],
+    "answer": 3,
+    "why": [
+     "走られて is the passive: the coach did the running and it bothered you. That would not make your legs hurt.",
+     "走らせて is the causative: you made the coach run. Then your own legs would have no reason to hurt.",
+     "The coach made you run for an hour, so your legs hurt: the causative passive 走らされて."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u08d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[音楽|おんがく]の時間に、^先生に^みんなの前で（　　）。",
+    "options": [
+     "[歌|うた]わされました",
+     "[歌|うた]いさせられました",
+     "[歌|うた]わせされました",
+     "[歌|うた]えさせられました"
+    ],
+    "answer": 1,
+    "why": [
+     "歌う is a う-verb: う becomes わ, then the short される. The teacher made you sing.",
+     "The ます stem 歌い does not take させられる. A う-verb changes to the あ sound first.",
+     "The causative 歌わせ takes られる, not される: 歌わせられました.",
+     "歌える is the potential. The causative passive is built on the あ sound, not the え sound."
+    ]
+   },
+   {
+    "id": "n4u08d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "れんしゅうの後、一年生だけが^先ぱいに^そうじを（　　）。",
+    "options": [
+     "しさせられました",
+     "さされました",
+     "されさせました",
+     "させられました"
+    ],
+    "answer": 4,
+    "why": [
+     "する does not keep し here. Its causative passive is just させられる.",
+     "The short される form is only for う-verbs. する always becomes させられる.",
+     "This puts the passive first. The order is causative, then passive: させ＋られる.",
+     "する becomes させられる, and 先ぱいに shows who made the first-years clean."
+    ]
+   },
+   {
+    "id": "n4u08d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは^ピーマンがきらいなのに^、母に毎日（　　）。",
+    "options": [
+     "食べさせてもらいました",
+     "食べてもらいました",
+     "食べさせられました",
+     "食べさせてあげました"
+    ],
+    "answer": 3,
+    "why": [
+     "させてもらう means your mother let you eat them, as a favour. That does not fit with きらいなのに.",
+     "食べてもらう means your mother ate them for you. That is what you would want, so のに does not fit.",
+     "You hate green peppers, but your mother made you eat them every day.",
+     "させてあげる means you let your mother eat them. That does not fit with のに either."
+    ]
+   },
+   {
+    "id": "n4u08d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "友だちが^なかなか来なかったので^、駅で一時間も（　　）。",
+    "options": [
+     "[待|ま]たせました",
+     "[待|ま]たされました",
+     "[待|ま]たれました",
+     "[待|ま]てました"
+    ],
+    "answer": 2,
+    "why": [
+     "待たせる means you made someone wait. Here it was your friend who was late.",
+     "Your friend did not come, so you were kept waiting for an hour: 待たされました.",
+     "待たれる is the passive: someone waited for you. But you are the one who waited.",
+     "待てる is the potential: you were able to wait. It does not fit a friend who was late."
+    ]
+   },
+   {
+    "id": "n4u08d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "子どものころ、母に",
+    "after": "。",
+    "tiles": [
+     "きらいな",
+     "にんじんの",
+     "ジュースを",
+     "飲まされました"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "Build the drink first: an adjective, then にんじんの, then the noun with を.",
+    "full": "子どものころ、母にきらいなにんじんのジュースを{飲まされました}。",
+    "explain": "きらいな describes the drink, so it starts the noun phrase: きらいなにんじんのジュースを. 飲まされました, the causative passive of 飲む, ends the sentence: my mother made me drink carrot juice I hated."
+   },
+   {
+    "id": "n4u08d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのうは先生に[百回|ひゃっかい]も",
+    "after": "手がいたいです。",
+    "tiles": [
+     "[同|おな]じ",
+     "[文|ぶん]を",
+     "書かされた",
+     "ので"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "同じ needs a noun after it. ので gives the reason for 手がいたい.",
+    "full": "きのうは先生に[百回|ひゃっかい]も[同|おな]じ[文|ぶん]を{書かされた}ので手がいたいです。",
+    "explain": "同じ goes right before 文を. 書かされた, the short causative passive of 書く, follows its object, and ので gives the reason my hand hurts."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u08d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは　先ぱい（　　）　重い　にもつを　持たされました。",
+    "options": [
+     "に",
+     "を",
+     "が",
+     "で"
+    ],
+    "answer": 1,
+    "explain": "In the causative passive, the person who made you do it takes に: I was made to carry heavy bags by an older club member. を already marks にもつ, が would make the 先ぱい the one who carried, and で cannot mark a person here."
+   },
+   {
+    "id": "n4u08d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きのうの　れんしゅうで、コーチに　ボールを　百回も　（　　）。",
+    "options": [
+     "なげらされました",
+     "なげされました",
+     "なげられさせました",
+     "なげさせられました"
+    ],
+    "answer": 4,
+    "explain": "なげる is a る-verb, so its causative passive is なげさせられる: the coach made me throw the ball a hundred times. The short される form is only for う-verbs, so なげらされる and なげされる are not forms, and なげられさせる puts the passive before the causative."
+   },
+   {
+    "id": "n4u08d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは　コーチに　",
+    "after": "。",
+    "tiles": [
+     "みんなが",
+     "使った",
+     "ボールを",
+     "洗わされました"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "わたしは　コーチに　みんなが　使った　ボールを　{洗わされました}。",
+    "explain": "みんなが, 使った, ボールを, 洗わされました. みんなが使った describes ボール, so it comes right before ボールを, and the causative passive ends the sentence: the coach made me wash the balls everyone had used."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "クラブのお知らせ",
+  "en": "A club practice notice",
+  "intro": "The coach has put this week's notice on the club room door. Tap each word on it.",
+  "words": [
+   {
+    "id": "meet",
+    "word": "集合",
+    "reading": "しゅうごう",
+    "gloss": "gathering, meet up",
+    "parts": [
+     [
+      "集",
+      "シュウ",
+      "gather"
+     ],
+     [
+      "合",
+      "ゴウ",
+      "fit, join"
+     ]
+    ]
+   },
+   {
+    "id": "ground",
+    "word": "運動場",
+    "reading": "うんどうじょう",
+    "gloss": "sports ground",
+    "parts": [
+     [
+      "運",
+      "ウン",
+      "carry"
+     ],
+     [
+      "動",
+      "ドウ",
+      "move"
+     ],
+     [
+      "場",
+      "ジョウ",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "start",
+    "word": "開始",
+    "reading": "かいし",
+    "gloss": "start",
+    "parts": [
+     [
+      "開",
+      "カイ",
+      "open"
+     ],
+     [
+      "始",
+      "シ",
+      "begin"
+     ]
+    ]
+   },
+   {
+    "id": "match",
+    "word": "試合",
+    "reading": "しあい",
+    "gloss": "match, game",
+    "parts": [
+     [
+      "試",
+      "シ",
+      "try"
+     ],
+     [
+      "合",
+      "あい",
+      "fit, against each other"
+     ]
+    ]
+   },
+   {
+    "id": "cancel",
+    "word": "中止",
+    "reading": "ちゅうし",
+    "gloss": "cancelled",
+    "parts": [
+     [
+      "中",
+      "チュウ",
+      "middle"
+     ],
+     [
+      "止",
+      "シ",
+      "stop"
+     ]
+    ]
+   },
+   {
+    "id": "bring",
+    "word": "持ち物",
+    "reading": "もちもの",
+    "gloss": "things to bring",
+    "parts": [
+     [
+      "持",
+      "も",
+      "hold"
+     ],
+     [
+      "物",
+      "もの",
+      "thing"
+     ]
+    ]
+   },
+   {
+    "id": "care",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "gloss": "take care, caution",
+    "parts": [
+     [
+      "注",
+      "チュウ",
+      "pour, focus"
+     ],
+     [
+      "意",
+      "イ",
+      "mind"
+     ]
+    ]
+   },
+   {
+    "id": "gate",
+    "word": "正門",
+    "reading": "せいもん",
+    "gloss": "main gate",
+    "parts": [
+     [
+      "正",
+      "セイ",
+      "correct, main"
+     ],
+     [
+      "門",
+      "モン",
+      "gate"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u08d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "あしたは　七時に　正門の　前に　_集合_して　ください。",
+   "options": [
+    "しゅごう",
+    "しゅうごう",
+    "じゅうごう",
+    "しゅうあい"
+   ],
+   "answer": 2,
+   "explain": "集合 is read しゅうごう, to meet up: please gather in front of the main gate at seven. しゅごう drops the long う, じゅうごう has じゅ instead of しゅ, and しゅうあい reads 合 as あい, which it is only in words like 試合."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "発話表現",
+  "en": "Expressions",
+  "situation": "After club practice, a girl sits on the ground looking very tired, and her friend walks over to her.",
+  "ask": "れんしゅうの　あとで、友だちが　とても　つかれて　います。何と　いいますか。",
+  "item": {
+   "id": "n4u08d5.r1",
+   "kind": "choice",
+   "type": "発話表現",
+   "q": "れんしゅうの　あとで、友だちが　とても　つかれて　います。何と　いいますか。",
+   "script": [
+    "ナレーター：れんしゅうの　あとで、友だちが　とても　つかれて　います。何と　いいますか。",
+    "ナレーター：1",
+    "女：コーチに　たくさん　走らせたの？",
+    "ナレーター：2",
+    "女：コーチに　たくさん　走らされたの？",
+    "ナレーター：3",
+    "女：コーチに　たくさん　走られたの？"
+   ],
+   "options": [
+    "コーチに　たくさん　走らせたの？",
+    "コーチに　たくさん　走らされたの？",
+    "コーチに　たくさん　走られたの？"
+   ],
+   "printed": false,
+   "short": [
+    "走らせたの",
+    "走らされたの",
+    "走られたの"
+   ],
+   "answer": 2,
+   "why": [
+    "走らせた is the causative: it asks if your friend made the coach run. That is the wrong way round.",
+    "",
+    "走られた is the passive: the coach did the running and it bothered your friend. That does not explain why your friend is tired."
+   ]
+  },
+  "audio": [
+   [
+    "N",
+    "れんしゅうの　あとで、友だちが　とても　つかれて　います。何と　いいますか。",
+    "れんしゅうの　あとで、ともだちが　とても　つかれて　います。なんと　いいますか。"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "F",
+    "コーチに　たくさん　走らせたの？",
+    "コーチに　たくさん　はしらせたの？"
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "F",
+    "コーチに　たくさん　走らされたの？",
+    "コーチに　たくさん　はしらされたの？"
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "F",
+    "コーチに　たくさん　走られたの？",
+    "コーチに　たくさん　はしられたの？"
+   ]
+  ]
+ }
+}

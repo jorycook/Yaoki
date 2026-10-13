@@ -1,0 +1,242 @@
+{
+  "title": "受身（めいわく）・〜が〜られる",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u08d2.p1",
+        "form": "受身（めいわく）",
+        "gloss": "something happens to me (and I don't like it)",
+        "connect": [
+          {"pos": "Noun (the one who caused it) + に, then a verb with no を in passive form", "rule": "〜に{ふられる}、〜に{なかれる}"},
+          {"pos": "Noun (the one who did it) + に, my thing + を, verb in passive form", "rule": "〜に〜を{食べられる}"},
+          {"pos": "The one who suffers is the subject, often left out (usually I)", "rule": "（わたしは）〜に〜を{こわされる}"}
+        ],
+        "examples": [
+          {"ja": "きのうは[帰|かえ]りに雨に{ふられました}。", "en": "Yesterday I got caught in the rain on the way home."},
+          {"ja": "れいぞうこのケーキを[弟|おとうと]に{食べられました}。", "en": "My little brother ate the cake in the fridge (and I am not happy)."}
+        ],
+        "watch": {
+          "note": "The one who did it takes に, not が. With 弟が, 食べられました would mean my brother could eat the cake, not that he ate mine.",
+          "bad": "弟がケーキを食べられました。",
+          "good": "弟にケーキを食べられました。"
+        }
+      },
+      {
+        "id": "n4u08d2.p2",
+        "form": "〜が〜られる（もの・こと）",
+        "gloss": "is done (a thing or an event as the subject)",
+        "connect": [
+          {"pos": "A thing or an event as the subject, with は or が", "rule": "〜は{[建|た]てられる}、〜が{[開|ひら]かれる}"},
+          {"pos": "Done by people in general; who does it is not said", "rule": "〜で{[使|つか]われる}"},
+          {"pos": "Who made it, only if you want to say it: noun + によって", "rule": "〜によって{[作|つく]られる}"}
+        ],
+        "examples": [
+          {"ja": "このおてらは四百年前に{[建|た]てられました}。", "en": "This temple was built four hundred years ago."},
+          {"ja": "[夏|なつ]まつりは毎年八月に{[開|ひら]かれます}。", "en": "The summer festival is held every August."}
+        ],
+        "watch": {
+          "note": "The temple is the thing that was built, not the builder. With a thing as the subject, the verb takes the passive form.",
+          "bad": "このおてらは三百年前に建てました。",
+          "good": "このおてらは三百年前に建てられました。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three have the same られる shape; who the subject is and the particles around the verb tell you which one it is.",
+      "forms": [
+        {"form": "受身（めいわく）", "tag": "めいわく · it happened to me (bad)", "mark": "down", "ja": "電車でとなりの人に足を{ふまれました}。", "en": "On the train, the person next to me stepped on my foot."},
+        {"form": "〜が〜られる", "tag": "ものが主語 · a thing is done", "mark": "dot", "ja": "このお[茶|ちゃ]はしずおかで{[作|つく]られています}。", "en": "This tea is made in Shizuoka."},
+        {"form": "可能形", "tag": "できる · can", "mark": "dot", "ja": "このきのこは{食べられます}。", "en": "This mushroom can be eaten."}
+      ],
+      "check": {
+        "id": "n4u08d2.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Passive or potential?",
+        "q": "バスの中で、^うしろの人に^足を（　　）。いたかったです。",
+        "options": ["ふめました", "ふまれました", "ふみました"],
+        "answer": 2,
+        "why": [
+          "ふめる is the potential (can step on). It does not go with うしろの人に, and it is not something that happened to you.",
+          "The person behind stepped on my foot and it hurt: the doer takes に, my foot takes を, and the verb is passive.",
+          "ふみました makes me the one who stepped. The person's foot would then need の: うしろの人の足をふみました."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u08d2.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "ゆうべは^[赤|あか]ちゃんに^（　　）、あまりねられませんでした。",
+        "options": ["ないて", "なけて", "なかれて", "なかないで"],
+        "answer": 3,
+        "why": [
+          "ないて needs the baby as the subject with が: 赤ちゃんがないて. With 赤ちゃんに, the passive is needed.",
+          "なける is the potential (can cry). It does not go with 赤ちゃんに, and it gives no reason for not sleeping.",
+          "なく has no を, but it can still be passive: the baby cried and I suffered, so I could not sleep. 赤ちゃんに marks who caused it.",
+          "なかないで means without crying. 赤ちゃんに does not go with it, and it gives no reason for not sleeping."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d2.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^アルバイトの人に^[急|きゅう]に（　　）、店がとてもいそがしかったです。",
+        "options": ["休んで", "休めて", "休みたくて", "休まれて"],
+        "answer": 4,
+        "why": [
+          "休んで needs the worker as the subject with が: アルバイトの人が休んで. With に, the passive is needed.",
+          "休める is the potential (can rest). It does not go with アルバイトの人に, and it does not explain the busy shop.",
+          "休みたくて would be my own wish to rest. It does not fit アルバイトの人に.",
+          "休む has no を, but it can be passive: the worker suddenly took the day off, and we suffered because the shop was busy."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d2.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "このはしは、五十年前に^[町|まち]の人たちによって^（　　）。",
+        "options": ["[作|つく]られました", "[作|つく]りました", "[作|つく]れました", "[作|つく]らせました"],
+        "answer": 1,
+        "why": [
+          "The bridge is the thing that was made, and によって names who made it: the passive is needed.",
+          "によって names the maker in a passive sentence, so the active 作りました does not fit here.",
+          "作れる is the potential (can make). It does not go with によって.",
+          "作らせる means make someone else build it, a later lesson. It does not go with によって or with the bridge as the subject."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d2.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^このおてらは^外国の人にもよく（　　）います。",
+        "options": ["[知|し]って", "[知|し]られて", "[知|し]らないで", "[知|し]りたくて"],
+        "answer": 2,
+        "why": [
+          "知る does not take the person with に. The person who knows would need が, and here the temple is the subject.",
+          "The temple is what people know: 知られています, is well known, even to people from other countries.",
+          "知らないで means without knowing, and 知らないでいます does not fit the temple as the subject.",
+          "The たい form is not followed by います. And a temple cannot want to know something."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d2.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[弟|おとうと]に",
+        "after": "、とてもかなしいです。",
+        "tiles": ["[大切|たいせつ]に", "していた", "カメラを", "こわされて"],
+        "star": 2,
+        "bank": [2, 0, 3, 1],
+        "hint": "大切にしていた describes the camera. The passive ends the reason part.",
+        "full": "[弟|おとうと]に[大切|たいせつ]にしていたカメラを{こわされて}、とてもかなしいです。",
+        "explain": "大切にしていた (that I took good care of) describes カメラ, so it comes right before カメラを. こわされて, the passive, comes last: my brother broke my camera, and I am sad. 弟に marks who did it."
+      },
+      {
+        "id": "n4u08d2.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "この[歌|うた]は",
+        "after": "います。",
+        "tiles": ["百年前に", "[作|つく]られて", "今も", "[歌|うた]われて"],
+        "star": 1,
+        "bank": [3, 1, 0, 2],
+        "hint": "First when it was made, then what still happens now.",
+        "full": "この[歌|うた]は百年前に[作|つく]られて今も{[歌|うた]われて}います。",
+        "explain": "百年前に goes with the past event 作られて, and 今も goes with 歌われています. The song is the subject of both passives: it was made a hundred years ago and is still sung today."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u08d2.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "こうえんで　犬に　（　　）、病院へ　行きました。",
+        "options": ["手を　かんで", "手を　かまれて", "手が　かめて", "手を　かみたくて"],
+        "answer": 2,
+        "explain": "犬に marks who did it, and 手を is the part of me it happened to: a dog bit my hand, so I went to the hospital. 手をかんで would make me the one biting, and 犬に does not fit. かめて is the potential (can bite), and かみたくて is my own wish to bite; neither fits."
+      },
+      {
+        "id": "n4u08d2.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この　町では　いろいろな　くだものが　（　　）います。",
+        "options": ["作って", "作らせて", "作りたくて", "作られて"],
+        "answer": 4,
+        "explain": "The fruit is the subject (くだものが), and it is what is grown, so the passive is needed: many kinds of fruit are grown in this town. 作って would make the fruit the grower. 作らせて (make someone grow it) and 作りたくて (want to grow) also need a person as the subject, and the たい form is not followed by います."
+      },
+      {
+        "id": "n4u08d2.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "パーティーは　六時から　",
+        "after": "です。",
+        "tiles": ["ホテルの", "レストランで", "開かれる", "よてい"],
+        "star": 2,
+        "bank": [1, 3, 0, 2],
+        "full": "パーティーは　六時から　ホテルの　レストランで　{開かれる}　よていです。",
+        "explain": "ホテルの, レストランで, 開かれる, よてい. ホテルの describes レストラン, レストランで says where, and 開かれる describes よてい, which joins です: the party is planned to be held in the hotel restaurant from six."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "おてらの入口のかんばん",
+    "en": "A sign at a temple gate",
+    "intro": "A sign at the gate of an old temple tells visitors what they need to know. Tap each word on it.",
+    "words": [
+      {"id": "main hall", "word": "本堂", "reading": "ほんどう", "gloss": "main hall (of a temple)", "parts": [["本", "ホン", "main, book"], ["堂", "ドウ", "hall"]]},
+      {"id": "building", "word": "建物", "reading": "たてもの", "gloss": "building", "parts": [["建", "たて", "build"], ["物", "もの", "thing"]]},
+      {"id": "gate opens", "word": "開門", "reading": "かいもん", "gloss": "opening of the gate", "parts": [["開", "カイ", "open"], ["門", "モン", "gate"]]},
+      {"id": "admission", "word": "入場料", "reading": "にゅうじょうりょう", "gloss": "admission fee", "parts": [["入", "ニュウ", "enter"], ["場", "ジョウ", "place"], ["料", "リョウ", "fee"]]},
+      {"id": "open to public", "word": "公開", "reading": "こうかい", "gloss": "open to the public", "parts": [["公", "コウ", "public"], ["開", "カイ", "open"]]},
+      {"id": "tea room", "word": "茶室", "reading": "ちゃしつ", "gloss": "tea ceremony room", "parts": [["茶", "チャ", "tea"], ["室", "シツ", "room"]]},
+      {"id": "photo", "word": "写真", "reading": "しゃしん", "gloss": "photo", "parts": [["写", "シャ", "copy"], ["真", "シン", "true"]]},
+      {"id": "caution", "word": "注意", "reading": "ちゅうい", "gloss": "caution, care", "parts": [["注", "チュウ", "pour, attention"], ["意", "イ", "mind"]]}
+    ],
+    "check": {
+      "id": "n4u08d2.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "_本堂_の　中で　写真を　とらないで　ください。",
+      "options": ["ほんとう", "ほんど", "ぽんどう", "ほんどう"],
+      "answer": 4,
+      "explain": "本堂 is read ほんどう, the main hall of a temple: please do not take photos inside the main hall. ほんとう (true) has と instead of ど, ほんど drops the long う, and ぽんどう starts with ぽ instead of ほ."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（短文）",
+    "en": "Short passage",
+    "ask": "When can visitors see inside the main hall, and what should they be careful about?",
+    "seconds": 90,
+    "passage": "この　おてらは　四百年前に　建てられました。本堂は　百年前に　火事で　一度　やけましたが、町の　人たちに　よって　もう　一度　建てられました。\n^本堂の　中は　ふだんは　見られませんが、春と　秋に　一週間ずつ　公開されます^。毎年　八月には　夏まつりが　開かれて、たくさんの　人が　来ます。\n本堂の　中では　写真を　とらないで　ください。また、さるに　食べものを　とられる　ことが　ありますから、気を　つけて　ください。",
+    "strategy": "Check each choice against the times in the sign: what happens in spring and autumn, what happens in August, and what happened long ago.",
+    "item": {
+      "id": "n4u08d2.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "q": "この　おてらに　ついて、正しい　ものは　どれですか。",
+      "options": ["今の　本堂は　四百年前に　建てられた。", "夏まつりの　ときは、本堂の　中を　見る　ことが　できる。", "本堂の　中を　見る　ことが　できるのは　春と　秋だけだ。", "本堂の　中で　写真を　とっても　いい。"],
+      "short": ["今の本堂は四百年前", "夏まつりで中を見る", "中は春と秋だけ", "中で写真をとっていい"],
+      "answer": 3,
+      "explain": "The sign says the inside of the main hall is usually closed, and is open to the public for one week each in spring and autumn: ふだんは見られませんが、春と秋に一週間ずつ公開されます.",
+      "why": ["The temple was built four hundred years ago, but the main hall burned a hundred years ago and was built again by the town's people.", "The summer festival is in August, but the inside of the main hall is open only in spring and autumn.", "", "The sign asks you not to take photos inside the main hall: 写真をとらないでください."]
+    }
+  }
+}

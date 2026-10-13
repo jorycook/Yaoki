@@ -1,0 +1,500 @@
+{
+ "title": "〜さ・〜の（名詞にする）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u10d4.p1",
+    "form": "〜さ",
+    "gloss": "-ness: turns an adjective into a noun",
+    "connect": [
+     {
+      "pos": "い-adjective: drop い and add さ",
+      "rule": "大きい → 大き{さ}、高い → 高{さ}"
+     },
+     {
+      "pos": "な-adjective: add さ to the stem (no な)",
+      "rule": "べんりな → べんり{さ}"
+     },
+     {
+      "pos": "いい changes to よ before さ",
+      "rule": "いい → よ{さ}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "この[建物|たてもの]の{高さ}は五十メートルです。",
+      "en": "The height of this building is fifty metres."
+     },
+     {
+      "ja": "この[町|まち]の{よさ}は、人がやさしいところです。",
+      "en": "The good thing about this town is that the people are kind."
+     }
+    ],
+    "watch": {
+     "note": "さ takes the place of the い, so it is 大きさ, not 大きいさ. いい becomes よさ.",
+     "bad": "このかばんの大きいさがちょうどいいです。",
+     "good": "このかばんの大きさがちょうどいいです。"
+    }
+   },
+   {
+    "id": "n4u10d4.p2",
+    "form": "〜の・〜こと",
+    "gloss": "turns a verb phrase into a noun",
+    "connect": [
+     {
+      "pos": "Verb, plain form, before が好きです, をわすれました and similar",
+      "rule": "[歩|ある]く{の}が[好|す]きです・[歩|ある]く{こと}が[好|す]きです"
+     },
+     {
+      "pos": "Verb, plain form, with 見える or 聞こえる (only の)",
+      "rule": "[歌|うた]っている{の}が聞こえます"
+     },
+     {
+      "pos": "Noun は + verb, plain form, before です (only こと)",
+      "rule": "しゅみはおよぐ{こと}です"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "わたしは[朝|あさ]、こうえんを[歩|ある]く{の}が[好|す]きです。",
+      "en": "I like walking in the park in the morning."
+     },
+     {
+      "ja": "[家|いえ]を出るとき、かぎをかける{の}をわすれました。",
+      "en": "When I left home, I forgot to lock the door."
+     }
+    ],
+    "watch": {
+     "note": "When a noun such as しゅみ or ゆめ comes before は and the sentence ends in です, use こと, not の.",
+     "bad": "わたしのしゅみは写真をとるのです。",
+     "good": "わたしのしゅみは写真をとることです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "さ and の／こと both make a noun; ことがある also uses こと, but it means that something sometimes happens.",
+   "forms": [
+    {
+     "form": "〜さ",
+     "tag": "大きさ・高さ · adjective as a noun",
+     "mark": "dot",
+     "ja": "このかばんの[重|おも]{さ}は二キロです。",
+     "en": "This bag weighs two kilos."
+    },
+    {
+     "form": "〜の・〜こと",
+     "tag": "めいしにする · verb as a noun",
+     "mark": "dot",
+     "ja": "父のしゅみは、つりをする{こと}です。",
+     "en": "My father's hobby is fishing."
+    },
+    {
+     "form": "〜ことがある",
+     "tag": "ときどき · sometimes happens",
+     "mark": "dot",
+     "ja": "[朝|あさ]ごはんを食べない{ことがあります}。",
+     "en": "Sometimes I don't eat breakfast."
+    }
+   ],
+   "check": {
+    "id": "n4u10d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Noun or sometimes?",
+    "q": "わたしのしゅみは、[映画|えいが]を見る（　　）です。",
+    "options": [
+     "の",
+     "こと",
+     "ことがある"
+    ],
+    "answer": 2,
+    "why": [
+     "After しゅみは, a sentence ending in です needs こと. 見るのです would be the explaining のです, which does not fit here.",
+     "こと turns 映画を見る into a noun: my hobby is watching films.",
+     "ことがある means something sometimes happens, and ことがあるです is not a form."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u10d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この山の（　　）は^三千メートル^ぐらいです。",
+    "options": [
+     "高い",
+     "高く",
+     "高さ",
+     "高いさ"
+    ],
+    "answer": 3,
+    "why": [
+     "高い is an adjective. After この山の and before は, the sentence needs a noun.",
+     "高く is the adverb form. It cannot come before は as the topic.",
+     "Drop the い and add さ: 高さ, height. Three thousand metres is the mountain's height.",
+     "さ takes the place of the い. 高いさ is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このくつの（　　）は、^[軽|かる]くて[歩|ある]きやすいところ^です。",
+    "options": [
+     "いいさ",
+     "よく",
+     "よい",
+     "よさ"
+    ],
+    "answer": 4,
+    "why": [
+     "いい changes to よ before さ. いいさ is not a form.",
+     "よく is the adverb form. It cannot come before は as the topic.",
+     "よい is an adjective. After このくつの, the sentence needs a noun.",
+     "いい becomes よさ, the good point: what is good about these shoes is that they are light and easy to walk in."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "まどから、子どもが^およいでいる^（　　）が^見えます^。",
+    "options": [
+     "こと",
+     "の",
+     "さ",
+     "ので"
+    ],
+    "answer": 2,
+    "why": [
+     "With 見える, the thing you actually see takes の. こと is not used here.",
+     "見える takes の: I can see a child swimming from the window.",
+     "さ goes on adjectives, not on verbs.",
+     "ので gives a reason. It cannot be followed by が."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしの^しゅみは^、[切手|きって]を[集|あつ]める（　　）です。",
+    "options": [
+     "こと",
+     "の",
+     "ことが",
+     "のを"
+    ],
+    "answer": 1,
+    "why": [
+     "しゅみは … です needs こと: my hobby is collecting stamps.",
+     "集めるのです would be the explaining のです. After しゅみは, use こと.",
+     "が cannot come right before です. ことがです is not a form.",
+     "を cannot come right before です. のをです is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "店の人に、",
+    "after": "。",
+    "tiles": [
+     "かばんの",
+     "[重|おも]さを",
+     "聞いて",
+     "みました"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "の joins two nouns. 〜てみました ends the sentence.",
+    "full": "店の人に、かばんの{[重|おも]さ}を聞いてみました。",
+    "explain": "かばんの describes 重さ (the bag's weight), and 重さを is what you ask about, so it comes before 聞いて. 聞いてみました ends the sentence: I asked the shop assistant how heavy the bag is."
+   },
+   {
+    "id": "n4u10d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "出かけるとき、",
+    "after": "。",
+    "tiles": [
+     "電気を",
+     "けす",
+     "のを",
+     "わすれました"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "What did you forget? Make 電気をけす into a noun with の first.",
+    "full": "出かけるとき、電気をけす{のを}わすれました。",
+    "explain": "電気を goes with けす, and の turns 電気をけす into a noun. を marks it as the thing forgotten, so のを comes right before わすれました: I forgot to turn off the light when I went out."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u10d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "駅も　スーパーも　近いので、この　町の（　　）が　気に　入って　います。",
+    "options": [
+     "べんりさ",
+     "べんりな",
+     "べんりだ",
+     "べんりに"
+    ],
+    "answer": 1,
+    "explain": "After この町の and before が, the sentence needs a noun. べんり is a な-adjective, so you add さ: I like how convenient this town is. べんりな needs a noun after it, べんりだ ends a sentence, and べんりに is the adverb form, so none of them can come before が."
+   },
+   {
+    "id": "n4u10d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "となりの　へやで　だれかが　歌って　いる（　　）　聞こえます。",
+    "options": [
+     "ことが",
+     "のを",
+     "ことを",
+     "のが"
+    ],
+    "answer": 4,
+    "explain": "With 聞こえる, the sound you actually hear takes の, and 聞こえる takes が: I can hear someone singing in the next room. ことが and ことを use こと, which is not used with 聞こえる. のを has the wrong particle: 聞こえる does not take を."
+   },
+   {
+    "id": "n4u10d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "兄の　",
+    "after": "。",
+    "tiles": [
+     "しゅみは",
+     "ギターを",
+     "ひく",
+     "ことです"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "full": "兄の　しゅみは　ギターを　ひく　{ことです}。",
+    "explain": "しゅみは, ギターを, ひく, ことです. 兄の describes しゅみ, ギターを goes with ひく, and こと turns ギターをひく into a noun before です: my older brother's hobby is playing the guitar."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "デスクライトの説明",
+  "en": "A desk lamp spec card",
+  "intro": "The box of a desk lamp has a card with its size, weight and other details. Tap each word on it.",
+  "words": [
+   {
+    "id": "brightness",
+    "word": "明るさ",
+    "reading": "あかるさ",
+    "gloss": "brightness",
+    "parts": [
+     [
+      "明",
+      "あか",
+      "bright"
+     ]
+    ]
+   },
+   {
+    "id": "weight",
+    "word": "重さ",
+    "reading": "おもさ",
+    "gloss": "weight",
+    "parts": [
+     [
+      "重",
+      "おも",
+      "heavy"
+     ]
+    ]
+   },
+   {
+    "id": "height",
+    "word": "高さ",
+    "reading": "たかさ",
+    "gloss": "height",
+    "parts": [
+     [
+      "高",
+      "たか",
+      "high, tall"
+     ]
+    ]
+   },
+   {
+    "id": "colour",
+    "word": "色",
+    "reading": "いろ",
+    "gloss": "colour",
+    "parts": [
+     [
+      "色",
+      "いろ",
+      "colour"
+     ]
+    ]
+   },
+   {
+    "id": "battery",
+    "word": "電池",
+    "reading": "でんち",
+    "gloss": "battery",
+    "parts": [
+     [
+      "電",
+      "デン",
+      "electricity"
+     ],
+     [
+      "池",
+      "チ",
+      "pond"
+     ]
+    ]
+   },
+   {
+    "id": "usetime",
+    "word": "使用時間",
+    "reading": "しようじかん",
+    "gloss": "running time (how long it can be used)",
+    "parts": [
+     [
+      "使",
+      "シ",
+      "use"
+     ],
+     [
+      "用",
+      "ヨウ",
+      "use, task"
+     ],
+     [
+      "時",
+      "ジ",
+      "time"
+     ],
+     [
+      "間",
+      "カン",
+      "interval"
+     ]
+    ]
+   },
+   {
+    "id": "shipping",
+    "word": "送料",
+    "reading": "そうりょう",
+    "gloss": "shipping fee",
+    "parts": [
+     [
+      "送",
+      "ソウ",
+      "send"
+     ],
+     [
+      "料",
+      "リョウ",
+      "fee"
+     ]
+    ]
+   },
+   {
+    "id": "caution",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "gloss": "caution, warning",
+    "parts": [
+     [
+      "注",
+      "チュウ",
+      "pour, pay attention"
+     ],
+     [
+      "意",
+      "イ",
+      "mind"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u10d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　ライトは　_送料_が　かかりません。",
+   "options": [
+    "そりょう",
+    "そうりょ",
+    "そうりょう",
+    "おくりょう"
+   ],
+   "answer": 3,
+   "explain": "送料 is read そうりょう, the shipping fee: there is no shipping charge for this lamp. そりょう drops the long う in そう, そうりょ drops the long う in りょう, and おくりょう uses the kun reading of 送, which is not used in this word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "What went wrong on Yamada's climb last month?",
+  "seconds": 100,
+  "passage": "山田ゆかです。わたしの　しゅみは　山に　のぼる　ことです。高い　山に　のぼるのは　たいへんですが、上から　町を　見るのが　大好きです。天気が　いい　日は、遠くの　海も　見えます。先月、友だちと　二人で　北海道の　山に　のぼりました。天気が　よくて、海が　とても　きれいに　見えました。でも、^カメラを　持って　いくのを　わすれて^、写真が　一まいも　とれませんでした。それが　ざんねんでした。来月は　この　クラブの　みなさんと　近くの　山に　行きます。いっしょに　のぼりませんか。",
+  "strategy": "Find the でも sentence about last month: what went wrong comes right before それがざんねんでした.",
+  "item": {
+   "id": "n4u10d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "山田さんが　先月　ざんねんだったのは　どうしてですか。",
+   "options": [
+    "天気が　わるくて、海が　見えなかったから。",
+    "カメラを　持って　いくのを　わすれたから。",
+    "高い　山に　のぼるのが　たいへんだったから。",
+    "友だちが　いっしょに　行けなかったから。"
+   ],
+   "short": [
+    "海が見えなかった",
+    "カメラをわすれた",
+    "のぼるのがたいへんだった",
+    "友だちが行けなかった"
+   ],
+   "answer": 2,
+   "explain": "She forgot to bring her camera, so she could not take a single photo: カメラを持っていくのをわすれて、写真が一まいもとれませんでした. それがざんねんでした points back to this.",
+   "why": [
+    "The weather was good and the sea looked very beautiful: 天気がよくて、海がとてもきれいに見えました.",
+    "",
+    "She says climbing high mountains is hard in general, but that is not what she was sorry about.",
+    "She climbed with a friend, the two of them together: 友だちと二人で."
+   ]
+  }
+ }
+}

@@ -34,6 +34,12 @@ for u in data['units']:
         if sk['kind'] == 'listening':
             jobs[sk['item']['clip']] = [(SPK[l[0]], l[1], l[2]) for l in sk['audio']]
 
+# a mini mock's listening parts: one clip per part with lines, named <item id>_<part> (n5mock10_q)
+for it in data.get('items', {}).values():
+    for pt in it.get('parts') or []:
+        if pt.get('lines'):
+            jobs[it['id'] + '_' + pt['k']] = [(SPK[l[0]], l[1], l[2]) for l in pt['lines']]
+
 os.makedirs(out, exist_ok=True)
 mpath = os.path.join(out, 'manifest.json')
 manifest = json.load(open(mpath, encoding='utf-8')) if os.path.exists(mpath) else {}

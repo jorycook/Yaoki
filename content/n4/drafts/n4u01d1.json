@@ -1,0 +1,465 @@
+{
+ "title": "可能形・〜ことができる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u01d1.p1",
+    "form": "可能形（〜られる・〜える）",
+    "gloss": "can do (potential form)",
+    "connect": [
+     {
+      "pos": "る-verb: drop る and add られる",
+      "rule": "食べる → 食べ{られる}"
+     },
+     {
+      "pos": "う-verb: change the last sound to the え sound and add る",
+      "rule": "書く → 書{ける}、読む → 読{める}"
+     },
+     {
+      "pos": "The two irregular verbs, 来る and する",
+      "rule": "来る → 来{られる}、する → {できる}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[弟|おとうと]はさしみが{食べられません}。",
+      "en": "My younger brother can't eat sashimi."
+     },
+     {
+      "ja": "[兄|あに]は[英語|えいご]が{話せます}。",
+      "en": "My older brother can speak English."
+     }
+    ],
+    "watch": {
+     "note": "A う-verb only changes its last sound: 書く becomes 書ける. Do not add られる after that. The thing you can do usually takes が.",
+     "bad": "わたしは漢字が書けられます。",
+     "good": "わたしは漢字が書けます。"
+    }
+   },
+   {
+    "id": "n4u01d1.p2",
+    "form": "〜ことができる",
+    "gloss": "can do, is able to (a little formal)",
+    "connect": [
+     {
+      "pos": "Verb, dictionary form",
+      "rule": "[使|つか]う{ことができます}"
+     },
+     {
+      "pos": "Verb, dictionary form, when it is not possible",
+      "rule": "[使|つか]う{ことができません}"
+     },
+     {
+      "pos": "Noun for an activity, such as テニス or [運転|うんてん]",
+      "rule": "〜{ができます}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "この[図書館|としょかん]では、本を二週間[借|か]りる{ことができます}。",
+      "en": "At this library, you can borrow books for two weeks."
+     },
+     {
+      "ja": "ここでは、たばこをすう{ことができません}。",
+      "en": "You cannot smoke here."
+     }
+    ],
+    "watch": {
+     "note": "こと follows the dictionary form of the verb, not the ます form.",
+     "bad": "日本語を話しますことができます。",
+     "good": "日本語を話すことができます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "The potential form and ことができる both say what someone can do; 〜たことがある looks close but tells an experience.",
+   "forms": [
+    {
+     "form": "可能形",
+     "tag": "ひける · can (short, everyday)",
+     "mark": "dot",
+     "ja": "[兄|あに]はピアノが{ひけます}。",
+     "en": "My brother can play the piano."
+    },
+    {
+     "form": "〜ことができる",
+     "tag": "ことができる · can (a little formal)",
+     "mark": "dot",
+     "ja": "このプールは、子どもも[使|つか]う{ことができます}。",
+     "en": "Children can use this pool too."
+    },
+    {
+     "form": "〜たことがある",
+     "tag": "けいけん · have done before",
+     "mark": "dot",
+     "ja": "わたしは[着物|きもの]を[着|き]た{ことがあります}。",
+     "en": "I have worn a kimono before."
+    }
+   ],
+   "check": {
+    "id": "n4u01d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Ability or experience?",
+    "q": "子どものころ、一[度|ど]だけうまにのった（　　）。",
+    "options": [
+     "ことがあります",
+     "ことができます",
+     "られます"
+    ],
+    "answer": 1,
+    "why": [
+     "のった is the た form, and 一度だけ tells one past experience: I have ridden a horse once.",
+     "ことができる follows the dictionary form (のることができます), and it says what you can do, not what you once did.",
+     "られる does not join the た form. のる is a う-verb, so its potential is のれる."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u01d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[兄|あに]は^日本語の新聞が^（　　）。",
+    "options": [
+     "読めます",
+     "読みられます",
+     "読まれます",
+     "読められます"
+    ],
+    "answer": 1,
+    "why": [
+     "読む is a う-verb: む changes to め and る is added. 新聞 takes が, so the potential fits.",
+     "読む is not a る-verb, so られる does not go on 読み. 読みられる is not a form.",
+     "読まれる is the passive (be read), a later unit. It does not mean can read, and it cannot take 新聞が here.",
+     "読める is already the potential. Adding られる on top is not a form."
+    ]
+   },
+   {
+    "id": "n4u01d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは^なっとうが^（　　）。においがだめなんです。",
+    "options": [
+     "食べられません",
+     "食べません",
+     "食べけません",
+     "食べさせません"
+    ],
+    "answer": 1,
+    "why": [
+     "食べる is a る-verb: drop る and add られる. なっとう takes が, and the next sentence gives the reason she can't.",
+     "食べる on its own takes を: なっとうを食べません. With なっとうが, the sentence needs the potential.",
+     "Only う-verbs change to the え sound. 食べる is a る-verb, so 食べける is not a form.",
+     "食べさせる means make someone eat, a later unit. It does not mean can eat, and the food would take を."
+    ]
+   },
+   {
+    "id": "n4u01d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[図書館|としょかん]では、本を^五さつまで^（　　）。",
+    "options": [
+     "[借|か]りることができます",
+     "[借|か]りるのができます",
+     "[借|か]りてことができます",
+     "[借|か]りますことができます"
+    ],
+    "answer": 1,
+    "why": [
+     "Dictionary form + ことができます: at this library you can borrow up to five books.",
+     "This pattern uses こと. 借りるのができます is not said.",
+     "こと follows the dictionary form, not the te-form.",
+     "こと follows the dictionary form, not the ます form."
+    ]
+   },
+   {
+    "id": "n4u01d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この道は^今[工事|こうじ]中ですから^、[通|とお]る（　　）。",
+    "options": [
+     "ことができません",
+     "ことができます",
+     "ことがあります",
+     "ことがすきです"
+    ],
+    "answer": 1,
+    "why": [
+     "The road is being worked on, so you cannot go along it: ことができません.",
+     "Work on the road is a reason you cannot pass, not a reason you can.",
+     "ことがある means it sometimes happens. Work on the road is not a reason for that.",
+     "Work on the road is not a reason to like passing along it."
+    ]
+   },
+   {
+    "id": "n4u01d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "からいものはにがてですが、",
+    "after": "。",
+    "tiles": [
+     "母が",
+     "[作|つく]る",
+     "カレーは",
+     "食べられます"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "母が作る describes the curry. The potential form ends the sentence.",
+    "full": "からいものはにがてですが、母が[作|つく]るカレーは{食べられます}。",
+    "explain": "母が作る is a short sentence that describes カレー, so it comes right before カレーは. 食べられます, the potential of 食べる, ends the sentence: I can eat the curry my mother makes."
+   },
+   {
+    "id": "n4u01d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このこうえんでは、",
+    "after": "できます。",
+    "tiles": [
+     "[犬|いぬ]を",
+     "つれて",
+     "[歩|ある]く",
+     "ことが"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "こと follows the dictionary form. What do you do with the dog before you walk?",
+    "full": "このこうえんでは、[犬|いぬ]をつれて[歩|ある]く{ことが}できます。",
+    "explain": "犬を goes with つれて (take the dog along), and つれて joins 歩く. 歩く is the dictionary form, so ことが comes right after it, before できます."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u01d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは　まだ　漢字が　あまり（　　）。",
+    "options": [
+     "書けません",
+     "書きません",
+     "書きられません",
+     "書けられません"
+    ],
+    "answer": 1,
+    "explain": "書く is a う-verb, so its potential is 書ける, and 漢字 takes が: I still can't write kanji very well. 書きません would need 漢字を. 書きられません and 書けられません are not forms: a う-verb does not take られる."
+   },
+   {
+    "id": "n4u01d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "図書館の　中では　ものを　食べる（　　）。外で　食べて　ください。",
+    "options": [
+     "ことが　できません",
+     "ことが　できます",
+     "ことが　あります",
+     "ことが　わかります"
+    ],
+    "answer": 1,
+    "explain": "外で食べてください tells you to eat outside, so you cannot eat inside the library: ことができません. ことができます says the opposite, ことがあります means it sometimes happens, and ことがわかります does not make sense here."
+   },
+   {
+    "id": "n4u01d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あした　",
+    "after": "いますか。",
+    "tiles": [
+     "朝",
+     "早く",
+     "来られる",
+     "人は"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "full": "あした　朝　早く　{来られる}　人は　いますか。",
+    "explain": "朝, 早く, 来られる, 人は. 朝早く (early in the morning) comes before the verb, and 来られる, the potential of 来る, describes 人: is there anyone who can come early tomorrow morning?"
+   }
+  ]
+ },
+ "scene": {
+  "ja": "スポーツセンターのお知らせ",
+  "en": "A sports centre notice",
+  "intro": "A notice at the door of the sports centre says what you can do there. Tap each word on it.",
+  "words": [
+   {
+    "id": "exercise",
+    "word": "運動",
+    "reading": "うんどう",
+    "gloss": "exercise, sport",
+    "parts": [
+     ["運", "ウン", "carry"],
+     ["動", "ドウ", "move"]
+    ]
+   },
+   {
+    "id": "open",
+    "word": "開館",
+    "reading": "かいかん",
+    "gloss": "open (the building)",
+    "parts": [
+     ["開", "カイ", "open"],
+     ["館", "カン", "hall, building"]
+    ]
+   },
+   {
+    "id": "closed",
+    "word": "休館日",
+    "reading": "きゅうかんび",
+    "gloss": "closing day",
+    "parts": [
+     ["休", "キュウ", "rest"],
+     ["館", "カン", "hall, building"],
+     ["日", "ビ", "day"]
+    ]
+   },
+   {
+    "id": "member",
+    "word": "会員",
+    "reading": "かいいん",
+    "gloss": "member",
+    "parts": [
+     ["会", "カイ", "meet, group"],
+     ["員", "イン", "member"]
+    ]
+   },
+   {
+    "id": "fee",
+    "word": "料金",
+    "reading": "りょうきん",
+    "gloss": "fee, charge",
+    "parts": [
+     ["料", "リョウ", "fee"],
+     ["金", "キン", "money"]
+    ]
+   },
+   {
+    "id": "free",
+    "word": "無料",
+    "reading": "むりょう",
+    "gloss": "free (no charge)",
+    "parts": [
+     ["無", "ム", "none"],
+     ["料", "リョウ", "fee"]
+    ]
+   },
+   {
+    "id": "class",
+    "word": "教室",
+    "reading": "きょうしつ",
+    "gloss": "class, lessons; classroom",
+    "parts": [
+     ["教", "キョウ", "teach"],
+     ["室", "シツ", "room"]
+    ]
+   },
+   {
+    "id": "rental",
+    "word": "貸し出し",
+    "reading": "かしだし",
+    "gloss": "lending, rental",
+    "parts": [
+     ["貸", "か", "lend"],
+     ["出", "だ", "out"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u01d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "プールの　_料金_は　いくらですか。",
+   "options": [
+    "りょうきん",
+    "りょきん",
+    "りょうぎん",
+    "りゅうきん"
+   ],
+   "answer": 1,
+   "explain": "料金 is read りょうきん, a fee: how much does the pool cost? りょきん drops the long う, りょうぎん has ぎ instead of き, and りゅうきん has りゅ instead of りょ."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "女の人は　この　あと、まず　何を　しますか。",
+  "audio": [
+   ["N", "スポーツセンターで、女の人と男の人が話しています。女の人はこのあと、まず何をしますか。", "スポーツセンターで、おんなのひととおとこのひとがはなしています。おんなのひとはこのあと、まずなにをしますか。"],
+   ["F", "すみません、プールを使いたいんですが。", "すみません、プールをつかいたいんですが。"],
+   ["M", "プールは会員の方だけ使うことができます。会員カードはありますか。", "プールはかいいんのかただけつかうことができます。かいいんカードはありますか。"],
+   ["F", "いいえ、ありません。今日、会員になれますか。", "いいえ、ありません。きょう、かいいんになれますか。"],
+   ["M", "はい、なれますよ。この紙に名前とじゅうしょを書いてください。", "はい、なれますよ。このかみになまえとじゅうしょをかいてください。"],
+   ["F", "わかりました。あのう、水着は借りられますか。", "わかりました。あのう、みずぎはかりられますか。"],
+   ["M", "すみません、水着の貸し出しはしていません。でも、二かいの売店で買うことができますよ。", "すみません、みずぎのかしだしはしていません。でも、にかいのばいてんでかうことができますよ。"],
+   ["F", "じゃあ、先に水着を買ってきます。", "じゃあ、さきにみずぎをかってきます。"],
+   ["M", "あ、売店で買い物をするときも、会員カードがいるんです。ですから、先にこの紙を書いてください。", "あ、ばいてんでかいものをするときも、かいいんカードがいるんです。ですから、さきにこのかみをかいてください。"],
+   ["F", "はい、わかりました。", null],
+   ["N", "女の人はこのあと、まず何をしますか。", "おんなのひとはこのあと、まずなにをしますか。"]
+  ],
+  "item": {
+   "id": "n4u01d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "女の人は　この　あと、まず　何を　しますか。",
+   "script": [
+    "ナレーター：スポーツセンターで、女の人と男の人が話しています。女の人はこのあと、まず何をしますか。",
+    "女：すみません、プールを使いたいんですが。",
+    "男：プールは会員の方だけ使うことができます。会員カードはありますか。",
+    "女：いいえ、ありません。今日、会員になれますか。",
+    "男：はい、なれますよ。この紙に名前とじゅうしょを書いてください。",
+    "女：わかりました。あのう、水着は借りられますか。",
+    "男：すみません、水着の貸し出しはしていません。でも、二かいの売店で買うことができますよ。",
+    "女：じゃあ、先に水着を買ってきます。",
+    "男：あ、売店で買い物をするときも、会員カードがいるんです。ですから、先にこの紙を書いてください。",
+    "女：はい、わかりました。",
+    "ナレーター：女の人はこのあと、まず何をしますか。"
+   ],
+   "options": [
+    "紙に　名前と　じゅうしょを　書く",
+    "会員カードを　見せる",
+    "売店で　水着を　買う",
+    "プールで　およぐ"
+   ],
+   "printed": true,
+   "short": [
+    "紙に書く",
+    "カードを見せる",
+    "水着を買う",
+    "プールでおよぐ"
+   ],
+   "answer": 1,
+   "why": [
+    "The man says 先にこの紙を書いてください: she fills in the form before anything else.",
+    "She has no member card yet (いいえ、ありません), so she cannot show one.",
+    "She wants to buy a swimsuit first, but the shop also needs a member card, so the form comes first.",
+    "Only members can use the pool, so swimming comes last."
+   ]
+  }
+ }
+}

@@ -1,0 +1,247 @@
+{
+ "title": "〜し・〜て（理由）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u06d2.p1",
+    "form": "〜し",
+    "gloss": "and also (listing reasons)",
+    "connect": [
+     {"pos": "Verb or い-adjective, plain form", "rule": "[近|ちか]い{し}、安い{し}"},
+     {"pos": "な-adjective or noun: add だ", "rule": "しずかだ{し}、雨だ{し}"},
+     {"pos": "Polite forms can also come before し", "rule": "[広|ひろ]いです{し}"}
+    ],
+    "examples": [
+     {"ja": "この店は安い{し}、おいしい{し}、よく来ます。", "en": "This place is cheap and tasty too, so I come here often."},
+     {"ja": "今日は雨だ{し}、[寒|さむ]い{し}、[出|で]かけたくないです。", "en": "It's raining, and it's cold too, so I don't want to go out today."}
+    ],
+    "watch": {
+     "note": "With a な-adjective or a noun, put だ before し. しずかし and しずかなし are not forms.",
+     "bad": "このへやはしずかし、明るいし、いいですね。",
+     "good": "このへやはしずかだし、明るいし、いいですね。"
+    }
+   },
+   {
+    "id": "n4u06d2.p2",
+    "form": "〜て（理由）",
+    "gloss": "because of … (a cause and its result)",
+    "connect": [
+     {"pos": "Verb, te-form", "rule": "かぜをひい{て}、休みました"},
+     {"pos": "い-adjective: drop い and add くて", "rule": "[暑|あつ]い → [暑|あつ]{くて}"},
+     {"pos": "な-adjective or noun: add で", "rule": "[不便|ふべん]{で}、[病気|びょうき]{で}"}
+    ],
+    "examples": [
+     {"ja": "かぜをひい{て}、学校を休みました。", "en": "I caught a cold, so I stayed home from school."},
+     {"ja": "そのニュースを聞い{て}、びっくりしました。", "en": "I was surprised to hear that news."}
+    ],
+    "watch": {
+     "note": "After a て-reason, the second part is a result or a feeling. It cannot be a request, an invitation or something you will do. Use から for that.",
+     "bad": "時間がなくて、タクシーで行きましょう。",
+     "good": "時間がないから、タクシーで行きましょう。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three give a reason; they differ in how many reasons they list and in what can come after them.",
+   "forms": [
+    {"form": "〜し", "tag": "理由をならべる · and also (several reasons)", "mark": "dot", "ja": "このレストランは安い{し}、おいしい{し}、[好|す]きです。", "en": "I like this restaurant: it's cheap, and it's tasty too."},
+    {"form": "〜て（理由）", "tag": "原因と結果 · cause, then a result or feeling", "mark": "dot", "ja": "友だちから[手紙|てがみ]をもらっ{て}、うれしかったです。", "en": "I got a letter from a friend, and I was happy."},
+    {"form": "〜から", "tag": "理由 · because (a request can follow)", "mark": "dot", "ja": "[暑|あつ]い{から}、まどを[開|あ]けてください。", "en": "It's hot, so please open the window."}
+   ],
+   "check": {
+    "id": "n4u06d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which reason fits a request?",
+    "q": "雨が（　　）、かさを[持|も]っていってください。",
+    "options": ["ふっていて", "ふっているから", "ふっているのに"],
+    "answer": 2,
+    "why": [
+     "A て-reason cannot be followed by a request like 持っていってください.",
+     "から gives the reason and can be followed by a request: it is raining, so take an umbrella.",
+     "のに means although. Rain is the reason to take an umbrella, not something against it."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u06d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このアパートは駅から（　　）、^安いし^、とてもいいです。",
+    "options": ["[近|ちか]いだし", "[近|ちか]くし", "[近|ちか]いし", "[近|ちか]くで"],
+    "answer": 3,
+    "why": [
+     "近い is an い-adjective. だ goes before し only with a な-adjective or a noun.",
+     "し follows the plain form 近い. 近くし is not a form.",
+     "近い is the plain form, so し joins it directly, and 安いし lists a second good point.",
+     "近くで means at a nearby place. It cannot list a reason with 安いし."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この店は（　　）、^店の人も[親切|しんせつ]だし^、また来たいです。",
+    "options": ["しずかし", "しずかだし", "しずかくて", "しずかなし"],
+    "answer": 2,
+    "why": [
+     "しずか is a な-adjective, so it needs だ before し.",
+     "しずか is a な-adjective: しずか + だ + し. It lists one good point, and 親切だし lists another.",
+     "くて is for い-adjectives. しずか is a な-adjective, so it would be しずかで.",
+     "な is used before a noun. Before し, a な-adjective takes だ."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "友だちが[入院|にゅういん]したと^聞いて^、（　　）。",
+    "options": ["びっくりしました", "おみまいに行きましょう", "おみまいに行ってください", "おみまいに行きませんか"],
+    "answer": 1,
+    "why": [
+     "聞いて gives the cause, and a feeling follows: I was surprised to hear my friend went into hospital.",
+     "ましょう invites someone. A て-reason cannot be followed by an invitation; you would say 聞いたから.",
+     "てください is a request. A て-reason cannot be followed by a request.",
+     "ませんか is an invitation. A て-reason cannot be followed by an invitation."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このレストランはねだんが（　　）、^あまり行けません^。",
+    "options": ["高いて", "高いで", "高かって", "高くて"],
+    "answer": 4,
+    "why": [
+     "An い-adjective drops い before て: 高くて. 高いて is not a form.",
+     "で follows a な-adjective or a noun. 高い is an い-adjective.",
+     "高かっ is the start of the past form 高かった. 高かって is not a form.",
+     "高い drops い and adds くて. The high price is the cause, and I can't go often is the result."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このアパートは",
+    "after": "し、ここにします。",
+    "tiles": ["日がよく", "入るし、", "駅にも", "[近|ちか]い"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "Two good points, each ending in し. も shows the second one.",
+    "full": "このアパートは日がよく入る{し}、駅にも[近|ちか]い{し}、ここにします。",
+    "explain": "日がよく入る (it gets a lot of sun) is the first good point, so 入るし、 comes after 日がよく. 駅にも近い is the second point, and the し after it is already in place: the flat gets the sun and is close to the station, so I'll take it."
+   },
+   {
+    "id": "n4u06d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "先週は",
+    "after": "三日も休みました。",
+    "tiles": ["ひどい", "かぜを", "ひいて、", "会社を"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "ひどい describes the cold. The te-form gives the cause.",
+    "full": "先週はひどいかぜをひい{て}、会社を三日も休みました。",
+    "explain": "ひどい describes かぜ, and かぜを goes with ひいて. ひいて、 is the cause, and the result follows: 会社を三日も休みました. I caught a bad cold last week and missed three days of work."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u06d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「どうして　この　アパートに　したんですか。」\nB「駅から　近い（　　）、へやも　広いからです。」",
+    "options": ["のに", "と", "し", "ても"],
+    "answer": 3,
+    "explain": "B gives two good points: near the station, and the rooms are big too. し lists the first one, and も marks the second. のに means although, but both points are good. 近いと means if it is near, which does not give a reason. ても does not follow 近い (it would be 近くても), and even if is wrong here."
+   },
+   {
+    "id": "n4u06d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "友だちから　手紙を　もらって、（　　）。",
+    "options": ["へんじを　書いて　ください", "いっしょに　読みましょう", "へんじを　書きませんか", "とても　うれしかったです"],
+    "answer": 4,
+    "explain": "もらって is a て-reason, so a result or a feeling follows: I got a letter from a friend and was very happy. A て-reason cannot be followed by a request (てください) or an invitation (ましょう, ませんか)."
+   },
+   {
+    "id": "n4u06d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この　へやは　",
+    "after": "遠いです。",
+    "tiles": ["日が", "入らなくて", "暗いし、", "駅からも"],
+    "star": 2,
+    "bank": [3, 1, 2, 0],
+    "full": "この　へやは　日が　入らなくて　{暗いし}、駅からも　遠いです。",
+    "explain": "日が, 入らなくて, 暗いし、, 駅からも. 日が入らなくて is the cause of 暗い (no sun comes in, so it is dark). 暗いし lists one bad point, and 駅からも遠い adds another: this room gets no sun and is dark, and it is far from the station too."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "アパートのチラシ",
+  "en": "An apartment flyer",
+  "intro": "A flyer at an estate agent's window shows a flat for rent. Tap each word on it.",
+  "words": [
+   {"id": "vacant", "word": "空室", "reading": "くうしつ", "gloss": "vacant room, flat to let", "parts": [["空", "クウ", "empty, sky"], ["室", "シツ", "room"]]},
+   {"id": "western", "word": "洋室", "reading": "ようしつ", "gloss": "Western-style room", "parts": [["洋", "ヨウ", "Western, ocean"], ["室", "シツ", "room"]]},
+   {"id": "kitchen", "word": "台所", "reading": "だいどころ", "gloss": "kitchen", "parts": [["台", "ダイ", "stand, platform"], ["所", "どころ", "place"]]},
+   {"id": "building", "word": "建物", "reading": "たてもの", "gloss": "building", "parts": [["建", "たて", "build"], ["物", "もの", "thing"]]},
+   {"id": "bright", "word": "明るい", "reading": "あかるい", "gloss": "bright, light", "parts": [["明", "あか", "bright"]]},
+   {"id": "address", "word": "住所", "reading": "じゅうしょ", "gloss": "address", "parts": [["住", "ジュウ", "live"], ["所", "ショ", "place"]]},
+   {"id": "neighbourhood", "word": "近所", "reading": "きんじょ", "gloss": "neighbourhood, nearby", "parts": [["近", "キン", "near"], ["所", "ジョ", "place"]]},
+   {"id": "map", "word": "地図", "reading": "ちず", "gloss": "map", "parts": [["地", "チ", "ground, land"], ["図", "ズ", "drawing, plan"]]}
+  ],
+  "check": {
+   "id": "n4u06d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　アパートの　_台所_は　広くて　明るいです。",
+   "options": ["たいどころ", "だいどころ", "だいところ", "だいしょ"],
+   "answer": 2,
+   "explain": "台所 is read だいどころ, a kitchen: the kitchen in this flat is big and bright. たいどころ has た instead of だ, だいところ has と instead of ど, and だいしょ uses the other reading of 所, which is not used in this word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Why did the writer choose the second flat?",
+  "seconds": 90,
+  "passage": "来月から　大学の　近くに　住む　ことに　なりました。きのう、母と　へやを　二つ　見に　行きました。\n一つ目の　へやは　駅から　近いし、新しいし、とても　きれいでした。でも、やちんが　高くて、びっくりしました。\n二つ目の　へやは　建物が　古くて、駅からも　少し　遠いです。でも、^台所が　広いし、やちんも　安いです^。わたしは　料理を　するのが　大好きです。それで、二つ目の　へやに　しました。",
+  "strategy": "Find the でも after each flat's description: し lists the good points, and the last sentences say which one was chosen.",
+  "item": {
+   "id": "n4u06d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "この　人は　どうして　二つ目の　へやに　しましたか。",
+   "options": ["台所が　広くて、やちんも　安いから", "駅から　近くて、新しいから", "やちんは　高いが、台所が　広いから", "母が　その　へやが　いいと　言ったから"],
+   "short": ["台所が広くてやちんも安い", "駅から近くて新しい", "やちんは高いが台所が広い", "母がいいと言った"],
+   "answer": 1,
+   "explain": "About the second flat, the writer says 台所が広いし、やちんも安いです, and loves cooking. それで (so) they chose it.",
+   "why": [
+    "",
+    "That describes the first flat. The second flat is a little far from the station, and the building is old.",
+    "The rent of the second flat is cheap (やちんも安い). It was the first flat that was expensive.",
+    "The writer went with their mother, but the passage does not say what she thought."
+   ]
+  }
+ }
+}

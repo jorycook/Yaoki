@@ -1,0 +1,506 @@
+{
+ "title": "〜させてください・〜させてもらう",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u08d4.p1",
+    "form": "〜させてください",
+    "gloss": "please let me … (asking to do it yourself)",
+    "connect": [
+     {
+      "pos": "う-verb: the ない form without ない, then せて",
+      "rule": "休む → 休ま{せてください}"
+     },
+     {
+      "pos": "る-verb: drop る and add させて; する becomes させて",
+      "rule": "[考|かんが]える → [考|かんが]え{させてください}、する → {させてください}"
+     },
+     {
+      "pos": "More polite: the same form + いただけませんか",
+      "rule": "休ま{せていただけませんか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[頭|あたま]がいたいので、少し休ま{せてください}。",
+      "en": "I have a headache, so please let me rest a little."
+     },
+     {
+      "ja": "[用事|ようじ]があるので、今日は[早|はや]く[帰|かえ]ら{せていただけませんか}。",
+      "en": "I have something to do, so could you let me go home early today?"
+     }
+    ],
+    "watch": {
+     "note": "You are asking to do it yourself, so use the causative: させてください. してください asks the listener to do it.",
+     "bad": "わたしにその仕事をしてください。",
+     "good": "わたしにその仕事をさせてください。"
+    }
+   },
+   {
+    "id": "n4u08d4.p2",
+    "form": "〜させてもらう",
+    "gloss": "was allowed to (and thankful)",
+    "connect": [
+     {
+      "pos": "Person who gives the OK + に, then the causative て form",
+      "rule": "店長に ＋ 休ま{せてもらいました}"
+     },
+     {
+      "pos": "To someone above you, more polite",
+      "rule": "[使|つか]わ{せていただきました}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "きのう、店長にはじめてケーキを[作|つく]ら{せてもらいました}。",
+      "en": "Yesterday the manager let me make a cake for the first time."
+     },
+     {
+      "ja": "父に新しい車を[運転|うんてん]さ{せてもらいました}。",
+      "en": "My father let me drive his new car."
+     }
+    ],
+    "watch": {
+     "note": "When you are the one who rests, put the causative before もらう. 店長に休んでもらいました means you had the manager take the day off.",
+     "bad": "ねつがあったので、店長に休んでもらいました。",
+     "good": "ねつがあったので、店長に休ませてもらいました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "させてください and させてもらう are about you doing something with someone's OK; てもらう is someone else doing it for you.",
+   "forms": [
+    {
+     "form": "〜させてください",
+     "tag": "じぶんがしたい · please let me",
+     "mark": "dot",
+     "ja": "その[仕事|しごと]、わたしにやら{せてください}。",
+     "en": "Please let me do that job."
+    },
+    {
+     "form": "〜させてもらう",
+     "tag": "いいと言われた · I was allowed to",
+     "mark": "dot",
+     "ja": "店長にレジを[使|つか]わ{せてもらいました}。",
+     "en": "The manager let me use the till."
+    },
+    {
+     "form": "〜てもらう",
+     "tag": "あいてがした · someone did it for me",
+     "mark": "dot",
+     "ja": "店長にレジの[使|つか]い[方|かた]を[教|おし]えて{もらいました}。",
+     "en": "The manager showed me how to use the till."
+    }
+   ],
+   "check": {
+    "id": "n4u08d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Who goes home?",
+    "q": "^きのう^は、店長が「もう[帰|かえ]っていいですよ」と言ったので、[早|はや]く（　　）。",
+    "options": [
+     "[帰|かえ]ってもらいました",
+     "[帰|かえ]らせてもらいました",
+     "[帰|かえ]らせてください"
+    ],
+    "answer": 2,
+    "why": [
+     "帰ってもらいました means you had the manager go home. The manager told you that you could go.",
+     "The manager said you could go, and you went home early: you were allowed to, so させてもらいました.",
+     "きのう tells a past event. させてください is a request for now or later."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u08d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "すみません、^わたしに^その[仕事|しごと]を（　　）。",
+    "options": [
+     "してください",
+     "させてください",
+     "させられてください",
+     "されてください"
+    ],
+    "answer": 2,
+    "why": [
+     "してください asks the listener to do the job. わたしに shows the speaker wants to do it.",
+     "わたしに + させてください: please let me do that job.",
+     "させられる is the causative passive (be made to do), a later day. It cannot ask for permission.",
+     "される is the passive. されてください does not ask to do something yourself."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "店長、^ちょっと[頭|あたま]がいたいんです^。少し（　　）ください。",
+    "options": [
+     "休んで",
+     "休まれて",
+     "休ませて",
+     "休めて"
+    ],
+    "answer": 3,
+    "why": [
+     "休んでください tells the manager to rest. It is the speaker's head that hurts.",
+     "休まれる is the passive (or a respectful form). It does not ask for permission to rest.",
+     "The speaker has a headache and asks to rest: 休ませてください.",
+     "休める is the potential (can rest). The potential does not go before ください."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きのう、^店長に^はじめてサラダを（　　）。とてもうれしかったです。",
+    "options": [
+     "[作|つく]らせてくれました",
+     "[作|つく]らせてください",
+     "[作|つく]られてもらいました",
+     "[作|つく]らせてもらいました"
+    ],
+    "answer": 4,
+    "why": [
+     "くれる takes the giver with が: 店長が作らせてくれました. With 店長に, the verb must be もらう.",
+     "きのう tells a past event. させてください is a request for now or later.",
+     "作られる is the passive. 作られてもらう is not said.",
+     "店長に + させてもらいました: the manager let me make a salad, and I was glad."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "すみません、^来週の[月曜日|げつようび]^は[用事|ようじ]があるので、休ませて（　　）。",
+    "options": [
+     "いただけませんか",
+     "いただきました",
+     "いただきませんか",
+     "もらいましたか"
+    ],
+    "answer": 1,
+    "why": [
+     "来週 is still to come, so this is a polite request: could you let me take the day off?",
+     "いただきました tells a past event, but 来週の月曜日 has not come yet.",
+     "A request uses いただける, the can-form: いただけませんか. いただきませんか sounds like an invitation.",
+     "もらいましたか asks about the past. 来週の月曜日 has not come yet."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u08d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません、その",
+    "after": "ください。",
+    "tiles": [
+     "[重|おも]そうな",
+     "にもつを",
+     "わたしに",
+     "[持|も]たせて"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "その and 重そうな describe a noun. The person who will carry it goes right before the causative.",
+    "full": "すみません、その[重|おも]そうなにもつをわたしに[持|も]た{せてください}。",
+    "explain": "その and 重そうな both describe にもつ, so その重そうなにもつを comes first. わたしに says who will carry it, and 持たせて joins ください: please let me carry that heavy-looking bag."
+   },
+   {
+    "id": "n4u08d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのうはかぜを",
+    "after": "もらいました。",
+    "tiles": [
+     "ひいた",
+     "ので",
+     "店長に",
+     "休ませて"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "かぜを goes with a verb, and ので follows the reason. The person who gave the OK takes に.",
+    "full": "きのうはかぜをひいたので店長に休ま{せてもらいました}。",
+    "explain": "かぜをひいた is the reason, so ので comes right after it. 店長に is the person who gave the OK, and 休ませて joins もらいました: I had a cold yesterday, so the manager let me take the day off."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u08d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "店長、すみません。来週の　土曜日は　友だちの　けっこんしきが　あるので、（　　）　いただけませんか。",
+    "options": [
+     "休んで",
+     "休まれて",
+     "休めて",
+     "休ませて"
+    ],
+    "answer": 4,
+    "explain": "The speaker has a friend's wedding, so the speaker asks to be allowed to take the day off: 休ませて いただけませんか. 休んで いただけませんか asks the manager to take the day off. 休まれて is the passive and 休めて the potential; neither goes before いただけませんか."
+   },
+   {
+    "id": "n4u08d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "夏休みに　しょうらい　働きたい　会社で、一週間　仕事を（　　）。いい　けいけんに　なりました。",
+    "options": [
+     "して　もらいました",
+     "させて　もらいました",
+     "させて　ください",
+     "されて　もらいました"
+    ],
+    "answer": 2,
+    "explain": "The speaker worked at the company for a week and found it a good experience: 仕事を させて もらいました, I was allowed to work there. して もらいました means someone else did the work for you. させて ください is a request, but this is a past event. されて もらいました is not said."
+   },
+   {
+    "id": "n4u08d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "先生、　",
+    "after": "いただけませんか。",
+    "tiles": [
+     "先生が",
+     "書いた",
+     "本を",
+     "読ませて"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "先生、　先生が　書いた　本を　{読ませて}　いただけませんか。",
+    "explain": "先生が, 書いた, 本を, 読ませて. 先生が書いた describes 本, so it comes right before 本を, and 読ませて joins いただけませんか: could you let me read the book you wrote?"
+   }
+  ]
+ },
+ "scene": {
+  "ja": "アルバイトのお知らせ",
+  "en": "A notice for part-time staff",
+  "intro": "A notice on the wall of a restaurant kitchen tells the part-time staff about work. Tap each word on it.",
+  "words": [
+   {
+    "id": "manager",
+    "word": "店長",
+    "reading": "てんちょう",
+    "gloss": "shop manager",
+    "parts": [
+     [
+      "店",
+      "テン",
+      "shop"
+     ],
+     [
+      "長",
+      "チョウ",
+      "head, chief"
+     ]
+    ]
+   },
+   {
+    "id": "work",
+    "word": "仕事",
+    "reading": "しごと",
+    "gloss": "work, job",
+    "parts": [
+     [
+      "仕",
+      "シ",
+      "serve"
+     ],
+     [
+      "事",
+      "ごと",
+      "thing, matter"
+     ]
+    ]
+   },
+   {
+    "id": "order",
+    "word": "注文",
+    "reading": "ちゅうもん",
+    "gloss": "order (food)",
+    "parts": [
+     [
+      "注",
+      "チュウ",
+      "pour; note"
+     ],
+     [
+      "文",
+      "モン",
+      "writing"
+     ]
+    ]
+   },
+   {
+    "id": "cooking",
+    "word": "料理",
+    "reading": "りょうり",
+    "gloss": "cooking, dish",
+    "parts": [
+     [
+      "料",
+      "リョウ",
+      "materials"
+     ],
+     [
+      "理",
+      "リ",
+      "reason, order"
+     ]
+    ]
+   },
+   {
+    "id": "sink",
+    "word": "洗い場",
+    "reading": "あらいば",
+    "gloss": "washing-up area",
+    "parts": [
+     [
+      "洗",
+      "あら",
+      "wash"
+     ],
+     [
+      "場",
+      "ば",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "opening",
+    "word": "開店",
+    "reading": "かいてん",
+    "gloss": "opening (of the shop)",
+    "parts": [
+     [
+      "開",
+      "カイ",
+      "open"
+     ],
+     [
+      "店",
+      "テン",
+      "shop"
+     ]
+    ]
+   },
+   {
+    "id": "errand",
+    "word": "用事",
+    "reading": "ようじ",
+    "gloss": "something to do, errand",
+    "parts": [
+     [
+      "用",
+      "ヨウ",
+      "use, business"
+     ],
+     [
+      "事",
+      "ジ",
+      "thing, matter"
+     ]
+    ]
+   },
+   {
+    "id": "explain",
+    "word": "説明",
+    "reading": "せつめい",
+    "gloss": "explanation",
+    "parts": [
+     [
+      "説",
+      "セツ",
+      "explain"
+     ],
+     [
+      "明",
+      "メイ",
+      "clear"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u08d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "おきゃくさんの　_注文_を　聞いて　ください。",
+   "options": [
+    "ちゅうもん",
+    "ちゅもん",
+    "ちゅうぶん",
+    "じゅうもん"
+   ],
+   "answer": 1,
+   "explain": "注文 is read ちゅうもん, an order: please take the customer's order. ちゅもん drops the long う, ちゅうぶん reads 文 as ぶん, and じゅうもん has じゅ instead of ちゅ."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "Who asked to make the bread, and what happened to it?",
+  "seconds": 100,
+  "passage": "わたしは　先月から　パン屋の　レジで　アルバイトを　して　います。パンを　作る　仕事も　して　みたいと　思って　いました。先週、^店長に「わたしにも　パンを　作らせて　ください」と　言いました^。店長は「朝　六時に　来られるなら、いいですよ」と　言いました。月曜日の　朝　来て、店長に　パンの　作り方を　教えて　もらいました。^つぎの　日は　一人で　作らせて　もらいました^。少し　かたちが　悪かったですが、店長は「おいしいよ」と　言って、^お店で　売って　くれました^。とても　うれしかったです。",
+  "strategy": "Check who asks whom (させてください), and which day the writer was taught and which day the writer made bread alone.",
+  "item": {
+   "id": "n4u08d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "正しい　ものは　どれですか。",
+   "options": [
+    "店長が　この　人に「パンを　作って　ください」と　たのんだ。",
+    "この　人は　月曜日に　一人で　パンを　作った。",
+    "店長は　この　人が　作った　パンを　店で　売った。",
+    "この　人が　作った　パンは　あまり　おいしく　なかった。"
+   ],
+   "short": [
+    "店長がたのんだ",
+    "月曜日に一人で作った",
+    "店で売った",
+    "おいしくなかった"
+   ],
+   "answer": 3,
+   "explain": "The writer made bread alone the day after the lesson. The manager said it was good and sold it in the shop: お店で　売って　くれました.",
+   "why": [
+    "The writer asked the manager: わたしにも　パンを　作らせて　ください. The manager did not ask.",
+    "On Monday the manager taught the writer. The writer made bread alone the next day: つぎの　日は　一人で　作らせて　もらいました.",
+    "",
+    "Only the shape was not good. The manager said おいしいよ."
+   ]
+  }
+ }
+}

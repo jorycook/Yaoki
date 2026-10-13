@@ -6,7 +6,12 @@ lv = sys.argv[2] if len(sys.argv) > 2 else 'n2'
 m = json.load(open(os.path.join(src, 'manifest.json'), encoding='utf-8'))
 here = os.path.dirname(os.path.abspath(__file__))
 course = open(os.path.join(here, '..', 'yaoki', 'project', 'course-' + lv + '.js'), encoding='utf-8').read()
-keys = sorted(k for k in m if ('"' + k + '"') in course)   # only clips the course still names
+import re
+# only clips the course still names; a mini mock's parts are named after their item (n5mock10_q)
+def named(k):
+    mm = re.match(r'^(n\d+mock\d+)_\w+$', k)
+    return ('"' + k + '"') in course or bool(mm and ('"' + mm.group(1) + '"') in course)
+keys = sorted(k for k in m if named(k))
 def unit_of(k):
     m = re.search(r'n\d+u0?(\d+)', k)
     return int(m.group(1)) if m else 0

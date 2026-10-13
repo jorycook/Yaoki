@@ -1,0 +1,593 @@
+{
+ "title": "命令形・〜な（禁止）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u10d1.p1",
+    "form": "命令形（書け・食べろ）",
+    "gloss": "command form: do it! (blunt)",
+    "connect": [
+     {
+      "pos": "う-verb: change the last sound to the え sound",
+      "rule": "書く → 書{け}、[止|と]まる → [止|と]ま{れ}"
+     },
+     {
+      "pos": "る-verb: drop る and add ろ",
+      "rule": "食べる → 食べ{ろ}、見る → 見{ろ}"
+     },
+     {
+      "pos": "The two irregular verbs, する and 来る",
+      "rule": "する → {しろ}、来る → {来い}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "サッカーのコーチが「ボールをよく{見ろ}」と言いました。",
+      "en": "The football coach said, \"Watch the ball closely!\""
+     },
+     {
+      "ja": "道に「{[止|と]まれ}」と書いてあります。",
+      "en": "\"Stop\" is written on the road."
+     }
+    ],
+    "watch": {
+     "note": "The command form is very strong. You see it on signs and hear it from coaches and in quotes. To ask someone yourself, use 〜てください.",
+     "bad": "先生、ここに名前を書け。",
+     "good": "先生、ここに名前を書いてください。"
+    }
+   },
+   {
+    "id": "n4u10d1.p2",
+    "form": "〜な（禁止）",
+    "gloss": "don't! (blunt, on signs)",
+    "connect": [
+     {
+      "pos": "Verb, dictionary form",
+      "rule": "入る → 入る{な}、さわる → さわる{な}"
+     },
+     {
+      "pos": "The irregular verbs: dictionary form too",
+      "rule": "する → する{な}、来る → 来る{な}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[工事|こうじ]をしている[所|ところ]に「{入るな}」と書いてあります。",
+      "en": "Where building work is going on, a sign says \"Keep out.\""
+     },
+     {
+      "ja": "[兄|あに]に「ぼくのパソコンに{さわるな}」と言われました。",
+      "en": "My brother told me, \"Don't touch my computer.\""
+     }
+    ],
+    "watch": {
+     "note": "な goes right after the dictionary form. After the ない form, な is not an order: 走らないな means \"(he) isn't running, is he\".",
+     "bad": "ろうかを走らないな。",
+     "good": "ろうかを走るな。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three tell someone what to do or not do; the first two are blunt, the last one is polite.",
+   "forms": [
+    {
+     "form": "命令形",
+     "tag": "めいれい · do it! (blunt)",
+     "mark": "dot",
+     "ja": "{[急|いそ]げ}！電車が出るよ。",
+     "en": "Hurry! The train is leaving."
+    },
+    {
+     "form": "〜な",
+     "tag": "きんし · don't! (blunt)",
+     "mark": "down",
+     "ja": "こうえんに「花を{とるな}」と書いてあります。",
+     "en": "A sign in the park says \"Do not pick the flowers.\""
+    },
+    {
+     "form": "〜ないでください",
+     "tag": "ていねい · please don't",
+     "mark": "down",
+     "ja": "[図書館|としょかん]では大きい[声|こえ]で{話さないでください}。",
+     "en": "Please don't talk loudly in the library."
+    }
+   ],
+   "check": {
+    "id": "n4u10d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Blunt or polite?",
+    "q": "^すみませんが^、ここでは[写真|しゃしん]を（　　）。",
+    "options": [
+     "とれ",
+     "とるな",
+     "とらないでください"
+    ],
+    "answer": 3,
+    "why": [
+     "とれ is the command form: take a photo! That is the opposite meaning, and it is rude.",
+     "とるな does mean don't take, but it is blunt. It does not go with the polite すみませんが.",
+     "すみませんが asks politely, so the polite 〜ないでください fits: please don't take photos here."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u10d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "サッカーの^コーチ^が「^もっと^（　　）！」と言いました。",
+    "options": [
+     "[走|はし]りろ",
+     "[走|はし]るろ",
+     "[走|はし]れ",
+     "[走|はし]れろ"
+    ],
+    "answer": 3,
+    "why": [
+     "走る is a う-verb, so ろ does not go on 走り. 走りろ is not a form.",
+     "ろ replaces the る of a る-verb; it is never added after る. 走るろ is not a form.",
+     "走る looks like a る-verb but is a う-verb: る changes to れ. The coach gives an order: run harder!",
+     "走れ is already the command form. Adding ろ makes a word that does not exist."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母に「^[早|はや]く^しゅくだいを（　　）」と言われました。",
+    "options": [
+     "しれ",
+     "せろ",
+     "すれ",
+     "しろ"
+    ],
+    "answer": 4,
+    "why": [
+     "しれ is not a form of する.",
+     "せろ is not a form of する.",
+     "すれ is only part of すれば (the ば form). On its own it is not a command.",
+     "する is irregular: its command form is しろ. My mother told me: do your homework, now!"
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "川のそばに「^あぶない^！ここで（　　）」と書いてあります。",
+    "options": [
+     "およぐな",
+     "およげ",
+     "およぎな",
+     "およがないな"
+    ],
+    "answer": 1,
+    "why": [
+     "Dictionary form + な: do not swim. The sign says the river is dangerous, so it forbids swimming.",
+     "およげ is the command form: swim! A sign that says あぶない would not order you to swim.",
+     "ます stem + な (およぎな) is a soft, casual way to say go ahead and do it. That is the opposite meaning.",
+     "な after the ない form is not an order. およがないな is a remark: they aren't swimming, are they."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[姉|あね]に「それは^わたしのケーキだから^、（　　）」と言われました。",
+    "options": [
+     "食べろ",
+     "食べるな",
+     "食べてな",
+     "食べないな"
+    ],
+    "answer": 2,
+    "why": [
+     "食べろ orders you to eat it. Because it is her own cake, she would not say that.",
+     "Dictionary form + な: don't eat it. It is her cake, so she forbids it.",
+     "食べてな is a casual way to ask someone to eat. That is the opposite meaning.",
+     "な after the ない form is not an order. 食べないな is a remark: you don't eat, do you."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u10d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[兄|あに]が「おい、",
+    "after": "」と言いました。",
+    "tiles": [
+     "こっちへ",
+     "来て",
+     "これを",
+     "見ろ"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "来て joins two actions with the te-form. The command form ends the order.",
+    "full": "[兄|あに]が「おい、こっちへ来てこれを{見ろ}」と言いました。",
+    "explain": "こっちへ goes with 来て (come over here), and the te-form 来て links to the next action. これを goes with 見ろ, the command form of 見る, which ends the order: come here and look at this!"
+   },
+   {
+    "id": "n4u10d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "ドアに",
+    "after": "[待|ま]ちました。",
+    "tiles": [
+     "「入るな」と",
+     "書いて",
+     "あるので",
+     "外で"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "First say what is written on the door. ので gives the reason for what you did.",
+    "full": "ドアに「{入るな}」と書いてあるので外で[待|ま]ちました。",
+    "explain": "ドアに「入るな」と書いてある tells what is written on the door. あるので gives the reason, and 外で goes with 待ちました: keep out was written on the door, so I waited outside."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u10d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "サッカーの　コーチは　いつも　「もっと　声を（　　）！」と　言います。",
+    "options": [
+     "出ろ",
+     "出しろ",
+     "出すな",
+     "出せ"
+    ],
+    "answer": 4,
+    "explain": "出す is a う-verb, so its command form is 出せ: use your voice more! 出ろ is the command form of 出る (go out), which does not take 声を. 出しろ is not a form. 出すな forbids it, which does not fit もっと."
+   },
+   {
+    "id": "n4u10d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "父は　子どもに　「あぶないから、　道で（　　）」と　言いました。",
+    "options": [
+     "あそべ",
+     "あそぶな",
+     "あそんだ",
+     "あそびな"
+    ],
+    "answer": 2,
+    "explain": "あぶないから gives a reason not to play, so the father forbids it: dictionary form + な, あそぶな. あそべ and あそびな tell the child to play, the opposite. あそんだ is the past and is not an order."
+   },
+   {
+    "id": "n4u10d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この　マークは　",
+    "after": "です。",
+    "tiles": [
+     "ここで",
+     "止まれ",
+     "という",
+     "意味"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "この　マークは　ここで　{止まれ}　という　意味です。",
+    "explain": "ここで, 止まれ, という, 意味. ここで止まれ is the order on the sign, という joins it to 意味: this mark means stop here."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "道で見るひょうしき",
+  "en": "Road and safety signs",
+  "intro": "These signs stand on a road and at a building site near a school. Tap each word on them.",
+  "words": [
+   {
+    "id": "stop",
+    "word": "止まれ",
+    "reading": "とまれ",
+    "gloss": "Stop (command)",
+    "parts": [
+     [
+      "止",
+      "と",
+      "stop"
+     ]
+    ]
+   },
+   {
+    "id": "no running",
+    "word": "走るな",
+    "reading": "はしるな",
+    "gloss": "Do not run",
+    "parts": [
+     [
+      "走",
+      "はし",
+      "run"
+     ]
+    ]
+   },
+   {
+    "id": "road closed",
+    "word": "通行止め",
+    "reading": "つうこうどめ",
+    "gloss": "road closed",
+    "parts": [
+     [
+      "通",
+      "ツウ",
+      "pass"
+     ],
+     [
+      "行",
+      "コウ",
+      "go"
+     ],
+     [
+      "止",
+      "ど",
+      "stop"
+     ]
+    ]
+   },
+   {
+    "id": "one way",
+    "word": "一方通行",
+    "reading": "いっぽうつうこう",
+    "gloss": "one way (traffic)",
+    "parts": [
+     [
+      "一",
+      "イッ",
+      "one"
+     ],
+     [
+      "方",
+      "ポウ",
+      "direction"
+     ],
+     [
+      "通",
+      "ツウ",
+      "pass"
+     ],
+     [
+      "行",
+      "コウ",
+      "go"
+     ]
+    ]
+   },
+   {
+    "id": "pedestrian",
+    "word": "歩行者",
+    "reading": "ほこうしゃ",
+    "gloss": "pedestrian, person on foot",
+    "parts": [
+     [
+      "歩",
+      "ホ",
+      "walk"
+     ],
+     [
+      "行",
+      "コウ",
+      "go"
+     ],
+     [
+      "者",
+      "シャ",
+      "person"
+     ]
+    ]
+   },
+   {
+    "id": "sidewalk",
+    "word": "歩道",
+    "reading": "ほどう",
+    "gloss": "pavement, sidewalk",
+    "parts": [
+     [
+      "歩",
+      "ホ",
+      "walk"
+     ],
+     [
+      "道",
+      "ドウ",
+      "road"
+     ]
+    ]
+   },
+   {
+    "id": "watch your step",
+    "word": "足元注意",
+    "reading": "あしもとちゅうい",
+    "gloss": "watch your step",
+    "parts": [
+     [
+      "足",
+      "あし",
+      "foot"
+     ],
+     [
+      "元",
+      "もと",
+      "base"
+     ],
+     [
+      "注",
+      "チュウ",
+      "pour, pay (attention)"
+     ],
+     [
+      "意",
+      "イ",
+      "mind"
+     ]
+    ]
+   },
+   {
+    "id": "work",
+    "word": "工事中",
+    "reading": "こうじちゅう",
+    "gloss": "under construction, work in progress",
+    "parts": [
+     [
+      "工",
+      "コウ",
+      "work, build"
+     ],
+     [
+      "事",
+      "ジ",
+      "thing"
+     ],
+     [
+      "中",
+      "チュウ",
+      "during"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u10d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "子どもたちが　_歩道_を　歩いて　います。",
+   "options": [
+    "ほうどう",
+    "ぼどう",
+    "ほどう",
+    "ほとう"
+   ],
+   "answer": 3,
+   "explain": "歩道 is read ほどう, the pavement: the children are walking on the pavement. ほうどう adds a long う, ぼどう has ぼ instead of ほ, and ほとう has と instead of ど."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "女の子は　この　あと、まず　何を　しますか。",
+  "audio": [
+   [
+    "N",
+    "自転車教室で、男の人と女の子が話しています。女の子はこのあと、まず何をしますか。",
+    "じてんしゃきょうしつで、おとこのひととおんなのこがはなしています。おんなのこはこのあと、まずなにをしますか。"
+   ],
+   [
+    "M",
+    "今日は、外の道を自転車で走ります。ヘルメットは持ってきましたか。",
+    "きょうは、そとのみちをじてんしゃではしります。ヘルメットはもってきましたか。"
+   ],
+   [
+    "F",
+    "はい、持ってきました。すぐかぶって、乗ってもいいですか。",
+    "はい、もってきました。すぐかぶって、のってもいいですか。"
+   ],
+   [
+    "M",
+    "ちょっと待ってください。先に、タイヤに空気が入っているかどうか、見てください。",
+    "ちょっとまってください。さきに、タイヤにくうきがはいっているかどうか、みてください。"
+   ],
+   [
+    "F",
+    "はい。あのう、先生、道に「止まれ」と書いてある所がありますね。",
+    "はい。あのう、せんせい、みちに「とまれ」とかいてあるところがありますね。"
+   ],
+   [
+    "M",
+    "ええ。あそこでは自転車を止めて、右と左をよく見てくださいね。",
+    "ええ。あそこではじてんしゃをとめて、みぎとひだりをよくみてくださいね。"
+   ],
+   [
+    "F",
+    "わかりました。",
+    null
+   ],
+   [
+    "M",
+    "じゃあ、タイヤを見たら、ヘルメットをかぶってください。それから、乗りましょう。",
+    "じゃあ、タイヤをみたら、ヘルメットをかぶってください。それから、のりましょう。"
+   ],
+   [
+    "F",
+    "はい。",
+    null
+   ],
+   [
+    "N",
+    "女の子はこのあと、まず何をしますか。",
+    "おんなのこはこのあと、まずなにをしますか。"
+   ]
+  ],
+  "item": {
+   "id": "n4u10d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "女の子は　この　あと、まず　何を　しますか。",
+   "script": [
+    "ナレーター：自転車教室で、男の人と女の子が話しています。女の子はこのあと、まず何をしますか。",
+    "男：今日は、外の道を自転車で走ります。ヘルメットは持ってきましたか。",
+    "女：はい、持ってきました。すぐかぶって、乗ってもいいですか。",
+    "男：ちょっと待ってください。先に、タイヤに空気が入っているかどうか、見てください。",
+    "女：はい。あのう、先生、道に「止まれ」と書いてある所がありますね。",
+    "男：ええ。あそこでは自転車を止めて、右と左をよく見てくださいね。",
+    "女：わかりました。",
+    "男：じゃあ、タイヤを見たら、ヘルメットをかぶってください。それから、乗りましょう。",
+    "女：はい。",
+    "ナレーター：女の子はこのあと、まず何をしますか。"
+   ],
+   "options": [
+    "タイヤを　見る",
+    "ヘルメットを　かぶる",
+    "自転車に　乗る",
+    "右と　左を　見る"
+   ],
+   "printed": true,
+   "short": [
+    "タイヤを見る",
+    "ヘルメットをかぶる",
+    "自転車に乗る",
+    "右と左を見る"
+   ],
+   "answer": 1,
+   "why": [
+    "The man says 先に、タイヤに空気が入っているかどうか、見てください: she checks the tyres first.",
+    "She wanted to put on her helmet at once, but he says ちょっと待って. The helmet comes after the tyres (タイヤを見たら).",
+    "She rides last, after the tyres and the helmet (それから、乗りましょう).",
+    "She looks right and left later, at the 止まれ place on the road, not first."
+   ],
+   "explain": null
+  }
+ }
+}

@@ -7,6 +7,8 @@ run "app: interruptions 1"   timeout 300 bash run-app.sh pause-test.js
 run "app: interruptions 2"   timeout 300 bash run-app.sh pause-test.js
 run "app: day flow"          timeout 300 bash run-app.sh flow-test.js
 run "app: level switch"      timeout 400 bash run-app.sh level-test.js
+run "app: N5 mini mock"      timeout 400 bash run-app.sh n5-mock.js
+run "canvas: N2 mini mock"   timeout 480 bash run.sh e2e-mock.js
 run "app: app checks"        timeout 600 bash run-app.sh app-test.js
 run "canvas: every board"    timeout 300 bash run.sh rt-check.js
 run "canvas: N5 day 1 of each unit" DAYS=n5u01d1,n5u02d1,n5u03d1,n5u04d1,n5u05d1,n5u06d1,n5u07d1,n5u08d1 LEVEL=N5 NOSOUND=1 timeout 3600 bash run.sh content-sweep.js

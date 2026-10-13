@@ -11,7 +11,9 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /* the kanji a level may use, where the course keeps to a list (N5: the N5 kanji only; everything else in kana) */
 const KANJI = {
-  N5: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚']),
+  N5: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚']),  /* N4: the N5 kanji and the N4 list (the commonly used N4 list, about 170 kanji) */
+  N4: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚同事自発者地業方場員開力問代明動京通理体田主題意不作用度強公持野以思家世正院心界教文元重近考画海売知集別物使品計死特私始朝運終台広住無真有町料工建急止送切転研究楽起着病質待試族銀早映親験英医仕去味写字答夜音注帰歌悪図室歩風紙黒春赤青館屋色走秋夏習洋旅服夕借曜肉貸堂鳥飯勉冬昼茶弟牛兄犬妹姉漢暗引遠回寒顔区軽県光好合菜産市弱首所暑乗森進声説洗村太短池低都頭働便民門薬林']),
+
 };
 /* labels the app shows from the data that are not part of the Japanese the learner reads */
 const LABEL_KEYS = new Set(['type', 'label', 'title', 'tag', 'id', 'clip', 'kind', 'step', 'form']);

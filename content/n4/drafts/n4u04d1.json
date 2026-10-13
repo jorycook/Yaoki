@@ -1,0 +1,263 @@
+{
+ "title": "あげる・くれる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u04d1.p1",
+    "form": "あげる",
+    "gloss": "give (out, to someone else)",
+    "connect": [
+     {"pos": "I give to someone: the giver takes は, the person who gets it takes に", "rule": "[私|わたし]は〜に〜を{あげます}"},
+     {"pos": "Someone gives to someone else (not to me)", "rule": "〜は〜に〜を{あげます}"}
+    ],
+    "examples": [
+     {"ja": "[私|わたし]は[妹|いもうと]に[赤|あか]いかさを{あげました}。", "en": "I gave my younger sister a red umbrella."},
+     {"ja": "[田中|たなか]さんは[山田|やまだ]さんに花を{あげました}。", "en": "Mr Tanaka gave Ms Yamada some flowers."}
+    ],
+    "watch": {
+     "note": "あげる sends a gift out from the giver to someone else. It never brings a gift to me. When I am the one who gets it, use くれる.",
+     "bad": "妹が私にプレゼントをあげました。",
+     "good": "妹が私にプレゼントをくれました。"
+    }
+   },
+   {
+    "id": "n4u04d1.p2",
+    "form": "くれる",
+    "gloss": "give (to me or my group)",
+    "connect": [
+     {"pos": "Someone gives to me: 私に is often left out", "rule": "〜が（[私|わたし]に）〜を{くれます}"},
+     {"pos": "Someone gives to my family or group", "rule": "〜が[妹|いもうと]に〜を{くれます}"}
+    ],
+    "examples": [
+     {"ja": "たんじょう日に、[姉|あね]が[時計|とけい]を{くれました}。", "en": "My older sister gave me a watch for my birthday."},
+     {"ja": "[田中|たなか]さんが[弟|おとうと]にゲームを{くれました}。", "en": "Mr Tanaka gave my younger brother a game."}
+    ],
+    "watch": {
+     "note": "くれる only brings a gift in to me or my group. When I am the giver, the gift goes out, so use あげる.",
+     "bad": "私は友だちに本をくれました。",
+     "good": "私は友だちに本をあげました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three are about the same flowers. Look at who gives, who gets them, and which way they go.",
+   "forms": [
+    {"form": "あげる", "tag": "そとへ · I give, it goes out", "mark": "dot", "ja": "[私|わたし]は[姉|あね]に花を{あげました}。", "en": "I gave my older sister flowers."},
+    {"form": "くれる", "tag": "わたしへ · given to me", "mark": "dot", "ja": "[姉|あね]が[私|わたし]に花を{くれました}。", "en": "My older sister gave me flowers."},
+    {"form": "もらう", "tag": "うけとる · I receive (next lesson)", "mark": "dot", "ja": "[私|わたし]は[姉|あね]に花を{もらいました}。", "en": "I got flowers from my older sister."}
+   ],
+   "check": {
+    "id": "n4u04d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "プレゼントの話",
+    "q": "A：すてきな[時計|とけい]ですね。B：ありがとう。^父が^（　　）。",
+    "options": ["あげました", "くれました", "もらいました"],
+    "answer": 2,
+    "why": [
+     "あげる sends a gift out from the giver to someone else. Your father gave the watch to you, so it came in.",
+     "父が is the giver and the watch came to you: くれました.",
+     "With もらう, the person who gets the gift is the subject: 私は父にもらいました. With 父が, your father would be the one who got it."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u04d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[私|わたし]は[妹|いもうと]（　　）[赤|あか]いかさを^あげました^。",
+    "options": ["が", "に", "を", "で"],
+    "answer": 2,
+    "why": [
+     "私は is already the giver. 妹が would make your sister a second giver.",
+     "With あげる, the person who gets the gift takes に: 妹に.",
+     "かさを already takes を as the thing given. Your sister is the person who gets it, so に.",
+     "で marks a place or a means, not the person who gets the gift."
+    ]
+   },
+   {
+    "id": "n4u04d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^先週^、^[私|わたし]は^友だちに[写真|しゃしん]を（　　）。",
+    "options": ["くれました", "あげました", "くれます", "あげます"],
+    "answer": 2,
+    "why": [
+     "くれる brings a gift in to you. Here 私は is the giver, so the photo goes out.",
+     "You are the giver and your friend gets the photo, so あげる. 先週 is past: あげました.",
+     "くれる is the wrong way, and 先週 needs the past form.",
+     "あげる is right, but 先週 is last week, so the past form あげました is needed."
+    ]
+   },
+   {
+    "id": "n4u04d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[兄|あに]は（　　）古いカメラを^くれました^。",
+    "options": ["[知|し]らない人に", "[私|わたし]に", "[私|わたし]が", "[私|わたし]を"],
+    "answer": 2,
+    "why": [
+     "A stranger is not you or your group. くれる only brings a gift to you or your group.",
+     "兄は is the giver and the camera came to you: 私にくれました.",
+     "兄は is already the giver. The person who gets the gift takes に, not が.",
+     "カメラを already takes を as the thing given. You, the person who gets it, take に."
+    ]
+   },
+   {
+    "id": "n4u04d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^きのう^、[田中|たなか]さんが^[私|わたし]に^[映画|えいが]のチケットを（　　）。",
+    "options": ["あげました", "くれます", "くれました", "あげます"],
+    "answer": 3,
+    "why": [
+     "The ticket came to you (私に), so あげる is the wrong way.",
+     "くれる is right, but きのう is past, so the past form くれました is needed.",
+     "Mr Tanaka gave and you got the ticket, so くれる. きのう is past: くれました.",
+     "あげる is the wrong way here, and きのう needs the past form."
+    ]
+   },
+   {
+    "id": "n4u04d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あした、",
+    "after": "行きます。",
+    "tiles": ["友だちに", "あげる", "プレゼントを", "買いに"],
+    "star": 1,
+    "bank": [2, 3, 1, 0],
+    "hint": "あげる describes プレゼント, so it comes right before it. 買いに says why you go.",
+    "full": "あした、友だちに{あげる}プレゼントを買いに行きます。",
+    "explain": "友だちにあげる (to give to my friend) describes プレゼント, so it sits right before プレゼントを. プレゼントを goes with 買いに, and 買いに leads into 行きます."
+   },
+   {
+    "id": "n4u04d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この",
+    "after": "です。",
+    "tiles": ["かばんは", "[兄|あに]が", "くれた", "もの"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "この needs a noun right after it. くれた describes もの.",
+    "full": "このかばんは[兄|あに]が{くれた}ものです。",
+    "explain": "この goes with かばん, so かばんは comes first. 兄がくれた (that my brother gave me) describes もの, and ものです ends the sentence."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u04d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「その　ネクタイ、すてきですね。」　B「ありがとう。父の日に　（　　）んです。」",
+    "options": ["むすこに　あげた", "むすこが　くれた", "むすこが　あげた", "むすこを　くれた"],
+    "answer": 2,
+    "explain": "B is wearing the tie, a Father's Day present. The son is the giver (むすこが) and the tie came to B, so くれた. むすこに　あげた says B gave it to the son. むすこが　あげた sends it to someone else, not to B. むすこを makes the son the thing given."
+   },
+   {
+    "id": "n4u04d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "山田さんは　田中さんに　旅行の　おみやげを　（　　）。",
+    "options": ["くれました", "あげました", "くれたいです", "あげたいです"],
+    "answer": 2,
+    "explain": "Ms Yamada gives and Mr Tanaka gets it. Neither is me, so the gift goes out: あげました. くれました needs the gift to come to me or my group. くれたい is not said. あげたいです cannot tell another person's wish; for someone else, say あげたがっています."
+   },
+   {
+    "id": "n4u04d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「その　ぼうし、いいですね。」　B「ありがとう。これは　",
+    "after": "あたたかいんです。」",
+    "tiles": ["姉が", "くれた", "ぼうしで", "とても"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "full": "A「その　ぼうし、いいですね。」　B「ありがとう。これは　姉が　{くれた}　ぼうしで　とても　あたたかいんです。」",
+    "explain": "姉が, くれた, ぼうしで, とても. 姉がくれた describes ぼうし, so it comes right before it. ぼうしで joins the next part, and とても goes right before あたたかい."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "たんじょう日のプレゼントリスト",
+  "en": "A birthday gift list",
+  "intro": "After her birthday, Mai wrote a list of who gave her what, so she can send thank-you cards. Tap each word on it.",
+  "words": [
+   {"id": "family", "word": "家族", "reading": "かぞく", "gloss": "family", "parts": [["家", "カ", "house, home"], ["族", "ゾク", "family, group"]]},
+   {"id": "sister", "word": "姉", "reading": "あね", "gloss": "(my) older sister", "parts": [["姉", "あね", "older sister"]]},
+   {"id": "brother", "word": "弟", "reading": "おとうと", "gloss": "(my) younger brother", "parts": [["弟", "おとうと", "younger brother"]]},
+   {"id": "clothes", "word": "洋服", "reading": "ようふく", "gloss": "clothes", "parts": [["洋", "ヨウ", "Western; ocean"], ["服", "フク", "clothes"]]},
+   {"id": "red", "word": "赤い", "reading": "あかい", "gloss": "red", "parts": [["赤", "あか", "red"]]},
+   {"id": "cooking", "word": "料理", "reading": "りょうり", "gloss": "cooking, dish", "parts": [["料", "リョウ", "materials; fee"], ["理", "リ", "reason, order"]]},
+   {"id": "letter", "word": "手紙", "reading": "てがみ", "gloss": "letter", "parts": [["手", "て", "hand"], ["紙", "がみ", "paper"]]},
+   {"id": "send", "word": "送る", "reading": "おくる", "gloss": "send", "parts": [["送", "おく", "send"]]}
+  ],
+  "check": {
+   "id": "n4u04d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "姉が　赤い　_洋服_を　くれました。",
+   "options": ["よふく", "ようふく", "ようぷく", "ようふん"],
+   "answer": 2,
+   "explain": "洋服 is read ようふく, clothes: my sister gave me red clothes. 洋 has a long よう, so よふく is wrong. 服 is ふく with no change here, so ようぷく is wrong, and ふん is not a reading of 服."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "女の　人は　友だちの　たんじょう日に　何を　あげますか。",
+  "audio": [
+   ["N", "男の人と女の人が話しています。女の人は、友だちのたんじょう日に何をあげますか。", "おとこのひとと　おんなのひとが　はなしています。おんなのひとは、ともだちの　たんじょうびに　なにを　あげますか。"],
+   ["F", "来週、友だちのたんじょう日なんだ。何をあげようかな。", "らいしゅう、ともだちの　たんじょうびなんだ。なにを　あげようかな。"],
+   ["M", "花はどう？", "はなは　どう？"],
+   ["F", "花は去年あげたの。今年はちがう物がいいな。", "はなは　きょねん　あげたの。ことしは　ちがう　ものが　いいな。"],
+   ["M", "じゃあ、本は？本が好きでしょう。", "じゃあ、ほんは？　ほんが　すきでしょう。"],
+   ["F", "うん。でも、本はたくさん持ってるよ。", "うん。でも、ほんは　たくさん　もってるよ。"],
+   ["M", "そうか。時計は？", "そうか。とけいは？"],
+   ["F", "時計は、ちょっと高いね。", "とけいは、ちょっと　たかいね。"],
+   ["M", "ぼくは、たんじょう日に妹がかさをくれて、うれしかったよ。雨の日は毎日使ってる。", "ぼくは、たんじょうびに　いもうとが　かさを　くれて、うれしかったよ。あめのひは　まいにち　つかってる。"],
+   ["F", "かさ、いいね。あの子、先週かさをなくしたの。じゃあ、かさにする。", "かさ、いいね。あのこ、せんしゅう　かさを　なくしたの。じゃあ、かさに　する。"],
+   ["N", "女の人は、友だちのたんじょう日に何をあげますか。", "おんなのひとは、ともだちの　たんじょうびに　なにを　あげますか。"]
+  ],
+  "item": {
+   "id": "n4u04d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "女の　人は　友だちの　たんじょう日に　何を　あげますか。",
+   "script": [
+    "ナレーター：男の人と女の人が話しています。女の人は、友だちのたんじょう日に何をあげますか。",
+    "女：来週、友だちのたんじょう日なんだ。何をあげようかな。",
+    "男：花はどう？",
+    "女：花は去年あげたの。今年はちがう物がいいな。",
+    "男：じゃあ、本は？本が好きでしょう。",
+    "女：うん。でも、本はたくさん持ってるよ。",
+    "男：そうか。時計は？",
+    "女：時計は、ちょっと高いね。",
+    "男：ぼくは、たんじょう日に妹がかさをくれて、うれしかったよ。雨の日は毎日使ってる。",
+    "女：かさ、いいね。あの子、先週かさをなくしたの。じゃあ、かさにする。",
+    "ナレーター：女の人は、友だちのたんじょう日に何をあげますか。"
+   ],
+   "options": ["花", "本", "時計", "かさ"],
+   "printed": true,
+   "short": ["花", "本", "時計", "かさ"],
+   "answer": 4,
+   "why": [
+    "She gave flowers last year and wants something different: 今年はちがう物がいいな.",
+    "Her friend already has a lot of books: 本はたくさん持ってるよ.",
+    "She thinks a watch is a bit too expensive: ちょっと高いね.",
+    "Her friend lost her umbrella last week, so she decides: かさにする."
+   ]
+  }
+ }
+}

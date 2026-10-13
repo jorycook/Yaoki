@@ -1,0 +1,259 @@
+{
+ "title": "〜てあげる・〜てくれる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u04d3.p1",
+    "form": "〜てあげる",
+    "gloss": "do something for someone else",
+    "connect": [
+     {"pos": "Verb, te-form", "rule": "[教|おし]えて{あげる}"},
+     {"pos": "Telling what you did for someone", "rule": "[貸|か]して{あげました}"},
+     {"pos": "Offering help to a friend", "rule": "[持|も]って{あげましょうか}"}
+    ],
+    "examples": [
+     {"ja": "[妹|いもうと]に[自転車|じてんしゃ]の[乗|の]り[方|かた]を[教|おし]えて{あげました}。", "en": "I taught my little sister how to ride a bike."},
+     {"ja": "友だちのにもつが[重|おも]かったので、半分[持|も]って{あげました}。", "en": "My friend's bag was heavy, so I carried half of it for them."}
+    ],
+    "watch": {
+     "note": "てあげる says \"I am doing you a favour\". To a teacher or a boss this can sound pushy. Offer with 〜ましょうか instead.",
+     "bad": "先生、にもつを持ってあげましょうか。",
+     "good": "先生、にもつを持ちましょうか。"
+    }
+   },
+   {
+    "id": "n4u04d3.p2",
+    "form": "〜てくれる",
+    "gloss": "someone does something for me",
+    "connect": [
+     {"pos": "Verb, te-form", "rule": "[教|おし]えて{くれる}"},
+     {"pos": "Telling what someone did for you", "rule": "[送|おく]って{くれました}"},
+     {"pos": "Asking a friend or someone close", "rule": "[持|も]って{くれませんか}"}
+    ],
+    "examples": [
+     {"ja": "雨の日に、[田中|たなか]さんがかさを[貸|か]して{くれました}。", "en": "On a rainy day, Tanaka-san lent me an umbrella."},
+     {"ja": "[兄|あに]が駅まで車で[送|おく]って{くれました}。", "en": "My big brother drove me to the station."}
+    ],
+    "watch": {
+     "note": "When someone does something for you, use くれる. あげる goes from you (or someone else) out to another person, never toward you.",
+     "bad": "友だちがわたしにケーキを作ってあげました。",
+     "good": "友だちがわたしにケーキを作ってくれました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three tell the same favour. What changes is who does it and whose side the sentence is told from.",
+   "forms": [
+    {"form": "〜てあげる", "tag": "わたしがする · I do it for them", "mark": "dot", "ja": "わたしは[山田|やまだ]さんに駅までの道を[教|おし]えて{あげました}。", "en": "I showed Yamada-san the way to the station. I did the favour."},
+    {"form": "〜てくれる", "tag": "ほかの人がしてくれる · they do it for me", "mark": "dot", "ja": "[山田|やまだ]さんが駅までの道を[教|おし]えて{くれました}。", "en": "Yamada-san showed me the way to the station. Yamada-san is the subject, and the favour comes to me."},
+    {"form": "〜てもらう", "tag": "わたしがうける · I get it done for me", "mark": "dot", "ja": "わたしは[山田|やまだ]さんに駅までの道を[教|おし]えて{もらいました}。", "en": "I had Yamada-san show me the way to the station. I am the subject, and the helper takes に."}
+   ],
+   "check": {
+    "id": "n4u04d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "クラスで",
+    "q": "わたしがノートをわすれたとき、となりの人がノートを（　　）。",
+    "options": ["見せてあげました", "見せてくれました", "見せてもらいました"],
+    "answer": 2,
+    "why": [
+     "あげました would send the favour away from me. Here I forgot my notebook, so the favour comes to me.",
+     "The person next to me is the subject (が) and the favour comes to me, so くれました: \"When I forgot my notebook, the person next to me showed me theirs.\"",
+     "もらいました needs me as the subject: わたしはとなりの人に見せてもらいました. Here となりの人が is the subject."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u04d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨がふってきたので、友だちにかさを（　　）^あげました^。",
+    "options": ["[貸|か]し", "[貸|か]した", "[貸|か]して", "[貸|か]す"],
+    "answer": 3,
+    "why": [
+     "[貸|か]し is the ます stem. It cannot join あげました here.",
+     "[貸|か]した is the past form. The past is shown once, at the end: あげました.",
+     "あげる after a verb takes the te-form: [貸|か]してあげました, \"It started to rain, so I lent my friend an umbrella.\"",
+     "[貸|か]す is the dictionary form. It cannot join あげました."
+    ]
+   },
+   {
+    "id": "n4u04d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "子どものとき、母が[毎朝|まいあさ]^わたしの^おべんとうを[作|つく]って（　　）。",
+    "options": ["あげました", "もらいました", "くれました", "くれませんか"],
+    "answer": 3,
+    "why": [
+     "あげました sends the favour away from me. The lunch was mine, so the favour came to me.",
+     "もらいました needs me as the subject: わたしは母に[作|つく]ってもらいました. Here 母が is the subject.",
+     "Mother does it and the favour comes to me, so くれました: \"When I was a child, my mother made my lunch every morning.\"",
+     "くれませんか is a request. This sentence tells what happened when I was a child."
+    ]
+   },
+   {
+    "id": "n4u04d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[田中|たなか]さんは、^道がわからなくてこまっている^[山田|やまだ]さんに[地図|ちず]をかいて（　　）。",
+    "options": ["もらいました", "あげました", "くれました", "あげたいです"],
+    "answer": 2,
+    "why": [
+     "もらいました would mean Yamada-san drew the map for Tanaka-san. But Yamada-san is the one who is lost.",
+     "Tanaka-san does the favour for Yamada-san, and neither of them is me, so あげました: \"Tanaka-san drew a map for Yamada-san, who was lost.\"",
+     "くれました needs the favour to come to me or my side. Here it goes from Tanaka-san to Yamada-san.",
+     "たいです tells the speaker's own wish. It cannot state Tanaka-san's wish like this."
+    ]
+   },
+   {
+    "id": "n4u04d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "[田中|たなか]さん（　　）かさを[貸|か]して^くれました^。",
+    "options": ["に", "を", "が", "で"],
+    "answer": 3,
+    "why": [
+     "に marks the helper with もらいました ([田中|たなか]さんに[貸|か]してもらいました). With くれました the helper takes が.",
+     "かさを already has を. [田中|たなか]さん is the person who lends, not the thing lent.",
+     "With くれました, the person who does the favour takes が: \"Tanaka-san lent me an umbrella.\"",
+     "で marks a place or a means. [田中|たなか]さん is the person who does the favour."
+    ]
+   },
+   {
+    "id": "n4u04d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[日曜日|にちようび]に、",
+    "after": "あげました。",
+    "tiles": ["[弟|おとうと]の", "[英語|えいご]の", "しゅくだいを", "見て"],
+    "star": 1,
+    "bank": [3, 1, 0, 2],
+    "hint": "見て goes right before あげました. Both の words describe しゅくだい: first whose, then which subject.",
+    "full": "[日曜日|にちようび]に、[弟|おとうと]の[英語|えいご]のしゅくだいを見て{あげました}。",
+    "explain": "[弟|おとうと]の, [英語|えいご]の, しゅくだいを, 見て. [弟|おとうと]の[英語|えいご]のしゅくだい is \"my brother's English homework\", and 見てあげました is the favour: \"On Sunday I checked my little brother's English homework for him.\""
+   },
+   {
+    "id": "n4u04d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[去年|きょねん]、友だちが",
+    "after": "ので、とてもうれしかったです。",
+    "tiles": ["日本の", "[歌|うた]を", "[教|おし]えて", "くれた"],
+    "star": 1,
+    "bank": [2, 3, 0, 1],
+    "hint": "日本の describes a noun. くれた follows the te-form of the verb and comes right before ので.",
+    "full": "[去年|きょねん]、友だちが日本の[歌|うた]を[教|おし]えて{くれた}ので、とてもうれしかったです。",
+    "explain": "日本の, [歌|うた]を, [教|おし]えて, くれた. 日本の sits right before [歌|うた], and [教|おし]えてくれた is the favour to me: \"Last year my friend taught me a Japanese song, so I was very happy.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u04d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "かぜで　学校を　休んだ　つぎの　日、　友だちが　わたしに　ノートを　見せて（　　）。",
+    "options": ["あげました", "もらいました", "ください", "くれました"],
+    "answer": 4,
+    "explain": "The friend is the subject and the favour comes to わたし, so くれました: \"The day after I missed school with a cold, my friend showed me their notes.\" あげました cannot go toward わたし. もらいました needs わたしは as the subject. ください is a request and does not fit a story about what happened."
+   },
+   {
+    "id": "n4u04d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "妹が　まだ　字を　読めなかった　ころ、　わたしは　よく　妹に　本を　読んで（　　）。",
+    "options": ["くれました", "あげました", "もらいました", "ほしかったです"],
+    "answer": 2,
+    "explain": "わたしは does the favour for 妹, so あげました: \"When my sister could not read yet, I often read books to her.\" くれました cannot have わたし as the one who does the favour. もらいました and ほしかったです would mean the sister read to me, but she could not read yet."
+   },
+   {
+    "id": "n4u04d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "これは、　旅行で",
+    "after": "写真です。",
+    "tiles": ["会った", "女の人が", "とって", "くれた"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "full": "これは、　旅行で　会った　女の人が　とって　{くれた}　写真です。",
+    "explain": "会った, 女の人が, とって, くれた. 旅行で 会った describes 女の人, and とって くれた describes 写真: \"This is a photo that a woman I met on my trip took for me.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "ボランティアセンターのお知らせ",
+  "en": "A notice at a volunteer centre",
+  "intro": "Tap every word you would read on the volunteer centre's notice.",
+  "words": [
+   {"id": "session", "word": "説明会", "reading": "せつめいかい", "gloss": "information session", "parts": [["説", "セツ", "explain"], ["明", "メイ", "clear"], ["会", "カイ", "meeting"]]},
+   {"id": "class", "word": "教室", "reading": "きょうしつ", "gloss": "class, classroom", "parts": [["教", "キョウ", "teach"], ["室", "シツ", "room"]]},
+   {"id": "meet", "word": "集合", "reading": "しゅうごう", "gloss": "meeting up, gathering", "parts": [["集", "シュウ", "gather"], ["合", "ゴウ", "fit, join"]]},
+   {"id": "place", "word": "場所", "reading": "ばしょ", "gloss": "place", "parts": [["場", "ば", "place"], ["所", "ショ", "place"]]},
+   {"id": "bring", "word": "持ち物", "reading": "もちもの", "gloss": "things to bring", "parts": [["持", "も", "hold"], ["物", "もの", "thing"]]},
+   {"id": "free", "word": "無料", "reading": "むりょう", "gloss": "free of charge", "parts": [["無", "ム", "nothing"], ["料", "リョウ", "fee"]]},
+   {"id": "cancel", "word": "中止", "reading": "ちゅうし", "gloss": "cancelled, called off", "parts": [["中", "チュウ", "middle"], ["止", "シ", "stop"]]},
+   {"id": "address", "word": "住所", "reading": "じゅうしょ", "gloss": "address", "parts": [["住", "ジュウ", "live"], ["所", "ショ", "place"]]}
+  ],
+  "check": {
+   "id": "n4u04d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "日曜日の　朝　九時に　駅の　前に　_集合_して　ください。",
+   "options": ["しゅごう", "しゅうごう", "じゅうごう", "しゅうこう"],
+   "answer": 2,
+   "explain": "集合, \"meeting up\", is read しゅうごう: 集 is しゅう with a long う, and 合 becomes ごう. しゅごう drops the long vowel, じゅうごう starts with the wrong sound, and しゅうこう has こ where it should be ご."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "男の人は　何の　ボランティアを　しますか。",
+  "audio": [
+   ["N", "ボランティアセンターで、女の人と男の人が話しています。男の人は、何のボランティアをしますか。", "ボランティアセンターで、おんなのひとと　おとこのひとが　はなしています。おとこのひとは、なんの　ボランティアを　しますか。"],
+   ["F", "お知らせを見て、来てくれたんですね。ありがとうございます。どのボランティアをしたいですか。", "おしらせを　みて、きて　くれたんですね。ありがとうございます。どの　ボランティアを　したいですか。"],
+   ["M", "子どものしゅくだいを見てあげるのがいいと思ったんですが、それは土曜日の午前ですよね。土曜日はアルバイトがあるんです。", "こどもの　しゅくだいを　みて　あげるのが　いいと　おもったんですが、それは　どようびの　ごぜんですよね。どようびは　アルバイトが　あるんです。"],
+   ["F", "そうですか。日曜日は、こうえんのそうじと、お年よりに昼ごはんを作るボランティアがありますよ。", "そうですか。にちようびは、こうえんの　そうじと、おとしよりに　ひるごはんを　つくる　ボランティアが　ありますよ。"],
+   ["M", "そうじより、料理がいいです。お年よりに何か作ってあげたいです。", "そうじより、りょうりが　いいです。おとしよりに　なにか　つくって　あげたいです。"],
+   ["F", "あ、でも、そちらはもう人がいっぱいなんです。日曜日の午後に、お年よりといっしょに歌を歌うボランティアもありますよ。みなさん、わかい人が来てくれるので、とてもよろこんでいます。", "あ、でも、そちらは　もう　ひとが　いっぱいなんです。にちようびの　ごごに、おとしよりと　いっしょに　うたを　うたう　ボランティアも　ありますよ。みなさん、わかい　ひとが　きて　くれるので、とても　よろこんで　います。"],
+   ["M", "歌ですか。歌うのは好きです。じゃあ、それにします。", "うたですか。うたうのは　すきです。じゃあ、それに　します。"],
+   ["N", "男の人は、何のボランティアをしますか。", "おとこのひとは、なんの　ボランティアを　しますか。"]
+  ],
+  "item": {
+   "id": "n4u04d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "男の人は　何の　ボランティアを　しますか。",
+   "script": [
+    "ナレーター：ボランティアセンターで、女の人と男の人が話しています。男の人は、何のボランティアをしますか。",
+    "女：お知らせを見て、来てくれたんですね。ありがとうございます。どのボランティアをしたいですか。",
+    "男：子どものしゅくだいを見てあげるのがいいと思ったんですが、それは土曜日の午前ですよね。土曜日はアルバイトがあるんです。",
+    "女：そうですか。日曜日は、こうえんのそうじと、お年よりに昼ごはんを作るボランティアがありますよ。",
+    "男：そうじより、料理がいいです。お年よりに何か作ってあげたいです。",
+    "女：あ、でも、そちらはもう人がいっぱいなんです。日曜日の午後に、お年よりといっしょに歌を歌うボランティアもありますよ。みなさん、わかい人が来てくれるので、とてもよろこんでいます。",
+    "男：歌ですか。歌うのは好きです。じゃあ、それにします。",
+    "ナレーター：男の人は、何のボランティアをしますか。"
+   ],
+   "options": ["子どもの　しゅくだいを　見る", "こうえんを　そうじする", "お年よりに　昼ごはんを　作る", "お年よりと　歌を　歌う"],
+   "printed": true,
+   "short": ["しゅくだい", "そうじ", "昼ごはん", "歌"],
+   "answer": 4,
+   "why": [
+    "He wanted to help with homework, but that is on Saturday morning and he has a part-time job then.",
+    "He says そうじより、料理がいいです. He would rather cook than clean.",
+    "He wanted to cook for older people, but the woman says that group is already full: もう人がいっぱいなんです.",
+    "She suggests singing with older people on Sunday afternoon, and he says それにします."
+   ]
+  }
+ }
+}

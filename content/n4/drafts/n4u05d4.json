@@ -1,0 +1,439 @@
+{
+ "title": "〜ても・〜なくても",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u05d4.p1",
+    "form": "〜ても",
+    "gloss": "even if …; no matter how …",
+    "connect": [
+     {
+      "pos": "Verb, て form",
+      "rule": "ふって ＋ {も}"
+     },
+     {
+      "pos": "い adjective (drop い)",
+      "rule": "[寒|さむ]い → [寒|さむ]{くても}"
+     },
+     {
+      "pos": "な adjective, or 〜 is a noun",
+      "rule": "ひま／〜 ＋ {でも}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "高{くても}、このくつを買いたいです。",
+      "en": "Even if they are expensive, I want to buy these shoes."
+     },
+     {
+      "ja": "[何度|なんど]電話し{ても}、[兄|あに]は出ません。",
+      "en": "No matter how many times I call, my brother doesn't answer."
+     }
+    ],
+    "watch": {
+     "note": "An い adjective drops い and takes くても. でも follows a noun or a な adjective, not an い adjective.",
+     "bad": "寒いでも、学校へ行きます。",
+     "good": "寒くても、学校へ行きます。"
+    }
+   },
+   {
+    "id": "n4u05d4.p2",
+    "form": "〜なくても",
+    "gloss": "even if … not; (〜なくてもいい) don't have to",
+    "connect": [
+     {
+      "pos": "Verb, ない form (drop い)",
+      "rule": "買わない → 買わ{なくても}"
+     },
+     {
+      "pos": "Verb, ない form, + いい (from N5)",
+      "rule": "[急|いそ]が{なくてもいい}です"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "チケットを買わ{なくても}、だれでも入れます。",
+      "en": "Anyone can get in, even if they don't buy a ticket."
+     },
+     {
+      "ja": "あしたは[早|はや]く来{なくてもいい}ですよ。",
+      "en": "You don't have to come early tomorrow."
+     }
+    ],
+    "watch": {
+     "note": "\"Don't have to\" is なくてもいい, with も. なくては goes with いけません or なりません and means \"must\".",
+     "bad": "名前は書かなくてはいいです。",
+     "good": "名前は書かなくてもいいです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "With ても and なくても the second part happens anyway; with たら it happens only when the first part does.",
+   "forms": [
+    {
+     "form": "〜ても",
+     "tag": "それでも · even if",
+     "mark": "dot",
+     "ja": "雨がふっ{ても}、出かけます。",
+     "en": "Even if it rains, I'll go out."
+    },
+    {
+     "form": "〜なくても",
+     "tag": "しなくても · even if not",
+     "mark": "down",
+     "ja": "雨がふら{なくても}、かさを[持|も]っていきます。",
+     "en": "Even if it doesn't rain, I'll take an umbrella."
+    },
+    {
+     "form": "〜たら",
+     "tag": "もし · if, when",
+     "mark": "dot",
+     "ja": "雨がふっ{たら}、出かけません。",
+     "en": "If it rains, I won't go out."
+    }
+   ],
+   "check": {
+    "id": "n4u05d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "駅で",
+    "q": "今から[急|いそ]いで（　　）、^もう[間|ま]に[合|あ]いません^。",
+    "options": [
+     "行ったら",
+     "行かなくても",
+     "行っても"
+    ],
+    "answer": 3,
+    "why": [
+     "たら would mean hurrying is the reason you are late. Hurrying should help, so this makes no sense.",
+     "急いで行かなくても means \"even if you don't hurry\". That cannot lead to \"you won't make it now\".",
+     "Hurrying would normally help, but you are late anyway. A result that happens anyway takes ても."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u05d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^どんなに^[寒|さむ]（　　）、毎朝こうえんを[走|はし]ります。",
+    "options": [
+     "くても",
+     "でも",
+     "いでも",
+     "くて"
+    ],
+    "answer": 1,
+    "why": [
+     "寒い is an い adjective: drop い and add くても. どんなに〜ても means \"no matter how\".",
+     "でも follows a noun or a な adjective. 寒い is an い adjective.",
+     "でも does not follow the い of an い adjective.",
+     "In this sentence どんなに needs ても after it. 寒くて only joins or gives a reason."
+    ]
+   },
+   {
+    "id": "n4u05d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[日曜日|にちようび]^（　　）、父は会社へ行きます。",
+    "options": [
+     "ても",
+     "くても",
+     "でも",
+     "なくても"
+    ],
+    "answer": 3,
+    "why": [
+     "ても follows the て form of a verb. 日曜日 is a noun.",
+     "くても is for い adjectives. 日曜日 is a noun.",
+     "A noun takes でも: even on Sunday, my father goes to work.",
+     "なくても follows a verb's ない form. A noun needs じゃなくても, and that would change the meaning."
+    ]
+   },
+   {
+    "id": "n4u05d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[漢字|かんじ]は[試験|しけん]に^出ませんから^、おぼえ（　　）いいですよ。",
+    "options": [
+     "ても",
+     "なくては",
+     "ては",
+     "なくても"
+    ],
+    "answer": 4,
+    "why": [
+     "おぼえてもいい gives permission to learn it. But 出ませんから says there is no need, so the point is \"you don't have to\".",
+     "なくては goes with いけません or なりません, not with いい.",
+     "ては goes with いけません, not with いい.",
+     "It won't be on the test, so you don't have to learn it: なくてもいい."
+    ]
+   },
+   {
+    "id": "n4u05d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[何度|なんど]^[説明|せつめい]を（　　）、よくわかりませんでした。",
+    "options": [
+     "聞いたら",
+     "聞いても",
+     "聞けば",
+     "聞かなくても"
+    ],
+    "answer": 2,
+    "why": [
+     "With 何度, たら leads to a question, as in 何度聞いたらわかりますか. It cannot lead to a past result here.",
+     "何度〜ても: I listened many times, but I still didn't understand.",
+     "With 何度, ば also leads to a question, as in 何度聞けばいいですか. It cannot lead to a past result here.",
+     "\"Even if I didn't listen many times\" makes no sense with 何度."
+    ]
+   },
+   {
+    "id": "n4u05d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "雨の日は、",
+    "after": "です。",
+    "tiles": [
+     "外で",
+     "[運動|うんどう]",
+     "しなくても",
+     "いい"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "なくても comes right before いい. Where does the exercise happen?",
+    "full": "雨の日は、外で[運動|うんどう]し{なくても}いいです。",
+    "explain": "外で says where. 運動 and しなくても make one verb, and なくてもいい means \"don't have to\"."
+   },
+   {
+    "id": "n4u05d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この[歌|うた]は、",
+    "after": "[歌|うた]えません。",
+    "tiles": [
+     "[何度|なんど]",
+     "れんしゅう",
+     "しても",
+     "上手に"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "何度 goes before the verb with ても. Which tile tells you how you can't sing?",
+    "full": "この[歌|うた]は、[何度|なんど]れんしゅうし{ても}上手に[歌|うた]えません。",
+    "explain": "何度 comes first, then れんしゅうしても: no matter how many times I practise. 上手に sits right before 歌えません."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u05d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "何度　メールを　送っ（　　）、へんじが　来ません。",
+    "options": [
+     "たら",
+     "て",
+     "ては",
+     "ても"
+    ],
+    "answer": 4,
+    "explain": "何度〜ても: I sent many emails, but no answer comes. 何度〜たら leads to a question, as in 何度送ったら…か. 送って only joins two actions, and ては does not give \"even if\"."
+   },
+   {
+    "id": "n4u05d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あしたは　休みですから、早く　起き（　　）　いいですよ。ゆっくり　ねて　いて　ください。",
+    "options": [
+     "なくても",
+     "ても",
+     "なくては",
+     "ては"
+    ],
+    "answer": 1,
+    "explain": "It is a day off and the speaker says to sleep in, so \"you don't have to get up early\": なくてもいい. 起きてもいい gives permission to get up early, which does not fit ゆっくり　ねて　いて. なくては and ては go with いけません, not いい."
+   },
+   {
+    "id": "n4u05d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは　どんなに",
+    "after": "買って　しまいます。",
+    "tiles": [
+     "高くても",
+     "ほしい",
+     "もの",
+     "は"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "わたしは　どんなに　高くても　{ほしい}　ものは　買って　しまいます。",
+    "explain": "高くても, ほしい, もの, は. どんなに needs ても, so 高くても comes first. ほしい describes もの, and ものは is what I buy."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "町の音楽会のお知らせ",
+  "en": "A notice for a town concert",
+  "intro": "Tap every word on the notice that tells you where, when, or how much.",
+  "words": [
+   {
+    "id": "concert",
+    "word": "音楽会",
+    "reading": "おんがくかい",
+    "gloss": "concert",
+    "parts": [
+     ["音", "オン", "sound"],
+     ["楽", "ガク", "music; fun"],
+     ["会", "カイ", "meeting, gathering"]
+    ]
+   },
+   {
+    "id": "square",
+    "word": "広場",
+    "reading": "ひろば",
+    "gloss": "open square, plaza",
+    "parts": [
+     ["広", "ひろ", "wide"],
+     ["場", "ば", "place"]
+    ]
+   },
+   {
+    "id": "hall",
+    "word": "公民館",
+    "reading": "こうみんかん",
+    "gloss": "community hall",
+    "parts": [
+     ["公", "コウ", "public"],
+     ["民", "ミン", "people"],
+     ["館", "カン", "building: 図書館"]
+    ]
+   },
+   {
+    "id": "case",
+    "word": "場合",
+    "reading": "ばあい",
+    "gloss": "case, in the event of",
+    "parts": [
+     ["場", "ば", "place"],
+     ["合", "あい", "fit, match"]
+    ]
+   },
+   {
+    "id": "start",
+    "word": "開始",
+    "reading": "かいし",
+    "gloss": "start",
+    "parts": [
+     ["開", "カイ", "open"],
+     ["始", "シ", "begin"]
+    ]
+   },
+   {
+    "id": "cancel",
+    "word": "中止",
+    "reading": "ちゅうし",
+    "gloss": "cancellation, called off",
+    "parts": [
+     ["中", "チュウ", "middle"],
+     ["止", "シ", "stop"]
+    ]
+   },
+   {
+    "id": "entry",
+    "word": "入場",
+    "reading": "にゅうじょう",
+    "gloss": "entry, admission",
+    "parts": [
+     ["入", "ニュウ", "enter"],
+     ["場", "ジョウ", "place"]
+    ]
+   },
+   {
+    "id": "free",
+    "word": "無料",
+    "reading": "むりょう",
+    "gloss": "free of charge",
+    "parts": [
+     ["無", "ム", "none"],
+     ["料", "リョウ", "fee: 料金"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u05d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "雨が　ふっても、音楽会は　_中止_に　なりません。",
+   "options": [
+    "じゅうし",
+    "ちゅうし",
+    "ちゅうじ",
+    "ちゅし"
+   ],
+   "answer": 2,
+   "explain": "中止 is ちゅうし: 中 is チュウ (middle) and 止 is シ (stop). 中 is not read じゅう here, 止 takes no voicing, and the long う in ちゅう cannot be dropped."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "What should you do if it rains on the day?",
+  "seconds": 100,
+  "passage": "さくら町の　みなさんへ。四月二十日（日）の　午後一時から、駅前の　広場で　春の　音楽会を　開きます。入場は　無料です。雨が　ふっても　中止に　しません。^雨の　場合は、となりの　公民館で　開きます^。開始の　時間は　同じです。公民館には　百人しか　入れませんから、^雨の　日は　早めに　来て　ください^。いすは　町が　用意しますから、持って　来なくても　いいです。チケットを　買わなくても、だれでも　聞く　ことが　できます。",
+  "strategy": "Find the sentences that begin with 雨の, then check what the notice says you do not have to do.",
+  "item": {
+   "id": "n4u05d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "雨の　日に　音楽会を　聞きたい　人は、どう　すれば　いいですか。",
+   "options": [
+    "いすを　持って　公民館に　行く。",
+    "音楽会の　前に　チケットを　買う。",
+    "早めに　公民館に　行く。",
+    "午後一時より　おそく　広場に　行く。"
+   ],
+   "short": [
+    "いすを持って行く",
+    "チケットを買う",
+    "早めに公民館に行く",
+    "一時よりおそく広場に行く"
+   ],
+   "answer": 3,
+   "explain": "On a rainy day the concert moves to the 公民館, which holds only 100 people, so the notice asks you to come early: 雨の　日は　早めに　来て　ください.",
+   "why": [
+    "The town brings the chairs: 持って　来なくても　いいです.",
+    "No ticket is needed: チケットを　買わなくても、だれでも　聞く　ことが　できます.",
+    "",
+    "The start time stays the same, and on a rainy day the concert is in the 公民館, not the square."
+   ]
+  }
+ }
+}

@@ -1,0 +1,449 @@
+{
+ "about": "The N5 mini mock: 12 original questions, one for each main item type of the N5 paper, asked in exam conditions (no readings, spaced as the paper writes) and marked with a reason each. Items 1 to 9 share one clock; items 10 to 12 are paced by the audio.",
+ "items": [
+  {
+   "id": "n5mock1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "もんだい1",
+   "rubric": "＿＿＿の　ことばは　ひらがなで　どう　かきますか。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "きのうの　_午後_、としょかんで　べんきょうしました。",
+   "options": [
+    "こご",
+    "ごご",
+    "ごうご",
+    "ごこ"
+   ],
+   "answer": 2,
+   "explain": "午後 is ごご, \"afternoon\": 午 is ご and 後 is ご. こご and ごこ change one ご to こ, and ごうご adds a long sound that is not there."
+  },
+  {
+   "id": "n5mock2",
+   "kind": "choice",
+   "type": "表記",
+   "label": "もんだい2",
+   "rubric": "＿＿＿の　ことばは　どう　かきますか。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "毎あさ　_でんしゃ_で　会社へ　行きます。",
+   "options": [
+    "雨車",
+    "電東",
+    "電車",
+    "雨東"
+   ],
+   "answer": 3,
+   "explain": "でんしゃ, \"train\", is 電車: 電 (electric) and 車 (vehicle). 雨 (rain) is the top part of 電 only, and 東 (east) looks like 車 but is not. So 雨車, 電東 and 雨東 are not words."
+  },
+  {
+   "id": "n5mock3",
+   "kind": "choice",
+   "type": "文脈規定",
+   "label": "もんだい3",
+   "rubric": "（　　）に　なにが　はいりますか。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "へやが　さむいですね。（　　）を　しめましょうか。",
+   "options": [
+    "でんき",
+    "まど",
+    "かさ",
+    "いす"
+   ],
+   "answer": 2,
+   "explain": "The room is cold, so they close the window: まどを しめる. でんき (the light) is turned off with けす, not しめる. A かさ (umbrella) is closed with とじる, and it does nothing for a cold room. いす (a chair) cannot be closed at all."
+  },
+  {
+   "id": "n5mock4",
+   "kind": "choice",
+   "type": "言い換え類義",
+   "label": "もんだい4",
+   "rubric": "＿＿＿の　ぶんと　だいたい　おなじ　いみの　ぶんが　あります。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "まどが　小さいので、_この　へやは　くらいです_。",
+   "options": [
+    "この　へやは　あかるく　ないです。",
+    "この　へやは　ひろく　ないです。",
+    "この　へやは　しずかでは　ないです。",
+    "この　へやは　きれいでは　ないです。"
+   ],
+   "answer": 1,
+   "short": [
+    "あかるく ない",
+    "ひろく ない",
+    "しずかでは ない",
+    "きれいでは ない"
+   ],
+   "explain": "くらい (dark) means the same as あかるく ない (not bright). ひろく ない is \"not big\", しずかでは ない is \"not quiet\" and きれいでは ない is \"not clean\". None of those is about light."
+  },
+  {
+   "id": "n5mock5",
+   "kind": "choice",
+   "type": "文の文法1",
+   "label": "もんだい1",
+   "rubric": "（　　）に　何を　入れますか。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "雨が　ふって　いますから、きょうは　どこへも　（　　）。",
+   "options": [
+    "行きます",
+    "行きました",
+    "行きません",
+    "行きましょう"
+   ],
+   "answer": 3,
+   "explain": "どこへも (\"not anywhere\") needs a negative verb after it, and it is raining, so the speaker stays in: 行きません. 行きます, 行きました and 行きましょう are all positive, so they cannot follow どこへも. (To say \"go somewhere\" you need どこかへ.)"
+  },
+  {
+   "id": "n5mock6",
+   "kind": "choice",
+   "type": "文の文法1",
+   "label": "もんだい1",
+   "rubric": "（　　）に　何を　入れますか。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "あには　わたし（　　）　せが　高いです。",
+   "options": [
+    "ほど",
+    "まで",
+    "より",
+    "から"
+   ],
+   "answer": 3,
+   "explain": "To compare two people, the one you measure against takes より: \"my brother is taller than me\". ほど is used with a negative (わたしほど 高く ないです). まで (\"until, as far as\") and から (\"from\") do not compare."
+  },
+  {
+   "id": "n5mock7",
+   "kind": "choice",
+   "type": "文の文法2",
+   "label": "もんだい2",
+   "rubric": "★に　入る　ものは　どれですか。１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "これは　＿＿　＿＿　★　＿＿　です。",
+   "before": "これは　",
+   "after": "　です。",
+   "star": 2,
+   "options": [
+    "本",
+    "書いた",
+    "父",
+    "が"
+   ],
+   "order": [
+    3,
+    4,
+    2,
+    1
+   ],
+   "answer": 2,
+   "explain": "The sentence is これは 父 が 書いた 本 です, \"This is a book my father wrote.\" 父が 書いた describes 本, so it comes right before it, and が follows 父. The third blank (★) is 書いた. Other orders fail: 本が 父 書いた has 父 with no particle, and 父が 本 書いた leaves 本 with no particle and the sentence ends in 書いた です."
+  },
+  {
+   "id": "n5mock8",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "label": "もんだい4",
+   "rubric": "つぎの　ぶんしょうを　よんで、しつもんに　こたえて　ください。こたえは、１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "passage": "キムさん\nあしたの　午後　三時に　スミスさんが　うちに　来ます。わたしは　二時から　出かけますから、スミスさんに　つくえの　上の　本を　わたして　ください。それから、スミスさんと　いっしょに　テーブルの　上の　ケーキを　食べて　ください。\nゆき",
+   "q": "キムさんは　あした　何を　しますか。",
+   "options": [
+    "スミスさんに　本を　わたして、ケーキを　いっしょに　食べます。",
+    "スミスさんに　本を　かりて、ケーキを　かいます。",
+    "二時に　ゆきさんと　いっしょに　出かけます。",
+    "三時に　スミスさんの　うちへ　行きます。"
+   ],
+   "answer": 1,
+   "short": [
+    "本をわたしてケーキを食べる",
+    "本をかりてケーキをかう",
+    "二時にゆきさんと出かける",
+    "スミスさんのうちへ行く"
+   ],
+   "explain": "Yuki asks Kim to give (わたして) Smith the book on the desk and to eat the cake with him. Kim does not borrow a book or buy a cake (2). Yuki goes out at two, alone (3). Smith comes to the house; Kim does not go to his (4)."
+  },
+  {
+   "id": "n5mock9",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "label": "もんだい6",
+   "rubric": "みぎの　ページを　見て、下の　しつもんに　こたえて　ください。こたえは、１・２・３・４から　いちばん　いい　ものを　一つ　えらんで　ください。",
+   "passage": "みどり　どうぶつえん　ねだん\n\nおとな（13さいから）　300円\n子ども（6さいから　12さいまで）　200円\n5さいまでの　子ども　0円\n\n＊土よう日と　日よう日は、おとなは　400円です。",
+   "q": "リンさんは　土よう日に、8さいの　むすこと　3さいの　むすめと　どうぶつえんへ　行きます。三人で　いくら　はらいますか。",
+   "options": [
+    "500円",
+    "600円",
+    "700円",
+    "800円"
+   ],
+   "answer": 2,
+   "short": [
+    "500円",
+    "600円",
+    "700円",
+    "800円"
+   ],
+   "explain": "On Saturday an adult pays 400円. The 8-year-old son pays 200円 and the 3-year-old daughter pays nothing: 400 + 200 = 600円. 500円 uses the weekday adult price (300 + 200). 700円 and 800円 also charge the 3-year-old 200円."
+  },
+  {
+   "id": "n5mock10",
+   "kind": "choice",
+   "type": "課題理解",
+   "label": "もんだい1",
+   "rubric": "もんだい1では、はじめに　しつもんを　聞いて　ください。それから　話を　聞いて、もんだいようしの　1から4の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "男の人は　何を　買って　きますか。",
+   "options": [
+    "つめたい　おちゃ",
+    "あたたかい　おちゃ",
+    "つめたい　おちゃと　パン",
+    "パン"
+   ],
+   "answer": 1,
+   "explain": "She asks for cold tea, then for two pieces of bread, but he already bought bread and it is on the desk, so she says おちゃだけで いいです: only the tea. Warm tea (2) is not what she wants. Tea and bread (3) and bread alone (4) are wrong because the bread is already there.",
+   "script": "会社で　女の人と　男の人が　話して　います。男の人は　何を　買って　きますか。\n女：すみません、コンビニへ　行きますか。\n男：はい、行きますよ。\n女：じゃあ、おちゃを　買って　きて　ください。\n男：おちゃですね。つめたい　おちゃですか。\n女：はい、つめたいのを　おねがいします。あ、それから、パンも　二つ　おねがいします。\n男：パンは　さっき　わたしが　買いましたよ。つくえの　上に　あります。\n女：あ、ほんとうだ。じゃあ、おちゃだけで　いいです。\n男の人は　何を　買って　きますか。",
+   "parts": [
+    {
+     "k": "q",
+     "ja": "しつもん",
+     "en": "the question",
+     "sim": 2000,
+     "lines": [
+      [
+       "N",
+       "会社で　女の人と　男の人が　話して　います。男の人は　何を　買って　きますか。",
+       "かいしゃで　おんなのひとと　おとこのひとが　はなして　います。おとこのひとは　なにを　かって　きますか。"
+      ]
+     ]
+    },
+    {
+     "k": "talk",
+     "ja": "はなし",
+     "en": "the conversation",
+     "sim": 4200,
+     "lines": [
+      [
+       "F",
+       "すみません、コンビニへ　行きますか。",
+       null
+      ],
+      [
+       "M",
+       "はい、行きますよ。",
+       null
+      ],
+      [
+       "F",
+       "じゃあ、おちゃを　買って　きて　ください。",
+       null
+      ],
+      [
+       "M",
+       "おちゃですね。つめたい　おちゃですか。",
+       null
+      ],
+      [
+       "F",
+       "はい、つめたいのを　おねがいします。あ、それから、パンも　二つ　おねがいします。",
+       "はい、つめたいのを　おねがいします。あ、それから、パンも　ふたつ　おねがいします。"
+      ],
+      [
+       "M",
+       "パンは　さっき　わたしが　買いましたよ。つくえの　上に　あります。",
+       null
+      ],
+      [
+       "F",
+       "あ、ほんとうだ。じゃあ、おちゃだけで　いいです。",
+       null
+      ]
+     ]
+    },
+    {
+     "k": "q2",
+     "ja": "しつもん",
+     "en": "the question again",
+     "sim": 1600,
+     "lines": [
+      [
+       "N",
+       "男の人は　何を　買って　きますか。",
+       "おとこのひとは　なにを　かって　きますか。"
+      ]
+     ]
+    },
+    {
+     "k": "ans",
+     "ja": "こたえ",
+     "en": "answer time",
+     "wait": 8000,
+     "sim": 6000
+    }
+   ]
+  },
+  {
+   "id": "n5mock11",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "label": "もんだい2",
+   "rubric": "もんだい2では、はじめに　しつもんを　聞いて　ください。それから　話を　聞いて、もんだいようしの　1から4の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "二人は　あした　何時に　会いますか。",
+   "options": [
+    "12時半",
+    "1時",
+    "2時",
+    "2時半"
+   ],
+   "answer": 2,
+   "explain": "He first says two o'clock, but she wants lunch before the film. He offers 12:30, she says that is a little early, and they settle on 一時に しましょう: one o'clock. 12時半 was turned down, 2時 was the first plan, and 2時半 is when the film starts.",
+   "script": "男の人と　女の人が　話して　います。二人は　あした　何時に　会いますか。\n男：あしたの　えいが、何時からですか。\n女：二時半からです。\n男：じゃあ、二時に　駅の　前で　会いましょうか。\n女：うーん、その　前に　いっしょに　ひるごはんを　食べませんか。\n男：いいですね。じゃあ、十二時半は　どうですか。\n女：ちょっと　はやいですね。一時に　しましょう。\n男：はい、わかりました。\n二人は　あした　何時に　会いますか。",
+   "parts": [
+    {
+     "k": "q",
+     "ja": "しつもん",
+     "en": "the question",
+     "sim": 2000,
+     "lines": [
+      [
+       "N",
+       "男の人と　女の人が　話して　います。二人は　あした　何時に　会いますか。",
+       "おとこのひとと　おんなのひとが　はなして　います。ふたりは　あした　なんじに　あいますか。"
+      ]
+     ]
+    },
+    {
+     "k": "talk",
+     "ja": "はなし",
+     "en": "the conversation",
+     "sim": 4200,
+     "lines": [
+      [
+       "M",
+       "あしたの　えいが、何時からですか。",
+       "あしたの　えいが、なんじからですか。"
+      ],
+      [
+       "F",
+       "二時半からです。",
+       "にじはんからです。"
+      ],
+      [
+       "M",
+       "じゃあ、二時に　駅の　前で　会いましょうか。",
+       "じゃあ、にじに　えきの　まえで　あいましょうか。"
+      ],
+      [
+       "F",
+       "うーん、その　前に　いっしょに　ひるごはんを　食べませんか。",
+       null
+      ],
+      [
+       "M",
+       "いいですね。じゃあ、十二時半は　どうですか。",
+       "いいですね。じゃあ、じゅうにじはんは　どうですか。"
+      ],
+      [
+       "F",
+       "ちょっと　はやいですね。一時に　しましょう。",
+       "ちょっと　はやいですね。いちじに　しましょう。"
+      ],
+      [
+       "M",
+       "はい、わかりました。",
+       null
+      ]
+     ]
+    },
+    {
+     "k": "q2",
+     "ja": "しつもん",
+     "en": "the question again",
+     "sim": 1600,
+     "lines": [
+      [
+       "N",
+       "二人は　あした　何時に　会いますか。",
+       "ふたりは　あした　なんじに　あいますか。"
+      ]
+     ]
+    },
+    {
+     "k": "ans",
+     "ja": "こたえ",
+     "en": "answer time",
+     "wait": 8000,
+     "sim": 6000
+    }
+   ]
+  },
+  {
+   "id": "n5mock12",
+   "kind": "choice",
+   "type": "即時応答",
+   "label": "もんだい4",
+   "rubric": "もんだい4では、えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+   "q": "女：この　ペン、ちょっと　かりても　いいですか。",
+   "options": [
+    "ええ、どうぞ。",
+    "いいえ、かりません。",
+    "はい、ありがとうございます。"
+   ],
+   "answer": 1,
+   "short": [
+    "ええ、どうぞ",
+    "いいえ、かりません",
+    "ありがとうございます"
+   ],
+   "explain": "She asks to borrow the pen, so the reply is permission: ええ、どうぞ. いいえ、かりません talks as if he were the one borrowing. はい、ありがとうございます is what the borrower says, not the owner.",
+   "script": "女：この　ペン、ちょっと　かりても　いいですか。\n1：ええ、どうぞ。\n2：いいえ、かりません。\n3：はい、ありがとうございます。",
+   "parts": [
+    {
+     "k": "line",
+     "ja": "ぶん",
+     "en": "the line",
+     "sim": 1600,
+     "lines": [
+      [
+       "F",
+       "この　ペン、ちょっと　かりても　いいですか。",
+       null
+      ]
+     ]
+    },
+    {
+     "k": "replies",
+     "ja": "へんじ 1・2・3",
+     "en": "the three replies",
+     "sim": 3400,
+     "lines": [
+      [
+       "N",
+       "1",
+       null
+      ],
+      [
+       "M",
+       "ええ、どうぞ。",
+       null
+      ],
+      [
+       "N",
+       "2",
+       null
+      ],
+      [
+       "M",
+       "いいえ、かりません。",
+       null
+      ],
+      [
+       "N",
+       "3",
+       null
+      ],
+      [
+       "M",
+       "はい、ありがとうございます。",
+       null
+      ]
+     ]
+    },
+    {
+     "k": "ans",
+     "ja": "こたえ",
+     "en": "answer time",
+     "wait": 6000,
+     "sim": 5000
+    }
+   ]
+  }
+ ]
+}

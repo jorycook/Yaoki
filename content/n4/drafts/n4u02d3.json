@@ -1,0 +1,281 @@
+{
+ "title": "〜ことにする・〜ことになる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u02d3.p1",
+    "form": "〜ことにする",
+    "gloss": "I decide to …, I've decided to …",
+    "connect": [
+     {"pos": "Verb, dictionary form", "rule": "行く{ことにする}"},
+     {"pos": "Verb, ない form (decide not to)", "rule": "行かない{ことにする}"},
+     {"pos": "Telling someone a decision you have made", "rule": "行く{ことにしました}"}
+    ],
+    "examples": [
+     {"ja": "[体|からだ]のために、[毎朝|まいあさ][歩|ある]く{ことにしました}。", "en": "For my health, I've decided to walk every morning."},
+     {"ja": "今年の[夏|なつ]休みは、国へ[帰|かえ]らない{ことにしました}。", "en": "I've decided not to go back to my country this summer holiday."}
+    ],
+    "watch": {
+     "note": "こと must sit between the verb and にする. 飲まないにしました is not Japanese.",
+     "bad": "あしたから、おさけを飲まないにしました。",
+     "good": "あしたから、おさけを飲まないことにしました。"
+    }
+   },
+   {
+    "id": "n4u02d3.p2",
+    "form": "〜ことになる",
+    "gloss": "it has been decided (by others or by circumstances)",
+    "connect": [
+     {"pos": "Verb, dictionary form", "rule": "行く{ことになる}"},
+     {"pos": "Verb, ない form", "rule": "行かない{ことになる}"},
+     {"pos": "Passing on news that someone else decided", "rule": "行く{ことになりました}"}
+    ],
+    "examples": [
+     {"ja": "来月から、東京の店ではたらく{ことになりました}。", "en": "It's been decided that I'll work at the Tokyo shop from next month."},
+     {"ja": "会社のきまりで、[金曜日|きんようび]は六時までに[帰|かえ]る{ことになりました}。", "en": "Under a company rule, we now have to leave by six on Fridays."}
+    ],
+    "watch": {
+     "note": "こと follows the dictionary form or the ない form, not the ます form. Only the end of the sentence, なりました, is polite.",
+     "bad": "来月から、東京の店ではたらきますことになりました。",
+     "good": "来月から、東京の店ではたらくことになりました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three talk about a plan. What changes is whether it is fixed yet, and who fixed it.",
+   "forms": [
+    {
+     "form": "〜ことにする",
+     "tag": "自分できめた · I decided",
+     "mark": "dot",
+     "ja": "来月から、[自転車|じてんしゃ]で会社へ行く{ことにしました}。",
+     "en": "I've decided to cycle to work from next month. It was my own choice."
+    },
+    {
+     "form": "〜ことになる",
+     "tag": "ほかの人がきめた · it was decided for me",
+     "mark": "dot",
+     "ja": "来月から、[土曜日|どようび]も会社へ行く{ことになりました}。",
+     "en": "From next month I'll have to go in on Saturdays too. The company decided, not me."
+    },
+    {
+     "form": "〜（よ）うと思う",
+     "tag": "まだきめていない · I'm thinking of",
+     "mark": "dot",
+     "ja": "来月から、[自転車|じてんしゃ]で会社へ行こう{と[思|おも]っています}。",
+     "en": "I'm thinking of cycling to work from next month. Nothing is fixed yet."
+    }
+   ],
+   "check": {
+    "id": "n4u02d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "会社で",
+    "q": "[社長|しゃちょう]がきめたので、来月から[土曜日|どようび]も（　　）。",
+    "options": [
+     "はたらくことにしました",
+     "はたらくことになりました",
+     "はたらこうと[思|おも]っています"
+    ],
+    "answer": 2,
+    "why": [
+     "ことにしました says you made the choice yourself. Here the company president decided, not you.",
+     "The president decided and you are telling the result, so ことになりました: \"The president decided, so from next month I'll work Saturdays too.\"",
+     "と[思|おも]っています is a plan you are still thinking about. The president has already decided it."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u02d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[体|からだ]のために、あまいものは（　　）^ことにしました^。",
+    "options": ["食べません", "食べなくて", "食べない", "食べないで"],
+    "answer": 3,
+    "why": [
+     "こと needs a plain form before it, not the ます form.",
+     "食べなくて joins two sentences (\"not eating, and …\"). It cannot sit before こと.",
+     "The ない form goes straight before ことにしました: \"For my health, I've decided not to eat sweet things.\"",
+     "食べないで means \"without eating\" and leads into another verb. It cannot sit before こと."
+    ]
+   },
+   {
+    "id": "n4u02d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^会社のきまりで^、来月から[毎朝|まいあさ]八時に[集|あつ]まる（　　）。",
+    "options": ["ことにしました", "ことになりました", "ことがあります", "つもりでした"],
+    "answer": 2,
+    "why": [
+     "ことにしました says you chose it yourself. 会社のきまりで says a company rule decided it.",
+     "A company rule decided it and you report the result: \"Under a company rule, we'll meet at eight every morning from next month.\"",
+     "ことがあります means \"sometimes\". It does not fit a new rule for every morning.",
+     "つもりでした is what you yourself had planned in the past. Here a rule sets something new from next month."
+    ]
+   },
+   {
+    "id": "n4u02d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "来年、日本の大学で[勉強|べんきょう]（　　）^ことに^しました。",
+    "options": ["して", "します", "しよう", "する"],
+    "answer": 4,
+    "why": [
+     "して is the te-form. It cannot sit before こと.",
+     "こと needs a plain form before it, not the ます form.",
+     "しよう is the volitional form, used with と[思|おも]う. It cannot sit before こと.",
+     "こと takes the dictionary form: [勉強|べんきょう]する + ことにしました, \"I've decided to study at a Japanese university next year.\""
+    ]
+   },
+   {
+    "id": "n4u02d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^学校かられんらくがあって^、あしたの[試験|しけん]は来週にする（　　）。",
+    "options": ["ことにしました", "ことがありました", "ところでした", "ことになりました"],
+    "answer": 4,
+    "why": [
+     "ことにしました would mean you moved the exam yourself. Here the school moved it and told you.",
+     "ことがありました means \"there were times when\". It does not fit tomorrow's exam.",
+     "ところでした means \"was just about to\". It does not fit a change the school made.",
+     "The school decided and you are passing it on: \"The school got in touch: tomorrow's exam is moved to next week.\""
+    ]
+   },
+   {
+    "id": "n4u02d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[体|からだ]のために、",
+    "after": "しました。",
+    "tiles": ["バスに", "のらないで", "[歩|ある]く", "ことに"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "ことに follows a verb in the dictionary form. のらないで tells how you go, so it comes before that verb.",
+    "full": "[体|からだ]のために、バスにのらないで[歩|ある]く{ことに}しました。",
+    "explain": "バスに, のらないで, [歩|ある]く, ことに. バスに goes with のらないで, and [歩|ある]く sits right before ことに: \"For my health, I've decided to walk instead of taking the bus.\""
+   },
+   {
+    "id": "n4u02d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "来月から、会社は駅の前の",
+    "after": "なりました。",
+    "tiles": ["新しい", "ビルに", "ひっこす", "ことに"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "新しい describes ビル. ことに follows the dictionary form of the verb.",
+    "full": "来月から、会社は駅の前の新しいビルにひっこす{ことに}なりました。",
+    "explain": "新しい, ビルに, ひっこす, ことに. 新しい sits right before ビル, and ひっこす comes before ことになりました: \"From next month, the company is moving to a new building in front of the station.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u02d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ビルの　工事が　あるので、　来週から　食堂が　使えない（　　）。",
+    "options": ["ことに　しました", "ことに　なりました", "ところです", "ことが　あります"],
+    "answer": 2,
+    "explain": "The building work decides it, and 使えない is not something anyone chooses to do, so ことに なりました: \"Because of building work, the cafeteria can't be used from next week.\" ことに しました needs a choice you make yourself. ところです and ことが あります do not fit a change that starts next week."
+   },
+   {
+    "id": "n4u02d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "よく　考えて、　大学を　出た　あと、　国へ　帰る（　　）。",
+    "options": ["ように　なりました", "ことが　あります", "ことに　しました", "ところでした"],
+    "answer": 3,
+    "explain": "よく 考えて shows you made the choice yourself, so ことに しました: \"After thinking hard, I've decided to go back to my country after university.\" ように なりました is a change that happened slowly, ことが あります means \"sometimes\", and ところでした means \"was just about to\"; none fits a plan for after university."
+   },
+   {
+    "id": "n4u02d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "雨が　強いので、　あしたの",
+    "after": "なりました。",
+    "tiles": ["運動会は", "来週に", "する", "ことに"],
+    "star": 2,
+    "bank": [1, 3, 2, 0],
+    "full": "雨が　強いので、　あしたの　運動会は　来週に　する　{ことに}　なりました。",
+    "explain": "運動会は, 来週に, する, ことに. あしたの needs a noun after it, so 運動会は comes first. 来週に する means \"make it next week\", and ことに なりました shows the rain decided it: \"Because of the heavy rain, tomorrow's sports day has been moved to next week.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "会社のお知らせ",
+  "en": "A notice at work",
+  "intro": "Tap every word you would read on the notice about the office move.",
+  "words": [
+   {"id": "notice", "word": "お知らせ", "reading": "おしらせ", "gloss": "notice, announcement", "parts": [["知", "し", "know"]]},
+   {"id": "staff", "word": "社員", "reading": "しゃいん", "gloss": "company staff, employee", "parts": [["社", "シャ", "company"], ["員", "イン", "member"]]},
+   {"id": "building", "word": "建物", "reading": "たてもの", "gloss": "building", "parts": [["建", "たて", "build"], ["物", "もの", "thing"]]},
+   {"id": "works", "word": "工事", "reading": "こうじ", "gloss": "building work, construction", "parts": [["工", "コウ", "craft, work"], ["事", "ジ", "matter, thing"]]},
+   {"id": "canteen", "word": "食堂", "reading": "しょくどう", "gloss": "cafeteria, canteen", "parts": [["食", "ショク", "eat"], ["堂", "ドウ", "hall"]]},
+   {"id": "bike", "word": "自転車", "reading": "じてんしゃ", "gloss": "bicycle", "parts": [["自", "ジ", "self"], ["転", "テン", "turn, roll"], ["車", "シャ", "vehicle"]]},
+   {"id": "caution", "word": "注意", "reading": "ちゅうい", "gloss": "caution, please note", "parts": [["注", "チュウ", "pour, focus"], ["意", "イ", "mind"]]},
+   {"id": "map", "word": "地図", "reading": "ちず", "gloss": "map", "parts": [["地", "チ", "ground"], ["図", "ズ", "drawing"]]}
+  ],
+  "check": {
+   "id": "n4u02d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "来月から　建物の　_工事_が　始まります。",
+   "options": ["こうし", "こうじ", "こうじょう", "くじ"],
+   "answer": 2,
+   "explain": "工事, \"building work\", is read こうじ: 工 is こう and 事 becomes じ. こうじょう is 工場, a factory. こうし and くじ are not readings of 工事."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "男の人は　来月から　何で　会社に　来ますか。",
+  "audio": [
+   ["N", "会社で、女の人と男の人が話しています。男の人は、来月から何で会社に来ますか。", "かいしゃで、おんなのひとと　おとこのひとが　はなしています。おとこのひとは、らいげつから　なにで　かいしゃに　きますか。"],
+   ["F", "田中さん、お知らせを見ましたか。来月から、会社が駅の前の新しいビルにひっこすことになりましたよ。", "たなかさん、おしらせを　みましたか。らいげつから、かいしゃが　えきの　まえの　あたらしい　ビルに　ひっこす　ことに　なりましたよ。"],
+   ["M", "ええ、見ました。でも、新しいビルには、自転車を止めるところがありませんね。", "ええ、みました。でも、あたらしい　ビルには、じてんしゃを　とめる　ところが　ありませんね。"],
+   ["F", "そうなんです。それで、自転車で来てはいけないことになりました。田中さんは、いつも自転車ですよね。", "そうなんです。それで、じてんしゃで　きては　いけない　ことに　なりました。たなかさんは、いつも　じてんしゃですよね。"],
+   ["M", "ええ。バスで来ようと思いましたが、朝のバスはとてもこみますから…。", "ええ。バスで　こようと　おもいましたが、あさの　バスは　とても　こみますから…。"],
+   ["F", "新しいビルは駅の前ですから、電車がべんりですよ。", null],
+   ["M", "そうですね。わたしの家は駅から近いですから、電車で来ることにしました。", "そうですね。わたしの　いえは　えきから　ちかいですから、でんしゃで　くる　ことに　しました。"],
+   ["N", "男の人は、来月から何で会社に来ますか。", "おとこのひとは、らいげつから　なにで　かいしゃに　きますか。"]
+  ],
+  "item": {
+   "id": "n4u02d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "男の人は　来月から　何で　会社に　来ますか。",
+   "script": [
+    "ナレーター：会社で、女の人と男の人が話しています。男の人は、来月から何で会社に来ますか。",
+    "女：田中さん、お知らせを見ましたか。来月から、会社が駅の前の新しいビルにひっこすことになりましたよ。",
+    "男：ええ、見ました。でも、新しいビルには、自転車を止めるところがありませんね。",
+    "女：そうなんです。それで、自転車で来てはいけないことになりました。田中さんは、いつも自転車ですよね。",
+    "男：ええ。バスで来ようと思いましたが、朝のバスはとてもこみますから…。",
+    "女：新しいビルは駅の前ですから、電車がべんりですよ。",
+    "男：そうですね。わたしの家は駅から近いですから、電車で来ることにしました。",
+    "ナレーター：男の人は、来月から何で会社に来ますか。"
+   ],
+   "options": ["自転車で", "バスで", "電車で", "歩いて"],
+   "printed": true,
+   "short": ["自転車", "バス", "電車", "歩いて"],
+   "answer": 3,
+   "why": [
+    "He usually cycles, but the company has ruled it out: 自転車で来てはいけないことになりました.",
+    "He thought about the bus (バスで来ようと思いましたが), but the morning buses are too crowded.",
+    "His home is near the station, so he made his own choice: 電車で来ることにしました.",
+    "Nobody talks about walking to work."
+   ]
+  }
+ }
+}

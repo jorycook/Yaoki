@@ -125,18 +125,19 @@
             "label": "Choose the form",
             "q": "A「[毎日|まいにち]コーヒーを[飲|の]みますか。」\nB「^はい^、[毎日|まいにち]（　　）。」",
             "options": [
-              "[飲|の]むます",
               "[飲|の]みません",
               "[飲|の]みます",
-              "[飲|の]みですか"
+              "[飲|の]みですか",
+              "[飲|の]むます"
             ],
-            "answer": 3,
+            "answer": 2,
             "why": [
-              "ます joins the ます stem 飲み, not the dictionary form 飲む.",
               "飲みません means I don't drink it. B starts with はい, so B drinks it.",
               "B says はい, so B repeats the yes form: 飲みます, I drink it every day.",
-              "です does not come right after a verb stem, and B is answering, not asking."
-            ]
+              "です does not come right after a verb stem, and B is answering, not asking.",
+              "ます joins the ます stem 飲み, not the dictionary form 飲む."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d1.d2",
@@ -145,18 +146,19 @@
             "label": "Choose the form",
             "q": "あした[友|とも]だちと^テニスを^（　　）。",
             "options": [
-              "きます",
               "するます",
               "あります",
-              "します"
+              "します",
+              "きます"
             ],
-            "answer": 4,
+            "answer": 3,
             "why": [
-              "きます is the polite form of 来る, come. You cannot come tennis.",
               "する changes completely: its polite form is します, not するます.",
               "あります says that a thing is there. It does not take テニスを.",
-              "You play tennis with する, and the polite form of する is します. With あした it is a plan."
-            ]
+              "You play tennis with する, and the polite form of する is します. With あした it is a plan.",
+              "きます is the polite form of 来る, come. You cannot come tennis."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d1.d3",
@@ -165,18 +167,19 @@
             "label": "Choose the form",
             "q": "A「[日|にち]よう[日|び]も[学校|がっこう]へ[行|い]きますか。」\nB「^いいえ^、[日|にち]よう[日|び]は（　　）。」",
             "options": [
+              "[行|い]きませんか",
               "[行|い]きます",
               "[行|い]くじゃありません",
-              "[行|い]きません",
-              "[行|い]きませんか"
+              "[行|い]きません"
             ],
-            "answer": 3,
+            "answer": 4,
             "why": [
+              "行きませんか invites someone: won't you go? B is answering A's question, not inviting.",
               "行きます means yes, I go. B starts with いいえ.",
               "じゃありません comes after a noun. 行く is a verb, so its no ending is 行きません.",
-              "B says いいえ, so the verb takes the no ending: 行きます becomes 行きません.",
-              "行きませんか invites someone: won't you go? B is answering A's question, not inviting."
-            ]
+              "B says いいえ, so the verb takes the no ending: 行きます becomes 行きません."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d1.d4",
@@ -255,12 +258,12 @@
             "label": "Choose the form",
             "q": "A「中山さんは　毎日　何時に　うちを　出ますか。」\nB「七時に　（　　）。」",
             "options": [
+              "出ますか",
               "出ません",
               "出るます",
-              "出ます",
-              "出ますか"
+              "出ます"
             ],
-            "answer": 3,
+            "answer": 4,
             "explain": "A asks what time B leaves home every day, and B answers with the time: 七時に出ます. 出ません says B does not leave at seven, which does not answer the question. 出るます is not a form: ます joins 出, the ます stem. 出ますか would be a question, but B is answering."
           },
           {
@@ -644,16 +647,17 @@
             "label": "きのうのこと",
             "q": "A：きのう、[学校|がっこう]へ[行|い]きましたか。B：はい、（　　）。",
             "options": [
+              "[行|い]きません",
               "[行|い]きました",
-              "[行|い]きませんでした",
-              "[行|い]きません"
+              "[行|い]きませんでした"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "行きません is not past, and it means \"I don't go\". It clashes with はい too.",
               "はい to a question about yesterday: the polite past, 行きました.",
-              "行きませんでした means \"I didn't go\". It clashes with はい.",
-              "行きません is not past, and it means \"I don't go\". It clashes with はい too."
-            ]
+              "行きませんでした means \"I didn't go\". It clashes with はい."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -664,18 +668,19 @@
             "label": "Choose the form",
             "q": "^きのう^、デパートで[花|はな]を[買|か]い（　　）。",
             "options": [
-              "ます",
-              "ました",
               "ません",
-              "ますでした"
+              "ますでした",
+              "ます",
+              "ました"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "ます is for now, habits and the future. きのう points to the past.",
-              "きのう is the past, and the sentence says it happened: 買いました.",
               "ません is not past, and it means \"don't\". For yesterday you need a past form.",
-              "There is no ますでした. The past of ます is ました."
-            ]
+              "There is no ますでした. The past of ます is ました.",
+              "ます is for now, habits and the future. きのう points to the past.",
+              "きのう is the past, and the sentence says it happened: 買いました."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d2.d2",
@@ -704,18 +709,19 @@
             "label": "Choose the form",
             "q": "^[先週|せんしゅう]の[日|にち]よう[日|び]^は、^[何|なに]も^（　　）。",
             "options": [
-              "しました",
-              "しませんでした",
               "しません",
-              "します"
+              "します",
+              "しました",
+              "しませんでした"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "何も (nothing) goes with a not form. しました says you did something.",
-              "Last Sunday is past, and 何も needs a not form: しませんでした.",
               "しません is a not form, but it is not past. 先週 needs でした after ません.",
-              "します is not past, and 何も needs a not form."
-            ]
+              "します is not past, and 何も needs a not form.",
+              "何も (nothing) goes with a not form. しました says you did something.",
+              "Last Sunday is past, and 何も needs a not form: しませんでした."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d2.d4",
@@ -724,18 +730,19 @@
             "label": "Choose the form",
             "q": "A：きのう、[何|なに]を[食|た]べ（　　）か。B：^カレーを[食|た]べました^。",
             "options": [
-              "ます",
-              "ました",
               "ません",
-              "ませんでした"
+              "ませんでした",
+              "ます",
+              "ました"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "何を食べますか asks about now or later. きのう and B's answer are in the past.",
-              "B answers 食べました, so the question is in the past too: 食べましたか.",
               "食べませんか is an invitation (won't you eat?), not a question about yesterday.",
-              "何を食べませんでしたか asks what you did not eat. B tells what she ate."
-            ]
+              "何を食べませんでしたか asks what you did not eat. B tells what she ate.",
+              "何を食べますか asks about now or later. きのう and B's answer are in the past.",
+              "B answers 食べました, so the question is in the past too: 食べましたか."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d2.d5",
@@ -794,12 +801,12 @@
             "label": "Choose the form",
             "q": "きのう、スーパーで　たまごを（　　）。",
             "options": [
-              "買います",
               "買いました",
               "買いません",
-              "買いませんか"
+              "買いませんか",
+              "買います"
             ],
-            "answer": 2,
+            "answer": 1,
             "explain": "きのう is the past, and the sentence says what was bought: 買いました. 買います and 買いません are not past, and 買いませんか is an invitation."
           },
           {
@@ -809,12 +816,12 @@
             "label": "Choose the form",
             "q": "A：先週の　土よう日、山へ　行きましたか。B：いいえ、（　　）。うちに　いました。",
             "options": [
-              "行きました",
-              "行きます",
               "行きません",
-              "行きませんでした"
+              "行きませんでした",
+              "行きました",
+              "行きます"
             ],
-            "answer": 4,
+            "answer": 2,
             "explain": "いいえ to a question about last Saturday, and B stayed at home: 行きませんでした. 行きました clashes with いいえ, and 行きます and 行きません are not past."
           },
           {
@@ -1012,24 +1019,24 @@
           "type": "読解・内容理解（短文）",
           "q": "この　人に　ついて、ただしい　ものは　どれですか。",
           "options": [
-            "土よう日に　本を　買いました。",
             "日よう日は　うちに　いました。",
             "日よう日に　しゅくだいを　しました。",
-            "土よう日に　ひとりで　店へ　行きました。"
+            "土よう日に　ひとりで　店へ　行きました。",
+            "土よう日に　本を　買いました。"
           ],
           "short": [
-            "本を買った",
             "日よう日はうちにいた",
             "しゅくだいをした",
-            "ひとりで店へ行った"
+            "ひとりで店へ行った",
+            "本を買った"
           ],
-          "answer": 2,
+          "answer": 1,
           "explain": "On Sunday the writer went nowhere (どこへも行きませんでした) and watched TV at home, so the writer was at home.",
           "why": [
-            "The writer looked at books but writes 買いませんでした: no book was bought.",
             "",
             "The writer writes しゅくだいはしませんでした: no homework was done.",
-            "The writer went with 母 (mother), not alone."
+            "The writer went with 母 (mother), not alone.",
+            "The writer looked at books but writes 買いませんでした: no book was bought."
           ]
         }
       }
@@ -1135,16 +1142,17 @@
             "label": "ともだちと",
             "q": "あした、[友|とも]だちのうち（　　）[行|い]きます。",
             "options": [
+              "が",
               "を",
-              "へ",
-              "が"
+              "へ"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "うちが行きます would make the house the one who goes.",
               "を marks the thing you eat, read or buy. The house is the place you go to.",
-              "The friend's house is where you go, and the place before 行きます takes へ.",
-              "うちが行きます would make the house the one who goes."
-            ]
+              "The friend's house is where you go, and the place before 行きます takes へ."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -1155,18 +1163,19 @@
             "label": "Choose the form",
             "q": "[父|ちち]は[毎日|まいにち][新聞|しんぶん]（　　）^[読|よ]みます^。",
             "options": [
-              "を",
               "へ",
               "が",
-              "に"
+              "に",
+              "を"
             ],
-            "answer": 1,
+            "answer": 4,
             "why": [
-              "The newspaper is the thing he reads, so it takes を.",
               "へ marks the place you go to. 読みます is not going anywhere.",
               "With 読みます, the thing you read takes を, not が. 父は already says who reads.",
-              "に here would mark a place you go to. A newspaper is not a place."
-            ]
+              "に here would mark a place you go to. A newspaper is not a place.",
+              "The newspaper is the thing he reads, so it takes を."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d3.d2",
@@ -1175,18 +1184,19 @@
             "label": "Choose the form",
             "q": "らいしゅう、[日本|にほん]（　　）^[行|い]きます^。",
             "options": [
-              "へ",
               "を",
               "が",
-              "で"
+              "で",
+              "へ"
             ],
-            "answer": 1,
+            "answer": 4,
             "why": [
-              "Japan is where you are going, and the place before 行きます takes へ.",
               "を does not mark the place you go to.",
               "日本が行きます would make Japan the one who goes.",
-              "で marks where you do something, not where you go."
-            ]
+              "で marks where you do something, not where you go.",
+              "Japan is where you are going, and the place before 行きます takes へ."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d3.d3",
@@ -1195,18 +1205,19 @@
             "label": "Choose the form",
             "q": "A：きのう[何|なに]（　　）[買|か]いましたか。　B：^[本|ほん]を^[買|か]いました。",
             "options": [
+              "は",
               "を",
               "へ",
-              "が",
-              "は"
+              "が"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "何は does not work in this question. The thing you buy takes を.",
               "A asks about the thing B bought, so 何 takes を, just like 本を in B's answer.",
               "へ marks the place you go to. 買いました is not going anywhere.",
-              "The thing you buy takes を, not が.",
-              "何は does not work in this question. The thing you buy takes を."
-            ]
+              "The thing you buy takes を, not が."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d3.d4",
@@ -1215,18 +1226,19 @@
             "label": "Choose the form",
             "q": "[先週|せんしゅう]、[母|はは]がわたしのうち^に^（　　）。",
             "options": [
+              "[買|か]いました",
               "[来|き]ました",
               "[食|た]べました",
-              "[読|よ]みました",
-              "[買|か]いました"
+              "[読|よ]みました"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "うちに with 買いました does not make sense here. うちに needs a verb of going or coming.",
               "うちに is the place she came to, so the verb is one of coming: 来ました.",
               "My house is not something you eat, and うちに needs a verb of going or coming.",
-              "My house is not something you read, and うちに needs a verb of going or coming.",
-              "うちに with 買いました does not make sense here. うちに needs a verb of going or coming."
-            ]
+              "My house is not something you read, and うちに needs a verb of going or coming."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d3.d5",
@@ -1285,12 +1297,12 @@
             "label": "Choose the form",
             "q": "A：きのう　何を　しましたか。　B：ともだちと　えいが（　　）　見ました。",
             "options": [
+              "に",
               "を",
               "へ",
-              "が",
-              "に"
+              "が"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "The film is the thing they watched, so it takes を. へ and に mark a place you go to, and with 見ました the thing you watch does not take が."
           },
           {
@@ -1569,25 +1581,26 @@
             "ナレーター：男の人は、はじめに、何を買いますか。"
           ],
           "options": [
-            "パンと　おちゃ",
-            "パン",
             "きっぷ",
-            "おちゃ"
+            "おちゃ",
+            "パンと　おちゃ",
+            "パン"
           ],
           "printed": true,
           "short": [
-            "パンと おちゃ",
-            "パン",
             "きっぷ",
-            "おちゃ"
+            "おちゃ",
+            "パンと おちゃ",
+            "パン"
           ],
-          "answer": 3,
+          "answer": 1,
           "why": [
-            "This was his first plan, but the woman already has bread in her bag.",
-            "The woman says パンはありますよ: the bread is in her bag, so he does not buy it.",
             "He has not bought a ticket yet (まだです), and the woman says きっぷが先ですよ, \"the ticket comes first\".",
-            "He will buy tea, but he says おちゃは、あとで買います: later, after the ticket."
-          ]
+            "He will buy tea, but he says おちゃは、あとで買います: later, after the ticket.",
+            "This was his first plan, but the woman already has bread in her bag.",
+            "The woman says パンはありますよ: the bread is in her bag, so he does not buy it."
+          ],
+          "explain": null
         }
       }
     },
@@ -1732,18 +1745,19 @@
             "label": "Choose the form",
             "q": "きょうしつ（　　）^つくえやいすがあります^。",
             "options": [
+              "へ",
               "で",
               "に",
-              "を",
-              "へ"
+              "を"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "へ shows a direction you go to. あります is not going anywhere.",
               "あります here says where desks and chairs are. That is not an action, so で does not fit.",
               "Where things are takes に before あります: in the classroom.",
-              "あります does not take を.",
-              "へ shows a direction you go to. あります is not going anywhere."
-            ]
+              "あります does not take を."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d4.d3",
@@ -1752,18 +1766,19 @@
             "label": "Choose the form",
             "q": "はし（　　）^ごはんを[食|た]べます^。",
             "options": [
+              "と",
               "を",
               "に",
-              "で",
-              "と"
+              "で"
             ],
-            "answer": 3,
+            "answer": 4,
             "why": [
+              "はしと ごはんを would mean you eat the chopsticks and the rice.",
               "ごはんを already has を. はしを ごはんを has two を.",
               "はしに does not say what you eat with.",
-              "Chopsticks are what you use to eat, so they take で.",
-              "はしと ごはんを would mean you eat the chopsticks and the rice."
-            ]
+              "Chopsticks are what you use to eat, so they take で."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d4.d4",
@@ -1772,18 +1787,19 @@
             "label": "Choose the form",
             "q": "わたしは[毎日|まいにち][電車|でんしゃ]（　　）^[会社|かいしゃ]へ[行|い]きます^。",
             "options": [
+              "で",
               "を",
               "と",
-              "に",
-              "で"
+              "に"
             ],
-            "answer": 4,
+            "answer": 1,
             "why": [
+              "The train is how you go, so it takes で: by train.",
               "行きます does not take を for the train here.",
               "電車と would mean you go together with the train, like with a friend.",
-              "電車に goes with のります (get on). With 行きます it does not fit.",
-              "The train is how you go, so it takes で: by train."
-            ]
+              "電車に goes with のります (get on). With 行きます it does not fit."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d4.d5",
@@ -1842,12 +1858,12 @@
             "label": "Choose the form",
             "q": "きのう　デパート（　　）　くつを　買いました。",
             "options": [
-              "に",
-              "で",
               "を",
-              "へ"
+              "へ",
+              "に",
+              "で"
             ],
-            "answer": 2,
+            "answer": 4,
             "explain": "Buying is an action, so the place where you buy takes で: デパートで 買いました. に would say where something is, くつを already has を, and へ shows the direction you go to, which needs a verb like 行きました."
           },
           {
@@ -1857,12 +1873,12 @@
             "label": "Choose the form",
             "q": "この　かみには　えんぴつ（　　）　名前を　書きます。",
             "options": [
-              "を",
-              "が",
               "へ",
-              "で"
+              "で",
+              "を",
+              "が"
             ],
-            "answer": 4,
+            "answer": 2,
             "explain": "The pencil is what you write with, so it takes で. 名前を already has を, えんぴつが would make the pencil the writer, and へ shows a direction."
           },
           {
@@ -2022,12 +2038,12 @@
           "label": "How the exam asks it",
           "q": "土よう日の　_午後_は　日本語の　クラスが　あります。",
           "options": [
+            "ごこう",
             "ごぜん",
             "こご",
-            "ごご",
-            "ごこう"
+            "ごご"
           ],
-          "answer": 3,
+          "answer": 4,
           "explain": "午後 is ごご, afternoon. ごぜん is 午前 (morning). こご and ごこう are not words; both kanji here are read ご."
         }
       },
@@ -2045,24 +2061,24 @@
           "type": "読解・内容理解（短文）",
           "q": "リンさんは　金よう日に　どこで　ひるごはんを　食べますか。",
           "options": [
-            "学校の　しょくどう",
             "学校の　前の　こうえん",
             "えきの　前の　店",
-            "うち"
+            "うち",
+            "学校の　しょくどう"
           ],
           "short": [
-            "学校のしょくどう",
             "学校の前のこうえん",
             "えきの前の店",
-            "うち"
+            "うち",
+            "学校のしょくどう"
           ],
-          "answer": 2,
+          "answer": 1,
           "explain": "Lin usually eats lunch in the school cafeteria, but the sentence after が says 金よう日は 学校の 前の こうえんで 食べます: on Fridays, in the park in front of the school.",
           "why": [
-            "That is where Lin usually eats, but not on Fridays.",
             "",
             "The note does not talk about a shop by the station.",
-            "Lin reads books at home in the evening. The note does not say Lin eats lunch there."
+            "Lin reads books at home in the evening. The note does not say Lin eats lunch there.",
+            "That is where Lin usually eats, but not on Fridays."
           ]
         }
       }
@@ -2188,18 +2204,19 @@
             "label": "Choose the form",
             "q": "A「[日|にち]よう[日|び]、いっしょにテニスを（　　）。」B「^ええ、しましょう^。」",
             "options": [
-              "しませんか",
-              "しましたか",
               "しません",
-              "しませんでした"
+              "しませんでした",
+              "しませんか",
+              "しましたか"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "B says yes with しましょう, so A invited B: しませんか.",
-              "しましたか asks about the past. B's しましょう shows the tennis has not happened yet.",
               "しません says \"I won't play\". B answers ええ、しましょう, so A must have asked something.",
-              "しませんでした says \"I didn't play\". B's しましょう shows A is talking about a plan."
-            ]
+              "しませんでした says \"I didn't play\". B's しましょう shows A is talking about a plan.",
+              "B says yes with しましょう, so A invited B: しませんか.",
+              "しましたか asks about the past. B's しましょう shows the tennis has not happened yet."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d5.d2",
@@ -2228,18 +2245,19 @@
             "label": "Choose the form",
             "q": "[先生|せんせい]「みなさん、^[今|いま]から^いっしょにこの[本|ほん]を[読|よ]み（　　）。」",
             "options": [
+              "ましたか",
               "ましょう",
               "ました",
-              "ませんでした",
-              "ましたか"
+              "ませんでした"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "ましたか asks about the past. 今から talks about what happens next.",
               "今から means \"from now\", so the teacher says \"let's read\": 読みましょう.",
               "ました is the past. 今から talks about what happens next.",
-              "ませんでした is the past too, and does not fit 今から.",
-              "ましたか asks about the past. 今から talks about what happens next."
-            ]
+              "ませんでした is the past too, and does not fit 今から."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d5.d4",
@@ -2318,12 +2336,12 @@
             "label": "Choose the form",
             "q": "A「あした　わたしの　うちで　いっしょに　ばんごはんを　（　　）。」B「ありがとうございます。」",
             "options": [
-              "食べませんか",
               "食べましたか",
               "食べませんでした",
-              "食べました"
+              "食べました",
+              "食べませんか"
             ],
-            "answer": 1,
+            "answer": 4,
             "explain": "A invites B for tomorrow, and B says thank you, so 食べませんか. The other three are past forms and do not fit あした."
           },
           {
@@ -2333,12 +2351,12 @@
             "label": "Choose the form",
             "q": "A「あしたは　どこで　（　　）。」B「駅の　入口は　どうですか。」",
             "options": [
-              "会いましょうか",
               "会いませんか",
               "会いました",
-              "会いましたか"
+              "会いましたか",
+              "会いましょうか"
             ],
-            "answer": 1,
+            "answer": 4,
             "explain": "A asks where to meet tomorrow, and B suggests a place: 会いましょうか, \"shall we meet?\" 会いませんか does not go with どこ. 会いました is not a question, and 会いましたか asks about the past."
           },
           {
@@ -2518,12 +2536,12 @@
           "label": "How the exam asks it",
           "q": "花見は　_ごご_　一時からです。",
           "options": [
+            "五後",
             "午後",
             "午前",
-            "後午",
-            "五後"
+            "後午"
           ],
-          "answer": 1,
+          "answer": 2,
           "explain": "ごご is written 午後: 午 \"noon\" and 後 \"after\". 午前 is ごぜん, the morning. 後午 and 五後 are not words."
         }
       },
@@ -2639,16 +2657,17 @@
             "label": "まちで",
             "q": "[学校|がっこう]の[前|まえ]（　　）^きっさてんがあります^。",
             "options": [
-              "で",
               "に",
-              "を"
+              "を",
+              "で"
             ],
-            "answer": 2,
+            "answer": 1,
             "why": [
-              "で marks where you do something. あります only says where the café is, so the place takes に.",
               "With あります, the place where a thing is takes に: 学校の前に.",
-              "を marks the thing an action is done to. あります is not that kind of verb, and the café already has が."
-            ]
+              "を marks the thing an action is done to. あります is not that kind of verb, and the café already has が.",
+              "で marks where you do something. あります only says where the café is, so the place takes に."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -2659,18 +2678,19 @@
             "label": "Choose the form",
             "q": "A「^きのう^、[中川|なかがわ]さんと[山|やま]へ（　　）。」B「はい、^[行|い]きました^。」",
             "options": [
+              "[行|い]きます",
               "[行|い]きましたか",
               "[行|い]きませんか",
-              "[行|い]きましょう",
-              "[行|い]きます"
+              "[行|い]きましょう"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "行きます is not past, so it does not fit きのう, and without か it is not a question.",
               "きのう is past and B answers はい, 行きました, so A asked about the past: 行きましたか.",
               "行きませんか invites someone to go later. You cannot invite someone to yesterday.",
-              "行きましょう suggests going later, and B's はい, 行きました does not answer a suggestion.",
-              "行きます is not past, so it does not fit きのう, and without か it is not a question."
-            ]
+              "行きましょう suggests going later, and B's はい, 行きました does not answer a suggestion."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d6.d2",
@@ -2679,18 +2699,19 @@
             "label": "Choose the particle",
             "q": "[母|はは]は[月|げつ]よう[日|び]と[木|もく]よう[日|び]にデパート（　　）^はたらきます^。",
             "options": [
+              "で",
               "へ",
               "を",
-              "に",
-              "で"
+              "に"
             ],
-            "answer": 4,
+            "answer": 1,
             "why": [
+              "The department store is where she does the work, so で: デパートではたらきます.",
               "へ marks where you go, with verbs like 行きます. はたらきます is something you do at a place.",
               "を marks the thing an action is done to. デパート is where she works, not what she works on.",
-              "に goes with verbs like 行きます, 来ます or あります in this unit. はたらきます is an action done there, so it takes で.",
-              "The department store is where she does the work, so で: デパートではたらきます."
-            ]
+              "に goes with verbs like 行きます, 来ます or あります in this unit. はたらきます is an action done there, so it takes で."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d6.d3",
@@ -2699,18 +2720,19 @@
             "label": "Choose the form",
             "q": "A「つめたいジュースがありますよ。[飲|の]み（　　）。」B「^ありがとうございます^。いただきます。」",
             "options": [
-              "ませんか",
-              "ません",
               "ましたか",
-              "ませんでした"
+              "ませんでした",
+              "ませんか",
+              "ません"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "A offers a drink: 飲みませんか, \"won't you have some?\" B thanks A and takes it.",
-              "飲みません says \"I don't drink\". B would not thank A for that.",
               "飲みましたか asks about the past. B's いただきます takes a drink now.",
-              "飲みませんでした says \"I didn't drink\". It is not an offer, so B's thanks do not fit."
-            ]
+              "飲みませんでした says \"I didn't drink\". It is not an offer, so B's thanks do not fit.",
+              "A offers a drink: 飲みませんか, \"won't you have some?\" B thanks A and takes it.",
+              "飲みません says \"I don't drink\". B would not thank A for that."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d6.d4",
@@ -2719,18 +2741,19 @@
             "label": "Choose the phrase",
             "q": "A「^きのう^、[何|なに]をしましたか。」B「[友|とも]だちと[駅|えき]の[前|まえ]のデパート（　　）。」",
             "options": [
+              "にごはんを[食|た]べません",
               "でごはんを[食|た]べました",
               "へごはんを[食|た]べました",
-              "でごはんを[食|た]べます",
-              "にごはんを[食|た]べません"
+              "でごはんを[食|た]べます"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "に does not mark where you eat, and 食べません is neither past nor an answer to \"what did you do\".",
               "The store is where they ate, so で, and きのう needs the past: 食べました.",
               "へ marks where you go. 食べました is done at the store, so the place takes で.",
-              "で is right, but 食べます is not past. A asked about きのう.",
-              "に does not mark where you eat, and 食べません is neither past nor an answer to \"what did you do\"."
-            ]
+              "で is right, but 食べます is not past. A asked about きのう."
+            ],
+            "explain": null
           },
           {
             "id": "n5u03d6.d5",
@@ -2789,12 +2812,12 @@
             "label": "Choose the form",
             "q": "きのう　デパートへ　行きましたが、何も　（　　）。",
             "options": [
+              "買いましょう",
               "買いませんでした",
               "買いました",
-              "買いませんか",
-              "買いましょう"
+              "買いませんか"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "何も with a negative means \"nothing\", and きのう needs the past: 何も買いませんでした. 買いました is not negative, so it does not go with 何も. 買いませんか invites and 買いましょう suggests; neither fits a story about yesterday."
           },
           {
@@ -2804,12 +2827,12 @@
             "label": "Choose the particle",
             "q": "A「日よう日、いっしょに　こうえん（　　）　テニスを　しませんか。」\nB「ええ、しましょう。」",
             "options": [
+              "に",
               "で",
               "へ",
-              "を",
-              "に"
+              "を"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "The park is where you play tennis, so で: こうえんで　テニスを　します. へ marks where you go, with 行きます. を already marks テニス. に would need a verb like 行きます or あります."
           },
           {
@@ -3009,12 +3032,12 @@
           "label": "How the exam asks it",
           "q": "日本語の　クラスは　_九時半_に　はじまります。",
           "options": [
+            "きゅうじぱん",
             "くじはん",
             "きゅうじはん",
-            "くじばん",
-            "きゅうじぱん"
+            "くじばん"
           ],
-          "answer": 1,
+          "answer": 2,
           "explain": "九時半 is くじはん: nine o'clock is くじ, and 半 is はん. きゅうじ is not used for the time, and 半 does not change to ばん or ぱん after 時."
         }
       },
@@ -3063,12 +3086,12 @@
       "label": "Kanji reading",
       "q": "_先週_は　雨が　よく　ふりました。",
       "options": [
+        "せいしゅう",
         "せんしゅう",
         "せんしゅ",
-        "さきしゅう",
-        "せいしゅう"
+        "さきしゅう"
       ],
-      "answer": 1,
+      "answer": 2,
       "explain": "先週 is せんしゅう, last week. せんしゅ has a short しゅ in place of しゅう, so it is a different word. さきしゅう uses さき, the reading of 先 when it stands alone, and せいしゅう has せい in place of せん; neither is a word."
     },
     {
@@ -3078,12 +3101,12 @@
       "label": "Kanji reading",
       "q": "よる　うちで　日本の　うたを　_聞きます_。",
       "options": [
+        "おきます",
         "ききます",
         "かきます",
-        "いきます",
-        "おきます"
+        "いきます"
       ],
-      "answer": 1,
+      "answer": 2,
       "explain": "聞きます is ききます, listen. かきます is 書きます (write), いきます is 行きます (go), and おきます is get up. None of them is read from 聞, and you listen to a song."
     },
     {
@@ -3093,12 +3116,12 @@
       "label": "Kanji spelling",
       "q": "駅の　_きたぐち_で　友だちを　まちます。",
       "options": [
-        "北口",
         "北日",
         "東口",
-        "南口"
+        "南口",
+        "北口"
       ],
-      "answer": 1,
+      "answer": 4,
       "explain": "きたぐち is 北口: 北 (north) with 口 (exit). 北日 has 日 (day) in place of 口, and it is not a word. 東口 is ひがしぐち (east exit) and 南口 is みなみぐち (south exit); they are real words but not read きたぐち."
     },
     {
@@ -3108,12 +3131,12 @@
       "label": "Kanji spelling",
       "q": "母に　てがみを　_かきます_。",
       "options": [
-        "書きます",
         "言きます",
         "話きます",
-        "読きます"
+        "読きます",
+        "書きます"
       ],
-      "answer": 1,
+      "answer": 4,
       "explain": "かきます (write) is 書きます. 言 is the い of 言います (say), 話 is the はな of 話します (speak), and 読 is the よ of 読みます (read). None of them is read か, so 言きます, 話きます and 読きます are not words."
     },
     {
@@ -3123,12 +3146,12 @@
       "label": "Word in context",
       "q": "駅で　電車に　（　　）。",
       "options": [
-        "のります",
         "おります",
         "かいます",
-        "よみます"
+        "よみます",
+        "のります"
       ],
-      "answer": 1,
+      "answer": 4,
       "explain": "電車に goes with のります: get on the train. おります (get off) takes を or から, as in 電車をおります, not に. かいます (buy) and よみます (read) do not take 電車に, and you do not buy or read a train."
     },
     {
@@ -3138,12 +3161,12 @@
       "label": "Word in context",
       "q": "（　　）は　日よう日でした。あしたは　火よう日です。",
       "options": [
+        "あさって",
         "おととい",
         "きのう",
-        "きょう",
-        "あさって"
+        "きょう"
       ],
-      "answer": 2,
+      "answer": 3,
       "explain": "If tomorrow is Tuesday, today is Monday, so yesterday, きのう, was Sunday. おととい (the day before yesterday) was Saturday. きょう is Monday, and it does not go with the past でした. あさって (the day after tomorrow) is in the future, so it cannot take でした."
     },
     {
@@ -3153,13 +3176,13 @@
       "label": "Same meaning",
       "q": "_まいばん_　日本語の　本を　読みます。",
       "options": [
-        "あさは　いつも　日本語の　本を　読みます。",
-        "よるは　いつも　日本語の　本を　読みます。",
         "よるは　ときどき　日本語の　本を　読みます。",
-        "よるは　日本語の　本を　読みません。"
+        "よるは　日本語の　本を　読みません。",
+        "あさは　いつも　日本語の　本を　読みます。",
+        "よるは　いつも　日本語の　本を　読みます。"
       ],
-      "answer": 2,
-      "explain": "まいばん means every evening, so it is the same as よるは いつも (in the evening, always). Option 1 says in the morning. Option 3 says only sometimes (ときどき). Option 4 says the person does not read in the evening."
+      "answer": 4,
+      "explain": "まいばん means every evening, so it is the same as よるは いつも (in the evening, always). Option 3 says in the morning. Option 1 says only sometimes (ときどき). Option 2 says the person does not read in the evening."
     },
     {
       "id": "n5u03t.8",
@@ -3168,13 +3191,13 @@
       "label": "Same meaning",
       "q": "きょうは　_しごとを　休みます_。",
       "options": [
-        "きょうは　会社へ　行きます。",
-        "きょうは　会社へ　行きません。",
         "きょうは　会社で　はたらきます。",
-        "きょうは　会社に　います。"
+        "きょうは　会社に　います。",
+        "きょうは　会社へ　行きます。",
+        "きょうは　会社へ　行きません。"
       ],
-      "answer": 2,
-      "explain": "しごとを 休みます means taking the day off work, so the person does not go to the office: 会社へ 行きません. Option 1 says the opposite. Options 3 and 4 say the person works or is at the office today."
+      "answer": 4,
+      "explain": "しごとを 休みます means taking the day off work, so the person does not go to the office: 会社へ 行きません. Option 3 says the opposite. Options 1 and 2 say the person works or is at the office today."
     },
     {
       "id": "n5u03t.9",
@@ -3183,12 +3206,12 @@
       "label": "Choose the form",
       "q": "A「パクさんは　おさけを　飲みますか。」B「いいえ、おさけは　（　　）。」",
       "options": [
-        "飲みます",
-        "飲みません",
         "飲みませんでした",
-        "飲みましょう"
+        "飲みましょう",
+        "飲みます",
+        "飲みません"
       ],
-      "answer": 2,
+      "answer": 4,
       "explain": "A asks about a habit with 飲みますか, and B says いいえ, so B answers with the polite no ending: 飲みません. 飲みます is a yes answer, which does not follow いいえ. 飲みませんでした is about one time in the past, but A did not ask about the past. 飲みましょう (let's drink) is a suggestion, not an answer about B's habit."
     },
     {
@@ -3198,12 +3221,12 @@
       "label": "Choose the form",
       "q": "けさは　じかんが　ありませんでしたから、あさごはんを　（　　）。",
       "options": [
-        "食べました",
         "食べませんでした",
         "食べません",
-        "食べましょう"
+        "食べましょう",
+        "食べました"
       ],
-      "answer": 2,
+      "answer": 1,
       "explain": "けさ (this morning) is past, and there was no time, so the person did not eat: 食べませんでした. 食べました says the person ate, which does not follow \"there was no time\". 食べません is not past, so it does not fit けさ. 食べましょう (let's eat) is a suggestion, not something that happened."
     },
     {
@@ -3213,12 +3236,12 @@
       "label": "Choose the particle",
       "q": "きのう　としょかんで　本（　　）　二さつ　かりました。",
       "options": [
-        "を",
         "が",
         "に",
-        "へ"
+        "へ",
+        "を"
       ],
-      "answer": 1,
+      "answer": 4,
       "explain": "本 is the thing you borrow, so it takes を: 本を かりました. が would make the book the one who borrows. に and へ mark a person or a place, not the thing you borrow."
     },
     {
@@ -3228,12 +3251,12 @@
       "label": "Choose the particle",
       "q": "A「きのうは　何時に　うち（　　）　かえりましたか。」B「十時ごろです。」",
       "options": [
+        "と",
         "へ",
         "を",
-        "で",
-        "と"
+        "で"
       ],
-      "answer": 1,
+      "answer": 2,
       "explain": "うち is where you go back to, and the place you go to takes へ: うちへ かえりました. を does not mark the place you go back to. で marks where you do something, not where you go. と means \"with\", and you do not go home with your home."
     },
     {
@@ -3258,12 +3281,12 @@
       "label": "Choose the particle",
       "q": "わたしは　毎日　じてんしゃ（　　）　駅まで　行きます。",
       "options": [
-        "で",
-        "を",
         "に",
-        "が"
+        "が",
+        "で",
+        "を"
       ],
-      "answer": 1,
+      "answer": 3,
       "explain": "A bicycle is how the person goes, and the thing you use takes で: じてんしゃで 行きます. を would make the bicycle the thing you go, which does not make sense. に is for getting on (じてんしゃに のります), not with 行きます. が would make the bicycle the one who goes."
     },
     {
@@ -3380,17 +3403,17 @@
       "passage": "きのうは　日よう日でした。午前は　うちで　そうじを　しました。午後は　友だちと　電車で　こうえんへ　行きました。こうえんの　花は　とても　きれいでした。よるは　テレビを　見ませんでした。日本語の　本を　読みました。",
       "q": "ただしい　ものは　どれですか。",
       "options": [
-        "午前は　うちに　いました。",
         "ひとりで　こうえんへ　行きました。",
         "バスで　こうえんへ　行きました。",
-        "こうえんの　花は　きれいじゃ　ありませんでした。"
+        "こうえんの　花は　きれいじゃ　ありませんでした。",
+        "午前は　うちに　いました。"
       ],
-      "answer": 1,
+      "answer": 4,
       "short": [
-        "午前はうち",
         "ひとりで",
         "バスで",
-        "花はきれいじゃない"
+        "花はきれいじゃない",
+        "午前はうち"
       ],
       "explain": "The writer cleaned at home in the morning (午前は うちで そうじを しました), so the writer was at home. The writer went with a friend (友だちと), not alone, and by train (電車で), not by bus. The flowers were very pretty (とても きれいでした)."
     },
@@ -3424,17 +3447,17 @@
       "passage": "みどりセンター　土よう日の　クラス\n午前　十時から　十一時半まで　かんじ（二かい）\n午後　一時から　二時半まで　日本の　りょうり（一かい）\n午後　三時から　四時まで　日本の　うた（二かい）\nお金は　いりません。\n日よう日は　休みです。",
       "q": "アンナさんは　土よう日の　午後　二時半から　ひまです。どの　クラスに　行きますか。",
       "options": [
-        "かんじの　クラス",
-        "りょうりの　クラス",
         "うたの　クラス",
-        "日よう日の　クラス"
+        "日よう日の　クラス",
+        "かんじの　クラス",
+        "りょうりの　クラス"
       ],
-      "answer": 3,
+      "answer": 1,
       "short": [
-        "かんじ",
-        "りょうり",
         "うた",
-        "日よう日"
+        "日よう日",
+        "かんじ",
+        "りょうり"
       ],
       "explain": "From 二時半 the only class that has not started yet is the song class, from 三時 to 四時. The kanji class is in the morning, and the cooking class ends at 二時半. There is no Sunday class, because 日よう日は 休みです."
     },
@@ -3468,17 +3491,17 @@
       "passage": "ケンさん\n来週の　土よう日に　こうえんで　テニスを　しませんか。わたしは　午前は　しごとが　ありますから、午後　一時から　しましょう。こうえんまでは　駅から　バスで　行きましょう。十二時半に　駅の　南口で　会いましょう。\nたなか",
       "q": "ただしい　ものは　どれですか。",
       "options": [
-        "テニスは　午前からです。",
-        "二人は　こうえんまで　あるいて　行きます。",
         "たなかさんは　土よう日の　午前　しごとが　あります。",
-        "二人は　こうえんの　入口で　会います。"
+        "二人は　こうえんの　入口で　会います。",
+        "テニスは　午前からです。",
+        "二人は　こうえんまで　あるいて　行きます。"
       ],
-      "answer": 3,
+      "answer": 1,
       "short": [
-        "テニスは午前",
-        "あるいて行く",
         "午前にしごと",
-        "こうえんの入口"
+        "こうえんの入口",
+        "テニスは午前",
+        "あるいて行く"
       ],
       "explain": "たなか writes 午前は しごとが あります: there is work on Saturday morning. That is why the tennis is in the afternoon (午後 一時から), not the morning. They go to the park by bus (バスで), not on foot. They meet at the station's south exit (駅の 南口), not at the park entrance."
     }

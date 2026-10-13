@@ -22,6 +22,8 @@ run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run-app.sh pause-te
 run "content sweep"                timeout 2400 bash run-app.sh content-sweep.js
 run "content sweep, N5"            LEVEL=N5 timeout 2400 bash run-app.sh content-sweep.js
 run "level switch"               timeout 400 bash run-app.sh level-test.js
+run "N5 mini mock, sound"        timeout 400 bash run-app.sh n5-mock.js
+run "N5 mini mock, no sound"     NOSOUND=1 timeout 400 bash run-app.sh n5-mock.js
 pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
 echo "=== app: mock time-up"
 FAST_MOCK=1 bash run-app.sh step.js 'TShell?screen=MockRun' '[{"click":"button:has-text(\"Start\")","after":800},{"wait":3600},{"text":"[lang=ja]:has-text(\"時間切れ\")"},{"shot":"app-fm-timeup"}]' 2>&1 | cut -c1-300

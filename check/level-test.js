@@ -31,7 +31,7 @@ const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + ms
   await click('a:has-text("Start")', 800);
   let t = await text();
   ok(t.includes('名詞の文') && t.includes('N5'), 'the week path shows N5 unit 1');
-  ok(t.includes('模試 準備中'), 'the mock exam is marked as not ready at N5');
+  ok(t.includes('判定 準備中') && t.includes('Mock exam'), 'at N5 the mini mock is open and the readiness check is marked as not ready');
   let s = await saved();
   ok(s && s.level === 'N5' && s.plan && s.plan.exam === '2026-12-06', 'the save holds level N5 and its plan, got ' + JSON.stringify(s).slice(0, 160));
 

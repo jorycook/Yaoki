@@ -1,0 +1,242 @@
+{
+ "title": "〜ていく・〜てくる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u03d2.p1",
+    "form": "〜ていく",
+    "gloss": "go away; keep changing from now on",
+    "connect": [
+     {"pos": "Verb, te-form: moving away from here", "rule": "出る → 出て{いく}"},
+     {"pos": "Verb, te-form: a change that goes on from now", "rule": "[寒|さむ]くなる → [寒|さむ]くなって{いく}"},
+     {"pos": "Polite form", "rule": "〜て{いきます}"}
+    ],
+    "examples": [
+     {"ja": "[兄|あに]は[朝|あさ][早|はや]く会社へ出て{いきました}。", "en": "My older brother left for the office early in the morning."},
+     {"ja": "これから少しずつ[寒|さむ]くなって{いきます}。", "en": "From now on it will get colder little by little."}
+    ],
+    "watch": {
+     "note": "ていく looks forward from now. For a change that has come up to now, as with さいきん, use てきた.",
+     "bad": "さいきん、だんだん寒くなっていきましたね。",
+     "good": "さいきん、だんだん寒くなってきましたね。"
+    }
+   },
+   {
+    "id": "n4u03d2.p2",
+    "form": "〜てくる",
+    "gloss": "come here; go and come back; a change up to now",
+    "connect": [
+     {"pos": "Verb, te-form: moving toward here", "rule": "[持|も]つ → [持|も]って{くる}"},
+     {"pos": "Verb, te-form: go, do it, and come back", "rule": "買う → 買って{くる}"},
+     {"pos": "Verb, te-form + past: a change up to now", "rule": "ふる → ふって{きた}"}
+    ],
+    "examples": [
+     {"ja": "ちょっとコンビニで飲みものを買って{きます}。", "en": "I'll just go and buy a drink at the convenience store."},
+     {"ja": "[急|きゅう]に雨がふって{きました}。", "en": "It has suddenly started to rain."}
+    ],
+    "watch": {
+     "note": "When you go somewhere, do something and come back here, use てくる. ていく would mean you do it and then go on somewhere else.",
+     "bad": "ちょっと待っていてください。すぐ水を買っていきます。",
+     "good": "ちょっと待っていてください。すぐ水を買ってきます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three can talk about a change. ていく looks ahead from now, てきた looks back up to now, and ている is how things are right now.",
+   "forms": [
+    {"form": "〜ていく", "tag": "これから · from now on", "mark": "dot", "ja": "日本に[住|す]む外国人は、もっと多くなって{いく}でしょう。", "en": "The number of foreign residents in Japan will probably keep growing."},
+    {"form": "〜てくる", "tag": "今まで · up to now", "mark": "dot", "ja": "さいきん、日本に[住|す]む外国人が多くなって{きました}。", "en": "Recently, more and more foreign people have come to live in Japan."},
+    {"form": "〜ている", "tag": "今 · the state now", "mark": "dot", "ja": "今、日本に[住|す]む外国人がふえて{います}。", "en": "The number of foreign residents in Japan is rising now."}
+   ],
+   "check": {
+    "id": "n4u03d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "天気よほうで",
+    "q": "^これから^、雨はもっと[強|つよ]くなって（　　）。",
+    "options": ["いくでしょう", "きました", "いました"],
+    "answer": 1,
+    "why": [
+     "これから looks ahead: the rain will keep getting stronger, so ていく.",
+     "てきました is a change up to now. It does not fit これから.",
+     "いました is past. It does not fit これから."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u03d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[鳥|とり]が^[遠|とお]くへ^とんで（　　）。",
+    "options": ["きました", "おきました", "いきました", "ありました"],
+    "answer": 3,
+    "why": [
+     "てくる is movement toward here, but 遠くへ is away from here.",
+     "ておく is doing something ahead of time. A bird flying off is not a preparation.",
+     "遠くへ, far away from here: the bird flew off, so ていく.",
+     "てある shows the result of a person's action, with verbs like 書く or 作る. It does not go with とぶ."
+    ]
+   },
+   {
+    "id": "n4u03d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^すぐもどります^から、ちょっと[切手|きって]を買って（　　）。",
+    "options": ["いきます", "きます", "あります", "います"],
+    "answer": 2,
+    "why": [
+     "買っていきます means you buy them and then go on somewhere. すぐもどります says you will come back here.",
+     "Go, buy stamps and come back: 買ってきます fits すぐもどります.",
+     "買ってあります means the stamps are already bought. Here you are about to go and buy them.",
+     "買っています is an action going on now or a habit, not a short trip you are about to make."
+    ]
+   },
+   {
+    "id": "n4u03d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^さっき^[急|きゅう]に空が[暗|くら]くなって、雨がふって（　　）。",
+    "options": ["いきます", "おきました", "みました", "きました"],
+    "answer": 4,
+    "why": [
+     "ていきます looks ahead, but さっき says the rain has already started.",
+     "ておく is a person's preparation. Rain does not prepare anything.",
+     "てみる is trying something. Rain cannot try.",
+     "A change that has come up to now: the sky got dark and it started to rain, so ふってきました."
+    ]
+   },
+   {
+    "id": "n4u03d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[町|まち]の子どもは、^これからも^少なくなって（　　）でしょう。",
+    "options": ["いく", "きた", "おく", "ある"],
+    "answer": 1,
+    "why": [
+     "これからも: the number keeps going down from now on, so ていく.",
+     "てきた is a change up to now. It does not fit これからも.",
+     "ておく is a person doing something ahead of time. Getting fewer is not something you prepare.",
+     "てある follows a verb of a person's action, like 書く. It does not follow なる."
+    ]
+   },
+   {
+    "id": "n4u03d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "午後から雨ですから、",
+    "after": "いいですよ。",
+    "tiles": ["かさを", "[持|も]って", "いった", "ほうが"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "The past form + ほうがいい gives advice. What do you do with the umbrella before いった?",
+    "full": "午後から雨ですから、かさを[持|も]って{いった}ほうがいいですよ。",
+    "explain": "かさを comes first, then 持って + いった: take an umbrella with you when you go. ほうが follows the past いった and joins いいですよ."
+   },
+   {
+    "id": "n4u03d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "さいきん、",
+    "after": "きましたね。",
+    "tiles": ["[暑|あつ]い", "日が", "多く", "なって"],
+    "star": 2,
+    "bank": [3, 0, 2, 1],
+    "hint": "暑い describes a noun. Which tile comes right before なって?",
+    "full": "さいきん、[暑|あつ]い日が多くなって{きました}ね。",
+    "explain": "暑い goes before 日が, then 多く + なって. なってきました shows a change up to now: there have been more and more hot days."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u03d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母「どこへ　行くの？」\n子ども「コンビニ。ノートを　（　　）。」",
+    "options": ["買って　ある", "買って　いた", "買って　くる", "買って　おいた"],
+    "answer": 3,
+    "explain": "The child is going to the convenience store to buy a notebook and will come back home: 買ってくる. 買ってある and 買っておいた say the notebook is already bought, and 買っていた is a past action, so none of them answers どこへ行くの."
+   },
+   {
+    "id": "n4u03d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "これから　日本では　お年よりが　もっと　ふえて　（　　）でしょう。",
+    "options": ["きた", "いく", "いた", "おいた"],
+    "answer": 2,
+    "explain": "これから points to the future, so ていく: the number of old people will keep growing. きた, いた and おいた are all past and do not fit これから, and ておく is a person's preparation."
+   },
+   {
+    "id": "n4u03d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「日本語の　勉強は　どうですか。」\nB「はじめは　むずかしかったですが、",
+    "after": "　きました。」",
+    "tiles": ["漢字の", "勉強が", "おもしろく", "なって"],
+    "star": 2,
+    "bank": [1, 3, 0, 2],
+    "full": "A「日本語の　勉強は　どうですか。」\nB「はじめは　むずかしかったですが、漢字の　勉強が　{おもしろく}　なって　きました。」",
+    "explain": "漢字の, 勉強が, おもしろく, なって. 漢字の describes 勉強, おもしろい becomes おもしろく before なる, and なってきました shows a change up to now."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅のお知らせ",
+  "en": "A notice board at a station before a typhoon",
+  "intro": "Tap every word with kanji that you can find on the station notice.",
+  "words": [
+   {"id": "typhoon", "word": "台風", "reading": "たいふう", "gloss": "typhoon", "parts": [["台", "タイ", "stand, platform"], ["風", "フウ", "wind"]]},
+   {"id": "heavy-rain", "word": "大雨", "reading": "おおあめ", "gloss": "heavy rain", "parts": [["大", "おお", "big"], ["雨", "あめ", "rain"]]},
+   {"id": "caution", "word": "注意", "reading": "ちゅうい", "gloss": "caution, care", "parts": [["注", "チュウ", "pour, focus"], ["意", "イ", "mind"]]},
+   {"id": "service", "word": "運転", "reading": "うんてん", "gloss": "running (of trains), driving", "parts": [["運", "ウン", "carry"], ["転", "テン", "turn"]]},
+   {"id": "cancelled", "word": "中止", "reading": "ちゅうし", "gloss": "cancelled, called off", "parts": [["中", "チュウ", "middle"], ["止", "シ", "stop"]]},
+   {"id": "limited-express", "word": "特急", "reading": "とっきゅう", "gloss": "limited express train", "parts": [["特", "トッ", "special"], ["急", "キュウ", "hurry"]]},
+   {"id": "evening", "word": "夕方", "reading": "ゆうがた", "gloss": "early evening", "parts": [["夕", "ゆう", "evening"], ["方", "がた", "direction, side"]]},
+   {"id": "station-staff", "word": "駅員", "reading": "えきいん", "gloss": "station staff", "parts": [["駅", "エキ", "station"], ["員", "イン", "member"]]}
+  ],
+  "check": {
+   "id": "n4u03d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "台風が　来るので、午後の　特急は　_中止_に　なりました。",
+   "options": ["ちゅし", "じゅうし", "ちゅうじ", "ちゅうし"],
+   "answer": 4,
+   "explain": "中止 is read ちゅうし, \"cancelled\". 中 is ちゅう, as in 中学校, and 止 is し. ちゅし has a short vowel, and じゅうし and ちゅうじ add voicing that is not there."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What should passengers do before they come to the station?",
+  "seconds": 90,
+  "passage": "お知らせ\n台風が　近づいて　きて　います。今日は　午後から　雨と　風が　強く　なって　いく　でしょう。夕方　五時からは　特急の　運転を　中止します。ほかの　電車は　動きますが、おくれる　ことが　あります。^駅に　来る　前に、ホームページで　電車の　時間を　見て　ください^。外に　出る　ときは、かさを　持って　いって　ください。明日の　朝には　天気が　よく　なって　くる　でしょう。",
+  "strategy": "The question asks what to do, so look for a 〜てください sentence about the time before coming to the station.",
+  "item": {
+   "id": "n4u03d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "電車に　乗る　人は、駅に　来る　前に　何を　しますか。",
+   "options": ["駅員に　特急の　時間を　聞く。", "コンビニで　かさを　買って　くる。", "ホームページで　電車の　時間を　見る。", "特急の　きっぷを　買って　おく。"],
+   "short": ["駅員に聞く", "かさを買ってくる", "ホームページを見る", "きっぷを買っておく"],
+   "answer": 3,
+   "explain": "The notice says: 駅に来る前に、ホームページで電車の時間を見てください.",
+   "why": [
+    "The notice does not say to ask the station staff.",
+    "The notice says to take an umbrella with you when you go out (かさを持っていってください), not to buy one.",
+    "",
+    "Limited express trains stop from five o'clock, and the notice says nothing about buying tickets."
+   ]
+  }
+ }
+}

@@ -1,0 +1,571 @@
+{
+ "title": "〜らしい・〜はずだ",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u07d3.p1",
+    "form": "〜らしい",
+    "gloss": "I hear; it seems (from what others say)",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "[引|ひ]っこす{らしい}、高い{らしい}"
+     },
+     {
+      "pos": "Noun or な-adjective, with no だ or な before らしい",
+      "rule": "〜{らしい}"
+     },
+     {
+      "pos": "Past: plain past form (a noun or な-adjective takes だった)",
+      "rule": "[引|ひ]っこした{らしい}、〜だった{らしい}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "小川さんは来月、[京都|きょうと]に[引|ひ]っこす{らしい}です。",
+      "en": "I hear Ogawa is moving to Kyoto next month."
+     },
+     {
+      "ja": "中山さんのお[姉|ねえ]さんは[医者|いしゃ]{らしい}です。",
+      "en": "Apparently Nakayama's older sister is a doctor."
+     }
+    ],
+    "watch": {
+     "note": "In the present, らしい joins a noun or a な-adjective directly. Do not put だ in between.",
+     "bad": "あの人は大学生だらしいです。",
+     "good": "あの人は大学生らしいです。"
+    }
+   },
+   {
+    "id": "n4u07d3.p2",
+    "form": "〜はずだ",
+    "gloss": "should be, is expected to (I have a reason)",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "[着|つ]く{はずです}、安い{はずです}"
+     },
+     {
+      "pos": "な-adjective: keep な",
+      "rule": "〜な{はずです}"
+     },
+     {
+      "pos": "Noun: add の",
+      "rule": "〜の{はずです}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "小川さんは十年中国に[住|す]んでいましたから、中国語が上手な{はずです}。",
+      "en": "Ogawa lived in China for ten years, so his Chinese should be good."
+     },
+     {
+      "ja": "今日は月[曜日|ようび]ですから、[図書館|としょかん]は休み{のはずです}。",
+      "en": "It's Monday today, so the library should be closed."
+     }
+    ],
+    "watch": {
+     "note": "はず works like a noun, so a noun before it needs の, and a な-adjective keeps な.",
+     "bad": "あしたは休みはずです。",
+     "good": "あしたは休みのはずです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three talk about something you did not see yourself. What changes is where the idea comes from.",
+   "forms": [
+    {
+     "form": "〜そうだ（聞いた話）",
+     "tag": "聞いたことをつたえる · I hear (passing it on)",
+     "mark": "dot",
+     "ja": "中山さんの話では、新しい[仕事|しごと]は[楽|たの]しい{そうです}。",
+     "en": "According to Nakayama, her new job is fun. You pass on what she told you."
+    },
+    {
+     "form": "〜らしい",
+     "tag": "聞いた話 · I hear, it seems",
+     "mark": "dot",
+     "ja": "中山さんは新しい[仕事|しごと]が[楽|たの]しい{らしい}です。",
+     "en": "It seems Nakayama enjoys her new job. You heard it from others, or picked it up around you."
+    },
+    {
+     "form": "〜はずだ",
+     "tag": "わけがある · should be (I have a reason)",
+     "mark": "dot",
+     "ja": "中山さんは本が[好|す]きですから、本屋の[仕事|しごと]は[楽|たの]しい{はずです}。",
+     "en": "Nakayama loves books, so a job at a bookshop should be fun. The reason is the speaker's own."
+    }
+   ],
+   "check": {
+    "id": "n4u07d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Heard it, or have a reason?",
+    "q": "^わたしがきのう話しました^から、小川さんはこのことを[知|し]っている（　　）。",
+    "options": [
+     "そうです",
+     "らしいです",
+     "はずです"
+    ],
+    "answer": 3,
+    "why": [
+     "そうです passes on what someone told you. But the speaker told Ogawa himself, so there is nothing to pass on.",
+     "らしい is for what you heard from others. The speaker knows because he told Ogawa himself.",
+     "The speaker has his own reason (he told Ogawa yesterday), so he expects Ogawa to know: はずです."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u07d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "中山さんは会社をやめて、今は^ピアノの先生^（　　）よ。",
+    "options": [
+     "だらしいです",
+     "らしいです",
+     "ならしいです",
+     "のらしいです"
+    ],
+    "answer": 2,
+    "why": [
+     "先生 is a noun. らしい joins it directly; だ does not come in between.",
+     "Noun + らしい with nothing in between: I hear she is a piano teacher now.",
+     "な joins a な-adjective to a noun. It does not come before らしい.",
+     "の joins a noun to はず, not to らしい."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^ニュースで聞きました^が、あしたは大雨が（　　）。",
+    "options": [
+     "ふるつもりです",
+     "ふりたいです",
+     "ふるらしいです",
+     "ふってみます"
+    ],
+    "answer": 3,
+    "why": [
+     "つもり is a person's plan. Rain cannot plan anything.",
+     "たい says what a person wants. Rain cannot want.",
+     "The speaker heard it on the news, so らしい passes it on: I hear it will rain heavily tomorrow.",
+     "てみる means try doing something. Rain does not try."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "小川さんの新しい[家|いえ]は^駅から[遠|とお]い^ですから、[夜|よる]は（　　）。",
+    "options": [
+     "しずかのはずです",
+     "しずかはずです",
+     "しずかだはずです",
+     "しずかなはずです"
+    ],
+    "answer": 4,
+    "why": [
+     "の joins a noun to はず. しずか is a な-adjective, so it takes な.",
+     "A な-adjective needs な before はず.",
+     "だ does not come right before はず.",
+     "しずか is a な-adjective, so it keeps な. The house is far from the station, so it should be quiet at night."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "大川さんは^先週会社をやめました^から、もう会社には（　　）。",
+    "options": [
+     "来ないはずです",
+     "来るはずです",
+     "来たらしいです",
+     "来るらしいです"
+    ],
+    "answer": 1,
+    "why": [
+     "He quit last week, so the speaker expects him not to come any more: 来ないはずです.",
+     "He quit, so the reason points the other way. He is not expected to come.",
+     "This says he seems to have come. That does not follow from his quitting, and it clashes with もう…には.",
+     "This says he seems to be coming. Someone who quit last week is not coming to work."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "中山さんが今",
+    "after": "らしいです。",
+    "tiles": [
+     "[働|はたら]いて",
+     "いる",
+     "会社は",
+     "[有名|ゆうめい]"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "働いている describes the company. What goes straight before らしい?",
+    "full": "中山さんが今[働|はたら]いている会社は[有名|ゆうめい]{らしい}です。",
+    "explain": "働いている describes 会社, so it comes right before 会社は. 有名 is a な-adjective, so it joins らしい directly with no だ: I hear the company Nakayama works for now is famous."
+   },
+   {
+    "id": "n4u07d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "小川さんは[去年|きょねん]大学に入りましたから、",
+    "after": "です。",
+    "tiles": [
+     "今は",
+     "二年生",
+     "の",
+     "はず"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "Start with the time word. 二年生 is a noun: what joins it to はず?",
+    "full": "小川さんは[去年|きょねん]大学に入りましたから、今は二年生{のはず}です。",
+    "explain": "今は comes first. 二年生 is a noun, so の joins it to はず: Ogawa started university last year, so he should be in his second year now."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u07d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "友だちの　話では、田中さんは　来月　けっこん（　　）。",
+    "options": [
+     "しますらしいです",
+     "したらしいです",
+     "してらしいです",
+     "するらしいです"
+    ],
+    "answer": 4,
+    "explain": "らしい follows the plain form, and 来月 points to the future, so するらしいです: I hear Tanaka is getting married next month. しますらしい uses the ます form, したらしい is past and clashes with 来月, and してらしい is not a form."
+   },
+   {
+    "id": "n4u07d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "森さんは　四月に　銀行に　入りましたから、今は　銀行員（　　）。",
+    "options": [
+     "なはずです",
+     "はずです",
+     "のはずです",
+     "だはずです"
+    ],
+    "answer": 3,
+    "explain": "銀行員 is a noun, so の joins it to はず: Mori joined a bank in April, so he should be a bank clerk now. な is for な-adjectives, a noun cannot join はず with nothing in between, and だ does not come right before はず."
+   },
+   {
+    "id": "n4u07d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この　手紙は　きのう　",
+    "after": "はずです。",
+    "tiles": [
+     "送りました",
+     "から",
+     "あした",
+     "着く"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "full": "この　手紙は　きのう　送りました　から　あした　着く　{はずです}。",
+    "explain": "送りました, から, あした, 着く. から gives the reason (it was sent yesterday), and あした 着く is what the speaker expects: this letter was sent yesterday, so it should arrive tomorrow."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "会社のけいじばん",
+  "en": "A notice on the office message board",
+  "intro": "A notice on the office board says a co-worker is leaving for a new job. Tap each word on it.",
+  "words": [
+   {
+    "id": "farewell",
+    "word": "送別会",
+    "reading": "そうべつかい",
+    "gloss": "farewell party",
+    "parts": [
+     [
+      "送",
+      "ソウ",
+      "send"
+     ],
+     [
+      "別",
+      "ベツ",
+      "part, separate"
+     ],
+     [
+      "会",
+      "カイ",
+      "meeting, party"
+     ]
+    ]
+   },
+   {
+    "id": "institute",
+    "word": "研究所",
+    "reading": "けんきゅうじょ",
+    "gloss": "research institute",
+    "parts": [
+     [
+      "研",
+      "ケン",
+      "study, polish"
+     ],
+     [
+      "究",
+      "キュウ",
+      "research"
+     ],
+     [
+      "所",
+      "ジョ",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "moving",
+    "word": "引っこし",
+    "reading": "ひっこし",
+    "gloss": "moving house",
+    "parts": [
+     [
+      "引",
+      "ひ",
+      "pull"
+     ]
+    ]
+   },
+   {
+    "id": "address",
+    "word": "住所",
+    "reading": "じゅうしょ",
+    "gloss": "address",
+    "parts": [
+     [
+      "住",
+      "ジュウ",
+      "live"
+     ],
+     [
+      "所",
+      "ショ",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "departure",
+    "word": "出発",
+    "reading": "しゅっぱつ",
+    "gloss": "departure",
+    "parts": [
+     [
+      "出",
+      "シュッ",
+      "go out"
+     ],
+     [
+      "発",
+      "パツ",
+      "start, leave"
+     ]
+    ]
+   },
+   {
+    "id": "datetime",
+    "word": "日時",
+    "reading": "にちじ",
+    "gloss": "date and time",
+    "parts": [
+     [
+      "日",
+      "ニチ",
+      "day"
+     ],
+     [
+      "時",
+      "ジ",
+      "time"
+     ]
+    ]
+   },
+   {
+    "id": "place",
+    "word": "場所",
+    "reading": "ばしょ",
+    "gloss": "place",
+    "parts": [
+     [
+      "場",
+      "ば",
+      "place"
+     ],
+     [
+      "所",
+      "ショ",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "map",
+    "word": "地図",
+    "reading": "ちず",
+    "gloss": "map",
+    "parts": [
+     [
+      "地",
+      "チ",
+      "ground, land"
+     ],
+     [
+      "図",
+      "ズ",
+      "drawing, plan"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u07d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "林さんの　新しい　_住所_を　知って　いますか。",
+   "options": [
+    "じゅしょ",
+    "じゅうしょ",
+    "じゅうじょ",
+    "すみしょ"
+   ],
+   "answer": 2,
+   "explain": "住所 is read じゅうしょ, an address: do you know Hayashi's new address? じゅしょ drops the long う, じゅうじょ has じょ instead of しょ, and すみしょ uses the wrong reading of 住."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "林さんは　今　どこで　働いて　いますか。",
+  "audio": [
+   [
+    "N",
+    "会社で、男の人と女の人が話しています。林さんは今、どこで働いていますか。",
+    "かいしゃで、おとこのひととおんなのひとがはなしています。はやしさんはいま、どこではたらいていますか。"
+   ],
+   [
+    "M",
+    "先月やめた林さん、今どうしているか知っていますか。",
+    "せんげつやめたはやしさん、いまどうしているかしっていますか。"
+   ],
+   [
+    "F",
+    "田中さんの話では、京都で働いているらしいですよ。",
+    "たなかさんのはなしでは、きょうとではたらいているらしいですよ。"
+   ],
+   [
+    "M",
+    "京都ですか。林さんのお兄さんが、京都で会社をやっていますよね。そこですか。",
+    "きょうとですか。はやしさんのおにいさんが、きょうとでかいしゃをやっていますよね。そこですか。"
+   ],
+   [
+    "F",
+    "わたしもそう思ったんですが、ちがうらしいです。駅の前の本屋で働いているそうです。",
+    "わたしもそうおもったんですが、ちがうらしいです。えきのまえのほんやではたらいているそうです。"
+   ],
+   [
+    "M",
+    "へえ、本屋ですか。林さんは本が大好きでしたから、その仕事は楽しいはずですね。",
+    "へえ、ほんやですか。はやしさんはほんがだいすきでしたから、そのしごとはたのしいはずですね。"
+   ],
+   [
+    "F",
+    "ええ。前は、図書館で働きたいと言っていましたけどね。",
+    "ええ。まえは、としょかんではたらきたいといっていましたけどね。"
+   ],
+   [
+    "M",
+    "来月、京都に行きますから、その本屋に行ってみます。",
+    "らいげつ、きょうとにいきますから、そのほんやにいってみます。"
+   ],
+   [
+    "N",
+    "林さんは今、どこで働いていますか。",
+    "はやしさんはいま、どこではたらいていますか。"
+   ]
+  ],
+  "item": {
+   "id": "n4u07d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "林さんは　今　どこで　働いて　いますか。",
+   "script": [
+    "ナレーター：会社で、男の人と女の人が話しています。林さんは今、どこで働いていますか。",
+    "男：先月やめた林さん、今どうしているか知っていますか。",
+    "女：田中さんの話では、京都で働いているらしいですよ。",
+    "男：京都ですか。林さんのお兄さんが、京都で会社をやっていますよね。そこですか。",
+    "女：わたしもそう思ったんですが、ちがうらしいです。駅の前の本屋で働いているそうです。",
+    "男：へえ、本屋ですか。林さんは本が大好きでしたから、その仕事は楽しいはずですね。",
+    "女：ええ。前は、図書館で働きたいと言っていましたけどね。",
+    "男：来月、京都に行きますから、その本屋に行ってみます。",
+    "ナレーター：林さんは今、どこで働いていますか。"
+   ],
+   "options": [
+    "この　会社",
+    "お兄さんの　会社",
+    "図書館",
+    "駅の　前の　本屋"
+   ],
+   "printed": true,
+   "short": [
+    "この会社",
+    "兄の会社",
+    "図書館",
+    "駅前の本屋"
+   ],
+   "answer": 4,
+   "why": [
+    "The man says 先月やめた林さん: Hayashi left this company last month.",
+    "The woman thought so too, but says ちがうらしいです: it is not his brother's company.",
+    "Hayashi once said he wanted to work at a library (働きたいと言っていました), but that was before.",
+    "駅の前の本屋で働いているそうです: he works at the bookshop in front of the station."
+   ],
+   "explain": null
+  }
+ }
+}

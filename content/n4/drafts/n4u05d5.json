@@ -1,0 +1,550 @@
+{
+ "title": "〜場合は・〜かどうか",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u05d5.p1",
+    "form": "〜場合は",
+    "gloss": "in the case that …; if … (formal)",
+    "connect": [
+     {
+      "pos": "Verb, plain form (dictionary, ない or た form)",
+      "rule": "ふる／ふらない／ふった{[場合|ばあい]は}"
+     },
+     {
+      "pos": "い-adjective, or な-adjective with な",
+      "rule": "さむい{[場合|ばあい]は}／ひつような{[場合|ばあい]は}"
+     },
+     {
+      "pos": "Noun (〜) with の",
+      "rule": "〜の{[場合|ばあい]は}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "雨の{[場合|ばあい]は}、[運動会|うんどうかい]は[中止|ちゅうし]です。",
+      "en": "In case of rain, sports day is cancelled."
+     },
+     {
+      "ja": "道が分からない{[場合|ばあい]は}、駅の人に聞いてください。",
+      "en": "If you do not know the way, please ask someone at the station."
+     }
+    ],
+    "watch": {
+     "note": "After a noun, put の before 場合, as in 雨の場合は. A verb or an adjective goes straight before it.",
+     "bad": "雨場合は、運動会は中止です。",
+     "good": "雨の場合は、運動会は中止です。"
+    }
+   },
+   {
+    "id": "n4u05d5.p2",
+    "form": "〜かどうか",
+    "gloss": "whether or not …",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "来る{かどうか}／おいしい{かどうか}"
+     },
+     {
+      "pos": "Noun (〜) or な-adjective, without だ",
+      "rule": "〜{かどうか}：学生{かどうか}／ひま{かどうか}"
+     },
+     {
+      "pos": "Then a verb like 分かる, 聞く or しらべる",
+      "rule": "来る{かどうか}分かりません"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "田中さんがパーティーに来る{かどうか}、まだ分かりません。",
+      "en": "I don't know yet whether Tanaka will come to the party."
+     },
+     {
+      "ja": "この[答|こた]えが[正|ただ]しい{かどうか}、先生に聞いてみます。",
+      "en": "I'll ask the teacher whether this answer is right."
+     }
+    ],
+    "watch": {
+     "note": "After a noun or a な-adjective, do not add だ. Say 先生かどうか, しずかかどうか.",
+     "bad": "あの人が先生だかどうか分かりません。",
+     "good": "あの人が先生かどうか分かりません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "[場合|ばあい]は and たら both set a condition; かどうか sets no condition, it asks whether something is true.",
+   "forms": [
+    {
+     "form": "〜場合は",
+     "tag": "もしもの時 · in the case that",
+     "mark": "dot",
+     "ja": "[火事|かじ]の{[場合|ばあい]は}、エレベーターを[使|つか]わないでください。",
+     "en": "In case of fire, do not use the elevator."
+    },
+    {
+     "form": "〜たら",
+     "tag": "もし · if (everyday)",
+     "mark": "dot",
+     "ja": "雨がふっ{たら}、うちで[映画|えいが]を見ましょう。",
+     "en": "If it rains, let's watch a film at home."
+    },
+    {
+     "form": "〜かどうか",
+     "tag": "はい？いいえ？ · whether or not",
+     "mark": "dot",
+     "ja": "あした雨がふる{かどうか}、天気よほうを見ます。",
+     "en": "I'll look at the forecast to see whether it will rain tomorrow."
+    }
+   ],
+   "check": {
+    "id": "n4u05d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "テスト",
+    "q": "あした雨がふる（　　）、^まだ分かりません^。",
+    "options": [
+     "[場合|ばあい]は",
+     "たら",
+     "かどうか"
+    ],
+    "answer": 3,
+    "why": [
+     "[場合|ばあい]は sets a condition: \"in case it rains, I don't know yet\" makes no sense.",
+     "たら joins to the た form: ふったら. It cannot follow ふる, and it would set a condition too.",
+     "まだ分かりません: you don't know yet whether it will rain."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u05d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "電車が^[止|と]まった^（　　）、バスを[使|つか]ってください。",
+    "options": [
+     "かどうか",
+     "[場合|ばあい]は",
+     "の[場合|ばあい]は",
+     "たら"
+    ],
+    "answer": 2,
+    "why": [
+     "かどうか needs a verb like 分かる or 聞く after it. Here a request follows.",
+     "A plain verb goes straight before [場合|ばあい]は: if the train has stopped, take the bus.",
+     "の goes between a noun and [場合|ばあい]. [止|と]まった is a verb, so there is no の.",
+     "たら joins to the verb itself: [止|と]まったら. It cannot follow [止|と]まった."
+    ]
+   },
+   {
+    "id": "n4u05d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^大雨^（　　）、[試合|しあい]は[中止|ちゅうし]です。",
+    "options": [
+     "[場合|ばあい]は",
+     "な[場合|ばあい]は",
+     "かどうか",
+     "の[場合|ばあい]は"
+    ],
+    "answer": 4,
+    "why": [
+     "大雨 is a noun, and a noun needs の before [場合|ばあい].",
+     "な is for な-adjectives, as in ひつような[場合|ばあい]は. 大雨 is a noun.",
+     "大雨かどうか means \"whether it is heavy rain\". It needs a verb like 分かる after it, not a notice that the match is cancelled.",
+     "Noun + の + [場合|ばあい]は: in case of heavy rain, the match is cancelled."
+    ]
+   },
+   {
+    "id": "n4u05d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "パーティーに行ける（　　）、^まだ分かりません^。",
+    "options": [
+     "かどうか",
+     "[場合|ばあい]は",
+     "ても",
+     "たら"
+    ],
+    "answer": 1,
+    "why": [
+     "まだ分かりません: you don't know yet whether you can go. Plain form + かどうか.",
+     "[場合|ばあい]は sets a condition: \"in case I can go, I don't know yet\" makes no sense.",
+     "ても would need the te-form (行けても), and \"even if I can go, I don't know yet\" makes no sense.",
+     "たら joins to the た form: 行けたら. It cannot follow 行ける."
+    ]
+   },
+   {
+    "id": "n4u05d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あの店が今日^休み^（　　）、電話で聞いてみます。",
+    "options": [
+     "だかどうか",
+     "なかどうか",
+     "かどうか",
+     "のかどうか"
+    ],
+    "answer": 3,
+    "why": [
+     "休み is a noun. Do not put だ before かどうか.",
+     "な joins a な-adjective to a noun, as in しずかな店. It does not go before かどうか.",
+     "Noun + かどうか, with no だ: whether the shop is closed today.",
+     "の cannot join 休み to かどうか here. Just say 休みかどうか."
+    ]
+   },
+   {
+    "id": "n4u05d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "かぜで",
+    "after": "休んでください。",
+    "tiles": [
+     "ねつが",
+     "高い",
+     "[場合|ばあい]は",
+     "学校を"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "The condition comes before [場合|ばあい]は: what is the fever like? What you stay away from comes right before 休んで.",
+    "full": "かぜでねつが高い{[場合|ばあい]は}学校を休んでください。",
+    "explain": "ねつが高い is the condition, and the い-adjective 高い goes straight before [場合|ばあい]は. 学校を goes with 休んでください."
+   },
+   {
+    "id": "n4u05d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "そのレストランが",
+    "after": "しらべます。",
+    "tiles": [
+     "しずか",
+     "かどうか",
+     "行く",
+     "前に"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "しずか is a な-adjective. What can follow it with no だ? Then say when you check.",
+    "full": "そのレストランがしずか{かどうか}行く前にしらべます。",
+    "explain": "しずかかどうか says what you check, with no だ after the な-adjective. 行く前に says when, right before しらべます."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u05d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "バスが　来ない（　　）、この　ばんごうに　電話して　ください。",
+    "options": [
+     "かどうか",
+     "の場合は",
+     "ても",
+     "場合は"
+    ],
+    "answer": 4,
+    "explain": "A plain verb + 場合は gives the situation: if the bus does not come, call this number. の goes only after a noun. ても would need 来なくても, not 来ないても. かどうか needs a verb like 分かる after it, not a request."
+   },
+   {
+    "id": "n4u05d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この　ゲームが　おもしろい（　　）、やって　みないと　分かりません。",
+    "options": [
+     "場合は",
+     "かどうか",
+     "だかどうか",
+     "ば"
+    ],
+    "answer": 2,
+    "explain": "You won't know whether the game is fun until you try it: plain form + かどうか, then 分かりません. 場合は sets a condition, which makes no sense here. だ cannot follow an い-adjective. The ば form of おもしろい is おもしろければ."
+   },
+   {
+    "id": "n4u05d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "さとうさんが　",
+    "after": "ください。",
+    "tiles": [
+     "パーティーに",
+     "来る",
+     "かどうか",
+     "聞いて"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "さとうさんが　パーティーに　来る　{かどうか}　聞いて　ください。",
+    "explain": "パーティーに, 来る, かどうか, 聞いて. パーティーに goes with 来る, the plain form 来る takes かどうか, and 聞いて joins ください."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "運動会　中止の　お知らせ",
+  "en": "A school notice: sports day is cancelled because of a typhoon",
+  "intro": "Tap every word you need to know what happens to sports day and what to do instead.",
+  "words": [
+   {
+    "id": "sportsday",
+    "word": "運動会",
+    "reading": "うんどうかい",
+    "gloss": "sports day",
+    "parts": [
+     [
+      "運",
+      "ウン",
+      "carry"
+     ],
+     [
+      "動",
+      "ドウ",
+      "move"
+     ],
+     [
+      "会",
+      "カイ",
+      "meeting"
+     ]
+    ]
+   },
+   {
+    "id": "cancel",
+    "word": "中止",
+    "reading": "ちゅうし",
+    "gloss": "cancelled, called off",
+    "parts": [
+     [
+      "中",
+      "チュウ",
+      "middle"
+     ],
+     [
+      "止",
+      "シ",
+      "stop"
+     ]
+    ]
+   },
+   {
+    "id": "typhoon",
+    "word": "台風",
+    "reading": "たいふう",
+    "gloss": "typhoon",
+    "parts": [
+     [
+      "台",
+      "タイ",
+      "stand; typhoon"
+     ],
+     [
+      "風",
+      "フウ",
+      "wind"
+     ]
+    ]
+   },
+   {
+    "id": "incase",
+    "word": "場合",
+    "reading": "ばあい",
+    "gloss": "case, situation",
+    "parts": [
+     [
+      "場",
+      "ば",
+      "place"
+     ],
+     [
+      "合",
+      "あい",
+      "fit"
+     ]
+    ]
+   },
+   {
+    "id": "caution",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "gloss": "caution, take care",
+    "parts": [
+     [
+      "注",
+      "チュウ",
+      "pour; attention"
+     ],
+     [
+      "意",
+      "イ",
+      "mind"
+     ]
+    ]
+   },
+   {
+    "id": "gather",
+    "word": "集合",
+    "reading": "しゅうごう",
+    "gloss": "meeting up (time and place)",
+    "parts": [
+     [
+      "集",
+      "シュウ",
+      "gather"
+     ],
+     [
+      "合",
+      "ゴウ",
+      "come together"
+     ]
+    ]
+   },
+   {
+    "id": "bring",
+    "word": "持ち物",
+    "reading": "もちもの",
+    "gloss": "things to bring",
+    "parts": [
+     [
+      "持",
+      "も",
+      "hold"
+     ],
+     [
+      "物",
+      "もの",
+      "thing"
+     ]
+    ]
+   },
+   {
+    "id": "classroom",
+    "word": "教室",
+    "reading": "きょうしつ",
+    "gloss": "classroom",
+    "parts": [
+     [
+      "教",
+      "キョウ",
+      "teach"
+     ],
+     [
+      "室",
+      "シツ",
+      "room"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u05d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "台風で　運動会は　_中止_に　なりました。",
+   "options": [
+    "ちゅうじ",
+    "じゅうし",
+    "ちゅうし",
+    "なかし"
+   ],
+   "answer": 3,
+   "explain": "中止 is read ちゅうし: 中 is チュウ and 止 is シ, with no change in sound. ちゅうじ and じゅうし add a voiced sound that is not there. なか is the kun reading of 中, used alone or in words like 中に, not in 中止."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "即時応答",
+  "en": "Quick response",
+  "ask": "文を　聞いて、いちばん　いい　答えを　一つ　えらんで　ください。",
+  "audio": [
+   [
+    "F",
+    "あしたのハイキング、雨の場合はどうなりますか。",
+    "あしたの　ハイキング、あめの　ばあいは　どう　なりますか。"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "M",
+    "ええ、雨がふってよかったですね。",
+    "ええ、あめが　ふって　よかったですね。"
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "M",
+    "来週の土曜日になります。",
+    "らいしゅうの　どようびに　なります。"
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "M",
+    "はい、かさを持って行きます。",
+    "はい、かさを　もって　いきます。"
+   ]
+  ],
+  "item": {
+   "id": "n4u05d5.r1",
+   "kind": "choice",
+   "type": "即時応答",
+   "q": "女：あしたの　ハイキング、雨の　場合は　どう　なりますか。",
+   "script": [
+    "女：あしたのハイキング、雨の場合はどうなりますか。",
+    "ナレーター：1",
+    "男：ええ、雨がふってよかったですね。",
+    "ナレーター：2",
+    "男：来週の土曜日になります。",
+    "ナレーター：3",
+    "男：はい、かさを持って行きます。"
+   ],
+   "options": [
+    "ええ、雨がふってよかったですね。",
+    "来週の土曜日になります。",
+    "はい、かさを持って行きます。"
+   ],
+   "printed": false,
+   "short": [
+    "雨がふってよかったですね",
+    "来週の土曜日になります",
+    "かさを持って行きます"
+   ],
+   "answer": 2,
+   "why": [
+    "The hike is tomorrow, and she asks what will happen. よかったですね talks as if the rain has already come, and it does not answer どう.",
+    "She asks what happens in case of rain, and he answers: the hike moves to next Saturday.",
+    "はい answers a yes-or-no question, but どうなりますか asks what will happen. Taking an umbrella does not say what happens to the hike."
+   ]
+  }
+ }
+}

@@ -105,16 +105,17 @@
             "label": "先生に",
             "q": "[先生|せんせい]、あしたも[学校|がっこう]に（　　）か。",
             "options": [
+              "[来|き]ます",
               "[来|く]る",
-              "[来|こ]ない",
-              "[来|き]ます"
+              "[来|こ]ない"
             ],
-            "answer": 3,
+            "answer": 1,
             "why": [
+              "You speak to a teacher politely, so use the ます form: 来ますか.",
               "来る is the plain form, for friends. 来るか to a teacher sounds rough.",
-              "来ないか is a rough, casual invitation, and it asks the wrong thing. You are asking if the teacher comes.",
-              "You speak to a teacher politely, so use the ます form: 来ますか."
-            ]
+              "来ないか is a rough, casual invitation, and it asks the wrong thing. You are asking if the teacher comes."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -125,18 +126,19 @@
             "label": "Choose the form",
             "q": "A：[今|いま]から[何|なに]を^する^？B：[本|ほん]を（　　）よ。",
             "options": [
+              "[読|よ]みる",
               "[読|よ]る",
               "[読|よ]む",
-              "[読|よ]く",
-              "[読|よ]みる"
+              "[読|よ]く"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "読みます is a う-verb. Do not keep み and add る; み changes to む.",
               "Only the sound before ます changes, and み becomes む, not る.",
               "A asks in the plain form, so B answers in it too. 読みます has み before ます, so the dictionary form is 読む.",
-              "く is for verbs with き before ます, like 書きます → 書く.",
-              "読みます is a う-verb. Do not keep み and add る; み changes to む."
-            ]
+              "く is for verbs with き before ます, like 書きます → 書く."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d1.d2",
@@ -145,18 +147,19 @@
             "label": "Choose the form",
             "q": "A：あした、テニス（　　）？B：^うん、いいね^！",
             "options": [
-              "しる",
-              "すく",
               "する",
-              "しく"
+              "しく",
+              "しる",
+              "すく"
             ],
-            "answer": 3,
+            "answer": 1,
             "why": [
-              "し comes from します, but the dictionary form of します is する. しる is a different verb (to know).",
-              "く is for verbs with き before ます, like 書きます → 書く. します is special.",
               "します is special: its dictionary form is する. A plain question between friends: テニス、する？",
-              "しく is not a form of します."
-            ]
+              "しく is not a form of します.",
+              "し comes from します, but the dictionary form of します is する. しる is a different verb (to know).",
+              "く is for verbs with き before ます, like 書きます → 書く. します is special."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d1.d3",
@@ -165,18 +168,19 @@
             "label": "Choose the form",
             "q": "[今日|きょう]は[店|みせ]で^[何|なに]も^（　　）。",
             "options": [
+              "[買|か]わない",
               "[買|か]あない",
               "[買|か]いない",
-              "[買|か]らない",
-              "[買|か]わない"
+              "[買|か]らない"
             ],
-            "answer": 4,
+            "answer": 1,
             "why": [
+              "何も needs a negative verb. 買う ends in う, which becomes わ: 買わない.",
               "The last sound moves to the あ-row, but う is special: it becomes わ, not あ.",
               "い is the sound in 買います. ない does not go after the ます-form sound.",
-              "ら is for う-verbs that end in る, like 入る → 入らない. 買う ends in う.",
-              "何も needs a negative verb. 買う ends in う, which becomes わ: 買わない."
-            ]
+              "ら is for う-verbs that end in る, like 入る → 入らない. 買う ends in う."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d1.d4",
@@ -185,18 +189,19 @@
             "label": "Choose the form",
             "q": "A：[山川|やまかわ]さんも[来|く]る？B：^ううん^、[山川|やまかわ]さんは（　　）よ。",
             "options": [
-              "こない",
-              "きない",
               "くない",
-              "こらない"
+              "こらない",
+              "こない",
+              "きない"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "ううん means no, so B needs the ない form. 来る is special: its ない form is こない.",
-              "き is the sound in 来ます. The ない form uses こ instead.",
               "く stays only in くる. Before ない it changes to こ.",
-              "来る is not a う-verb, so there is no ら. It is just こ + ない."
-            ]
+              "来る is not a う-verb, so there is no ら. It is just こ + ない.",
+              "ううん means no, so B needs the ない form. 来る is special: its ない form is こない.",
+              "き is the sound in 来ます. The ない form uses こ instead."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d1.d5",
@@ -255,12 +260,12 @@
             "label": "Choose the form",
             "q": "A「あした　何を　する？」　B「友だちと　山へ　（　　）よ。」",
             "options": [
-              "行る",
-              "行く",
               "行む",
-              "行きる"
+              "行きる",
+              "行る",
+              "行く"
             ],
-            "answer": 2,
+            "answer": 4,
             "explain": "行きます has き before ます, so the dictionary form is 行く: I'm going to the mountains with a friend. 行る and 行む change き to the wrong sound, and 行きる keeps き, which a う-verb never does."
           },
           {
@@ -425,12 +430,12 @@
           "label": "How the exam asks it",
           "q": "_後で_　電話するね。",
           "options": [
-            "うしろで",
-            "あとで",
             "ごで",
-            "まえで"
+            "まえで",
+            "うしろで",
+            "あとで"
           ],
-          "answer": 2,
+          "answer": 4,
           "explain": "後で is read あとで, later: I'll call you later. うしろ (behind) is written 後ろ, with ろ. ご is the reading in 午後, but ごで is not a word. まえ is 前."
         }
       },
@@ -635,18 +640,19 @@
             "label": "Choose the form",
             "q": "^きのう^は^どこにも^（　　）。",
             "options": [
+              "[行|い]きなかった",
               "[行|い]かなかった",
               "[行|い]った",
-              "[行|い]かない",
-              "[行|い]きなかった"
+              "[行|い]かない"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "The ない-form of 行く is 行かない, so the past is 行かなかった. 行きなかった is not a word.",
               "どこにも needs a \"not\" form, and きのう needs the past: 行かなかった.",
               "どこにも goes with a \"not\" form. どこにも行った is not said.",
-              "行かない is for now or later, but きのう is yesterday.",
-              "The ない-form of 行く is 行かない, so the past is 行かなかった. 行きなかった is not a word."
-            ]
+              "行かない is for now or later, but きのう is yesterday."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d2.d2",
@@ -655,18 +661,19 @@
             "label": "Choose the form",
             "q": "^きのう^、[友|とも]だちがうちに（　　）。",
             "options": [
+              "くる",
               "きた",
               "こた",
-              "くった",
-              "くる"
+              "くった"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "くる is for now or later, but きのう is yesterday.",
               "The た-form of 来る is 来た, read きた.",
               "こ is used in 来ない, not before た.",
-              "くった is not a form of 来る.",
-              "くる is for now or later, but きのう is yesterday."
-            ]
+              "くった is not a form of 来る."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d2.d3",
@@ -675,18 +682,19 @@
             "label": "Choose the form",
             "q": "わたしは^まだ^[外国|がいこく]に[行|い]った（　　）。",
             "options": [
+              "ことをします",
               "ことがありません",
               "ことがあります",
-              "ことでした",
-              "ことをします"
+              "ことでした"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "The experience pattern is ことがある, not ことをする.",
               "まだ … ことがありません: I have not been abroad yet.",
               "まだ here needs a \"not\" ending. まだ行ったことがあります is not said.",
-              "ことでした does not follow the た-form to talk about experience.",
-              "The experience pattern is ことがある, not ことをする."
-            ]
+              "ことでした does not follow the た-form to talk about experience."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d2.d4",
@@ -765,12 +773,12 @@
             "label": "Choose the form",
             "q": "A「きのう　何を　した？」\nB「うちで　べんきょうを　（　　）。」",
             "options": [
-              "した",
-              "して",
               "しった",
-              "する"
+              "する",
+              "した",
+              "して"
             ],
-            "answer": 1,
+            "answer": 3,
             "explain": "A asks about yesterday in plain style, so B answers with the plain past of する: した. して asks someone to do it, しった is not a form of する, and する is for now or later."
           },
           {
@@ -780,12 +788,12 @@
             "label": "Choose the form",
             "q": "A「この　まちの　古い　おてらを　見た　（　　）　ありますか。」\nB「いいえ、まだ　ありません。」",
             "options": [
-              "ことが",
-              "ことを",
               "ことに",
-              "ことで"
+              "ことで",
+              "ことが",
+              "ことを"
             ],
-            "answer": 1,
+            "answer": 3,
             "explain": "Experience is た-form + ことが　あります. ことを, ことに and ことで cannot go before あります here."
           },
           {
@@ -968,24 +976,24 @@
           "type": "読解・内容理解（短文）",
           "q": "ケンさんが　まだ　した　ことが　ない　ことは　どれですか。",
           "options": [
-            "古い　おてらを　見る　こと",
             "大きい　山に　のぼる　こと",
             "川の　魚を　食べる　こと",
-            "北の　まちへ　行く　こと"
+            "北の　まちへ　行く　こと",
+            "古い　おてらを　見る　こと"
           ],
           "short": [
-            "古いおてらを見る",
             "大きい山にのぼる",
             "川の魚を食べる",
-            "北のまちへ行く"
+            "北のまちへ行く",
+            "古いおてらを見る"
           ],
-          "answer": 3,
+          "answer": 2,
           "explain": "Ken writes 川の魚はまだ食べたことがありません: he has not eaten the river fish yet. He will eat it tonight.",
           "why": [
-            "He saw the old temple yesterday (きのうは古いおてらを見ました).",
             "He will climb tomorrow, but he climbed it three years ago too (三年前にものぼったことがあります).",
             "",
-            "He is in the northern town now (いま北のまちにいます)."
+            "He is in the northern town now (いま北のまちにいます).",
+            "He saw the old temple yesterday (きのうは古いおてらを見ました)."
           ]
         }
       }
@@ -1095,16 +1103,17 @@
             "label": "ピクニック",
             "q": "[天気|てんき]がいいです（　　）、[外|そと]で[食|た]べましょう。",
             "options": [
+              "でも",
               "から",
-              "が",
-              "でも"
+              "が"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "でも starts a new sentence (いいです。でも、…). It cannot come right after いいです inside one sentence, and \"but\" does not fit the meaning either.",
               "The good weather is the reason for eating outside: \"The weather is nice, so let's eat outside.\"",
-              "が means \"but\". Nice weather and eating outside do not go against each other.",
-              "でも starts a new sentence (いいです。でも、…). It cannot come right after いいです inside one sentence, and \"but\" does not fit the meaning either."
-            ]
+              "が means \"but\". Nice weather and eating outside do not go against each other."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -1115,18 +1124,19 @@
             "label": "Choose the form",
             "q": "^ねつがありました^（　　）、[学校|がっこう]を[休|やす]みました。",
             "options": [
-              "が",
-              "から",
               "でも",
-              "も"
+              "も",
+              "が",
+              "から"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "が means \"but\". Having a fever is not something that goes against staying home.",
-              "The fever is the reason: \"I had a fever, so I stayed home from school.\"",
               "でも starts a new sentence (ありました。でも、…). It cannot follow ありました inside one sentence.",
-              "も means \"too\" and goes after a noun. It cannot join two sentences."
-            ]
+              "も means \"too\" and goes after a noun. It cannot join two sentences.",
+              "が means \"but\". Having a fever is not something that goes against staying home.",
+              "The fever is the reason: \"I had a fever, so I stayed home from school.\""
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d3.d2",
@@ -1135,18 +1145,19 @@
             "label": "Choose the form",
             "q": "[今日|きょう]は^[日|にち]よう[日|び]^（　　）、[学校|がっこう]は[休|やす]みです。",
             "options": [
-              "から",
               "いから",
               "ですが",
-              "だから"
+              "だから",
+              "から"
             ],
-            "answer": 4,
+            "answer": 3,
             "why": [
-              "日よう日 is a noun, so it needs だ or です before から. 日よう日から means \"from Sunday\".",
               "いから is not a form. い belongs to い adjectives such as ねむい, and 日よう日 is a noun.",
               "ですが means \"but\". Sunday and school being closed do not go against each other.",
-              "Noun + だから gives the reason: \"Today is Sunday, so there is no school.\""
-            ]
+              "Noun + だから gives the reason: \"Today is Sunday, so there is no school.\"",
+              "日よう日 is a noun, so it needs だ or です before から. 日よう日から means \"from Sunday\"."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d3.d3",
@@ -1155,18 +1166,19 @@
             "label": "Choose the form",
             "q": "このアパートはひろいです（　　）、^[古|ふる]いです^。",
             "options": [
-              "から",
               "を",
               "が",
-              "でも"
+              "でも",
+              "から"
             ],
-            "answer": 3,
+            "answer": 2,
             "why": [
-              "から gives a reason, but being big is not the reason the flat is old.",
               "を marks the thing you do something to. It cannot join two sentences.",
               "Big is good and old is not, so が (but) joins them: \"This flat is big, but it's old.\"",
-              "でも starts a new sentence (ひろいです。でも、…). It cannot follow ひろいです inside one sentence."
-            ]
+              "でも starts a new sentence (ひろいです。でも、…). It cannot follow ひろいです inside one sentence.",
+              "から gives a reason, but being big is not the reason the flat is old."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d3.d4",
@@ -1175,18 +1187,19 @@
             "label": "Choose the form",
             "q": "[毎日|まいにち][電車|でんしゃ]で[会社|かいしゃ]へ[行|い]きます（　　）、^[今日|きょう]はバスで[行|い]きました^。",
             "options": [
-              "でも",
-              "まで",
               "から",
-              "が"
+              "が",
+              "でも",
+              "まで"
             ],
-            "answer": 4,
+            "answer": 2,
             "why": [
-              "でも starts a new sentence (行きます。でも、…). It cannot follow 行きます inside one sentence.",
-              "まで means \"until\" or \"as far as\". 行きますまで is not correct.",
               "から gives a reason, but going by train every day is not the reason for taking the bus today.",
-              "Every day it is the train, but today it was the bus: \"I go to work by train every day, but today I went by bus.\""
-            ]
+              "Every day it is the train, but today it was the bus: \"I go to work by train every day, but today I went by bus.\"",
+              "でも starts a new sentence (行きます。でも、…). It cannot follow 行きます inside one sentence.",
+              "まで means \"until\" or \"as far as\". 行きますまで is not correct."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d3.d5",
@@ -1245,12 +1258,12 @@
             "label": "Choose the form",
             "q": "今日は　雨（　　）、　テニスは　しません。",
             "options": [
-              "から",
-              "だから",
               "まで",
-              "が"
+              "が",
+              "から",
+              "だから"
             ],
-            "answer": 2,
+            "answer": 4,
             "explain": "雨 is a noun, so it needs だ before から: 雨だから, \"because it's raining\". 雨から means \"from the rain\", and 雨まで means \"until the rain\". 雨が needs a verb after it, such as ふります."
           },
           {
@@ -1260,12 +1273,12 @@
             "label": "Choose the form",
             "q": "わたしの　へやは　せまいです（　　）、　まどが　大きくて　あかるいです。",
             "options": [
-              "から",
-              "も",
               "が",
-              "と"
+              "と",
+              "から",
+              "も"
             ],
-            "answer": 3,
+            "answer": 1,
             "explain": "The room is small (bad), but the window is big and bright (good), so が, \"but\", joins them. から would make the small room the reason for the big window. も and と cannot join two sentences here."
           },
           {
@@ -1435,12 +1448,12 @@
           "label": "How the exam asks it",
           "q": "雨ですから、　店は　午後　_四時_に　しまります。",
           "options": [
-            "よんじ",
-            "よじ",
             "しじ",
-            "よっじ"
+            "よっじ",
+            "よんじ",
+            "よじ"
           ],
-          "answer": 2,
+          "answer": 4,
           "explain": "四時, \"four o'clock\", is read よじ. 四 is often よん (四百, よんひゃく), but before 時 it is よ. しじ is not used for the time, and よっじ is not a word."
         }
       },
@@ -1513,25 +1526,26 @@
             "ナレーター：女の人はどうして土よう日にえいがに行きませんか。"
           ],
           "options": [
-            "しごとが　あるから",
             "かぜを　ひいたから",
             "お母さんが　来るから",
-            "えいがが　すきじゃないから"
+            "えいがが　すきじゃないから",
+            "しごとが　あるから"
           ],
           "printed": true,
           "short": [
-            "しごと",
             "かぜ",
             "お母さんが 来る",
-            "えいがが すきじゃない"
+            "えいがが すきじゃない",
+            "しごと"
           ],
-          "answer": 3,
+          "answer": 2,
           "why": [
-            "The man guesses work, but she says いいえ、しごとは休みです.",
             "Nobody talks about a cold.",
             "しごとは休みですが、母が国から来ます: her mother is coming, and they will eat together.",
-            "She says えいがはだいすきですから, and she agrees to go on Sunday."
-          ]
+            "She says えいがはだいすきですから, and she agrees to go on Sunday.",
+            "The man guesses work, but she says いいえ、しごとは休みです."
+          ],
+          "explain": null
         }
       }
     },
@@ -1640,16 +1654,17 @@
             "label": "あしたのてんき",
             "q": "「あしたは[雨|あめ]ですか。」「たぶん[雨|あめ]^だ^（　　）。」",
             "options": [
-              "でしょう",
               "とおもいます",
-              "です"
+              "です",
+              "でしょう"
             ],
-            "answer": 2,
+            "answer": 1,
             "why": [
-              "でしょう comes right after 雨, without だ: 雨でしょう.",
               "A noun takes だ before とおもいます: 雨だとおもいます.",
-              "です comes right after 雨, without だ."
-            ]
+              "です comes right after 雨, without だ.",
+              "でしょう comes right after 雨, without だ: 雨でしょう."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -1660,18 +1675,19 @@
             "label": "Choose the form",
             "q": "^あした^の[午前|ごぜん]は[雨|あめ]が（　　）。",
             "options": [
-              "ふるでしょう",
-              "ふりますでしょう",
               "ふったでしょう",
-              "ふってでしょう"
+              "ふってでしょう",
+              "ふるでしょう",
+              "ふりますでしょう"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "The plain form ふる + でしょう: a guess about tomorrow.",
-              "The polite ます form does not go before でしょう.",
               "ふった is past, but あした is tomorrow.",
-              "The て form does not go before でしょう."
-            ]
+              "The て form does not go before でしょう.",
+              "The plain form ふる + でしょう: a guess about tomorrow.",
+              "The polite ます form does not go before でしょう."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d4.d2",
@@ -1720,18 +1736,19 @@
             "label": "Choose the form",
             "q": "あの[人|ひと]はリンさんのお[父|とう]さん（　　）^とおもいます^。",
             "options": [
-              "だ",
-              "な",
               "です",
-              "の"
+              "の",
+              "だ",
+              "な"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "お父さん is a noun, so it takes だ before とおもいます.",
-              "な does not come after a noun at the end of a thought.",
               "です is polite. Before と, use the plain だ.",
-              "お父さんの needs a noun after it, and とおもいます is not one."
-            ]
+              "お父さんの needs a noun after it, and とおもいます is not one.",
+              "お父さん is a noun, so it takes だ before とおもいます.",
+              "な does not come after a noun at the end of a thought."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d4.d5",
@@ -1790,12 +1807,12 @@
             "label": "Choose the form",
             "q": "「リンさんは　どこですか。」「さあ。でも、もう　うちへ　（　　）と　おもいます。」",
             "options": [
+              "かえり",
               "かえった",
               "かえりました",
-              "かえって",
-              "かえり"
+              "かえって"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "もう says it has already happened, so the plain past かえった goes before と おもいます. かえりました is polite and cannot go before と, and かえって and かえり cannot end the thought."
           },
           {
@@ -1805,12 +1822,12 @@
             "label": "Choose the form",
             "q": "あしたは　東の　ほうは　はれですが、西の　ほうは　雨（　　）。",
             "options": [
-              "でしょう",
-              "だでしょう",
               "ですでしょう",
-              "だと"
+              "だと",
+              "でしょう",
+              "だでしょう"
             ],
-            "answer": 1,
+            "answer": 3,
             "explain": "A noun takes でしょう directly: 雨でしょう, a guess about tomorrow. でしょう never comes after だ or です, and 雨だと cannot end the sentence."
           },
           {
@@ -2165,18 +2182,19 @@
             "label": "Choose the form",
             "q": "のどがいたいですね。このくすりを（　　）^ほうがいいです^よ。",
             "options": [
-              "[飲|の]んだ",
-              "[飲|の]みます",
               "[飲|の]んで",
-              "[飲|の]み"
+              "[飲|の]み",
+              "[飲|の]んだ",
+              "[飲|の]みます"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "飲んだ is the た form. た form + ほうがいいです gives advice: \"you had better take this medicine\".",
-              "飲みます is the polite ending. The plain form goes before ほう: 飲んだ.",
               "飲んで is the te-form. 飲んでほうがいい is not Japanese.",
-              "飲み is the ます form without ます. It goes before に行きます, not before ほうがいいです."
-            ]
+              "飲み is the ます form without ます. It goes before に行きます, not before ほうがいいです.",
+              "飲んだ is the た form. た form + ほうがいいです gives advice: \"you had better take this medicine\".",
+              "飲みます is the polite ending. The plain form goes before ほう: 飲んだ."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d5.d3",
@@ -2185,18 +2203,19 @@
             "label": "Choose the form",
             "q": "あしたは[九時|くじ]に[駅|えき]へ（　　）^なりません^。",
             "options": [
+              "[行|い]ってければ",
               "[行|い]かないければ",
               "[行|い]きなければ",
-              "[行|い]かなければ",
-              "[行|い]ってければ"
+              "[行|い]かなければ"
             ],
-            "answer": 3,
+            "answer": 4,
             "why": [
+              "行って is the te-form. 行ってければ is not Japanese.",
               "The い of 行かない must come off first: 行かな + ければ. 行かないければ is not Japanese.",
               "行き is the ます form without ます. This pattern starts from the ない form 行かない, not from 行きます.",
-              "Take 行かない, drop the last い, add ければなりません: \"I have to go to the station at nine.\"",
-              "行って is the te-form. 行ってければ is not Japanese."
-            ]
+              "Take 行かない, drop the last い, add ければなりません: \"I have to go to the station at nine.\""
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d5.d4",
@@ -2205,18 +2224,19 @@
             "label": "Choose the ending",
             "q": "A：あしたは[休|やす]みですか。B：^いいえ^、あしたも[会社|かいしゃ]へ[行|い]か（　　）。",
             "options": [
-              "なくてもいいです",
-              "ないほうがいいです",
               "ないでください",
-              "なければなりません"
+              "なければなりません",
+              "なくてもいいです",
+              "ないほうがいいです"
             ],
-            "answer": 4,
+            "answer": 2,
             "why": [
-              "行かなくてもいいです means \"I don't have to go\". B said いいえ, tomorrow is not a day off, so that does not fit.",
-              "行かないほうがいいです is advice not to go. After いいえ, B is saying tomorrow is a work day, so this does not fit.",
               "行かないでください asks someone else not to go. B is talking about B's own day.",
-              "いいえ means tomorrow is not a day off, so B has to go: 行かなければなりません."
-            ]
+              "いいえ means tomorrow is not a day off, so B has to go: 行かなければなりません.",
+              "行かなくてもいいです means \"I don't have to go\". B said いいえ, tomorrow is not a day off, so that does not fit.",
+              "行かないほうがいいです is advice not to go. After いいえ, B is saying tomorrow is a work day, so this does not fit."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d5.d5",
@@ -2290,12 +2310,12 @@
             "label": "Choose the form",
             "q": "A「あしたも　学校へ　来ますか。」B「はい。テストが　ありますから、八時に（　　）　なりません。」",
             "options": [
-              "来ないければ",
-              "来なくても",
               "来て",
-              "来なければ"
+              "来なければ",
+              "来ないければ",
+              "来なくても"
             ],
-            "answer": 4,
+            "answer": 2,
             "explain": "B has a test, so B must come at eight: 来なければなりません. 来ないければ keeps the い of ない, which must come off. 来なくても goes with いいです (don't have to), not なりません. 来てなりません is not Japanese."
           },
           {
@@ -2450,12 +2470,12 @@
           "label": "How the exam asks it",
           "q": "かぜですから、今日は　うちで（　　）　ほうが　いいです。",
           "options": [
-            "出かけた",
-            "はたらいた",
             "休んだ",
-            "およいだ"
+            "およいだ",
+            "出かけた",
+            "はたらいた"
           ],
-          "answer": 3,
+          "answer": 1,
           "explain": "With a cold, the advice is to rest at home: 休んだほうがいいです. 出かけた (went out) does not go with うちで. はたらいた (worked) and およいだ (swam) are not good advice for someone with a cold."
         }
       },
@@ -2534,25 +2554,26 @@
             "ナレーター：男の人は、このあと、はじめに何をしなければなりませんか。"
           ],
           "options": [
+            "うちで　ねる",
             "くすりを　飲む",
             "ごはんを　食べる",
-            "水を　飲む",
-            "うちで　ねる"
+            "水を　飲む"
           ],
           "printed": true,
           "short": [
+            "うちでねる",
             "くすりを飲む",
             "ごはんを食べる",
-            "水を飲む",
-            "うちでねる"
+            "水を飲む"
           ],
-          "answer": 2,
+          "answer": 3,
           "why": [
+            "Going to bed early is advice for later, at home. He eats first.",
             "The medicine is taken after a meal, and he has not had lunch yet, so the medicine comes after eating.",
             "He has not eaten lunch, and the doctor says he must eat before the medicine. He will eat at a shop near the station first.",
-            "The doctor says to drink a lot of water at home, after he goes back.",
-            "Going to bed early is advice for later, at home. He eats first."
-          ]
+            "The doctor says to drink a lot of water at home, after he goes back."
+          ],
+          "explain": null
         }
       }
     },
@@ -2612,18 +2633,19 @@
             "label": "Choose the form",
             "q": "A：このえいが、[見|み]たことがある？B：うん、^[先週|せんしゅう]^[友|とも]だちと（　　）よ。",
             "options": [
+              "[見|み]ない",
               "[見|み]た",
               "[見|み]る",
-              "[見|み]たことがある",
-              "[見|み]ない"
+              "[見|み]たことがある"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "見ない means \"I don't watch it\". It does not go with うん or with 先週.",
               "先週 names one time in the past, so the plain past 見た fits: I saw it with a friend last week.",
               "見る is the dictionary form, for now or later. 先週 is last week.",
-              "たことがある is for experience at some time in your life. With a set time like 先週, just use the past: 見た.",
-              "見ない means \"I don't watch it\". It does not go with うん or with 先週."
-            ]
+              "たことがある is for experience at some time in your life. With a set time like 先週, just use the past: 見た."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d6.d2",
@@ -2632,18 +2654,19 @@
             "label": "Choose the word",
             "q": "このくつは[安|やす]いです（　　）、^[小|ちい]さいですから、[買|か]わないほうがいいです^よ。",
             "options": [
-              "から",
               "が",
               "でも",
-              "を"
+              "を",
+              "から"
             ],
-            "answer": 2,
+            "answer": 1,
             "why": [
-              "Cheap is not a reason not to buy them. The reason comes later: 小さいですから.",
               "が says but: the shoes are cheap, but they are small, so you had better not buy them.",
               "でも cannot sit at the end of the first part. It starts a new sentence.",
-              "を marks the thing you act on. It cannot follow 安いです."
-            ]
+              "を marks the thing you act on. It cannot follow 安いです.",
+              "Cheap is not a reason not to buy them. The reason comes later: 小さいですから."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d6.d3",
@@ -2652,18 +2675,19 @@
             "label": "Choose the form",
             "q": "A：[午後|ごご]は[雨|あめ]がふりますか。B：さあ……。でも、^[空|そら]がくらいです^から、（　　）。",
             "options": [
-              "ふるとおもいます",
               "ふったことがあります",
               "ふったほうがいいです",
-              "ふらなければなりません"
+              "ふらなければなりません",
+              "ふるとおもいます"
             ],
-            "answer": 1,
+            "answer": 4,
             "why": [
-              "B is not sure (さあ), but the dark sky is a reason to guess: I think it will rain.",
               "たことがあります tells about past experience. A asks about this afternoon.",
               "ほうがいいです gives advice about what someone should do. Rain is not something you can advise.",
-              "なければなりません says someone must do something. Rain has no duty to fall."
-            ]
+              "なければなりません says someone must do something. Rain has no duty to fall.",
+              "B is not sure (さあ), but the dark sky is a reason to guess: I think it will rain."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d6.d4",
@@ -2672,18 +2696,19 @@
             "label": "Choose the form",
             "q": "A：あの[店|みせ]の[魚|さかな]は^[古|ふる]いですよ^。B：じゃあ、あの[店|みせ]では（　　）ほうがいいですね。",
             "options": [
-              "[買|か]わない",
               "[買|か]った",
               "[買|か]いません",
-              "[買|か]わなかった"
+              "[買|か]わなかった",
+              "[買|か]わない"
             ],
-            "answer": 1,
+            "answer": 4,
             "why": [
-              "The fish is old, so the advice is not to buy it: 買わないほうがいいです. Before ほうがいい, \"not\" is the ない form.",
               "買ったほうがいい says you had better buy it. Old fish is a reason not to.",
               "The polite ます form does not go before ほう. Use the plain form: 買わない.",
-              "For \"had better not\", use the ない form, 買わない, not the past 買わなかった."
-            ]
+              "For \"had better not\", use the ない form, 買わない, not the past 買わなかった.",
+              "The fish is old, so the advice is not to buy it: 買わないほうがいいです. Before ほうがいい, \"not\" is the ない form."
+            ],
+            "explain": null
           },
           {
             "id": "n5u07d6.d5",
@@ -2742,12 +2767,12 @@
             "label": "Choose the answer",
             "q": "子どもの　とき、父と　この　川で　およいだ（　　）。",
             "options": [
+              "なければ　なりません",
               "ことが　あります",
               "ほうが　いいです",
-              "ことを　します",
-              "なければ　なりません"
+              "ことを　します"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "子どもの　とき is a time in the past, and the speaker tells an experience: I have swum in this river with my father. ほうが　いいです gives advice, which does not fit a memory from childhood. ことを　します is not Japanese here. なければ　なりません follows the ない form (およがなければ), not the た form."
           },
           {
@@ -2757,12 +2782,12 @@
             "label": "Choose the answer",
             "q": "あの　店は　いつも　人が　多いです（　　）、　おいしいと　おもいます。",
             "options": [
+              "まで",
               "から",
               "を",
-              "でも",
-              "まで"
+              "でも"
             ],
-            "answer": 1,
+            "answer": 2,
             "explain": "Many people always go there, and that is the reason for my view: I think it is good. から gives a reason. を marks the thing an action is done to and cannot follow です. でも starts a new sentence and cannot follow 多いです here. まで means until."
           },
           {
@@ -2996,12 +3021,12 @@
       "label": "Kanji reading",
       "q": "わたしの　まちは　とうきょうの　_西_に　あります。",
       "options": [
-        "ひがし",
         "みなみ",
         "きた",
-        "にし"
+        "にし",
+        "ひがし"
       ],
-      "answer": 4,
+      "answer": 3,
       "explain": "西 is にし, west. ひがし, みなみ and きた are real words, but they are east (東), south (南) and north (北)."
     },
     {
@@ -3011,12 +3036,12 @@
       "label": "Kanji spelling",
       "q": "友だちと　_でんしゃ_で　うみへ　行った　ことが　あります。",
       "options": [
-        "雨車",
-        "電車",
         "電東",
-        "気車"
+        "気車",
+        "雨車",
+        "電車"
       ],
-      "answer": 2,
+      "answer": 4,
       "explain": "でんしゃ (train) is written 電車. 雨 (rain) looks like the top of 電 but is not the same kanji, and 東 (east) looks like 車 but is not 車. 気 is the き of 天気; 雨車, 電東 and 気車 are not words."
     },
     {
@@ -3041,12 +3066,12 @@
       "label": "Word in context",
       "q": "そらが　くらいですね。午後は　（　　）が　ふるでしょう。",
       "options": [
+        "くもり",
         "かぜ",
         "はれ",
-        "雨",
-        "くもり"
+        "雨"
       ],
-      "answer": 3,
+      "answer": 4,
       "explain": "The sky is dark, and ふる (fall) is used for rain: 雨が ふるでしょう (it will probably rain). かぜ (wind), はれ (sunny weather) and くもり (cloudy weather) do not fall, so they do not go with ふる."
     },
     {
@@ -3056,12 +3081,12 @@
       "label": "Word in context",
       "q": "この　くつは　もう　（　　）ですから、新しいのを　買います。",
       "options": [
-        "新しい",
-        "古い",
         "高い",
-        "安い"
+        "安い",
+        "新しい",
+        "古い"
       ],
-      "answer": 2,
+      "answer": 4,
       "explain": "The speaker buys new shoes because these are already old: もう 古いですから. 新しい says the shoes are new, so there is no reason to buy new ones. もう (already) does not fit 高い or 安い; shoes do not become expensive or cheap with time."
     },
     {
@@ -3071,12 +3096,12 @@
       "label": "Same meaning",
       "q": "_おととい_　友だちに　あいました。",
       "options": [
+        "二日後に　友だちに　あいます。",
         "きのう　友だちに　あいました。",
         "二日前に　友だちに　あいました。",
-        "三日前に　友だちに　あいました。",
-        "二日後に　友だちに　あいます。"
+        "三日前に　友だちに　あいました。"
       ],
-      "answer": 2,
+      "answer": 3,
       "explain": "おととい is the day before yesterday, which is two days ago: 二日前. きのう is one day ago and 三日前 is three days ago. 二日後 is two days from now, in the future."
     },
     {
@@ -3101,12 +3126,12 @@
       "label": "Choose the form",
       "q": "A「あした　パーティーに　行く？」B「ううん、しごとが　あるから　（　　）。」",
       "options": [
-        "行きない",
         "行くない",
         "行かない",
-        "行った"
+        "行った",
+        "行きない"
       ],
-      "answer": 3,
+      "answer": 2,
       "explain": "B says ううん (no), so B uses the plain negative. 行きます ends in き, so ない joins the あ sound: 行かない. ない does not go on the stem (行きない) or on the dictionary form (行くない). 行った is past, but the party is あした."
     },
     {
@@ -3116,12 +3141,12 @@
       "label": "Choose the form",
       "q": "A「日よう日、何を　する？」B「うちで　へやの　そうじを　（　　）よ。」",
       "options": [
-        "して",
         "する",
         "した",
-        "しる"
+        "しる",
+        "して"
       ],
-      "answer": 2,
+      "answer": 1,
       "explain": "A asks what B will do on Sunday with the plain する, so B answers with the dictionary form: そうじを するよ (I will clean). した is past and does not answer a question about Sunday plans. してよ asks A to do the cleaning. しる is not a form of する."
     },
     {
@@ -3131,12 +3156,12 @@
       "label": "Choose the form",
       "q": "きのうは　つかれて　いたから、九時に　（　　）。",
       "options": [
+        "ねた",
         "ねる",
         "ねて",
-        "ねった",
-        "ねた"
+        "ねった"
       ],
-      "answer": 4,
+      "answer": 1,
       "explain": "きのう (yesterday) needs the past. ねます drops ます and adds た: ねた (went to bed). ねる is not past. ねて does not end a sentence about yesterday. ねった adds an extra っ; that is for verbs like かえる (かえった), not ねる."
     },
     {
@@ -3146,12 +3171,12 @@
       "label": "Choose the form",
       "q": "A「きものを　（　　）　ことが　ありますか。」B「いいえ、まだ　ありません。」",
       "options": [
+        "きました",
         "きた",
         "きて",
-        "きます",
-        "きました"
+        "きます"
       ],
-      "answer": 1,
+      "answer": 2,
       "explain": "To ask about experience, use the た form + ことが ありますか: きた ことが ありますか (have you ever worn a kimono?). The て form does not go before こと. The polite きます and きました do not go before こと either; the word before こと must be plain."
     },
     {
@@ -3161,12 +3186,12 @@
       "label": "Choose the form",
       "q": "あには　スポーツが　すきです（　　）、わたしは　あまり　すきじゃ　ありません。",
       "options": [
+        "を",
         "から",
         "で",
-        "が",
-        "を"
+        "が"
       ],
-      "answer": 3,
+      "answer": 4,
       "explain": "The two parts contrast: my brother likes sports, but I don't much. が after です means but. から would say the brother's liking is the reason I don't like sports, which makes no sense. で and を cannot follow です to join two sentences."
     },
     {
@@ -3176,12 +3201,12 @@
       "label": "Choose the form",
       "q": "A「リンさんは　もう　ひるごはんを　食べましたか。」B「さあ…。まだ　（　　）と　おもいます。」",
       "options": [
-        "食べて　いません",
         "食べないだ",
         "食べなかったです",
-        "食べて　いない"
+        "食べて　いない",
+        "食べて　いません"
       ],
-      "answer": 4,
+      "answer": 3,
       "explain": "Before と おもいます the verb is plain, and まだ (not yet) goes with ～て いない: まだ 食べて いないと おもいます. 食べて いません and 食べなかったです are polite, and polite forms do not go before と おもいます. だ comes after a noun, not after ない, so 食べないだ is wrong."
     },
     {
@@ -3191,12 +3216,12 @@
       "label": "Choose the form",
       "q": "A「あした　いっしょに　あそびませんか。」B「すみません。あしたは　びょういんへ　（　　）。」",
       "options": [
+        "行かないで　ください",
         "行かなければ　なりません",
         "行かなくても　いいです",
-        "行っては　いけません",
-        "行かないで　ください"
+        "行っては　いけません"
       ],
-      "answer": 1,
+      "answer": 2,
       "explain": "B says すみません to turn down the invitation and gives the reason: B has to go to the hospital, 行かなければ なりません. 行かなくても いいです (I don't have to go) is no reason to say no. 行っては いけません says B must not go, which is not a reason to refuse either. 行かないで ください asks A not to go."
     },
     {
@@ -3276,17 +3301,17 @@
       "passage": "十月十日（土）\n今日は　リーさんと　山の　上の　こうえんへ　行った。わたしは　はじめてだったが、リーさんは　前にも　来た　ことが　あると　言って　いた。こうえんには　花が　たくさん　あって、とても　きれいだった。かえりに　駅の　前の　店で　ばんごはんを　食べた。",
       "q": "ただしい　ものは　どれですか。",
       "options": [
-        "わたしは　前にも　この　こうえんへ　来た　ことが　あります。",
         "二人は　こうえんで　ばんごはんを　食べました。",
         "リーさんは　前にも　この　こうえんへ　来た　ことが　あります。",
-        "こうえんには　花が　あまり　ありませんでした。"
+        "こうえんには　花が　あまり　ありませんでした。",
+        "わたしは　前にも　この　こうえんへ　来た　ことが　あります。"
       ],
-      "answer": 3,
+      "answer": 2,
       "short": [
-        "わたしは前にも来た",
         "こうえんでごはん",
         "リーさんは前にも来た",
-        "花が少ない"
+        "花が少ない",
+        "わたしは前にも来た"
       ],
       "explain": "The diary says リーさんは 前にも 来た ことが あると 言って いた, so リーさん had been there before. The writer went for the first time (はじめてだった). They ate dinner at a shop in front of the station, not in the park. The park had a lot of flowers (たくさん)."
     },
@@ -3298,17 +3323,17 @@
       "passage": "十月十日（土）\n今日は　リーさんと　山の　上の　こうえんへ　行った。わたしは　はじめてだったが、リーさんは　前にも　来た　ことが　あると　言って　いた。こうえんには　花が　たくさん　あって、とても　きれいだった。かえりに　駅の　前の　店で　ばんごはんを　食べた。",
       "q": "二人は　かえりに　何を　しましたか。",
       "options": [
+        "山の　上で　しゃしんを　とりました。",
         "駅の　前の　店で　ばんごはんを　食べました。",
         "こうえんで　花を　買いました。",
-        "リーさんの　うちへ　行きました。",
-        "山の　上で　しゃしんを　とりました。"
+        "リーさんの　うちへ　行きました。"
       ],
-      "answer": 1,
+      "answer": 2,
       "short": [
+        "しゃしん",
         "駅の前でごはん",
         "花を買った",
-        "リーさんのうち",
-        "しゃしん"
+        "リーさんのうち"
       ],
       "explain": "The diary ends かえりに 駅の 前の 店で ばんごはんを 食べた: on the way home they ate dinner at a shop by the station. It says nothing about buying flowers, going to リーさん's house or taking photos."
     },
@@ -3320,17 +3345,17 @@
       "passage": "みどりプール\n午前　十時〜午後　八時（火よう日は　休み）\n・はじめて　来た　人は、うけつけで　名前を　書かなければ　なりません。\n・十さいまでの　子どもは、大人と　いっしょに　入らなければ　なりません。\n・プールに　入る　前に、シャワーを　あびて　ください。\n・プールの　中で　水や　ジュースを　飲まないで　ください。",
       "q": "八さいの　ケンくんは　はじめて　この　プールに　来ました。ただしい　ものは　どれですか。",
       "options": [
-        "一人で　プールに　入っても　いいです。",
         "うけつけで　名前を　書かなければ　なりません。",
         "シャワーを　あびなくても　いいです。",
-        "プールの　中で　ジュースを　飲んでも　いいです。"
+        "プールの　中で　ジュースを　飲んでも　いいです。",
+        "一人で　プールに　入っても　いいです。"
       ],
-      "answer": 2,
+      "answer": 1,
       "short": [
-        "一人で入る",
         "名前を書く",
         "シャワーなし",
-        "中でジュース"
+        "中でジュース",
+        "一人で入る"
       ],
       "explain": "ケンくん is here for the first time, so he must write his name at the front desk (はじめて 来た 人は … 書かなければ なりません). He is eight, so he must go in with an adult, not alone. Everyone must shower before going in. Drinking in the pool is not allowed (飲まないで ください)."
     },
@@ -3386,17 +3411,17 @@
       "passage": "ジョンさんへ\nあした、いっしょに　山へ　行きますね。テレビの　ニュースでは、午後から　雨だと　言って　いました。だから、あさ　七時に　出かけた　ほうが　いいと　おもいます。山の　上は　さむいですから、コートを　もって　来て　ください。かさは　わたしが　二本　もって　行きます。\nゆか",
       "q": "ジョンさんは　何を　もって　行かなければ　なりませんか。",
       "options": [
-        "かさ",
-        "ぼうし",
         "コート",
-        "おべんとう"
+        "おべんとう",
+        "かさ",
+        "ぼうし"
       ],
-      "answer": 3,
+      "answer": 1,
       "short": [
-        "かさ",
-        "ぼうし",
         "コート",
-        "おべんとう"
+        "おべんとう",
+        "かさ",
+        "ぼうし"
       ],
       "explain": "ゆか asks ジョン to bring a coat because it is cold on the mountain: コートを もって 来て ください. ゆか will bring the umbrellas herself (かさは わたしが 二本 もって 行きます). The letter does not mention a hat or a lunch box."
     }

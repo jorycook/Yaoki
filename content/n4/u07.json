@@ -1,0 +1,3577 @@
+{
+  "days": {
+    "1": {
+      "title": "〜そうだ（様子）・〜そうだ（伝聞）",
+      "grammar": {
+        "points": [
+          {
+            "id": "n4u07d1.p1",
+            "form": "〜そうだ（様子）",
+            "gloss": "looks like, looks as if it will",
+            "connect": [
+              {
+                "pos": "Verb, ます form without ます",
+                "rule": "ふります → ふり{そうです}"
+              },
+              {
+                "pos": "い-adjective without い (いい → よさ, ない → なさ)",
+                "rule": "おいしい → おいし{そうです}、いい → よさ{そうです}"
+              },
+              {
+                "pos": "な-adjective without な",
+                "rule": "[元気|げんき] → [元気|げんき]{そうです}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "このパン、{おいしそうです}ね。",
+                "en": "This bread looks delicious, doesn't it?"
+              },
+              {
+                "ja": "空が[暗|くら]いです。雨が{ふりそうです}。",
+                "en": "The sky is dark. It looks like it's going to rain."
+              }
+            ],
+            "watch": {
+              "note": "This そうです tells what you guess from how something looks. A colour you can already see is not a guess, so say it plainly. Nouns do not take this そうです either.",
+              "bad": "このりんごは赤そうです。",
+              "good": "このりんごは赤くておいしそうです。"
+            }
+          },
+          {
+            "id": "n4u07d1.p2",
+            "form": "〜そうだ（伝聞）",
+            "gloss": "I hear that, they say",
+            "connect": [
+              {
+                "pos": "Verb, plain form",
+                "rule": "ふる → ふる{そうです}、ふった → ふった{そうです}"
+              },
+              {
+                "pos": "い-adjective, plain form",
+                "rule": "[寒|さむ]い → [寒|さむ]い{そうです}"
+              },
+              {
+                "pos": "Noun or な-adjective, with だ",
+                "rule": "〜だ{そうです}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "天気よほうによると、あしたは雨がふる{そうです}。",
+                "en": "According to the weather forecast, it will rain tomorrow."
+              },
+              {
+                "ja": "ニュースによると、駅の前に新しいパン[屋|や]ができた{そうです}。",
+                "en": "According to the news, a new bakery has opened in front of the station."
+              }
+            ],
+            "watch": {
+              "note": "With a noun or a な-adjective, hearsay そうです needs だ before it.",
+              "bad": "田中さんのお兄さんは医者そうです。",
+              "good": "田中さんのお兄さんは医者だそうです。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "The same そうです means two things, and the form before it tells you which.",
+          "forms": [
+            {
+              "form": "〜そうだ（様子）",
+              "tag": "見て · looks like (what you see)",
+              "mark": "dot",
+              "ja": "そのかばん、[重|おも]{そうです}ね。",
+              "en": "That bag looks heavy."
+            },
+            {
+              "form": "〜そうだ（伝聞）",
+              "tag": "聞いて · I hear (what you were told)",
+              "mark": "dot",
+              "ja": "あした[台風|たいふう]が来る{そうです}。",
+              "en": "I hear a typhoon is coming tomorrow."
+            },
+            {
+              "form": "〜でしょう",
+              "tag": "考えて · probably (your own guess)",
+              "mark": "dot",
+              "ja": "あしたは雨がふる{でしょう}。",
+              "en": "It will probably rain tomorrow."
+            }
+          ],
+          "check": {
+            "id": "n4u07d1.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Seen or heard?",
+            "q": "^友だちによると^、あの店のパンはとても（　　）。",
+            "options": [
+              "おいしそうです",
+              "おいしいそうです",
+              "おいしいだそうです"
+            ],
+            "answer": 2,
+            "why": [
+              "おいしそう says how the bread looks. 友だちによると tells you the friend said it, so the sentence needs hearsay.",
+              "Hearsay joins the whole plain form: おいしい + そうです. The friend said the bread is very good.",
+              "だ comes before hearsay そうです only after a noun or a な-adjective. An い-adjective joins with no だ."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n4u07d1.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "空が[暗|くら]くなりました。^今にも^雨が（　　）。",
+            "options": [
+              "ふりだそうです",
+              "ふるそうです",
+              "ふりそうです",
+              "ふったそうです"
+            ],
+            "answer": 3,
+            "why": [
+              "だ does not come between a verb and そうです. ふりだ is not a form.",
+              "This is hearsay (I hear it will rain). The speaker is looking at the dark sky, and 今にも (any moment now) goes with the 'looks like' そうです.",
+              "ます form ふり + そうです: the dark sky shows it is about to rain.",
+              "This says you heard that it rained. 今にも is about something that is just going to happen."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d1.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "店の中を見てください。^だれもいませんね^。あまり人気が（　　）。",
+            "options": [
+              "ないそうです",
+              "なそうです",
+              "なくそうです",
+              "なさそうです"
+            ],
+            "answer": 4,
+            "why": [
+              "ないそうです is hearsay (I hear it is not popular). Here the speaker judges from what they see: だれもいませんね.",
+              "ない does not just drop い here. Before this そうです it becomes なさ.",
+              "なく does not join そうです. なくそうです is not a form.",
+              "ない becomes なさ: なさそうです. Nobody is inside, so the shop does not look popular."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d1.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^ニュースによると^、きのう[北海道|ほっかいどう]で大雨が（　　）。",
+            "options": [
+              "ふるそうでした",
+              "ふりましたそうです",
+              "ふったそうです",
+              "ふりそうでした"
+            ],
+            "answer": 3,
+            "why": [
+              "Hearsay そうです does not change to そうでした. The past goes before it: ふったそうです.",
+              "Hearsay そうです follows the plain form, not the ます form.",
+              "Plain past ふった + そうです: the news said it rained heavily yesterday.",
+              "ふりそう is how something looked. ニュースによると needs what you heard."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d1.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^天気よほうによると^、来週はとても（　　）。",
+            "options": [
+              "[寒|さむ]いそうです",
+              "[寒|さむ]いだそうです",
+              "[寒|さむ]かったそうです",
+              "[寒|さむ]そうです"
+            ],
+            "answer": 1,
+            "why": [
+              "Plain form 寒い + そうです: the forecast says next week will be very cold.",
+              "An い-adjective takes no だ before そうです.",
+              "寒かった is past, but 来週 is next week.",
+              "寒そう is a guess from how something looks. The forecast is something you heard, so it needs hearsay."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d1.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "空が[暗|くら]いですね。かさを",
+            "after": "。",
+            "tiles": [
+              "[持|も]って",
+              "いった",
+              "ほうが",
+              "よさそうです"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "hint": "〜たほうがいい gives advice. Before this そうです, いい becomes よさ.",
+            "full": "空が[暗|くら]いですね。かさを[持|も]っていったほうが{よさそうです}。",
+            "explain": "かさを持っていく is take an umbrella, and its past いった comes before ほうが. ほうがいい becomes ほうがよさそうです: from the dark sky, it looks better to take an umbrella."
+          },
+          {
+            "id": "n4u07d1.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "ニュースによると、駅の前に今月",
+            "after": "そうです。",
+            "tiles": [
+              "できた",
+              "パン[屋|や]は",
+              "とても",
+              "人気だ"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "できた describes the bakery. 人気 is a noun, so hearsay needs だ.",
+            "full": "ニュースによると、駅の前に今月できたパン[屋|や]はとても{人気だ}そうです。",
+            "explain": "駅の前に今月できた describes パン屋, so パン屋は comes right after できた. とても goes before 人気だ, and 人気 is a noun, so だ joins it to hearsay そうです: the news says the new bakery is very popular."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n4u07d1.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "見て　ください。あの　子ども、プレゼントを　もらって　とても　（　　）ですね。",
+            "options": [
+              "うれしいそう",
+              "うれしくそう",
+              "うれしそう",
+              "うれしだそう"
+            ],
+            "answer": 3,
+            "explain": "見てください shows the speaker is looking at the child, so the 'looks' そう fits: drop い, うれしそうです. うれしいそうです is hearsay (I hear the child is happy), which does not fit what the speaker sees. うれしくそう and うれしだそう are not forms."
+          },
+          {
+            "id": "n4u07d1.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "天気よほうに　よると、あしたは　一日中　いい　天気（　　）。",
+            "options": [
+              "そうです",
+              "だそうです",
+              "なそうです",
+              "のそうです"
+            ],
+            "answer": 2,
+            "explain": "天気よほうによると needs hearsay, and 天気 is a noun, so だ comes before そうです: 天気だそうです. そうです does not join a noun directly, and な and の do not come before そうです."
+          },
+          {
+            "id": "n4u07d1.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "森さんに　よると、",
+            "after": "。",
+            "tiles": [
+              "きのうの",
+              "試験は",
+              "かんたんだった",
+              "そうです"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "full": "森さんに　よると、きのうの　試験は　{かんたんだった}　そうです。",
+            "explain": "きのうの, 試験は, かんたんだった, そうです. きのうの describes 試験. かんたん is a な-adjective, so its plain past かんたんだった comes before hearsay そうです: Mori-san says yesterday's test was easy."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "パン屋のはり紙",
+        "en": "A sign in a bakery window",
+        "intro": "A sign in the bakery window tells you about today's bread. Tap each word on it.",
+        "words": [
+          {
+            "id": "new",
+            "word": "新発売",
+            "reading": "しんはつばい",
+            "gloss": "new on sale",
+            "parts": [
+              [
+                "新",
+                "シン",
+                "new"
+              ],
+              [
+                "発",
+                "ハツ",
+                "start, send out"
+              ],
+              [
+                "売",
+                "バイ",
+                "sell"
+              ]
+            ]
+          },
+          {
+            "id": "sale",
+            "word": "特売",
+            "reading": "とくばい",
+            "gloss": "special sale",
+            "parts": [
+              [
+                "特",
+                "トク",
+                "special"
+              ],
+              [
+                "売",
+                "バイ",
+                "sell"
+              ]
+            ]
+          },
+          {
+            "id": "tasting",
+            "word": "試食",
+            "reading": "ししょく",
+            "gloss": "free tasting",
+            "parts": [
+              [
+                "試",
+                "シ",
+                "try"
+              ],
+              [
+                "食",
+                "ショク",
+                "eat"
+              ]
+            ]
+          },
+          {
+            "id": "order",
+            "word": "注文",
+            "reading": "ちゅうもん",
+            "gloss": "order",
+            "parts": [
+              [
+                "注",
+                "チュウ",
+                "pour, note"
+              ],
+              [
+                "文",
+                "モン",
+                "writing"
+              ]
+            ]
+          },
+          {
+            "id": "soldout",
+            "word": "売り切れ",
+            "reading": "うりきれ",
+            "gloss": "sold out",
+            "parts": [
+              [
+                "売",
+                "う",
+                "sell"
+              ],
+              [
+                "切",
+                "き",
+                "cut"
+              ]
+            ]
+          },
+          {
+            "id": "takeaway",
+            "word": "持ち帰り",
+            "reading": "もちかえり",
+            "gloss": "takeaway",
+            "parts": [
+              [
+                "持",
+                "も",
+                "hold"
+              ],
+              [
+                "帰",
+                "かえ",
+                "return"
+              ]
+            ]
+          },
+          {
+            "id": "beef",
+            "word": "牛肉",
+            "reading": "ぎゅうにく",
+            "gloss": "beef",
+            "parts": [
+              [
+                "牛",
+                "ギュウ",
+                "cow"
+              ],
+              [
+                "肉",
+                "ニク",
+                "meat"
+              ]
+            ]
+          },
+          {
+            "id": "opens",
+            "word": "開店",
+            "reading": "かいてん",
+            "gloss": "shop opens",
+            "parts": [
+              [
+                "開",
+                "カイ",
+                "open"
+              ],
+              [
+                "店",
+                "テン",
+                "shop"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n4u07d1.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "あしたは　パンの　_特売_が　あります。",
+          "options": [
+            "とくうり",
+            "とくはい",
+            "どくばい",
+            "とくばい"
+          ],
+          "answer": 4,
+          "explain": "特売 is read とくばい, a special sale: there is a bread sale tomorrow. 売 is read ばい here, not はい or うり, and 特 is とく, not どく."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "課題理解",
+        "en": "Task comprehension",
+        "ask": "女の人は　何を　買いますか。",
+        "audio": [
+          [
+            "N",
+            "パン屋で、男の人と女の人が話しています。女の人は何を買いますか。",
+            "パンやで、おとこのひととおんなのひとがはなしています。おんなのひとはなにをかいますか。"
+          ],
+          [
+            "F",
+            "わあ、どれもおいしそうですね。",
+            null
+          ],
+          [
+            "M",
+            "ニュースによると、この店はカレーパンがいちばん人気だそうですよ。",
+            "ニュースによると、このみせはカレーパンがいちばんにんきだそうですよ。"
+          ],
+          [
+            "F",
+            "へえ。あ、でも、カレーパンはもう売り切れですね。",
+            "へえ。あ、でも、カレーパンはもううりきれですね。"
+          ],
+          [
+            "M",
+            "ほんとうだ。じゃあ、このチーズパンは？",
+            null
+          ],
+          [
+            "F",
+            "うーん、上に赤いものがのっていて、ちょっとからそうですね。からいものはにがてなんです。",
+            "うーん、うえにあかいものがのっていて、ちょっとからそうですね。からいものはにがてなんです。"
+          ],
+          [
+            "M",
+            "じゃあ、メロンパンはどうですか。大きくておいしそうですよ。",
+            "じゃあ、メロンパンはどうですか。おおきくておいしそうですよ。"
+          ],
+          [
+            "F",
+            "ええ。でも、あしたの朝、食べたいんです。メロンパンは、つぎの日になるとかたくなるそうですから。",
+            "ええ。でも、あしたのあさ、たべたいんです。メロンパンは、つぎのひになるとかたくなるそうですから。"
+          ],
+          [
+            "M",
+            "じゃあ、あんパンは？一日たっても、やわらかいそうですよ。",
+            "じゃあ、あんパンは？いちにちたっても、やわらかいそうですよ。"
+          ],
+          [
+            "F",
+            "そうですか。じゃあ、それにします。",
+            null
+          ],
+          [
+            "N",
+            "女の人は何を買いますか。",
+            "おんなのひとはなにをかいますか。"
+          ]
+        ],
+        "item": {
+          "id": "n4u07d1.r1",
+          "kind": "choice",
+          "type": "課題理解",
+          "q": "女の人は　何を　買いますか。",
+          "script": [
+            "ナレーター：パン屋で、男の人と女の人が話しています。女の人は何を買いますか。",
+            "女：わあ、どれもおいしそうですね。",
+            "男：ニュースによると、この店はカレーパンがいちばん人気だそうですよ。",
+            "女：へえ。あ、でも、カレーパンはもう売り切れですね。",
+            "男：ほんとうだ。じゃあ、このチーズパンは？",
+            "女：うーん、上に赤いものがのっていて、ちょっとからそうですね。からいものはにがてなんです。",
+            "男：じゃあ、メロンパンはどうですか。大きくておいしそうですよ。",
+            "女：ええ。でも、あしたの朝、食べたいんです。メロンパンは、つぎの日になるとかたくなるそうですから。",
+            "男：じゃあ、あんパンは？一日たっても、やわらかいそうですよ。",
+            "女：そうですか。じゃあ、それにします。",
+            "ナレーター：女の人は何を買いますか。"
+          ],
+          "options": [
+            "カレーパン",
+            "チーズパン",
+            "メロンパン",
+            "あんパン"
+          ],
+          "printed": true,
+          "short": [
+            "カレーパン",
+            "チーズパン",
+            "メロンパン",
+            "あんパン"
+          ],
+          "answer": 4,
+          "why": [
+            "It is the most popular (人気だそうです), but it is already sold out (売り切れ).",
+            "It has something red on top and looks spicy (からそう), and she does not like spicy food.",
+            "It looks good, but she heard it gets hard the next day (かたくなるそうです), and she will eat it tomorrow.",
+            "She wants bread for tomorrow morning, and the man heard that あんパン stays soft a day later (やわらかいそうです). She says それにします."
+          ],
+          "explain": null
+        }
+      }
+    },
+    "2": {
+      "title": "〜ようだ・〜みたいだ",
+      "grammar": {
+        "points": [
+          {
+            "id": "n4u07d2.p1",
+            "form": "〜ようだ",
+            "gloss": "it seems (a guess); is like",
+            "connect": [
+              {
+                "pos": "Verb or い-adjective, plain form",
+                "rule": "来た{ようです}、[寒|さむ]い{ようです}"
+              },
+              {
+                "pos": "な-adjective: keep な",
+                "rule": "しずか{なようです}"
+              },
+              {
+                "pos": "Noun: add の",
+                "rule": "〜{のようです}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "げんかんにくつがあります。だれか来ている{ようです}。",
+                "en": "There are shoes at the door. Someone seems to be here."
+              },
+              {
+                "ja": "あの[有名|ゆうめい]な[歌手|かしゅ]と話せて、ゆめ{のようです}。",
+                "en": "I got to talk with that famous singer. It's like a dream."
+              }
+            ],
+            "watch": {
+              "note": "A noun needs の before ようだ, and a な-adjective keeps its な. Neither joins ようだ directly.",
+              "bad": "あの人は先生ようです。",
+              "good": "あの人は先生のようです。"
+            }
+          },
+          {
+            "id": "n4u07d2.p2",
+            "form": "〜みたいだ",
+            "gloss": "seems, looks like (casual)",
+            "connect": [
+              {
+                "pos": "Verb or い-adjective, plain form",
+                "rule": "来た{みたい}、[寒|さむ]い{みたい}"
+              },
+              {
+                "pos": "Noun or な-adjective: nothing in between (no の, no な)",
+                "rule": "〜{みたい}、しずか{みたい}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "電気がついてないね。[田|た]中さんはもう[帰|かえ]った{みたい}。",
+                "en": "The lights are off. Tanaka-san seems to have gone home already."
+              },
+              {
+                "ja": "このケーキ、ほんとうの花{みたい}だね。",
+                "en": "This cake looks just like a real flower."
+              }
+            ],
+            "watch": {
+              "note": "みたい joins a noun directly. The の belongs to ようだ, not to みたい.",
+              "bad": "あしたは雨のみたいです。",
+              "good": "あしたは雨みたいです。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "ようだ and みたいだ both make a guess from what you see or hear; と[思|おも]う just gives your own view or plan.",
+          "forms": [
+            {
+              "form": "〜ようだ",
+              "tag": "ようだ · seems (neutral, also in writing)",
+              "mark": "dot",
+              "ja": "道がぬれています。雨がふった{ようです}。",
+              "en": "The road is wet. It seems it rained."
+            },
+            {
+              "form": "〜みたいだ",
+              "tag": "みたい · seems (casual talk)",
+              "mark": "dot",
+              "ja": "道がぬれてる。雨がふった{みたい}。",
+              "en": "The road's wet. Looks like it rained."
+            },
+            {
+              "form": "〜と思う",
+              "tag": "と思う · I think (my own view or plan)",
+              "mark": "dot",
+              "ja": "あしたは雨がふる{と[思|おも]います}。",
+              "en": "I think it will rain tomorrow."
+            }
+          ],
+          "check": {
+            "id": "n4u07d2.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Guess or plan?",
+            "q": "らいしゅう、[病院|びょういん]に行こう（　　）。",
+            "options": [
+              "みたいです",
+              "と[思|おも]います",
+              "ようです"
+            ],
+            "answer": 2,
+            "why": [
+              "みたい does not follow the volitional either (行くみたいです), and a plan is not a guess.",
+              "行こう is the volitional form, and と思います follows it to tell your own plan: I'm thinking of going to the hospital next week.",
+              "ようだ follows the plain form (行くようです), not the volitional. Here the speaker tells a plan, not a guess."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n4u07d2.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[田|た]中さんは^せきをしています^。かぜ（　　）。",
+            "options": [
+              "だようです",
+              "なようです",
+              "のようです",
+              "ようです"
+            ],
+            "answer": 3,
+            "why": [
+              "だ does not come before ようです. A noun takes の.",
+              "な goes between a な-adjective and ようだ. かぜ is a noun, so it takes の.",
+              "かぜ is a noun, so の joins it to ようです. She is coughing, so she seems to have a cold.",
+              "A noun cannot join ようです directly. It needs の."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d2.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[林|はやし]さんは^毎日ねこの[写真|しゃしん]をとっています^。ねこが（　　）ようです。",
+            "options": [
+              "[大好|だいす]きな",
+              "[大好|だいす]きの",
+              "[大好|だいす]き",
+              "[大好|だいす]きだ"
+            ],
+            "answer": 1,
+            "why": [
+              "大好き is a な-adjective, so it keeps な: he takes cat photos every day, so he seems to love cats.",
+              "大好き is a な-adjective, not a noun, so it does not take の before ようです.",
+              "A な-adjective cannot join ようです directly. It keeps its な.",
+              "だ does not come before ようです. Use the な form."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d2.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^かさをさしている人がいる^ね。外は雨（　　）。",
+            "options": [
+              "だみたい",
+              "のみたい",
+              "なみたい",
+              "みたい"
+            ],
+            "answer": 4,
+            "why": [
+              "だ does not come before みたい. The noun joins it directly.",
+              "の before a noun belongs to ようだ (雨のようだ). みたい joins the noun directly.",
+              "な is not used between a noun and みたい.",
+              "Noun + みたい: people have umbrellas up, so it seems to be raining."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d2.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "げんかんに^[知|し]らないくつ^があります。だれか（　　）ようです。",
+            "options": [
+              "来ていて",
+              "来ています",
+              "来ていない",
+              "来ている"
+            ],
+            "answer": 4,
+            "why": [
+              "The te-form does not join ようです.",
+              "The ます form does not join ようです. Use the plain form 来ている.",
+              "Shoes you don't know are a sign that someone is here, not that someone has not come.",
+              "ようです follows the plain form. Shoes you don't know are at the door, so someone seems to be here."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d2.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "テーブルの上のかさは、",
+            "after": "ようです。",
+            "tiles": [
+              "だれかが",
+              "わすれた",
+              "もの",
+              "の"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "だれかがわすれた describes もの. A noun needs の before ようです.",
+            "full": "テーブルの上のかさは、だれかがわすれたもの{のようです}。",
+            "explain": "だれかがわすれた (someone forgot) describes もの, so it comes right before it. もの is a noun, so の joins it to ようです: the umbrella on the table seems to be something someone left behind."
+          },
+          {
+            "id": "n4u07d2.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "あの",
+            "after": "みたいだね。",
+            "tiles": [
+              "[赤|あか]い",
+              "ぼうしの",
+              "人は",
+              "先生"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              2,
+              0
+            ],
+            "hint": "赤い describes the hat, and the hat describes the person. A noun joins みたい directly.",
+            "full": "あの[赤|あか]いぼうしの人は先生{みたい}だね。",
+            "explain": "あの赤いぼうしの人 is the person in the red hat, and は marks who you are talking about. 先生 is a noun, so it goes straight before みたい with no の: that person in the red hat looks like a teacher."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n4u07d2.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "あの　二人は　とても　なかが　よくて、きょうだい（　　）。",
+            "options": [
+              "の　ようです",
+              "みたいの　です",
+              "ようです",
+              "な　ようです"
+            ],
+            "answer": 1,
+            "explain": "きょうだい is a noun, so it takes の before ようです: those two get on so well that they are like brothers and sisters. A noun cannot join ようです directly, な is for な-adjectives, and みたいの　です is not a form (a noun joins みたいです directly)."
+          },
+          {
+            "id": "n4u07d2.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「田中さん、今日は　休みですか。」\nB「ええ、病気（　　）ですよ。」",
+            "options": [
+              "のみたい",
+              "そう",
+              "なみたい",
+              "みたい"
+            ],
+            "answer": 4,
+            "explain": "病気 is a noun, so it joins みたい directly: it seems he is ill. みたい takes no な and no の after a noun. そう (looks like) does not join a noun, so 病気そうです is not a form."
+          },
+          {
+            "id": "n4u07d2.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "兄の　へやから　知らない　人の　声が　聞こえます。",
+            "after": "ようです。",
+            "tiles": [
+              "兄の",
+              "友だちが",
+              "来て",
+              "いる"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "full": "兄の　へやから　知らない　人の　声が　聞こえます。兄の　友だちが　来て　{いる　ようです}。",
+            "explain": "兄の, 友だちが, 来て, いる. 兄の友だち is my brother's friend, 来ている is the plain form, and ようです follows it: I hear a voice I don't know, so a friend of my brother's seems to be here."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "駅のわすれもの用紙",
+        "en": "A lost-property form at the station",
+        "intro": "You left your bag on the train, and the station staff hand you a form to fill in. Tap each word on it.",
+        "words": [
+          {
+            "id": "form",
+            "word": "用紙",
+            "reading": "ようし",
+            "gloss": "form (sheet of paper)",
+            "parts": [
+              [
+                "用",
+                "ヨウ",
+                "use"
+              ],
+              [
+                "紙",
+                "シ",
+                "paper"
+              ]
+            ]
+          },
+          {
+            "id": "item",
+            "word": "品物",
+            "reading": "しなもの",
+            "gloss": "item, article",
+            "parts": [
+              [
+                "品",
+                "しな",
+                "goods"
+              ],
+              [
+                "物",
+                "もの",
+                "thing"
+              ]
+            ]
+          },
+          {
+            "id": "brown",
+            "word": "茶色",
+            "reading": "ちゃいろ",
+            "gloss": "brown",
+            "parts": [
+              [
+                "茶",
+                "チャ",
+                "tea"
+              ],
+              [
+                "色",
+                "いろ",
+                "colour"
+              ]
+            ]
+          },
+          {
+            "id": "place",
+            "word": "場所",
+            "reading": "ばしょ",
+            "gloss": "place",
+            "parts": [
+              [
+                "場",
+                "ば",
+                "place"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "address",
+            "word": "住所",
+            "reading": "じゅうしょ",
+            "gloss": "address",
+            "parts": [
+              [
+                "住",
+                "ジュウ",
+                "live"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "owner",
+            "word": "持ち主",
+            "reading": "もちぬし",
+            "gloss": "owner",
+            "parts": [
+              [
+                "持",
+                "も",
+                "hold"
+              ],
+              [
+                "主",
+                "ぬし",
+                "master, owner"
+              ]
+            ]
+          },
+          {
+            "id": "express",
+            "word": "特急",
+            "reading": "とっきゅう",
+            "gloss": "limited express (train)",
+            "parts": [
+              [
+                "特",
+                "トッ",
+                "special"
+              ],
+              [
+                "急",
+                "キュウ",
+                "hurry"
+              ]
+            ]
+          },
+          {
+            "id": "staff",
+            "word": "駅員",
+            "reading": "えきいん",
+            "gloss": "station staff",
+            "parts": [
+              [
+                "駅",
+                "エキ",
+                "station"
+              ],
+              [
+                "員",
+                "イン",
+                "member"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n4u07d2.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "わすれた　_品物_の　色を　ここに　書いて　ください。",
+          "options": [
+            "しなもの",
+            "ひんもの",
+            "しなぶつ",
+            "ひんぶつ"
+          ],
+          "answer": 1,
+          "explain": "品物 is read しなもの, an item: write the colour of the thing you left here. Both kanji take their Japanese readings (しな, もの). ひんもの, しなぶつ and ひんぶつ mix in the Chinese readings ヒン and ブツ, which are not used in this word."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "What does the writer guess happened at the party?",
+        "seconds": 90,
+        "passage": "きのうの　夜、姉が　家で　友だちと　パーティーを　しました。わたしは　旅行に　行って　いて、けさ　帰って　きました。台所には　コップが　たくさん　ありましたが、^ケーキは　もう　ありませんでした^。みんなで　食べた　ようです。いすの　上には　知らない　黒い　ぼうしが　ありました。だれかの　わすれものの　ようです。^ピアノの　上には　歌の　本が　あって、ふたも　開いて　いました^。^みんなで　歌を　歌った　みたいです^。もう　十一時ですが、^姉は　まだ　ねて　います^。おそくまで　起きて　いた　ようです。",
+        "strategy": "Each guess ends in ようです or みたいです; read the clue just before it and check every option against it.",
+        "item": {
+          "id": "n4u07d2.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "「わたし」は、きのうの　パーティーで　どんな　ことが　あったと　思って　いますか。",
+          "options": [
+            "ケーキが　たくさん　のこった。",
+            "早い　時間に　おわった。",
+            "みんなで　歌を　歌った。",
+            "姉の　友だちは　だれも　来なかった。"
+          ],
+          "short": [
+            "ケーキがのこった",
+            "早くおわった",
+            "歌を歌った",
+            "だれも来なかった"
+          ],
+          "answer": 3,
+          "explain": "The song book on the piano and the open lid are the clues, and the writer says みんなで歌を歌ったみたいです: they seem to have sung together.",
+          "why": [
+            "The cake was all gone (もうありませんでした), so they seem to have eaten it.",
+            "Her sister is still asleep at eleven, so the party seems to have gone on late.",
+            "",
+            "The sister had the party with friends, and there is a hat nobody in the family knows, so friends did come."
+          ]
+        }
+      }
+    },
+    "3": {
+      "title": "〜らしい・〜はずだ",
+      "grammar": {
+        "points": [
+          {
+            "id": "n4u07d3.p1",
+            "form": "〜らしい",
+            "gloss": "I hear; it seems (from what others say)",
+            "connect": [
+              {
+                "pos": "Verb or い-adjective, plain form",
+                "rule": "[引|ひ]っこす{らしい}、高い{らしい}"
+              },
+              {
+                "pos": "Noun or な-adjective, with no だ or な before らしい",
+                "rule": "〜{らしい}"
+              },
+              {
+                "pos": "Past: plain past form (a noun or な-adjective takes だった)",
+                "rule": "[引|ひ]っこした{らしい}、〜だった{らしい}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "小川さんは来月、[京都|きょうと]に[引|ひ]っこす{らしい}です。",
+                "en": "I hear Ogawa is moving to Kyoto next month."
+              },
+              {
+                "ja": "中山さんのお[姉|ねえ]さんは[医者|いしゃ]{らしい}です。",
+                "en": "Apparently Nakayama's older sister is a doctor."
+              }
+            ],
+            "watch": {
+              "note": "In the present, らしい joins a noun or a な-adjective directly. Do not put だ in between.",
+              "bad": "あの人は大学生だらしいです。",
+              "good": "あの人は大学生らしいです。"
+            }
+          },
+          {
+            "id": "n4u07d3.p2",
+            "form": "〜はずだ",
+            "gloss": "should be, is expected to (I have a reason)",
+            "connect": [
+              {
+                "pos": "Verb or い-adjective, plain form",
+                "rule": "[着|つ]く{はずです}、安い{はずです}"
+              },
+              {
+                "pos": "な-adjective: keep な",
+                "rule": "〜な{はずです}"
+              },
+              {
+                "pos": "Noun: add の",
+                "rule": "〜の{はずです}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "小川さんは十年中国に[住|す]んでいましたから、中国語が上手な{はずです}。",
+                "en": "Ogawa lived in China for ten years, so his Chinese should be good."
+              },
+              {
+                "ja": "今日は月[曜日|ようび]ですから、[図書館|としょかん]は休み{のはずです}。",
+                "en": "It's Monday today, so the library should be closed."
+              }
+            ],
+            "watch": {
+              "note": "はず works like a noun, so a noun before it needs の, and a な-adjective keeps な.",
+              "bad": "あしたは休みはずです。",
+              "good": "あしたは休みのはずです。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three talk about something you did not see yourself. What changes is where the idea comes from.",
+          "forms": [
+            {
+              "form": "〜そうだ（聞いた話）",
+              "tag": "聞いたことをつたえる · I hear (passing it on)",
+              "mark": "dot",
+              "ja": "中山さんの話では、新しい[仕事|しごと]は[楽|たの]しい{そうです}。",
+              "en": "According to Nakayama, her new job is fun. You pass on what she told you."
+            },
+            {
+              "form": "〜らしい",
+              "tag": "聞いた話 · I hear, it seems",
+              "mark": "dot",
+              "ja": "中山さんは新しい[仕事|しごと]が[楽|たの]しい{らしい}です。",
+              "en": "It seems Nakayama enjoys her new job. You heard it from others, or picked it up around you."
+            },
+            {
+              "form": "〜はずだ",
+              "tag": "わけがある · should be (I have a reason)",
+              "mark": "dot",
+              "ja": "中山さんは本が[好|す]きですから、本屋の[仕事|しごと]は[楽|たの]しい{はずです}。",
+              "en": "Nakayama loves books, so a job at a bookshop should be fun. The reason is the speaker's own."
+            }
+          ],
+          "check": {
+            "id": "n4u07d3.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Heard it, or have a reason?",
+            "q": "^わたしがきのう話しました^から、小川さんはこのことを[知|し]っている（　　）。",
+            "options": [
+              "はずです",
+              "そうです",
+              "らしいです"
+            ],
+            "answer": 1,
+            "why": [
+              "The speaker has his own reason (he told Ogawa yesterday), so he expects Ogawa to know: はずです.",
+              "そうです passes on what someone told you. But the speaker told Ogawa himself, so there is nothing to pass on.",
+              "らしい is for what you heard from others. The speaker knows because he told Ogawa himself."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n4u07d3.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "中山さんは会社をやめて、今は^ピアノの先生^（　　）よ。",
+            "options": [
+              "ならしいです",
+              "のらしいです",
+              "だらしいです",
+              "らしいです"
+            ],
+            "answer": 4,
+            "why": [
+              "な joins a な-adjective to a noun. It does not come before らしい.",
+              "の joins a noun to はず, not to らしい.",
+              "先生 is a noun. らしい joins it directly; だ does not come in between.",
+              "Noun + らしい with nothing in between: I hear she is a piano teacher now."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d3.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^ニュースで聞きました^が、あしたは大雨が（　　）。",
+            "options": [
+              "ふってみます",
+              "ふるつもりです",
+              "ふりたいです",
+              "ふるらしいです"
+            ],
+            "answer": 4,
+            "why": [
+              "てみる means try doing something. Rain does not try.",
+              "つもり is a person's plan. Rain cannot plan anything.",
+              "たい says what a person wants. Rain cannot want.",
+              "The speaker heard it on the news, so らしい passes it on: I hear it will rain heavily tomorrow."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d3.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "小川さんの新しい[家|いえ]は^駅から[遠|とお]い^ですから、[夜|よる]は（　　）。",
+            "options": [
+              "しずかのはずです",
+              "しずかはずです",
+              "しずかだはずです",
+              "しずかなはずです"
+            ],
+            "answer": 4,
+            "why": [
+              "の joins a noun to はず. しずか is a な-adjective, so it takes な.",
+              "A な-adjective needs な before はず.",
+              "だ does not come right before はず.",
+              "しずか is a な-adjective, so it keeps な. The house is far from the station, so it should be quiet at night."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d3.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "大川さんは^先週会社をやめました^から、もう会社には（　　）。",
+            "options": [
+              "来るらしいです",
+              "来ないはずです",
+              "来るはずです",
+              "来たらしいです"
+            ],
+            "answer": 2,
+            "why": [
+              "This says he seems to be coming. Someone who quit last week is not coming to work.",
+              "He quit last week, so the speaker expects him not to come any more: 来ないはずです.",
+              "He quit, so the reason points the other way. He is not expected to come.",
+              "This says he seems to have come. That does not follow from his quitting, and it clashes with もう…には."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d3.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "中山さんが今",
+            "after": "らしいです。",
+            "tiles": [
+              "[働|はたら]いて",
+              "いる",
+              "会社は",
+              "[有名|ゆうめい]"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "hint": "働いている describes the company. What goes straight before らしい?",
+            "full": "中山さんが今[働|はたら]いている会社は[有名|ゆうめい]{らしい}です。",
+            "explain": "働いている describes 会社, so it comes right before 会社は. 有名 is a な-adjective, so it joins らしい directly with no だ: I hear the company Nakayama works for now is famous."
+          },
+          {
+            "id": "n4u07d3.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "小川さんは[去年|きょねん]大学に入りましたから、",
+            "after": "です。",
+            "tiles": [
+              "今は",
+              "二年生",
+              "の",
+              "はず"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "Start with the time word. 二年生 is a noun: what joins it to はず?",
+            "full": "小川さんは[去年|きょねん]大学に入りましたから、今は二年生{のはず}です。",
+            "explain": "今は comes first. 二年生 is a noun, so の joins it to はず: Ogawa started university last year, so he should be in his second year now."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n4u07d3.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "友だちの　話では、田中さんは　来月　けっこん（　　）。",
+            "options": [
+              "したらしいです",
+              "してらしいです",
+              "するらしいです",
+              "しますらしいです"
+            ],
+            "answer": 3,
+            "explain": "らしい follows the plain form, and 来月 points to the future, so するらしいです: I hear Tanaka is getting married next month. しますらしい uses the ます form, したらしい is past and clashes with 来月, and してらしい is not a form."
+          },
+          {
+            "id": "n4u07d3.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "森さんは　四月に　銀行に　入りましたから、今は　銀行員（　　）。",
+            "options": [
+              "のはずです",
+              "だはずです",
+              "なはずです",
+              "はずです"
+            ],
+            "answer": 1,
+            "explain": "銀行員 is a noun, so の joins it to はず: Mori joined a bank in April, so he should be a bank clerk now. な is for な-adjectives, a noun cannot join はず with nothing in between, and だ does not come right before はず."
+          },
+          {
+            "id": "n4u07d3.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "この　手紙は　きのう　",
+            "after": "はずです。",
+            "tiles": [
+              "送りました",
+              "から",
+              "あした",
+              "着く"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              3,
+              1,
+              0
+            ],
+            "full": "この　手紙は　きのう　送りました　から　あした　着く　{はずです}。",
+            "explain": "送りました, から, あした, 着く. から gives the reason (it was sent yesterday), and あした 着く is what the speaker expects: this letter was sent yesterday, so it should arrive tomorrow."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "会社のけいじばん",
+        "en": "A notice on the office message board",
+        "intro": "A notice on the office board says a co-worker is leaving for a new job. Tap each word on it.",
+        "words": [
+          {
+            "id": "farewell",
+            "word": "送別会",
+            "reading": "そうべつかい",
+            "gloss": "farewell party",
+            "parts": [
+              [
+                "送",
+                "ソウ",
+                "send"
+              ],
+              [
+                "別",
+                "ベツ",
+                "part, separate"
+              ],
+              [
+                "会",
+                "カイ",
+                "meeting, party"
+              ]
+            ]
+          },
+          {
+            "id": "institute",
+            "word": "研究所",
+            "reading": "けんきゅうじょ",
+            "gloss": "research institute",
+            "parts": [
+              [
+                "研",
+                "ケン",
+                "study, polish"
+              ],
+              [
+                "究",
+                "キュウ",
+                "research"
+              ],
+              [
+                "所",
+                "ジョ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "moving",
+            "word": "引っこし",
+            "reading": "ひっこし",
+            "gloss": "moving house",
+            "parts": [
+              [
+                "引",
+                "ひ",
+                "pull"
+              ]
+            ]
+          },
+          {
+            "id": "address",
+            "word": "住所",
+            "reading": "じゅうしょ",
+            "gloss": "address",
+            "parts": [
+              [
+                "住",
+                "ジュウ",
+                "live"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "departure",
+            "word": "出発",
+            "reading": "しゅっぱつ",
+            "gloss": "departure",
+            "parts": [
+              [
+                "出",
+                "シュッ",
+                "go out"
+              ],
+              [
+                "発",
+                "パツ",
+                "start, leave"
+              ]
+            ]
+          },
+          {
+            "id": "datetime",
+            "word": "日時",
+            "reading": "にちじ",
+            "gloss": "date and time",
+            "parts": [
+              [
+                "日",
+                "ニチ",
+                "day"
+              ],
+              [
+                "時",
+                "ジ",
+                "time"
+              ]
+            ]
+          },
+          {
+            "id": "place",
+            "word": "場所",
+            "reading": "ばしょ",
+            "gloss": "place",
+            "parts": [
+              [
+                "場",
+                "ば",
+                "place"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "map",
+            "word": "地図",
+            "reading": "ちず",
+            "gloss": "map",
+            "parts": [
+              [
+                "地",
+                "チ",
+                "ground, land"
+              ],
+              [
+                "図",
+                "ズ",
+                "drawing, plan"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n4u07d3.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "林さんの　新しい　_住所_を　知って　いますか。",
+          "options": [
+            "すみしょ",
+            "じゅしょ",
+            "じゅうしょ",
+            "じゅうじょ"
+          ],
+          "answer": 3,
+          "explain": "住所 is read じゅうしょ, an address: do you know Hayashi's new address? じゅしょ drops the long う, じゅうじょ has じょ instead of しょ, and すみしょ uses the wrong reading of 住."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "ポイント理解",
+        "en": "Point comprehension",
+        "ask": "林さんは　今　どこで　働いて　いますか。",
+        "audio": [
+          [
+            "N",
+            "会社で、男の人と女の人が話しています。林さんは今、どこで働いていますか。",
+            "かいしゃで、おとこのひととおんなのひとがはなしています。はやしさんはいま、どこではたらいていますか。"
+          ],
+          [
+            "M",
+            "先月やめた林さん、今どうしているか知っていますか。",
+            "せんげつやめたはやしさん、いまどうしているかしっていますか。"
+          ],
+          [
+            "F",
+            "田中さんの話では、京都で働いているらしいですよ。",
+            "たなかさんのはなしでは、きょうとではたらいているらしいですよ。"
+          ],
+          [
+            "M",
+            "京都ですか。林さんのお兄さんが、京都で会社をやっていますよね。そこですか。",
+            "きょうとですか。はやしさんのおにいさんが、きょうとでかいしゃをやっていますよね。そこですか。"
+          ],
+          [
+            "F",
+            "わたしもそう思ったんですが、ちがうらしいです。駅の前の本屋で働いているそうです。",
+            "わたしもそうおもったんですが、ちがうらしいです。えきのまえのほんやではたらいているそうです。"
+          ],
+          [
+            "M",
+            "へえ、本屋ですか。林さんは本が大好きでしたから、その仕事は楽しいはずですね。",
+            "へえ、ほんやですか。はやしさんはほんがだいすきでしたから、そのしごとはたのしいはずですね。"
+          ],
+          [
+            "F",
+            "ええ。前は、図書館で働きたいと言っていましたけどね。",
+            "ええ。まえは、としょかんではたらきたいといっていましたけどね。"
+          ],
+          [
+            "M",
+            "来月、京都に行きますから、その本屋に行ってみます。",
+            "らいげつ、きょうとにいきますから、そのほんやにいってみます。"
+          ],
+          [
+            "N",
+            "林さんは今、どこで働いていますか。",
+            "はやしさんはいま、どこではたらいていますか。"
+          ]
+        ],
+        "item": {
+          "id": "n4u07d3.r1",
+          "kind": "choice",
+          "type": "ポイント理解",
+          "q": "林さんは　今　どこで　働いて　いますか。",
+          "script": [
+            "ナレーター：会社で、男の人と女の人が話しています。林さんは今、どこで働いていますか。",
+            "男：先月やめた林さん、今どうしているか知っていますか。",
+            "女：田中さんの話では、京都で働いているらしいですよ。",
+            "男：京都ですか。林さんのお兄さんが、京都で会社をやっていますよね。そこですか。",
+            "女：わたしもそう思ったんですが、ちがうらしいです。駅の前の本屋で働いているそうです。",
+            "男：へえ、本屋ですか。林さんは本が大好きでしたから、その仕事は楽しいはずですね。",
+            "女：ええ。前は、図書館で働きたいと言っていましたけどね。",
+            "男：来月、京都に行きますから、その本屋に行ってみます。",
+            "ナレーター：林さんは今、どこで働いていますか。"
+          ],
+          "options": [
+            "図書館",
+            "駅の　前の　本屋",
+            "この　会社",
+            "お兄さんの　会社"
+          ],
+          "printed": true,
+          "short": [
+            "図書館",
+            "駅前の本屋",
+            "この会社",
+            "兄の会社"
+          ],
+          "answer": 2,
+          "why": [
+            "Hayashi once said he wanted to work at a library (働きたいと言っていました), but that was before.",
+            "駅の前の本屋で働いているそうです: he works at the bookshop in front of the station.",
+            "The man says 先月やめた林さん: Hayashi left this company last month.",
+            "The woman thought so too, but says ちがうらしいです: it is not his brother's company."
+          ],
+          "explain": null
+        }
+      }
+    },
+    "4": {
+      "title": "〜かもしれない・〜はずがない",
+      "grammar": {
+        "points": [
+          {
+            "id": "n4u07d4.p1",
+            "form": "〜かもしれない",
+            "gloss": "maybe, might",
+            "connect": [
+              {
+                "pos": "Verb or い-adjective, plain form (also negative and past)",
+                "rule": "ふる{かもしれません}、[寒|さむ]い{かもしれません}"
+              },
+              {
+                "pos": "Noun, with no だ",
+                "rule": "〜{かもしれません}"
+              },
+              {
+                "pos": "な-adjective, with no だ",
+                "rule": "しずか{かもしれません}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "午後から雨がふる{かもしれません}。かさを[持|も]っていきましょう。",
+                "en": "It might rain this afternoon. Let's take an umbrella."
+              },
+              {
+                "ja": "あの人は[田中|たなか]さんのお[兄|にい]さん{かもしれません}。[顔|かお]がよくにています。",
+                "en": "That man might be Tanaka's older brother. Their faces look very alike."
+              }
+            ],
+            "watch": {
+              "note": "After a noun or a な-adjective, かもしれない comes straight after the word, with no だ. For the past, use だった: 雨だったかもしれません.",
+              "bad": "あしたは雨だかもしれません。",
+              "good": "あしたは雨かもしれません。"
+            }
+          },
+          {
+            "id": "n4u07d4.p2",
+            "form": "〜はずがない",
+            "gloss": "it can't be that …, there's no way",
+            "connect": [
+              {
+                "pos": "Verb or い-adjective, plain form",
+                "rule": "来る{はずがありません}、高い{はずがありません}"
+              },
+              {
+                "pos": "な-adjective, with な",
+                "rule": "しずかな{はずがありません}"
+              },
+              {
+                "pos": "Noun, with の",
+                "rule": "〜の{はずがありません}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[兄|あに]は今アメリカにいますから、この[町|まち]にいる{はずがありません}。",
+                "en": "My older brother is in America now, so he can't be in this town."
+              },
+              {
+                "ja": "[林|はやし]さんはやさいがきらいですから、サラダを[注文|ちゅうもん]した{はずがありません}。",
+                "en": "Hayashi hates vegetables, so there's no way she ordered a salad."
+              }
+            ],
+            "watch": {
+              "note": "A noun takes の before はず, and a な-adjective takes な. はずがない is stronger than ないはずだ: not just I expect not, but it can't be.",
+              "bad": "あの人が先生はずがありません。",
+              "good": "あの人が先生のはずがありません。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "かもしれない leaves a guess open, はずだ is a confident guess (ないはずだ: confident that something is not so), and はずがない goes further: it cannot be.",
+          "forms": [
+            {
+              "form": "〜かもしれない",
+              "tag": "かのうせい · maybe",
+              "mark": "dot",
+              "ja": "この店は今日休み{かもしれません}。",
+              "en": "This shop might be closed today."
+            },
+            {
+              "form": "〜はずだ",
+              "tag": "きっと · should be (fairly sure)",
+              "mark": "up",
+              "ja": "この店は[日曜日|にちようび]も[開|あ]いている{はずです}。",
+              "en": "This shop should be open on Sundays too."
+            },
+            {
+              "form": "〜はずがない",
+              "tag": "ありえない · can't be",
+              "mark": "down",
+              "ja": "この店が休み{のはずがありません}。毎日[開|あ]いていますから。",
+              "en": "This shop can't be closed. It is open every day."
+            }
+          ],
+          "check": {
+            "id": "n4u07d4.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Sure, maybe, or impossible?",
+            "q": "このへやのかぎは^[私|わたし]しか[持|も]っていません^。ほかの人がへやに入った（　　）。",
+            "options": [
+              "はずです",
+              "かもしれません",
+              "はずがありません"
+            ],
+            "answer": 3,
+            "why": [
+              "はずです says the speaker is sure someone did go in. Only the speaker has the key, so that does not follow.",
+              "かもしれません leaves it open. Only the speaker has the key, so no one else could go in.",
+              "Only the speaker has the key, so someone else going into the room is impossible: はずがありません."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n4u07d4.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[山田|やまだ]さんは今日、^ひま^（　　）。電話してみましょう。",
+            "options": [
+              "だかもしれません",
+              "なかもしれません",
+              "かもしれません",
+              "のかもしれません"
+            ],
+            "answer": 3,
+            "why": [
+              "かもしれない does not take だ. ひま is a な-adjective, so かもしれません comes straight after it.",
+              "かもしれない joins ひま with nothing between them. な does not go here.",
+              "ひま is a な-adjective, so かもしれません joins it directly: Yamada might be free today.",
+              "の does not come between ひま and かもしれません."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d4.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the meaning",
+            "q": "^空が[暗|くら]くなってきました^。雨が（　　）から、かさを[持|も]っていきましょう。",
+            "options": [
+              "ふらないはずです",
+              "ふらないかもしれません",
+              "ふるかもしれません",
+              "ふるはずがありません"
+            ],
+            "answer": 3,
+            "why": [
+              "ふらないはずです says the speaker is fairly sure it won't rain. That is no reason to take an umbrella.",
+              "It might not rain is no reason to take an umbrella.",
+              "The sky is getting dark, so it might rain: a good reason to take an umbrella.",
+              "The sky is getting dark, so rain is not impossible. And no rain is no reason to take an umbrella."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d4.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "あの人は^高校生^ですよ。先生（　　）。",
+            "options": [
+              "のはずがありません",
+              "なはずがありません",
+              "はずがありません",
+              "だはずがありません"
+            ],
+            "answer": 1,
+            "why": [
+              "先生 is a noun, so の joins it to はず. He is a high school student, so he can't be a teacher.",
+              "な joins a な-adjective to はず. 先生 is a noun, so it takes の.",
+              "A noun does not join はず directly. It needs の.",
+              "だ does not come before はず. A noun takes の."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d4.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the meaning",
+            "q": "[林|はやし]さんは^来週までアメリカを[旅行|りょこう]しています^。あしたのパーティーには（　　）。",
+            "options": [
+              "来るはずです",
+              "来るはずがありません",
+              "来るかもしれません",
+              "来たはずです"
+            ],
+            "answer": 2,
+            "why": [
+              "はずです says the speaker is sure she will come, but she is away until next week.",
+              "She is in America until next week, so she can't come to the party tomorrow.",
+              "かもしれません leaves it open, but she is away until next week, so she can't come.",
+              "The party is tomorrow, so the past 来た does not fit. And she is away anyway."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d4.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "駅で見つかったかさは、",
+            "after": "。",
+            "tiles": [
+              "[妹|いもうと]が",
+              "なくした",
+              "もの",
+              "かもしれません"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "妹がなくした describes もの. A noun takes かもしれません with no だ.",
+            "full": "駅で見つかったかさは、[妹|いもうと]がなくしたもの{かもしれません}。",
+            "explain": "妹が and なくした describe もの: the thing my sister lost. もの is a noun, so かもしれません comes right after it, with no だ: the umbrella found at the station might be the one my sister lost."
+          },
+          {
+            "id": "n4u07d4.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[森|もり]さんはまじめな人ですから、",
+            "after": "ありません。",
+            "tiles": [
+              "[大切|たいせつ]な",
+              "やくそくを",
+              "わすれる",
+              "はずが"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "大切な describes a noun. The dictionary form comes before はずが.",
+            "full": "[森|もり]さんはまじめな人ですから、[大切|たいせつ]なやくそくをわすれる{はずが}ありません。",
+            "explain": "大切な describes やくそく, and やくそくを goes with わすれる. The dictionary form わすれる comes before はずが, then ありません: Mori is a serious person, so there's no way he would forget an important promise."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n4u07d4.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "となりの　へやから　何も　聞こえません。山田さんは　（　　）。",
+            "options": [
+              "パーティーを　して　いる　はずです",
+              "ねて　いる　はずが　ありません",
+              "出かけた　かもしれません",
+              "友だちと　話して　いる　かもしれません"
+            ],
+            "answer": 3,
+            "explain": "No sound comes from next door, so Yamada might have gone out: 出かけたかもしれません. A silent room fits sleeping, so ねているはずがありません does not follow. Talking with a friend or having a party would make noise, so those two do not fit."
+          },
+          {
+            "id": "n4u07d4.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "田中さんは　毎日　この　道を　通って　います。この　道を　知らない　（　　）。",
+            "options": [
+              "はずが　ありません",
+              "かもしれません",
+              "はずです",
+              "ことが　できます"
+            ],
+            "answer": 1,
+            "explain": "Tanaka uses this road every day, so there's no way he doesn't know it: 知らないはずがありません. 知らないかもしれません and 知らないはずです both guess that he doesn't know it, which goes against using it every day. 知らないことができます does not make sense."
+          },
+          {
+            "id": "n4u07d4.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "森さんは　肉が　きらいですから、あの　",
+            "after": "ありません。",
+            "tiles": [
+              "ハンバーグを",
+              "ぜんぶ",
+              "食べた",
+              "はずが"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "full": "森さんは　肉が　きらいですから、あの　ハンバーグを　ぜんぶ　食べた　{はずが}　ありません。",
+            "explain": "ハンバーグを, ぜんぶ, 食べた, はずが. あの needs a noun, so ハンバーグを comes first. ぜんぶ comes before the verb, and the past 食べた comes before はずが: Mori hates meat, so there's no way she ate all of that hamburger."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "駅のおとし物のお知らせ",
+        "en": "A lost-property notice at the station",
+        "intro": "A notice by the station office lists things people have lost and how to get them back. Tap each word on it.",
+        "words": [
+          {
+            "id": "office",
+            "word": "駅員室",
+            "reading": "えきいんしつ",
+            "gloss": "station office",
+            "parts": [
+              [
+                "駅",
+                "エキ",
+                "station"
+              ],
+              [
+                "員",
+                "イン",
+                "member, staff"
+              ],
+              [
+                "室",
+                "シツ",
+                "room"
+              ]
+            ]
+          },
+          {
+            "id": "item",
+            "word": "品物",
+            "reading": "しなもの",
+            "gloss": "item, goods",
+            "parts": [
+              [
+                "品",
+                "しな",
+                "goods"
+              ],
+              [
+                "物",
+                "もの",
+                "thing"
+              ]
+            ]
+          },
+          {
+            "id": "owner",
+            "word": "持ち主",
+            "reading": "もちぬし",
+            "gloss": "owner",
+            "parts": [
+              [
+                "持",
+                "も",
+                "hold"
+              ],
+              [
+                "主",
+                "ぬし",
+                "master, owner"
+              ]
+            ]
+          },
+          {
+            "id": "place",
+            "word": "場所",
+            "reading": "ばしょ",
+            "gloss": "place",
+            "parts": [
+              [
+                "場",
+                "ば",
+                "place"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "address",
+            "word": "住所",
+            "reading": "じゅうしょ",
+            "gloss": "address",
+            "parts": [
+              [
+                "住",
+                "ジュウ",
+                "live"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "brown",
+            "word": "茶色",
+            "reading": "ちゃいろ",
+            "gloss": "brown",
+            "parts": [
+              [
+                "茶",
+                "チャ",
+                "tea"
+              ],
+              [
+                "色",
+                "いろ",
+                "colour"
+              ]
+            ]
+          },
+          {
+            "id": "photo",
+            "word": "写真",
+            "reading": "しゃしん",
+            "gloss": "photo",
+            "parts": [
+              [
+                "写",
+                "シャ",
+                "copy"
+              ],
+              [
+                "真",
+                "シン",
+                "true"
+              ]
+            ]
+          },
+          {
+            "id": "evening",
+            "word": "夕方",
+            "reading": "ゆうがた",
+            "gloss": "early evening",
+            "parts": [
+              [
+                "夕",
+                "ゆう",
+                "evening"
+              ],
+              [
+                "方",
+                "がた",
+                "side, direction"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n4u07d4.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "この　_紙_に　住所と　名前を　書いて　ください。",
+          "options": [
+            "がみ",
+            "し",
+            "かま",
+            "かみ"
+          ],
+          "answer": 4,
+          "explain": "紙 is read かみ, paper: please write your address and name on this paper. がみ is the sound it takes inside some longer words, not on its own; し is the reading in other words, and かま is not a reading of 紙."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（中文）",
+        "en": "Mid-length passage",
+        "ask": "Why is the writer sure the umbrella is not on the train, and where might it be?",
+        "seconds": 100,
+        "passage": "きのうの　夕方、かさを　なくしました。母に　もらった　青い　かさです。\nはじめは　電車の　中に　わすれたかもしれないと　思いました。でも、電車に　乗った　とき、雨が　ふって　いたので、^かさは　ずっと　手に　持って　いました^。電車の　中に　わすれた　はずが　ありません。\n駅を　出た　あと、本屋に　よりました。本屋の　入口で、かさを　かさ立てに　入れました。本屋を　出た　とき、雨は　もう　やんで　いました。かさは　まだ　そこに　あるかもしれません。今日、学校の　帰りに　本屋へ　行って　みる　つもりです。",
+        "strategy": "Find the sentence with はずがありません and read the sentence just before it for the reason.",
+        "item": {
+          "id": "n4u07d4.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（中文）",
+          "q": "この　人は　どうして　電車の　中に　かさを　わすれた　はずが　ないと　思って　いますか。",
+          "options": [
+            "電車に　乗った　とき、雨が　やんで　いたから。",
+            "電車の　中は　こんで　いなかったから。",
+            "母に　もらった　大切な　かさだから。",
+            "電車の　中で　ずっと　かさを　手に　持って　いたから。"
+          ],
+          "short": [
+            "雨がやんでいた",
+            "こんでいなかった",
+            "大切なかさ",
+            "ずっと手に持っていた"
+          ],
+          "answer": 4,
+          "explain": "It was raining on the train, so the writer held the umbrella the whole time: かさは　ずっと　手に　持って　いました. So it can't have been left there.",
+          "why": [
+            "It was raining when the writer got on the train. The rain had stopped later, when the writer left the bookshop.",
+            "The passage says nothing about how crowded the train was.",
+            "It was a present from the writer's mother, but that is not the reason it can't be on the train.",
+            ""
+          ]
+        }
+      }
+    },
+    "5": {
+      "title": "〜って・〜という",
+      "grammar": {
+        "points": [
+          {
+            "id": "n4u07d5.p1",
+            "form": "〜って",
+            "gloss": "(they) said; called (casual)",
+            "connect": [
+              {
+                "pos": "Plain form, to pass on what someone said (casual)",
+                "rule": "来ない{って}"
+              },
+              {
+                "pos": "Noun (a name), then a noun: the … called 〜",
+                "rule": "〜{っていう}店"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[田中|たなか]さん、今日は来られない{って}。",
+                "en": "Tanaka says she can't come today."
+              },
+              {
+                "ja": "駅の前の「さくら」{っていう}店、[知|し]ってる？",
+                "en": "Do you know the shop called Sakura in front of the station?"
+              }
+            ],
+            "watch": {
+              "note": "っていう joins the noun directly. Do not put の between いう and the noun.",
+              "bad": "きのう、さくらっていうの店に行きました。",
+              "good": "きのう、さくらっていう店に行きました。"
+            }
+          },
+          {
+            "id": "n4u07d5.p2",
+            "form": "〜という・〜と言っていました",
+            "gloss": "called, named; (someone) said that",
+            "connect": [
+              {
+                "pos": "Noun (a name), then the person or thing",
+                "rule": "〜{という}人"
+              },
+              {
+                "pos": "A word, then 意味 (meaning)",
+                "rule": "〜{という}[意味|いみ]"
+              },
+              {
+                "pos": "Plain form, to report what someone said (polite)",
+                "rule": "来ない{と言っていました}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[山田|やまだ]さん{という}人から電話がありました。",
+                "en": "There was a call from a person called Yamada."
+              },
+              {
+                "ja": "[田中|たなか]さんは、あした会社を休む{と言っていました}。",
+                "en": "Tanaka said she will take tomorrow off work."
+              }
+            ],
+            "watch": {
+              "note": "The words you report need と before 言っていました.",
+              "bad": "田中さんは、あした休む言っていました。",
+              "good": "田中さんは、あした休むと言っていました。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three pass on something you heard. They differ in how casual they are and where the news came from.",
+          "forms": [
+            {
+              "form": "〜って",
+              "tag": "くだけた · casual: (they) said",
+              "mark": "dot",
+              "ja": "[田中|たなか]さん、少しおくれる{って}。",
+              "en": "Tanaka says he'll be a little late."
+            },
+            {
+              "form": "〜と言っていました",
+              "tag": "ていねい · polite: (someone) said",
+              "mark": "dot",
+              "ja": "[田中|たなか]さんは、少しおくれる{と言っていました}。",
+              "en": "Mr Tanaka said he would be a little late."
+            },
+            {
+              "form": "〜そうだ（伝聞）",
+              "tag": "でんぶん · I hear that",
+              "mark": "dot",
+              "ja": "天気よほうによると、あしたは雨がふる{そうです}。",
+              "en": "According to the forecast, it will rain tomorrow."
+            }
+          ],
+          "check": {
+            "id": "n4u07d5.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Casual or polite?",
+            "q": "先生、[山田|やまだ]さんは今日、[病院|びょういん]に行く（　　）。",
+            "options": [
+              "って",
+              "と言っていました",
+              "そうでした"
+            ],
+            "answer": 2,
+            "why": [
+              "って is casual talk between friends or family. Speaking to a teacher, it is too casual.",
+              "You are passing on Yamada's words to a teacher, so the polite と言っていました fits.",
+              "そうだ for news you heard has no past form: そうでした is not said with this meaning."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n4u07d5.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "さっき[田中|たなか]さんから^電話があったよ^。少しおくれる（　　）。",
+            "options": [
+              "という",
+              "って",
+              "ように",
+              "ために"
+            ],
+            "answer": 2,
+            "why": [
+              "という at the end of a sentence belongs to written stories (people say …). In casual talk about a call, it does not fit.",
+              "あったよ is casual talk, and you pass on what Tanaka said on the phone: he'll be a bit late.",
+              "おくれるように means so that he is late. It does not pass on what he said.",
+              "ために gives a purpose and needs something after it. The sentence cannot end here."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d5.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "駅の前に「さくら」（　　）^店^があるでしょう？あそこのケーキ、おいしいよ。",
+            "options": [
+              "と言った",
+              "っていうの",
+              "っていう",
+              "そうな"
+            ],
+            "answer": 3,
+            "why": [
+              "と言った means said. A shop that said Sakura makes no sense here.",
+              "っていう joins the noun directly. の between いう and 店 is not said.",
+              "「さくら」っていう店 is the shop called Sakura: っていう joins the name to the noun.",
+              "そうな joins a verb stem or an adjective (looks …). It does not follow a name."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d5.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「外出中」は、^今、外に出ている^（　　）[意味|いみ]です。",
+            "options": [
+              "という",
+              "そうな",
+              "ために",
+              "らしい"
+            ],
+            "answer": 1,
+            "why": [
+              "という joins what the word says to 意味: 外出中 means someone is out now.",
+              "そうな (looks …) does not join 出ている, and it does not give the content of a meaning.",
+              "ために gives a purpose. It cannot join a sentence to 意味.",
+              "らしい is a guess (it seems). A meaning is not a guess, and 出ているらしい意味 is not said."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d5.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[山田|やまだ]さんは、^あしたのパーティーには来ない^（　　）。",
+            "options": [
+              "そうでした",
+              "という人でした",
+              "と言っていました",
+              "を言っていました"
+            ],
+            "answer": 3,
+            "why": [
+              "そうだ for news you heard has no past form. 来ないそうでした is not said.",
+              "という人 names a person. Yamada was a person called won't come makes no sense.",
+              "The words you report take と before 言っていました: Yamada said he won't come to the party.",
+              "Reported words take と, not を."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d5.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[田中|たなか]さん、",
+            "after": "。",
+            "tiles": [
+              "あしたの",
+              "パーティーに",
+              "来られない",
+              "って"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "あしたの describes パーティー. って comes last, after the plain form.",
+            "full": "[田中|たなか]さん、あしたのパーティーに来られない{って}。",
+            "explain": "あしたの describes パーティー, and パーティーに goes with 来られない. って follows the plain form and ends the sentence: Tanaka says she can't come to tomorrow's party."
+          },
+          {
+            "id": "n4u07d5.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "「[本日休業|ほんじつきゅうぎょう]」は、今日は",
+            "after": "です。",
+            "tiles": [
+              "店が",
+              "休み",
+              "という",
+              "[意味|いみ]"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "という joins what the sign says to 意味.",
+            "full": "「[本日休業|ほんじつきゅうぎょう]」は、今日は店が休みという[意味|いみ]です。",
+            "explain": "店が休み is what the sign says: the shop is closed. という joins it to 意味, and です follows: 本日休業 means the shop is closed today."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n4u07d5.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "きのう、　山田さん（　　）人から　電話が　ありました。",
+            "options": [
+              "ために",
+              "という",
+              "そうな",
+              "ような"
+            ],
+            "answer": 2,
+            "why": null,
+            "explain": "山田さんという人 is a person called Yamada: という joins a name to 人. ような needs の after a noun (山田さんのような), ために gives a purpose, and そうな does not follow a name."
+          },
+          {
+            "id": "n4u07d5.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "さっき　姉から　電話が　あったよ。　今日は　おそく　なる（　　）。",
+            "options": [
+              "と",
+              "を",
+              "ために",
+              "って"
+            ],
+            "answer": 4,
+            "why": null,
+            "explain": "The speaker passes on what her sister said, in casual talk (あったよ), so って ends the sentence: she says she'll be late today. と needs 言っていた after it, を cannot mark reported words, and ために needs something after it."
+          },
+          {
+            "id": "n4u07d5.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "山田さんは　あした　",
+            "after": "言って　いました。",
+            "tiles": [
+              "雨が",
+              "ふったら",
+              "来ない",
+              "と"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "full": "山田さんは　あした　雨が　ふったら　来ない　{と}　言って　いました。",
+            "explain": "雨が, ふったら, 来ない, と. 雨がふったら (if it rains) comes before 来ない, and と marks what Yamada said, right before 言っていました: Yamada said he won't come if it rains tomorrow."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "電話のメモ",
+        "en": "A phone message memo",
+        "intro": "A coworker left this memo on your desk about a call that came while you were out. Tap each word on it.",
+        "words": [
+          {
+            "id": "urgent",
+            "word": "急ぎ",
+            "reading": "いそぎ",
+            "gloss": "urgent",
+            "parts": [
+              [
+                "急",
+                "いそ",
+                "hurry"
+              ]
+            ]
+          },
+          {
+            "id": "errand",
+            "word": "用事",
+            "reading": "ようじ",
+            "gloss": "business, something to do",
+            "parts": [
+              [
+                "用",
+                "ヨウ",
+                "use, business"
+              ],
+              [
+                "事",
+                "ジ",
+                "thing, matter"
+              ]
+            ]
+          },
+          {
+            "id": "inquiry",
+            "word": "問い合わせ",
+            "reading": "といあわせ",
+            "gloss": "inquiry, question",
+            "parts": [
+              [
+                "問",
+                "と",
+                "ask"
+              ],
+              [
+                "合",
+                "あ",
+                "fit, match"
+              ]
+            ]
+          },
+          {
+            "id": "order",
+            "word": "注文",
+            "reading": "ちゅうもん",
+            "gloss": "order (for goods)",
+            "parts": [
+              [
+                "注",
+                "チュウ",
+                "pour, note"
+              ],
+              [
+                "文",
+                "モン",
+                "writing"
+              ]
+            ]
+          },
+          {
+            "id": "address",
+            "word": "住所",
+            "reading": "じゅうしょ",
+            "gloss": "address",
+            "parts": [
+              [
+                "住",
+                "ジュウ",
+                "live"
+              ],
+              [
+                "所",
+                "ショ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "map",
+            "word": "地図",
+            "reading": "ちず",
+            "gloss": "map",
+            "parts": [
+              [
+                "地",
+                "チ",
+                "ground"
+              ],
+              [
+                "図",
+                "ズ",
+                "drawing"
+              ]
+            ]
+          },
+          {
+            "id": "send",
+            "word": "送る",
+            "reading": "おくる",
+            "gloss": "to send",
+            "parts": [
+              [
+                "送",
+                "おく",
+                "send"
+              ]
+            ]
+          },
+          {
+            "id": "person",
+            "word": "方",
+            "reading": "かた",
+            "gloss": "person (polite)",
+            "parts": [
+              [
+                "方",
+                "かた",
+                "person (polite)"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n4u07d5.k1",
+          "kind": "choice",
+          "type": "表記",
+          "label": "How the exam asks it",
+          "q": "電話で　ピザを　_ちゅうもん_しました。",
+          "options": [
+            "住文",
+            "注問",
+            "主文",
+            "注文"
+          ],
+          "answer": 4,
+          "why": null,
+          "explain": "ちゅうもん, an order, is written 注文: I ordered a pizza by phone. 住文 has 住 (live) instead of 注, 注問 has 問 (ask) instead of 文, and 主文 has 主 (main), which is read しゅ."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "即時応答",
+        "en": "Quick response",
+        "ask": "文を　聞いて、いちばん　いい　答えを　一つ　えらんで　ください。",
+        "audio": [
+          [
+            "F",
+            "さっき、林さんという方から電話がありましたよ。",
+            "さっき、はやしさんと　いう　かたから　でんわが　ありましたよ。"
+          ],
+          [
+            "N",
+            "1",
+            "いち"
+          ],
+          [
+            "M",
+            "いいえ、わたしは電話していません。",
+            "いいえ、わたしは　でんわ　して　いません。"
+          ],
+          [
+            "N",
+            "2",
+            "に"
+          ],
+          [
+            "M",
+            "はい、林さんと言っていました。",
+            "はい、はやしさんと　いって　いました。"
+          ],
+          [
+            "N",
+            "3",
+            "さん"
+          ],
+          [
+            "M",
+            "そうですか。何と言っていましたか。",
+            "そうですか。なんと　いって　いましたか。"
+          ]
+        ],
+        "item": {
+          "id": "n4u07d5.r1",
+          "kind": "choice",
+          "type": "即時応答",
+          "q": "女：さっき、　林さんと　いう　方から　電話が　ありましたよ。",
+          "script": [
+            "女：さっき、林さんという方から電話がありましたよ。",
+            "ナレーター：1",
+            "男：いいえ、わたしは電話していません。",
+            "ナレーター：2",
+            "男：はい、林さんと言っていました。",
+            "ナレーター：3",
+            "男：そうですか。何と言っていましたか。"
+          ],
+          "options": [
+            "いいえ、わたしは電話していません。",
+            "はい、林さんと言っていました。",
+            "そうですか。何と言っていましたか。"
+          ],
+          "printed": false,
+          "short": [
+            "電話していません",
+            "林さんと言っていました",
+            "何と言っていましたか"
+          ],
+          "answer": 3,
+          "why": [
+            "She did not say he called. A man called Hayashi called, so saying he did not call does not answer her.",
+            "He was not there for the call, so he cannot report what was said. She is the one who took it.",
+            "He takes the news and asks what Hayashi said: 何と言っていましたか is the natural next question."
+          ]
+        }
+      }
+    },
+    "6": {
+      "title": "まとめ：似ている文法",
+      "grammar": {
+        "points": [],
+        "compare": {
+          "intro": "This unit's forms differ by where the idea comes from: そうだ after a ます stem or an adjective without い is what you see, but after a plain form it is what you heard; ようだ and みたいだ are your own guess from a clue (みたいだ is the casual one), while らしい leans on what others say; はずだ is sure because of a reason, かもしれない is only a maybe, and はずがない says it can't be; って is the casual way to say という or と言っていました.",
+          "forms": [
+            {
+              "form": "〜そうだ（様子）",
+              "tag": "ようす · looks like (you see it now)",
+              "mark": "dot",
+              "ja": "空が[暗|くら]いですね。雨がふり{そうです}。",
+              "en": "The sky is dark. It looks like it's going to rain."
+            },
+            {
+              "form": "〜そうだ（伝聞）",
+              "tag": "でんぶん · I hear (someone told you)",
+              "mark": "dot",
+              "ja": "天気よほうによると、あしたは雨がふる{そうです}。",
+              "en": "According to the forecast, it will rain tomorrow."
+            },
+            {
+              "form": "〜ようだ",
+              "tag": "すいりょう · it seems (your guess from a clue)",
+              "mark": "dot",
+              "ja": "道がぬれています。[夜|よる]の間に雨がふった{ようです}。",
+              "en": "The road is wet. It seems it rained during the night."
+            }
+          ],
+          "check": {
+            "id": "n4u07d6.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "朝、外を見て",
+            "q": "^道がぬれています^ね。[夜|よる]の間に雨が（　　）。",
+            "options": [
+              "ふったようです",
+              "ふりそうでした",
+              "ふったそうです"
+            ],
+            "answer": 1,
+            "why": [
+              "The wet road is a clue, and you guess what happened in the night: ふった + ようです.",
+              "ふりそうでした says it only looked like rain. The wet road shows that it really did rain.",
+              "ふったそうです reports what someone told you. Here nobody told you; you see the wet road yourself."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n4u07d6.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "見てください。このケーキ、^いちごがたくさんのっていて^、とても（　　）ですね。",
+            "options": [
+              "おいしそう",
+              "おいしくそう",
+              "おいしいそう",
+              "おいしかったよう"
+            ],
+            "answer": 1,
+            "why": [
+              "You guess from how the cake looks, so this is the looks そう: おいしい drops い and takes そう.",
+              "The looks そう joins おいし, the adjective without い. おいしくそう is not a form.",
+              "おいしいそう is hearsay: someone told you. Here you are looking at the cake, and nobody told you anything.",
+              "おいしかったよう guesses about the past, as if someone had already eaten it. Nobody has eaten this cake yet."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d6.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^あの人はいつも白い[服|ふく]を[着|き]ている^ね。お[医者|いしゃ]さん（　　）。",
+            "options": [
+              "だらしいです",
+              "みたいです",
+              "のみたいです",
+              "ようです"
+            ],
+            "answer": 2,
+            "why": [
+              "らしい joins a noun with no だ in between: [医者|いしゃ]さんらしいです.",
+              "The white coat is a clue, so you guess. みたい joins the noun [医者|いしゃ]さん directly.",
+              "The の belongs to ようだ ([医者|いしゃ]さんのようです). みたい takes no の.",
+              "ようだ needs の after a noun: [医者|いしゃ]さんのようです. [医者|いしゃ]さんようです is not a form."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d6.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この店は^毎週[月曜日|げつようび]が休み^です。今日は[月曜日|げつようび]ですから、店は（　　）。",
+            "options": [
+              "[開|あ]いているはずがありません",
+              "[開|あ]いているかもしれません",
+              "[開|あ]いているはずです",
+              "休みのはずがありません"
+            ],
+            "answer": 1,
+            "why": [
+              "You have a firm reason, closed every Monday, so you say it can't be open: [開|あ]いている + はずがありません.",
+              "かもしれない is only a maybe. You know the shop closes every Monday, so you can be sure.",
+              "はずです says you expect the shop to be open. The rule (closed every Monday) says the opposite.",
+              "This says the shop can't be closed, which is the opposite of what the rule tells you."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d6.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "メールの「またね」は、^「また会いましょう」^（　　）[意味|いみ]です。",
+            "options": [
+              "という",
+              "ような",
+              "らしい",
+              "そうな"
+            ],
+            "answer": 1,
+            "why": [
+              "という links the quoted words to the noun [意味|いみ]: it means \"let's meet again\".",
+              "ような after quoted words needs の: 「…」のような. Without の it does not fit.",
+              "らしい gives a guess or something you heard. It cannot link the quoted words to [意味|いみ].",
+              "そうな follows a ます stem or an adjective, as in おいしそうな. It cannot follow the quoted words here."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n4u07d6.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "川口さんはきのう",
+            "after": "会社を休むかもしれません。",
+            "tiles": [
+              "かぜを",
+              "ひいた",
+              "らしいので",
+              "今日は"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "らしい follows a plain form. What happened yesterday? 今日は belongs with 休む.",
+            "full": "川口さんはきのうかぜをひいた{らしい}ので今日は会社を休むかもしれません。",
+            "explain": "かぜを, ひいた, らしいので, 今日は. かぜを goes with ひいた, and the past plain form ひいた comes before らしい: you heard he caught a cold. 今日は goes with 会社を休む. The speaker heard about yesterday (らしい) and guesses about today (かもしれません): I hear Kawaguchi caught a cold yesterday, so he might take today off work."
+          },
+          {
+            "id": "n4u07d6.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "雨が",
+            "after": "ほうがいいかもしれません。",
+            "tiles": [
+              "ふり",
+              "そうなので",
+              "かさを",
+              "[持|も]っていった"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "雨が goes with the verb. Which tile can sit right after the ます stem ふり?",
+            "full": "雨がふり{そう}なのでかさを[持|も]っていったほうがいいかもしれません。",
+            "explain": "ふり, そうなので, かさを, 持っていった. The ます stem ふり takes the looks そう: it looks like rain. かさを goes with 持っていった, and the た form comes before ほうがいい. かもしれません softens the advice: it looks like rain, so it might be better to take an umbrella."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n4u07d6.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "へやの　電気が　きえて　いますね。山田さんは　もう　（　　）。",
+            "options": [
+              "ねるそうです",
+              "ねたはずが　ありません",
+              "ねた　ようです",
+              "ねそうです"
+            ],
+            "answer": 3,
+            "explain": "The light is off, and from this clue the speaker guesses that Yamada has already gone to bed: ねた　ようです. ねそうです says he looks about to sleep, which does not fit もう and a light that is already off. ねるそうです reports what someone said, but nobody told the speaker anything. ねたはずが　ありません says it can't be, the opposite of what the clue shows."
+          },
+          {
+            "id": "n4u07d6.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "駅の　近くに　「ゆきだるま」（　　）　店が　できたそうです。",
+            "options": [
+              "はずの",
+              "そうな",
+              "という",
+              "ような"
+            ],
+            "answer": 3,
+            "explain": "「ゆきだるま」 is the shop's name, and という joins a name to the noun 店: a shop called Yukidaruma. そうな follows a ます stem or an adjective, not a name. ような after a name needs の (のような), and it would mean like, not called. はず after a noun also needs の, and it gives an expectation, not a name."
+          },
+          {
+            "id": "n4u07d6.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "森さんは　もう　駅に　",
+            "after": "　かもしれません。",
+            "tiles": [
+              "着いた",
+              "はずですが",
+              "道に",
+              "まよった"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              3,
+              1,
+              0
+            ],
+            "full": "森さんは　もう　駅に　着いた　{はずですが}　道に　まよった　かもしれません。",
+            "explain": "着いた, はずですが, 道に, まよった. 駅に goes with 着いた, and the past plain form comes before はず: Mori should have reached the station by now. が turns to a new guess, and 道に goes with まよった before かもしれません: but he may have got lost on the way."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "たんていのメモ",
+        "en": "A detective's notebook",
+        "intro": "Tap each word in the detective's notes about a visitor in the night.",
+        "words": [
+          {
+            "id": "midnight",
+            "word": "夜中",
+            "reading": "よなか",
+            "gloss": "the middle of the night",
+            "parts": [
+              [
+                "夜",
+                "よ",
+                "night"
+              ],
+              [
+                "中",
+                "なか",
+                "middle"
+              ]
+            ]
+          },
+          {
+            "id": "footsteps",
+            "word": "足音",
+            "reading": "あしおと",
+            "gloss": "footsteps",
+            "parts": [
+              [
+                "足",
+                "あし",
+                "foot"
+              ],
+              [
+                "音",
+                "おと",
+                "sound"
+              ]
+            ]
+          },
+          {
+            "id": "kitchen",
+            "word": "台所",
+            "reading": "だいどころ",
+            "gloss": "kitchen",
+            "parts": [
+              [
+                "台",
+                "ダイ",
+                "stand, platform"
+              ],
+              [
+                "所",
+                "どころ",
+                "place"
+              ]
+            ]
+          },
+          {
+            "id": "black",
+            "word": "黒い",
+            "reading": "くろい",
+            "gloss": "black",
+            "parts": [
+              [
+                "黒",
+                "くろ",
+                "black"
+              ]
+            ]
+          },
+          {
+            "id": "clothes",
+            "word": "洋服",
+            "reading": "ようふく",
+            "gloss": "clothes (Western-style)",
+            "parts": [
+              [
+                "洋",
+                "ヨウ",
+                "Western, ocean"
+              ],
+              [
+                "服",
+                "フク",
+                "clothes"
+              ]
+            ]
+          },
+          {
+            "id": "bicycle",
+            "word": "自転車",
+            "reading": "じてんしゃ",
+            "gloss": "bicycle",
+            "parts": [
+              [
+                "自",
+                "ジ",
+                "self"
+              ],
+              [
+                "転",
+                "テン",
+                "turn, roll"
+              ],
+              [
+                "車",
+                "シャ",
+                "vehicle"
+              ]
+            ]
+          },
+          {
+            "id": "gate",
+            "word": "門",
+            "reading": "もん",
+            "gloss": "gate",
+            "parts": [
+              [
+                "門",
+                "モン",
+                "gate"
+              ]
+            ]
+          },
+          {
+            "id": "family",
+            "word": "家族",
+            "reading": "かぞく",
+            "gloss": "family",
+            "parts": [
+              [
+                "家",
+                "カ",
+                "house"
+              ],
+              [
+                "族",
+                "ゾク",
+                "family, tribe"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n4u07d6.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "夜中に　_足音_が　聞こえました。",
+          "options": [
+            "あしおん",
+            "そくおと",
+            "そくおん",
+            "あしおと"
+          ],
+          "answer": 4,
+          "explain": "足音, footsteps, is read あしおと: both kanji take their native readings, 足 (あし, foot) and 音 (おと, sound). そく and おん are the Chinese readings of these kanji, used in other words such as 音楽 (おんがく), but not in 足音."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "情報検索",
+        "en": "Finding information",
+        "ask": "Which event can Wang go to on Sunday with her five-year-old daughter, without booking?",
+        "seconds": 90,
+        "passage": "みどり町図書館　十一月の　イベント\n①　えほんの　会　　土曜日　三さい～六さい　よやくは　いりません\n②　工作の　会　　　日曜日　五さい～十さい　よやくが　いります\n③　^映画の　会^　　　^日曜日^　^だれでも^　　　^よやくは　いりません^\n④　本を　読む　会　日曜日　大人だけ　　　よやくは　いりません\n※どの　会も　お金は　かかりません。\n※工作の　会の　よやくは　電話で　どうぞ。",
+        "strategy": "First find the Sunday events, then check who can come and whether you must book.",
+        "item": {
+          "id": "n4u07d6.r1",
+          "kind": "choice",
+          "type": "読解・情報検索",
+          "q": "ワンさんは　日曜日に　五さいの　むすめと　いっしょに　行きたいです。よやくは　しないで　行きたいです。どれに　行きますか。",
+          "options": [
+            "本を　読む　会",
+            "えほんの　会",
+            "工作の　会",
+            "映画の　会"
+          ],
+          "short": [
+            "本を　読む　会",
+            "えほんの　会",
+            "工作の　会",
+            "映画の　会"
+          ],
+          "answer": 4,
+          "explain": "Wang wants a Sunday event that a five-year-old can join with no booking. The film event is on Sunday, anyone can come, and no booking is needed.",
+          "why": [
+            "The reading event is on Sunday with no booking, but it is for adults only.",
+            "The picture-book event is for ages three to six, but it is on Saturday, not Sunday.",
+            "The craft event is on Sunday and takes five-year-olds, but you must book by phone.",
+            ""
+          ]
+        }
+      }
+    }
+  },
+  "test": [
+    {
+      "id": "n4u07t.1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "山田さんは　_用事_が　ある　そうで、先に　帰りました。",
+      "options": [
+        "よじ",
+        "ようし",
+        "ようち",
+        "ようじ"
+      ],
+      "answer": 4,
+      "explain": "用事 (an errand, something to do) is read ようじ, with a voiced じ. ようし is 用紙 (a form to fill in), a different word. よじ is 四時 (four o'clock), and ようち is another word too; 用事 is never read with よ alone or with ち."
+    },
+    {
+      "id": "n4u07t.2",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "あしたから　駅前で　道の　工事が　_始まる_　らしいです。",
+      "options": [
+        "はじまる",
+        "しまる",
+        "とまる",
+        "きまる"
+      ],
+      "answer": 1,
+      "explain": "始まる (begin) is read はじまる: road work will start tomorrow. きまる (be decided), しまる (close) and とまる (stop) are real verbs, but they are written with other kanji, not 始."
+    },
+    {
+      "id": "n4u07t.3",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "引っこしたので、新しい　_じゅうしょ_を　メールで　知らせます。",
+      "options": [
+        "主所",
+        "注所",
+        "住書",
+        "住所"
+      ],
+      "answer": 4,
+      "explain": "じゅうしょ (address) is written 住所: 住 is the kanji of 住む (live), and 所 means place. 主 and 注 are also read しゅ or ちゅう, but 主所 and 注所 are not words. 住書 is not a word either; 書 is the kanji of 書く (write)."
+    },
+    {
+      "id": "n4u07t.4",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "となりの　家の　犬は　大きくて　_つよそう_です。",
+      "options": [
+        "強そう",
+        "弱そう",
+        "長そう",
+        "引そう"
+      ],
+      "answer": 1,
+      "explain": "つよそう (looks strong) is written 強そう, from 強い. 弱そう is a real word, but it is よわそう (looks weak), the opposite. 長そう is ながそう, from 長い (long). 引そう is not a word; 引 is the ひ of 引く (pull)."
+    },
+    {
+      "id": "n4u07t.5",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "電車に　かさを　わすれたので、駅の　まどぐちで　（　　）に　聞いて　みました。",
+      "options": [
+        "会員",
+        "駅員",
+        "店員",
+        "社員"
+      ],
+      "answer": 2,
+      "explain": "At a station window you ask the station staff: 駅員に 聞いて みました. 店員 works in a shop, and 会員 is a member of a club or a shop. 社員 is a word for anyone who works for a company, so it is not used for the person at a station window."
+    },
+    {
+      "id": "n4u07t.6",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "あしたは　台風が　来る　そうです。電車が　（　　）　かもしれないので、いつもより　早く　家を　出ます。",
+      "options": [
+        "ひかる",
+        "まがる",
+        "ひらく",
+        "おくれる"
+      ],
+      "answer": 4,
+      "explain": "In a typhoon trains may be late, so the speaker leaves home early: 電車が おくれる かもしれない. まがる (turn), ひらく (open) and ひかる (shine) are real verbs, but none of them is a reason to leave home early."
+    },
+    {
+      "id": "n4u07t.7",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "林さんの　話では、_駅前の　レストランは　いつも　こんで　いる　らしいです_。",
+      "options": [
+        "林さんは、駅前の　レストランは　いつも　人が　多いと　言って　いました。",
+        "林さんは、駅前の　レストランに　いつも　行って　いると　言って　いました。",
+        "林さんは、駅前の　レストランは　いつも　すいて　いると　言って　いました。",
+        "林さんは、駅前の　レストランが　いつも　こんで　いて　ほしいと　言って　いました。"
+      ],
+      "answer": 1,
+      "explain": "林さんの 話では…らしいです means the speaker heard it from Hayashi, and こんで いる (crowded) means there are a lot of people. So the closest is: Hayashi said the restaurant always has a lot of people. すいて いる (empty) is the opposite. The other two change what Hayashi said: that Hayashi always goes there, or that Hayashi wants it to be crowded."
+    },
+    {
+      "id": "n4u07t.8",
+      "kind": "choice",
+      "type": "用法",
+      "label": "Usage",
+      "q": "ふえる",
+      "options": [
+        "この　町は　さいきん　新しい　店が　ふえて　いる　ようです。",
+        "たくさん　れんしゅうしたので、ピアノが　ふえました。",
+        "夜に　なって、空が　ふえて　きました。",
+        "ねつが　ふえたので、きょうは　学校を　休みました。"
+      ],
+      "answer": 1,
+      "explain": "ふえる means the number of something goes up. The first sentence is right: there seem to be more and more new shops in this town. Getting better at the piano is 上手に なりました. The sky at night gets dark: くらく なって きました. A fever goes up, so the last one needs 高く なった, not ふえた."
+    },
+    {
+      "id": "n4u07t.9",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「田中さん、きょうは　どうしたんでしょう。」\nB「そうですね。朝から　元気が　（　　）　顔を　して　いますね。」",
+      "options": [
+        "ないそうな",
+        "なそうな",
+        "なさそうに",
+        "なさそうな"
+      ],
+      "answer": 4,
+      "explain": "B is talking about how Tanaka looks, so this is the そう of looks, and ない becomes なさ before it: 元気が なさそう. Before the noun 顔 it takes な: なさそうな 顔. The そう of \"I hear\" cannot come before a noun, so ないそうな is not a form. なそう is not a form, and なさそうに cannot go before a noun."
+    },
+    {
+      "id": "n4u07t.10",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "林さんから　メールが　来ました。林さんは　先月　国で　けっこん（　　）。",
+      "options": [
+        "するそうでした",
+        "したそうです",
+        "しましたそうです",
+        "しそうです"
+      ],
+      "answer": 2,
+      "explain": "The news comes in Hayashi's email, so this is the そう of \"I hear\". The wedding was last month, so the plain past したそうです. しそうです means it looks as if it will happen, but it already happened. The そう of \"I hear\" is not put in the past, so するそうでした is not said, and it follows the plain form, so しましたそうです is not a form."
+    },
+    {
+      "id": "n4u07t.11",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "山田さんの　家の　ポストに、新聞が　三日分　入った　ままです。山田さんは　旅行に　（　　）。",
+      "options": [
+        "行く　そうです",
+        "行って　いる　はずが　ありません",
+        "行って　いる　ようです",
+        "行きそうです"
+      ],
+      "answer": 3,
+      "explain": "Three days of papers are still in the box. From what the speaker can see, Yamada seems to be away: 行って いる ようです. 行きそうです says he looks about to go, but he is not there to be seen. 行く そうです is something heard and about a trip to come, while the papers show he left days ago. はずが ありません goes against what the papers show."
+    },
+    {
+      "id": "n4u07t.12",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "友だちの　話では、きのうの　サッカーの　しあいは　日本が　（　　）。",
+      "options": [
+        "まけたがって　います",
+        "まけそうです",
+        "まけたらしいです",
+        "まけるらしいでした"
+      ],
+      "answer": 3,
+      "explain": "The speaker heard it from a friend (友だちの 話では), so らしい fits, and the match was yesterday, so the past まけた: まけたらしいです. まけそうです says it looks as if Japan will lose, but the match is over. らしい goes after the past form; らしいでした is not said. まけたがって いる means Japan wanted to lose."
+    },
+    {
+      "id": "n4u07t.13",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "中山さんの　じゅぎょうは　十二時に　終わりました。今　十二時半ですから、中山さんは　もう　食堂に　いる（　　）。",
+      "options": [
+        "つもりです",
+        "はずが　ありません",
+        "はずです",
+        "ことが　あります"
+      ],
+      "answer": 3,
+      "explain": "The speaker has a reason (the class ended half an hour ago), so はずです: Nakayama should already be in the cafeteria. はずが ありません says it is impossible, which goes against that reason. つもり is used for your own plans, not to guess where someone else is. もう (already) shows a guess about now, so ことが あります (sometimes happens) does not fit."
+    },
+    {
+      "id": "n4u07t.14",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "小川さんは　おさけが　ぜんぜん　飲めません。きのうの　パーティーで　ワインを　たくさん　飲んだ（　　）。",
+      "options": [
+        "かもしれません",
+        "つもりです",
+        "はずが　ありません",
+        "はずです"
+      ],
+      "answer": 3,
+      "explain": "Ogawa cannot drink at all, so there is no way he drank a lot of wine: 飲んだ はずが ありません. はずです and かもしれません say it is likely or possible, which goes against ぜんぜん 飲めません. つもり is about a plan, and the speaker cannot state Ogawa's plan for something already done."
+    },
+    {
+      "id": "n4u07t.15",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「林さん、何て　言ってた？」\nB「きょうは　いそがしいから　来られない（　　）。」",
+      "options": [
+        "ために",
+        "ように",
+        "そうな",
+        "って"
+      ],
+      "answer": 4,
+      "explain": "A asks what Hayashi said, and B passes it on in casual speech with って at the end: 来られないって (she says she can't come). そうな needs a noun after it. ために and ように give a purpose (so that she can't come), which does not answer A's question."
+    },
+    {
+      "id": "n4u07t.16",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「森さん、来ないね。」\nB「うん。電車が　",
+      "after": "　まって　みよう。」",
+      "tiles": [
+        "おくれて",
+        "いる",
+        "みたいだから",
+        "もう少し"
+      ],
+      "star": 2,
+      "bank": [
+        3,
+        0,
+        2,
+        1
+      ],
+      "full": "A「森さん、来ないね。」\nB「うん。電車が　おくれて　いる　{みたいだから}　もう少し　まって　みよう。」",
+      "explain": "おくれて, いる, みたいだから, もう少し. 電車が goes with おくれて いる (is late), みたい follows the plain form いる and gives the reason with から, and もう少し goes with まって みよう: the train seems to be late, so let's wait a little longer."
+    },
+    {
+      "id": "n4u07t.17",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "この　ケーキは　とても　大きいので、",
+      "after": "。",
+      "tiles": [
+        "四人で",
+        "食べても",
+        "のこる",
+        "かもしれません"
+      ],
+      "star": 1,
+      "bank": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "full": "この　ケーキは　とても　大きいので、四人で　{食べても}　のこる　かもしれません。",
+      "explain": "四人で, 食べても, のこる, かもしれません. 四人で goes with 食べても (even if four people eat it), のこる (be left over) follows, and かもしれません comes after the plain form のこる at the end: there might be some left even if four of us eat it."
+    },
+    {
+      "id": "n4u07t.18",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "駅の　近くに　",
+      "after": "　できた　そうです。",
+      "tiles": [
+        "「みどり」",
+        "という",
+        "名前の",
+        "カフェが"
+      ],
+      "star": 2,
+      "bank": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "full": "駅の　近くに　「みどり」　という　{名前の}　カフェが　できた　そうです。",
+      "explain": "「みどり」, という, 名前の, カフェが. という comes right after the name, 「みどり」という describes 名前, and 名前の describes カフェ: a cafe named Midori. カフェが is the subject of できた: I hear a cafe called Midori has opened near the station."
+    },
+    {
+      "id": "n4u07t.19",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "ケンさんへ\n日曜日の　花見の　ことです。きのう　山田さんから　電話が　あって、川の　そばの　さくらは　まだ　あまり　さいて　いない　そうです。それで、花見は　来週の　日曜日に　なりました。集まる　時間と　場所は　かわりません。午前十一時に　駅の　前です。それから、山田さんは　来週は　車が　使える　そうなので、飲み物は　山田さんの　車で　運んで　もらう　ことに　しました。\nリー",
+      "q": "どうして　花見の　日が　かわりましたか。",
+      "options": [
+        "山田さんの　車が　使えないから。",
+        "集まる　場所が　かわったから。",
+        "雨が　ふる　かもしれないから。",
+        "さくらが　まだ　あまり　さいて　いないから。"
+      ],
+      "answer": 4,
+      "short": [
+        "車が使えない",
+        "場所がかわった",
+        "雨がふるかもしれない",
+        "さくらがまださいていない"
+      ],
+      "explain": "Yamada phoned to say the cherry trees by the river are not really out yet (まだ あまり さいて いない そうです), and それで (so) the viewing moved to next Sunday. Rain is not mentioned. Yamada's car comes into the note only as how the drinks will get there, and the note says the meeting place does not change."
+    },
+    {
+      "id": "n4u07t.20",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "ケンさんへ\n日曜日の　花見の　ことです。きのう　山田さんから　電話が　あって、川の　そばの　さくらは　まだ　あまり　さいて　いない　そうです。それで、花見は　来週の　日曜日に　なりました。集まる　時間と　場所は　かわりません。午前十一時に　駅の　前です。それから、山田さんは　来週は　車が　使える　そうなので、飲み物は　山田さんの　車で　運んで　もらう　ことに　しました。\nリー",
+      "q": "来週の　花見に　ついて、正しい　ものは　どれですか。",
+      "options": [
+        "集まる　時間が　かわった。",
+        "午前十一時に　川の　そばに　集まる。",
+        "山田さんは　来られない。",
+        "飲み物は　山田さんの　車で　運ぶ。"
+      ],
+      "answer": 4,
+      "short": [
+        "時間がかわった",
+        "十一時に川のそば",
+        "山田さんは来られない",
+        "飲み物は山田さんの車"
+      ],
+      "explain": "The note says the drinks will go in Yamada's car (山田さんの 車で 運んで もらう). They meet at eleven in front of the station, not by the river, and the time and place do not change (かわりません). Yamada is bringing the car, so Yamada is coming."
+    },
+    {
+      "id": "n4u07t.21",
+      "kind": "choice",
+      "type": "読解・内容理解（中文）",
+      "label": "Mid-length passage",
+      "passage": "先週、こうえんで　小さな　白い　犬を　見つけました。首に　赤い　ひもが　ついて　いて、だれかの　犬の　ようでした。近くの　おじいさんは　「となりの　町の　山本さんの　犬かもしれない」と　言いました。でも、山本さんの　犬は　大きな　黒い　犬だと　聞いて　いたので、この　犬の　はずが　ありません。そこで、犬の　写真を　とって、駅の　けいじばんに　はりました。つぎの　日、小学生の　女の子が　お母さんと　来て、「うちの　ハナです」と　言いました。犬は　女の子を　見ると、うれしそうに　走って　いきました。",
+      "q": "「わたし」は　どうして　山本さんの　犬では　ないと　思いましたか。",
+      "options": [
+        "山本さんに　電話で　聞いたから。",
+        "山本さんの　犬は　大きくて　黒いと　聞いて　いたから。",
+        "犬が　赤い　ひもを　つけて　いたから。",
+        "おじいさんが　ちがうと　言ったから。"
+      ],
+      "answer": 2,
+      "short": [
+        "山本さんに電話した",
+        "大きくて黒いと聞いていた",
+        "赤いひもをつけていた",
+        "おじいさんがちがうと言った"
+      ],
+      "explain": "The writer had heard that Yamamoto's dog is a big black dog (大きな 黒い 犬だと 聞いて いた), and this one is small and white, so it can't be his. The red string only showed that the dog was someone's (だれかの 犬の ようでした). The old man said it might be Yamamoto's dog, the opposite of ちがう. The writer never phoned Yamamoto."
+    },
+    {
+      "id": "n4u07t.22",
+      "kind": "choice",
+      "type": "読解・内容理解（中文）",
+      "label": "Mid-length passage",
+      "passage": "先週、こうえんで　小さな　白い　犬を　見つけました。首に　赤い　ひもが　ついて　いて、だれかの　犬の　ようでした。近くの　おじいさんは　「となりの　町の　山本さんの　犬かもしれない」と　言いました。でも、山本さんの　犬は　大きな　黒い　犬だと　聞いて　いたので、この　犬の　はずが　ありません。そこで、犬の　写真を　とって、駅の　けいじばんに　はりました。つぎの　日、小学生の　女の子が　お母さんと　来て、「うちの　ハナです」と　言いました。犬は　女の子を　見ると、うれしそうに　走って　いきました。",
+      "q": "犬に　ついて、正しい　ものは　どれですか。",
+      "options": [
+        "山本さんの　家の　犬だった。",
+        "小学生の　女の子の　家の　犬だった。",
+        "おじいさんの　家の　犬だった。",
+        "だれの　犬か　まだ　わからない。"
+      ],
+      "answer": 2,
+      "short": [
+        "山本さんの犬",
+        "女の子の家の犬",
+        "おじいさんの犬",
+        "まだわからない"
+      ],
+      "explain": "A girl came with her mother and said うちの ハナです (it's our Hana), and the dog ran to her happily, so it was her family's dog. The writer decided it was not Yamamoto's. The old man only guessed whose it was. The owner was found the next day, so it is not still unknown."
+    },
+    {
+      "id": "n4u07t.23",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "さくら市民センター　秋の　教室\n・ギター教室：火曜日　午後六時〜八時　一回　千円\n・料理教室：土曜日　午前十時〜十二時　一回　千五百円\n・英語教室：水曜日　午後七時〜八時　一回　八百円\n・子どもの　え教室：日曜日　午前十時〜十一時　一回　五百円（小学生だけ）\n※　さくら市に　住んで　いる　人は、どの　教室も　一回　百円　安く　なります。\n※　もうしこみは　電話で　センターへ。",
+      "q": "会社員の　中山さんは、月曜日から　金曜日まで　毎日　夜　九時まで　働いて　います。中山さんが　行ける　教室は　どれですか。",
+      "options": [
+        "子どもの　え教室",
+        "料理教室",
+        "ギター教室",
+        "英語教室"
+      ],
+      "answer": 2,
+      "short": [
+        "子どものえ教室",
+        "料理教室",
+        "ギター教室",
+        "英語教室"
+      ],
+      "explain": "Nakayama works until nine every weekday evening, so only a weekend class fits. The cooking class is on Saturday morning. The guitar class (Tuesday) and the English class (Wednesday) are on weekdays in the evening. The Sunday art class is for primary school children only (小学生だけ)."
+    },
+    {
+      "id": "n4u07t.24",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "さくら市民センター　秋の　教室\n・ギター教室：火曜日　午後六時〜八時　一回　千円\n・料理教室：土曜日　午前十時〜十二時　一回　千五百円\n・英語教室：水曜日　午後七時〜八時　一回　八百円\n・子どもの　え教室：日曜日　午前十時〜十一時　一回　五百円（小学生だけ）\n※　さくら市に　住んで　いる　人は、どの　教室も　一回　百円　安く　なります。\n※　もうしこみは　電話で　センターへ。",
+      "q": "さくら市に　住んで　いる　大学生の　キムさんは、英語教室と　ギター教室に　一回ずつ　行きます。ぜんぶで　いくら　はらいますか。",
+      "options": [
+        "千八百円",
+        "千七百円",
+        "千四百円",
+        "千六百円"
+      ],
+      "answer": 4,
+      "short": [
+        "千八百円",
+        "千七百円",
+        "千四百円",
+        "千六百円"
+      ],
+      "explain": "English is 八百円 and guitar is 千円 a time, 千八百円 together. Kim lives in Sakura City, so each class is 百円 cheaper a time: 700 + 900 = 千六百円. 千八百円 leaves out the money off, 千七百円 takes 百円 off only once, and 千四百円 takes off 二百円 for each class."
+    }
+  ]
+}

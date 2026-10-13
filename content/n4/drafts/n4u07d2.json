@@ -1,0 +1,506 @@
+{
+ "title": "〜ようだ・〜みたいだ",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u07d2.p1",
+    "form": "〜ようだ",
+    "gloss": "it seems (a guess); is like",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "来た{ようです}、[寒|さむ]い{ようです}"
+     },
+     {
+      "pos": "な-adjective: keep な",
+      "rule": "しずか{なようです}"
+     },
+     {
+      "pos": "Noun: add の",
+      "rule": "〜{のようです}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "げんかんにくつがあります。だれか来ている{ようです}。",
+      "en": "There are shoes at the door. Someone seems to be here."
+     },
+     {
+      "ja": "あの[有名|ゆうめい]な[歌手|かしゅ]と話せて、ゆめ{のようです}。",
+      "en": "I got to talk with that famous singer. It's like a dream."
+     }
+    ],
+    "watch": {
+     "note": "A noun needs の before ようだ, and a な-adjective keeps its な. Neither joins ようだ directly.",
+     "bad": "あの人は先生ようです。",
+     "good": "あの人は先生のようです。"
+    }
+   },
+   {
+    "id": "n4u07d2.p2",
+    "form": "〜みたいだ",
+    "gloss": "seems, looks like (casual)",
+    "connect": [
+     {
+      "pos": "Verb or い-adjective, plain form",
+      "rule": "来た{みたい}、[寒|さむ]い{みたい}"
+     },
+     {
+      "pos": "Noun or な-adjective: nothing in between (no の, no な)",
+      "rule": "〜{みたい}、しずか{みたい}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "電気がついてないね。[田|た]中さんはもう[帰|かえ]った{みたい}。",
+      "en": "The lights are off. Tanaka-san seems to have gone home already."
+     },
+     {
+      "ja": "このケーキ、ほんとうの花{みたい}だね。",
+      "en": "This cake looks just like a real flower."
+     }
+    ],
+    "watch": {
+     "note": "みたい joins a noun directly. The の belongs to ようだ, not to みたい.",
+     "bad": "あしたは雨のみたいです。",
+     "good": "あしたは雨みたいです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "ようだ and みたいだ both make a guess from what you see or hear; と[思|おも]う just gives your own view or plan.",
+   "forms": [
+    {
+     "form": "〜ようだ",
+     "tag": "ようだ · seems (neutral, also in writing)",
+     "mark": "dot",
+     "ja": "道がぬれています。雨がふった{ようです}。",
+     "en": "The road is wet. It seems it rained."
+    },
+    {
+     "form": "〜みたいだ",
+     "tag": "みたい · seems (casual talk)",
+     "mark": "dot",
+     "ja": "道がぬれてる。雨がふった{みたい}。",
+     "en": "The road's wet. Looks like it rained."
+    },
+    {
+     "form": "〜と思う",
+     "tag": "と思う · I think (my own view or plan)",
+     "mark": "dot",
+     "ja": "あしたは雨がふる{と[思|おも]います}。",
+     "en": "I think it will rain tomorrow."
+    }
+   ],
+   "check": {
+    "id": "n4u07d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Guess or plan?",
+    "q": "らいしゅう、[病院|びょういん]に行こう（　　）。",
+    "options": [
+     "と[思|おも]います",
+     "ようです",
+     "みたいです"
+    ],
+    "answer": 1,
+    "why": [
+     "行こう is the volitional form, and と思います follows it to tell your own plan: I'm thinking of going to the hospital next week.",
+     "ようだ follows the plain form (行くようです), not the volitional. Here the speaker tells a plan, not a guess.",
+     "みたい does not follow the volitional either (行くみたいです), and a plan is not a guess."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u07d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[田|た]中さんは^せきをしています^。かぜ（　　）。",
+    "options": [
+     "なようです",
+     "のようです",
+     "ようです",
+     "だようです"
+    ],
+    "answer": 2,
+    "why": [
+     "な goes between a な-adjective and ようだ. かぜ is a noun, so it takes の.",
+     "かぜ is a noun, so の joins it to ようです. She is coughing, so she seems to have a cold.",
+     "A noun cannot join ようです directly. It needs の.",
+     "だ does not come before ようです. A noun takes の."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[林|はやし]さんは^毎日ねこの[写真|しゃしん]をとっています^。ねこが（　　）ようです。",
+    "options": [
+     "[大好|だいす]きの",
+     "[大好|だいす]き",
+     "[大好|だいす]きだ",
+     "[大好|だいす]きな"
+    ],
+    "answer": 4,
+    "why": [
+     "大好き is a な-adjective, not a noun, so it does not take の before ようです.",
+     "A な-adjective cannot join ようです directly. It keeps its な.",
+     "だ does not come before ようです. Use the な form.",
+     "大好き is a な-adjective, so it keeps な: he takes cat photos every day, so he seems to love cats."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^かさをさしている人がいる^ね。外は雨（　　）。",
+    "options": [
+     "のみたい",
+     "なみたい",
+     "みたい",
+     "だみたい"
+    ],
+    "answer": 3,
+    "why": [
+     "の before a noun belongs to ようだ (雨のようだ). みたい joins the noun directly.",
+     "な is not used between a noun and みたい.",
+     "Noun + みたい: people have umbrellas up, so it seems to be raining.",
+     "だ does not come before みたい. The noun joins it directly."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "げんかんに^[知|し]らないくつ^があります。だれか（　　）ようです。",
+    "options": [
+     "来ている",
+     "来ていて",
+     "来ています",
+     "来ていない"
+    ],
+    "answer": 1,
+    "why": [
+     "ようです follows the plain form. Shoes you don't know are at the door, so someone seems to be here.",
+     "The te-form does not join ようです.",
+     "The ます form does not join ようです. Use the plain form 来ている.",
+     "Shoes you don't know are a sign that someone is here, not that someone has not come."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "テーブルの上のかさは、",
+    "after": "ようです。",
+    "tiles": [
+     "だれかが",
+     "わすれた",
+     "もの",
+     "の"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "だれかがわすれた describes もの. A noun needs の before ようです.",
+    "full": "テーブルの上のかさは、だれかがわすれたもの{のようです}。",
+    "explain": "だれかがわすれた (someone forgot) describes もの, so it comes right before it. もの is a noun, so の joins it to ようです: the umbrella on the table seems to be something someone left behind."
+   },
+   {
+    "id": "n4u07d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの",
+    "after": "みたいだね。",
+    "tiles": [
+     "[赤|あか]い",
+     "ぼうしの",
+     "人は",
+     "先生"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     2,
+     0
+    ],
+    "hint": "赤い describes the hat, and the hat describes the person. A noun joins みたい directly.",
+    "full": "あの[赤|あか]いぼうしの人は先生{みたい}だね。",
+    "explain": "あの赤いぼうしの人 is the person in the red hat, and は marks who you are talking about. 先生 is a noun, so it goes straight before みたい with no の: that person in the red hat looks like a teacher."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u07d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あの　二人は　とても　なかが　よくて、きょうだい（　　）。",
+    "options": [
+     "ようです",
+     "な　ようです",
+     "の　ようです",
+     "みたいの　です"
+    ],
+    "answer": 3,
+    "explain": "きょうだい is a noun, so it takes の before ようです: those two get on so well that they are like brothers and sisters. A noun cannot join ようです directly, な is for な-adjectives, and みたいの　です is not a form (a noun joins みたいです directly)."
+   },
+   {
+    "id": "n4u07d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「田中さん、今日は　休みですか。」\nB「ええ、かぜ（　　）ですよ。」",
+    "options": [
+     "なみたい",
+     "みたい",
+     "のみたい",
+     "そう"
+    ],
+    "answer": 2,
+    "explain": "かぜ is a noun, so it joins みたい directly: it seems he has a cold. みたい takes no な and no の after a noun. そう (looks like) does not join a noun, so かぜそうです is not a form."
+   },
+   {
+    "id": "n4u07d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "兄の　へやから　知らない　人の　声が　聞こえます。",
+    "after": "ようです。",
+    "tiles": [
+     "兄の",
+     "友だちが",
+     "来て",
+     "いる"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "兄の　へやから　知らない　人の　声が　聞こえます。兄の　友だちが　来て　{いる　ようです}。",
+    "explain": "兄の, 友だちが, 来て, いる. 兄の友だち is my brother's friend, 来ている is the plain form, and ようです follows it: I hear a voice I don't know, so a friend of my brother's seems to be here."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅のわすれもの用紙",
+  "en": "A lost-property form at the station",
+  "intro": "You left your bag on the train, and the station staff hand you a form to fill in. Tap each word on it.",
+  "words": [
+   {
+    "id": "form",
+    "word": "用紙",
+    "reading": "ようし",
+    "gloss": "form (sheet of paper)",
+    "parts": [
+     [
+      "用",
+      "ヨウ",
+      "use"
+     ],
+     [
+      "紙",
+      "シ",
+      "paper"
+     ]
+    ]
+   },
+   {
+    "id": "item",
+    "word": "品物",
+    "reading": "しなもの",
+    "gloss": "item, article",
+    "parts": [
+     [
+      "品",
+      "しな",
+      "goods"
+     ],
+     [
+      "物",
+      "もの",
+      "thing"
+     ]
+    ]
+   },
+   {
+    "id": "brown",
+    "word": "茶色",
+    "reading": "ちゃいろ",
+    "gloss": "brown",
+    "parts": [
+     [
+      "茶",
+      "チャ",
+      "tea"
+     ],
+     [
+      "色",
+      "いろ",
+      "colour"
+     ]
+    ]
+   },
+   {
+    "id": "place",
+    "word": "場所",
+    "reading": "ばしょ",
+    "gloss": "place",
+    "parts": [
+     [
+      "場",
+      "ば",
+      "place"
+     ],
+     [
+      "所",
+      "ショ",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "address",
+    "word": "住所",
+    "reading": "じゅうしょ",
+    "gloss": "address",
+    "parts": [
+     [
+      "住",
+      "ジュウ",
+      "live"
+     ],
+     [
+      "所",
+      "ショ",
+      "place"
+     ]
+    ]
+   },
+   {
+    "id": "owner",
+    "word": "持ち主",
+    "reading": "もちぬし",
+    "gloss": "owner",
+    "parts": [
+     [
+      "持",
+      "も",
+      "hold"
+     ],
+     [
+      "主",
+      "ぬし",
+      "master, owner"
+     ]
+    ]
+   },
+   {
+    "id": "express",
+    "word": "特急",
+    "reading": "とっきゅう",
+    "gloss": "limited express (train)",
+    "parts": [
+     [
+      "特",
+      "トッ",
+      "special"
+     ],
+     [
+      "急",
+      "キュウ",
+      "hurry"
+     ]
+    ]
+   },
+   {
+    "id": "staff",
+    "word": "駅員",
+    "reading": "えきいん",
+    "gloss": "station staff",
+    "parts": [
+     [
+      "駅",
+      "エキ",
+      "station"
+     ],
+     [
+      "員",
+      "イン",
+      "member"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u07d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "わすれた　_品物_の　色を　ここに　書いて　ください。",
+   "options": [
+    "ひんもの",
+    "しなぶつ",
+    "ひんぶつ",
+    "しなもの"
+   ],
+   "answer": 4,
+   "explain": "品物 is read しなもの, an item: write the colour of the thing you left here. Both kanji take their Japanese readings (しな, もの). ひんもの, しなぶつ and ひんぶつ mix in the Chinese readings ヒン and ブツ, which are not used in this word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What does the writer guess happened at the party?",
+  "seconds": 90,
+  "passage": "きのうの　夜、姉が　家で　友だちと　パーティーを　しました。わたしは　旅行に　行って　いて、けさ　帰って　きました。台所には　コップが　たくさん　ありましたが、^ケーキは　もう　ありませんでした^。みんなで　食べた　ようです。いすの　上には　知らない　黒い　ぼうしが　ありました。だれかの　わすれものの　ようです。^ピアノの　上には　歌の　本が　あって、ふたも　開いて　いました^。^みんなで　歌を　歌った　みたいです^。もう　十一時ですが、^姉は　まだ　ねて　います^。おそくまで　起きて　いた　ようです。",
+  "strategy": "Each guess ends in ようです or みたいです; read the clue just before it and check every option against it.",
+  "item": {
+   "id": "n4u07d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "「わたし」は、きのうの　パーティーで　どんな　ことが　あったと　思って　いますか。",
+   "options": [
+    "ケーキが　たくさん　のこった。",
+    "早い　時間に　おわった。",
+    "みんなで　歌を　歌った。",
+    "姉の　友だちは　だれも　来なかった。"
+   ],
+   "short": [
+    "ケーキがのこった",
+    "早くおわった",
+    "歌を歌った",
+    "だれも来なかった"
+   ],
+   "answer": 3,
+   "explain": "The song book on the piano and the open lid are the clues, and the writer says みんなで歌を歌ったみたいです: they seem to have sung together.",
+   "why": [
+    "The cake was all gone (もうありませんでした), so they seem to have eaten it.",
+    "Her sister is still asleep at eleven, so the party seems to have gone on late.",
+    "",
+    "The sister had the party with friends, and there is a hat nobody in the family knows, so friends did come."
+   ]
+  }
+ }
+}

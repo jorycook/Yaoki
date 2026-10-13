@@ -1,0 +1,247 @@
+{
+ "title": "お〜ください・ご〜ください",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u09d4.p1",
+    "form": "お〜ください",
+    "gloss": "please do (polite request)",
+    "connect": [
+     {"pos": "Verb, ます form: drop ます, put お before the stem and ください after it", "rule": "[待|ま]ちます → {お[待|ま]ちください}、入ります → {お入りください}"},
+     {"pos": "見る has its own polite word", "rule": "見る → {ごらんください}"},
+     {"pos": "食べる and 飲む have their own polite word", "rule": "食べる・飲む → {めしあがってください}"}
+    ],
+    "examples": [
+     {"ja": "つぎの電車まで、こちらで{お[待|ま]ちください}。", "en": "Please wait here for the next train."},
+     {"ja": "右のえを{ごらんください}。", "en": "Please look at the picture on the right."}
+    ],
+    "watch": {
+     "note": "お goes before the ます stem (待ち), not the te-form (待って).",
+     "bad": "ここでお待ってください。",
+     "good": "ここでお待ちください。"
+    }
+   },
+   {
+    "id": "n4u09d4.p2",
+    "form": "ご〜ください",
+    "gloss": "please do (polite request with a する-noun)",
+    "connect": [
+     {"pos": "する-noun (〜) made of kanji read the Chinese way", "rule": "[注意|ちゅうい]する → {ご[注意|ちゅうい]ください}"},
+     {"pos": "The same kind of する-noun written in kana", "rule": "りようする → {ごりようください}"},
+     {"pos": "A few everyday nouns take お instead of ご", "rule": "電話する → {お電話ください}"}
+    ],
+    "examples": [
+     {"ja": "ドアがしまります。{ご[注意|ちゅうい]ください}。", "en": "The doors are closing. Please be careful."},
+     {"ja": "かいだんがこんでいます。エレベーターを{ごりようください}。", "en": "The stairs are crowded. Please use the lift."}
+    ],
+    "watch": {
+     "note": "ご〜する is the humble form from day 2, for what you yourself do. To ask someone else, drop する: ご + noun + ください.",
+     "bad": "エレベーターをごりようしてください。",
+     "good": "エレベーターをごりようください。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "お〜ください and 〜てください both ask the listener to do something; お〜する looks close but says what the speaker will do.",
+   "forms": [
+    {"form": "〜てください", "tag": "ていねい · please (everyday)", "mark": "dot", "ja": "ここに名前を{書いてください}。", "en": "Please write your name here."},
+    {"form": "お〜ください", "tag": "もっとていねい · please (signs, staff)", "mark": "up", "ja": "ここにお名前を{お書きください}。", "en": "Please write your name here (more polite)."},
+    {"form": "お〜する", "tag": "けんじょう · I will do it for you", "mark": "dot", "ja": "にもつはわたしが{お[持|も]ちします}。", "en": "I'll carry your bags for you."}
+   ],
+   "check": {
+    "id": "n4u09d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Who does it?",
+    "q": "（ホテルで）かさは、^わたしが^お[持|も]ち（　　）。",
+    "options": ["ください", "します", "になってください"],
+    "answer": 2,
+    "why": [
+     "お持ちください asks the guest to carry it, but わたしが says the speaker is the one who carries it.",
+     "わたしが: the hotel worker will carry the umbrella for the guest, so the humble お持ちします fits.",
+     "お持ちになってください also asks the guest to carry it, and it does not fit with わたしが."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u09d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "（びょういんで）名前をよばれるまで、^こちらで^（　　）。",
+    "options": ["お[待|ま]ってください", "[待|ま]ちください", "お[待|ま]ちください", "お[待|ま]つください"],
+    "answer": 3,
+    "why": [
+     "お goes before the ます stem, not the te-form. お待ってください is not a form.",
+     "ます stem + ください needs お in front. 待ちください is not said.",
+     "お + ます stem (待ち) + ください: please wait here until your name is called.",
+     "お goes before the ます stem, not the dictionary form. お待つください is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "（はくぶつかんで）^右のえを^（　　）。",
+    "options": ["ごらんください", "お見ください", "お見てください", "ごらんしてください"],
+    "answer": 1,
+    "why": [
+     "見る has its own polite word: ごらんください, please look at the picture on the right.",
+     "見る does not make お〜ください. Its polite request is ごらんください.",
+     "お does not go before the te-form, and 見る uses ごらん instead.",
+     "ごらん is not a する-noun. ください goes straight after it: ごらんください."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "（駅で）ドアがしまります。^あぶないですから^、（　　）。",
+    "options": ["お[注意|ちゅうい]ください", "ご[注意|ちゅうい]しください", "ご[注意|ちゅうい]してください", "ご[注意|ちゅうい]ください"],
+    "answer": 4,
+    "why": [
+     "注意 is a kanji word read the Chinese way, and it takes ご, not お.",
+     "ご + noun + ください has no し in it. ご注意しください is not a form.",
+     "ご注意する is the humble form for your own action. To ask the passengers, drop する.",
+     "ご + 注意 + ください: the doors are closing and it is dangerous, so please be careful."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "何かあったら、^このばんごうに^（　　）ください。",
+    "options": ["ご電話", "お電話", "お電話し", "お電話で"],
+    "answer": 2,
+    "why": [
+     "電話 is one of the everyday words that take お, not ご.",
+     "お電話ください: if anything happens, please call this number.",
+     "The noun goes straight before ください. お電話しください is not a form.",
+     "で cannot come between the noun and ください. お電話でください is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "（はくぶつかんで）入り口で",
+    "after": "。",
+    "tiles": ["チケットを", "見せてから", "中へ", "お入りください"],
+    "star": 1,
+    "bank": [2, 3, 0, 1],
+    "hint": "First you show something, then you go in. お入りください ends the request.",
+    "full": "（はくぶつかんで）入り口でチケットを{見せてから}中へお入りください。",
+    "explain": "チケットを goes with 見せてから (after you show your ticket). 中へ tells where you go in, so it comes right before お入りください: please show your ticket at the entrance, then go in."
+   },
+   {
+    "id": "n4u09d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "（駅で）電車と",
+    "after": "。",
+    "tiles": ["ホームの間が", "[広|ひろ]いので", "足もとに", "ご[注意|ちゅうい]ください"],
+    "star": 2,
+    "bank": [3, 2, 0, 1],
+    "hint": "電車と needs a partner: the gap between the train and what? Then the reason, then the request.",
+    "full": "（駅で）電車とホームの間が[広|ひろ]いので{足もとに}ご[注意|ちゅうい]ください。",
+    "explain": "電車とホームの間 is the gap between the train and the platform. 広いので gives the reason, and 足もとに tells what to be careful of, right before ご注意ください: the gap is wide, so please watch your step."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u09d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "先生、どうぞ　この　おかしを（　　）。",
+    "options": ["いただいて　ください", "さしあげて　ください", "お食べて　ください", "めしあがって　ください"],
+    "answer": 4,
+    "explain": "The teacher is asked to eat, and the polite word for eating is めしあがる: めしあがってください. いただく is humble, for the speaker's own eating, and さしあげる means to give. お食べてください is not a form: お does not go before the te-form."
+   },
+   {
+    "id": "n4u09d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "（図書館で）この　コピーきは　どなたでも（　　）。",
+    "options": ["ごりよう　ください", "おりよう　ください", "ごりように　なりください", "りよう　しください"],
+    "answer": 1,
+    "explain": "りよう is a する-noun made of kanji read the Chinese way, so the request is ごりようください: anyone may use this copier. It takes ご, not お. ごりようになりください and りようしください are not forms."
+   },
+   {
+    "id": "n4u09d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "（びょういんで）ペットを　",
+    "after": "お待ちください。",
+    "tiles": ["つれて", "来た", "方は", "入り口で"],
+    "star": 2,
+    "bank": [3, 2, 0, 1],
+    "full": "（びょういんで）ペットを　つれて　来た　{方は}　入り口で　お待ちください。",
+    "explain": "つれて, 来た, 方は, 入り口で. ペットを つれて 来た describes 方 (people who came with a pet), 方は is the topic, and 入り口で tells where to wait: people with a pet, please wait at the entrance."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅のお知らせ",
+  "en": "Notices at a station",
+  "intro": "Signs on the platform and in the station tell you about trains and ask you to take care. Tap each word on them.",
+  "words": [
+   {"id": "caution", "word": "注意", "reading": "ちゅうい", "gloss": "care, caution", "parts": [["注", "チュウ", "pour, pay attention"], ["意", "イ", "mind, meaning"]]},
+   {"id": "boarding", "word": "乗車", "reading": "じょうしゃ", "gloss": "getting on (a train)", "parts": [["乗", "ジョウ", "ride"], ["車", "シャ", "car, vehicle"]]},
+   {"id": "departure", "word": "発車", "reading": "はっしゃ", "gloss": "departure (of a train)", "parts": [["発", "ハッ", "set off"], ["車", "シャ", "car, vehicle"]]},
+   {"id": "ltdexpress", "word": "特急", "reading": "とっきゅう", "gloss": "limited express", "parts": [["特", "トッ", "special"], ["急", "キュウ", "hurry"]]},
+   {"id": "express", "word": "急行", "reading": "きゅうこう", "gloss": "express (train)", "parts": [["急", "キュウ", "hurry"], ["行", "コウ", "go"]]},
+   {"id": "lasttrain", "word": "終電", "reading": "しゅうでん", "gloss": "last train", "parts": [["終", "シュウ", "end"], ["電", "デン", "electricity"]]},
+   {"id": "staff", "word": "駅員", "reading": "えきいん", "gloss": "station staff", "parts": [["駅", "エキ", "station"], ["員", "イン", "member"]]},
+   {"id": "waitingroom", "word": "待合室", "reading": "まちあいしつ", "gloss": "waiting room", "parts": [["待", "ま", "wait"], ["合", "あい", "meet, fit"], ["室", "シツ", "room"]]}
+  ],
+  "check": {
+   "id": "n4u09d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "電車が　来るまで　_待合室_で　お待ちください。",
+   "options": ["たいごうしつ", "まちあいじつ", "まちあいしつ", "まちごうしつ"],
+   "answer": 3,
+   "explain": "待合室 is read まちあいしつ, a waiting room: please wait in the waiting room until the train comes. たいごうしつ uses Chinese readings for 待 and 合, まちあいじつ has じ instead of し, and まちごうしつ mixes ま with the Chinese ごう."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "Which of these may a visitor do inside the museum?",
+  "seconds": 100,
+  "passage": "はくぶつかんを　ごりようの　みなさまへ。作品は　ゆっくり　ごらんください。ただ、作品には　さわらないで　ください。写真は　とっても　いいですが、^フラッシュは　使わないで　ください^。作品の　色が　悪く　なるからです。大きい　にもつは、入り口の　ロッカーに　お入れください。^はくぶつかんの　中で　食べたり　飲んだり　する　ことは　できません^。^一かいの　きゅうけいしつを　ごりようください^。わからない　ことが　ある　方は、うけつけで　お聞きください。",
+  "strategy": "Check each choice against the rules: find the rule about eating and drinking, and read the sentence that comes right after it.",
+  "item": {
+   "id": "n4u09d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "はくぶつかんの　中で　して　いい　ことは　どれですか。",
+   "options": ["フラッシュを　使って　作品の　写真を　とる。", "作品の　前で　おべんとうを　食べる。", "一かいの　きゅうけいしつで　お茶を　飲む。", "大きい　にもつを　持って　作品を　見る。"],
+   "short": ["フラッシュで写真をとる", "作品の前で食べる", "きゅうけいしつでお茶を飲む", "にもつを持って見る"],
+   "answer": 3,
+   "explain": "You cannot eat or drink among the exhibits, but the next sentence says 一かいの きゅうけいしつを ごりようください: please use the rest room on the first floor for that.",
+   "why": [
+    "Photos are fine, but the notice says フラッシュは 使わないで ください.",
+    "Eating and drinking are not allowed among the exhibits (食べたり 飲んだり する ことは できません).",
+    "",
+    "Big bags go in the lockers at the entrance (ロッカーに お入れください)."
+   ]
+  }
+ }
+}
