@@ -24,7 +24,7 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
       else if (st.shot) {
         const info = await inspect(page);
         await page.screenshot({ path: path.join(out, 'st-' + st.shot + '.png') });
-        console.log(`shot ${st.shot}: root=${info.rootH} unresolved=${info.unresolved}` + (info.errors.length ? ' ERRORS ' + JSON.stringify(info.errors) : '') + (info.issues.length ? '\n   ' + info.issues.join('\n   ') : ''));
+        console.log(`shot ${st.shot}: root=${info.rootH} unresolved=${info.unresolved}` + (info.errors.length ? ' ERRORS ' + JSON.stringify(info.errors) : '') + (info.issues.length ? '\n   ' + info.issues.join('\n   ') : '') + (info.pad.length ? '\n   ' + info.pad.join('\n   ') : ''));
       }
     } catch (e) {
       console.log('STEP FAILED ' + JSON.stringify(st) + ': ' + String(e).split('\n')[0]);

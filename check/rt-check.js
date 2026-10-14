@@ -29,6 +29,8 @@ async function openBoard(browser, name, fontsCss, prep) {
       const body = (await res.text()).replace(/b: '[^']+'/g, "b: '" + 'A'.repeat(4000) + "'");
       await r.fulfill({ response: res, body });
     });
+    // clips kept as files (the N1 lessons) arrive but cannot be decoded either
+    await page.route('**/audio/*.mp3', (r) => r.fulfill({ contentType: 'audio/mpeg', body: Buffer.from('A'.repeat(4000)) }));
   }
   // HELDBACK=1: the browser has audio but never lets it start (the context stays suspended)
   if (process.env.HELDBACK) {
@@ -71,24 +73,44 @@ async function openBoard(browser, name, fontsCss, prep) {
   return { page, logs };
 }
 
+/* what is wrong with the screen as it stands. issues: runtime errors aside, what leaves the frame (OUT) and taps too
+   small to hit (SMALL); these fail a check. pad: a warning class of its own, so it never hides a failure: on a screen
+   with a fixed footer the bottom 34 px of the frame (below 810) are kept clear for the phone's home indicator, and
+   anything a learner can see there (text, a control, an icon) has run into that padding. The tab bar is the one thing
+   designed to reach into it */
 async function inspect(page) {
   return page.evaluate((HOST) => {
     const host = document.querySelector(HOST);
     const rootEl = host && host.firstElementChild;
-    const res = { errors: [...document.querySelectorAll('.sc-logic-error,.sc-placeholder-error')].map((e) => e.textContent.slice(0, 200)), issues: [] };
+    const res = { errors: [...document.querySelectorAll('.sc-logic-error,.sc-placeholder-error')].map((e) => e.textContent.slice(0, 200)), issues: [], pad: [] };
     if (!rootEl) { res.issues.push('NO ROOT'); return res; }
     res.rootH = rootEl.scrollHeight + '/' + rootEl.clientHeight;
+    const top = rootEl.getBoundingClientRect().top;
     for (const el of rootEl.querySelectorAll('*')) {
-      if (el.closest('svg')) continue;
+      const tag = el.tagName.toLowerCase();
+      if (el.closest('svg') && tag !== 'svg') continue;
       const r = el.getBoundingClientRect();
       if (r.width === 0 || r.height === 0) continue;
-      const tag = el.tagName.toLowerCase();
       const txt = (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 26);
       // an element inside a scrolling list may sit below the fold; only its sideways position counts
       let scrolls = false;
-      for (let p = el.parentElement; p && p !== rootEl; p = p.parentElement) { const o = getComputedStyle(p).overflowY; if (o === 'auto' || o === 'scroll') { scrolls = true; break; } }
-      if (r.right > 390.5 || r.left < -0.5 || (!scrolls && r.bottom > 844.5)) res.issues.push(`OUT ${tag} "${txt}" l=${Math.round(r.left)} r=${Math.round(r.right)} b=${Math.round(r.bottom)}`);
-      if ((tag === 'button' || tag === 'a') && (r.height < 43.5 || r.width < 43.5)) res.issues.push(`SMALL ${tag} "${txt}" ${Math.round(r.width)}x${Math.round(r.height)}`);
+      // how far down it can be seen: a scrolling list or a box that hides what overflows it cuts it off at its own edge
+      let seen = r.bottom;
+      let gone = false;
+      for (let p = el.parentElement; p && p !== rootEl; p = p.parentElement) {
+        const cs = getComputedStyle(p);
+        if (cs.overflowY === 'auto' || cs.overflowY === 'scroll') scrolls = true;
+        if (cs.overflowY !== 'visible') { const b = p.getBoundingClientRect(); seen = Math.min(seen, b.bottom); if (r.top >= b.bottom - 0.5) gone = true; }
+      }
+      if (tag !== 'svg') {
+        if (r.right > 390.5 || r.left < -0.5 || (!scrolls && r.bottom > 844.5)) res.issues.push(`OUT ${tag} "${txt}" l=${Math.round(r.left)} r=${Math.round(r.right)} b=${Math.round(r.bottom)}`);
+        if ((tag === 'button' || tag === 'a') && (r.height < 43.5 || r.width < 43.5)) res.issues.push(`SMALL ${tag} "${txt}" ${Math.round(r.width)}x${Math.round(r.height)}`);
+      }
+      // what a learner sees: text of its own, a control, an icon or a picture
+      const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.nodeValue.trim());
+      if (!own && !/^(button|a|input|svg|img)$/.test(tag)) continue;
+      const bottom = seen - top;
+      if (!gone && bottom > 810.5 && bottom <= 844.5 && !el.closest('nav') && getComputedStyle(el).visibility !== 'hidden') res.pad.push(`PAD ${tag} "${txt}" b=${Math.round(bottom)}`);
     }
     res.unresolved = document.querySelectorAll('.sc-interp.sc-missing,.sc-interp.sc-unresolved').length;
     return res;
@@ -109,6 +131,7 @@ if (require.main === module) {
       console.log(`== ${name} root=${info.rootH} unresolved=${info.unresolved}`);
       for (const e of info.errors) console.log('   RUNTIME-ERROR ' + e);
       for (const s of info.issues) console.log('   ' + s);
+      for (const s of info.pad) console.log('   ' + s);
       for (const l of logs) console.log('   ' + l);
       await page.close();
     }

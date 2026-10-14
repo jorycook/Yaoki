@@ -1,4 +1,6 @@
-// Click-through of the N1 mini mock (YK_LEVEL=N1 bash run-app.sh e2e-mock-n1.js): the run of e2e-mock.js with the N1 paper.
+// Click-through of the N1 mini mocks (YK_LEVEL=N1 bash run-app.sh e2e-mock-n1.js), on 14 Oct 2026 with the sample plan:
+// the mock tab with its four papers, then a whole run of mini mock 1 (the run of e2e-mock.js), its result, its
+// mistakes in the notebook, and its result kept on the tab when another mock is opened.
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -8,19 +10,21 @@ const { mockClips, listeningMs } = require('./level.js');
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
-  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Mock', fontsCss);
+  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Mock&plan=demo&day=17&ykdate=2026-10-14', fontsCss);
   const startUrl = page.url();
   let fails = 0;
   const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + msg); } };
   const click = async (sel, wait = 400) => { await page.locator(sel).first().click({ timeout: 5000 }); await page.waitForTimeout(wait); };
   const body = async () => ((await page.locator('body').textContent()) || '').replace(/\s+/g, ' ');
   const has = async (text) => (await body()).includes(text);
+  let pads = 0;
   const at = async (name) => {
     const info = await inspect(page);
-    await page.screenshot({ path: path.join(out, 'mk-' + name + '.png') });
+    await page.screenshot({ path: path.join(out, 'mk-n1-' + name + '.png') });
     const issues = info.issues;
     const bad = info.errors.length || issues.length || info.unresolved;
-    console.log(`${name}: root=${info.rootH}` + (bad ? ' PROBLEMS ' + JSON.stringify({ e: info.errors, i: issues, u: info.unresolved }) : ''));
+    console.log(`${name}: root=${info.rootH}` + (bad ? ' PROBLEMS ' + JSON.stringify({ e: info.errors, i: issues, u: info.unresolved }) : '') + (info.pad.length ? ' PAD WARNING ' + JSON.stringify(info.pad) : ''));
+    pads += info.pad.length;
     ok(!bad, name + ': layout or runtime problems');
     ok(page.url() === startUrl, name + ': the frame navigated away to ' + page.url());
   };
@@ -31,20 +35,32 @@ const { mockClips, listeningMs } = require('./level.js');
   const audio = () => page.evaluate(() => window.__audio);
 
   await at('01-tab');
-  ok(await has('ミニ模試'), 'tab: mini mock card missing');
-  ok(await has('約100問'), 'tab: the full paper should be listed at about 100 questions');
+  ok(await has('Four short papers in the real format'), 'tab: the intro should count four papers');
+  ok((await page.locator('h2:has-text("ミニ模試 1")').count()) === 1, 'tab: mini mock 1 should be the open card');
+  ok(await has('12問 · 約15分') && await has('第2週のあとがおすすめ'), 'tab: the open card should give its size and when it is best taken');
+  ok((await page.locator('button[aria-expanded="false"][aria-label^="ミニ模試"]').count()) === 3, 'tab: the other three mocks should be closed cards');
+  ok((await page.locator('button[aria-label^="ミニ模試 2, Best after week 4"][aria-label$="best in 8 days"]').count()) === 1, 'tab: mini mock 2 should be best in 8 days');
   ok(!(await has('Last result')), 'tab: should not show a result before a run');
+  // another card opens when tapped, and its own Start leads to its own paper
+  await click('button[aria-label^="ミニ模試 3"]', 500);
+  await at('01-tab-mock3');
+  ok((await page.locator('h2:has-text("ミニ模試 3")').count()) === 1 && (await page.locator('button[aria-label^="ミニ模試 1"]').count()) === 1, 'tab: tapping mini mock 3 should open it and close mini mock 1');
+  await click('a:has-text("Start")', 600);
+  ok(await has('Mini mock 3 · N1'), 'briefing: Start on mini mock 3 should open its own paper');
+  await click('a[aria-label="Back to the mock exam tab"]', 600);
+  await click('button[aria-label^="ミニ模試 1"]', 500);
   // a first run that is abandoned leaves nothing behind
   await click('a:has-text("Start")', 600);
   await click('button:has-text("Start section 1")', 400);
   await click('button[aria-label="Quit the mock"]', 400);
   await click('a:has-text("Quit")', 600);
-  ok(await has('約100問'), 'quit: should land back on the mock tab');
+  ok(await has('Four short papers'), 'quit: should land back on the mock tab');
   ok(!(await has('Last result')), 'tab: a first run that was quit should leave no result');
+  ok((await page.locator('h2:has-text("ミニ模試 1")').count()) === 1, 'tab: the mock that was quit should stay open');
   await click('a:has-text("Start")', 600);
   await at('02-briefing');
   ok(await has('HOW IT RUNS'), 'briefing: rules missing');
-  ok(await has('Mini mock · N1'), 'briefing: level missing');
+  ok(await has('Mini mock 1 · N1'), 'briefing: the paper and level are missing');
   await click('button:has-text("Start section 1")', 500);
   await at('03-s1-q1');
   ok(await has('漢字読み'), 's1: first item type missing');
@@ -149,13 +165,14 @@ const { mockClips, listeningMs } = require('./level.js');
   await click('button[aria-label="Back to the result"]', 400);
   await click('a:has-text("Close")', 600);
   await at('18-tab-taken');
-  ok(await has('Last result'), 'tab: result summary missing after the run');
+  ok(await has('Last result') && await has('9') && await has('/ 12'), 'tab: result summary missing after the run');
   await click('nav a:has-text("Notebook")', 600);
   await at('19-notebook');
   const nb = await body();
   ok(nb.includes('概要理解') && nb.includes('本を読ませる方法'), 'notebook: listening mistake missing');
   ok(nb.includes('文の文法1') && nb.includes('なりに'), 'notebook: grammar mistake missing');
   ok(nb.includes('文脈規定') && nb.includes('座礁'), 'notebook: vocabulary mistake missing');
+  ok(nb.includes('back tomorrow · Mini mock 1'), 'notebook: a mock mistake should name its mock');
   await click('nav a:has-text("Mock exam")', 600);
   await click('a:has-text("Result")', 600);
   await at('20-result-again');
@@ -180,9 +197,25 @@ const { mockClips, listeningMs } = require('./level.js');
   await click('a[aria-label="Back to the mock exam tab"]', 600);
   await at('24-tab-after-back');
   ok(await has('Last result'), 'tab: backing out of the briefing should keep the last result');
+  ok((await page.locator('[role=img][aria-label="文字・語彙 3/4, 文法 2/3, 読解 2/2, 聴解 2/3"]').count()) === 1, 'tab: the result should be shown by area');
+  // opening another mock keeps this one's result in the plan, on its own card
+  await click('button[aria-label^="ミニ模試 2"]', 500);
+  await click('a:has-text("Start")', 600);
+  ok(await has('Mini mock 2 · N1'), 'briefing: mini mock 2 expected');
+  await click('a[aria-label="Back to the mock exam tab"]', 600);
+  await at('25-tab-mock2-open');
+  ok((await page.locator('h2:has-text("ミニ模試 2")').count()) === 1, 'tab: the mock opened last should be the open card');
+  ok((await page.locator('button[aria-label="ミニ模試 1, Best after week 2 · 10月8日（木）, last result 9/12"]').count()) === 1, 'tab: mini mock 1 should keep its result on its card');
+  await click('button[aria-label^="ミニ模試 1"]', 500);
+  ok(await has('Last result') && await has('前回の結果'), 'tab: mini mock 1 should reopen with its result');
+  await click('a:has-text("Result")', 600);
+  ok(await has('Correct answers') && (await page.locator('h1').first().textContent()).trim() === '9', 'tab: the kept result should reopen with its score');
+  await click('a[aria-label="Back to the mock exam tab"]', 600);
+  await at('26-tab-end');
 
   const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
   console.log('console problems: ' + JSON.stringify(noisy.slice(0, 10)));
+  if (pads) console.log(`PAD WARNINGS: ${pads} (content in the bottom 34 px)`);
   console.log((SOUND ? 'with sound: ' : 'silent fallback: ') + (fails === 0 && noisy.length === 0 ? 'MOCK E2E PASS' : `MOCK E2E FAIL (${fails} failed checks, ${noisy.length} console problems)`));
   await browser.close();
 })().catch((e) => { console.error('MOCK E2E CRASH', e); process.exit(1); });
