@@ -150,25 +150,74 @@ const isDate = (d) => typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d);
 /* a saved time as the date on this device, as N.today() counts days */
 const local = (t) => { if (!iso(t)) return null; const d = new Date(+t); const two = (n) => (n < 10 ? '0' : '') + n; return d.getFullYear() + '-' + two(d.getMonth() + 1) + '-' + two(d.getDate()); };
 /* one-line texts are cut to their width here, so nothing runs past the card: a full-width character takes 1 em,
-   any other about 0.62 em, and … takes 1 */
+   any other about 0.62 em, and … takes 1. A part marked keep (the underlined word of a question, its blank) stays
+   in view: when it would fall past the end, the start of the line is cut instead */
 const em = (c) => (c.charCodeAt(0) > 0x2e7f ? 1 : 0.62);
 const fit = (segs, room) => {
-let w = 0;
-const total = segs.reduce((a, g) => a + [...g.t].reduce((b, c) => b + em(c), 0), 0);
+const chars = [];
+segs.forEach((g, k) => { for (const c of g.t) chars.push({ c, k }); });
+let total = chars.reduce((a, x) => a + em(x.c), 0);
 if (total <= room) return segs;
+let last = -1;
+chars.forEach((x, i) => { if (segs[x.k].keep) last = i; });
+let start = 0;
+let used = 0;
+if (last >= 0) {
+let upTo = chars.slice(0, last + 1).reduce((a, x) => a + em(x.c), 0);
+/* … at the start, the text up to the end of the kept part, and room for … at the end */
+if (upTo > room - 1) {
+used = 1;
+while (start < last && 1 + upTo + 1 > room) { upTo -= em(chars[start].c); total -= em(chars[start].c); start++; }
+}
+}
 const out = [];
-for (const g of segs) {
-let t = '';
-for (const c of g.t) {
-if (w + em(c) > room - 1) { out.push({ ...g, t: t + '…' }); return out; }
-t += c;
-w += em(c);
+let cur = null;
+const put = (k, c) => { if (cur && cur.k === k) cur.t += c; else { cur = { k, t: c }; out.push(cur); } };
+if (used) put(-1, '…');
+const cut = used + total > room;
+for (let i = start; i < chars.length; i++) {
+const x = chars[i];
+if (cut && used + em(x.c) > room - 1) { put(x.k, '…'); break; }
+put(x.k, x.c);
+used += em(x.c);
 }
-out.push({ ...g, t });
-}
+return out.map((o) => (o.k < 0 ? { t: o.t, line: 'none' } : { ...segs[o.k], t: o.t }));
+};
+const fitText = (t, room) => fit([{ t }], room).map((g) => g.t).join('');
+/* a mock question's own item in the bank, and its mock: the sentence with its marks, the passage */
+const rawOf = (q) => {
+const N = window.ykN1;
+if (!q || q.mock == null) return null;
+const mk = (N.mocks || []).filter((x) => String(x.id) === String(q.mock))[0];
+const all = mk ? mk.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
+return all[q.n - 1] ? { it: all[q.n - 1], mk } : null;
+};
+/* the sentence of a passage that holds its blank */
+const blankSentence = (paras) => {
+for (const p of paras || []) for (const t of String(p).match(/[^。！？]+[。！？]?/g) || []) if (t.indexOf('（　　）') >= 0) return t.trim();
+return '';
+};
+/* the line a row shows: the question's line with its underlined word. A mock question shows its sentence as the
+   paper has it, and a passage question that asks about a blank shows the sentence with the blank */
+const segsOf = (q) => {
+const N = window.ykN1;
+const whole = (q.type === '漢字読み' && !!q.word) || !!q.usage;
+const raw = rawOf(q);
+let text = q.line;
+if (raw && raw.it.kind === 'sentence' && raw.it.ja) text = raw.it.ja;
+if (raw && (raw.it.kind === 'passage' || raw.it.kind === 'pair') && String(q.ja).indexOf('（　　）') >= 0) text = blankSentence(raw.it.passage || raw.it.texts) || text;
+/* the four blanks of a sentence-order question, spaced as the lesson questions show them */
+text = String(text || '').replace(/[＿★]{2,}/g, (t) => ' ' + [...t].join(' ') + ' ');
+const out = [];
+N.segs(text).filter((g) => g.t).forEach((g) => g.t.split(/(（　　）)/).filter((t) => t).forEach((t) => {
+const gap = t === '（　　）';
+out.push({ t, line: !gap && (whole || g.mark) ? '2px solid #1B2440' : 'none', keep: gap || g.mark });
+}));
 return out;
 };
-const fitText = (t, room) => fit([{ t }], room)[0].t;
+/* about how many minutes an item takes to review: by its area, and longer for a mock's passage or talk */
+const MIN_KIND = { passage: 2.5, pair: 2.5, task: 1.5, gist: 1.5 };
+const minOf = (q) => MIN_KIND[q.kind] || (AREA[q.area] || AREA.g).min;
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -193,23 +242,31 @@ const k = q.answer === 1 ? 1 : 0;
 return q.short ? q.short[k] : N.plain(q.options[k]);
 };
 const m = (src, more) => ({ src, wrong: wrongOf(src), ...more });
-return [
+/* and from the first mini mock: a reading question due today, and a listening question back tomorrow */
+const mock = (N.mocks || [])[0];
+const paper = mock ? mock.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
+const nOf = (area) => paper.findIndex((x) => x.area === area) + 1;
+const mocks = [];
+if (mock && nOf('r')) mocks.push(m('m' + mock.id + '.' + nOf('r'), { at: at(-6), step: 1, next: t }));
+if (mock && nOf('l')) mocks.push(m('m' + mock.id + '.' + nOf('l'), { at: at(0) }));
+return mocks.concat([
 m('g.' + lid + '.d0', { at: at(0) }),
 m('k.' + (v && v.ki.length ? v.ki[0] : 0) + '.0', { at: at(-4), step: 1, next: t }),
 m('l.' + pid, { at: at(-11), step: 2, next: t }),
 m('g.' + pid + '.x2', { at: at(-1) }),
 m('w.' + (v && v.wi.length ? v.wi[0] : 0), { at: at(-2), step: 1, next: N.add(t, 2) }),
 m('r.' + pid, { at: at(-12), step: 3, cleared: N.add(t, -1) }),
-];
+]);
 }
-/* when a mistake comes back: the date its last review set, or the day after it was made */
+/* when a mistake comes back: the date its last review set, or the day after it was made, on this device's
+   calendar as N.due() counts it */
 back(m) {
 const N = window.ykN1;
-return isDate(m.next) ? m.next : iso(m.at) ? N.add(iso(m.at), 1) : N.today();
+return isDate(m.next) ? m.next : iso(m.at) ? N.add(N.localDay(+m.at), 1) : N.today();
 }
-/* due today: as N.due() has it; an entry with a broken date is due, so a review sets it right */
+/* due today: as N.due() has it, so the count is the Today screen's; an entry whose date N.due() cannot read is due,
+   so a review sets it right */
 due(m) {
-if (m.next && !isDate(m.next)) return true;
 try { return window.ykN1.due(m); } catch (e) { return true; }
 }
 renderVals() {
@@ -219,11 +276,12 @@ const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefaul
 const app = this.props.app;
 const list = app ? (Array.isArray(app.mistakes) ? app.mistakes : []) : this.sample();
 const t = N.today();
-/* every mistake the bank can rebuild; a mock question it cannot is kept, but not shown */
+/* every mistake the bank can rebuild (a lesson's question, or a mini mock's); one it cannot is kept, but not shown */
 const all = [];
 list.forEach((m, k) => {
 const q = m && typeof m.src === 'string' ? N.item(m.src) : null;
-if (q) all.push({ m, q, k, due: !m.cleared && this.due(m), back: this.back(m) });
+const raw = q ? rawOf(q) : null;
+if (q) all.push({ m, q, k, due: !m.cleared && this.due(m), back: this.back(m), mk: raw ? raw.mk.en || raw.mk.title || '' : '' });
 });
 const active = all.filter((e) => !e.m.cleared);
 const cleared = all.filter((e) => e.m.cleared);
@@ -233,10 +291,6 @@ const due = active.filter((e) => e.due);
 /* a short date never breaks between its day and month */
 const day = (d) => N.fmt.short(d).replace(' ', '\u00a0');
 const short = (d) => (d === N.add(t, 1) ? 'tomorrow' : day(d));
-const segsOf = (q) => {
-const whole = q.type === '漢字読み' || q.usage;
-return N.segs(q.line).filter((g) => g.t).map((g) => ({ t: g.t, line: whole || g.mark ? '2px solid #1B2440' : 'none' }));
-};
 const rows = active.filter((e) => s.tab === 'all' || e.q.area === s.tab).map((e) => {
 const a = AREA[e.q.area] || AREA.g;
 const step = Math.max(0, Math.min(3, +e.m.step || 0));
@@ -245,7 +299,9 @@ key: e.m.src,
 type: e.q.type,
 tagBg: a.bg,
 tagInk: a.ink,
-when: e.due ? 'due today' : 'back ' + short(e.back),
+/* a mock question names its mock */
+/* a date N.due() cannot read never comes due: it has no day to come back on */
+when: (e.due ? 'due today' : e.back > t ? 'back ' + short(e.back) : 'no date set') + (e.mk ? ' · ' + e.mk : ''),
 whenInk: e.due ? '#C7361E' : '#5A6382',
 whenWeight: e.due ? 800 : 700,
 pips: [0, 1, 2].map((n) => (n < step ? FILL : HOLLOW)),
@@ -258,7 +314,7 @@ right: fitText(N.plain(String(e.q.right || '')), 21.6),
 const clearedHere = cleared.filter((e) => s.tab === 'all' || e.q.area === s.tab);
 const clearedRows = clearedHere.map((e) => {
 const a = AREA[e.q.area] || AREA.g;
-return { key: e.m.src, type: e.q.type, tagBg: a.bg, tagInk: a.ink, when: isDate(e.m.cleared) ? 'cleared ' + day(e.m.cleared) : 'cleared', line: fitText(N.plain(e.q.line), 22.8) };
+return { key: e.m.src, type: e.q.type, tagBg: a.bg, tagInk: a.ink, when: isDate(e.m.cleared) ? 'cleared ' + day(e.m.cleared) : 'cleared', line: fit(segsOf(e.q), 22.8).map((g) => g.t).join('') };
 });
 const tabs = TABS.map((key) => {
 const n = key === 'all' ? active.length : active.filter((e) => e.q.area === key).length;
@@ -279,12 +335,12 @@ countInk: on ? '#FFFFFF' : '#5A6382',
 });
 /* today's review: how many, by area, and about how long */
 const dueAreas = ['v', 'g', 'r', 'l'].map((key) => ({ ja: AREA[key].ja, n: due.filter((e) => e.q.area === key).length })).filter((d) => d.n);
-const mins = Math.max(1, Math.ceil(due.reduce((sum, e) => sum + (AREA[e.q.area] || AREA.g).min, 0)));
+const mins = Math.max(1, Math.ceil(due.reduce((sum, e) => sum + minOf(e.q), 0)));
 /* the last review's outcome */
 const rev = app ? app.rev : null;
 const revDay = rev && typeof rev.of === 'number' && rev.of > 0 ? local(rev.at) : null;
 const revLine = revDay ? (revDay === t ? "Today's review: " : 'Last review, ' + day(revDay) + ': ') + (+rev.right || 0) + ' of ' + rev.of + ' right.' : '';
-const next = active.length ? active[0].back : null;
+const next = (active.filter((e) => !e.due && e.back > t)[0] || {}).back || null;
 const tabName = s.tab === 'all' ? '' : AREA[s.tab].en + ' ';
 return {
 empty: !all.length,

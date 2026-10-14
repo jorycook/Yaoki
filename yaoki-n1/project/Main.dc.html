@@ -16,7 +16,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
@@ -66,6 +67,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ c.plain }}" hint-placeholder-val="{{ true }}">
 <div style="height: 40px; border-radius: 50%; border: 2.5px solid #DDE1EC; color: #5A6382; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ c.mark }}</div>
 </sc-if>
+<sc-if value="{{ c.skip }}" hint-placeholder-val="{{ false }}">
+<div style="height: 40px; border-radius: 50%; border: 2.5px dashed #C9D0E3; color: #5A6382; font-weight: 500; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ c.mark }}</div>
+</sc-if>
 <sc-if value="{{ c.empty }}" hint-placeholder-val="{{ false }}">
 <div style="height: 40px"></div>
 </sc-if>
@@ -101,6 +105,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 <sc-if value="{{ n.isLockTest }}" hint-placeholder-val="{{ false }}">
 <button onClick="{{ n.tap }}" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 18px; border: 3px solid #C9D0E3; background: #E6E9F3; color: #5A6382; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; padding: 0">試<div aria-hidden="true" style="position: absolute; right: -7px; top: -7px; width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C9D0E3; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></button>
+</sc-if>
+<sc-if value="{{ n.isSkip }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ n.aria }}" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 50%; border: 3px dashed #C9D0E3; background: #F4F5F9; color: #5A6382; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center">{{ n.mark }}</div>
 </sc-if>
 <sc-if value="{{ n.isExam }}" hint-placeholder-val="{{ false }}">
 <div role="img" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: 52px; height: 52px; box-sizing: border-box; border-radius: 16px; border: 3px solid #1B2440; background: #1B2440; box-shadow: 0 4px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">試験</div>
@@ -150,7 +157,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; background: #F4F5F9; display: flex; flex-direction: column; gap: 2px; min-width: 0">
 <div lang="ja" style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ ask.head }}</div>
 <div lang="ja" style="font-size: 16px; font-weight: 800; line-height: 22px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere">{{ ask.title }}</div>
-<div lang="ja" style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ ask.sub }}</div>
+<div lang="{{ ask.subLang }}" style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ ask.sub }}</div>
 </div>
 <div style="display: flex; gap: 10px">
 <button onClick="{{ closeAsk }}" style="flex: 1 1 0; height: 54px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; color: #1B2440; font-weight: 800; font-size: 16px"><span lang="ja">やめる</span>　Cancel</button>
@@ -180,8 +187,9 @@ const toExam = N.diff(t, plan.exam);
 const over = toExam <= 0;
 const first = N.current(plan);
 const allDone = N.done(days[first]);
-const opened = plan.open != null && !!days[plan.open] && !N.done(days[plan.open]);
-/* the highlighted day: the one opened, else the day to work on; once the exam has come, the end of the path */
+const opened = plan.open != null && !!days[plan.open] && !N.done(days[plan.open]) && !N.empty(days[plan.open]);
+/* the highlighted day: the one opened, else the day to work on (N.current passes over a day with nothing planned);
+   once the exam has come, the end of the path */
 const hi = over ? days.length - 1 : opened ? plan.open : first;
 const wk = Math.min(weeks, Math.max(1, this.state.wk || Math.floor(hi / 7) + 1));
 const from = (wk - 1) * 7;
@@ -221,6 +229,8 @@ if (has(['文脈規定', '言い換え類義', '用法'])) parts.push('語彙');
 if (has(['文の文法1', '文の文法2'])) parts.push('文法');
 return parts.join(' · ');
 }
+/* a day with nothing on it (N.empty) */
+if (v.empty) return 'Its work moved to later days.';
 const parts = [];
 if (v.grammar) parts.push('文法');
 if (v.kanji.length) parts.push('漢字' + v.kanji.length);
@@ -229,8 +239,6 @@ if (v.reading) parts.push('読解');
 if (v.listening) parts.push('聴解');
 return parts.join(' · ');
 };
-/* a study day left with nothing in it (a missed day that a new plan has emptied) has no title of its own */
-const titleOf = (v) => (v.kind === 'study' && !v.grammar && !v.kanji.length && !v.words.length && !v.reading && !v.listening ? '予定なし' : v.title);
 const opensIn = (i) => { const n = N.diff(t, days[i].d); return n === 1 ? 'Opens tomorrow' : 'Opens in ' + n + ' days'; };
 
 /* the callout of the highlighted day, if it is in this week */
@@ -240,7 +248,7 @@ if (hiPos >= 0) {
 const v = N.view(plan, hi);
 const dayJa = v.dow + '日目';
 const isToday = v.d === t;
-call = { hc: '#2F4FD0', hj: dayJa + ' · ' + (isToday ? '今日' : v.date), he: isToday ? 'TODAY' : '', title: titleOf(v), sub: holds(hi), subLang: 'ja', when: '', link: true, ask: false, href: target(hi) + '.dc.html', tap: openAt(hi), bj: v.started ? 'つづける' : 'はじめる', be: v.started ? 'Continue' : 'Start' };
+call = { hc: '#2F4FD0', hj: dayJa + ' · ' + (isToday ? '今日' : v.date), he: isToday ? 'TODAY' : '', title: v.title, sub: holds(hi), subLang: v.empty ? 'en' : 'ja', when: '', link: true, ask: false, href: target(hi) + '.dc.html', tap: openAt(hi), bj: v.started ? 'つづける' : 'はじめる', be: v.started ? 'Continue' : 'Start' };
 if (over) {
 Object.assign(call, { hc: '#C7361E', hj: '試験 · ' + N.fmt.md(plan.exam), he: toExam === 0 ? 'EXAM DAY' : '', title: '試験おつかれさま', sub: 'Time to set your next goal.', subLang: 'en', href: 'Goal.dc.html', tap: nav('Goal'), bj: '次の目標', be: 'Next goal' });
 } else if (allDone) {
@@ -289,29 +297,32 @@ const x = days[i];
 const v = N.view(plan, i);
 const test = x.t === 1;
 const done = N.done(x);
+/* a study day left with nothing on it (a missed day whose work a new plan moved on, N.empty): never done, never a lesson */
+const skip = N.empty(x);
 const isHi = i === hi;
 const ok = free(i);
 const cx = isHi ? Math.min(X[j], 108) : X[j];
 const size = isHi ? 68 : test ? 60 : 52;
 const r = size / 2;
 pts.push(cx + ',' + Math.round(cy));
-if (red === -1 && !done) red = j;
+/* the red line runs up to the first day still to do, past the days with nothing on them */
+if (red === -1 && !done && !skip) red = j;
 const name = 'Day ' + v.dow + ' of week ' + wk + (test ? ', week test' : x.t === 2 ? ', review' : '');
 const n = {
 l: cx - r, t: Math.round(cy - r), size, r, cx, cy,
 radius: test ? (isHi ? '20px' : '18px') : '50%',
 rot: ROT[j], anim: i === just ? 'yk-stamp 450ms ease-out both' : 'none',
 mark: test ? '試' : done && isHi ? '済' : String(v.dow),
-isHi, isDone: !isHi && done,
-isOpenDay: !isHi && !done && ok && !test, isOpenTest: !isHi && !done && ok && test,
-isLock: !isHi && !done && !ok && !test, isLockTest: !isHi && !done && !ok && test,
+isHi, isDone: !isHi && done, isSkip: !isHi && skip,
+isOpenDay: !isHi && !done && !skip && ok && !test, isOpenTest: !isHi && !done && ok && test,
+isLock: !isHi && !done && !skip && !ok && !test, isLockTest: !isHi && !done && !ok && test,
 href: target(i) + '.dc.html',
 tap: ok ? openAt(i) : askAt(i),
-aria: name + (done ? ', done. Open it again' : isHi ? ', ' + (ok ? 'open. Go to it' : 'ahead of plan. Open early') : ok ? ', open. Go to it' : ', locked. Open early'),
+aria: name + (skip && !isHi ? ', nothing planned: its work moved to later days' : done ? ', done. Open it again' : isHi ? ', ' + (ok ? 'open. Go to it' : 'ahead of plan. Open early') : ok ? ', open. Go to it' : ', locked. Open early'),
 label: !isHi,
-day: v.dow + '日目', title: titleOf(v),
-weight: test ? 800 : 700,
-color: !done && !ok ? '#5A6382' : '#1B2440',
+day: v.dow + '日目', title: v.title,
+weight: skip ? 500 : test ? 800 : 700,
+color: skip || (!done && !ok) ? '#5A6382' : '#1B2440',
 };
 nodes.push(n);
 }
@@ -354,15 +365,17 @@ const x = days[i];
 if (!x) { cells.push({ empty: true }); continue; }
 const done = N.done(x);
 const isHi = i === hi && !done;
+const skip = !isHi && N.empty(x);
 cells.push({
 done, hi: !done && isHi, test: !done && !isHi && x.t === 1, review: !done && !isHi && x.t === 2,
-plain: !done && !isHi && x.t === 0, empty: false,
+plain: !done && !isHi && !skip && x.t === 0, skip, empty: false,
 mark: x.t === 1 ? '試' : String(j + 1),
 radius: x.t === 1 ? '12px' : '50%',
 rot: ROT[j], anim: i === just ? 'yk-stamp 450ms ease-out both' : 'none',
 });
 }
 const stamped = cells.filter((c) => c.done).length;
+const skipped = cells.filter((c) => c.skip).length;
 const hiNote = hiPos >= 0 && !N.done(days[hi]) ? ', day ' + (hiPos + 1) + ' is the open day' : '';
 const testNote = count === 7 ? ', day 7 is the week test' : '';
 
@@ -375,8 +388,9 @@ ask = {
 en: 'Open day ' + v.dow + ' early?',
 note: 'It is planned for ' + N.fmt.en(v.d) + '. The rest of your plan stays as it is.',
 head: '第' + v.wk + '週 ' + v.dow + '日目 · ' + v.date,
-title: titleOf(v),
+title: v.title,
 sub: holds(ai),
+subLang: v.empty ? 'en' : 'ja',
 href: target(ai) + '.dc.html',
 open: openAt(ai),
 };
@@ -398,7 +412,7 @@ nextLook: wk >= weeks ? { op: 0.35, cur: 'default' } : { op: 1, cur: 'pointer' }
 prevWeek: () => this.setState({ wk: Math.max(1, wk - 1) }),
 nextWeek: () => this.setState({ wk: Math.min(weeks, wk + 1) }),
 cells,
-cardLabel: 'Stamp card for week ' + wk + ': ' + stamped + ' of ' + count + ' days stamped' + hiNote + testNote,
+cardLabel: 'Stamp card for week ' + wk + ': ' + stamped + ' of ' + count + ' days stamped' + (skipped ? ', ' + skipped + ' with nothing planned' : '') + hiNote + testNote,
 behind,
 behindJa: late + '日遅れ',
 behindEn: late + ' days behind',

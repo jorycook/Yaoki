@@ -167,18 +167,14 @@ const N = window.ykN1;
 const t = N.today();
 const f = this.figures('re ' + exam + ' ' + pace + ' ' + t, plan, () => {
 const r = N.replan(plan, { exam, pace });
-/* done so far: the lessons finished and the kanji of a finished quiz */
-let g = 0, k = 0;
-plan.days.forEach((x) => {
-const p = x.p || {};
-if (x.t === 0 && x.g >= 0 && p.g >= 3) g++;
-if (x.t === 0 && p.k >= 1) k += (x.k || []).length;
-});
-/* what the new days teach (the days kept from the old plan hold only what is done), the last of them, and whether review days follow */
+/* done so far: what is learnt (N.progress), the credit kept from an earlier calendar included. A re-plan keeps all of it */
+const done = N.progress(plan);
+/* what the new days teach, the last of them, and whether review days follow. The days kept from the old plan (those
+   before today, and any worked on: today under way or a day opened early) hold only what is done, so they are left out */
 const add = { g: 0, k: 0, w: 0, r: 0, l: 0 };
 let last = -1, review = false;
 r.days.forEach((x, i) => {
-if (x.d < t || (x.d === t && N.started(x))) return;
+if (x.d < t || N.started(x)) return;
 if (x.t === 2) review = true;
 if (x.t !== 0) return;
 const n = { g: x.g >= 0 ? 1 : 0, k: x.k.length, w: x.w.length, r: x.r >= 0 ? 1 : 0, l: x.l >= 0 ? 1 : 0 };
@@ -188,20 +184,36 @@ if (n.g + n.k + n.w + n.r + n.l) last = i;
 /* the week today falls in, counted the way the path counts weeks (by place in the plan) */
 const at = r.days.findIndex((x) => x.d >= t);
 const week = Math.floor((at < 0 ? r.days.length - 1 : at) / 7) + 1;
-return { r, g, k, add, last, review, week };
+return { r, done, add, last, review, week };
 });
 const r = f.r;
+const d = f.done;
 const weeks = Math.max(1, Math.ceil(N.diff(t, exam) / 7));
 const lines = [];
-lines.push(this.line(f.g || f.k ? 'Done so far: ' + f.g + ' of ' + r.of.g + ' lessons and ' + this.num(f.k) + ' of ' + this.num(r.of.k) + ' kanji. That stays as it is.' : 'Nothing is done yet, so the whole course is laid out again.'));
+lines.push(this.line(this.doneLine(d, r.of)));
 if (f.last < 0) lines.push(this.line('Everything has been taught: the days left are review before the exam.'));
 else if (r.cov.f >= 1) lines.push(this.line('The rest is taught by week\u00a0' + (Math.floor(f.last / 7) + 1) + (f.review ? ', then review until the exam.' : '.') + this.perDay(f.add.k, f.add.w, r.cov.learn)));
-else lines.push(this.warn(pace, f.g + f.add.g, r.of.g, f.k + f.add.k, r.of.k, ' in all'));
+else lines.push(this.warn(pace, d.g + f.add.g, r.of.g, d.k + f.add.k, r.of.k, ' in all'));
 lines.push(this.line('Each week: 6 study days, then a week test on day\u00a07. Today is in week\u00a0' + f.week + ' of\u00a0' + Math.ceil(r.days.length / 7) + '; the plan ends the day before the exam.'));
 return { ja: '残り' + weeks + '週間', en: weeks + (weeks === 1 ? ' week' : ' weeks') + ' to go', lines };
 }
 line(t) {
 return { t, color: '#1B2440', weight: 500 };
+}
+/* what is learnt so far, as lessons and kanji; when neither has any yet, the words, reading and listening done */
+doneLine(d, of) {
+const count = (n, all, what) => (n >= all ? 'all ' : n + ' of ') + this.num(all) + ' ' + what;
+let parts = [];
+if (d.g) parts.push(count(d.g, of.g, 'lessons'));
+if (d.k) parts.push(count(d.k, of.k, 'kanji'));
+if (!parts.length) {
+if (d.w) parts.push(this.num(d.w) + (d.w === 1 ? ' word' : ' words'));
+if (d.r) parts.push(d.r + (d.r === 1 ? ' reading passage' : ' reading passages'));
+if (d.l) parts.push(d.l + (d.l === 1 ? ' listening item' : ' listening items'));
+}
+if (!parts.length) return 'Nothing is done yet, so the whole course is laid out again.';
+parts = parts.length > 1 ? parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1] : parts[0];
+return 'Done so far: ' + parts + '. That stays as it is.';
 }
 /* about how many kanji and words a day, over the days that teach; a part with none is left out */
 perDay(k, w, learn) {

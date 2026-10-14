@@ -49,7 +49,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 <div style="display: flex; align-items: center; gap: 8px">
 <button onClick="{{ playNormal }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap"><span lang="ja">もう一度</span> Replay</button>
-<div style="flex-grow: 1; text-align: right; font-size: 11px; font-weight: 700; color: #5A6382">drill only</div>
+<button aria-label="Play slowly, at 0.8 times the speed" onClick="{{ playSlow }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap"><span lang="ja">ゆっくり</span> 0.8×</button>
+<div style="flex-grow: 1; min-width: 0; text-align: right; font-size: 11px; font-weight: 700; color: #5A6382">drill only</div>
 </div>
 </div>
 
@@ -161,15 +162,18 @@ const ANSWER = t.answer;
 const replies = t.replies.slice(0, 3);
 const key = 'l.' + lesson.id;
 const HEIGHTS = [10, 20, 30, 16, 34, 24, 12, 28, 38, 22, 14, 26, 32, 18, 10, 24, 30, 20, 12, 26, 16, 8];
-/* the line and its three numbered replies are one clip: the waveform fills while it plays, then the answers unlock.
-   Without the clip, the waveform fills for a stand-in time: about 150 ms a character (each reply after its number),
-   600 ms more, and the second's pause before each reply */
+/* the line and its three numbered replies are one clip, and l.<lesson id>.slow a slower take of it (0.8×): the
+   waveform fills while it plays, then the answers unlock. Without the clip, the waveform fills for a stand-in time:
+   about 150 ms a character (each reply after its number), 600 ms more, and the second's pause before each reply;
+   the slow take's stand-in is 1.25 times as long */
 const chars = N.plain(t.line).length + replies.reduce((a, x) => a + N.plain(x).length + 3, 0);
-const standIn = 150 * chars + 600 + 1000 * replies.length;
-const play = () => {
+const normalIn = 150 * chars + 600 + 1000 * replies.length;
+const play = (slow) => () => {
 clearInterval(this.timer);
 const snd = window.ykSound;
-let sound = !!(snd && snd.has(key) && snd.unlock() && snd.play(key));
+const clip = slow ? key + '.slow' : key;
+const standIn = slow ? normalIn * 1.25 : normalIn;
+let sound = !!(snd && snd.has(clip) && snd.unlock() && snd.play(clip));
 if (!sound && snd) snd.stop();
 let heard = false;
 const started = Date.now();
@@ -187,8 +191,8 @@ if (on && atMs > 0) heard = true;
 if (heard && (!on || atMs < 0)) { done = 1; snd.stop(); }
 /* it never started: a browser can hold the audio back even after a tap. Stop waiting after a second,
    or after a few seconds where sound has come out before */
-else if (!heard && (!snd.has(key) || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; snd.stop(); }
-else done = Math.max(0, atMs) / snd.ms(key);
+else if (!heard && (!snd.has(clip) || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; snd.stop(); }
+else done = Math.max(0, atMs) / snd.ms(clip);
 /* the clip has come to its end by itself */
 if (snd.over && snd.over() >= 0) done = 1;
 }
@@ -246,7 +250,8 @@ barAria: 'Quick response, question 1 of 1',
 bars: HEIGHTS.map((h, n) => ({ h: h + 'px', bg: n < Math.round(s.progress * HEIGHTS.length) ? '#2F4FD0' : '#C9D0E3' })),
 playBg: s.playing ? '#F2B43A' : '#2F4FD0',
 playInk: s.playing ? '#1B2440' : '#FFFFFF',
-playNormal: play,
+playNormal: play(false),
+playSlow: play(true),
 answers,
 waiting: !s.played,
 answered,

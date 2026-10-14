@@ -21,7 +21,8 @@ On the design canvas each screen file runs alone, so it loads what it needs in i
 <script src="./audio/clips.js"></script>
 ```
 
-In the app these are loaded once by the page; the build ignores a screen's `<head>`.
+A board that imports another screen to show it at a moment of its own (ExamResult; MockPaper, MockSheet, MockReading,
+MockBreak, MockListening, MockResult and MockAnswers; App) runs that screen's logic, so it loads the same. In the app these are loaded once by the page; the build ignores a screen's `<head>`.
 
 ## Reading the plan
 
@@ -60,6 +61,14 @@ Progress is kept per day in `plan.days[i].p`. It only ever goes up. Save it with
 | `v` | 1: mixed review done (review day) | WeekTest |
 
 `N.done(day)` tells whether a day is complete. A finished day is stamped 済 on the path.
+
+`N.empty(day)` is true for a study day with nothing on it: a missed day whose work a new plan (`N.replan`) moved to
+later days. Its `view(...).title` is 予定なし. It is never done or stamped, `N.current` passes over it, the path shows it
+as a quiet day that does not open, and Today shows it as a day with nothing left, with the way on to the day to work on.
+
+`N.progress(plan)` counts what has been learnt so far, part by part: `{ g, k, w, r, l }` (grammar lessons with all three
+steps, kanji and words with their quiz, reading, listening), the credit a re-planned plan keeps from an earlier calendar
+(`plan.past`) included. Count learning with it (Goal, Readiness), not with the stamps or `plan.days` alone.
 
 Results: `N.result(plan, 'tests', wk, { score, of, at })` and `N.result(plan, 'mocks', id, {...})` return a copy of the
 plan with the result kept.
@@ -107,16 +116,22 @@ row (`N.reviewed`).
 
 ## Sound
 
-Clips are named by what they say. `audio/clips.js` lists each clip as `{ ms, u }`, and `sound.js` fetches the file when
-the clip is first played:
+Clips are named by what they say. `audio/clips.js` lists each clip kept as a file as `{ ms, u }`, and `sound.js` fetches
+the file when the clip is first played:
 
 - `g.<lesson id>.<pattern 0-2>.<example 0-1>`: a teach page example;
 - `l.<lesson id>`: a listening item (the line, then the three numbered replies);
+- `l.<lesson id>.slow`: the same listening item said more slowly (0.8×), for Listening's ゆっくり button;
 - `w.<lesson id>.<word 0-4>`: a word and its example sentence;
-- a mock's clips are named in its file.
+- `m<mock id>.<n>.<part>`: a part of a listening question of mock 2 or later, where n is the question's place in the
+  whole paper (`m2.10.talk`, `m2.12.replies`), kept as a file listed in `audio/clips.js` like the lesson clips
+  (`content/MOCKS.md`).
+
+Mock 1 is older: its clips are named in its file (`"clip"`: `m10_q` and so on) and kept in `sound-mock.js`, MP3 as
+base64 text. `N.mockQ` gives a mock question's clip names either way.
 
 A screen asks `ykSound.has(key)` and falls back to a silent stand-in when a clip is missing. The stand-in time follows
-the length of the text: about 150 ms a character, plus 600 ms.
+the length of the text: about 150 ms a character, plus 600 ms. The slow take's stand-in is 1.25 times as long.
 
 ## Layout
 

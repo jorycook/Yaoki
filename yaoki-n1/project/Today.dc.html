@@ -16,7 +16,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
 </style>
@@ -96,7 +97,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-for>
 
 <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<div style="margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px dashed #C9D0E3; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div lang="ja" style="font-size: 16px; font-weight: 800">この日の学習はありません</div>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Nothing is left on this day. When the plan was made again, its parts moved to later days.</div>
 </div>
@@ -107,6 +108,12 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #FDEBE6; flex-shrink: 0">
 <div lang="ja" style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 50%; border: 2.5px dashed #C7361E; color: #C7361E; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">済</div>
 <div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ footNote }}</div>
+</div>
+</sc-if>
+<sc-if value="{{ onward }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div style="font-size: 13px; font-weight: 700; line-height: 1.45; color: #5A6382">{{ onward.note }}</div>
+<a href="{{ onward.href }}" onClick="{{ onward.tap }}" style="height: 54px; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap"><span lang="ja">{{ onward.ja }}</span>　{{ onward.en }}</a>
 </div>
 </sc-if>
 <sc-if value="{{ allDone }}" hint-placeholder-val="{{ false }}">
@@ -291,8 +298,8 @@ else if (dayDone) hint = 'Every part is done. Open a card to go over it again.';
 else if (n === 1) hint = 'One part on this day. Tap the card to begin.';
 else hint = 'Work down the cards. The outlined one is next.';
 
-/* a day the plan was made again around keeps nothing; the path calls it 予定なし too */
-const title = v.kind === 'study' && !n ? '予定なし' : v.title;
+/* a day the plan was made again around keeps nothing (N.empty): view() calls it 予定なし, as the path does */
+const title = v.title;
 /* the title takes two lines at most, from 26px down to 20px; only a title that cannot (three long patterns) takes
    three lines at 20px. Full-width characters are 1em wide; the room keeps a few pixels of slack */
 const titleParts = pieces(title);
@@ -301,6 +308,30 @@ const lines = (list, px) => list.reduce((a, s) => { const w = em(s, px); return 
 let size = 26;
 while (size > 20 && lines(titleParts, size) > 2) size--;
 const titleSize = size + 'px';
+
+/* a day with nothing on it is never stamped: instead of the stamp note, the way on to the day to work on
+   (N.current passes over such days), or back to the path when there is none */
+let onward = null;
+if (v.empty) {
+const c = N.current(plan);
+const ok = c !== i && plan.days[c] && !N.empty(plan.days[c]) && !N.done(plan.days[c]);
+const cv = ok ? N.view(plan, c) : null;
+const to = ok && cv.kind === 'test' ? 'WeekTest' : ok ? 'Today' : 'Main';
+onward = ok
+? {
+note: 'The day to work on is ' + (cv.d === t ? 'today, ' : '') + 'day ' + cv.dow + ' of week ' + cv.wk + '.',
+ja: 'つづきへ', en: 'Go to day ' + cv.dow + (cv.wk !== v.wk ? ' of week ' + cv.wk : ''), href: to + '.dc.html',
+tap: (e) => {
+const go = this.props.go;
+if (!go) return;
+e.preventDefault();
+const cur = (this.props.app || {}).plan;
+if (cur && cur.days && cur.days[c] && this.props.save) this.props.save({ plan: N.withOpen(cur, c) });
+go(to);
+},
+}
+: { note: 'Nothing is left to do on the path.', ja: 'もどる', en: 'Back to the path', href: 'Main.dc.html', tap: nav('Main') };
+}
 
 const what = v.kind === 'test' ? 'the week test' : v.kind === 'review' ? 'the mixed review' : n === 1 ? 'this part' : n === 2 ? 'both parts' : 'all ' + NUM[n] + ' parts';
 return {
@@ -312,9 +343,10 @@ titleParts,
 hint,
 big,
 rows,
-empty: v.kind === 'study' && !n,
+empty: v.empty,
+onward,
 allDone: dayDone,
-open: !dayDone,
+open: !dayDone && !v.empty,
 footNote: 'Finish ' + what + ' to stamp day ' + v.dow + ' on your card.',
 toMain: nav('Main'),
 };

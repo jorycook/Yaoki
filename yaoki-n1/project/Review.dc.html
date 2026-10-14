@@ -9,6 +9,7 @@
 <script src="./n1.js"></script>
 <script src="./audio/clips.js"></script>
 <script src="./sound-lessons.js"></script>
+<script src="./sound-mock.js"></script>
 </head>
 <body>
 <x-dc>
@@ -41,7 +42,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 
 <div data-rv-body="1" style="position: relative; margin-top: 10px; flex-grow: 1; min-height: 0; overflow-y: auto; padding-bottom: 12px; display: flex; flex-direction: column">
-<div style="font-size: 13px; font-weight: 800; flex-shrink: 0">{{ it.ask }}</div>
+<div style="font-size: 13px; font-weight: 800; flex-shrink: 0">{{ it.ask }}<sc-if value="{{ it.hasFrom }}" hint-placeholder-val="{{ false }}"><span style="font-weight: 700; color: #5A6382"> · {{ it.from }}</span></sc-if></div>
 <sc-if value="{{ it.hasRubric }}" hint-placeholder-val="{{ true }}">
 <div lang="ja" style="margin-top: 2px; font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5; flex-shrink: 0">{{ it.rubric }}</div>
 </sc-if>
@@ -62,31 +63,66 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 
 <sc-if value="{{ it.isText }}" hint-placeholder-val="{{ true }}">
-<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 19px; font-weight: 600; line-height: 2; flex-shrink: 0"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap"><sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for></span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 19px; font-weight: 600; line-height: 2; flex-shrink: 0"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap">{{ g.lead }}<sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for>{{ g.tail }}</span></sc-if></sc-for></div>
 </sc-if>
 
 <sc-if value="{{ it.isReading }}" hint-placeholder-val="{{ false }}">
 <div lang="ja" style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; flex-shrink: 0"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div>
+</sc-if>
+
+<sc-if value="{{ it.isPassage }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ it.hasLead }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="margin-top: 8px; font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.5; flex-shrink: 0">{{ it.lead }}</div>
+</sc-if>
+<div lang="ja" style="margin-top: 8px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.75; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<sc-for list="{{ it.paras }}" as="p" hint-placeholder-count="2"><div><sc-for list="{{ p.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if></sc-for></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ it.isPair }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<sc-for list="{{ it.pair }}" as="x" hint-placeholder-count="2">
+<div style="padding: 9px 14px 10px 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; align-items: flex-start; gap: 10px">
+<div role="img" aria-label="{{ x.aria }}" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px">{{ x.tag }}</div>
+<div style="min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.65"><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if></sc-for></div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ it.hasQuestion }}" hint-placeholder-val="{{ false }}">
 <div lang="ja" style="margin-top: 10px; font-size: 15px; font-weight: 800; line-height: 1.5; flex-shrink: 0">{{ it.question }}</div>
 </sc-if>
 
 <sc-if value="{{ it.isListen }}" hint-placeholder-val="{{ false }}">
 <div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; align-items: center; gap: 14px; flex-shrink: 0">
-<button aria-label="Play audio" onClick="{{ play }}" style="width: 54px; height: 54px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
-<div aria-hidden="true" style="flex-grow: 1; height: 40px; display: flex; align-items: center; justify-content: space-between">
+<button aria-label="{{ playLabel }}" onClick="{{ play }}" style="width: 54px; height: 54px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div aria-hidden="true" style="height: 40px; display: flex; align-items: center; justify-content: space-between">
 <sc-for list="{{ bars }}" as="b" hint-placeholder-count="20">
 <div style="width: 4px; border-radius: 2px; height: {{ b.h }}; background: {{ b.bg }}"></div>
 </sc-for>
 </div>
+<sc-if value="{{ hasParts }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ partsLabel }}" style="display: flex; align-items: center; gap: 4px; min-width: 0">
+<sc-for list="{{ parts }}" as="c" hint-placeholder-count="3">
+<div lang="ja" style="padding: 1px 7px; border-radius: 7px; font-size: 11px; font-weight: 800; white-space: nowrap; transition: background 150ms; background: {{ c.bg }}; color: {{ c.ink }}">{{ c.ja }}</div>
+</sc-for>
 </div>
+</sc-if>
+</div>
+</div>
+<sc-if value="{{ noClip }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 8px; padding: 6px 10px; border-radius: 10px; background: #FFF4D6; font-size: 12px; font-weight: 700; line-height: 1.45; flex-shrink: 0"><span lang="ja">音声準備中</span>　{{ noClipLine }}</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ it.isNumbers }}" hint-placeholder-val="{{ false }}">
 <div style="margin-top: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; flex-shrink: 0">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
 <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-disabled="{{ o.off }}" aria-label="{{ o.aria }}" style="height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 21px; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}; cursor: {{ o.cursor }}">{{ o.n }}<sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
-<sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center; flex-shrink: 0"><span lang="ja">まず聞いてください</span>　Listen first, then choose 1, 2 or 3.</div>
-</sc-if>
 </sc-if>
 
 <sc-if value="{{ it.isChoice }}" hint-placeholder-val="{{ true }}">
@@ -97,6 +133,10 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </sc-if>
 
+<sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center; flex-shrink: 0"><span lang="ja">まず聞いてください</span>　{{ waitLine }}</div>
+</sc-if>
+
 <sc-if value="{{ checked }}" hint-placeholder-val="{{ true }}">
 <div data-rv-panel="1" style="margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 7px; animation: yk-up 220ms ease-out; flex-shrink: 0; border: 2px solid {{ panelEdge }}">
 <div style="display: flex; align-items: center; gap: 8px">
@@ -105,7 +145,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="flex-grow: 1; min-width: 0; font-size: 17px; font-weight: 800; white-space: nowrap"><span lang="ja">{{ verdictJa }}</span> <span style="font-size: 13px; font-weight: 700">{{ verdictEn }}</span></div>
 <div style="font-size: 13px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><span lang="ja">正解</span>　{{ rightN }}</div>
 </div>
-<sc-if value="{{ it.isListen }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ it.isNumbers }}" hint-placeholder-val="{{ false }}">
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7">{{ it.line }}</div>
 <sc-for list="{{ replies }}" as="x" hint-placeholder-count="3">
 <div style="display: flex; align-items: flex-start; gap: 8px">
@@ -113,7 +153,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ !x.ok }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 3px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
 <div style="min-width: 0; display: flex; flex-direction: column; gap: 1px; font-size: 13px; line-height: 1.5">
 <div style="font-weight: 800"><span lang="ja">{{ x.n }} {{ x.text }}</span><sc-if value="{{ x.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; white-space: nowrap">your pick</span></sc-if></div>
-<div style="font-weight: 500">{{ x.note }}</div>
+<sc-if value="{{ x.hasNote }}" hint-placeholder-val="{{ true }}"><div style="font-weight: 500">{{ x.note }}</div></sc-if>
 </div>
 </div>
 </sc-for>
@@ -123,6 +163,16 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 <sc-if value="{{ hasWhyNot }}" hint-placeholder-val="{{ false }}">
 <div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; font-size: 13px; font-weight: 500; line-height: 1.5"><sc-if value="{{ hasPickLabel }}" hint-placeholder-val="{{ true }}"><strong lang="ja" style="font-weight: 800; margin-right: 8px">{{ pickLabel }}</strong></sc-if>{{ whyNot }}</div>
+</sc-if>
+<sc-if value="{{ hasScript }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ toggleScript }}" aria-expanded="{{ scriptOpen }}" style="align-self: flex-start; height: 44px; margin: -6px 0 -6px; padding: 0; border: 0; background: none; color: #2F4FD0; font-size: 13px; font-weight: 800; white-space: nowrap"><span lang="ja">{{ scriptJa }}</span>　{{ scriptEn }}</button>
+<sc-if value="{{ scriptOpen }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="padding: 8px 10px; border-radius: 10px; background: #F4F5F9; display: flex; flex-direction: column; gap: 4px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.6">
+<sc-for list="{{ script }}" as="l" hint-placeholder-count="4">
+<div style="display: flex; gap: 6px"><span style="flex-shrink: 0; width: 16px; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 11px; font-weight: 800; color: #5A6382; padding-top: 3px">{{ l.who }}</span><span style="min-width: 0"><sc-for list="{{ l.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></span></div>
+</sc-for>
+</div>
+</sc-if>
 </sc-if>
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.45"><span lang="ja">前回</span>　Last time you chose: <span lang="ja">{{ it.last }}</span></div>
 </div>
@@ -186,7 +236,24 @@ const KIND = {
 '文の文法2': { ask: 'Which tile goes on the ★?', rubric: '次の文の★に入る最もよいものを選びなさい。' },
 '読解': { ask: 'Read, then answer', rubric: '' },
 '即時応答': { ask: 'Choose the best reply', rubric: '文を聞いて、1から3の中から最もよい返事を選びなさい。' },
+'文章の文法': { ask: 'Choose what fits the text', rubric: '' },
+'統合理解': { ask: 'Read A and B, then answer', rubric: '' },
+'課題理解': { ask: 'Listen, then answer', rubric: '' },
+'概要理解': { ask: 'Listen for the gist', rubric: '' },
 };
+/* a mini mock's question of a type not named above: what it asks, by how the paper lays it out. A mock question
+   brings the instruction of its own paper */
+const BY_KIND = {
+sentence: 'Choose the answer', usage: 'Which sentence uses it well?', passage: 'Read, then answer', pair: 'Read A and B, then answer',
+task: 'Listen, then answer', gist: 'Listen for the gist', quick: 'Choose the best reply',
+};
+/* the parts of a mock question's audio, played in turn */
+const PART = {
+q: { ja: '質問', en: 'the question' }, talk: { ja: '話', en: 'the talk' }, q2: { ja: '質問', en: 'the question again' },
+choices: { ja: '選択肢', en: 'the question and the choices' }, line: { ja: '文', en: 'the line' }, replies: { ja: '返事', en: 'the three replies' },
+};
+/* the breath between two parts of the audio, in milliseconds */
+const GAP = 400;
 /* the area colours the notebook uses */
 const AREA = {
 v: { bg: '#FDEBE6', ink: '#C7361E' },
@@ -203,6 +270,40 @@ const ON = { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shado
 /* a saved time (ms) as an ISO date; null when it is not a time */
 const iso = (t) => (Number.isFinite(+t) && +t > 0 ? new Date(+t).toISOString().slice(0, 10) : null);
 const isDate = (d) => typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d);
+/* the pieces of a question's text: plain, underlined (the word asked about), marked (the answer), a blank */
+const plainSeg = (t) => ({ text: true, t, line: 'none', bg: 'transparent', pad: '0', ws: 'normal' });
+const underSeg = (t) => ({ text: true, t, line: '2px solid #1B2440', bg: 'transparent', pad: '0', ws: t.length > 14 ? 'normal' : 'nowrap' });
+const markSeg = (t) => ({ text: true, t, line: 'none', bg: '#FFE9B0', pad: '0 3px', ws: t.length > 14 ? 'normal' : 'nowrap' });
+const BLANK = { blank: true, text: false };
+const noRuby = (t) => String(t || '').replace(/《[^》]*》/g, '');
+/* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
+const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
+const NO_END = /[（「『【〔〈《［｛]+$/;
+/* a mock question's sentence as the paper draws it: 【…】 underlined, （　　） a blank, and the four blanks of a
+   sentence-order question (＿ and ★) kept on one line with the marks beside them */
+const paperSegs = (text) => {
+const out = [];
+noRuby(text).split(/(【[^】]*】|（　　）|[＿★]+)/).filter((t) => t).forEach((t) => {
+if (t === '（　　）') out.push(BLANK);
+else if (/^[＿★]+$/.test(t)) {
+const prev = out[out.length - 1];
+const lead = prev && prev.text && prev.line === 'none' ? (prev.t.match(NO_END) || [''])[0] : '';
+if (lead) prev.t = prev.t.slice(0, -lead.length);
+out.push({ text: false, slots: [...t].map((c) => ({ star: c === '★' })), lead, tail: '' });
+} else if (t[0] === '【') out.push(underSeg(t.slice(1, -1)));
+else {
+const prev = out[out.length - 1];
+const tail = prev && prev.slots ? (t.match(NO_START) || [''])[0] : '';
+if (tail) prev.tail = tail;
+if (t.length > tail.length) out.push(plainSeg(t.slice(tail.length)));
+}
+});
+return out.filter((g) => !g.text || g.t);
+};
+/* a mock question's full sentence, once checked: the answer in its place, marked */
+const fullSegs = (text) => noRuby(text).split(/(【[^】]*】)/).filter((t) => t).map((t) => (t[0] === '【' ? markSeg(t.slice(1, -1)) : plainSeg(t)));
+/* a paragraph of a passage or a text of a pair: 【…】 underlined, and its blank, which holds the answer once checked */
+const textSegs = (text, fill) => noRuby(text).split(/(【[^】]*】|（　　）)/).filter((t) => t).map((t) => (t === '（　　）' ? (fill ? markSeg(fill) : BLANK) : t[0] === '【' ? underSeg(t.slice(1, -1)) : plainSeg(t)));
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -214,7 +315,7 @@ this.items = this.session();
 this.state = props && props.go ? this.fresh() : this.designed(props && props.view);
 }
 fresh() {
-return { i: 0, pick: null, checked: false, results: [], played: false, playing: false, progress: 0, done: false };
+return { i: 0, pick: null, checked: false, results: [], played: false, playing: false, progress: 0, part: -1, script: false, done: false };
 }
 /* the designed moments: the first item answered right, a fresh question, or the outcome */
 designed(view) {
@@ -257,14 +358,21 @@ const k = q.answer === 1 ? 1 : 0;
 return q.short ? q.short[k] : N.plain(q.options[k]);
 };
 const m = (src, more) => ({ src, wrong: wrongOf(src), ...more });
-return [
+/* and from the first mini mock: a reading question due today, and a listening question back tomorrow */
+const mock = (N.mocks || [])[0];
+const paper = mock ? mock.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
+const nOf = (area) => paper.findIndex((x) => x.area === area) + 1;
+const mocks = [];
+if (mock && nOf('r')) mocks.push(m('m' + mock.id + '.' + nOf('r'), { at: at(-6), step: 1, next: t }));
+if (mock && nOf('l')) mocks.push(m('m' + mock.id + '.' + nOf('l'), { at: at(0) }));
+return mocks.concat([
 m('g.' + lid + '.d0', { at: at(0) }),
 m('k.' + (v && v.ki.length ? v.ki[0] : 0) + '.0', { at: at(-4), step: 1, next: t }),
 m('l.' + pid, { at: at(-11), step: 2, next: t }),
 m('g.' + pid + '.x2', { at: at(-1) }),
 m('w.' + (v && v.wi.length ? v.wi[0] : 0), { at: at(-2), step: 1, next: N.add(t, 2) }),
 m('r.' + pid, { at: at(-12), step: 3, cleared: N.add(t, -1) }),
-];
+]);
 }
 /* a question as the review shows it: an option the bank could not fill is left out, and the answer counted again.
    was: each option's place in the bank's list, for the explanations kept per option */
@@ -274,20 +382,47 @@ const keep = q.options.map((o, k) => ({ o, k: k + 1 })).filter((x) => x.o != nul
 const answer = keep.findIndex((x) => x.k === q.answer) + 1;
 return answer > 0 && keep.length >= 2 ? { ...q, options: keep.map((x) => x.o), answer, was: keep.map((x) => x.k) } : null;
 }
+/* a mock question's own item in the bank, and its mock: the sentence with its marks, the full sentence, the
+   instruction, the lead line, and the lines of each part of its audio */
+raw(q) {
+const N = window.ykN1;
+if (!q || q.mock == null) return null;
+const mk = (N.mocks || []).filter((x) => String(x.id) === String(q.mock))[0];
+const all = mk ? mk.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
+return all[q.n - 1] ? { it: all[q.n - 1], mk } : null;
+}
+/* what the play button plays, in turn, each with its stand-in time for when its clip is missing (about 150 ms a
+   character, and 600 ms). A lesson's line and its replies are one clip (each reply after its number, with a
+   second's pause before it); a mock question has a clip for each part of its audio */
+clipsOf(e) {
+const N = window.ykN1;
+const q = e.q;
+if (Array.isArray(q.clips) && q.clips.length) {
+const said = (e.raw && e.raw.it.audio) || [];
+return q.clips.map((key, k) => {
+const a = said[k] || { lines: [] };
+const chars = (a.lines || []).reduce((n, l) => n + N.plain(l[1]).length, 0);
+return { key, part: a.part || '', ms: 600 + 150 * chars };
+});
+}
+const replies = (q.replies || []).slice(0, 3);
+const chars = N.plain(q.ja).length + replies.reduce((a, x) => a + N.plain(x).length + 3, 0);
+return [{ key: q.clip || '', part: '', ms: 150 * chars + 600 + 1000 * replies.length }];
+}
 /* the due mistakes in the notebook's order: the longest waiting first, then the most recent */
 session() {
 const N = window.ykN1;
 if (!N) return [];
 const app = this.props.app;
 const list = app ? (Array.isArray(app.mistakes) ? app.mistakes : []) : this.sample();
-const back = (m) => (isDate(m.next) ? m.next : iso(m.at) ? N.add(iso(m.at), 1) : N.today());
+const back = (m) => (isDate(m.next) ? m.next : iso(m.at) ? N.add(N.localDay(+m.at), 1) : N.today());
 /* due today: as N.due() has it; an entry with a broken date is due, so this review sets it right */
 const due = (m) => { if (m.next && !isDate(m.next)) return true; try { return N.due(m); } catch (e) { return true; } };
 const out = [];
 list.forEach((m, k) => {
 if (!m || typeof m.src !== 'string' || m.cleared || !due(m)) return;
 const q = this.tidy(N.item(m.src));
-if (q) out.push({ m, q, k, back: back(m) });
+if (q) out.push({ m, q, k, back: back(m), raw: this.raw(q) });
 });
 out.sort((a, b) => (a.back < b.back ? -1 : a.back > b.back ? 1 : 0) || ((+b.m.at || 0) - (+a.m.at || 0)) || a.k - b.k);
 return out;
@@ -307,19 +442,22 @@ return { ja: q.ja || '', whys: Array.isArray(q.why) ? q.why : null };
 }
 /* the question body of a review item, before and after checking: a blank (filled once checked), the underlined
    word, the four slots of a ★ question (its tiles in order once checked), or a reading passage (its signposts
-   marked once checked) */
+   marked once checked). A mock question's sentence is drawn as its paper has it, and once checked its full
+   sentence shows the answer in place */
 segs(e, checked) {
 const N = window.ykN1;
 const q = e.q;
+const paper = e.raw && e.raw.it;
+if (paper && paper.kind === 'sentence' && paper.ja) return checked && paper.full ? fullSegs(paper.full) : paperSegs(paper.ja);
 const ex = this.extra(q.src);
 const right = N.plain(q.options[q.answer - 1]);
-const plain = (t) => ({ text: true, t, line: 'none', bg: 'transparent', pad: '0', ws: 'normal' });
-const under = (t) => ({ text: true, t, line: '2px solid #1B2440', bg: 'transparent', pad: '0', ws: t.length > 14 ? 'normal' : 'nowrap' });
-const mark = (t) => ({ text: true, t, line: 'none', bg: '#FFE9B0', pad: '0 3px', ws: t.length > 14 ? 'normal' : 'nowrap' });
+const plain = plainSeg;
+const under = underSeg;
+const mark = markSeg;
 if (q.order) {
 const pre = N.plain(q.pre);
 const post = N.plain(q.post);
-if (!checked) return [pre ? plain(pre) : null, { slots: [0, 1, 2, 3].map((k) => ({ star: k === q.star })) }, post ? plain(post) : null].filter(Boolean);
+if (!checked) return [pre ? plain(pre) : null, { text: false, slots: [0, 1, 2, 3].map((k) => ({ star: k === q.star })), lead: '', tail: '' }, post ? plain(post) : null].filter(Boolean);
 const tiles = (q.tiles || []).map((t) => N.plain(t));
 return [pre ? plain(pre) : null].concat(tiles.map((t, k) => (k === q.star ? mark(t) : under(t))), [post ? plain(post) : null]).filter(Boolean);
 }
@@ -332,7 +470,7 @@ const out = [];
 N.segs(raw).forEach((g) => {
 const show = g.mark && (q.type === '言い換え類義' || checked);
 g.t.split('（　　）').forEach((t, k) => {
-if (k) out.push(checked ? mark(right) : { blank: true, text: false });
+if (k) out.push(checked ? mark(right) : BLANK);
 if (t) out.push(show ? under(t) : plain(t));
 });
 });
@@ -408,12 +546,20 @@ const e = items[Math.min(s.i, n - 1)];
 const q = e.q;
 const m = e.m;
 const ex = this.extra(q.src);
-const kind = KIND[q.type] || { ask: 'Choose the answer', rubric: '最もよいものを選びなさい。' };
+/* a mock question: its item in the bank, and how its paper lays it out (sentence, usage, passage, pair, task, gist, quick) */
+const raw = e.raw ? e.raw.it : null;
+const layout = raw ? q.kind || raw.kind || '' : '';
+const kind = KIND[q.type] || { ask: BY_KIND[layout] || 'Choose the answer', rubric: raw ? '' : '最もよいものを選びなさい。' };
 const area = AREA[q.area] || AREA.g;
 const isListen = !!q.listen;
-const isReading = q.type === '読解';
-const isWord = q.type === '漢字読み';
+const isReading = q.type === '読解' && !raw;
+const isPassage = layout === 'passage';
+const isPair = layout === 'pair';
+const isWord = q.type === '漢字読み' && !!q.word;
 const isUsage = !!q.usage || q.type === '用法';
+/* the line and its three replies, chosen by number: a lesson's listening, a mock's 即時応答. A mock's 課題理解 and
+   概要理解 have their choices printed */
+const isNumbers = isListen && (!layout || layout === 'quick');
 const checked = s.checked;
 const pick = s.pick;
 const correct = checked && pick === q.answer;
@@ -421,7 +567,7 @@ const wrong = checked && !correct;
 const locked = isListen && !s.played;
 /* options: two a row when they are short, one a row otherwise */
 const labels = q.options.map((o) => N.plain(o));
-const wide = isUsage || isReading || labels.some((o) => o.length > 6);
+const wide = isUsage || isReading || isPassage || isPair || labels.some((o) => o.length > 6);
 const opts = labels.map((label, k) => {
 const num = k + 1;
 const on = pick === num;
@@ -466,47 +612,82 @@ const trackNote = !checked
 : after === 3
 ? '3 of 3 in a row. Cleared: it leaves your notebook.'
 : after + ' of 3 in a row. Back in ' + STEPS[after][1] + (nextDay ? ', on ' + N.fmt.short(nextDay) : '') + '.';
-/* the line and its three replies are one clip: the waveform fills while it plays, then the answers unlock.
-   Without the clip, the waveform fills for a stand-in time: about 150 ms a character (each reply after its number),
-   600 ms more, and the second's pause before each reply */
-const key = q.clip || '';
-const replies = isListen ? (q.replies || []).slice(0, 3) : [];
-const chars = isListen ? N.plain(q.ja).length + replies.reduce((a, x) => a + N.plain(x).length + 3, 0) : 0;
-const standIn = 150 * chars + 600 + 1000 * replies.length;
+/* the audio: every clip in turn (a lesson's line and replies are one clip; a mock question has one for each part),
+   with a breath between them. The waveform fills as they play, then the answers unlock. A clip that is missing,
+   or a sound that will not start, gives way to its stand-in time */
+const snd = window.ykSound;
+const clips = isListen ? this.clipsOf(e) : [];
+/* a recording exists for a clip: the sound files name it */
+const recorded = (c) => !!(snd && c.key && snd.ms(c.key) > 0);
 const play = () => {
 clearInterval(this.timer);
-const snd = window.ykSound;
-let sound = !!(snd && key && snd.has(key) && snd.unlock() && snd.play(key));
-if (!sound && snd) snd.stop();
+const has = (c) => !!(snd && c.key && snd.has(c.key));
+/* sound for this play: a clip to play, and an output opened inside this tap */
+let mute = !(snd && clips.some(has) && snd.unlock());
+if (!mute) snd.ready(clips.filter(has).map((c) => c.key));
+else if (snd) snd.stop();
+/* each part's length, fixed for this play: its clip's, or its stand-in time */
+const lens = clips.map((c) => (has(c) && snd.ms(c.key)) || c.ms);
+const total = lens.reduce((a, l) => a + l, 0) + GAP * Math.max(0, clips.length - 1);
+let k = 0;
+let from = 0;
+let before = 0;
+let sound = false;
 let heard = false;
-const started = Date.now();
-this.setState({ playing: true, progress: 0 });
-this.timer = setInterval(() => {
-const gone = Date.now() - started;
-/* without sound the waveform fills for the stand-in time */
-let done = gone / standIn;
+let rest = 0;
+const finish = () => {
+clearInterval(this.timer);
+this.setState({ playing: false, played: true, progress: 1, part: -1 });
+};
+const begin = (j) => {
+k = j;
+from = Date.now();
+heard = false;
+rest = 0;
+sound = !mute && has(clips[j]) && snd.play(clips[j].key);
+if (!sound && snd) snd.stop();
+this.setState({ part: j });
+};
+const tick = () => {
+const c = clips[k];
+const len = lens[k];
+/* the breath before the next part */
+if (rest) {
+if (Date.now() >= rest) { before += len + GAP; begin(k + 1); }
+else this.setState({ progress: Math.min(1, (before + len + GAP - (rest - Date.now())) / total) });
+return;
+}
+const gone = Date.now() - from;
+/* without sound the waveform fills for the clip's time, or its stand-in time */
+let done = gone / len;
 if (sound) {
-/* with sound it keeps time with the clip itself, which may start a moment after the tap */
+/* with sound it keeps time with the clip itself, which may start a moment after it is asked for */
 const on = snd.on();
 const atMs = snd.at ? snd.at() : gone;
 if (on && atMs > 0) heard = true;
 /* the sound stopped after it had started (a call, the app put aside): stop waiting, it can be played again */
-if (heard && (!on || atMs < 0)) { done = 1; snd.stop(); }
-/* it never started: a browser can hold the audio back even after a tap. Stop waiting after a second,
-   or after a few seconds where sound has come out before */
-else if (!heard && (!snd.has(key) || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; snd.stop(); }
-else done = Math.max(0, atMs) / snd.ms(key);
+if (heard && (!on || atMs < 0)) { snd.stop(); finish(); return; }
+/* it never started: a browser can hold the audio back even after a tap. Stop waiting after a second, or after
+   a few seconds where sound has come out before, and go on without sound */
+if (!heard && (!snd.has(c.key) || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; mute = true; snd.stop(); }
+else done = Math.max(0, atMs) / snd.ms(c.key);
 /* the clip has come to its end by itself */
-if (snd.over && snd.over() >= 0) done = 1;
+if (sound && snd.over && snd.over() >= 0) done = 1;
 }
 if (done >= 1) {
-clearInterval(this.timer);
-this.setState({ playing: false, played: true, progress: 1 });
-} else {
-this.setState({ progress: done });
+if (k >= clips.length - 1) { finish(); return; }
+rest = Date.now() + GAP;
 }
-}, 80);
+this.setState({ progress: Math.min(1, (before + Math.min(1, done) * len) / total) });
 };
+this.setState({ playing: true, progress: 0, part: 0 });
+begin(0);
+this.timer = setInterval(tick, 80);
+};
+/* said once the play button is tapped: the sound files load in the background, so before then a clip may not be named yet */
+const noClip = isListen && (s.playing || s.played) && clips.some((c) => !recorded(c));
+/* the script of a mock question's talk, shown once checked (a line and its replies show on their own) */
+const script = isListen && !isNumbers && raw ? (raw.audio || []).reduce((all, a) => all.concat(a.lines || []), []).map((l) => ({ who: l[0], segs: N.segs(l[1]).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) })) : [];
 /* the explanations: why the answer is right, and why the pick was not, where the bank has a note per option */
 const was = (k) => (q.was ? q.was[k - 1] : k);
 /* a kanji word's meaning can end cut short with …; no full stop after it */
@@ -540,7 +721,7 @@ this.store();
 this.setState({ done: true });
 } else {
 this.want = 'top';
-this.setState({ i: this.state.i + 1, pick: null, checked: false, played: false, playing: false, progress: 0 });
+this.setState({ i: this.state.i + 1, pick: null, checked: false, played: false, playing: false, progress: 0, part: -1, script: false });
 }
 };
 return {
@@ -552,25 +733,38 @@ type: isReading && ex.skill ? q.type + ' · ' + ex.skill : q.type,
 tagBg: area.bg,
 tagInk: area.ink,
 ask: isReading && ex.en ? ex.en : kind.ask,
-rubric: isReading ? '' : kind.rubric,
-hasRubric: !isReading && !!kind.rubric,
+/* a mock question names its mock */
+hasFrom: !!e.raw,
+from: e.raw ? e.raw.mk.en || e.raw.mk.title || '' : '',
+/* the exam's instruction: a mock question's own, as on its paper; none above a passage, to keep it in view */
+rubric: isReading || isPassage || isPair ? '' : (raw && raw.rubric) || kind.rubric,
+hasRubric: !isReading && !isPassage && !isPair && !!((raw && raw.rubric) || kind.rubric),
 isWord,
 isUsage,
 isReading,
+isPassage,
+isPair,
 isListen,
-isText: !isWord && !isUsage && !isReading && !isListen,
-isChoice: !isListen,
+isNumbers,
+isText: !isWord && !isUsage && !isReading && !isPassage && !isPair && !isListen,
+isChoice: !isNumbers,
+hasQuestion: isReading || isPassage || isPair,
 word: N.plain(q.word || ''),
 reading: N.plain(q.options[q.answer - 1] || ''),
 en: q.en || '',
 segs: this.segs(e, checked),
-question: isReading ? N.plain(q.ja) : '',
-line: isListen ? N.plain(q.ja) : '',
+hasLead: isPassage && !!(raw && raw.lead),
+lead: isPassage && raw ? N.plain(raw.lead || '') : '',
+/* a passage's blank holds the answer once checked */
+paras: isPassage ? (q.texts || []).map((t) => ({ segs: textSegs(t, checked ? labels[q.answer - 1] : '') })) : [],
+pair: isPair ? (q.texts || []).map((t, k) => ({ tag: 'ABCD'[k] || String(k + 1), aria: 'Text ' + ('ABCD'[k] || String(k + 1)), segs: textSegs(t, '') })) : [],
+question: isReading || isPassage || isPair ? N.plain(q.ja) : '',
+line: isNumbers ? N.plain(q.ja) : '',
 cols: wide ? 'minmax(0, 1fr)' : 'repeat(2, minmax(0, 1fr))',
-optSize: isUsage || isReading ? '15px' : wide ? '16px' : '17px',
+optSize: isUsage || isReading || isPassage || isPair ? '15px' : wide ? '16px' : '17px',
 /* a reading's four options sit closer, as on the reading screen, so they show below the passage */
-optH: isReading ? '46px' : '54px',
-optGap: isReading ? '9px 8px' : '10px 8px',
+optH: isReading || isPassage || isPair ? '46px' : '54px',
+optGap: isReading || isPassage || isPair ? '9px 8px' : '10px 8px',
 last: N.plain(String(m.wrong || '')) || '—',
 },
 pos: (s.i + 1) + ' / ' + n,
@@ -583,19 +777,36 @@ checked,
 correct,
 wrong,
 waiting: locked,
+waitLine: isNumbers ? 'Listen first, then choose 1, 2 or 3.' : 'Listen first, then choose.',
 verdictJa: wrong ? 'おしい！' : 'せいかい！',
 verdictEn: wrong ? 'Not quite' : 'Correct',
 panelEdge: wrong ? '#C7361E' : '#0B7A6B',
 rightN: String(q.answer),
-hasWhy: !isListen && !!why,
+hasWhy: !!why,
 why,
 hasWhyNot: !!whyNot,
 whyNot,
 /* a reading's note names the option itself */
 hasPickLabel: !isReading && !!pick,
 pickLabel: pick ? labels[pick - 1] || '' : '',
-replies: replies.map((text, k) => ({ n: k + 1, text: N.plain(text), note: (q.notes || [])[k] || '', ok: k + 1 === q.answer, mine: wrong && pick === k + 1 })),
+/* the replies, said after the line: a lesson's with a note on each, a mock's as its choices */
+replies: (isNumbers ? (q.replies || q.options || []).slice(0, 3) : []).map((text, k) => {
+const note = (q.notes || [])[k] || '';
+return { n: k + 1, text: N.plain(text), note, hasNote: !!note, ok: k + 1 === q.answer, mine: wrong && pick === k + 1 };
+}),
+hasScript: script.length > 0,
+script,
+scriptOpen: !!s.script,
+scriptJa: s.script ? 'スクリプトを閉じる' : 'スクリプトを見る',
+scriptEn: s.script ? 'Hide the script' : 'Show the script',
+toggleScript: () => this.setState({ script: !this.state.script }),
 bars: HEIGHTS.map((h, k) => ({ h: h + 'px', bg: k < Math.round(s.progress * HEIGHTS.length) ? '#2F4FD0' : '#C9D0E3' })),
+playLabel: clips.length > 1 ? 'Play the audio: ' + clips.map((c) => (PART[c.part] || { en: 'a part' }).en).join(', then ') : 'Play audio',
+hasParts: clips.length > 1,
+parts: clips.map((c, k) => ({ ja: (PART[c.part] || { ja: '音声' }).ja, bg: s.playing && k === s.part ? '#2F4FD0' : '#EEF0F6', ink: s.playing && k === s.part ? '#FFFFFF' : '#5A6382' })),
+partsLabel: 'In turn: ' + clips.map((c) => (PART[c.part] || { en: 'a part' }).en).join(', '),
+noClip,
+noClipLine: clips.every((c) => !recorded(c)) ? 'No recording of this yet: the bar runs for about as long as it would take.' : 'Part of this has no recording yet: the bar runs for about as long as it would take.',
 playBg: s.playing ? '#F2B43A' : '#2F4FD0',
 playInk: s.playing ? '#1B2440' : '#FFFFFF',
 play,

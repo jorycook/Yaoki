@@ -227,7 +227,8 @@ const over = toExam < 0;
 /* where today falls: -1 before the plan's first day */
 const ti = N.todayIndex(plan, t);
 const first = N.current(plan);
-const allDone = N.done(days[first]);
+/* every day done; a day a new plan emptied (a missed day) is never done, and is passed over */
+const allDone = days.every((x) => N.done(x) || N.empty(x));
 /* the first day not done against today: above 0 behind (as Main counts it), 0 today's day to do, -1 today's day done */
 const late = allDone || over ? 0 : N.diff(days[first].d, t);
 const ahead = ti < 0 ? first : -late - 1;
@@ -239,54 +240,72 @@ else if (allDone) paceText = 'Every day done';
 else if (ti < 0 && !first) { paceText = 'Starts ' + N.fmt.short(days[0].d); pace = 'wait'; }
 else if (late > 0) { paceText = daysN(late) + ' behind'; pace = 'late'; }
 else if (ahead > 0) paceText = daysN(ahead) + ' ahead';
-else paceText = late < 0 ? 'Today done' : 'On schedule';
+/* today's day can be one a new plan left empty (nothing to do): that is on schedule, not done */
+else paceText = late < 0 && !(ti >= 0 && N.empty(days[ti])) ? 'Today done' : 'On schedule';
 const PACE = { good: ['#E0F3EF', '#0B7A6B'], late: ['#FDEBE6', '#C7361E'], wait: ['#E8ECFB', '#2F4FD0'] };
 
 /* the plan's shape */
 const weeksN = Math.ceil(days.length / 7);
 const stamps = N.stamps(plan);
+/* the days there is something to do on: a day a new plan emptied (a missed day, its work moved on) is never done */
+const dayCount = days.filter((x) => !N.empty(x)).length;
 const shape = [
 { n: String(weeksN), en: weeksN === 1 ? 'week' : 'weeks' },
 { n: String(plan.pace || 0), en: 'min a day' },
-{ n: stamps + ' / ' + days.length, en: 'days done' },
+{ n: stamps + ' / ' + dayCount, en: 'days done' },
 ];
 
-/* each part: done, in the plan, in the course, and planned up to today */
+/* each part: learnt, in the plan, in the course, and planned up to today. What is learnt is N.progress: the days'
+   finished parts and the credit a re-planned plan keeps from its earlier calendar (plan.past), which none of these
+   days hold. The plan holds that, plus what its days still have to teach */
 const cov = plan.cov || {};
 const of = plan.of || { g: N.lessons.length, k: N.kanji.length, w: N.words.length, r: N.lessons.length, l: N.lessons.length };
+const learnt = N.progress(plan);
 let anyDone = false;
 const parts = PARTS.map((P) => {
-let done = 0;
+let onDays = 0;
+let toCome = 0;
 let byNow = 0;
-let inDays = 0;
 days.forEach((x, i) => {
 const n = this.size(x, P.key);
-inDays += n;
-if (n && this.did(x, P.key)) done += n;
+if (!n) return;
+if (this.did(x, P.key)) onDays += n;
+else toCome += n;
 if (i <= ti) byNow += n;
 });
+const done = Math.max(0, +learnt[P.key] || 0);
 if (done) anyDone = true;
-const inPlan = Math.max(typeof cov[P.key] === 'number' ? cov[P.key] : inDays, done);
+/* learnt before these days: the earlier calendar's credit */
+const credit = Math.max(0, done - onDays);
+const inPlan = done + toCome;
 const all = Math.max(+of[P.key] || 0, inPlan);
-const tick = ti >= 0 && byNow > 0 && !over;
+const planned = Math.min(credit + byNow, inPlan);
+const tick = ti >= 0 && planned > 0 && !over;
 return {
 key: P.key,
 ja: P.ja,
 en: P.en,
+unit: P.unit,
+inPlan,
+all,
 done: num(done),
 of: '/ ' + num(inPlan) + (inPlan < all ? ' · ' + num(all) + ' in all' : ''),
 planW: pct(inPlan, all),
 doneW: pct(done, all),
 tick,
-tickL: 'calc(' + pct(Math.min(byNow, inPlan), all) + ' - 1px)',
+tickL: 'calc(' + pct(planned, all) + ' - 1px)',
 part: inPlan < all,
-aria: P.en + ': ' + num(done) + ' of ' + num(inPlan) + ' ' + P.unit + ' in your plan done' + (inPlan < all ? ', ' + num(all) + ' in the whole course' : '') + (tick ? '. ' + num(Math.min(byNow, inPlan)) + ' planned by today.' : '.'),
+aria: P.en + ': ' + num(done) + ' of ' + num(inPlan) + ' ' + P.unit + ' in your plan done' + (inPlan < all ? ', ' + num(all) + ' in the whole course' : '') + (tick ? '. ' + num(planned) + ' planned by today.' : '.'),
 };
 });
 const partial = parts.some((p) => p.part);
+/* the plan says its days could not hold all that was left (plan.cov.f, for the days it laid out). What it covers is
+   read from the bars, not from cov's counts: those are what the days hold, and leave out the earlier calendar's credit */
 const short = typeof cov.f === 'number' && cov.f < 1;
-const covG = typeof cov.g === 'number' ? cov.g : 0;
-const covK = typeof cov.k === 'number' ? cov.k : 0;
+const NAMES = { g: 'lessons', k: 'kanji', w: 'words', r: 'reading passages', l: 'listening items' };
+const shortOf = parts.filter((p) => p.part && (p.key === 'g' || p.key === 'k'));
+const shortParts = (shortOf.length ? shortOf : parts.filter((p) => p.part)).map((p) => num(p.inPlan) + ' of ' + num(p.all) + ' ' + NAMES[p.key]);
+const covers = shortParts.length > 1 ? shortParts.slice(0, -1).join(', ') + ' and ' + shortParts[shortParts.length - 1] : shortParts.join('');
 
 /* the week tests, one chip a week: up to 6, from a few weeks back to the next ones */
 const tests = plan.tests || {};
@@ -361,7 +380,7 @@ const due = this.dueCount(Array.isArray(app.mistakes) ? app.mistakes : []);
 /* the note under the bars: the exam has passed, or the plan does not hold the whole course (not on exam day) */
 let noteText = '';
 if (over) noteText = 'The exam date has passed. Set your next session.';
-else if (short && toExam > 0) noteText = 'This plan covers only part of the course: ' + num(covG) + ' of ' + num(+of.g || 0) + ' lessons and ' + num(covK) + ' of ' + num(+of.k || 0) + ' kanji. More time adds the rest.';
+else if (short && covers && toExam > 0) noteText = 'This plan covers only part of the course: ' + covers + '. More time adds the rest.';
 const canMenu = !!this.props.menu;
 
 return {
@@ -378,7 +397,7 @@ paceText,
 paceBg: PACE[pace][0],
 paceInk: PACE[pace][1],
 shape,
-shapeLabel: weeksN + (weeksN === 1 ? ' week' : ' weeks') + ' at ' + (plan.pace || 0) + ' minutes a day; ' + stamps + ' of ' + days.length + ' days stamped done',
+shapeLabel: weeksN + (weeksN === 1 ? ' week' : ' weeks') + ' at ' + (plan.pace || 0) + ' minutes a day; ' + stamps + ' of ' + dayCount + ' days stamped done',
 fresh: !anyDone,
 parts,
 partial,
