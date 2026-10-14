@@ -3,6 +3,7 @@
 One file per mini mock: `content/mocks/m<id>.json` (`m1.json`, `m2.json`, …). `content/mocks/m1.json` is the finished
 example: match its shape, tone and level. `node tools/build-content.mjs` puts every file of the folder into
 `project/n1-content.js`, in file-name order, and the app shows them in that order.
+`node tools/check-mocks.mjs <file>` checks a file against everything below; a file is done when it reports no problems.
 
 A mini mock is the real N1 paper cut short, about 12 questions and 15 minutes: section 1 (文字・語彙, 文法 and 読解 on one
 clock), a short break, then section 2 (聴解, paced by the audio, which plays once). The Mock tab lists every mock with
