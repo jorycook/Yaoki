@@ -59,7 +59,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; text-align: right; line-height: 1.5; padding-bottom: 6px; white-space: nowrap">{{ used }}</div>
 </div>
-<div style="margin-top: 10px; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; margin-top: 10px; min-height: 0; display: flex; flex-direction: column">
+<div style="min-height: 0; overflow-y: auto; padding-bottom: 16px; display: flex; flex-direction: column; gap: 8px">
 <sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
 <div style="padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800">
@@ -72,6 +73,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 12px; font-weight: 500; line-height: 1.45">{{ r.why }}</div>
 </div>
 </sc-for>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none"></div>
 </div>
 <sc-if value="{{ anyWrong }}" hint-placeholder-val="{{ false }}">
 <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; flex-shrink: 0">
@@ -97,7 +100,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["question","result"],"default":"question"},"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
 const TOTAL = 150;
 const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
-const plainSeg = (t, ws) => ({ t, bg: 'transparent', pad: '0', ws: ws || 'normal' });
+const plainSeg = (t) => ({ t, bg: 'transparent', pad: '0', ws: 'normal' });
 const markSeg = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px', ws: 'nowrap' });
 class Component extends DCLogic {
 constructor(props) {
@@ -114,7 +117,7 @@ where() {
 if (this.at) return this.at;
 const N = window.ykN1;
 if (!N) return { li: -1, day: -1 };
-const app = this.props.app || {};
+const app = (this.props && this.props.app) || {};
 /* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
 const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
 const i = N.openDay(plan);
