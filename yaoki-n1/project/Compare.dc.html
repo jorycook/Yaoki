@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Compare similar grammar</title>
 <script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
 </head>
 <body>
 <x-dc>
@@ -13,75 +17,72 @@
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
 rt{font-size:9px;font-weight:400;color:#5A6382}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 </style>
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px">
-<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px" role="img" aria-label="Teach page 3 of 3">
 <div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
 <div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
 <div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
 </div>
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">学習 LEARN</div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0; white-space: nowrap; flex-shrink: 0">学習 LEARN</div>
 </div>
 
-<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px">
+<sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column">
+
+<div style="margin-top: 2px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #C7361E">似ている文法　COMPARE</div>
-<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">どれを使う？</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.45">All three give a cause. What changes is the kind of cause, and the sentence it suits.</div>
+<h1 lang="ja" style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.25">どれを使う？</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ intro }}</div>
 </div>
 
-<div style="margin-top: 14px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px">
-<div style="display: flex; align-items: center; gap: 8px">
-<div style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600">〜とあって</div>
-<div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; background: #FDEBE6; font-size: 12px; font-weight: 800"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg>特別な状況 · the occasion</div>
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="3"><div style="margin-top: {{ c.top }}; padding: 9px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 1px; flex-shrink: 0">
+<div style="display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 4px">
+<div lang="ja" style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600; line-height: 1.3">{{ c.p }}</div>
+<div style="display: flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 10px; background: {{ c.chip }}; font-size: 12px; font-weight: 800; white-space: nowrap"><sc-if value="{{ c.i0 }}" hint-placeholder-val="{{ true }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 12h14"/></svg></sc-if><sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M12 19V5M6 11l6-6 6 6"/></svg></sc-if><sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2F4FD0" aria-hidden="true" style="flex-shrink: 0"><circle cx="12" cy="12" r="5"/></svg></sc-if><span lang="ja">{{ c.tagJa }}</span> · {{ c.tagEn }}</div>
 </div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9">決勝戦<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">とあって</span>、スタジアムは満員だった。</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382">It being the final, the stadium was packed.</div>
-</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.65"><sc-for list="{{ c.segs }}" as="g" hint-placeholder-count="3"><span style="background: {{ g.bg }}; padding: {{ g.pad }}; border-radius: {{ g.rad }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ c.en }}</div>
+</div></sc-for>
 
-<div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px">
-<div style="display: flex; align-items: center; gap: 8px">
-<div style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600">〜ゆえに</div>
-<div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; background: #FFF4D6; font-size: 12px; font-weight: 800"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>書き言葉 · formal because</div>
-</div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9">経験が浅い<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">がゆえに</span>、判断を誤った。</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382">Being inexperienced, I misjudged it.</div>
-</div>
-
-<div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px">
-<div style="display: flex; align-items: center; gap: 8px">
-<div style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600">〜こととて</div>
-<div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; background: #E8ECFB; font-size: 12px; font-weight: 800"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2F4FD0" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>おわび · by way of apology</div>
-</div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9">慣れぬ<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">こととて</span>、失礼いたしました。</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382">Being new to this, I beg your pardon.</div>
-</div>
-
-<div style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #E8ECFB; display: flex; flex-direction: column; gap: 8px">
+<div style="margin-top: 10px; padding: 10px 14px 12px; border-radius: 18px; background: #E8ECFB; display: flex; flex-direction: column; gap: 7px; flex-shrink: 0">
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">確認　QUICK CHECK · 新人のころ</div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">確認　QUICK CHECK · <span lang="ja">{{ scene }}</span></div>
 </sc-if>
 <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800">
-<sc-if value="{{ right }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
-<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
-<div>{{ note }}</div>
+<div role="status" style="display: flex; align-items: flex-start; gap: 6px; font-size: 12px; font-weight: 800; line-height: 1.4">
+<sc-if value="{{ right }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div style="min-width: 0; word-break: keep-all; overflow-wrap: anywhere">{{ note }}</div>
 </div>
 </sc-if>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9">若さの（　　）、忠告も聞かずに突っ走った。</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.75"><sc-for list="{{ sentence }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="blank" style="display: inline-block; width: 40px; height: 20px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for></div>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
-<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 46px; padding: 0; border-radius: 14px; font-size: 14px; font-weight: 800; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}">{{ o.label }}</button>
+<button lang="ja" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 46px; padding: 0 4px; border-radius: 14px; font-size: 14px; font-weight: 800; white-space: nowrap; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}">{{ o.label }}</button>
 </sc-for>
 </div>
 </div>
 
+</div>
+
+<a href="Drill.dc.html" onClick="{{ toDrill }}" style="margin-top: 10px; height: 54px; flex-shrink: 0; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">練習へ</span>　Start the drill</a>
+</sc-if>
+
+<sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div lang="ja" style="font-size: 18px; font-weight: 800">文法の学習はありません</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">This day has no grammar lesson, and no day before it has one either. Go back to today's plan to see what it holds.</div>
+</div>
 <div style="flex-grow: 1"></div>
-<a href="Drill.dc.html" onClick="{{ toDrill }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">練習へ　Start the drill</a>
+<a href="Today.dc.html" onClick="{{ toToday }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">もどる</span>　Back to today</a>
+</sc-if>
 
 </div>
 </x-dc>
@@ -91,18 +92,64 @@ constructor(props) {
 super(props);
 this.state = { pick: null };
 }
+/* the plan, and the lesson to compare with the day it belongs to: the open day's, or else the nearest earlier day's */
+where() {
+const N = window.ykN1;
+if (!N) return { plan: null, lesson: null, day: -1 };
+const app = this.props.app || {};
+/* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const i = N.openDay(plan);
+const v = N.view(plan, i);
+if (v && v.grammar) return { plan, lesson: v.grammar, day: i };
+for (let j = Math.min(i, plan.days.length) - 1; j >= 0; j--) {
+const g = plan.days[j] ? plan.days[j].g : -1;
+if (g >= 0 && N.lessons[g]) return { plan, lesson: N.lessons[g], day: j };
+}
+return { plan, lesson: null, day: -1 };
+}
+/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line */
+segs(text) {
+const s = window.ykN1.segs(text);
+return s.map((g, n) => {
+const first = g.mark && !(s[n - 1] && s[n - 1].mark);
+const last = g.mark && !(s[n + 1] && s[n + 1].mark);
+return {
+t: g.t, r: g.r, ruby: g.ruby, plain: g.plain, bg: g.hl,
+pad: '0 ' + (last ? 3 : 0) + 'px 0 ' + (first ? 3 : 0) + 'px',
+rad: (first ? '4px' : '0') + ' ' + (last ? '4px 4px' : '0 0') + ' ' + (first ? '4px' : '0'),
+ws: g.mark ? 'nowrap' : 'normal',
+};
+});
+}
 renderVals() {
+const N = window.ykN1;
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const ANSWER = 1;
-const LABELS = ['とあって', 'ゆえに', 'こととて'];
-const NOTES = [
-'おしい！ とあって cannot follow の, and youth is no special occasion.',
-'せいかい！ Noun + の + ゆえに: the formal, written "because of".',
-'おしい！ こととて is for an apology, and here nobody apologises.',
-];
+const at = this.where();
+const lesson = at.lesson;
+const gr = lesson && lesson.grammar;
+const check = gr && gr.compare && gr.compare.check;
+if (!gr || !gr.patterns || !check) {
+return { has: false, none: true, toToday: nav('Today') };
+}
+/* the chip's colour and mark follow the pattern's place in the lesson */
+const CHIP = ['#FDEBE6', '#FFF4D6', '#E8ECFB'];
+const cards = gr.patterns.slice(0, 3).map((p, n) => ({
+top: n ? '8px' : '10px',
+p: p.p,
+tagJa: p.tag ? p.tag[0] : '',
+tagEn: p.tag ? p.tag[1] : '',
+chip: CHIP[n],
+i0: n === 0,
+i1: n === 1,
+i2: n === 2,
+segs: this.segs(p.cmp ? p.cmp.ja : ''),
+en: p.cmp ? p.cmp.en : '',
+}));
+const ANSWER = check.answer - 1;
 const answered = s.pick !== null;
-const opts = LABELS.map((label, i) => {
+const opts = (check.options || []).map((label, i) => {
 let look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440' };
 if (answered) {
 if (i === ANSWER) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3EF', shadow: 'none', color: '#1B2440' };
@@ -112,16 +159,24 @@ else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color:
 return { label, on: s.pick === i, pick: () => this.setState({ pick: i }), ...look };
 });
 return {
+has: true,
+none: false,
+intro: gr.compare.intro,
+cards,
+scene: check.scene,
+sentence: N.blanks(check.ja),
 opts,
 answered,
 asking: !answered,
 right: answered && s.pick === ANSWER,
 wrong: answered && s.pick !== ANSWER,
-note: answered ? NOTES[s.pick] : '',
+note: answered && check.notes ? check.notes[s.pick] : '',
 toToday: nav('Today'),
+/* the teach pages and this one are read: grammar step 1 is done */
 toDrill: (e) => {
-const app = this.props.app;
-if (this.props.save && app) this.props.save({ g: Math.max(app.g || 0, 1) });
+const app = this.props.app || {};
+const save = this.props.save;
+if (save && app.plan && app.plan.days && at.day >= 0) save({ plan: N.mark(app.plan, at.day, { g: 1 }) });
 nav('Drill')(e);
 },
 };

@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Today's spread</title>
 <script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
 </head>
 <body>
 <x-dc>
@@ -19,141 +23,290 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; height: 44px">
-<a href="Main.dc.html" onClick="{{ toMain }}" aria-label="Back to the week path" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
-<div style="flex-grow: 1; text-align: center; font-size: 15px; font-weight: 800">第3週 · 4日目</div>
-<div style="width: 36px"></div>
+<div style="display: flex; align-items: center; height: 44px; flex-shrink: 0">
+<a href="Main.dc.html" onClick="{{ toMain }}" aria-label="Back to the week path" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; align-items: center">
+<div lang="ja" style="font-size: 15px; font-weight: 800; line-height: 20px; white-space: nowrap">第{{ v.wk }}週 · {{ v.dow }}日目</div>
+<div lang="ja" style="font-size: 11px; font-weight: 700; line-height: 15px; color: #5A6382; white-space: nowrap">{{ v.date }}</div>
+</div>
+<div style="width: 36px; flex-shrink: 0"></div>
 </div>
 
-<div style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px">
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">今日の見開き　TODAY'S SPREAD</div>
-<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.25">〜とあって・〜ゆえに</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Learn the page, drill it with hints, then answer exam-style with the clock on.</div>
+<div style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<sc-if value="{{ !early }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0; line-height: 17px"><span lang="ja">今日の見開き</span>　TODAY'S SPREAD</div>
+</sc-if>
+<sc-if value="{{ early }}" hint-placeholder-val="{{ false }}">
+<div style="align-self: flex-start; padding: 2px 8px; border-radius: 8px; background: #FFF4D6; font-size: 12px; font-weight: 700; line-height: 17px"><span lang="ja" style="font-weight: 800">先取り</span>　{{ earlyNote }}</div>
+</sc-if>
+<h1 lang="ja" style="margin: 0; font-size: {{ titleSize }}; font-weight: 800; line-height: 1.25; overflow-wrap: anywhere"><sc-for list="{{ titleParts }}" as="s" hint-placeholder-count="2"><span style="display: inline-block; max-width: 100%">{{ s }}</span></sc-for></h1>
+<sc-if value="{{ hint }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ hint }}</div>
+</sc-if>
 </div>
 
-<div style="position: relative; margin-top: 16px; padding: 14px; border-radius: 20px; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; border: {{ c1.border }}; box-shadow: {{ c1.shadow }}">
-<a href="Teach.dc.html" onClick="{{ toTeach }}" aria-label="Grammar: open the teach page" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
-<div style="width: 46px; height: 46px; border-radius: 14px; background: #E8ECFB; color: #2F4FD0; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">文</div>
-<div style="flex-grow: 1; display: flex; flex-direction: column">
-<div style="font-size: 12px; font-weight: 700; color: #5A6382">文法　Grammar · 2 patterns</div>
-<div style="font-size: 16px; font-weight: 800">〜とあって・〜ゆえに</div>
+<sc-if value="{{ big }}" hint-placeholder-val="{{ true }}">
+<div style="position: relative; margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; border: {{ big.border }}; box-shadow: {{ big.shadow }}">
+<a href="{{ big.href }}" onClick="{{ big.tap }}" aria-label="{{ big.aria }}" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
+<div lang="ja" style="width: 46px; height: 46px; border-radius: 14px; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: {{ big.iconBg }}; color: {{ big.iconColor }}" aria-hidden="true">{{ big.icon }}</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; padding-right: {{ big.padR }}">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px"><span lang="ja">{{ big.lj }}</span>　{{ big.le }}</div>
+<div lang="ja" style="font-size: 16px; font-weight: 800; line-height: 22px; overflow-wrap: anywhere"><sc-for list="{{ big.parts }}" as="s" hint-placeholder-count="2"><span style="display: inline-block; max-width: 100%">{{ s }}</span></sc-for></div>
+<sc-if value="{{ big.sub }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 17px">{{ big.sub }}</div>
+</sc-if>
 </div>
-<sc-if value="{{ c1.done }}" hint-placeholder-val="{{ false }}">
-<div role="img" aria-label="Lesson done" style="width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; position: absolute; top: 12px; right: 12px; transform: rotate(-9deg)">済</div>
+<sc-if value="{{ big.done }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" role="img" aria-label="Done" style="width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; position: absolute; top: 12px; right: 12px; transform: rotate(-9deg)">済</div>
 </sc-if>
 </a>
+<sc-if value="{{ big.hasPills }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; gap: 6px">
-<sc-for list="{{ c1.pills }}" as="p" hint-placeholder-count="3">
-<div style="height: 32px; box-sizing: border-box; border-radius: 10px; font-size: 12px; flex: 1 1 auto; padding: 0 6px; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ p.border }}; background: {{ p.bg }}; color: {{ p.color }}; font-weight: {{ p.weight }}"><sc-if value="{{ p.tick }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>{{ p.label }}</div>
+<sc-for list="{{ big.pills }}" as="p" hint-placeholder-count="3">
+<div style="height: 32px; box-sizing: border-box; border-radius: 10px; font-size: 12px; flex: 1 1 auto; padding: 0 6px; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ p.border }}; background: {{ p.bg }}; color: {{ p.color }}; font-weight: {{ p.weight }}"><sc-if value="{{ p.tick }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if><span lang="ja">{{ p.ja }}</span> {{ p.en }}</div>
 </sc-for>
 </div>
-<sc-if value="{{ g0 }}" hint-placeholder-val="{{ false }}">
-<a href="Teach.dc.html" onClick="{{ toTeach }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">はじめる　Start with the teach page</a>
 </sc-if>
-<sc-if value="{{ g1 }}" hint-placeholder-val="{{ true }}">
-<a href="Drill.dc.html" onClick="{{ toDrill }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">つづける　Continue the drill</a>
-</sc-if>
-<sc-if value="{{ g2 }}" hint-placeholder-val="{{ false }}">
-<a href="Exam.dc.html" onClick="{{ toExam }}" style="height: 48px; border-radius: 14px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 3px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">本番へ　Start exam-style</a>
+<sc-if value="{{ big.btn }}" hint-placeholder-val="{{ true }}">
+<a href="{{ big.btn.href }}" onClick="{{ big.btn.tap }}" style="height: 48px; border-radius: 14px; border: 2px solid #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap; background: {{ big.btn.bg }}; box-shadow: {{ big.btn.shadow }}"><span lang="ja">{{ big.btn.ja }}</span>　{{ big.btn.en }}</a>
 </sc-if>
 </div>
+</sc-if>
 
-<a href="Scene.dc.html" onClick="{{ toScene }}" style="position: relative; margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #1B2440; display: flex; flex-direction: column; gap: 12px; border: {{ c2.border }}; box-shadow: {{ c2.shadow }}">
-<div style="display: flex; align-items: center; gap: 12px">
-<div style="width: 46px; height: 46px; border-radius: 14px; background: #FDEBE6; color: #C7361E; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">字</div>
-<div style="flex-grow: 1; display: flex; flex-direction: column">
-<div style="font-size: 12px; font-weight: 700; color: #5A6382">文字・語彙　Kanji and words · 8 words</div>
-<div style="font-size: 16px; font-weight: 800">駅の掲示　Station notices</div>
-</div>
-<sc-if value="{{ c2.done }}" hint-placeholder-val="{{ false }}">
-<div role="img" aria-label="Lesson done" style="width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; position: absolute; top: 12px; right: 12px; transform: rotate(7deg)">済</div>
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+<a href="{{ r.href }}" onClick="{{ r.tap }}" aria-label="{{ r.aria }}" style="margin-top: 10px; padding: 10px 12px; border-radius: 18px; background: #FFFFFF; color: #1B2440; display: flex; align-items: center; gap: 12px; flex-shrink: 0; border: {{ r.border }}; box-shadow: {{ r.shadow }}">
+<div lang="ja" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; font-size: 19px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: {{ r.iconBg }}; color: {{ r.iconColor }}">{{ r.icon }}</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px"><span lang="ja">{{ r.lj }}</span>　{{ r.le }}</div>
+<div lang="ja" style="line-height: 22px; overflow-wrap: anywhere; font-family: {{ r.font }}; font-size: {{ r.size }}; font-weight: {{ r.weight }}; letter-spacing: {{ r.spacing }}">{{ r.main }}<sc-if value="{{ r.mainEn }}" hint-placeholder-val="{{ false }}"><span lang="en">　{{ r.mainEn }}</span></sc-if></div>
+<sc-if value="{{ r.sub }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 16px">{{ r.sub }}</div>
 </sc-if>
 </div>
-<div style="display: flex; gap: 6px">
-<sc-for list="{{ c2.pills }}" as="p" hint-placeholder-count="3">
-<div style="height: 32px; box-sizing: border-box; border-radius: 10px; font-size: 12px; flex: 1 1 auto; padding: 0 6px; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ p.border }}; background: {{ p.bg }}; color: {{ p.color }}; font-weight: {{ p.weight }}"><sc-if value="{{ p.tick }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>{{ p.label }}</div>
-</sc-for>
-</div>
+<sc-if value="{{ r.done }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" aria-hidden="true" style="width: 32px; height: 32px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: {{ r.rot }}">済</div>
+</sc-if>
+<sc-if value="{{ r.next }}" hint-placeholder-val="{{ false }}">
+<div aria-hidden="true" style="width: 32px; height: 32px; box-sizing: border-box; border-radius: 50%; background: #2F4FD0; border: 2px solid #1B2440; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
+</sc-if>
+<sc-if value="{{ r.idle }}" hint-placeholder-val="{{ true }}">
+<div aria-hidden="true" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
+</sc-if>
 </a>
-
-<a href="Reading.dc.html" onClick="{{ toReading }}" style="position: relative; margin-top: 12px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #1B2440; display: flex; flex-direction: column; gap: 12px; border: {{ c3.border }}; box-shadow: {{ c3.shadow }}">
-<div style="display: flex; align-items: center; gap: 12px">
-<div style="width: 46px; height: 46px; border-radius: 14px; background: #FFF4D6; color: #1B2440; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">読</div>
-<div style="flex-grow: 1; display: flex; flex-direction: column">
-<div style="font-size: 12px; font-weight: 700; color: #5A6382">読解　Reading · 4 items</div>
-<div style="font-size: 16px; font-weight: 800">筆者の主張　The writer's claim</div>
-</div>
-<sc-if value="{{ c3.done }}" hint-placeholder-val="{{ false }}">
-<div role="img" aria-label="Lesson done" style="width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; position: absolute; top: 12px; right: 12px; transform: rotate(-5deg)">済</div>
-</sc-if>
-</div>
-<div style="display: flex; gap: 6px">
-<sc-for list="{{ c3.pills }}" as="p" hint-placeholder-count="3">
-<div style="height: 32px; box-sizing: border-box; border-radius: 10px; font-size: 12px; flex: 1 1 auto; padding: 0 6px; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ p.border }}; background: {{ p.bg }}; color: {{ p.color }}; font-weight: {{ p.weight }}"><sc-if value="{{ p.tick }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>{{ p.label }}</div>
 </sc-for>
-</div>
-</a>
 
-<div style="flex-grow: 1"></div>
+<sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<div lang="ja" style="font-size: 16px; font-weight: 800">この日の学習はありません</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Nothing is left on this day. When the plan was made again, its parts moved to later days.</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1; min-height: 10px"></div>
 <sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #FDEBE6">
-<div style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 50%; border: 2.5px dashed #C7361E; color: #C7361E; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">済</div>
-<div style="font-size: 13px; font-weight: 700; line-height: 1.45">Finish all three lessons to stamp day 4 on your card.</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #FDEBE6; flex-shrink: 0">
+<div lang="ja" style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 50%; border: 2.5px dashed #C7361E; color: #C7361E; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">済</div>
+<div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ footNote }}</div>
 </div>
 </sc-if>
 <sc-if value="{{ allDone }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440">
-<div style="width: 50px; height: 50px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 21px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: yk-stamp 500ms ease-out both" aria-hidden="true">済</div>
-<div style="flex-grow: 1; display: flex; flex-direction: column">
-<div style="font-size: 16px; font-weight: 800">4日目 完了！</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382">Day 4 is stamped on your card.</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; flex-shrink: 0">
+<div lang="ja" style="width: 50px; height: 50px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 21px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: yk-stamp 500ms ease-out both" aria-hidden="true">済</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
+<div lang="ja" style="font-size: 16px; font-weight: 800">{{ v.dow }}日目 完了！</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">Day {{ v.dow }} is stamped on your card.</div>
 </div>
-<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 46px; padding: 0 14px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0">もどる　Back</a>
+<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 46px; padding: 0 14px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0"><span lang="ja">もどる</span>　Back</a>
 </div>
 </sc-if>
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"menu":{"editor":null},"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
 renderVals() {
-/* on its own this artboard shows the designed moment: teach page read, drill next */
-const app = this.props.app || { g: 1, k: 0, r: 0 };
+const N = window.ykN1;
+const app = this.props.app || {};
+/* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const i = N.openDay(plan);
+const v = N.view(plan, i);
+const p = v.p || {};
+const g = p.g || 0;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const LABELS = ['学習 Learn', '練習 Drill', '本番 Exam-style'];
+const KLEE = "'Klee One', 'Hiragino Mincho ProN', serif";
+const ROUND = 'inherit';
+const ROT = [-9, 7, -5, 8];
+const NUM = ['', 'one', 'two', 'three', 'four'];
 const look = {
 done: { border: '2px solid #E0F3EF', bg: '#E0F3EF', color: '#0B7A6B', weight: 800, tick: true },
 now: { border: '2px solid #2F4FD0', bg: '#2F4FD0', color: '#FFFFFF', weight: 800, tick: false },
 todo: { border: '2px solid #DDE1EC', bg: 'transparent', color: '#5A6382', weight: 700, tick: false },
 };
-const pills = (states) => states.map((st, i) => ({ label: LABELS[i], ...look[st] }));
-/* grammar runs through all three steps: 0 nothing yet, 1 teach pages read, 2 drill done, 3 exam-style done */
-const next = app.g < 3 ? 1 : app.k < 1 ? 2 : app.r < 1 ? 3 : 0;
-const card = (n, done, states) => ({
-done,
-pills: pills(states),
-border: next === n ? '2px solid #1B2440' : '2px solid #DDE1EC',
-shadow: next === n ? '0 4px 0 #1B2440' : 'none',
-});
-const all = ['done', 'done', 'done'];
-const none = ['todo', 'todo', 'todo'];
-const gStates = app.g >= 3 ? all : app.g === 2 ? ['done', 'done', 'now'] : app.g === 1 ? ['done', 'now', 'todo'] : ['now', 'todo', 'todo'];
-const allDone = next === 0;
+const STEPS = [['学習', 'Learn'], ['練習', 'Drill'], ['本番', 'Exam-style']];
+/* the outlined card is the next part to do */
+const edge = (next) => ({ border: next ? '2px solid #1B2440' : '2px solid #DDE1EC', shadow: next ? '0 4px 0 #1B2440' : 'none' });
+/* what a test or review covers, from its questions */
+const covers = (qs) => {
+const has = (types) => qs.some((q) => types.indexOf(q.type) >= 0);
+const out = [];
+if (has(['漢字読み'])) out.push('漢字');
+if (has(['文脈規定', '言い換え類義', '用法'])) out.push('語彙');
+if (has(['文の文法1', '文の文法2'])) out.push('文法');
+return out.join('・') || '漢字・語彙・文法';
+};
+const qCount = (n) => n + (n === 1 ? ' question' : ' questions');
+/* a title of patterns breaks only between them: each piece keeps its ・ */
+const pieces = (s) => String(s).split('・').map((x, n, a) => x + (n < a.length - 1 ? '・' : ''));
+
+/* the day's parts in teaching order: { key, done } */
+const parts = [];
+if (v.kind === 'study') {
+if (v.grammar) parts.push({ key: 'g', done: g >= 3 });
+if (v.kanji.length || v.words.length) parts.push({ key: 'k', done: p.k >= 1 });
+if (v.reading) parts.push({ key: 'r', done: p.r >= 1 });
+if (v.listening) parts.push({ key: 'l', done: p.l >= 1 });
+} else parts.push({ key: v.kind === 'test' ? 't' : 'v', done: v.kind === 'test' ? p.t >= 1 : p.v >= 1 });
+const firstOpen = parts.filter((x) => !x.done)[0];
+const nextKey = firstOpen ? firstOpen.key : '';
+const isDone = (key) => parts.some((x) => x.key === key && x.done);
+/* mistakes due in the notebook (shown on a review day) */
+const due = (app.mistakes || []).filter((m) => N.due(m)).length;
+
+/* the big card: grammar with its steps, or the week test, or the mixed review */
+let big = null;
+if (v.grammar) {
+const states = g >= 3 ? ['done', 'done', 'done'] : g === 2 ? ['done', 'done', 'now'] : g === 1 ? ['done', 'now', 'todo'] : ['now', 'todo', 'todo'];
+const BTN = [
+{ ja: 'はじめる', en: 'Start with the teach page', to: 'Teach', bg: '#2F4FD0', shadow: '0 3px 0 #1B2440' },
+{ ja: 'つづける', en: 'Continue the drill', to: 'Drill', bg: '#2F4FD0', shadow: '0 3px 0 #1B2440' },
+{ ja: '本番へ', en: 'Start exam-style', to: 'Exam', bg: '#1B2440', shadow: '0 3px 0 #2F4FD0' },
+];
+const b = g < 3 ? BTN[g] : null;
+big = {
+icon: '文', iconBg: '#E8ECFB', iconColor: '#2F4FD0',
+lj: '文法', le: 'Grammar · 3 patterns',
+main: N.titleOf(v.gi), sub: '',
+href: 'Teach.dc.html', tap: nav('Teach'), aria: 'Grammar: ' + N.titleOf(v.gi) + '. Open the teach page' + (g >= 3 ? '. Done' : ''),
+done: g >= 3, padR: g >= 3 ? '30px' : '0',
+hasPills: true,
+pills: states.map((st, n) => Object.assign({ ja: STEPS[n][0], en: STEPS[n][1] }, look[st])),
+btn: b ? { ja: b.ja, en: b.en, href: b.to + '.dc.html', tap: nav(b.to), bg: b.bg, shadow: b.shadow } : null,
+};
+big.parts = pieces(big.main);
+Object.assign(big, edge(nextKey === 'g'));
+} else if (v.kind !== 'study') {
+const test = v.kind === 'test';
+const qs = N.testFor(plan, i);
+const done = test ? p.t >= 1 : p.v >= 1;
+const res = test && plan.tests ? plan.tests[v.wk] : null;
+big = {
+icon: test ? '試' : '復', iconBg: test ? '#1B2440' : '#FFF4D6', iconColor: test ? '#FFFFFF' : '#1B2440',
+lj: test ? '週テスト' : '総復習', le: (test ? 'Week test · ' : 'Mixed review · ') + qCount(qs.length),
+main: covers(qs),
+sub: res && res.of ? 'Your score: ' + res.score + ' of ' + res.of : '',
+href: 'WeekTest.dc.html', tap: nav('WeekTest'),
+aria: (test ? 'Week test, ' : 'Mixed review, ') + qCount(qs.length) + (done ? '. Done' : ''),
+done, padR: done ? '30px' : '0',
+hasPills: false, pills: [],
+btn: done ? null : { ja: 'はじめる', en: test ? 'Start the week test' : 'Start the mixed review', href: 'WeekTest.dc.html', tap: nav('WeekTest'), bg: '#2F4FD0', shadow: '0 3px 0 #1B2440' },
+};
+big.parts = [big.main];
+Object.assign(big, edge(!done));
+}
+
+/* the compact cards, one row each */
+const rows = [];
+const row = (o, key, n, lead) => {
+const done = !!key && isDone(key);
+const next = !!key ? nextKey === key : !!lead;
+rows.push(Object.assign({
+font: ROUND, size: '16px', weight: 800, spacing: 'normal', mainEn: '', sub: '',
+done, next, idle: !done && !next, rot: 'rotate(' + ROT[n % 4] + 'deg)',
+}, edge(next), o, { aria: o.aria + (done ? '. Done' : '') }));
+};
+if (v.kind === 'study') {
+if (v.kanji.length || v.words.length) {
+const K = v.kanji.length, W = v.words.length;
+const counts = [];
+if (K) counts.push(K + ' kanji');
+if (W) counts.push(W + (W === 1 ? ' word' : ' words'));
+/* the first few kanji, or on a day of words only the words that fit */
+let few = '';
+if (K) few = v.kanji.slice(0, 7).map((k) => k.c).join(' ') + (K > 7 ? ' …' : '');
+else {
+const ws = [];
+for (const w of v.words) { if (ws.length && ws.concat(w.w).join('・').length > 12) break; ws.push(w.w); }
+few = ws.join('・') + (ws.length < W ? ' …' : '');
+}
+row({
+icon: '字', iconBg: '#FDEBE6', iconColor: '#C7361E',
+lj: '文字・語彙', le: 'Kanji and words',
+main: few, font: K ? KLEE : ROUND, size: K ? '18px' : '16px', weight: K ? 600 : 800, spacing: K ? '1px' : 'normal',
+sub: counts.join(' · '),
+href: 'Scene.dc.html', tap: nav('Scene'), aria: 'Kanji and words: ' + counts.join(', '),
+}, 'k', rows.length + 1);
+}
+if (v.reading) {
+const r = v.reading.reading;
+row({
+icon: '読', iconBg: '#FFF4D6', iconColor: '#1B2440',
+lj: '読解', le: 'Reading',
+main: r.skill, sub: r.en,
+href: 'Reading.dc.html', tap: nav('Reading'), aria: 'Reading: ' + r.en,
+}, 'r', rows.length + 1);
+}
+if (v.listening) {
+row({
+icon: '聴', iconBg: '#E0F3EF', iconColor: '#0B7A6B',
+lj: '聴解', le: 'Listening',
+main: '即時応答', mainEn: 'Quick response', weight: 800,
+href: 'Listening.dc.html', tap: nav('Listening'), aria: 'Listening: quick response',
+}, 'l', rows.length + 1);
+}
+} else if (v.kind === 'review') {
+/* the notebook is not a part of the day: never stamped; outlined once the review is done and mistakes are due */
+row({
+icon: '帳', iconBg: '#FDEBE6', iconColor: '#C7361E',
+lj: '間違いノート', le: 'Notebook',
+main: due ? due + (due === 1 ? ' mistake' : ' mistakes') + ' due today' : 'Nothing due today', font: ROUND, size: '15px',
+href: 'Notebook.dc.html', tap: nav('Notebook'), aria: 'Notebook: ' + (due ? due + ' due today' : 'nothing due today'),
+}, '', 1, !nextKey && due > 0);
+}
+
+const dayDone = N.done(plan.days[i]);
+const t = N.today();
+const early = v.d > t;
+const n = parts.length;
+let hint = '';
+if (v.kind === 'test') hint = dayDone ? 'The week test is done. Open it to see how it went.' : 'The kanji, words and grammar of this week, in one test.';
+else if (v.kind === 'review') hint = !dayDone ? 'No new lessons today: a mixed review, then your notebook.' : due ? 'The review is done. Clear what is due in your notebook.' : 'The review is done, and nothing is due in your notebook.';
+else if (!n) hint = '';
+else if (dayDone) hint = 'Every part is done. Open a card to go over it again.';
+else if (n === 1) hint = 'One part today. Tap the card to begin.';
+else hint = 'Work down the cards. The outlined one is next.';
+
+/* a day the plan was made again around keeps nothing: a day off */
+const title = v.kind === 'study' && !n ? 'お休み' : v.title;
+/* a long title (three long patterns) gets smaller type */
+const len = N.plain(title).length;
+const titleSize = (len <= 13 ? 26 : Math.max(18, Math.min(26, Math.floor(640 / len)))) + 'px';
+
+const what = v.kind === 'test' ? 'the week test' : v.kind === 'review' ? 'the mixed review' : n === 1 ? 'this part' : n === 2 ? 'both parts' : 'all ' + NUM[n] + ' parts';
 return {
-c1: card(1, app.g >= 3, gStates),
-c2: card(2, app.k >= 1, app.k >= 1 ? all : none),
-c3: card(3, app.r >= 1, app.r >= 1 ? all : none),
-g0: app.g === 0,
-g1: app.g === 1,
-g2: app.g === 2,
-allDone,
-open: !allDone,
+v,
+early,
+earlyNote: 'Opened early. It is planned for ' + N.fmt.short(v.d) + '.',
+titleSize,
+titleParts: pieces(title),
+hint,
+big,
+rows,
+empty: v.kind === 'study' && !n,
+allDone: dayDone,
+open: !dayDone,
+footNote: 'Finish ' + what + ' to stamp day ' + v.dow + ' on your card.',
 toMain: nav('Main'),
-toTeach: nav('Teach'),
-toDrill: nav('Drill'),
-toExam: nav('Exam'),
-toScene: nav('Scene'),
-toReading: nav('Reading'),
 };
 }
 }

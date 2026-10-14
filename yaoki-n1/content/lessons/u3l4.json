@@ -129,7 +129,67 @@
       }
     ]
   },
-  "vocab": [],
+  "vocab": [
+    {
+      "w": "何分", "r": "なにぶん", "en": "after all (as an excuse)",
+      "ex": { "ja": "【何分】初めてのことで、至らない点もあるかと存じます。", "en": "This is all new to me, so I may well fall short in places." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "【何分】人手が足りないもので、対応が遅れております。",
+        "options": ["いくぶん", "なにしろ", "なんとか", "いずれ"],
+        "answer": 2,
+        "why": "何分 offers a circumstance as an excuse, like なにしろ. いくぶん means \"somewhat\", なんとか \"somehow\" and いずれ \"sooner or later\"."
+      }
+    },
+    {
+      "w": "賑わう", "r": "にぎわう", "en": "to be bustling",
+      "ex": { "ja": "週末の商店街は、買い物客で【賑わって】いた。", "en": "At the weekend the shopping street was bustling with shoppers." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "初詣の時期になると、この神社は大勢の参拝客で（　　）。",
+        "options": ["栄える", "群がる", "賑わう", "富む"],
+        "answer": 3,
+        "why": "賑わう: a place is lively and full of people. 栄える is long-term prosperity, 群がる takes the crowd as its subject, and 富む takes に."
+      }
+    },
+    {
+      "w": "不手際", "r": "ふてぎわ", "en": "mishandling, clumsiness",
+      "ex": { "ja": "こちらの【不手際】で、ご迷惑をおかけしました。", "en": "We have caused you trouble through our own mishandling." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "彼は手先が不手際で、細かい作業が苦手だ。",
+          "今年は不手際な天候が続き、米が不作だった。",
+          "受付の不手際で、予約が二重になっていた。",
+          "不手際にも、財布を家に忘れてきてしまった。"
+        ],
+        "answer": 3,
+        "why": "不手際 is poor handling of a task, so a booking mix-up fits. The others want 不器用 (clumsy hands), 不順 (unsettled weather) and 不覚にも (carelessly)."
+      }
+    },
+    {
+      "w": "恐縮", "r": "きょうしゅく", "en": "feeling obliged or sorry",
+      "ex": { "ja": "お忙しいところ、わざわざお越しいただき【恐縮】です。", "en": "It is very kind of you to come all this way when you are so busy." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "ご丁寧にお礼のお品まで頂戴し、（　　）しております。",
+        "options": ["遠慮", "感心", "恐縮", "謙遜"],
+        "answer": 3,
+        "why": "恐縮 says you feel obliged by someone's kindness. 遠慮 is holding back, 感心 judges merit (rude to a superior), 謙遜 is playing oneself down."
+      }
+    },
+    {
+      "w": "未熟", "r": "みじゅく", "en": "inexperienced, unskilled",
+      "ex": { "ja": "まだ【未熟】者ですが、精一杯努めてまいります。", "en": "I still have much to learn, but I will do my very best." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "彼の運転技術はまだ【未熟】だ。",
+        "options": ["かなり手慣れている", "十分に上達していない", "まだ習い始めていない", "年の割に優れている"],
+        "answer": 2,
+        "why": "未熟 means skill or experience is not yet enough: 十分に上達していない. He already drives, so he has started, and the other two say the opposite."
+      }
+    }
+  ],
   "reading": {
     "skill": "筆者の主張",
     "en": "Where is the writer's own claim?",
@@ -149,14 +209,14 @@
   },
   "listening": {
     "who": "女",
-    "line": "言ってくれれば、手伝ったものを。",
-    "replies": ["ごめん、忙しそうだったから。", "手伝ってくれて助かったよ。", "じゃあ、次も言わないでおくね。"],
-    "answer": 1,
+    "line": "何分不慣れなこととて、大変失礼いたしました。",
+    "replies": ["慣れたものですね、さすがです。", "いえ、次は気をつけてくださいね。", "何分ほどかかりますか。"],
+    "answer": 2,
     "notes": [
-      "Hears the reproach and says why.",
-      "〜ものを: she would have helped, but was never asked.",
-      "Promises the very thing she is unhappy about."
+      "Hears 慣れ as skill; she said 不慣れ, new to the job.",
+      "Accepts the apology: 何分〜こととて excuses a slip.",
+      "Takes 何分 (なにぶん) as なんぷん, how many minutes."
     ],
-    "short": ["忙しそうだったから", "手伝ってくれて助かった", "次も言わないでおく"]
+    "short": ["慣れたもの、さすが", "次は気をつけて", "何分ほどかかるか"]
   }
 }

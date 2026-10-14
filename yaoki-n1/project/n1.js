@@ -137,16 +137,19 @@
   }
   function started(x) { var p = x && x.p; return !!(p && (p.g || p.k || p.r || p.l || p.t || p.v)); }
 
-  /* a new exam date or daily time: the days before today stay as they are; from today on, what is not done yet
-     is laid out again over the days left */
+  /* a new exam date or daily time: the days before today stay as they are (and today, if it is under way); from
+     there on, what is not done yet is laid out again over the days left. A day's place in the list is its date, so
+     the days stay unbroken; when the old plan ended before today (its exam has passed), a new calendar starts today */
   function replan(plan, o) {
     var t = today();
-    var keep = plan.days.filter(function (x) { return x.d < t || started(x); });
-    var from = keep.length ? add(keep[keep.length - 1].d, 1) : plan.start;
-    if (from < t) from = t;
+    var exam = o.exam || plan.exam;
+    var pace = o.pace || plan.pace;
+    var n = streamSizes();
+    /* what has been done anywhere in the old plan, early days included, is not taught again */
     var doneSet = function (key) {
       var s = {};
-      keep.forEach(function (x) {
+      plan.days.forEach(function (x) {
+        if (x.t !== 0) return;
         var p = x.p || {};
         var did = key === 'g' ? p.g >= 3 : key === 'r' ? p.r : key === 'l' ? p.l : p.k;
         if (!did) return;
@@ -155,9 +158,11 @@
       });
       return s;
     };
-    var n = streamSizes();
     var left = {};
     ['g', 'k', 'w', 'r', 'l'].forEach(function (key) { var s = doneSet(key); left[key] = range(n[key]).filter(function (i) { return !s[i]; }); });
+    var last = plan.days.length ? plan.days[plan.days.length - 1].d : plan.start;
+    var fresh = add(last, 1) < t;
+    var keep = fresh ? [] : JSON.parse(JSON.stringify(plan.days.filter(function (x) { return x.d < t || (x.d === t && started(x)); })));
     /* the days kept but not finished give back what was not done */
     keep.forEach(function (x) {
       if (x.t !== 0) return;
@@ -167,9 +172,8 @@
       if (!p.l) x.l = -1;
       if (!p.k) { x.k = []; x.w = []; }
     });
-    var exam = o.exam || plan.exam;
-    var pace = o.pace || plan.pace;
-    var start = keep.length ? plan.start : from;
+    var start = fresh || !plan.days.length ? t : plan.start;
+    var from = keep.length ? add(keep[keep.length - 1].d, 1) : start;
     var rest = calendar(start, exam).filter(function (x) { return x.d >= from; });
     var cov = fill(rest, left, pace);
     rest.forEach(function (x) { x.p = {}; });
@@ -178,6 +182,9 @@
     cov = { learn: cov.learn, f: cov.f, g: sum('g'), k: sum('k'), w: sum('w'), r: sum('r'), l: sum('l') };
     var out = JSON.parse(JSON.stringify(plan));
     out.exam = exam; out.pace = pace; out.start = start; out.days = days; out.cov = cov; out.set = t;
+    /* a new calendar has new week numbers: the old week tests do not belong to it */
+    if (fresh) { out.tests = {}; out.open = null; }
+    if (out.open != null && !days[out.open]) out.open = null;
     return out;
   }
 
@@ -215,6 +222,8 @@
   function withOpen(plan, i) { var out = JSON.parse(JSON.stringify(plan)); out.open = i; return out; }
   /* the day the lesson screens show: the one opened on the path, or else the day to work on */
   function openDay(plan) { return plan && plan.open != null && plan.days[plan.open] ? plan.open : current(plan); }
+  /* the day whose grammar lesson the lesson screens show for day i: i itself, or the nearest earlier day with one; -1 if none */
+  function lessonDay(plan, i) { for (var j = i; j >= 0; j--) if (plan.days[j] && plan.days[j].t === 0 && plan.days[j].g >= 0) return j; return -1; }
   /* where today's date falls in the plan: -1 before its first day, the last day once the exam is near */
   function todayIndex(plan, t) { var n = diff(plan.days[0].d, t || today()); return n < 0 ? -1 : Math.min(n, plan.days.length - 1); }
   /* the days stamped done */
@@ -476,6 +485,7 @@
     mark: mark,
     withOpen: withOpen,
     openDay: openDay,
+    lessonDay: lessonDay,
     todayIndex: todayIndex,
     stamps: stamps,
     result: result,
@@ -499,7 +509,11 @@
     demo: function () {
       var p = make({ start: '2026-09-24', exam: '2026-12-06', pace: 60, set: '2026-09-23' });
       var s = 0;
-      p.days.forEach(function (x) { if (x.t !== 1) { x.t = 0; x.g = s < LESSONS.length ? s : -1; x.r = x.g; x.l = x.g; s++; } });
+      p.days.forEach(function (x) {
+        if (x.t === 1) return;
+        if (s < LESSONS.length) { x.t = 0; x.g = s; x.r = s; x.l = s; } else { x.t = 2; x.g = -1; x.r = -1; x.l = -1; x.k = []; x.w = []; }
+        s++;
+      });
       for (var i = 0; i < 17; i++) p.days[i].p = p.days[i].t === 1 ? { t: 1 } : { g: 3, k: 1, r: 1, l: 1 };
       p.open = 17;
       return p;

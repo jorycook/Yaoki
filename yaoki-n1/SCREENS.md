@@ -42,6 +42,8 @@ been taught). A study day can hold any of these parts:
 - listening: `v.listening`, a lesson whose `listening` item is the day's.
 
 A short plan puts many kanji on a day, and a long one only a few. Leave out any part the day does not hold.
+The grammar screens show `N.lessonDay(plan, i)`'s lesson: the open day's, or the nearest earlier day's when the open
+day has none. They save progress to that day.
 
 ## Saving progress
 

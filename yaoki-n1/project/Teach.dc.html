@@ -5,6 +5,9 @@
 <title>Teach page</title>
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
 <script src="./sound-lessons.js"></script>
 </head>
 <body>
@@ -15,83 +18,83 @@
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
 rt{font-size:9px;font-weight:400;color:#5A6382}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 </style>
 </helmet>
-<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+<div data-yk-frame="teach" style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px">
-<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px" role="img" aria-label="Teach page 1 of 3">
-<div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
-<div style="height: 10px; border-radius: 5px; background: #DDE1EC"></div>
-<div style="height: 10px; border-radius: 5px; background: #DDE1EC"></div>
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="group" aria-label="{{ barLabel }}" style="flex-grow: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{ bar }}" as="b" hint-placeholder-count="3"><button onClick="{{ b.go }}" aria-disabled="{{ b.off }}" aria-label="{{ b.aria }}" aria-current="{{ b.cur }}" style="height: 44px; padding: 0; border: 0; background: transparent; display: flex; align-items: center; cursor: {{ b.cursor }}"><span style="display: block; width: 100%; height: 10px; border-radius: 5px; background: {{ b.bg }}"></span></button></sc-for>
 </div>
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">学習 LEARN</div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0; white-space: nowrap; flex-shrink: 0">学習 LEARN</div>
 </div>
 
-<div style="margin-top: 6px; display: flex; align-items: flex-end; gap: 12px">
-<div style="flex-grow: 1; display: flex; flex-direction: column">
-<h1 style="margin: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 34px; font-weight: 600; line-height: 1.3">〜とあって</h1>
-<div style="font-size: 15px; font-weight: 700; color: #5A6382">it being (a special case), so …</div>
-</div>
-<div style="display: flex; gap: 6px; padding-bottom: 4px">
+<sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
+<div data-yk-scroll="1" style="flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column">
+
+<div style="margin-top: 2px; display: flex; flex-direction: column; flex-shrink: 0">
+<h1 lang="ja" style="margin: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 34px; font-weight: 600; line-height: 1.25">{{ pt.p }}</h1>
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<div style="flex-grow: 1; min-width: 0; padding-top: 2px; font-size: 15px; font-weight: 700; line-height: 1.35; color: #5A6382">{{ pt.en }}</div>
+<div style="display: flex; gap: 6px; flex-shrink: 0">
 <div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap">N1</div>
-<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap">原因・理由</div>
+<sc-if value="{{ theme }}" hint-placeholder-val="{{ true }}"><div lang="ja" style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap">{{ theme }}</div></sc-if>
+</div>
 </div>
 </div>
 
-<div style="margin-top: 14px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="margin-top: 8px; padding: 10px 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">接続　How it connects</div>
-<div style="display: flex; align-items: center; gap: 10px">
-<div style="width: 72px; padding: 4px 0; border-radius: 8px; background: #F4F5F9; font-size: 12px; font-weight: 800; text-align: center; flex-shrink: 0">動・い形</div>
-<div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600">普通形 ＋ <span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">とあって</span></div>
-</div>
-<div style="display: flex; align-items: center; gap: 10px">
-<div style="width: 72px; padding: 4px 0; border-radius: 8px; background: #F4F5F9; font-size: 12px; font-weight: 800; text-align: center; flex-shrink: 0">な形</div>
-<div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600">語幹 ＋ <span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">とあって</span></div>
-</div>
-<div style="display: flex; align-items: center; gap: 10px">
-<div style="width: 72px; padding: 4px 0; border-radius: 8px; background: #F4F5F9; font-size: 12px; font-weight: 800; text-align: center; flex-shrink: 0">名詞</div>
-<div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600">名詞 ＋ <span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">とあって</span></div>
-</div>
+<sc-for list="{{ conn }}" as="c" hint-placeholder-count="3"><div style="display: flex; align-items: center; gap: 8px">
+<div lang="ja" style="width: 66px; padding: 3px 0; border-radius: 8px; background: #F4F5F9; font-size: 12px; font-weight: 800; line-height: 18px; text-align: center; flex-shrink: 0">{{ c.label }}</div>
+<div lang="ja" style="min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: {{ connSize }}; font-weight: 600; line-height: 1.45"><sc-for list="{{ c.segs }}" as="g" hint-placeholder-count="2"><span style="background: {{ g.bg }}; padding: {{ g.pad }}; border-radius: {{ g.rad }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+</div></sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 10px">
+<div style="margin-top: 8px; padding: 10px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">例文　Examples</div>
-<div style="display: flex; align-items: flex-start; gap: 10px">
-<button aria-label="Play example 1" onClick="{{ play1 }}" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; background: {{ bg1 }}; transition: background 150ms; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button>
-<div style="display: flex; flex-direction: column; gap: 2px">
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.8">
-連休<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">とあって</span>、観光地はどこも家族連れでにぎわっている。</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">With it being a long weekend, every tourist spot is busy with families.</div>
+<sc-for list="{{ exs }}" as="x" hint-placeholder-count="2"><div style="display: flex; align-items: flex-start; gap: 10px">
+<button aria-label="{{ x.aria }}" aria-pressed="{{ x.on }}" onClick="{{ x.play }}" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; background: {{ x.bg }}; transition: background 150ms; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button>
+<div style="min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.75"><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="3"><span style="background: {{ g.bg }}; padding: {{ g.pad }}; border-radius: {{ g.rad }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ x.en }}</div>
 </div>
-</div>
-<div style="display: flex; align-items: flex-start; gap: 10px">
-<button aria-label="Play example 2" onClick="{{ play2 }}" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; background: {{ bg2 }}; transition: background 150ms; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button>
-<div style="display: flex; flex-direction: column; gap: 2px">
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.8">
-人気作家の講演会<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">とあって</span>、会場は開演前から<ruby>熱気<rt>ねっき</rt></ruby>に包まれていた。</div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">It being a talk by a popular author, the hall was buzzing before it began.</div>
-</div>
-</div>
+</div></sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 6px">
+<div style="margin-top: 8px; padding: 10px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800">注意　Watch out</div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.45">What follows is a scene you observe, not your own plan or request. For that, use ので.</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; word-break: keep-all; overflow-wrap: anywhere">{{ pt.note }}</div>
 <div style="display: flex; align-items: center; gap: 8px">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600">連休とあって、旅行に行こう。</div>
+<div lang="ja" style="min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.4">{{ pt.bad }}</div>
 </div>
 <div style="display: flex; align-items: center; gap: 8px">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600">連休なので、旅行に行こう。</div>
+<div lang="ja" style="min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.4">{{ pt.good }}</div>
 </div>
 </div>
 
+</div>
+
+<div style="margin-top: 10px; display: flex; gap: 8px; flex-shrink: 0">
+<sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}"><button onClick="{{ back }}" aria-label="{{ backLabel }}" style="width: 54px; height: 54px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></sc-if>
+<sc-if value="{{ last }}" hint-placeholder-val="{{ false }}"><a href="Compare.dc.html" onClick="{{ toCompare }}" style="flex: 1 1 0; min-width: 0; height: 54px; box-sizing: border-box; padding: 0 10px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: {{ nextSize }}; white-space: nowrap; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　Next: compare the three</a></sc-if>
+<sc-if value="{{ !last }}" hint-placeholder-val="{{ true }}"><button onClick="{{ next }}" style="flex: 1 1 0; min-width: 0; height: 54px; padding: 0 10px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: {{ nextSize }}; white-space: nowrap; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　Next:&nbsp;<span lang="ja">{{ nextP }}</span></button></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div lang="ja" style="font-size: 18px; font-weight: 800">文法の学習はありません</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">This day has no grammar lesson, and no day before it has one either. Go back to today's plan to see what it holds.</div>
+</div>
 <div style="flex-grow: 1"></div>
-<a href="Compare.dc.html" onClick="{{ toCompare }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">つぎへ　Next: 〜ゆえに</a>
+<a href="Today.dc.html" onClick="{{ toToday }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">もどる</span>　Back to today</a>
+</sc-if>
 
 </div>
 </x-dc>
@@ -99,33 +102,128 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 class Component extends DCLogic {
 constructor(props) {
 super(props);
-this.state = { playing: 0 };
+/* page: the pattern shown (0 to 2); seen: the furthest page reached; playing: the clip key whose button is lit */
+this.state = { page: 0, seen: 0, playing: '' };
 }
 componentWillUnmount() {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 }
+/* the lesson to teach: the open day's, or else the nearest earlier day's; null when there is none */
+lesson() {
+const N = window.ykN1;
+if (!N) return null;
+const app = this.props.app || {};
+/* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const i = N.openDay(plan);
+const v = N.view(plan, i);
+if (v && v.grammar) return v.grammar;
+for (let j = Math.min(i, plan.days.length) - 1; j >= 0; j--) {
+const g = plan.days[j] ? plan.days[j].g : -1;
+if (g >= 0 && N.lessons[g]) return N.lessons[g];
+}
+return null;
+}
+/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line */
+segs(text) {
+const s = window.ykN1.segs(text);
+return s.map((g, n) => {
+const first = g.mark && !(s[n - 1] && s[n - 1].mark);
+const last = g.mark && !(s[n + 1] && s[n + 1].mark);
+return {
+t: g.t, r: g.r, ruby: g.ruby, plain: g.plain, bg: g.hl,
+pad: '0 ' + (last ? 3 : 0) + 'px 0 ' + (first ? 3 : 0) + 'px',
+rad: (first ? '4px' : '0') + ' ' + (last ? '4px 4px' : '0 0') + ' ' + (first ? '4px' : '0'),
+ws: g.mark ? 'nowrap' : 'normal',
+};
+});
+}
+/* rough width of a line in ems: full-width characters 1, spaces 0.3, other half-width 0.6 */
+ems(text) {
+let w = 0;
+for (const ch of String(text)) w += ch === ' ' ? 0.3 : ch.charCodeAt(0) > 0xff ? 1 : 0.6;
+return w;
+}
+/* move to another page: sound off, back to the top of the page */
+turn(to, e) {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+this.setState({ page: to, seen: Math.max(this.state.seen, to), playing: '' });
+try {
+const root = e && e.currentTarget && e.currentTarget.closest('[data-yk-frame]');
+const sc = root && root.querySelector('[data-yk-scroll]');
+if (sc) sc.scrollTop = 0;
+} catch (err) { /* no page to scroll */ }
+}
 renderVals() {
+const N = window.ykN1;
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-/* each example is a short clip: its button stays lit while it plays, and a second tap stops it. If the sound cannot play, the button lights up for a short stand-in time */
-const play = (n, key, standIn) => () => {
+const lesson = this.lesson();
+const pats = lesson && lesson.grammar && lesson.grammar.patterns ? lesson.grammar.patterns : [];
+const page = Math.max(0, Math.min(s.page, pats.length - 1));
+const pt = pats[page];
+const bar = [0, 1, 2].map((n) => ({
+bg: pt && n <= page ? '#2F4FD0' : '#DDE1EC',
+off: n > s.seen || !pt,
+cursor: n > s.seen || n === page || !pt ? 'default' : 'pointer',
+cur: n === page ? 'step' : 'false',
+aria: 'Pattern ' + (n + 1) + (pats[n] ? ': ' + pats[n].p : ''),
+/* a page already seen can be opened again from the bar */
+go: (e) => { if (pt && n <= this.state.seen && n !== page) this.turn(n, e); },
+}));
+if (!pt) {
+return { has: false, none: true, bar, barLabel: 'Teach pages', toToday: nav('Today') };
+}
+const unit = N.units[lesson.unit - 1];
+/* each example is a short clip: its button stays lit while it plays, and a second tap stops it. When the clip is missing or cannot play, the button lights for a stand-in time that follows the length of the text */
+const play = (key, text) => () => {
 clearTimeout(this.timer);
 const snd = window.ykSound;
-if (this.state.playing === n) {
+if (this.state.playing === key) {
 if (snd) snd.stop();
-this.setState({ playing: 0 });
+this.setState({ playing: '' });
 return;
 }
 const sound = !!(snd && snd.has(key) && snd.unlock() && snd.play(key));
-this.setState({ playing: n });
-this.timer = setTimeout(() => this.setState({ playing: 0 }), sound ? snd.ms(key) : standIn);
+if (!sound && snd) snd.stop();
+this.setState({ playing: key });
+this.timer = setTimeout(() => this.setState({ playing: '' }), sound ? snd.ms(key) : 150 * N.plain(text).length + 600);
 };
+const exs = (pt.ex || []).slice(0, 2).map((x, n) => {
+const key = 'g.' + lesson.id + '.' + page + '.' + n;
 return {
-bg1: s.playing === 1 ? '#F2B43A' : '#E8ECFB',
-bg2: s.playing === 2 ? '#F2B43A' : '#E8ECFB',
-play1: play(1, 't_ex1', 2800),
-play2: play(2, 't_ex2', 3000),
+segs: this.segs(x.ja), en: x.en, aria: 'Play example ' + (n + 1),
+on: s.playing === key, bg: s.playing === key ? '#F2B43A' : '#E8ECFB', play: play(key, x.ja),
+};
+});
+const conn = (pt.conn || []).slice(0, 3).map((c) => ({ label: c[0], segs: this.segs(c[1]) }));
+/* the formulas share one size, as large as fits beside the labels (16px at most) */
+const widest = Math.max(1, ...conn.map((c, n) => this.ems(N.plain(pt.conn[n][1]))));
+const connSize = Math.max(13, Math.min(16, Math.floor(244 / widest))) + 'px';
+const last = page >= pats.length - 1;
+const nextP = last ? '' : pats[page + 1].p;
+/* the label of the next button stays on one line, at one size on all three pages (pages 2 and 3 share the row with the back button) */
+const fit = (label, room) => Math.floor(room / (this.ems(label) + 0.4));
+const nextSize = Math.max(13, Math.min(17, ...pats.map((x, n) => n === pats.length - 1 ? fit('つぎへ　Next: compare the three', 274) : fit('つぎへ　Next: ' + pats[n + 1].p, n > 0 ? 274 : 334)))) + 'px';
+return {
+has: true,
+none: false,
+bar,
+barLabel: 'Teach page ' + (page + 1) + ' of 3',
+pt: { p: pt.p, en: pt.en, note: pt.note, bad: pt.bad, good: pt.good },
+theme: unit ? unit.ja : '',
+conn,
+connSize,
+exs,
+last,
+nextP,
+nextSize,
+hasBack: page > 0,
+backLabel: page > 0 ? 'Back to ' + pats[page - 1].p : '',
+back: (e) => this.turn(page - 1, e),
+next: (e) => this.turn(page + 1, e),
 toToday: nav('Today'),
 toCompare: nav('Compare'),
 };

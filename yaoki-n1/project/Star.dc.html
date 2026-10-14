@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Star sentence</title>
 <script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
 </head>
 <body>
 <x-dc>
@@ -19,74 +23,86 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px">
-<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div role="img" aria-label="Question 6 of 10" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="width: 50%; height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0"></div></div>
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">練習 DRILL</div>
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="{{ barAria }}" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0; transition: width 240ms; width: {{ barW }}"></div></div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0; white-space: nowrap; flex-shrink: 0"><span lang="ja">練習</span> DRILL</div>
 </div>
 
-<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px">
-<div style="font-size: 12px; font-weight: 800; color: #5A6382">文の文法2　Build the sentence</div>
-<h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">★に入るのはどれ？</h1>
+<sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">文の文法2</span>　Build the sentence</div>
+<h1 lang="ja" style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">★に入るのはどれ？</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382">Put the four tiles in order. Your answer is the tile on the star.</div>
 </div>
 
-<div lang="ja" style="margin-top: 16px; padding: 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">
-<div style="white-space: nowrap">彼女は責任感が強すぎる</div>
+<div lang="ja" style="margin-top: 14px; padding: 14px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600; flex-shrink: 0">
+<div style="white-space: nowrap"><sc-for list="{{ pre }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <sc-for list="{{ slots }}" as="s" hint-placeholder-count="4">
-<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; font-size: 16px; font-weight: 600; white-space: nowrap; background: {{ s.bg }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.r }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" aria-disabled="{{ s.off }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; font-size: 16px; font-weight: 600; white-space: nowrap; border: {{ s.border }}; box-shadow: {{ s.shadow }}; background: {{ s.bg }}; cursor: {{ s.cursor }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
 <sc-if value="{{ s.emptyStar }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="Empty star slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #1B2440; background: #FFF4D6; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></div></sc-if>
 <sc-if value="{{ s.emptyPlain }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="Empty slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #C9D0E3; background: #F4F5F9"></div></sc-if>
 </sc-for>
-<div style="white-space: nowrap">求めようとしない。</div>
+<div style="white-space: nowrap"><sc-for list="{{ post }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 16px; display: flex; align-items: flex-end; gap: 10px">
+<div style="margin-top: 14px; display: flex; align-items: flex-end; gap: 10px; flex-shrink: 0">
 <svg viewBox="0 0 100 100" width="48" height="48" role="img" aria-label="Yaoki" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
-<div style="flex-grow: 1; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
-<div style="font-size: 11px; font-weight: 800; color: #C7361E">ヒント　HINT · drill only</div>
-<div style="font-size: 13px; font-weight: 700; line-height: 1.45">ゆえに can follow a plain form with が in between. Which tile sits right after 強すぎる?</div>
-</div>
+<sc-if value="{{ !hintOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ showHint }}" aria-expanded="false" style="flex-grow: 1; min-height: 50px; padding: 8px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; display: flex; align-items: center; gap: 8px; text-align: left"><span style="flex-grow: 1; font-size: 13px; font-weight: 800"><span lang="ja" style="color: #C7361E">ヒント</span>　Show a hint</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 9l6 6 6-6"/></svg></button></sc-if>
+<sc-if value="{{ hintOpen }}" hint-placeholder-val="{{ true }}"><div aria-live="polite" style="flex-grow: 1; min-width: 0; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 11px; font-weight: 800; color: #C7361E"><span lang="ja">ヒント</span>　HINT · drill only</div>
+<div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ hint }}</div>
+</div></sc-if>
 </div>
 </sc-if>
 
-<div style="flex-grow: 1"></div>
+<div style="flex-grow: 1; min-height: 8px"></div>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-direction: column; gap: 10px">
-<div style="font-size: 12px; font-weight: 800; color: #5A6382">タイル　Tiles</div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">タイル</span>　Tiles</div>
 <div lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
 <sc-for list="{{ bank }}" as="b" hint-placeholder-count="4">
-<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" style="height: 54px; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.r }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" style="height: 54px; min-width: 0; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600; white-space: nowrap"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
 <sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
 </sc-for>
 </div>
 </div>
-<button disabled="{{ notFull }}" onClick="{{ check }}" style="margin-top: 22px; height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">こたえる　Check</button>
+<button disabled="{{ notFull }}" onClick="{{ check }}" style="margin-top: 20px; height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}"><span lang="ja">こたえる</span>　Check</button>
 </sc-if>
 
 <sc-if value="{{ checked }}" hint-placeholder-val="{{ false }}">
-<div style="margin: 0 -16px -34px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
-<div style="display: flex; align-items: center; gap: 10px">
-<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
-<sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
-<div style="flex-grow: 1; font-size: 20px; font-weight: 800">{{ verdictJa }} <span style="font-size: 14px; font-weight: 700">{{ verdictEn }}</span></div>
-<div style="display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800">正解<svg width="15" height="15" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="2" stroke-linejoin="round" role="img" aria-label="star"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg>周囲の</div>
+<div style="margin: 0 -16px -34px; min-height: 0; padding: 14px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
+<sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true" style="flex-shrink: 0"><circle cx="12" cy="12" r="9"/></svg></sc-if>
+<div style="flex-grow: 1; min-width: 0; font-size: 20px; font-weight: 800; white-space: nowrap"><span lang="ja">{{ verdictJa }}</span> <span style="font-size: 14px; font-weight: 700">{{ verdictEn }}</span></div>
+<div style="display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><span lang="ja">正解</span><svg width="15" height="15" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="2" stroke-linejoin="round" role="img" aria-label="star"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg><span lang="ja">{{ starTile }}</span></div>
 </div>
-<div style="padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
-<div style="font-size: 12px; font-weight: 800; color: #5A6382">解説　The sentence</div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 2">彼女は責任感が強すぎるが<span style="background: #FFE9B0; border-radius: 4px; padding: 0 3px; white-space: nowrap">ゆえに</span>周囲の助けを求めようとしない。</div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.45">強すぎる takes が before ゆえに, so the first two tiles are fixed. 周囲の has to sit right before 助けを.</div>
+<div style="min-height: 0; overflow-y: auto; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">解説</span>　The right order</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 2; flex-shrink: 0"><sc-for list="{{ whole }}" as="g" hint-placeholder-count="6"><span style="border-radius: 4px; background: {{ g.bg }}; padding: {{ g.pad }}; margin: {{ g.mar }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; flex-shrink: 0">{{ why }}</div>
 </div>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700">
-<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
-Saved to your mistake notebook. It comes back tomorrow.
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; flex-shrink: 0">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
+Saved to your mistake notebook. Back tomorrow.
 </div>
 </sc-if>
-<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; flex-shrink: 0; box-sizing: border-box; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}"><span lang="ja">おわり</span>　Back to today</a>
 </div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div lang="ja" style="font-size: 18px; font-weight: 800">文法の練習はありません</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">This day has no grammar lesson, and no day before it has one either. Go back to today's plan to see what it holds.</div>
+</div>
+<div style="flex-grow: 1"></div>
+<a href="Today.dc.html" onClick="{{ toToday }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">もどる</span>　Back to today</a>
 </sc-if>
 
 </div>
@@ -95,50 +111,104 @@ Saved to your mistake notebook. It comes back tomorrow.
 class Component extends DCLogic {
 constructor(props) {
 super(props);
-/* inside the prototype all four tiles start in the bank; on its own the artboard shows the designed moment (two placed) */
-this.state = { slots: props && props.go ? [null, null, null, null] : ['A', 'B', null, null], checked: false };
+/* slots: the tile (0 to 3, in the lesson's right order) put in each blank; hint: the hint is shown.
+   Inside the prototype all four tiles start in the bank; on its own the artboard shows the designed moment (two placed, the hint open) */
+const canvas = !(props && props.go);
+this.state = { slots: canvas ? [0, 1, null, null] : [null, null, null, null], checked: false, hint: canvas };
+}
+/* the plan, and the lesson with the day it belongs to: the open day's, or else the nearest earlier day's */
+where() {
+const N = window.ykN1;
+if (!N) return { plan: null, lesson: null, day: -1 };
+const app = this.props.app || {};
+/* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const i = N.openDay(plan);
+let j = -1;
+if (N.lessonDay) j = N.lessonDay(plan, i);
+else for (let k = Math.min(i, plan.days.length - 1); k >= 0 && j < 0; k--) if (plan.days[k].t === 0 && plan.days[k].g >= 0) j = k;
+const lesson = j >= 0 ? N.lessons[plan.days[j].g] : null;
+return lesson ? { plan, lesson, day: j } : { plan, lesson: null, day: -1 };
+}
+/* grammar step 2 (drills and ★) is done for the lesson's day */
+saveDone(day) {
+const N = window.ykN1;
+const app = this.props.app || {};
+const save = this.props.save;
+if (save && app.plan && app.plan.days && day >= 0 && app.plan.days[day]) save({ plan: N.mark(app.plan, day, { g: 2 }) });
 }
 renderVals() {
+const N = window.ykN1;
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const seg = (t, r) => ({ t, r: r || '', plain: !r });
-const TILES = {
-A: { text: 'が', segs: [seg('が')] },
-B: { text: 'ゆえに', segs: [seg('ゆえに')] },
-C: { text: '周囲の', segs: [seg('周囲の')] },
-D: { text: '助けを', segs: [seg('助けを')] },
-};
-const ORDER = ['A', 'B', 'C', 'D'];
-const STAR = 2;
-const placed = s.slots.filter(Boolean);
+const at = this.where();
+const lesson = at.lesson;
+const q = lesson && lesson.grammar && lesson.grammar.star;
+if (!q || !q.tiles || q.tiles.length < 4) {
+return { has: false, none: true, barW: '0%', barAria: 'Practice questions', toToday: nav('Today') };
+}
+const tiles = q.tiles.slice(0, 4);
+const STAR = q.star >= 0 && q.star <= 3 ? q.star : 2;
+const segs = (text) => N.segs(text).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain }));
+const placed = s.slots.filter((x) => x !== null);
 const full = placed.length === 4;
-const correct = s.checked && s.slots.every((id, i) => id === ORDER[i]);
-const wrong = s.checked && !correct;
-const slots = s.slots.map((id, i) => ({
-filled: !!id,
-emptyStar: !id && i === STAR,
-emptyPlain: !id && i !== STAR,
-segs: id ? TILES[id].segs : [],
-aria: id ? (i === STAR ? 'On the star: ' : 'Placed: ') + TILES[id].text + '. Tap to take it back' : '',
-bg: i === STAR ? '#FFE9B0' : '#E8ECFB',
-remove: () => this.setState({ slots: s.slots.map((x, j) => (j === i ? null : x)), checked: false }),
-}));
-const bank = ['C', 'B', 'D', 'A'].map((id) => {
-const here = !s.slots.includes(id);
+const right = s.slots.every((t, k) => t === k);
+const correct = s.checked && right;
+const wrong = s.checked && !right;
+const slots = s.slots.map((t, k) => {
+const filled = t !== null;
+let border = '2px solid #1B2440';
+if (s.checked) border = t === k ? '2.5px solid #0B7A6B' : '2.5px solid #C7361E';
+return {
+filled,
+emptyStar: !filled && k === STAR,
+emptyPlain: !filled && k !== STAR,
+segs: filled ? segs(tiles[t]) : [],
+aria: filled ? (k === STAR ? 'On the star: ' : 'Placed: ') + N.plain(tiles[t]) + (s.checked ? (t === k ? ', right place' : ', wrong place') : '. Tap to take it back') : '',
+off: s.checked,
+cursor: s.checked ? 'default' : 'pointer',
+border,
+shadow: s.checked ? 'none' : '0 3px 0 #1B2440',
+bg: k === STAR ? '#FFE9B0' : '#E8ECFB',
+/* tap a placed tile to take it back to the bank */
+remove: () => { if (!this.state.checked) this.setState({ slots: this.state.slots.map((x, j) => (j === k ? null : x)) }); },
+};
+});
+/* the bank: a fixed shuffle per lesson, never the answer order */
+const ord = N.order(4, 'g.' + lesson.id + '.s', true);
+const bank = ord.map((t) => {
+const here = !s.slots.includes(t);
 return {
 here,
 gone: !here,
-segs: TILES[id].segs,
+segs: segs(tiles[t]),
 place: () => {
-const at = s.slots.indexOf(null);
-if (at < 0) return;
-this.setState({ slots: s.slots.map((x, j) => (j === at ? id : x)) });
+const now = this.state.slots;
+const to = now.indexOf(null);
+if (to < 0 || now.includes(t) || this.state.checked) return;
+this.setState({ slots: now.map((x, j) => (j === to ? t : x)) });
 },
 };
 });
+/* the whole sentence in the right order, the tiles marked and the ★ tile in yellow */
+const whole = segs(q.pre).map((g) => ({ ...g, bg: 'transparent', pad: '0', mar: '0', ws: 'normal' }));
+tiles.forEach((tile, k) => {
+segs(tile).forEach((g) => whole.push({ ...g, bg: k === STAR ? '#FFE9B0' : '#E8ECFB', pad: '0 3px', mar: '0 1px', ws: 'nowrap' }));
+});
+segs(q.post).forEach((g) => whole.push({ ...g, bg: 'transparent', pad: '0', mar: '0', ws: 'normal' }));
 return {
+has: true,
+none: false,
+/* the fourth of the practice questions, after the three drills */
+barW: s.checked ? '100%' : '75%',
+barAria: 'Practice question 4 of 4',
+pre: segs(q.pre),
+post: segs(q.post),
 slots,
 bank,
+hintOpen: s.hint,
+hint: q.hint || '',
+showHint: () => this.setState({ hint: true }),
 asking: !s.checked,
 checked: s.checked,
 correct,
@@ -149,20 +219,25 @@ ck: full
 : { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' },
 verdictJa: wrong ? 'おしい！' : 'せいかい！',
 verdictEn: wrong ? 'Not quite' : 'Correct',
+starTile: N.plain(tiles[STAR]),
+whole,
+why: q.why || '',
 sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
 tone: wrong ? '#C7361E' : '#0B7A6B',
 check: () => {
-if (!full) return;
-const ok = s.slots.every((id, i) => id === ORDER[i]);
+const now = this.state.slots;
+if (now.includes(null) || this.state.checked) return;
+const ok = now.every((t, k) => t === k);
 /* the notebook names the tile that was put on the star; when that tile was right and only the order was off, it says so */
-const onStar = s.slots[STAR];
-if (!ok && this.props.miss) this.props.miss({ src: 'star', wrong: onStar === ORDER[STAR] ? '順番が違う' : TILES[onStar].text });
+const onStar = now[STAR];
+if (!ok && this.props.miss) this.props.miss({ src: 'g.' + lesson.id + '.s', wrong: onStar === STAR ? '順番が違う' : N.plain(tiles[onStar]) });
 this.setState({ checked: true });
+/* the ★ question is answered: the practice step is done */
+this.saveDone(at.day);
 },
 toToday: nav('Today'),
 toDone: (e) => {
-const app = this.props.app;
-if (this.props.save) this.props.save({ g: Math.max((app && app.g) || 0, 2) });
+this.saveDone(at.day);
 nav('Today')(e);
 },
 };
