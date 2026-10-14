@@ -24,6 +24,7 @@ run "content sweep, N5"            LEVEL=N5 timeout 2400 bash run-app.sh content
 run "level switch"               timeout 400 bash run-app.sh level-test.js
 run "N5 mini mock, sound"        timeout 400 bash run-app.sh n5-mock.js
 run "N4 mini mock"                timeout 400 bash run-app.sh n4-mock.js
+run "N3 mini mock"                timeout 400 bash run-app.sh n3-mock.js
 run "N5 mini mock, no sound"     NOSOUND=1 timeout 400 bash run-app.sh n5-mock.js
 pkill -f "[h]ttp.server 8765" 2>/dev/null; sleep 0.5
 echo "=== app: mock time-up"

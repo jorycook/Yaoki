@@ -8,6 +8,23 @@ const HOME = new URL('./', self.location.href).pathname;
 const PREFIX = 'yaoki:' + HOME + ':';
 const CACHE = PREFIX + VERSION;
 const FILES = __FILES__;
+/* each level's sound, one file per unit, is not part of the install (it would make the first download several
+   times larger): a unit's file is stored the first time it is used, and the app asks for the rest of the chosen
+   level in the background. Each file carries a hash of its content, so a new build keeps the ones that did not change. */
+const LAZY = __LAZY__;
+const lazyKey = (f) => f + '?h=' + LAZY[f];
+const lazyOf = (url) => { const p = './' + new URL(url).pathname.slice(HOME.length); return LAZY[p] ? p : null; };
+async function keepLazy(cache, f) {
+  if (await cache.match(lazyKey(f))) return;
+  /* a copy already stored by an earlier build, if its content is the same */
+  for (const k of await caches.keys()) {
+    if (!k.startsWith(PREFIX) || k === CACHE) continue;
+    const old = await (await caches.open(k)).match(lazyKey(f));
+    if (old) { await cache.put(lazyKey(f), old); return; }
+  }
+  const res = await fetch(new Request(lazyKey(f), { cache: 'reload' }));
+  if (res.ok) await cache.put(lazyKey(f), res);
+}
 
 self.addEventListener('install', (event) => {
   /* each file is asked for under this version's own address, so a copy of the previous version that the
@@ -15,7 +32,17 @@ self.addEventListener('install', (event) => {
   const versioned = (f) => new Request(f + (f.indexOf('?') < 0 ? '?' : '&') + 'v=' + VERSION, { cache: 'reload' });
   event.waitUntil(
     caches.open(CACHE)
-      .then((cache) => cache.addAll(FILES.map(versioned)))
+      .then(async (cache) => {
+        await cache.addAll(FILES.map(versioned));
+        /* carry over the sound files of earlier builds that are unchanged (nothing new is downloaded here) */
+        for (const f of Object.keys(LAZY)) {
+          for (const k of await caches.keys()) {
+            if (!k.startsWith(PREFIX) || k === CACHE) continue;
+            const old = await (await caches.open(k)).match(lazyKey(f));
+            if (old) { await cache.put(lazyKey(f), old); break; }
+          }
+        }
+      })
       .then(() => self.skipWaiting())
   );
 });
@@ -31,6 +58,15 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
+  const lazy = lazyOf(request.url);
+  if (lazy) {
+    event.respondWith(
+      caches.open(CACHE)
+        .then(async (cache) => (await cache.match(lazyKey(lazy))) || (await keepLazy(cache, lazy), await cache.match(lazyKey(lazy))) || fetch(request))
+        .catch(() => fetch(request))
+    );
+    return;
+  }
   event.respondWith(
     caches.open(CACHE)
       .then(async (cache) => {
@@ -50,4 +86,12 @@ self.addEventListener('fetch', (event) => {
       /* the store could not be opened: fall back to the network */
       .catch(() => fetch(request))
   );
+});
+
+/* the app names the learner's level: store all of that level's sound for offline use, in the background */
+self.addEventListener('message', (event) => {
+  const lv = event.data && event.data.keepLevel;
+  if (typeof lv !== 'string' || !/^n\d$/.test(lv)) return;
+  const mine = Object.keys(LAZY).filter((f) => f.indexOf('sound-course-' + lv + '-') >= 0);
+  event.waitUntil(caches.open(CACHE).then(async (cache) => { for (const f of mine) { try { await keepLazy(cache, f); } catch (e) { /* offline: try again next time */ } } }));
 });

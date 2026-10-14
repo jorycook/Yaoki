@@ -8,7 +8,7 @@ Left alone: items whose options are spoken in order (即時応答, 発話表現)
 or prices (the paper lists those in order), and items that already have their spot."""
 import hashlib, json, re, sys
 
-SPOKEN = re.compile(r'即時応答|発話表現')
+SPOKEN = re.compile(r'即時応答|発話表現|概要理解')
 NUMERIC = re.compile(r'[0-9０-９一二三四五六七八九十百千万]')
 
 

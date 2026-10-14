@@ -99,8 +99,19 @@
     /* a second attempt at the mini mock that is still open is not a result yet */
     var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
     var text = JSON.stringify(keep);
+    keepLevelSound(s.level);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
+  }
+  /* the offline copy stores each level's sound only once that level is chosen (see sw.js) */
+  var soundAsked = '';
+  function keepLevelSound(level) {
+    var lv = String(level || '').toLowerCase();
+    if (!/^n[345]$/.test(lv) || lv === soundAsked) return;
+    try {
+      var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }
+    } catch (e) {}
   }
   function forget() {
     lastSaved = '';

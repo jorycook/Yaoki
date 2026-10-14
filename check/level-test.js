@@ -24,8 +24,7 @@ const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + ms
   await ready();
   if ((await text()).includes('Continue in the browser')) { await click('a:has-text("Continue in the browser"), button:has-text("Continue in the browser")'); }
   ok((await text()).includes('目標を決めよう'), 'a first start opens on the goal screen');
-  ok(await page.locator('button[aria-label="N3, not written yet"]').isDisabled(), 'N3 has nothing written yet and cannot be picked');
-  ok(!(await page.locator('button[aria-label="N4, not written yet"]').count()), 'N4 is written now and can be picked');
+  ok(!(await page.locator('button[aria-label$=", not written yet"]').count()), 'every level (N5, N4, N3, N2) is written now and can be picked');
   await click('button[aria-pressed]:has-text("N5")');
   ok((await text()).includes('8ユニット'), 'the plan on the goal screen is worked out for N5 (8 units), got: ' + (await text()).slice(0, 300));
   await click('button:has-text("Paint the first eye")');

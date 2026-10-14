@@ -10,12 +10,15 @@ run "app: day flow"          timeout 300 bash run-app.sh flow-test.js
 run "app: level switch"      timeout 400 bash run-app.sh level-test.js
 run "app: N5 mini mock"      timeout 400 bash run-app.sh n5-mock.js
 run "app: N4 mini mock"      timeout 400 bash run-app.sh n4-mock.js
+run "app: N3 mini mock"      timeout 400 bash run-app.sh n3-mock.js
 run "canvas: N2 mini mock"   timeout 480 bash run.sh e2e-mock.js
 run "app: app checks"        timeout 600 bash run-app.sh app-test.js
 run "canvas: every board"    timeout 300 bash run.sh rt-check.js
 run "canvas: N5 day 1 of each unit" DAYS=n5u01d1,n5u02d1,n5u03d1,n5u04d1,n5u05d1,n5u06d1,n5u07d1,n5u08d1 LEVEL=N5 NOSOUND=1 timeout 3600 bash run.sh content-sweep.js
 run "app: N5 day 1 of each unit" DAYS=n5u01d1,n5u02d1,n5u03d1,n5u04d1,n5u05d1,n5u06d1,n5u07d1,n5u08d1 LEVEL=N5 NOSOUND=1 timeout 3600 bash run-app.sh content-sweep.js
 run "app: N4 day 1 of each unit" DAYS=n4u01d1,n4u02d1,n4u03d1,n4u04d1,n4u05d1,n4u06d1,n4u07d1,n4u08d1,n4u09d1,n4u10d1 LEVEL=N4 NOSOUND=1 timeout 3600 bash run-app.sh content-sweep.js
+run "app: N3 day 1 of each unit" DAYS=n3u01d1,n3u02d1,n3u03d1,n3u04d1,n3u05d1,n3u06d1,n3u07d1,n3u08d1,n3u09d1,n3u10d1,n3u11d1,n3u12d1 LEVEL=N3 NOSOUND=1 timeout 3600 bash run-app.sh content-sweep.js
 run "app: N2 every day"      NOSOUND=1 timeout 3000 bash run-app.sh content-sweep.js
+run "app: offline sound by level" timeout 300 node offline-sound.js
 echo "=== preview"; NODE_PATH=/opt/npm-tools/node_modules node preview-test.js 2>&1 | tail -3
 echo "##### release checks done"
