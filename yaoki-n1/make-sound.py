@@ -32,7 +32,7 @@ SR = 24000
 NARR, MAN, WOMAN = 'jf_gongitsune', 'jm_kumo', 'jf_alpha'
 NUM = ['いち、', 'に、', 'さん、', 'よん、']
 # written form -> what the voice is given
-SAY = {'技術畑': '技術ばたけ'}
+SAY = {'技術畑': '技術ばたけ', '何分不慣れ': 'なにぶん不慣れ', '何分ほど': 'なんぷんほど'}
 
 pipe = KPipeline(lang_code='j', repo_id='hexgrad/Kokoro-82M')
 
