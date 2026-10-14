@@ -17,7 +17,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes yk-fade{from{opacity:0}to{opacity:1}}
@@ -544,7 +545,7 @@ const st = this.state;
 if (st.pick === null || st.checked) return;
 const right = st.pick === ANSWER;
 /* a wrong answer goes to the notebook, named by the question */
-if (!right && this.props.miss) this.props.miss({ src: q.src, wrong: options[st.pick - 1] });
+if (!right && this.props.miss) this.props.miss({ src: q.src, wrong: N.plain(options[st.pick - 1]) });
 const marks = st.marks.slice();
 marks[n] = right;
 this.setState({ checked: true, marks });

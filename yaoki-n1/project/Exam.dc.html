@@ -16,7 +16,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 </style>
 </helmet>
@@ -41,7 +42,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 16px; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">{{ q.kindJa }}</span>　{{ q.kindEn }}</div>
-<div lang="ja" style="margin-top: 8px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap"><sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for></span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 8px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap">{{ g.lead }}<sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for>{{ g.tail }}</span></sc-if></sc-for></div>
 <div lang="ja" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
 <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 50px; padding: 0 14px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="font-size: 12px; font-weight: 800; flex-shrink: 0; color: {{ o.numColor }}">{{ o.n }}</span><span style="min-width: 0; white-space: nowrap">{{ o.label }}</span></button>
@@ -102,6 +103,9 @@ const TOTAL = 150;
 const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
 const plainSeg = (t) => ({ t, bg: 'transparent', pad: '0', ws: 'normal' });
 const markSeg = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px', ws: 'nowrap' });
+/* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
+const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
+const NO_END = /[（「『【〔〈《［｛]+$/;
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -111,7 +115,7 @@ this.state = props && props.go
 ? { i: 0, answers: [null, null, null], t: TOTAL, done: false }
 : this.designed(props && props.view);
 }
-/* the lesson and its day: the open day's, or else the nearest earlier day's.
+/* the lesson and its day (N.lessonDay): the open day's, or else the nearest earlier day's.
    Kept from the first look, so saving the step cannot move the screen on to the next day */
 where() {
 if (this.at) return this.at;
@@ -120,18 +124,10 @@ if (!N) return { li: -1, day: -1 };
 const app = (this.props && this.props.app) || {};
 /* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
 const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
-const i = N.openDay(plan);
-const v = N.view(plan, i);
-let at = { li: -1, day: -1 };
-if (v && v.grammar) at = { li: v.gi, day: i };
-else {
-for (let j = Math.min(i, plan.days.length) - 1; j >= 0; j--) {
-const g = plan.days[j] ? plan.days[j].g : -1;
-if (g >= 0 && N.lessons[g]) { at = { li: g, day: j }; break; }
-}
-}
-this.at = at;
-return at;
+const j = N.lessonDay(plan, N.openDay(plan));
+const li = j >= 0 ? plan.days[j].g : -1;
+this.at = N.lessons[li] ? { li, day: j } : { li: -1, day: -1 };
+return this.at;
 }
 /* the lesson's three exam-style questions, as the notebook rebuilds them */
 questions() {
@@ -197,12 +193,15 @@ this.saveDone();
 sentence(q) {
 const N = window.ykN1;
 if (q.order) {
-const pre = N.plain(q.pre);
-const post = N.plain(q.post);
+const whole = { pre: N.plain(q.pre), post: N.plain(q.post) };
+const lead = (whole.pre.match(NO_END) || [''])[0];
+const tail = (whole.post.match(NO_START) || [''])[0];
+const pre = whole.pre.slice(0, whole.pre.length - lead.length);
+const post = whole.post.slice(tail.length);
 const slots = [0, 1, 2, 3].map((k) => ({ star: k === q.star }));
 return [
 { text: true, t: pre, ws: pre.length > 14 ? 'normal' : 'nowrap' },
-{ slots },
+{ slots, lead, tail },
 { text: true, t: post, ws: post.length > 14 ? 'normal' : 'nowrap' },
 ].filter((g) => g.slots || g.t);
 }

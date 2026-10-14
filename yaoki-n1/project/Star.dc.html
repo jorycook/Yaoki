@@ -16,7 +16,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 </style>
@@ -116,17 +117,14 @@ super(props);
 const canvas = !(props && props.go);
 this.state = { slots: canvas ? [0, 1, null, null] : [null, null, null, null], checked: false, hint: canvas };
 }
-/* the plan, and the lesson with the day it belongs to: the open day's, or else the nearest earlier day's */
+/* the plan, and the lesson with the day it belongs to (N.lessonDay): the open day's, or else the nearest earlier day's */
 where() {
 const N = window.ykN1;
 if (!N) return { plan: null, lesson: null, day: -1 };
 const app = this.props.app || {};
 /* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
-const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
-const i = N.openDay(plan);
-let j = -1;
-if (N.lessonDay) j = N.lessonDay(plan, i);
-else for (let k = Math.min(i, plan.days.length - 1); k >= 0 && j < 0; k--) if (plan.days[k].t === 0 && plan.days[k].g >= 0) j = k;
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : this.demo || (this.demo = N.demo());
+const j = N.lessonDay(plan, N.openDay(plan));
 const lesson = j >= 0 ? N.lessons[plan.days[j].g] : null;
 return lesson ? { plan, lesson, day: j } : { plan, lesson: null, day: -1 };
 }

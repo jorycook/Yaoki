@@ -16,7 +16,6 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-button:disabled{cursor:default}
 a{color:#2F4FD0;text-decoration:none}
 a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
@@ -112,7 +111,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-for>
 </div>
 <div style="flex-grow: 1; min-height: 10px"></div>
-<button disabled="{{ noPick }}" onClick="{{ next }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}"><span lang="ja">{{ nextJa }}</span>　{{ nextEn }}</button>
+<button disabled="{{ noPick }}" onClick="{{ next }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}; cursor: {{ ck.cursor }}"><span lang="ja">{{ nextJa }}</span>　{{ nextEn }}</button>
 </sc-if>
 
 <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
@@ -189,7 +188,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; align-items: center; height: 44px; flex-shrink: 0">
 <a href="Main.dc.html" onClick="{{ toMain }}" aria-label="Close" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div lang="ja" style="flex-grow: 1; text-align: center; font-size: 15px; font-weight: 800">週テスト</div>
+<div lang="ja" style="flex-grow: 1; min-width: 0; text-align: center; font-size: 15px; font-weight: 800; white-space: nowrap">{{ head }}</div>
 <div style="width: 34px; flex-shrink: 0"></div>
 </div>
 <div style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
@@ -249,8 +248,8 @@ const RULES = [
 { ja: 'ヒント', en: 'No hints and no furigana. The answers come at the end.' },
 { ja: '結果', en: 'Mistakes go to your notebook, each with its explanation.' },
 ];
-const DONE_LOOK = { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' };
-const IDLE_LOOK = { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' };
+const DONE_LOOK = { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' };
+const IDLE_LOOK = { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none', cursor: 'default' };
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -454,14 +453,15 @@ toMain: nav('Main'),
 intro: false, asking: false, done: false, none: false, quitOpen: false,
 head: '', q: {}, opts: [], secs: [], rules: [], areas: [], rows: [],
 };
+const head = !at.ok ? '週テスト' : at.test ? '第' + at.wk + '週 · 週テスト' : '総復習 · ' + at.date;
 if (!N || !total) {
 return {
 ...base,
 none: true,
-noneLine: !N ? 'The course could not be loaded. Go back to the path and try again.' : 'This day has no test, and nothing has been learned yet to review. Go back to the path to see what the plan holds.',
+head,
+noneLine: !N ? 'The course could not be loaded. Go back to the path and try again.' : 'Nothing has been learned yet for this ' + (at.test ? 'test' : 'review') + ' to ask about. Go back to the path to see what the plan holds.',
 };
 }
-const head = at.test ? '第' + at.wk + '週 · 週テスト' : '総復習 · ' + at.date;
 /* the plan as it stands: the app's, or the sample plan on the canvas */
 const app = this.props.app || {};
 const cur = app.plan && app.plan.days && app.plan.days[at.i] ? app.plan : at.plan;
@@ -626,8 +626,9 @@ const from = (at.wk - 1) * 7;
 const week = after.days.slice(from, from + 7);
 const stamped = week.filter((x) => N.done(x)).length;
 const full = stamped === week.length;
-const nextWeek = full && at.test && after.days.length > at.wk * 7;
-const onward = nextWeek ? { ja: '第' + (at.wk + 1) + '週へ', en: 'On to week ' + (at.wk + 1) } : { ja: 'とじる', en: 'Close' };
+/* Main opens on the week of the first day not done: when that is a later week, the button says so */
+const nextWk = Math.floor(N.current(after) / 7) + 1;
+const onward = at.test && nextWk > at.wk && N.diff(N.today(), after.exam) > 0 ? { ja: '第' + nextWk + '週へ', en: 'On to week ' + nextWk } : { ja: 'とじる', en: 'Close' };
 const timeUp = s.t <= 0;
 return {
 ...base,

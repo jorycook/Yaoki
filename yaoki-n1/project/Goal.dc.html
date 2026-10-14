@@ -16,9 +16,9 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
-button:disabled{cursor:default}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes yk-fade{from{opacity:0}to{opacity:1}}
 </style>
@@ -154,7 +154,7 @@ const lines = [];
 if (pv.all) {
 /* the study days past the teaching days are review */
 const review = pv.study > pv.cov.learn;
-lines.push(this.line('Everything is taught by week\u00a0' + pv.doneWeek + (review ? ', then the rest is review before the exam.' : '.') + ' About ' + pv.perDay.k + ' kanji and ' + Math.max(1, Math.round(pv.perDay.w)) + ' words a day.'));
+lines.push(this.line('Everything is taught by week\u00a0' + pv.doneWeek + (review ? ', then the rest is review before the exam.' : '.') + this.perDay(pv.cov.k, pv.cov.w, pv.cov.learn)));
 } else {
 lines.push(this.warn(pace, pv.cov.g, pv.of.g, pv.cov.k, pv.of.k, ''));
 }
@@ -167,38 +167,49 @@ const N = window.ykN1;
 const t = N.today();
 const f = this.figures('re ' + exam + ' ' + pace + ' ' + t, plan, () => {
 const r = N.replan(plan, { exam, pace });
-/* done so far: the lessons finished and the kanji and words of a finished quiz */
-let g = 0, k = 0, w = 0;
+/* done so far: the lessons finished and the kanji of a finished quiz */
+let g = 0, k = 0;
 plan.days.forEach((x) => {
 const p = x.p || {};
 if (x.t === 0 && x.g >= 0 && p.g >= 3) g++;
-if (x.t === 0 && p.k >= 1) { k += (x.k || []).length; w += (x.w || []).length; }
+if (x.t === 0 && p.k >= 1) k += (x.k || []).length;
 });
-/* the last day from today on that teaches something, and whether review days follow */
+/* what the new days teach (the days kept from the old plan hold only what is done), the last of them, and whether review days follow */
+const add = { g: 0, k: 0, w: 0, r: 0, l: 0 };
 let last = -1, review = false;
 r.days.forEach((x, i) => {
-if (x.d < t) return;
-if (x.t === 0 && (x.g >= 0 || x.k.length || x.w.length || x.r >= 0 || x.l >= 0)) last = i;
+if (x.d < t || (x.d === t && N.started(x))) return;
 if (x.t === 2) review = true;
+if (x.t !== 0) return;
+const n = { g: x.g >= 0 ? 1 : 0, k: x.k.length, w: x.w.length, r: x.r >= 0 ? 1 : 0, l: x.l >= 0 ? 1 : 0 };
+Object.keys(n).forEach((key) => { add[key] += n[key]; });
+if (n.g + n.k + n.w + n.r + n.l) last = i;
 });
-const learn = Math.max(1, r.cov.learn);
 /* the week today falls in, counted the way the path counts weeks (by place in the plan) */
 const at = r.days.findIndex((x) => x.d >= t);
 const week = Math.floor((at < 0 ? r.days.length - 1 : at) / 7) + 1;
-return { r, g, k, w, last, review, week, perK: Math.round((r.cov.k - k) / learn), perW: Math.max(1, Math.round((r.cov.w - w) / learn)) };
+return { r, g, k, add, last, review, week };
 });
 const r = f.r;
 const weeks = Math.max(1, Math.ceil(N.diff(t, exam) / 7));
 const lines = [];
 lines.push(this.line(f.g || f.k ? 'Done so far: ' + f.g + ' of ' + r.of.g + ' lessons and ' + this.num(f.k) + ' of ' + this.num(r.of.k) + ' kanji. That stays as it is.' : 'Nothing is done yet, so the whole course is laid out again.'));
 if (f.last < 0) lines.push(this.line('Everything has been taught: the days left are review before the exam.'));
-else if (r.cov.f >= 1) lines.push(this.line('The rest is taught by week\u00a0' + (Math.floor(f.last / 7) + 1) + (f.review ? ', then review until the exam.' : '.') + ' About ' + f.perK + ' kanji and ' + f.perW + ' words a day.'));
-else lines.push(this.warn(pace, r.cov.g, r.of.g, r.cov.k, r.of.k, ' in all'));
+else if (r.cov.f >= 1) lines.push(this.line('The rest is taught by week\u00a0' + (Math.floor(f.last / 7) + 1) + (f.review ? ', then review until the exam.' : '.') + this.perDay(f.add.k, f.add.w, r.cov.learn)));
+else lines.push(this.warn(pace, f.g + f.add.g, r.of.g, f.k + f.add.k, r.of.k, ' in all'));
 lines.push(this.line('Each week: 6 study days, then a week test on day\u00a07. Today is in week\u00a0' + f.week + ' of\u00a0' + Math.ceil(r.days.length / 7) + '; the plan ends the day before the exam.'));
 return { ja: '残り' + weeks + '週間', en: weeks + (weeks === 1 ? ' week' : ' weeks') + ' to go', lines };
 }
 line(t) {
 return { t, color: '#1B2440', weight: 500 };
+}
+/* about how many kanji and words a day, over the days that teach; a part with none is left out */
+perDay(k, w, learn) {
+const n = (x) => (x ? Math.max(1, Math.round(x / Math.max(1, learn))) : 0);
+const parts = [];
+if (n(k)) parts.push(n(k) + ' kanji');
+if (n(w)) parts.push(n(w) + (n(w) === 1 ? ' word' : ' words'));
+return parts.length ? ' About ' + parts.join(' and ') + ' a day.' : '';
 }
 /* a pace that does not cover everything: in the warning colour */
 warn(pace, g, ofG, k, ofK, all) {

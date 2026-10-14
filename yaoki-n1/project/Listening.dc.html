@@ -78,10 +78,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-for list="{{ replies }}" as="x" hint-placeholder-count="3"><div style="display: flex; align-items: flex-start; gap: 8px; flex-shrink: 0">
 <sc-if value="{{ x.right }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 3px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
 <sc-if value="{{ !x.right }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 3px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
-<div style="min-width: 0; display: flex; flex-direction: column; gap: 1px; font-size: 13px; line-height: 1.5">
-<div style="font-weight: 800"><span lang="ja">{{ x.n }} {{ x.text }}</span><sc-if value="{{ x.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; white-space: nowrap">your pick</span></sc-if></div>
-<div style="font-weight: 500; word-break: keep-all; overflow-wrap: anywhere">{{ x.note }}</div>
-</div>
+<div style="min-width: 0; font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">{{ x.n }} {{ x.text }}</strong><sc-if value="{{ x.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800; white-space: nowrap">your pick</span></sc-if><span style="word-break: keep-all; overflow-wrap: anywhere">　{{ x.note }}</span></div>
 </div></sc-for>
 </div>
 

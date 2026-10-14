@@ -16,7 +16,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 </style>
@@ -110,24 +111,26 @@ super(props);
 const q = props && props.go ? null : this.drill(0);
 this.state = q ? { n: 0, pick: q.answer === 1 ? 2 : 1, checked: true } : { n: 0, pick: null, checked: false };
 }
-/* the plan, and the lesson to drill with the day it belongs to: the open day's, or else the nearest earlier day's */
+/* the plan, and the lesson to drill with the day it belongs to (N.lessonDay): the open day's, or else the nearest earlier day's */
 where() {
 const N = window.ykN1;
 if (!N) return { plan: null, lesson: null, day: -1 };
 const app = this.props.app || {};
 /* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
-const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
-const i = N.openDay(plan);
-let j = -1;
-if (N.lessonDay) j = N.lessonDay(plan, i);
-else for (let k = Math.min(i, plan.days.length - 1); k >= 0 && j < 0; k--) if (plan.days[k].t === 0 && plan.days[k].g >= 0) j = k;
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : this.demo || (this.demo = N.demo());
+const j = N.lessonDay(plan, N.openDay(plan));
 const lesson = j >= 0 ? N.lessons[plan.days[j].g] : null;
 return lesson ? { plan, lesson, day: j } : { plan, lesson: null, day: -1 };
 }
-drill(n) {
+/* the lesson's drills, each with its own place (d0 to d2), leaving out any without options */
+drills() {
 const l = this.where().lesson;
-const ds = l && l.grammar && l.grammar.drills;
-return ds && ds[n] && ds[n].options ? ds[n] : null;
+const ds = (l && l.grammar && l.grammar.drills) || [];
+return ds.slice(0, 3).map((q, at) => ({ q, at })).filter((d) => d.q && Array.isArray(d.q.options));
+}
+drill(n) {
+const d = this.drills()[n];
+return d ? d.q : null;
 }
 /* the sentence as segments: the 【clue】 underlined once checked, the blank kept on one line */
 sentence(ja, checked) {
@@ -144,15 +147,16 @@ return out;
 renderVals() {
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const at = this.where();
-const lesson = at.lesson;
-const drills = lesson && lesson.grammar && lesson.grammar.drills ? lesson.grammar.drills.filter((d) => d && d.options) : [];
+const lesson = this.where().lesson;
+const drills = this.drills();
 if (!drills.length) {
 return { has: false, none: true, barW: '0%', barAria: 'Drills', toToday: nav('Today') };
 }
 const total = drills.length;
 const n = Math.max(0, Math.min(s.n, total - 1));
-const q = drills[n];
+const q = drills[n].q;
+/* the notebook names a drill by its place in the lesson: g.<lesson id>.d0 to d2 */
+const src = 'g.' + lesson.id + '.d' + drills[n].at;
 const ANSWER = q.answer;
 const options = q.options.slice(0, 4);
 const why = Array.isArray(q.why) ? q.why : [];
@@ -221,7 +225,7 @@ check: () => {
 const st = this.state;
 if (st.pick === null || st.checked) return;
 /* a wrong answer goes to the notebook, named by the drill */
-if (st.pick !== ANSWER && this.props.miss) this.props.miss({ src: 'g.' + lesson.id + '.d' + n, wrong: options[st.pick - 1] });
+if (st.pick !== ANSWER && this.props.miss) this.props.miss({ src, wrong: window.ykN1.plain(options[st.pick - 1]) });
 this.setState({ checked: true });
 },
 next: () => this.setState({ n: n + 1, pick: null, checked: false }),

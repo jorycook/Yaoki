@@ -1,0 +1,226 @@
+{
+  "id": "u4l5",
+  "unit": 4,
+  "lesson": 5,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜ならいざ知らず",
+        "en": "X may be one thing, but …",
+        "conn": [["名詞", "名詞 ＋ 【ならいざ知らず】"], ["普通形", "普通形（の） ＋ 【ならいざ知らず】"]],
+        "ex": [
+          { "ja": "新人【ならいざ知らず】、ベテランがこんな初歩的なミスをするとは。", "en": "A newcomer, perhaps, but for a veteran to make such a basic mistake?" },
+          { "ja": "体が丈夫な若い頃【ならいざ知らず】、今はもう無理がきかない。", "en": "When I was young and fit, perhaps, but these days I cannot push myself." }
+        ],
+        "note": "X is a case you set aside, not a condition. For a plain \"if X, then Y\", use なら on its own.",
+        "bad": "雨ならいざ知らず、試合は中止だ。",
+        "good": "雨なら、試合は中止だ。",
+        "tag": ["Xは別として", "X set aside"],
+        "cmp": { "ja": "プロ【ならいざ知らず】、素人には無理だ。", "en": "A professional might manage, but not an amateur." }
+      },
+      {
+        "p": "〜ならまだしも",
+        "en": "X would be bearable, but …",
+        "conn": [["名詞", "名詞 ＋ 【ならまだしも】"], ["普通形", "普通形（の） ＋ 【ならまだしも】"]],
+        "ex": [
+          { "ja": "一度【ならまだしも】、何度も同じ間違いをされては困る。", "en": "Once I could live with, but not the same mistake over and over." },
+          { "ja": "値段が高いだけ【ならまだしも】、品質まで悪いとなると論外だ。", "en": "Pricey alone I could accept, but poor quality too is out of the question." }
+        ],
+        "note": "X is only less bad, not good, and the second half is a complaint. To add praise on top of praise, use はもちろん.",
+        "bad": "日本語ならまだしも、英語も上手だ。",
+        "good": "日本語はもちろん、英語も上手だ。",
+        "tag": ["Xはまだまし", "X is bearable"],
+        "cmp": { "ja": "遅れる【ならまだしも】、来ないとは何事だ。", "en": "Being late I could forgive, but not turning up?" }
+      },
+      {
+        "p": "〜ないまでも",
+        "en": "even if not (quite) X, at least …",
+        "conn": [["動詞", "ない形 ＋ 【までも】"], ["名詞・な形", "〜で（は） ＋ 【ないまでも】"]],
+        "ex": [
+          { "ja": "毎日とは言わ【ないまでも】、週に二、三度は体を動かしたい。", "en": "If not every day, I want to exercise at least two or three times a week." },
+          { "ja": "完璧では【ないまでも】、要点くらいは押さえておくべきだ。", "en": "It need not be perfect, but you should at least grasp the main points." }
+        ],
+        "note": "X is the higher level you give up on; the second half names a lower one on the same scale. Do not swap them.",
+        "bad": "一勝もできないまでも、優勝したい。",
+        "good": "優勝できないまでも、一勝はしたい。",
+        "tag": ["せめて〜は", "settles for less"],
+        "cmp": { "ja": "満点では【ないまでも】、合格点は取りたい。", "en": "Maybe not full marks, but at least a pass." }
+      }
+    ],
+    "compare": {
+      "intro": "Each weighs two cases. いざ知らず sets X aside, まだしも puts up with X, ないまでも settles for less than X.",
+      "check": {
+        "scene": "旅行の予約",
+        "ja": "昔なら（　　）、今は家で手軽に予約できる。",
+        "options": ["いざ知らず", "まだしも", "ないまでも"],
+        "answer": 1,
+        "notes": [
+          "せいかい！ The old days are set aside as a different case; now booking is easy.",
+          "おしい！ まだしも puts up with X and then complains, but this half is good news.",
+          "おしい！ ないまでも cannot follow なら, and no goal is being lowered here."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "子ども（　　）、【いい大人が】順番を守らないのは見苦しい。",
+        "options": ["ときたら", "ならいざ知らず", "といえども", "にしては"],
+        "answer": 2,
+        "why": [
+          "ときたら complains about the noun before it, but the complaint here is about adults.",
+          "Children are set aside as a different case; the criticism is aimed at grown adults.",
+          "といえども says a rule still applies even to X, but the sentence moves on to adults.",
+          "にしては means \"for a child\", so the sentence would have to judge a child."
+        ]
+      },
+      {
+        "ja": "一度や二度（　　）、【毎回遅刻されては】さすがに黙っていられない。",
+        "options": ["にひきかえ", "とあれば", "ともなると", "ならまだしも"],
+        "answer": 4,
+        "why": [
+          "にひきかえ sets two different things side by side; it does not put up with the first.",
+          "とあれば leads to what someone is willing to do, as in 君の頼みとあれば.",
+          "ともなると points to a high level, as in 社長ともなると; once or twice is a low count.",
+          "Once or twice could be put up with; being late every time cannot."
+        ]
+      },
+      {
+        "ja": "全員とは言わ（　　）、【せめて半数は】出席してほしい。",
+        "options": ["ないことには", "んばかりに", "ないまでも", "ないばかりか"],
+        "answer": 3,
+        "why": [
+          "ないことには means \"unless\", and the second half would have to be a negative result.",
+          "言わんばかりに means \"as if to say\": it describes a manner, not a lowered goal.",
+          "Not everyone, but at least half: ないまでも lowers the goal, and せめて confirms it.",
+          "ないばかりか means \"not only does not …\" and adds a second bad point."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "プロの",
+      "post": "無理する必要はない。",
+      "tiles": ["選手なら", "いざ知らず", "趣味の", "ランナーが"],
+      "star": 2,
+      "hint": "The case set aside comes first, with いざ知らず right after なら. Who is the advice really for?",
+      "why": "選手なら, いざ知らず, 趣味の, ランナーが. The professional is the case set aside, so it comes first; the advice is for hobby runners."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "見積もりが多少甘い（　　）、根拠となる数字が一つもないのでは検討しようがない。",
+        "options": ["ともなると", "からには", "ならまだしも", "とあって"],
+        "answer": 3,
+        "why": "A slightly loose estimate could be put up with; having no figures at all cannot. ともなると needs a high level, からには leads to a resolve or duty, and とあって to an observed scene."
+      },
+      {
+        "kind": "form",
+        "ja": "電話しかない時代（　　）、今どき窓口が電話だけというのは不親切だ。",
+        "options": ["ならいざ知らず", "をよそに", "ならでは", "にあって"],
+        "answer": 1,
+        "why": "The phone-only era is set aside; today a phone-only help desk is poor service. にあって puts us in that era, ならでは (\"unique to\") goes before の + noun, and をよそに means ignoring."
+      },
+      {
+        "kind": "order",
+        "pre": "代金の全額",
+        "post": "半額は返してほしい。",
+        "tiles": ["とは", "いかない", "までも", "せめて"],
+        "star": 1,
+        "why": "とは, いかない, までも, せめて. 全額とはいかないまでも gives up on the full amount, and せめて then leads to the smaller one, 半額."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "とがめる", "r": "とがめる", "en": "to blame, reproach",
+      "ex": { "ja": "小さなミスをいちいち【とがめて】いては、部下が育たない。", "en": "If you pick on every little mistake, your staff will never grow." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "鉛筆の先をナイフでとがめて使った。",
+          "合格した弟を、家族みんなでとがめた。",
+          "彼の失言を、その場では誰もとがめなかった。",
+          "拾った財布を、すぐに交番にとがめた。"
+        ],
+        "answer": 3,
+        "why": "とがめる is to blame someone for a fault, so a slip of the tongue fits. The others want とがらせて (sharpened), 祝った (celebrated) and 届けた (handed in)."
+      }
+    },
+    {
+      "w": "過失", "r": "かしつ", "en": "negligence, error",
+      "ex": { "ja": "運転手の【過失】が認められ、会社に賠償が命じられた。", "en": "The driver was found negligent; the firm was ordered to pay damages." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "今回の火災は、作業員の【過失】によるものだった。",
+        "options": ["不注意", "悪意", "不運", "疲労"],
+        "answer": 1,
+        "why": "過失 is a fault made through carelessness, so 不注意 is closest. 悪意 is ill intent, which 過失 rules out; 不運 is bad luck and 疲労 is tiredness."
+      }
+    },
+    {
+      "w": "間一髪", "r": "かんいっぱつ", "en": "a close shave",
+      "ex": { "ja": "【間一髪】のところで、落ちてきた看板をよけることができた。", "en": "I dodged the falling sign by a hair's breadth." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "ブレーキが一瞬でも遅れていたら大事故だったが、（　　）で衝突を免れた。",
+        "options": ["一部始終", "一目散", "一触即発", "間一髪"],
+        "answer": 4,
+        "why": "間一髪 is a hair's breadth from disaster: 間一髪で免れた. 一部始終 is the whole story, 一目散 takes に (fleeing flat out), and 一触即発 is a tense stand-off."
+      }
+    },
+    {
+      "w": "軽率", "r": "けいそつ", "en": "rash, careless",
+      "ex": { "ja": "相手の話を最後まで聞かずに反論したのは【軽率】だった。", "en": "It was rash of me to argue back before hearing them out." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "このパソコンは軽率で、持ち運びに便利だ。",
+          "よく確かめもせずに契約したのは軽率だった。",
+          "軽率な足取りで、坂道を駆け上がっていった。",
+          "今日の仕事は軽率なので、定時に帰れそうだ。"
+        ],
+        "answer": 2,
+        "why": "軽率 is acting without enough thought, like signing without checking. The others want 軽量 (light in weight), 軽快な (nimble) and 楽 (easy)."
+      }
+    },
+    {
+      "w": "大目に見る", "r": "おおめにみる", "en": "to overlook, let pass",
+      "ex": { "ja": "初めてのことだから、今回だけは【大目に見よう】。", "en": "As it is the first time, let's let it pass just this once." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "新人のうちは、多少のミスは【大目に見て】もらえる。",
+        "options": ["厳しく注意して", "細かく記録して", "とがめずに許して", "代わりに直して"],
+        "answer": 3,
+        "why": "大目に見る is to let a fault pass without blame: とがめずに許して. The others mean telling someone off, keeping a detailed record and fixing it for them."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "対比",
+    "en": "Tell the two sides apart",
+    "passage": "事故が起きると、【かつては】誰がミスをしたのかが真っ先に問われた。操作を誤った者を特定してとがめれば、一件落着とされてきた。【一方】近年は、ミスが起きても事故にまでは至らない仕組みづくりが重視されている。人間である以上、誤りを完全になくすことはできない。【ならば】、個人の責任を問うだけでなく、誤りを前提に仕組みを整えることこそが、再発防止の鍵となるはずだ。",
+    "ask": "筆者の考えに合うのはどれか。",
+    "options": ["ミスをした個人を厳しく罰するべきだ。", "ミスを前提に仕組みで事故を防ぐべきだ。", "注意を徹底すればミスはなくせる。", "個人の責任はもう問わなくてよい。"],
+    "short": ["個人を厳しく罰する", "ミス前提の仕組みで防ぐ", "注意でミスはなくせる", "個人の責任は問わない"],
+    "answer": 2,
+    "tip": "With a contrast, sort the text into its two sides, then see which side the conclusion after ならば backs.",
+    "why": "かつては gives the old view, 一方 the new one, and ならば the writer's conclusion: build systems that assume error.",
+    "whyNot": [
+      "Option 1 is the old view after かつては, which the writer moves beyond.",
+      "",
+      "Option 3 clashes with the text: people can never get rid of error completely.",
+      "Option 4 goes too far. 責任を問うだけでなく means blame still has a place."
+    ]
+  },
+  "listening": {
+    "who": "男",
+    "line": "遅刻ならまだしも、無断で休むなんて君らしくないね。",
+    "replies": ["では、遅刻なら構わないんですね。", "はい、明日は遅刻しません。", "すみません、以後気をつけます。"],
+    "answer": 3,
+    "notes": [
+      "Hears まだしも as permission; lateness was only less bad.",
+      "Thinks she is scolded for lateness, not the absence.",
+      "Owns up to the real fault: staying away unannounced."
+    ],
+    "short": ["遅刻なら構わない", "明日は遅刻しない", "以後気をつける"]
+  }
+}

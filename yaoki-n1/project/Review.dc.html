@@ -17,7 +17,6 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-button:disabled{cursor:default}
 a{color:#2F4FD0;text-decoration:none}
 a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
@@ -67,7 +66,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 
 <sc-if value="{{ it.isReading }}" hint-placeholder-val="{{ false }}">
-<div lang="ja" style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.85; flex-shrink: 0"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; flex-shrink: 0"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div>
 <div lang="ja" style="margin-top: 10px; font-size: 15px; font-weight: 800; line-height: 1.5; flex-shrink: 0">{{ it.question }}</div>
 </sc-if>
 
@@ -91,9 +90,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 
 <sc-if value="{{ it.isChoice }}" hint-placeholder-val="{{ true }}">
-<div lang="ja" style="margin-top: 12px; display: grid; gap: 10px 8px; flex-shrink: 0; grid-template-columns: {{ it.cols }}">
+<div lang="ja" style="margin-top: 12px; display: grid; flex-shrink: 0; gap: {{ it.optGap }}; grid-template-columns: {{ it.cols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
-<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-disabled="{{ o.off }}" style="min-height: 54px; min-width: 0; padding: 6px 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; text-align: left; line-height: 1.4; font-size: {{ it.optSize }}; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}; cursor: {{ o.cursor }}"><span style="font-size: 12px; flex-shrink: 0; color: {{ o.numColor }}">{{ o.n }}</span><span style="flex-grow: 1; min-width: 0">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-disabled="{{ o.off }}" style="min-width: 0; min-height: {{ it.optH }}; padding: 6px 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; text-align: left; line-height: 1.4; font-size: {{ it.optSize }}; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}; cursor: {{ o.cursor }}"><span style="font-size: 12px; flex-shrink: 0; color: {{ o.numColor }}">{{ o.n }}</span><span style="flex-grow: 1; min-width: 0">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
 </sc-if>
@@ -138,7 +137,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 <div style="min-height: 34px; line-height: 17px; font-size: {{ noteSize }}; font-weight: {{ noteWeight }}; color: {{ noteColor }}">{{ trackNote }}</div>
 </div>
-<button disabled="{{ mainOff }}" onClick="{{ main }}" style="margin-top: 8px; height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; background: {{ mk.bg }}; border: {{ mk.border }}; box-shadow: {{ mk.shadow }}; color: {{ mk.color }}"><span lang="ja">{{ mainJa }}</span>　{{ mainEn }}</button>
+<button disabled="{{ mainOff }}" onClick="{{ main }}" style="margin-top: 8px; height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; background: {{ mk.bg }}; border: {{ mk.border }}; box-shadow: {{ mk.shadow }}; color: {{ mk.color }}; cursor: {{ mk.cursor }}"><span lang="ja">{{ mainJa }}</span>　{{ mainEn }}</button>
 </sc-if>
 
 <sc-if value="{{ summary }}" hint-placeholder-val="{{ false }}">
@@ -199,8 +198,8 @@ const STEPS = [['あした', '1 day'], ['3日後', '3 days'], ['1週間後', '7 
 const HEIGHTS = [12, 22, 30, 16, 34, 24, 12, 28, 36, 20, 14, 26, 32, 18, 10, 24, 30, 18, 12, 22];
 const FILL = { border: '2px solid #0B7A6B', bg: '#0B7A6B' };
 const HOLLOW = { border: '2px solid #C9D0E3', bg: 'transparent' };
-const OFF = { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' };
-const ON = { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' };
+const OFF = { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none', cursor: 'default' };
+const ON = { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' };
 /* a saved time (ms) as an ISO date; null when it is not a time */
 const iso = (t) => (Number.isFinite(+t) && +t > 0 ? new Date(+t).toISOString().slice(0, 10) : null);
 const isDate = (d) => typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d);
@@ -465,7 +464,7 @@ const trackNote = !checked
 : wrong
 ? 'Back to the start. It comes back tomorrow.'
 : after === 3
-? '3 of 3 in a row. 卒業: it leaves your notebook.'
+? '3 of 3 in a row. Cleared: it leaves your notebook.'
 : after + ' of 3 in a row. Back in ' + STEPS[after][1] + (nextDay ? ', on ' + N.fmt.short(nextDay) : '') + '.';
 /* the line and its three replies are one clip: the waveform fills while it plays, then the answers unlock.
    Without the clip, the waveform fills for a stand-in time: about 150 ms a character (each reply after its number),
@@ -510,7 +509,8 @@ this.setState({ progress: done });
 };
 /* the explanations: why the answer is right, and why the pick was not, where the bank has a note per option */
 const was = (k) => (q.was ? q.was[k - 1] : k);
-let why = String(q.why || '');
+/* a kanji word's meaning can end cut short with …; no full stop after it */
+let why = String(q.why || '').replace(/…\.$/, '…');
 let whyNot = '';
 if (ex.whys && pick) {
 why = ex.whys[was(q.answer) - 1] || why;
@@ -547,12 +547,13 @@ return {
 ...base,
 session: true,
 it: {
-type: q.type,
+/* a reading names its skill in the tag, as the reading screen does, so its four options fit below the passage */
+type: isReading && ex.skill ? q.type + ' · ' + ex.skill : q.type,
 tagBg: area.bg,
 tagInk: area.ink,
 ask: isReading && ex.en ? ex.en : kind.ask,
-rubric: isReading ? ex.skill || '' : kind.rubric,
-hasRubric: isReading ? !!ex.skill : !!kind.rubric,
+rubric: isReading ? '' : kind.rubric,
+hasRubric: !isReading && !!kind.rubric,
 isWord,
 isUsage,
 isReading,
@@ -567,6 +568,9 @@ question: isReading ? N.plain(q.ja) : '',
 line: isListen ? N.plain(q.ja) : '',
 cols: wide ? 'minmax(0, 1fr)' : 'repeat(2, minmax(0, 1fr))',
 optSize: isUsage || isReading ? '15px' : wide ? '16px' : '17px',
+/* a reading's four options sit closer, as on the reading screen, so they show below the passage */
+optH: isReading ? '46px' : '54px',
+optGap: isReading ? '9px 8px' : '10px 8px',
 last: N.plain(String(m.wrong || '')) || '—',
 },
 pos: (s.i + 1) + ' / ' + n,

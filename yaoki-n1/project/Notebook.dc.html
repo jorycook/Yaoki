@@ -16,7 +16,6 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-button:disabled{cursor:default}
 a{color:#2F4FD0;text-decoration:none}
 a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
@@ -73,7 +72,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <a href="Review.dc.html" onClick="{{ toReview }}" style="height: 50px; box-sizing: border-box; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap"><span lang="ja">復習する</span>　{{ reviewEn }}</a>
 </sc-if>
 <sc-if value="{{ !canReview }}" hint-placeholder-val="{{ false }}">
-<button disabled style="height: 50px; border-radius: 14px; background: #EEF0F6; border: 2px solid #C9D0E3; color: #5A6382; font-weight: 800; font-size: 16px; white-space: nowrap"><span lang="ja">復習する</span>　Review 0 due</button>
+<button disabled style="height: 50px; border-radius: 14px; background: #EEF0F6; border: 2px solid #C9D0E3; color: #5A6382; font-weight: 800; font-size: 16px; white-space: nowrap; cursor: default"><span lang="ja">復習する</span>　Review 0 due</button>
 <div style="margin-top: -2px; font-size: 12px; font-weight: 700; line-height: 1.45">{{ noneLine }}</div>
 </sc-if>
 </div>

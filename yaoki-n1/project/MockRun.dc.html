@@ -5,6 +5,9 @@
 <title>Mock run</title>
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
 <script src="./sound-mock.js"></script>
 </head>
 <body>
@@ -14,8 +17,8 @@
 <style>
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
-button:disabled{cursor:default}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes yk-fade{from{opacity:0}to{opacity:1}}
 </style>
@@ -33,8 +36,8 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <button aria-label="Back to the result" onClick="{{ toResult }}" style="width: 44px; height: 44px; margin-left: -10px; border: 0; background: none; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
 </sc-if>
 <div style="flex-grow: 1; min-width: 0; height: 44px; display: flex; flex-direction: column; justify-content: center">
-<div lang="ja" style="font-size: 16px; font-weight: 800; white-space: nowrap">{{ band.title }}</div>
-<div style="font-size: 11px; font-weight: 500; color: #C9D0E3; white-space: nowrap">{{ band.sub }}</div>
+<div lang="ja" style="font-size: 16px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ band.title }}</div>
+<div style="font-size: 11px; font-weight: 500; color: #C9D0E3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ band.sub }}</div>
 </div>
 <sc-if value="{{ band.clock }}" hint-placeholder-val="{{ false }}">
 <div role="timer" aria-label="{{ clockLabel }}" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; flex-shrink: 0; background: {{ clockBg }}; color: {{ clockInk }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }}</div>
@@ -48,14 +51,14 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="flex-grow: 1; min-height: 0; padding: 14px 16px 34px; display: flex; flex-direction: column">
 <div style="display: flex; align-items: center; gap: 12px">
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
-<h1 lang="ja" style="margin: 0; font-size: 23px; font-weight: 800; line-height: 1.3; white-space: nowrap">試験と同じ形式で、12問</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">The real format, cut short: both sections in order, one break, one result. About 15 minutes.</div>
+<h1 lang="ja" style="margin: 0; font-size: 23px; font-weight: 800; line-height: 1.3; white-space: nowrap">{{ introTitle }}</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ introSub }}</div>
 </div>
 <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 </div>
 
 <div style="margin-top: 14px; padding: 6px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column">
-<sc-for list="{{ plan }}" as="p" hint-placeholder-count="3">
+<sc-for list="{{ brief }}" as="p" hint-placeholder-count="3">
 <sc-if value="{{ p.sec }}" hint-placeholder-val="{{ true }}">
 <div style="display: flex; align-items: center; gap: 10px; padding: 8px 0">
 <div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ p.n }}</div>
@@ -70,7 +73,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </sc-if>
 <sc-if value="{{ p.brk }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #5A6382"><div style="flex-grow: 1; height: 0; border-top: 2px dashed #C9D0E3"></div><div>休憩 1分　Break</div><div style="flex-grow: 1; height: 0; border-top: 2px dashed #C9D0E3"></div></div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #5A6382"><div style="flex-grow: 1; height: 0; border-top: 2px dashed #C9D0E3"></div><div lang="ja">{{ breakLabel }}</div><div style="flex-grow: 1; height: 0; border-top: 2px dashed #C9D0E3"></div></div>
 </sc-if>
 </sc-for>
 </div>
@@ -94,8 +97,17 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </sc-if>
 
+<sc-if value="{{ v.none }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 14px 16px 34px; display: flex; flex-direction: column">
+<div style="padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">模試はまだありません。</strong> There is no mini mock in this copy of the app yet.</div>
+<div style="flex-grow: 1"></div>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">もどる　Back</a>
+</div>
+</sc-if>
+
 <sc-if value="{{ v.paper }}" hint-placeholder-val="{{ false }}">
 <div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+<div style="flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div lang="ja" style="flex-grow: 1; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ q.mondai }}</div>
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ pos }}</div>
@@ -103,7 +115,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div lang="ja" style="margin-top: 3px; font-size: 12px; font-weight: 500; line-height: 1.5">{{ q.rubric }}</div>
 
 <sc-if value="{{ q.isWord }}" hint-placeholder-val="{{ true }}">
-<div lang="ja" style="margin-top: 10px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><span style="display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 7px; background: #1B2440; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 12px; font-weight: 800; margin-right: 8px; vertical-align: 3px">{{ q.no }}</span><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if><sc-if value="{{ g.star }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 10px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><span style="display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 7px; background: #1B2440; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 12px; font-weight: 800; margin-right: 8px; vertical-align: 3px">{{ q.no }}</span><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap">{{ g.lead }}<sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for>{{ g.tail }}</span></sc-if></sc-for></div>
 </sc-if>
 
 <sc-if value="{{ q.isUsage }}" hint-placeholder-val="{{ false }}">
@@ -116,7 +128,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <sc-if value="{{ q.isPassage }}" hint-placeholder-val="{{ false }}">
 <sc-if value="{{ q.hasLead }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="margin-top: 8px; font-size: 12px; font-weight: 700; color: #5A6382">{{ q.lead }}</div></sc-if>
 <div lang="ja" style="margin-top: 6px; padding: 10px 14px; border-radius: 14px; background: #FFFFFF; border: 2px solid #C9D0E3; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.7; display: flex; flex-direction: column">
-<sc-for list="{{ q.passage }}" as="p" hint-placeholder-count="3"><div style="text-align: {{ p.align }}">{{ p.t }}</div></sc-for>
+<sc-for list="{{ q.passage }}" as="p" hint-placeholder-count="3"><div><sc-for list="{{ p.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div></sc-for>
 </div>
 </sc-if>
 
@@ -125,7 +137,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <sc-for list="{{ q.texts }}" as="x" hint-placeholder-count="2">
 <div style="padding: 8px 12px 9px; border-radius: 14px; background: #FFFFFF; border: 2px solid #C9D0E3; display: flex; align-items: flex-start; gap: 10px">
 <div style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px">{{ x.tag }}</div>
-<div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 13px; font-weight: 600; line-height: 1.6">{{ x.t }}</div>
+<div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 13px; font-weight: 600; line-height: 1.6"><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
 </div>
 </sc-for>
 </div>
@@ -147,10 +159,10 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="margin-top: 6px; display: flex; justify-content: flex-end">
 <button onClick="{{ toggleFlag }}" aria-pressed="{{ flagOn }}" style="height: 44px; padding: 0 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; border: {{ flagBorder }}; background: {{ flagBg }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ flagFill }}" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg>あとで見直す　Flag</button>
 </div>
+</div>
 
-<div style="flex-grow: 1"></div>
 <div style="display: grid; grid-template-columns: 1.1fr 1.6fr; gap: 10px">
-<button disabled="{{ first }}" onClick="{{ prev }}" style="height: 54px; padding: 0; border-radius: 16px; font-weight: 800; font-size: 15px; white-space: nowrap; background: #FFFFFF; border: {{ prevBorder }}; color: {{ prevInk }}; box-shadow: {{ prevShadow }}">まえへ　Previous</button>
+<button disabled="{{ first }}" onClick="{{ prev }}" style="height: 54px; padding: 0; border-radius: 16px; font-weight: 800; font-size: 15px; white-space: nowrap; background: #FFFFFF; border: {{ prevBorder }}; color: {{ prevInk }}; box-shadow: {{ prevShadow }}; cursor: {{ prevCursor }}">まえへ　Previous</button>
 <button onClick="{{ next }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; white-space: nowrap; font-size: {{ nextSize }}">{{ nextLabel }}</button>
 </div>
 </div>
@@ -199,7 +211,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </sc-if>
 
 <div style="flex-grow: 1"></div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.45">You can start early. In a full mock the break is 10 minutes.</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.45">You can start early. On the real test day the break is longer.</div>
 <button onClick="{{ startNext }}" style="margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">{{ startLabel }}</button>
 </div>
 </sc-if>
@@ -262,7 +274,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="display: flex; align-items: flex-end; gap: 12px">
 <div style="flex-grow: 1; display: flex; flex-direction: column">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">正解数　Correct answers</div>
-<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 52px; font-weight: 800; line-height: 1.1">{{ score }}</h1><div style="font-size: 18px; font-weight: 700; color: #5A6382">/ 12</div></div>
+<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 52px; font-weight: 800; line-height: 1.1">{{ score }}</h1><div style="font-size: 18px; font-weight: 700; color: #5A6382">/ {{ of }}</div></div>
 </div>
 <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 </div>
@@ -273,7 +285,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ r.n }}</div>
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
 <div lang="ja" style="font-size: 14px; font-weight: 800">{{ r.ja }}</div>
-<div role="img" aria-label="{{ r.marksLabel }}" style="display: flex; gap: 5px">
+<div role="img" aria-label="{{ r.marksLabel }}" style="display: flex; flex-wrap: wrap; gap: 5px">
 <sc-for list="{{ r.marks }}" as="m" hint-placeholder-count="4">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ m.ink }}" stroke-width="4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" style="display: {{ m.ring }}"/><path d="M6 6l12 12M18 6L6 18" style="display: {{ m.cross }}"/></svg>
 </sc-for>
@@ -287,7 +299,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 10px 12px; border-radius: 14px; background: #E8ECFB; font-size: 12px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">ミニ模試は形式の練習です。</strong> The mini teaches the format, so your Readiness estimate stays as it is. A full mock gives three scores out of 60 and a pass judgement.</div>
+<div style="margin-top: 12px; padding: 10px 12px; border-radius: 14px; background: #E8ECFB; font-size: 12px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">ミニ模試は形式の練習です。</strong> Your score in each area is kept for the Readiness tab. The real paper gives three scores out of 60 and a pass judgement.</div>
 
 <sc-if value="{{ anyWrong }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; line-height: 1.45">
@@ -304,7 +316,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 
 <sc-if value="{{ v.answers }}" hint-placeholder-val="{{ false }}">
 <div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
-<div role="tablist" aria-label="Areas" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; flex-shrink: 0">
+<div role="tablist" aria-label="Areas" style="display: grid; gap: 6px; flex-shrink: 0; grid-template-columns: {{ tabCols }}">
 <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
 <button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="height: 46px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: {{ t.border }}; background: {{ t.bg }}; color: {{ t.ink }}"><span lang="ja" style="font-size: 13px; font-weight: 800">{{ t.ja }}</span><span style="font-size: 11px; font-weight: 700">{{ t.score }}</span></button>
 </sc-for>
@@ -327,7 +339,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
 <div lang="ja" style="margin-top: 4px; padding: 8px 10px; border-radius: 10px; background: #F4F5F9; display: flex; flex-direction: column; gap: 3px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 13px; font-weight: 600; line-height: 1.55">
 <sc-for list="{{ r.script }}" as="l" hint-placeholder-count="5">
-<div style="display: flex; gap: 6px"><span style="flex-shrink: 0; width: 16px; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 11px; font-weight: 800; color: #5A6382; padding-top: 2px">{{ l.who }}</span><span>{{ l.t }}</span></div>
+<div style="display: flex; gap: 6px"><span style="flex-shrink: 0; width: 16px; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 11px; font-weight: 800; color: #5A6382; padding-top: 2px">{{ l.who }}</span><span><sc-for list="{{ l.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></span></div>
 </sc-for>
 </div>
 </sc-if>
@@ -398,174 +410,133 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["intro","paper","sheet","reading","break","listening","result","answers"],"default":"intro"},"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
-const P = (t) => ({ text: true, t, line: 'none', ws: 'normal' });
-const K = (t) => ({ text: true, t, line: 'none', ws: 'nowrap' });
-const U = (t) => ({ text: true, t, line: '2px solid #1B2440', ws: 'nowrap' });
-const BL = { blank: true };
-const ST = { star: true };
-const plain = (t) => ({ t, bg: 'transparent', pad: '0' });
+/* every section clock and the break run at this rate: a test sets it small to reach the time-up path */
+const CLOCK = 1;
+const N = window.ykN1;
 const mark = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px' });
-const L = (t, align) => ({ t, align: align || 'left' });
-/* the mini mock: N1's two test sections in the real order. Vocabulary, grammar and reading share one clock */
-const SECS = [
-{ n: 1, ja: '言語知識（文字・語彙・文法）・読解', short: '言語知識・読解', en: 'Vocabulary, grammar, reading', total: 600, items: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
-{ n: 2, ja: '聴解', short: '聴解', en: 'Listening', total: 0, items: [10, 11, 12] },
-];
-/* listening is always the last section, and the only one paced by the audio */
-const LISTEN = SECS[SECS.length - 1];
-/* the answers are gone through by the four areas of the N1 paper, so each list fits one screen */
-const AREAS = [
-{ ja: '文字・語彙', items: [1, 2, 3, 4] },
-{ ja: '文法', items: [5, 6, 7] },
-{ ja: '読解', items: [8, 9] },
-{ ja: '聴解', items: [10, 11, 12] },
-];
-/* one original question for each item type it covers; n is the place in the whole paper, no the number inside its section, m the 問題 it belongs to on a real N1 paper */
-const ITEMS = [
-{
-n: 1, no: 1, m: '問題1', type: '漢字読み', kind: 'word',
-rubric: '＿＿＿の言葉の読み方として最もよいものを選びなさい。',
-segs: [P('彼は取材に応じることを'), U('拒んだ'), P('。')],
-options: ['こばんだ', 'はばんだ', 'いどんだ', 'からんだ'],
-answer: 1,
-full: [plain('彼は取材に応じることを'), mark('拒んだ（こばんだ）'), plain('。')],
-why: '拒む is こばむ, to refuse. はばむ is 阻む (to block), いどむ is 挑む (to take on) and からむ is 絡む (to get tangled).',
-},
-{
-n: 2, no: 2, m: '問題2', type: '文脈規定', kind: 'word',
-rubric: '（　　）に入れるのに最もよいものを選びなさい。',
-segs: [P('両社の交渉は（　　）に乗り上げ、合意の見通しは立っていない。')],
-options: ['座礁', '暗礁', '難関', '岩盤'],
-answer: 2,
-full: [plain('両社の交渉は'), mark('暗礁'), plain('に乗り上げ、合意の見通しは立っていない。')],
-why: '暗礁に乗り上げる is "to hit a snag". 座礁 is running aground itself (座礁する), 難関 is a hurdle you get past and 岩盤 is bedrock.',
-},
-{
-n: 3, no: 3, m: '問題3', type: '言い換え類義', kind: 'word',
-rubric: '＿＿＿の言葉に意味が最も近いものを選びなさい。',
-segs: [P('新しく試した方法は、'), U('ことごとく'), P('失敗に終わった。')],
-options: ['ほとんど', 'たびたび', 'すべて', 'ようやく'],
-answer: 3,
-full: [plain('新しく試した方法は、'), mark('ことごとく（すべて）'), plain('失敗に終わった。')],
-why: 'ことごとく is "every last one", so すべて. ほとんど leaves some out, たびたび is "often" and ようやく is "at last".',
-},
-{
-n: 4, no: 4, m: '問題4', type: '用法', kind: 'usage',
-rubric: '次の言葉の使い方として最もよいものを選びなさい。',
-word: 'ひたむき',
-options: ['雨が朝からひたむきに降り続いている。', 'この料理は、ひたむきな味がする。', '彼はひたむきに練習を重ね、代表に選ばれた。', '話の途中で、彼はひたむきに笑い出した。'],
-short: ['雨がひたむきに降る', 'ひたむきな味', 'ひたむきに練習を重ね', 'ひたむきに笑い出した'],
-answer: 3,
-full: [plain('彼は'), mark('ひたむき'), plain('に練習を重ね、代表に選ばれた。')],
-why: 'ひたむき is "wholehearted", for a person giving everything to an aim. Rain that never stops is 絶え間なく, a taste cannot be ひたむき, and a sudden laugh is いきなり.',
-},
-{
-n: 5, no: 5, m: '問題5', type: '文の文法1', kind: 'word',
-rubric: '（　　）に入れるのに最もよいものを選びなさい。',
-segs: [P('子どもの命にかかわること（　　）、費用のことなど言っていられない。')],
-options: ['とあれば', 'ともなく', 'なりに', 'までもなく'],
-answer: 1,
-full: [plain('子どもの命にかかわること'), mark('とあれば'), plain('、費用のことなど言っていられない。')],
-why: 'とあれば is "if it is a matter of", and what one is ready to do follows. ともなく is "without meaning to", なりに is "in its own way" and までもなく is "without even needing to".',
-},
-{
-n: 6, no: 6, m: '問題6', type: '文の文法2', kind: 'word',
-rubric: '次の文の★に入る最もよいものを選びなさい。',
-segs: [P('家を出た息子には、'), K('毎日とは'), BL, BL, ST, BL, K('ほしい。')],
-options: ['連絡して', 'までも', '週に一度は', '言わない'],
-answer: 3,
-full: [plain('家を出た息子には、毎日とは言わないまでも'), mark('週に一度は'), plain('連絡してほしい。')],
-why: '〜ないまでも is "even if not quite". The order is 言わない, までも, 週に一度は, 連絡して.',
-},
-{
-n: 7, no: 7, m: '問題7', type: '文章の文法', kind: 'passage',
-rubric: '次の文章を読んで、文章全体の内容を考えて、（　　）に入る最もよいものを選びなさい。',
-passage: [L('「すみません」は本来、謝るための言葉である。ところが実際には、礼を言うときや人を呼ぶときにも使われている。相手に手間をかけたことへの気づかいを示すという点で、これらはみな同じ働きをしている（　　）。')],
-ask: '（　　）に入るのに最もよいものはどれか。',
-options: ['にすぎない', 'といっても過言ではない', 'わけにはいかない', 'おそれがある'],
-answer: 2,
-why: 'The writer sums up with a claim: といっても過言ではない, "it is no exaggeration to say". にすぎない would belittle the point, わけにはいかない is "cannot afford to", and おそれがある warns of something bad.',
-},
-{
-n: 8, no: 8, m: '問題8', type: '内容理解（短文）', kind: 'passage',
-rubric: '次の文章を読んで、後の問いに対する答えとして最もよいものを選びなさい。',
-passage: [L('失敗を恐れる人は多い。だが、本当に恐れるべきなのは、失敗そのものではなく、失敗から何も学ばないことだ。うまくいかなかった理由を考え、次に生かす。その積み重ねがあってこそ、人は成長できる。一度も失敗しない人生とは、裏を返せば、何にも挑戦しなかった人生なのかもしれない。')],
-ask: '筆者の考えに合うのはどれか。',
-options: ['失敗しないように、十分に準備すべきだ。', '失敗から学ぶことが、成長につながる。', '失敗を恐れる人は、成長できない。', '一度も失敗しない人生が理想だ。'],
-short: ['十分に準備すべきだ', '失敗から学ぶことが成長につながる', '恐れる人は成長できない', '失敗しない人生が理想'],
-answer: 2,
-why: 'The heart of it: people grow by learning from what went wrong (あってこそ). Option 3 goes further than the text, and options 1 and 4 go against it.',
-},
-{
-n: 9, no: 9, m: '問題11', type: '統合理解', kind: 'pair',
-rubric: '次のAとBの文章を読んで、後の問いに対する答えとして最もよいものを選びなさい。',
-texts: [
-{ tag: 'A', t: '小学校での英語教育は、早く始めるほどよいと考える。幼い子どもは音をそのまま聞き取る力が高く、発音も自然に身につく。何より、苦手意識が生まれる前に、外国語を学ぶ意欲を育てられる点は大きい。' },
-{ tag: 'B', t: '小学校から英語を教えることに、私は慎重だ。母語の力が十分でないうちに外国語を詰め込めば、考える力そのものが育ちにくくなるおそれがある。ただ、外国の文化に触れ、学ぶ意欲を育てる機会としては意味があるだろう。' },
-],
-ask: 'AとBは、小学校での英語教育についてどのように述べているか。',
-options: ['AもBも、発音への効果を重視している。', 'AもBも、意欲の面での効果を認めている。', 'Bは、小学校で教えるべきではないとしている。', 'Aは、母語への影響を心配している。'],
-short: ['どちらも発音を重視', 'どちらも意欲の面の効果を認める', 'Bは教えるべきでないとする', 'Aは母語への影響を心配'],
-answer: 2,
-why: 'Both see a gain in the wish to learn: A, before any dislike forms; B, through contact with other cultures. B is cautious but does not say no, only A talks about pronunciation, and the worry about the mother tongue is B\'s.',
-},
-{
-n: 10, no: 1, m: '問題1', type: '課題理解', kind: 'task',
-rubric: 'まず質問を聞いてください。それから話を聞いて、最もよいものを選んでください。',
-ask: '男の人は、このあとまず何をしなければなりませんか。',
-options: ['グラフを差し替える', '想定問答をまとめる', '出席者の人数を確認する', '会議室を予約し直す'],
-answer: 3,
-script: [['', '会社で、女の人と男の人が、取引先での発表について話しています。男の人は、このあとまず何をしなければなりませんか。'], ['女', '来週の発表、資料はもうできてる？'], ['男', 'はい、ほぼ。あとはグラフを最新の数字に差し替えるだけです。'], ['女', 'そう。それがね、先方の担当の方が替わったらしいのよ。今度の方は技術畑の出身だそうだから、細かい質問が出るかもしれない。'], ['男', 'そうですか。じゃあ、想定される質問と答えをまとめておきます。'], ['女', 'それもお願い。でも、その前に、当日何人いらっしゃるのか先方に確認してくれる？ 人数によっては、会議室を変えてもらわないといけないから。'], ['男', 'わかりました。すぐ問い合わせます。'], ['', '男の人は、このあとまず何をしなければなりませんか。']],
-why: 'The graphs and the questions can wait. Before anything else she asks him to find out how many will attend, since the room depends on it.',
-},
-{
-n: 11, no: 2, m: '問題3', type: '概要理解', kind: 'gist',
-rubric: 'まず話を聞いてください。それから、質問とせんたくしを聞いて、最もよいものを選んでください。',
-ask: '先生は、何について話していますか。',
-options: ['紙の本の売り上げが減っている理由', '若者が読む量と、読み方の変化', 'スマートフォンで読書をする利点', '若者に本を読ませるための方法'],
-short: ['売り上げが減っている理由', '読む量と読み方の変化', 'スマートフォンで読む利点', '本を読ませる方法'],
-answer: 2,
-script: [['', 'ラジオで、大学の先生が話しています。'], ['男', '「最近の若者は本を読まない」とよく言われます。確かに、紙の本の売り上げは年々減っています。ところが、調査を見ると、若い人たちが一日に読む文字の量は、むしろ増えているんです。スマートフォンでニュースや記事を読み、友人と長い文章をやり取りしている。問題は、読む量ではなく、一つの文章とじっくり向き合う時間が減っていることではないでしょうか。'], ['', '先生は、何について話していますか。'], ['1', '紙の本の売り上げが減っている理由'], ['2', '若者が読む量と、読み方の変化'], ['3', 'スマートフォンで読書をする利点'], ['4', '若者に本を読ませるための方法']],
-why: 'He grants that book sales fall, then says the young read more text than ever; what has changed is how closely they read. Sales, the benefits of phones and ways to make them read are not his subject.',
-},
-{
-n: 12, no: 3, m: '問題4', type: '即時応答', kind: 'quick',
-rubric: 'まず文を聞いてください。それから、それに対する返事を聞いて、最もよいものを選んでください。',
-ask: '女：部長、お言葉を返すようですが、その計画には少々無理があるかと存じます。',
-options: ['いや、言葉は返さなくていいよ。', 'うん、無理をしないで進めてくれ。', 'そうか。どこが気になるのか聞かせてくれ。'],
-short: ['言葉は返さなくていい', '無理をしないで進めて', 'どこが気になるのか聞かせて'],
-answer: 3,
-script: [['女', '部長、お言葉を返すようですが、その計画には少々無理があるかと存じます。'], ['1', 'いや、言葉は返さなくていいよ。'], ['2', 'うん、無理をしないで進めてくれ。'], ['3', 'そうか。どこが気になるのか聞かせてくれ。']],
-why: 'お言葉を返すようですが is "with respect, I must disagree", so he asks what worries her. Reply 1 takes the phrase word for word, and reply 2 hears 無理 as "overdoing it".',
-},
-];
-/* what the audio does in each listening question, in order. With sound, a spoken part lasts as long as its clip and a silent part as long as "wait"; without sound every part takes its short stand-in time */
+const plainSeg = (t) => ({ t, bg: 'transparent', pad: '0' });
+/* the four areas of the N1 paper, in its order. The answers are gone through by area, so each list fits one screen */
+const AREAS = [{ k: 'v', ja: '文字・語彙' }, { k: 'g', ja: '文法' }, { k: 'r', ja: '読解' }, { k: 'l', ja: '聴解' }];
+/* what the audio does in each kind of listening question, in order; the answer time follows, as long as the file's
+   "wait". With sound, a spoken part lasts as long as its clip; without sound every part takes its short stand-in time */
 const PARTS = {
-10: [{ k: 'q', ja: '質問', en: 'the question', clip: 'm10_q', sim: 2000 }, { k: 'talk', ja: '話', en: 'the conversation', clip: 'm10_talk', sim: 4200 }, { k: 'q2', ja: '質問', en: 'the question again', clip: 'm10_q2', sim: 1600 }, { k: 'ans', ja: '解答', en: 'answer time', wait: 8000, sim: 6000 }],
-11: [{ k: 'talk', ja: '話', en: 'the talk', clip: 'm11_talk', sim: 4200 }, { k: 'choices', ja: '質問・選択肢', en: 'the question and the four choices', clip: 'm11_q', sim: 4000 }, { k: 'ans', ja: '解答', en: 'answer time', wait: 8000, sim: 6000 }],
-12: [{ k: 'line', ja: '文', en: 'the line', clip: 'm12_line', sim: 1600 }, { k: 'replies', ja: '返事 1・2・3', en: 'the three replies', clip: 'm12_replies', sim: 3400 }, { k: 'ans', ja: '解答', en: 'answer time', wait: 6000, sim: 5000 }],
+task: [{ k: 'q', ja: '質問', en: 'the question', sim: 2000 }, { k: 'talk', ja: '話', en: 'the conversation', sim: 4200 }, { k: 'q2', ja: '質問', en: 'the question again', sim: 1600 }],
+gist: [{ k: 'talk', ja: '話', en: 'the talk', sim: 4200 }, { k: 'choices', ja: '質問・選択肢', en: 'the question and the four choices', sim: 4000 }],
+quick: [{ k: 'line', ja: '文', en: 'the line', sim: 1600 }, { k: 'replies', ja: '返事 1・2・3', en: 'the three replies', sim: 3400 }],
 };
-const MOCK_CLIPS = ['m_check', 'm10_q', 'm10_talk', 'm10_q2', 'm11_talk', 'm11_q', 'm12_line', 'm12_replies'];
+/* the sound check before listening is the app's one test sound */
+const CHECK = 'm_check';
+const same = (a, b) => String(a) === String(b);
+const noRuby = (t) => String(t || '').replace(/《[^》]*》/g, '');
+/* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
+const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
+const NO_END = /[（「『【〔〈《［｛]+$/;
+/* a question sentence as the paper draws it: 【…】 underlined, （　　） a blank, and the four blanks of a
+   sentence-order question (＿ and ★ for the starred one) kept together on one line */
+const paperSegs = (text) => {
+const out = [];
+noRuby(text).split(/(【[^】]*】|（　　）|[＿★]+)/).filter((t) => t).forEach((t) => {
+if (t === '（　　）') out.push({ blank: true });
+else if (/^[＿★]+$/.test(t)) {
+const prev = out[out.length - 1];
+const lead = prev && prev.text && prev.line === 'none' ? (prev.t.match(NO_END) || [''])[0] : '';
+if (lead) prev.t = prev.t.slice(0, -lead.length);
+out.push({ slots: [...t].map((c) => ({ star: c === '★' })), lead, tail: '' });
+} else if (t[0] === '【') out.push({ text: true, t: t.slice(1, -1), line: '2px solid #1B2440', ws: 'nowrap' });
+else {
+const prev = out[out.length - 1];
+const tail = prev && prev.slots ? (t.match(NO_START) || [''])[0] : '';
+if (tail) prev.tail = tail;
+if (t.length > tail.length) out.push({ text: true, t: t.slice(tail.length), line: 'none', ws: 'normal' });
+}
+});
+return out.filter((g) => !g.text || g.t);
+};
+/* a passage paragraph or a text of a pair: 【…】 underlined */
+const lineSegs = (text) => noRuby(text).split(/(【[^】]*】)/).filter((t) => t).map((t) => (t[0] === '【' ? { t: t.slice(1, -1), line: '2px solid #1B2440' } : { t, line: 'none' }));
+/* the answer in its sentence: 【…】 marked */
+const fullSegs = (text) => noRuby(text).split(/(【[^】]*】)/).filter((t) => t).map((t) => (t[0] === '【' ? mark(t.slice(1, -1)) : plainSeg(t)));
+/* a mock file (content/mocks/m<id>.json), ready to run: its items numbered through the paper (n) and inside their
+   section (no), and each listening item's audio parts with their clips: named in the file, or m<id>.<n>.<part> */
+const build = (f) => {
+if (!f || !Array.isArray(f.sections) || f.sections.length < 2) return null;
+const items = [];
+const secs = f.sections.map((s, k) => {
+const list = (s.items || []).map((x, j) => {
+const n = items.length + 1;
+const it = { ...x, n, no: j + 1, options: (x.options || []).map((o) => N.plain(o)) };
+if (x.kind === 'sentence') it.segs = paperSegs(x.ja);
+if (x.passage) it.passage = x.passage.map((p) => ({ segs: lineSegs(p) }));
+if (x.texts) it.texts = x.texts.map((t, i) => ({ tag: 'ABCD'[i], segs: lineSegs(t) }));
+it.full = x.full ? fullSegs(x.full) : null;
+if (PARTS[x.kind]) {
+const said = x.audio || [];
+it.parts = PARTS[x.kind].map((p) => {
+const a = said.filter((y) => y.part === p.k)[0] || { lines: [] };
+return { ...p, clip: a.clip || 'm' + f.id + '.' + n + '.' + p.k, lines: a.lines || [] };
+}).concat([{ k: 'ans', ja: '解答', en: 'answer time', wait: (x.wait || 8) * 1000, sim: Math.round((x.wait || 8) * 7.5) * 100 }]);
+it.script = it.parts.reduce((all, p) => all.concat(p.lines || []), []).map((l) => ({ who: l[0], segs: N.segs(l[1]).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) }));
+}
+items.push(it);
+return n;
+});
+const clocked = k < f.sections.length - 1;
+return { n: k + 1, ja: s.ja, short: s.short || s.ja, en: s.en, total: clocked ? Math.max(1, Math.round((s.min || 10) * 60 * CLOCK)) : 0, items: list };
+});
+const listen = secs[secs.length - 1];
+/* a file this screen cannot run (no question in a section, a listening question without its audio) counts as no mock */
+if (!secs[0].items.length || !listen.items.length || listen.items.some((n) => !items[n - 1].parts)) return null;
+const clips = [CHECK];
+listen.items.forEach((n) => items[n - 1].parts.forEach((p) => { if (p.clip && p.k !== 'ans') clips.push(p.clip); }));
+return {
+id: f.id, title: f.title || 'ミニ模試', en: f.en || 'Mini mock', items, secs, listen, clips,
+brk: Math.max(1, Math.round((f.break == null ? 1 : f.break) * 60 * CLOCK)),
+areas: AREAS.map((a) => ({ ...a, items: items.filter((it) => it.area === a.k).map((it) => it.n) })).filter((a) => a.items.length),
+};
+};
+/* the mock this run is for: the one the mock tab picked (app.mock.id), or the first */
+const pick = (app) => {
+const all = N.mocks || [];
+const want = app && app.mock && app.mock.id;
+return build(all.filter((m) => want != null && same(m.id, want))[0] || all[0]);
+};
+/* the result kept for a mock: the last run (app.mock), or the plan's; null when it was not taken or its answers are not kept */
+const keptFor = (app, mk) => {
+const m = app && app.mock;
+if (m && m.done && m.a && same(m.id == null ? (N.mocks[0] || {}).id : m.id, mk.id)) return m;
+const r = app && app.plan && app.plan.mocks && app.plan.mocks[mk.id];
+return r && r.a ? r : null;
+};
 /* how long a part lasts: the clip plus a breath, the silent wait, or the stand-in time when there is no sound */
 const partMs = (p, sound) => {
 if (!sound) return p.sim;
-if (!p.clip) return p.wait;
+if (p.k === 'ans') return p.wait;
 return ((window.ykSound && window.ykSound.ms(p.clip)) || p.sim) + 400;
 };
+/* about how long a part takes with sound: its clip and a breath, or before the clip is made, about 150 ms a character and 600 ms */
+const estMs = (p) => (p.k === 'ans' ? p.wait : ((window.ykSound && window.ykSound.ms(p.clip)) || 600 + 150 * p.lines.reduce((n, l) => n + N.plain(l[1]).length, 0)) + 400);
 const WAVE = [10, 18, 26, 14, 30, 22, 12, 28, 36, 20, 14, 26, 32, 18, 10, 24, 30, 18, 12, 22, 34, 16, 26, 12];
-/* the designed moments shown when the artboard is not inside the prototype: a run with three slips (questions 3, 5 and 11) */
-const SAMPLE = { 1: 1, 2: 2, 3: 1, 4: 3, 5: 2, 6: 3, 7: 2, 8: 2, 9: 2, 10: 3, 11: 4, 12: 3 };
-const upTo = (n) => { const a = {}; Object.keys(SAMPLE).forEach((k) => { if (+k <= n) a[k] = SAMPLE[k]; }); return a; };
-const BASE = { view: 'intro', live: false, sec: 0, i: 0, answers: {}, flags: {}, t: SECS[0].total, used: [null], sheet: false, quit: false, paused: false, noStart: false, timeUp: false, next: 1, bt: 60, checkP: 0, checking: false, checkMs: 2000, checkSound: true, sound: false, li: 0, ph: 0, pt: 0, tab: 0, open: null };
-const DESIGNED = {
+const BASE = { view: 'intro', live: false, sec: 0, i: 0, answers: {}, flags: {}, t: 600, used: [null], sheet: false, quit: false, paused: false, noStart: false, timeUp: false, next: 1, bt: 60, checkP: 0, checking: false, checkMs: 2000, checkSound: true, sound: false, li: 0, ph: 0, pt: 0, tab: 0, open: null };
+/* the designed moments shown when the artboard is not inside the prototype: a run with three slips (the 3rd and
+   5th questions and the second listening question), at points scaled to the mock's own clocks */
+const designed = (mk, view) => {
+const sample = {};
+const slips = [3, 5, mk.listen.items[Math.min(1, mk.listen.items.length - 1)]];
+mk.items.forEach((it) => { sample[it.n] = slips.indexOf(it.n) >= 0 ? (it.answer % it.options.length) + 1 : it.answer; });
+const upTo = (n) => { const a = {}; Object.keys(sample).forEach((k) => { if (+k <= n) a[k] = sample[k]; }); return a; };
+const s1 = mk.secs[0];
+const used = [Math.round(s1.total * 0.85)];
+const last = s1.items.length - 1;
+return {
 intro: {},
-paper: { view: 'paper', sec: 0, i: 2, answers: upTo(3), flags: { 2: true }, t: 452 },
-sheet: { view: 'paper', sec: 0, i: 2, answers: upTo(3), flags: { 2: true }, t: 452, sheet: true },
-reading: { view: 'paper', sec: 0, i: 8, answers: upTo(8), flags: { 2: true }, t: 128 },
-break: { view: 'break', next: 1, bt: 42, answers: upTo(9), used: [512] },
-listening: { view: 'listening', li: 1, ph: 0, pt: 1900, answers: upTo(10), used: [512] },
-result: { view: 'result', answers: SAMPLE, used: [512] },
-answers: { view: 'answers', answers: SAMPLE, used: [512], tab: 0 },
+paper: { view: 'paper', sec: 0, i: 2, answers: upTo(3), flags: { 2: true }, t: Math.round(s1.total * 0.75) },
+sheet: { view: 'paper', sec: 0, i: 2, answers: upTo(3), flags: { 2: true }, t: Math.round(s1.total * 0.75), sheet: true },
+reading: { view: 'paper', sec: 0, i: last, answers: upTo(s1.items[last] - 1), flags: { 2: true }, t: Math.round(s1.total * 0.21) },
+break: { view: 'break', next: 1, bt: Math.round(mk.brk * 0.7), answers: upTo(s1.items[last]), used },
+listening: { view: 'listening', li: 1, ph: 0, pt: 1900, answers: upTo(mk.listen.items[0]), used },
+result: { view: 'result', answers: sample, used },
+answers: { view: 'answers', answers: sample, used, tab: 0 },
+}[view] || {};
 };
 class Component extends DCLogic {
 constructor(props) {
@@ -573,13 +544,18 @@ super(props);
 this.state = this.firstState(props);
 }
 firstState(props) {
+this.mk = pick(props && props.app);
+const mk = this.mk;
+if (!mk) return { ...BASE, view: 'none' };
+const base = { ...BASE, t: mk.secs[0].total, bt: mk.brk };
 /* inside the prototype a run starts at the briefing, or reopens at its result once it is done (unless Again was tapped); on its own the artboard shows the designed moment named by the view tweak */
 if (props && props.go) {
-const mock = props.app && props.app.mock;
-if (mock && mock.done && !mock.again) return { ...BASE, view: 'result', answers: mock.a || {}, used: mock.used || [null] };
-return { ...BASE };
+const app = props.app || {};
+const kept = keptFor(app, mk);
+if (kept && !(app.mock && app.mock.again)) return { ...base, view: 'result', answers: kept.a || {}, used: kept.used || [null] };
+return base;
 }
-return { ...BASE, ...(DESIGNED[props && props.view] || DESIGNED.intro) };
+return { ...base, ...designed(mk, props && props.view) };
 }
 componentDidMount() {
 /* the app was put aside (lock screen, a call, another app): the listening section waits instead of playing to nobody */
@@ -605,6 +581,11 @@ this.hush();
 hush() {
 if (window.ykSound) window.ykSound.stop();
 }
+/* the listening item at place li of the listening section, and its audio parts */
+listenItem(li) {
+const L = this.mk.listen.items;
+return this.mk.items[L[Math.min(li, L.length - 1)] - 1];
+}
 clockOn() {
 this.clockOff();
 this.lastTick = 0;
@@ -617,11 +598,11 @@ this.timer = setInterval(() => this.onTick(), 100);
 pause(noStart) {
 const s = this.state;
 const snd = window.ykSound;
-const part = PARTS[LISTEN.items[s.li]][s.ph];
+const part = this.listenItem(s.li).parts[s.ph];
 /* where a spoken part stood, by the audio's own clock, and never short of a point reached before an earlier pause:
    picking up always starts from the furthest point heard */
 let pt = s.pt;
-if (s.sound && part.clip) {
+if (s.sound && part.k !== 'ans') {
 pt = Math.max(pt, this.heardMs(), this.far || 0);
 this.far = pt;
 }
@@ -678,14 +659,15 @@ if (s.checkSound && !(window.ykSound && window.ykSound.on())) patch.checkSound =
 if (Object.keys(patch).length) this.setState(patch);
 }
 if (s.view === 'listening' && !s.paused) {
-const parts = PARTS[LISTEN.items[s.li]];
+const parts = this.listenItem(s.li).parts;
 const part = parts[s.ph];
+const spoken = part.k !== 'ans';
 const snd = window.ykSound;
 /* the timer itself was held up for seconds: the page was frozen in the background */
 if (gap > 3000) { this.pause(); return; }
 let sound = s.sound;
 let pt = s.pt;
-if (sound && part.clip) {
+if (sound && spoken) {
 /* a spoken part keeps time with its clip, which may start late and stands still when nothing is heard */
 const at = this.heardMs();
 const over = snd && snd.over ? snd.over() : -1;
@@ -712,7 +694,7 @@ this.backTo = null;
 } else if (at >= 0) pt = at;
 }
 /* the answer time, and every part of a run without sound, count on the page's own clock */
-if (!(sound && part.clip)) pt += sound ? dt : 100;
+if (!(sound && spoken)) pt += sound ? dt : 100;
 let ph = s.ph;
 let li = s.li;
 let moved = false;
@@ -722,7 +704,7 @@ ph += 1;
 moved = true;
 if (ph >= parts.length) { ph = 0; li += 1; }
 }
-if (li >= LISTEN.items.length) this.finishRun();
+if (li >= this.mk.listen.items.length) this.finishRun();
 else {
 /* a new question puts new answer buttons under the finger: a tap already on its way is ignored */
 if (li !== s.li) this.changedAt = now;
@@ -740,16 +722,22 @@ cue(li, ph, sound, from) {
 const snd = window.ykSound;
 this.cueAt = Date.now();
 if (!sound || !snd) return;
-const part = PARTS[LISTEN.items[li]][ph];
-if (part.clip) snd.play(part.clip, from || 0);
+const part = this.listenItem(li).parts[ph];
+if (part.k !== 'ans') snd.play(part.clip, from || 0);
 else snd.halt();
+}
+/* can this mock's listening be played here? Only once every clip of it exists (until then it runs on timing alone).
+   Asked from a tap, which is what lets a browser start sound */
+soundOn() {
+const snd = window.ykSound;
+return !!(snd && this.mk.clips.every((c) => c === CHECK || snd.has(c)) && snd.unlock());
 }
 /* called from a tap, which is what lets a browser start sound */
 startListening(li) {
 const snd = window.ykSound;
 /* "Continue without sound" holds for one run only */
 this.noSound = false;
-const sound = !!(snd && snd.has('m10_q') && snd.unlock());
+const sound = this.soundOn();
 this.heard = false;
 this.far = 0;
 this.backTo = null;
@@ -758,16 +746,16 @@ this.changedAt = Date.now();
 this.setState({ view: 'listening', li, ph: 0, pt: 0, paused: false, noStart: false, timeUp: false, live: true, sound });
 this.cue(li, 0, sound, 0);
 /* the clip that is due goes to the decoder first, the others behind it */
-if (sound) snd.ready(MOCK_CLIPS);
+if (sound) snd.ready(this.mk.clips);
 if (!this.timer) this.clockOn();
 }
 submitSection(timeUp) {
 const s = this.state;
 const used = s.used.slice();
-used[s.sec] = SECS[s.sec].total - (timeUp ? 0 : s.t);
-this.breakEnds = Date.now() + 60000;
+used[s.sec] = this.mk.secs[s.sec].total - (timeUp ? 0 : s.t);
+this.breakEnds = Date.now() + this.mk.brk * 1000;
 this.changedAt = Date.now();
-this.setState({ view: 'break', next: s.sec + 1, bt: 60, checkP: 0, checking: false, used, sheet: false, quit: false, timeUp: !!timeUp });
+this.setState({ view: 'break', next: s.sec + 1, bt: this.mk.brk, checkP: 0, checking: false, used, sheet: false, quit: false, timeUp: !!timeUp });
 }
 startNext() {
 /* at N1 the only section after the break is listening */
@@ -776,22 +764,34 @@ this.startListening(0);
 }
 finishRun() {
 const s = this.state;
+const mk = this.mk;
 this.clockOff();
 this.hush();
 const a = s.answers;
-/* every miss goes to the notebook, named by what was chosen */
+const right = (it) => a[it.n] === it.answer;
+/* every miss goes to the notebook, named m<mock id>.<place in the paper>, with what was chosen */
 if (this.props.miss) {
-ITEMS.forEach((it) => {
-if (a[it.n] !== it.answer) this.props.miss({ src: 'mock' + it.n, wrong: a[it.n] ? (it.short || it.options)[a[it.n] - 1] : '無解答' });
+mk.items.forEach((it) => {
+if (!right(it)) this.props.miss({ src: 'm' + mk.id + '.' + it.n, wrong: a[it.n] ? N.plain((it.short || it.options)[a[it.n] - 1]) : '無解答' });
 });
 }
-if (this.props.save) this.props.save({ mock: { a, used: s.used, done: true, score: ITEMS.filter((it) => a[it.n] === it.answer).length } });
+const score = mk.items.filter(right).length;
+const of = mk.items.length;
+/* the score in each area, for the readiness tab */
+const by = {};
+mk.areas.forEach((ar) => { by[ar.k] = { score: ar.items.filter((n) => right(mk.items[n - 1])).length, of: ar.items.length }; });
+const app = this.props.app || {};
+const at = N.today();
+const patch = { mock: { id: mk.id, a, used: s.used, done: true, score, of, at } };
+/* the plan keeps every mock's last result; the sample plan of the canvas is not saved */
+if (app.plan && app.plan.days) patch.plan = N.result(app.plan, 'mocks', mk.id, { score, of, at, by, a, used: s.used });
+if (this.props.save) this.props.save(patch);
 this.setState({ view: 'result', live: false, quit: false, paused: false, noStart: false });
 }
 /* MOCK-METHODS */
 listenVals(s, fmt, choose, look) {
-const it = ITEMS[LISTEN.items[Math.min(s.li, LISTEN.items.length - 1)] - 1];
-const parts = PARTS[it.n].map((x) => ({ ...x, audio: !!x.clip, ms: partMs(x, s.sound) }));
+const it = this.listenItem(s.li);
+const parts = it.parts.map((x) => ({ ...x, audio: x.k !== 'ans', ms: partMs(x, s.sound) }));
 const cur = parts[Math.min(s.ph, parts.length - 1)];
 const pick = s.answers[it.n] || null;
 const audioTotal = parts.reduce((sum, x) => sum + (x.audio ? x.ms : 0), 0);
@@ -814,7 +814,7 @@ spoken: it.kind !== 'task',
 cols: 'repeat(' + it.options.length + ', minmax(0, 1fr))',
 spokenNote: it.kind === 'gist' ? '質問も選択肢も音声だけです　The question and the choices are spoken, not printed.' : '選択肢は音声だけです　The choices are spoken, not printed.',
 },
-lpos: (s.li + 1) + ' / ' + LISTEN.items.length,
+lpos: (Math.min(s.li, this.mk.listen.items.length - 1) + 1) + ' / ' + this.mk.listen.items.length,
 lopts: it.options.map((label, k) => ({ n: k + 1, label, aria: (it.kind === 'quick' ? 'Reply ' : 'Choice ') + (k + 1), on: pick === k + 1, pick: choose(it, k + 1), ...look(pick === k + 1) })),
 wave: WAVE.map((h, n) => ({ h: h + 'px', bg: n < Math.round(frac * WAVE.length) ? '#2F4FD0' : '#C9D0E3' })),
 speakerInk: cur.audio && !silent ? '#2F4FD0' : '#C9D0E3',
@@ -829,17 +829,20 @@ foot,
 };
 }
 resultVals(s, fmt) {
+const mk = this.mk;
 const a = s.answers;
 /* ○ for right, ✕ for wrong: both shapes are in the markup and one is shown */
 const sign = (ok) => ({ ink: ok ? '#0B7A6B' : '#C7361E', ring: ok ? 'inline' : 'none', cross: ok ? 'none' : 'inline' });
 const right = (it) => a[it.n] === it.answer;
-const of = (group) => group.items.map((n) => ITEMS[n - 1]);
-const tally = (sec) => of(sec).filter(right).length + ' / ' + sec.items.length;
-const total = ITEMS.filter(right).length;
-const wrong = ITEMS.length - total;
+const of = (group) => group.items.map((n) => mk.items[n - 1]);
+const tally = (group) => of(group).filter(right).length + ' / ' + group.items.length;
+const total = mk.items.filter(right).length;
+const wrong = mk.items.length - total;
+const tab = Math.min(s.tab, mk.areas.length - 1);
 return {
 score: total,
-secRows: SECS.map((sec, k) => ({
+of: mk.items.length,
+secRows: mk.secs.map((sec, k) => ({
 n: sec.n,
 ja: sec.short,
 rule: k === 0 ? 'none' : '2px solid #EEF0F6',
@@ -851,48 +854,60 @@ marksLabel: of(sec).filter(right).length + ' of ' + sec.items.length + ' correct
 anyWrong: wrong > 0,
 savedLine: wrong === 1 ? '1 mistake saved to your notebook. It comes back tomorrow.' : wrong + ' mistakes saved to your notebook. They come back tomorrow.',
 toAnswers: () => this.setState({ view: 'answers', tab: 0, open: null }),
-tabs: AREAS.map((area, k) => ({
+tabCols: 'repeat(' + mk.areas.length + ', minmax(0, 1fr))',
+tabs: mk.areas.map((area, k) => ({
 ja: area.ja,
 score: tally(area),
-on: s.tab === k,
+on: tab === k,
 pick: () => this.setState({ tab: k, open: null }),
-border: s.tab === k ? '2px solid #1B2440' : '2px solid #DDE1EC',
-bg: s.tab === k ? '#1B2440' : '#FFFFFF',
-ink: s.tab === k ? '#FFFFFF' : '#1B2440',
+border: tab === k ? '2px solid #1B2440' : '2px solid #DDE1EC',
+bg: tab === k ? '#1B2440' : '#FFFFFF',
+ink: tab === k ? '#FFFFFF' : '#1B2440',
 })),
 /* one row per question: the verdict, what was chosen, the right answer in place, and the reason */
-ansRows: of(AREAS[s.tab]).map((it) => {
+ansRows: of(mk.areas[tab]).map((it) => {
 const mine = a[it.n] || null;
 const ok = mine === it.answer;
-const inSentence = it.kind === 'word' || it.kind === 'usage';
+const inSentence = !!it.full && (it.kind === 'sentence' || it.kind === 'usage');
 return {
 ok,
 bad: !ok,
 ...sign(ok),
 verdict: ok ? 'Correct' : 'Wrong',
 title: it.no + ' · ' + it.type,
-yours: 'あなたの答え：' + (mine ? (it.short || it.options)[mine - 1] : '無解答'),
-hasAsk: !inSentence,
-ask: it.ask || '',
+yours: 'あなたの答え：' + (mine ? N.plain((it.short || it.options)[mine - 1]) : '無解答'),
+hasAsk: !inSentence && !!it.ask,
+ask: N.plain(it.ask),
 full: inSentence ? it.full : [mark(it.answer + '　' + it.options[it.answer - 1])],
 why: it.why,
 hasScript: !!it.script,
 open: s.open === it.n,
 toggle: () => this.setState({ open: this.state.open === it.n ? null : it.n }),
 toggleLabel: s.open === it.n ? 'スクリプトを閉じる　Hide the script' : 'スクリプトを見る　Show the script',
-script: (it.script || []).map((l) => ({ who: l[0], t: l[1] })),
+script: it.script || [],
 };
 }),
 };
 }
 renderVals() {
 const s = this.state;
+const mk = this.mk;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const toMock = (e) => {
+this.hush();
+/* leaving a second attempt before it is handed in puts the last result back on the card */
+const last = this.props.app && this.props.app.mock;
+if (this.props.save && last && last.again) this.props.save({ mock: { ...last, again: false } });
+nav('Mock')(e);
+};
+if (!mk) return { v: { none: true }, band: { home: true, title: 'ミニ模試', sub: 'Mini mock · N1' }, toMock };
 const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
+/* a clock's length in the briefing: minutes, or seconds when a test has made it short */
+const span = (sec) => (sec >= 60 ? Math.round(sec / 60) + '分' : sec + '秒');
 const v = { intro: s.view === 'intro', paper: s.view === 'paper', rest: s.view === 'break', listening: s.view === 'listening', result: s.view === 'result', answers: s.view === 'answers' };
 const running = v.paper || v.rest || v.listening;
-const sec = SECS[s.sec];
-const list = sec.items.map((n) => ITEMS[n - 1]);
+const sec = mk.secs[Math.min(s.sec, mk.secs.length - 2)];
+const list = sec.items.map((n) => mk.items[n - 1]);
 const item = list[Math.min(s.i, list.length - 1)];
 const picked = s.answers[item.n] || null;
 const look = (on) => ({
@@ -914,19 +929,20 @@ this.setState({ answers: a });
 };
 const opts = item.options.map((label, k) => ({ n: k + 1, label, on: picked === k + 1, pick: choose(item, k + 1), ...look(picked === k + 1) }));
 const usage = item.kind === 'usage';
+const sentence = item.kind === 'sentence';
 const q = {
 ...item,
 mondai: item.m + '　' + item.type,
-isWord: item.kind === 'word',
+isWord: sentence,
 isUsage: usage,
 isPassage: item.kind === 'passage',
 hasLead: !!item.lead,
 isPair: item.kind === 'pair',
 hasAsk: item.kind === 'passage' || item.kind === 'pair',
-optH: usage ? '60px' : item.kind === 'word' ? '50px' : '44px',
+optH: usage ? '60px' : sentence ? '50px' : '44px',
 optFont: usage ? "'Klee One', 'Hiragino Mincho ProN', serif" : 'inherit',
-optSize: usage ? '15px' : item.kind === 'word' ? '16px' : '14px',
-optGap: item.kind === 'word' ? '10px' : '7px',
+optSize: usage ? '15px' : sentence ? '16px' : '14px',
+optGap: sentence ? '10px' : '7px',
 };
 /* a second tap that follows the first within a moment lands on whatever the first one put under the finger
    (Answer sheet, Submit and Start section 2 share one spot): it is ignored */
@@ -937,11 +953,11 @@ if (!settled()) return;
 const st = this.state;
 const snd = window.ykSound;
 if (silent) this.noSound = true;
-const sound = !this.noSound && !!(snd && snd.has('m10_q') && snd.unlock());
-const part = PARTS[LISTEN.items[st.li]][st.ph];
+const sound = !this.noSound && this.soundOn();
+const part = this.listenItem(st.li).parts[st.ph];
 /* how far through the part the run was, carried over when it changes between sound and timing alone */
 let from = Math.min(1, st.pt / partMs(part, st.sound)) * partMs(part, sound);
-if (sound && part.clip) from = st.sound ? Math.max(0, Math.min(st.pt, snd.ms(part.clip)) - 2000) : 0;
+if (sound && part.k !== 'ans') from = st.sound ? Math.max(0, Math.min(st.pt, snd.ms(part.clip)) - 2000) : 0;
 if (sound !== st.sound) this.far = 0;
 /* where a silent part stood, in case the sound that is tried again does not come */
 this.backTo = st.sound ? null : st.pt;
@@ -949,25 +965,28 @@ this.heard = false;
 this.lastTick = 0;
 this.setState({ paused: false, noStart: false, pt: from, sound });
 this.cue(st.li, st.ph, sound, from);
-if (sound) snd.ready(MOCK_CLIPS);
+if (sound) snd.ready(mk.clips);
 };
 /* was something being said when the section paused? */
-const nowParts = PARTS[LISTEN.items[Math.min(s.li, LISTEN.items.length - 1)]];
-const spoken = s.sound && !!nowParts[Math.min(s.ph, nowParts.length - 1)].clip;
+const nowParts = this.listenItem(s.li).parts;
+const spoken = s.sound && nowParts[Math.min(s.ph, nowParts.length - 1)].k !== 'ans';
 const answered = list.filter((it) => s.answers[it.n]).length;
 const blanks = list.length - answered;
 const flagOn = !!s.flags[item.n];
 const last = s.i === list.length - 1;
 const low = v.paper && s.t <= 30;
 /* how a section is announced in the briefing and at the break */
-const card = (x) => ({ n: x.n, ja: x.ja, en: x.en, count: x.items.length + '問', time: x.total ? Math.round(x.total / 60) + '分' : '音声が終わるまで' });
-const upNext = SECS[Math.min(s.next, SECS.length - 1)];
+const card = (x) => ({ n: x.n, ja: x.ja, en: x.en, count: x.items.length + '問', time: x.total ? span(x.total) : '音声が終わるまで' });
+const upNext = mk.secs[Math.min(s.next, mk.secs.length - 1)];
+/* about how long the whole mock takes: the section clock, the break and the listening audio with its answer times, to the next 5 minutes */
+const listenMs = mk.listen.items.reduce((sum, n) => sum + mk.items[n - 1].parts.reduce((t, p) => t + estMs(p), 0), 0);
+const minutes = Math.ceil((mk.secs[0].total + mk.brk + listenMs / 1000) / 60 / 5) * 5;
 const titles = {
-intro: ['ミニ模試', 'Mini mock · N1'],
-paper: [sec.short, 'Section ' + sec.n + ' of ' + SECS.length],
+intro: [mk.title, mk.en + ' · N1'],
+paper: [sec.short, 'Section ' + sec.n + ' of ' + mk.secs.length],
 break: ['休憩', 'Break'],
 listening: ['聴解', s.sound || !s.live ? 'Listening · the audio plays once' : 'Listening · no sound here, timing only'],
-result: ['ミニ模試　結果', 'Mini mock result'],
+result: [mk.title + '　結果', mk.en + ' result'],
 answers: ['解答と解説', 'Answers and reasons'],
 }[s.view];
 return {
@@ -978,7 +997,10 @@ clockLabel: 'Time left in this section: ' + fmt(s.t),
 clockBg: low ? '#E2452B' : '#FFFFFF',
 clockInk: low ? '#FFFFFF' : '#1B2440',
 doneCount: answered + '/' + list.length,
-plan: [{ sec: true, ...card(SECS[0]) }, { brk: true }, { sec: true, ...card(SECS[1]) }],
+introTitle: '試験と同じ形式で、' + mk.items.length + '問',
+introSub: 'The real format, cut short: both sections in order, one break, one result. About ' + minutes + ' minutes.',
+brief: [{ sec: true, ...card(mk.secs[0]) }, { brk: true }, { sec: true, ...card(mk.listen) }],
+breakLabel: '休憩 ' + span(mk.brk) + '　Break',
 rules: [
 { ja: '時間', en: 'Section 1 has one clock for vocabulary, grammar and reading. You divide it yourself, and it never pauses.' },
 { ja: '提出', en: 'Once you submit a section, you cannot go back.' },
@@ -988,9 +1010,9 @@ rules: [
 begin: () => {
 /* the tap that starts the run also lets sound start later, and the listening clips are decoded while section 1 is answered */
 const snd = window.ykSound;
-if (snd && snd.has('m10_q') && snd.unlock()) snd.ready(MOCK_CLIPS);
+if (this.soundOn()) snd.ready(mk.clips);
 this.changedAt = Date.now();
-this.setState({ ...BASE, view: 'paper', live: true });
+this.setState({ ...BASE, t: mk.secs[0].total, bt: mk.brk, view: 'paper', live: true });
 this.clockOn();
 },
 wake: () => {
@@ -1019,6 +1041,7 @@ first: s.i === 0,
 prevBorder: s.i === 0 ? '2px solid #DDE1EC' : '2px solid #1B2440',
 prevInk: s.i === 0 ? '#C9D0E3' : '#1B2440',
 prevShadow: s.i === 0 ? 'none' : '0 4px 0 #1B2440',
+prevCursor: s.i === 0 ? 'default' : 'pointer',
 prev: () => { if (settled()) this.setState({ i: Math.max(0, s.i - 1) }); },
 nextLabel: last ? '解答用紙へ　Answer sheet' : 'つぎへ　Next',
 nextSize: last ? '15px' : '16px',
@@ -1063,13 +1086,7 @@ resume: resume(false),
 resumeSilent: resume(true),
 askQuit: () => this.setState({ quit: true }),
 closeQuit: () => { this.changedAt = Date.now(); this.setState({ quit: false }); },
-toMock: (e) => {
-this.hush();
-/* leaving a second attempt before it is handed in puts the last result back on the card */
-const last = this.props.app && this.props.app.mock;
-if (this.props.save && last && last.again) this.props.save({ mock: { ...last, again: false } });
-nav('Mock')(e);
-},
+toMock,
 toResult: () => this.setState({ view: 'result' }),
 timeUp: v.rest && s.timeUp,
 restLabel: s.bt > 0 ? '休憩の残り時間　Break left' : '時間です　Time to start',
@@ -1081,9 +1098,9 @@ up: card(upNext),
 soundCheck: upNext.total === 0,
 playCheck: () => {
 const snd = window.ykSound;
-const ok = !!(snd && snd.has('m_check') && snd.unlock());
-if (ok) { snd.ready(MOCK_CLIPS); snd.play('m_check'); }
-this.setState({ checking: true, checkP: 0, checkMs: ok ? snd.ms('m_check') : 2000, checkSound: ok });
+const ok = !!(snd && snd.has(CHECK) && snd.unlock());
+if (ok) { snd.ready(mk.clips); snd.play(CHECK); }
+this.setState({ checking: true, checkP: 0, checkMs: ok ? snd.ms(CHECK) : 2000, checkSound: ok });
 },
 checkBg: s.checking ? '#F2B43A' : '#2F4FD0',
 checkInk: s.checking ? '#1B2440' : '#FFFFFF',

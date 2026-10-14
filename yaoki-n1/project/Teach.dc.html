@@ -109,25 +109,27 @@ componentWillUnmount() {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 }
-/* the lesson to teach: the open day's, or else the nearest earlier day's; null when there is none */
+/* the lesson to teach (N.lessonDay): the open day's, or else the nearest earlier day's; null when there is none */
 lesson() {
 const N = window.ykN1;
 if (!N) return null;
 const app = this.props.app || {};
 /* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
-const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
-const i = N.openDay(plan);
-const v = N.view(plan, i);
-if (v && v.grammar) return v.grammar;
-for (let j = Math.min(i, plan.days.length) - 1; j >= 0; j--) {
-const g = plan.days[j] ? plan.days[j].g : -1;
-if (g >= 0 && N.lessons[g]) return N.lessons[g];
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : this.demo || (this.demo = N.demo());
+const j = N.lessonDay(plan, N.openDay(plan));
+return (j >= 0 && N.lessons[plan.days[j].g]) || null;
 }
-return null;
-}
-/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line */
+/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line when it is short
+   (a pattern); a long one (a whole phrase) wraps with the text, or it would run out of its card */
 segs(text) {
 const s = window.ykN1.segs(text);
+const run = s.map(() => 0);
+for (let a = 0; a < s.length; a++) {
+if (!s[a].mark || (a && s[a - 1].mark)) continue;
+let b = a, n = 0;
+while (b < s.length && s[b].mark) n += s[b++].t.length;
+for (let k = a; k < b; k++) run[k] = n;
+}
 return s.map((g, n) => {
 const first = g.mark && !(s[n - 1] && s[n - 1].mark);
 const last = g.mark && !(s[n + 1] && s[n + 1].mark);
@@ -135,7 +137,7 @@ return {
 t: g.t, r: g.r, ruby: g.ruby, plain: g.plain, bg: g.hl,
 pad: '0 ' + (last ? 3 : 0) + 'px 0 ' + (first ? 3 : 0) + 'px',
 rad: (first ? '4px' : '0') + ' ' + (last ? '4px 4px' : '0 0') + ' ' + (first ? '4px' : '0'),
-ws: g.mark ? 'nowrap' : 'normal',
+ws: g.mark && run[n] <= 9 ? 'nowrap' : 'normal',
 };
 });
 }

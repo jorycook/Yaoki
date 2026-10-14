@@ -156,6 +156,8 @@ if (has(['文の文法1', '文の文法2'])) out.push('文法');
 return out.join('・') || '漢字・語彙・文法';
 };
 const qCount = (n) => n + (n === 1 ? ' question' : ' questions');
+/* a question WeekTest can ask (its tidy() keeps the same ones), so the count here is the one it shows */
+const usable = (q) => !!q && Array.isArray(q.options) && q.options[q.answer - 1] != null && q.options[q.answer - 1] !== '' && q.options.filter((o) => o != null && o !== '').length >= 2;
 /* a title of patterns breaks only between them: each piece keeps its ・ */
 const pieces = (s) => String(s).split('・').map((x, n, a) => x + (n < a.length - 1 ? '・' : ''));
 
@@ -197,9 +199,10 @@ big.parts = pieces(big.main);
 Object.assign(big, edge(nextKey === 'g'));
 } else if (v.kind !== 'study') {
 const test = v.kind === 'test';
-const qs = N.testFor(plan, i);
+const qs = N.testFor(plan, i).filter(usable);
 const done = test ? p.t >= 1 : p.v >= 1;
-const res = test && plan.tests ? plan.tests[v.wk] : null;
+/* WeekTest keeps a week test's result under its week, a mixed review's under r + the day */
+const res = plan.tests ? plan.tests[test ? v.wk : 'r' + i] : null;
 big = {
 icon: test ? '試' : '復', iconBg: test ? '#1B2440' : '#FFF4D6', iconColor: test ? '#FFFFFF' : '#1B2440',
 lj: test ? '週テスト' : '総復習', le: (test ? 'Week test · ' : 'Mixed review · ') + qCount(qs.length),
@@ -278,19 +281,26 @@ const dayDone = N.done(plan.days[i]);
 const t = N.today();
 const early = v.d > t;
 const n = parts.length;
+/* a week with nothing new has a mixed review for its test (as in N.testFor) */
+const mixedTest = v.kind === 'test' && N.weekTest(plan, v.wk).length < 6;
 let hint = '';
-if (v.kind === 'test') hint = dayDone ? 'The week test is done. Open it to see how it went.' : 'The kanji, words and grammar of this week, in one test.';
-else if (v.kind === 'review') hint = !dayDone ? 'No new lessons today: a mixed review, then your notebook.' : due ? 'The review is done. Clear what is due in your notebook.' : 'The review is done, and nothing is due in your notebook.';
+if (v.kind === 'test') hint = dayDone ? 'The week test is done. Open it to see how it went.' : mixedTest ? 'A mixed review of what you have learned, in one test.' : 'The kanji, words and grammar of this week, in one test.';
+else if (v.kind === 'review') hint = !dayDone ? 'No new lessons on this day: a mixed review, then your notebook.' : due ? 'The review is done. Clear what is due in your notebook.' : 'The review is done, and nothing is due in your notebook.';
 else if (!n) hint = '';
 else if (dayDone) hint = 'Every part is done. Open a card to go over it again.';
-else if (n === 1) hint = 'One part today. Tap the card to begin.';
+else if (n === 1) hint = 'One part on this day. Tap the card to begin.';
 else hint = 'Work down the cards. The outlined one is next.';
 
-/* a day the plan was made again around keeps nothing: a day off */
-const title = v.kind === 'study' && !n ? 'お休み' : v.title;
-/* a long title (three long patterns) gets smaller type */
-const len = N.plain(title).length;
-const titleSize = (len <= 13 ? 26 : Math.max(18, Math.min(26, Math.floor(640 / len)))) + 'px';
+/* a day the plan was made again around keeps nothing; the path calls it 予定なし too */
+const title = v.kind === 'study' && !n ? '予定なし' : v.title;
+/* the title takes two lines at most, from 26px down to 20px; only a title that cannot (three long patterns) takes
+   three lines at 20px. Full-width characters are 1em wide; the room keeps a few pixels of slack */
+const titleParts = pieces(title);
+const em = (s, px) => [...String(s)].reduce((w, ch) => w + (ch.charCodeAt(0) < 0x2E80 ? 0.62 : 1) * px, 0);
+const lines = (list, px) => list.reduce((a, s) => { const w = em(s, px); return a.w && a.w + w > 350 ? { n: a.n + 1, w } : { n: a.n, w: a.w + w }; }, { n: 1, w: 0 }).n;
+let size = 26;
+while (size > 20 && lines(titleParts, size) > 2) size--;
+const titleSize = size + 'px';
 
 const what = v.kind === 'test' ? 'the week test' : v.kind === 'review' ? 'the mixed review' : n === 1 ? 'this part' : n === 2 ? 'both parts' : 'all ' + NUM[n] + ' parts';
 return {
@@ -298,7 +308,7 @@ v,
 early,
 earlyNote: 'Opened early. It is planned for ' + N.fmt.short(v.d) + '.',
 titleSize,
-titleParts: pieces(title),
+titleParts,
 hint,
 big,
 rows,

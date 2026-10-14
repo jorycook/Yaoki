@@ -26,9 +26,9 @@ a:hover{color:#1B2440}
 <div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px" role="img" aria-label="Teach page 3 of 3">
-<div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
-<div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
-<div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
+<div style="height: 10px; border-radius: 5px; background: {{ barBg }}"></div>
+<div style="height: 10px; border-radius: 5px; background: {{ barBg }}"></div>
+<div style="height: 10px; border-radius: 5px; background: {{ barBg }}"></div>
 </div>
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0; white-space: nowrap; flex-shrink: 0">学習 LEARN</div>
 </div>
@@ -47,7 +47,7 @@ a:hover{color:#1B2440}
 <div lang="ja" style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600; line-height: 1.3">{{ c.p }}</div>
 <div style="display: flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 10px; background: {{ c.chip }}; font-size: 12px; font-weight: 800; white-space: nowrap"><sc-if value="{{ c.i0 }}" hint-placeholder-val="{{ true }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 12h14"/></svg></sc-if><sc-if value="{{ c.i1 }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M12 19V5M6 11l6-6 6 6"/></svg></sc-if><sc-if value="{{ c.i2 }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2F4FD0" aria-hidden="true" style="flex-shrink: 0"><circle cx="12" cy="12" r="5"/></svg></sc-if><span lang="ja">{{ c.tagJa }}</span> · {{ c.tagEn }}</div>
 </div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.65"><sc-for list="{{ c.segs }}" as="g" hint-placeholder-count="3"><span style="background: {{ g.bg }}; padding: {{ g.pad }}; border-radius: {{ g.rad }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: {{ cmpSize }}; font-weight: 600; line-height: 1.65"><sc-for list="{{ c.segs }}" as="g" hint-placeholder-count="3"><span style="background: {{ g.bg }}; padding: {{ g.pad }}; border-radius: {{ g.rad }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ c.en }}</div>
 </div></sc-for>
 
@@ -92,25 +92,28 @@ constructor(props) {
 super(props);
 this.state = { pick: null };
 }
-/* the plan, and the lesson to compare with the day it belongs to: the open day's, or else the nearest earlier day's */
+/* the plan, and the lesson to compare with the day it belongs to (N.lessonDay): the open day's, or else the nearest earlier day's */
 where() {
 const N = window.ykN1;
 if (!N) return { plan: null, lesson: null, day: -1 };
 const app = this.props.app || {};
 /* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
-const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
-const i = N.openDay(plan);
-const v = N.view(plan, i);
-if (v && v.grammar) return { plan, lesson: v.grammar, day: i };
-for (let j = Math.min(i, plan.days.length) - 1; j >= 0; j--) {
-const g = plan.days[j] ? plan.days[j].g : -1;
-if (g >= 0 && N.lessons[g]) return { plan, lesson: N.lessons[g], day: j };
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : this.demo || (this.demo = N.demo());
+const j = N.lessonDay(plan, N.openDay(plan));
+const lesson = j >= 0 ? N.lessons[plan.days[j].g] : null;
+return lesson ? { plan, lesson, day: j } : { plan, lesson: null, day: -1 };
 }
-return { plan, lesson: null, day: -1 };
-}
-/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line */
+/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line when it is short
+   (a pattern); a long one (a whole phrase) wraps with the text, or it would run out of its card */
 segs(text) {
 const s = window.ykN1.segs(text);
+const run = s.map(() => 0);
+for (let a = 0; a < s.length; a++) {
+if (!s[a].mark || (a && s[a - 1].mark)) continue;
+let b = a, n = 0;
+while (b < s.length && s[b].mark) n += s[b++].t.length;
+for (let k = a; k < b; k++) run[k] = n;
+}
 return s.map((g, n) => {
 const first = g.mark && !(s[n - 1] && s[n - 1].mark);
 const last = g.mark && !(s[n + 1] && s[n + 1].mark);
@@ -118,9 +121,15 @@ return {
 t: g.t, r: g.r, ruby: g.ruby, plain: g.plain, bg: g.hl,
 pad: '0 ' + (last ? 3 : 0) + 'px 0 ' + (first ? 3 : 0) + 'px',
 rad: (first ? '4px' : '0') + ' ' + (last ? '4px 4px' : '0 0') + ' ' + (first ? '4px' : '0'),
-ws: g.mark ? 'nowrap' : 'normal',
+ws: g.mark && run[n] <= 9 ? 'nowrap' : 'normal',
 };
 });
+}
+/* rough width of a line in ems: full-width characters 1, spaces 0.3, other half-width 0.6 */
+ems(text) {
+let w = 0;
+for (const ch of String(text)) w += ch === ' ' ? 0.3 : ch.charCodeAt(0) > 0xff ? 1 : 0.6;
+return w;
 }
 renderVals() {
 const N = window.ykN1;
@@ -131,7 +140,7 @@ const lesson = at.lesson;
 const gr = lesson && lesson.grammar;
 const check = gr && gr.compare && gr.compare.check;
 if (!gr || !gr.patterns || !check) {
-return { has: false, none: true, toToday: nav('Today') };
+return { has: false, none: true, barBg: '#DDE1EC', toToday: nav('Today') };
 }
 /* the chip's colour and mark follow the pattern's place in the lesson */
 const CHIP = ['#FDEBE6', '#FFF4D6', '#E8ECFB'];
@@ -147,6 +156,11 @@ i2: n === 2,
 segs: this.segs(p.cmp ? p.cmp.ja : ''),
 en: p.cmp ? p.cmp.en : '',
 }));
+/* the examples share one size, as large as keeps the longest on one line (15px at most); each highlight adds 6px */
+const cmpSize = Math.max(13, Math.min(15, ...gr.patterns.slice(0, 3).map((p) => {
+const ja = p.cmp ? p.cmp.ja : '';
+return Math.floor((322 - 6 * (ja.match(/【/g) || []).length) / Math.max(1, this.ems(N.plain(ja))));
+}))) + 'px';
 const ANSWER = check.answer - 1;
 const answered = s.pick !== null;
 const opts = (check.options || []).map((label, i) => {
@@ -161,8 +175,10 @@ return { label, on: s.pick === i, pick: () => this.setState({ pick: i }), ...loo
 return {
 has: true,
 none: false,
+barBg: '#2F4FD0',
 intro: gr.compare.intro,
 cards,
+cmpSize,
 scene: check.scene,
 sentence: N.blanks(check.ja),
 opts,
@@ -172,11 +188,12 @@ right: answered && s.pick === ANSWER,
 wrong: answered && s.pick !== ANSWER,
 note: answered && check.notes ? check.notes[s.pick] : '',
 toToday: nav('Today'),
-/* the teach pages and this one are read: grammar step 1 is done */
+/* the teach pages and this one are read: grammar step 1 is done, on the lesson's own day of the plan in the current props */
 toDrill: (e) => {
 const app = this.props.app || {};
 const save = this.props.save;
-if (save && app.plan && app.plan.days && at.day >= 0) save({ plan: N.mark(app.plan, at.day, { g: 1 }) });
+const now = this.where();
+if (save && app.plan && now.plan === app.plan && app.plan.days[now.day]) save({ plan: N.mark(app.plan, now.day, { g: 1 }) });
 nav('Drill')(e);
 },
 };
