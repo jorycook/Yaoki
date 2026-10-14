@@ -128,7 +128,33 @@ def lesson_clips(lesson):
         out.append(('w.%s.%d' % (lid, n), [(NARR, w['r'] + '。'), 0.6, (NARR, spoken(w['ex']['ja']))]))
     t = lesson['listening']
     other = WOMAN if t['who'] == '男' else MAN
-    out.append(('l.%s' % lid, [(VOICE[t['who']], spoken(t['line']))] + numbered(other, t['replies'])))
+    parts = [(VOICE[t['who']], spoken(t['line']))] + numbered(other, t['replies'])
+    out.append(('l.%s' % lid, parts))
+    # the slower take, for the 0.8x button
+    out.append(('l.%s.slow' % lid, parts, 0.8))
+    return out
+
+
+def mock_clips(mock):
+    """(key, parts) for each listening part of a mock that names no clips of its own (mock 2 on; see content/MOCKS.md)"""
+    out = []
+    n = 0
+    for sec in mock['sections']:
+        for it in sec['items']:
+            n += 1
+            if 'audio' not in it or any('clip' in a for a in it['audio']):
+                continue
+            speakers = [w for a in it['audio'] for w, _ in a['lines'] if w in VOICE]
+            for a in it['audio']:
+                parts = []
+                for who, text in a['lines']:
+                    if who in ('1', '2', '3', '4'):
+                        # a numbered choice or reply: by the narrator (gist), or by the other speaker than the line's (quick)
+                        voice = NARR if it['kind'] != 'quick' else (WOMAN if speakers and speakers[0] == '男' else MAN)
+                        parts += [1.0, (voice, NUM[int(who) - 1] + spoken(text))]
+                    else:
+                        parts += [0.5, (VOICE.get(who, NARR), spoken(text))]
+                out.append(('m%d.%d.%s' % (mock['id'], n, a['part']), parts[1:]))
     return out
 
 
@@ -141,13 +167,14 @@ def make_files(items):
     known = json.load(open(known_path, encoding='utf-8')) if os.path.exists(known_path) else {}
     keep = {}
     made = 0
-    for key, parts in items:
-        sig = hashlib.sha1(json.dumps(parts, ensure_ascii=False).encode('utf-8')).hexdigest()[:12]
+    for key, parts, *rest in items:
+        speed = rest[0] if rest else 1.0
+        sig = hashlib.sha1(json.dumps([parts, speed], ensure_ascii=False).encode('utf-8')).hexdigest()[:12]
         f = os.path.join(AUDIO, key + '.mp3')
         if key in known and known[key]['sig'] == sig and os.path.exists(f):
             keep[key] = known[key]
             continue
-        audio = clip(parts)
+        audio = clip(parts, speed)
         open(f, 'wb').write(mp3(audio))
         keep[key] = {'sig': sig, 'ms': int(round(len(audio) / SR * 100)) * 10}
         made += 1
@@ -199,7 +226,13 @@ mock = [
     ('m12_replies', clip(numbered(MAN, ['いや、言葉は返さなくていいよ。', 'うん、無理をしないで進めてくれ。', 'そうか。どこが気になるのか聞かせてくれ。'])[1:])),
 ]
 
-make_files([c for lesson in lessons_in_order() for c in lesson_clips(lesson)])
+def mocks_in_order():
+    import json
+    d = os.path.join(HERE, 'content', 'mocks')
+    return [json.load(open(os.path.join(d, f), encoding='utf-8')) for f in sorted(os.listdir(d)) if f.endswith('.json')]
+
+
+make_files([c for lesson in lessons_in_order() for c in lesson_clips(lesson)] + [c for m in mocks_in_order() for c in mock_clips(m)])
 check = re.search(r"c\['m_check'\] = \{[^}]*\};", open(os.path.join(N2_PROJECT, 'sound-mock.js'), encoding='utf-8').read()).group(0)
 write('sound-mock.js', 'Yaoki prototype sound data, N1: the mini mock listening section and its sound check. Synthetic voices, MP3 as base64.',
       [check] + [entry(k, a) for k, a in mock])
