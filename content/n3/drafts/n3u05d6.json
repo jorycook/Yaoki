@@ -1,0 +1,380 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "This unit's points come in look-alike sets: noun + らしい says something really is that and lives up to it, plain form + らしい passes on what you heard, and っぽい gives only a touch of it; みたいな joins a noun directly, but ような needs の; まるで〜ようだ compares with something that is not true, while ようだ alone is a guess about what is true; ように見える is judged from outside, ような気がする is a feeling inside you, and stem + そうだ is how something looks at a glance; ふりをする shows other people something untrue, while つもりで is acting for yourself as if something were so.",
+   "forms": [
+    {
+     "form": "〜らしい（典型）",
+     "tag": "本物そのもの · a true one, as it should be",
+     "mark": "dot",
+     "ja": "しゅうりに来た人は[作業|さぎょう]が[速|はや]くてていねいで、さすがプロ{らしい}仕事でした。",
+     "en": "The repair man worked fast and carefully. Just what you expect of a real professional."
+    },
+    {
+     "form": "〜っぽい",
+     "tag": "それっぽい感じ · -ish, has the feel of",
+     "mark": "dot",
+     "ja": "このアプリを使えば、だれでもプロ{っぽい}写真がとれます。",
+     "en": "With this app, anyone can take photos that look professional."
+    },
+    {
+     "form": "〜みたいな",
+     "tag": "たとえ · like (but it is not)",
+     "mark": "dot",
+     "ja": "[兄|あに]はしゅみで、プロが作った{みたいな}ケーキを作ります。",
+     "en": "My brother bakes as a hobby, and his cakes look as if a professional made them."
+    }
+   ],
+   "check": {
+    "id": "n3u05d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Real wood or not?",
+    "q": "^[本物|ほんもの]の木ではありませんが^、木（　　）見た目のいすを買いました。",
+    "options": [
+     "らしい",
+     "っぽく",
+     "みたいな"
+    ],
+    "answer": 3,
+    "why": [
+     "Noun + らしい says the chair really is wood and has the qualities of wood. The sentence says it is not real wood.",
+     "っぽく is the form before a verb, as in っぽく見える. Here the noun 見た目 follows, so it would have to be っぽい.",
+     "Noun + みたいな + noun: the chair is not wood, but it looks like wood."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u05d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[妹|いもうと]から聞いた話では^、[駅前|えきまえ]の本屋は来月でなくなる（　　）。",
+    "options": [
+     "ふりをします",
+     "らしいです",
+     "らしくないです",
+     "ように見えます"
+    ],
+    "answer": 2,
+    "why": [
+     "ふり is for someone acting out something untrue. A bookshop closing is news the speaker heard; nobody is pretending.",
+     "Plain form + らしい passes on what you heard: the sister said the bookshop will close next month.",
+     "らしくない follows a noun, as in 本屋らしくない, and says something is not typical. It cannot follow the verb なくなる.",
+     "ように見える is judged from what you see. This comes from what the sister said, and a closing next month is not something you can see now."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この店では、^マシュマロ^（　　）ふわふわのパンが[人気|にんき]です。",
+    "options": [
+     "ような",
+     "らしい",
+     "のみたいな",
+     "みたいな"
+    ],
+    "answer": 4,
+    "why": [
+     "After a noun, ような needs の: マシュマロのような.",
+     "Noun + らしい says the thing really is that noun. Bread is not a marshmallow.",
+     "みたい joins a noun directly. Only よう takes の.",
+     "Noun + みたいな: bread as soft as a marshmallow, though it is not one."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "子どものころ、父とかけっこをすると、父はいつも^わざと^[疲|つか]れた（　　）、[負|ま]けてくれました。",
+    "options": [
+     "つもりで",
+     "ような気がして",
+     "ふりをして",
+     "ように見えて"
+    ],
+    "answer": 3,
+    "why": [
+     "たつもりで is acting for yourself as if something were so. The father was acting tired for the child to see, so that the child could win.",
+     "ような気がする is a vague feeling inside you. わざと shows the father chose to look tired; it was not a feeling.",
+     "He was not really tired, but he acted tired on purpose (わざと) and let the child win: ふりをして.",
+     "ように見える is how someone looks to others. It cannot describe something the father did on purpose (わざと)."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母は電話で話すとき、^まるで^[相手|あいて]が目の前にいる（　　）頭を下げます。",
+    "options": [
+     "ように",
+     "ような",
+     "ふりをして",
+     "らしく"
+    ],
+    "answer": 1,
+    "why": [
+     "まるで〜ように describes how she bows: as if the other person were right in front of her, though they are not.",
+     "ような describes a noun. Here the likeness is in how she bows (頭を下げます), so it must be ように.",
+     "ふり is acting something out for others to see. The other person cannot see her bow, and まるで pairs with よう or みたい, not with ふり.",
+     "まるで pairs with よう or みたい. Plain form + らしく passes on what you heard, which does not fit here."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この時計は高かったのに、",
+    "after": "のが[残念|ざんねん]です。",
+    "tiles": [
+     "プラスチック",
+     "みたいで",
+     "安っぽく",
+     "見える"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "みたい joins a noun directly. っぽい becomes っぽく before a verb.",
+    "full": "この時計は高かったのに、プラスチックみたいで安{っぽく}見えるのが[残念|ざんねん]です。",
+    "explain": "プラスチック, みたいで, 安っぽく, 見える. プラスチックみたいで says what the watch is like, though it is not plastic. 安っぽく goes before the verb 見える, and 見える comes right before のが: the watch was expensive, but it looks like plastic and cheap."
+   },
+   {
+    "id": "n3u05d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このむしは",
+    "after": "[本当|ほんとう]に死んでいるみたいです。",
+    "tiles": [
+     "死んだ",
+     "ふりが",
+     "上手で",
+     "まるで"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "死んだふり means playing dead. まるで has to come just before the comparison it opens.",
+    "full": "このむしは死んだ{ふり}が上手でまるで[本当|ほんとう]に死んでいるみたいです。",
+    "explain": "死んだ, ふりが, 上手で, まるで. The plain past 死んだ comes before ふり, and ふりが goes with 上手で: this insect is good at playing dead. まるで opens the comparison that ends with みたいです: it is just as if it were really dead."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u05d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "姉は、母（　　）手早く料理を作りたいと言っている。",
+    "options": [
+     "みたいな",
+     "らしく",
+     "のように",
+     "のような"
+    ],
+    "answer": 3,
+    "explain": "母のように describes how she wants to cook (手早く作る): as quickly and skilfully as her mother. のような and みたいな must be followed by a noun, and 手早く is not one. 母らしく would mean acting as a mother should, but the sister only wants to cook like her mother."
+   },
+   {
+    "id": "n3u05d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "入社して十年になるが、新人の（　　）、もう一度はじめから勉強することにした。",
+    "options": [
+     "ふりをして",
+     "つもりで",
+     "ように見えて",
+     "みたいに"
+    ],
+    "answer": 2,
+    "explain": "新人のつもりで: the speaker has worked there ten years but will study from the start as if he were new. ふりをして shows other people something untrue, but studying again is for himself. ように見えて judges someone from outside, not one's own decision. みたい joins a noun directly, so 新人のみたいに is not possible."
+   },
+   {
+    "id": "n3u05d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この店でコーヒーを飲んでいると、まるで",
+    "after": "気分になる。",
+    "tiles": [
+     "ヨーロッパの",
+     "町に",
+     "いる",
+     "ような"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "full": "この店でコーヒーを飲んでいると、まるでヨーロッパの{町に}いるような気分になる。",
+    "explain": "ヨーロッパの, 町に, いる, ような. ヨーロッパの describes 町, 町に goes with いる, and ような describes 気分: drinking coffee in this shop, I feel just as if I were in a European town."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "映画のレビューページ",
+  "en": "A film review page",
+  "intro": "A film website shows readers' reviews of this month's films. Tap each word on the page.",
+  "words": [
+   {
+    "id": "work",
+    "word": "作品",
+    "reading": "さくひん",
+    "gloss": "a work (a film, book or painting)",
+    "parts": [
+     ["作", "サク", "make"],
+     ["品", "ヒン", "goods, article"]
+    ]
+   },
+   {
+    "id": "impression",
+    "word": "感想",
+    "reading": "かんそう",
+    "gloss": "impressions, what you thought of it",
+    "parts": [
+     ["感", "カン", "feeling"],
+     ["想", "ソウ", "thought"]
+    ]
+   },
+   {
+    "id": "hero",
+    "word": "主人公",
+    "reading": "しゅじんこう",
+    "gloss": "main character",
+    "parts": [
+     ["主", "シュ", "main"],
+     ["人", "ジン", "person"],
+     ["公", "コウ", "public"]
+    ]
+   },
+   {
+    "id": "story",
+    "word": "物語",
+    "reading": "ものがたり",
+    "gloss": "story",
+    "parts": [
+     ["物", "もの", "thing"],
+     ["語", "がたり", "tell"]
+    ]
+   },
+   {
+    "id": "scene",
+    "word": "場面",
+    "reading": "ばめん",
+    "gloss": "scene",
+    "parts": [
+     ["場", "ば", "place"],
+     ["面", "メン", "face, side"]
+    ]
+   },
+   {
+    "id": "moved",
+    "word": "感動",
+    "reading": "かんどう",
+    "gloss": "being deeply moved",
+    "parts": [
+     ["感", "カン", "feeling"],
+     ["動", "ドウ", "move"]
+    ]
+   },
+   {
+    "id": "original",
+    "word": "原作",
+    "reading": "げんさく",
+    "gloss": "the original (book a film is based on)",
+    "parts": [
+     ["原", "ゲン", "origin"],
+     ["作", "サク", "make, work"]
+    ]
+   },
+   {
+    "id": "characters",
+    "word": "登場人物",
+    "reading": "とうじょうじんぶつ",
+    "gloss": "characters (in a story)",
+    "parts": [
+     ["登", "トウ", "climb; appear"],
+     ["場", "ジョウ", "place, stage"],
+     ["人", "ジン", "person"],
+     ["物", "ブツ", "thing"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n3u05d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この映画の_原作_は、百年前に書かれた小説だ。",
+   "options": [
+    "げんさ",
+    "げんさく",
+    "がんさく",
+    "げんざく"
+   ],
+   "answer": 2,
+   "explain": "原作, the original work a film is based on, is read げんさく: 原 ゲン (origin, as in 原因) and 作 サク (make, as in 作品). げんさ drops the く, がんさく has the wrong vowel in げん, and げんざく wrongly voices さ."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which film meets every one of Yamada's wishes?",
+  "seconds": 90,
+  "passage": "今月のおすすめ映画　読者レビュー\n★の数は、読者がつけた点です（５つが最高）。「子ども」が○の作品は小学生も見られますが、×の作品は^中学生以下の人は見られません^。\n①『ぼくの犬、ハナ』^★★★^　子ども○\n犬が主人公の物語。少し長くて、とちゅうでたいくつした。\n②『風の馬』★★★★★　^子ども×^\n馬と少年の物語。戦う場面が多くて、こわかった。でも、最後は感動した。\n③『夜空までの道』★★★★　子ども○\n少女が月へ行く話。^動物は出てこない^が、月の場面がとてもきれい。\n④『ねこと私の夏』^★★★★^　^子ども○^\n^ねこが人間の言葉を話す^、楽しい物語。家族で見てほしい。",
+  "strategy": "Turn Yamada's wishes into three checks (an animal, the 子ども mark, the number of stars) and test each film against all three.",
+  "item": {
+   "id": "n3u05d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "山田さんは、小学三年生の息子と映画を見に行きたい。息子は動物が好きなので、動物が出てくる映画がいい。また、★が４つ以上の作品を選びたい。山田さんが選ぶのはどれか。",
+   "options": [
+    "『ぼくの犬、ハナ』",
+    "『風の馬』",
+    "『夜空までの道』",
+    "『ねこと私の夏』"
+   ],
+   "short": [
+    "ぼくの犬、ハナ",
+    "風の馬",
+    "夜空までの道",
+    "ねこと私の夏"
+   ],
+   "answer": 4,
+   "explain": "Only ④ has all three: an animal (a cat), ○ under 子ども, so a primary school child can see it, and four stars.",
+   "why": [
+    "It is about a dog and children can see it, but it has only three stars.",
+    "It has five stars and a horse, but it is marked ×. Nobody of junior high school age or younger can see it, and the son is at primary school.",
+    "It has four stars and ○, but no animals appear in it (動物は出てこない).",
+    ""
+   ]
+  }
+ }
+}

@@ -1,0 +1,11 @@
+# Unit 6: notes from the drafting agents (for the flags file)
+
+- d1: p1 watch says a plain ending after によると "sounds unfinished" (news uses 〜によりますと…見込みです), check wording. d4 decided by form (中止だ rules out らしい, よう, みたい). e2 来年の春にできるということだ natural? d5 洗うことができない (洗えない more natural?). d6, e3 star orders unique? 大阪 became 京都. Scene: city-hall notice about water and power cuts.
+- d2: d4 depends on 近所の人たちに forcing the passive (と言っています left out). d3 外出中とのことです. e3 tiles could read 二階のこの書類は (judged unnatural). d5 uses によると (day 1). Scene: phone message memo; check 漢字読み 不在.
+- d3: 店を始める replaces 結婚; 大丈夫 in kana. Compare example 天気予報によると (d1 also uses 天気予報). Unsure: d1 分からないそうに ("not a form"), e2 ことに as a wrong ending, k1 食事会に確認/返信 unnatural? d5 teaches 来てって (request + って).
+- d4: c1 パンダやコアラ（　　）人気のある動物: AやBという off to native ears? といった key four times (c1, d3, d4, e2), という twice more. やいた in kana. d2 大雨だという (大雨という also correct, not offered). Scene: local history museum entrance; reading: pottery town guide.
+- d5: d6 star どこに＋山田さんに借りた傘は＋置いたっけ order unnatural but arguably grammatical. Kana けっこんする, おおさか, かぎ, しめきり. Listening option 2 (何時にしましょうか) ruled out only by the situation line. Sentence-final distractors ために, ながら, ように, うちに, までに, ところへ fail because a main clause must follow. っけ ruled out by context (d1, d5). p2 leaves out dictionary form + っけ.
+- d6: compare とのことです, と言われています, んだって. c1, e1 wrong options wrong by register (とのことです after ねえ、聞いて; と言われています for one phone call), confirm. d2 easy. d3 んでしたっけ ruled out only by "I just arrived". d5 frame like d1 (ホームページによれば). d4 ガス会社のはがき wording. Scene: 町内会だより; check 文脈規定 回収.
+- test: 帰宅 (1), 偶然 (7) top of N3. 4 絶りました not a word. 6 貧しくて, まぶしくて for 声が（　　）. 14 reason rejecting ばかり. 15 ように, ほど cannot end the sentence after 読んだ. 17 帰りが電車が止まっているから ruled out? 23–24 fees rely on "booking all four gets no city discount". Items 9–18 use each of the ten points once.
+- blind solve: to fix d2.e3 two orders (この書類は movable); closing-shop rumour ×3 (d4.e1, d5.d1, t.21/22 passage); d6.c1/t.12 near-duplicates (working at a company from next spring/month). d3.c1 decided by register only (課長 → そうです).
+- fixed after it: d2.e3 (この書類は in the stem; tiles 二階の／窓口に／出せば／いい), d4.e1 (a singer's concert rumour), d5.d1 (the daughter next door marrying), t.12 (林さん entering a marathon), d3.c1 (料理がとても上手な（　）: only んだって fits by form).

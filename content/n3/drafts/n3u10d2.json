@@ -1,0 +1,515 @@
+{
+ "title": "〜まで（も）・〜ばかり",
+ "grammar": {
+  "points": [
+   {
+    "id": "n3u10d2.p1",
+    "form": "〜まで（も）",
+    "gloss": "even, going as far as",
+    "connect": [
+     {
+      "pos": "Noun (in place of が or を)",
+      "rule": "〜{まで}"
+     },
+     {
+      "pos": "Noun + に (に stays)",
+      "rule": "〜に{まで}"
+     },
+     {
+      "pos": "Noun, a little stronger",
+      "rule": "〜{までも}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "この歌は人気があって、小さい子ども{まで}歌っています。",
+      "en": "This song is so popular that even small children sing it."
+     },
+     {
+      "ja": "[簡単|かんたん]な漢字をまちがえて、妹に{まで}[笑|わら]われました。",
+      "en": "I got an easy kanji wrong and was laughed at even by my little sister."
+     }
+    ],
+    "watch": {
+     "note": "まで takes the place of が and を. Other particles such as に stay in front of it: 妹にまで.",
+     "bad": "その話は、大学の先生がまで知っています。",
+     "good": "その話は、大学の先生まで知っています。"
+    }
+   },
+   {
+    "id": "n3u10d2.p2",
+    "form": "〜ばかり",
+    "gloss": "nothing but, only (often a complaint)",
+    "connect": [
+     {
+      "pos": "Noun (in place of が or を)",
+      "rule": "〜{ばかり}"
+     },
+     {
+      "pos": "Before a noun",
+      "rule": "〜{ばかりの}〜"
+     },
+     {
+      "pos": "End of a sentence",
+      "rule": "〜{ばかりです}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[息子|むすこ]はいつも肉{ばかり}食べて、野菜を食べません。",
+      "en": "My son always eats nothing but meat and doesn't eat vegetables."
+     },
+     {
+      "ja": "せっかくの旅行だったのに、雨{ばかりの}一週間でした。",
+      "en": "It was a trip I had looked forward to, but it rained all week."
+     }
+    ],
+    "watch": {
+     "note": "ばかり means a lot of one kind, or the same thing again and again. For one single person or thing, use だけ.",
+     "bad": "このクラスで日本人は私ばかりです。",
+     "good": "このクラスで日本人は私だけです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "まで adds a surprising extra, ばかり complains that there is too much of one thing, and だけ simply says there is nothing else.",
+   "forms": [
+    {
+     "form": "〜まで",
+     "tag": "そこまで · even, as far as",
+     "mark": "up",
+     "ja": "社長{まで}[会議|かいぎ]に[遅|おく]れてきました。",
+     "en": "Even the company president came late to the meeting."
+    },
+    {
+     "form": "〜ばかり",
+     "tag": "同じものが多い · nothing but",
+     "mark": "down",
+     "ja": "[会議|かいぎ]では、[部長|ぶちょう]{ばかり}話していました。",
+     "en": "In the meeting, the department head did all the talking."
+    },
+    {
+     "form": "〜だけ",
+     "tag": "それ以外ない · only",
+     "mark": "dot",
+     "ja": "[会議|かいぎ]に来たのは、田中さん{だけ}でした。",
+     "en": "Ms Tanaka was the only one who came to the meeting."
+    }
+   ],
+   "check": {
+    "id": "n3u10d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Even, nothing but, or only?",
+    "q": "パーティーで作った料理がみんなにほめられて、ふだん何も言わない父（　　）「おいしい」と言ってくれました。",
+    "options": [
+     "ばかり",
+     "だけ",
+     "まで"
+    ],
+    "answer": 3,
+    "why": [
+     "ばかり needs a lot of one thing or the same thing again and again. Here one person says it once.",
+     "だけ would mean only father praised the food, but みんなにほめられて says everyone did.",
+     "Everyone praised it, and even quiet father said it was good: 父まで."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u10d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "かぜがひどくなって、^[熱|ねつ]が出て^、のど（　　）[痛|いた]くなってきました。",
+    "options": [
+     "しか",
+     "ほど",
+     "こそ",
+     "まで"
+    ],
+    "answer": 4,
+    "why": [
+     "しか needs a negative verb after it (のどしか痛くない). Here the verb is positive.",
+     "ほど needs a comparison or a degree (のどが痛いほど…). のどほど痛くなってきた makes no sense.",
+     "こそ picks out one thing as the very one. Here the throat is added to the fever, not picked out.",
+     "A fever, and on top of that even a sore throat: のどまで."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^同じミス^（　　）して、[課長|かちょう]に注意されてしまいました。",
+    "options": [
+     "ばかり",
+     "しか",
+     "ほど",
+     "こそ"
+    ],
+    "answer": 1,
+    "why": [
+     "The same mistake again and again, and a scolding: 同じミスばかり.",
+     "しか needs a negative verb after it (ミスしかしない). Here the verb is positive.",
+     "ほど needs a comparison or a degree. ミスほどして makes no sense.",
+     "こそ picks out one thing as the very one, often with praise or a strong point. It does not fit a mistake made over and over."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[引っ越|ひっこ]しのとき、友だちだけでなく、となりの人（　　）^[手伝|てつだ]ってもらいました^。",
+    "options": [
+     "までに",
+     "にまで",
+     "ばかり",
+     "をまで"
+    ],
+    "answer": 2,
+    "why": [
+     "までに gives a deadline, which does not fit a person.",
+     "もらう takes に for the helper, and に stays in front of まで: となりの人にまで.",
+     "ばかり would mean only the neighbour helped, but 友だちだけでなく says friends helped too. に is also missing.",
+     "まで takes the place of を. をまで is never used."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "テレビをつけても、暗いニュース（　　）で、^いやになります^。",
+    "options": [
+     "まで",
+     "さえ",
+     "ばかり",
+     "しか"
+    ],
+    "answer": 3,
+    "why": [
+     "まで adds one surprising extra to other things, but nothing else is mentioned here, and 暗いニュースまでで makes no sense.",
+     "さえで is not used. さえ needs a negative or ば after it (ニュースさえなければ).",
+     "Nothing but gloomy news, and a complaint: 暗いニュースばかりで.",
+     "しか needs a negative verb after it (ニュースしかない). しかで is not used."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "近所のパン屋が[閉|し]まるという",
+    "after": "広がっていました。",
+    "tiles": [
+     "うわさは",
+     "となりの",
+     "町に",
+     "まで"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "という needs a noun right after it. まで follows the particle に.",
+    "full": "近所のパン屋が[閉|し]まるといううわさはとなりの町に{まで}広がっていました。",
+    "explain": "という describes うわさ, so うわさは comes first. となりの describes 町, and まで follows に: the rumour that the local bakery is closing had spread even to the next town."
+   },
+   {
+    "id": "n3u10d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このデパートは",
+    "after": "、なかなか買えません。",
+    "tiles": [
+     "[値段|ねだん]が",
+     "高い",
+     "もの",
+     "ばかりで"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "ばかり follows a noun. Which tiles together describe that noun?",
+    "full": "このデパートは[値段|ねだん]が高いもの{ばかりで}、なかなか買えません。",
+    "explain": "値段が高い describes もの, and ばかりで follows the noun and gives the reason: this department store has nothing but expensive things, so I can hardly buy anything."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u10d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このゲームは本当に難しくて、ゲームが得意な兄（　　）途中でやめてしまった。",
+    "options": [
+     "しか",
+     "までも",
+     "こそ",
+     "ばかり"
+    ],
+    "answer": 2,
+    "explain": "The game is so hard that even my brother, who is good at games, gave up: 兄までも. しか needs a negative verb after it. こそ picks out one thing as the very one, which does not fit here. ばかり needs a lot of one thing or the same thing again and again, but here one person gives up once."
+   },
+   {
+    "id": "n3u10d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このあたりは、古い家（　　）静かな町です。",
+    "options": [
+     "さえ",
+     "までに",
+     "だけで",
+     "ばかりの"
+    ],
+    "answer": 4,
+    "explain": "Before a noun, ばかりの: a quiet town with nothing but old houses. さえ and までに cannot join 古い家 to 静かな町. だけで needs a verb after it (古い家だけでできている); it cannot describe the noun 町 directly."
+   },
+   {
+    "id": "n3u10d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この映画は話題になっていて、ふだん",
+    "after": "見に行っているそうです。",
+    "tiles": [
+     "映画を",
+     "見ない",
+     "人",
+     "まで"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "この映画は話題になっていて、ふだん映画を{見ない}人まで見に行っているそうです。",
+    "explain": "映画を, 見ない, 人, まで. 映画を見ない describes 人, and まで follows the noun: the film is talked about so much that even people who don't usually watch films are going to see it."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "社員食堂のメニュー",
+  "en": "The staff cafeteria menu",
+  "intro": "You are standing in front of the menu board in your company cafeteria. Tap each word on it.",
+  "words": [
+   {
+    "id": "setmeal",
+    "word": "定食",
+    "reading": "ていしょく",
+    "gloss": "set meal",
+    "parts": [
+     [
+      "定",
+      "テイ",
+      "fixed: 予定"
+     ],
+     [
+      "食",
+      "ショク",
+      "eat, food"
+     ]
+    ]
+   },
+   {
+    "id": "daily",
+    "word": "日替わり",
+    "reading": "ひがわり",
+    "gloss": "changes every day (today's special)",
+    "parts": [
+     [
+      "日",
+      "ひ",
+      "day"
+     ],
+     [
+      "替",
+      "が",
+      "change: 両替"
+     ]
+    ]
+   },
+   {
+    "id": "limited",
+    "word": "数量限定",
+    "reading": "すうりょうげんてい",
+    "gloss": "limited number (while stocks last)",
+    "parts": [
+     [
+      "数",
+      "スウ",
+      "number"
+     ],
+     [
+      "量",
+      "リョウ",
+      "amount"
+     ],
+     [
+      "限",
+      "ゲン",
+      "limit"
+     ],
+     [
+      "定",
+      "テイ",
+      "fix"
+     ]
+    ]
+   },
+   {
+    "id": "ticket",
+    "word": "食券",
+    "reading": "しょっけん",
+    "gloss": "meal ticket",
+    "parts": [
+     [
+      "食",
+      "ショッ",
+      "food"
+     ],
+     [
+      "券",
+      "ケン",
+      "ticket: 定期券"
+     ]
+    ]
+   },
+   {
+    "id": "health",
+    "word": "健康",
+    "reading": "けんこう",
+    "gloss": "health, healthy",
+    "parts": [
+     [
+      "健",
+      "ケン",
+      "healthy"
+     ],
+     [
+      "康",
+      "コウ",
+      "peace, health"
+     ]
+    ]
+   },
+   {
+    "id": "season",
+    "word": "季節",
+    "reading": "きせつ",
+    "gloss": "season",
+    "parts": [
+     [
+      "季",
+      "キ",
+      "season"
+     ],
+     [
+      "節",
+      "セツ",
+      "season; joint"
+     ]
+    ]
+   },
+   {
+    "id": "dish",
+    "word": "小皿",
+    "reading": "こざら",
+    "gloss": "small side dish",
+    "parts": [
+     [
+      "小",
+      "こ",
+      "small"
+     ],
+     [
+      "皿",
+      "ざら",
+      "plate"
+     ]
+    ]
+   },
+   {
+    "id": "egg",
+    "word": "卵",
+    "reading": "たまご",
+    "gloss": "egg",
+    "parts": [
+     [
+      "卵",
+      "たまご",
+      "egg"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n3u10d2.k1",
+   "kind": "choice",
+   "type": "表記",
+   "label": "How the exam asks it",
+   "q": "このランチは数量_げんてい_なので、早めに来てください。",
+   "options": [
+    "限定",
+    "現定",
+    "減定",
+    "限低"
+   ],
+   "answer": 1,
+   "explain": "げんてい is 限定: 限 means limit (限る), and 定 means fixed (予定). 現 is \"now\" as in 現在, 減 is \"decrease\" as in 減る, and 低 is \"low\" as in 低い. None of them makes a word with this meaning."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What does the notice say about the new set meal?",
+  "seconds": 90,
+  "passage": "最近、社員食堂では、カレーやラーメンなど、量が多くてあぶらの多いメニューばかり選ぶ人が目立ちます。体重が気になっている人もいるでしょう。そこで、来月から、野菜をたっぷり使った「健康定食」を始めます。^毎日二十食の数量限定^で、季節の野菜のほか、デザートに果物までつきます。^値段はほかの定食と同じ五百円^です。^人気が出ると売り切れることもありますので、食券はお昼前に買っておくと安心です^。また、どの定食にも、^野菜の小皿を百円で追加できます^。",
+  "strategy": "Check each option against the details in the notice: how many, how much, and what costs extra.",
+  "item": {
+   "id": "n3u10d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "「健康定食」について、このお知らせからわかることは何か。",
+   "options": [
+    "ほかの定食より百円高い。",
+    "食べたい人は、毎日だれでも食べられる。",
+    "食券は昼になる前に買っておいたほうがいい。",
+    "野菜の小皿が無料でつく。"
+   ],
+   "short": [
+    "ほかの定食より高い",
+    "毎日だれでも食べられる",
+    "食券は昼前に買う",
+    "小皿が無料"
+   ],
+   "answer": 3,
+   "explain": "The notice says the meal may sell out, so it is safer to buy the ticket before noon: 食券はお昼前に買っておくと安心です.",
+   "why": [
+    "The price is the same as the other set meals, 500 yen.",
+    "Only twenty are made each day (数量限定), so not everyone can have it.",
+    "",
+    "The small vegetable dish costs 100 yen extra, and it can be added to any set meal."
+   ]
+  }
+ }
+}

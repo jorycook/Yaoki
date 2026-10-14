@@ -1,0 +1,378 @@
+{
+  "title": "まとめ：似ている文法",
+  "grammar": {
+    "points": [],
+    "compare": {
+      "intro": "This unit's points come in look-alike sets: ばよかった is regret about something already over and たらいいのに is a wish about now or later; ように with [願|ねが]う puts a wish inside a sentence, ますように is the wish itself, and ために is a goal you work for yourself; ことだ is firm advice, ことはない says there is no need, and ほうがいい is everyday advice; てもらいたい, ていただきたい and てほしい all want someone else to act, and ていただきたい is the most polite; ことにしている is a rule you made for yourself, and ことになっている is a rule or plan set by others.",
+      "forms": [
+        {
+          "form": "〜ことだ",
+          "tag": "忠告 · firm advice to the listener",
+          "mark": "dot",
+          "ja": "[引|ひ]っ[越|こ]しを楽にしたければ、まずいらない物を[捨|す]てる{ことです}。",
+          "en": "If you want your move to be easy, the first thing to do is throw away what you don't need."
+        },
+        {
+          "form": "〜ことにしている",
+          "tag": "自分の習慣 · a rule I made for myself",
+          "mark": "dot",
+          "ja": "夜九時をすぎたら、コーヒーは飲まない{ことにしています}。",
+          "en": "I make it a rule not to drink coffee after nine at night."
+        },
+        {
+          "form": "〜ことになっている",
+          "tag": "決まり · a rule set by others",
+          "mark": "dot",
+          "ja": "この[寺|てら]では、[建物|たてもの]の中で写真をとらない{ことになっています}。",
+          "en": "At this temple, you are not supposed to take photos inside the buildings."
+        }
+      ],
+      "check": {
+        "id": "n3u11d6.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Advice to the listener",
+        "q": "^大事な話を[忘|わす]れたくなければ^、聞いたらすぐにメモする（　　）よ。",
+        "options": [
+          "ことにしている",
+          "ことだ",
+          "ことになっている"
+        ],
+        "answer": 2,
+        "why": [
+          "ことにしている is the speaker's own habit. It cannot follow advice to the listener like 忘れたくなければ (if you don't want to forget).",
+          "If you don't want to forget, the thing to do is take a note at once: firm advice to the listener, so ことだ.",
+          "ことになっている reports a rule or plan set by others. A condition about the listener's wish, 忘れたくなければ, cannot lead into a rule like that."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u11d6.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^[先週|せんしゅう]の^セールのときに、あのコートを（　　）。今日行ったら、^もう売り切れだった^。",
+        "options": [
+          "買ったらいいのに",
+          "買うことにしている",
+          "買えばよかった",
+          "買うことはない"
+        ],
+        "answer": 3,
+        "why": [
+          "たらいいのに wishes for something now or later. The sale was last week and the coat is gone, so this is regret about the past.",
+          "ことにしている is a habit that is still going on. The sentence is about one chance last week that is now lost.",
+          "The sale is over and the coat is sold out, so the speaker regrets not buying it then: 買えばよかった.",
+          "ことはない says there is no need to do something. The speaker clearly wanted the coat and is sorry it is gone."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d6.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^町の[決|き]まりで^、ペットボトルは毎週木曜日に出す（　　）。",
+        "options": [
+          "ことになっています",
+          "ことにしています",
+          "ことです",
+          "ことはありません"
+        ],
+        "answer": 1,
+        "why": [
+          "The town set the rule, not the speaker: 町の決まりで goes with ことになっています.",
+          "ことにしています is a rule the speaker made for themselves. Here the rule comes from the town.",
+          "ことです gives firm advice. It does not report a rule that the town has made.",
+          "ことはありません says there is no need. A town rule tells you when to put the bottles out, so this says the opposite of a rule."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d6.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^せっかくの休みなんだから^、仕事のメールは（　　）よ。",
+        "options": [
+          "見たほうがいい",
+          "見ることだ",
+          "見ることになっている",
+          "見ることはない"
+        ],
+        "answer": 4,
+        "why": [
+          "ほうがいい tells the listener to read the emails. せっかくの休みなんだから (it's your day off, after all) points the other way.",
+          "ことだ is firm advice to do something, here to read work emails. That does not fit せっかくの休みなんだから.",
+          "ことになっている reports a rule set by others. It cannot follow a reason like せっかくの休みなんだから, which is the speaker's own advice.",
+          "It's your day off, after all, so there is no need to read work emails: ことはない."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d6.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "（店で店員に）この[靴|くつ]が^足に合うかどうか^、ちょっと（　　）のですが。",
+        "options": [
+          "はいていただきたい",
+          "はかせていただきたい",
+          "はいてほしがっている",
+          "はいてもらいたい"
+        ],
+        "answer": 2,
+        "why": [
+          "はいていただきたい asks the shop assistant to put the shoes on. The speaker wants to try them on themselves.",
+          "The speaker wants to see if the shoes fit their own feet, so they ask to be allowed to wear them: the causative はかせて + いただきたい.",
+          "ほしがっている describes what a third person wants. The speaker is talking about their own wish, and the shoes are for their own feet.",
+          "はいてもらいたい also wants the shop assistant to wear the shoes. The speaker is the one who wants to try them."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d6.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "医者に、もっと体を",
+        "after": "毎朝近所の[公園|こうえん]を歩くことにしています。",
+        "tiles": [
+          "動かす",
+          "ことだと",
+          "言われて",
+          "から"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "The doctor's firm advice ends in ことだ. What follows a quote with と? And which tile says \"since then\"?",
+        "full": "医者に、もっと体を動かす{ことだ}と言われてから毎朝近所の[公園|こうえん]を歩くことにしています。",
+        "explain": "動かす, ことだと, 言われて, から. The doctor's advice is 体を動かすことだ, the thing to do is move more, and と言われて reports it. から means since then, and ことにしています is the habit the speaker chose after that advice."
+      },
+      {
+        "id": "n3u11d6.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "夏の大会に出る",
+        "after": "、[本番|ほんばん]で[勝|か]てるように[願|ねが]っています。",
+        "tiles": [
+          "ために",
+          "毎日",
+          "[練習|れんしゅう]している",
+          "弟が"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "ために is a goal someone works for, and it follows 出る directly. Who is practising?",
+        "full": "夏の大会に出る{ために}毎日[練習|れんしゅう]している弟が、[本番|ほんばん]で[勝|か]てるように[願|ねが]っています。",
+        "explain": "ために, 毎日, 練習している, 弟が. 出るために is the brother's goal, which he works for by practising every day. 毎日 goes with 練習している, which describes 弟. Winning is not something the speaker can make happen, so the wish at the end takes ように with 願っています."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u11d6.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "初めて作ったケーキを、これから友だちに渡す。喜んでくれ（　　）。",
+        "options": [
+          "ればよかった",
+          "ることはない",
+          "ますように",
+          "ることになっている"
+        ],
+        "answer": 3,
+        "explain": "ますように: the speaker hopes the friend will be pleased, and the ます stem くれ comes before it. ればよかった is regret about the past, but the cake has not been given yet. ることはない says there is no need, which makes no sense as a hope. ることになっている is a rule or plan, and nobody can plan how a friend will feel."
+      },
+      {
+        "id": "n3u11d6.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "昨日のパーティー、とても楽しかったよ。山田さんも（　　）。",
+        "options": [
+          "来たらいいのに",
+          "来ることはない",
+          "来ることになっている",
+          "来ればよかったのに"
+        ],
+        "answer": 4,
+        "explain": "来ればよかったのに: the party was yesterday, so the speaker is sorry that Yamada did not come. 来たらいいのに wishes about now or later, but the party is over. 来ることはない (no need to come) and 来ることになっている (he is supposed to come) both talk about something still ahead, not a party that has ended."
+      },
+      {
+        "id": "n3u11d6.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "明日の会議には、社長にも",
+        "after": "います。",
+        "tiles": [
+          "参加して",
+          "いただく",
+          "ことに",
+          "なって"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "full": "明日の会議には、社長にも参加して{いただく}ことになっています。",
+        "explain": "参加して, いただく, ことに, なって. The te-form 参加して comes before いただく, which is polite because the president is the one who joins. ことになっています follows the dictionary form いただく and says this is the plan: the president is also going to join tomorrow's meeting."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "スポーツクラブの利用のきまり",
+    "en": "The membership rules sheet at a sports club",
+    "intro": "Tap each word on the sheet that a new member needs to understand.",
+    "words": [
+      {
+        "id": "member-card",
+        "word": "会員証",
+        "reading": "かいいんしょう",
+        "gloss": "membership card",
+        "parts": [
+          ["会", "カイ", "meet, group"],
+          ["員", "イン", "member"],
+          ["証", "ショウ", "proof"]
+        ]
+      },
+      {
+        "id": "fee",
+        "word": "会費",
+        "reading": "かいひ",
+        "gloss": "membership fee",
+        "parts": [
+          ["会", "カイ", "meet, group"],
+          ["費", "ヒ", "cost"]
+        ]
+      },
+      {
+        "id": "desk",
+        "word": "受付",
+        "reading": "うけつけ",
+        "gloss": "reception desk",
+        "parts": [
+          ["受", "う", "receive"],
+          ["付", "つけ", "attach"]
+        ]
+      },
+      {
+        "id": "quit",
+        "word": "退会",
+        "reading": "たいかい",
+        "gloss": "cancelling a membership",
+        "parts": [
+          ["退", "タイ", "withdraw"],
+          ["会", "カイ", "meet, group"]
+        ]
+      },
+      {
+        "id": "use",
+        "word": "利用",
+        "reading": "りよう",
+        "gloss": "use (of a place or service)",
+        "parts": [
+          ["利", "リ", "benefit"],
+          ["用", "ヨウ", "use"]
+        ]
+      },
+      {
+        "id": "discount",
+        "word": "割引",
+        "reading": "わりびき",
+        "gloss": "discount",
+        "parts": [
+          ["割", "わり", "divide"],
+          ["引", "びき", "pull"]
+        ]
+      },
+      {
+        "id": "banned",
+        "word": "禁止",
+        "reading": "きんし",
+        "gloss": "not allowed",
+        "parts": [
+          ["禁", "キン", "forbid"],
+          ["止", "シ", "stop"]
+        ]
+      },
+      {
+        "id": "age",
+        "word": "年齢",
+        "reading": "ねんれい",
+        "gloss": "age",
+        "parts": [
+          ["年", "ネン", "year"],
+          ["齢", "レイ", "age"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u11d6.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "雨の日は、映画の料金が_割引_になります。",
+      "options": [
+        "わりびき",
+        "かつびき",
+        "わりひき",
+        "かついん"
+      ],
+      "answer": 1,
+      "explain": "割引, a discount, is わりびき: 割 わり (divide) and 引 びき (pull), with ひ voiced to び. わりひき leaves ひ unvoiced, and かつびき and かついん use readings this word does not take."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "情報検索",
+    "en": "Finding information",
+    "ask": "Which rules on the sheet decide how much Kim pays on the first day?",
+    "seconds": 90,
+    "passage": "みどりスポーツクラブ　ご利用のきまり\n①毎週月曜日は休館日です。\n②^入会のときは、入会金二千円と最初の月の会費を、受付で払う^ことになっています。\n③^会費は月六千円です^。^学生と六十五歳以上の方は、学生証など年齢がわかる証明書を受付で見せると、会費が二千円割引になります^。^入会金は割引になりません^。\n④^プールでは、水泳用のぼうしをかぶってください^。^持っていない方には、受付で一回百円で貸し出します^。\n⑤トレーニングルームでは、室内用の運動靴をはいてください。外からはいてきた靴で入るのは禁止です。\n⑥退会するときは、前の月のうちに、受付で用紙に書いてください。",
+    "strategy": "Find every rule about money: the joining fee, the monthly fee and its discount, and anything you pay for at the desk.",
+    "item": {
+      "id": "n3u11d6.r1",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "q": "大学生のキムさんは、受付で学生証を見せてこのクラブに入会し、その日にプールを利用するつもりです。水泳用のぼうしは持っていません。キムさんがその日に受付で払うお金は、全部でいくらですか。",
+      "options": [
+        "8,100円",
+        "4,100円",
+        "6,100円",
+        "6,000円"
+      ],
+      "short": [
+        "8,100円",
+        "4,100円",
+        "6,100円",
+        "6,000円"
+      ],
+      "answer": 3,
+      "explain": "On the day Kim joins, rule ② says he pays the 2,000-yen joining fee and the first month's fee. Rule ③ makes the monthly fee 4,000 yen, because he shows his student card. Rule ④ adds 100 yen to borrow a swimming cap. 2,000 + 4,000 + 100 = 6,100 yen.",
+      "why": [
+        "This leaves out the student discount. Kim shows his student card, so his monthly fee is 2,000 yen less (rule ③).",
+        "This leaves out the 2,000-yen joining fee. Rule ② says new members pay it on the day they join.",
+        "",
+        "This leaves out the cap. Kim has no swimming cap, so he must borrow one at the desk for 100 yen (rule ④)."
+      ]
+    }
+  }
+}

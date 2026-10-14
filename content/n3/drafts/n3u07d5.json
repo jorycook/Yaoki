@@ -1,0 +1,614 @@
+{
+  "title": "〜向け・〜向き",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u07d5.p1",
+        "form": "〜向け（の）",
+        "gloss": "made for, aimed at",
+        "connect": [
+          {
+            "pos": "Noun, before a noun",
+            "rule": "〜＋{[向|む]けの}本"
+          },
+          {
+            "pos": "Noun, before a verb",
+            "rule": "〜＋{[向|む]けに}作る"
+          },
+          {
+            "pos": "At the end of a sentence",
+            "rule": "〜＋{[向|む]けです}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "このマンションは、お[年寄|としよ]り{[向|む]けに}建てられました。",
+            "en": "This apartment building was built for elderly people."
+          },
+          {
+            "ja": "駅で[観光客|かんこうきゃく]{[向|む]けの}地図をもらいました。",
+            "en": "At the station I got a map made for tourists."
+          }
+        ],
+        "watch": {
+          "note": "向け joins the noun directly. Do not put の between the noun and 向け.",
+          "bad": "子どもの向けの本を探しています。",
+          "good": "子ども向けの本を探しています。"
+        }
+      },
+      {
+        "id": "n3u07d5.p2",
+        "form": "〜向き（の）",
+        "gloss": "suited to, good for",
+        "connect": [
+          {
+            "pos": "Noun, before a noun",
+            "rule": "〜＋{[向|む]きの}服"
+          },
+          {
+            "pos": "At the end of a sentence",
+            "rule": "〜＋{[向|む]きです}"
+          },
+          {
+            "pos": "Negative",
+            "rule": "〜＋{[向|む]きではない}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "この料理は作り方が[簡単|かんたん]なので、[忙|いそが]しい朝{[向|む]きです}。",
+            "en": "This dish is easy to make, so it is good for busy mornings."
+          },
+          {
+            "ja": "このシャツは[薄|うす]くて軽いので、夏{[向|む]き}です。",
+            "en": "This shirt is thin and light, so it suits summer."
+          }
+        ],
+        "watch": {
+          "note": "向き follows a noun, not an adjective. Name the season or the time with a noun: 夏向き, 雨の日向き.",
+          "bad": "このシャツは暑い向きです。",
+          "good": "このシャツは夏向きです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three can be \"for\" in English, but they say different things: who it was made for, what it suits, or whose point of view.",
+      "forms": [
+        {
+          "form": "〜向け",
+          "tag": "〜のために作った · made for (the maker's aim)",
+          "mark": "dot",
+          "ja": "この本は子ども{[向|む]けに}書かれています。",
+          "en": "This book was written for children."
+        },
+        {
+          "form": "〜向き",
+          "tag": "〜に合う · suits (a judgement)",
+          "mark": "dot",
+          "ja": "この本は[絵|え]が多くてやさしいので、子ども{[向|む]き}です。",
+          "en": "This book has lots of pictures and is easy, so it suits children."
+        },
+        {
+          "form": "〜にとって",
+          "tag": "〜から見ると · from the viewpoint of",
+          "mark": "dot",
+          "ja": "この本は子ども{にとって}少し[難|むずか]しいです。",
+          "en": "This book is a little difficult for children."
+        }
+      ],
+      "check": {
+        "id": "n3u07d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one takes a judgement?",
+        "q": "この町は、[子育|こそだ]て中の家族（　　）とても住みやすいです。",
+        "options": [
+          "[向|む]けに",
+          "[向|む]きに",
+          "にとって"
+        ],
+        "answer": 3,
+        "why": [
+          "[向|む]けに goes before a verb of making, such as 作る or 建てる. 住みやすい is a judgement, not something someone made.",
+          "[向|む]き joins a noun before です or a noun (家族[向|む]きの町). [向|む]きに cannot go before 住みやすい.",
+          "にとって + a judgement: from the point of view of families raising children, the town is easy to live in."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u07d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この会社は、東南アジア（　　）^小さい車を売っています^。",
+        "options": [
+          "にとって",
+          "[向|む]けに",
+          "[向|む]きに",
+          "について"
+        ],
+        "answer": 2,
+        "why": [
+          "にとって is followed by a judgement, such as 大切です or [便利|べんり]です, not by an action like 売っています.",
+          "[向|む]けに + a verb: the company sells small cars aimed at Southeast Asia, the market it has in mind.",
+          "[向|む]き only says that something suits. It cannot name the market a company sells to.",
+          "について means about. Selling cars about Southeast Asia makes no sense."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u07d5.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今日は^風がなくて[暖|あたた]かい^ので、ピクニック（　　）天気ですね。",
+        "options": [
+          "[向|む]けの",
+          "としての",
+          "にとって",
+          "[向|む]きの"
+        ],
+        "answer": 4,
+        "why": [
+          "[向|む]け says someone made a thing for a group. Nobody makes the weather.",
+          "としての means in the role of. The weather is not playing the role of a picnic.",
+          "にとって cannot join a noun like 天気 directly, and a picnic has no point of view.",
+          "Noun + [向|む]きの + noun: no wind and warm, so it is weather that suits a picnic."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u07d5.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この説明会は来年[卒業|そつぎょう]する学生（　　）なので、^一年生は[参加|さんか]できません^。",
+        "options": [
+          "[向|む]き",
+          "にとって",
+          "[向|む]け",
+          "として"
+        ],
+        "answer": 3,
+        "why": [
+          "[向|む]き only says the session suits them. It cannot shut anyone out, and here someone decided who may come.",
+          "にとって gives a point of view and needs a judgement after it, such as 大切です.",
+          "[向|む]け: the organisers made the session for students who graduate next year, so first-year students cannot join.",
+          "として means in the role of. 学生としてなので does not say who the session is for."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u07d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "兄は人と話すのが好きで^明るい[性格|せいかく]^なので、えいぎょう（　　）だと思います。",
+        "options": [
+          "[向|む]き",
+          "[向|む]け",
+          "にとって",
+          "として"
+        ],
+        "answer": 1,
+        "why": [
+          "[向|む]き: he likes talking to people and is cheerful, so he suits sales work.",
+          "[向|む]け says what someone made a thing for. A person is not made for a job like a product.",
+          "えいぎょうにとって would mean from the point of view of sales, which makes no sense here.",
+          "として means in the role of. えいぎょうとしてだ does not finish the sentence."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u07d5.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "これは",
+        "after": "アプリです。",
+        "tiles": [
+          "二十代の",
+          "[女性|じょせい]",
+          "[向|む]けに",
+          "開発された"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "[向|む]け joins a noun directly, and [向|む]けに goes before a verb. Who is the app for?",
+        "full": "これは二十代の[女性|じょせい]{[向|む]けに}開発されたアプリです。",
+        "explain": "二十代の describes [女性|じょせい], and [向|む]けに joins [女性|じょせい] directly. [向|む]けに goes before the verb 開発された, which describes アプリ: this is an app developed for women in their twenties."
+      },
+      {
+        "id": "n3u07d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このテーブルは小さくて",
+        "after": "。",
+        "tiles": [
+          "軽いので",
+          "[一人暮|ひとりぐ]らしの",
+          "[部屋|へや]",
+          "[向|む]きです"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "[向|む]き follows a noun. What kind of room does a small, light table suit?",
+        "full": "このテーブルは小さくて軽いので[一人暮|ひとりぐ]らしの[部屋|へや]{[向|む]きです}。",
+        "explain": "小さくて joins 軽いので, which gives the reason. [一人暮|ひとりぐ]らしの describes [部屋|へや], and [向|む]きです follows the noun [部屋|へや]: the table is small and light, so it suits a one-person flat."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u07d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この辞書は小学生（　　）作られているので、説明がとても分かりやすいです。",
+        "options": [
+          "向けに",
+          "について",
+          "にとって",
+          "向きに"
+        ],
+        "answer": 1,
+        "explain": "向けに + 作られている: the dictionary was made with primary school children in mind, so its explanations are easy. 向き only says something suits; it cannot say who a dictionary was made for. にとって needs a judgement after it, not 作られている. について means about, which makes no sense with 作られている here."
+      },
+      {
+        "id": "n3u07d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この川は流れがゆるやかなので、カヌーの初心者（　　）です。",
+        "options": [
+          "向け",
+          "向き",
+          "として",
+          "にとって"
+        ],
+        "answer": 2,
+        "explain": "The river flows gently, so it suits beginners: 向き, the speaker's judgement. Nobody made the river for beginners, so 向け does not fit. 初心者としてです and 初心者にとってです do not finish the sentence."
+      },
+      {
+        "id": "n3u07d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "市は、ごみの出し方を説明した",
+        "after": "います。",
+        "tiles": [
+          "外国人",
+          "向けの",
+          "パンフレットを",
+          "配って"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "市は、ごみの出し方を説明した外国人{向けの}パンフレットを配っています。",
+        "explain": "外国人, 向けの, パンフレットを, 配って. 向けの joins 外国人 directly and describes パンフレット, and パンフレットを is what 配って takes: the city hands out leaflets for foreign residents that explain how to put out rubbish."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "ハイキングコース案内",
+    "en": "A hiking course guide board",
+    "intro": "A board at the start of a hiking trail compares two courses. Tap each word on it.",
+    "words": [
+      {
+        "id": "trailhead",
+        "word": "登山口",
+        "reading": "とざんぐち",
+        "gloss": "trailhead",
+        "parts": [
+          [
+            "登",
+            "ト",
+            "climb"
+          ],
+          [
+            "山",
+            "ザン",
+            "mountain"
+          ],
+          [
+            "口",
+            "ぐち",
+            "mouth, entrance"
+          ]
+        ]
+      },
+      {
+        "id": "beginner",
+        "word": "初心者",
+        "reading": "しょしんしゃ",
+        "gloss": "beginner",
+        "parts": [
+          [
+            "初",
+            "ショ",
+            "first"
+          ],
+          [
+            "心",
+            "シン",
+            "heart"
+          ],
+          [
+            "者",
+            "シャ",
+            "person"
+          ]
+        ]
+      },
+      {
+        "id": "experienced",
+        "word": "経験者",
+        "reading": "けいけんしゃ",
+        "gloss": "experienced person",
+        "parts": [
+          [
+            "経",
+            "ケイ",
+            "pass through"
+          ],
+          [
+            "験",
+            "ケン",
+            "test"
+          ],
+          [
+            "者",
+            "シャ",
+            "person"
+          ]
+        ]
+      },
+      {
+        "id": "one-way",
+        "word": "片道",
+        "reading": "かたみち",
+        "gloss": "one way",
+        "parts": [
+          [
+            "片",
+            "かた",
+            "one side"
+          ],
+          [
+            "道",
+            "みち",
+            "road"
+          ]
+        ]
+      },
+      {
+        "id": "summit",
+        "word": "頂上",
+        "reading": "ちょうじょう",
+        "gloss": "summit",
+        "parts": [
+          [
+            "頂",
+            "チョウ",
+            "top"
+          ],
+          [
+            "上",
+            "ジョウ",
+            "up"
+          ]
+        ]
+      },
+      {
+        "id": "slope",
+        "word": "坂道",
+        "reading": "さかみち",
+        "gloss": "slope, hill road",
+        "parts": [
+          [
+            "坂",
+            "さか",
+            "slope"
+          ],
+          [
+            "道",
+            "みち",
+            "road"
+          ]
+        ]
+      },
+      {
+        "id": "steps",
+        "word": "階段",
+        "reading": "かいだん",
+        "gloss": "steps, stairs",
+        "parts": [
+          [
+            "階",
+            "カイ",
+            "floor, level"
+          ],
+          [
+            "段",
+            "ダン",
+            "step"
+          ]
+        ]
+      },
+      {
+        "id": "view",
+        "word": "景色",
+        "reading": "けしき",
+        "gloss": "view, scenery",
+        "parts": [
+          [
+            "景",
+            "ケ",
+            "scene"
+          ],
+          [
+            "色",
+            "シキ",
+            "colour"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u07d5.k1",
+      "kind": "choice",
+      "type": "表記",
+      "label": "How the exam asks it",
+      "q": "このコースは_さかみち_が多いので、ゆっくり歩きましょう。",
+      "options": [
+        "阪道",
+        "坂通",
+        "反道",
+        "坂道"
+      ],
+      "answer": 4,
+      "explain": "さかみち is 坂道: 坂 (さか, slope) and 道 (みち, road). 阪 is the 阪 of 大阪, not a slope. 反 means against. 通 is read とおる or ツウ, never みち."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "概要理解",
+    "en": "Gist",
+    "ask": "話の前に質問はありません。まず話を聞いて、それから質問とせんたくしを聞いて、1から4の中から最もよいものを一つえらんでください。",
+    "audio": [
+      [
+        "N",
+        "山の案内所で、係の人が話しています。",
+        "やまのあんないじょで、かかりのひとがはなしています。"
+      ],
+      [
+        "F",
+        "みなさん、おはようございます。今日は、この山の二つのコースについてご説明します。",
+        "みなさん、おはようございます。きょうは、このやまのふたつのコースについてごせつめいします。"
+      ],
+      [
+        "F",
+        "まず、東コースです。この道は、もともと子ども向けに作られたもので、坂が少なく、休むところもたくさんあります。",
+        "まず、ひがしコースです。このみちは、もともとこどもむけにつくられたもので、さかがすくなく、やすむところもたくさんあります。"
+      ],
+      [
+        "F",
+        "頂上まで一時間ほどですから、山を歩くのが初めての人向きです。",
+        "ちょうじょうまでいちじかんほどですから、やまをあるくのがはじめてのひとむきです。"
+      ],
+      [
+        "F",
+        "次に、西コースです。こちらは景色はすばらしいのですが、階段や急な坂が多く、頂上まで三時間ぐらいかかります。",
+        "つぎに、にしコースです。こちらはけしきはすばらしいのですが、かいだんやきゅうなさかがおおく、ちょうじょうまでさんじかんぐらいかかります。"
+      ],
+      [
+        "F",
+        "山になれた人向きのコースですので、初めての方は、東コースを選んでください。",
+        "やまになれたひとむきのコースですので、はじめてのかたは、ひがしコースをえらんでください。"
+      ],
+      [
+        "F",
+        "また、今日は午後から雨の予報です。西コースを歩く方は、早めに出発してください。",
+        "また、きょうはごごからあめのよほうです。にしコースをあるくかたは、はやめにしゅっぱつしてください。"
+      ],
+      [
+        "N",
+        "係の人は、主に何について話していますか。",
+        "かかりのひとは、おもになにについてはなしていますか。"
+      ],
+      [
+        "N",
+        "1",
+        "いち"
+      ],
+      [
+        "N",
+        "午後からの天気のこと",
+        "ごごからのてんきのこと"
+      ],
+      [
+        "N",
+        "2",
+        "に"
+      ],
+      [
+        "N",
+        "子ども向けの道ができた理由",
+        "こどもむけのみちができたりゆう"
+      ],
+      [
+        "N",
+        "3",
+        "さん"
+      ],
+      [
+        "N",
+        "二つのコースのちがいと選び方",
+        "ふたつのコースのちがいとえらびかた"
+      ],
+      [
+        "N",
+        "4",
+        "よん"
+      ],
+      [
+        "N",
+        "頂上から見える景色のこと",
+        "ちょうじょうからみえるけしきのこと"
+      ]
+    ],
+    "item": {
+      "id": "n3u07d5.r1",
+      "kind": "choice",
+      "type": "概要理解",
+      "q": "係の人は、主に何について話していますか。",
+      "script": [
+        "ナレーター：山の案内所で、係の人が話しています。",
+        "女：みなさん、おはようございます。今日は、この山の二つのコースについてご説明します。まず、東コースです。この道は、もともと子ども向けに作られたもので、坂が少なく、休むところもたくさんあります。頂上まで一時間ほどですから、山を歩くのが初めての人向きです。次に、西コースです。こちらは景色はすばらしいのですが、階段や急な坂が多く、頂上まで三時間ぐらいかかります。山になれた人向きのコースですので、初めての方は、東コースを選んでください。また、今日は午後から雨の予報です。西コースを歩く方は、早めに出発してください。",
+        "ナレーター：係の人は、主に何について話していますか。",
+        "ナレーター：1　午後からの天気のこと",
+        "ナレーター：2　子ども向けの道ができた理由",
+        "ナレーター：3　二つのコースのちがいと選び方",
+        "ナレーター：4　頂上から見える景色のこと"
+      ],
+      "options": [
+        "午後からの天気のこと",
+        "子ども向けの道ができた理由",
+        "二つのコースのちがいと選び方",
+        "頂上から見える景色のこと"
+      ],
+      "printed": false,
+      "short": [
+        "午後の天気",
+        "子ども向けの道の理由",
+        "二つのコースのちがい",
+        "頂上からの景色"
+      ],
+      "answer": 3,
+      "why": [
+        "The rain forecast is one short note at the end, not the main topic.",
+        "The talk says the east path was first made for children, but never says why.",
+        "",
+        "The view on the west course is mentioned in one phrase, and nothing is said about the view from the summit."
+      ],
+      "explain": "The whole talk compares the two courses: the east one is short and easy and suits first-timers, the west one is long and steep and suits experienced walkers. It ends by telling first-timers which one to choose."
+    }
+  }
+}

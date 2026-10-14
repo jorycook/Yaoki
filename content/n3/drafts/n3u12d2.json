@@ -1,0 +1,520 @@
+{
+ "title": "〜てる・〜なきゃ／〜なくちゃ",
+ "grammar": {
+  "points": [
+   {
+    "id": "n3u12d2.p1",
+    "form": "〜てる・〜でる",
+    "gloss": "casual ている (is doing, is in a state)",
+    "connect": [
+     {
+      "pos": "Verb, te-form ending in て",
+      "rule": "待って → 待っ{てる}"
+     },
+     {
+      "pos": "Verb, te-form ending in で",
+      "rule": "読んで → 読ん{でる}"
+     },
+     {
+      "pos": "Past (= ていた／でいた)",
+      "rule": "待っ{てた}、読ん{でた}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "「今どこ？」「もう店の前で待っ{てる}よ。」",
+      "en": "\"Where are you now?\" \"I'm already waiting in front of the shop.\""
+     },
+     {
+      "ja": "「あの本、もう読ん{でる}？」「うん、[昨日|きのう]読み終わった。」",
+      "en": "\"Have you read that book yet?\" \"Yes, I finished it yesterday.\""
+     }
+    ],
+    "watch": {
+     "note": "When the te-form ends in で (読んで, 遊んで, 飲んで), the short form is でる, not てる. Only the い of いる drops.",
+     "bad": "妹は今、友だちと公園で遊んてる。",
+     "good": "妹は今、友だちと公園で遊んでる。"
+    }
+   },
+   {
+    "id": "n3u12d2.p2",
+    "form": "〜なきゃ・〜なくちゃ",
+    "gloss": "have to, must (casual)",
+    "connect": [
+     {
+      "pos": "Verb, ない form without the final い",
+      "rule": "行かない → 行か{なきゃ}／行か{なくちゃ}"
+     },
+     {
+      "pos": "Short for なければ and なくては",
+      "rule": "〜なければ → {なきゃ}、〜なくては → {なくちゃ}"
+     },
+     {
+      "pos": "With いけない or だめ after it (same meaning)",
+      "rule": "やら{なきゃ}いけない、やら{なくちゃ}だめ"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "もうこんな時間！そろそろ帰ら{なきゃ}。",
+      "en": "Look at the time! I'd better head home."
+     },
+     {
+      "ja": "[熱|ねつ]があるなら、病院に行か{なくちゃ}だめだよ。",
+      "en": "If you have a fever, you have to go to the hospital."
+     }
+    ],
+    "watch": {
+     "note": "なきゃ and なくちゃ join the ない form, just like なければ. They do not follow the dictionary form.",
+     "bad": "明日は六時に起きるなきゃ。",
+     "good": "明日は六時に起きなきゃ。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "てる and とく both shorten a te-form + verb (ている, ておく), while なきゃ shortens なければ.",
+   "forms": [
+    {
+     "form": "〜てる",
+     "tag": "ている · is doing, is in a state",
+     "mark": "dot",
+     "ja": "兄は銀行で働い{てる}よ。",
+     "en": "My brother works at a bank."
+    },
+    {
+     "form": "〜とく",
+     "tag": "ておく · do in advance",
+     "mark": "dot",
+     "ja": "明日は早いから、今日のうちに[準備|じゅんび]し{とく}ね。",
+     "en": "Tomorrow starts early, so I'll get things ready today."
+    },
+    {
+     "form": "〜なきゃ",
+     "tag": "なければ · have to",
+     "mark": "dot",
+     "ja": "あ、[財布|さいふ]を[忘|わす]れた。[取|と]りに[戻|もど]ら{なきゃ}。",
+     "en": "Oh, I forgot my wallet. I have to go back for it."
+    }
+   ],
+   "check": {
+    "id": "n3u12d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Doing now, in advance, or must?",
+    "q": "「お姉ちゃん、今何してる？」「[部屋|へや]で音楽を（　　）よ。」",
+    "options": [
+     "聞かなきゃ",
+     "聞いとく",
+     "聞いてる"
+    ],
+    "answer": 3,
+    "why": [
+     "聞かなきゃ says she has to listen. The question asks what she is doing now.",
+     "聞いとく means listening in advance, for later. It does not answer 今何してる.",
+     "Right now, in her room, she is listening to music: 聞いてる."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u12d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「あれ、^[窓|まど]が^（　　）よ。寒くない？」",
+    "options": [
+     "開けとく",
+     "開いてる",
+     "開けなきゃ",
+     "開けちゃう"
+    ],
+    "answer": 2,
+    "why": [
+     "開けとく means someone will open it in advance. It needs 窓を, and the speaker is pointing out what is already so.",
+     "窓が + 開いてる: the window is open (a state), so the speaker asks if the other person is cold.",
+     "開けなきゃ needs 窓を, and saying the window must be opened does not fit 寒くない？",
+     "開けちゃう is about what someone is going to do and needs 窓を. 窓が marks the window as the thing that is open."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u12d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「[昨日|きのう]の夜電話したのに、出なかったね。」「ごめん、^その時^おふろに（　　）んだ。」",
+    "options": [
+     "入らなきゃ",
+     "入っとく",
+     "入ってる",
+     "入ってた"
+    ],
+    "answer": 4,
+    "why": [
+     "入らなきゃ is about what you have to do. The speaker is explaining what was happening last night.",
+     "入っとく means doing it in advance, for later. It does not fit a call that came last night.",
+     "入ってる is about now. その時 points to last night.",
+     "その時 is last night, so the past form: I was in the bath at the time, 入ってた."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u12d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「[冷蔵庫|れいぞうこ]、^何もない^よ。」「じゃあ、帰りに[卵|たまご]とパンを（　　）。」",
+    "options": [
+     "買ってた",
+     "買うなきゃ",
+     "買わなきゃ",
+     "買わなくてもいい"
+    ],
+    "answer": 3,
+    "why": [
+     "買ってた is past. じゃあ、帰りに is about what to do on the way home.",
+     "なきゃ joins the ない form (買わない), not the dictionary form 買う.",
+     "The fridge is empty, so on the way home I have to buy eggs and bread: 買わなきゃ.",
+     "買わなくてもいい says there is no need to buy anything, but the fridge is empty."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u12d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「このレポート、^今日中に^先生に出さ（　　）いけないんだ。」",
+    "options": [
+     "なくちゃ",
+     "なくても",
+     "ないで",
+     "ずに"
+    ],
+    "answer": 1,
+    "why": [
+     "出さなくちゃいけない is the casual 出さなくてはいけない: I have to hand it in today.",
+     "なくても goes with いい (出さなくてもいい), not with いけない.",
+     "ないで does not join いけない. 出さないで alone would mean please don't hand it in.",
+     "ずに does not join いけない. 出さずに means without handing it in."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u12d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "「それ、前から",
+    "after": "ケーキ？」「うん。やっと買えたんだ。」",
+    "tiles": [
+     "食べたい",
+     "って",
+     "言ってた",
+     "店の"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "って marks what was said. 言ってた is the casual 言っていた. What comes right before ケーキ?",
+    "full": "「それ、前から食べたいって{言ってた}店のケーキ？」「うん。やっと買えたんだ。」",
+    "explain": "食べたいって is what you said, so 言ってた follows it. 前から食べたいって言ってた describes 店, and 店の comes right before ケーキ: is that the cake from the shop you have been saying you wanted to try?"
+   },
+   {
+    "id": "n3u12d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "「明日、何か[予定|よてい]ある？」「うん。図書館に",
+    "after": "。」",
+    "tiles": [
+     "先週",
+     "借りた",
+     "本を",
+     "[返|かえ]さなきゃ"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "返さなきゃ is the casual 返さなければ. What do you have to return?",
+    "full": "「明日、何か[予定|よてい]ある？」「うん。図書館に先週借りた{本を}[返|かえ]さなきゃ。」",
+    "explain": "先週借りた describes 本, 本を is the object of 返さなきゃ, and 返さなきゃ ends the sentence: I have to return the book I borrowed last week to the library. 先週 cannot go with 返さなきゃ, because a duty for tomorrow is not last week."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u12d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「田中さんの新しい住所、わかる？」「ごめん、（　　）。」",
+    "options": [
+     "知ってない",
+     "知っとく",
+     "知らなきゃ",
+     "知らない"
+    ],
+    "answer": 4,
+    "explain": "The negative of 知ってる is 知らない: sorry, I don't know it. 知ってない is not the standard negative of 知ってる. 知っとく would mean I'll keep it in mind, which does not answer the question. 知らなきゃ would mean I must not know, which makes no sense here."
+   },
+   {
+    "id": "n3u12d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「土曜日、みんなでカラオケに行くんだけど、来ない？」「行きたいけど、レポートを（　　）。月曜までなんだ。」",
+    "options": [
+     "書いちゃった",
+     "書かなくちゃ",
+     "書いてた",
+     "書かなくてもいい"
+    ],
+    "answer": 2,
+    "explain": "行きたいけど introduces a reason for saying no, and 月曜までなんだ gives a deadline: I have to write my report, 書かなくちゃ. 書いちゃった says the report is already finished, so there would be no reason not to go. 書いてた is about the past, not this weekend. 書かなくてもいい says there is no need to write it, which does not fit けど."
+   },
+   {
+    "id": "n3u12d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "「山田さん、最近見ないね。」「先月から",
+    "after": "よ。」",
+    "tiles": [
+     "大阪の",
+     "会社で",
+     "働いてる",
+     "らしい"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "full": "「山田さん、最近見ないね。」「先月から大阪の{会社で}働いてるらしいよ。」",
+    "explain": "大阪の, 会社で, 働いてる, らしい. 大阪の describes 会社, 会社で tells where she works, 働いてる is the casual 働いている, and らしい goes after it: I hear she has been working at a company in Osaka since last month."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "やることリスト",
+  "en": "A to-do list",
+  "intro": "A friend's to-do list for the week is open on her phone. Tap each word on it.",
+  "words": [
+   {
+    "id": "laundry",
+    "word": "洗濯",
+    "reading": "せんたく",
+    "gloss": "laundry, washing clothes",
+    "parts": [
+     [
+      "洗",
+      "セン",
+      "wash"
+     ],
+     [
+      "濯",
+      "タク",
+      "rinse"
+     ]
+    ]
+   },
+   {
+    "id": "cleaning",
+    "word": "掃除",
+    "reading": "そうじ",
+    "gloss": "cleaning",
+    "parts": [
+     [
+      "掃",
+      "ソウ",
+      "sweep"
+     ],
+     [
+      "除",
+      "ジ",
+      "remove"
+     ]
+    ]
+   },
+   {
+    "id": "booking",
+    "word": "予約",
+    "reading": "よやく",
+    "gloss": "booking, reservation",
+    "parts": [
+     [
+      "予",
+      "ヨ",
+      "before"
+     ],
+     [
+      "約",
+      "ヤク",
+      "promise"
+     ]
+    ]
+   },
+   {
+    "id": "dentist",
+    "word": "歯医者",
+    "reading": "はいしゃ",
+    "gloss": "dentist",
+    "parts": [
+     [
+      "歯",
+      "は",
+      "tooth"
+     ],
+     [
+      "医",
+      "イ",
+      "medicine"
+     ],
+     [
+      "者",
+      "シャ",
+      "person"
+     ]
+    ]
+   },
+   {
+    "id": "pay",
+    "word": "支払い",
+    "reading": "しはらい",
+    "gloss": "payment",
+    "parts": [
+     [
+      "支",
+      "シ",
+      "support; pay out"
+     ],
+     [
+      "払",
+      "はら",
+      "pay"
+     ]
+    ]
+   },
+   {
+    "id": "parcel",
+    "word": "荷物",
+    "reading": "にもつ",
+    "gloss": "parcel, luggage",
+    "parts": [
+     [
+      "荷",
+      "に",
+      "load"
+     ],
+     [
+      "物",
+      "モツ",
+      "thing"
+     ]
+    ]
+   },
+   {
+    "id": "delivery",
+    "word": "宅配便",
+    "reading": "たくはいびん",
+    "gloss": "home delivery service",
+    "parts": [
+     [
+      "宅",
+      "タク",
+      "home"
+     ],
+     [
+      "配",
+      "ハイ",
+      "hand out"
+     ],
+     [
+      "便",
+      "ビン",
+      "post, service"
+     ]
+    ]
+   },
+   {
+    "id": "apply",
+    "word": "申し込み",
+    "reading": "もうしこみ",
+    "gloss": "application, sign-up",
+    "parts": [
+     [
+      "申",
+      "もう",
+      "say (humble)"
+     ],
+     [
+      "込",
+      "こ",
+      "put in"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n3u12d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "土曜日までに、歯医者の_予約_をしなきゃ。",
+   "options": [
+    "よやく",
+    "ようやく",
+    "よてい",
+    "よあく"
+   ],
+   "answer": 1,
+   "explain": "予約 is read よやく: 予 is よ and 約 is やく. ようやく has a long よう, よてい is the reading of 予定 (plan), and よあく has the wrong reading for 約."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What does the writer of this message still have to do?",
+  "seconds": 90,
+  "passage": "ミカ、来週の旅行、楽しみだね！準備、進んでる？わたしはまだ全然。今週は仕事が忙しくて、毎日帰りが遅いんだ。でも、^土曜日までに水着を買わなきゃ^。去年のはもう古くなってるから。それから、ホテルの予約のこと、覚えてる？^ミカがしてくれるって言ってたけど^、まだだったら、わたしがやるから言ってね。^電車の切符はもう買ってある^よ。当日は駅の東口で九時に待ってるね。何か持っていったほうがいいものがあったら、教えてね。",
+  "strategy": "Look for なきゃ: it marks what the writer herself has to do, and check what is already done (〜てある) or is someone else's job.",
+  "item": {
+   "id": "n3u12d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "このメッセージを書いた人が、これからしなければならないことは何か。",
+   "options": [
+    "電車の切符を買う。",
+    "ホテルを予約する。",
+    "土曜日までに水着を買う。",
+    "持っていくものをミカに教える。"
+   ],
+   "short": [
+    "切符を買う",
+    "ホテルを予約する",
+    "水着を買う",
+    "持っていくものを教える"
+   ],
+   "answer": 3,
+   "explain": "The writer says 土曜日までに水着を買わなきゃ: she has to buy a swimsuit by Saturday, because last year's is old.",
+   "why": [
+    "The train tickets are already bought (もう買ってある).",
+    "ミカ said she would book the hotel (ミカがしてくれるって言ってた). The writer will do it only if ミカ has not.",
+    "",
+    "The writer asks ミカ to tell her what to bring, not the other way round."
+   ]
+  }
+ }
+}

@@ -1,0 +1,378 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "This unit's look-alikes split like this: こそ picks out the one that matters, さえ an extreme case, and まで one more thing on top; a noun + ばかり is too much of one thing, te-form + ばかりいる is doing one thing over and over, and ばかりでなく, like だけでなく, adds a second thing, usually with も; なんて can follow a whole clause or quoted words to show surprise or make light of them, while など (playing down) mostly sits after a noun; and くらい asks for at least a small thing, でも offers a loose example, and さえ points to an extreme case.",
+   "forms": [
+    {
+     "form": "〜さえ",
+     "tag": "極端な例 · even (the extreme case)",
+     "mark": "dot",
+     "ja": "この[道|みち]は暗くて、昼で{さえ}少し[怖|こわ]いです。",
+     "en": "This road is so dark that it is a little scary even in the daytime."
+    },
+    {
+     "form": "〜まで",
+     "tag": "そのうえ · even this, on top",
+     "mark": "up",
+     "ja": "[宿題|しゅくだい]を[忘|わす]れて、[教科書|きょうかしょ]{まで}家に[置|お]いてきてしまいました。",
+     "en": "I forgot my homework, and even left my textbook at home."
+    },
+    {
+     "form": "〜くらい",
+     "tag": "せめて · at least (a small thing)",
+     "mark": "down",
+     "ja": "[忙|いそが]しくても、[返事|へんじ]{くらい}できるでしょう。",
+     "en": "Even if you are busy, you can at least reply."
+    }
+   ],
+   "check": {
+    "id": "n3u10d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Just one small thing",
+    "q": "^ほかのことはしなくていいから^、花に水（　　）やっておいてね。",
+    "options": [
+     "まで",
+     "くらい",
+     "さえ"
+    ],
+    "answer": 2,
+    "why": [
+     "まで adds one more thing on top of others. ほかのことはしなくていい says there is nothing else to add to.",
+     "Nothing else is needed, so ask for just this one small thing: 水くらい.",
+     "さえ points to an extreme case. To mean \"just this\", it needs a condition with ば, as in 水さえやってくれればいい."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u10d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "林さんは^[会議|かいぎ]の間ずっと^[窓|まど]の外を（　　）、話を聞いていませんでした。",
+    "options": [
+     "見たばかりで",
+     "見るばかりでなく",
+     "見てばかりいて",
+     "見るなんて"
+    ],
+    "answer": 3,
+    "why": [
+     "The ta-form + ばかり means \"have just done\". It clashes with [会議|かいぎ]の間ずっと, the whole meeting.",
+     "ばかりでなく adds a second fact of the same kind, usually with も. Here not listening is what came of looking outside, and there is no も.",
+     "The te-form + ばかりいる: one thing the whole time, and a complaint follows.",
+     "なんて would show surprise at looking outside, but no reaction follows. The sentence goes straight on to what he did not do."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "十年も[続|つづ]いたあの[番組|ばんぐみ]が終わる（　　）、^ちょっとさびしいですね^。",
+    "options": [
+     "なんて",
+     "など",
+     "ばかり",
+     "さえ"
+    ],
+    "answer": 1,
+    "why": [
+     "なんて follows a whole clause in the plain form and shows a feeling about it, here a little sadness.",
+     "In everyday speech, など does not follow a whole clause like this to show a feeling. Playing-down など sits after a noun, as in わたしなど.",
+     "ばかり does not introduce a reaction to news. 終わるばかり cannot be followed by ちょっとさびしいですね.",
+     "さえ marks an extreme example. It does not follow the dictionary form of a verb like 終わる."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[面接|めんせつ]できんちょうして、^[簡単|かんたん]な[質問|しつもん]^（　　）答えられませんでした。",
+    "options": [
+     "にくらい",
+     "にでも",
+     "にこそ",
+     "にさえ"
+    ],
+    "answer": 4,
+    "why": [
+     "くらい plays a thing down in a request or a complaint, as in これくらいできるでしょう. It does not report what you were unable to do.",
+     "でも would offer a loose example, \"an easy question or something\", which makes no sense with 答えられませんでした.",
+     "こそ picks out the one that matters most. Easy questions are not the point here; they are the extreme case.",
+     "Even the easy questions, the extreme case, were too much. に stays in front of さえ."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[祭|まつ]りはにぎやか（　　）、^食べ物も^おいしいです。",
+    "options": [
+     "ばかりで",
+     "なばかりでなく",
+     "でばかりいて",
+     "こそ"
+    ],
+    "answer": 2,
+    "why": [
+     "A な-adjective needs な before ばかり. Even にぎやかなばかりで would mean \"only lively\", which clashes with the good food added with も.",
+     "Not only lively, the food is good too: keep な before ばかりでなく, and the second point takes も.",
+     "ばかりいる follows the te-form of a verb, for an action done again and again. にぎやか is a state, not an action.",
+     "こそ follows a noun and picks out the one that matters. It cannot follow にぎやか, and this sentence adds a second good point with も."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u10d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "兄は試験の前の日なのに、",
+    "after": "さえ開いていません。",
+    "tiles": [
+     "ギターを",
+     "ひいて",
+     "ばかりいて",
+     "[教科書|きょうかしょ]"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "ばかりいて follows a te-form. What does he do all the time, and what has he not even opened?",
+    "full": "兄は試験の前の日なのに、ギターをひいて{ばかりいて}[教科書|きょうかしょ]さえ開いていません。",
+    "explain": "ギターを, ひいて, ばかりいて, [教科書|きょうかしょ]. ギターをひいてばかりいて says he does nothing but play the guitar. [教科書|きょうかしょ] goes right before さえ: he has not even opened his textbook, the extreme case."
+   },
+   {
+    "id": "n3u10d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この作家の本は、日本の",
+    "after": "読まれています。",
+    "tiles": [
+     "読者",
+     "ばかりでなく",
+     "海外の人",
+     "にまで"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "ばかりでなく follows the first group of readers. Which group is the surprising extra?",
+    "full": "この作家の本は、日本の読者{ばかりでなく}海外の人にまで読まれています。",
+    "explain": "読者, ばかりでなく, 海外の人, にまで. 日本の読者ばかりでなく is the first group; 海外の人にまで adds a surprising second one. に marks who reads the books (読まれています) and stays in front of まで."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u10d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "駅前にできた新しいビルは、まだ空いている部屋（　　）だそうだ。",
+    "options": [
+     "さえ",
+     "ばかりでなく",
+     "こそ",
+     "ばかり"
+    ],
+    "answer": 4,
+    "explain": "Noun + ばかり: almost all the rooms are still empty. ばかりでなく needs a second thing after it, not だ. こそ picks out one thing as the one that matters, and さえ marks an extreme case; neither makes sense right before だ here."
+   },
+   {
+    "id": "n3u10d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "疲れた（　　）言っていないで、早く手伝って。",
+    "options": [
+     "など",
+     "なんて",
+     "こそ",
+     "さえ"
+    ],
+    "answer": 2,
+    "explain": "なんて can follow quoted words like 疲れた and makes light of them: stop saying things like that. など would need と here (疲れたなどと). こそ and さえ cannot follow quoted words like this."
+   },
+   {
+    "id": "n3u10d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あきらめずに",
+    "after": "最後に夢をかなえられるのだと思う。",
+    "tiles": [
+     "勉強を",
+     "続けた",
+     "人",
+     "こそ"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "あきらめずに勉強を{続けた}人こそ最後に夢をかなえられるのだと思う。",
+    "explain": "勉強を, 続けた, 人, こそ. 勉強を続けた describes 人, and こそ follows 人 to say these are the people who, above all, reach their dream."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "病院のロビーで",
+  "en": "The patient guide board at a hospital",
+  "intro": "Tap each word on the board that a patient needs on the way to see the doctor and back.",
+  "words": [
+   {
+    "id": "insurance",
+    "word": "保険証",
+    "reading": "ほけんしょう",
+    "gloss": "health insurance card",
+    "parts": [
+     ["保", "ホ", "keep, protect"],
+     ["険", "ケン", "risk"],
+     ["証", "ショウ", "proof"]
+    ]
+   },
+   {
+    "id": "internal",
+    "word": "内科",
+    "reading": "ないか",
+    "gloss": "internal medicine",
+    "parts": [
+     ["内", "ナイ", "inside"],
+     ["科", "カ", "department"]
+    ]
+   },
+   {
+    "id": "fever",
+    "word": "発熱",
+    "reading": "はつねつ",
+    "gloss": "having a fever",
+    "parts": [
+     ["発", "ハツ", "give off"],
+     ["熱", "ネツ", "heat, fever"]
+    ]
+   },
+   {
+    "id": "temp",
+    "word": "体温",
+    "reading": "たいおん",
+    "gloss": "body temperature",
+    "parts": [
+     ["体", "タイ", "body"],
+     ["温", "オン", "warm"]
+    ]
+   },
+   {
+    "id": "counter",
+    "word": "窓口",
+    "reading": "まどぐち",
+    "gloss": "service counter",
+    "parts": [
+     ["窓", "まど", "window"],
+     ["口", "ぐち", "opening"]
+    ]
+   },
+   {
+    "id": "pay",
+    "word": "支払い",
+    "reading": "しはらい",
+    "gloss": "payment",
+    "parts": [
+     ["支", "シ", "pay out"],
+     ["払", "はら", "pay"]
+    ]
+   },
+   {
+    "id": "pharmacy",
+    "word": "薬局",
+    "reading": "やっきょく",
+    "gloss": "pharmacy",
+    "parts": [
+     ["薬", "ヤッ", "medicine"],
+     ["局", "キョク", "office"]
+    ]
+   },
+   {
+    "id": "visit",
+    "word": "面会",
+    "reading": "めんかい",
+    "gloss": "visiting a patient",
+    "parts": [
+     ["面", "メン", "face"],
+     ["会", "カイ", "meet"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n3u10d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "初めての方は、_保険証_を受付に出してください。",
+   "options": [
+    "ほうけんしょう",
+    "ほけんしょう",
+    "ほげんしょう",
+    "ほけんしょ"
+   ],
+   "answer": 2,
+   "explain": "保険証 is ほけんしょう: 保 ホ, short (not ほう), 険 ケン, not voiced (not げん), and 証 ショウ, long (not しょ)."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which rules on the notice apply to Tamura's visit, and what does Tamura have to do?",
+  "seconds": 90,
+  "passage": "みなみ病院　面会のご案内\n①面会時間は、平日は午後2時から午後8時まで、^土曜・日曜・祝日は午前11時から午後8時まで^です。\n②面会の方は、^まず1階の面会窓口で^名前と病室の番号を書いて、^面会カードを受け取ってください^。\n③一度に面会できるのは、3人までです。\n④^小学生以下のお子さんは、病室に入れません^。^3階のラウンジで会ってください^。\n⑤^病院の中に花を持ちこむことはできません^。\n⑥熱やせきがある方は、面会をお休みください。",
+  "strategy": "Find the day and time of the visit first, then check who is coming and what Tamura wants to bring.",
+  "item": {
+   "id": "n3u10d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "田村さんは、11月8日（日）の午後1時に、5歳の娘といっしょに、入院している母に会いに行きます。母のために花を買っていくつもりです。田村さんはどうすればいいですか。",
+   "options": [
+    "面会カードを受け取って、娘と病室で母に会う。花は持っていかない。",
+    "面会カードを受け取って、花を持って、娘と3階のラウンジで母に会う。",
+    "花は買わずに行き、面会カードを受け取って、娘と3階のラウンジで母に会う。",
+    "午後1時は面会時間ではないので、別の日に娘と行く。"
+   ],
+   "short": [
+    "病室で会う",
+    "花を持ってラウンジで",
+    "花なしでラウンジで",
+    "別の日に行く"
+   ],
+   "answer": 3,
+   "explain": "Rule ① puts Sunday visits from 11:00, so 1 p.m. is fine. Rule ② says to get a visitor card first, rule ④ sends a five-year-old to the 3rd-floor lounge, and rule ⑤ bans flowers anywhere in the hospital.",
+   "why": [
+    "Tamura's daughter is five, so she cannot go into the ward room (rule ④).",
+    "No flowers may be brought into the hospital at all, the lounge included (rule ⑤).",
+    "",
+    "11月8日 is a Sunday, and on Sundays visits start at 11:00, so 1 p.m. is within the hours (rule ①)."
+   ]
+  }
+ }
+}

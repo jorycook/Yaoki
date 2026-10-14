@@ -1,0 +1,444 @@
+{
+  "title": "〜ても〜ても・たとえ〜ても",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u09d2.p1",
+        "form": "〜ても〜ても",
+        "gloss": "no matter how much; whether … or …",
+        "connect": [
+          {
+            "pos": "Verb, te-form, said twice",
+            "rule": "やっ{ても}やっ{ても}"
+          },
+          {
+            "pos": "Two opposite verbs or adjectives",
+            "rule": "[押|お]し{ても}引い{ても}、暑く{ても}寒く{ても}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "この仕事は、やっ{ても}やっ{ても}終わりません。",
+            "en": "However much I do, this work never ends."
+          },
+          {
+            "ja": "[窓|まど]が古くて、[押|お]し{ても}引い{ても}動きません。",
+            "en": "The window is old, and it will not move, whether I push or pull."
+          }
+        ],
+        "watch": {
+          "note": "Both verbs take ても. If the first verb is only in the te-form, the pattern breaks.",
+          "bad": "電話をかけてかけても、だれも出ません。",
+          "good": "電話をかけてもかけても、だれも出ません。"
+        }
+      },
+      {
+        "id": "n3u09d2.p2",
+        "form": "たとえ〜ても・たとえ〜でも",
+        "gloss": "even if (a strong supposition)",
+        "connect": [
+          {
+            "pos": "Verb, te-form",
+            "rule": "たとえ[失敗|しっぱい]し{ても}"
+          },
+          {
+            "pos": "い-adjective, く form",
+            "rule": "たとえ高く{ても}"
+          },
+          {
+            "pos": "Noun or な-adjective",
+            "rule": "たとえプロ{でも}、たとえ[静|しず]か{でも}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "たとえ[値段|ねだん]が高く{ても}、体にいい物を買いたいです。",
+            "en": "Even if the price is high, I want to buy things that are good for my body."
+          },
+          {
+            "ja": "たとえプロ{でも}、この[曲|きょく]をひくのは[難|むずか]しいです。",
+            "en": "Even for a professional, this piece is hard to play."
+          }
+        ],
+        "watch": {
+          "note": "たとえ goes with ても or でも. It does not go with たら or ば.",
+          "bad": "たとえ遠かったら、あの店にはまた行きたいです。",
+          "good": "たとえ遠くても、あの店にはまた行きたいです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "ても〜ても says that trying again and again does not change the result, たとえ〜ても imagines a case that may not happen, and のに is about something that really happened.",
+      "forms": [
+        {
+          "form": "〜ても〜ても",
+          "tag": "何度しても · no matter how often",
+          "mark": "dot",
+          "ja": "[探|さが]し{ても}[探|さが]し{ても}、かぎが見つかりません。",
+          "en": "I have searched and searched, but I cannot find my key."
+        },
+        {
+          "form": "たとえ〜ても",
+          "tag": "もし〜ても · even if",
+          "mark": "dot",
+          "ja": "たとえ[親|おや]に[反対|はんたい]され{ても}、[留学|りゅうがく]したいです。",
+          "en": "Even if my parents are against it, I want to study abroad."
+        },
+        {
+          "form": "〜のに",
+          "tag": "本当なのに · even though (a fact)",
+          "mark": "down",
+          "ja": "[約束|やくそく]した{のに}、[彼|かれ]は来ませんでした。",
+          "en": "He did not come, even though he had promised."
+        }
+      ],
+      "check": {
+        "id": "n3u09d2.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Supposition or fact?",
+        "q": "たとえ（　　）、私はこの仕事が好きです。",
+        "options": [
+          "[給料|きゅうりょう]が安いのに",
+          "[給料|きゅうりょう]が安くても",
+          "働いても働いても"
+        ],
+        "answer": 2,
+        "why": [
+          "のに is for a fact, and it does not go with たとえ, which imagines a case.",
+          "たとえ + ても: even if the pay is low, I like this job.",
+          "たとえ needs one supposition ending in ても. ても〜ても, a repeated action, does not follow it."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u09d2.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "年を[取|と]ったせいか、新しい人の名前は（　　）、^すぐ[忘|わす]れてしまいます^。",
+        "options": [
+          "[覚|おぼ]えて[覚|おぼ]えても",
+          "[覚|おぼ]えても[覚|おぼ]えて",
+          "[覚|おぼ]えても[覚|おぼ]えても",
+          "[覚|おぼ]えるも[覚|おぼ]えるも"
+        ],
+        "answer": 3,
+        "why": [
+          "Both verbs need ても. 覚えて覚えても drops the first も.",
+          "Both verbs need ても. 覚えても覚えて drops the second も.",
+          "覚えても覚えても: however often I learn new names, I soon forget them.",
+          "The dictionary form + も is not this pattern. It is the te-form + も, twice."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u09d2.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the second half",
+        "q": "山道を^[登|のぼ]っても[登|のぼ]っても^、（　　）。",
+        "options": [
+          "すぐに[頂上|ちょうじょう]に着きました",
+          "少し休みましょう",
+          "もっと[速|はや]く歩きたいです",
+          "[頂上|ちょうじょう]が見えてきません"
+        ],
+        "answer": 4,
+        "why": [
+          "ても〜ても needs a result that does not come. Reaching the top quickly is the opposite.",
+          "The first half says I kept climbing with no result. An invitation to rest does not follow from that.",
+          "Wanting to walk faster is not a result of climbing and climbing.",
+          "However much I climb, I cannot see the top: the result does not come."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u09d2.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^たとえ^時間が（　　）、[最後|さいご]まで自分の力でやってみます。",
+        "options": [
+          "かかっても",
+          "かかったら",
+          "かかれば",
+          "かかるので"
+        ],
+        "answer": 1,
+        "why": [
+          "たとえ + ても: even if it takes time, I will try to do it myself to the end.",
+          "たとえ goes with ても, not with たら.",
+          "たとえ goes with ても, not with ば.",
+          "ので gives a reason, and it does not go with たとえ."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u09d2.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "たとえ^不便^（　　）、私は車を持たない[生活|せいかつ]を[続|つづ]けます。",
+        "options": [
+          "ても",
+          "でも",
+          "だと",
+          "なのに"
+        ],
+        "answer": 2,
+        "why": [
+          "不便 is a な-adjective, so it takes でも, not ても.",
+          "な-adjective + でも: even if it is inconvenient, I will go on living without a car.",
+          "だと gives a condition. After たとえ, 不便 needs でも.",
+          "のに is for a fact, and it does not go with たとえ."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u09d2.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このシャツの",
+        "after": "出すことにしました。",
+        "tiles": [
+          "しみは",
+          "洗っても洗っても",
+          "[落|お]ちないので",
+          "クリーニングに"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "このシャツの needs a noun after it. ので gives the reason for the decision.",
+        "full": "このシャツのしみは{洗っても洗っても}[落|お]ちないのでクリーニングに出すことにしました。",
+        "explain": "このシャツの needs a noun, so しみは comes first. 洗っても洗っても goes right before 落ちないので: the stain does not come out however much I wash it. That is the reason, and クリーニングに goes with 出す at the end."
+      },
+      {
+        "id": "n3u09d2.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "ずっと[準備|じゅんび]してきたので、",
+        "after": "[試験|しけん]は[受|う]けるつもりです。",
+        "tiles": [
+          "たとえ",
+          "[熱|ねつ]が",
+          "あっても",
+          "明日の"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "たとえ starts the supposition and ても ends it. What does 明日の describe?",
+        "full": "ずっと[準備|じゅんび]してきたので、たとえ[熱|ねつ]が{あっても}明日の[試験|しけん]は[受|う]けるつもりです。",
+        "explain": "たとえ comes first, then 熱があっても: even if I have a fever. 明日の describes 試験, so it comes right before it: I have prepared for a long time, so I will take tomorrow's exam even with a fever."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u09d2.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この店のスープは、温かくても（　　）おいしい。",
+        "options": [
+          "冷たいと",
+          "冷たくても",
+          "冷たければ",
+          "冷たくて"
+        ],
+        "answer": 2,
+        "explain": "Two opposite words with ても〜ても: whether it is hot or cold, the soup tastes good. 冷たくて only joins two clauses and leaves 温かくても hanging. 冷たければ and 冷たいと are conditions: the soup would be good only when cold, which clashes with 温かくても."
+      },
+      {
+        "id": "n3u09d2.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "たとえ相手が（　　）、まちがっていることはまちがっていると言うべきだ。",
+        "options": [
+          "社長なので",
+          "社長なら",
+          "社長だったら",
+          "社長でも"
+        ],
+        "answer": 4,
+        "explain": "Noun + でも goes with たとえ: even if the other person is the company president, you should say that what is wrong is wrong. なので gives a reason, and なら and だったら give conditions. None of them goes with たとえ."
+      },
+      {
+        "id": "n3u09d2.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "仕事で分からないことがあったら、",
+        "after": "ください。",
+        "tiles": [
+          "たとえ",
+          "小さな",
+          "ことでも",
+          "聞いて"
+        ],
+        "star": 2,
+        "bank": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "full": "仕事で分からないことがあったら、たとえ小さな{ことでも}聞いてください。",
+        "explain": "たとえ, 小さな, ことでも, 聞いて. たとえ starts the supposition, 小さな describes こと, and ことでも ends it. 聞いて comes right before ください: if there is something at work you do not understand, ask, even if it is a small thing."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "野外コンサートのお知らせ",
+    "en": "An open-air concert notice",
+    "intro": "A poster for a concert in the park is up at the station. Tap each word on it.",
+    "words": [
+      {
+        "id": "open-air",
+        "word": "野外",
+        "reading": "やがい",
+        "gloss": "open-air, outdoors",
+        "parts": [
+          ["野", "ヤ", "field"],
+          ["外", "ガイ", "outside"]
+        ]
+      },
+      {
+        "id": "start",
+        "word": "開演",
+        "reading": "かいえん",
+        "gloss": "start of the show",
+        "parts": [
+          ["開", "カイ", "open"],
+          ["演", "エン", "perform"]
+        ]
+      },
+      {
+        "id": "rain-or-shine",
+        "word": "雨天決行",
+        "reading": "うてんけっこう",
+        "gloss": "held even if it rains",
+        "parts": [
+          ["雨", "ウ", "rain"],
+          ["天", "テン", "sky, weather"],
+          ["決", "ケッ", "decide"],
+          ["行", "コウ", "carry out"]
+        ]
+      },
+      {
+        "id": "cancel",
+        "word": "中止",
+        "reading": "ちゅうし",
+        "gloss": "called off",
+        "parts": [
+          ["中", "チュウ", "middle"],
+          ["止", "シ", "stop"]
+        ]
+      },
+      {
+        "id": "rain-gear",
+        "word": "雨具",
+        "reading": "あまぐ",
+        "gloss": "rain gear (raincoat, umbrella)",
+        "parts": [
+          ["雨", "あま", "rain"],
+          ["具", "グ", "tool: 道具"]
+        ]
+      },
+      {
+        "id": "bring",
+        "word": "持参",
+        "reading": "じさん",
+        "gloss": "bringing it yourself",
+        "parts": [
+          ["持", "ジ", "hold, have"],
+          ["参", "サン", "go, come"]
+        ]
+      },
+      {
+        "id": "seat",
+        "word": "座席",
+        "reading": "ざせき",
+        "gloss": "seat",
+        "parts": [
+          ["座", "ザ", "sit"],
+          ["席", "セキ", "seat"]
+        ]
+      },
+      {
+        "id": "refund",
+        "word": "払い戻し",
+        "reading": "はらいもどし",
+        "gloss": "refund",
+        "parts": [
+          ["払", "はら", "pay"],
+          ["戻", "もど", "return"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u09d2.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "雨の日は、_雨具_を忘れないでください。",
+      "options": [
+        "あめぐ",
+        "あまぐ",
+        "うぐ",
+        "あまく"
+      ],
+      "answer": 2,
+      "explain": "雨具 is read あまぐ: 雨 becomes あま before another word, as in 雨戸, and 具 is ぐ. あめぐ keeps the reading of 雨 on its own, うぐ uses the on reading of 雨, and あまく has く instead of ぐ."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（短文）",
+    "en": "Short passage",
+    "ask": "Which statement matches the notice?",
+    "seconds": 90,
+    "passage": "みどり町の皆さんへ。十月二十五日（日）午前九時から、みどり公園で町の運動会を行います。この運動会は^雨天決行^です。たとえ雨が降っても、プログラムは予定どおり行います。ただし、^台風が近づいている場合や、かみなりが鳴っている場合は中止します^。中止のときは、当日の朝七時までに町のホームページでお知らせします。^電話でのお問い合わせにはお答えできません^ので、ご注意ください。また、^会場ではかさは使えません^。雨の日は、雨がっぱを持ってきてください。",
+    "strategy": "Find the exception after ただし, then check each option against the rules for rainy days.",
+    "item": {
+      "id": "n3u09d2.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "q": "この運動会について、お知らせの内容と合っているものはどれか。",
+      "options": [
+        "雨が降ったら、運動会は次の日曜日に行う。",
+        "中止かどうかは、当日の朝、電話で聞けばわかる。",
+        "かみなりが鳴っているときは、運動会は行わない。",
+        "雨の日は、かさを持って会場へ行けばいい。"
+      ],
+      "short": [
+        "雨なら次の日曜日",
+        "電話で聞けばわかる",
+        "かみなりなら行わない",
+        "かさを持って行く"
+      ],
+      "answer": 3,
+      "explain": "The exception comes after ただし: if a typhoon is coming or there is thunder, the sports day is called off (中止します).",
+      "why": [
+        "雨天決行 means it goes ahead in the rain. No other day is given.",
+        "Questions by phone cannot be answered. The news is on the town's website.",
+        "",
+        "Umbrellas cannot be used at the venue. People should bring a raincoat instead."
+      ]
+    }
+  }
+}

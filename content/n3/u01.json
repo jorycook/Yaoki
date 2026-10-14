@@ -106,7 +106,8 @@
               "ごとに joins a noun directly, with no の: 食事ごとに.",
               "An event as noun + の + たびに: every time he eats, he takes this medicine.",
               "おきに also joins a noun directly, usually a number, as in 一日おきに."
-            ]
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -117,18 +118,19 @@
             "label": "Choose the form",
             "q": "この写真を^見る^（　　）、国の家族を思い出します。",
             "options": [
+              "あとで",
               "までに",
               "ように",
-              "たびに",
-              "あとで"
+              "たびに"
             ],
-            "answer": 3,
+            "answer": 4,
             "why": [
+              "あとで follows the た form (見たあとで), not the dictionary form.",
               "までに sets a deadline. Remembering your family is not something done by a deadline.",
               "ように gives a goal or a way of doing something. Looking at a photo is neither here.",
-              "Dictionary form + たびに: each time I look at this photo, the same thing happens.",
-              "あとで follows the た form (見たあとで), not the dictionary form."
-            ]
+              "Dictionary form + たびに: each time I look at this photo, the same thing happens."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d1.d2",
@@ -137,18 +139,19 @@
             "label": "Choose the form",
             "q": "引っ[越|こ]しをする（　　）、^いつも^物の多さにおどろきます。",
             "options": [
+              "ように",
               "たびに",
               "ために",
-              "までに",
-              "ように"
+              "までに"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "ように gives a goal or a way of doing something. Being surprised is neither.",
               "Every time I move house, I am surprised by how much stuff I have. いつも shows it happens each time.",
               "ために with the dictionary form gives a purpose. Moving house is not done in order to be surprised.",
-              "までに sets a deadline, which does not fit a feeling.",
-              "ように gives a goal or a way of doing something. Being surprised is neither."
-            ]
+              "までに sets a deadline, which does not fit a feeling."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d1.d3",
@@ -157,18 +160,19 @@
             "label": "Choose the form",
             "q": "駅前から[空港|くうこう]まで、バスが^十五分^（　　）出ています。",
             "options": [
+              "ごとに",
               "あいだに",
               "たびに",
-              "のに",
-              "ごとに"
+              "のに"
             ],
-            "answer": 4,
+            "answer": 1,
             "why": [
+              "A length of time + ごとに: a bus leaves every fifteen minutes.",
               "あいだに needs の after a noun (十五分のあいだに), and it means within one stretch of time, not over and over.",
               "たびに follows an event. 十五分 is a length of time, not an event.",
-              "のに joins two clauses with a contrast. 十五分 is a noun, and there is no contrast here.",
-              "A length of time + ごとに: a bus leaves every fifteen minutes."
-            ]
+              "のに joins two clauses with a contrast. 十五分 is a noun, and there is no contrast here."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d1.d4",
@@ -177,42 +181,43 @@
             "label": "Choose the form",
             "q": "このホテルは、^[部屋|へや]^（　　）かべの色が[違|ちが]います。",
             "options": [
-              "たびに",
               "ごとに",
               "までに",
-              "ばかりに"
+              "ばかりに",
+              "たびに"
             ],
-            "answer": 2,
+            "answer": 1,
             "why": [
-              "たびに follows an event, as in とまるたびに. A room is not an event.",
               "Noun + ごとに: each room has a different wall colour.",
               "までに sets a deadline, and a room is not a time.",
-              "ばかりに gives a cause with a bad result, and it does not join a bare noun."
-            ]
+              "ばかりに gives a cause with a bad result, and it does not join a bare noun.",
+              "たびに follows an event, as in とまるたびに. A room is not an event."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d1.d5",
             "kind": "star",
             "type": "文の文法2",
             "label": "Build the sentence",
-            "before": "この歌を",
-            "after": "思い出します。",
+            "before": "この道は",
+            "after": "たまって、歩きにくくなります。",
             "tiles": [
-              "聞く",
+              "雨が",
+              "[降|ふ]る",
               "たびに",
-              "楽しかった",
-              "ころを"
+              "水が"
             ],
-            "star": 2,
+            "star": 1,
             "bank": [
-              2,
               3,
+              2,
               0,
               1
             ],
-            "hint": "この歌を needs a verb right after it. たびに follows the dictionary form.",
-            "full": "この歌を聞く{たびに}楽しかったころを思い出します。",
-            "explain": "この歌を goes with 聞く, and たびに follows the dictionary form. 楽しかった describes ころ, and ころを is what I remember: every time I hear this song, I remember happy times."
+            "hint": "たびに follows the dictionary form. What happens to the road each time?",
+            "full": "この道は雨が[降|ふ]る{たびに}水がたまって、歩きにくくなります。",
+            "explain": "雨が goes with [降|ふ]る, and たびに follows the dictionary form [降|ふ]る. 水が goes with たまって: every time it rains, water collects on this road and it is hard to walk on."
           },
           {
             "id": "n3u01d1.d6",
@@ -262,12 +267,12 @@
             "label": "Choose the form",
             "q": "この英語教室では、一か月（　　）席が変わります。",
             "options": [
-              "たびに",
-              "ために",
               "までに",
-              "ごとに"
+              "ごとに",
+              "たびに",
+              "ために"
             ],
-            "answer": 4,
+            "answer": 2,
             "explain": "A length of time + ごとに: the seats change every month. たびに follows an event, not a length of time. ために gives a purpose or a cause, and までに sets a deadline; neither fits a change that repeats."
           },
           {
@@ -452,12 +457,12 @@
           "label": "How the exam asks it",
           "q": "この薬を飲むと、_眠気_が出ることがあります。",
           "options": [
+            "みんけ",
             "みんき",
             "ねむけ",
-            "ねむき",
-            "みんけ"
+            "ねむき"
           ],
-          "answer": 2,
+          "answer": 3,
           "explain": "眠気 is read ねむけ, drowsiness: 眠 has its kun reading ねむ (as in 眠い), and 気 becomes け, as in 寒気. みんき and みんけ use the on reading ミン, and ねむき keeps き."
         }
       },
@@ -684,7 +689,8 @@
               "一日ごとに means every day, and 毎日ではなく rules that out.",
               "ぶりに is for one event after a gap. Here jogging is a habit (しています).",
               "Not every day but every other day: 一日おきに."
-            ]
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -706,7 +712,8 @@
               "Distance + おきに: there is a bench every fifty metres.",
               "たびに follows a verb or a noun with の (行くたびに), not a distance.",
               "までに gives a deadline. 五十メートルまでに does not make sense here."
-            ]
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d2.d2",
@@ -715,38 +722,40 @@
             "label": "Choose the form",
             "q": "^先週^、五年（　　）テニスをしました。",
             "options": [
-              "おきに",
               "ごとに",
               "間",
-              "ぶりに"
+              "ぶりに",
+              "おきに"
             ],
-            "answer": 4,
+            "answer": 3,
             "why": [
-              "おきに is for something that repeats, but 先週 points to one game.",
               "ごとに is also for something that repeats (every five years), not one game last week.",
               "五年間テニスをしました says you played for five years, which does not fit 先週.",
-              "One game last week, after five years without tennis: 五年ぶりに."
-            ]
+              "One game last week, after five years without tennis: 五年ぶりに.",
+              "おきに is for something that repeats, but 先週 points to one game."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d2.d3",
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "この薬は強いので、一日（　　）、^二日に一回^だけ飲んでください。",
+            "q": "この花は水が少なくてもいいので、^一週間^（　　）水をやれば十分です。",
             "options": [
+              "までに",
               "おきに",
-              "ごとに",
-              "ぶりに",
-              "までに"
+              "たびに",
+              "ぶりに"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
-              "一日おきに skips a day: once every two days, as 二日に一回 says.",
-              "一日ごとに means every day, which is not 二日に一回.",
-              "ぶりに is for one event after a gap, not a rule for taking medicine.",
-              "一日までに would be a deadline, which does not fit 二日に一回."
-            ]
+              "一週間までに would be a deadline, which does not fit a watering habit.",
+              "Length of time + おきに: watering at intervals of a week is enough for this flower.",
+              "たびに follows a verb or a noun with の (行くたびに), not a length of time.",
+              "ぶりに is for one event after a gap, not a rule for looking after a plant."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d2.d4",
@@ -755,18 +764,19 @@
             "label": "Choose the form",
             "q": "三年（　　）^ふるさと^は、ずいぶん[変|か]わっていました。",
             "options": [
+              "ごとの",
               "ぶりに",
               "おきの",
-              "ぶりの",
-              "ごとの"
+              "ぶりの"
             ],
-            "answer": 3,
+            "answer": 4,
             "why": [
+              "ごとの is for things that repeat. The hometown does not.",
               "ぶりに goes before a verb (三年ぶりに帰った). Here a noun, ふるさと, follows.",
               "おきの is for things that come at intervals. The hometown does not.",
-              "Before a noun, ぶりの: my hometown, seen again after three years, had changed a lot.",
-              "ごとの is for things that repeat. The hometown does not."
-            ]
+              "Before a noun, ぶりの: my hometown, seen again after three years, had changed a lot."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d2.d5",
@@ -776,9 +786,9 @@
             "before": "医者に、",
             "after": "言われました。",
             "tiles": [
-              "一日",
+              "三十分",
               "おきに",
-              "運動する",
+              "目を休める",
               "ように"
             ],
             "star": 2,
@@ -789,8 +799,8 @@
               1
             ],
             "hint": "おきに follows a number + counter. ように follows a verb in the dictionary form.",
-            "full": "医者に、一日{おきに}運動するように言われました。",
-            "explain": "一日おきに is one unit, and it tells when to exercise, so it comes before 運動する. ように follows the verb and comes right before 言われました: the doctor told me to exercise every other day."
+            "full": "医者に、三十分{おきに}目を休めるように言われました。",
+            "explain": "三十分おきに is one unit, and it tells when to rest the eyes, so it comes before 目を休める. ように follows the verb and comes right before 言われました: the doctor told me to rest my eyes every thirty minutes."
           },
           {
             "id": "n3u01d2.d6",
@@ -823,15 +833,15 @@
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "この通りには、百メートル（　　）コンビニがあります。",
+            "q": "この時計は、一時間（　　）音が鳴ります。",
             "options": [
               "おきに",
-              "ぶりに",
               "たびに",
-              "あとに"
+              "ぶりに",
+              "までに"
             ],
             "answer": 1,
-            "explain": "Distance + おきに: there is a convenience store every hundred metres. ぶりに needs a length of time and one event after a gap, たびに follows a verb or a noun with の, and あとに does not follow a distance."
+            "explain": "Length of time + おきに: the clock makes a sound every hour, again and again. ぶりに is for one event after a gap, not something that repeats (鳴ります). 一時間までに would be a deadline. たびに follows a verb or a noun with の, not a length of time."
           },
           {
             "id": "n3u01d2.e2",
@@ -840,12 +850,12 @@
             "label": "Choose the form",
             "q": "大学を出てから一度も便りがなかった友人から、二十年（　　）手紙がとどきました。",
             "options": [
-              "おきの",
               "ごとの",
               "までの",
-              "ぶりの"
+              "ぶりの",
+              "おきの"
             ],
-            "answer": 4,
+            "answer": 3,
             "explain": "The friend sent nothing for twenty years, so this letter is one event after a long gap, and 手紙 is a noun: ぶりの. おきの and ごとの would mean letters came again and again, which 一度も rules out. 二十年までの手紙 does not make sense."
           },
           {
@@ -1045,12 +1055,12 @@
           "label": "How the exam asks it",
           "q": "同窓会の_出欠_は、はがきで知らせてください。",
           "options": [
-            "しゅつけつ",
-            "しゅっきつ",
             "しゅっけつ",
-            "でけつ"
+            "でけつ",
+            "しゅつけつ",
+            "しゅっきつ"
           ],
-          "answer": 3,
+          "answer": 1,
           "explain": "出欠 is read しゅっけつ: 出 becomes しゅっ before け, and 欠 is けつ. しゅつけつ has no small っ, しゅっきつ has き instead of け, and でけつ uses the wrong reading of 出."
         }
       },
@@ -1068,24 +1078,24 @@
           "type": "読解・内容理解（短文）",
           "q": "このメールを読んだ人がしなければならないことは何か。",
           "options": [
-            "十月三十一日までに、会費を払う。",
             "来られるかどうかを、十月三十一日までにメールで知らせる。",
             "一年おきに集まれるかどうか、返事をする。",
-            "来られない場合は、田中先生にそのことを伝える。"
+            "来られない場合は、田中先生にそのことを伝える。",
+            "十月三十一日までに、会費を払う。"
           ],
           "short": [
-            "会費を払う",
             "出欠をメールで知らせる",
             "一年おきに集まれるか返事する",
-            "田中先生に伝える"
+            "田中先生に伝える",
+            "会費を払う"
           ],
-          "answer": 2,
+          "answer": 1,
           "explain": "The request is 出欠は、十月三十一日までに、このメールに返信して知らせてください: everyone replies by email, by 31 October, to say whether they can come.",
           "why": [
-            "The fee is paid on the day, at the reception desk (当日、受付で).",
             "",
             "Meeting every other year is only Yamada's hope (集まれたらいいな). Nobody is asked to answer it.",
-            "Teacher Tanaka is coming, but people who cannot come reply to this email, not to him."
+            "Teacher Tanaka is coming, but people who cannot come reply to this email, not to him.",
+            "The fee is paid on the day, at the reception desk (当日、受付で)."
           ]
         }
       }
@@ -1211,18 +1221,19 @@
             "label": "Choose the form",
             "q": "[彼|かれ]は二年前に[転職|てんしょく]（　　）、^ずっと^毎日楽しそうに働いています。",
             "options": [
-              "するたびに",
               "して以来",
               "するために",
-              "してはじめて"
+              "してはじめて",
+              "するたびに"
             ],
-            "answer": 2,
+            "answer": 1,
             "why": [
-              "たびに is for every time something happens. 二年前に points to one event, not a repeated one.",
               "One past event, and a state that has gone on since then: ずっと…働いています.",
               "ために gives a purpose. Changing jobs is not the purpose of working happily.",
-              "はじめて needs a new understanding or ability after it. ずっと…ています describes a lasting state instead."
-            ]
+              "はじめて needs a new understanding or ability after it. ずっと…ています describes a lasting state instead.",
+              "たびに is for every time something happens. 二年前に points to one event, not a repeated one."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d3.d2",
@@ -1231,18 +1242,19 @@
             "label": "Choose the form",
             "q": "^仕事を[失|うしな]って^（　　）、毎日働けることのありがたさが分かりました。",
             "options": [
-              "以来",
               "もらって",
               "はじめて",
-              "おいて"
+              "おいて",
+              "以来"
             ],
-            "answer": 3,
+            "answer": 2,
             "why": [
-              "以来 needs a state or habit that has gone on since then. 分かりました here is one moment of understanding.",
               "てもらう means someone does something for you. Nobody lost a job for the speaker.",
               "Only after losing the job did the speaker understand: てはじめて + 分かりました.",
-              "ておく is for doing something in advance on purpose. Nobody loses a job to get ready for something."
-            ]
+              "ておく is for doing something in advance on purpose. Nobody loses a job to get ready for something.",
+              "以来 needs a state or habit that has gone on since then. 分かりました here is one moment of understanding."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d3.d3",
@@ -1275,18 +1287,19 @@
             "label": "Choose the form",
             "q": "会社に着いて（　　）、^すぐに^[部長|ぶちょう]に[呼|よ]ばれました。",
             "options": [
-              "から",
-              "以来",
               "はじめて",
-              "ばかりで"
+              "ばかりで",
+              "から",
+              "以来"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "One event right after another: てから. すぐに shows it happened straight after arriving.",
-              "以来 needs something that has gone on until now. Being called once is a single event.",
               "はじめて needs a new understanding or ability after it. Being called by the manager is neither.",
-              "てばかり means doing only one thing again and again, which does not fit 着く. \"Had just arrived\" would be 着いたばかりで."
-            ]
+              "てばかり means doing only one thing again and again, which does not fit 着く. \"Had just arrived\" would be 着いたばかりで.",
+              "One event right after another: てから. すぐに shows it happened straight after arriving.",
+              "以来 needs something that has gone on until now. Being called once is a single event."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d3.d5",
@@ -1295,18 +1308,19 @@
             "label": "Choose the form",
             "q": "^自分で家事をして^（　　）、母の[苦労|くろう]が分かりました。",
             "options": [
+              "はじめて",
               "も",
               "以来",
-              "もらって",
-              "はじめて"
+              "もらって"
             ],
-            "answer": 4,
+            "answer": 1,
             "why": [
+              "Only after doing the housework herself did the speaker understand: てはじめて + 分かりました.",
               "ても means even if or even though. Doing the housework is the reason the speaker understands, not something against it.",
               "以来 needs a state or habit that has gone on since then. 分かりました is one moment of understanding.",
-              "てもらう means someone else does it for you, but 自分で says the speaker did it.",
-              "Only after doing the housework herself did the speaker understand: てはじめて + 分かりました."
-            ]
+              "てもらう means someone else does it for you, but 自分で says the speaker did it."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d3.d6",
@@ -1341,12 +1355,12 @@
             "label": "Choose the form",
             "q": "この店は十年前に（　　）、ずっと同じ味を守っています。",
             "options": [
-              "開店するたびに",
-              "開店して以来",
               "開店してはじめて",
-              "開店したばかりで"
+              "開店したばかりで",
+              "開店するたびに",
+              "開店して以来"
             ],
-            "answer": 2,
+            "answer": 4,
             "explain": "One past event (十年前に) and a state that has gone on since then (ずっと…守っています): して以来. たびに needs a repeated event, はじめて needs a new understanding after it, and ばかり (just opened) does not fit ten years ago."
           },
           {
@@ -1356,12 +1370,12 @@
             "label": "Choose the form",
             "q": "社会に出て（　　）、学生時代がどんなに楽だったかが分かった。",
             "options": [
-              "はじめて",
-              "以来",
               "おいて",
-              "ばかりで"
+              "ばかりで",
+              "はじめて",
+              "以来"
             ],
-            "answer": 1,
+            "answer": 3,
             "explain": "Only after starting work did the speaker realise how easy student life was: てはじめて + 分かった. 以来 needs a state that has gone on, not one moment of understanding. ておく is for preparing in advance, and 出てばかりで does not make sense here."
           },
           {
@@ -1541,12 +1555,12 @@
           "label": "How the exam asks it",
           "q": "このパンは週末_限定_です。",
           "options": [
+            "げんてい",
             "けんてい",
             "げんじょう",
-            "かんてい",
-            "げんてい"
+            "かんてい"
           ],
-          "answer": 4,
+          "answer": 1,
           "explain": "限定 is read げんてい: this bread is sold only at the weekend. けんてい has け instead of げ, げんじょう is a different word (現状, the present state), and かんてい reads 限 as かん."
         }
       },
@@ -1625,25 +1639,26 @@
             "ナレーター：男の人は、どうしてパン屋を始めましたか。"
           ],
           "options": [
-            "会社の仕事が大変だったから",
             "フランスで食べたパンがおいしかったから",
             "家族にすすめられたから",
-            "子どものころからパン屋になりたかったから"
+            "子どものころからパン屋になりたかったから",
+            "会社の仕事が大変だったから"
           ],
           "printed": true,
           "short": [
-            "仕事が大変",
             "フランスのパン",
             "家族のすすめ",
-            "子どものころの夢"
+            "子どものころの夢",
+            "仕事が大変"
           ],
-          "answer": 2,
+          "answer": 1,
           "why": [
-            "He says his job was busy but fun: 忙しかったですが、楽しかったですよ.",
             "Only after eating that bread in France did he understand what really good bread is (食べてはじめて…分かりました), and then he wanted to make it himself.",
             "His family did not suggest it. His wife was against it at first: 妻には反対されました.",
-            "He says no: he was an office worker and not very interested in bread."
-          ]
+            "He says no: he was an office worker and not very interested in bread.",
+            "He says his job was busy but fun: 忙しかったですが、楽しかったですよ."
+          ],
+          "explain": null
         }
       }
     },
@@ -1658,15 +1673,15 @@
             "connect": [
               {
                 "pos": "Verb, ている form",
-                "rule": "〜ている ＋ {ところに}／{ところへ}"
+                "rule": "〜ている＋{ところに}／{ところへ}"
               },
               {
                 "pos": "Verb, volitional form + とする",
-                "rule": "〜ようとしている／〜ようとした ＋ {ところに}"
+                "rule": "〜ようとしている／〜ようとした＋{ところに}"
               },
               {
                 "pos": "Verb, た form",
-                "rule": "〜た ＋ {ところに}"
+                "rule": "〜た＋{ところに}"
               }
             ],
             "examples": [
@@ -1692,15 +1707,15 @@
             "connect": [
               {
                 "pos": "Verb, ている form or た form",
-                "rule": "〜ている／〜た ＋ {ところを}"
+                "rule": "〜ている／〜た＋{ところを}"
               },
               {
                 "pos": "い-adjective, in set phrases of thanks",
-                "rule": "お[忙|いそが]しい ＋ {ところを}"
+                "rule": "お[忙|いそが]しい＋{ところを}"
               },
               {
                 "pos": "Noun + の, in set phrases of thanks",
-                "rule": "お休みの ＋ {ところを}"
+                "rule": "お休みの＋{ところを}"
               }
             ],
             "examples": [
@@ -1759,9 +1774,10 @@
             "answer": 2,
             "why": [
               "ところに is followed by something that arrives or happens. 見られる needs the scene as its object, so を.",
-              "Father saw the scene: ところを ＋ 見られる.",
+              "Father saw the scene: ところを＋見られる.",
               "ところです ends a sentence. It cannot join the next clause with a comma."
-            ]
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -1772,18 +1788,19 @@
             "label": "Choose the form",
             "q": "[部屋|へや]をそうじしている（　　）、^友だちが急に[遊|あそ]びに来ました^。",
             "options": [
+              "ところだ",
               "ところを",
               "たびに",
-              "ところに",
-              "ところだ"
+              "ところに"
             ],
-            "answer": 3,
+            "answer": 4,
             "why": [
+              "ところだ ends a sentence, so it cannot join the next clause.",
               "ところを needs a verb like 見る or 見つかる after it. 友だちが来る does not take it as an object.",
               "たびに means every time and follows the dictionary form. Here it is one visit that came out of the blue (急に).",
-              "In the middle of cleaning, a friend arrived: ている ＋ ところに.",
-              "ところだ ends a sentence, so it cannot join the next clause."
-            ]
+              "In the middle of cleaning, a friend arrived: ている＋ところに."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d4.d2",
@@ -1792,18 +1809,19 @@
             "label": "Choose the form",
             "q": "電車の中で[寝|ね]ている（　　）、友だちに^写真をとられて^しまいました。",
             "options": [
-              "ところに",
-              "ところを",
               "たびに",
-              "[以来|いらい]"
+              "[以来|いらい]",
+              "ところに",
+              "ところを"
             ],
-            "answer": 2,
+            "answer": 4,
             "why": [
-              "写真をとられる needs the scene as its object. ところに would need someone arriving, as in 友だちが来た.",
-              "The friend photographed the scene of me sleeping: ところを ＋ とられる.",
               "たびに follows the dictionary form and means every time. This is one event.",
-              "以来 follows the て form (寝て以来) and means ever since. It does not fit here."
-            ]
+              "以来 follows the て form (寝て以来) and means ever since. It does not fit here.",
+              "写真をとられる needs the scene as its object. ところに would need someone arriving, as in 友だちが来た.",
+              "The friend photographed the scene of me sleeping: ところを＋とられる."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d4.d3",
@@ -1836,18 +1854,19 @@
             "label": "Choose the form",
             "q": "お[忙|いそが]しい（　　）、^[資料|しりょう]を見ていただいて^ありがとうございました。",
             "options": [
-              "たびに",
-              "うちに",
               "ところだ",
-              "ところを"
+              "ところを",
+              "たびに",
+              "うちに"
             ],
-            "answer": 4,
+            "answer": 2,
             "why": [
-              "たびに means every time, and it does not follow お忙しい. This is a thank-you for one favour.",
-              "うちに means before a change comes. Here the speaker thanks someone; nothing is about to change.",
               "ところだ ends a sentence, so it cannot join the thanks that follows.",
-              "The set phrase of thanks: お忙しいところを ＋ 〜ていただいて, ありがとうございました."
-            ]
+              "The set phrase of thanks: お忙しいところを＋〜ていただいて, ありがとうございました.",
+              "たびに means every time, and it does not follow お忙しい. This is a thank-you for one favour.",
+              "うちに means before a change comes. Here the speaker thanks someone; nothing is about to change."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d4.d5",
@@ -1856,18 +1875,19 @@
             "label": "Choose the form",
             "q": "すみません、今から^[会議|かいぎ]が始まる^（　　）。あとでこちらから電話します。",
             "options": [
-              "ところなんです",
-              "ところに",
               "ところを",
-              "たびに"
+              "たびに",
+              "ところなんです",
+              "ところに"
             ],
-            "answer": 1,
+            "answer": 3,
             "why": [
-              "Dictionary form ＋ ところだ: the meeting is about to start. なんです explains why the speaker cannot talk now.",
-              "ところに needs a clause after it in the same sentence. Here the sentence ends.",
               "ところを also needs a verb after it, such as 見られる. Here the sentence ends.",
-              "たびに means every time, and it also needs a clause after it."
-            ]
+              "たびに means every time, and it also needs a clause after it.",
+              "Dictionary form＋ところだ: the meeting is about to start. なんです explains why the speaker cannot talk now.",
+              "ところに needs a clause after it in the same sentence. Here the sentence ends."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d4.d6",
@@ -1908,7 +1928,7 @@
               "ところだ"
             ],
             "answer": 1,
-            "explain": "In the middle of cooking, the neighbour arrived with vegetables: ている ＋ ところに. ところを needs a verb like 見る after it, たびに follows the dictionary form and means every time, and ところだ ends a sentence."
+            "explain": "In the middle of cooking, the neighbour arrived with vegetables: ている＋ところに. ところを needs a verb like 見る after it, たびに follows the dictionary form and means every time, and ところだ ends a sentence."
           },
           {
             "id": "n3u01d4.e2",
@@ -1917,12 +1937,12 @@
             "label": "Choose the form",
             "q": "弟はれいぞうこのケーキをこっそり食べている（　　）、母に見つかってしまった。",
             "options": [
-              "ところに",
-              "ごとに",
               "ところを",
-              "以来"
+              "以来",
+              "ところに",
+              "ごとに"
             ],
-            "answer": 3,
+            "answer": 1,
             "explain": "見つかる takes the scene as its object: 食べているところを見つかった. ところに would need someone arriving, as in 母が来た. ごとに follows a noun or the dictionary form, and 以来 follows the て form."
           },
           {
@@ -2097,12 +2117,12 @@
           "label": "How the exam asks it",
           "q": "_不在_の間に、お客様から電話がありました。",
           "options": [
+            "ふうざい",
             "ぶざい",
             "ふさい",
-            "ふざい",
-            "ふうざい"
+            "ふざい"
           ],
-          "answer": 3,
+          "answer": 4,
           "explain": "不在 is read ふざい: while you were out, a customer phoned. ぶざい uses the ぶ of 不用心, which is not this word, ふさい has さ instead of ざ, and ふうざい adds a long う."
         }
       },
@@ -2112,7 +2132,7 @@
         "en": "Mid-length passage",
         "ask": "Who did what, and what happened as a result?",
         "seconds": 100,
-        "passage": "山田さん、先日はお忙しいところを引っ越しの手伝いに来ていただき、本当にありがとうございました。あの日の朝は、にもつが多くて、一人ではとても終わらないと思っていました。困っているところに山田さんが車で来てくださって、本当に助かりました。おかげで、^夕方には全部運び終わりました^。ただ、^わたしが大切なおさらを割ってしまったところを山田さんに見られて^、少し恥ずかしかったです。来月、部屋がかたづいたら、^ぜひ食事に来てください^。料理を作ってお待ちしています。",
+        "passage": "山田さん、先日はお忙しいなか、引っ越しの手伝いに来ていただき、本当にありがとうございました。あの日の朝は、にもつが多くて、一人ではとても終わらないと思っていました。困っているところに山田さんが車で来てくださって、本当に助かりました。おかげで、^夕方には全部運び終わりました^。ただ、^わたしが大切なおさらを割ってしまったところを山田さんに見られて^、少し恥ずかしかったです。来月、部屋がかたづいたら、^ぜひ食事に来てください^。料理を作ってお待ちしています。",
         "strategy": "Check who did each thing: who broke the plate, who saw it, and who is invited where.",
         "item": {
           "id": "n3u01d4.r1",
@@ -2243,16 +2263,17 @@
             "label": "Which one takes an invitation?",
             "q": "仕事が（　　）、飲みに行きましょう。",
             "options": [
+              "終わったらすぐ",
               "終わる[最中|さいちゅう]に",
-              "終わったとたん",
-              "終わったらすぐ"
+              "終わったとたん"
             ],
-            "answer": 3,
+            "answer": 1,
             "why": [
+              "たらすぐ can take an invitation: as soon as work is over, let's go for a drink.",
               "[最中|さいちゅう] joins a noun with の or the ている form. Also, 終わる is over in a moment, so it has no middle.",
-              "行きましょう is an invitation, and an invitation cannot follow とたん.",
-              "たらすぐ can take an invitation: as soon as work is over, let's go for a drink."
-            ]
+              "行きましょう is an invitation, and an invitation cannot follow とたん."
+            ],
+            "explain": null
           }
         },
         "drill": [
@@ -2263,18 +2284,19 @@
             "label": "Choose the form",
             "q": "大事な電話をしている（　　）、^となりの[部屋|へや]から大きな音がしました^。",
             "options": [
+              "ところを",
               "とたんに",
               "[最中|さいちゅう]に",
-              "あとで",
-              "ところを"
+              "あとで"
             ],
-            "answer": 2,
+            "answer": 3,
             "why": [
+              "ところを needs a verb after it that acts on the person in that scene, such as 見られる or じゃまする. 音がしました is not one.",
               "とたんに follows the た form, as in 電話をしたとたんに. Here the verb is している.",
               "ている + [最中|さいちゅう]に: right in the middle of the call, a loud noise broke in.",
-              "あとで follows the た form or a noun with の, not the ている form.",
-              "ところを needs a verb after it that acts on the person in that scene, such as 見られる or じゃまする. 音がしました is not one."
-            ]
+              "あとで follows the た form or a noun with の, not the ている form."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d5.d2",
@@ -2307,18 +2329,19 @@
             "label": "Choose what follows",
             "q": "げんかんのドアを開けた^とたん^、（　　）。",
             "options": [
-              "中に入ってください",
               "中に入りましょう",
               "ねこが外に[飛|と]び出しました",
-              "中に入ろうと思います"
+              "中に入ろうと思います",
+              "中に入ってください"
             ],
-            "answer": 3,
+            "answer": 2,
             "why": [
-              "This is a request, and a request cannot follow とたん.",
               "This is an invitation, and an invitation cannot follow とたん.",
               "Something the speaker did not plan happened at once: the cat shot out of the door.",
-              "This is the speaker's own plan (〜ようと思います), which cannot follow とたん."
-            ]
+              "This is the speaker's own plan (〜ようと思います), which cannot follow とたん.",
+              "This is a request, and a request cannot follow とたん."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d5.d4",
@@ -2327,18 +2350,19 @@
             "label": "Choose the form",
             "q": "すみません、^今は食事の^（　　）なので、あとでこちらから電話します。",
             "options": [
+              "ごと",
               "[最中|さいちゅう]",
               "とたん",
-              "たび",
-              "ごと"
+              "たび"
             ],
-            "answer": 1,
+            "answer": 2,
             "why": [
+              "ごと joins a noun directly, without の (一日ごと), and means every.",
               "Noun + の + [最中|さいちゅう] at the end of a clause: I am in the middle of a meal right now.",
               "とたん follows the た form of a verb, not a noun with の.",
-              "たび means every time. It takes に and a repeated event after it; it does not say what is going on now.",
-              "ごと joins a noun directly, without の (一日ごと), and means every."
-            ]
+              "たび means every time. It takes に and a repeated event after it; it does not say what is going on now."
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d5.d5",
@@ -2358,7 +2382,8 @@
               "うちに follows the ている form or the dictionary form, not the た form.",
               "まえに follows the dictionary form: 見るまえに.",
               "た form + とたん: the moment the child saw his mother's face, he burst into tears."
-            ]
+            ],
+            "explain": null
           },
           {
             "id": "n3u01d5.d6",
@@ -2393,12 +2418,12 @@
             "label": "Choose the form",
             "q": "サッカーの試合の（　　）、急に強い雨が降ってきました。",
             "options": [
-              "とたんに",
               "うえに",
               "最中に",
-              "ところに"
+              "ところに",
+              "とたんに"
             ],
-            "answer": 3,
+            "answer": 2,
             "explain": "Noun + の + 最中に: right in the middle of the match, heavy rain started. とたんに follows the た form of a verb, not a noun with の. 試合のうえに and 試合のところに would mean on top of the match and at the match's place, which make no sense here."
           },
           {
@@ -2421,13 +2446,13 @@
             "kind": "star",
             "type": "文の文法2",
             "label": "Build the sentence",
-            "before": "ドライヤーで",
-            "after": "消えてしまいました。",
+            "before": "夕食に",
+            "after": "ないことに気づきました。",
             "tiles": [
-              "かみを",
-              "かわかしている",
+              "カレーを",
+              "作っている",
               "最中に",
-              "家の電気が"
+              "しおが"
             ],
             "star": 1,
             "bank": [
@@ -2436,8 +2461,8 @@
               0,
               2
             ],
-            "full": "ドライヤーでかみを{かわかしている}最中に家の電気が消えてしまいました。",
-            "explain": "かみを, かわかしている, 最中に, 家の電気が. かみを goes with かわかしている, 最中に follows the ている form, and 家の電気が is what went out."
+            "full": "夕食にカレーを{作っている}最中にしおがないことに気づきました。",
+            "explain": "カレーを, 作っている, 最中に, しおが. カレーを goes with 作っている, 最中に follows the ている form, and しおが goes with ない: right in the middle of making curry, I noticed there was no salt."
           }
         ]
       },
@@ -2588,12 +2613,12 @@
           "label": "How the exam asks it",
           "q": "大雨_警報_が出たので、外出はひかえてください。",
           "options": [
-            "けいぼう",
             "げいほう",
             "けいほ",
-            "けいほう"
+            "けいほう",
+            "けいぼう"
           ],
-          "answer": 4,
+          "answer": 3,
           "explain": "警報 is けいほう: 警 is ケイ and 報 is ホウ, as in 予報 and 情報. The sound does not change to ぼう or げい, and ほう is long."
         }
       },
@@ -2726,7 +2751,875 @@
           "explain": "The whole report follows one event: the sudden rain and wind cut the power in about 20,000 homes, then it tells the effects (traffic lights, trains), the cause (a fallen tree cut a power line) and when power will be back."
         }
       }
+    },
+    "6": {
+      "title": "まとめ：似ている文法",
+      "grammar": {
+        "points": [],
+        "compare": {
+          "intro": "This unit's points come in look-alike sets: たびに follows an event that repeats, ごとに and おきに follow a noun (with 一日, ごとに is every day and おきに every other day), and ぶりに marks one event after a long gap; て以来 is a state that has lasted ever since, てはじめて is something you only realised then, and てから is plain order; ところに brings someone in just then, ところを is being seen or caught, and ところだ is the moment itself; [最中|さいちゅう]に is the middle of an action, たとたん is the instant after it, and うちに is while a state lasts.",
+          "forms": [
+            {
+              "form": "〜ところに",
+              "tag": "ちょうどその時 · just then, someone comes",
+              "mark": "dot",
+              "ja": "本を読んでいる{ところに}、妹が帰ってきました。",
+              "en": "I was reading a book when my sister came home."
+            },
+            {
+              "form": "〜最中に",
+              "tag": "まん中 · right in the middle",
+              "mark": "dot",
+              "ja": "テストの{[最中|さいちゅう]に}、おなかが[鳴|な]ってしまいました。",
+              "en": "Right in the middle of the test, my stomach rumbled."
+            },
+            {
+              "form": "〜たとたん",
+              "tag": "すぐあと · the instant after (a surprise)",
+              "mark": "dot",
+              "ja": "[席|せき]に[座|すわ]った{とたん}、電車が急に止まりました。",
+              "en": "The moment I sat down, the train stopped suddenly."
+            }
+          ],
+          "check": {
+            "id": "n3u01d6.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Something sudden in your own body",
+            "q": "いすから^立ち上がった^（　　）、頭がくらっとしました。",
+            "options": [
+              "とたん",
+              "ところに",
+              "[最中|さいちゅう]に"
+            ],
+            "answer": 1,
+            "why": [
+              "The instant after standing up, something sudden happened: the た form 立ち上がった + とたん.",
+              "ところに brings in something from outside just then, like a visitor or a phone call. A dizzy feeling in your own head is not that.",
+              "[最中|さいちゅう]に follows a noun with の or the ている form, for an action that lasts. Standing up is over in a moment."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n3u01d6.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ふるさとに^帰る^（　　）、町の[様子|ようす]が少しずつ[変|か]わっています。",
+            "options": [
+              "たびに",
+              "おきに",
+              "ぶりに",
+              "[最中|さいちゅう]に"
+            ],
+            "answer": 1,
+            "why": [
+              "Every time I go home, the town has changed a little. 帰る is an event that repeats, and たびに follows the dictionary form.",
+              "おきに follows a length of time with a number, as in 一年おきに, not a verb.",
+              "ぶりに also follows a length of time, as in 三年ぶりに, and it marks one event. Here the change is seen again and again.",
+              "[最中|さいちゅう]に follows a noun with の or the ている form. 帰る cannot take it, and going home is not one long action here."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n3u01d6.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "高校を出たあと一度も会っていなかった友だちに、^[昨日|きのう]^、十五年（　　）会いました。",
+            "options": [
+              "ぶりに",
+              "以来",
+              "おきに",
+              "ごとに"
+            ],
+            "answer": 1,
+            "why": [
+              "One meeting after fifteen years without one: 十五年ぶりに.",
+              "以来 follows a starting point, such as [卒業|そつぎょう]して以来, and what comes after it is a state that has lasted since then. 会いました is one meeting.",
+              "おきに also says something repeats at intervals, and [昨日|きのう] was one meeting.",
+              "ごとに says something happens again and again, every fifteen years. [昨日|きのう] was one meeting."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n3u01d6.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この[資料|しりょう]を（　　）、^[会議|かいぎ]に出てください^。",
+            "options": [
+              "読んでから",
+              "読んで以来",
+              "読んではじめて",
+              "読んでいるところに"
+            ],
+            "answer": 1,
+            "why": [
+              "てから gives the order: first read the papers, then come to the meeting. A request can follow it.",
+              "て以来 needs a state that has lasted from then until now. It cannot end in a request like 出てください.",
+              "てはじめて reports what you only understood or managed after an experience. It cannot end in a request.",
+              "ところに is followed by something that happened just then, like a visitor arriving. It cannot end in a request either."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n3u01d6.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "スープが^[温|あたた]かい^（　　）、どうぞ食べてください。",
+            "options": [
+              "たびに",
+              "とたん",
+              "[最中|さいちゅう]に",
+              "うちに"
+            ],
+            "answer": 4,
+            "why": [
+              "たびに follows a verb, or a noun with の, for an event that repeats. [温|あたた]かい is a state, so it cannot take たびに.",
+              "とたん follows the た form of a verb, and it cannot end in a request like 食べてください.",
+              "[最中|さいちゅう]に follows a noun with の or the ている form, for an action going on. [温|あたた]かい is a state, not an action.",
+              "While the soup is still warm, before it gets cold: うちに goes on an adjective, and a request can follow."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n3u01d6.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "四年",
+            "after": "日本で開かれます。",
+            "tiles": [
+              "ごとに",
+              "行われる",
+              "大会が",
+              "八年ぶりに"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "ごとに joins 四年 directly and says how often. Which tile marks this one time after a long gap?",
+            "full": "四年{ごとに}行われる大会が八年ぶりに日本で開かれます。",
+            "explain": "ごとに, 行われる, 大会が, 八年ぶりに. 四年ごとに行われる describes 大会: it is held every four years, again and again. 八年ぶりに marks this one time, the first in Japan for eight years, and goes with 開かれます."
+          },
+          {
+            "id": "n3u01d6.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "去年ギターを",
+            "after": "教室に通っています。",
+            "tiles": [
+              "始めて",
+              "以来",
+              "週に",
+              "二回"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              3,
+              1,
+              0
+            ],
+            "hint": "以来 follows a te-form, not a time word. Which two tiles say how often?",
+            "full": "去年ギターを始めて{以来}週に二回教室に通っています。",
+            "explain": "始めて, 以来, 週に, 二回. 以来 comes right after the te-form 始めて, and a habit that has lasted since then follows. 週に二回 says how often: twice a week."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n3u01d6.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "一人で旅行をして（　　）、地図を読むのが苦手だと気づいた。",
+            "options": [
+              "はじめて",
+              "ぶりに",
+              "おきに",
+              "以来"
+            ],
+            "answer": 1,
+            "explain": "てはじめて: only after travelling alone did the speaker notice this about herself. 以来 needs a state that has lasted since then, not one moment of noticing like 気づいた. ぶりに and おきに follow a length of time, not a te-form."
+          },
+          {
+            "id": "n3u01d6.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "会社を出ようとしていた（　　）、課長に急な仕事を頼まれた。",
+            "options": [
+              "とたん",
+              "最中に",
+              "たびに",
+              "ところに"
+            ],
+            "answer": 4,
+            "explain": "ようとしていた + ところに: just as the speaker was about to leave, the manager came with a job. とたん follows a finished action (出たとたん), not ていた. 最中に needs an action already going on, and the speaker had not started anything yet. たびに follows the dictionary form of something that repeats."
+          },
+          {
+            "id": "n3u01d6.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "家を",
+            "after": "戻りました。",
+            "tiles": [
+              "出た",
+              "とたん",
+              "忘れ物に",
+              "気づいて"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "full": "家を出たとたん{忘れ物に}気づいて戻りました。",
+            "explain": "出た, とたん, 忘れ物に, 気づいて. とたん follows the た form 出た, and 忘れ物に goes with 気づいて: the moment I left home, I noticed I had forgotten something and went back."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "駅の案内",
+        "en": "The information board at a station",
+        "intro": "Tap each word on the board that tells passengers about today's trains.",
+        "words": [
+          {
+            "id": "track",
+            "word": "番線",
+            "reading": "ばんせん",
+            "gloss": "track (platform) number",
+            "parts": [
+              [
+                "番",
+                "バン",
+                "number, turn"
+              ],
+              [
+                "線",
+                "セン",
+                "line"
+              ]
+            ]
+          },
+          {
+            "id": "arrival",
+            "word": "到着",
+            "reading": "とうちゃく",
+            "gloss": "arrival",
+            "parts": [
+              [
+                "到",
+                "トウ",
+                "reach"
+              ],
+              [
+                "着",
+                "チャク",
+                "arrive"
+              ]
+            ]
+          },
+          {
+            "id": "last-stop",
+            "word": "終点",
+            "reading": "しゅうてん",
+            "gloss": "last stop, end of the line",
+            "parts": [
+              [
+                "終",
+                "シュウ",
+                "end"
+              ],
+              [
+                "点",
+                "テン",
+                "point"
+              ]
+            ]
+          },
+          {
+            "id": "change",
+            "word": "乗り換え",
+            "reading": "のりかえ",
+            "gloss": "changing trains",
+            "parts": [
+              [
+                "乗",
+                "の",
+                "ride"
+              ],
+              [
+                "換",
+                "か",
+                "exchange"
+              ]
+            ]
+          },
+          {
+            "id": "stop",
+            "word": "停車",
+            "reading": "ていしゃ",
+            "gloss": "stopping (at a station)",
+            "parts": [
+              [
+                "停",
+                "テイ",
+                "stop"
+              ],
+              [
+                "車",
+                "シャ",
+                "vehicle"
+              ]
+            ]
+          },
+          {
+            "id": "on-time",
+            "word": "定刻",
+            "reading": "ていこく",
+            "gloss": "scheduled time",
+            "parts": [
+              [
+                "定",
+                "テイ",
+                "fixed"
+              ],
+              [
+                "刻",
+                "コク",
+                "time, carve"
+              ]
+            ]
+          },
+          {
+            "id": "alter",
+            "word": "変更",
+            "reading": "へんこう",
+            "gloss": "change (of a plan or time)",
+            "parts": [
+              [
+                "変",
+                "ヘン",
+                "change"
+              ],
+              [
+                "更",
+                "コウ",
+                "renew"
+              ]
+            ]
+          },
+          {
+            "id": "info",
+            "word": "案内",
+            "reading": "あんない",
+            "gloss": "information, guidance",
+            "parts": [
+              [
+                "案",
+                "アン",
+                "plan"
+              ],
+              [
+                "内",
+                "ナイ",
+                "inside"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n3u01d6.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "電車は_定刻_に駅を出ました。",
+          "options": [
+            "ていごく",
+            "てんこく",
+            "ていこく",
+            "じょうこく"
+          ],
+          "answer": 3,
+          "explain": "定刻, the scheduled time, is ていこく: 定 テイ (fixed, as in 予定) and 刻 コク (time). じょうこく uses a reading of 定 that this word does not take, ていごく wrongly makes こ voiced, and てんこく is not this word."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "情報検索",
+        "en": "Finding information",
+        "ask": "Which rules on the notice apply to Lee, and what must Lee do at the desk?",
+        "seconds": 90,
+        "passage": "さくら内科より待合室のみなさまへ\n①受付をすませたら、待合室でお待ちください。じゅんばんが来たら、番号でお呼びします。\n②ほけんしょうは月ごとにチェックしています。^毎月、最初に来た日に、受付で見せてください^。\n③^前回来てから一年以上たっている方^は、^住所と電話番号を、受付でもう一度紙に書いてください^。\n④^熱がある方^は、待合室に入らずに、受付の者に声をかけてください。別の部屋でお待ちいただきます。\n⑤待合室では、電話で話さないでください。\n⑥お呼びしたときにいらっしゃらない場合は、次の方を先にお呼びします。",
+        "strategy": "Check Lee against each rule in turn: is this his first visit this month, has it been over a year, and does he have a fever?",
+        "item": {
+          "id": "n3u01d6.r1",
+          "kind": "choice",
+          "type": "読解・情報検索",
+          "q": "リーさんは、一年半前に一度さくら内科に来ました。今日は二回目で、熱はありません。リーさんは受付で何をしなければなりませんか。",
+          "options": [
+            "受付の人に声をかけて、別の部屋で待つ。",
+            "住所と電話番号を紙に書くだけでいい。",
+            "ほけんしょうを見せて、住所と電話番号を紙に書く。",
+            "ほけんしょうを見せるだけでいい。"
+          ],
+          "short": [
+            "別の部屋で待つ",
+            "書くだけ",
+            "見せて、書く",
+            "見せるだけ"
+          ],
+          "answer": 3,
+          "explain": "Today is Lee's first visit this month, so rule ② applies: show the insurance card. His last visit was a year and a half ago, so rule ③ applies too: write the address and phone number again.",
+          "why": [
+            "Rule ④ is only for people with a fever, and Lee has none.",
+            "Lee must also show the card. Today is his first day at the clinic this month (rule ②).",
+            "",
+            "Lee last came a year and a half ago, more than a year, so he must also write his address and phone number (rule ③)."
+          ]
+        }
+      }
     }
   },
-  "test": []
+  "test": [
+    {
+      "id": "n3u01t.1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "来週から、駅前の_駐車場_が工事で使えなくなります。",
+      "options": [
+        "じゅうしゃじょう",
+        "ちゅうしゃじょう",
+        "ちゅうしゃちょう",
+        "ちゅうしゃば"
+      ],
+      "answer": 2,
+      "explain": "駐車場 (car park) is read ちゅうしゃじょう: 駐 is ちゅう, not じゅう, and 場 is read じょう here, as in 会場. 場 is ば in words like 場所, but not in 駐車場. ちょう is not a reading of 場."
+    },
+    {
+      "id": "n3u01t.2",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "父は毎朝、庭の木に水を_与えて_います。",
+      "options": [
+        "あまえて",
+        "あたえて",
+        "ささえて",
+        "かかえて"
+      ],
+      "answer": 2,
+      "explain": "与えて is あたえて, from 与える (give): my father gives water to the trees in the garden every morning. あまえて (rely on someone's kindness), ささえて (support) and かかえて (hold in your arms) are real verbs, but 与 is not read あま, ささ or かか."
+    },
+    {
+      "id": "n3u01t.3",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "会議の前に、資料をみんなに_くばって_ください。",
+      "options": [
+        "払って",
+        "送って",
+        "記って",
+        "配って"
+      ],
+      "answer": 4,
+      "explain": "くばって (hand out) is written 配って, from 配る. 払って is a real word, but it is はらって (pay). 送って is also real, but it is おくって (send). 記って is not a word; 記 is the き of 記念."
+    },
+    {
+      "id": "n3u01t.4",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "旅行の間、ホテルのフロントに荷物を_あずけました_。",
+      "options": [
+        "頼けました",
+        "預けました",
+        "頂けました",
+        "届けました"
+      ],
+      "answer": 2,
+      "explain": "あずけました (left in someone's care) is written 預けました, from 預ける. 届けました is a real word, but it is とどけました (delivered). 頂けました is read いただけました, not あずけました. 頼けました is not a word; 頼 is the たの of 頼む."
+    },
+    {
+      "id": "n3u01t.5",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "新しいスマホの使い方が分からなかったので、店の人に（　　）してもらいました。",
+      "options": [
+        "注文",
+        "相談",
+        "案内",
+        "説明"
+      ],
+      "answer": 4,
+      "explain": "The speaker did not know how to use the phone, so a shop assistant explained it: 説明してもらいました. 案内 is showing someone the way or around a place, not how a phone works. 注文 (an order) is something the customer does, not the shop. 相談 is something you do with someone (店の人に相談しました), so 相談してもらう does not fit here."
+    },
+    {
+      "id": "n3u01t.6",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "来週の会議の時間が変わったので、メンバー全員に（　　）しておいてください。",
+      "options": [
+        "準備",
+        "計画",
+        "連絡",
+        "予約"
+      ],
+      "answer": 3,
+      "explain": "The meeting time has changed, so everyone must be told: 全員に連絡しておいてください. 予約 (booking), 準備 (getting ready) and 計画 (a plan) do not take a person with に like this, and none of them passes on news of a change."
+    },
+    {
+      "id": "n3u01t.7",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "兄は_めったに電話をくれません_。",
+      "options": [
+        "兄はよく電話をくれます。",
+        "兄はほとんど電話をくれません。",
+        "兄は一度も電話をくれたことがありません。",
+        "兄はときどき電話をくれます。"
+      ],
+      "answer": 2,
+      "explain": "めったに〜ない means hardly ever, so it is closest to ほとんど〜ない. 一度も〜ない is never, which is too strong: めったに allows a call now and then. ときどき (sometimes) and よく (often) are positive and say he calls more than that."
+    },
+    {
+      "id": "n3u01t.8",
+      "kind": "choice",
+      "type": "用法",
+      "label": "Usage",
+      "q": "さっそく",
+      "options": [
+        "バスがさっそく来たので、待たずに乗れました。",
+        "新しいくつを買ったので、さっそくはいて出かけました。",
+        "雨がさっそくやんだので、外に出ました。",
+        "毎朝さっそく起きて、ジョギングをしています。"
+      ],
+      "answer": 2,
+      "explain": "さっそく means at once, without waiting, for something a person chooses to do and is keen to do. Option 2 is right: the speaker put on the new shoes straight away. Rain stopping and a bus coming are not a person's choice, so option 3 needs すぐ or やっと and option 1 needs すぐ. Option 4 is about getting up at an early hour, which is 早く."
+    },
+    {
+      "id": "n3u01t.9",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "母に電話をする（　　）、ちゃんと食べているのかと聞かれます。",
+      "options": [
+        "までに",
+        "あいだに",
+        "たびに",
+        "ために"
+      ],
+      "answer": 3,
+      "explain": "Dictionary form + たびに: every time I phone my mother, she asks whether I am eating properly. までに sets a deadline, which a question from my mother is not. あいだに follows the ている form or a noun with の, not する. ために gives a purpose, and I do not phone her in order to be asked."
+    },
+    {
+      "id": "n3u01t.10",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "健康のために、一日（　　）プールで泳いでいます。月曜日に泳いだら、次は水曜日です。",
+      "options": [
+        "までに",
+        "おきに",
+        "ごとに",
+        "ぶりに"
+      ],
+      "answer": 2,
+      "explain": "Monday, then Wednesday: one day is skipped, so 一日おきに (every other day). 一日ごとに means every day, which the second sentence rules out. ぶりに is for one event after a gap, not a habit (泳いでいます). 一日までに would be a deadline."
+    },
+    {
+      "id": "n3u01t.11",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "入院していた祖父が、半年（　　）家に帰ってきました。",
+      "options": [
+        "おきに",
+        "ぶりに",
+        "ごとに",
+        "たびに"
+      ],
+      "answer": 2,
+      "explain": "One event after a long gap: my grandfather came home for the first time in half a year, 半年ぶりに. おきに and ごとに are for things that repeat at intervals, but coming home from hospital here happens once. たびに follows a verb or an event noun with の, not a length of time."
+    },
+    {
+      "id": "n3u01t.12",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "駅前に大きなスーパーが（　　）、近くの八百屋はずっと客が少ないそうだ。",
+      "options": [
+        "できて以来",
+        "できるたびに",
+        "できる最中に",
+        "できたところを"
+      ],
+      "answer": 1,
+      "explain": "One past event, and a state that has gone on ever since (ずっと客が少ない): て以来. There is one new supermarket, so できるたびに (every time one opens) does not fit. 最中に needs a noun with の or the ている form, and opening is not something with a middle. ところを needs a verb such as 見る after it."
+    },
+    {
+      "id": "n3u01t.13",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "去年、旅行先で一度道に（　　）、ことばが通じない不安が分かりました。",
+      "options": [
+        "迷って以来",
+        "迷うたびに",
+        "迷ってはじめて",
+        "迷ったところに"
+      ],
+      "answer": 3,
+      "explain": "Only after getting lost did the speaker understand the worry: てはじめて + 分かりました. 以来 needs a state or habit that has gone on since then, and 分かりました is one moment of understanding. 一度 says it happened once, so たびに (every time) does not fit. ところに needs something that arrives or happens to the speaker after it, not an understanding."
+    },
+    {
+      "id": "n3u01t.14",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "休みの日に、パジャマのままごみを出している（　　）、となりの人に見られてしまいました。",
+      "options": [
+        "たびに",
+        "ところに",
+        "ところを",
+        "とたんに"
+      ],
+      "answer": 3,
+      "explain": "The neighbour saw the scene of me taking out the rubbish in pyjamas: ところを + 見られる. ところに is followed by something that arrives or happens, but 見られる needs the scene as its object, so を. とたんに follows the た form, not the ている form. たびに follows the dictionary form, and this is one event (見られてしまいました)."
+    },
+    {
+      "id": "n3u01t.15",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "さっき、窓を（　　）、大きなハチが入ってきました。",
+      "options": [
+        "開けるたびに",
+        "開けて以来",
+        "開けている最中に",
+        "開けたとたん"
+      ],
+      "answer": 4,
+      "explain": "The moment I opened the window, a big bee flew in: た form + とたん, for something sudden the speaker did not expect. さっき points to one time, so たびに (every time) does not fit. 以来 needs something that has gone on since then, not one sudden event a moment ago. Opening a window is over in a moment, so it has no middle for 最中に."
+    },
+    {
+      "id": "n3u01t.16",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "このアプリは、",
+      "after": "の天気を教えてくれます。",
+      "tiles": [
+        "一時間",
+        "ごとに",
+        "住んでいる",
+        "町"
+      ],
+      "star": 2,
+      "bank": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "full": "このアプリは、一時間ごとに{住んでいる}町の天気を教えてくれます。",
+      "explain": "一時間, ごとに, 住んでいる, 町. ごとに joins the length of time directly, 住んでいる describes 町, and 町 must come right before の天気: every hour, this app tells you the weather in the town where you live."
+    },
+    {
+      "id": "n3u01t.17",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "洗濯物を外に",
+      "after": "きて、また中に入れました。",
+      "tiles": [
+        "出した",
+        "ところに",
+        "雨が",
+        "降って"
+      ],
+      "star": 2,
+      "bank": [
+        1,
+        3,
+        0,
+        2
+      ],
+      "full": "洗濯物を外に出したところに{雨が}降ってきて、また中に入れました。",
+      "explain": "出した, ところに, 雨が, 降って. 外に needs its verb 出した, and ところに follows the た form. Then comes what happened just then: 雨が降ってきて. 降って joins きて after the tiles."
+    },
+    {
+      "id": "n3u01t.18",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "友だちのパーティーで",
+      "after": "、マイクの音が出なくなってしまいました。",
+      "tiles": [
+        "お祝いの",
+        "スピーチを",
+        "している",
+        "最中に"
+      ],
+      "star": 1,
+      "bank": [
+        3,
+        1,
+        2,
+        0
+      ],
+      "full": "友だちのパーティーでお祝いの{スピーチを}している最中に、マイクの音が出なくなってしまいました。",
+      "explain": "お祝いの, スピーチを, している, 最中に. お祝いの describes スピーチ, スピーチを takes している, and 最中に follows the ている form: right in the middle of my speech, the microphone stopped working."
+    },
+    {
+      "id": "n3u01t.19",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "去年の春から、自転車で会社に通っている。最初は、雨の日や寒い朝はつらいだろうと思っていた。たしかに楽ではないが、電車で通っていたころとくらべると、体の調子がずっといい。夜もよく眠れるようになった。ただ、一つだけ困っていることがある。会社にはシャワーがないので、夏は汗でシャツがぬれてしまうのだ。そこで今は、夏の間だけ二十分早く家を出て、ゆっくり走るようにしている。",
+      "q": "「わたし」が困っていることは何か。",
+      "options": [
+        "夜あまり眠れないこと",
+        "夏に汗でシャツがぬれてしまうこと",
+        "会社に自転車をとめる場所がないこと",
+        "電車で通っていたころより体の調子が悪いこと"
+      ],
+      "answer": 2,
+      "short": [
+        "よく眠れない",
+        "汗でシャツがぬれる",
+        "自転車をとめる場所がない",
+        "体の調子が悪い"
+      ],
+      "explain": "After 一つだけ困っていることがある, the writer says there is no shower at work, so in summer the shirt gets wet with sweat. Parking is never mentioned. The writer feels much better than in the train days (体の調子がずっといい) and now sleeps well (よく眠れるようになった)."
+    },
+    {
+      "id": "n3u01t.20",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "去年の春から、自転車で会社に通っている。最初は、雨の日や寒い朝はつらいだろうと思っていた。たしかに楽ではないが、電車で通っていたころとくらべると、体の調子がずっといい。夜もよく眠れるようになった。ただ、一つだけ困っていることがある。会社にはシャワーがないので、夏は汗でシャツがぬれてしまうのだ。そこで今は、夏の間だけ二十分早く家を出て、ゆっくり走るようにしている。",
+      "q": "「わたし」は今、夏にどうしているか。",
+      "options": [
+        "着がえのシャツを会社に置いている",
+        "会社でシャワーをあびている",
+        "電車で会社に通っている",
+        "いつもより早く家を出て、ゆっくり走っている"
+      ],
+      "answer": 4,
+      "short": [
+        "シャツを置いている",
+        "シャワーをあびる",
+        "電車で通う",
+        "早く出てゆっくり走る"
+      ],
+      "explain": "The last sentence says that in summer the writer leaves home twenty minutes early and rides slowly (二十分早く家を出て、ゆっくり走る). There is no shower at work, the writer still goes by bicycle, and a spare shirt is never mentioned."
+    },
+    {
+      "id": "n3u01t.21",
+      "kind": "choice",
+      "type": "読解・内容理解（中文）",
+      "label": "Mid-length passage",
+      "passage": "わたしの家の近くに、小さな古い本屋がある。店の主人は八十歳近いおじいさんで、本のことなら何でも知っている。先日、読みたい本の名前を忘れてしまったので、話の内容だけを伝えてみた。するとおじいさんは少し考えてから、たなのおくから本を出してくれた。それは、わたしが探していた本だった。最近はネットで本を買う人が多い。わたしもよく使う。早くて便利だからだ。しかし、ネットでは名前の分からない本を探すのは難しい。人と話しながら本を選ぶ楽しさは、ああいう店でなければ味わえないと思う。",
+      "q": "おじいさんは、どのようにして本を見つけたか。",
+      "options": [
+        "ネットで調べて",
+        "「わたし」といっしょにたなを探して",
+        "「わたし」から話の内容を聞いて",
+        "「わたし」から本の名前を聞いて"
+      ],
+      "answer": 3,
+      "short": [
+        "ネットで調べて",
+        "いっしょに探して",
+        "話の内容を聞いて",
+        "本の名前を聞いて"
+      ],
+      "explain": "The writer had forgotten the title and told him only what the story was about (話の内容だけを伝えてみた). He thought a little and took the book from the back of a shelf himself. The title was forgotten, so he could not hear it, and he did not use the internet or search with the writer."
+    },
+    {
+      "id": "n3u01t.22",
+      "kind": "choice",
+      "type": "読解・内容理解（中文）",
+      "label": "Mid-length passage",
+      "passage": "わたしの家の近くに、小さな古い本屋がある。店の主人は八十歳近いおじいさんで、本のことなら何でも知っている。先日、読みたい本の名前を忘れてしまったので、話の内容だけを伝えてみた。するとおじいさんは少し考えてから、たなのおくから本を出してくれた。それは、わたしが探していた本だった。最近はネットで本を買う人が多い。わたしもよく使う。早くて便利だからだ。しかし、ネットでは名前の分からない本を探すのは難しい。人と話しながら本を選ぶ楽しさは、ああいう店でなければ味わえないと思う。",
+      "q": "「わたし」の考えに合うものはどれか。",
+      "options": [
+        "ネットで本を買うのはやめたほうがいい",
+        "古い本屋のほうがネットより早く本が買える",
+        "名前の分からない本はネットで探すほうがいい",
+        "人と話しながら本を選べるのは、ああいう店のよさだ"
+      ],
+      "answer": 4,
+      "short": [
+        "ネットはやめたほうがいい",
+        "本屋のほうが早い",
+        "ネットで探すほうがいい",
+        "話しながら選べるのがよさ"
+      ],
+      "explain": "The last sentence says the fun of choosing books while talking to someone is only found in a shop like that. The writer often buys online too, so does not say to stop. The writer calls the internet fast (早くて便利), and says a book without a known title is hard to find online."
+    },
+    {
+      "id": "n3u01t.23",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "みどり駅前自転車置き場のご案内\n・自転車置き場は、二十四時間使えます。\n・料金（一日一回）：自転車百円、バイク二百円\n※とめてから二時間以内に出す場合は、無料です。\n※料金は、出るときに出口ではらってください。\n・一か月定期：自転車千五百円、バイク三千円\n※高校生・大学生は、一か月定期の料金が半分になります。\n・一か月定期は、事務所で申し込んでください（受付時間：午前七時から午後八時まで）。",
+      "q": "大学生のリーさんは、来月から毎日自転車でここを使うので、一か月定期を申し込むことにした。リーさんはいくらはらうか。",
+      "options": [
+        "百円",
+        "七百五十円",
+        "千五百円",
+        "三千円"
+      ],
+      "answer": 2,
+      "short": [
+        "百円",
+        "七百五十円",
+        "千五百円",
+        "三千円"
+      ],
+      "explain": "A one-month pass for a bicycle is 千五百円, and university students pay half, so Lee pays 七百五十円. 千五百円 forgets the student price, 三千円 is the pass for a motorbike, and 百円 is the fee for one day."
+    },
+    {
+      "id": "n3u01t.24",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "みどり駅前自転車置き場のご案内\n・自転車置き場は、二十四時間使えます。\n・料金（一日一回）：自転車百円、バイク二百円\n※とめてから二時間以内に出す場合は、無料です。\n※料金は、出るときに出口ではらってください。\n・一か月定期：自転車千五百円、バイク三千円\n※高校生・大学生は、一か月定期の料金が半分になります。\n・一か月定期は、事務所で申し込んでください（受付時間：午前七時から午後八時まで）。",
+      "q": "会社員の森さんは、ある日、朝八時半に自転車をとめて、同じ日の夜九時に取りに来た。森さんは定期を持っていない。森さんはいくらはらうか。",
+      "options": [
+        "無料",
+        "二百円",
+        "千五百円",
+        "百円"
+      ],
+      "answer": 4,
+      "short": [
+        "無料",
+        "二百円",
+        "千五百円",
+        "百円"
+      ],
+      "explain": "Mori left the bicycle for about twelve hours on one day, so he pays the one-day bicycle fee, 百円. It is free only when you take the bicycle out within two hours. 二百円 is the fee for a motorbike, and 千五百円 is a one-month pass, which he does not have."
+    }
+  ]
 }

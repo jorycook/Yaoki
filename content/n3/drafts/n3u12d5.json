@@ -1,0 +1,265 @@
+{
+  "title": "〜かな・〜ってば",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u12d5.p1",
+        "form": "〜かな／〜かなあ",
+        "gloss": "I wonder; could you …?",
+        "connect": [
+          {"pos": "Verb or い-adjective, plain form", "rule": "開いてる／高い＋{かな}"},
+          {"pos": "Noun or な-adjective (no だ)", "rule": "休み／元気＋{かな}"},
+          {"pos": "Soft request: te-form + くれない", "rule": "見てくれない＋{かな}"}
+        ],
+        "examples": [
+          {"ja": "あの店、まだ開いてる{かな}。もう九時だけど。", "en": "I wonder if that shop is still open. It's already nine."},
+          {"ja": "このパソコン、使い方がよくわからないんだ。ちょっと見てくれない{かな}。", "en": "I don't really get how to use this computer. Could you take a look?"}
+        ],
+        "watch": {
+          "note": "かな follows the plain form, but a noun or a な-adjective drops だ before it. かなあ is the same, just more thoughtful.",
+          "bad": "この店、明日は休みだかな。",
+          "good": "この店、明日は休みかな。"
+        }
+      },
+      {
+        "id": "n3u12d5.p2",
+        "form": "〜ってば／〜ったら",
+        "gloss": "I told you!; come on!",
+        "connect": [
+          {"pos": "Verb, adjective or noun, plain form", "rule": "わかった／[本当|ほんとう]だ＋{ってば}"},
+          {"pos": "Request, te-form", "rule": "早くして＋{ってば}／{ったら}"}
+        ],
+        "examples": [
+          {"ja": "だから、[財布|さいふ]はテーブルの上にある{ってば}。", "en": "I told you, your wallet is on the table!"},
+          {"ja": "ちょっと、[静|しず]かにして{ったら}。今、電話中なんだから。", "en": "Hey, be quiet, will you! I'm on the phone."}
+        ],
+        "watch": {
+          "note": "ってば and ったら sound impatient. They are for family and close friends. To a manager or a customer, say the same thing plainly and politely.",
+          "bad": "課長、資料はもう送ったってば。",
+          "good": "課長、資料はもうお送りしました。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "かな wonders aloud, ってば repeats a point with impatience, and でしょ expects the listener to agree.",
+      "forms": [
+        {"form": "〜かな", "tag": "独り言 · I wonder", "mark": "dot", "ja": "みんな、土曜日空いてる{かな}。", "en": "I wonder if everyone's free on Saturday."},
+        {"form": "〜ってば", "tag": "いらいら · I told you!", "mark": "down", "ja": "だから、土曜日は空いてる{ってば}。", "en": "I told you, I'm free on Saturday!"},
+        {"form": "〜でしょ", "tag": "確認 · right?", "mark": "dot", "ja": "土曜日なら、みんな空いてる{でしょ}。", "en": "On Saturday everyone's free, right?"}
+      ],
+      "check": {
+        "id": "n3u12d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one is talking to yourself?",
+        "q": "（一人で空を見ながら）くもが多いなあ。明日、[晴|は]れる（　　）。ちょっと[心配|しんぱい]。",
+        "options": ["でしょ", "ってば", "かな"],
+        "answer": 3,
+        "why": [
+          "でしょ expects someone to agree, or says you are fairly sure. The speaker is alone and worried.",
+          "ってば insists to someone who doubts you. The speaker is alone and not sure at all.",
+          "The speaker is alone and unsure, so かな wonders aloud: will it be sunny tomorrow?"
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u12d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今、手がはなせないの。^悪いけど^、ドアを開けてくれない（　　）。",
+        "options": ["ってば", "でしょ", "かな", "もの"],
+        "answer": 3,
+        "why": [
+          "ってば insists on something already said. This is a first request, and 悪いけど is polite.",
+          "開けてくれないでしょ says 'you won't open it, right?'. It is not a request, and it clashes with 悪いけど.",
+          "くれないかな makes a soft request, and 悪いけど fits it: sorry, could you open the door?",
+          "もの gives a reason (unit 3). 'Because you won't open the door' explains nothing here."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d5.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あそこで手をふっている人、森さん（　　）。^よく見えない^なあ。",
+        "options": ["だかな", "かな", "ってば", "に[違|ちが]いない"],
+        "answer": 2,
+        "why": [
+          "A noun takes かな directly. だ drops before かな, so 森さんだかな is wrong.",
+          "The speaker cannot see well and wonders aloud: is that Mr Mori?",
+          "ってば insists to someone, but the speaker is not sure, as they cannot see well.",
+          "に[違|ちが]いない says you are sure (unit 4), but the next sentence says the speaker cannot see well."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d5.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：かぎ、ちゃんとかけた？B：かけた（　　）。^出る前に二回も[確|たし]かめた^んだから。",
+        "options": ["かな", "そうだ", "わけじゃない", "ってば"],
+        "answer": 4,
+        "why": [
+          "かけたかな wonders, but B checked twice before leaving, so B is sure.",
+          "そうだ passes on what you heard from someone else. B is talking about what B did.",
+          "かけたわけじゃない says B did not really lock it, but B checked twice.",
+          "A doubts B, and B checked twice, so B insists: I did lock it! ってば adds the impatience."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：どれにしようかなあ。うーん…。B：^もう十五分も見てる^よ。早く（　　）。",
+        "options": ["[決|き]めてったら", "[決|き]めたかな", "[決|き]めるわけだ", "[決|き]めてばかりいる"],
+        "answer": 1,
+        "why": [
+          "B has waited fifteen minutes and pushes: decide, come on! ったら after a request works like ってば.",
+          "[決|き]めたかな wonders whether A has decided, but B can see A is still looking. It is not a request either.",
+          "わけだ draws a conclusion from a reason (unit 3). Nothing here leads to 'so A decides'.",
+          "てばかりいる says someone does nothing but this (unit 10). A has not decided anything yet."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d5.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "山田さん、電話に出ないなあ。",
+        "after": "かな。",
+        "tiles": ["[会議|かいぎ]が", "長引いて", "いる", "の"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "hint": "The speaker wonders about the reason. の goes right before かな.",
+        "full": "山田さん、電話に出ないなあ。[会議|かいぎ]が長引いているの{かな}。",
+        "explain": "[会議|かいぎ]が is what 長引いている is about, and のかな follows the plain form いる. のかな wonders about a reason: she's not answering; maybe the meeting is running long."
+      },
+      {
+        "id": "n3u12d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A：駅まで[迎|むか]えに行こうか？B：いいよ。もう",
+        "after": "ってば。",
+        "tiles": ["子どもじゃ", "ないんだから", "一人で", "帰れる"],
+        "star": 2,
+        "bank": [3, 1, 0, 2],
+        "hint": "First the reason (…んだから), then what B can do. ってば follows the plain form.",
+        "full": "A：駅まで[迎|むか]えに行こうか？B：いいよ。もう子どもじゃないんだから一人で帰れる{ってば}。",
+        "explain": "もう goes with 子どもじゃない, and ないんだから gives the reason. 一人で goes with 帰れる, and ってば follows the plain form 帰れる: I'm not a child any more, I can get home on my own!"
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u12d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この仕事、今日中に終わる（　　）。まだ半分も残ってるなあ。",
+        "options": ["ってば", "ことにしている", "ばかりだ", "かなあ"],
+        "answer": 4,
+        "explain": "The speaker is talking to themselves, with half the work left, and wonders: will this be done today? かなあ is a longer, more thoughtful かな. ってば insists to someone, which clashes with the worry in the next sentence. ことにしている is for a habit you have decided on, not a worry about today. ばかりだ says something keeps changing one way (worse and worse) and does not fit 終わる."
+      },
+      {
+        "id": "n3u12d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：ねえ、あの本、早く返してよ。B：だから、先週（　　）。何回言えばわかるの。",
+        "options": ["返したってば", "返したかな", "返したものだ", "返すところだ"],
+        "answer": 1,
+        "explain": "だから and 何回言えばわかるの show that B has said this before and is losing patience: I returned it last week! 返したかな makes B unsure, which clashes with 何回言えばわかるの. 返したものだ looks back on something you often did long ago, not one time last week. 返すところだ says B is about to return it, which does not fit 先週."
+      },
+      {
+        "id": "n3u12d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A：顔色が悪いけど、本当にだいじょうぶ？B：",
+        "after": "ってば。",
+        "tiles": ["だから", "ちょっと", "疲れてる", "だけだ"],
+        "star": 1,
+        "bank": [3, 0, 2, 1],
+        "full": "A：顔色が悪いけど、本当にだいじょうぶ？B：だからちょっと疲れてるだけだ{ってば}。",
+        "explain": "だから, ちょっと, 疲れてる, だけだ. だから opens the reply (I've told you), ちょっと goes with 疲れてる, and だけだ comes after it. ってば follows the plain form だけだ: I told you, I'm just a bit tired!"
+      }
+    ]
+  },
+  "scene": {
+    "ja": "週末旅行のグループチャット",
+    "en": "A group chat planning a weekend trip",
+    "intro": "Four friends plan a weekend trip in a group chat. Tap each word in their messages.",
+    "words": [
+      {"id": "booking", "word": "予約", "reading": "よやく", "gloss": "booking, reservation", "parts": [["予", "ヨ", "beforehand"], ["約", "ヤク", "promise"]]},
+      {"id": "stay", "word": "宿泊", "reading": "しゅくはく", "gloss": "overnight stay", "parts": [["宿", "シュク", "lodging"], ["泊", "ハク", "stay the night"]]},
+      {"id": "fares", "word": "交通費", "reading": "こうつうひ", "gloss": "travel costs, fares", "parts": [["交", "コウ", "cross, mix"], ["通", "ツウ", "pass through"], ["費", "ヒ", "cost"]]},
+      {"id": "oneway", "word": "片道", "reading": "かたみち", "gloss": "one way", "parts": [["片", "かた", "one side"], ["道", "みち", "road"]]},
+      {"id": "reserved", "word": "指定席", "reading": "していせき", "gloss": "reserved seat", "parts": [["指", "シ", "point"], ["定", "テイ", "fix"], ["席", "セキ", "seat"]]},
+      {"id": "arrival", "word": "到着", "reading": "とうちゃく", "gloss": "arrival", "parts": [["到", "トウ", "arrive"], ["着", "チャク", "arrive, wear"]]},
+      {"id": "luggage", "word": "荷物", "reading": "にもつ", "gloss": "luggage, bags", "parts": [["荷", "に", "load"], ["物", "モツ", "thing"]]},
+      {"id": "parking", "word": "駐車場", "reading": "ちゅうしゃじょう", "gloss": "car park", "parts": [["駐", "チュウ", "stop, stay"], ["車", "シャ", "car"], ["場", "ジョウ", "place"]]}
+    ],
+    "check": {
+      "id": "n3u12d5.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "ホテルには三時ごろ_到着_する予定です。",
+      "options": ["とちゃく", "とうちゃく", "どうちゃく", "とうじゃく"],
+      "answer": 2,
+      "explain": "到着 is とうちゃく: 到 is トウ, with a long vowel, and 着 is チャク, as in 着く. とちゃく drops the long vowel, and どうちゃく and とうじゃく add voicing that is not there."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "発話表現",
+    "en": "Expressions",
+    "situation": "At a station on the morning of the weekend trip, a woman stands at the bottom of the stairs with a heavy suitcase and looks at her friend.",
+    "ask": "友だちに荷物を運ぶのを手伝ってほしいです。何と言いますか。",
+    "item": {
+      "id": "n3u12d5.r1",
+      "kind": "choice",
+      "type": "発話表現",
+      "q": "友だちに荷物を運ぶのを手伝ってほしいです。何と言いますか。",
+      "script": [
+        "ナレーター：友だちに荷物を運ぶのを手伝ってほしいです。何と言いますか。",
+        "ナレーター：1",
+        "女：ねえ、これ、上まで運んでいこうかな。",
+        "ナレーター：2",
+        "女：ねえ、これ、上まで一緒に運んでくれないかな。",
+        "ナレーター：3",
+        "女：ねえ、これ、上まで一緒に運んだってば。"
+      ],
+      "options": [
+        "ねえ、これ、上まで運んでいこうかな。",
+        "ねえ、これ、上まで一緒に運んでくれないかな。",
+        "ねえ、これ、上まで一緒に運んだってば。"
+      ],
+      "printed": false,
+      "short": ["運んでいこうかな", "運んでくれないかな", "運んだってば"],
+      "answer": 2,
+      "why": [
+        "She wonders aloud whether to carry it up herself. She does not ask her friend for anything.",
+        "",
+        "ってば insists that they already carried it together, but nothing has been carried yet."
+      ],
+      "explain": "〜てくれないかな is a soft, casual request (could you …?), right for a friend. 一緒に says she wants to carry it together."
+    },
+    "audio": [
+      ["N", "友だちに荷物を運ぶのを手伝ってほしいです。何と言いますか。", "ともだちににもつをはこぶのをてつだってほしいです。なんといいますか。"],
+      ["N", "1", "いち"],
+      ["F", "ねえ、これ、上まで運んでいこうかな。", "ねえ、これ、うえまではこんでいこうかな。"],
+      ["N", "2", "に"],
+      ["F", "ねえ、これ、上まで一緒に運んでくれないかな。", "ねえ、これ、うえまでいっしょにはこんでくれないかな。"],
+      ["N", "3", "さん"],
+      ["F", "ねえ、これ、上まで一緒に運んだってば。", "ねえ、これ、うえまでいっしょにはこんだってば。"]
+    ]
+  }
+}

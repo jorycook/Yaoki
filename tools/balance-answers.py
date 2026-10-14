@@ -1,5 +1,5 @@
 """Spread the right answers over positions 1 to 4, as on the real paper.
-usage: python3 tools/balance-answers.py content/n5/u03.json [more files]   (rewrites the files in place)
+usage: python3 tools/balance-answers.py [--even] content/n5/u03.json [more files]   (rewrites the files in place; --even deals positions out in turn for an even spread, used from N3 on)
 
 Drafts tend to put the right answer first. For every choice item the options are rotated so that the right
 answer lands on a position picked from the item's id (stable: running it twice changes nothing more), and the
@@ -28,14 +28,22 @@ def renumber(text, mapping):
     return re.sub(r'(\b[Oo]ptions? )([1-4](?:(?:, | and | or |-)[1-4])*)', one, text)
 
 
-def balance(it):
+def eligible(it):
     if it.get('kind') != 'choice' or SPOKEN.search(it.get('type', '')) or it.get('order'):
         return False
     opts = it['options']
-    n = len(opts)
-    if n < 3 or all(NUMERIC.search(o) for o in opts):
+    return len(opts) >= 3 and not all(NUMERIC.search(o) for o in opts)
+
+
+EVEN = {}
+
+
+def balance(it):
+    if not eligible(it):
         return False
-    want = target(it['id'], n)
+    opts = it['options']
+    n = len(opts)
+    want = EVEN.get(it['id']) or target(it['id'], n)
     shift = (want - it['answer']) % n
     if not shift:
         return False
@@ -71,8 +79,17 @@ def items_of(u):
     yield from u.get('test', [])
 
 
-for path in sys.argv[1:]:
+even = '--even' in sys.argv
+for path in [a for a in sys.argv[1:] if a != '--even']:
     u = json.load(open(path, encoding='utf-8'))
+    EVEN.clear()
+    if even:
+        # --even: deal the positions out in turn (items ordered by a hash of their id), so each unit is spread evenly
+        by_n = {}
+        for it in items_of(u):
+            if eligible(it): by_n.setdefault(len(it['options']), []).append(it['id'])
+        for n, ids in by_n.items():
+            for k, i in enumerate(sorted(ids, key=lambda x: hashlib.sha1(x.encode()).hexdigest())): EVEN[i] = k % n + 1
     changed = sum(balance(it) for it in items_of(u))
     counts = {}
     for it in items_of(u):

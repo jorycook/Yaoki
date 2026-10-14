@@ -1,0 +1,441 @@
+{
+  "title": "〜ため（に）（原因）・〜によって（原因）",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u03d2.p1",
+        "form": "〜ため（に）（原因）",
+        "gloss": "because of, due to (formal)",
+        "connect": [
+          {
+            "pos": "Noun + の",
+            "rule": "工事の{ため（に）}"
+          },
+          {
+            "pos": "Verb or い-adjective, plain form",
+            "rule": "雨が[降|ふ]った{ため（に）}、人が多い{ため（に）}"
+          },
+          {
+            "pos": "な-adjective + な",
+            "rule": "[交通|こうつう]が不便な{ため（に）}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "工事の{ため}、駅の西口は使えません。",
+            "en": "Because of construction work, the west exit of the station cannot be used."
+          },
+          {
+            "ja": "[大雪|おおゆき]が[降|ふ]った{ために}、学校が休みになりました。",
+            "en": "School was closed because of the heavy snow."
+          }
+        ],
+        "watch": {
+          "note": "After a noun, ため needs の: 大雨のため. Without の the sentence is wrong.",
+          "bad": "大雨ため、試合は中止になりました。",
+          "good": "大雨のため、試合は中止になりました。"
+        }
+      },
+      {
+        "id": "n3u03d2.p2",
+        "form": "〜によって（原因）",
+        "gloss": "because of, caused by (news style)",
+        "connect": [
+          {
+            "pos": "Noun (the cause)",
+            "rule": "台風{によって}"
+          },
+          {
+            "pos": "Before a noun",
+            "rule": "台風{による}〜"
+          },
+          {
+            "pos": "Noun (who did it), with a passive verb",
+            "rule": "〜{によって}建てられた"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[昨夜|さくや]の大雨{によって}、川の水が[増|ふ]えました。",
+            "en": "Last night's heavy rain made the river rise."
+          },
+          {
+            "ja": "駅前の古いホテルは、百年前にアメリカ人{によって}建てられました。",
+            "en": "The old hotel in front of the station was built by an American a hundred years ago."
+          }
+        ],
+        "watch": {
+          "note": "によって sounds like the news or a report. With a small personal reason, and before what you decide to do, it sounds odd. Use で there.",
+          "bad": "かぜによって、今日は会社を休みます。",
+          "good": "かぜで、今日は会社を休みます。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "ため and によって both give a cause in formal Japanese, but ために after a verb for something you want to do gives a purpose, as you learnt at N4.",
+      "forms": [
+        {
+          "form": "〜ため（に）",
+          "tag": "原因 · because of",
+          "mark": "dot",
+          "ja": "雨の{ため}、今日の運動会は来週になりました。",
+          "en": "Because of the rain, today's sports day has been moved to next week."
+        },
+        {
+          "form": "〜ために（目的）",
+          "tag": "目的 · in order to",
+          "mark": "dot",
+          "ja": "[留学|りゅうがく]する{ために}、お金をためています。",
+          "en": "I am saving money to study abroad."
+        },
+        {
+          "form": "〜によって",
+          "tag": "原因（ニュース）· caused by",
+          "mark": "dot",
+          "ja": "台風{によって}、[公園|こうえん]の木がたくさん[倒|たお]れました。",
+          "en": "The typhoon brought down a lot of trees in the park."
+        }
+      ],
+      "check": {
+        "id": "n3u03d2.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Cause or purpose?",
+        "q": "^大学に入る^（　　）、毎日[遅|おそ]くまで勉強しています。",
+        "options": [
+          "せいで",
+          "によって",
+          "ために"
+        ],
+        "answer": 3,
+        "why": [
+          "せいで blames a cause for a bad result. Getting into university has not happened yet; it is the goal.",
+          "によって follows a noun (台風によって), not a verb in the dictionary form.",
+          "Dictionary form + ために, and the same person studies: a purpose. I study late every night to get into university."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u03d2.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^台風の^（　　）、今日の試合は中止になりました。",
+        "options": [
+          "おかげで",
+          "ため",
+          "ように",
+          "によって"
+        ],
+        "answer": 2,
+        "why": [
+          "おかげで thanks a cause for a good result. A game cancelled by a typhoon is not that.",
+          "Noun + の + ため: because of the typhoon, today's game was called off.",
+          "台風のように means \"like a typhoon\", which makes no sense here.",
+          "によって follows the noun directly (台風によって). There is no の before it."
+        ]
+      },
+      {
+        "id": "n3u03d2.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^電車が[遅|おく]れた^（　　）、[会議|かいぎ]に間に合いませんでした。",
+        "options": [
+          "によって",
+          "ように",
+          "のに",
+          "ために"
+        ],
+        "answer": 4,
+        "why": [
+          "によって follows a noun. Here a verb, 遅れた, comes before the blank.",
+          "遅れたように would mean \"in the way the train was late\", which makes no sense here.",
+          "のに means \"although\". The late train is the reason I missed the meeting, not something against it.",
+          "Past form + ために gives the cause: the train was late, so I did not make it to the meeting."
+        ]
+      },
+      {
+        "id": "n3u03d2.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[昨日|きのう]のじしん（　　）、古いビルの[窓|まど]が^[割|わ]れました^。",
+        "options": [
+          "によって",
+          "について",
+          "までに",
+          "にとって"
+        ],
+        "answer": 1,
+        "why": [
+          "The earthquake caused the windows to break: じしんによって.",
+          "について means \"about\". The windows did not break about the earthquake.",
+          "までに gives a deadline, which does not fit something the earthquake did.",
+          "にとって means \"for\" someone, from their point of view. An earthquake has no point of view here."
+        ]
+      },
+      {
+        "id": "n3u03d2.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "台風（　　）^[停電|ていでん]^は、二日間も[続|つづ]きました。",
+        "options": [
+          "についての",
+          "のための",
+          "による",
+          "にとっての"
+        ],
+        "answer": 3,
+        "why": [
+          "についての means \"about\". A blackout is not about a typhoon.",
+          "のための means \"for\" a purpose. The blackout was not for the typhoon.",
+          "The noun 停電 follows, so the form before a noun, による: the blackout caused by the typhoon lasted two days.",
+          "にとっての means \"for\" someone, from their point of view, which does not fit a typhoon."
+        ]
+      },
+      {
+        "id": "n3u03d2.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "電車が",
+        "after": "です。",
+        "tiles": [
+          "[遅|おく]れている",
+          "のは",
+          "[大雪|おおゆき]の",
+          "ため"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          3,
+          1,
+          0
+        ],
+        "hint": "〜のは〜ためです: first what happened, then its cause.",
+        "full": "電車が[遅|おく]れているのは[大雪|おおゆき]の{ため}です。",
+        "explain": "電車が遅れている is what happened, and のは makes it the topic. Then comes the cause, 大雪のため, before です: the trains are late because of the heavy snow."
+      },
+      {
+        "id": "n3u03d2.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[去年|きょねん]の",
+        "after": "、来月からまた通れるようになります。",
+        "tiles": [
+          "大雨",
+          "によって",
+          "こわれた",
+          "[橋|はし]が"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "によって follows the cause. What will people be able to cross again?",
+        "full": "[去年|きょねん]の大雨{によって}こわれた[橋|はし]が、来月からまた通れるようになります。",
+        "explain": "去年の大雨 is the cause, so によって follows it. 大雨によってこわれた describes 橋, and 橋が is the subject of 通れるようになります: the bridge that last year's heavy rain broke will be open again from next month."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u03d2.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "ただいま、強い風の（　　）、電車が止まっております。",
+        "options": [
+          "おかげで",
+          "ように",
+          "かわりに",
+          "ため"
+        ],
+        "answer": 4,
+        "explain": "Noun + の + ため gives the cause, as station announcements do: the trains are stopped because of the strong wind. おかげで is for a good result, 風のように means \"like the wind\", and 風のかわりに means \"instead of the wind\"; none of these fit."
+      },
+      {
+        "id": "n3u03d2.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今朝の大雪（　　）、高速道路が通れなくなりました。",
+        "options": [
+          "について",
+          "によって",
+          "として",
+          "にとって"
+        ],
+        "answer": 2,
+        "explain": "The heavy snow is the cause of the closed motorway: 大雪によって. について means \"about\", として means \"as\" (in a role), and にとって means \"for\" someone, from their point of view; none of them gives a cause."
+      },
+      {
+        "id": "n3u03d2.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "台風が",
+        "after": "中止になりました。",
+        "tiles": [
+          "近づいている",
+          "ため",
+          "明日の",
+          "花火大会は"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "full": "台風が近づいているため{明日の}花火大会は中止になりました。",
+        "explain": "近づいている, ため, 明日の, 花火大会は. 台風が近づいている is the cause and ため follows it. 明日の describes 花火大会, which is the topic of 中止になりました: because a typhoon is coming, tomorrow's fireworks have been called off."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "列車の遅れのお知らせ",
+    "en": "A train delay notice",
+    "intro": "The board at the station says your train is late and tells you why. Tap each word on it.",
+    "words": [
+      {
+        "id": "now",
+        "word": "現在",
+        "reading": "げんざい",
+        "gloss": "now, at present",
+        "parts": [
+          ["現", "ゲン", "appear; present"],
+          ["在", "ザイ", "be, exist"]
+        ]
+      },
+      {
+        "id": "train",
+        "word": "列車",
+        "reading": "れっしゃ",
+        "gloss": "train",
+        "parts": [
+          ["列", "レッ", "row, line"],
+          ["車", "シャ", "vehicle"]
+        ]
+      },
+      {
+        "id": "track",
+        "word": "線路",
+        "reading": "せんろ",
+        "gloss": "railway track",
+        "parts": [
+          ["線", "セン", "line"],
+          ["路", "ロ", "road, way"]
+        ]
+      },
+      {
+        "id": "cause",
+        "word": "原因",
+        "reading": "げんいん",
+        "gloss": "cause",
+        "parts": [
+          ["原", "ゲン", "origin"],
+          ["因", "イン", "cause"]
+        ]
+      },
+      {
+        "id": "arrival",
+        "word": "到着",
+        "reading": "とうちゃく",
+        "gloss": "arrival",
+        "parts": [
+          ["到", "トウ", "reach"],
+          ["着", "チャク", "arrive"]
+        ]
+      },
+      {
+        "id": "crowded",
+        "word": "混雑",
+        "reading": "こんざつ",
+        "gloss": "crowding",
+        "parts": [
+          ["混", "コン", "mix, be crowded"],
+          ["雑", "ザツ", "mixed"]
+        ]
+      },
+      {
+        "id": "refund",
+        "word": "払い戻し",
+        "reading": "はらいもどし",
+        "gloss": "refund",
+        "parts": [
+          ["払", "はら", "pay"],
+          ["戻", "もど", "give back"]
+        ]
+      },
+      {
+        "id": "platform",
+        "word": "番線",
+        "reading": "ばんせん",
+        "gloss": "platform (number)",
+        "parts": [
+          ["番", "バン", "number"],
+          ["線", "セン", "line"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u03d2.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "ただいま、ホームが大変_混雑_しております。",
+      "options": [
+        "こんざつ",
+        "こんさつ",
+        "こうざつ",
+        "ごんざつ"
+      ],
+      "answer": 1,
+      "explain": "混雑 is read こんざつ: 混 is こん and 雑 is ざつ, with a voiced ざ. こんさつ has no voicing, こうざつ has a long こう, and ごんざつ wrongly voices the first sound."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（短文）",
+    "en": "Short passage",
+    "ask": "What does this notice tell passengers?",
+    "seconds": 90,
+    "passage": "みなと線をご利用のお客様へ\n本日午前七時十分ごろ、北山駅と南川駅の間で、^強い風によって線路に木が倒れました^。このため、現在、みなと線は全線で止まっております。木を取りのぞく作業は、^午前十時ごろに終わる予定です^。ただし、^運転が始まってからも、しばらくは列車に遅れが出る^ため、駅のホームが混雑することが考えられます。お急ぎのお客様は、駅前から出ている市のバスをご利用ください。なお、本日の切符の払い戻しは、どの駅の窓口でも行っております。",
+    "strategy": "Find the cause (によって, このため) and the times, then check each option against them.",
+    "item": {
+      "id": "n3u03d2.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "q": "このお知らせからわかることは何か。",
+      "options": [
+        "木が倒れたのは、線路で作業をしていたためだ。",
+        "強い風のため、市のバスも止まっている。",
+        "午前十時ごろまで、みなと線の列車は動かない予定だ。",
+        "運転が始まれば、すぐにいつもどおりに乗れる。"
+      ],
+      "short": [
+        "作業のために木が倒れた",
+        "バスも止まっている",
+        "十時ごろまで列車は動かない",
+        "すぐにいつもどおり乗れる"
+      ],
+      "answer": 3,
+      "explain": "The whole line has stopped (全線で止まっております), and the work to clear the tree should end around ten (午前十時ごろに終わる予定です). So the trains are not expected to run before about ten.",
+      "why": [
+        "The tree fell because of the strong wind (強い風によって). The work is to clear it away afterwards.",
+        "The notice tells passengers in a hurry to take the city bus, so the buses are running.",
+        "",
+        "Even after the trains start again, there will be delays for a while (しばらくは列車に遅れが出る)."
+      ]
+    }
+  }
+}

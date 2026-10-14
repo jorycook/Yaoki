@@ -1,0 +1,468 @@
+{
+  "title": "〜ばよかった・〜たらいいのに",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u11d1.p1",
+        "form": "〜ばよかった",
+        "gloss": "I should have …; I shouldn't have …",
+        "connect": [
+          {
+            "pos": "Verb, ば form (I should have done it)",
+            "rule": "出る→出れ{ばよかった}"
+          },
+          {
+            "pos": "Verb, ない form (I shouldn't have done it)",
+            "rule": "買う→買わ{なければよかった}"
+          },
+          {
+            "pos": "Verb, て form + くれる (you should have done it for me)",
+            "rule": "言ってくれれ{ばよかったのに}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "旅行先で、あんなに高いかばんを買わ{なければよかった}。",
+            "en": "I shouldn't have bought such an expensive bag on the trip."
+          },
+          {
+            "ja": "駅に着いたなら、電話してくれれ{ばよかったのに}。車で[迎|むか]えに行きましたよ。",
+            "en": "If you were already at the station, you should have called me. I would have come to get you by car."
+          }
+        ],
+        "watch": {
+          "note": "ばよかった joins the ば form of the verb: 行く becomes 行けば, 出る becomes 出れば. ば does not follow the dictionary form.",
+          "bad": "かさを持っていくばよかった。",
+          "good": "かさを持っていけばよかった。"
+        }
+      },
+      {
+        "id": "n3u11d1.p2",
+        "form": "〜たらいいのに",
+        "gloss": "I wish …; (you) should just …",
+        "connect": [
+          {
+            "pos": "Verb, た form + ら",
+            "rule": "やむ→やん{だらいいのに}"
+          },
+          {
+            "pos": "Verb, ば form",
+            "rule": "[寝|ね]る→[寝|ね]れ{ばいいのに}"
+          },
+          {
+            "pos": "い-adjective",
+            "rule": "近い→近かっ{たらいいのに}・近けれ{ばいいのに}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "旅行は今日までなのに、また雨だ。早くやん{だらいいのに}。",
+            "en": "Today is the last day of the trip, and it is raining again. I wish it would stop soon."
+          },
+          {
+            "ja": "そんなに[眠|ねむ]いなら、早く[寝|ね]れ{ばいいのに}。",
+            "en": "If you are that sleepy, you should just go to bed early."
+          }
+        ],
+        "watch": {
+          "note": "〜たらいいのに is a wish or a small complaint, not a question. To ask what you should do, use 〜たらいいですか, without のに.",
+          "bad": "どこで乗りかえたらいいのに。",
+          "good": "どこで乗りかえたらいいですか。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three talk about something better than what happened or what is true; ばよかった looks back at the past, たらいいのに wishes about now or later, and たらどうですか is open advice to the listener.",
+      "forms": [
+        {
+          "form": "〜ばよかった",
+          "tag": "[残念|ざんねん] · regret",
+          "mark": "down",
+          "ja": "もっと早く家を出れ{ばよかった}。",
+          "en": "I should have left home earlier."
+        },
+        {
+          "form": "〜たらいいのに",
+          "tag": "[願|ねが]い · I wish",
+          "mark": "dot",
+          "ja": "このホテル、駅からもう少し近かっ{たらいいのに}。",
+          "en": "I wish this hotel were a little closer to the station."
+        },
+        {
+          "form": "〜たらどうですか",
+          "tag": "すすめ · why don't you",
+          "mark": "dot",
+          "ja": "[疲|つか]れているなら、少し休ん{だらどうですか}。",
+          "en": "If you are tired, why don't you rest a little?"
+        }
+      ],
+      "check": {
+        "id": "n3u11d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one looks back?",
+        "q": "^[昨日|きのう]のうちに^、あの店を[予約|よやく]して（　　）。今日はもう[満席|まんせき]で入れなかった。",
+        "options": [
+          "おいたらどうですか",
+          "おけばいいのに",
+          "おけばよかった"
+        ],
+        "answer": 3,
+        "why": [
+          "たらどうですか suggests something to the listener for now or later. [昨日|きのう]のうちに is already over.",
+          "ばいいのに wishes about now or later, or complains about what someone does. The chance was yesterday, so the sentence needs よかった.",
+          "Regret about yesterday: I should have booked, and today the shop was full."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u11d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^あのとき^、もっとよく地図を見て（　　）。道がわからなくなって、たくさん歩いてしまった。",
+        "options": [
+          "おけばよかった",
+          "おけばいい",
+          "おくつもりだ",
+          "おいてほしい"
+        ],
+        "answer": 1,
+        "why": [
+          "あのとき points to the past: I should have looked at the map more carefully, and now I regret it.",
+          "ばいい gives advice for now or later. It cannot go with あのとき, a time that is already over.",
+          "つもりだ is a plan for the future. あのとき is in the past, and the walking already happened.",
+          "てほしい wants someone else to do something now or later. It does not fit あのとき."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "来られないなら、もっと早く[連絡|れんらく]して（　　）。私は駅で^ずっと待っていた^んですよ。",
+        "options": [
+          "くれてよかった",
+          "くれればよかったのに",
+          "くれなければよかったのに",
+          "くれるはずです"
+        ],
+        "answer": 2,
+        "why": [
+          "くれてよかった says you are glad they did it. The speaker waited a long time, so the message did not come early.",
+          "The other person did not let me know in time: you should have told me sooner. のに adds the complaint.",
+          "なければよかった says the message should not have come at all. That clashes with もっと早く: the speaker wanted it sooner.",
+          "はずです is a confident guess about a fact. The speaker is not guessing; the message already came too late."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "このあたりはバスが一時間に一本しかありません。^もう少し^[本数|ほんすう]が（　　）。",
+        "options": [
+          "多いはずです",
+          "多いそうです",
+          "多ければいいのに",
+          "多くなりました"
+        ],
+        "answer": 3,
+        "why": [
+          "はずです expects that there are more buses, but the speaker has just said there is only one an hour.",
+          "そうです reports what someone said, and it clashes with the fact the speaker just gave: one bus an hour.",
+          "A wish about now: there is only one bus an hour, and I wish there were a few more.",
+          "なりました says the number has gone up. That clashes with しかありません: there is still only one bus."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "兄はもう三日もせきが止まらないのに、^まだ^一度も病院に行っていません。早く（　　）。",
+        "options": [
+          "みてもらわなければよかった",
+          "みてもらったそうです",
+          "みてもらってよかったです",
+          "みてもらえばいいのに"
+        ],
+        "answer": 4,
+        "why": [
+          "なければよかった is regret about something that happened. He has not seen a doctor yet, so there is nothing to regret.",
+          "そうです reports that he did see a doctor, which clashes with まだ一度も.",
+          "てよかった says it is good that it happened. He has not been yet (まだ).",
+          "Advice with a complaint: he still has not been, and he should just see a doctor soon."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u11d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "足が[痛|いた]くて、今日はもう出かけられない。買った",
+        "after": "よかった。",
+        "tiles": [
+          "ばかりの",
+          "[靴|くつ]で",
+          "一日中",
+          "歩かなければ"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "ばかりの follows 買った and describes a noun. What should I not have done in them?",
+        "full": "足が[痛|いた]くて、今日はもう出かけられない。買ったばかりの[靴|くつ]で一日中歩か{なければよかった}。",
+        "explain": "買ったばかりの describes [靴|くつ], and [靴|くつ]で says what I walked in. 一日中 tells how long, so it comes right before 歩かなければ, which joins よかった: I shouldn't have walked all day in brand-new shoes."
+      },
+      {
+        "id": "n3u11d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "旅行中ずっと雨だ。",
+        "after": "のに。",
+        "tiles": [
+          "明日",
+          "だけでも",
+          "[晴|は]れたら",
+          "いい"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "だけでも follows the noun it limits. たら comes before いい.",
+        "full": "旅行中ずっと雨だ。明日だけでも[晴|は]れ{たらいいのに}。",
+        "explain": "明日だけでも means at least tomorrow, so だけでも follows 明日. [晴|は]れたら joins いいのに: it has rained the whole trip, and I wish it would be sunny at least tomorrow."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u11d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "山の上でカメラのバッテリーがなくなってしまった。もう一つ持って（　　）。",
+        "options": [
+          "いけばいいですか",
+          "くればよかった",
+          "こなければよかった",
+          "くるところだ"
+        ],
+        "answer": 2,
+        "explain": "The battery already ran out, so the speaker looks back with regret: I should have brought a spare one (持ってくればよかった). いけばいいですか asks for advice, which does not fit a problem that has already happened. こなければよかった says the opposite: I shouldn't have brought one. くるところだ says the speaker is about to bring one, which does not fit a battery that is already dead."
+      },
+      {
+        "id": "n3u11d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "母はいつも「ひざが痛い」と言いながら、重い荷物を一人で運んでいる。私に頼めば（　　）。",
+        "options": [
+          "いいですか",
+          "どうですか",
+          "いいのに",
+          "いけない"
+        ],
+        "answer": 3,
+        "explain": "The speaker complains about something the mother keeps doing: she should just ask me (頼めばいいのに). いいですか asks for advice, but the speaker is not asking anything. どうですか follows たら, not ば (頼んだらどうですか), and it would speak to the mother directly. いけない needs a negative before it (頼まなければいけない), and that would give a duty, not a wish."
+      },
+      {
+        "id": "n3u11d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あのレストランは高いだけで、おいしくなかった。",
+        "after": "よかった。",
+        "tiles": [
+          "ガイドブックに",
+          "書いて",
+          "あることを",
+          "信じなければ"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "full": "あのレストランは高いだけで、おいしくなかった。ガイドブックに書いてあることを信じ{なければよかった}。",
+        "explain": "ガイドブックに, 書いて, あることを, 信じなければ. ガイドブックに書いてある (written in the guidebook) describes こと, こと is what I believed, and 信じなければ joins よかった: I shouldn't have believed what the guidebook said."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "旅行サイトの口コミ",
+    "en": "A review on a travel site",
+    "intro": "Back from your trip, you are writing a review of the inn on a travel site. Tap each word on the review form.",
+    "words": [
+      {
+        "id": "stay",
+        "word": "宿泊",
+        "reading": "しゅくはく",
+        "gloss": "staying (at a hotel or inn)",
+        "parts": [
+          ["宿", "シュク", "lodging"],
+          ["泊", "ハク", "stay overnight"]
+        ]
+      },
+      {
+        "id": "booking",
+        "word": "予約",
+        "reading": "よやく",
+        "gloss": "booking, reservation",
+        "parts": [
+          ["予", "ヨ", "in advance"],
+          ["約", "ヤク", "promise"]
+        ]
+      },
+      {
+        "id": "view",
+        "word": "景色",
+        "reading": "けしき",
+        "gloss": "view, scenery",
+        "parts": [
+          ["景", "ケ", "scenery"],
+          ["色", "シキ", "colour"]
+        ]
+      },
+      {
+        "id": "sightseeing",
+        "word": "観光",
+        "reading": "かんこう",
+        "gloss": "sightseeing",
+        "parts": [
+          ["観", "カン", "look at"],
+          ["光", "コウ", "light"]
+        ]
+      },
+      {
+        "id": "satisfied",
+        "word": "満足",
+        "reading": "まんぞく",
+        "gloss": "satisfied",
+        "parts": [
+          ["満", "マン", "full"],
+          ["足", "ゾク", "enough"]
+        ]
+      },
+      {
+        "id": "pity",
+        "word": "残念",
+        "reading": "ざんねん",
+        "gloss": "disappointing, a pity",
+        "parts": [
+          ["残", "ザン", "remain"],
+          ["念", "ネン", "feeling"]
+        ]
+      },
+      {
+        "id": "parking",
+        "word": "駐車場",
+        "reading": "ちゅうしゃじょう",
+        "gloss": "car park",
+        "parts": [
+          ["駐", "チュウ", "stop, stay"],
+          ["車", "シャ", "car"],
+          ["場", "ジョウ", "place"]
+        ]
+      },
+      {
+        "id": "transport",
+        "word": "交通",
+        "reading": "こうつう",
+        "gloss": "transport, getting there",
+        "parts": [
+          ["交", "コウ", "cross"],
+          ["通", "ツウ", "pass through"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u11d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "部屋の窓から見える_景色_がとてもきれいでした。",
+      "options": [
+        "けいしょく",
+        "けいしき",
+        "けしょく",
+        "けしき"
+      ],
+      "answer": 4,
+      "explain": "景色 is read けしき, view or scenery: 景 is read ケ here, not ケイ, and 色 is read シキ. けいしき is the reading of a different word (形式, form), and けいしょく and けしょく use ショク, which 色 does not have in this word."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "女の人はこのあと、まず何をしますか。",
+    "audio": [
+      ["N", "旅行から帰った男の人と女の人が話しています。女の人はこのあと、まず何をしますか。", "りょこうからかえったおとこのひととおんなのひとがはなしています。おんなのひとはこのあと、まずなにをしますか。"],
+      ["M", "旅行、楽しかったね。でも、ホテルが駅から遠くて大変だったなあ。", "りょこう、たのしかったね。でも、ホテルがえきからとおくてたいへんだったなあ。"],
+      ["F", "ほんと。駅の近くのホテルを予約すればよかった。そうだ、ホテルのサイトに口コミを書いておこうかな。", "ほんと。えきのちかくのホテルをよやくすればよかった。そうだ、ホテルのサイトにくちコミをかいておこうかな。"],
+      ["M", "いいね。でも、その前に、口コミにのせる写真を選んだら？", "いいね。でも、そのまえに、くちコミにのせるしゃしんをえらんだら？"],
+      ["F", "そうだね。あ、でも、借りたカメラを田中さんに返さないと。", "そうだね。あ、でも、かりたカメラをたなかさんにかえさないと。"],
+      ["M", "写真をパソコンにうつしてからじゃないと、返せないよ。", "しゃしんをパソコンにうつしてからじゃないと、かえせないよ。"],
+      ["F", "それは昨日もうやったよ。カメラは明日、会社で渡すつもり。", "それはきのうもうやったよ。カメラはあした、かいしゃでわたすつもり。"],
+      ["M", "そっか。毎回借りるなら、自分のを買えばいいのに。", "そっか。まいかいかりるなら、じぶんのをかえばいいのに。"],
+      ["F", "うーん、高いからね。じゃあ、まず写真を選んで、それから口コミを書くね。", "うーん、たかいからね。じゃあ、まずしゃしんをえらんで、それからくちコミをかくね。"],
+      ["N", "女の人はこのあと、まず何をしますか。", "おんなのひとはこのあと、まずなにをしますか。"]
+    ],
+    "item": {
+      "id": "n3u11d1.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "女の人はこのあと、まず何をしますか。",
+      "script": [
+        "ナレーター：旅行から帰った男の人と女の人が話しています。女の人はこのあと、まず何をしますか。",
+        "男：旅行、楽しかったね。でも、ホテルが駅から遠くて大変だったなあ。",
+        "女：ほんと。駅の近くのホテルを予約すればよかった。そうだ、ホテルのサイトに口コミを書いておこうかな。",
+        "男：いいね。でも、その前に、口コミにのせる写真を選んだら？",
+        "女：そうだね。あ、でも、借りたカメラを田中さんに返さないと。",
+        "男：写真をパソコンにうつしてからじゃないと、返せないよ。",
+        "女：それは昨日もうやったよ。カメラは明日、会社で渡すつもり。",
+        "男：そっか。毎回借りるなら、自分のを買えばいいのに。",
+        "女：うーん、高いからね。じゃあ、まず写真を選んで、それから口コミを書くね。",
+        "ナレーター：女の人はこのあと、まず何をしますか。"
+      ],
+      "options": [
+        "口コミを書く",
+        "写真を選ぶ",
+        "カメラを返す",
+        "写真をパソコンにうつす"
+      ],
+      "printed": true,
+      "short": [
+        "口コミを書く",
+        "写真を選ぶ",
+        "カメラを返す",
+        "パソコンにうつす"
+      ],
+      "answer": 2,
+      "why": [
+        "She wanted to write the review, but the man says to choose the photos first (その前に), and she agrees: 写真を選んで、それから口コミを書く.",
+        "She ends with まず写真を選んで: choosing the photos for the review comes first.",
+        "She will give the camera back tomorrow at work (明日、会社で渡す), not now.",
+        "She already moved the photos to the computer yesterday (昨日もうやった)."
+      ]
+    }
+  }
+}

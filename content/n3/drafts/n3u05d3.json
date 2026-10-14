@@ -1,0 +1,266 @@
+{
+ "title": "まるで〜ようだ・〜のような",
+ "grammar": {
+  "points": [
+   {
+    "id": "n3u05d3.p1",
+    "form": "まるで〜ようだ／まるで〜みたいだ",
+    "gloss": "just as if, just like (but it is not)",
+    "connect": [
+     {"pos": "Noun", "rule": "まるで〜の{ようだ}／まるで〜{みたいだ}"},
+     {"pos": "Verb or い-adjective, plain form", "rule": "まるで生きている{ようだ}／まるで生きている{みたいだ}"},
+     {"pos": "Before a verb or adjective", "rule": "まるで〜の{ように}／まるで〜{みたいに}[喜|よろこ]ぶ"}
+    ],
+    "examples": [
+     {"ja": "[雪|ゆき]がふった朝の町は、{まるで}[絵|え]の{ようでした}。", "en": "On the morning after the snow, the town looked just like a painting."},
+     {"ja": "[合格|ごうかく]を知らせると、[祖母|そぼ]は{まるで}子ども{みたいに}[喜|よろこ]びました。", "en": "When I told my grandmother I had passed, she was as happy as a child."}
+    ],
+    "watch": {
+     "note": "みたい goes straight after a noun, with no の. Only よう takes の.",
+     "bad": "今日はまるで夏のみたいに暑いです。",
+     "good": "今日はまるで夏みたいに暑いです。"
+    }
+   },
+   {
+    "id": "n3u05d3.p2",
+    "form": "〜のような／〜のように",
+    "gloss": "like, such as (an example or a likeness)",
+    "connect": [
+     {"pos": "Noun, before another noun", "rule": "〜の{ような}人／〜の{ような}もの"},
+     {"pos": "Noun, before a verb or adjective", "rule": "〜の{ように}[泳|およ]ぐ／〜の{ように}白い"},
+     {"pos": "Verb, plain form", "rule": "歌う{ように}話す／[眠|ねむ]っている{ような}顔"}
+    ],
+    "examples": [
+     {"ja": "京都の{ような}古い町を、ゆっくり歩くのが好きです。", "en": "I like walking slowly around old towns like Kyoto."},
+     {"ja": "[彼|かれ]は魚の{ように}すいすい[泳|およ]ぎます。", "en": "He swims smoothly, like a fish."}
+    ],
+    "watch": {
+     "note": "Before a noun use ような. Before a verb or an adjective use ように.",
+     "bad": "姉のように人になりたいです。",
+     "good": "姉のような人になりたいです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three use よう. What changes is whether you compare with something it is not, give an example, or guess what is true.",
+   "forms": [
+    {"form": "まるで〜ようだ", "tag": "たとえ · just as if", "mark": "dot", "ja": "[息子|むすこ]の[部屋|へや]はとても[汚|きたな]くて、{まるで}ごみ[箱|ばこ]の{ようです}。", "en": "My son's room is so messy, it is just like a rubbish bin."},
+    {"form": "〜のような", "tag": "例 · like, such as", "mark": "dot", "ja": "ラーメンやカレーの{ような}[簡単|かんたん]な料理なら作れます。", "en": "I can make easy dishes like ramen or curry."},
+    {"form": "〜ようだ（推量）", "tag": "推量 · seems (a guess)", "mark": "dot", "ja": "道がぬれています。夜の間に雨がふった{ようです}。", "en": "The road is wet. It seems it rained in the night."}
+   ],
+   "check": {
+    "id": "n3u05d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "電話の様子",
+    "q": "さっきから田中さんの電話がずっと話し中です。田中さんはだれかと（　　）。",
+    "options": ["話しているようです", "まるで話しているようです", "話しているような人です"],
+    "answer": 1,
+    "why": [
+     "A guess about what is really happening, from the busy line: ようです with no まるで.",
+     "まるで compares with something that is not true. Here Tanaka-san probably really is on the phone.",
+     "ような must be followed by a noun, and \"a person like someone who is talking\" makes no sense here."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u05d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "新しいイヤホンは音がとてもよくて、^まるで^コンサート会場にいる（　　）。",
+    "options": ["らしいです", "はずです", "みたいです", "そうです"],
+    "answer": 3,
+    "why": [
+     "いるらしいです would mean you heard or guess that you are really in a concert hall. After まるで you need a comparison with something that is not true.",
+     "はず is for what you expect to be true, but you are not really in a concert hall.",
+     "The sound is so good it feels as if you were in a concert hall, though you are not: まるで…みたいです.",
+     "そうです after a plain form passes on something you heard. It does not make a comparison."
+    ]
+   },
+   {
+    "id": "n3u05d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[祖父|そふ]は八十[歳|さい]なのに、^まるで^[若者|わかもの]（　　）元気に山を歩きます。",
+    "options": ["のみたいに", "みたいに", "のような", "みたいな"],
+    "answer": 2,
+    "why": [
+     "みたい joins a noun directly, with no の. Only よう takes の.",
+     "若者みたいに describes how he walks (元気に歩きます). みたい goes straight after the noun.",
+     "ような must be followed by a noun, but 元気に歩きます is not a noun.",
+     "みたいな must be followed by a noun. Before 元気に歩きます you need みたいに."
+    ]
+   },
+   {
+    "id": "n3u05d3.d3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[隣|となり]の家の犬と[猫|ねこ]は",
+    "after": "[仲|なか]がいいです。",
+    "tiles": ["まるで", "本[当|とう]の", "兄弟の", "ように"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "まるで opens the comparison and ように closes it. What does 本当の describe?",
+    "full": "[隣|となり]の家の犬と[猫|ねこ]は{まるで}本[当|とう]の兄弟の{ように}[仲|なか]がいいです。",
+    "explain": "まるで starts the comparison, and ように ends it right before 仲がいいです. 本当の describes 兄弟の: the dog and the cat get on as if they were real brothers."
+   },
+   {
+    "id": "n3u05d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "うちの会社には、山田さん（　　）^人^がもっと[必要|ひつよう]です。",
+    "options": ["のように", "ように", "らしく", "のような"],
+    "answer": 4,
+    "why": [
+     "のように goes before a verb or an adjective. 人 is a noun, so it needs のような.",
+     "After a noun, よう always needs の, and before a noun it is ような.",
+     "らしく is the adverb form of らしい, so it cannot go before a noun like 人.",
+     "山田さんのような人: a person like Yamada-san, an example of the kind of person the company needs."
+    ]
+   },
+   {
+    "id": "n3u05d3.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "一度でいいから、^鳥の^（　　）空を[飛|と]んでみたいです。",
+    "options": ["ような", "ように", "らしく", "みたいに"],
+    "answer": 2,
+    "why": [
+     "鳥のような空 would mean a sky like a bird, which makes no sense. The likeness is in the flying, a verb.",
+     "鳥のように describes how the speaker wants to fly (飛んでみたい).",
+     "らしい joins a noun directly (鳥らしい), so 鳥のらしく is not possible.",
+     "みたい joins a noun directly, so 鳥のみたいに is not possible. It would be 鳥みたいに."
+    ]
+   },
+   {
+    "id": "n3u05d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[将来|しょうらい]は",
+    "after": "と思っています。",
+    "tiles": ["父の", "ような", "医者に", "なりたい"],
+    "star": 1,
+    "bank": [2, 3, 0, 1],
+    "hint": "ような needs a noun after it. What does the speaker want to become?",
+    "full": "[将来|しょうらい]は父の{ような}医者になりたいと思っています。",
+    "explain": "父の goes with ような, and ような describes 医者に. 医者に goes with なりたい, which comes right before と思っています."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u05d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "久しぶりに友人と話していると、（　　）学生時代にもどったようだった。",
+    "options": ["きっと", "どうも", "まるで", "たぶん"],
+    "answer": 3,
+    "explain": "まるで…ようだった: talking with the friend felt as if they were back in their student days, which is not really true. どうも…ようだ, きっと and たぶん all guess about what is really true, and nobody can really go back in time."
+   },
+   {
+    "id": "n3u05d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "姉は毎朝、時計の（　　）正確に六時に起きる。",
+    "options": ["ように", "ような", "らしく", "ほど"],
+    "answer": 1,
+    "explain": "時計のように describes how she gets up (正確に起きる): as regularly as a clock. ような must be followed by a noun, and 正確に is not one. らしい and ほど join a noun directly, so 時計のらしく and 時計のほど are not possible."
+   },
+   {
+    "id": "n3u05d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "昨日大きな失敗をしたのに、彼は",
+    "after": "顔で会議に出てきた。",
+    "tiles": ["まるで", "何も", "なかった", "みたいな"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "full": "昨日大きな失敗をしたのに、彼は{まるで}何もなかった{みたいな}顔で会議に出てきた。",
+    "explain": "まるで, 何も, なかった, みたいな. まるで opens the comparison, 何も goes with なかった, and みたいな describes 顔: he came to the meeting looking as if nothing had happened."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "港が見えるホテルのパンフレット",
+  "en": "A hotel's travel brochure",
+  "intro": "A travel brochure for a small hotel by the harbour describes its rooms and its view. Tap each word in it.",
+  "words": [
+   {"id": "view", "word": "景色", "reading": "けしき", "gloss": "scenery, view", "parts": [["景", "ケ", "view"], ["色", "シキ", "colour"]]},
+   {"id": "guestroom", "word": "客室", "reading": "きゃくしつ", "gloss": "guest room", "parts": [["客", "キャク", "guest"], ["室", "シツ", "room"]]},
+   {"id": "stay", "word": "宿泊", "reading": "しゅくはく", "gloss": "staying (at a hotel)", "parts": [["宿", "シュク", "lodging"], ["泊", "ハク", "stay the night"]]},
+   {"id": "breakfast", "word": "朝食付き", "reading": "ちょうしょくつき", "gloss": "breakfast included", "parts": [["朝", "チョウ", "morning"], ["食", "ショク", "meal"], ["付", "つ", "attach"]]},
+   {"id": "shuttle", "word": "送迎", "reading": "そうげい", "gloss": "pick-up and drop-off", "parts": [["送", "ソウ", "send"], ["迎", "ゲイ", "meet, welcome"]]},
+   {"id": "onfoot", "word": "徒歩", "reading": "とほ", "gloss": "on foot", "parts": [["徒", "ト", "on foot"], ["歩", "ホ", "walk"]]},
+   {"id": "booking", "word": "予約", "reading": "よやく", "gloss": "reservation, booking", "parts": [["予", "ヨ", "in advance"], ["約", "ヤク", "promise"]]},
+   {"id": "season", "word": "季節", "reading": "きせつ", "gloss": "season", "parts": [["季", "キ", "season"], ["節", "セツ", "period"]]}
+  ],
+  "check": {
+   "id": "n3u05d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "駅からホテルまで、無料の_送迎_があります。",
+   "options": ["そうけい", "そげい", "そうげい", "そうごう"],
+   "answer": 3,
+   "explain": "送迎 is read そうげい: the hotel takes guests between the station and the hotel for free. そうけい has け instead of げ, そげい drops the う of そう, and そうごう is a different word."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人は、どうして海の見えるホテルがいいと言っていますか。",
+  "audio": [
+   ["N", "旅行会社で、女の人と店の男の人が話しています。女の人は、どうして海の見えるホテルがいいと言っていますか。", "りょこうがいしゃで、おんなのひととみせのおとこのひとがはなしています。おんなのひとは、どうしてうみのみえるホテルがいいといっていますか。"],
+   ["F", "来月、母と二人で一泊したいんです。海の見えるホテルがいいんですが。", "らいげつ、ははとふたりでいっぱくしたいんです。うみのみえるホテルがいいんですが。"],
+   ["M", "海の見えるホテルですね。海がお好きなんですか。", null],
+   ["F", "いえ、私は山のほうが好きなんです。でも、母が、昔父と泊まったような海の見えるホテルに、もう一度泊まりたいと言っていて。", "いえ、わたしはやまのほうがすきなんです。でも、ははが、むかしちちととまったようなうみのみえるホテルに、もういちどとまりたいといっていて。"],
+   ["M", "そうでしたか。では、こちらはいかがでしょう。部屋の窓から港が見えて、夜は船の明かりが、まるでほしのようにきれいなんですよ。", "そうでしたか。では、こちらはいかがでしょう。へやのまどからみなとがみえて、よるはふねのあかりが、まるでほしのようにきれいなんですよ。"],
+   ["F", "すてきですね。でも、駅から遠くないですか。母はあまり歩けないので。", null],
+   ["M", "駅までは、無料の送迎がございます。", "えきまでは、むりょうのそうげいがございます。"],
+   ["F", "よかった。それで、料金はいくらですか。", null],
+   ["M", "お一人一万二千円で、朝食付きです。", "おひとりいちまんにせんえんで、ちょうしょくつきです。"],
+   ["F", "じゃあ、こちらにします。", null],
+   ["N", "女の人は、どうして海の見えるホテルがいいと言っていますか。", "おんなのひとは、どうしてうみのみえるホテルがいいといっていますか。"]
+  ],
+  "item": {
+   "id": "n3u05d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人は、どうして海の見えるホテルがいいと言っていますか。",
+   "script": [
+    "ナレーター：旅行会社で、女の人と店の男の人が話しています。女の人は、どうして海の見えるホテルがいいと言っていますか。",
+    "女：来月、母と二人で一泊したいんです。海の見えるホテルがいいんですが。",
+    "男：海の見えるホテルですね。海がお好きなんですか。",
+    "女：いえ、私は山のほうが好きなんです。でも、母が、昔父と泊まったような海の見えるホテルに、もう一度泊まりたいと言っていて。",
+    "男：そうでしたか。では、こちらはいかがでしょう。部屋の窓から港が見えて、夜は船の明かりが、まるでほしのようにきれいなんですよ。",
+    "女：すてきですね。でも、駅から遠くないですか。母はあまり歩けないので。",
+    "男：駅までは、無料の送迎がございます。",
+    "女：よかった。それで、料金はいくらですか。",
+    "男：お一人一万二千円で、朝食付きです。",
+    "女：じゃあ、こちらにします。",
+    "ナレーター：女の人は、どうして海の見えるホテルがいいと言っていますか。"
+   ],
+   "options": ["女の人が、海が好きだから", "夜の港の景色がきれいだから", "駅まで送迎があるから", "母親が、海の見えるホテルにまた泊まりたいと言ったから"],
+   "printed": true,
+   "short": ["自分が海好き", "夜の景色", "駅まで送迎", "母親の願い"],
+   "answer": 4,
+   "why": [
+    "She says no: she likes the mountains better (私は山のほうが好きなんです).",
+    "The clerk describes the night view only after she has asked for a sea view, so it is not her reason.",
+    "The free shuttle answers her worry about walking from the station. It is not why she wants a sea view.",
+    "Her mother said she wants to stay again at a hotel by the sea, like the one where she stayed with the speaker's father."
+   ],
+   "explain": null
+  }
+ }
+}

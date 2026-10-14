@@ -1,0 +1,252 @@
+{
+  "title": "〜ほど〜ない・〜くらい〜はない",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u08d2.p1",
+        "form": "AはBほど〜ない",
+        "gloss": "A is not as … as B",
+        "connect": [
+          {"pos": "Noun (B, the thing compared with) + い-adjective", "rule": "〜{ほど}重くない"},
+          {"pos": "Noun + な-adjective or verb", "rule": "〜{ほど}にぎやかではない／〜{ほど}食べない"},
+          {"pos": "Verb, plain form (what you expected)", "rule": "思った{ほど}〜ない"}
+        ],
+        "examples": [
+          {"ja": "わたしは、兄{ほど}たくさん食べません。", "en": "I don't eat as much as my older brother."},
+          {"ja": "このあたりは、駅の[周|まわ]り{ほど}にぎやかではありません。", "en": "This area is not as lively as the area around the station."}
+        ],
+        "watch": {
+          "note": "AはBほど〜 always ends in a negative. To say A is more … than B, use より.",
+          "bad": "今日は昨日ほど寒いです。",
+          "good": "今日は昨日より寒いです。"
+        }
+      },
+      {
+        "id": "n3u08d2.p2",
+        "form": "〜くらい／ほど〜はない",
+        "gloss": "nothing is as … as (= the most)",
+        "connect": [
+          {"pos": "Noun (a thing)", "rule": "〜{くらい}おいしいもの{はない}"},
+          {"pos": "Noun (a person)", "rule": "〜{ほど}親切な人{はいない}"},
+          {"pos": "Verb, dictionary form + こと", "rule": "〜こと{ほど}楽しいこと{はない}"}
+        ],
+        "examples": [
+          {"ja": "寒い朝、ふとんから出ること{ほど}つらいこと{はありません}。", "en": "Nothing is as hard as getting out of the futon on a cold morning."},
+          {"ja": "田中さん{くらい}よく[笑|わら]う人{はいません}。", "en": "Nobody laughs as much as Mr Tanaka."}
+        ],
+        "watch": {
+          "note": "After the adjective, put a noun such as もの, 人, こと or 店 before はない.",
+          "bad": "この店くらい安いはない。",
+          "good": "この店くらい安い店はない。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "ほど〜ない says one thing is less than another, くらい〜はない says nothing beats one thing, and いちばん says the same as くらい〜はない in a plain way.",
+      "forms": [
+        {"form": "AはBほど〜ない", "tag": "Bより下 · not as … as", "mark": "down", "ja": "わたしの町の冬は、北海道{ほど}寒くありません。", "en": "Winter in my town is not as cold as in Hokkaido."},
+        {"form": "〜くらい〜はない", "tag": "いちばん上 · nothing is as … as", "mark": "up", "ja": "[困|こま]ったときに[助|たす]けてくれる友だち{くらい}ありがたいもの{はありません}。", "en": "Nothing is as precious as a friend who helps you when you are in trouble."},
+        {"form": "〜の中で〜がいちばん", "tag": "ふつうの言い方 · the most", "mark": "dot", "ja": "クラスの中で、山田さんが{いちばん}足が[速|はや]いです。", "en": "Yamada is the fastest runner in the class."}
+      ],
+      "check": {
+        "id": "n3u08d2.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Less than, or the most?",
+        "q": "店で三つのかばんを持ってみると、^ほかの二つ^は、この青いかばん（　　）。",
+        "options": ["くらい軽いものはありません", "ほど軽くありません", "がいちばん軽いです"],
+        "answer": 2,
+        "why": [
+          "くらい軽いものはない would need this bag as the topic. ほかの二つは cannot be followed by it.",
+          "The other two bags are not as light as this blue one: ほど with a negative.",
+          "ほかの二つは is the topic, so the sentence must say something about those two bags. この青いかばんがいちばん軽い talks about a different bag."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u08d2.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "新しいスマホは、^前のもの^（　　）重くないので、持ち運びが楽です。",
+        "options": ["までに", "ほど", "のほうが", "ばかり"],
+        "answer": 2,
+        "why": [
+          "までに gives a deadline. It cannot compare two phones.",
+          "The new phone is not as heavy as the old one: 前のものほど重くない.",
+          "前のもののほうが would say the old one is the lighter one, and it cannot follow 新しいスマホは as a second subject here.",
+          "ばかり means only or nothing but, which makes no sense with 前のもの here."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d2.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[初|はじ]めての一人旅は、^[心配|しんぱい]していた^（　　）[大変|たいへん]ではありませんでした。",
+        "options": ["とおりに", "うちに", "ほど", "までに"],
+        "answer": 3,
+        "why": [
+          "とおりに would mean it went as I feared, so it would have been hard. ではありませんでした says the opposite.",
+          "うちに means while something is still going on. Worrying is not the time when the trip happened.",
+          "Plain-form verb + ほど + negative: the trip was not as hard as I had feared.",
+          "までに gives a deadline, which does not fit a feeling like [心配|しんぱい]していた."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d2.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "仕事のあとに[温|あたた]かいおふろに入ること（　　）、気持ちのいい^ことはありません^。",
+        "options": ["ばかり", "までに", "ために", "くらい"],
+        "answer": 4,
+        "why": [
+          "ばかり means nothing but. 入ることばかり does not connect to 気持ちのいいことはありません.",
+          "までに gives a deadline. A bath is not a deadline.",
+          "ために would make the bath a reason or a purpose, and there is nothing pleasant because of a bath makes no sense.",
+          "〜こと＋くらい＋adjective＋ことはない: nothing feels as good as a warm bath after work."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d2.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この町には、駅前のパン屋（　　）朝早くから開いている^店はありません^。",
+        "options": ["ほど", "だけ", "でも", "まで"],
+        "answer": 1,
+        "why": [
+          "Noun + ほど + adjective or verb + 店はない: no shop opens as early as the bakery by the station.",
+          "パン屋だけ (only the bakery) does not connect to 開いている店はありません, so the sentence makes no sense.",
+          "パン屋でも means even the bakery, which does not connect to the rest of the sentence.",
+          "パン屋まで means even the bakery as well, which does not fit with 店はありません."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d2.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このかさは安いので、",
+        "after": "じょうぶではありませんが、十分使えます。",
+        "tiles": ["デパートで", "買った", "高いもの", "ほど"],
+        "star": 2,
+        "bank": [3, 0, 2, 1],
+        "hint": "ほど comes right before the negative. What is it compared with?",
+        "full": "このかさは安いので、デパートで買った高いもの{ほど}じょうぶではありませんが、十分使えます。",
+        "explain": "デパートで goes with 買った, and デパートで買った describes 高いもの. ほど follows the thing compared with and comes right before じょうぶではありません: this umbrella is not as strong as the expensive one I bought at a department store."
+      },
+      {
+        "id": "n3u08d2.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "今までの旅行で、山の上から見た",
+        "after": "ありませんでした。",
+        "tiles": ["朝日", "くらい", "きれいな", "ものは"],
+        "star": 2,
+        "bank": [2, 3, 1, 0],
+        "hint": "くらい follows the thing that is the best. The adjective goes before ものは.",
+        "full": "今までの旅行で、山の上から見た朝日{くらい}きれいなものはありませんでした。",
+        "explain": "見た describes 朝日, and くらい follows it. Then the adjective きれいな describes もの, and ものは comes right before ありませんでした: on all my trips, I have seen nothing as beautiful as the sunrise from the mountain top."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u08d2.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "みんながおいしいと言っていたレストランに行ってみたが、うわさ（　　）おいしくなかった。",
+        "options": ["によって", "について", "ほど", "のとおり"],
+        "answer": 3,
+        "explain": "Noun + ほど + negative: the food was not as good as people said. うわさのとおり would mean it was as people said, but everyone said it was good, so おいしくなかった contradicts it. うわさによって and うわさについて do not connect to おいしくなかった."
+      },
+      {
+        "id": "n3u08d2.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "わたしにとって、家族と話す時間（　　）大切なものはありません。",
+        "options": ["さえ", "まで", "だけ", "ほど"],
+        "answer": 4,
+        "explain": "Noun + ほど + adjective + ものはない: nothing is as important to me as time talking with my family. だけ (only), さえ and まで (even) do not connect to 大切なものはありません, so the sentence makes no sense with them."
+      },
+      {
+        "id": "n3u08d2.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "引っこした先のアパートは、",
+        "after": "広くありませんが、駅に近くて便利です。",
+        "tiles": ["前に", "住んでいた", "部屋", "ほど"],
+        "star": 2,
+        "bank": [2, 0, 3, 1],
+        "full": "引っこした先のアパートは、前に住んでいた{部屋}ほど広くありませんが、駅に近くて便利です。",
+        "explain": "前に, 住んでいた, 部屋, ほど. 前に goes with 住んでいた, 前に住んでいた describes 部屋, and ほど follows the room it is compared with, right before 広くありません: the new flat is not as big as the room I lived in before."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "ホテルの人気ランキング",
+    "en": "A hotel ranking on a travel website",
+    "intro": "You are looking at a travel website's ranking of hotels in a hot spring town. Tap each word on the page.",
+    "words": [
+      {"id": "rank", "word": "順位", "reading": "じゅんい", "gloss": "place in a ranking", "parts": [["順", "ジュン", "order: 順番"], ["位", "イ", "rank, place"]]},
+      {"id": "rating", "word": "評価", "reading": "ひょうか", "gloss": "rating, evaluation", "parts": [["評", "ヒョウ", "judge, comment"], ["価", "カ", "value"]]},
+      {"id": "satisfaction", "word": "満足度", "reading": "まんぞくど", "gloss": "satisfaction level", "parts": [["満", "マン", "full"], ["足", "ゾク", "enough"], ["度", "ド", "degree"]]},
+      {"id": "stay", "word": "宿泊", "reading": "しゅくはく", "gloss": "staying the night", "parts": [["宿", "シュク", "lodging"], ["泊", "ハク", "stay the night"]]},
+      {"id": "room", "word": "客室", "reading": "きゃくしつ", "gloss": "guest room", "parts": [["客", "キャク", "guest"], ["室", "シツ", "room"]]},
+      {"id": "bath", "word": "大浴場", "reading": "だいよくじょう", "gloss": "large shared bath", "parts": [["大", "ダイ", "big"], ["浴", "ヨク", "bathe"], ["場", "ジョウ", "place"]]},
+      {"id": "parking", "word": "駐車場", "reading": "ちゅうしゃじょう", "gloss": "car park", "parts": [["駐", "チュウ", "stop, stay"], ["車", "シャ", "car"], ["場", "ジョウ", "place"]]},
+      {"id": "view", "word": "景色", "reading": "けしき", "gloss": "view, scenery", "parts": [["景", "ケ", "scenery"], ["色", "シキ", "colour"]]}
+    ],
+    "check": {
+      "id": "n3u08d2.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "このホテルの_宿泊_料金には、朝食も入っています。",
+      "options": ["しゅくばく", "しゅうはく", "しゅくはく", "しゅっぱく"],
+      "answer": 3,
+      "explain": "宿泊 is read しゅくはく: 宿 is しゅく and 泊 is はく, with no change of sound. しゅくばく and しゅっぱく change はく to ばく or ぱく, and しゅうはく has a long しゅう instead of しゅく."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（短文）",
+    "en": "Short passage",
+    "ask": "Why does the writer think the hotel came first?",
+    "seconds": 90,
+    "passage": "先月、旅行サイトのランキングで一位になったホテルに泊まった。駅から歩いて二十分かかるし、^部屋も二位のホテルほど広くない^。料金も特に安いわけではない。それなのに、なぜ一位なのだろうと思っていたが、泊まってみてわかった。雨の日には駅まで車で送ってくれたし、わたしがかぜをひいていると知ると、温かいお茶を部屋まで持ってきてくれた。^このホテルのスタッフくらい親切な人たちは、ほかにいないと思う^。部屋の広さや料金だけではわからないよさが、このホテルにはあるのだ。",
+    "strategy": "The writer lists the weak points first, so look for the turn (それなのに) and the opinion that follows it.",
+    "item": {
+      "id": "n3u08d2.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "q": "この人は、このホテルが一位になったのはなぜだと考えているか。",
+      "options": [
+        "スタッフがとても親切だから。",
+        "部屋が二位のホテルと同じくらい広いから。",
+        "料金がほかのホテルより安いから。",
+        "駅から近くて便利だから。"
+      ],
+      "short": ["スタッフが親切", "部屋が広い", "料金が安い", "駅から近い"],
+      "answer": 1,
+      "explain": "After listing the weak points, the writer gives two examples of kind service and says このホテルのスタッフくらい親切な人たちは、ほかにいない: the staff are the reason the hotel came first.",
+      "why": [
+        "",
+        "部屋も二位のホテルほど広くない: the rooms are smaller than at the second hotel.",
+        "料金も特に安いわけではない: the price is not especially low.",
+        "It is a twenty-minute walk from the station (駅から歩いて二十分)."
+      ]
+    }
+  }
+}

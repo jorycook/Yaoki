@@ -28,7 +28,7 @@ for k, d in u['days'].items():
     add(d['scene']['check'], 'vocabulary')
     sk = d['skill']
     if sk['kind'] == 'reading': add(sk['item'], 'reading', passage=sk['passage'])
-    else: add(sk['item'], 'listening (' + sk['item']['type'] + ')' + (', picture: ' + sk['situation'] if sk.get('situation') else ''), script=sk['item'].get('script') if sk['item'].get('printed') else [sk['item']['q']])
+    else: add(sk['item'], 'listening (' + sk['item']['type'] + ')' + (', picture: ' + sk['situation'] if sk.get('situation') else ''), script=sk['item'].get('script') if (sk['item'].get('printed') or sk['item']['type'] == '概要理解') else [sk['item']['q']])
 for it in u.get('test', []): add(it, 'week test', passage=it.get('passage'))
 d = f'{ROOT}/content/{lv}/drafts'
 json.dump(out, open(f'{d}/blind-{name}.json', 'w'), ensure_ascii=False, indent=1)
