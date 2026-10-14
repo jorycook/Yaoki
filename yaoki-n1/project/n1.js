@@ -11,6 +11,8 @@
   /* ---------- dates: ISO strings (2026-12-06), counted in whole days ---------- */
   var DAY = 86400000;
   function iso(t) { return new Date(t).toISOString().slice(0, 10); }
+  /* the device's own date at a moment (a timestamp from Date.now()), as today() counts days */
+  function localDay(t) { var n = new Date(t); return iso(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate())); }
   function ms(d) { var p = d.split('-'); return Date.UTC(+p[0], +p[1] - 1, +p[2]); }
   function add(d, n) { return iso(ms(d) + n * DAY); }
   function diff(a, b) { return Math.round((ms(b) - ms(a)) / DAY); }
@@ -127,9 +129,11 @@
     return { v: 1, start: o.start, exam: o.exam, pace: o.pace, set: o.set || today(), days: days, cov: cov, of: n, open: null, tests: {}, mocks: {} };
   }
 
-  /* what a day's part counts as done: grammar at 3 (learn, drill, exam-style), the others at 1 */
+  /* a study day with nothing on it: a missed day whose work a new plan moved on */
+  function empty(x) { return !!x && x.t === 0 && x.g < 0 && x.r < 0 && x.l < 0 && !(x.k || []).length && !(x.w || []).length; }
+  /* what a day's part counts as done: grammar at 3 (learn, drill, exam-style), the others at 1. An empty day is never done */
   function done(x) {
-    if (!x) return false;
+    if (!x || empty(x)) return false;
     if (x.t === 1) return !!(x.p && x.p.t);
     if (x.t === 2) return !!(x.p && x.p.v);
     var p = x.p || {};
@@ -148,6 +152,7 @@
     /* what has been done anywhere in the old plan, early days included, is not taught again */
     var doneSet = function (key) {
       var s = {};
+      ((plan.past || {})[key] || []).forEach(function (i) { s[i] = 1; });
       plan.days.forEach(function (x) {
         if (x.t !== 0) return;
         var p = x.p || {};
@@ -175,15 +180,42 @@
     var start = fresh || !plan.days.length ? t : plan.start;
     var from = keep.length ? add(keep[keep.length - 1].d, 1) : start;
     var rest = calendar(start, exam).filter(function (x) { return x.d >= from; });
-    var cov = fill(rest, left, pace);
-    rest.forEach(function (x) { x.p = {}; });
+    /* a day ahead of today already worked on (opened early) stays as it is, with only what was done on it;
+       the others take what is left */
+    var early = {};
+    if (!fresh) plan.days.forEach(function (x) { if (x.d >= from && started(x)) early[x.d] = x; });
+    var free = [];
+    rest = rest.map(function (x) {
+      var e = early[x.d];
+      if (!e || e.t !== x.t) { free.push(x); return x; }
+      var k = JSON.parse(JSON.stringify(e));
+      if (k.t === 0) {
+        var p = k.p || {};
+        if (!(p.g >= 3)) k.g = -1;
+        if (!p.r) k.r = -1;
+        if (!p.l) k.l = -1;
+        if (!p.k) { k.k = []; k.w = []; }
+      }
+      k.kept = 1;
+      return k;
+    });
+    var cov = fill(free, left, pace);
+    free.forEach(function (x) { x.p = {}; });
+    rest.forEach(function (x) { delete x.kept; });
     var days = keep.concat(rest);
     var sum = function (key) { var c = 0; days.forEach(function (x) { if (x.t === 0) c += key === 'k' || key === 'w' ? x[key].length : x[key] >= 0 ? 1 : 0; }); return c; };
     cov = { learn: cov.learn, f: cov.f, g: sum('g'), k: sum('k'), w: sum('w'), r: sum('r'), l: sum('l') };
     var out = JSON.parse(JSON.stringify(plan));
     out.exam = exam; out.pace = pace; out.start = start; out.days = days; out.cov = cov; out.set = t;
-    /* a new calendar has new week numbers: the old week tests do not belong to it */
-    if (fresh) { out.tests = {}; out.open = null; }
+    /* a new calendar has new week numbers: the old week tests do not belong to it. What was learnt in the old
+       calendar is kept as a credit, so it is not taught again and still counts as learnt */
+    if (fresh) {
+      var past = {};
+      ['g', 'k', 'w', 'r', 'l'].forEach(function (key) { var d0 = doneSet(key); past[key] = Object.keys(d0).map(Number).sort(function (a, b) { return a - b; }); });
+      out.past = past;
+      out.tests = {};
+      out.open = null;
+    }
     if (out.open != null && !days[out.open]) out.open = null;
     return out;
   }
@@ -207,9 +239,9 @@
     };
   }
 
-  /* the day to work on: the first one not done, or the last day */
+  /* the day to work on: the first one not done (empty days are passed over), or the last day */
   function current(plan) {
-    for (var i = 0; i < plan.days.length; i++) if (!done(plan.days[i])) return i;
+    for (var i = 0; i < plan.days.length; i++) if (!done(plan.days[i]) && !empty(plan.days[i])) return i;
     return plan.days.length - 1;
   }
   /* a copy of the plan with a day's progress raised (never lowered) */
@@ -228,6 +260,25 @@
   function todayIndex(plan, t) { var n = diff(plan.days[0].d, t || today()); return n < 0 ? -1 : Math.min(n, plan.days.length - 1); }
   /* the days stamped done */
   function stamps(plan) { return plan.days.filter(done).length; }
+  /* what has been learnt so far, stream by stream, the credit of an earlier calendar included:
+     { g, k, w, r, l } counts (grammar lessons with all three steps, kanji and words with their quiz, reading, listening) */
+  function progress(plan) {
+    var out = {};
+    ['g', 'k', 'w', 'r', 'l'].forEach(function (key) {
+      var s = {};
+      ((plan.past || {})[key] || []).forEach(function (i) { s[i] = 1; });
+      plan.days.forEach(function (x) {
+        if (x.t !== 0) return;
+        var p = x.p || {};
+        var did = key === 'g' ? p.g >= 3 : key === 'r' ? p.r : key === 'l' ? p.l : p.k;
+        if (!did) return;
+        if (key === 'k' || key === 'w') (x[key] || []).forEach(function (i) { s[i] = 1; });
+        else if (x[key] >= 0) s[x[key]] = 1;
+      });
+      out[key] = Object.keys(s).length;
+    });
+    return out;
+  }
   /* a copy of the plan with a result kept: kind "tests" (by week) or "mocks" (by mock id) */
   function result(plan, kind, id, r) { var out = JSON.parse(JSON.stringify(plan)); (out[kind] || (out[kind] = {}))[id] = r; return out; }
 
@@ -240,7 +291,7 @@
     var dow = (i % 7) + 1;
     var p = x.p || {};
     var v = {
-      i: i, d: x.d, wk: wk, dow: dow, kind: ['study', 'test', 'review'][x.t], p: p,
+      i: i, d: x.d, wk: wk, dow: dow, kind: ['study', 'test', 'review'][x.t], p: p, empty: empty(x),
       date: fmt.md(x.d), done: done(x), started: started(x),
       grammar: x.g >= 0 ? LESSONS[x.g] : null, gi: x.g,
       kanji: (x.k || []).map(function (k) { return B.kanji[k]; }), ki: x.k || [],
@@ -248,7 +299,7 @@
       reading: x.r >= 0 ? LESSONS[x.r] : null, ri: x.r,
       listening: x.l >= 0 ? LESSONS[x.l] : null, li: x.l,
     };
-    v.title = x.t === 1 ? '週テスト' : x.t === 2 ? '復習' : v.grammar ? titleOf(x.g) : v.kanji.length ? '漢字 ' + v.kanji.length + (v.words.length ? '・語彙 ' + v.words.length : '') : v.words.length ? '語彙 ' + v.words.length : v.reading ? '読解' : '聴解';
+    v.title = x.t === 1 ? '週テスト' : x.t === 2 ? '復習' : v.grammar ? titleOf(x.g) : v.kanji.length ? '漢字 ' + v.kanji.length + (v.words.length ? '・語彙 ' + v.words.length : '') : v.words.length ? '語彙 ' + v.words.length : v.reading ? '読解' : v.listening ? '聴解' : '予定なし';
     v.unit = v.grammar ? B.units[v.grammar.unit - 1] : null;
     return v;
   }
@@ -314,10 +365,15 @@
     var k = B.kanji[ki];
     var w = k && k.w[wj];
     if (!w) return null;
-    var wrong = w.x.slice(0, 3);
-    for (var s = 1; wrong.length < 3 && s < 60; s++) {
-      var o = B.kanji[(ki + s * 7) % B.kanji.length].w[0];
-      if (o && o.r !== w.r && wrong.indexOf(o.r) < 0 && Math.abs(o.r.length - w.r.length) <= 1) wrong.push(o.r);
+    var wrong = [];
+    w.x.forEach(function (r) { if (r && r !== w.r && wrong.indexOf(r) < 0 && wrong.length < 3) wrong.push(r); });
+    /* first readings of other words of about the same length, then of any length */
+    for (var pass = 0; pass < 2; pass++) {
+      for (var s = 1; wrong.length < 3 && s < B.kanji.length; s++) {
+        var ok = B.kanji[(ki + s * 7) % B.kanji.length];
+        var o = ok && ok.w[0];
+        if (o && o.r && o.r !== w.r && wrong.indexOf(o.r) < 0 && (pass || Math.abs(o.r.length - w.r.length) <= 1)) wrong.push(o.r);
+      }
     }
     var opts = [w.r].concat(wrong);
     var ord = order(4, w.w + (salt || ''));
@@ -420,6 +476,30 @@
     return reviewQuiz(plan, i);
   }
 
+  /* a mock's question n (its place in the whole paper, from 1), in the shape the notebook uses. Kinds (MOCKS.md):
+     sentence (a sentence with its blank or underline), usage (a word and four sentences), passage and pair (texts
+     and a question), task, gist and quick (listening, with the mock's clips) */
+  function mockQ(id, n) {
+    var m = null;
+    (B.mocks || []).forEach(function (x) { if (x.id === id) m = x; });
+    if (!m) return null;
+    var all = [];
+    m.sections.forEach(function (sec) { all = all.concat(sec.items); });
+    var it = all[n - 1];
+    if (!it) return null;
+    var q = { type: it.type, area: it.area, kind: it.kind, options: it.options.map(plain), short: it.short, answer: it.answer, why: it.why, mock: id, n: n };
+    if (it.kind === 'sentence') q.ja = plain(it.ja);
+    else if (it.kind === 'usage') { q.word = it.word; q.usage = true; }
+    else if (it.kind === 'passage' || it.kind === 'pair') { q.ja = it.ask; q.texts = it.passage || it.texts; }
+    else {
+      q.ja = it.ask;
+      q.listen = true;
+      q.clips = (it.audio || []).map(function (a) { return a.clip || 'm' + id + '.' + n + '.' + a.part; });
+      q.clip = q.clips[0];
+    }
+    return q;
+  }
+
   /* ---------- notebook entries ----------
      src names what was missed: k.<kanji>.<word>, w.<word>, g.<lesson>.<d0|x0…>, r.<lesson>, l.<lesson>, m<mock>.<item> */
   var TAG = { '漢字読み': 'v', '文脈規定': 'v', '言い換え類義': 'v', '用法': 'v', '文の文法1': 'g', '文の文法2': 'g', '読解': 'r', '即時応答': 'l' };
@@ -432,15 +512,18 @@
     else if (s[0] === 'r') {
       var l = LESSONS[lessonIndex(s[1])];
       if (l) { var r = l.reading; q = { src: src, type: '読解', ja: r.ask, options: r.options, short: r.short, answer: r.answer, why: r.why, passage: r.passage }; }
+    } else if (/^m\d+$/.test(s[0])) {
+      q = mockQ(+s[0].slice(1), +s[1]);
+      if (q) q.src = src;
     } else if (s[0] === 'l') {
       var l2 = LESSONS[lessonIndex(s[1])];
       if (l2) { var t = l2.listening; q = { src: src, type: '即時応答', ja: t.who + '：' + t.line, options: ['1', '2', '3'], replies: t.replies, notes: t.notes, short: t.short, answer: t.answer, clip: 'l.' + l2.id, listen: true }; }
     }
     if (!q) return null;
-    q.area = TAG[q.type] || 'g';
+    q.area = q.area || TAG[q.type] || 'g';
     /* the line the notebook shows */
     q.line = q.word && q.type === '漢字読み' ? q.word : q.order ? q.pre + ' ＿ ＿ ★ ＿ ' + q.post : q.usage ? q.word : q.ja;
-    q.right = q.listen ? q.short[q.answer - 1] : q.short ? q.short[q.answer - 1] : q.options[q.answer - 1];
+    q.right = q.short ? q.short[q.answer - 1] : q.options[q.answer - 1];
     return q;
   }
 
@@ -448,7 +531,7 @@
   var STEPS = [1, 3, 7];
   function due(m, t) {
     if (!m || m.cleared) return false;
-    var at = m.next || (m.at ? add(iso(m.at), 1) : today());
+    var at = m.next || (m.at ? add(localDay(m.at), 1) : today());
     return at <= (t || today());
   }
   function reviewed(m, right, t) {
@@ -481,7 +564,9 @@
     preview: preview,
     current: current,
     done: done,
+    empty: empty,
     started: started,
+    progress: progress,
     mark: mark,
     withOpen: withOpen,
     openDay: openDay,
@@ -503,6 +588,8 @@
     reviewQuiz: reviewQuiz,
     testFor: testFor,
     item: item,
+    mockQ: mockQ,
+    localDay: localDay,
     due: due,
     reviewed: reviewed,
     /* the plan a screen shows when it stands alone on the design canvas: week 3, day 4, teaching unit 3 lesson 4 */
@@ -515,6 +602,8 @@
         s++;
       });
       for (var i = 0; i < 17; i++) p.days[i].p = p.days[i].t === 1 ? { t: 1 } : { g: 3, k: 1, r: 1, l: 1 };
+      var sum = function (key) { var c = 0; p.days.forEach(function (x) { if (x.t === 0) c += key === 'k' || key === 'w' ? x[key].length : x[key] >= 0 ? 1 : 0; }); return c; };
+      p.cov = { learn: p.days.filter(function (x) { return x.t === 0; }).length, f: 1, g: sum('g'), k: sum('k'), w: sum('w'), r: sum('r'), l: sum('l') };
       p.open = 17;
       return p;
     },
