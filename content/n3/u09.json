@@ -187,7 +187,7 @@
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "[彼|かれ]は^大人の^（　　）、自分の[部屋|へや]のそうじも母親にさせています。",
+            "q": "[彼|かれ]は^大人の^（　　）、自分の[部屋|へや]の[掃除|そうじ]も母親にさせています。",
             "options": [
               "くせに",
               "のに",
@@ -552,19 +552,19 @@
             "男：はい、どうしましたか。",
             "女：毎晩、深夜に洗濯機を回すんです。それなのに、こっちが少し音を出すと、すぐもんくを言いに来るんですよ。自分はうるさいくせに。",
             "男：そうですか。それはお困りですね。",
-            "女：一度、ちょくせつ話しに行こうと思っているんですけど。",
-            "男：いえ、ちょくせつ話すと、けんかになることもありますから、やめたほうがいいですよ。",
-            "女：じゃあ、かんり会社に手紙を書きましょうか。",
+            "女：一度、直接話しに行こうと思っているんですけど。",
+            "男：いえ、直接話すと、けんかになることもありますから、やめたほうがいいですよ。",
+            "女：じゃあ、管理会社に手紙を書きましょうか。",
             "男：それは私のほうからしますよ。その前に、何時ごろどんな音がしたか、一週間ぐらいメモしておいてもらえますか。",
             "女：はい。",
-            "男：それを見て、まず全部の部屋にお知らせを入れます。それでも止まらなかったら、かんり会社から上の方に連絡してもらいましょう。",
+            "男：それを見て、まず全部の部屋にお知らせを入れます。それでも止まらなかったら、管理会社から上の方に連絡してもらいましょう。",
             "女：わかりました。じゃあ、今夜から書いておきます。",
             "ナレーター：女の人はこのあと、まず何をしますか。"
           ],
           "options": [
             "全部の部屋にお知らせを入れる",
-            "上の部屋の人とちょくせつ話す",
-            "かんり会社に手紙を書く",
+            "上の部屋の人と直接話す",
+            "管理会社に手紙を書く",
             "音がした時間をメモする"
           ],
           "printed": true,
@@ -1071,7 +1071,7 @@
         "en": "Short passage",
         "ask": "Which statement matches the notice?",
         "seconds": 90,
-        "passage": "みどり町の皆さんへ。十月二十五日（日）午前九時から、みどり公園で町の運動会を行います。この運動会は^雨天決行^です。たとえ雨が降っても、プログラムは予定どおり行います。ただし、^台風が近づいている場合や、かみなりが鳴っている場合は中止します^。中止のときは、当日の朝七時までに町のホームページでお知らせします。^電話でのお問い合わせにはお答えできません^ので、ご注意ください。また、^会場ではかさは使えません^。雨の日は、雨がっぱを持ってきてください。",
+        "passage": "みどり町の皆さんへ。十月二十五日（日）午前九時から、みどり公園で町の運動会を行います。この運動会は^雨天決行^です。たとえ雨が降っても、プログラムは予定どおり行います。ただし、^台風が近づいている場合や、かみなりが鳴っている場合は中止します^。中止のときは、当日の朝七時までに町のホームページでお知らせします。^電話でのお問い合わせにはお答えできません^ので、ご注意ください。また、^会場では傘は使えません^。雨の日は、雨がっぱを持ってきてください。",
         "strategy": "Find the exception after ただし, then check each option against the rules for rainy days.",
         "item": {
           "id": "n3u09d2.r1",
@@ -1081,13 +1081,13 @@
           "options": [
             "中止かどうかは、当日の朝、電話で聞けばわかる。",
             "かみなりが鳴っているときは、運動会は行わない。",
-            "雨の日は、かさを持って会場へ行けばいい。",
+            "雨の日は、傘を持って会場へ行けばいい。",
             "雨が降ったら、運動会は次の日曜日に行う。"
           ],
           "short": [
             "電話で聞けばわかる",
             "かみなりなら行わない",
-            "かさを持って行く",
+            "傘を持って行く",
             "雨なら次の日曜日"
           ],
           "answer": 2,
@@ -1365,7 +1365,7 @@
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "旅行に行った（　　）、となりの町に一日行っただけだ。",
+            "q": "旅行に行った（　　）、隣の町に一日行っただけだ。",
             "options": [
               "たびに",
               "にしても",
@@ -1883,7 +1883,7 @@
             "type": "文の文法2",
             "label": "Build the sentence",
             "before": "有名な",
-            "after": "、いつもこんでいます。",
+            "after": "、いつも[混|こ]んでいます。",
             "tiles": [
               "店は",
               "料理が",
@@ -1898,8 +1898,8 @@
               1
             ],
             "hint": "有名な needs a noun right after it. Which side comes first, the good one or the bad one?",
-            "full": "有名な店は料理がおいしい[反面|はんめん]、いつもこんでいます。",
-            "explain": "有名な店は is the topic. 料理がおいしい is the good side, and [反面|はんめん] leads to the other side of the same shop: いつもこんでいます."
+            "full": "有名な店は料理がおいしい[反面|はんめん]、いつも[混|こ]んでいます。",
+            "explain": "有名な店は is the topic. 料理がおいしい is the good side, and [反面|はんめん] leads to the other side of the same shop: いつも[混|こ]んでいます."
           },
           {
             "id": "n3u09d4.d6",
@@ -2218,8 +2218,8 @@
             ],
             "watch": {
               "note": "わりに measures a result against a degree or amount (price, age, effort): it is more or less than you would expect. After a noun, put の before わりに.",
-              "bad": "となりの山本さんは年わりに若く見えます。",
-              "good": "となりの山本さんは年のわりに若く見えます。"
+              "bad": "隣の山本さんは年わりに若く見えます。",
+              "good": "隣の山本さんは年のわりに若く見えます。"
             }
           },
           {
@@ -2941,15 +2941,15 @@
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "彼は先週の会議を休んだ（　　）、会議の内容をよく知っているような顔をしている。",
+            "q": "兄は料理を一度もしたことがない（　　）、母の料理がまずいといつも言う。",
             "options": [
-              "ながらも",
+              "ように",
               "くせに",
               "にしても",
               "反面"
             ],
             "answer": 2,
-            "explain": "He missed the meeting himself, yet he acts as if he knows all about it: くせに blames the same person for what he does. にしても needs the speaker's own judgement after it, not a report of how someone looks. 反面 shows two sides of one thing, and ながらも does not follow the た form (休んだながらも is not a form)."
+            "explain": "He has never cooked, yet he always says his mother's cooking is bad: くせに blames the same person for what he does. にしても needs the speaker's own judgement after it. 反面 shows two sides of one thing, not a complaint. ように (so that, like) makes no sense here."
           },
           {
             "id": "n3u09d6.e3",
@@ -3164,7 +3164,7 @@
           "id": "n3u09d6.r1",
           "kind": "choice",
           "type": "読解・情報検索",
-          "q": "山田さんは、となりの市に住んでいて、市内の会社で働いています。来月、会社の友だちと会議室を借りて、ピアノを使って歌の練習をします。山田さんたちは、いくら払いますか。",
+          "q": "山田さんは、隣の市に住んでいて、市内の会社で働いています。来月、会社の友だちと会議室を借りて、ピアノを使って歌の練習をします。山田さんたちは、いくら払いますか。",
           "options": [
             "750円",
             "1,000円",
@@ -3538,14 +3538,14 @@
       "options": [
         "その日のよかったことを忘れないようにしたかったから",
         "カードを書いたとき、やさしい漢字が出てこなかったから",
-        "字がきたないと友だちに言われたから",
+        "字が汚いと友だちに言われたから",
         "パソコンが使えなくなったから"
       ],
       "answer": 2,
       "short": [
         "よかったことを忘れない",
         "漢字が出てこなかった",
-        "字がきたないと言われた",
+        "字が汚いと言われた",
         "パソコンが使えない"
       ],
       "explain": "When the writer tried to write a moving card, simple kanji would not come (簡単な漢字が思い出せなくて), so そこで the writer started the notebook. Noticing small good things is something that happened after starting, not the reason. Friends and a broken computer are never mentioned."

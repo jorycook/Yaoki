@@ -24,7 +24,7 @@
                 "en": "Last month I started writing a diary every morning."
               },
               {
-                "ja": "[公園|こうえん]のさくらが、少しずつさき{はじめ}ました。",
+                "ja": "[公園|こうえん]のさくらが、少しずつ[咲|さ]き{はじめ}ました。",
                 "en": "The cherry trees in the park have started to bloom, little by little."
               }
             ],
@@ -41,7 +41,7 @@
             "connect": [
               {
                 "pos": "Verb, ます form",
-                "rule": "なきます → なき＋{だす}"
+                "rule": "[泣|な]きます → [泣|な]き＋{だす}"
               },
               {
                 "pos": "Verb for a natural change, ます form",
@@ -50,7 +50,7 @@
             ],
             "examples": [
               {
-                "ja": "赤ちゃんが急になき{だし}ました。",
+                "ja": "赤ちゃんが急に[泣|な]き{だし}ました。",
                 "en": "The baby suddenly started crying."
               },
               {
@@ -97,9 +97,9 @@
             "label": "Which one is a sudden start?",
             "q": "[昨日|きのう]、電車の中で、^急に^[隣|となり]の[席|せき]の赤ちゃんが（　　）。",
             "options": [
-              "なくところです",
-              "なきだしました",
-              "なきはじめるつもりです"
+              "[泣|な]くところです",
+              "[泣|な]きだしました",
+              "[泣|な]きはじめるつもりです"
             ],
             "answer": 2,
             "why": [
@@ -551,7 +551,7 @@
           "script": [
             "ナレーター：会社で、女の人と男の人が花見について話しています。男の人はこのあと、まず何をしますか。",
             "女：田中さん、来週の花見の場所は、もう決まりましたか。",
-            "男：川のそばの公園にしようと思っています。でも、今年はさくらが早くさきはじめたって、ニュースで言っていましたね。",
+            "男：川のそばの公園にしようと思っています。でも、今年はさくらが早く咲きはじめたって、ニュースで言っていましたね。",
             "女：ええ。あの公園は、もう満開だそうですよ。週末に雨が降ったら、散りはじめてしまうかもしれません。",
             "男：そうですか。じゃあ、来週だとおそいですね。今週の金曜日にしましょうか。",
             "女：いいですね。でも、金曜日の天気はどうでしょう。",
@@ -678,7 +678,7 @@
             },
             {
               "form": "〜ておく",
-              "tag": "じゅんびして · on purpose, in advance",
+              "tag": "[準備|じゅんび]して · on purpose, in advance",
               "mark": "dot",
               "ja": "[寝|ね]る前に、明日着る服を出し{ておきます}。",
               "en": "Before going to bed, I put out the clothes I will wear tomorrow."
@@ -1379,7 +1379,7 @@
             "before": "わたしが部屋の",
             "after": "遊びに来ました。",
             "tiles": [
-              "そうじを",
+              "掃除を",
               "やりかけていた",
               "ところに",
               "友だちが"
@@ -1391,8 +1391,8 @@
               0,
               2
             ],
-            "full": "わたしが部屋のそうじを{やりかけていた}ところに友だちが遊びに来ました。",
-            "explain": "そうじを, やりかけていた, ところに, 友だちが. 部屋の needs a noun, so そうじを comes first, then やりかけていた. ところに follows it (just when I was partway through), and 友だちが is the subject of 遊びに来ました."
+            "full": "わたしが部屋の掃除を{やりかけていた}ところに友だちが遊びに来ました。",
+            "explain": "掃除を, やりかけていた, ところに, 友だちが. 部屋の needs a noun, so 掃除を comes first, then やりかけていた. ところに follows it (just when I was partway through), and 友だちが is the subject of 遊びに来ました."
           }
         ]
       },
@@ -1553,20 +1553,20 @@
           "label": "How the exam asks it",
           "q": "引っ越しの前に、使わなくなった家具を_処分しました_。",
           "options": [
-            "あずけました",
-            "すてました",
+            "預けました",
+            "捨てました",
             "かざりました",
             "直しました"
           ],
           "answer": 2,
-          "explain": "処分する here means to get rid of something: すてました. あずける is to leave something with someone to keep, かざる is to put something up to decorate a room, and 直す is to repair it."
+          "explain": "処分する here means to get rid of something: 捨てました. 預ける is to leave something with someone to keep, かざる is to put something up to decorate a room, and 直す is to repair it."
         }
       },
       "skill": {
         "kind": "listening",
         "ja": "ポイント理解",
         "en": "Point comprehension",
-        "ask": "男の人のジュースは、どうしてすてられましたか。",
+        "ask": "男の人のジュースは、どうして捨てられましたか。",
         "audio": [
           [
             "N",
@@ -1618,17 +1618,17 @@
           "id": "n3u02d3.r1",
           "kind": "choice",
           "type": "ポイント理解",
-          "q": "男の人のジュースは、どうしてすてられましたか。",
+          "q": "男の人のジュースは、どうして捨てられましたか。",
           "script": [
-            "ナレーター：みんなで使う台所で、男の人と女の人が話しています。男の人のジュースは、どうしてすてられましたか。",
+            "ナレーター：みんなで使う台所で、男の人と女の人が話しています。男の人のジュースは、どうして捨てられましたか。",
             "男：ねえ、冷蔵庫に入れておいたぼくのジュース、知らない？飲みかけのやつ。",
-            "女：ああ、あれ、山田さんのだったんだ。昨日の夜、大家さんがすててたよ。",
+            "女：ああ、あれ、山田さんのだったんだ。昨日の夜、大家さんが捨ててたよ。",
             "男：えっ、どうして？名前はちゃんと書いておいたのに。",
             "女：うん、名前はあったよ。でも、ほら、このはり紙見て。「飲みかけのものには、名前と日付を書くこと」。",
             "男：日付も書いたよ。先週の月曜日って。",
             "女：じゃあ、それだよ。「日付から一週間たったものは処分します」って書いてあるでしょう。",
             "男：あ、そうか…。まだ半分ぐらい残ってたし、ふたもちゃんとしめてたのになあ。",
-            "ナレーター：男の人のジュースは、どうしてすてられましたか。"
+            "ナレーター：男の人のジュースは、どうして捨てられましたか。"
           ],
           "options": [
             "日付から一週間以上たっていたから",
@@ -1795,7 +1795,7 @@
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "^お[客|きゃく]さんが多くて^、店の前に[数|かぞ]え（　　）ほどの人がならんでいました。",
+            "q": "^お[客|きゃく]さんが多くて^、店の前に[数|かぞ]え（　　）ほどの人が[並|なら]んでいました。",
             "options": [
               "きれない",
               "かけの",
@@ -1938,7 +1938,7 @@
             "type": "文の文法2",
             "label": "Build the sentence",
             "before": "スーパーで安かったので",
-            "after": "、少しすててしまった。",
+            "after": "、少し捨ててしまった。",
             "tiles": [
               "買った",
               "肉を",
@@ -1952,7 +1952,7 @@
               0,
               1
             ],
-            "full": "スーパーで安かったので買った肉を全部は使いきれなくて、少しすててしまった。",
+            "full": "スーパーで安かったので買った肉を全部は使いきれなくて、少し捨ててしまった。",
             "explain": "買った, 肉を, 全部は, 使いきれなくて. 安かったので買った describes 肉, 全部は (not all of it) comes before the verb, and 使いきれなくて gives the reason for throwing some away."
           }
         ]
@@ -2290,7 +2290,7 @@
             "kind": "choice",
             "type": "文の文法1",
             "label": "Choose the form",
-            "q": "^かさを持た^（　　）出かけたら、雨に[降|ふ]られてしまいました。",
+            "q": "^[傘|かさ]を持た^（　　）出かけたら、雨に[降|ふ]られてしまいました。",
             "options": [
               "なくて",
               "ないと",
@@ -2357,7 +2357,7 @@
             "after": "帰ってきてしまいました。",
             "tiles": [
               "借りた",
-              "かさを",
+              "[傘|かさ]を",
               "持った",
               "まま"
             ],
@@ -2369,8 +2369,8 @@
               1
             ],
             "hint": "まま follows the た form. What did you still have with you?",
-            "full": "友だちに借りたかさを持った{まま}帰ってきてしまいました。",
-            "explain": "借りた describes かさ, so 借りたかさを comes first, and it is what 持った takes. まま follows the た form 持った and goes right before 帰ってきて: I came home still holding the umbrella I had borrowed from a friend."
+            "full": "友だちに借りた[傘|かさ]を持った{まま}帰ってきてしまいました。",
+            "explain": "借りた describes [傘|かさ], so 借りた[傘|かさ]を comes first, and it is what 持った takes. まま follows the た form 持った and goes right before 帰ってきて: I came home still holding the umbrella I had borrowed from a friend."
           },
           {
             "id": "n3u02d5.d6",
