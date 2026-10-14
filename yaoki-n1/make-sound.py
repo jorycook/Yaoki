@@ -31,8 +31,13 @@ N2_PROJECT = os.path.join(HERE, '..', 'yaoki', 'project')
 SR = 24000
 NARR, MAN, WOMAN = 'jf_gongitsune', 'jm_kumo', 'jf_alpha'
 NUM = ['いち、', 'に、', 'さん、', 'よん、']
-# written form -> what the voice is given
+# written form -> what the voice is given, where the voice would misread a word: these, and content/readings.json
+# (a fragment of a lesson or mock text, long enough to be unique, and the same with the word in kana)
 SAY = {'技術畑': '技術ばたけ', '何分不慣れ': 'なにぶん不慣れ', '何分ほど': 'なんぷんほど'}
+_readings = os.path.join(HERE, 'content', 'readings.json')
+if os.path.exists(_readings):
+    import json as _json
+    SAY.update(_json.load(open(_readings, encoding='utf-8')))
 
 pipe = KPipeline(lang_code='j', repo_id='hexgrad/Kokoro-82M')
 
@@ -112,9 +117,12 @@ VOICE = {'男': MAN, '女': WOMAN}
 
 
 def spoken(text):
-    """what the voice is given for a text with markup: the furigana instead of its kanji, no 【】"""
+    """what the voice is given for a text with markup: the furigana instead of its kanji, no 【】, and the fixed readings"""
     text = re.sub(r'[一-鿿々〆ヶ]+《([^》]+)》', r'\1', text)
-    return text.replace('【', '').replace('】', '')
+    text = text.replace('【', '').replace('】', '')
+    for k, v in SAY.items():
+        text = text.replace(k, v)
+    return text
 
 
 def lesson_clips(lesson):
