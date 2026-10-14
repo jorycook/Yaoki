@@ -49,11 +49,14 @@
     return n >= 0 && n <= max && Math.floor(n) === n ? n : 0;
   }
   function start() {
-    var s = { screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null };
+    /* plan: the study plan of an app that makes one from the learner's goal (the N1 app); null otherwise */
+    var s = { screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null };
     var from = null;
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
-      from = { started: true, g: query.get('g'), k: query.get('k'), r: query.get('r'), mistakes: json('m', []), rev: json('rev', null), mock: json('mock', null) };
+      from = { started: true, g: query.get('g'), k: query.get('k'), r: query.get('r'), mistakes: json('m', []), rev: json('rev', null), mock: json('mock', null), plan: query.get('plan') === 'demo' ? (window.ykN1 ? window.ykN1.demo() : null) : json('plan', null) };
+      /* day=n: open that day of the plan (plan=demo is the canvas's sample plan, of an app that has one) */
+      if (from.plan && query.has('day')) from.plan.open = +query.get('day');
       s.screen = query.get('screen') || 'Goal';
       from.started = s.screen !== 'Goal';
     } else {
@@ -68,6 +71,7 @@
       s.mistakes = Array.isArray(from.mistakes) ? from.mistakes.filter(function (m) { return m && typeof m.src === 'string'; }) : [];
       s.rev = from.rev && typeof from.rev === 'object' ? from.rev : null;
       s.mock = from.mock && typeof from.mock === 'object' && from.mock.done ? from.mock : null;
+      s.plan = from.plan && typeof from.plan === 'object' && Array.isArray(from.plan.days) ? from.plan : null;
     }
     if (!window.YK.has(s.screen)) s.screen = s.started ? 'Main' : 'Goal';
     return s;
@@ -76,6 +80,7 @@
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
     var keep = { started: !!s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    if (s.plan) keep.plan = s.plan;
     var text = JSON.stringify(keep);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }

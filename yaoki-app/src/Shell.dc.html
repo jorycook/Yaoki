@@ -50,6 +50,10 @@
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">%LEVEL_NOTE%</div>
 </div>
 
+<sc-if value="{{ planned }}">
+<button onClick="{{ changeGoal }}" style="height: 50px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 15px"><span lang="ja">試験日・勉強時間を変える</span>　Change the plan</button>
+</sc-if>
+
 <div style="padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
 <button aria-label="Play the test sound" onClick="{{ playTest }}" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ testBg }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button>
 <div style="display: flex; flex-direction: column; gap: 2px">
@@ -91,7 +95,7 @@ window.ykApp.onScreen(this.state.screen);
 }
 componentDidUpdate() {
 const s = this.state;
-window.ykApp.remember({ started: s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock });
+window.ykApp.remember({ started: s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan });
 window.ykApp.onScreen(s.screen);
 }
 componentWillUnmount() {
@@ -104,7 +108,7 @@ const at = {};
 const closeMenu = () => { clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); this.setState({ menu: false, confirm: false, testing: false }); };
 return {
 at,
-app: { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock },
+app: { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan },
 /* leaving the goal screen is what marks the goal as set: from then on the app opens on the week path */
 go: (to) => this.setState({ screen: to, started: s.started || to !== 'Goal' }),
 save: (patch) => this.setState(patch),
@@ -115,12 +119,15 @@ menuOpen: s.menu,
 asking: !s.confirm,
 confirming: s.confirm,
 askReset: () => this.setState({ confirm: true }),
+/* an app with a study plan lets the learner change the exam date or the daily time: the goal screen re-plans what is left */
+planned: !!s.plan,
+changeGoal: () => { closeMenu(); this.setState({ screen: 'Goal' }); },
 cancelReset: () => this.setState({ confirm: false }),
 reset: () => {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 window.ykApp.forget();
-this.setState({ screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, menu: false, confirm: false, testing: false });
+this.setState({ screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null, menu: false, confirm: false, testing: false });
 },
 /* the same test sound as the mock's sound check; when it cannot play, the note says so */
 playTest: () => {

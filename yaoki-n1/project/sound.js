@@ -1,11 +1,15 @@
 /* Yaoki prototype sound.
- * Plays the short spoken clips that sound-mock.js and sound-lessons.js register (MP3 as base64 text).
+ * Plays the short spoken clips that sound-mock.js and sound-lessons.js register (MP3 as base64 text), and the
+ * clips that audio/clips.js names as files (MP3 next to this script, fetched when first played).
  * Every screen works without it: when a clip or the browser's audio is missing, play() returns false
  * and the screen falls back to its silent waveform. on() lets a screen notice, a moment after play(),
  * that the browser accepted the clip but nothing is coming out, and at() tells it how far the clip
  * has really played, so a screen can keep time with the sound instead of guessing. */
 (function () {
   var clips = window.__ykClips = window.__ykClips || {};
+  /* clip files are found next to this script: the project folder on the canvas, assets/ in the app */
+  var here = '';
+  try { here = document.currentScript.src.replace(/[^/]*$/, ''); } catch (e) { here = ''; }
   var AC = window.AudioContext || window.webkitAudioContext;
   var ctx = null;
   var decoded = {};
@@ -81,16 +85,23 @@
     var clip = clips[key];
     if (!c || !clip) return Promise.reject(new Error('no sound for ' + key));
     var mine = gen;
-    var task = decoded[key] = new Promise(function (ok, fail) {
-      try {
-        var p = c.decodeAudioData(bytes(clip.b), ok, fail);
-        if (p && typeof p.catch === 'function') p.catch(fail);
-      } catch (e) {
-        fail(e);
-      }
+    /* a clip kept as a file is fetched first; a file that cannot be had (offline before it was stored) is not the output's fault */
+    var fetched = clip.u ? fetch(here + clip.u).then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }) : null;
+    if (fetched) fetched.catch(function () { if (mine === gen) delete decoded[key]; });
+    var task = decoded[key] = (fetched || Promise.resolve(null)).then(function (buf) {
+      return new Promise(function (ok, fail) {
+        try {
+          var p = c.decodeAudioData(buf || bytes(clip.b), ok, fail);
+          if (p && typeof p.catch === 'function') p.catch(fail);
+        } catch (e) {
+          fail(e);
+        }
+      }).catch(function (e) {
+        /* a failure to decode counts against the output that was asked, not against one made since */
+        if (mine === gen) { delete decoded[key]; failed = true; }
+        throw e;
+      });
     });
-    /* a failure counts against the output that was asked, not against one made since */
-    task.catch(function () { if (mine === gen) { delete decoded[key]; failed = true; } });
     return task;
   }
 
