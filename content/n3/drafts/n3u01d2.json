@@ -1,0 +1,444 @@
+{
+  "title": "〜おきに・〜ぶりに",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u01d2.p1",
+        "form": "〜おきに",
+        "gloss": "at intervals of, every other …",
+        "connect": [
+          {
+            "pos": "Number + counter for time (日, 週間, か月, 年)",
+            "rule": "一日{おきに}、一週間{おきに}"
+          },
+          {
+            "pos": "Number + counter for distance (here 〜ごとに means the same)",
+            "rule": "5メートル{おきに}"
+          },
+          {
+            "pos": "Before a noun",
+            "rule": "一日{おきの}〜"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[祖父|そふ]は一日{おきに}病院に通っています。",
+            "en": "My grandfather goes to the hospital every other day."
+          },
+          {
+            "ja": "この道には、5メートル{おきに}花のプランターが[置|お]いてあります。",
+            "en": "There is a flower planter every five metres along this street."
+          }
+        ],
+        "watch": {
+          "note": "With time, おきに leaves a gap of one unit: 一日おきに is every other day, not every day. For every day, say 毎日.",
+          "bad": "このパン屋は休みがなく、一日おきに開いています。",
+          "good": "このパン屋は休みがなく、毎日開いています。"
+        }
+      },
+      {
+        "id": "n3u01d2.p2",
+        "form": "〜ぶりに・〜ぶりの",
+        "gloss": "for the first time in (a period)",
+        "connect": [
+          {
+            "pos": "Length of time (number + counter), before a verb",
+            "rule": "三年{ぶりに}会う"
+          },
+          {
+            "pos": "Length of time, before a noun",
+            "rule": "十年{ぶりの}〜"
+          },
+          {
+            "pos": "Length of time, at the end of a sentence",
+            "rule": "〜は五年{ぶりです}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "大学の友だちと、三年{ぶりに}会いました。",
+            "en": "I met a friend from university for the first time in three years."
+          },
+          {
+            "ja": "[昨日|きのう]、東京で十年{ぶりの}[大雪|おおゆき]が[降|ふ]りました。",
+            "en": "Yesterday Tokyo had its first heavy snow in ten years."
+          }
+        ],
+        "watch": {
+          "note": "ぶりに is about one event that happens again after a long gap. It does not mean \"for\" a length of time. For that, use 〜間.",
+          "bad": "日本に三年ぶりに住んでいます。",
+          "good": "日本に三年間住んでいます。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "With 一日 or 一年, おきに skips one (every other day) and ごとに does not (every day), while ぶりに marks one event after a long gap.",
+      "forms": [
+        {
+          "form": "〜おきに",
+          "tag": "一つとばして · every other",
+          "mark": "dot",
+          "ja": "[姉|あね]は一日{おきに}ジムに通っています。",
+          "en": "My sister goes to the gym every other day."
+        },
+        {
+          "form": "〜ごとに",
+          "tag": "毎回 · every, each",
+          "mark": "dot",
+          "ja": "春になって、一日{ごとに}あたたかくなっています。",
+          "en": "Spring is here, and it gets warmer day by day."
+        },
+        {
+          "form": "〜ぶりに",
+          "tag": "あいだがあいて · first time in",
+          "mark": "dot",
+          "ja": "夏休みに、三年{ぶりに}国へ帰りました。",
+          "en": "In the summer holidays, I went home for the first time in three years."
+        }
+      ],
+      "check": {
+        "id": "n3u01d2.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Every day or every other day?",
+        "q": "父は毎日ではなく、一日（　　）ジョギングをしています。",
+        "options": [
+          "ごとに",
+          "ぶりに",
+          "おきに"
+        ],
+        "answer": 3,
+        "why": [
+          "一日ごとに means every day, and 毎日ではなく rules that out.",
+          "ぶりに is for one event after a gap. Here jogging is a habit (しています).",
+          "Not every day but every other day: 一日おきに."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u01d2.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "駅前の道には、^五十メートル^（　　）ベンチが[置|お]いてあります。",
+        "options": [
+          "ぶりに",
+          "おきに",
+          "たびに",
+          "までに"
+        ],
+        "answer": 2,
+        "why": [
+          "ぶりに needs a length of time and one event after a gap. 五十メートル is a distance.",
+          "Distance + おきに: there is a bench every fifty metres.",
+          "たびに follows a verb or a noun with の (行くたびに), not a distance.",
+          "までに gives a deadline. 五十メートルまでに does not make sense here."
+        ]
+      },
+      {
+        "id": "n3u01d2.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^先週^、五年（　　）テニスをしました。",
+        "options": [
+          "おきに",
+          "ごとに",
+          "間",
+          "ぶりに"
+        ],
+        "answer": 4,
+        "why": [
+          "おきに is for something that repeats, but 先週 points to one game.",
+          "ごとに is also for something that repeats (every five years), not one game last week.",
+          "五年間テニスをしました says you played for five years, which does not fit 先週.",
+          "One game last week, after five years without tennis: 五年ぶりに."
+        ]
+      },
+      {
+        "id": "n3u01d2.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この薬は強いので、一日（　　）、^二日に一回^だけ飲んでください。",
+        "options": [
+          "おきに",
+          "ごとに",
+          "ぶりに",
+          "までに"
+        ],
+        "answer": 1,
+        "why": [
+          "一日おきに skips a day: once every two days, as 二日に一回 says.",
+          "一日ごとに means every day, which is not 二日に一回.",
+          "ぶりに is for one event after a gap, not a rule for taking medicine.",
+          "一日までに would be a deadline, which does not fit 二日に一回."
+        ]
+      },
+      {
+        "id": "n3u01d2.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "三年（　　）^ふるさと^は、ずいぶん[変|か]わっていました。",
+        "options": [
+          "ぶりに",
+          "おきの",
+          "ぶりの",
+          "ごとの"
+        ],
+        "answer": 3,
+        "why": [
+          "ぶりに goes before a verb (三年ぶりに帰った). Here a noun, ふるさと, follows.",
+          "おきの is for things that come at intervals. The hometown does not.",
+          "Before a noun, ぶりの: my hometown, seen again after three years, had changed a lot.",
+          "ごとの is for things that repeat. The hometown does not."
+        ]
+      },
+      {
+        "id": "n3u01d2.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "医者に、",
+        "after": "言われました。",
+        "tiles": [
+          "一日",
+          "おきに",
+          "運動する",
+          "ように"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "おきに follows a number + counter. ように follows a verb in the dictionary form.",
+        "full": "医者に、一日{おきに}運動するように言われました。",
+        "explain": "一日おきに is one unit, and it tells when to exercise, so it comes before 運動する. ように follows the verb and comes right before 言われました: the doctor told me to exercise every other day."
+      },
+      {
+        "id": "n3u01d2.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "高校のクラス会で",
+        "after": "、少しも[変|か]わっていませんでした。",
+        "tiles": [
+          "十年",
+          "ぶりに",
+          "会った",
+          "友だちは"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "ぶりに follows a length of time and goes before a verb. Who had not changed?",
+        "full": "高校のクラス会で十年{ぶりに}会った友だちは、少しも[変|か]わっていませんでした。",
+        "explain": "十年ぶりに goes before the verb 会った, and 十年ぶりに会った describes 友だち. 友だちは is the topic of 変わっていませんでした, so it comes last."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u01d2.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この通りには、百メートル（　　）コンビニがあります。",
+        "options": [
+          "おきに",
+          "ぶりに",
+          "たびに",
+          "あとに"
+        ],
+        "answer": 1,
+        "explain": "Distance + おきに: there is a convenience store every hundred metres. ぶりに needs a length of time and one event after a gap, たびに follows a verb or a noun with の, and あとに does not follow a distance."
+      },
+      {
+        "id": "n3u01d2.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "大学を出てから一度も便りがなかった友人から、二十年（　　）手紙がとどきました。",
+        "options": [
+          "おきの",
+          "ごとの",
+          "までの",
+          "ぶりの"
+        ],
+        "answer": 4,
+        "explain": "The friend sent nothing for twenty years, so this letter is one event after a long gap, and 手紙 is a noun: ぶりの. おきの and ごとの would mean letters came again and again, which 一度も rules out. 二十年までの手紙 does not make sense."
+      },
+      {
+        "id": "n3u01d2.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "仕事が落ち着いたら、",
+        "after": "、海へ行くつもりです。",
+        "tiles": [
+          "二年",
+          "ぶりの",
+          "休みを",
+          "取って"
+        ],
+        "star": 2,
+        "bank": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "full": "仕事が落ち着いたら、二年ぶりの{休みを}取って、海へ行くつもりです。",
+        "explain": "二年, ぶりの, 休みを, 取って. 二年ぶりの describes the noun 休み, 休みを is the object of 取って, and 取って joins the next part, 海へ行く: when work calms down, I will take my first holiday in two years and go to the sea."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "同窓会のお知らせ",
+    "en": "A class reunion invitation",
+    "intro": "An invitation to a high school class reunion has come in the post. Tap each word on it.",
+    "words": [
+      {
+        "id": "reunion",
+        "word": "同窓会",
+        "reading": "どうそうかい",
+        "gloss": "class reunion",
+        "parts": [
+          ["同", "ドウ", "same"],
+          ["窓", "ソウ", "window: 窓口"],
+          ["会", "カイ", "meeting"]
+        ]
+      },
+      {
+        "id": "invite",
+        "word": "招待",
+        "reading": "しょうたい",
+        "gloss": "invitation",
+        "parts": [
+          ["招", "ショウ", "invite"],
+          ["待", "タイ", "wait; treat"]
+        ]
+      },
+      {
+        "id": "join",
+        "word": "参加",
+        "reading": "さんか",
+        "gloss": "taking part",
+        "parts": [
+          ["参", "サン", "go, take part"],
+          ["加", "カ", "add"]
+        ]
+      },
+      {
+        "id": "fee",
+        "word": "会費",
+        "reading": "かいひ",
+        "gloss": "fee for the event",
+        "parts": [
+          ["会", "カイ", "meeting"],
+          ["費", "ヒ", "cost: 交通費"]
+        ]
+      },
+      {
+        "id": "rsvp",
+        "word": "出欠",
+        "reading": "しゅっけつ",
+        "gloss": "attending or not",
+        "parts": [
+          ["出", "シュッ", "attend, go out"],
+          ["欠", "ケツ", "lack, be absent"]
+        ]
+      },
+      {
+        "id": "reply",
+        "word": "返信",
+        "reading": "へんしん",
+        "gloss": "reply (by post or email)",
+        "parts": [
+          ["返", "ヘン", "return"],
+          ["信", "シン", "message; trust"]
+        ]
+      },
+      {
+        "id": "desk",
+        "word": "受付",
+        "reading": "うけつけ",
+        "gloss": "reception desk",
+        "parts": [
+          ["受", "う", "receive"],
+          ["付", "つけ", "attach"]
+        ]
+      },
+      {
+        "id": "photo",
+        "word": "記念写真",
+        "reading": "きねんしゃしん",
+        "gloss": "group photo to remember the day",
+        "parts": [
+          ["記", "キ", "record"],
+          ["念", "ネン", "thought"],
+          ["写", "シャ", "copy"],
+          ["真", "シン", "true"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u01d2.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "同窓会の_出欠_は、はがきで知らせてください。",
+      "options": [
+        "しゅつけつ",
+        "しゅっきつ",
+        "しゅっけつ",
+        "でけつ"
+      ],
+      "answer": 3,
+      "explain": "出欠 is read しゅっけつ: 出 becomes しゅっ before け, and 欠 is けつ. しゅつけつ has no small っ, しゅっきつ has き instead of け, and でけつ uses the wrong reading of 出."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（短文）",
+    "en": "Short passage",
+    "ask": "What does the reader of this message have to do?",
+    "seconds": 90,
+    "passage": "三年二組のみなさん、お元気ですか。山田です。高校を出てから、今年でちょうど十年になります。そこで、十年ぶりにクラスの同窓会を開くことにしました。日時は十一月二十三日（日）午後六時から、場所は駅前のレストラン「さくら」です。会費は五千円で、^当日、受付で^お願いします。田中先生も来てくださる予定です。^出欠は、十月三十一日までに、このメールに返信して知らせてください^。来られない人も、今どうしているか、ひとこと書いてくれるとうれしいです。これからは一年おきに^集まれたらいいなと思っています^。",
+    "strategy": "Skip the dates of the party itself and look for a request: 〜てください and the date that goes with it.",
+    "item": {
+      "id": "n3u01d2.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "q": "このメールを読んだ人がしなければならないことは何か。",
+      "options": [
+        "十月三十一日までに、会費を払う。",
+        "来られるかどうかを、十月三十一日までにメールで知らせる。",
+        "一年おきに集まれるかどうか、返事をする。",
+        "来られない場合は、田中先生にそのことを伝える。"
+      ],
+      "short": [
+        "会費を払う",
+        "出欠をメールで知らせる",
+        "一年おきに集まれるか返事する",
+        "田中先生に伝える"
+      ],
+      "answer": 2,
+      "explain": "The request is 出欠は、十月三十一日までに、このメールに返信して知らせてください: everyone replies by email, by 31 October, to say whether they can come.",
+      "why": [
+        "The fee is paid on the day, at the reception desk (当日、受付で).",
+        "",
+        "Meeting every other year is only Yamada's hope (集まれたらいいな). Nobody is asked to answer it.",
+        "Teacher Tanaka is coming, but people who cannot come reply to this email, not to him."
+      ]
+    }
+  }
+}
