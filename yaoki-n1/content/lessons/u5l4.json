@@ -1,0 +1,222 @@
+{
+  "id": "u5l4",
+  "unit": 5,
+  "lesson": 4,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜に即して",
+        "en": "in line with (the actual facts)",
+        "conn": [["名詞", "名詞 ＋ 【に即して】"], ["名詞", "名詞 ＋ 【に即した】 ＋ 名詞"]],
+        "ex": [
+          { "ja": "現場の実態【に即して】、マニュアルを全面的に見直すことにした。", "en": "We decided to overhaul the manual to fit how the work is really done." },
+          { "ja": "この報告書は、事実【に即した】冷静な分析として評価が高い。", "en": "This report is highly regarded as a calm analysis that keeps to the facts." }
+        ],
+        "note": "The noun before it is the real situation: 事実, 実態, 現状. Before a noun it becomes に即した, as in 実態に即した支援.",
+        "bad": "実態に即して支援が必要だ。",
+        "good": "実態に即した支援が必要だ。",
+        "tag": ["事実・実態", "the actual facts"],
+        "cmp": { "ja": "実態【に即して】制度を見直す。", "en": "Review the system to fit how things really are." }
+      },
+      {
+        "p": "〜にのっとって",
+        "en": "in accordance with (rules, custom)",
+        "conn": [["名詞", "名詞 ＋ 【にのっとって／のっとり】"], ["名詞", "名詞 ＋ 【にのっとった】 ＋ 名詞"]],
+        "ex": [
+          { "ja": "式典は、古くからのしきたり【にのっとって】厳かに執《と》り行われた。", "en": "The ceremony was solemnly conducted in accordance with long-standing custom." },
+          { "ja": "当社は関係法令【にのっとり】、個人情報を適切に管理しております。", "en": "In accordance with the relevant laws, we handle personal information properly." }
+        ],
+        "note": "It follows an established rule, law or custom. One person's orders are not such a rule: for those, use に従って.",
+        "bad": "部長の指示にのっとって動く。",
+        "good": "部長の指示に従って動く。",
+        "tag": ["規則・慣例", "set rules, custom"],
+        "cmp": { "ja": "伝統【にのっとって】式が営まれた。", "en": "The ceremony was held according to tradition." }
+      },
+      {
+        "p": "〜に照らして",
+        "en": "in light of (rules, past cases)",
+        "conn": [["名詞", "名詞 ＋ 【に照らして】"], ["名詞", "名詞 ＋ 【に照らしてみると】"]],
+        "ex": [
+          { "ja": "その行為が違法かどうかは、法律【に照らして】判断される。", "en": "Whether the act was illegal will be judged in light of the law." },
+          { "ja": "過去の事例【に照らして】みると、この程度の遅れは想定内だ。", "en": "Measured against past cases, a delay of this size is within what we expected." }
+        ],
+        "note": "It measures against a standard, so what follows is a verdict. To act as a rule says, use に従って or どおりに.",
+        "bad": "マニュアルに照らして接客する。",
+        "good": "マニュアルどおりに接客する。",
+        "tag": ["基準で判断", "against a standard"],
+        "cmp": { "ja": "過去の例【に照らして】判断する。", "en": "Judge it in light of past cases." }
+      }
+    ],
+    "compare": {
+      "intro": "All three mean \"based on\". に即して fits facts, にのっとって follows rules, に照らして judges by a standard.",
+      "check": {
+        "scene": "人事異動",
+        "ja": "過去の例（　　）みると、異例の昇進だ。",
+        "options": ["に即して", "にのっとって", "に照らして"],
+        "answer": 3,
+        "notes": [
+          "おしい！ に即して fits the facts at hand; here past cases are a yardstick.",
+          "おしい！ にのっとって is for acting by a rule. 異例だ is a verdict, not an action.",
+          "せいかい！ Past cases are the standard, and 異例の昇進だ is the verdict: に照らして."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "支援物資は、【被災地のその時々の状況】（　　）、柔軟に配分された。",
+        "options": ["にのっとって", "に即して", "をよそに", "にかこつけて"],
+        "answer": 2,
+        "why": [
+          "にのっとって follows a set rule or custom, and a changing situation is neither.",
+          "Aid matched to how things really stood at each point: に即して.",
+          "をよそに means ignoring something, which clashes with 柔軟に配分された.",
+          "にかこつけて uses something as a pretext, and nobody is making excuses here."
+        ]
+      },
+      {
+        "ja": "この大会は、【国際競技連盟が定めた公式ルール】（　　）運営されている。",
+        "options": ["に照らして", "とあって", "を皮切りに", "にのっとって"],
+        "answer": 4,
+        "why": [
+          "に照らして leads to a judgement, and running an event is not one.",
+          "とあって needs a special occasion that causes a scene; a rule book is not one.",
+          "を皮切りに marks the first in a series of events, not a rule to follow.",
+          "Official rules laid down in advance and followed: にのっとって."
+        ]
+      },
+      {
+        "ja": "その社員の今回の行為は、【就業規則】（　　）【懲戒処分に相当する】。",
+        "options": ["に照らして", "にのっとって", "をよそに", "とあれば"],
+        "answer": 1,
+        "why": [
+          "The rules are the yardstick and 相当する is the verdict: に照らして.",
+          "にのっとって leads to an action done by the rules, not to a verdict like 相当する.",
+          "をよそに means paying no attention; you cannot judge by rules you ignore.",
+          "とあれば means \"if it is for …\" and leads to what someone is willing to do."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "被害は地域ごとに",
+      "post": "対応が求められる。",
+      "tiles": ["異なる", "ため", "実情に", "即した"],
+      "star": 2,
+      "hint": "ため needs a reason before it. に即した describes a noun, so think about which noun it sits next to.",
+      "why": "異なる, ため, 実情に, 即した. The reason comes first: 異なるため. 実情に即した then describes 対応, so 即した sits right before it."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "働き方改革は、現場の実態（　　）ものでなければ形だけに終わる。",
+        "options": ["を顧みない", "にのっとった", "に即した", "にかこつけた"],
+        "answer": 3,
+        "why": "Reform must fit how work really goes or it is mere form: に即した. 実態 is not a rule (にのっとった), and を顧みない and にかこつけた turn the sense around."
+      },
+      {
+        "kind": "form",
+        "ja": "現行の耐震基準（　　）みると、この校舎は明らかに強度が足りない。",
+        "options": ["にのっとって", "に照らして", "に先駆けて", "にもまして"],
+        "answer": 2,
+        "why": "The current code is the yardstick and 強度が足りない the verdict: に照らして. にのっとって is for acting by a rule. に先駆けて (ahead of) and にもまして (even more than) make no sense here."
+      },
+      {
+        "kind": "order",
+        "pre": "役員の選任は、",
+        "post": "で行われる。",
+        "tiles": ["会社法の", "規定に", "のっとって", "株主総会"],
+        "star": 2,
+        "why": "会社法の, 規定に, のっとって, 株主総会. 会社法の describes 規定, にのっとって follows the rule it names, and only 株主総会 can take the で after the blanks."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "遵守する", "r": "じゅんしゅする", "en": "to observe, abide by",
+      "ex": { "ja": "全社員に、情報管理の規則を【遵守する】よう求めている。", "en": "All staff are asked to abide by the rules on handling information." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "工場では、安全基準を厳格に（　　）ことが何より重要だ。",
+        "options": ["順応する", "遵守する", "遂行する", "固執する"],
+        "answer": 2,
+        "why": "Rules and standards take 遵守する (abide by). 順応する and 固執する take に (adapt to, cling to), and 遂行する is for a task or mission, not a standard."
+      }
+    },
+    {
+      "w": "逸脱", "r": "いつだつ", "en": "deviation",
+      "ex": { "ja": "その判断は、会社の方針から大きく【逸脱】するものだった。", "en": "That decision departed a long way from company policy." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "寝坊して、いつもの電車を逸脱してしまった。",
+          "風邪で寝込み、三日間仕事を逸脱した。",
+          "予選で逸脱し、決勝には進めなかった。",
+          "彼の行為は、公務員の職務の範囲を逸脱している。"
+        ],
+        "answer": 4,
+        "why": "逸脱 is going beyond a rule, role or norm, as in 範囲を逸脱する. The others want 乗り遅れる (miss), 休む (take off work) and 脱落する (drop out)."
+      }
+    },
+    {
+      "w": "妥当", "r": "だとう", "en": "appropriate, valid",
+      "ex": { "ja": "提示された金額は、市場の相場から見て【妥当】な水準だ。", "en": "The price offered is at a reasonable level, judging by market rates." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "専門家の多くは、今回の判決を【妥当】だと評価している。",
+        "options": ["適切", "意外", "過酷", "寛大"],
+        "answer": 1,
+        "why": "妥当 means reasonable and fitting the case, so 適切 is closest. 意外 is unexpected, 過酷 harsh and 寛大 lenient: each judges the ruling differently."
+      }
+    },
+    {
+      "w": "厳正", "r": "げんせい", "en": "strict and fair",
+      "ex": { "ja": "不正の疑いについては、【厳正】に調査し対処いたします。", "en": "We will probe suspected wrongdoing and act on it strictly and fairly." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "審判には、どちらにも肩入れしない（　　）中立の立場が求められる。",
+        "options": ["厳格", "厳密", "厳正", "厳重"],
+        "answer": 3,
+        "why": "厳正中立 is a set phrase: strictly fair, siding with no one. 厳格 is strict (rules), 厳密 exact (definitions) and 厳重 tight (security)."
+      }
+    },
+    {
+      "w": "コンプライアンス", "r": "コンプライアンス", "en": "compliance",
+      "ex": { "ja": "取引先を選ぶ際は、【コンプライアンス】体制も確認している。", "en": "In choosing business partners, we also check their compliance systems." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "不祥事を受け、会社は【コンプライアンス】の徹底を約束した。",
+        "options": ["情報公開", "経費削減", "人員整理", "法令遵守"],
+        "answer": 4,
+        "why": "コンプライアンス is keeping to laws and rules: 法令遵守. Openness, cost cuts and job cuts may follow a scandal, but mean other things."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "筆者の態度",
+    "en": "What is the writer's attitude?",
+    "passage": "古い慣習を、今日の価値観に照らして一方的に断罪する声が近年目立つ。確かに、時代にそぐわないものは改めるべきだろう。【だが】、それが生まれた当時の事情を知ろうともせずに切り捨てるのは、【いささか性急に過ぎはしないか】。改めるにせよ守るにせよ、まずはその成り立ちに目を向ける姿勢が【求められよう】。",
+    "ask": "筆者の態度に合うのはどれか。",
+    "options": ["古い慣習はすべて守り続けるべきだ。", "今の価値観で慣習を裁くのは誤りだ。", "合わない慣習は直ちに廃止すべきだ。", "背景を理解したうえで是非を考えたい。"],
+    "short": ["慣習はすべて守るべき", "今の価値観で裁くのは誤り", "合わない慣習は直ちに廃止", "背景を理解して是非を考える"],
+    "answer": 4,
+    "tip": "Attitude shows in the endings. Read past the 確かに concession to what follows だが, and weigh soft endings.",
+    "why": "だが turns to the view: dropping customs unheard is 性急, and 求められよう urges looking at their origins first.",
+    "whyNot": [
+      "Option 1 ignores 改めるべきだろう: the writer accepts that some customs should change.",
+      "Option 2 goes too far. The writer objects to haste, not to using today's values at all.",
+      "Option 3 is the hasty view the writer calls 性急.",
+      ""
+    ]
+  },
+  "listening": {
+    "who": "女",
+    "line": "あいにく、規則にのっとり、無料でのご延長はいたしかねます。",
+    "replies": ["では、お言葉に甘えて。", "じゃあ、有料だといくらですか。", "はい、規則はちゃんと守ります。"],
+    "answer": 2,
+    "notes": [
+      "Hears an offer; いたしかねます is a polite \"we cannot\".",
+      "Accepts the refusal and asks about a paid extension.",
+      "Takes it as a warning; she cites the rule to say no."
+    ],
+    "short": ["お言葉に甘える", "有料ならいくらか", "規則は守ります"]
+  }
+}

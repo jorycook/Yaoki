@@ -1,0 +1,222 @@
+{
+  "id": "u5l2",
+  "unit": 5,
+  "lesson": 2,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜をもって",
+        "en": "by means of …; as of … (formal)",
+        "conn": [["名詞", "名詞 ＋ 【をもって】"]],
+        "ex": [
+          { "ja": "選考の結果は、後日書面【をもって】お知らせいたします。", "en": "We will let you know the result of the selection in writing at a later date." },
+          { "ja": "当店は、今月末【をもって】閉店することとなりました。", "en": "This shop will be closing as of the end of this month." }
+        ],
+        "note": "Formal: notices, letters and speeches. In everyday talk, use で instead, as in メールで or 今日で.",
+        "bad": "メールをもって連絡するね。",
+        "good": "メールで連絡するね。",
+        "tag": ["手段・区切り", "means or end date"],
+        "cmp": { "ja": "本日【をもって】受付を終了します。", "en": "Applications close as of today." }
+      },
+      {
+        "p": "〜をもってすれば",
+        "en": "with X, even … becomes possible",
+        "conn": [["名詞", "名詞 ＋ 【をもってすれば】"]],
+        "ex": [
+          { "ja": "今の医療技術【をもってすれば】、この病気は十分に治せる。", "en": "With today's medical technology, this illness can certainly be cured." },
+          { "ja": "あの人の人脈【をもってすれば】、資金はすぐに集まるはずだ。", "en": "With that person's contacts, the money should come in quickly." }
+        ],
+        "note": "What follows is a hard thing that X makes possible, often with だろう or はずだ. If even X fails, use をもってしても.",
+        "bad": "彼の腕をもってすれば、無理だ。",
+        "good": "彼の腕をもってしても、無理だ。",
+        "tag": ["可能にする", "X is enough"],
+        "cmp": { "ja": "彼の腕【をもってすれば】、優勝も夢ではない。", "en": "With his skill, winning the title is within reach." }
+      },
+      {
+        "p": "〜をもってしても",
+        "en": "even with X, still not …",
+        "conn": [["名詞", "名詞 ＋ 【をもってしても】"]],
+        "ex": [
+          { "ja": "最新の技術【をもってしても】、地震を正確に予知することはできない。", "en": "Even with the latest technology, earthquakes cannot be predicted precisely." },
+          { "ja": "警察の総力【をもってしても】、犯人の行方はつかめていない。", "en": "Even with the full force of the police, the culprit has not yet been traced." }
+        ],
+        "note": "It follows a noun, not a verb: 努力をもってしても, never 努力したをもってしても. What follows is a failure.",
+        "bad": "彼が努力したをもってしても無理だ。",
+        "good": "彼の努力をもってしても無理だ。",
+        "tag": ["それでも無理", "even X fails"],
+        "cmp": { "ja": "彼の腕【をもってしても】、優勝は無理だった。", "en": "Even with his skill, the title was beyond him." }
+      }
+    ],
+    "compare": {
+      "intro": "All three follow a noun. をもって gives a means or end date; the other two say if X is enough.",
+      "check": {
+        "scene": "手術の結果",
+        "ja": "名医の腕を（　　）、彼の命は救えなかった。",
+        "options": ["もって", "もってすれば", "もってしても"],
+        "answer": 3,
+        "notes": [
+          "おしい！ をもって gives a means or a date; it has no \"even\" to set up a failure.",
+          "おしい！ をもってすれば leads to a success, but here his life could not be saved.",
+          "せいかい！ Even a top surgeon's skill was not enough: をもってしても … なかった."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "当店のポイントサービスは、【今月末】（　　）【終了させていただきます】。",
+        "options": ["を皮切りに", "をもって", "にわたって", "をめぐって"],
+        "answer": 2,
+        "why": [
+          "を皮切りに marks the first of a series that starts; here something ends.",
+          "A date + をもって: the formal \"as of\", for ending a service.",
+          "にわたって needs a span, as in 三年にわたって, not a single point in time.",
+          "をめぐって means \"over\" an issue, as in 予算をめぐって; there is no issue here."
+        ]
+      },
+      {
+        "ja": "彼女の語学力（　　）、【どんなに難しい通訳でもこなせるだろう】。",
+        "options": ["をもってしても", "をおいて", "にしては", "をもってすれば"],
+        "answer": 4,
+        "why": [
+          "をもってしても leads to a failure, but here the outcome is a success.",
+          "をおいて needs ほかに〜ない: \"no one but X\".",
+          "にしては means \"for X, surprisingly\"; nothing unexpected is said.",
+          "Her skill makes even hard interpreting possible: をもってすれば … だろう."
+        ]
+      },
+      {
+        "ja": "経験豊富な彼の手腕（　　）、【会社の再建はかなわなかった】。",
+        "options": ["をもってしても", "ならでは", "をもってすれば", "をよそに"],
+        "answer": 1,
+        "why": [
+          "Even his proven skill was not enough: をもってしても … なかった.",
+          "ならでは praises what only X can do, and it needs の or だ after it.",
+          "をもってすれば leads to a success, but the rebuilding failed.",
+          "をよそに takes worries or protests that someone ignores, not a skill."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "この問題は、",
+      "post": "解決できない。",
+      "tiles": ["専門家の", "知見を", "もって", "しても"],
+      "star": 2,
+      "hint": "The pattern is split over two tiles, and を must follow a noun. Which noun phrase comes first?",
+      "why": "専門家の, 知見を, もって, しても. 専門家の describes 知見, which takes を, then もってしても. The failure follows: 解決できない."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "今の彼の実力（　　）、予選の通過ぐらいは難しくないだろう。",
+        "options": ["をものともせず", "をもってしても", "をもってすれば", "にひきかえ"],
+        "answer": 3,
+        "why": "Read to the end: 難しくないだろう is a success X makes likely, so をもってすれば. をもってしても needs a failure, をものともせず means \"undaunted by\" an obstacle, and にひきかえ contrasts two things."
+      },
+      {
+        "kind": "form",
+        "ja": "いかに熟練した職人の技（　　）、粉々になった茶碗を元に戻すのは至難の業だ。",
+        "options": ["をもってしても", "をもって", "とあって", "をおいて"],
+        "answer": 1,
+        "why": "いかに calls for an \"even\" form, and 至難の業だ says the task is still near impossible: をもってしても. をもって has no \"even\", とあって gives a cause, and をおいて needs ほかに〜ない."
+      },
+      {
+        "kind": "order",
+        "pre": "地元で愛された",
+        "post": "幕を下ろす。",
+        "tiles": ["老舗", "旅館が", "今月末を", "もって"],
+        "star": 2,
+        "why": "老舗, 旅館が, 今月末を, もって. 地元で愛された describes the inn, so 老舗旅館が comes first. A date + をもって then says when it closes: 幕を下ろす."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "打開する", "r": "だかいする", "en": "to break (a deadlock)",
+      "ex": { "ja": "交渉の行き詰まりを【打開する】ため、双方が新たな案を出した。", "en": "To break the deadlock in the talks, both sides put forward new plans." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "長年隠してきた秘密を、ついに親友に打開した。",
+          "祖父は未開の地を打開して、畑を広げていった。",
+          "駅前に新しい店を打開したので、ぜひ来てね。",
+          "首脳会談を機に、交渉の行き詰まりが打開された。"
+        ],
+        "answer": 4,
+        "why": "打開 breaks a deadlock or a hard situation, so 行き詰まり fits. The others want 打ち明けた (told a secret), 切り開いて (cleared) and 開店した (opened)."
+      }
+    },
+    {
+      "w": "手腕", "r": "しゅわん", "en": "skill (in managing affairs)",
+      "ex": { "ja": "新社長の経営【手腕】に、社員の期待が集まっている。", "en": "Staff have high hopes for the new president's skill as a manager." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "赤字続きの子会社を一年で立て直した彼女の（　　）は高く評価されている。",
+        "options": ["腕力", "手相", "手腕", "手間"],
+        "answer": 3,
+        "why": "手腕 is skill at running things, here turning a firm round. 腕力 is physical strength, 手相 the lines on your palm, 手間 time and trouble."
+      }
+    },
+    {
+      "w": "書面", "r": "しょめん", "en": "writing, a written document",
+      "ex": { "ja": "契約内容の変更は、必ず【書面】で確認してください。", "en": "Always confirm any change to the contract in writing." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "退職の意思は、【書面】で伝えてください。",
+        "options": ["文書", "口頭", "画面上", "対面"],
+        "answer": 1,
+        "why": "書面で means in writing, as a document: 文書で. 口頭 is by word of mouth, 対面 face to face, and 画面上 only means on a screen."
+      }
+    },
+    {
+      "w": "抜本的", "r": "ばっぽんてき", "en": "radical, fundamental",
+      "ex": { "ja": "政府は、年金制度の【抜本的】な見直しを迫られている。", "en": "The government is under pressure to overhaul the pension system." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "この欠陥は小手先の修正では直らない。（　　）な見直しが必要だ。",
+        "options": ["一時的", "抜本的", "表面的", "部分的"],
+        "answer": 2,
+        "why": "小手先 is a quick surface fix; the sentence wants the opposite: 抜本的, going to the root. 一時的, 表面的 and 部分的 describe the fix that fails."
+      }
+    },
+    {
+      "w": "至難の業", "r": "しなんのわざ", "en": "an extremely hard task",
+      "ex": { "ja": "人気公演のチケットを当日に手に入れるのは【至難の業】だ。", "en": "Getting a ticket for a popular show on the day is next to impossible." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "この人数で今月中に仕上げるのは【至難の業】だ。",
+        "options": ["ごく簡単なこと", "非常に難しいこと", "危険な作業", "名人の技"],
+        "answer": 2,
+        "why": "至難の業 is a task that is extremely hard to pull off: 非常に難しいこと. 業 is not 技, a master's skill, and nothing says the work is dangerous."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "内容一致",
+    "en": "Which option matches the text?",
+    "passage": "機械翻訳の精度は年々上がり、ビジネス文書なら人の手をほぼ借りずに訳せるようになった。では、詩はどうか。詩の言葉は意味だけでなく、音の響きやリズム、行間の余韻までを担っている。最新の技術をもってしても、それらをすべて別の言語に移すのは難しいだろう。【ただし】、それは人間の翻訳者【にとっても同じ】であり、詩の翻訳とは【もともと】完全にはなし得ない営みなのである。",
+    "ask": "本文の内容に合うのはどれか。",
+    "options": ["機械翻訳では、ビジネス文書も訳せない。", "最新の技術なら、詩も完全に訳せる。", "人間の翻訳者なら、詩を完全に訳せる。", "詩の翻訳が難しいのは機械に限らない。"],
+    "short": ["ビジネス文書も訳せない", "最新技術なら詩も訳せる", "人間なら完全に訳せる", "機械に限らず難しい"],
+    "answer": 4,
+    "tip": "Match each option to the line it rests on. Do not stop before ただし, and distrust options that say 完全に.",
+    "why": "After ただし the writer says the same holds for human translators; もともと says no one can fully translate a poem.",
+    "whyNot": [
+      "Option 1 contradicts the opening: business documents can now be translated with little human help.",
+      "Option 2 turns the point around: even the latest technology would find it hard.",
+      "Option 3 misses ただし: the writer says the same is true of human translators.",
+      ""
+    ]
+  },
+  "listening": {
+    "who": "男",
+    "line": "本日をもってご退職ということで、最後に一言いただけますか。",
+    "replies": ["何を持ってくればいいですか。", "部長、長い間お疲れさまでした。", "では、僭越ながら一言だけ。"],
+    "answer": 3,
+    "notes": [
+      "Hears もって as 持って, bring; 本日をもって means as of today.",
+      "Thinks he is retiring; ご退職 is about her, the listener.",
+      "Agrees to say a few words, as asked, before she leaves."
+    ],
+    "short": ["何を持ってくるか", "部長もお疲れさま", "僭越ながら一言"]
+  }
+}

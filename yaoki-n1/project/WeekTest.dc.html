@@ -17,7 +17,8 @@
 body{margin:0}
 button{font:inherit;color:inherit;cursor:pointer}
 button:disabled{cursor:default}
-a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
@@ -162,9 +163,10 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="margin-top: 8px; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg>
-<div lang="ja" style="flex-shrink: 0; white-space: nowrap">{{ r.title }}</div>
-<div lang="ja" style="flex-grow: 1; min-width: 0; font-weight: 700; color: #5A6382; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ r.yours }}</div>
+<div lang="ja" style="flex-grow: 1; white-space: nowrap">{{ r.title }}</div>
+<sc-if value="{{ r.inline }}" hint-placeholder-val="{{ true }}"><div lang="ja" style="min-width: 0; font-weight: 700; color: #5A6382; text-align: right">{{ r.yours }}</div></sc-if>
 </div>
+<sc-if value="{{ !r.inline }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="font-size: 12px; font-weight: 700; line-height: 1.45; color: #5A6382">{{ r.yours }}</div></sc-if>
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.6"><sc-for list="{{ r.full }}" as="g" hint-placeholder-count="3"><span style="border-radius: 4px; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-for></div>
 <div style="font-size: 12px; font-weight: 500; line-height: 1.45">{{ r.why }}</div>
 </div>
@@ -181,10 +183,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none"></div>
 </div>
 
-<a href="{{ primary.href }}" onClick="{{ primary.tap }}" style="margin-top: 10px; height: 54px; flex-shrink: 0; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">{{ primary.ja }}</span>　{{ primary.en }}</a>
-<sc-if value="{{ hasSecond }}" hint-placeholder-val="{{ true }}">
-<a href="Main.dc.html" onClick="{{ toMain }}" style="margin-top: 8px; height: 44px; flex-shrink: 0; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center"><span lang="ja">{{ second.ja }}</span>　{{ second.en }}</a>
-</sc-if>
+<a href="Main.dc.html" onClick="{{ toMain }}" style="margin-top: 10px; height: 54px; flex-shrink: 0; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">{{ onward.ja }}</span>　{{ onward.en }}</a>
 </sc-if>
 
 <sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
@@ -324,15 +323,19 @@ return { page: 'intro', i: 0, answers: [], t: T, quit: false };
 }
 componentDidUpdate(prev) {
 /* the view tweak switches the designed moment when the artboard stands alone */
-if (!this.props.go && prev && prev.view !== this.props.view) this.setState(this.designed(this.props.view));
+if (!this.props.go && prev && prev.view !== this.props.view) {
+clearInterval(this.timer);
+this.ended = false;
+this.setState(this.designed(this.props.view));
+}
 }
 componentWillUnmount() {
 clearInterval(this.timer);
 }
 /* the clock follows real time, so it keeps running when the app is put aside */
-start() {
+start(sec) {
 clearInterval(this.timer);
-this.ends = Date.now() + this.state.t * 1000;
+this.ends = Date.now() + sec * 1000;
 this.last = Date.now();
 this.timer = setInterval(() => {
 if (this.state.page !== 'ask') return;
@@ -356,7 +359,9 @@ return { plan: N.result(plan, 'tests', at.key, { score, of, at: N.today() }), li
 }
 /* the answers are in, or the time is up: wrong and unanswered questions go to the notebook, and the result is saved once */
 finish(t) {
-if (this.state.page === 'done') return;
+/* once only: the clock running out and a tap on Finish can come before the page has moved on */
+if (this.state.page === 'done' || this.ended) return;
+this.ended = true;
 clearInterval(this.timer);
 const N = window.ykN1;
 const qs = this.questions();
@@ -496,9 +501,9 @@ lastLine: again ? 'Last time: ' + last.score + ' of ' + last.of + (last.at ? ', 
 startJa: again ? 'もう一度' : 'はじめる',
 startEn: again ? 'Take it again' : at.test ? 'Start the test' : 'Start the review',
 begin: () => {
-if (!this.props.go) return;
+this.ended = false;
 this.setState({ page: 'ask', i: 0, answers: [], t: T, quit: false });
-this.start();
+this.start(T);
 },
 };
 }
@@ -604,9 +609,13 @@ const rows = [];
 qs.forEach((q, n) => {
 if (right[n]) return;
 const a = s.answers[n];
+const yours = a ? N.plain(q.options[a - 1]) : '無解答';
+const title = (n + 1) + ' · ' + q.type;
 rows.push({
-title: (n + 1) + ' · ' + q.type,
-yours: 'あなたの答え：' + (a ? N.plain(q.options[a - 1]) : '無解答'),
+title,
+yours: 'あなたの答え：' + yours,
+/* a short answer sits beside the title, a long one (a sentence, a long reading) on its own line */
+inline: title.length + yours.length <= 16,
 full: this.full(q),
 why: q.why || '',
 });
@@ -634,11 +643,7 @@ areas,
 hasWrong: rows.length > 0,
 rows,
 savedLine: rows.length === 1 ? '1 mistake went into your notebook, with its explanation.' : rows.length + ' mistakes went into your notebook, each with its explanation.',
-primary: rows.length
-? { ja: '間違いを見る', en: 'Review mistakes', href: 'Notebook.dc.html', tap: nav('Notebook') }
-: { ja: onward.ja, en: onward.en, href: 'Main.dc.html', tap: nav('Main') },
-hasSecond: rows.length > 0,
-second: onward,
+onward,
 };
 }
 }

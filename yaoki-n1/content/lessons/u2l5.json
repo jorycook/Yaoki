@@ -1,0 +1,222 @@
+{
+  "id": "u2l5",
+  "unit": 2,
+  "lesson": 5,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜たりとも",
+        "en": "not even (one)",
+        "conn": [["名詞", "一＋助数詞 ＋ 【たりとも】〜ない"]],
+        "ex": [
+          { "ja": "手術の間は、一瞬【たりとも】気を抜くことができない。", "en": "During an operation, you cannot let your guard down for a single moment." },
+          { "ja": "顧客の個人情報は、一件【たりとも】外部に漏らしてはならない。", "en": "Not a single customer record may be leaked outside the company." }
+        ],
+        "note": "It follows the smallest unit, 一 + counter (一円, 一瞬), not a plain noun. It ends in a negative or a ban.",
+        "bad": "水たりとも無駄にするな。",
+        "good": "一滴たりとも無駄にするな。",
+        "tag": ["意志・禁止", "a vow or a rule"],
+        "cmp": { "ja": "一円【たりとも】無駄にはできない。", "en": "I cannot waste a single yen." }
+      },
+      {
+        "p": "〜として〜ない",
+        "en": "not a single …",
+        "conn": [["名詞", "一＋助数詞 ＋ 【として】〜ない"], ["疑問詞", "誰・何＋一＋助数詞 ＋ 【として】"]],
+        "ex": [
+          { "ja": "この村では、ここ十年、一人【として】子どもが生まれていない。", "en": "In this village, not a single child has been born in the last ten years." },
+          { "ja": "応募作品は、どれ一つ【として】似たものがなかった。", "en": "No two of the entries were alike." }
+        ],
+        "note": "Here として is not \"as\". It needs 一 + counter in front, often with 誰 or 何, and a negative at the end.",
+        "bad": "誰一人として賛成した。",
+        "good": "誰一人として賛成しなかった。",
+        "tag": ["全くない", "none at all"],
+        "cmp": { "ja": "誰一人【として】文句を言わなかった。", "en": "Not one person complained." }
+      },
+      {
+        "p": "〜なりとも",
+        "en": "even a little; at least",
+        "conn": [["名詞", "一＋助数詞 ＋ 【なりとも】"], ["副詞", "少し・多少 ＋ 【なりとも】"]],
+        "ex": [
+          { "ja": "多少【なりとも】、皆さんのお役に立てれば幸いです。", "en": "I would be glad to be of some help to you all, however small." },
+          { "ja": "故郷を離れる前に、一目【なりとも】恩師に会っておきたい。", "en": "Before I leave my home town, I want to see my old teacher, if only briefly." }
+        ],
+        "note": "It hopes or asks for at least a little, so a wish, request or plan follows (たい, ほしい, ください), never a negative.",
+        "bad": "一円なりとも払わない。",
+        "good": "一円たりとも払わない。",
+        "tag": ["せめて少し", "at least a little"],
+        "cmp": { "ja": "少し【なりとも】力になりたい。", "en": "I want to help, even if only a little." }
+      }
+    ],
+    "compare": {
+      "intro": "All three follow a small amount. たりとも and として deny even one; なりとも hopes for a little.",
+      "check": {
+        "scene": "食欲のない父に",
+        "ja": "せめて一口（　　）食べてほしい。",
+        "options": ["たりとも", "として", "なりとも"],
+        "answer": 3,
+        "notes": [
+          "おしい！ たりとも needs a negative or a ban after it, and this is a wish.",
+          "おしい！ として also needs a negative, as in 一口として食べなかった.",
+          "せいかい！ せめて + なりとも + a wish: at least one mouthful."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "本番まであと三日。もう一日（　　）【無駄にはできない】。",
+        "options": ["なりとも", "をおいて", "たりとも", "からある"],
+        "answer": 3,
+        "why": [
+          "なりとも asks for at least a little, so a wish follows, not a refusal.",
+          "をおいて〜ない means \"no one but X\", as in 彼をおいて適任者はいない.",
+          "一日 + たりとも + a negative: not a single day can be wasted.",
+          "からある stresses a large amount, as in 十キロからある荷物; one day is small."
+        ]
+      },
+      {
+        "ja": "説明会には多くの住民が集まったが、誰一人（　　）【賛成する者はいなかった】。",
+        "options": ["として", "ならでは", "なりとも", "にして"],
+        "answer": 1,
+        "why": [
+          "誰一人 + として + a negative: not a single person was in favour.",
+          "ならでは praises what only one person or place can do, as in 地元ならではの味.",
+          "なりとも asks for at least a little; this sentence reports that nobody agreed.",
+          "にして marks a stage reached, as in 四十にして; it does not deny anything."
+        ]
+      },
+      {
+        "ja": "部長が退職される前に、一言（　　）【お礼を申し上げたい】。",
+        "options": ["たりとも", "ならまだしも", "ともなると", "なりとも"],
+        "answer": 4,
+        "why": [
+          "たりとも needs a negative or a ban, as in 一言たりとも漏らすな. This is a wish.",
+          "ならまだしも grants a lesser case and then objects; no objection follows here.",
+          "ともなると leads to what a higher level brings, as in 部長ともなると. One word is no step up.",
+          "一言 + なりとも + a wish: at least a word of thanks."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "先輩の助言は、",
+      "post": "ものはなかった。",
+      "tiles": ["どれ", "一つ", "として", "無駄な"],
+      "star": 2,
+      "hint": "Find the tiles that make \"not a single one\". Which tile must sit right before もの?",
+      "why": "どれ, 一つ, として make \"not a single one\". 無駄な describes もの, so it must come last, right before ものは."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "当時の記録を探したが、事故の詳細を伝える資料は（　　）見つからなかった。",
+        "options": ["何なりとも", "何一つとして", "何にもまして", "何かにつけ"],
+        "answer": 2,
+        "why": "何一つとして + a negative: not a single record was found. 何なりとも offers anything someone wants, 何にもまして means \"above all\", and 何かにつけ means \"at every turn\". None of them denies."
+      },
+      {
+        "kind": "form",
+        "ja": "被災した方々の不安を（　　）和らげられればと、相談窓口を設けた。",
+        "options": ["少しなりとも", "少しも", "少したりとも", "いささかも"],
+        "answer": 1,
+        "why": "The sentence is a hope (〜ればと), so only なりとも fits: at least a little. 少しも, 少したりとも and いささかも all need a negative after them, and there is none here."
+      },
+      {
+        "kind": "order",
+        "pre": "来場者を",
+        "post": "ないよう準備を整えた。",
+        "tiles": ["一人", "たりとも", "待たせる", "ことの"],
+        "star": 1,
+        "why": "一人, たりとも, 待たせる, ことの. 一人 + たりとも makes \"not a single visitor\". 待たせる needs こと after it, and ことのないよう means \"so that it never happens\"."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "いささか", "r": "いささか", "en": "somewhat, a little",
+      "ex": { "ja": "その計画は、【いささか】楽観的すぎるように思う。", "en": "That plan strikes me as a little too optimistic." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "部長の説明には、【いささか】無理があると感じた。",
+        "options": ["かなり", "少々", "まさに", "決して"],
+        "answer": 2,
+        "why": "いささか softens a criticism: \"a little\", like 少々. かなり is much stronger, まさに means \"exactly\", and 決して needs a negative."
+      }
+    },
+    {
+      "w": "切り詰める", "r": "きりつめる", "en": "to cut down (spending)",
+      "ex": { "ja": "旅行の費用を貯めるため、食費を【切り詰めて】いる。", "en": "I am cutting back on food to save up for a trip." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "収入が減ったので、生活費を（　　）何とかやりくりしている。",
+        "options": ["切り詰めて", "切り崩して", "切り替えて", "切り上げて"],
+        "answer": 1,
+        "why": "切り詰める: to cut spending down. 切り崩す eats into savings, 切り替える switches to something else, and 切り上げる ends early or rounds up."
+      }
+    },
+    {
+      "w": "倹約", "r": "けんやく", "en": "thrift, economy",
+      "ex": { "ja": "老後に備えて、日頃から【倹約】を心がけている。", "en": "With old age in mind, I try to live thriftily every day." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "時間を倹約するため、会議を三十分で切り上げた。",
+          "文章を倹約して、要点だけを短く伝えた。",
+          "彼は倹約家で、無駄な買い物は一切しない。",
+          "経営が苦しく、社員を三割倹約した。"
+        ],
+        "answer": 3,
+        "why": "倹約 is spending little in daily life, as a thrifty person (倹約家) does. Time is 節約 (saved), a text is made 簡潔, and staff numbers are 削減 (cut)."
+      }
+    },
+    {
+      "w": "ささやか", "r": "ささやか", "en": "modest, small",
+      "ex": { "ja": "退職後は、【ささやか】な家庭菜園を楽しんでいる。", "en": "Since retiring, I have enjoyed a small vegetable patch." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "（　　）ではございますが、お祝いの品をお送りいたしました。",
+        "options": ["ひそか", "おろそか", "すこやか", "ささやか"],
+        "answer": 4,
+        "why": "ささやか plays a gift down politely: \"modest\". ひそか means \"secret\", おろそか \"neglected\", and すこやか \"healthy\"."
+      }
+    },
+    {
+      "w": "シビア", "r": "シビア", "en": "harsh, strict",
+      "ex": { "ja": "この業界では、結果に対する評価が【シビア】だ。", "en": "In this industry, results are judged harshly." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "【シビア】に見れば、今期の黒字化は難しいだろう。",
+        "options": ["甘く", "大まかに", "厳しく", "楽観的に"],
+        "answer": 3,
+        "why": "シビアに見る is to judge strictly, without wishful thinking: 厳しく. 甘く and 楽観的に are the opposite, and 大まかに means \"roughly\"."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "理由",
+    "en": "What reason does the text give?",
+    "passage": "二十代の貯蓄額が年々増えている。これを若者の堅実さの表れと見る向きもあるが、事は【そう単純ではない】。賃金は伸び悩み、年金制度への信頼も揺らいでいる。いざというとき国も会社も頼れないという不安【から】、彼らは使えるはずのお金をあえて手元に残している【のである】。若者の貯蓄は美徳というより、自衛の手段なのだ。",
+    "ask": "若者が貯蓄を増やすのはなぜか。",
+    "options": ["金銭感覚が堅実になったから。", "賃金が年々上がっているから。", "将来への不安から身を守るため。", "欲しい物が特にないから。"],
+    "short": ["堅実になったから", "賃金が上がっているから", "不安から身を守るため", "欲しい物がないから"],
+    "answer": 3,
+    "tip": "Reasons sit before から or ため, and のである confirms them. A view brought in with 見る向きもある is usually set aside.",
+    "why": "The reason comes before 〜という不安から, and のである confirms it: they keep money back to protect themselves (自衛).",
+    "whyNot": [
+      "Option 1 is the view the writer sets aside with 事はそう単純ではない.",
+      "Option 2 is the opposite. Wages are 伸び悩み: barely rising.",
+      "",
+      "Option 4 is not in the text. It says they hold back money they could spend."
+    ]
+  },
+  "listening": {
+    "who": "女",
+    "line": "悪いけど、弟さんには一円たりとも貸す気はないからね。",
+    "replies": ["少しなら貸してもいいってこと？", "わかった、僕から断っておくよ。", "え、弟が貸してくれないって？"],
+    "answer": 2,
+    "notes": [
+      "Hears a little as allowed; 一円たりとも rules out any sum.",
+      "Accepts the flat refusal; he will tell his brother no.",
+      "Gets it backwards: she is the one who will not lend."
+    ],
+    "short": ["少しならいいのか", "僕から断っておく", "弟が貸してくれない"]
+  }
+}

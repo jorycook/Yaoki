@@ -1,0 +1,222 @@
+{
+  "id": "u5l6",
+  "unit": 5,
+  "lesson": 6,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜ともなると",
+        "en": "once it gets to be (a level), …",
+        "conn": [["名詞", "名詞 ＋ 【ともなると】"], ["動詞", "辞書形 ＋ 【ともなると】"]],
+        "ex": [
+          { "ja": "部長【ともなると】、休日も接待で潰れることが多いらしい。", "en": "Once you make department head, days off often go on client dinners, I hear." },
+          { "ja": "家を建てる【ともなると】、数千万円の資金が必要になる。", "en": "When it comes to building a house, you need tens of millions of yen." }
+        ],
+        "note": "X is a step up in rank, age or scale. What follows is what comes with that level, never your own plan.",
+        "bad": "大学生ともなると、自立しよう。",
+        "good": "大学生ともなると、自立が求められる。",
+        "tag": ["段階が上", "at a higher level"],
+        "cmp": { "ja": "社長【ともなると】、責任も桁違いだ。", "en": "A president bears far more responsibility." }
+      },
+      {
+        "p": "〜にかかっては",
+        "en": "in the hands of (X), even …",
+        "conn": [["名詞", "名詞 ＋ 【にかかっては】"]],
+        "ex": [
+          { "ja": "腕のいい料理人【にかかっては】、ありふれた野菜もごちそうに変わる。", "en": "In the hands of a good cook, even everyday vegetables become a feast." },
+          { "ja": "うちの母【にかかっては】、父の言い訳など通用しない。", "en": "With my mother, my father's excuses get him nowhere." }
+        ],
+        "note": "Not \"depending on\" (that is 次第). X is someone, or their skill, so strong that nothing can stand up to it.",
+        "bad": "天候にかかっては、中止もあり得る。",
+        "good": "天候次第では、中止もあり得る。",
+        "tag": ["かなわない", "no match for X"],
+        "cmp": { "ja": "彼【にかかっては】、難問も朝飯前だ。", "en": "For him, even a hard problem is child's play." }
+      },
+      {
+        "p": "〜ときたら",
+        "en": "speaking of (X), … (a complaint)",
+        "conn": [["名詞", "名詞 ＋ 【ときたら】"]],
+        "ex": [
+          { "ja": "うちの上司【ときたら】、言うことが毎日変わるんだから。", "en": "Honestly, my boss says something different every day." },
+          { "ja": "最近の電車【ときたら】、少し風が吹いただけで止まってしまう。", "en": "Trains these days stop at the slightest gust of wind." }
+        ],
+        "note": "What follows is a complaint about someone or something close by. Praise does not fit, nor does formal writing.",
+        "bad": "うちの息子ときたら、とても勤勉だ。",
+        "good": "うちの息子ときたら、ゲームばかりだ。",
+        "tag": ["不満・非難", "a complaint"],
+        "cmp": { "ja": "うちの夫【ときたら】、靴下を脱ぎっぱなしだ。", "en": "My husband just leaves his socks where they fall." }
+      }
+    ],
+    "compare": {
+      "intro": "All three put X first. Then comes what a higher level brings, X's power at work or a complaint.",
+      "check": {
+        "scene": "給湯室で",
+        "ja": "うちの部長（　　）、失敗を人のせいにする。",
+        "options": ["ともなると", "にかかっては", "ときたら"],
+        "answer": 3,
+        "notes": [
+          "おしい！ ともなると needs a level in general, not うちの部長, one particular person.",
+          "おしい！ にかかっては needs something that gives way to X's power; nothing does here.",
+          "せいかい！ A gripe about someone close by: our own manager blaming others."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "【大企業のトップ】（　　）、たった一言の失言が株価を左右しかねない。",
+        "options": ["にしては", "ともあろう", "ともなると", "にかけては"],
+        "answer": 3,
+        "why": [
+          "にしては means \"for a …, surprisingly\", but nothing here is unexpected.",
+          "ともあろう has to go right before a noun such as 人, as in トップともあろう人が.",
+          "A top position, and what comes with it: every word carries weight.",
+          "にかけては means \"when it comes to (a skill)\" and leads to praise."
+        ]
+      },
+      {
+        "ja": "交渉上手の彼女（　　）、【どんな手ごわい相手も最後には首を縦に振る】。",
+        "options": ["にかかっては", "にかかわらず", "ときたら", "にひきかえ"],
+        "answer": 1,
+        "why": [
+          "Her skill is too much for anyone: even a tough opponent gives in.",
+          "にかかわらず means \"regardless of\", which makes no sense after one person.",
+          "ときたら opens a complaint, but this sentence praises her.",
+          "にひきかえ contrasts two things, and there is no second one here."
+        ]
+      },
+      {
+        "ja": "隣の家の犬（　　）、【毎晩遅くまで吠えるので、ちっとも眠れない】。",
+        "options": ["ともなると", "にかかっては", "といえども", "ときたら"],
+        "answer": 4,
+        "why": [
+          "ともなると needs a higher level or stage, and a neighbour's dog is not one.",
+          "にかかっては needs something that gives way to X's power.",
+          "といえども means \"even though\", but nothing here goes against expectations.",
+          "A gripe about something close by: the dog next door that keeps you awake."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "人の上に立つ",
+      "post": "格段に増す。",
+      "tiles": ["立場", "ともなると", "決断の", "重みも"],
+      "star": 2,
+      "hint": "ともなると follows a noun that names the level. Which tile can 人の上に立つ describe?",
+      "why": "人の上に立つ describes 立場, and ともなると follows it. Then 決断の 重みも: what grows at that level."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "創業百年の老舗（　　）、新商品一つ出すにも慎重にならざるを得ない。",
+        "options": ["にかかっては", "ならでは", "にしては", "ともなると"],
+        "answer": 4,
+        "why": "An old firm is a high level, and caution comes with it. にかかっては needs something to give way to X's power, ならでは needs の or だ after it, and にしては a surprise."
+      },
+      {
+        "kind": "form",
+        "ja": "うちの部署のプリンター（　　）、肝心なときに限って紙が詰まる。",
+        "options": ["にかけては", "ときたら", "とあって", "ともなると"],
+        "answer": 2,
+        "why": "A gripe about something close by: ときたら. にかけては needs a skill and leads to praise, とあって needs a special occasion, and ともなると a higher level, which a printer is not."
+      },
+      {
+        "kind": "order",
+        "pre": "ベテラン刑事である",
+        "post": "嘘もたちまち見抜かれる。",
+        "tiles": ["彼の", "観察眼に", "かかっては", "どんな"],
+        "star": 1,
+        "why": "彼の, 観察眼に, かかっては, どんな. 彼の must sit right before 観察眼に, にかかっては follows his skill, and どんな goes with 嘘も after it."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "すこぶる", "r": "すこぶる", "en": "extremely, very",
+      "ex": { "ja": "祖父は九十を過ぎても【すこぶる】元気だ。", "en": "My grandfather is past ninety and still in excellent health." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "今朝の部長は【すこぶる】機嫌がいい。",
+        "options": ["わずかに", "いつになく", "非常に", "相変わらず"],
+        "answer": 3,
+        "why": "すこぶる is an emphatic \"very\", like 非常に. わずかに means \"slightly\", いつになく \"unusually\" and 相変わらず \"as ever\"."
+      }
+    },
+    {
+      "w": "ぼやく", "r": "ぼやく", "en": "to grumble, to moan",
+      "ex": { "ja": "彼は口を開けば、仕事が多すぎると【ぼやいて】いる。", "en": "Whenever he opens his mouth, he moans that he has too much work." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "父は新聞を広げるたびに、物価が上がる一方だと（　　）。",
+        "options": ["ぼやく", "ねだる", "なだめる", "とがめる"],
+        "answer": 1,
+        "why": "ぼやく: grumbling about something you cannot change, like prices. ねだる is pestering for something, なだめる calming someone, とがめる blaming someone."
+      }
+    },
+    {
+      "w": "貫禄", "r": "かんろく", "en": "presence, dignity",
+      "ex": { "ja": "決勝でも動じない姿に、王者の【貫禄】を見た。", "en": "In his calm in the final, I saw the presence of a true champion." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "このスープは貫禄があって、味わい深い。",
+          "彼は貫禄が足りず、すぐに風邪をひく。",
+          "新入社員の彼は、貫禄な態度で挨拶した。",
+          "課長になって三年、彼にも貫禄がついてきた。"
+        ],
+        "answer": 4,
+        "why": "貫禄 is the presence that comes with rank or experience, so it grows over years as a manager. The others want コク, 体力 (stamina) and 堂々とした."
+      }
+    },
+    {
+      "w": "手ごわい", "r": "てごわい", "en": "formidable, tough",
+      "ex": { "ja": "相手は経験豊富で、思った以上に【手ごわかった】。", "en": "The other side was experienced and proved tougher than I had expected." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "今回の交渉相手は業界でも指折りの切れ者で、かなり（　　）相手だ。",
+        "options": ["手厚い", "手ごわい", "手ぬるい", "手痛い"],
+        "answer": 2,
+        "why": "手ごわい: hard to beat, as one of the sharpest minds in the trade would be. 手厚い is generous care, 手ぬるい too lenient, 手痛い painful, as in 手痛い失敗."
+      }
+    },
+    {
+      "w": "一目置く", "r": "いちもくおく", "en": "to defer to, to respect",
+      "ex": { "ja": "彼女の語学力には、社内の誰もが【一目置いて】いる。", "en": "Everyone in the company looks up to her skill with languages." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "彼の冷静な判断力には、上司でさえ【一目置いて】いる。",
+        "options": ["一目で見抜いて", "目を光らせて", "目をつぶって", "敬意を払って"],
+        "answer": 4,
+        "why": "一目置く is to see someone as better and defer to them: 敬意を払う. 一目で見抜く reads 一目 as ひとめ, 目を光らせる is to keep watch, 目をつぶる to overlook."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "言い換え",
+    "en": "Find the closest rewording",
+    "passage": "リーダーに求められるものは何か。指示の的確さや決断の速さを挙げる人は多い。【しかし】、チームを本当に動かすのは、リーダー自身が背中で語れるかどうかだ。【つまり】、困難な場面で真っ先に動き、責任を引き受ける姿を見せられるか【ということである】。言葉だけの指示に、人はついてこない。",
+    "ask": "「背中で語る」とはどういうことか。",
+    "options": ["指示を的確に、すばやく出すこと。", "自ら率先して動く姿で人を導くこと。", "部下に自分の経験を語って聞かせること。", "部下の後ろから仕事ぶりを見守ること。"],
+    "short": ["指示を的確に速く出す", "率先して動く姿で導く", "経験を語って聞かせる", "後ろから見守る"],
+    "answer": 2,
+    "tip": "Find the line that restates the phrase. つまり and 〜ということだ usually bring the plain version.",
+    "why": "つまり … ということである restates it: acting first in hard times and taking responsibility. That is leading by example.",
+    "whyNot": [
+      "Option 1 is what many people say, and the writer turns away from it with しかし.",
+      "",
+      "Option 3 takes 語る literally. The writer says words alone will not move people.",
+      "Option 4 takes 背中 as standing behind. The leader is the one seen from behind, out in front."
+    ]
+  },
+  "listening": {
+    "who": "女",
+    "line": "うちの課長ときたら、また直前になって資料を作り直せって。",
+    "replies": ["じゃあ、来たら声をかけるよ。", "さすが課長、仕事が丁寧だね。", "またか。振り回されるよね。"],
+    "answer": 3,
+    "notes": [
+      "Hears ときたら as 来たら, \"when he comes\"; she is complaining.",
+      "Hears praise for care; ときたら opens a complaint.",
+      "Shares her frustration: he keeps making them redo work."
+    ],
+    "short": ["来たら声をかける", "仕事が丁寧", "また振り回される"]
+  }
+}

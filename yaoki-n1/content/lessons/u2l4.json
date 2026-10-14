@@ -1,0 +1,226 @@
+{
+  "id": "u2l4",
+  "unit": 2,
+  "lesson": 4,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜すら",
+        "en": "even (an extreme example)",
+        "conn": [["名詞", "名詞（＋助詞）＋ 【すら】"], ["動詞", "ます形 ＋ 【すら】しない"]],
+        "ex": [
+          { "ja": "忙しくて、昼食をとる時間【すら】ない。", "en": "I am so busy that I do not even have time for lunch." },
+          { "ja": "彼は親友に【すら】、病気のことを打ち明けなかった。", "en": "He did not tell even his best friend about his illness." }
+        ],
+        "note": "すら only marks an extreme example. Unlike さえ, it has no 〜ば form, so \"if only\" stays さえ〜ば.",
+        "bad": "時間すらあれば、行けるのに。",
+        "good": "時間さえあれば、行けるのに。",
+        "tag": ["極端な例", "an extreme case"],
+        "cmp": { "ja": "疲れて、立つこと【すら】できない。", "en": "I am so tired I cannot even stand." }
+      },
+      {
+        "p": "〜だに",
+        "en": "even (just to …); not even",
+        "conn": [["動詞", "辞書形 ＋ 【だに】"], ["名詞", "名詞 ＋ 【だに】しない"]],
+        "ex": [
+          { "ja": "通勤ラッシュの最中に大地震が起きるなど、想像する【だに】恐ろしい。", "en": "A major earthquake in the middle of rush hour is frightening even to imagine." },
+          { "ja": "式典の間、警備員は微動《びどう》【だに】しなかった。", "en": "Throughout the ceremony, the guards did not move a muscle." }
+        ],
+        "note": "It lives in a few set phrases: 想像する・考える・聞くだに + a feeling, and 微動だにしない. It is not a free \"even\".",
+        "bad": "新人だに知っている。",
+        "good": "新人ですら知っている。",
+        "tag": ["慣用表現", "set phrases only"],
+        "cmp": { "ja": "考える【だに】恐ろしい話だ。", "en": "It is frightening even to think about." }
+      },
+      {
+        "p": "〜とて",
+        "en": "even X, too; even if … (after た)",
+        "conn": [["名詞", "名詞 ＋ 【とて】"], ["動詞", "た形 ＋ 【とて】"]],
+        "ex": [
+          { "ja": "私【とて】、この計画に不安がないわけではない。", "en": "I am not without my own worries about this plan either." },
+          { "ja": "今から急いだ【とて】、終電には間に合うまい。", "en": "Even if we hurry now, we will hardly catch the last train." }
+        ],
+        "note": "Not として (in the role of). Noun + とて means even X is no exception, as in 教師とて人間だ.",
+        "bad": "教師とて、生徒を指導する。",
+        "good": "教師として、生徒を指導する。",
+        "tag": ["例外ではない", "no exception"],
+        "cmp": { "ja": "専門家【とて】、間違えることはある。", "en": "Even experts make mistakes sometimes." }
+      }
+    ],
+    "compare": {
+      "intro": "All mean \"even\": すら an extreme case, だに set phrases only, とて \"X is no exception\".",
+      "check": {
+        "scene": "信頼を失って",
+        "ja": "今さら謝った（　　）、信頼は戻らない。",
+        "options": ["すら", "だに", "とて"],
+        "answer": 3,
+        "notes": [
+          "おしい！ すら follows a noun, not a た-form, and marks an extreme case.",
+          "おしい！ だに follows a dictionary form, in set phrases like 想像するだに.",
+          "せいかい！ た-form + とて, \"even if\": an apology now will not win back trust."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "入社したばかりの頃は、コピー機の使い方（　　）【わからなかった】。",
+        "options": ["はおろか", "すら", "たりとも", "なりとも"],
+        "answer": 2,
+        "why": [
+          "はおろか needs a second item after it, as in 漢字はおろか、ひらがなも.",
+          "Noun + すら + a negative: not even something as basic as the copier.",
+          "たりとも follows one + a counter, as in 一日たりとも.",
+          "なりとも means \"at least a little\" and goes with wishes, as in 少しなりとも."
+        ]
+      },
+      {
+        "ja": "深夜の山道で車が故障するなど、【考える】（　　）ぞっとする。",
+        "options": ["すら", "や否や", "とて", "だに"],
+        "answer": 4,
+        "why": [
+          "すら cannot follow a verb directly; it would be 考えることすら.",
+          "や否や is \"the moment …\", for one real event followed by another.",
+          "とて follows a noun or a た-form, as in 考えたとて, \"even if you think\".",
+          "Dictionary form + だに + a feeling: chilling even to think about."
+        ]
+      },
+      {
+        "ja": "【人間である以上】、医者（　　）病気になることはある。",
+        "options": ["とて", "として", "ともなると", "はおろか"],
+        "answer": 1,
+        "why": [
+          "Noun + とて: doctors are only human too, so they are no exception.",
+          "として is \"in the role of\"; nobody falls ill as part of the role.",
+          "ともなると says a status brings something with it, as in 医者ともなると忙しい.",
+          "はおろか needs a second item after it, as in 医者はおろか、看護師も."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "部長は私の企画書に",
+      "post": "突き返した。",
+      "tiles": ["目を", "通し", "すら", "せずに"],
+      "star": 1,
+      "hint": "目を通す is one phrase. すら can split a verb: stem + すら + しない. Where does the stem go?",
+      "why": "目を, 通し, すら, せずに. 目を通す stays together, and すら sits between the stem 通し and せずに: he did not even look at it."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "彼は自分の非を認めるどころか、謝罪の言葉（　　）口にしなかった。",
+        "options": ["にもまして", "はおろか", "すら", "をおいて"],
+        "answer": 3,
+        "why": "どころか builds up to a more extreme case: he did not even say sorry, so すら. はおろか needs a second item with も, をおいて needs ほかに〜ない, and にもまして compares two things."
+      },
+      {
+        "kind": "form",
+        "ja": "どれほど才能に恵まれた者（　　）、努力なしに頂点には立てない。",
+        "options": ["ゆえに", "とて", "ともなれば", "ならでは"],
+        "answer": 2,
+        "why": "どれほど calls for \"even\": however gifted, no one is an exception, so とて. ゆえに gives a cause, ともなれば expects what a status brings, and ならでは praises what only X has."
+      },
+      {
+        "kind": "order",
+        "pre": "大事故になりかけた",
+        "post": "身の毛がよだつ。",
+        "tiles": ["あの日の", "ことは", "思い出す", "だに"],
+        "star": 2,
+        "why": "あの日の, ことは, 思い出す, だに. あの日のことは is the topic and comes first; だに follows the dictionary form 思い出す and leads straight into the feeling."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "到底", "r": "とうてい", "en": "(not) by any means",
+      "ex": { "ja": "今の給料では、都心に家を買うなど【到底】できない。", "en": "On my pay, a home in the city centre is out of the question." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "このペースでは、締め切りまでに作業を終えるのは（　　）無理だ。",
+        "options": ["到底", "一向に", "まさか", "必ずしも"],
+        "answer": 1,
+        "why": "到底 + 無理: not possible by any means. 一向に goes with a verb that never happens (一向に進まない), まさか with a guess, and 必ずしも with 〜とは限らない."
+      }
+    },
+    {
+      "w": "ひるむ", "r": "ひるむ", "en": "to flinch, lose one's nerve",
+      "ex": { "ja": "相手の剣幕に一瞬【ひるんだ】が、すぐに言い返した。", "en": "His fury made me flinch for a moment, but I soon answered back." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "セーターを洗ったら、すっかりひるんでしまった。",
+          "記者の鋭い質問にもひるまず、冷静に答えた。",
+          "暑さで花がひるんで、元気がなくなった。",
+          "風がひるんだので、船を出すことにした。"
+        ],
+        "answer": 2,
+        "why": "ひるむ is a person losing their nerve when faced with something, so 2 fits. The others want 縮む (shrink), しおれる (wilt) and 弱まる (die down)."
+      }
+    },
+    {
+      "w": "身震い", "r": "みぶるい", "en": "a shiver, shudder",
+      "ex": { "ja": "あの光景を思い出すと、今でも【身震い】がする。", "en": "Even now, I shudder when I recall that sight." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "真冬の夜道に冷たい風が吹きつけ、思わず（　　）した。",
+        "options": ["身支度", "武者震い", "目移り", "身震い"],
+        "answer": 4,
+        "why": "身震い is a shiver from cold or fear: the icy wind. 武者震い is trembling with eagerness, 身支度 getting ready and 目移り being torn between choices."
+      }
+    },
+    {
+      "w": "おぞましい", "r": "おぞましい", "en": "horrid, repulsive",
+      "ex": { "ja": "動物を虐待する【おぞましい】映像が、ネット上で拡散された。", "en": "Horrid footage of animal cruelty spread across the internet." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "合格できるか、おぞましくて夜も眠れない。",
+          "彼の料理の腕はおぞましく、誰もかなわない。",
+          "人を人とも思わぬおぞましい犯行だった。",
+          "久しぶりに会った友人は、おぞましく元気だった。"
+        ],
+        "answer": 3,
+        "why": "おぞましい is something repulsive that makes you recoil, like a cruel crime. The others want 不安で (anxious), すばらしく (superb) and 驚くほど (amazingly)."
+      }
+    },
+    {
+      "w": "身の毛がよだつ", "r": "みのけがよだつ", "en": "to make one's hair stand on end",
+      "ex": { "ja": "【身の毛がよだつ】ような怪談を、祖母はよく聞かせてくれた。", "en": "My gran often told me ghost stories that made my hair stand on end." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "暗い山道で何かに後をつけられたときは、【身の毛がよだつ】思いがした。",
+        "options": ["胸がすく", "ぞっとする", "肩身が狭い", "腹が立つ"],
+        "answer": 2,
+        "why": "身の毛がよだつ is to be gripped by horror, like ぞっとする. 胸がすく is relief, 肩身が狭い is shame and 腹が立つ is anger."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "結論",
+    "en": "What does the writer conclude?",
+    "passage": "人前で話すことを想像するだに足がすくむ、という人は少なくない。だが、経験豊富な講演者とて、本番前は緊張するという。緊張は失敗したくないという気持ちの表れであり、無理に抑えようとすれば、かえって強まる。【つまり】、緊張は消すべき敵ではない。それを当然のものとして受け入れ、伝えたい中身に意識を向ける【ことこそ】、克服への近道【なのである】。",
+    "ask": "筆者の結論に合うのはどれか。",
+    "options": ["人前で話すのが苦手な人は少ない。", "経験を積めば、緊張しなくなる。", "緊張を抑えれば、うまく話せる。", "緊張を受け入れ、中身に集中すべきだ。"],
+    "short": ["苦手な人は少ない", "経験で緊張しなくなる", "抑えればうまく話せる", "受け入れて中身に集中"],
+    "answer": 4,
+    "tip": "The conclusion usually follows つまり or ends in 〜のである. Opening lines and examples only set the scene.",
+    "why": "つまり sums up: tension is no enemy. The closing 〜ことこそ〜なのである gives the answer: accept it, focus on content.",
+    "whyNot": [
+      "Option 1 misreads 少なくない: many people, not few, find it hard. And it is only the opening.",
+      "Option 2 is contradicted: even experienced speakers (講演者とて) get nervous.",
+      "Option 3 is the opposite: trying to hold tension down only makes it stronger.",
+      ""
+    ]
+  },
+  "listening": {
+    "who": "男",
+    "line": "冬山で吹雪に遭うなんて、想像するだに恐ろしいよ。",
+    "replies": ["うん、今から楽しみだね。", "え、吹雪に遭ったことあるの？", "じゃあ、時期をずらそうか。"],
+    "answer": 3,
+    "notes": [
+      "Hears eager imagining; 想像するだに恐ろしい is dread.",
+      "Takes it as a real event; he is only imagining it.",
+      "Meets his dread with a safer plan: go another time."
+    ],
+    "short": ["今から楽しみ", "吹雪に遭ったことがある？", "時期をずらそう"]
+  }
+}

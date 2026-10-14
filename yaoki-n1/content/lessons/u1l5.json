@@ -1,0 +1,222 @@
+{
+  "id": "u1l5",
+  "unit": 1,
+  "lesson": 5,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜に至って",
+        "en": "only when it came to …",
+        "conn": [["動詞", "辞書形 ＋ 【に至って】"], ["名詞", "名詞 ＋ 【に至って】"]],
+        "ex": [
+          { "ja": "死者が出る【に至って】、市はようやく対策に乗り出した。", "en": "Only when people died did the city finally take action." },
+          { "ja": "経営が行き詰まる【に至って】初めて、社長は判断の甘さを認めた。", "en": "Only when the business stalled did the president admit he had misjudged." }
+        ],
+        "note": "It marks a late, usually bad stage that finally forced action. For an ordinary point in time, use になって.",
+        "bad": "春に至って、桜が咲いた。",
+        "good": "春になって、桜が咲いた。",
+        "tag": ["遅すぎる段階", "a late stage"],
+        "cmp": { "ja": "事故が起きる【に至って】、やっと規制された。", "en": "Only after an accident was it finally regulated." }
+      },
+      {
+        "p": "〜にして",
+        "en": "only at (an age or stage); even X",
+        "conn": [["名詞", "名詞 ＋ 【にして】"]],
+        "ex": [
+          { "ja": "五十歳【にして】初めて、海外で暮らすことになった。", "en": "At fifty, I am going to live abroad for the first time." },
+          { "ja": "ベテランの彼【にして】解けない問題を、新人が解けるはずがない。", "en": "If even a veteran like him cannot solve it, a newcomer certainly cannot." }
+        ],
+        "note": "It follows a noun, not a verb. With 初めて it means only at that age or stage; with a negative, even X could not.",
+        "bad": "四十になるにして初めて結婚した。",
+        "good": "四十歳にして初めて結婚した。",
+        "tag": ["段階・人物", "only at; even for"],
+        "cmp": { "ja": "七十歳【にして】初めて、絵筆を握った。", "en": "At seventy, I took up painting for the first time." }
+      },
+      {
+        "p": "〜にあって",
+        "en": "in (a situation or position)",
+        "conn": [["名詞", "名詞 ＋ 【にあって（も）】"]],
+        "ex": [
+          { "ja": "不況のさなか【にあって】、その会社は過去最高益を上げた。", "en": "In the depths of a recession, the company made record profits." },
+          { "ja": "責任ある立場【にあって】、軽率な発言は許されない。", "en": "In a position of responsibility, careless remarks are not acceptable." }
+        ],
+        "note": "It is formal and describes the setting or role someone is in. For the place where an action happens, use で.",
+        "bad": "カフェにあって、本を読んだ。",
+        "good": "カフェで、本を読んだ。",
+        "tag": ["置かれた状況", "one's setting"],
+        "cmp": { "ja": "逆境【にあって】も、彼女は笑顔を忘れなかった。", "en": "Even in adversity, she never lost her smile." }
+      }
+    ],
+    "compare": {
+      "intro": "Each places what follows: に至って at a late stage, にして at a stage or person, にあって in a setting.",
+      "check": {
+        "scene": "対応の遅れ",
+        "ja": "被害が広がる（　　）、ようやく国が動いた。",
+        "options": ["に至って", "にして", "にあって"],
+        "answer": 1,
+        "notes": [
+          "せいかい！ Dictionary form + に至って: it got this bad before the state acted.",
+          "おしい！ にして follows a noun and marks a stage or person, not an event.",
+          "おしい！ にあって follows a noun for the setting one is in; it cannot follow 広がる."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "【赤字が五年続く】（　　）、経営陣は【ようやく】撤退を決めた。",
+        "options": ["や否や", "にして", "に至って", "矢先に"],
+        "answer": 3,
+        "why": [
+          "や否や is \"the moment\": an instant reaction, which clashes with ようやく.",
+          "にして follows a noun, as in 五十歳にして, not a verb like 続く.",
+          "Dictionary form + に至って: it took five years of losses to force a late decision.",
+          "矢先に is \"just as … was about to\", an interruption, not a decision made at last."
+        ]
+      },
+      {
+        "ja": "彼女は【六十歳】（　　）【初めて】パスポートを取り、一人で旅に出た。",
+        "options": ["を限りに", "にして", "とあって", "を皮切りに"],
+        "answer": 2,
+        "why": [
+          "を限りに marks the last time something is done, which clashes with 初めて.",
+          "Noun + にして + 初めて: only at sixty did it happen.",
+          "とあって gives an occasion and the scene it causes; it does not pair with 初めて.",
+          "を皮切りに starts a series of events; an age is not the first of a series."
+        ]
+      },
+      {
+        "ja": "【厳しい財政状況】（　　）、市は住民サービスの質を【保ち続けている】。",
+        "options": ["に至って", "とあって", "にかまけて", "にあって"],
+        "answer": 4,
+        "why": [
+          "に至って is a late stage that forces a long-delayed step, not an ongoing state.",
+          "とあって gives the natural result of an occasion; holding up despite hardship is not one.",
+          "にかまけて is being too busy with something to see to something else.",
+          "Noun + にあって: the setting the city is in, and how it holds up there."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "この道五十年の職人",
+      "post": "がある。",
+      "tiles": ["にして", "初めて", "出せる", "味わい"],
+      "star": 2,
+      "hint": "にして follows a noun. Which tile goes straight after 職人, and which noun takes がある?",
+      "why": "職人, then にして and 初めて: only such a craftsman. 出せる then describes 味わい, which takes がある."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "株価が半値にまで下がる（　　）、経営陣はようやく失策を認めた。",
+        "options": ["に至るまで", "に至って", "が早いか", "に至っても"],
+        "answer": 2,
+        "why": "It took a halved share price to force the late admission, hence ようやく. に至るまで and に至っても would need a negative such as 認めなかった, and が早いか is an instant reaction."
+      },
+      {
+        "kind": "form",
+        "ja": "数々の難手術を成功させてきた名医（　　）、この症例には手を焼いたという。",
+        "options": ["にして", "とあって", "ともなると", "にかけては"],
+        "answer": 1,
+        "why": "Noun + にして: even X, then something you would not expect of X. とあって and ともなると expect what suits a top surgeon, and にかけては needs a skill, as in 外科にかけては."
+      },
+      {
+        "kind": "order",
+        "pre": "変化の激しい",
+        "post": "見極めたい。",
+        "tiles": ["時代", "にあって", "変わらない", "価値を"],
+        "star": 1,
+        "why": "時代, にあって, 変わらない, 価値を. にあって follows the noun for the setting, 時代, and 変わらない describes 価値を, what the speaker wants to pin down."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "遅まきながら", "r": "おそまきながら", "en": "belatedly",
+      "ex": { "ja": "【遅まきながら】、私も資産運用の勉強を始めた。", "en": "Belatedly, I too have started learning about investing." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "【遅まきながら】、ご就任のお祝いを申し上げます。",
+        "options": ["とりあえず", "遅ればせながら", "取り急ぎ", "あらためて"],
+        "answer": 2,
+        "why": "遅まきながら admits you are late in doing something, like 遅ればせながら. とりあえず is \"for now\", 取り急ぎ \"in haste\" and あらためて \"once again\"."
+      }
+    },
+    {
+      "w": "踏み切る", "r": "ふみきる", "en": "to take the plunge, go ahead",
+      "ex": { "ja": "長い議論の末、会社は工場の海外移転に【踏み切った】。", "en": "After much debate, the firm went ahead and moved its factory abroad." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "反対の声も根強かったが、市は路上喫煙の全面禁止に（　　）。",
+        "options": ["踏みとどまった", "差し掛かった", "見送った", "踏み切った"],
+        "answer": 4,
+        "why": "踏み切る is going ahead with a bold step despite doubts. 踏みとどまる is holding back, 差し掛かる is reaching a point, and 見送る (shelve) takes を."
+      }
+    },
+    {
+      "w": "土壇場", "r": "どたんば", "en": "the last moment, the eleventh hour",
+      "ex": { "ja": "【土壇場】で逆転ゴールが決まり、スタンドは沸いた。", "en": "A winning goal at the last moment set the stands roaring." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "庭の土壇場に、春の花を植えた。",
+          "坂を登りきると、土壇場の景色が広がった。",
+          "土壇場で相手が条件を変え、交渉は決裂した。",
+          "スピーチの土壇場で、まず自己紹介をした。"
+        ],
+        "answer": 3,
+        "why": "土壇場 is the last, decisive moment, so talks collapsing at the end fit. The others want 花壇 (flower bed), 頂上 (the top) and 冒頭 (the opening)."
+      }
+    },
+    {
+      "w": "悠長", "r": "ゆうちょう", "en": "leisurely, unhurried",
+      "ex": { "ja": "一刻を争う時に、そんな【悠長】なことは言っていられない。", "en": "When every minute counts, we cannot afford to be so leisurely." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "締め切りは明日だというのに、彼はまだ（　　）に構えている。",
+        "options": ["悠長", "冗長", "悠久", "閑静"],
+        "answer": 1,
+        "why": "悠長 is taking your time when there is none to lose. 冗長 is wordy, 悠久 is eternal and used of history, and 閑静 describes a quiet area."
+      }
+    },
+    {
+      "w": "ブランク", "r": "ブランク", "en": "gap, time away (from work)",
+      "ex": { "ja": "十年の【ブランク】を経て、彼女は看護師の仕事に復帰した。", "en": "After ten years away, she went back to work as a nurse." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "子育てで五年の【ブランク】があるが、また働きたい。",
+        "options": ["猶予", "空白期間", "余裕", "下積み"],
+        "answer": 2,
+        "why": "ブランク is a spell away from work: 空白期間. 猶予 is time allowed before a deadline, 余裕 is room to spare, and 下積み is lowly groundwork."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "対比",
+    "en": "Tell the two sides apart",
+    "passage": "科学史には、二十代にして歴史に残る発見をした天才が少なくない。【一方】、五十歳を過ぎてから代表的な業績を上げた研究者もいる。早熟な天才が鋭い直感で難問を一気に解き明かす【のに対し】、遅咲きの研究者は長年蓄えた知識を結びつけ、新たな分野を切り開くことが多い。どちらが優れているか【ではなく】、才能の現れ方が違うのである。",
+    "ask": "遅咲きの研究者の特徴はどれか。",
+    "options": ["鋭い直感で難問を一気に解く。", "早熟な天才より優れた業績を上げる。", "若いころは周囲から評価されない。", "蓄えた知識を結びつけて新分野を開く。"],
+    "short": ["直感で難問を一気に解く", "早熟な天才より優れる", "若いころ評価されない", "知識を結びつけ新分野を開く"],
+    "answer": 4,
+    "tip": "Sort each trait to its side. 一方 and のに対し mark the switch; traps give one side the other's trait.",
+    "why": "After のに対し comes the late bloomers' side: they join knowledge built up over years and open new fields.",
+    "whyNot": [
+      "Option 1 is the prodigies' side: it comes before のに対し.",
+      "Option 2 ranks them, but the last line says the point is not which is better.",
+      "Option 3 is never said. The text only says their best work came after fifty.",
+      ""
+    ]
+  },
+  "listening": {
+    "who": "男",
+    "line": "ここまで遅れるに至って、ようやく増員だってさ。",
+    "replies": ["早めに手が打ててよかったね。", "今ごろ？遅すぎるよね。", "それでも増やさないなんてね。"],
+    "answer": 2,
+    "notes": [
+      "Takes it as a timely move; ようやく says far too late.",
+      "Agrees: に至ってようやく means far too late.",
+      "Hears に至っても, \"even then\"; staff are being added."
+    ],
+    "short": ["早めに手が打てた", "今ごろ、遅すぎる", "それでも増やさない"]
+  }
+}
