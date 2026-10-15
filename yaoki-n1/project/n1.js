@@ -57,10 +57,36 @@
 
   /* ---------- the bank, in teaching order ---------- */
   var LESSONS = B.lessons;
-  var WORDS = [];   /* every lesson's five words, in lesson order: { li, i } */
-  LESSONS.forEach(function (l, li) { (l.vocab || []).forEach(function (_, i) { WORDS.push({ li: li, i: i }); }); });
+  /* every lesson's words in lesson order: its five, then the fifteen of its word bank (vocab2), numbered on from 5.
+     A word's name is w.<lesson id>.<n> */
+  var WORDS = [];
+  LESSONS.forEach(function (l, li) { (l.vocab || []).concat(l.vocab2 || []).forEach(function (_, n) { WORDS.push({ li: li, i: n }); }); });
   function lessonIndex(id) { for (var i = 0; i < LESSONS.length; i++) if (LESSONS[i].id === id) return i; return -1; }
-  function word(wi) { var x = WORDS[wi]; return x ? LESSONS[x.li].vocab[x.i] : null; }
+  function wordAt(l, n) { return n < (l.vocab || []).length ? l.vocab[n] : (l.vocab2 || [])[n - (l.vocab || []).length] || null; }
+  function word(wi) { var x = WORDS[wi]; return x ? wordAt(LESSONS[x.li], x.i) : null; }
+  function wordIndex(id, n) { var li = lessonIndex(id); for (var i = 0; i < WORDS.length; i++) if (WORDS[i].li === li && WORDS[i].i === n) return i; return -1; }
+  /* the reading and listening banks: each lesson's short item, then its longer one (reading2, listening2) when written.
+     An entry names its lesson, its kind and its src (r.<lesson id>, r.<lesson id>.2; l.<lesson id>, l.<lesson id>.2) */
+  var READINGS = [], LISTENINGS = [];
+  LESSONS.forEach(function (l, li) {
+    READINGS.push({ li: li, id: l.id, kind: 'short', src: 'r.' + l.id, item: l.reading });
+    if (l.reading2) READINGS.push({ li: li, id: l.id, kind: l.reading2.kind, src: 'r.' + l.id + '.2', item: l.reading2 });
+    LISTENINGS.push({ li: li, id: l.id, kind: 'quick', src: 'l.' + l.id, item: l.listening, clips: ['l.' + l.id], slow: 'l.' + l.id + '.slow' });
+    if (l.listening2) LISTENINGS.push({ li: li, id: l.id, kind: l.listening2.kind, src: 'l.' + l.id + '.2', item: l.listening2, clips: (l.listening2.audio || []).map(function (a) { return 'l.' + l.id + '.' + a.part; }) });
+  });
+  /* (reading / listening: the lesson's own short item, as the screens first read it; null for a bank item) */
+  function reading(ri) { var e = READINGS[ri]; return e ? Object.assign({ lesson: LESSONS[e.li], reading: e.kind === 'short' ? e.item : null }, e) : null; }
+  function listening(li) { var e = LISTENINGS[li]; return e ? Object.assign({ lesson: LESSONS[e.li], listening: e.kind === 'quick' ? e.item : null }, e) : null; }
+  function bankIndex(list, src) { for (var i = 0; i < list.length; i++) if (list[i].src === src) return i; return -1; }
+
+  /* ---------- the review of the earlier levels ----------
+     B.review: the N2 grammar (n2), the N2 to N4 course questions (items) and the N2 kanji (kanji). Not laid out as a
+     stream: the day quizzes, the week tests and the review days draw a few each, in a fixed shuffled order per plan */
+  var RV = B.review || { n2: [], items: [], kanji: [] };
+  var POOL = [];
+  (RV.n2 || []).forEach(function (_, i) { POOL.push('x.n2.' + i); });
+  (RV.items || []).forEach(function (it) { POOL.push(it.id); });
+  (RV.kanji || []).forEach(function (k, ki) { if (k.w && k.w.length) POOL.push('x.k.' + ki + '.0'); });
   function unitOf(li) { var l = LESSONS[li]; return l ? B.units[l.unit - 1] : null; }
 
   /* ---------- the plan ----------
@@ -70,7 +96,7 @@
   var COST = { g: 25, k: 1, w: 1.5, r: 6, l: 3 };
   /* the rest of the daily time goes to the notebook's review */
   var USE = 0.85;
-  function streamSizes() { return { g: LESSONS.length, k: B.kanji.length, w: WORDS.length, r: LESSONS.length, l: LESSONS.length }; }
+  function streamSizes() { return { g: LESSONS.length, k: B.kanji.length, w: WORDS.length, r: READINGS.length, l: LISTENINGS.length }; }
   function total(n) { return n.g * COST.g + n.k * COST.k + n.w * COST.w + n.r * COST.r + n.l * COST.l; }
 
   /* the calendar of a plan: each date and whether it is a study day or a week test */
@@ -297,8 +323,8 @@
       grammar: x.g >= 0 ? LESSONS[x.g] : null, gi: x.g,
       kanji: (x.k || []).map(function (k) { return B.kanji[k]; }), ki: x.k || [],
       words: (x.w || []).map(word), wi: x.w || [],
-      reading: x.r >= 0 ? LESSONS[x.r] : null, ri: x.r,
-      listening: x.l >= 0 ? LESSONS[x.l] : null, li: x.l,
+      reading: x.r >= 0 ? reading(x.r) : null, ri: x.r,
+      listening: x.l >= 0 ? listening(x.l) : null, li: x.l,
     };
     v.title = x.t === 1 ? '週テスト' : x.t === 2 ? '復習' : v.grammar ? titleOf(x.g) : v.kanji.length ? '漢字 ' + v.kanji.length + (v.words.length ? '・語彙 ' + v.words.length : '') : v.words.length ? '語彙 ' + v.words.length : v.reading ? '読解' : v.listening ? '聴解' : '予定なし';
     v.unit = v.grammar ? B.units[v.grammar.unit - 1] : null;
@@ -362,23 +388,24 @@
   /* ---------- questions ---------- */
   /* a reading question for a kanji word: its reading and three wrong ones (more from other words when the
      dictionary data gives fewer than three) */
-  function readingQ(ki, wj, salt) {
-    var k = B.kanji[ki];
+  function readingQ(ki, wj, salt, bank) {
+    var KB = bank || B.kanji;
+    var k = KB[ki];
     var w = k && k.w[wj];
     if (!w) return null;
     var wrong = [];
     w.x.forEach(function (r) { if (r && r !== w.r && wrong.indexOf(r) < 0 && wrong.length < 3) wrong.push(r); });
     /* first readings of other words of about the same length, then of any length */
     for (var pass = 0; pass < 2; pass++) {
-      for (var s = 1; wrong.length < 3 && s < B.kanji.length; s++) {
-        var ok = B.kanji[(ki + s * 7) % B.kanji.length];
+      for (var s = 1; wrong.length < 3 && s < KB.length; s++) {
+        var ok = KB[(ki + s * 7) % KB.length];
         var o = ok && ok.w[0];
         if (o && o.r && o.r !== w.r && wrong.indexOf(o.r) < 0 && (pass || Math.abs(o.r.length - w.r.length) <= 1)) wrong.push(o.r);
       }
     }
     var opts = [w.r].concat(wrong);
     var ord = order(4, w.w + (salt || ''));
-    return { src: 'k.' + ki + '.' + wj, type: '漢字読み', word: w.w, options: ord.map(function (n) { return opts[n]; }), answer: ord.indexOf(0) + 1, en: w.en, kanji: k.c, why: w.w + ' is read ' + w.r + ': ' + w.en + '.' };
+    return { src: (bank ? 'x.k.' : 'k.') + ki + '.' + wj, type: '漢字読み', word: w.w, options: ord.map(function (n) { return opts[n]; }), answer: ord.indexOf(0) + 1, en: w.en, kanji: k.c, why: w.w + ' is read ' + w.r + ': ' + w.en + '.' };
   }
   /* the kanji quiz of a day: up to max reading questions, one word per kanji, spread over the day's kanji */
   function kanjiQuiz(plan, i, max) {
@@ -399,9 +426,10 @@
   function wordQ(wi) {
     var x = WORDS[wi];
     if (!x) return null;
-    var v = LESSONS[x.li].vocab[x.i];
+    var v = wordAt(LESSONS[x.li], x.i);
+    if (!v) return null;
     var q = v.q;
-    return { src: 'w.' + wi, type: q.type, ja: q.ja || '', word: v.w, options: q.options, answer: q.answer, why: q.why, usage: q.type === '用法' };
+    return { src: 'w.' + LESSONS[x.li].id + '.' + x.i, type: q.type, ja: q.ja || '', word: v.w, options: q.options, answer: q.answer, why: q.why, usage: q.type === '用法' };
   }
   /* a grammar question of a lesson: drill n (d0 to d2) or exam-style n (x0 to x2) */
   function grammarQ(li, which) {
@@ -420,8 +448,45 @@
     return { src: src, type: '文の文法1', ja: plain(q.ja), options: q.options, answer: q.answer, why: Array.isArray(q.why) ? q.why[q.answer - 1] : q.why };
   }
 
-  /* the week test: the week's kanji words, its words' questions and its grammar exam-style questions, in that order
-     (文字・語彙 then 文法), about twenty in all */
+  /* a review question of the earlier levels by its name: x.n2.<i> (an N2 pattern's question), x.<course item id>
+     (a converted N2 to N4 course question) or x.k.<kanji>.<word> (an N2 kanji reading). Marked review: true, with
+     its level, so a quiz can show where it comes from */
+  function reviewQ(src) {
+    var s = String(src || '').split('.');
+    if (s[0] !== 'x') return null;
+    var q = null;
+    if (s[1] === 'n2') {
+      var p = (RV.n2 || [])[+s[2]];
+      if (p) q = { src: src, type: '文の文法1', level: 'N2', ja: plain(p.q.ja), options: p.q.options, answer: p.q.answer, why: p.q.why, p: p.p, en: p.en };
+    } else if (s[1] === 'k') {
+      q = readingQ(+s[2], +s[3], '', RV.kanji);
+      if (q) q.level = 'N2';
+    } else {
+      var it = null;
+      (RV.items || []).forEach(function (x) { if (x.id === src) it = x; });
+      if (it) {
+        if (it.kind === 'order') {
+          var ord = order(4, src, true);
+          q = { src: src, type: it.type, level: it.level, order: true, pre: it.pre, post: it.post, star: it.star, options: ord.map(function (t) { return it.tiles[t]; }), answer: ord.indexOf(it.star) + 1, tiles: it.tiles, why: it.why };
+        } else if (it.kind === 'usage') q = { src: src, type: it.type, level: it.level, word: it.word, usage: true, options: it.options, short: it.short, answer: it.answer, why: it.why };
+        else q = { src: src, type: it.type, level: it.level, ja: it.ja, options: it.options, short: it.short, answer: it.answer, why: it.why };
+      }
+    }
+    if (q) q.review = true;
+    return q;
+  }
+  /* n review questions for day i: the pool in a fixed shuffled order for the plan, taken in turn day by day, so a
+     learner meets every earlier-level question once before any comes back */
+  function dayReview(plan, i, n) {
+    if (!POOL.length || !n) return [];
+    var o = order(POOL.length, 'x' + (plan && plan.start || ''));
+    var out = [];
+    for (var k = 0; k < n && k < POOL.length; k++) { var q = reviewQ(POOL[o[(i * n + k) % POOL.length]]); if (q) out.push(q); }
+    return out;
+  }
+
+  /* the week test: the week's kanji words, its words' questions, its grammar exam-style questions and four review
+     questions of the earlier levels, in that order (文字・語彙, 文法, 復習), about twenty-six in all */
   function weekTest(plan, wk) {
     var from = (wk - 1) * 7;
     var ks = [], ws = [], gs = [];
@@ -445,7 +510,7 @@
     gs.forEach(function (li) {
       ['x0', 'x1', 'x2'].forEach(function (w) { if (ng < 8) { var gq = grammarQ(li, w); if (gq) { qs.push(gq); ng++; } } });
     });
-    return qs.filter(Boolean);
+    return qs.filter(Boolean).concat(dayReview(plan, from + 6, 4));
   }
 
   /* a mixed review before the exam (a review day, or a week test of a week with nothing new): kanji, words and
@@ -467,7 +532,8 @@
     pick(ks, 6, 'k').forEach(function (k, n) { var kk = B.kanji[k]; qs.push(readingQ(k, n % Math.max(1, kk.w.length), 'v' + i)); });
     pick(ws, 4, 'w').forEach(function (w) { qs.push(wordQ(w)); });
     pick(gs, 6, 'g').forEach(function (li, n) { qs.push(grammarQ(li, ['x0', 'x1', 'x2', 'd0', 'd1', 'd2'][(n + i) % 6])); });
-    return qs.filter(Boolean);
+    /* and the earlier levels: six questions */
+    return qs.filter(Boolean).concat(dayReview(plan, i, 6));
   }
   /* the questions of a test day (its week's test) or a review day (a mixed review) */
   function testFor(plan, i) {
@@ -503,25 +569,27 @@
 
   /* ---------- notebook entries ----------
      src names what was missed: k.<kanji>.<word>, w.<word>, g.<lesson>.<d0|x0…>, r.<lesson>, l.<lesson>, m<mock>.<item> */
-  var TAG = { '漢字読み': 'v', '文脈規定': 'v', '言い換え類義': 'v', '用法': 'v', '文の文法1': 'g', '文の文法2': 'g', '読解': 'r', '即時応答': 'l' };
+  var TAG = { '漢字読み': 'v', '表記': 'v', '語形成': 'v', '文脈規定': 'v', '言い換え類義': 'v', '用法': 'v', '文の文法1': 'g', '文の文法2': 'g', '読解': 'r', '即時応答': 'l', '課題理解': 'l', 'ポイント理解': 'l', '概要理解': 'l' };
   function item(src) {
     var s = String(src || '').split('.');
     var q = null;
     if (s[0] === 'k') q = readingQ(+s[1], +s[2], '');
-    else if (s[0] === 'w') q = wordQ(+s[1]);
+    else if (s[0] === 'x') q = reviewQ(src);
+    else if (s[0] === 'w') q = wordQ(s.length > 2 ? wordIndex(s[1], +s[2]) : +s[1]);
     else if (s[0] === 'g') q = grammarQ(lessonIndex(s[1]), s[2]);
     else if (s[0] === 'r') {
-      var l = LESSONS[lessonIndex(s[1])];
-      if (l) { var r = l.reading; q = { src: src, type: '読解', ja: r.ask, options: r.options, short: r.short, answer: r.answer, why: r.why, passage: r.passage }; }
+      var re = READINGS[bankIndex(READINGS, src)];
+      if (re) { var r = re.item; q = { src: src, type: re.kind === 'short' ? '読解' : r.type, kind: re.kind, ja: r.ask, options: r.options, short: r.short, answer: r.answer, why: r.why, passage: r.passage, texts: r.texts, lead: r.lead }; }
     } else if (/^m\d+$/.test(s[0])) {
       q = mockQ(+s[0].slice(1), +s[1]);
       if (q) q.src = src;
     } else if (s[0] === 'l') {
-      var l2 = LESSONS[lessonIndex(s[1])];
-      if (l2) { var t = l2.listening; q = { src: src, type: '即時応答', ja: t.who + '：' + t.line, options: ['1', '2', '3'], replies: t.replies, notes: t.notes, short: t.short, answer: t.answer, clip: 'l.' + l2.id, listen: true }; }
+      var le = LISTENINGS[bankIndex(LISTENINGS, src)];
+      if (le && le.kind === 'quick') { var t = le.item; q = { src: src, type: '即時応答', kind: 'quick', ja: t.who + '：' + t.line, options: ['1', '2', '3'], replies: t.replies, notes: t.notes, short: t.short, answer: t.answer, clip: le.clips[0], clips: le.clips, listen: true }; }
+      else if (le) { var t2 = le.item; q = { src: src, type: t2.type, kind: le.kind, ja: t2.ask, options: t2.options, short: t2.short, answer: t2.answer, why: t2.why, clips: le.clips, clip: le.clips[0], listen: true }; }
     }
     if (!q) return null;
-    q.area = q.area || TAG[q.type] || 'g';
+    q.area = q.area || TAG[q.type] || (q.kind && /mid|info|pair|short/.test(q.kind) ? 'r' : 'g');
     /* the line the notebook shows */
     q.line = q.word && q.type === '漢字読み' ? q.word : q.order ? q.pre + ' ＿ ＿ ★ ＿ ' + q.post : q.usage ? q.word : q.ja;
     q.right = q.short ? q.short[q.answer - 1] : q.options[q.answer - 1];
@@ -551,6 +619,15 @@
     mocks: B.mocks || [],
     words: WORDS,
     word: word,
+    wordAt: wordAt,
+    wordIndex: wordIndex,
+    readings: READINGS,
+    listenings: LISTENINGS,
+    reading: reading,
+    listening: listening,
+    reviewQ: reviewQ,
+    dayReview: dayReview,
+    reviewPool: POOL,
     unitOf: unitOf,
     lessonIndex: lessonIndex,
     titleOf: titleOf,
@@ -599,7 +676,7 @@
       var s = 0;
       p.days.forEach(function (x) {
         if (x.t === 1) return;
-        if (s < LESSONS.length) { x.t = 0; x.g = s; x.r = s; x.l = s; } else { x.t = 2; x.g = -1; x.r = -1; x.l = -1; x.k = []; x.w = []; }
+        if (s < LESSONS.length) { x.t = 0; x.g = s; x.r = bankIndex(READINGS, 'r.' + LESSONS[s].id); x.l = bankIndex(LISTENINGS, 'l.' + LESSONS[s].id); } else { x.t = 2; x.g = -1; x.r = -1; x.l = -1; x.k = []; x.w = []; }
         s++;
       });
       for (var i = 0; i < 17; i++) p.days[i].p = p.days[i].t === 1 ? { t: 1 } : { g: 3, k: 1, r: 1, l: 1 };

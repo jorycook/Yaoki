@@ -38,9 +38,27 @@ const v = N.view(plan, i);               // what that day holds (see view() in n
 been taught). A study day can hold any of these parts:
 
 - grammar: `v.grammar`, a lesson with 3 patterns, its compare page, 3 drills, a ★ question and 3 exam-style questions;
-- kanji and words: `v.kanji` (KANJIDIC2 entries `{c, on, kun, en, s, w: [{w, r, en, x}]}`) and `v.words` (the lessons' words);
-- reading: `v.reading`, a lesson whose `reading` item is the day's;
-- listening: `v.listening`, a lesson whose `listening` item is the day's.
+- kanji and words: `v.kanji` (KANJIDIC2 entries `{c, on, kun, en, s, w: [{w, r, en, x}]}`) and `v.words` (words of the
+  lessons: a lesson's own five, then the fifteen of its word bank, `content/BANKS.md`; a word is named
+  `w.<lesson id>.<n>`, n from 0, and `N.wordIndex(id, n)` finds its place);
+- reading: `v.reading`, an entry of the reading bank `N.readings`: `{ lesson, id (the lesson's), kind, src, item }`.
+  `kind` is `short` (the lesson's own item, `FORMAT.md` READING; also in `v.reading.reading`) or `mid`, `info`, `pair`
+  (the longer items of `BANKS.md`: `item.passage` is a list of paragraphs or lines, `item.texts` the two texts of a
+  pair, `item.lead` an optional line above). `src` is `r.<lesson id>` or `r.<lesson id>.2`;
+- listening: `v.listening`, an entry of `N.listenings`: `{ lesson, id, kind, src, item, clips, slow }`. `kind` is `quick`
+  (the lesson's own quick-response item, also in `v.listening.listening`, clip `l.<lesson id>`, slow take
+  `l.<lesson id>.slow`) or `task`, `point`, `gist` (`BANKS.md`: `item.audio` lists the parts, `clips` their keys
+  `l.<lesson id>.<part>` in order; `task` and `point` print the four options, `gist` shows only the numbers 1 to 4 and
+  the options are spoken in the `choices` part). `src` is `l.<lesson id>` or `l.<lesson id>.2`.
+
+### Review of the earlier levels
+
+`N.dayReview(plan, i, n)` gives n questions of the N2 to N4 material for day i (`q.review` is true and `q.level` says
+the level): the N2 grammar bank, the main app's N2 to N4 course questions and the N2 kanji, in a fixed shuffled order
+per plan, taken in turn so each comes once before any comes back. The Scene quiz adds two to the day's quiz; the week
+test ends with four (section 復習); a review day's mixed review holds six. A question is of kind sentence (`q.ja` with
+its blank or 【underline】), usage (`q.word`, four sentences), order (`q.pre`, `q.post`, four tile options, pick the ★
+one, as a 文の文法2 question) or 漢字読み. Its name is `q.src` (`x.…`), and `N.item(src)` rebuilds it for the notebook.
 
 A short plan puts many kanji on a day, and a long one only a few. Leave out any part the day does not hold.
 The grammar screens show `N.lessonDay(plan, i)`'s lesson: the open day's, or the nearest earlier day's when the open
@@ -81,12 +99,13 @@ it from the bank with `N.item(src)`:
 | src | question |
 |---|---|
 | `k.<kanji index>.<word index>` | a kanji reading |
-| `w.<word index>` | a word's own question |
+| `w.<lesson id>.<n>` | a word's own question (n from 0: the lesson's five, then its bank's fifteen) |
 | `g.<lesson id>.d0`…`d2` | a drill |
 | `g.<lesson id>.s` | the ★ question |
 | `g.<lesson id>.x0`…`x2` | an exam-style question |
-| `r.<lesson id>` | a reading item |
-| `l.<lesson id>` | a listening item |
+| `r.<lesson id>`, `r.<lesson id>.2` | a reading item (the lesson's own, its longer one) |
+| `l.<lesson id>`, `l.<lesson id>.2` | a listening item (the lesson's own, its longer one) |
+| `x.n2.<i>`, `x.<course item id>`, `x.k.<kanji>.<word>` | a review question of the earlier levels |
 | `m<mock id>.<item id>` | a mock question |
 
 Mistakes come back for review after 1, 3 and 7 days (`N.due`). They leave the notebook after three right answers in a

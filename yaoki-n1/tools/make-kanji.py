@@ -1,6 +1,8 @@
 """Makes the N1 kanji bank, content/kanji.json, from the EDRDG dictionaries (CC BY-SA 4.0).
 
-usage: python3 tools/make-kanji.py <kanjidic2.xml.gz> <JMdict_e.gz>        (from yaoki-n1/)
+usage: python3 tools/make-kanji.py <kanjidic2.xml.gz> <JMdict_e.gz> [--review]        (from yaoki-n1/)
+--review writes content/kanji-review.json instead: the kanji of the old JLPT level 2 (the ones the N2 course is
+built on), two words each, for the N1 app's review of the earlier levels.
 The two files come from http://www.edrdg.org/kanjidic/kanjidic2.xml.gz and http://ftp.edrdg.org/pub/Nihongo/JMdict_e.gz.
 
 Which kanji: the 2,136 jōyō kanji less the 1,023 of the old JLPT levels 4 to 2, which the N5 to N2 lists are built on.
@@ -21,8 +23,9 @@ import sys
 import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, '..', 'content', 'kanji.json')
-KANJIDIC, JMDICT = sys.argv[1], sys.argv[2]
+REVIEW = '--review' in sys.argv
+OUT = os.path.join(HERE, '..', 'content', 'kanji-review.json' if REVIEW else 'kanji.json')
+KANJIDIC, JMDICT = [a for a in sys.argv[1:] if not a.startswith('--')][:2]
 
 JOYO_GRADES = {'1', '2', '3', '4', '5', '6', '8'}
 
@@ -41,7 +44,7 @@ for c in root.iter('character'):
     if grade not in JOYO_GRADES:
         continue
     joyo.add(lit)
-    if jlpt in ('2', '3', '4'):
+    if (jlpt != '2') if REVIEW else (jlpt in ('2', '3', '4')):
         continue
     rm = c.find('reading_meaning')
     on, kun, en = [], [], []

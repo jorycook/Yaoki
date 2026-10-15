@@ -24,7 +24,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
    course bank and plan (n1-content.js, n1.js) and its spoken clips as files (audio/).
    The few lines of the shared files that belong to one app only are marked (see forLevel below). */
 const LEVELS = {
-  N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype with N2 sample content.',
+  N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype with N2 sample content.', credits: '',
     screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'],
     /* run first: the course content, checked and turned into course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
     prepare: '../tools/build-course.mjs',
@@ -36,7 +36,7 @@ const LEVELS = {
     sounds: ['sound-mock.js', 'sound-lessons.js', 'sound-course.js'],
     unitSound: /^sound-course-n\d-u\d+\.js$/,
     lazy: /^\.\/assets\/sound-course-n\d-u\d+\.js$/ },
-  N1: { project: '../yaoki-n1/project', out: 'dist-n1', name: 'Yaoki N1', full: 'Yaoki JLPT N1', tile: '#2F4FD0', about: 'Prototype N1 course, planned to your exam date.',
+  N1: { project: '../yaoki-n1/project', out: 'dist-n1', name: 'Yaoki N1', full: 'Yaoki JLPT N1', tile: '#2F4FD0', about: 'Prototype N1 course, planned to your exam date.', credits: 'Kanji data: KANJIDIC2 and JMdict, by the EDRDG (CC BY-SA 4.0). ',
     screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'],
     /* the content bank and the plan that lays it out (tools/build-content.mjs makes n1-content.js), and the list of the spoken clips */
     scripts: ['n1-content.js', 'n1.js', 'audio/clips.js'],
@@ -50,7 +50,8 @@ const LEVELS = {
     lazy: /^\.\/assets\/audio\/[^/]+\.mp3$/,
     licence: ['== Kanji and dictionary data ==', 'The kanji readings, meanings and example words come from KANJIDIC2 and JMdict, the property of the',
       'Electronic Dictionary Research and Development Group (EDRDG), used under the Creative Commons Attribution-ShareAlike 4.0 licence:',
-      'https://www.edrdg.org/edrdg/licence.html. The selection and the wrong readings in the quizzes were made from them for this app.', ''] },
+      'https://www.edrdg.org/edrdg/licence.html. The selection and the wrong readings in the quizzes were made from them for this app,',
+      'and the kanji data in the app (assets/n1-content.js, the kanji and review kanji lists) is available under the same licence.', ''] },
 };
 const LEVEL = process.env.YK_LEVEL || 'N2';
 const L = LEVELS[LEVEL];
@@ -99,7 +100,7 @@ function forLevel(text, file) {
 }
 const tags = (dir, list, attr) => list.map((f) => `\n<script ${attr}src="${dir}${f}"></script>`).join('');
 const fill = (text, file) => forLevel(text, file)
-  .replace(/%EXTRA_SCRIPTS%/g, tags('./assets/', SCRIPTS, '')).replace(/%ASYNC_SCRIPTS%/g, tags('./assets/', L.sounds, 'async '))
+  .replace(/%CREDITS%/g, L.credits || '').replace(/%EXTRA_SCRIPTS%/g, tags('./assets/', SCRIPTS, '')).replace(/%ASYNC_SCRIPTS%/g, tags('./assets/', L.sounds, 'async '))
   .replace(/%APP_ABOUT%/g, L.about).replace(/%APP_FULL_NAME%/g, L.full).replace(/%APP_NAME%/g, L.name).replace(/%TILE%/g, L.tile);
 /* the app's own text files as this app has them, for the typefaces to read (in a folder of their own, removed after the build) */
 const TEXT = fs.mkdtempSync(path.join(os.tmpdir(), 'yk-text-'));
@@ -215,6 +216,11 @@ write('licenses.txt', [
   'The spoken clips are synthetic placeholders made with Kokoro-82M (Apache-2.0).',
   'The narrator\'s and the man\'s voices (jf_gongitsune, jm_kumo) were built from Koniwa recordings (CC BY 3.0).',
   'Voice list and credits: https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md',
+  '',
+  '== Trademarks and content ==',
+  'JLPT (Japanese-Language Proficiency Test) is a trademark of the Japan Foundation and Japan Educational Exchanges and Services.',
+  'This app is not connected with, endorsed by or affiliated with them, and holds no official test material. Its lessons,',
+  'questions, passages and listening scripts were written for the app and follow the format of the test only.',
   '',
   ...(L.licence || []),
 ].join('\n'));
