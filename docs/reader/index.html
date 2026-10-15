@@ -203,6 +203,7 @@ body.no-gram .lg { display: none; }
       <p class="hint" style="margin:0">Read Japanese with the furigana hidden. Touch a phrase to see its reading and meaning; let go and it hides again.</p>
       <button class="btn" id="go-add" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span><span lang="ja">文を追加</span>　Add a text</span></button>
       <button class="btn quiet" id="go-aoz" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg><span><span lang="ja">青空文庫から</span>　From Aozora Bunko</span></button>
+      <button class="btn quiet" id="go-ykl" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h4v15H4zM10 4.5h4v15h-4zM15.6 5.6l3.4-.9 3 14-3.4.9z"/></svg><span><span lang="ja">ヤオキ文庫から</span>　Yaoki Library</span></button>
       <ul id="texts"></ul>
       <div id="lib-state" class="hint"></div>
       <div class="backup">
@@ -265,6 +266,21 @@ body.no-gram .lg { display: none; }
       <div id="aoz-work" style="display:contents" hidden></div>
     </div>
     <input type="file" id="aoz-file" accept=".zip,.txt,application/zip,text/plain" hidden>
+  </section>
+
+  <section class="view" id="v-ykl" hidden>
+    <header class="bar">
+      <button class="icon-btn lead" id="ykl-back" type="button" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="brand" style="font-size:17px"><span lang="ja">ヤオキ文庫</span> <small>Yaoki Library</small></div>
+    </header>
+    <div class="scroll" id="ykl-scroll">
+      <div id="ykl-list" style="display:contents">
+        <p class="hint" style="margin:0">Original works written for Yaoki, to read with the furigana hidden. New works are added here as they are written. The level is a rough guide to the vocabulary and kanji; with this reader you can try a work above your level.</p>
+        <div class="hint" id="ykl-state" role="status"></div>
+        <ul class="works" id="ykl-works"></ul>
+      </div>
+      <div id="ykl-work" style="display:contents" hidden></div>
+    </div>
   </section>
 
   <section class="view" id="v-read" hidden>
@@ -330,6 +346,7 @@ body.no-gram .lg { display: none; }
     <p><b>Typefaces:</b> Noto Serif JP (print) and Klee One (textbook), both under the SIL Open Font License.</p>
     <p><b>Limits.</b> Everything is worked out by rule on your device, with no person checking it. Readings can be wrong where a word has several (降る and 降りる, 今日, names). Meanings show the first common sense of a word, which is not always the one the sentence uses. Grammar notes cover about ninety common patterns. Older spelling (旧仮名遣い) is not handled well.</p>
     <p><b>Aozora Bunko</b> (青空文庫, aozora.gr.jp) is a library of Japanese works whose copyright has ended, typed in and checked by volunteers. The list of works this page searches is made from Aozora Bunko's own index and holds only works out of copyright. The texts are fetched from aozorahack's copy of Aozora Bunko's files on GitHub, since Aozora Bunko's own site cannot be read by other pages; works added or corrected since that copy was last updated can be loaded from the file Aozora Bunko offers for download. Ruby (furigana) and notes in Aozora's text format are taken out, so the readings you see are this page's own.</p>
+    <p><b>Yaoki Library</b> (ヤオキ文庫) holds original works written for Yaoki. They are published with this page, so adding one only fetches its text from here.</p>
     <p><b>Your texts.</b> Text you add is saved so you can come back to it. Only add text you are free to keep a copy of.</p>
     <p>Full licence texts: <a href="licenses.txt">licenses.txt</a>.</p>
   </div>
@@ -549,7 +566,7 @@ function removeText(t) {
 
 /* ---------- views ---------- */
 function show(view) {
-  ['lib', 'add', 'aoz', 'read'].forEach(function (v) { $('v-' + v).hidden = v !== view; });
+  ['lib', 'add', 'aoz', 'ykl', 'read'].forEach(function (v) { $('v-' + v).hidden = v !== view; });
   release();
 }
 function firstLine(text) { return text.replace(/\s+/g, ' ').trim(); }
@@ -842,18 +859,21 @@ function openWork(w, info) {
   });
 }
 function partTitle(i) {
+  if (Z.parts[i].title) return Z.parts[i].title.slice(0, 60);
   var n = Z.parts.length, tail = n > 1 ? '（' + (i + 1) + '/' + n + '）' : '';
   return Z.meta.title.slice(0, 60 - tail.length) + tail;
 }
 function existing(text) { return S.texts.filter(function (t) { return t.text === text; })[0] || null; }
+/* the part list of a work, shared by Aozora Bunko and the Yaoki Library; box is where it is drawn */
 function renderParts(box) {
+  Z.box = box;
   var n = Z.parts.length, total = 0;
   Z.parts.forEach(function (p) { total += p.text.length; });
   Z.added = Z.parts.map(function (p) { return existing(p.text); });
   var list = el('ul', 'parts');
   box.appendChild(el('div', 'hint', num(total) + ' characters' + (n > 1 ? ', in ' + n + ' parts. Each part is a text of its own in your library, so you can read one at a time.' : '.')));
   if (n > 1) {
-    var all = el('button', 'btn', ''); all.type = 'button'; all.id = 'aoz-add-all';
+    var all = el('button', 'btn add-all', ''); all.type = 'button'; all.id = box.id === 'aoz-work' ? 'aoz-add-all' : 'ykl-add-all';
     box.appendChild(all);
   }
   Z.parts.forEach(function (p, i) {
@@ -886,13 +906,14 @@ function renderParts(box) {
 }
 function partButtons() {
   var n = Z.parts.length;
-  Array.prototype.forEach.call(document.querySelectorAll('#aoz-work [data-part]'), function (b) {
+  if (!Z.box) return;
+  Array.prototype.forEach.call(Z.box.querySelectorAll('[data-part]'), function (b) {
     var t = Z.added[+b.getAttribute('data-part')];
     b.textContent = t ? 'Read' : n === 1 ? 'Add and read' : 'Add';
     b.className = t ? 'mini done' : 'mini';
     b.disabled = Z.busy;
   });
-  var all = $('aoz-add-all');
+  var all = Z.box.querySelector('.add-all');
   if (all) {
     var left = Z.added.filter(function (t) { return !t; }).length;
     all.textContent = left === n ? 'Add all ' + n + ' parts' : left ? 'Add the other ' + left + (left === 1 ? ' part' : ' parts') : 'All parts are in your library';
@@ -932,6 +953,101 @@ function readAozoraFile(file) {
     openWork(null, { title: head.title || file.name.replace(/\.(zip|txt)$/i, ''), author: head.author, raw: raw });
   }).catch(function (err) {
     toast('That file could not be read (' + ((err && err.message) || 'unknown error') + ').');
+  });
+}
+
+/* ---------- the Yaoki Library: original works, listed in library/catalog.json, each in one or more part files ---------- */
+var YL = { cat: null, catP: null };
+function loadYaokiCatalog() {
+  if (!YL.catP) {
+    YL.catP = fetch('library/catalog.json', { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error('answered ' + r.status);
+      return r.json();
+    }).then(function (c) {
+      YL.cat = (c && c.works || []).filter(function (w) { return w && w.title && w.parts && w.parts.length; });
+      return YL.cat;
+    });
+    YL.catP.catch(function () { YL.catP = null; });
+  }
+  return YL.catP;
+}
+function yklPanel(which) {
+  $('ykl-list').hidden = which !== 'list';
+  $('ykl-work').hidden = which !== 'work';
+  $('ykl-scroll').scrollTop = 0;
+}
+function levelTag(w) { return w.level ? el('span', 'tag', 'JLPT ' + w.level) : null; }
+function openYaokiLibrary() {
+  show('ykl');
+  yklPanel('list');
+  renderYaokiWorks();
+  loadYaokiCatalog().then(renderYaokiWorks, function (err) {
+    $('ykl-state').textContent = 'The list of works did not load (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.';
+  });
+}
+function renderYaokiWorks() {
+  var list = $('ykl-works'), st = $('ykl-state');
+  list.textContent = '';
+  if (!YL.cat) { st.textContent = 'Loading the list of works.'; return; }
+  st.textContent = YL.cat.length ? '' : 'There are no works here yet.';
+  YL.cat.forEach(function (w) {
+    var li = el('li');
+    var card = el('button', 'text-card'); card.type = 'button';
+    var top = el('span', 'tc-top');
+    var title = el('span', 'tc-title', w.title); title.lang = 'ja';
+    top.appendChild(title);
+    var tag = levelTag(w);
+    if (tag) top.appendChild(tag);
+    card.appendChild(top);
+    if (w.by) { var by = el('span', 'tc-by', w.by); by.lang = 'ja'; card.appendChild(by); }
+    if (w.about) card.appendChild(el('span', 'tc-meta', w.about));
+    card.addEventListener('click', function () { openYaokiWork(w); });
+    li.appendChild(card);
+    list.appendChild(li);
+  });
+}
+function openYaokiWork(w) {
+  var seq = ++Z.seq;
+  Z.work = null; Z.parts = []; Z.added = [];
+  Z.meta = { title: w.title, by: w.by || '' };
+  yklPanel('work');
+  var box = $('ykl-work');
+  box.textContent = '';
+  var h = el('h2', 'work-h', w.title); h.lang = 'ja';
+  if (w.reading) { var sm = el('small', null, w.reading); h.appendChild(sm); }
+  box.appendChild(h);
+  if (w.by) { var b = el('div', 'work-by', w.by); b.lang = 'ja'; box.appendChild(b); }
+  var tag = levelTag(w);
+  if (tag) { var tl = el('div', 'tc-top'); tl.appendChild(tag); box.appendChild(tl); }
+  if (w.about) { var ab = el('p', 'hint', w.about); ab.style.margin = '0'; box.appendChild(ab); }
+  var status = el('div', 'progress');
+  var msg = el('div', 'hint', 'Fetching the text.'); msg.setAttribute('role', 'status');
+  status.appendChild(msg);
+  box.appendChild(status);
+  Promise.all(w.parts.map(function (p) {
+    return fetch('library/' + p.file, { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error('answered ' + r.status);
+      return r.text();
+    });
+  })).then(function (texts) {
+    if (seq !== Z.seq) return;
+    status.remove();
+    Z.parts = texts.map(function (raw, i) {
+      var text = raw.replace(/^﻿/, '').replace(/\r\n?/g, '\n').replace(/\s+$/, '').slice(0, MAX);
+      var pt = w.parts[i].title || '';
+      /* the first line, unless it only repeats the part's title (下　追記 opens with 追記) */
+      var first = text.split('\n').filter(function (l) { return l.trim() && pt.indexOf(l.trim()) < 0; })[0] || '';
+      return { text: text, title: pt, head: pt, start: first.trim().slice(0, 40) };
+    }).filter(function (p) { return p.text.trim(); });
+    if (!Z.parts.length) { box.appendChild(el('div', 'problem', 'There is no text in it to read.')); return; }
+    renderParts(box);
+  }).catch(function (err) {
+    if (seq !== Z.seq) return;
+    status.remove();
+    box.appendChild(el('div', 'problem', 'The text could not be fetched (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.'));
+    var again = el('button', 'btn quiet', 'Try again'); again.type = 'button';
+    again.addEventListener('click', function () { openYaokiWork(w); });
+    box.appendChild(again);
   });
 }
 
@@ -1190,6 +1306,11 @@ $('go-aoz').addEventListener('click', openAozora);
 $('add-to-aoz').addEventListener('click', openAozora);
 $('aoz-back').addEventListener('click', function () {
   if (!$('aoz-work').hidden) { Z.seq++; aozPanel('find'); return; }
+  show('lib'); renderLibrary();
+});
+$('go-ykl').addEventListener('click', openYaokiLibrary);
+$('ykl-back').addEventListener('click', function () {
+  if (!$('ykl-work').hidden) { Z.seq++; yklPanel('list'); return; }
   show('lib'); renderLibrary();
 });
 $('aoz-form').addEventListener('submit', function (e) { e.preventDefault(); aozSearch(); $('aoz-q').blur(); });
