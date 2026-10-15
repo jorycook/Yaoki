@@ -1,0 +1,634 @@
+{
+  "patterns": [
+    {
+      "p": "〜としたら",
+      "en": "if we suppose that …",
+      "unit": 4,
+      "conn": "普通形 ＋ 【としたら】",
+      "ex": {
+        "ja": "もし今の会社を辞める【としたら】、次は何をしたいですか。",
+        "en": "If you were to leave your present company, what would you want to do next?"
+      },
+      "q": {
+        "ja": "宝くじで一億円が当たった（　　）、何に使いますか。",
+        "options": [
+          "としたら",
+          "ないことには",
+          "さえすれば",
+          "ようものなら"
+        ],
+        "answer": 1,
+        "why": "A supposed case, then a question about what follows: としたら. ないことには needs a negative result, さえすれば a verb stem, ようものなら a bad outcome."
+      }
+    },
+    {
+      "p": "〜とすれば",
+      "en": "if that is so, then …",
+      "unit": 4,
+      "conn": "普通形 ＋ 【とすれば】",
+      "ex": {
+        "ja": "報道が事実だ【とすれば】、会社の責任は重い。",
+        "en": "If the reports are true, the company bears a heavy responsibility."
+      },
+      "q": {
+        "ja": "犯人が内部の人間だ（　　）、鍵の問題は説明がつく。",
+        "options": [
+          "とはいえ",
+          "としても",
+          "からといって",
+          "とすれば"
+        ],
+        "answer": 4,
+        "why": "Given that the culprit was an insider, the lock is explained: とすれば draws a conclusion. とはいえ and としても concede, and からといって needs a denial."
+      }
+    },
+    {
+      "p": "〜ないことには",
+      "en": "unless …, if … not",
+      "unit": 4,
+      "conn": "動詞ない形 ＋ 【ないことには】",
+      "ex": {
+        "ja": "実物を見【ないことには】、買うかどうか決められない。",
+        "en": "Unless I see the real thing, I cannot decide whether to buy it."
+      },
+      "q": {
+        "ja": "予算が決まら（　　）、計画の細かい話はできない。",
+        "options": [
+          "ないうちに",
+          "ないことには",
+          "ないまでも",
+          "ないことはない"
+        ],
+        "answer": 2,
+        "why": "Unless the budget is settled, no details: a condition with a negative result. ないうちに is time, ないまでも allows less, ないことはない ends a sentence."
+      }
+    },
+    {
+      "p": "〜ない限り",
+      "en": "as long as … not, unless …",
+      "unit": 4,
+      "conn": "動詞ない形 ＋ 【限り】",
+      "ex": {
+        "ja": "本人が認め【ない限り】、処分は下せない。",
+        "en": "Unless he admits it himself, no penalty can be given."
+      },
+      "q": {
+        "ja": "医師の許可が（　　）、退院はできません。",
+        "options": [
+          "出る限り",
+          "出ようものなら",
+          "出ない限り",
+          "出るからには"
+        ],
+        "answer": 3,
+        "why": "Unless the doctor allows it, no discharge: a negative condition. 出る限り and 出るからには make the permission a reason to stay; ようものなら warns."
+      }
+    },
+    {
+      "p": "〜さえ〜ば",
+      "en": "if only …, as long as …",
+      "unit": 4,
+      "conn": "名詞 ＋ 【さえ】 〜ば",
+      "ex": {
+        "ja": "雨【さえ】降らなければ、運動会は予定どおり行います。",
+        "en": "As long as it does not rain, the sports day will go ahead as planned."
+      },
+      "q": {
+        "ja": "あと一週間（　　）、もっといい作品になったはずだ。",
+        "options": [
+          "あったとしても",
+          "さえあれば",
+          "ある限り",
+          "あるからには"
+        ],
+        "answer": 2,
+        "why": "The one thing lacking was a week: さえ singles it out and ば gives the result. としても concedes, 限り means \"as long as\", からには gives a reason."
+      }
+    },
+    {
+      "p": "〜次第で",
+      "en": "depending on …",
+      "unit": 4,
+      "conn": "名詞 ＋ 【次第で】",
+      "ex": {
+        "ja": "交渉の結果【次第で】、工場の移転も検討する。",
+        "en": "Depending on how the talks go, we will also consider moving the factory."
+      },
+      "q": {
+        "ja": "今後の天候（　　）、収穫の時期を早めることもある。",
+        "options": [
+          "に限って",
+          "次第に",
+          "次第で",
+          "に応えて"
+        ],
+        "answer": 3,
+        "why": "The harvest date varies with the weather: 名詞 + 次第で. 次第に means \"gradually\", に限って singles out one case, に応えて answers a request."
+      }
+    },
+    {
+      "p": "〜ものなら",
+      "en": "if only one could … (but cannot)",
+      "unit": 4,
+      "conn": "動詞可能形 ＋ 【ものなら】",
+      "ex": {
+        "ja": "戻れる【ものなら】、入社した頃の自分に戻ってやり直したい。",
+        "en": "If I could go back, I would return to my first days at the firm and start over."
+      },
+      "q": {
+        "ja": "代われる（　　）、入院中の母に代わってやりたい。",
+        "options": [
+          "ものの",
+          "ものだから",
+          "ものか",
+          "ものなら"
+        ],
+        "answer": 4,
+        "why": "A wish that cannot come true: potential form + ものなら. ものの concedes a fact, ものだから gives an excuse, ものか is a denial that ends a sentence."
+      }
+    },
+    {
+      "p": "〜ようものなら",
+      "en": "if one should dare to …",
+      "unit": 4,
+      "conn": "動詞意向形 ＋ 【ものなら】",
+      "ex": {
+        "ja": "締め切りに一日でも遅れ【ようものなら】、次の仕事は回ってこない。",
+        "en": "If you were even a day late with a deadline, no more work would come your way."
+      },
+      "q": {
+        "ja": "彼の前でその話題に触れ（　　）、口をきいてもらえなくなる。",
+        "options": [
+          "ようにも",
+          "ようものなら",
+          "ないことには",
+          "たものの"
+        ],
+        "answer": 2,
+        "why": "Daring to raise it brings a bad result: volitional + ものなら. ようにも needs a following \"cannot\", ないことには a negative result, たものの a done fact."
+      }
+    },
+    {
+      "p": "〜を抜きにしては",
+      "en": "without …, leaving … out",
+      "unit": 4,
+      "conn": "名詞 ＋ 【を抜きにしては】",
+      "ex": {
+        "ja": "地元の協力【を抜きにしては】、この祭りは成り立たない。",
+        "en": "Without the cooperation of local people, this festival could not take place."
+      },
+      "q": {
+        "ja": "現場の声（　　）、使いやすい制度は作れない。",
+        "options": [
+          "をもとに",
+          "を問わず",
+          "を抜きにしては",
+          "をはじめ"
+        ],
+        "answer": 3,
+        "why": "Without the voices on the ground, no workable system: を抜きにしては, then \"cannot\". をもとに makes them the basis, を問わず ignores, をはじめ lists."
+      }
+    },
+    {
+      "p": "〜なしには",
+      "en": "without …, (cannot) …",
+      "unit": 4,
+      "conn": "名詞 ＋ 【なしには】",
+      "ex": {
+        "ja": "家族の理解【なしには】、海外赴任は決められなかった。",
+        "en": "Without my family's understanding, I could not have taken the overseas posting."
+      },
+      "q": {
+        "ja": "事前の申し込み（　　）、見学はできません。",
+        "options": [
+          "次第では",
+          "に限らず",
+          "にしては",
+          "なしには"
+        ],
+        "answer": 4,
+        "why": "No visit without booking first: 名詞 + なしには and a negative. 次第では says it depends, に限らず means \"not only\", にしては judges by a standard."
+      }
+    },
+    {
+      "p": "〜ものの",
+      "en": "although …, but …",
+      "unit": 5,
+      "conn": "普通形 ＋ 【ものの】",
+      "ex": {
+        "ja": "資格は取った【ものの】、生かせる職場が見つからない。",
+        "en": "I got the qualification, but I cannot find a workplace where I can use it."
+      },
+      "q": {
+        "ja": "新しい機械を導入した（　　）、使いこなせる社員がいない。",
+        "options": [
+          "ことから",
+          "ものの",
+          "ものだから",
+          "からには"
+        ],
+        "answer": 2,
+        "why": "The machine came in, but nobody can use it: a fact that turned out otherwise, ものの. ことから gives a reason, ものだから an excuse, からには a resolve."
+      }
+    },
+    {
+      "p": "〜とはいえ",
+      "en": "admittedly …, but …",
+      "unit": 5,
+      "conn": "普通形・名詞 ＋ 【とはいえ】",
+      "ex": {
+        "ja": "春【とはいえ】、朝晩はまだ冷え込む日が多い。",
+        "en": "It may be spring, but on many days the mornings and evenings are still cold."
+      },
+      "q": {
+        "ja": "練習（　　）、本番と同じ緊張感で臨んでほしい。",
+        "options": [
+          "とはいえ",
+          "に限って",
+          "にしては",
+          "とすれば"
+        ],
+        "answer": 1,
+        "why": "Admittedly only practice, but treat it as the real thing: a concession. に限って singles out one case, にしては judges by a standard, とすれば supposes."
+      }
+    },
+    {
+      "p": "〜くせに",
+      "en": "even though … (reproachful)",
+      "unit": 5,
+      "conn": "普通形 ＋ 【くせに】",
+      "ex": {
+        "ja": "自分では何もしない【くせに】、人のやり方には文句ばかり言う。",
+        "en": "He does nothing himself, yet he does nothing but complain about how others work."
+      },
+      "q": {
+        "ja": "彼は知っている（　　）、わざと教えてくれなかった。",
+        "options": [
+          "以上は",
+          "だけあって",
+          "くせに",
+          "からといって"
+        ],
+        "answer": 3,
+        "why": "Reproach: he knew, yet he kept it from me on purpose. 以上は and だけあって make knowing the reason for a fitting result; からといって needs a denial."
+      }
+    },
+    {
+      "p": "〜にもかかわらず",
+      "en": "despite …, in spite of …",
+      "unit": 5,
+      "conn": "名詞・普通形 ＋ 【にもかかわらず】",
+      "ex": {
+        "ja": "悪天候【にもかかわらず】、会場には大勢の人が詰めかけた。",
+        "en": "Despite the bad weather, a great many people crowded into the venue."
+      },
+      "q": {
+        "ja": "十分な警告があった（　　）、事故は防げなかった。",
+        "options": [
+          "ばかりに",
+          "ものだから",
+          "だけあって",
+          "にもかかわらず"
+        ],
+        "answer": 4,
+        "why": "Warnings were given, yet the accident happened: the result goes against the cause. ばかりに, ものだから and だけあって give a cause with a fitting result."
+      }
+    },
+    {
+      "p": "〜たところで",
+      "en": "even if … (it would be no use)",
+      "unit": 5,
+      "conn": "動詞た形 ＋ 【ところで】",
+      "ex": {
+        "ja": "謝りに行っ【たところで】、許してはもらえないだろう。",
+        "en": "Even if I went to apologise, I doubt I would be forgiven."
+      },
+      "q": {
+        "ja": "今ここで議論し（　　）、結論は出そうにない。",
+        "options": [
+          "たところで",
+          "たとたん",
+          "たからには",
+          "たばかりに"
+        ],
+        "answer": 1,
+        "why": "Arguing now would be no use: た形 + ところで with a negative outcome. たとたん is a sudden event, からには a resolve after a fact, ばかりに a regretted cause."
+      }
+    },
+    {
+      "p": "〜としても",
+      "en": "even if …, even supposing …",
+      "unit": 5,
+      "conn": "普通形 ＋ 【としても】",
+      "ex": {
+        "ja": "合格できなかった【としても】、勉強した時間は無駄にならない。",
+        "en": "Even if I do not pass, the hours I spent studying will not be wasted."
+      },
+      "q": {
+        "ja": "たとえ冗談だった（　　）、言っていいことと悪いことがある。",
+        "options": [
+          "とすれば",
+          "としても",
+          "としたら",
+          "だけに"
+        ],
+        "answer": 2,
+        "why": "たとえ … としても: even if it was a joke, some things must not be said. とすれば and としたら suppose rather than concede, and だけに gives a reason."
+      }
+    },
+    {
+      "p": "〜からといって",
+      "en": "just because … (does not mean)",
+      "unit": 5,
+      "conn": "普通形 ＋ 【からといって】",
+      "ex": {
+        "ja": "値段が高い【からといって】、品質がいいとは限らない。",
+        "en": "Just because the price is high does not mean the quality is good."
+      },
+      "q": {
+        "ja": "一度失敗した（　　）、諦める必要はない。",
+        "options": [
+          "からには",
+          "からこそ",
+          "ことから",
+          "からといって"
+        ],
+        "answer": 4,
+        "why": "One failure is no reason to give up: からといって with a denial. からには and からこそ would make it a reason to give up; ことから states the cause of a fact."
+      }
+    },
+    {
+      "p": "〜わけではない",
+      "en": "it is not that …, not necessarily",
+      "unit": 5,
+      "conn": "普通形 ＋ 【わけではない】",
+      "ex": {
+        "ja": "彼の意見に反対している【わけではない】が、時期が悪いと思う。",
+        "en": "It is not that I am against his opinion, but I think the timing is bad."
+      },
+      "q": {
+        "ja": "忙しくて行けなかっただけで、興味がない（　　）。",
+        "options": [
+          "わけがない",
+          "わけにはいかない",
+          "わけではない",
+          "はずがない"
+        ],
+        "answer": 3,
+        "why": "Only being busy stopped me: \"it is not that I am uninterested\", a partial denial. わけがない and はずがない deny outright; わけにはいかない means cannot."
+      }
+    },
+    {
+      "p": "〜ながらも",
+      "en": "while …, though …",
+      "unit": 5,
+      "conn": "ます形・名詞 ＋ 【ながらも】",
+      "ex": {
+        "ja": "不安を感じ【ながらも】、彼女は一人で海外に渡った。",
+        "en": "Though she felt uneasy, she went abroad on her own."
+      },
+      "q": {
+        "ja": "彼は体の不調を抱え（　　）、最後まで舞台に立ち続けた。",
+        "options": [
+          "ながらも",
+          "つつある",
+          "次第",
+          "ようにも"
+        ],
+        "answer": 1,
+        "why": "He had health troubles, yet he stayed on stage: ます形 + ながらも. つつある is a change under way, 次第 means \"as soon as\", ようにも needs a \"cannot\"."
+      }
+    },
+    {
+      "p": "〜つつも",
+      "en": "while …, even though …",
+      "unit": 5,
+      "conn": "動詞ます形 ＋ 【つつも】",
+      "ex": {
+        "ja": "悪いと知り【つつも】、つい会社の備品を持ち帰ってしまった。",
+        "en": "Knowing it was wrong, I still ended up taking office supplies home."
+      },
+      "q": {
+        "ja": "体に悪いと分かり（　　）、甘い物がやめられない。",
+        "options": [
+          "つつある",
+          "つつも",
+          "次第",
+          "ようがなく"
+        ],
+        "answer": 2,
+        "why": "Knowing full well, yet unable to stop: ます形 + つつも. つつある says a change is under way, 次第 means \"as soon as\", ようがない means there is no way."
+      }
+    },
+    {
+      "p": "〜ほど〜はない",
+      "en": "nothing is as … as …",
+      "unit": 6,
+      "conn": "名詞 ＋ 【ほど】 〜はない",
+      "ex": {
+        "ja": "自分の家【ほど】落ち着ける場所【はない】。",
+        "en": "There is no place where I can relax as much as my own home."
+      },
+      "q": {
+        "ja": "子どもの寝顔（　　）、親を幸せにするものはない。",
+        "options": [
+          "に比べて",
+          "ばかりに",
+          "くらいなら",
+          "ほど"
+        ],
+        "answer": 4,
+        "why": "Nothing makes a parent happier: ほど … はない for a superlative. に比べて compares two things, ばかりに gives a cause, くらいなら rejects one choice."
+      }
+    },
+    {
+      "p": "〜に越したことはない",
+      "en": "it is best to …, nothing beats …",
+      "unit": 6,
+      "conn": "辞書形・い形 ＋ 【に越したことはない】",
+      "ex": {
+        "ja": "持病があるなら、早めに医者に診てもらう【に越したことはない】。",
+        "en": "If you have a chronic condition, it is best to see a doctor early."
+      },
+      "q": {
+        "ja": "不備があれば差し戻されるので、書類は余裕を持って提出する（　　）。",
+        "options": [
+          "までもない",
+          "わけにはいかない",
+          "に越したことはない",
+          "とは限らない"
+        ],
+        "answer": 3,
+        "why": "Faulty papers come back, so early is safest: に越したことはない. までもない says no need, わけにはいかない says it cannot be done, とは限らない says not always."
+      }
+    },
+    {
+      "p": "〜くらいなら",
+      "en": "rather than …, sooner than …",
+      "unit": 6,
+      "conn": "動詞辞書形 ＋ 【くらいなら】",
+      "ex": {
+        "ja": "満員電車で立ち続ける【くらいなら】、一本早い電車で座って行く。",
+        "en": "Rather than stand all the way in a packed train, I take the one before and sit."
+      },
+      "q": {
+        "ja": "中途半端に手伝う（　　）、最初から任せてほしい。",
+        "options": [
+          "からには",
+          "くらいなら",
+          "どころか",
+          "にしては"
+        ],
+        "answer": 2,
+        "why": "A half-hearted hand is worse than none, so \"rather than that, leave it to me\": くらいなら. からには gives a reason, どころか escalates, にしては judges."
+      }
+    },
+    {
+      "p": "〜よりほかない",
+      "en": "there is nothing to do but …",
+      "unit": 6,
+      "conn": "動詞辞書形 ＋ 【よりほかない】",
+      "ex": {
+        "ja": "部品が届かない以上、納期を延ばす【よりほかない】。",
+        "en": "With the parts not arriving, there is nothing for it but to delay delivery."
+      },
+      "q": {
+        "ja": "最終バスが行ってしまったので、歩いて帰る（　　）。",
+        "options": [
+          "ことはない",
+          "までもない",
+          "どころではない",
+          "よりほかない"
+        ],
+        "answer": 4,
+        "why": "The last bus has gone, so walking is all that is left: よりほかない. ことはない and までもない say there is no need; どころではない says it is ruled out."
+      }
+    },
+    {
+      "p": "〜に比べて",
+      "en": "compared with …",
+      "unit": 6,
+      "conn": "名詞 ＋ 【に比べて】",
+      "ex": {
+        "ja": "去年【に比べて】、海外からの観光客が二割増えた。",
+        "en": "Compared with last year, the number of tourists from abroad is up by a fifth."
+      },
+      "q": {
+        "ja": "都心（　　）、郊外は家賃が半分ほどで済む。",
+        "options": [
+          "に比べて",
+          "に反して",
+          "につれて",
+          "にとって"
+        ],
+        "answer": 1,
+        "why": "Two places set side by side: 名詞 + に比べて. に反して needs a rule or expectation that is gone against, につれて needs a change, にとって gives a viewpoint."
+      }
+    },
+    {
+      "p": "〜に反して",
+      "en": "contrary to …, against …",
+      "unit": 6,
+      "conn": "名詞 ＋ 【に反して】",
+      "ex": {
+        "ja": "大方の予想【に反して】、新人の候補が当選した。",
+        "en": "Contrary to most predictions, the newcomer was elected."
+      },
+      "q": {
+        "ja": "会社の方針（　　）、彼は独断で契約を結んでしまった。",
+        "options": [
+          "に沿って",
+          "に応じて",
+          "に反して",
+          "に比べて"
+        ],
+        "answer": 3,
+        "why": "He acted on his own, so his contract went against company policy: に反して. に沿って and に応じて would mean following the policy, and に比べて compares."
+      }
+    },
+    {
+      "p": "〜ば〜ほど",
+      "en": "the more …, the more …",
+      "unit": 6,
+      "conn": "ば形 ＋ 辞書形 ＋ 【ほど】",
+      "ex": {
+        "ja": "説明は、短ければ短い【ほど】相手に伝わりやすい。",
+        "en": "The shorter an explanation, the more easily it gets across."
+      },
+      "q": {
+        "ja": "この仕事は、慣れれば慣れる（　　）面白くなってくる。",
+        "options": [
+          "につれて",
+          "ほど",
+          "とともに",
+          "一方で"
+        ],
+        "answer": 2,
+        "why": "慣れれば慣れる sets up ば … ほど: the more you get used to it, the more fun. につれて and とともに follow a plain verb alone, not the pair; 一方で contrasts."
+      }
+    },
+    {
+      "p": "〜につれて",
+      "en": "as …, along with …",
+      "unit": 6,
+      "conn": "辞書形・名詞 ＋ 【につれて】",
+      "ex": {
+        "ja": "年を取る【につれて】、新しい機械を覚えるのが面倒になった。",
+        "en": "As I have got older, learning new machines has become a chore."
+      },
+      "q": {
+        "ja": "工事が進む（　　）、周りの道路の渋滞がひどくなっている。",
+        "options": [
+          "に比べて",
+          "に反して",
+          "にしては",
+          "につれて"
+        ],
+        "answer": 4,
+        "why": "As the works advance, the jams get worse: one change brings another, 辞書形 + につれて. に比べて compares, に反して goes against, にしては judges."
+      }
+    },
+    {
+      "p": "〜というより",
+      "en": "rather than …, more … than …",
+      "unit": 6,
+      "conn": "名詞・普通形 ＋ 【というより】",
+      "ex": {
+        "ja": "彼の話は説明【というより】言い訳に聞こえた。",
+        "en": "What he said sounded less like an explanation than an excuse."
+      },
+      "q": {
+        "ja": "あの人は親切（　　）、おせっかいなのだと思う。",
+        "options": [
+          "に限らず",
+          "にしては",
+          "というより",
+          "とすれば"
+        ],
+        "answer": 3,
+        "why": "The right label is not \"kind\" but \"meddling\": というより re-names. に限らず means \"not only\", にしては measures against a standard, とすれば supposes."
+      }
+    },
+    {
+      "p": "〜どころか",
+      "en": "far from …, let alone …",
+      "unit": 6,
+      "conn": "名詞・普通形 ＋ 【どころか】",
+      "ex": {
+        "ja": "薬を飲んだのに、治る【どころか】熱が上がってしまった。",
+        "en": "I took the medicine, but far from getting better, my temperature went up."
+      },
+      "q": {
+        "ja": "彼は反省する（　　）、注意した上司に食ってかかった。",
+        "options": [
+          "ばかりか",
+          "どころか",
+          "からには",
+          "にしては"
+        ],
+        "answer": 2,
+        "why": "He turned on his boss instead of saying sorry: どころか denies one thing and gives its opposite. ばかりか adds, からには reasons, にしては judges."
+      }
+    }
+  ]
+}
