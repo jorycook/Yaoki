@@ -75,6 +75,7 @@ For the reader:
 cd check
 bash run-reader.sh reader-test.js    # serves docs/ at /Yaoki/ as GitHub Pages does, with the app's offline worker running
 bash run-reader.sh aozora-test.js    # Aozora Bunko: search, fetch, parts, a downloaded zip (the copy of Aozora's files is played by the test)
+bash run-reader.sh library-test.js   # Yaoki Library: the catalog and its files, the button, every work and its parts, a part read in full
 ```
 
 `NODE_PATH` may point at another Playwright install (the default is `/opt/npm-tools/node_modules`).
@@ -103,6 +104,8 @@ Yaoki Reader shows Japanese text with the furigana hidden; touching a phrase sho
 | `docs/reader/aozora/aozora.js` | Aozora Bunko works: searching the catalog, fetching a work, reading a downloaded .zip or .txt, taking out Aozora's notation, cutting long works into parts. |
 | `docs/reader/aozora/catalog.txt` | The Aozora Bunko works out of copyright (titles, authors, file names; no texts). Made by `reader-tools/aozora-catalog.py`. |
 | `docs/reader/aozora/jisx0213.json` | Characters Aozora's Shift_JIS files can only describe (※［＃…、第3水準1-85-25］). Made by `reader-tools/jisx0213-table.py`. |
+| `docs/reader/library/catalog.json` | The Yaoki Library: original works written for Yaoki, with their parts. |
+| `docs/reader/library/<work>/` | Each work's text, one plain text file per part. |
 
 **Aozora Bunko.** **From Aozora Bunko** in the library finds a work by title or author (in Japanese, kana or roman letters, or by pasting the address of its Aozora page) and adds it. Only works out of copyright are listed, and modern spelling (新字新仮名) is shown unless that box is cleared, since the readings are often wrong for old spelling. Aozora's own site cannot be read by other web pages, so the text is fetched from aozorahack's copy of Aozora's text files on GitHub (`raw.githubusercontent.com/aozorahack/aozorabunko_text`), which can. That copy stopped following Aozora around 2023, so a work added or corrected since is not in it: the page then links to the work's zip file on Aozora Bunko and reads that file once it is loaded (the zip need not be unpacked; a .txt works too, and **Load an Aozora Bunko file** takes one at any time). Ruby, notes and the source notes at the end are taken out. A work longer than about 12,000 characters is cut into parts at its chapter headings (never more than 30,000 characters each); each part is a text of its own, titled 吾輩は猫である（1/21） and so on, and is analysed when it is first opened.
 
@@ -116,7 +119,16 @@ About 36 MB is downloaded the first time a text is analysed in a visit; opening 
 
 **Saving.** On GitHub Pages the reader keeps its texts in the browser it is used in (`localStorage`, under keys starting `yomu.`; analyses in IndexedDB `yomu-reader`). The apps' own saved progress is left alone. **Save a backup** writes the library to a file and **Load a backup** reads one, which is how texts move between devices or browsers. Texts already in the library are skipped. When the same page runs as a Claude artifact it saves to the artifact's own store instead.
 
-Nothing a reader adds goes into this repository. Only the built-in sample (片目のだるま) is published; for Aozora Bunko only the list of works is, never a work's text.
+**The Yaoki Library.** **From the Yaoki Library** (ヤオキ文庫から), just under From Aozora Bunko in the library, lists the original works written for Yaoki. A work opens on the same page as an Aozora work: its title, reading, level and a line about it, then its parts, each added on its own or all at once, and read like any other text. The works are published with the site, so nothing is fetched from anywhere else. The first is 始末書 (2026-10-15), in three parts.
+
+To add a work:
+
+1. Put its text in `docs/reader/library/<id>/`, one UTF-8 plain text file per part (`1.txt`, `2.txt` and so on), each at most 30,000 characters. Line breaks are kept; a blank line before a heading reads well. No ruby or Aozora notation: the reader makes its own readings.
+2. Add it at the top of `works` in `docs/reader/library/catalog.json`: `id` (lower-case letters, digits and hyphens), `title`, `reading` (kana), `level` (`N1` to `N5`, a rough guide; leave it out if unsure), `added` (the date), `about` (one or two sentences in English), and `parts`, each with its `file` and, where the work has its own part names (上, 中, 下), a `title`. Parts without a title are named 題名（1/3） and so on.
+3. `cd check && bash run-reader.sh library-test.js` checks the catalog and every file, then opens every work and reads one of its parts in full.
+4. Commit and push. Readers see the new work the next time they open the list.
+
+Nothing a reader adds goes into this repository. Only the built-in sample (片目のだるま) and the Yaoki Library's works are published; for Aozora Bunko only the list of works is, never a work's text.
 
 ## Licences
 
