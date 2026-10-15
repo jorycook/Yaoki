@@ -289,7 +289,8 @@ if (!days[i]) return (this.at = { ...none, plan });
 const test = days[i].t === 1;
 const wk = Math.floor(i / 7) + 1;
 /* a week with nothing new has a mixed review for its test */
-const mixed = !test || N.weekTest(plan, wk).length < 6;
+let mixed = !test;
+try { mixed = mixed || N.weekTest(plan, wk).length < 6; } catch (e) { /* a kanji the bank no longer holds: the questions come out empty below */ }
 this.at = { ok: true, i, test, wk, key: test ? wk : 'r' + i, plan, date: N.view(plan, i).date, mixed };
 return this.at;
 }
@@ -304,7 +305,8 @@ questions() {
 if (this.qs) return this.qs;
 const N = window.ykN1;
 const at = this.where();
-this.qs = at.ok ? N.testFor(at.plan, at.i).map((q) => this.tidy(q)).filter(Boolean) : [];
+/* a plan saved against a larger bank can name a kanji the bank no longer holds: then there is no test to give */
+try { this.qs = at.ok ? N.testFor(at.plan, at.i).map((q) => this.tidy(q)).filter(Boolean) : []; } catch (e) { this.qs = []; }
 return this.qs;
 }
 total() {

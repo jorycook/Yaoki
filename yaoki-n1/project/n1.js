@@ -164,7 +164,8 @@
     if (x.t === 1) return !!(x.p && x.p.t);
     if (x.t === 2) return !!(x.p && x.p.v);
     var p = x.p || {};
-    return (x.g < 0 || p.g >= 3) && (!x.k.length && !x.w.length || p.k >= 1) && (x.r < 0 || p.r >= 1) && (x.l < 0 || p.l >= 1);
+    /* a part whose bank entry is gone (a plan saved against another bank) is not required */
+    return (x.g < 0 || x.g >= LESSONS.length || p.g >= 3) && (!x.k.length && !x.w.length || p.k >= 1) && (x.r < 0 || x.r >= READINGS.length || p.r >= 1) && (x.l < 0 || x.l >= LISTENINGS.length || p.l >= 1);
   }
   function started(x) { var p = x && x.p; return !!(p && (p.g || p.k || p.r || p.l || p.t || p.v)); }
 
@@ -409,7 +410,7 @@
   }
   /* the kanji quiz of a day: up to max reading questions, one word per kanji, spread over the day's kanji */
   function kanjiQuiz(plan, i, max) {
-    var ki = plan.days[i].k || [];
+    var ki = (plan.days[i].k || []).filter(function (k) { return B.kanji[k]; });
     var qs = [];
     var step = Math.max(1, Math.floor(ki.length / (max || 8)));
     for (var j = 0; j < ki.length && qs.length < (max || 8); j += step) {
@@ -493,9 +494,9 @@
     for (var i = from; i < Math.min(plan.days.length, from + 7); i++) {
       var x = plan.days[i];
       if (x.t !== 0) continue;
-      (x.k || []).forEach(function (k) { ks.push(k); });
-      (x.w || []).forEach(function (w) { ws.push(w); });
-      if (x.g >= 0) gs.push(x.g);
+      (x.k || []).forEach(function (k) { if (B.kanji[k]) ks.push(k); });
+      (x.w || []).forEach(function (w) { if (WORDS[w]) ws.push(w); });
+      if (x.g >= 0 && LESSONS[x.g]) gs.push(x.g);
     }
     var qs = [];
     var kstep = Math.max(1, Math.floor(ks.length / 8));
@@ -522,9 +523,9 @@
       for (var j = 0; j < upto; j++) {
         var x = plan.days[j];
         if (x.t !== 0) continue;
-        (x.k || []).forEach(function (k) { ks.push(k); });
-        (x.w || []).forEach(function (w) { ws.push(w); });
-        if (x.g >= 0) gs.push(x.g);
+        (x.k || []).forEach(function (k) { if (B.kanji[k]) ks.push(k); });
+        (x.w || []).forEach(function (w) { if (WORDS[w]) ws.push(w); });
+        if (x.g >= 0 && LESSONS[x.g]) gs.push(x.g);
       }
     }
     var pick = function (arr, n, salt) { var o = order(arr.length, 'v' + i + salt); return o.slice(0, n).map(function (k) { return arr[k]; }); };

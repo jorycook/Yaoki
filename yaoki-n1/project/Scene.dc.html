@@ -251,7 +251,11 @@ return answer > 0 && keep.length >= 2 ? { ...q, options: keep.map((x) => x.o), a
    levels (N.dayReview: marked review, with their level) */
 quiz(plan, i, v) {
 const N = window.ykN1;
-const ks = v.kanji.length ? N.kanjiQuiz(plan, i, 8) : [];
+/* a kanji the bank no longer holds (a plan saved against a larger bank) is left out of the quiz as it is left out of
+   the kanji step: N.kanjiQuiz reads the day's own list, so it gets the list without it */
+const kis = (plan.days[i].k || []).filter((ki) => N.kanji[ki]);
+const safe = kis.length === (plan.days[i].k || []).length ? plan : { days: Object.assign([], plan.days, { [i]: { ...plan.days[i], k: kis } }) };
+const ks = kis.length ? N.kanjiQuiz(safe, i, 8) : [];
 const ws = v.wi.map((wi) => N.wordQ(wi));
 const rs = ks.length || ws.length ? N.dayReview(plan, i, 2) : [];
 return ks.concat(ws, rs).map((q) => this.tidy(q)).filter(Boolean);

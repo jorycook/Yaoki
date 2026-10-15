@@ -215,6 +215,11 @@ if (key === 'g') return p.g >= 3;
 if (key === 'k' || key === 'w') return p.k >= 1;
 return p[key] >= 1;
 }
+/* a week test that was a mixed review (a week with nothing new, as N.testFor decides); a plan saved against a larger
+   bank can name a kanji the bank no longer holds, and then the week counts as an ordinary test */
+mixedWeek(plan, wk) {
+try { return window.ykN1.weekTest(plan, wk).length < 6; } catch (e) { return false; }
+}
 /* due today, as the notebook counts it: an entry the bank can rebuild, not cleared, and back today or before */
 dueCount(list) {
 const N = window.ykN1;
@@ -397,7 +402,7 @@ let met = 0;
 days.forEach((x, i) => {
 const p = x.p || {};
 if (x.t === 0 && p.k >= 1 && (this.size(x, 'k') || this.size(x, 'w'))) met += 2;
-else if (x.t === 1 && p.t >= 1) met += N.weekTest(plan, Math.floor(i / 7) + 1).length < 6 ? 6 : 4;
+else if (x.t === 1 && p.t >= 1) met += this.mixedWeek(plan, Math.floor(i / 7) + 1) ? 6 : 4;
 else if (x.t === 2 && p.v >= 1) met += 6;
 });
 met = Math.min(met, pool);
