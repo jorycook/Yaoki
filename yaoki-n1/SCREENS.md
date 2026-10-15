@@ -141,7 +141,8 @@ the file when the clip is first played:
 - `g.<lesson id>.<pattern 0-2>.<example 0-1>`: a teach page example;
 - `l.<lesson id>`: a listening item (the line, then the three numbered replies);
 - `l.<lesson id>.slow`: the same listening item said more slowly (0.8×), for Listening's ゆっくり button;
-- `w.<lesson id>.<word 0-4>`: a word and its example sentence;
+- `w.<lesson id>.<word 0-19>`: a word and its example sentence (the lesson's five, then the fifteen of its word bank);
+- `l.<lesson id>.<part>`: a part of the lesson's longer listening item (`q`, `talk`, `q2`, or `talk`, `choices`);
 - `m<mock id>.<n>.<part>`: a part of a listening question of mock 2 or later, where n is the question's place in the
   whole paper (`m2.10.talk`, `m2.12.replies`), kept as a file listed in `audio/clips.js` like the lesson clips
   (`content/MOCKS.md`).
