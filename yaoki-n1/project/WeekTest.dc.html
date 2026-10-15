@@ -230,14 +230,14 @@ const SECS = [
 ];
 /* each question type: its section, what it asks, the exam's instruction and its name as a weak spot */
 const TYPES = {
-'漢字読み': { sec: 0, ask: 'Choose the reading', rubric: '＿＿＿の言葉の読み方として最もよいものを選びなさい。', weak: 'kanji readings' },
-'文脈規定': { sec: 0, ask: 'Choose the word that fits', rubric: '（　　）に入れるのに最もよいものを選びなさい。', weak: 'words in context' },
-'言い換え類義': { sec: 0, ask: 'Closest in meaning', rubric: '＿＿＿の言葉に意味が最も近いものを選びなさい。', weak: 'closest meanings' },
-'用法': { sec: 0, ask: 'Which sentence uses it well?', rubric: '次の言葉の使い方として最もよいものを選びなさい。', weak: 'word usage' },
-'文の文法1': { sec: 1, ask: 'Choose the form', rubric: '次の文の（　　）に入れるのに最もよいものを選びなさい。', weak: 'grammar forms' },
-'文の文法2': { sec: 1, ask: 'Which tile goes on the ★?', rubric: '次の文の★に入る最もよいものを選びなさい。', weak: 'star sentences' },
+'漢字読み': { sec: 0, ask: 'Choose the reading', rubric: '下線部の読み方として正しいものを一つ選んでください。', weak: 'kanji readings' },
+'文脈規定': { sec: 0, ask: 'Choose the word that fits', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。', weak: 'words in context' },
+'言い換え類義': { sec: 0, ask: 'Closest in meaning', rubric: '下線部と意味がいちばん近い言葉を一つ選んでください。', weak: 'closest meanings' },
+'用法': { sec: 0, ask: 'Which sentence uses it well?', rubric: 'この言葉が正しく使われている文を一つ選んでください。', weak: 'word usage' },
+'文の文法1': { sec: 1, ask: 'Choose the form', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。', weak: 'grammar forms' },
+'文の文法2': { sec: 1, ask: 'Which tile goes on the ★?', rubric: '並べ替えたとき★の位置に来る語句を一つ選んでください。', weak: 'star sentences' },
 };
-const OTHER = { sec: 1, ask: 'Choose the answer', rubric: '最もよいものを選びなさい。', weak: 'other questions' };
+const OTHER = { sec: 1, ask: 'Choose the answer', rubric: '正しいものを一つ選んでください。', weak: 'other questions' };
 const typeOf = (q) => TYPES[q.type] || OTHER;
 /* the stamp the result gets, by the share of right answers */
 const STAMPS = [

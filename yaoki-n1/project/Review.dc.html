@@ -227,14 +227,14 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["answered","question","done"],"default":"answered"},"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"menu":{"editor":null},"$preview":{"width":390,"height":844}}'>
 /* each kind of question: what it asks, and the exam's instruction */
 const KIND = {
-'漢字読み': { ask: 'Choose the reading', rubric: '＿＿＿の言葉の読み方として最もよいものを選びなさい。' },
-'文脈規定': { ask: 'Choose the word that fits', rubric: '（　　）に入れるのに最もよいものを選びなさい。' },
-'言い換え類義': { ask: 'Closest in meaning', rubric: '＿＿＿の言葉に意味が最も近いものを選びなさい。' },
-'用法': { ask: 'Which sentence uses it well?', rubric: '次の言葉の使い方として最もよいものを選びなさい。' },
-'文の文法1': { ask: 'Choose the form', rubric: '次の文の（　　）に入れるのに最もよいものを選びなさい。' },
-'文の文法2': { ask: 'Which tile goes on the ★?', rubric: '次の文の★に入る最もよいものを選びなさい。' },
+'漢字読み': { ask: 'Choose the reading', rubric: '下線部の読み方として正しいものを一つ選んでください。' },
+'文脈規定': { ask: 'Choose the word that fits', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。' },
+'言い換え類義': { ask: 'Closest in meaning', rubric: '下線部と意味がいちばん近い言葉を一つ選んでください。' },
+'用法': { ask: 'Which sentence uses it well?', rubric: 'この言葉が正しく使われている文を一つ選んでください。' },
+'文の文法1': { ask: 'Choose the form', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。' },
+'文の文法2': { ask: 'Which tile goes on the ★?', rubric: '並べ替えたとき★の位置に来る語句を一つ選んでください。' },
 '読解': { ask: 'Read, then answer', rubric: '' },
-'即時応答': { ask: 'Choose the best reply', rubric: '文を聞いて、1から3の中から最もよい返事を選びなさい。' },
+'即時応答': { ask: 'Choose the best reply', rubric: 'はじめに短い文が流れます。続いてそれへの答えを聞き、正しい返事を一つ選んでください。' },
 '文章の文法': { ask: 'Choose what fits the text', rubric: '' },
 '統合理解': { ask: 'Read A and B, then answer', rubric: '' },
 '課題理解': { ask: 'Listen, then answer', rubric: '' },
@@ -548,7 +548,7 @@ const ex = this.extra(q.src);
 /* a mock question: its item in the bank, and how its paper lays it out (sentence, usage, passage, pair, task, gist, quick) */
 const raw = e.raw ? e.raw.it : null;
 const layout = raw ? q.kind || raw.kind || '' : '';
-const kind = KIND[q.type] || { ask: BY_KIND[layout] || 'Choose the answer', rubric: raw ? '' : '最もよいものを選びなさい。' };
+const kind = KIND[q.type] || { ask: BY_KIND[layout] || 'Choose the answer', rubric: raw ? '' : '正しいものを一つ選んでください。' };
 const area = AREA[q.area] || AREA.g;
 const isListen = !!q.listen;
 const isReading = q.type === '読解' && !raw;
