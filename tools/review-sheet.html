@@ -1,0 +1,271 @@
+<title>Yaoki __LEVEL__ __HEAD__ Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EE; --paper:#FFFFFF; --ink:#1B2440; --mute:#5D6377; --line:#DCD8CC;
+  --hl:#FFF0B8; --accent:#2F4FD0; --ok:#0B7A6B; --okbg:#E0F3EF; --fix:#C7361E; --fixbg:#FDEBE6;
+  --amber:#B87500; --amberbg:#FFF4D6; --red:#C7361E; --redbg:#FDEBE6; --chip:#ECE9DF;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171F; --paper:#1C2029; --ink:#E9EBF2; --mute:#9AA1B5; --line:#323847;
+  --hl:#4A4220; --accent:#8EA2FF; --ok:#4CC3AE; --okbg:#173A35; --fix:#FF8A72; --fixbg:#40221C;
+  --amber:#F2B43A; --amberbg:#3A3019; --red:#FF8A72; --redbg:#40221C; --chip:#262B36; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171F; --paper:#1C2029; --ink:#E9EBF2; --mute:#9AA1B5; --line:#323847;
+  --hl:#4A4220; --accent:#8EA2FF; --ok:#4CC3AE; --okbg:#173A35; --fix:#FF8A72; --fixbg:#40221C;
+  --amber:#F2B43A; --amberbg:#3A3019; --red:#FF8A72; --redbg:#40221C; --chip:#262B36; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP','Hiragino Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;padding-inline:16px;padding-block:20px 60px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+[lang="ja"]{font-family:'Noto Serif JP','Hiragino Mincho ProN',serif}
+h1{font-size:24px;line-height:1.3;margin:0;text-wrap:balance;font-weight:800}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:14px 0 0;font-weight:800}
+p{margin:0}
+.lede{color:var(--mute);max-width:65ch}
+.howto{display:grid;gap:6px;padding:12px 14px;border-left:3px solid var(--accent);background:var(--paper)}
+.howto b{font-weight:800}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;background:var(--bg);padding-block:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.count{font-weight:800;font-variant-numeric:tabular-nums;margin-right:auto}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:10px;padding:6px 12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.status{font-size:12px;color:var(--mute)}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.row.amber{border-left:5px solid var(--amber)}
+.row.red{border-left:5px solid var(--red)}
+.row.m-ok{background:linear-gradient(var(--okbg),var(--okbg))}
+.row.m-fix{background:linear-gradient(var(--fixbg),var(--fixbg))}
+.meta{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.meta .id{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace}
+.meta .lab{font-weight:800;letter-spacing:.04em}
+.head{font-size:16px;overflow-wrap:anywhere}
+.flag{font-size:13px;padding:8px 10px;border-radius:8px;background:var(--amberbg)}
+.row.red .flag{background:var(--redbg)}
+.flag b{font-weight:800}
+details summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:600}
+details>div{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.hl{background:var(--hl);font-weight:700;border-radius:3px;padding:0 2px}
+.ans{color:var(--ok);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.tiles{display:inline;padding:0 2px;border-bottom:2px solid var(--ok)}
+.star{color:var(--ok);font-weight:700}
+.star::before{content:'★';font-size:11px;vertical-align:super}
+.opts{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.opts li.ok::marker{color:var(--ok);font-weight:800}
+.opts li.ok>span[lang]{color:var(--ok);font-weight:700}
+.why{font-family:'Noto Sans JP',system-ui,sans-serif;font-size:13px;color:var(--mute)}
+.ex{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.en{font-size:13px;color:var(--mute)}
+.small{font-size:13px;color:var(--mute)}
+ul.small{margin:0;padding-left:18px}
+.bad{color:var(--fix)} .good{color:var(--ok)}
+.passage{padding:10px 12px;background:var(--bg);border-radius:8px;line-height:1.9;display:flex;flex-direction:column;gap:2px}
+.words{border-collapse:collapse;font-size:14px;width:100%}
+.words td{border-top:1px solid var(--line);padding:4px 8px 4px 0;vertical-align:top}
+.tablebox{overflow-x:auto}
+rt{font-size:9px;color:var(--mute)}
+.marks{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mark{min-width:72px;min-height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+.mark.okb[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.mark.fixb[aria-pressed="true"]{background:var(--fix);border-color:var(--fix);color:var(--paper)}
+.notebtn{background:none;border:none;color:var(--accent);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px}
+textarea{width:100%;box-sizing:border-box;min-height:64px;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;font-size:14px;background:var(--paper);color:var(--ink);resize:vertical}
+.empty{color:var(--mute);font-size:14px;padding:12px 0}
+.toast{font-size:12px;color:var(--ok);font-weight:700}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <div class="small" style="font-weight:800;letter-spacing:.08em">YAOKI __LEVEL__ · CONTENT REVIEW</div>
+    <h1>__HEAD__: __FN__</h1>
+    <p class="lede">Everything in this unit, written as draft content for a JLPT __LEVEL__ study app. Each row is one thing to judge. The rows marked amber or red are the ones I am least sure about; they come first.</p>
+  </header>
+  <section class="howto">
+    <p><b>Please mark each row OK or Fix.</b> For Fix, a word in the note box is enough: what is wrong, or the better wording.</p>
+    <p class="small">Flagged rows have the question I want answered. The other rows show the sentence with the answer in place; open "Options and reasons" only if something looks off. About 2 hours for this pilot unit; later units will be shorter, using your corrections as rules.</p>
+    <p class="small">What to look for: one right answer only (a wrong option a native speaker could accept is a bug), natural Japanese, __LEVEL__ level, and English reasons that state a true rule.</p>
+  </section>
+
+  <div class="bar" role="toolbar" aria-label="Filter and progress">
+    <span class="count" id="count">0 of 0 marked</span>
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="flag" aria-pressed="false">Flagged</button>
+    <button class="chip" data-f="todo" aria-pressed="false">Not marked</button>
+    <button class="chip" data-f="fix" aria-pressed="false">To fix</button>
+    <button class="btn" id="copy">Copy all marks</button>
+    <span class="status" id="status" style="flex-basis:100%">Marks are kept on this device.</span>
+  </div>
+
+  <main id="main" class="wrap" style="gap:10px"></main>
+</div>
+
+<script>
+const ROWS = __ROWS__;
+const LS = 'yaoki-review-__LSKEY__';
+const marks = {};
+try { Object.assign(marks, JSON.parse(localStorage.getItem(LS) || '{}')); } catch (e) {}
+let filter = 'all';
+let col = null; // the shared db collection, when this viewer may write it
+const key = (id) => encodeURIComponent(id).replace(/%/g, '~');
+const rank = { red: 0, amber: 1, green: 2 };
+
+function saveLocal() { try { localStorage.setItem(LS, JSON.stringify(marks)); } catch (e) {} }
+const timers = {};
+function persist(id) {
+  saveLocal();
+  if (!col) return;
+  clearTimeout(timers[id]);
+  timers[id] = setTimeout(async () => {
+    const m = marks[id] || {};
+    try { await col.doc(key(id)).set({ id, state: m.state || '', note: m.note || '', at: Date.now() }); }
+    catch (e) {
+      if (e && (e.code === 'invalid_argument' || e.code === 'not_granted' || e.code === 'revoked')) { col = null; setStatus(false); }
+    }
+  }, 600);
+}
+
+function setStatus(shared) {
+  document.getElementById('status').textContent = shared
+    ? 'Marks are saved with this page, so they reach the app’s author as you go.'
+    : 'Marks are kept on this device. When you finish, tap Copy all marks and send the text back.';
+}
+
+function visible(r) {
+  const m = marks[r.id] || {};
+  if (filter === 'flag') return r.level !== 'green';
+  if (filter === 'todo') return !m.state;
+  if (filter === 'fix') return m.state === 'fix';
+  return true;
+}
+
+function el(tag, attrs, html) { const x = document.createElement(tag); Object.entries(attrs || {}).forEach(([k, v]) => x.setAttribute(k, v)); if (html != null) x.innerHTML = html; return x; }
+
+function rowNode(r) {
+  const m = marks[r.id] || {};
+  const box = el('article', { class: 'row ' + r.level + (m.state ? ' m-' + m.state : ''), id: 'r-' + key(r.id) });
+  const meta = el('div', { class: 'meta' });
+  meta.append(el('span', { class: 'lab' }, r.label), el('span', { class: 'id' }, r.id));
+  if (r.level !== 'green') meta.append(el('span', { style: 'font-weight:800;color:var(--' + r.level + ')' }, r.level === 'red' ? '● red' : '● amber'));
+  box.append(meta, el('div', { class: 'head' }, r.head));
+  if (r.note) box.append(el('div', { class: 'flag' }, '<b>Question:</b> ' + r.note.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))));
+  if (r.body) {
+    const d = el('details');
+    if (r.level !== 'green') d.open = true;
+    d.append(el('summary', {}, 'Options and reasons'), el('div', {}, r.body.replace(/<table/g, '<div class="tablebox"><table').replace(/<\/table>/g, '</table></div>')));
+    box.append(d);
+  }
+  const bar = el('div', { class: 'marks' });
+  const ok = el('button', { class: 'mark okb', 'aria-pressed': String(m.state === 'ok') }, 'OK');
+  const fix = el('button', { class: 'mark fixb', 'aria-pressed': String(m.state === 'fix') }, 'Fix');
+  const nb = el('button', { class: 'notebtn' }, m.note ? 'Edit note' : 'Add note');
+  const ta = el('textarea', { 'aria-label': 'Note for ' + r.id, placeholder: 'What is wrong, or the better wording' });
+  ta.value = m.note || '';
+  ta.hidden = !(m.note || m.state === 'fix');
+  const pick = (s) => {
+    const cur = marks[r.id] || {};
+    marks[r.id] = { ...cur, state: cur.state === s ? '' : s };
+    persist(r.id);
+    if (marks[r.id].state === 'fix') { ta.hidden = false; ta.focus(); }
+    refresh(r.id);
+  };
+  ok.onclick = () => pick('ok');
+  fix.onclick = () => pick('fix');
+  nb.onclick = () => { ta.hidden = false; ta.focus(); };
+  ta.oninput = () => { marks[r.id] = { ...(marks[r.id] || {}), note: ta.value }; persist(r.id); count(); };
+  bar.append(ok, fix, nb);
+  box.append(bar, ta);
+  return box;
+}
+
+function refresh(id) {
+  const r = ROWS.find((x) => x.id === id);
+  const old = document.getElementById('r-' + key(id));
+  if (old && r) old.replaceWith(rowNode(r));
+  count();
+}
+
+function count() {
+  const n = ROWS.filter((r) => (marks[r.id] || {}).state).length;
+  const f = ROWS.filter((r) => (marks[r.id] || {}).state === 'fix').length;
+  document.getElementById('count').textContent = n + ' of ' + ROWS.length + ' marked' + (f ? ' · ' + f + ' to fix' : '');
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.textContent = '';
+  const flagged = ROWS.filter((r) => r.level !== 'green' && visible(r)).sort((a, b) => rank[a.level] - rank[b.level]);
+  const rest = ROWS.filter((r) => r.level === 'green' && visible(r));
+  if (flagged.length) {
+    main.append(el('h2', {}, 'Look at these first · ' + flagged.length));
+    const l = el('div', { class: 'list' }); flagged.forEach((r) => l.append(rowNode(r))); main.append(l);
+  }
+  let g = null, l = null;
+  rest.forEach((r) => {
+    if (r.group !== g) { g = r.group; main.append(el('h2', { lang: 'ja' }, g.replace(/[<>&]/g, ''))); l = el('div', { class: 'list' }); main.append(l); }
+    l.append(rowNode(r));
+  });
+  if (!flagged.length && !rest.length) main.append(el('p', { class: 'empty' }, 'Nothing here.'));
+  count();
+}
+
+document.querySelectorAll('.chip').forEach((c) => c.onclick = () => {
+  filter = c.dataset.f;
+  document.querySelectorAll('.chip').forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+  render();
+});
+
+document.getElementById('copy').onclick = async () => {
+  const lines = ['Yaoki __LEVEL__ unit __UNIT__ review'];
+  ROWS.forEach((r) => {
+    const m = marks[r.id] || {};
+    if (!m.state && !m.note) return;
+    lines.push(r.id + '\t' + (m.state ? m.state.toUpperCase() : '-') + (m.note ? '\t' + m.note.replace(/\s+/g, ' ') : ''));
+  });
+  const n = ROWS.filter((r) => !(marks[r.id] || {}).state).length;
+  lines.push(n ? n + ' rows not marked' : 'All rows marked');
+  const text = lines.join('\n');
+  const b = document.getElementById('copy');
+  try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; }
+  catch (e) {
+    const ta = el('textarea', { 'aria-label': 'Your marks as text' }); ta.value = text;
+    b.after(ta); ta.select(); b.textContent = 'Select and copy the text below';
+  }
+  setTimeout(() => { b.textContent = 'Copy all marks'; }, 2500);
+};
+
+setStatus(false);
+render();
+
+/* shared marks: read what is saved with the page, and save there too when this viewer may */
+(async () => {
+  if (!window.claude || !window.claude.use) return;
+  const db = await window.claude.use('db');
+  if (!db) return;
+  const user = await window.claude.use('user');
+  const c = db.collection('marks');
+  const stored = {};
+  try {
+    const snap = await c.get();
+    let changed = false;
+    snap.docs.forEach((d) => {
+      const v = d.data() || {};
+      if (v.id) stored[v.id] = (v.state || '') + '|' + (v.note || '');
+      if (v.id && ROWS.some((r) => r.id === v.id)) {
+        const mine = marks[v.id];
+        if (!mine || (!mine.state && !mine.note)) { marks[v.id] = { state: v.state || '', note: v.note || '' }; changed = true; }
+      }
+    });
+    if (changed) { saveLocal(); render(); }
+  } catch (e) {}
+  const can = user ? await user.can('data.write') : null;
+  if (can === false) return;
+  col = c;
+  setStatus(true);
+  /* marks made on this device before the shared store was reachable */
+  Object.keys(marks).forEach((id) => {
+    const m = marks[id];
+    if ((m.state || m.note) && ROWS.some((r) => r.id === id) && stored[id] !== (m.state || '') + '|' + (m.note || '')) persist(id);
+  });
+})();
+</script>

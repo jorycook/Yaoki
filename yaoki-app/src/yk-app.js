@@ -44,18 +44,20 @@
       return s && typeof s === 'object' ? s : null;
     } catch (e) { return null; }
   }
+  /* #if N1 */
+  /* the N1 app's memory: which screen is up, whether the goal has been set, the study plan (made on the goal screen
+     by n1.js; it keeps each day's progress), the mistakes made, the outcome of the notebook review and the last mini mock */
   function whole(n, max) {
     n = Number(n);
     return n >= 0 && n <= max && Math.floor(n) === n ? n : 0;
   }
   function start() {
-    /* plan: the study plan of an app that makes one from the learner's goal (the N1 app); null otherwise */
     var s = { screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null };
     var from = null;
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
       from = { started: true, g: query.get('g'), k: query.get('k'), r: query.get('r'), mistakes: json('m', []), rev: json('rev', null), mock: json('mock', null), plan: query.get('plan') === 'demo' ? (window.ykN1 ? window.ykN1.demo() : null) : json('plan', null) };
-      /* day=n: open that day of the plan (plan=demo is the canvas's sample plan, of an app that has one) */
+      /* day=n: open that day of the plan (plan=demo is the canvas's sample plan) */
       if (from.plan && query.has('day')) from.plan.open = +query.get('day');
       s.screen = query.get('screen') || 'Goal';
       from.started = s.screen !== 'Goal';
@@ -82,9 +84,91 @@
     var keep = { started: !!s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
     if (s.plan) keep.plan = s.plan;
     var text = JSON.stringify(keep);
+    keepCourseSound(s);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
   }
+  /* the offline copy stores each clip of the course the first time it is played, and all of them, in the background,
+     once the learner has a plan (see sw.js) */
+  var soundAsked = false;
+  function keepCourseSound(s) {
+    if (soundAsked || !s.plan) return;
+    try {
+      var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (sw) { sw.postMessage({ keepLevel: 'n1' }); soundAsked = true; }
+    } catch (e) {}
+  }
+  /* #else */
+  var C = window.ykCourse;
+  function obj(x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : null; }
+  function dateOk(d) { return typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d); }
+  /* a mistake from version 0.1, saved under the name of the screen it came from */
+  var OLD = { drill: 'u03d4.d1', star: 'u03d4.d2', exam1: 'u03d4.e1', exam2: 'u03d4.e2', exam3: 'u03d4.e3', scene: 'u03d4.k1', reading: 'u03d4.r1' };
+  function start() {
+    var s = C.fresh();
+    var from = null;
+    if (TEST) {
+      var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
+      s.screen = query.get('screen') || 'Goal';
+      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day' };
+      if (from.started && !from.plan) from.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit' };
+      if (query.get('now')) window.__ykNow = +query.get('now');
+    } else {
+      from = load();
+      if (from && from.started) s.screen = 'Main';
+    }
+    if (from) {
+      s.started = !!from.started;
+      var planOk = function (p) { p = obj(p); return p && dateOk(p.start) && dateOk(p.exam) ? { start: p.start, exam: p.exam, pace: p.pace === 'steady' ? 'steady' : 'fit', minutes: p.minutes || 30 } : null; };
+      s.plan = planOk(from.plan);
+      /* the level the learner is on (saves from before there were several levels are N2), and the plans of the others */
+      var levels = {};
+      C.levels().forEach(function (x) { levels[x.level] = x.ready; });
+      s.level = typeof from.level === 'string' && levels[from.level] ? from.level : s.started ? 'N2' : null;
+      s.plans = {};
+      Object.keys(obj(from.plans) || {}).forEach(function (k) { if (levels[k] && planOk(from.plans[k])) s.plans[k] = planOk(from.plans[k]); });
+      C.setLevel(s.level || 'N2');
+      s.done = obj(from.done) || {};
+      s.tests = obj(from.tests) || {};
+      s.mistakes = (Array.isArray(from.mistakes) ? from.mistakes : []).map(function (m) {
+        if (!m || typeof m.src !== 'string') return null;
+        var src = OLD[m.src] || m.src;
+        if (!C.item(src)) return null;
+        return { src: src, wrong: String(m.wrong || ''), at: +m.at || C.now(), step: +m.step || 0, due: dateOk(m.due) ? m.due : C.today(C.now()), cleared: !!m.cleared, last: m.last || '' };
+      }).filter(Boolean);
+      s.mock = obj(from.mock) && from.mock.done ? from.mock : null;
+      s.mocks = {};
+      Object.keys(obj(from.mocks) || {}).forEach(function (k) { var m = from.mocks[k]; if (levels[k] && obj(m) && m.done) s.mocks[k] = m; });
+      if (typeof from.cur === 'string' && C.session(from.cur)) s.cur = from.cur;
+      s.tp = from.tp === 1 ? 1 : 0;
+      s.set = from.set === 'test' ? 'test' : 'day';
+      /* version 0.1 kept one sample day as g, k, r and had no plan */
+      if (s.started && !s.plan) s.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit', minutes: 30 };
+      if (from.g != null && !obj(from.done)) s.done = { u03d4: { g: +from.g || 0, k: +from.k || 0, r: +from.r || 0 } };
+    }
+    if (!window.YK.has(s.screen)) s.screen = s.started ? 'Main' : 'Goal';
+    return s;
+  }
+  function remember(s) {
+    if (TEST || !canSave) return;
+    /* a second attempt at the mini mock that is still open is not a result yet */
+    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    var text = JSON.stringify(keep);
+    keepLevelSound(s.level);
+    if (text === lastSaved) return;
+    try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
+  }
+  /* the offline copy stores each level's sound only once that level is chosen (see sw.js) */
+  var soundAsked = '';
+  function keepLevelSound(level) {
+    var lv = String(level || '').toLowerCase();
+    if (!/^n[345]$/.test(lv) || lv === soundAsked) return;
+    try {
+      var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }
+    } catch (e) {}
+  }
+  /* #end */
   function forget() {
     lastSaved = '';
     try { localStorage.removeItem(KEY); } catch (e) {}

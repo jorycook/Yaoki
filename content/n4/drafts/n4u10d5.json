@@ -1,0 +1,454 @@
+{
+ "title": "〜か（文の中）・〜とか",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u10d5.p1",
+    "form": "〜か（文の中）",
+    "gloss": "a question inside a sentence",
+    "connect": [
+     {
+      "pos": "Question word + verb or い-adjective, plain form",
+      "rule": "何時に来る{か}分かりません／どれが高い{か}"
+     },
+     {
+      "pos": "Question word + noun or な-adjective: drop だ",
+      "rule": "〜{か}：だれの本{か}／どこがしずか{か}"
+     },
+     {
+      "pos": "No question word (yes or no): 〜か〜ないか, like 〜かどうか (unit 5)",
+      "rule": "来る{か}来ない{か}分かりません"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あの人がだれ{か}、[知|し]っていますか。",
+      "en": "Do you know who that person is?"
+     },
+     {
+      "ja": "あしたは雨がふる{か}ふらない{か}、まだ分かりません。",
+      "en": "I don't know yet whether it will rain tomorrow or not."
+     }
+    ],
+    "watch": {
+     "note": "The question inside the sentence takes the plain form, not です or ます. After a noun or a な-adjective, drop だ and put か right after it.",
+     "bad": "駅がどこですか分かりません。",
+     "good": "駅がどこか分かりません。"
+    }
+   },
+   {
+    "id": "n4u10d5.p2",
+    "form": "〜とか〜とか",
+    "gloss": "things like … and … (casual)",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜{とか}〜{とか}：パン{とか}たまご{とか}"
+     },
+     {
+      "pos": "Verb, dictionary form",
+      "rule": "そうじをする{とか}、テレビを見る{とか}"
+     },
+     {
+      "pos": "A particle or する can follow the last とか",
+      "rule": "パン{とか}たまご{とか}を買います"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "コンビニで、おにぎり{とか}お[茶|ちゃ]{とか}を買いました。",
+      "en": "I bought things like rice balls and tea at the convenience store."
+     },
+     {
+      "ja": "休みの日は、[映画|えいが]を見る{とか}、[料理|りょうり]を[作|つく]る{とか}しています。",
+      "en": "On my days off I do things like watching films and cooking."
+     }
+    ],
+    "watch": {
+     "note": "とか follows the plain form. In a polite sentence, only the end of the sentence takes ます. とか is for talking; in writing, list nouns with や…など.",
+     "bad": "休みの日は、本を読みますとか、テレビを見ますとかしています。",
+     "good": "休みの日は、本を読むとか、テレビを見るとかしています。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "か puts a question inside a sentence; とか and や…など both give a few examples from a longer list.",
+   "forms": [
+    {
+     "form": "〜か（文の中）",
+     "tag": "中のしつもん · a question inside",
+     "mark": "dot",
+     "ja": "店が何時に[開|あ]く{か}、しらべます。",
+     "en": "I'll check what time the shop opens."
+    },
+    {
+     "form": "〜とか〜とか",
+     "tag": "れい・会話 · examples, casual",
+     "mark": "dot",
+     "ja": "パン{とか}たまご{とか}を買いました。",
+     "en": "I bought things like bread and eggs."
+    },
+    {
+     "form": "〜や〜など",
+     "tag": "れい · examples, any style",
+     "mark": "dot",
+     "ja": "テーブルの上に、りんご{や}みかん{など}があります。",
+     "en": "There are apples, mandarins and so on on the table."
+    }
+   ],
+   "check": {
+    "id": "n4u10d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Question or examples?",
+    "q": "パーティーに何人来る（　　）、まだ分かりません。",
+    "options": [
+     "や",
+     "か",
+     "など"
+    ],
+    "answer": 2,
+    "why": [
+     "や joins nouns in a list. It cannot follow a verb like 来る.",
+     "何人 is a question word, so the question inside the sentence ends with plain form + か: I don't know yet how many people will come.",
+     "With a question word, か is needed. 何人来るなど is not said."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u10d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あしたのじゅぎょうが^何時から^（　　）、先生に聞いてみます。",
+    "options": [
+     "[始|はじ]まりますか",
+     "[始|はじ]まると",
+     "[始|はじ]まるか",
+     "[始|はじ]まるので"
+    ],
+    "answer": 3,
+    "why": [
+     "The question sits inside the sentence, so it takes the plain form, not ます.",
+     "と cannot wrap a question with 何時. The question needs か.",
+     "何時から is a question word, and plain form + か puts the question inside the sentence: I'll ask the teacher what time class starts.",
+     "ので gives a reason. A question word like 何時 needs か after the verb."
+    ]
+   },
+   {
+    "id": "n4u10d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "これが^だれの^かさ（　　）、[知|し]っていますか。",
+    "options": [
+     "のか",
+     "ですか",
+     "かどうか",
+     "か"
+    ],
+    "answer": 4,
+    "why": [
+     "かさのか is not a form. After a noun, put か directly.",
+     "The question inside the sentence takes the plain form, so です does not go before か.",
+     "かどうか is for yes-or-no questions. With a question word like だれ, use か alone.",
+     "だれ is a question word, かさ is a noun, and か follows the noun directly: do you know whose umbrella this is?"
+    ]
+   },
+   {
+    "id": "n4u10d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "日[曜|よう]日は、そうじを^するとか^、買い[物|もの]に（　　）して、いつもいそがしいです。",
+    "options": [
+     "行くとか",
+     "行ってとか",
+     "行きますとか",
+     "行ったとか"
+    ],
+    "answer": 1,
+    "why": [
+     "とか follows the dictionary form, the same shape as するとか: things like cleaning and going shopping.",
+     "とか does not follow the te-form.",
+     "ます goes only at the end of the sentence. Inside the list, use the plain form.",
+     "Sundays are a habit, and するとか is not past, so the past 行った does not fit here."
+    ]
+   },
+   {
+    "id": "n4u10d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[図書館|としょかん]の中に、食べ[物|もの]（　　）飲み[物|もの]^など^を[持|も]って入らないでください。",
+    "options": [
+     "も",
+     "や",
+     "が",
+     "とか"
+    ],
+    "answer": 2,
+    "why": [
+     "も would mean food too, and it cannot join two nouns before など.",
+     "や pairs with など to give examples, and it suits a written rule: food, drinks and so on.",
+     "が marks a subject. It cannot join two nouns in a list.",
+     "とか pairs with another とか and is for talking. This is a library rule ending in など, so や is used."
+    ]
+   },
+   {
+    "id": "n4u10d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この電車が",
+    "after": "聞いてみます。",
+    "tiles": [
+     "何時に",
+     "[着|つ]く",
+     "か",
+     "駅の人に"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "The question is この電車が何時に…. Where does it end, and who do you ask?",
+    "full": "この電車が何時に[着|つ]く{か}駅の人に聞いてみます。",
+    "explain": "この電車が何時に着く is the question, so か comes right after 着く. 駅の人に says who you ask, right before 聞いてみます: I'll ask the station staff what time this train arrives."
+   },
+   {
+    "id": "n4u10d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[夏|なつ]休みは、[海|うみ]でおよぐ",
+    "after": "すごしたいです。",
+    "tiles": [
+     "とか",
+     "山に",
+     "行くとか",
+     "して"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "およぐ needs とか right after it. する follows the last とか.",
+    "full": "[夏|なつ]休みは、[海|うみ]でおよぐ{とか}山に行くとかしてすごしたいです。",
+    "explain": "およぐとか is the first example, and 山に行くとか the second. して comes after the last とか and joins すごしたい: this summer I want to spend time doing things like swimming in the sea and going to the mountains."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u10d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "パーティーに　だれが　（　　）、知って　いますか。",
+    "options": [
+     "来るか",
+     "来ますか",
+     "来ると",
+     "来るかどうか"
+    ],
+    "answer": 1,
+    "explain": "だれ is a question word, so the question inside the sentence is plain form + か: do you know who is coming to the party? 来ますか uses ます inside the sentence, 来ると does not make a question, and かどうか is for yes-or-no questions, not with だれ."
+   },
+   {
+    "id": "n4u10d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "休みの　日は、（　　）　して　います。",
+    "options": [
+     "テニスを　しますとか　本を　読みますとか",
+     "テニスを　するや　本を　読むや",
+     "テニスを　してとか　本を　読んでとか",
+     "テニスを　するとか　本を　読むとか"
+    ],
+    "answer": 4,
+    "explain": "とか follows the dictionary form, and する follows the last とか: on days off I do things like playing tennis and reading. ます does not go before とか, や joins nouns only, and とか does not follow the te-form."
+   },
+   {
+    "id": "n4u10d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしの　さいふが　",
+    "after": "いますか。",
+    "tiles": [
+     "どこに",
+     "あるか",
+     "だれか",
+     "知って"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "full": "わたしの　さいふが　どこに　{あるか}　だれか　知って　いますか。",
+    "explain": "どこに, あるか, だれか, 知って. さいふがどこにあるか is the question inside the sentence, and だれか is the person asked about: does anyone know where my wallet is?"
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅のわすれ物の用紙",
+  "en": "A lost-property form at a station",
+  "intro": "You left your bag on a train, and the station staff give you this form to fill in. Tap each word on it.",
+  "words": [
+   {
+    "id": "form",
+    "word": "用紙",
+    "reading": "ようし",
+    "gloss": "form (a sheet to fill in)",
+    "parts": [
+     ["用", "ヨウ", "use"],
+     ["紙", "シ", "paper"]
+    ]
+   },
+   {
+    "id": "address",
+    "word": "住所",
+    "reading": "じゅうしょ",
+    "gloss": "address",
+    "parts": [
+     ["住", "ジュウ", "live"],
+     ["所", "ショ", "place"]
+    ]
+   },
+   {
+    "id": "item",
+    "word": "品物",
+    "reading": "しなもの",
+    "gloss": "item, thing",
+    "parts": [
+     ["品", "しな", "goods"],
+     ["物", "もの", "thing"]
+    ]
+   },
+   {
+    "id": "colour",
+    "word": "色",
+    "reading": "いろ",
+    "gloss": "colour",
+    "parts": [
+     ["色", "いろ", "colour"]
+    ]
+   },
+   {
+    "id": "place",
+    "word": "場所",
+    "reading": "ばしょ",
+    "gloss": "place",
+    "parts": [
+     ["場", "ば", "spot"],
+     ["所", "ショ", "place"]
+    ]
+   },
+   {
+    "id": "boarded",
+    "word": "乗車駅",
+    "reading": "じょうしゃえき",
+    "gloss": "station where you got on",
+    "parts": [
+     ["乗", "ジョウ", "ride"],
+     ["車", "シャ", "vehicle"],
+     ["駅", "エキ", "station"]
+    ]
+   },
+   {
+    "id": "express",
+    "word": "特急",
+    "reading": "とっきゅう",
+    "gloss": "limited express",
+    "parts": [
+     ["特", "トッ", "special"],
+     ["急", "キュウ", "hurry"]
+    ]
+   },
+   {
+    "id": "note",
+    "word": "注意",
+    "reading": "ちゅうい",
+    "gloss": "please note, care",
+    "parts": [
+     ["注", "チュウ", "pour, focus"],
+     ["意", "イ", "mind"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u10d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　用紙に　_住所_を　書いて　ください。",
+   "options": [
+    "じゅしょ",
+    "じゅうしょ",
+    "しゅうしょ",
+    "じゅうじょ"
+   ],
+   "answer": 2,
+   "explain": "住所 is read じゅうしょ, an address: please write your address on this form. じゅしょ drops the long う, しゅうしょ has し instead of じ, and じゅうじょ has じょ instead of しょ."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "発話表現",
+  "en": "Expressions",
+  "situation": "At a station counter, a woman who left her umbrella on a train speaks to a station worker.",
+  "ask": "電車に　かさを　わすれました。駅の　人に　何と　いいますか。",
+  "item": {
+   "id": "n4u10d5.r1",
+   "kind": "choice",
+   "type": "発話表現",
+   "q": "電車に　かさを　わすれました。駅の　人に　何と　いいますか。",
+   "script": [
+    "ナレーター：電車に　かさを　わすれました。駅の　人に　何と　いいますか。",
+    "ナレーター：1",
+    "女：わたしの　かさが　どこに　あるか、しらべましょうか。",
+    "ナレーター：2",
+    "女：わたしの　かさが　どこに　あるか、分かりました。",
+    "ナレーター：3",
+    "女：わたしの　かさが　どこに　あるか、しらべて　もらえませんか。"
+   ],
+   "options": [
+    "わたしの　かさが　どこに　あるか、しらべましょうか。",
+    "わたしの　かさが　どこに　あるか、分かりました。",
+    "わたしの　かさが　どこに　あるか、しらべて　もらえませんか。"
+   ],
+   "printed": false,
+   "short": [
+    "しらべましょうか",
+    "分かりました",
+    "しらべてもらえませんか"
+   ],
+   "answer": 3,
+   "why": [
+    "しらべましょうか offers to look for it herself. She wants the station worker to look.",
+    "分かりました says she already knows where it is. Then she would not need to ask.",
+    ""
+   ]
+  },
+  "audio": [
+   ["N", "電車に　かさを　わすれました。駅の　人に　何と　いいますか。", "でんしゃに　かさを　わすれました。えきの　ひとに　なんと　いいますか。"],
+   ["N", "1", "いち"],
+   ["F", "わたしの　かさが　どこに　あるか、しらべましょうか。", null],
+   ["N", "2", "に"],
+   ["F", "わたしの　かさが　どこに　あるか、分かりました。", "わたしの　かさが　どこに　あるか、わかりました。"],
+   ["N", "3", "さん"],
+   ["F", "わたしの　かさが　どこに　あるか、しらべて　もらえませんか。", null]
+  ]
+ }
+}

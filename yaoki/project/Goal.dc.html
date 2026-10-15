@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <title>Set the goal</title>
 <script src="./support.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
 </head>
 <body>
 <x-dc>
@@ -47,7 +52,7 @@ button:disabled{cursor:default}
 <div style="font-size: 13px; font-weight: 800">レベル　Level</div>
 <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
 <sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
-<button aria-pressed="{{ l.on }}" onClick="{{ l.pick }}" style="height: 48px; border-radius: 14px; font-weight: 800; font-size: 16px; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}</button>
+<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 48px; border-radius: 14px; font-weight: 800; font-size: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
 </sc-for>
 </div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382"><span lang="ja">N1は別のアプリです。</span> N1 has its own app.</div>
@@ -61,7 +66,7 @@ button:disabled{cursor:default}
 <div style="font-size: 17px; font-weight: 800">2026年12月6日（日）</div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382">Sunday 6 December 2026</div>
 </div>
-<div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">あと57日</div>
+<div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">{{ daysLeft }}</div>
 </button>
 </div>
 
@@ -74,9 +79,16 @@ button:disabled{cursor:default}
 </div>
 </div>
 
-<div style="margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: #E8ECFB; display: flex; flex-direction: column; gap: 4px">
-<div style="font-size: 15px; font-weight: 800">8週間プラン　Your 8-week plan</div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.5">Each week: 6 study days, then a timed week test on day 7. Starts tomorrow, ends the day before the exam.</div>
+<div style="margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: #E8ECFB; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 15px; font-weight: 800">{{ planTitle }}</div>
+<sc-if value="{{ short }}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ fits }}" as="f" hint-placeholder-count="2">
+<button aria-pressed="{{ f.on }}" onClick="{{ f.pick }}" style="height: 48px; padding: 0 6px; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: {{ f.border }}; background: {{ f.bg }}; box-shadow: {{ f.shadow }}; color: {{ f.color }}"><div lang="ja" style="font-size: 14px; font-weight: 800">{{ f.big }}</div><div style="font-size: 11px; font-weight: 700">{{ f.small }}</div></button>
+</sc-for>
+</div>
+</sc-if>
+<div style="font-size: 12px; font-weight: 500; line-height: 1.45">{{ planNote }}</div>
 </div>
 
 <div style="flex-grow: 1"></div>
@@ -102,7 +114,7 @@ button:disabled{cursor:default}
 <div style="font-size: 17px; font-weight: 800">2026年12月6日（日）</div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382">Sunday 6 December 2026</div>
 </div>
-<div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">あと57日</div>
+<div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">{{ daysLeft }}</div>
 </button>
 <button disabled="{{ yes }}" style="height: 68px; padding: 0 14px; border-radius: 16px; border: 2px dashed #C9D0E3; background: #F4F5F9; color: #5A6382; display: flex; align-items: center; gap: 12px; text-align: left">
 <div aria-hidden="true" style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C9D0E3; background: #FFFFFF; flex-shrink: 0"></div>
@@ -123,7 +135,9 @@ button:disabled{cursor:default}
 class Component extends DCLogic {
 constructor(props) {
 super(props);
-this.state = { level: 'N2', pace: 30, painted: false, sheet: false };
+/* the level the learner is on, or N2 the first time */
+const lv = (props && props.app && props.app.level) || (window.ykCourse && window.ykCourse.level()) || 'N2';
+this.state = { level: lv, pace: 30, fit: 'fit', painted: false, sheet: false };
 }
 renderVals() {
 const s = this.state;
@@ -131,9 +145,14 @@ const look = (on) => on
 ? { border: '2px solid #1B2440', bg: '#2F4FD0', shadow: '0 3px 0 #1B2440', color: '#FFFFFF' }
 : { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#1B2440' };
 /* this app covers N5 to N2; N1 is a separate app */
+const C = window.ykCourse;
+const written = {};
+C.levels().forEach((x) => { written[x.level] = x.ready; });
 const levels = ['N5', 'N4', 'N3', 'N2'].map((label) => {
 const on = s.level === label;
-return { label, on, pick: () => this.setState({ level: label }), ...look(on) };
+const off = !written[label];
+const lk = off ? { border: '2px dashed #DDE1EC', bg: '#F4F5F9', shadow: 'none', color: '#9AA1B5' } : look(on);
+return { label, on, off, aria: label + (off ? ', not written yet' : ''), pick: () => { if (!off) this.setState({ level: label }); }, ...lk };
 });
 const paces = [
 { min: 20, big: '20分', small: 'かるく Light' },
@@ -143,7 +162,31 @@ const paces = [
 const on = s.pace === p.min;
 return { ...p, on, pick: () => this.setState({ pace: p.min }), ...look(on), subColor: on ? '#FFFFFF' : '#5A6382', subWeight: on ? 700 : 500 };
 });
+const exam = '2026-12-06';
+const today = C.today(C.now());
+const settings = { start: today, exam, pace: s.fit };
+/* the plan is worked out for the level picked here, which may not be the one the learner is on yet */
+const fitsOneADay = C.withLevel(s.level, () => C.fits(settings));
+const units = C.withLevel(s.level, () => C.units().length);
+const sessions = C.withLevel(s.level, () => C.sessions().length);
+const room = Math.max(1, C.daysBetween(today, exam) - 7);
+/* how far one session a day gets before the exam */
+const reach = Math.min(units, Math.floor(room / C.DAYS_PER_UNIT));
+const fits = [
+{ key: 'fit', big: '全部入れる', small: 'Fit it all in' },
+{ key: 'steady', big: '1日1回', small: 'One a day' },
+].map((f) => ({ ...f, on: s.fit === f.key, pick: () => this.setState({ fit: f.key }), ...look(s.fit === f.key) }));
+const left = C.daysBetween(today, exam);
 return {
+daysLeft: left > 0 ? 'あと' + left + '日' : '',
+planTitle: units + 'ユニット　Your ' + units + '-unit plan',
+short: !fitsOneADay,
+fits,
+planNote: fitsOneADay
+? 'Each unit: 6 study days, then a timed week test. One session a day, ' + sessions + ' in all, with the last week kept for mock exams.'
+: s.fit === 'fit'
+? sessions + ' sessions in ' + room + ' days: some days have two. The last week is kept for mock exams.'
+: 'One session a day. By the exam you reach unit ' + reach + ' of ' + units + '; the rest carries on afterwards.',
 levels,
 paces,
 painted: s.painted,
@@ -155,7 +198,11 @@ sheet: s.sheet,
 yes: true,
 openSheet: () => this.setState({ sheet: true }),
 closeSheet: () => this.setState({ sheet: false }),
-toMain: (e) => { const go = this.props.go; if (go) { e.preventDefault(); go('Main'); } },
+toMain: (e) => {
+const go = this.props.go;
+if (this.props.save) this.props.save({ level: s.level, plan: { start: today, exam, pace: s.fit, minutes: s.pace }, cur: null });
+if (go) { e.preventDefault(); go('Main'); }
+},
 };
 }
 }

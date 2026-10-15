@@ -1,0 +1,379 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "This unit's points come in look-alike sets: くせに blames a person, のに tells a fact with surprise or disappointment, and ながら（も） is a calmer, more formal although that joins the ます stem, an い-adjective or a noun directly; ても〜ても says trying again and again changes nothing, while たとえ〜ても imagines one case that may never happen; といっても makes what you just said sound smaller, while にしても accepts something and then gives your own judgement; [反面|はんめん] shows two sides of one thing, 一方で can also set two different things side by side, and けれども is the everyday but that can also lead into a request; わりに measures a result against a degree such as size, price or effort (a noun takes の), while にしては judges one case against what you would expect of it and joins a noun directly.",
+   "forms": [
+    {
+     "form": "〜わりに",
+     "tag": "程度とのずれ · for (a degree or amount)",
+     "mark": "dot",
+     "ja": "この町は小さい{わりに}、おいしい店がたくさんあります。",
+     "en": "This town has lots of good places to eat for its size."
+    },
+    {
+     "form": "〜にしては",
+     "tag": "その場合にしては · for (this one case)",
+     "mark": "dot",
+     "ja": "雨の日{にしては}、今日はお[客|きゃく]さんが多いですね。",
+     "en": "We have a lot of customers today, for a rainy day."
+    },
+    {
+     "form": "〜くせに",
+     "tag": "非難 · even though (with blame)",
+     "mark": "down",
+     "ja": "[彼|かれ]は自分で言い出した{くせに}、一[番|ばん]に帰ってしまいました。",
+     "en": "It was his idea, yet he was the first to go home."
+    }
+   ],
+   "check": {
+    "id": "n3u09d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which one joins a noun directly?",
+    "q": "[彼|かれ]は^[新人|しんじん]^（　　）、お[客|きゃく]さんとの話し方がとても上手です。",
+    "options": [
+     "わりに",
+     "くせに",
+     "にしては"
+    ],
+    "answer": 3,
+    "why": [
+     "After a noun, わりに needs の: [新人|しんじん]のわりに. [新人|しんじん]わりに is not a form.",
+     "After a noun, くせに needs の too, and it blames. Here the new employee is being praised.",
+     "A noun joins にしては directly: for someone so new, he talks to customers very well."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u09d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^たとえ^字が（　　）、手書きの手紙のほうが気持ちが[伝|つた]わります。",
+    "options": [
+     "下手なのに",
+     "下手なわりに",
+     "下手でも",
+     "下手なくせに"
+    ],
+    "answer": 3,
+    "why": [
+     "のに joins two real facts. たとえ imagines a case, so it needs ても or でも, not のに.",
+     "わりに measures a real fact against what you would expect. It does not go with たとえ.",
+     "下手 is a な-adjective, so たとえ…でも: even if your handwriting is poor, a handwritten letter carries your feelings better.",
+     "くせに blames a person for a real fact, and it does not go with たとえ. Nobody is being blamed here either."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u09d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "毎日料理をしている（　　）、^野菜を切ってスープにするぐらい^です。",
+    "options": [
+     "[反面|はんめん]",
+     "といっても",
+     "くせに",
+     "にしては"
+    ],
+    "answer": 2,
+    "why": [
+     "[反面|はんめん] adds another side of the same thing. Here the second half only says what the cooking is, not another side of it.",
+     "The speaker does cook every day, but it is only chopping vegetables into a soup: といっても plays down what was just said, and 〜ぐらいです shows it is less than it sounds.",
+     "くせに blames someone. The speaker is describing their own cooking and is not criticising anyone.",
+     "にしては judges how something turned out against what you would expect, as in [初|はじ]めてにしては上手. 〜ぐらいです here only says what the cooking is, not how well it turned out."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u09d6.d3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "弟は、学校がある日は",
+    "after": "自分で早く起きます。",
+    "tiles": [
+     "起こしても起こしても",
+     "起きない",
+     "くせに",
+     "休みの日は"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "Which tile says what happens however often I try to wake him? くせに follows the plain form, and the other days come after it.",
+    "full": "弟は、学校がある日は{起こしても起こしても}起きない{くせに}休みの日は自分で早く起きます。",
+    "explain": "起こしても起こしても, 起きない, くせに, 休みの日は. However many times I try to wake him, he does not get up: ても〜ても, then the plain form 起きない before くせに. くせに blames him, and 休みの日は sets his days off against school days: then he gets up early by himself."
+   },
+   {
+    "id": "n3u09d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このシャンプーは少し高い（　　）、^ぜひ一度試してみてください^。",
+    "options": [
+     "[反面|はんめん]",
+     "わりに",
+     "のに",
+     "けれど"
+    ],
+    "answer": 4,
+    "why": [
+     "[反面|はんめん] is followed by the other side of the same thing, told as a fact. A request like 試してみてください cannot follow it.",
+     "わりに is followed by how something turned out compared with what you would expect. A request cannot follow it.",
+     "のに cannot be followed by a request or an invitation.",
+     "けれど can lead into a request: it is a little expensive, but please try it once."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u09d6.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このかばんは^大きさ^の（　　）、とても軽いです。",
+    "options": [
+     "わりに",
+     "くせに",
+     "にしては",
+     "ながらも"
+    ],
+    "answer": 1,
+    "why": [
+     "A bag this big would be expected to be heavy, but this one is light: noun + の + わりに.",
+     "くせに blames a person. Here a bag is being praised.",
+     "にしては joins a noun directly, with no の, so 大きさのにしては is not a form.",
+     "ながらも also joins a noun directly (子どもながら), so 大きさのながらも is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u09d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "一人で住むのは",
+    "after": "いないのがさびしいです。",
+    "tiles": [
+     "気楽な",
+     "[反面|はんめん]",
+     "話したくても",
+     "[相手|あいて]が"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "[反面|はんめん] follows a な-adjective with な. Who is missing when you want to talk?",
+    "full": "一人で住むのは気楽な{[反面|はんめん]}話したくても[相手|あいて]がいないのがさびしいです。",
+    "explain": "気楽な, [反面|はんめん], 話したくても, [相手|あいて]が. [反面|はんめん] follows 気楽な and turns to the other side of living alone. 話したくても means even when I want to talk, and [相手|あいて]が goes with いない: there is no one to talk to."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u09d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "軽い気持ちで言った（　　）、あの一言はよくなかったと思う。",
+    "options": [
+     "反面",
+     "わりに",
+     "にしても",
+     "くせに"
+    ],
+    "answer": 3,
+    "explain": "にしても accepts something and then gives the speaker's own judgement: even if it was said lightly, that remark was wrong. 反面 needs a second side of the same thing. わりに needs a result that is more or less than you would expect. くせに blames a person for what that same person does, but the second half here is the speaker's view of the remark."
+   },
+   {
+    "id": "n3u09d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "彼は先週の会議を休んだ（　　）、会議で決まったことにもんくを言っている。",
+    "options": [
+     "にしても",
+     "反面",
+     "ながらも",
+     "くせに"
+    ],
+    "answer": 4,
+    "explain": "He missed the meeting himself, yet he complains about what was decided there: くせに blames the same person for what he does. にしても needs the speaker's own judgement after it, not a report of what someone is doing. 反面 shows two sides of one thing, and ながらも does not follow the た form (休んだながらも is not a form)."
+   },
+   {
+    "id": "n3u09d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "その選手は",
+    "after": "走りきった。",
+    "tiles": [
+     "けがを",
+     "し",
+     "ながらも",
+     "最後まで"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "その選手はけがを{し}ながらも最後まで走りきった。",
+    "explain": "けがを, し, ながらも, 最後まで. ながらも joins the ます stem, so けがをする becomes けがをし before it. 最後まで goes with 走りきった: although he was injured, he ran all the way to the end."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "アルバイトの求人広告",
+  "en": "A part-time job advertisement",
+  "intro": "A café has put this job advertisement in its window. Tap each word on it.",
+  "words": [
+   {
+    "id": "hourly",
+    "word": "時給",
+    "reading": "じきゅう",
+    "gloss": "hourly pay",
+    "parts": [
+     ["時", "ジ", "time, hour"],
+     ["給", "キュウ", "pay, supply"]
+    ]
+   },
+   {
+    "id": "duty",
+    "word": "勤務",
+    "reading": "きんむ",
+    "gloss": "work, being on duty",
+    "parts": [
+     ["勤", "キン", "work, serve"],
+     ["務", "ム", "duty"]
+    ]
+   },
+   {
+    "id": "no-exp",
+    "word": "未経験",
+    "reading": "みけいけん",
+    "gloss": "no experience",
+    "parts": [
+     ["未", "ミ", "not yet"],
+     ["経", "ケイ", "pass through"],
+     ["験", "ケン", "test"]
+    ]
+   },
+   {
+    "id": "fares",
+    "word": "交通費",
+    "reading": "こうつうひ",
+    "gloss": "travel costs (to and from work)",
+    "parts": [
+     ["交", "コウ", "mix, exchange"],
+     ["通", "ツウ", "pass, commute"],
+     ["費", "ヒ", "cost"]
+    ]
+   },
+   {
+    "id": "provide",
+    "word": "支給",
+    "reading": "しきゅう",
+    "gloss": "paid, provided (by the employer)",
+    "parts": [
+     ["支", "シ", "support"],
+     ["給", "キュウ", "supply"]
+    ]
+   },
+   {
+    "id": "interview",
+    "word": "面接",
+    "reading": "めんせつ",
+    "gloss": "job interview",
+    "parts": [
+     ["面", "メン", "face"],
+     ["接", "セツ", "meet, contact"]
+    ]
+   },
+   {
+    "id": "uniform",
+    "word": "制服",
+    "reading": "せいふく",
+    "gloss": "uniform",
+    "parts": [
+     ["制", "セイ", "system, rule"],
+     ["服", "フク", "clothes"]
+    ]
+   },
+   {
+    "id": "qualify",
+    "word": "資格",
+    "reading": "しかく",
+    "gloss": "qualification, licence",
+    "parts": [
+     ["資", "シ", "resources"],
+     ["格", "カク", "standard"]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n3u09d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "交通費は全額_支給_します。",
+   "options": [
+    "しきゅう",
+    "しっきゅう",
+    "ちきゅう",
+    "しきょう"
+   ],
+   "answer": 1,
+   "explain": "支給 is read しきゅう: the shop pays all your travel costs. 支 is シ (as in 支店) and 給 is キュウ (as in 時給). しっきゅう adds a small っ, ちきゅう is a different word (the earth), and しきょう misreads 給."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which charges apply to Yamada, and which of them are halved?",
+  "seconds": 90,
+  "passage": "みなみ市民センター　部屋の使い方\n料金（1回）　和室1,000円／会議室1,500円／料理室2,000円\n①市内に住んでいる方、または^市内の会社や学校に通っている方^は、^部屋の料金が半分になります^。\n②会議室では、ピアノも使えます。^ピアノを使う場合は、部屋の料金のほかに500円かかります^。^ピアノの料金は半分になりません^。\n③料理室を使う場合は、使う日の三日前までに申し込んでください。\n④申し込みは、使う日の前の月の1日から受け付けます。\n⑤部屋の中で食べ物を食べることはできません。ただし、料理室ではかまいません。",
+  "strategy": "First check whether Yamada can get the half price at all, then look for any charge that is not halved.",
+  "item": {
+   "id": "n3u09d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "山田さんは、となりの市に住んでいて、市内の会社で働いています。来月、会社の友だちと会議室を借りて、ピアノを使って歌の練習をします。山田さんたちは、いくら払いますか。",
+   "options": [
+    "750円",
+    "1,000円",
+    "1,250円",
+    "2,000円"
+   ],
+   "short": [
+    "750円",
+    "1,000円",
+    "1,250円",
+    "2,000円"
+   ],
+   "answer": 3,
+   "explain": "Yamada lives in the next city but works at a company in this one, so rule ① applies: the meeting room costs half of 1,500円, which is 750円. The piano adds 500円 and is not halved (rule ②): 750 + 500 = 1,250円.",
+   "why": [
+    "This is only the room at half price. Using the piano costs 500円 more (rule ②).",
+    "This halves the piano too, but rule ② says the piano charge is not halved.",
+    "",
+    "This is the full price with no discount. Yamada works at a company in the city, so rule ① halves the room."
+   ]
+  }
+ }
+}

@@ -1,0 +1,441 @@
+{
+  "title": "まとめ：似ている文法",
+  "grammar": {
+    "points": [],
+    "compare": {
+      "intro": "This unit's forms look alike: the passive and the potential share the られる shape (only the passive has a doer with に), the passive is done to you while the causative makes or lets someone act and the causative passive is you being made to act, させてください and させてもらう are about you doing something with someone's OK while てください and てもらう are someone else doing it, and the causative puts the person with に when the verb already has an object with を.",
+      "forms": [
+        {
+          "form": "受身",
+          "tag": "される · done to me",
+          "mark": "dot",
+          "ja": "[姉|あね]にわたしの[手紙|てがみ]を{読まれました}。",
+          "en": "My older sister read my letter (and I did not want her to)."
+        },
+        {
+          "form": "使役",
+          "tag": "させる · make or let someone do",
+          "mark": "dot",
+          "ja": "先生は学生に新聞を{読ませました}。",
+          "en": "The teacher made the students read the newspaper."
+        },
+        {
+          "form": "使役受身",
+          "tag": "させられる · made to do",
+          "mark": "down",
+          "ja": "学生は先生に新聞を{読まされました}。",
+          "en": "The students were made to read the newspaper by the teacher."
+        }
+      ],
+      "check": {
+        "id": "n4u08d6.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Whose fingers hurt?",
+        "q": "母に毎日ピアノを（　　）、^ゆびがいたくなりました^。",
+        "options": [
+          "ひかれて",
+          "ひかせて",
+          "ひかされて"
+        ],
+        "answer": 3,
+        "why": [
+          "ひかれて is the passive: your mother played, and it bothered you. Her playing would not make your fingers hurt.",
+          "ひかせて is the causative: you made your mother play. Then your fingers would have no reason to hurt.",
+          "Your mother made you play every day, so your fingers hurt: the causative passive ひかされて."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u08d6.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "その話、おもしろそうですね。^わたしにも^（　　）ください。",
+        "options": [
+          "聞いて",
+          "聞かれて",
+          "聞けて",
+          "聞かせて"
+        ],
+        "answer": 4,
+        "why": [
+          "聞いてください would ask the other person to listen to you or to ask you. You want to hear the interesting story yourself.",
+          "聞かれて is the passive. It does not go before ください to ask for something.",
+          "聞けて is the potential. ください does not follow the potential.",
+          "わたしにも shows that you want to do the listening: let me hear it too, 聞かせてください."
+        ]
+      },
+      {
+        "id": "n4u08d6.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "友だちの新しいカメラを、^わたしも少し^（　　）。とてもうれしかったです。",
+        "options": [
+          "[使|つか]わせてもらいました",
+          "[使|つか]ってもらいました",
+          "[使|つか]わされました",
+          "[使|つか]われました"
+        ],
+        "answer": 1,
+        "why": [
+          "It is your friend's camera, and you used it a little with their OK, so you were happy: させてもらいました.",
+          "てもらいました means someone else did the using for you. わたしも says you used it yourself.",
+          "使わされました means you were made to use it against your will, which does not fit うれしかった.",
+          "使われました is the passive: someone used something of yours. Here you are the one who used it."
+        ]
+      },
+      {
+        "id": "n4u08d6.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[妹|いもうと]に^かってに^わたしのにっきを（　　）。",
+        "options": [
+          "読ませました",
+          "読めました",
+          "読まされました",
+          "読まれました"
+        ],
+        "answer": 4,
+        "why": [
+          "読ませました means you made or let your sister read it. かってに says she read it without asking you.",
+          "読めました is the potential. With 妹に as the doer, it does not make sense.",
+          "読まされました means your sister made you read your own diary. かってに says she did the reading.",
+          "Your sister read your diary without asking, and you did not like it: the passive 読まれました."
+        ]
+      },
+      {
+        "id": "n4u08d6.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the particle",
+        "q": "[兄|あに]は[妹|いもうと]（　　）^[自分|じぶん]のくつを^[洗|あら]わせました。",
+        "options": [
+          "を",
+          "に",
+          "が",
+          "で"
+        ],
+        "answer": 2,
+        "why": [
+          "くつを already has を in this sentence. Two を cannot both go with 洗わせる.",
+          "洗う already has its object くつを, so the person made to wash takes に: 妹に.",
+          "兄は is the one who makes, and 妹 is the one who washes. が would make 妹 the subject too.",
+          "で marks a place or a means. 妹 is the person who does the washing."
+        ]
+      },
+      {
+        "id": "n4u08d6.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[夕|ゆう]ごはんの前に[妹|いもうと]に",
+        "after": "しまいました。",
+        "tiles": [
+          "ケーキを",
+          "食べさせたら",
+          "母に",
+          "しかられて"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "hint": "Two people act here. Who ate, and who scolded?",
+        "full": "[夕|ゆう]ごはんの前に[妹|いもうと]にケーキを食べさせたら{母に}しかられてしまいました。",
+        "explain": "ケーキを, 食べさせたら, 母に, しかられて. 妹に goes with the causative 食べさせた: you let your sister eat cake. 母に goes with the passive しかられて: your mother scolded you. しかられて comes before しまいました."
+      },
+      {
+        "id": "n4u08d6.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "きょうは[兄|あに]に",
+        "after": "[教|おし]えてもらいました。",
+        "tiles": [
+          "ギターを",
+          "ひかせて",
+          "もらって",
+          "ひき[方|かた]も"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "hint": "You played the guitar, and your brother taught you. Which one needs させて?",
+        "full": "きょうは[兄|あに]にギターを{ひかせて}もらってひき[方|かた]も[教|おし]えてもらいました。",
+        "explain": "ギターを, ひかせて, もらって, ひき方も. You did the playing with your brother's OK, so ひかせてもらって. Your brother did the teaching for you, so 教えてもらいました. ひき方も goes right before 教えて."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u08d6.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "その　はさみ、　あとで　わたしにも　（　　）　ください。",
+        "options": [
+          "使って",
+          "使わせて",
+          "使われて",
+          "使えて"
+        ],
+        "answer": 2,
+        "explain": "わたしにも shows that you want to use the scissors yourself, so you ask for permission: 使わせてください. 使ってください asks the other person to use them, 使われて is the passive and 使えて is the potential; neither goes before ください."
+      },
+      {
+        "id": "n4u08d6.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "わたしは　歌が　へたなので、　カラオケでは　いつも　友だちに　（　　）。",
+        "options": [
+          "歌わせて　もらいます",
+          "歌われます",
+          "歌って　もらいます",
+          "歌えます"
+        ],
+        "answer": 3,
+        "explain": "You sing badly, so your friends sing for you: 歌ってもらいます. 歌わせてもらいます would mean you get to sing yourself, which does not follow from へたなので. 歌われます is the passive and 歌えます the potential; neither fits 友だちに here."
+      },
+      {
+        "id": "n4u08d6.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "きのうは　先生に　",
+        "after": "　もらいました。",
+        "tiles": [
+          "わかい",
+          "ころの",
+          "話を",
+          "聞かせて"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "full": "きのうは　先生に　わかい　{ころの}　話を　聞かせて　もらいました。",
+        "explain": "わかい, ころの, 話を, 聞かせて. わかいころの describes 話, so it comes right before 話を. The teacher told the story and you got to hear it, so 聞かせて goes before もらいました."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "町の新聞「今週のイベント」",
+    "en": "The events corner of the town newspaper",
+    "intro": "Tap each word in this week's events corner of the town newspaper.",
+    "words": [
+      {
+        "id": "citizens",
+        "word": "市民",
+        "reading": "しみん",
+        "gloss": "citizens, local people",
+        "parts": [
+          [
+            "市",
+            "シ",
+            "city"
+          ],
+          [
+            "民",
+            "ミン",
+            "people"
+          ]
+        ]
+      },
+      {
+        "id": "library",
+        "word": "図書館",
+        "reading": "としょかん",
+        "gloss": "library",
+        "parts": [
+          [
+            "図",
+            "ト",
+            "plan, drawing"
+          ],
+          [
+            "書",
+            "ショ",
+            "write, book"
+          ],
+          [
+            "館",
+            "カン",
+            "large building"
+          ]
+        ]
+      },
+      {
+        "id": "factory",
+        "word": "工場",
+        "reading": "こうじょう",
+        "gloss": "factory",
+        "parts": [
+          [
+            "工",
+            "コウ",
+            "craft, make"
+          ],
+          [
+            "場",
+            "ジョウ",
+            "place"
+          ]
+        ]
+      },
+      {
+        "id": "world",
+        "word": "世界",
+        "reading": "せかい",
+        "gloss": "the world",
+        "parts": [
+          [
+            "世",
+            "セ",
+            "world, age"
+          ],
+          [
+            "界",
+            "カイ",
+            "boundary, circle"
+          ]
+        ]
+      },
+      {
+        "id": "film",
+        "word": "映画",
+        "reading": "えいが",
+        "gloss": "film, movie",
+        "parts": [
+          [
+            "映",
+            "エイ",
+            "reflect, project"
+          ],
+          [
+            "画",
+            "ガ",
+            "picture"
+          ]
+        ]
+      },
+      {
+        "id": "famous",
+        "word": "有名",
+        "reading": "ゆうめい",
+        "gloss": "famous",
+        "parts": [
+          [
+            "有",
+            "ユウ",
+            "have, exist"
+          ],
+          [
+            "名",
+            "メイ",
+            "name"
+          ]
+        ]
+      },
+      {
+        "id": "research",
+        "word": "研究",
+        "reading": "けんきゅう",
+        "gloss": "research",
+        "parts": [
+          [
+            "研",
+            "ケン",
+            "polish, study"
+          ],
+          [
+            "究",
+            "キュウ",
+            "look into deeply"
+          ]
+        ]
+      },
+      {
+        "id": "special",
+        "word": "特別",
+        "reading": "とくべつ",
+        "gloss": "special",
+        "parts": [
+          [
+            "特",
+            "トク",
+            "special"
+          ],
+          [
+            "別",
+            "ベツ",
+            "separate, other"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n4u08d6.k1",
+      "kind": "choice",
+      "type": "表記",
+      "label": "How the exam asks it",
+      "q": "兄は　大学で　ロボットの　_けんきゅう_を　して　います。",
+      "options": [
+        "見究",
+        "研急",
+        "研究",
+        "研休"
+      ],
+      "answer": 3,
+      "explain": "けんきゅう, research, is 研究: 研 (ケン, polish, study) and 究 (キュウ, look into deeply). 見 is also read ケン, and 急 and 休 are also read キュウ, but 見究, 研急 and 研休 are not words."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "情報検索",
+    "en": "Finding information",
+    "ask": "Which event lets Yamashita's son make something himself on Sunday?",
+    "seconds": 90,
+    "passage": "町の　新聞　「今週の　イベント」\n①市民図書館　えほんの　会（土曜日）\n子どもたちに　えほんを　読んで　あげます。\n②山川工場　パン作り教室（日曜日）\n^工場の　人が　小学生に　パンを　作らせて　くれます^。\n③世界の　映画の　会（日曜日）\n有名な　映画を　見ます。大人だけ　入れます。\n④大学の　研究室を　見よう（日曜日）\n子どもも　入れますが、ロボットを　見る　だけです。さわる　ことは　できません。",
+    "strategy": "First keep only the Sunday events, then look for the one where the child does the making himself.",
+    "item": {
+      "id": "n4u08d6.r1",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "q": "山下さんは　日曜日に　小学生の　むすこと　出かけたいです。むすこに　何か　作らせたいと　思って　います。どれに　行きますか。",
+      "options": [
+        "①　えほんの　会",
+        "②　パン作り教室",
+        "③　世界の　映画の　会",
+        "④　大学の　研究室を　見よう"
+      ],
+      "short": [
+        "えほんの会",
+        "パン作り教室",
+        "世界の映画の会",
+        "研究室を見よう"
+      ],
+      "answer": 2,
+      "explain": "Yamashita wants to go on Sunday and let his son make something. Only the bread class says the factory staff will let primary school children make bread (作らせて くれます).",
+      "why": [
+        "The picture-book event is on Saturday, and the children only listen while someone reads to them.",
+        "",
+        "The film event is on Sunday, but only adults can go in, and you only watch films.",
+        "Children can go in on Sunday, but they only look at the robots and cannot touch them."
+      ]
+    }
+  }
+}

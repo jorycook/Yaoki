@@ -1,0 +1,475 @@
+{
+ "title": "〜ている（している最中）・〜ている（状態）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u06d4.p1",
+    "form": "〜ています（いま）",
+    "gloss": "be doing (right now)",
+    "connect": [
+     {
+      "pos": "Verb, て form",
+      "rule": "[見|み]て ＋ {います}"
+     },
+     {
+      "pos": "Not doing it now",
+      "rule": "[見|み]て ＋ {いません}"
+     },
+     {
+      "pos": "Asking what someone is doing",
+      "rule": "[何|なに]をして{いますか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[今|いま]テレビを[見|み]て{います}。",
+      "en": "I'm watching TV now."
+     },
+     {
+      "ja": "[雨|あめ]がふって{います}。",
+      "en": "It's raining."
+     }
+    ],
+    "watch": {
+     "note": "読みます alone is for habits or plans. For what Dad is doing at this very moment, use the て form + います: 読んでいます.",
+     "bad": "父は今、新聞を読みます。",
+     "good": "父は今、新聞を読んでいます。"
+    }
+   },
+   {
+    "id": "n5u06d4.p2",
+    "form": "〜ています（じょうたい）",
+    "gloss": "a state that goes on",
+    "connect": [
+     {
+      "pos": "Verbs of a change that lasts (marry, put on glasses)",
+      "rule": "けっこんします → けっこんして ＋ {います}"
+     },
+     {
+      "pos": "〜 is a place; すむ (live) takes に",
+      "rule": "〜にすんで{います}"
+     },
+     {
+      "pos": "しっています (I know) has a short negative",
+      "rule": "しっています → {しりません}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あねはけっこんして{います}。",
+      "en": "My older sister is married."
+     },
+     {
+      "ja": "わたしはとうきょうにすんで{います}。",
+      "en": "I live in Tokyo."
+     }
+    ],
+    "watch": {
+     "note": "しっています means \"I know\". Its negative is しりません, not しっていません.",
+     "bad": "いいえ、しっていません。",
+     "good": "いいえ、しりません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "Two of these use the same ています. What changes is whether it is an action now, a lasting state, or a habit.",
+   "forms": [
+    {
+     "form": "〜ています",
+     "tag": "いま · going on now",
+     "mark": "dot",
+     "ja": "[今|いま]、[本|ほん]を[読|よ]んで{います}。",
+     "en": "I'm reading a book now."
+    },
+    {
+     "form": "〜ています",
+     "tag": "じょうたい · a lasting state",
+     "mark": "dot",
+     "ja": "リンさんはめがねをかけて{います}。",
+     "en": "Lin wears glasses."
+    },
+    {
+     "form": "〜ます",
+     "tag": "いつも・これから · habit or plan",
+     "mark": "dot",
+     "ja": "[毎日|まいにち]、[新聞|しんぶん]を[読|よ]み{ます}。",
+     "en": "I read the newspaper every day."
+    }
+   ],
+   "check": {
+    "id": "n5u06d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "かぞく",
+    "q": "あには[三年前|さんねんまえ]にけっこんしました。^[今|いま]^はおおさかに（　　）。",
+    "options": [
+     "すみます",
+     "すんでいます",
+     "すみました"
+    ],
+    "answer": 2,
+    "why": [
+     "すみます is a plan: \"will live\". 今は asks where he lives now.",
+     "He moved there and still lives there: a lasting state, so すんでいます.",
+     "すみました is past, but 今は is about now."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u06d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「もしもし、^[今|いま][何|なに]をしていますか^。」「[今|いま]、テレビを（　　）。」",
+    "options": [
+     "[見|み]ます",
+     "[見|み]ました",
+     "[見|み]ています",
+     "[見|み]て"
+    ],
+    "answer": 3,
+    "why": [
+     "見ます is a habit or a plan. It does not say what you are doing now.",
+     "見ました is past. The question is about right now.",
+     "The question asks what you are doing now, so the answer uses 見ています.",
+     "A polite answer cannot end on the て form alone. It needs います."
+    ]
+   },
+   {
+    "id": "n5u06d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[今|いま]、[外|そと]は[雨|あめ]が（　　）^います^。",
+    "options": [
+     "ふって",
+     "ふりて",
+     "ふるて",
+     "ふった"
+    ],
+    "answer": 1,
+    "why": [
+     "ふります becomes ふって, then います: it is raining now.",
+     "ふりて is not a form. ふる makes its て form with って.",
+     "The dictionary form ふる does not take て.",
+     "ふった is the た form. います goes on the て form."
+    ]
+   },
+   {
+    "id": "n5u06d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「この[店|みせ]の[名前|なまえ]をしっていますか。」「^いいえ^、（　　）。」",
+    "options": [
+     "しっています",
+     "しりません",
+     "しっていません",
+     "しってください"
+    ],
+    "answer": 2,
+    "why": [
+     "しっています means \"I know\". It does not fit after いいえ.",
+     "The negative of しっています is しりません: \"No, I don't know.\"",
+     "しっていません is not used. Say しりません.",
+     "しってください is a request. It does not answer the question."
+    ]
+   },
+   {
+    "id": "n5u06d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「どこに（　　）か。」「^とうきょうにすんでいます^。」",
+    "options": [
+     "すみます",
+     "すみましょう",
+     "すんで",
+     "すんでいます"
+    ],
+    "answer": 4,
+    "why": [
+     "すみますか asks where you will live. The answer says where you live now.",
+     "すみましょうか means \"shall we live?\". It does not match the answer.",
+     "すんで cannot come right before か.",
+     "The answer is すんでいます, so the question asks the same: where do you live?"
+    ]
+   },
+   {
+    "id": "n5u06d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[父|ちち]は[今|いま]、[電話|でんわ]で",
+    "after": "います。",
+    "tiles": [
+     "[会社|かいしゃ]の",
+     "[人|ひと]",
+     "と",
+     "[話|はな]して"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "Whose person? Then: who is Dad talking with?",
+    "full": "[父|ちち]は[今|いま]、[電話|でんわ]で[会社|かいしゃ]の[人|ひと]と[話|はな]して{います}。",
+    "explain": "会社の describes 人, and と says who he talks with: 会社の人と. 話して comes last, right before います."
+   },
+   {
+    "id": "n5u06d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは",
+    "after": "。",
+    "tiles": [
+     "あの",
+     "[人|ひと]の",
+     "[名前|なまえ]を",
+     "しりません"
+    ],
+    "star": 3,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "あの points at a person. The verb comes last.",
+    "full": "わたしはあの[人|ひと]の[名前|なまえ]を{しりません}。",
+    "explain": "あの goes right before 人の, and 人の describes 名前を. しりません, the negative of しっています, ends the sentence."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u06d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「リンさんは　けっこん　して　いますか。」「はい、（　　）。子どもも　二人　います。」",
+    "options": [
+     "します",
+     "しません",
+     "して　います",
+     "して　いません"
+    ],
+    "answer": 3,
+    "explain": "The question asks about a lasting state, so a yes answer is はい、して います: she is married. します is a plan, and しません and して いません do not fit after はい."
+   },
+   {
+    "id": "n5u06d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「今、何を　して　いますか。」「へやで　本を　（　　）。」",
+    "options": [
+     "読んで　います",
+     "読みます",
+     "読みました",
+     "読んで　ください"
+    ],
+    "answer": 1,
+    "explain": "The question asks what you are doing now, so the answer is 読んで います. 読みます is a habit or plan, 読みました is past, and 読んで ください is a request."
+   },
+   {
+    "id": "n5u06d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの　人は　白い",
+    "after": "かけて　います。",
+    "tiles": [
+     "シャツを",
+     "きて",
+     "くろい",
+     "めがねを"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "あの　人は　白い　シャツを　きて　{くろい}　めがねを　かけて　います。",
+    "explain": "シャツを, きて, くろい, めがねを. 白い describes シャツ, and you きる a shirt. くろい describes めがね, which goes right before かけて います."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "会社のボード",
+  "en": "An office whereabouts board",
+  "intro": "Tap each word on the office board that shows where everyone is and what they are doing.",
+  "words": [
+   {
+    "id": "now",
+    "word": "今",
+    "reading": "いま",
+    "gloss": "now",
+    "parts": [
+     [
+      "今",
+      "いま",
+      "now"
+     ]
+    ]
+   },
+   {
+    "id": "phone",
+    "word": "電話",
+    "reading": "でんわ",
+    "gloss": "telephone, phone call",
+    "parts": [
+     [
+      "電",
+      "デン",
+      "electric"
+     ],
+     [
+      "話",
+      "ワ",
+      "talk"
+     ]
+    ]
+   },
+   {
+    "id": "talk",
+    "word": "話す",
+    "reading": "はなす",
+    "gloss": "to talk, to speak",
+    "parts": [
+     [
+      "話",
+      "はな",
+      "talk"
+     ]
+    ]
+   },
+   {
+    "id": "read",
+    "word": "読む",
+    "reading": "よむ",
+    "gloss": "to read",
+    "parts": [
+     [
+      "読",
+      "よ",
+      "read"
+     ]
+    ]
+   },
+   {
+    "id": "write",
+    "word": "書く",
+    "reading": "かく",
+    "gloss": "to write",
+    "parts": [
+     [
+      "書",
+      "か",
+      "write"
+     ]
+    ]
+   },
+   {
+    "id": "out",
+    "word": "外",
+    "reading": "そと",
+    "gloss": "outside, out",
+    "parts": [
+     [
+      "外",
+      "そと",
+      "outside"
+     ]
+    ]
+   },
+   {
+    "id": "off",
+    "word": "休み",
+    "reading": "やすみ",
+    "gloss": "day off, absent",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ]
+    ]
+   },
+   {
+    "id": "company",
+    "word": "会社",
+    "reading": "かいしゃ",
+    "gloss": "company, office",
+    "parts": [
+     [
+      "会",
+      "カイ",
+      "meet"
+     ],
+     [
+      "社",
+      "シャ",
+      "company"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u06d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "リンさんは　今　_電話_を　かけて　います。",
+   "options": [
+    "てんわ",
+    "でんわ",
+    "でんか",
+    "てんか"
+   ],
+   "answer": 2,
+   "explain": "電話 is でんわ, a phone call. てんわ and てんか are not words, and でんか is a different word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What is the writer's mother doing right now?",
+  "seconds": 90,
+  "passage": "リサさん、こんにちは。今、うちの　みんなの　ことを　書きます。父は　にわで　車を　あらって　います。母は　いつも　この　時間は　テレビを　見ますが、^今日は　外で　友だちと　話して　います^。あには　へやで　本を　読んで　います。わたしは　今、この　メールを　書いて　います。",
+  "strategy": "Find 母 and look after が: what she usually does comes before it, what she is doing today comes after.",
+  "item": {
+   "id": "n5u06d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "お母さんは　今　何を　して　いますか。",
+   "options": [
+    "テレビを　見て　います。",
+    "外で　友だちと　話して　います。",
+    "にわで　車を　あらって　います。",
+    "へやで　本を　読んで　います。"
+   ],
+   "short": [
+    "テレビを見ている",
+    "外で友だちと話している",
+    "車をあらっている",
+    "本を読んでいる"
+   ],
+   "answer": 2,
+   "explain": "After が, the writer says that today her mother is outside talking with a friend. 話して います is what she is doing now.",
+   "why": [
+    "She usually watches TV at this time (見ます), but not today.",
+    "",
+    "The father is washing the car.",
+    "The older brother is reading in his room."
+   ]
+  }
+ }
+}

@@ -1,0 +1,259 @@
+{
+ "title": "ここ／そこ／あそこ・こちら／そちら／あちら",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u02d1.p1",
+    "form": "ここ／そこ／あそこ／どこ",
+    "gloss": "here, there, over there, where",
+    "connect": [
+     {"pos": "A place word as the topic, then a noun", "rule": "{ここ} ＋ は ＋ 〜 ＋ です"},
+     {"pos": "Noun (a thing or a place), then the place word", "rule": "〜 ＋ は ＋ {あそこ} ＋ です"},
+     {"pos": "Noun, asking where it is", "rule": "〜 ＋ は ＋ {どこ} ＋ ですか"}
+    ],
+    "examples": [
+     {"ja": "{ここ}は[駅|えき]です。", "en": "This place is the station."},
+     {"ja": "トイレは{どこ}ですか。", "en": "Where is the toilet?"}
+    ],
+    "watch": {
+     "note": "ここ is a place word and stands on its own. To point at a noun, use この, as in このみせ.",
+     "bad": "ここみせはやすいです。",
+     "good": "このみせはやすいです。"
+    }
+   },
+   {
+    "id": "n5u02d1.p2",
+    "form": "こちら／そちら／あちら／どちら",
+    "gloss": "this way, that way (polite); this person",
+    "connect": [
+     {"pos": "Noun, then the polite place word", "rule": "〜 ＋ は ＋ {あちら} ＋ です"},
+     {"pos": "Noun, asking where politely", "rule": "〜 ＋ は ＋ {どちら} ＋ ですか"},
+     {"pos": "Introducing a person, then the person's name", "rule": "{こちら} ＋ は ＋ 〜さん ＋ です"}
+    ],
+    "examples": [
+     {"ja": "[店|みせ]の[人|ひと]：トイレは{あちら}です。", "en": "Shop staff: The toilet is over there."},
+     {"ja": "{こちら}は[山川|やまかわ]さんです。", "en": "This is Mr Yamakawa."}
+    ],
+    "watch": {
+     "note": "For a person in front of you, say こちら, not これ. これ is for things.",
+     "bad": "これはやまかわさんです。",
+     "good": "こちらはやまかわさんです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "Three pointing words: one points at a place, one points politely at a place or a person, and one points at a thing.",
+   "forms": [
+    {"form": "ここ", "tag": "ばしょ · a place (here)", "mark": "dot", "ja": "{ここ}は[学校|がっこう]です。", "en": "This place is a school."},
+    {"form": "こちら", "tag": "ていねい · polite (this way, this person)", "mark": "up", "ja": "[駅|えき]は{こちら}です。", "en": "The station is this way."},
+    {"form": "これ", "tag": "もの · a thing (this)", "mark": "dot", "ja": "{これ}は[本|ほん]です。", "en": "This is a book."}
+   ],
+   "check": {
+    "id": "n5u02d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "ともだちをしょうかいする",
+    "q": "[先生|せんせい]、（　　）は^[友|とも]だちのリンさん^です。",
+    "options": ["これ", "こちら", "ここ"],
+    "answer": 2,
+    "why": [
+     "これ points at a thing. Lin is a person.",
+     "こちら points politely at a person in front of you. You are talking to your teacher, so the polite word fits.",
+     "ここ points at a place. Lin is a person, not a place."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u02d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「すみません。[駅|えき]は（　　）ですか。」\nB「^あそこです^。」",
+    "options": ["どこ", "なん", "だれ", "いつ"],
+    "answer": 1,
+    "why": [
+     "B answers with a place, あそこ, so A asked where the station is.",
+     "なん asks what something is. B's answer is a place.",
+     "だれ asks who. A station is not a person.",
+     "いつ asks when. B's answer is a place, not a time."
+    ]
+   },
+   {
+    "id": "n5u02d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「^あの^[白|しろ]いたてものは[何|なん]ですか。」\nB「（　　）は[学校|がっこう]です。」",
+    "options": ["ここ", "そこ", "あそこ", "どこ"],
+    "answer": 3,
+    "why": [
+     "ここ is the place where the speaker is. A says あの, so the building is far away.",
+     "そこ is a place near the listener. あの shows the building is far from both of them.",
+     "A says あの, so the building is far from both people. A place far from both is あそこ.",
+     "どこ asks where. B is answering, not asking."
+    ]
+   },
+   {
+    "id": "n5u02d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[店|みせ]の[人|ひと]「エレベーターは（　　）です。^どうぞ^。」",
+    "options": ["あちら", "あの", "どちら", "だれ"],
+    "answer": 1,
+    "why": [
+     "Shop staff speak politely, and あちら is the polite way to say あそこ, over there.",
+     "あの needs a noun right after it, as in あのドア. Here です follows.",
+     "どちら asks where. The sentence ends in です, not ですか: she is telling, not asking.",
+     "だれ asks who. An elevator is not a person, and this is not a question."
+    ]
+   },
+   {
+    "id": "n5u02d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「^お[国|くに]^は（　　）ですか。」\nB「ブラジルです。」",
+    "options": ["どれ", "だれ", "いつ", "どちら"],
+    "answer": 4,
+    "why": [
+     "どれ asks which one of several things you can see or point at. A country is not in front of you.",
+     "だれ asks who. A country is not a person.",
+     "いつ asks when. Brazil is not a time.",
+     "どちら is the polite way to ask where. お国はどちらですか is how you politely ask someone's country."
+    ]
+   },
+   {
+    "id": "n5u02d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「すみません。",
+    "after": "か。」\nB「あそこです。」",
+    "tiles": ["[山川|やまかわ]", "[大学|だいがく]は", "どこ", "です"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "The place you ask about comes first, with は. どこ sits right before です.",
+    "full": "A「すみません。[山川|やまかわ][大学|だいがく]は{どこ}ですか。」\nB「あそこです。」",
+    "explain": "山川 is the name of the university, so it sits right before 大学は, the topic. どこ asks where, and ですか closes the question."
+   },
+   {
+    "id": "n5u02d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[先生|せんせい]、",
+    "after": "です。",
+    "tiles": ["こちらは", "わたしの", "[友|とも]だちの", "リンさん"],
+    "star": 2,
+    "bank": [2, 3, 0, 1],
+    "hint": "Start with the polite word for the person you introduce. Then say who she is.",
+    "full": "[先生|せんせい]、{こちら}はわたしの[友|とも]だちのリンさんです。",
+    "explain": "こちらは is the topic: the person you are introducing. わたしの goes with 友だち, and 友だちの tells who Lin is, so it sits right before リンさん."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u02d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「すみません。トイレは　どこですか。」\nB「（　　）です。あの　白い　ドアです。」",
+    "options": ["これ", "どれ", "あの", "あそこ"],
+    "answer": 4,
+    "explain": "A asks where, and B points at あの白いドア, far from both of them, so あそこ. これ points at a thing near the speaker, どれ asks a question, and あの needs a noun right after it."
+   },
+   {
+    "id": "n5u02d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「山川さんの　会社は　（　　）ですか。」\nB「駅の　前です。」",
+    "options": ["だれ", "どちら", "いつ", "いくら"],
+    "answer": 2,
+    "explain": "B answers with a place, 駅の前, so A asked where, politely: どちら. だれ asks who, いつ asks when, and いくら asks how much."
+   },
+   {
+    "id": "n5u02d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません。",
+    "after": "か。",
+    "tiles": ["山川", "駅は", "こちら", "です"],
+    "star": 2,
+    "bank": [3, 2, 0, 1],
+    "full": "すみません。山川駅は{こちら}ですか。",
+    "explain": "山川, 駅は, こちら, です. 山川 is the name of the station, so it comes right before 駅は, the topic. こちら then says \"this way\", and ですか asks."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅のまわりのちず",
+  "en": "A map of the streets around the station",
+  "intro": "Tap each word on the map and the signs you see when you leave the station.",
+  "words": [
+   {"id": "station", "word": "駅", "reading": "えき", "gloss": "station", "parts": [["駅", "エキ", "station"]]},
+   {"id": "exit", "word": "出口", "reading": "でぐち", "gloss": "exit", "parts": [["出", "で", "go out"], ["口", "ぐち", "mouth, opening"]]},
+   {"id": "shop", "word": "店", "reading": "みせ", "gloss": "shop", "parts": [["店", "みせ", "shop"]]},
+   {"id": "school", "word": "学校", "reading": "がっこう", "gloss": "school", "parts": [["学", "ガッ", "study"], ["校", "コウ", "school"]]},
+   {"id": "river", "word": "川", "reading": "かわ", "gloss": "river", "parts": [["川", "かわ", "river"]]},
+   {"id": "road", "word": "道", "reading": "みち", "gloss": "road, street", "parts": [["道", "みち", "road, way"]]},
+   {"id": "right", "word": "右", "reading": "みぎ", "gloss": "right", "parts": [["右", "みぎ", "right"]]},
+   {"id": "left", "word": "左", "reading": "ひだり", "gloss": "left", "parts": [["左", "ひだり", "left"]]}
+  ],
+  "check": {
+   "id": "n5u02d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_出口_は　あそこです。",
+   "options": ["でくち", "てぐち", "でぐち", "だぐち"],
+   "answer": 3,
+   "explain": "出口 is でぐち: 出 is で, and in this word 口 is read ぐち, as in 北口 (きたぐち). でくち keeps く without the dakuten, てぐち drops the dakuten on で, and だぐち has the wrong vowel."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "男の人は　はじめに　どこへ　行きますか。",
+  "audio": [
+   ["N", "日本語学校で、女の人と男の人が話しています。男の人は、はじめに、どこへ行きますか。", "にほんごがっこうで、おんなのひとと　おとこのひとが　はなしています。おとこのひとは、はじめに、どこへ　いきますか。"],
+   ["M", "すみません。山川先生のへやはどこですか。", "すみません。やまかわせんせいのへやはどこですか。"],
+   ["F", "山川先生のへやは、あそこですよ。でも、山川先生は、いま、しょくどうです。", "やまかわせんせいのへやは、あそこですよ。でも、やまかわせんせいは、いま、しょくどうです。"],
+   ["M", "そうですか。しょくどうはどこですか。", null],
+   ["F", "一かいです。あ、でも、そのまえに、こちらのうけつけで名前を書いてください。", "いっかいです。あ、でも、そのまえに、こちらのうけつけで　なまえを　かいてください。"],
+   ["M", "はい。うけつけは、こちらですね。", null],
+   ["F", "ええ、そうです。", null],
+   ["N", "男の人は、はじめに、どこへ行きますか。", "おとこのひとは、はじめに、どこへ　いきますか。"]
+  ],
+  "item": {
+   "id": "n5u02d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "男の人は　はじめに　どこへ　行きますか。",
+   "script": [
+    "ナレーター：日本語学校で、女の人と男の人が話しています。男の人は、はじめに、どこへ行きますか。",
+    "男：すみません。山川先生のへやはどこですか。",
+    "女：山川先生のへやは、あそこですよ。でも、山川先生は、いま、しょくどうです。",
+    "男：そうですか。しょくどうはどこですか。",
+    "女：一かいです。あ、でも、そのまえに、こちらのうけつけで名前を書いてください。",
+    "男：はい。うけつけは、こちらですね。",
+    "女：ええ、そうです。",
+    "ナレーター：男の人は、はじめに、どこへ行きますか。"
+   ],
+   "options": ["先生の　へや", "しょくどう", "うけつけ", "きょうしつ"],
+   "printed": true,
+   "short": ["先生の へや", "しょくどう", "うけつけ", "きょうしつ"],
+   "answer": 3,
+   "why": [
+    "The man asks about the teacher's room, but the teacher is not there now. He is in the cafeteria.",
+    "The teacher is in the cafeteria, but the woman says そのまえに: before that, write your name at the reception desk.",
+    "そのまえに means \"before that\". He writes his name at the reception desk first, and checks with うけつけは、こちらですね.",
+    "Nobody talks about a classroom."
+   ]
+  }
+ }
+}

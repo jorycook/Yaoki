@@ -1,0 +1,480 @@
+{
+ "title": "た形・〜たことがある",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u07d2.p1",
+    "form": "〜た／〜なかった",
+    "gloss": "did / didn't (plain past)",
+    "connect": [
+     {
+      "pos": "Verb: take the て-form and change て／で to た／だ",
+      "rule": "[食|た]べて→[食|た]べ{た}・[書|か]いて→[書|か]い{た}・[読|よ]んで→[読|よ]ん{だ}"
+     },
+     {
+      "pos": "行く, する and 来る (learn these as they are)",
+      "rule": "[行|い]っ{た}・し{た}・[来|き]{た}"
+     },
+     {
+      "pos": "Did not: take the ない-form and change ない to なかった",
+      "rule": "[食|た]べ{なかった}・[行|い]か{なかった}・し{なかった}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "きのう、[友|とも]だちと[山|やま]に[行|い]っ{た}。",
+      "en": "Yesterday I went to the mountains with a friend."
+     },
+     {
+      "ja": "けさは[何|なに]も[食|た]べ{なかった}。",
+      "en": "I didn't eat anything this morning."
+     }
+    ],
+    "watch": {
+     "note": "行く is special. Its た-form is 行った, just like its て-form 行って.",
+     "bad": "きのう、こうえんに行いた。",
+     "good": "きのう、こうえんに行った。"
+    }
+   },
+   {
+    "id": "n5u07d2.p2",
+    "form": "〜たことがあります",
+    "gloss": "have done before (experience)",
+    "connect": [
+     {
+      "pos": "Verb, た-form",
+      "rule": "[行|い]った・[食|た]べた ＋ {ことがあります}"
+     },
+     {
+      "pos": "Never done (so far)",
+      "rule": "[見|み]た ＋ {ことがありません}"
+     },
+     {
+      "pos": "Asking: add か",
+      "rule": "[読|よ]んだ ＋ {ことがありますか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "わたしは[外国|がいこく]に[行|い]った{ことがあります}。",
+      "en": "I have been abroad."
+     },
+     {
+      "ja": "すしを[食|た]べた{ことがありますか}。",
+      "en": "Have you ever eaten sushi?"
+     }
+    ],
+    "watch": {
+     "note": "〜たことがあります is for something you have done at some time in your life. For something you did this morning, just use the past: 食べました.",
+     "bad": "けさ、ごはんを食べたことがあります。",
+     "good": "けさ、ごはんを食べました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three talk about the past. た is the plain past, ました is the polite past, and たことがあります says you have the experience.",
+   "forms": [
+    {
+     "form": "〜た",
+     "tag": "ふつう · did (plain)",
+     "mark": "dot",
+     "ja": "きのう[山|やま]に[行|い]っ{た}。",
+     "en": "I went to the mountains yesterday."
+    },
+    {
+     "form": "〜ました",
+     "tag": "ていねい · did (polite)",
+     "mark": "dot",
+     "ja": "きのう[山|やま]に[行|い]き{ました}。",
+     "en": "I went to the mountains yesterday."
+    },
+    {
+     "form": "〜たことがあります",
+     "tag": "けいけん · have done before",
+     "mark": "dot",
+     "ja": "この[山|やま]に[行|い]った{ことがあります}。",
+     "en": "I have been to this mountain before."
+    }
+   ],
+   "check": {
+    "id": "n5u07d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "あさごはんの話",
+    "q": "A：けさ、[何|なに]を（　　）か。B：パンを[食|た]べました。",
+    "options": [
+     "[食|た]べました",
+     "[食|た]べたことがあります",
+     "[食|た]べます"
+    ],
+    "answer": 1,
+    "why": [
+     "けさ is one time today, so A uses the polite past, and B answers the same way.",
+     "たことがあります asks about experience in your life. It does not go with けさ, this morning.",
+     "食べます is for now or later, but けさ is already past, and B answers with 食べました."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u07d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^きのう^は^どこにも^（　　）。",
+    "options": [
+     "[行|い]かなかった",
+     "[行|い]った",
+     "[行|い]かない",
+     "[行|い]きなかった"
+    ],
+    "answer": 1,
+    "why": [
+     "どこにも needs a \"not\" form, and きのう needs the past: 行かなかった.",
+     "どこにも goes with a \"not\" form. どこにも行った is not said.",
+     "行かない is for now or later, but きのう is yesterday.",
+     "The ない-form of 行く is 行かない, so the past is 行かなかった. 行きなかった is not a word."
+    ]
+   },
+   {
+    "id": "n5u07d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^きのう^、[友|とも]だちがうちに（　　）。",
+    "options": [
+     "きた",
+     "こた",
+     "くった",
+     "くる"
+    ],
+    "answer": 1,
+    "why": [
+     "The た-form of 来る is 来た, read きた.",
+     "こ is used in 来ない, not before た.",
+     "くった is not a form of 来る.",
+     "くる is for now or later, but きのう is yesterday."
+    ]
+   },
+   {
+    "id": "n5u07d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは^まだ^[外国|がいこく]に[行|い]った（　　）。",
+    "options": [
+     "ことがありません",
+     "ことがあります",
+     "ことでした",
+     "ことをします"
+    ],
+    "answer": 1,
+    "why": [
+     "まだ … ことがありません: I have not been abroad yet.",
+     "まだ here needs a \"not\" ending. まだ行ったことがあります is not said.",
+     "ことでした does not follow the た-form to talk about experience.",
+     "The experience pattern is ことがある, not ことをする."
+    ]
+   },
+   {
+    "id": "n5u07d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：[日本|にほん]のおかしを（　　）^ことがありますか^。B：はい、あります。",
+    "options": [
+     "[食|た]べた",
+     "[食|た]べます",
+     "[食|た]べて",
+     "[食|た]べました"
+    ],
+    "answer": 1,
+    "why": [
+     "ことがありますか follows the た-form: 食べたことがありますか, \"have you ever eaten…?\".",
+     "The polite ます form does not go before こと.",
+     "The て-form does not go before こと.",
+     "The polite ました form does not go before こと. Use the plain 食べた."
+    ]
+   },
+   {
+    "id": "n5u07d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは",
+    "after": "。",
+    "tiles": [
+     "[大|おお]きい",
+     "[山|やま]に",
+     "のぼった",
+     "ことがありません"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "大きい describes a noun. Which verb form comes right before こと?",
+    "full": "わたしは[大|おお]きい[山|やま]にのぼった{ことがありません}。",
+    "explain": "大きい describes 山, so 大きい山に goes together. The た-form のぼった comes before ことがありません, which ends the sentence."
+   },
+   {
+    "id": "n5u07d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのうは",
+    "after": "。",
+    "tiles": [
+     "[本|ほん]を",
+     "[読|よ]んで",
+     "テレビは",
+     "[見|み]なかった"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "You read a book and watch TV. Which form can end the sentence?",
+    "full": "きのうは[本|ほん]を[読|よ]んでテレビは[見|み]{なかった}。",
+    "explain": "本を goes with 読んで, and the て-form links to the next part. テレビは goes with 見なかった, the past negative, which ends the sentence."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u07d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「きのう　何を　した？」\nB「うちで　べんきょうを　（　　）。」",
+    "options": [
+     "した",
+     "して",
+     "しった",
+     "する"
+    ],
+    "answer": 1,
+    "explain": "A asks about yesterday in plain style, so B answers with the plain past of する: した. して asks someone to do it, しった is not a form of する, and する is for now or later."
+   },
+   {
+    "id": "n5u07d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「この　まちの　古い　おてらを　見た　（　　）　ありますか。」\nB「いいえ、まだ　ありません。」",
+    "options": [
+     "ことが",
+     "ことを",
+     "ことに",
+     "ことで"
+    ],
+    "answer": 1,
+    "explain": "Experience is た-form + ことが　あります. ことを, ことに and ことで cannot go before あります here."
+   },
+   {
+    "id": "n5u07d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは　",
+    "after": "　ありません。",
+    "tiles": [
+     "外国の",
+     "川で",
+     "およいだ",
+     "ことが"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "full": "わたしは　外国の　川で　{およいだ}　ことが　ありません。",
+    "explain": "外国の, 川で, およいだ, ことが. 外国の must sit right before 川, and the た-form およいだ comes before ことが　ありません."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "りょこうのパンフレット",
+  "en": "A travel brochure for a mountain town",
+  "intro": "Tap every word with kanji that you can find in the brochure.",
+  "words": [
+   {
+    "id": "mountain",
+    "word": "山",
+    "reading": "やま",
+    "gloss": "mountain",
+    "parts": [
+     [
+      "山",
+      "やま",
+      "mountain"
+     ]
+    ]
+   },
+   {
+    "id": "river",
+    "word": "川",
+    "reading": "かわ",
+    "gloss": "river",
+    "parts": [
+     [
+      "川",
+      "かわ",
+      "river"
+     ]
+    ]
+   },
+   {
+    "id": "flower",
+    "word": "花",
+    "reading": "はな",
+    "gloss": "flower",
+    "parts": [
+     [
+      "花",
+      "はな",
+      "flower"
+     ]
+    ]
+   },
+   {
+    "id": "weather",
+    "word": "天気",
+    "reading": "てんき",
+    "gloss": "weather",
+    "parts": [
+     [
+      "天",
+      "テン",
+      "sky, heaven"
+     ],
+     [
+      "気",
+      "キ",
+      "spirit, air"
+     ]
+    ]
+   },
+   {
+    "id": "abroad",
+    "word": "外国",
+    "reading": "がいこく",
+    "gloss": "foreign country, abroad",
+    "parts": [
+     [
+      "外",
+      "ガイ",
+      "outside"
+     ],
+     [
+      "国",
+      "コク",
+      "country"
+     ]
+    ]
+   },
+   {
+    "id": "old",
+    "word": "古い",
+    "reading": "ふるい",
+    "gloss": "old",
+    "parts": [
+     [
+      "古",
+      "ふる",
+      "old"
+     ]
+    ]
+   },
+   {
+    "id": "big",
+    "word": "大きい",
+    "reading": "おおきい",
+    "gloss": "big",
+    "parts": [
+     [
+      "大",
+      "おお",
+      "big"
+     ]
+    ]
+   },
+   {
+    "id": "train",
+    "word": "電車",
+    "reading": "でんしゃ",
+    "gloss": "train",
+    "parts": [
+     [
+      "電",
+      "デン",
+      "electricity"
+     ],
+     [
+      "車",
+      "シャ",
+      "vehicle"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u07d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "あしたの　_天気_は　どうですか。",
+   "options": [
+    "てんき",
+    "てんけ",
+    "でんき",
+    "てんぎ"
+   ],
+   "answer": 1,
+   "explain": "天気 is read てんき, \"weather\". でんき is 電気, \"electricity\", and てんけ and てんぎ are not words."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What has the writer done before, and what has he not done yet?",
+  "seconds": 90,
+  "passage": "リンさん、げんきですか。\nわたしは　いま　北の　まちに　います。きのうは　古い　おてらを　見ました。あしたは　大きい　山に　のぼります。三年前にも　のぼった　ことが　あります。^でも、川の　魚は　まだ　食べた　ことが　ありません^。こんばん　食べます。\nケン",
+  "strategy": "Look for まだ … ことがありません (not yet), and do not confuse it with what is planned for tomorrow.",
+  "item": {
+   "id": "n5u07d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "ケンさんが　まだ　した　ことが　ない　ことは　どれですか。",
+   "options": [
+    "古い　おてらを　見る　こと",
+    "大きい　山に　のぼる　こと",
+    "川の　魚を　食べる　こと",
+    "北の　まちへ　行く　こと"
+   ],
+   "short": [
+    "古いおてらを見る",
+    "大きい山にのぼる",
+    "川の魚を食べる",
+    "北のまちへ行く"
+   ],
+   "answer": 3,
+   "explain": "Ken writes 川の魚はまだ食べたことがありません: he has not eaten the river fish yet. He will eat it tonight.",
+   "why": [
+    "He saw the old temple yesterday (きのうは古いおてらを見ました).",
+    "He will climb tomorrow, but he climbed it three years ago too (三年前にものぼったことがあります).",
+    "",
+    "He is in the northern town now (いま北のまちにいます)."
+   ]
+  }
+ }
+}

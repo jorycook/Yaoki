@@ -1,0 +1,272 @@
+{
+  "title": "〜ほど・〜くらい（程度）",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u08d1.p1",
+        "form": "〜ほど",
+        "gloss": "so … that; to the point of …",
+        "connect": [
+          {"pos": "Verb or adjective, plain form (often a たい, ない or potential form)", "rule": "[泣|な]きたい／[信|しん]じられない＋{ほど}"},
+          {"pos": "Noun, in a few set words such as 山", "rule": "山＋{ほど}"}
+        ],
+        "examples": [
+          {"ja": "[歯|は]が、[泣|な]きたい{ほど}[痛|いた]かったです。", "en": "My tooth hurt so much I wanted to cry."},
+          {"ja": "[引|ひ]っ[越|こ]しの前の日は、することが山{ほど}ありました。", "en": "The day before the move, I had a mountain of things to do."}
+        ],
+        "watch": {
+          "note": "When ほど shows degree, a noun joins it directly. There is no の between them.",
+          "bad": "旅行の前は、買う物が山のほどあります。",
+          "good": "旅行の前は、買う物が山ほどあります。"
+        }
+      },
+      {
+        "id": "n3u08d1.p2",
+        "form": "〜くらい／〜ぐらい",
+        "gloss": "so … that; … enough to …",
+        "connect": [
+          {"pos": "Verb, plain form (often a potential or ない form)", "rule": "歩ける／立っていられない＋{くらい}"},
+          {"pos": "Adjective, plain form", "rule": "[痛|いた]い＋{くらい}"}
+        ],
+        "examples": [
+          {"ja": "この[辞書|じしょ]は、ポケットに入る{くらい}小さいです。", "en": "This dictionary is small enough to fit in a pocket."},
+          {"ja": "[今朝|けさ]は、手が[痛|いた]い{ぐらい}寒かったです。", "en": "This morning it was so cold that my hands hurt."}
+        ],
+        "watch": {
+          "note": "The くらい part is a picture of how much. The state itself comes after it. Do not swap the two parts.",
+          "bad": "うちは駅まで近いくらい歩けます。",
+          "good": "うちは駅まで歩けるくらい近いです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "ほど and くらい both show how much by giving a picture of it; after a number or a time, くらい only means about.",
+      "forms": [
+        {"form": "〜ほど", "tag": "程度 · so … that", "mark": "dot", "ja": "その話を聞いて、[息|いき]ができない{ほど}[笑|わら]いました。", "en": "When I heard that story, I laughed so hard I could not breathe."},
+        {"form": "〜くらい（程度）", "tag": "程度 · so … that", "mark": "dot", "ja": "[週末|しゅうまつ]は、声が出なくなる{くらい}歌いました。", "en": "At the weekend I sang so much that I lost my voice."},
+        {"form": "〜くらい（約）", "tag": "だいたい · about", "mark": "dot", "ja": "駅まで歩いて十分{くらい}です。", "en": "It is about ten minutes' walk to the station. (This くらい, from N5, follows a number. ほど can mean about after an amount too, as in 十分ほど.)"}
+      ],
+      "check": {
+        "id": "n3u08d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one fits a clock time?",
+        "q": "あしたは^三時^（　　）に駅に着くと思います。",
+        "options": ["ほど", "ごとに", "ぐらい"],
+        "answer": 3,
+        "why": [
+          "ほど can mean about after an amount (三時間ほど), but not after a point in time like 三時.",
+          "ごとに follows a length of time (三時間ごとに), not a clock time, and it means every, not about.",
+          "A time + ぐらい means about: I think I will get to the station at about three."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u08d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この店のラーメンは、^毎日食べたい^（　　）おいしいです。",
+        "options": ["あとで", "ほど", "たびに", "ながら"],
+        "answer": 2,
+        "why": [
+          "あとで follows the た form (食べたあとで). It cannot follow 食べたい.",
+          "食べたい gives the picture of how tasty it is: so good I want to eat it every day.",
+          "たびに follows the dictionary form of an action or a noun + の. It cannot follow 食べたい.",
+          "ながら follows the ます stem (食べながら). It cannot follow 食べたい."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "休みのあと、^山^（　　）メールが来ていました。",
+        "options": ["しか", "ごとに", "だけ", "ほど"],
+        "answer": 4,
+        "why": [
+          "しか needs a negative verb (しか来ていませんでした). 来ていました is positive.",
+          "山ごとに would mean for each mountain, which makes no sense with emails.",
+          "山だけ would mean only a mountain came, which makes no sense here.",
+          "山ほど is a set phrase: a mountain of emails had come in after the holiday."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この[説明書|せつめいしょ]は、^中学生でもわかる^（　　）やさしい[言葉|ことば]で書いてあります。",
+        "options": ["ながら", "しか", "くらい", "ごとに"],
+        "answer": 3,
+        "why": [
+          "ながら follows the ます stem of an action (読みながら), not the dictionary form わかる.",
+          "しか needs a negative verb at the end, but 書いてあります is positive.",
+          "中学生でもわかる shows how easy the words are: easy enough for a junior high student to understand.",
+          "ごとに after a verb means each time it happens (会うごとに). It cannot show how easy the words are."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "きのうは山に[登|のぼ]って、^もう一歩も歩けない^（　　）[疲|つか]れました。",
+        "options": ["くらい", "あとで", "たびに", "しか"],
+        "answer": 1,
+        "why": [
+          "もう一歩も歩けない shows how tired I was: so tired I could not take another step.",
+          "あとで follows the た form, not the ない form.",
+          "たびに does not follow a ない form. It follows an action that happens again and again.",
+          "With しか, the verb at the end must be negative, but [疲|つか]れました is positive."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u08d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "先週は",
+        "after": "[忙|いそが]しかったです。",
+        "tiles": ["[寝|ね]る", "時間も", "ない", "ほど"],
+        "star": 1,
+        "bank": [3, 1, 0, 2],
+        "hint": "ほど follows a plain form and comes right before the adjective. What was there no time for?",
+        "full": "先週は[寝|ね]る時間もない{ほど}[忙|いそが]しかったです。",
+        "explain": "[寝|ね]る describes 時間, so [寝|ね]る時間も comes first. ない follows 時間も, and ほど follows ない, right before [忙|いそが]しかった: last week I was so busy I had no time to sleep."
+      },
+      {
+        "id": "n3u08d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このかばんは",
+        "after": "ので、べんりです。",
+        "tiles": ["パソコンが", "入る", "くらい", "大きい"],
+        "star": 1,
+        "bank": [2, 3, 0, 1],
+        "hint": "The くらい part pictures the size. The adjective comes last, before ので.",
+        "full": "このかばんはパソコンが入る{くらい}大きいので、べんりです。",
+        "explain": "パソコンが goes with 入る, and くらい follows 入る. 大きい comes after くらい and before ので: this bag is big enough to hold a computer, so it is handy."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u08d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "かぜで、のどが水を飲むのもつらい（　　）痛い。",
+        "options": ["たびに", "ごとに", "ほど", "あとで"],
+        "answer": 3,
+        "explain": "水を飲むのもつらい pictures how bad the pain is, and ほど joins it to 痛い: my throat hurts so much that even drinking water is hard. たびに, あとで and ごとに cannot follow an adjective like つらい."
+      },
+      {
+        "id": "n3u08d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "となりの工事の音は、テレビの声が聞こえない（　　）うるさかった。",
+        "options": ["しか", "あとで", "ごとに", "くらい"],
+        "answer": 4,
+        "explain": "テレビの声が聞こえない pictures how loud the noise was, and くらい joins it to うるさかった: the building work next door was so loud I could not hear the TV. しか needs a negative verb after it, あとで follows the た form, and ごとに does not follow a ない form."
+      },
+      {
+        "id": "n3u08d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "駅前のパン屋は、店の外まで",
+        "after": "ある。",
+        "tiles": ["人が", "並ぶ", "ほど", "人気が"],
+        "star": 0,
+        "bank": [3, 1, 2, 0],
+        "full": "駅前のパン屋は、店の外まで人が並ぶ{ほど}人気がある。",
+        "explain": "人が, 並ぶ, ほど, 人気が. 人が is the subject of 並ぶ, ほど follows 並ぶ, and 人気が goes with ある: the bakery is so popular that people queue outside the shop."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "大雪警報のお知らせ",
+    "en": "A heavy snow warning",
+    "intro": "Your city sent a heavy snow warning to your phone. Tap each word on it.",
+    "words": [
+      {"id": "warning", "word": "警報", "reading": "けいほう", "gloss": "warning (official)", "parts": [["警", "ケイ", "warn"], ["報", "ホウ", "report"]]},
+      {"id": "heavysnow", "word": "大雪", "reading": "おおゆき", "gloss": "heavy snow", "parts": [["大", "おお", "big"], ["雪", "ゆき", "snow"]]},
+      {"id": "snowdepth", "word": "積雪", "reading": "せきせつ", "gloss": "lying snow, snow depth", "parts": [["積", "セキ", "pile up"], ["雪", "セツ", "snow"]]},
+      {"id": "forecast", "word": "予想", "reading": "よそう", "gloss": "forecast, expectation", "parts": [["予", "ヨ", "beforehand"], ["想", "ソウ", "think"]]},
+      {"id": "goingout", "word": "外出", "reading": "がいしゅつ", "gloss": "going out", "parts": [["外", "ガイ", "outside"], ["出", "シュツ", "go out"]]},
+      {"id": "danger", "word": "危険", "reading": "きけん", "gloss": "danger, dangerous", "parts": [["危", "キ", "danger"], ["険", "ケン", "steep, risky"]]},
+      {"id": "delay", "word": "遅れ", "reading": "おくれ", "gloss": "delay", "parts": [["遅", "おく", "late, slow"]]},
+      {"id": "powercut", "word": "停電", "reading": "ていでん", "gloss": "power cut", "parts": [["停", "テイ", "stop"], ["電", "デン", "electricity"]]}
+    ],
+    "check": {
+      "id": "n3u08d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "明日の朝までに、30センチの_積雪_が予想されています。",
+      "options": ["せきゆき", "せきせつ", "つみゆき", "せっせつ"],
+      "answer": 2,
+      "explain": "積雪 is read せきせつ, the snow lying on the ground: both kanji take their on readings, セキ and セツ. せきゆき and つみゆき mix in the kun reading ゆき, and せっせつ shortens セキ to セッ, which happens only before a k sound, as in がっこう."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "男の人はこのあと、まず何をしますか。",
+    "audio": [
+      ["N", "スポーツジムの受付で、男の人と女の人が話しています。男の人はこのあと、まず何をしますか。", "すぽーつじむのうけつけで、おとこのひととおんなのひとがはなしています。おとこのひとはこのあと、まずなにをしますか。"],
+      ["M", "すみません、ヨガのクラスに入りたいんですが。", "すみません、よがのくらすにはいりたいんですが。"],
+      ["F", "ありがとうございます。ヨガは初めてですか。", "ありがとうございます。よがははじめてですか。"],
+      ["M", "はい。でも、毎朝走っているので、体力には自信があります。ちゅうきゅうのクラスでもだいじょうぶでしょうか。", "はい。でも、まいあさはしっているので、たいりょくにはじしんがあります。ちゅうきゅうのくらすでもだいじょうぶでしょうか。"],
+      ["F", "ちゅうきゅうは、次の日に階段を上るのもつらいくらい、きびしいんですよ。最初は、しょきゅうをおすすめします。", "ちゅうきゅうは、つぎのひにかいだんをのぼるのもつらいくらい、きびしいんですよ。さいしょは、しょきゅうをおすすめします。"],
+      ["M", "そうですか。じゃあ、しょきゅうにします。今日のクラスに出られますか。", "そうですか。じゃあ、しょきゅうにします。きょうのくらすにでられますか。"],
+      ["F", "はい、七時からです。ただ、その前に会員カードを作っていただきます。カードには写真が要るんですが、お持ちですか。", "はい、しちじからです。ただ、そのまえにかいいんかーどをつくっていただきます。かーどにはしゃしんがいるんですが、おもちですか。"],
+      ["M", "いえ、持っていません。", "いえ、もっていません。"],
+      ["F", "では、あちらの機械でとれますよ。", "では、あちらのきかいでとれますよ。"],
+      ["M", "わかりました。あと、くつも買わないといけませんか。", "わかりました。あと、くつもかわないといけませんか。"],
+      ["F", "ヨガははだしでするので、くつはいりません。", "よがははだしでするので、くつはいりません。"],
+      ["M", "よかった。じゃあ、すぐ写真をとってきます。", "よかった。じゃあ、すぐしゃしんをとってきます。"],
+      ["N", "男の人はこのあと、まず何をしますか。", "おとこのひとはこのあと、まずなにをしますか。"]
+    ],
+    "item": {
+      "id": "n3u08d1.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "男の人はこのあと、まず何をしますか。",
+      "script": [
+        "ナレーター：スポーツジムの受付で、男の人と女の人が話しています。男の人はこのあと、まず何をしますか。",
+        "男：すみません、ヨガのクラスに入りたいんですが。",
+        "女：ありがとうございます。ヨガは初めてですか。",
+        "男：はい。でも、毎朝走っているので、体力には自信があります。ちゅうきゅうのクラスでもだいじょうぶでしょうか。",
+        "女：ちゅうきゅうは、次の日に階段を上るのもつらいくらい、きびしいんですよ。最初は、しょきゅうをおすすめします。",
+        "男：そうですか。じゃあ、しょきゅうにします。今日のクラスに出られますか。",
+        "女：はい、七時からです。ただ、その前に会員カードを作っていただきます。カードには写真が要るんですが、お持ちですか。",
+        "男：いえ、持っていません。",
+        "女：では、あちらの機械でとれますよ。",
+        "男：わかりました。あと、くつも買わないといけませんか。",
+        "女：ヨガははだしでするので、くつはいりません。",
+        "男：よかった。じゃあ、すぐ写真をとってきます。",
+        "ナレーター：男の人はこのあと、まず何をしますか。"
+      ],
+      "options": ["会員カードを作る", "くつを買う", "写真をとる", "しょきゅうのクラスに出る"],
+      "printed": true,
+      "short": ["カードを作る", "くつを買う", "写真をとる", "クラスに出る"],
+      "answer": 3,
+      "why": [
+        "He needs the card before the class, but the card needs a photo, and he has none yet.",
+        "Yoga is done barefoot (はだしでする), so he does not need shoes.",
+        "He has no photo, and the card needs one: すぐ写真をとってきます. The photo comes first.",
+        "The class starts at seven, after the card is made, so it comes last."
+      ]
+    }
+  }
+}

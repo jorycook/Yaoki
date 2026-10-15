@@ -30,8 +30,14 @@ async function ready(page) {
 const text = async (page) => ((await page.locator('#yk-stage').textContent()) || '').replace(/\s+/g, ' ');
 const click = async (page, sel, wait = 450) => { await page.locator(sel).first().click({ timeout: 5000 }); await page.waitForTimeout(wait); };
 const saved = async (page) => JSON.parse((await page.evaluate((k) => localStorage.getItem(k), KEY)) || 'null');
-// the teach pages, one (N2) or three (N1), then on to the comparison
+// the teach pages, then on to the comparison: the main app's first day teaches two patterns, a page each, and its
+// second page leads to the comparison; an N1 lesson has three teach pages, one per pattern
 const throughTeach = async (page) => {
+  if (LV.LEVEL !== 'N1') {
+    await click(page, 'a:has-text("Next: 〜につき")', 600);
+    await click(page, 'a:has-text("Compare")', 700);
+    return;
+  }
   for (let n = 0; n < 3 && !(await page.locator('a:has-text("Next")').count()); n++) await click(page, 'button:has-text("Next")', 600);
   await click(page, 'a:has-text("Next")', 700);
 };
@@ -96,7 +102,9 @@ const placed = (page) => page.evaluate(() => {
     await click(page, 'button:has-text("Check")', 600);
     ok((await text(page)).includes('Saved to your mistake notebook'), 'the drill should record the mistake');
     const s1 = await saved(page);
-    ok(s1 && s1.started === true && s1.mistakes.length === 1 && s1.mistakes[0].src === LV.drillSrc, 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
+    // the main app also keeps its plan and the day's progress (the first drill done); the N1 app keeps its plan of days
+    const kept = LV.LEVEL === 'N1' ? !!(s1 && s1.plan && Array.isArray(s1.plan.days)) : !!(s1 && s1.plan && s1.plan.exam === '2026-12-06' && s1.done.u03d1 && s1.done.u03d1.g === 1);
+    ok(s1 && s1.started === true && kept && s1.mistakes.length === 1 && s1.mistakes[0].src === LV.drillSrc, 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
     await page.reload();
     await ready(page);
     ok((await text(page)).includes(LV.weekTheme) && !(await text(page)).includes('目標を決めよう'), 'after closing and reopening, the app should open on the week path');
@@ -325,6 +333,10 @@ const placed = (page) => page.evaluate(() => {
     ok(stored.keys.length === 1 && stored.keys[0] === 'yaoki:/:' + version, 'the offline copy should be one store named after the folder and the version, got ' + JSON.stringify(stored.keys));
     ok(stored.urls.length === listed, `the offline copy should hold all ${listed} files, got ${stored.urls.length}`);
     ok(stored.urls.every((u) => u.includes('v=' + version)), 'every stored file should have been asked for under this version, got ' + JSON.stringify(stored.urls.filter((u) => !u.includes('v=' + version)).slice(0, 3)));
+    // the sound stored when used, not at install (the main app's unit sound, the N1 course's clips)
+    const lazy = Object.keys(JSON.parse(sw.match(/const LAZY = (\{[\s\S]*?\});/)[1]));
+    const clipsStored = () => page.evaluate(async () => { let n = 0; for (const k of await caches.keys()) n += (await (await caches.open(k)).keys()).filter((r) => /\/assets\/audio\/[^/]+\.mp3\?h=/.test(r.url)).length; return n; });
+    if (LV.LEVEL === 'N1') ok(lazy.length > 600 && !stored.urls.some((u) => /\.mp3/.test(u)), `the install should hold none of the ${lazy.length} clips, got ${stored.urls.filter((u) => /\.mp3/.test(u)).length}`);
     const v1 = await page.evaluate(() => window.__ykBuild);
     // an address in the app's own folder opens the app; one in a folder below it is left to whatever lives there
     {
@@ -337,6 +349,11 @@ const placed = (page) => page.evaluate(() => {
     }
     await click(page, 'button:has-text("Paint the first eye")');
     await click(page, 'a:has-text("Start")', 700);
+    if (LV.LEVEL === 'N1') {
+      // with a plan made, the app asks its offline worker for all the course's clips, in the background
+      for (let i = 0; i < 120 && (await clipsStored()) < lazy.length; i++) await page.waitForTimeout(500);
+      ok((await clipsStored()) === lazy.length, `once there is a plan, all ${lazy.length} clips should be stored for offline use, got ${await clipsStored()}`);
+    }
     await click(page, 'button[aria-label^="Level ' + LV.LEVEL + '"]', 500);
     ok((await text(page)).includes('The app is stored for offline use.'), 'once the offline copy is in, the menu should say so');
     await click(page, 'button:has-text("Close")', 400);
@@ -376,6 +393,8 @@ const placed = (page) => page.evaluate(() => {
     ok((await text(page)).includes(LV.weekTheme), 'after the restart the app should be on the week path with progress kept');
     const caches2 = await page.evaluate(() => caches.keys());
     ok(caches2.length === 1 && caches2[0] !== stored.keys[0], 'the old stored copy should be removed, got ' + JSON.stringify(caches2));
+    // unchanged clips are carried over into the new build's store, not fetched again
+    if (LV.LEVEL === 'N1') ok((await clipsStored()) === lazy.length, `the new build's store should keep all ${lazy.length} clips, got ${await clipsStored()}`);
 
     // a newer build found just as the app opens, before anything is tapped, is switched to at once
     rebuild({ YK_APP_VERSION: '0.1-test-update-2', YK_BUILD_DATE: 'update test' });

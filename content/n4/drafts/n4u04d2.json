@@ -1,0 +1,260 @@
+{
+ "title": "もらう・〜てもらう",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u04d2.p1",
+    "form": "〜に／からもらう",
+    "gloss": "receive, get from someone",
+    "connect": [
+     {"pos": "Giver: a person", "rule": "〜 ＋ に／から ＋ {もらう}"},
+     {"pos": "Giver: a school, a shop", "rule": "〜 ＋ から ＋ {もらう}"},
+     {"pos": "The thing you get", "rule": "〜 ＋ を ＋ {もらう}"}
+    ],
+    "examples": [
+     {"ja": "友だちに本を{もらいました}。", "en": "I got a book from a friend."},
+     {"ja": "学校から[手紙|てがみ]を{もらいました}。", "en": "I received a letter from the school."}
+    ],
+    "watch": {
+     "note": "With もらう, に marks the giver, and the one who gets the thing is the subject. 友だちは私にもらいました says the friend got it from you.",
+     "bad": "友だちは私に本をもらいました。",
+     "good": "私は友だちに本をもらいました。"
+    }
+   },
+   {
+    "id": "n4u04d2.p2",
+    "form": "〜てもらう",
+    "gloss": "have someone do something for me",
+    "connect": [
+     {"pos": "Verb, て form", "rule": "[送|おく]って・[教|おし]えて ＋ {もらう}"},
+     {"pos": "The person who does it", "rule": "〜 ＋ に ＋ [送|おく]って ＋ {もらう}"}
+    ],
+    "examples": [
+     {"ja": "[兄|あに]に駅まで車で[送|おく]って{もらいました}。", "en": "My big brother drove me to the station."},
+     {"ja": "友だちに[写真|しゃしん]をとって{もらいました}。", "en": "A friend took a photo for me."}
+    ],
+    "watch": {
+     "note": "The person who does the favour takes に, not が. The subject is the one who gets the help.",
+     "bad": "兄が私を駅まで送ってもらいました。",
+     "good": "私は兄に駅まで送ってもらいました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three are about getting something from someone. They differ in what you get, a thing or a favour, and in who the subject is.",
+   "forms": [
+    {"form": "もらう", "tag": "もの · get a thing", "mark": "dot", "ja": "[姉|あね]にかさを{もらいました}。", "en": "I got an umbrella from my big sister."},
+    {"form": "〜てもらう", "tag": "してもらう · get a favour", "mark": "dot", "ja": "[姉|あね]にかさを[貸|か]して{もらいました}。", "en": "My big sister lent me an umbrella."},
+    {"form": "くれる", "tag": "あげる人が主語 · someone gives me", "mark": "dot", "ja": "[姉|あね]がかさを{くれました}。", "en": "My big sister gave me an umbrella."}
+   ],
+   "check": {
+    "id": "n4u04d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "うちで",
+    "q": "私は[姉|あね]にケーキの[作|つく]り[方|かた]を（　　）。",
+    "options": [
+     "もらいました",
+     "[教|おし]えてもらいました",
+     "くれました"
+    ],
+    "answer": 2,
+    "why": [
+     "作り方 is not a thing someone can hand you. You need the action 教えて before もらいました.",
+     "Teaching is a favour, so it is て form + もらいました, and 姉に marks who did it.",
+     "With くれました the giver is the subject: 姉が…くれました. Here the subject is 私, who gets something."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u04d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "私はクラブのせんぱい（　　）^Tシャツをもらいました^。",
+    "options": ["に", "が", "を", "で"],
+    "answer": 1,
+    "why": [
+     "に marks the person you get something from: せんぱいにもらいました.",
+     "が would make せんぱい the one who gets the T-shirt, but in this sentence that is 私.",
+     "を already marks Tシャツ, the thing you got. せんぱい is the giver, not the thing.",
+     "で marks a place or a means. せんぱい is a person who gives."
+    ]
+   },
+   {
+    "id": "n4u04d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "私がいつも[使|つか]っているこのかさは、^[去年|きょねん]おばあさんに^（　　）ものです。",
+    "options": ["あげた", "もらった", "くれた", "もらって"],
+    "answer": 2,
+    "why": [
+     "あげた says you gave it to her, but you still use it every day.",
+     "Grandmother is the giver, marked with に, and you are the one who got it: もらった.",
+     "くれた takes the giver with が: おばあさんがくれたもの. With おばあさんに it does not fit.",
+     "The て form cannot go before もの. It needs the た form もらった."
+    ]
+   },
+   {
+    "id": "n4u04d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "父に[自転車|じてんしゃ]を（　　）^もらいました^。",
+    "options": ["なおして", "なおし", "なおす", "なおした"],
+    "answer": 1,
+    "why": [
+     "A favour is て form + もらう: なおしてもらいました, my father fixed my bike for me.",
+     "The ます stem なおし does not go before もらう.",
+     "The dictionary form なおす does not go before もらう.",
+     "The た form なおした does not go before もらう."
+    ]
+   },
+   {
+    "id": "n4u04d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^道がわからなかったので^、店の人に（　　）。",
+    "options": [
+     "[教|おし]えました",
+     "[教|おし]えに行きました",
+     "[教|おし]えてもらいました",
+     "くれました"
+    ],
+    "answer": 3,
+    "why": [
+     "教えました says you told the shop staff the way, but you did not know it.",
+     "教えに行きました says you went to teach them, which does not fit either.",
+     "You did not know the way, so the shop staff did it for you: て form + もらいました.",
+     "Nothing is given here, and くれました takes the giver with が, not に."
+    ]
+   },
+   {
+    "id": "n4u04d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "テニスは、",
+    "after": "います。",
+    "tiles": ["[兄|あに]に", "もらった", "ラケットで", "れん[習|しゅう]して"],
+    "star": 1,
+    "bank": [2, 3, 0, 1],
+    "hint": "Who gave the racket? ラケットで tells what you practise with.",
+    "full": "テニスは、[兄|あに]に{もらった}ラケットでれん[習|しゅう]しています。",
+    "explain": "兄に marks the giver and goes right before もらった. 兄にもらった describes ラケット, and ラケットで goes with れん習して, which comes before います."
+   },
+   {
+    "id": "n4u04d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わからなかった[問題|もんだい]を、",
+    "after": "。",
+    "tiles": ["クラブの", "せんぱいに", "[教|おし]えて", "もらいました"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "クラブの describes a person. Which verb form comes before もらいました?",
+    "full": "わからなかった[問題|もんだい]を、クラブのせんぱいに{[教|おし]えて}もらいました。",
+    "explain": "クラブの must sit right before せんぱい, and せんぱいに marks who did the favour. The て form 教えて comes before もらいました, which ends the sentence."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u04d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「すてきな　かばんですね。」\nB「ありがとう。たんじょう日に　母に　（　　）。」",
+    "options": ["あげました", "くれました", "もらいました", "やりました"],
+    "answer": 3,
+    "explain": "母に marks the giver, and B is the one who got the bag: もらいました. あげました would mean B gave it away, くれました needs 母が, and やりました is for giving to younger people, animals or plants."
+   },
+   {
+    "id": "n4u04d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨が　ふって　いたので、父に　駅まで　車で　（　　）　もらいました。",
+    "options": ["むかえに　来る", "むかえに　来て", "むかえに　来た", "むかえに　来ない"],
+    "answer": 2,
+    "explain": "A favour is the て form + もらう: むかえに　来て　もらいました, my father came to pick me up. The dictionary form, the た form and the ない form do not go before もらう."
+   },
+   {
+    "id": "n4u04d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "たんじょう日に　",
+    "after": "　毎日　使って　います。",
+    "tiles": ["父に", "買って", "もらった", "時計を"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "full": "たんじょう日に　父に　{買って}　もらった　時計を　毎日　使って　います。",
+    "explain": "父に, 買って, もらった, 時計を. 父に marks who did the favour, the て form 買って comes before もらった, and 父に買ってもらった describes 時計, the thing used every day."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "テニスクラブのおれいカード",
+  "en": "A thank-you card at a tennis club",
+  "intro": "Tap every word with kanji that you can find on the thank-you card.",
+  "words": [
+   {"id": "care", "word": "世話", "reading": "せわ", "gloss": "care, looking after (お世話になりました: thank you for everything)", "parts": [["世", "セ", "world"], ["話", "ワ", "talk"]]},
+   {"id": "match", "word": "試合", "reading": "しあい", "gloss": "match, game", "parts": [["試", "シ", "try"], ["合", "あい", "fit, match"]]},
+   {"id": "venue", "word": "会場", "reading": "かいじょう", "gloss": "venue", "parts": [["会", "カイ", "meet"], ["場", "ジョウ", "place"]]},
+   {"id": "photo", "word": "写真", "reading": "しゃしん", "gloss": "photo", "parts": [["写", "シャ", "copy"], ["真", "シン", "true"]]},
+   {"id": "send", "word": "送る", "reading": "おくる", "gloss": "send, take someone somewhere", "parts": [["送", "おく", "send"]]},
+   {"id": "teach", "word": "教える", "reading": "おしえる", "gloss": "teach, tell", "parts": [["教", "おし", "teach"]]},
+   {"id": "borrow", "word": "借りる", "reading": "かりる", "gloss": "borrow", "parts": [["借", "か", "borrow"]]},
+   {"id": "prepare", "word": "用意", "reading": "ようい", "gloss": "getting ready, preparation", "parts": [["用", "ヨウ", "use"], ["意", "イ", "mind"]]}
+  ],
+  "check": {
+   "id": "n4u04d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "せんぱいに　ラケットを　_借りました_。",
+   "options": ["かりました", "かしました", "おりました", "きりました"],
+   "answer": 1,
+   "explain": "借りる is read かりる, \"borrow\". かしました is 貸しました, \"lent\", the opposite. おりました and きりました are other verbs."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What did Yamamoto-san do for Rin?",
+  "seconds": 90,
+  "passage": "テニスクラブの　みなさんへ\n一年間、ほんとうに　お世話に　なりました。クラブに　入った　ころ、私は　ラケットを　持って　いませんでした。それで、^山本さんに　古い　ラケットを　もらいました^。テニスの　やり方は、毎週　木村さんに　教えて　もらいました。九月の　試合の　日は、雨で　電車が　止まって　いたので、リーダーの　中川さんに　会場まで　車で　送って　もらいました。来月　国へ　帰りますが、みなさんの　ことは　わすれません。\nリン",
+  "strategy": "Find 山本さん in the card and read the verb after it: もらいました means the racket was given, not lent.",
+  "item": {
+   "id": "n4u04d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "山本さんは　リンさんに　何を　しましたか。",
+   "options": [
+    "会場まで　車で　送った。",
+    "テニスの　やり方を　教えた。",
+    "古い　ラケットを　あげた。",
+    "古い　ラケットを　かした。"
+   ],
+   "short": [
+    "会場まで送った",
+    "やり方を教えた",
+    "ラケットをあげた",
+    "ラケットをかした"
+   ],
+   "answer": 3,
+   "explain": "The card says 山本さんに古いラケットをもらいました: Rin got the racket from Yamamoto-san, so Yamamoto-san gave it.",
+   "why": [
+    "Nakagawa-san drove Rin to the venue on the day of the match.",
+    "Kimura-san taught Rin how to play, every week.",
+    "",
+    "もらいました means Rin was given the racket. The card does not say it was lent."
+   ]
+  }
+ }
+}

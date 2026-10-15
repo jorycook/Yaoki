@@ -1,0 +1,251 @@
+{
+ "title": "〜によって（ちがい）・〜によっては",
+ "grammar": {
+  "points": [
+   {
+    "id": "n3u07d4.p1",
+    "form": "〜によって／〜によって違う",
+    "gloss": "depending on, differs by",
+    "connect": [
+     {"pos": "Noun", "rule": "〜＋{によって}＋[違|ちが]う／[変|か]わる"},
+     {"pos": "Noun, before another noun", "rule": "〜＋{による}＋[違|ちが]い"},
+     {"pos": "Question word clause + か", "rule": "どこで買うか＋{によって}"}
+    ],
+    "examples": [
+     {"ja": "会社{によって}、夏休みの長さがずいぶん[違|ちが]います。", "en": "The length of the summer holiday varies a lot from company to company."},
+     {"ja": "[季節|きせつ]{によって}、[窓|まど]から見える[景色|けしき]が[変|か]わります。", "en": "The view from the window changes with the seasons."}
+    ],
+    "watch": {
+     "note": "With this meaning, the part after によって must say that things vary: [違|ちが]う, [変|か]わる, いろいろだ, さまざまだ. If you mean only some people or some cases, use によっては (point 2).",
+     "bad": "人によって、朝ご飯を食べません。",
+     "good": "人によっては、朝ご飯を食べません。"
+    }
+   },
+   {
+    "id": "n3u07d4.p2",
+    "form": "〜によっては",
+    "gloss": "in some cases, depending on",
+    "connect": [
+     {"pos": "Noun", "rule": "〜＋{によっては}"},
+     {"pos": "Second half, often", "rule": "〜{によっては}、…こともある／…場合もある"}
+    ],
+    "examples": [
+     {"ja": "[曜日|ようび]{によっては}、[予約|よやく]がなかなか[取|と]れないこともあります。", "en": "On some days of the week, it can be hard to get a booking."},
+     {"ja": "この薬を飲むと、人{によっては}[眠|ねむ]くなることがあります。", "en": "This medicine makes some people sleepy."}
+    ],
+    "watch": {
+     "note": "によっては points to one possible case out of several, so the second half says what may happen in that case (こともある, かもしれない). It does not go with いつも or [必|かなら]ず.",
+     "bad": "時間帯によっては、いつもバスがおくれます。",
+     "good": "時間帯によっては、バスがおくれることもあります。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "によって can also give a cause (unit 3) or a means, but with [違|ちが]う or [変|か]わる after it, it means depending on, and によっては picks out one case.",
+   "forms": [
+    {"form": "〜によって（ちがい）", "tag": "ちがい · differs by", "mark": "dot", "ja": "人{によって}、好きな音楽は[違|ちが]います。", "en": "Different people like different music."},
+    {"form": "〜によっては", "tag": "ある場合 · in some cases", "mark": "dot", "ja": "場所{によっては}、電話がつながらないこともあります。", "en": "In some places, your phone may not get a signal."},
+    {"form": "〜によって（原因）", "tag": "原因 · caused by", "mark": "dot", "ja": "[大雪|おおゆき]{によって}、電車が止まりました。", "en": "The trains stopped because of the heavy snow."}
+   ],
+   "check": {
+    "id": "n3u07d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which によって?",
+    "q": "国（　　）、あいさつの仕方は^さまざま^です。",
+    "options": ["によって", "によっては", "によると"],
+    "answer": 1,
+    "why": [
+     "さまざまです says greetings vary from country to country, so によって (depending on).",
+     "によっては picks out only some countries. さまざま describes the whole range, so the two do not fit together here.",
+     "によると gives the source of what you heard (according to). A country is not the source here."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u07d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "大学の[授業料|じゅぎょうりょう]は、学校（　　）^かなり[違|ちが]います^。",
+    "options": ["について", "にとって", "によって", "として"],
+    "answer": 3,
+    "why": [
+      "について means about. The fees are not about the school; they change from school to school.",
+      "にとって gives whose point of view (for me, for students). A school's point of view does not make the fees differ.",
+      "[違|ちが]います says the fees vary, and the school is what they vary with: 学校によって[違|ちが]う.",
+      "として means in the role of. Here there is no role."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u07d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この料理はかなりからいので、人（　　）^食べられないかもしれません^。",
+    "options": ["として", "に[対|たい]して", "について", "によっては"],
+    "answer": 4,
+    "why": [
+      "として means in the role of. 人 is not a role here.",
+      "に[対|たい]して points at who an action or feeling is aimed at. Nothing is aimed at people here.",
+      "について means about. The sentence does not talk about people as a topic; it says some people may not manage the dish.",
+      "Some people may not be able to eat it: 人によっては＋かもしれません points to one possible case."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u07d4.d3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "ごみの",
+    "after": "[違|ちが]います。",
+    "tiles": ["出し方は", "住んでいる", "町", "によって"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "ごみの needs a noun right after it. What does 住んでいる describe?",
+    "full": "ごみの出し方は住んでいる町によって[違|ちが]います。",
+    "explain": "ごみの出し方は is the topic. 住んでいる describes 町, and 町によって comes right before [違|ちが]います: the way to put out rubbish differs by the town you live in."
+   },
+   {
+    "id": "n3u07d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このレストランは、その日に入った魚（　　）、^メニューが[変|か]わります^。",
+    "options": ["にとって", "によって", "に[対|たい]して", "によると"],
+    "answer": 2,
+    "why": [
+      "にとって gives whose point of view. The fish has no point of view here.",
+      "The menu changes with the fish that came in that day: 魚によって[変|か]わる.",
+      "に[対|たい]して points at who something is aimed at. The menu is not aimed at the fish.",
+      "によると gives the source of news. The fish is not a source of information."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u07d4.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このアプリは[便利|べんり]ですが、使い方（　　）、^お金がかかることもあります^。",
+    "options": ["によっては", "について", "として", "にとって"],
+    "answer": 1,
+    "why": [
+      "With some ways of using it, it may cost money: によっては＋こともあります points to one possible case.",
+      "について means about. The sentence does not talk about how to use the app; it says what can happen.",
+      "として means in the role of. 使い方 is not a role.",
+      "にとって needs a person or group whose point of view it is. 使い方 is not one."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u07d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この道は、雨の",
+    "after": "こともあります。",
+    "tiles": ["[量|りょう]", "によっては", "通れなく", "なる"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "雨の needs a noun. Which verb goes with こともあります?",
+    "full": "この道は、雨の[量|りょう]によっては通れなくなることもあります。",
+    "explain": "雨の[量|りょう] (the amount of rain) comes first, then によっては for one possible case. 通れなくなる (become impassable) is what may happen, and こともあります follows it."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u07d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このテーマパークは、年齢（　　）チケットの料金が違う。",
+    "options": ["によって", "に対して", "にとって", "として"],
+    "answer": 1,
+    "explain": "The ticket price differs with the visitor's age: 年齢によって違う. に対して points at who something is aimed at, にとって gives a person's point of view, and として gives a role. None of them goes with 違う here."
+   },
+   {
+    "id": "n3u07d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このメールは、使っているパソコン（　　）、字が正しく表示されないこともあります。",
+    "options": ["に対して", "によると", "として", "によっては"],
+    "answer": 4,
+    "explain": "On some computers the letters may not show correctly: パソコンによっては＋こともあります points to one possible case. に対して points at who something is aimed at, によると gives a source of news, and として gives a role."
+   },
+   {
+    "id": "n3u07d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "旅行の料金は、",
+    "after": "大きく変わる。",
+    "tiles": ["いつ", "出発する", "か", "によって"],
+    "star": 2,
+    "bank": [1, 3, 2, 0],
+    "full": "旅行の料金は、いつ出発する{か}によって大きく変わる。",
+    "explain": "いつ, 出発する, か, によって. A question like いつ出発する needs か before によって: the price changes a lot depending on when you leave."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "開店時間のご案内",
+  "en": "A bakery chain's opening-hours notice",
+  "intro": "Tap every word you would have to read on the notice by the bakery door.",
+  "words": [
+   {"id": "branch", "word": "支店", "reading": "してん", "gloss": "branch (of a shop or bank)", "parts": [["支", "シ", "branch, support"], ["店", "テン", "shop"]]},
+   {"id": "weekday", "word": "平日", "reading": "へいじつ", "gloss": "weekday", "parts": [["平", "ヘイ", "ordinary, flat"], ["日", "ジツ", "day"]]},
+   {"id": "holiday", "word": "祝日", "reading": "しゅくじつ", "gloss": "national holiday", "parts": [["祝", "シュク", "celebrate"], ["日", "ジツ", "day"]]},
+   {"id": "closed-day", "word": "定休日", "reading": "ていきゅうび", "gloss": "regular closing day", "parts": [["定", "テイ", "fixed"], ["休", "キュウ", "rest"], ["日", "び", "day"]]},
+   {"id": "closing", "word": "閉店", "reading": "へいてん", "gloss": "closing (time)", "parts": [["閉", "ヘイ", "close"], ["店", "テン", "shop"]]},
+   {"id": "summer", "word": "夏季", "reading": "かき", "gloss": "summer season", "parts": [["夏", "カ", "summer"], ["季", "キ", "season"]]},
+   {"id": "change", "word": "変更", "reading": "へんこう", "gloss": "change (to a plan or time)", "parts": [["変", "ヘン", "change"], ["更", "コウ", "renew"]]},
+   {"id": "year-end", "word": "年末", "reading": "ねんまつ", "gloss": "end of the year", "parts": [["年", "ネン", "year"], ["末", "マツ", "end"]]}
+  ],
+  "check": {
+   "id": "n3u07d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_祝日_は、午後六時に店を閉めます。",
+   "options": ["しゅくにち", "しゅうじつ", "しゅくじつ", "しゅくひ"],
+   "answer": 3,
+   "explain": "祝日 is read しゅくじつ: on national holidays the shop closes at six. 日 is じつ here, as in 平日, so しゅくにち and しゅくひ are wrong, and しゅうじつ has a long しゅう instead of しゅく."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "Why did something happen?",
+  "seconds": 100,
+  "passage": "わたしの家の近くに、「みどり」というパン屋の駅前店がある。^同じ「みどり」でも、店によって開いている時間が違う^。駅前店は、会社へ行く前に買う人が多いので朝七時に開くが、公園の近くの店は十時からだ。また、^季節によって閉店の時間も変わる^。先週の土曜日、夕方六時半に駅前店へ行くと、もう閉まっていた。店の人に聞くと、「^十一月からは冬の時間になって、六時に閉まるんです^」と言われた。^日によっては、パンが早く売り切れて、六時より前に閉めることもある^そうだ。それからは、出かける前に店のホームページで確かめるようにしている。",
+  "strategy": "Find what the shop worker said about that Saturday, and keep it apart from what only happens on some days.",
+  "item": {
+   "id": "n3u07d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "「わたし」が先週の土曜日にパンを買えなかったのはなぜか。",
+   "options": [
+    "その日はパンが早く売り切れて、店が閉まっていたから",
+    "冬の時間になって、店が六時に閉まるようになっていたから",
+    "公園の近くの店と、開く時間をまちがえていたから",
+    "土曜日は、駅前店が休みの日だったから"
+   ],
+   "short": ["パンが売り切れていた", "冬の時間で六時に閉まる", "公園の店とまちがえた", "土曜日は休み"],
+   "answer": 2,
+   "explain": "店の人 said 十一月からは冬の時間になって、六時に閉まるんです. The writer came at six thirty, after the winter closing time.",
+   "why": [
+    "Selling out early only happens on some days (日によっては…こともある). The shop worker gave the winter hours as the reason.",
+    "",
+    "The park branch opens later in the morning, but the writer went to the station branch in the evening. Nothing says they mixed them up.",
+    "The shop was open that day until six. It had closed only because of the winter hours."
+   ]
+  }
+ }
+}

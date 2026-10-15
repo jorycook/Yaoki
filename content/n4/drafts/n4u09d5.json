@@ -1,0 +1,262 @@
+{
+ "title": "〜でございます・〜ております",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u09d5.p1",
+    "form": "〜でございます",
+    "gloss": "is (very polite です)",
+    "connect": [
+     {"pos": "Noun (very polite です)", "rule": "〜{でございます}"},
+     {"pos": "In place of あります (a thing is somewhere, or you have it)", "rule": "あります → {ございます}"},
+     {"pos": "In place of ありません", "rule": "ありません → {ございません}"}
+    ],
+    "examples": [
+     {"ja": "お[手洗|てあら]いは、こちら{でございます}。", "en": "The restroom is this way."},
+     {"ja": "セーターでしたら、三かいに{ございます}。", "en": "If you are looking for sweaters, they are on the third floor."}
+    ],
+    "watch": {
+     "note": "After a noun, use でございます, the polite です. ございます on its own is the polite あります, so it does not replace です after a noun.",
+     "bad": "お手洗いはこちらございます。",
+     "good": "お手洗いはこちらでございます。"
+    }
+   },
+   {
+    "id": "n4u09d5.p2",
+    "form": "〜ております",
+    "gloss": "am doing, is (humble ています)",
+    "connect": [
+     {"pos": "Verb, te-form (humble ています)", "rule": "[待|ま]って{おります}"},
+     {"pos": "Humble お + verb ます stem + して", "rule": "お[待|ま]ちして{おります}"},
+     {"pos": "In place of います (I am, or my family is, somewhere)", "rule": "います → {おります}"}
+    ],
+    "examples": [
+     {"ja": "フロントで、お[待|ま]ちして{おります}。", "en": "We will be waiting for you at the front desk."},
+     {"ja": "[兄|あに]は[銀行|ぎんこう]で[働|はたら]いて{おります}。", "en": "My older brother works at a bank."}
+    ],
+    "watch": {
+     "note": "おります makes the subject humble. Use it for yourself, your family or your company. For a teacher or a customer, use いらっしゃいます.",
+     "bad": "先生は今、教室におります。",
+     "good": "先生は今、教室にいらっしゃいます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "でございます and おります make your own words very polite or humble; いらっしゃる raises the other person.",
+   "forms": [
+    {"form": "〜でございます", "tag": "ていねい · very polite です", "mark": "dot", "ja": "こちらが、おへや{でございます}。", "en": "This is your room."},
+    {"form": "〜ております", "tag": "けんじょう · humble いる (me, my side)", "mark": "dot", "ja": "母は今、[台所|だいどころ]に{おります}。", "en": "My mother is in the kitchen now."},
+    {"form": "いらっしゃる", "tag": "そんけい · respectful いる (the other person)", "mark": "dot", "ja": "先生は[図書館|としょかん]に{いらっしゃいます}。", "en": "The teacher is in the library."}
+   ],
+   "check": {
+    "id": "n4u09d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Humble or respectful?",
+    "q": "もしもし、[田中|たなか]ですが、[山田|やまだ]先生は（　　）か。",
+    "options": ["おります", "いらっしゃいます", "ございます"],
+    "answer": 2,
+    "why": [
+     "おります makes the subject humble. You cannot use it for the teacher you are asking about.",
+     "The caller asks about the teacher, someone to respect, so the respectful いらっしゃいます fits: is Mr Yamada there?",
+     "ございます is the polite あります, for things. It does not say where a person is."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u09d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "お[手洗|てあら]いは、^エレベーターの右^（　　）。",
+    "options": ["ございます", "でおります", "でございます", "おります"],
+    "answer": 3,
+    "why": [
+     "ございます is the polite あります. Straight after the noun 右, with no particle, it does not work.",
+     "おります stands for いる (a person is somewhere). でおります is not a form.",
+     "右 is a noun, and でございます is the polite です: the restroom is to the right of the lift.",
+     "おります is for people, and it cannot follow the noun 右 with no particle."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "セーターは、^三かいに^（　　）。",
+    "options": ["でございます", "ございます", "おります", "いらっしゃいます"],
+    "answer": 2,
+    "why": [
+     "でございます is the polite です and follows a noun directly. After the particle に it does not fit.",
+     "三かいに needs a word for where a thing is. ございます is the polite あります: the sweaters are on the third floor.",
+     "おります stands for いる, which is for people and animals. Sweaters are things.",
+     "いらっしゃいます is the respectful いる, for people you respect, not for things."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^わたしは^この[町|まち]にもう十年（　　）。",
+    "options": ["[住|す]んでございます", "[住|す]みております", "[住|す]んでいらっしゃいます", "[住|す]んでおります"],
+    "answer": 4,
+    "why": [
+     "The humble form of 住んでいます is 住んでおります. 住んでございます is not said.",
+     "おります follows the te-form, not the ます stem: 住んでおります.",
+     "いらっしゃいます raises the subject. The speaker is talking about themselves, so this is wrong.",
+     "The speaker talks about themselves, so the humble form fits: I have lived in this town for ten years."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "すみません、^父は^今、出かけて（　　）。",
+    "options": ["おります", "ございます", "いらっしゃいます", "でございます"],
+    "answer": 1,
+    "why": [
+     "父 is the speaker's own family, so the humble おります fits: I'm sorry, my father is out now.",
+     "ございます is the polite あります. 出かけて needs a form of いる here.",
+     "いらっしゃいます raises the subject. You do not raise your own father when you talk to someone outside the family.",
+     "でございます follows a noun. It does not follow a te-form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "お[手洗|てあら]いは、",
+    "after": "。",
+    "tiles": ["二かいと", "四かいに", "しか", "ございません"],
+    "star": 1,
+    "bank": [2, 3, 1, 0],
+    "hint": "AとB joins two floors. しか comes before a negative.",
+    "full": "お[手洗|てあら]いは、二かいと四かいにしか{ございません}。",
+    "explain": "二かいと四かい joins the two floors, and に marks where. しか follows に and needs a negative, so ございません, the polite ありません, ends the sentence: there are restrooms only on the second and fourth floors."
+   },
+   {
+    "id": "n4u09d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "では、あしたの[朝|あさ]、",
+    "after": "。",
+    "tiles": ["ホテルの", "入り口で", "お[待|ま]ちして", "おります"],
+    "star": 2,
+    "bank": [3, 1, 2, 0],
+    "hint": "ホテルの describes a place. おります follows the te-form.",
+    "full": "では、あしたの[朝|あさ]、ホテルの入り口でお[待|ま]ちして{おります}。",
+    "explain": "ホテルの describes 入り口, and で marks where. お待ちして is the humble お〜する in the te-form, and おります follows it: then we will be waiting for you at the hotel entrance tomorrow morning."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u09d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「すみません、ここは　何かいですか。」　B「こちらは　五かい（　　）。」",
+    "options": ["で　おります", "に　おります", "で　ございます", "で　いらっしゃいます"],
+    "answer": 3,
+    "explain": "五かい is a noun, and でございます is the very polite です: this is the fifth floor. おります stands for いる, for people, so で　おります and に　おります do not fit a place. で　いらっしゃいます is respectful, for a person, not for こちら, the place."
+   },
+   {
+    "id": "n4u09d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「お兄さんは　お元気ですか。」　B「はい。今は　東京の　銀行で　（　　）。」",
+    "options": ["働いて　いらっしゃいます", "お働きに　なります", "働いて　ございます", "働いて　おります"],
+    "answer": 4,
+    "explain": "B is talking about her own brother, so the humble 働いております fits: he is working at a bank in Tokyo now. 働いていらっしゃいます and お働きになります raise the subject, which is wrong for your own family. 働いてございます is not said."
+   },
+   {
+    "id": "n4u09d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません、田中は　今　",
+    "after": "。",
+    "tiles": ["昼ごはんを", "食べに", "出かけて", "おります"],
+    "star": 2,
+    "bank": [1, 3, 0, 2],
+    "full": "すみません、田中は　今　昼ごはんを　食べに　出かけて　{おります}。",
+    "explain": "昼ごはんを, 食べに, 出かけて, おります. 昼ごはんを食べに (to eat lunch) is the purpose of 出かけて, and おります follows the te-form. The speaker calls her colleague 田中, with no さん, and uses the humble おります because he is on her side: I'm sorry, Tanaka is out for lunch now."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "デパートの売り場あんない",
+  "en": "A department store floor guide",
+  "intro": "The floor guide next to the lift shows what is on each floor of the store. Tap each word on it.",
+  "words": [
+   {"id": "section", "word": "売り場", "reading": "うりば", "gloss": "sales floor, section of a shop", "parts": [["売", "う", "sell"], ["場", "ば", "place"]]},
+   {"id": "clothes", "word": "洋服", "reading": "ようふく", "gloss": "clothes (Western style)", "parts": [["洋", "ヨウ", "Western, ocean"], ["服", "フク", "clothes"]]},
+   {"id": "food", "word": "食品", "reading": "しょくひん", "gloss": "food (to buy)", "parts": [["食", "ショク", "eat"], ["品", "ヒン", "goods"]]},
+   {"id": "diner", "word": "食堂", "reading": "しょくどう", "gloss": "dining hall, restaurant", "parts": [["食", "ショク", "eat"], ["堂", "ドウ", "hall"]]},
+   {"id": "roof", "word": "屋上", "reading": "おくじょう", "gloss": "rooftop", "parts": [["屋", "オク", "roof, house"], ["上", "ジョウ", "above"]]},
+   {"id": "basement", "word": "地下", "reading": "ちか", "gloss": "basement, underground", "parts": [["地", "チ", "ground"], ["下", "カ", "below"]]},
+   {"id": "opening", "word": "開店", "reading": "かいてん", "gloss": "opening (of a shop)", "parts": [["開", "カイ", "open"], ["店", "テン", "shop"]]},
+   {"id": "restroom", "word": "お手洗い", "reading": "おてあらい", "gloss": "restroom", "parts": [["手", "て", "hand"], ["洗", "あら", "wash"]]}
+  ],
+  "check": {
+   "id": "n4u09d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　デパートの　_屋上_には　小さな　こうえんが　あります。",
+   "options": ["おくじょう", "おくうえ", "やじょう", "おくしょう"],
+   "answer": 1,
+   "explain": "屋上 is read おくじょう, the rooftop: there is a small park on the roof of this store. おくうえ reads 上 as うえ, やじょう reads 屋 as や, and おくしょう has しょ instead of じょ."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "即時応答",
+  "en": "Quick response",
+  "ask": "文を　聞いて、いちばん　いい　答えを　一つ　えらんで　ください。",
+  "audio": [
+   ["M", "すみません、かさはどこで買えますか。", "すみません、かさは　どこで　かえますか。"],
+   ["N", "1", "いち"],
+   ["F", "はい、かさは持っております。", "はい、かさは　もって　おります。"],
+   ["N", "2", "に"],
+   ["F", "一かいの入り口の近くにございます。", "いっかいの　いりぐちの　ちかくに　ございます。"],
+   ["N", "3", "さん"],
+   ["F", "ええ、外は雨がふっております。", "ええ、そとは　あめが　ふって　おります。"]
+  ],
+  "item": {
+   "id": "n4u09d5.r1",
+   "kind": "choice",
+   "type": "即時応答",
+   "q": "男：すみません、　かさは　どこで　買えますか。",
+   "script": [
+    "男：すみません、かさはどこで買えますか。",
+    "ナレーター：1",
+    "女：はい、かさは持っております。",
+    "ナレーター：2",
+    "女：一かいの入り口の近くにございます。",
+    "ナレーター：3",
+    "女：ええ、外は雨がふっております。"
+   ],
+   "options": ["はい、かさは持っております。", "一かいの入り口の近くにございます。", "ええ、外は雨がふっております。"],
+   "printed": false,
+   "short": ["かさは持っております", "入り口の近くにございます", "雨がふっております"],
+   "answer": 2,
+   "why": [
+    "He asks where he can buy an umbrella. はい answers a yes-or-no question, and saying she has one herself does not tell him where to buy one.",
+    "He asks where, and she tells him: umbrellas are near the entrance on the first floor. ございます is the polite あります.",
+    "ええ agrees, but どこ asks for a place. Saying it is raining outside does not tell him where umbrellas are sold."
+   ],
+   "explain": null
+  }
+ }
+}

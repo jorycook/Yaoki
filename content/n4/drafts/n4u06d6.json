@@ -1,0 +1,431 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "This unit's points come in look-alike pairs: ので and から both give a reason (ので is softer and more polite) while のに joins two things that do not match; し lists reasons and a request can follow it, while a て-reason leads only to a result or a feeling; 間 fills the whole time while 間に is one action at some point inside it; まで keeps going up to a point while までに is one action done before it; ながら is one person doing two things at once while 間 can join two people; and うちに means do it while a state lasts, while 前に only looks at the time before an action.",
+   "forms": [
+    {
+     "form": "〜まで",
+     "tag": "ずっと · until (it keeps going)",
+     "mark": "dot",
+     "ja": "店長が来る{まで}、店の前で[待|ま]ちました。",
+     "en": "I waited in front of the shop until the manager came."
+    },
+    {
+     "form": "〜までに",
+     "tag": "しめきり · by (one action before a point)",
+     "mark": "dot",
+     "ja": "店長が来る{までに}、そうじをしておきました。",
+     "en": "I had done the cleaning by the time the manager came."
+    },
+    {
+     "form": "〜間に",
+     "tag": "その中で一回 · at some point during",
+     "mark": "dot",
+     "ja": "店長がいない{間に}、[昼|ひる]ごはんを食べました。",
+     "en": "While the manager was out, I ate lunch."
+    }
+   ],
+   "check": {
+    "id": "n4u06d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "アルバイトの前に",
+    "q": "アルバイトが[始|はじ]まる（　　）、^ずっと^駅の前の[本屋|ほんや]にいました。",
+    "options": [
+     "までに",
+     "間に",
+     "まで"
+    ],
+    "answer": 3,
+    "why": [
+     "までに is for one action done before a point, like 出す or [帰|かえ]る. ずっと…いました went on the whole time, so it needs まで.",
+     "間に needs a stretch of time, like [待|ま]っている間に. [始|はじ]まる happens in a moment, and ずっと fills the whole time anyway.",
+     "I stayed at the bookshop the whole time, up to when my job started: ずっと goes with まで."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u06d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^毎日れんしゅうした^（　　）、[試合|しあい]にまけてしまいました。",
+    "options": [
+     "ので",
+     "のに",
+     "から",
+     "し"
+    ],
+    "answer": 2,
+    "why": [
+     "ので gives a reason, but practising every day is not why you lose.",
+     "Practising every day and still losing is not what you expected: のに joins two things that do not match.",
+     "から gives a reason, like ので. Practising is not the reason for losing.",
+     "し lists reasons that point the same way. Practising every day does not point to losing."
+    ]
+   },
+   {
+    "id": "n4u06d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨が（　　）、^かさを[持|も]っていってください^。",
+    "options": [
+     "ふっていて",
+     "ふっているのに",
+     "ふっているから",
+     "ふりながら"
+    ],
+    "answer": 3,
+    "why": [
+     "A て-reason leads to a result or a feeling, not to a request like [持|も]っていってください. A request needs から.",
+     "のに joins two things that do not match. Rain and taking an umbrella match.",
+     "The rain is the reason and a request follows, so から.",
+     "ながら is one person doing two things at once. It is the rain that falls, and you who take the umbrella."
+    ]
+   },
+   {
+    "id": "n4u06d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母が[料理|りょうり]をしている（　　）、わたしは^ずっと^テレビを見ていました。",
+    "options": [
+     "間",
+     "間に",
+     "ながら",
+     "うちに"
+    ],
+    "answer": 1,
+    "why": [
+     "ずっと…見ていました fills the whole time mother was cooking, so 間 with no に.",
+     "間に is for one action at some point inside the time. ずっと fills the whole time.",
+     "ながら is one person doing two things at once. Here mother cooks and I watch TV: two people.",
+     "With うちに, the second part is something done before a state ends, or a change that comes while it lasts. ずっとテレビを見ていました is neither; it just fills the time."
+    ]
+   },
+   {
+    "id": "n4u06d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^ひまな^（　　）、へやのそうじをしておきます。",
+    "options": [
+     "前に",
+     "までに",
+     "まで",
+     "うちに"
+    ],
+    "answer": 4,
+    "why": [
+     "前に follows a verb in the dictionary form or a noun with の, as in 仕事の前に. It does not join a な-adjective like ひまな.",
+     "までに sets a deadline after a time or a verb. ひまなまでに is not a form.",
+     "まで follows a time or a verb, as in [暗|くら]くなるまで. ひまなまで is not a form.",
+     "うちに can follow a な-adjective with な: clean while you are still free, before you get busy."
+    ]
+   },
+   {
+    "id": "n4u06d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "電車が",
+    "after": "[待|ま]ちました。",
+    "tiles": [
+     "来る",
+     "まで",
+     "本を",
+     "読みながら"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "まで follows the dictionary form. Who is reading while waiting?",
+    "full": "電車が来る{まで}本を読みながら[待|ま]ちました。",
+    "explain": "来る, まで, 本を, 読みながら. The waiting went on until the train came, so まで, not までに. I read and waited at the same time, one person doing both, so ながら: I waited for the train, reading a book."
+   },
+   {
+    "id": "n4u06d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このアルバイトは",
+    "after": "ので、[好|す]きです。",
+    "tiles": [
+     "[家|いえ]から",
+     "[近|ちか]いし",
+     "[昼|ひる]ごはんも",
+     "出る"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "し lists the first reason. The last reason is in the plain form, right before ので.",
+    "full": "このアルバイトは[家|いえ]から[近|ちか]いし[昼|ひる]ごはんも出る{ので}、[好|す]きです。",
+    "explain": "家から, 近いし, 昼ごはんも, 出る. し lists the first reason, and も on the second reason goes with it. 出る in the plain form joins ので: I like this job because it is close to home, and lunch is given too."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u06d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この　店の　ラーメンは　高い（　　）、あまり　おいしく　ないです。",
+    "options": [
+     "ので",
+     "うちに",
+     "のに",
+     "から"
+    ],
+    "answer": 3,
+    "explain": "You expect an expensive bowl of ramen to be good, but it is not, so のに. ので and から give a reason, and being expensive is not why it tastes bad. うちに means while a state lasts, which does not fit a shop's prices and its taste."
+   },
+   {
+    "id": "n4u06d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母が　買い物に　行って　いる（　　）、へやを　そうじして　おきました。",
+    "options": [
+     "間に",
+     "ながら",
+     "までに",
+     "まえに"
+    ],
+    "answer": 1,
+    "explain": "Mother was out for a while, and I did the cleaning at one point inside that time, so 間に. ながら is one person doing two things at once, and here there are two people. 行っているまでに and 行っているまえに are not forms; you would need 帰ってくるまでに or 帰ってくるまえに."
+   },
+   {
+    "id": "n4u06d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あしたは　テストが　",
+    "after": "　まで　勉強します。",
+    "tiles": [
+     "ある",
+     "ので",
+     "今夜は",
+     "おそく"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "あしたは　テストが　ある　ので　{今夜は}　おそく　まで　勉強します。",
+    "explain": "ある, ので, 今夜は, おそく. テストがある is the reason, and ので follows the plain form. おそく goes right before まで (until late): I have a test tomorrow, so tonight I will study until late."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "食堂のアルバイトのシフト",
+  "en": "A shift timetable for a part-time job at a cafeteria",
+  "intro": "Tap each word on the cafeteria's shift timetable for its part-time staff.",
+  "words": [
+   {
+    "id": "cafeteria",
+    "word": "食堂",
+    "reading": "しょくどう",
+    "gloss": "cafeteria, dining hall",
+    "parts": [
+     [
+      "食",
+      "ショク",
+      "eat"
+     ],
+     [
+      "堂",
+      "ドウ",
+      "hall"
+     ]
+    ]
+   },
+   {
+    "id": "weekday",
+    "word": "曜日",
+    "reading": "ようび",
+    "gloss": "day of the week",
+    "parts": [
+     [
+      "曜",
+      "ヨウ",
+      "day of the week"
+     ],
+     [
+      "日",
+      "ビ",
+      "day"
+     ]
+    ]
+   },
+   {
+    "id": "evening",
+    "word": "夕方",
+    "reading": "ゆうがた",
+    "gloss": "early evening",
+    "parts": [
+     [
+      "夕",
+      "ゆう",
+      "evening"
+     ],
+     [
+      "方",
+      "がた",
+      "side, time"
+     ]
+    ]
+   },
+   {
+    "id": "staff",
+    "word": "店員",
+    "reading": "てんいん",
+    "gloss": "shop staff",
+    "parts": [
+     [
+      "店",
+      "テン",
+      "shop"
+     ],
+     [
+      "員",
+      "イン",
+      "member"
+     ]
+    ]
+   },
+   {
+    "id": "opening",
+    "word": "開店",
+    "reading": "かいてん",
+    "gloss": "opening (of a shop)",
+    "parts": [
+     [
+      "開",
+      "カイ",
+      "open"
+     ],
+     [
+      "店",
+      "テン",
+      "shop"
+     ]
+    ]
+   },
+   {
+    "id": "convenience",
+    "word": "都合",
+    "reading": "つごう",
+    "gloss": "convenience, what suits you",
+    "parts": [
+     [
+      "都",
+      "ツ",
+      "capital; here: arrange"
+     ],
+     [
+      "合",
+      "ゴウ",
+      "fit"
+     ]
+    ]
+   },
+   {
+    "id": "substitute",
+    "word": "代わり",
+    "reading": "かわり",
+    "gloss": "substitute, in place of",
+    "parts": [
+     [
+      "代",
+      "か",
+      "replace"
+     ]
+    ]
+   },
+   {
+    "id": "exam",
+    "word": "試験",
+    "reading": "しけん",
+    "gloss": "exam",
+    "parts": [
+     [
+      "試",
+      "シ",
+      "try"
+     ],
+     [
+      "験",
+      "ケン",
+      "test"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u06d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "来週の　月曜日は　_都合_が　悪いです。",
+   "options": [
+    "とごう",
+    "つごう",
+    "つあい",
+    "とあい"
+   ],
+   "answer": 2,
+   "explain": "都合 (convenience) is read つごう: 都 is ツ here, and 合 is ゴウ. 都 is ト in a word like 東京都, but とごう is not a word, and neither are つあい and とあい."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Does Lin have to change anything on Thursday the 12th?",
+  "seconds": 90,
+  "passage": "さくら食堂　アルバイトの　シフト（十一月九日～十五日）\n曜日　　　　朝（七時～十一時）　夕方（五時～九時）\n月・水・金　リン　　　　　　　　キム\n^火・木　　　田中　　　　　　　　リン^\n土・日　　　キム　　　　　　　　田中\n※朝の　店員は、開店の　三十分前までに　来て　ください。\n※^休みたい　日が　ある　人は、七日（土）までに　店長に　言って　ください^。代わりの　人は　店長が　さがします。",
+  "strategy": "Find Lin's name in the Thursday row and see which column it is in before you read the notes.",
+  "item": {
+   "id": "n4u06d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "リンさんは　十二日（木）の　朝　九時から　十二時まで、大学で　試験が　あります。リンさんは　どう　しますか。",
+   "options": [
+    "七日までに　店長に　言って、十二日は　休む。",
+    "キムさんに　十二日の　夕方の　仕事を　たのむ。",
+    "十二日の　朝、店長に　電話して　休む。",
+    "十二日も　いつもと　同じように　夕方　働く。"
+   ],
+   "short": [
+    "7日までに言って休む",
+    "キムさんにたのむ",
+    "12日の朝に電話して休む",
+    "いつもと同じように夕方働く"
+   ],
+   "answer": 4,
+   "explain": "On Tuesdays and Thursdays Lin works in the evening, from five to nine: 火・木 … リン is in the 夕方 column. The test is in the morning, so nothing changes and she works in the evening as usual.",
+   "why": [
+    "Lin does not need a day off. On Thursday she works only in the evening, after the test.",
+    "Lin can do her own evening shift. And the notes say the manager finds the substitute: 代わりの　人は　店長が　さがします.",
+    "Lin works on Thursday evening, not in the morning, so she does not need to call. A day off must also be asked for by the 7th, not on the day.",
+    ""
+   ]
+  }
+ }
+}

@@ -1,0 +1,3426 @@
+{
+  "days": {
+    "1": {
+      "title": "〜て、〜・〜てください",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u06d1.p1",
+            "form": "〜て、〜",
+            "gloss": "do … and (then) …",
+            "connect": [
+              {
+                "pos": "る-verbs, like 食べます, 見ます, おきます: drop ます and add て",
+                "rule": "[食|た]べます → [食|た]べ{て}"
+              },
+              {
+                "pos": "う-verbs: the sound before ます changes. き → いて (but 行きます → 行って), ぎ → いで, み・び・に → んで, い・ち・り → って, し → して",
+                "rule": "[書|か]い{て}・[行|い]っ{て}・[読|よ]ん{で}・[話|はな]し{て}・まっ{て}"
+              },
+              {
+                "pos": "します and 来ます are special. Join actions in order with 〜て、〜; the last verb says when (〜ます or 〜ました)",
+                "rule": "します → し{て}・[来|き]ます → [来|き]{て}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "あさおき{て}、かおをあらっ{て}、ごはんを[食|た]べます。",
+                "en": "In the morning I get up, wash my face and eat breakfast."
+              },
+              {
+                "ja": "[駅|えき]で[電車|でんしゃ]をおり{て}、[友|とも]だちに[会|あ]いました。",
+                "en": "I got off the train at the station and met a friend."
+              }
+            ],
+            "watch": {
+              "note": "With う-verbs you cannot just add て. The sound changes first: 書きます becomes 書いて, never 書きて.",
+              "bad": "てがみを書きて、出しました。",
+              "good": "てがみを書いて、出しました。"
+            }
+          },
+          {
+            "id": "n5u06d1.p2",
+            "form": "〜てください",
+            "gloss": "please do …",
+            "connect": [
+              {
+                "pos": "Verb, て form: 〜て is a て form such as 書いて, 見て, して",
+                "rule": "〜て{ください}"
+              },
+              {
+                "pos": "To sound softer, start with すみませんが",
+                "rule": "すみませんが、〜て{ください}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[九時|くじ]に[駅|えき]の[前|まえ]に[来|き]て{ください}。",
+                "en": "Please come to the front of the station at nine."
+              },
+              {
+                "ja": "すみませんが、ちょっとまって{ください}。",
+                "en": "Sorry, please wait a moment."
+              }
+            ],
+            "watch": {
+              "note": "ください goes after the て form, not after the ます form.",
+              "bad": "もう一ど言いますください。",
+              "good": "もう一ど言ってください。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three ask something of someone: てください asks them to do something, をください asks for a thing, and ませんか invites them to do something with you.",
+          "forms": [
+            {
+              "form": "〜てください",
+              "tag": "おねがい · please do",
+              "mark": "dot",
+              "ja": "ドアをしめて{ください}。",
+              "en": "Please close the door."
+            },
+            {
+              "form": "〜をください",
+              "tag": "ほしいもの · please give me (a thing)",
+              "mark": "dot",
+              "ja": "コーヒー{をください}。",
+              "en": "A coffee, please."
+            },
+            {
+              "form": "〜ませんか",
+              "tag": "さそう · won't you (with me)?",
+              "mark": "dot",
+              "ja": "いっしょに[行|い]き{ませんか}。",
+              "en": "Won't you come with me?"
+            }
+          ],
+          "check": {
+            "id": "n5u06d1.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "店で",
+            "q": "すみません、その[白|しろ]いペン（　　）。",
+            "options": [
+              "てください",
+              "ませんか",
+              "をください"
+            ],
+            "answer": 3,
+            "why": [
+              "てください goes after a verb in the て form, like 書いて. ペン is a noun.",
+              "ませんか goes after a verb, as in 行きませんか. It cannot come after a noun.",
+              "ペン is a thing, so you ask for it with をください: that white pen, please."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u06d1.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "よる、[本|ほん]を（　　）^、ねます^。",
+            "options": [
+              "[読|よ]みて",
+              "[読|よ]いて",
+              "[読|よ]って",
+              "[読|よ]んで"
+            ],
+            "answer": 4,
+            "why": [
+              "う-verbs do not just add て. み changes to んで.",
+              "いて is for verbs with き before ます, like 書きます → 書いて.",
+              "って is for verbs with い, ち or り before ます, like かいます → かって.",
+              "読みます has み before ます, so it becomes 読んで: I read, then I sleep."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d1.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[駅|えき]へ（　　）、^[電車|でんしゃ]にのります^。",
+            "options": [
+              "[行|い]んで",
+              "[行|い]いて",
+              "[行|い]って",
+              "[行|い]きて"
+            ],
+            "answer": 3,
+            "why": [
+              "んで is for verbs with み, び or に before ます, like 読みます → 読んで.",
+              "Most verbs with き become いて, but 行きます is the exception.",
+              "行きます becomes 行って: I go to the station, then I get on the train.",
+              "う-verbs do not just add て. 行きます becomes 行って."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d1.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "すみません、ここに[名前|なまえ]を（　　）^ください^。",
+            "options": [
+              "[書|か]きて",
+              "[書|か]いで",
+              "[書|か]きます",
+              "[書|か]いて"
+            ],
+            "answer": 4,
+            "why": [
+              "う-verbs do not just add て. き changes to い: 書いて.",
+              "いで is for verbs with ぎ before ます, like およぎます → およいで. 書きます takes て.",
+              "ください never goes after the ます form.",
+              "書きます has き before ます, so it becomes 書いて: please write your name here."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d1.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[今日|きょう]、うちでしゅくだいを（　　）^ください^。",
+            "options": [
+              "して",
+              "しって",
+              "するて",
+              "します"
+            ],
+            "answer": 1,
+            "why": [
+              "します becomes して: please do your homework at home today.",
+              "There is no small っ in the て form of します. It is just して.",
+              "する never takes て directly. The て form is して.",
+              "ください never goes after the ます form."
+            ]
+          },
+          {
+            "id": "n5u06d1.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[駅|えき]で",
+            "after": "。",
+            "tiles": [
+              "[電車|でんしゃ]を",
+              "おりて",
+              "バスに",
+              "のります"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "Getting off the train comes first, with て. Which tile goes with おりて? The second action ends the sentence.",
+            "full": "[駅|えき]で[電車|でんしゃ]をおり{て}バスにのります。",
+            "explain": "電車をおりて is the first action, so it comes first, in the て form. バスにのります is the second action, and its ます ending closes the sentence."
+          },
+          {
+            "id": "n5u06d1.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、もう",
+            "after": "。",
+            "tiles": [
+              "[少|すこ]し",
+              "ゆっくり",
+              "[話|はな]して",
+              "ください"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "hint": "もう少し is one phrase: a little more. ください comes last, right after the て form.",
+            "full": "すみません、もう[少|すこ]しゆっくり[話|はな]して{ください}。",
+            "explain": "もう少し means a little more, so 少し sits right after もう. ゆっくり describes how to speak, so it comes before 話して. ください follows the て form and ends the request."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u06d1.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "友だちを　三十分　（　　）、いっしょに　えいがを　見ました。",
+            "options": [
+              "まつて",
+              "まって",
+              "まんで",
+              "まちて"
+            ],
+            "answer": 2,
+            "explain": "まちます has ち before ます, so it becomes まって: I waited thirty minutes for my friend, then we saw a film together. まちて and まつて are not forms of this verb, and んで is for verbs with み, び or に, like よみます → よんで."
+          },
+          {
+            "id": "n5u06d1.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "先生「では、本の　十ページを　（　　）　ください。」",
+            "options": [
+              "見て",
+              "見って",
+              "見んで",
+              "見ます"
+            ],
+            "answer": 1,
+            "explain": "見ます is a る-verb: drop ます and add て, so 見てください, please look at page ten. 見って and 見んで are not forms of 見ます, and ください never goes after the ます form."
+          },
+          {
+            "id": "n5u06d1.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "まどを　",
+            "after": "　ください。",
+            "tiles": [
+              "あけて",
+              "へやの",
+              "そうじを",
+              "して"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "まどを　あけて　へやの　{そうじを}　して　ください。",
+            "explain": "あけて, へやの, そうじを, して. まどを goes with あけて, the first action. へやの describes そうじ, and そうじを して is the second action, right before ください."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "テストのプリント",
+        "en": "A test instruction sheet",
+        "intro": "Tap each word on the instruction sheet your teacher hands out before a test.",
+        "words": [
+          {
+            "id": "name",
+            "word": "名前",
+            "reading": "なまえ",
+            "gloss": "name",
+            "parts": [
+              [
+                "名",
+                "な",
+                "name"
+              ],
+              [
+                "前",
+                "まえ",
+                "front"
+              ]
+            ]
+          },
+          {
+            "id": "write",
+            "word": "書いて",
+            "reading": "かいて",
+            "gloss": "write (て form)",
+            "parts": [
+              [
+                "書",
+                "か",
+                "write"
+              ]
+            ]
+          },
+          {
+            "id": "read",
+            "word": "読んで",
+            "reading": "よんで",
+            "gloss": "read (て form)",
+            "parts": [
+              [
+                "読",
+                "よ",
+                "read"
+              ]
+            ]
+          },
+          {
+            "id": "put-in",
+            "word": "入れて",
+            "reading": "いれて",
+            "gloss": "put in (て form)",
+            "parts": [
+              [
+                "入",
+                "い",
+                "enter, put in"
+              ]
+            ]
+          },
+          {
+            "id": "hand-in",
+            "word": "出して",
+            "reading": "だして",
+            "gloss": "hand in, take out (て form)",
+            "parts": [
+              [
+                "出",
+                "だ",
+                "go out, put out"
+              ]
+            ]
+          },
+          {
+            "id": "back",
+            "word": "後ろ",
+            "reading": "うしろ",
+            "gloss": "behind, the back",
+            "parts": [
+              [
+                "後",
+                "うし",
+                "behind, after"
+              ]
+            ]
+          },
+          {
+            "id": "time",
+            "word": "時間",
+            "reading": "じかん",
+            "gloss": "time (allowed)",
+            "parts": [
+              [
+                "時",
+                "ジ",
+                "time, o'clock"
+              ],
+              [
+                "間",
+                "カン",
+                "between"
+              ]
+            ]
+          },
+          {
+            "id": "forty-min",
+            "word": "四十分",
+            "reading": "よんじゅっぷん",
+            "gloss": "forty minutes",
+            "parts": [
+              [
+                "四",
+                "よん",
+                "four"
+              ],
+              [
+                "十",
+                "ジュッ",
+                "ten"
+              ],
+              [
+                "分",
+                "プン",
+                "minute"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u06d1.k1",
+          "kind": "choice",
+          "type": "文脈規定",
+          "label": "How the exam asks it",
+          "q": "テストの　前に、本を　かばんに　（　　）　ください。",
+          "options": [
+            "出して",
+            "読んで",
+            "書いて",
+            "入れて"
+          ],
+          "answer": 4,
+          "explain": "かばんに means into the bag, so 入れて: please put your book in your bag before the test. 出して would need かばんから (out of the bag). 読んで and 書いて do not go with かばんに."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "発話表現",
+        "en": "Expressions",
+        "situation": "On a hot day in class, a woman turns to the man sitting next to the closed window.",
+        "ask": "へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+        "item": {
+          "id": "n5u06d1.r1",
+          "kind": "choice",
+          "type": "発話表現",
+          "q": "へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+          "script": [
+            "ナレーター：へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+            "ナレーター：1",
+            "女：すみません、まどを　あけましたか。",
+            "ナレーター：2",
+            "女：すみません、まどを　しめて　ください。",
+            "ナレーター：3",
+            "女：すみません、まどを　あけて　ください。"
+          ],
+          "options": [
+            "すみません、まどを　あけましたか。",
+            "すみません、まどを　しめて　ください。",
+            "すみません、まどを　あけて　ください。"
+          ],
+          "printed": false,
+          "short": [
+            "まどをあけましたか",
+            "まどをしめてください",
+            "まどをあけてください"
+          ],
+          "answer": 3,
+          "why": [
+            "あけましたか asks if he already opened it. It does not ask him to open it.",
+            "しめて means close. The room is hot and the window is already closed, so she wants it open.",
+            ""
+          ]
+        },
+        "audio": [
+          [
+            "N",
+            "へやが　あついです。まどの　そばの　人に　何と　いいますか。",
+            "へやが　あついです。まどの　そばの　ひとに　なんと　いいますか。"
+          ],
+          [
+            "N",
+            "1",
+            "いち"
+          ],
+          [
+            "F",
+            "すみません、まどを　あけましたか。",
+            null
+          ],
+          [
+            "N",
+            "2",
+            "に"
+          ],
+          [
+            "F",
+            "すみません、まどを　しめて　ください。",
+            null
+          ],
+          [
+            "N",
+            "3",
+            "さん"
+          ],
+          [
+            "F",
+            "すみません、まどを　あけて　ください。",
+            null
+          ]
+        ]
+      }
+    },
+    "2": {
+      "title": "〜ないでください・〜てもいいです",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u06d2.p1",
+            "form": "〜ないでください",
+            "gloss": "please don't …",
+            "connect": [
+              {
+                "pos": "Verb, ない-form (learn these as set shapes; the ない-form is taught in unit 7)",
+                "rule": "[食|た]べない・[入|はい]らない・[書|か]かない ＋ {でください}"
+              },
+              {
+                "pos": "More ない-forms to learn as set shapes (unit 7)",
+                "rule": "[話|はな]さない・しない・[来|こ]ない ＋ {でください}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "ここに[入|はい]ら{ないでください}。",
+                "en": "Please don't go in here."
+              },
+              {
+                "ja": "この[本|ほん]に[何|なに]も[書|か]か{ないでください}。",
+                "en": "Please don't write anything in this book."
+              }
+            ],
+            "watch": {
+              "note": "Use the ない-form before でください. The polite ません form never goes before でください.",
+              "bad": "ここで食べませんでください。",
+              "good": "ここで食べないでください。"
+            }
+          },
+          {
+            "id": "n5u06d2.p2",
+            "form": "〜てもいいです",
+            "gloss": "it is all right to …, you may …",
+            "connect": [
+              {
+                "pos": "Verb, て-form",
+                "rule": "[見|み]て・[入|はい]って・[飲|の]んで ＋ {もいいです}"
+              },
+              {
+                "pos": "Asking permission: add か",
+                "rule": "[見|み]て ＋ {もいいですか}"
+              },
+              {
+                "pos": "Answers: yes / a soft no",
+                "rule": "{ええ、どうぞ}。／{すみません、ちょっと…}。"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "ここにすわって{もいいですか}。",
+                "en": "May I sit here?"
+              },
+              {
+                "ja": "テストのとき、じしょを[見|み]て{もいいです}。",
+                "en": "You may look at your dictionary during the test."
+              }
+            ],
+            "watch": {
+              "note": "Use the て-form before もいいです. The polite ます form does not go before も.",
+              "bad": "このペンをつかいますもいいですか。",
+              "good": "このペンをつかってもいいですか。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three are about what someone does. ないでください asks you not to, てもいいです says it is all right, and てください asks you to do it.",
+          "forms": [
+            {
+              "form": "〜ないでください",
+              "tag": "しないで · please don't",
+              "mark": "down",
+              "ja": "ここで[食|た]べ{ないでください}。",
+              "en": "Please don't eat here."
+            },
+            {
+              "form": "〜てもいいです",
+              "tag": "してもいい · you may",
+              "mark": "dot",
+              "ja": "ここで[食|た]べて{もいいです}。",
+              "en": "You may eat here."
+            },
+            {
+              "form": "〜てください",
+              "tag": "して · please do",
+              "mark": "dot",
+              "ja": "ここで[食|た]べて{ください}。",
+              "en": "Please eat here."
+            }
+          ],
+          "check": {
+            "id": "n5u06d2.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "でんわを かりる",
+            "q": "A：すみません、ここで[電話|でんわ]を（　　）か。B：ええ、どうぞ。",
+            "options": [
+              "かけないでください",
+              "かけてもいいです",
+              "かけてください"
+            ],
+            "answer": 2,
+            "why": [
+              "ないでください asks someone not to do something. It does not take か, and ええ、どうぞ answers \"may I?\".",
+              "A asks permission with てもいいですか, and B says yes with ええ、どうぞ.",
+              "てください asks someone else to do something. くださいか is not said, and ええ、どうぞ answers \"may I?\"."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u06d2.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ここは^[出口|でぐち]です^。ここから（　　）ください。",
+            "options": [
+              "[入|はい]って",
+              "[入|はい]りません",
+              "[入|はい]らない",
+              "[入|はい]らないで"
+            ],
+            "answer": 4,
+            "why": [
+              "入ってください asks people to come in, but this is the exit, not the way in.",
+              "The polite ません form does not go before ください.",
+              "でください needs で: 入らないでください. 入らないください is not said.",
+              "This is the exit, so the sign asks people not to come in: 入らないでください."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d2.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この[本|ほん]は[古|ふる]いです。^[何|なに]も^（　　）ください。",
+            "options": [
+              "[書|か]きませんで",
+              "[書|か]かない",
+              "[書|か]かないで",
+              "[書|か]いて"
+            ],
+            "answer": 3,
+            "why": [
+              "The polite ません form does not go before でください.",
+              "The で is missing: 書かないでください.",
+              "何も goes with a \"not\" form, and 書かないでください means \"please don't write\".",
+              "何も needs a \"not\" form after it. 何も書いてください is not said."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d2.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：この[本|ほん]を（　　）^もいいですか^。B：ええ、どうぞ。",
+            "options": [
+              "[読|よ]んで",
+              "[読|よ]む",
+              "[読|よ]みます",
+              "[読|よ]まない"
+            ],
+            "answer": 1,
+            "why": [
+              "もいいですか follows the て-form: 読んでもいいですか, \"may I read it?\".",
+              "読む is the dictionary form. It does not go before もいいです.",
+              "The polite ます form does not go before もいいです.",
+              "読まない is the ない-form. 読まないもいいですか is not said."
+            ]
+          },
+          {
+            "id": "n5u06d2.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the answer",
+            "q": "A：まどをあけてもいいですか。B：（　　）。きょうは^さむいですから^。",
+            "options": [
+              "すみません、ちょっと…",
+              "はい、あけましょう",
+              "いいえ、どういたしまして",
+              "ええ、どうぞ"
+            ],
+            "answer": 1,
+            "why": [
+              "B says no softly, and gives the reason: it is cold today.",
+              "あけましょう agrees to open it, but B says it is cold.",
+              "どういたしまして answers ありがとう, not a question asking permission.",
+              "ええ、どうぞ says yes, but B's reason (it is cold today) is a reason to keep the window shut."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d2.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[電車|でんしゃ]の[中|なか]で",
+            "after": "。",
+            "tiles": [
+              "[大|おお]きい",
+              "こえで",
+              "[話|はな]さないで",
+              "ください"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "大きい describes a noun. Which tile can come right before ください?",
+            "full": "[電車|でんしゃ]の[中|なか]で[大|おお]きいこえで[話|はな]さ{ないでください}。",
+            "explain": "大きい describes こえ, so 大きいこえで goes together. 話さないで comes right before ください and ends the sentence."
+          },
+          {
+            "id": "n5u06d2.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、この",
+            "after": "。",
+            "tiles": [
+              "ペンを",
+              "つかって",
+              "も",
+              "いいですか"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "この needs a noun right after it. も comes between the て-form and いいですか.",
+            "full": "すみません、このペンをつかって{もいいですか}。",
+            "explain": "この goes with ペン, so ペンを comes first. Then the て-form つかって, then も, then いいですか."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u06d2.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この　へやで　おかしを　（　　）　ください。",
+            "options": [
+              "食べない",
+              "食べないで",
+              "食べませんで",
+              "食べなくて"
+            ],
+            "answer": 2,
+            "explain": "The ない-form + でください asks someone not to do something: 食べないでください. The ません form does not go before でください, 食べなくてください is not said, and 食べないください is missing で."
+          },
+          {
+            "id": "n5u06d2.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「すみません、この　いすに　（　　）　いいですか。」\nB「ええ、どうぞ。」",
+            "options": [
+              "すわりも",
+              "すわっても",
+              "すわるも",
+              "すわりますも"
+            ],
+            "answer": 2,
+            "explain": "Asking permission uses the て-form + もいいですか: すわってもいいですか. The dictionary form, the ます form and すわり cannot go before も here."
+          },
+          {
+            "id": "n5u06d2.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「すみません、",
+            "after": "。」\nB「ええ、どうぞ。」",
+            "tiles": [
+              "その",
+              "まどを",
+              "あけても",
+              "いいですか"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "full": "A「すみません、その　まどを　{あけても}　いいですか。」\nB「ええ、どうぞ。」",
+            "explain": "その, まどを, あけても, いいですか. その must sit right before まど, あけても is the て-form + も, and いいですか ends the question."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "こうえんのきまり",
+        "en": "The rules sign at a park gate",
+        "intro": "Tap every word with kanji that you can find on the park sign.",
+        "words": [
+          {
+            "id": "entrance",
+            "word": "入口",
+            "reading": "いりぐち",
+            "gloss": "entrance",
+            "parts": [
+              [
+                "入",
+                "いり",
+                "enter"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "closed",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "closed (day off)",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          },
+          {
+            "id": "hours",
+            "word": "時間",
+            "reading": "じかん",
+            "gloss": "time, hours",
+            "parts": [
+              [
+                "時",
+                "ジ",
+                "time"
+              ],
+              [
+                "間",
+                "カン",
+                "space between"
+              ]
+            ]
+          },
+          {
+            "id": "am",
+            "word": "午前",
+            "reading": "ごぜん",
+            "gloss": "a.m., morning",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "前",
+                "ゼン",
+                "before"
+              ]
+            ]
+          },
+          {
+            "id": "pm",
+            "word": "午後",
+            "reading": "ごご",
+            "gloss": "p.m., afternoon",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "後",
+                "ゴ",
+                "after"
+              ]
+            ]
+          },
+          {
+            "id": "flower",
+            "word": "花",
+            "reading": "はな",
+            "gloss": "flower",
+            "parts": [
+              [
+                "花",
+                "はな",
+                "flower"
+              ]
+            ]
+          },
+          {
+            "id": "tree",
+            "word": "木",
+            "reading": "き",
+            "gloss": "tree",
+            "parts": [
+              [
+                "木",
+                "き",
+                "tree, wood"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u06d2.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "こうえんの　_入口_は　どこですか。",
+          "options": [
+            "いりぐち",
+            "はいりぐち",
+            "いりこう",
+            "でぐち"
+          ],
+          "answer": 1,
+          "explain": "入口 is read いりぐち, \"entrance\". でぐち is 出口, \"exit\", and はいりぐち and いりこう are not words."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "What may visitors do, and what may they not do?",
+        "seconds": 90,
+        "passage": "みどりこうえんの　おしらせ\nこうえんの　時間は　午前九時から　午後五時までです。月よう日は　休みです。花の　中に　入らないで　ください。^木の　下で　おべんとうを　食べても　いいです^。でも、ごみは　うちへ　もって　かえって　ください。",
+        "strategy": "Find each option in the notice, then look at how that sentence ends: てもいいです (all right) or ないでください (please don't).",
+        "item": {
+          "id": "n5u06d2.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "この　こうえんで　しても　いい　ことは　どれですか。",
+          "options": [
+            "木の　下で　おべんとうを　食べます。",
+            "花の　中に　入って　しゃしんを　とります。",
+            "よる　七時に　こうえんで　あそびます。",
+            "月よう日の　午前に　さんぽします。"
+          ],
+          "short": [
+            "木の下でおべんとうを食べる",
+            "花の中に入る",
+            "よる七時にあそぶ",
+            "月よう日にさんぽする"
+          ],
+          "answer": 1,
+          "explain": "The notice says 木の下でおべんとうを食べてもいいです: eating your lunch under the trees is all right.",
+          "why": [
+            "",
+            "The notice says 花の中に入らないでください.",
+            "The park is open only until 5 p.m. (午後五時まで).",
+            "The park is closed on Mondays (月よう日は休みです)."
+          ]
+        }
+      }
+    },
+    "3": {
+      "title": "〜てはいけません・〜なくてもいいです",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u06d3.p1",
+            "form": "〜てはいけません",
+            "gloss": "you must not …",
+            "connect": [
+              {
+                "pos": "Verb, te-form ending in て (は here sounds like わ)",
+                "rule": "[入|はい]っ{てはいけません}／[食|た]べ{てはいけません}"
+              },
+              {
+                "pos": "Verb, te-form ending in で: keep で",
+                "rule": "[飲|の]ん{ではいけません}／およい{ではいけません}"
+              },
+              {
+                "pos": "Saying no to \"may I …?\" (てもいいですか)",
+                "rule": "いいえ、[入|はい]っ{てはいけません}。"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "ここでたばこをすっ{てはいけません}。",
+                "en": "You must not smoke here."
+              },
+              {
+                "ja": "この[川|かわ]でおよい{ではいけません}。",
+                "en": "You must not swim in this river."
+              }
+            ],
+            "watch": {
+              "note": "When the te-form ends in で, keep で: 飲んで becomes 飲んではいけません. 飲んてはいけません is wrong.",
+              "bad": "ここでジュースを飲んてはいけません。",
+              "good": "ここでジュースを飲んではいけません。"
+            }
+          },
+          {
+            "id": "n5u06d3.p2",
+            "form": "〜なくてもいいです",
+            "gloss": "you don't have to …",
+            "connect": [
+              {
+                "pos": "Verb, ない form: take off the last い and add くてもいいです",
+                "rule": "[書|か]かない→[書|か]かな{くてもいいです}／[来|こ]ない→[来|こ]な{くてもいいです}"
+              },
+              {
+                "pos": "ない forms to learn as fixed shapes for now (unit 7 teaches how to make them)",
+                "rule": "[書|か]きます→[書|か]か{ない}／[読|よ]みます→[読|よ]ま{ない}／[入|はい]ります→[入|はい]ら{ない}／[行|い]きます→[行|い]か{ない}"
+              },
+              {
+                "pos": "More fixed ない forms for now",
+                "rule": "[食|た]べます→[食|た]べ{ない}／[見|み]ます→[見|み]{ない}／します→し{ない}／[来|き]ます→[来|こ]{ない}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "あしたは[学校|がっこう]へ[来|こ]な{くてもいいです}。",
+                "en": "You don't have to come to school tomorrow."
+              },
+              {
+                "ja": "[名前|なまえ]はかたかなで[書|か]かな{くてもいいです}。",
+                "en": "You don't have to write your name in katakana."
+              }
+            ],
+            "watch": {
+              "note": "Take off the い of ない before くてもいいです. 来ないくても is wrong. Say 来なくても.",
+              "bad": "あしたは来ないくてもいいです。",
+              "good": "あしたは来なくてもいいです。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three are about rules: what you may do, what you must not do, and what you do not need to do.",
+          "forms": [
+            {
+              "form": "〜てもいいです",
+              "tag": "〜て＋もいいです · you may",
+              "mark": "dot",
+              "ja": "ここで[休|やす]ん{でもいいです}。",
+              "en": "You may rest here."
+            },
+            {
+              "form": "〜てはいけません",
+              "tag": "〜て＋はいけません · you must not",
+              "mark": "down",
+              "ja": "ここで[食|た]べ{てはいけません}。",
+              "en": "You must not eat here."
+            },
+            {
+              "form": "〜なくてもいいです",
+              "tag": "〜な＋くてもいいです · you don't have to",
+              "mark": "dot",
+              "ja": "[今日|きょう]は[来|こ]な{くてもいいです}。",
+              "en": "You don't have to come today."
+            }
+          ],
+          "check": {
+            "id": "n5u06d3.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "プールのきまり",
+            "q": "プールのそばはあぶないですから、（　　）。",
+            "options": [
+              "はしってもいいです",
+              "はしらなくてもいいです",
+              "はしってはいけません"
+            ],
+            "answer": 3,
+            "why": [
+              "てもいいです gives permission. Running is not allowed where it is dangerous (あぶないですから).",
+              "なくてもいいです means \"you don't have to run\". Nobody has to run, so this is not a rule here.",
+              "あぶないですから gives the reason for a rule: \"It's dangerous by the pool, so you must not run.\""
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u06d3.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：[先生|せんせい]、ここでパンを[食|た]べてもいいですか。B：^いいえ^、（　　）。",
+            "options": [
+              "[食|た]べてもいいです",
+              "[食|た]べなくてもいいです",
+              "[食|た]べてはいけません",
+              "[食|た]べてください"
+            ],
+            "answer": 3,
+            "why": [
+              "食べてもいいです means \"yes, you may\". It does not fit after いいえ.",
+              "食べなくてもいいです means \"you don't have to eat\". A asked for permission, not whether he has to eat.",
+              "いいえ says no to \"may I eat?\", and 食べてはいけません says it: \"No, you must not eat.\"",
+              "食べてください means \"please eat\". It does not fit after いいえ."
+            ]
+          },
+          {
+            "id": "n5u06d3.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^プールの[中|なか]で^ジュースを（　　）。",
+            "options": [
+              "[飲|の]みてはいけません",
+              "[飲|の]むではいけません",
+              "[飲|の]んてはいけません",
+              "[飲|の]んではいけません"
+            ],
+            "answer": 4,
+            "why": [
+              "飲みて is not a word. The te-form is 飲んで.",
+              "はいけません follows the te-form, not the dictionary form 飲む. Say 飲んではいけません.",
+              "The te-form of 飲みます ends in で: 飲んで. 飲んて is not a word.",
+              "飲んで is the te-form of 飲みます. 飲んではいけません: \"You must not drink juice in the pool.\""
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d3.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[土|ど]よう[日|び]は^じゅぎょうがありません^。[学校|がっこう]へ（　　）。",
+            "options": [
+              "きなくてもいいです",
+              "こないくてもいいです",
+              "こなくてもいいです",
+              "くなくてもいいです"
+            ],
+            "answer": 3,
+            "why": [
+              "The ない form of 来ます is 来ない, read こない. きなくて is not a word.",
+              "Take off the い of こない before くても. こないくても is wrong.",
+              "There are no classes, so こなくてもいいです (来なくてもいいです): \"You don't have to come to school.\"",
+              "くなくて is not a word. The ない form of 来ます is こない."
+            ]
+          },
+          {
+            "id": "n5u06d3.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この[本|ほん]はながいですから、[今日|きょう]^ぜんぶ^[読|よ]（　　）。",
+            "options": [
+              "まなくてもいいです",
+              "みなくてもいいです",
+              "むなくてもいいです",
+              "まないくてもいいです"
+            ],
+            "answer": 1,
+            "why": [
+              "読まない minus い, plus くてもいいです: \"The book is long, so you don't have to read it all today.\"",
+              "読みなくて is not a word. The ない form of 読みます is 読まない.",
+              "読むなくて is not a word. The ない form is 読まない.",
+              "Take off the い of 読まない before くても. 読まないくても is wrong."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d3.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "テストの",
+            "after": "いけません。",
+            "tiles": [
+              "とき",
+              "となりの",
+              "[人|ひと]と",
+              "[話|はな]しては"
+            ],
+            "star": 3,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "テストの goes with とき. となりの goes right before the person, and 話しては comes just before いけません.",
+            "full": "テストのときとなりの[人|ひと]と[話|はな]し{ては}いけません。",
+            "explain": "とき, となりの, 人と, 話しては. テストのとき is \"during the test\", and となりの describes 人: \"During the test, you must not talk with the person next to you.\""
+          },
+          {
+            "id": "n5u06d3.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[今日|きょう]は[雨|あめ]ですから、",
+            "after": "です。",
+            "tiles": [
+              "プールに",
+              "[入|はい]ら",
+              "なくても",
+              "いい"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "入ら is the ない form without ない. なくても joins it, and いい comes just before です.",
+            "full": "[今日|きょう]は[雨|あめ]ですから、プールに[入|はい]ら{なくても}いいです。",
+            "explain": "プールに, 入ら, なくても, いい. プールに goes with 入ら, and 入らなくてもいいです means \"you don't have to go in\": \"It's raining today, so you don't have to go in the pool.\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u06d3.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ここは　先生の　へやです。　学生は　入っては（　　）。",
+            "options": [
+              "しません",
+              "いいです",
+              "ください",
+              "いけません"
+            ],
+            "answer": 4,
+            "explain": "入っては needs いけません after it: \"Students must not go in.\" Permission is 入っても いいです, with も, not は. ください follows the te-form alone (入って ください), and 入っては しません is not a phrase."
+          },
+          {
+            "id": "n5u06d3.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "今日は　しゅくだいが　ありません。　何も（　　）　いいです。",
+            "options": [
+              "しないくても",
+              "しても",
+              "しなくても",
+              "しては"
+            ],
+            "answer": 3,
+            "explain": "There is no homework, so しなくても いいです: \"You don't have to do anything.\" 何も needs a negative after it, so しても いいです fails. しては goes with いけません, not いいです, and しないくても is not a form: the い of しない drops before くても."
+          },
+          {
+            "id": "n5u06d3.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "プールに　入る",
+            "after": "いけません。",
+            "tiles": [
+              "前に",
+              "パンや",
+              "おかしを",
+              "食べては"
+            ],
+            "star": 3,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "full": "プールに　入る　前に　パンや　おかしを　{食べては}　いけません。",
+            "explain": "前に, パンや, おかしを, 食べては. 入る前に is \"before going in\", パンや おかしを is what you eat, and 食べては goes with いけません: \"You must not eat bread or sweets before going in the pool.\""
+          }
+        ]
+      },
+      "scene": {
+        "ja": "学校のプールで",
+        "en": "At the school pool",
+        "intro": "Tap every word you would read on the rules sign at the school pool.",
+        "words": [
+          {
+            "id": "student",
+            "word": "学生",
+            "reading": "がくせい",
+            "gloss": "student",
+            "parts": [
+              [
+                "学",
+                "ガク",
+                "study"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, birth"
+              ]
+            ]
+          },
+          {
+            "id": "teacher",
+            "word": "先生",
+            "reading": "せんせい",
+            "gloss": "teacher",
+            "parts": [
+              [
+                "先",
+                "セン",
+                "ahead, before"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, birth"
+              ]
+            ]
+          },
+          {
+            "id": "hours",
+            "word": "時間",
+            "reading": "じかん",
+            "gloss": "hours, time",
+            "parts": [
+              [
+                "時",
+                "ジ",
+                "time, hour"
+              ],
+              [
+                "間",
+                "カン",
+                "between, interval"
+              ]
+            ]
+          },
+          {
+            "id": "closed",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "closed (day), holiday",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          },
+          {
+            "id": "water",
+            "word": "水",
+            "reading": "みず",
+            "gloss": "water",
+            "parts": [
+              [
+                "水",
+                "みず",
+                "water"
+              ]
+            ]
+          },
+          {
+            "id": "enter",
+            "word": "入る",
+            "reading": "はいる",
+            "gloss": "to go in",
+            "parts": [
+              [
+                "入",
+                "はい",
+                "enter"
+              ]
+            ]
+          },
+          {
+            "id": "food",
+            "word": "食べもの",
+            "reading": "たべもの",
+            "gloss": "food",
+            "parts": [
+              [
+                "食",
+                "た",
+                "eat"
+              ]
+            ]
+          },
+          {
+            "id": "drinks",
+            "word": "飲みもの",
+            "reading": "のみもの",
+            "gloss": "drinks",
+            "parts": [
+              [
+                "飲",
+                "の",
+                "drink"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u06d3.k1",
+          "kind": "choice",
+          "type": "表記",
+          "label": "How the exam asks it",
+          "q": "プールに　_はいる_　前に、　シャワーを　あびて　ください。",
+          "options": [
+            "人る",
+            "入る",
+            "八る",
+            "大る"
+          ],
+          "answer": 2,
+          "explain": "はいる, \"to go in\", is written 入る. 人 (person), 八 (eight) and 大 (big) look a little like 入, but 人る, 八る and 大る are not words."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "即時応答",
+        "en": "Quick response",
+        "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+        "item": {
+          "id": "n5u06d3.r1",
+          "kind": "choice",
+          "type": "即時応答",
+          "q": "男：先生、プールの　中で　ぼうしを　とっても　いいですか。",
+          "script": [
+            "男：先生、プールの　中で　ぼうしを　とっても　いいですか。",
+            "ナレーター：1",
+            "女：いいえ、とらなくても　いいです。",
+            "ナレーター：2",
+            "女：はい、とりました。",
+            "ナレーター：3",
+            "女：いいえ、とっては　いけません。"
+          ],
+          "options": [
+            "いいえ、とらなくても　いいです。",
+            "はい、とりました。",
+            "いいえ、とっては　いけません。"
+          ],
+          "printed": false,
+          "short": [
+            "とらなくてもいいです",
+            "とりました",
+            "とってはいけません"
+          ],
+          "answer": 3,
+          "why": [
+            "とらなくてもいいです means \"you don't have to take it off\". The boy asks for permission, so this does not answer him.",
+            "とりました says what someone did. The boy asks whether he may take his cap off.",
+            ""
+          ]
+        },
+        "audio": [
+          [
+            "M",
+            "先生、プールの　中で　ぼうしを　とっても　いいですか。",
+            "せんせい、プールの　なかで　ぼうしを　とっても　いいですか。"
+          ],
+          [
+            "N",
+            "1",
+            "いち"
+          ],
+          [
+            "F",
+            "いいえ、とらなくても　いいです。",
+            null
+          ],
+          [
+            "N",
+            "2",
+            "に"
+          ],
+          [
+            "F",
+            "はい、とりました。",
+            null
+          ],
+          [
+            "N",
+            "3",
+            "さん"
+          ],
+          [
+            "F",
+            "いいえ、とっては　いけません。",
+            null
+          ]
+        ]
+      }
+    },
+    "4": {
+      "title": "〜ている（している最中）・〜ている（状態）",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u06d4.p1",
+            "form": "〜ています（いま）",
+            "gloss": "be doing (right now)",
+            "connect": [
+              {
+                "pos": "Verb, て form",
+                "rule": "[見|み]て ＋ {います}"
+              },
+              {
+                "pos": "Not doing it now",
+                "rule": "[見|み]て ＋ {いません}"
+              },
+              {
+                "pos": "Asking what someone is doing",
+                "rule": "[何|なに]をして{いますか}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[今|いま]テレビを[見|み]て{います}。",
+                "en": "I'm watching TV now."
+              },
+              {
+                "ja": "[雨|あめ]がふって{います}。",
+                "en": "It's raining."
+              }
+            ],
+            "watch": {
+              "note": "読みます alone is for habits or plans. For what Dad is doing at this very moment, use the て form + います: 読んでいます.",
+              "bad": "父は今、新聞を読みます。",
+              "good": "父は今、新聞を読んでいます。"
+            }
+          },
+          {
+            "id": "n5u06d4.p2",
+            "form": "〜ています（じょうたい）",
+            "gloss": "a state that goes on",
+            "connect": [
+              {
+                "pos": "Verbs of a change that lasts (marry, put on glasses)",
+                "rule": "けっこんします → けっこんして ＋ {います}"
+              },
+              {
+                "pos": "〜 is a place; すむ (live) takes に",
+                "rule": "〜にすんで{います}"
+              },
+              {
+                "pos": "しっています (I know) has a short negative",
+                "rule": "しっています → {しりません}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "あねはけっこんして{います}。",
+                "en": "My older sister is married."
+              },
+              {
+                "ja": "わたしはとうきょうにすんで{います}。",
+                "en": "I live in Tokyo."
+              }
+            ],
+            "watch": {
+              "note": "しっています means \"I know\". Its negative is しりません, not しっていません.",
+              "bad": "いいえ、しっていません。",
+              "good": "いいえ、しりません。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "Two of these use the same ています. What changes is whether it is an action now, a lasting state, or a habit.",
+          "forms": [
+            {
+              "form": "〜ています",
+              "tag": "いま · going on now",
+              "mark": "dot",
+              "ja": "[今|いま]、[本|ほん]を[読|よ]んで{います}。",
+              "en": "I'm reading a book now."
+            },
+            {
+              "form": "〜ています",
+              "tag": "じょうたい · a lasting state",
+              "mark": "dot",
+              "ja": "リンさんはめがねをかけて{います}。",
+              "en": "Lin wears glasses."
+            },
+            {
+              "form": "〜ます",
+              "tag": "いつも・これから · habit or plan",
+              "mark": "dot",
+              "ja": "[毎日|まいにち]、[新聞|しんぶん]を[読|よ]み{ます}。",
+              "en": "I read the newspaper every day."
+            }
+          ],
+          "check": {
+            "id": "n5u06d4.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "かぞく",
+            "q": "あには[三年前|さんねんまえ]にけっこんしました。^[今|いま]^はおおさかに（　　）。",
+            "options": [
+              "すんでいます",
+              "すみました",
+              "すみます"
+            ],
+            "answer": 1,
+            "why": [
+              "He moved there and still lives there: a lasting state, so すんでいます.",
+              "すみました is past, but 今は is about now.",
+              "すみます is a plan: \"will live\". 今は asks where he lives now."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u06d4.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「もしもし、^[今|いま][何|なに]をしていますか^。」「[今|いま]、テレビを（　　）。」",
+            "options": [
+              "[見|み]ます",
+              "[見|み]ました",
+              "[見|み]ています",
+              "[見|み]て"
+            ],
+            "answer": 3,
+            "why": [
+              "見ます is a habit or a plan. It does not say what you are doing now.",
+              "見ました is past. The question is about right now.",
+              "The question asks what you are doing now, so the answer uses 見ています.",
+              "A polite answer cannot end on the て form alone. It needs います."
+            ]
+          },
+          {
+            "id": "n5u06d4.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[今|いま]、[外|そと]は[雨|あめ]が（　　）^います^。",
+            "options": [
+              "ふった",
+              "ふって",
+              "ふりて",
+              "ふるて"
+            ],
+            "answer": 2,
+            "why": [
+              "ふった is the た form. います goes on the て form.",
+              "ふります becomes ふって, then います: it is raining now.",
+              "ふりて is not a form. ふる makes its て form with って.",
+              "The dictionary form ふる does not take て."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d4.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「この[店|みせ]の[名前|なまえ]をしっていますか。」「^いいえ^、（　　）。」",
+            "options": [
+              "しりません",
+              "しっていません",
+              "しってください",
+              "しっています"
+            ],
+            "answer": 1,
+            "why": [
+              "The negative of しっています is しりません: \"No, I don't know.\"",
+              "しっていません is not used. Say しりません.",
+              "しってください is a request. It does not answer the question.",
+              "しっています means \"I know\". It does not fit after いいえ."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d4.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「どこに（　　）か。」「^とうきょうにすんでいます^。」",
+            "options": [
+              "すみます",
+              "すみましょう",
+              "すんで",
+              "すんでいます"
+            ],
+            "answer": 4,
+            "why": [
+              "すみますか asks where you will live. The answer says where you live now.",
+              "すみましょうか means \"shall we live?\". It does not match the answer.",
+              "すんで cannot come right before か.",
+              "The answer is すんでいます, so the question asks the same: where do you live?"
+            ]
+          },
+          {
+            "id": "n5u06d4.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[父|ちち]は[今|いま]、[電話|でんわ]で",
+            "after": "います。",
+            "tiles": [
+              "[会社|かいしゃ]の",
+              "[人|ひと]",
+              "と",
+              "[話|はな]して"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "hint": "Whose person? Then: who is Dad talking with?",
+            "full": "[父|ちち]は[今|いま]、[電話|でんわ]で[会社|かいしゃ]の[人|ひと]と[話|はな]して{います}。",
+            "explain": "会社の describes 人, and と says who he talks with: 会社の人と. 話して comes last, right before います."
+          },
+          {
+            "id": "n5u06d4.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしは",
+            "after": "。",
+            "tiles": [
+              "あの",
+              "[人|ひと]の",
+              "[名前|なまえ]を",
+              "しりません"
+            ],
+            "star": 3,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "あの points at a person. The verb comes last.",
+            "full": "わたしはあの[人|ひと]の[名前|なまえ]を{しりません}。",
+            "explain": "あの goes right before 人の, and 人の describes 名前を. しりません, the negative of しっています, ends the sentence."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u06d4.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「リンさんは　けっこん　して　いますか。」「はい、（　　）。子どもも　二人　います。」",
+            "options": [
+              "します",
+              "しません",
+              "して　います",
+              "して　いません"
+            ],
+            "answer": 3,
+            "explain": "The question asks about a lasting state, so a yes answer is はい、して います: she is married. します is a plan, and しません and して いません do not fit after はい."
+          },
+          {
+            "id": "n5u06d4.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「今、何を　して　いますか。」「へやで　本を　（　　）。」",
+            "options": [
+              "読んで　います",
+              "読みます",
+              "読みました",
+              "読んで　ください"
+            ],
+            "answer": 1,
+            "explain": "The question asks what you are doing now, so the answer is 読んで います. 読みます is a habit or plan, 読みました is past, and 読んで ください is a request."
+          },
+          {
+            "id": "n5u06d4.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "あの　人は　白い",
+            "after": "かけて　います。",
+            "tiles": [
+              "シャツを",
+              "きて",
+              "くろい",
+              "めがねを"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "あの　人は　白い　シャツを　きて　{くろい}　めがねを　かけて　います。",
+            "explain": "シャツを, きて, くろい, めがねを. 白い describes シャツ, and you きる a shirt. くろい describes めがね, which goes right before かけて います."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "会社のボード",
+        "en": "An office whereabouts board",
+        "intro": "Tap each word on the office board that shows where everyone is and what they are doing.",
+        "words": [
+          {
+            "id": "now",
+            "word": "今",
+            "reading": "いま",
+            "gloss": "now",
+            "parts": [
+              [
+                "今",
+                "いま",
+                "now"
+              ]
+            ]
+          },
+          {
+            "id": "phone",
+            "word": "電話",
+            "reading": "でんわ",
+            "gloss": "telephone, phone call",
+            "parts": [
+              [
+                "電",
+                "デン",
+                "electric"
+              ],
+              [
+                "話",
+                "ワ",
+                "talk"
+              ]
+            ]
+          },
+          {
+            "id": "talk",
+            "word": "話す",
+            "reading": "はなす",
+            "gloss": "to talk, to speak",
+            "parts": [
+              [
+                "話",
+                "はな",
+                "talk"
+              ]
+            ]
+          },
+          {
+            "id": "read",
+            "word": "読む",
+            "reading": "よむ",
+            "gloss": "to read",
+            "parts": [
+              [
+                "読",
+                "よ",
+                "read"
+              ]
+            ]
+          },
+          {
+            "id": "write",
+            "word": "書く",
+            "reading": "かく",
+            "gloss": "to write",
+            "parts": [
+              [
+                "書",
+                "か",
+                "write"
+              ]
+            ]
+          },
+          {
+            "id": "out",
+            "word": "外",
+            "reading": "そと",
+            "gloss": "outside, out",
+            "parts": [
+              [
+                "外",
+                "そと",
+                "outside"
+              ]
+            ]
+          },
+          {
+            "id": "off",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "day off, absent",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          },
+          {
+            "id": "company",
+            "word": "会社",
+            "reading": "かいしゃ",
+            "gloss": "company, office",
+            "parts": [
+              [
+                "会",
+                "カイ",
+                "meet"
+              ],
+              [
+                "社",
+                "シャ",
+                "company"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u06d4.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "リンさんは　今　_電話_を　かけて　います。",
+          "options": [
+            "てんか",
+            "てんわ",
+            "でんわ",
+            "でんか"
+          ],
+          "answer": 3,
+          "explain": "電話 is でんわ, a phone call. てんわ and てんか are not words, and でんか is a different word."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "What is the writer's mother doing right now?",
+        "seconds": 90,
+        "passage": "リサさん、こんにちは。今、うちの　みんなの　ことを　書きます。父は　にわで　車を　あらって　います。母は　いつも　この　時間は　テレビを　見ますが、^今日は　外で　友だちと　話して　います^。あには　へやで　本を　読んで　います。わたしは　今、この　メールを　書いて　います。",
+        "strategy": "Find 母 and look after が: what she usually does comes before it, what she is doing today comes after.",
+        "item": {
+          "id": "n5u06d4.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "お母さんは　今　何を　して　いますか。",
+          "options": [
+            "へやで　本を　読んで　います。",
+            "テレビを　見て　います。",
+            "外で　友だちと　話して　います。",
+            "にわで　車を　あらって　います。"
+          ],
+          "short": [
+            "本を読んでいる",
+            "テレビを見ている",
+            "外で友だちと話している",
+            "車をあらっている"
+          ],
+          "answer": 3,
+          "explain": "After が, the writer says that today her mother is outside talking with a friend. 話して います is what she is doing now.",
+          "why": [
+            "The older brother is reading in his room.",
+            "She usually watches TV at this time (見ます), but not today.",
+            "",
+            "The father is washing the car."
+          ]
+        }
+      }
+    },
+    "5": {
+      "title": "〜に行く・〜つもりです",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u06d5.p1",
+            "form": "〜に行きます",
+            "gloss": "go (somewhere) to do something",
+            "connect": [
+              {
+                "pos": "Verb, ます form without ます",
+                "rule": "[買|か]います → [買|か]い{に[行|い]きます}"
+              },
+              {
+                "pos": "Noun of action (かいもの, さんぽ)",
+                "rule": "〜{に[行|い]きます}"
+              },
+              {
+                "pos": "Also with 来ます and かえります",
+                "rule": "〜{に}[来|き]ます／かえります"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "あした、[本|ほん]を[買|か]い{に[行|い]きます}。",
+                "en": "Tomorrow I am going to buy a book."
+              },
+              {
+                "ja": "[日|にち]よう[日|び]は、かいもの{に[行|い]きます}。",
+                "en": "On Sunday I am going shopping."
+              }
+            ],
+            "watch": {
+              "note": "Drop ます first, then add に: 買います becomes 買いに. The whole ます form does not go before に.",
+              "bad": "本を買いますに行きます。",
+              "good": "本を買いに行きます。"
+            }
+          },
+          {
+            "id": "n5u06d5.p2",
+            "form": "〜つもりです",
+            "gloss": "plan to; intend to",
+            "connect": [
+              {
+                "pos": "Verb, dictionary form (learn these as a set for now)",
+                "rule": "[行|い]く{つもりです}／[見|み]る{つもりです}"
+              },
+              {
+                "pos": "Verb, ない form: plan not to",
+                "rule": "[行|い]かない{つもりです}"
+              },
+              {
+                "pos": "Asking about a plan",
+                "rule": "[何|なに]をする{つもりですか}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[来週|らいしゅう]、[山|やま]へ[行|い]く{つもりです}。",
+                "en": "I plan to go to the mountains next week."
+              },
+              {
+                "ja": "あしたは、[外|そと]へ[出|で]ない{つもりです}。",
+                "en": "I don't plan to go out tomorrow."
+              }
+            ],
+            "watch": {
+              "note": "The verb before つもり is the dictionary form (行く), not the polite ます form (行きます).",
+              "bad": "来週、山へ行きますつもりです。",
+              "good": "来週、山へ行くつもりです。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "Both に行きます sentences use に, but one says what you go to do and one says where you go; つもりです says what you plan.",
+          "forms": [
+            {
+              "form": "[買|か]いに[行|い]きます",
+              "tag": "なにをしに · to do something",
+              "mark": "dot",
+              "ja": "パンを[買|か]い{に}[行|い]きます。",
+              "en": "I am going out to buy bread."
+            },
+            {
+              "form": "[駅|えき]に[行|い]きます",
+              "tag": "どこに · to a place",
+              "mark": "dot",
+              "ja": "あした、[駅|えき]{に}[行|い]きます。",
+              "en": "I am going to the station tomorrow."
+            },
+            {
+              "form": "[行|い]くつもりです",
+              "tag": "つもり · plan to",
+              "mark": "dot",
+              "ja": "あした、[山|やま]へ[行|い]く{つもりです}。",
+              "en": "I plan to go to the mountains tomorrow."
+            }
+          ],
+          "check": {
+            "id": "n5u06d5.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "しゃしん",
+            "q": "あした、[友|とも]だちと[山|やま]へ^しゃしんをとり^（　　）。",
+            "options": [
+              "に[行|い]きます",
+              "へ[行|い]きます",
+              "つもりです"
+            ],
+            "answer": 1,
+            "why": [
+              "とり is the ます form of とります without ます. With に行きます it says what you go to do: take photos.",
+              "へ marks a place you go to, and しゃしんをとり is not a place. 山へ already says where.",
+              "つもりです needs the dictionary form: とるつもりです. とりつもりです is not Japanese."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u06d5.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "あした、デパートへくつを（　　）^に[行|い]きます^。",
+            "options": [
+              "[買|か]う",
+              "[買|か]って",
+              "[買|か]います",
+              "[買|か]い"
+            ],
+            "answer": 4,
+            "why": [
+              "買う is the dictionary form. In this pattern, drop ます from 買います instead: 買いに.",
+              "買って is the te-form. 買ってに is not Japanese.",
+              "買いますに is not Japanese. Take ます off first: 買いに.",
+              "Before に行きます, use the ます form without ます: 買います becomes 買い."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d5.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the particle",
+            "q": "[日|にち]よう[日|び]は、[母|はは]と^かいもの^（　　）[行|い]きます。",
+            "options": [
+              "で",
+              "が",
+              "に",
+              "を"
+            ],
+            "answer": 3,
+            "why": [
+              "で shows where something happens or how. かいもので行きます does not mean \"go shopping\".",
+              "が would make かいもの the one who goes. The speaker and mother are the ones going.",
+              "かいもの is a noun of action. かいものに行きます means \"go shopping\".",
+              "かいものを行きます is not said. To say what you go to do, use に."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d5.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[来週|らいしゅう]の[休|やす]みは、うみへ（　　）^つもりです^。",
+            "options": [
+              "[行|い]きます",
+              "[行|い]って",
+              "[行|い]く",
+              "[行|い]き"
+            ],
+            "answer": 3,
+            "why": [
+              "行きますつもりです is a common mistake. つもり takes the dictionary form 行く.",
+              "行って is the te-form. 行ってつもりです is not Japanese.",
+              "つもりです follows the dictionary form: 行くつもりです, \"I plan to go\".",
+              "行き is the ます form without ます. It goes before に行きます, not before つもり."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d5.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^あしたはテストです^。[今日|きょう]はテレビを（　　）つもりです。",
+            "options": [
+              "[見|み]ない",
+              "[見|み]ません",
+              "[見|み]て",
+              "[見|み]に"
+            ],
+            "answer": 1,
+            "why": [
+              "There is a test tomorrow, so the plan is not to watch TV. ない form + つもりです means \"plan not to\".",
+              "見ません is the polite \"not\" ending. つもり takes the ない form: 見ないつもりです.",
+              "見て is the te-form. 見てつもりです is not Japanese.",
+              "見に goes before 行きます or 来ます, not before つもり."
+            ]
+          },
+          {
+            "id": "n5u06d5.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[日|にち]よう[日|び]、[友|とも]だちが",
+            "after": "。",
+            "tiles": [
+              "うち",
+              "へ",
+              "あそび",
+              "に[来|き]ます"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "First the place with へ. Then what the friend comes to do, with に来ます.",
+            "full": "[日|にち]よう[日|び]、[友|とも]だちがうちへあそび{に[来|き]ます}。",
+            "explain": "うちへ says where the friend comes, and あそびに来ます says why: \"On Sunday a friend is coming to my house to hang out.\""
+          },
+          {
+            "id": "n5u06d5.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[来週|らいしゅう]の[休|やす]みは、",
+            "after": "です。",
+            "tiles": [
+              "[山|やま]",
+              "へ",
+              "[行|い]く",
+              "つもり"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "hint": "The place comes first with へ. The dictionary form 行く goes right before つもり.",
+            "full": "[来週|らいしゅう]の[休|やす]みは、[山|やま]へ[行|い]く{つもり}です。",
+            "explain": "山へ is where, 行く is the dictionary form, and つもりです comes last: \"Next week on my day off, I plan to go to the mountains.\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u06d5.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「あした　何を　しますか。」B「としょかんへ　本を（　　）　行きます。」",
+            "options": [
+              "かえします",
+              "かえさない",
+              "かえしに",
+              "かえす"
+            ],
+            "answer": 3,
+            "explain": "B goes to the library to return a book: かえしに行きます, the ます form without ます plus に. かえす行きます and かえします行きます are not Japanese; to say what you go to do, drop ます and add に. かえさない is a \"not\" form and makes no sense with 行きます here."
+          },
+          {
+            "id": "n5u06d5.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「あしたも　会社に　行きますか。」B「いいえ、あしたは　休みです。会社には（　　）　つもりです。」",
+            "options": [
+              "行かない",
+              "行く",
+              "行きません",
+              "行って"
+            ],
+            "answer": 1,
+            "explain": "B says いいえ and tomorrow is a day off, so B plans not to go: 行かないつもりです. 行くつもりです means B plans to go, which does not fit いいえ. 行きません is the polite ending and cannot go before つもり. 行ってつもりです is not Japanese."
+          },
+          {
+            "id": "n5u06d5.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「日よう日は　何を　しますか。」B「山へ　",
+            "after": "　つもりです。」",
+            "tiles": [
+              "しゃしん",
+              "を",
+              "とりに",
+              "行く"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "A「日よう日は　何を　しますか。」B「山へ　しゃしんをとりに行く　{つもり}です。」",
+            "explain": "しゃしん, を, とりに, 行く. しゃしんを is what B takes, とりに says what B goes to do, and the dictionary form 行く comes right before つもりです."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "カレンダーの　よてい",
+        "en": "A wall calendar with plans for next week's days off",
+        "intro": "Tap every word on the calendar you need to know when and where this family is going.",
+        "words": [
+          {
+            "id": "nextweek",
+            "word": "来週",
+            "reading": "らいしゅう",
+            "gloss": "next week",
+            "parts": [
+              [
+                "来",
+                "ライ",
+                "come"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "lastweek",
+            "word": "先週",
+            "reading": "せんしゅう",
+            "gloss": "last week",
+            "parts": [
+              [
+                "先",
+                "セン",
+                "before, ahead"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "dayoff",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "day off, holiday",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          },
+          {
+            "id": "saturday",
+            "word": "土よう日",
+            "reading": "どようび",
+            "gloss": "Saturday",
+            "parts": [
+              [
+                "土",
+                "ド",
+                "earth, soil"
+              ],
+              [
+                "日",
+                "び",
+                "day"
+              ]
+            ]
+          },
+          {
+            "id": "am",
+            "word": "午前",
+            "reading": "ごぜん",
+            "gloss": "a.m., morning",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "前",
+                "ゼン",
+                "before"
+              ]
+            ]
+          },
+          {
+            "id": "mountain",
+            "word": "山",
+            "reading": "やま",
+            "gloss": "mountain",
+            "parts": [
+              [
+                "山",
+                "やま",
+                "mountain"
+              ]
+            ]
+          },
+          {
+            "id": "river",
+            "word": "川",
+            "reading": "かわ",
+            "gloss": "river",
+            "parts": [
+              [
+                "川",
+                "かわ",
+                "river"
+              ]
+            ]
+          },
+          {
+            "id": "go",
+            "word": "行く",
+            "reading": "いく",
+            "gloss": "go",
+            "parts": [
+              [
+                "行",
+                "い",
+                "go"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u06d5.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "_来週_の　土よう日は　川へ　行く　つもりです。",
+          "options": [
+            "せんしゅう",
+            "らいしゅう",
+            "らいしゅ",
+            "こんしゅう"
+          ],
+          "answer": 2,
+          "explain": "来週 is read らいしゅう, \"next week\". らいしゅ is missing the long う. こんしゅう is 今週 (this week) and せんしゅう is 先週 (last week)."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "課題理解",
+        "en": "Task comprehension",
+        "ask": "男の人は　土よう日　はじめに　どこへ　行きますか。",
+        "audio": [
+          [
+            "N",
+            "女の人と男の人が話しています。男の人は、土よう日、はじめにどこへ行きますか。",
+            "おんなのひとと　おとこのひとが　はなしています。おとこのひとは、どようび、はじめに　どこへ　いきますか。"
+          ],
+          [
+            "F",
+            "土よう日、いっしょに出かけませんか。",
+            "どようび、いっしょに　でかけませんか。"
+          ],
+          [
+            "M",
+            "いいですね。こうえんへ行きますか。",
+            "いいですね。こうえんへ　いきますか。"
+          ],
+          [
+            "F",
+            "土よう日は、雨ですよ。駅の前のデパートへ、くつを買いに行きませんか。",
+            "どようびは、あめですよ。えきの　まえの　デパートへ、くつを　かいに　いきませんか。"
+          ],
+          [
+            "M",
+            "いいですよ。ぼくは、本やへ、本を買いに行くつもりです。",
+            "いいですよ。ぼくは、ほんやへ、ほんを　かいに　いく　つもりです。"
+          ],
+          [
+            "F",
+            "じゃあ、デパートの後で、本やへ行きましょう。",
+            "じゃあ、デパートの　あとで、ほんやへ　いきましょう。"
+          ],
+          [
+            "M",
+            "でも、デパートは十一時からですよ。本やは九時からです。",
+            "でも、デパートは　じゅういちじからですよ。ほんやは　くじからです。"
+          ],
+          [
+            "F",
+            "そうですか。じゃあ、はじめに本やへ行きましょう。ひるごはんは、デパートのレストランで食べましょう。",
+            "そうですか。じゃあ、はじめに　ほんやへ　いきましょう。ひるごはんは、デパートの　レストランで　たべましょう。"
+          ],
+          [
+            "M",
+            "はい、そうしましょう。",
+            null
+          ],
+          [
+            "N",
+            "男の人は、土よう日、はじめにどこへ行きますか。",
+            "おとこのひとは、どようび、はじめに　どこへ　いきますか。"
+          ]
+        ],
+        "item": {
+          "id": "n5u06d5.r1",
+          "kind": "choice",
+          "type": "課題理解",
+          "q": "男の人は　土よう日　はじめに　どこへ　行きますか。",
+          "script": [
+            "ナレーター：女の人と男の人が話しています。男の人は、土よう日、はじめにどこへ行きますか。",
+            "女：土よう日、いっしょに出かけませんか。",
+            "男：いいですね。こうえんへ行きますか。",
+            "女：土よう日は、雨ですよ。駅の前のデパートへ、くつを買いに行きませんか。",
+            "男：いいですよ。ぼくは、本やへ、本を買いに行くつもりです。",
+            "女：じゃあ、デパートの後で、本やへ行きましょう。",
+            "男：でも、デパートは十一時からですよ。本やは九時からです。",
+            "女：そうですか。じゃあ、はじめに本やへ行きましょう。ひるごはんは、デパートのレストランで食べましょう。",
+            "男：はい、そうしましょう。",
+            "ナレーター：男の人は、土よう日、はじめにどこへ行きますか。"
+          ],
+          "options": [
+            "デパート",
+            "本や",
+            "レストラン",
+            "こうえん"
+          ],
+          "printed": true,
+          "short": [
+            "デパート",
+            "本や",
+            "レストラン",
+            "こうえん"
+          ],
+          "answer": 2,
+          "why": [
+            "They first planned the department store, but it opens at eleven, so they go there after the bookshop.",
+            "The bookshop opens at nine and the store at eleven, so the woman says はじめに本やへ行きましょう and he agrees.",
+            "They will eat lunch at the restaurant in the department store, later in the day.",
+            "The man asks about the park, but the woman says it will rain on Saturday, so they do not go there."
+          ],
+          "explain": null
+        }
+      }
+    },
+    "6": {
+      "title": "まとめ：似ている文法",
+      "grammar": {
+        "points": [],
+        "compare": {
+          "intro": "To tell this unit's points apart, look at the ending: て、〜 joins actions in order, てください asks someone to do something and ないでください asks them not to, てもいいです says it is all right, てはいけません says it is not allowed, なくてもいいです says there is no need, ています is an action going on now or a lasting state, に行きます says what you go to do, and つもりです says what you plan to do.",
+          "forms": [
+            {
+              "form": "〜てもいいです",
+              "tag": "してもいい · you may",
+              "mark": "dot",
+              "ja": "このへやでテレビを[見|み]て{もいいです}。",
+              "en": "You may watch TV in this room."
+            },
+            {
+              "form": "〜てはいけません",
+              "tag": "してはだめ · you must not",
+              "mark": "down",
+              "ja": "このへやで[電話|でんわ]をかけ{てはいけません}。",
+              "en": "You must not make phone calls in this room."
+            },
+            {
+              "form": "〜なくてもいいです",
+              "tag": "しなくてもいい · you don't have to",
+              "mark": "dot",
+              "ja": "このへやには[毎日|まいにち][来|こ]な{くてもいいです}。",
+              "en": "You don't have to come to this room every day."
+            }
+          ],
+          "check": {
+            "id": "n5u06d6.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^ここにペンがたくさんあります^から、ペンはもって（　　）。",
+            "options": [
+              "[来|き]てはいけません",
+              "[来|こ]なくてもいいです",
+              "[来|き]てもいいです"
+            ],
+            "answer": 2,
+            "why": [
+              "This says you must not bring a pen. Many pens being here is not a reason to ban yours.",
+              "There are many pens here, so you do not need to bring one: もって来なくてもいいです.",
+              "This says you may bring a pen. But から gives a reason: there are many pens here already. That is a reason you need not bring one, not a reason you may."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u06d6.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "テストのとき、^となりの[人|ひと]のこたえ^を（　　）。",
+            "options": [
+              "[見|み]てもいいです",
+              "[見|み]ないでください",
+              "[見|み]なくてもいいです",
+              "[見|み]てください"
+            ],
+            "answer": 2,
+            "why": [
+              "てもいいです says it is all right to look. In a test, looking at the next person's answers is not all right.",
+              "ないでください asks you not to do something: during the test, please don't look at the answers of the person next to you.",
+              "なくてもいいです says you do not need to look, as if looking were normally asked of you. The point here is that looking is not allowed.",
+              "てください asks you to look at the next person's answers. No test asks that."
+            ]
+          },
+          {
+            "id": "n5u06d6.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the words",
+            "q": "A：お[母|かあ]さんはうちにいますか。B：いいえ。[母|はは]は[今|いま]、[店|みせ]へパンを（　　）^[行|い]って^（　　）。",
+            "options": [
+              "[買|か]いに／ください",
+              "[買|か]う／います",
+              "[買|か]いに／います",
+              "[買|か]います／います"
+            ],
+            "answer": 3,
+            "why": [
+              "買いに is right, but 行ってください asks the listener to go. B is telling A where Mom is, so it does not fit 母は.",
+              "買う cannot join 行って. Before 行きます, use the ます form without ます plus に: 買いに.",
+              "買いに行って says she went to buy bread, and います says that is how things are now: she has gone to the shop, so she is not home.",
+              "買います cannot join 行って. Take off ます and add に: 買いに."
+            ]
+          },
+          {
+            "id": "n5u06d6.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "わたしは[今|いま]、[中国|ちゅうごく]にすんでいます。^[来年|らいねん]^、[日本|にほん]に（　　）。",
+            "options": [
+              "すむつもりです",
+              "すみました",
+              "すみますつもりです",
+              "すんでください"
+            ],
+            "answer": 1,
+            "why": [
+              "すむ is the dictionary form, and すむつもりです says what I plan to do next year: live in Japan.",
+              "すみました is the past. 来年 means next year, so the sentence needs a plan.",
+              "つもり follows the dictionary form, すむ, not the ます form すみます.",
+              "てください asks someone else to do something. Here わたし is talking about my own plan."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d6.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[毎日|まいにち]、うちへかえって、てを（　　）^、ごはんを[食|た]べます^。",
+            "options": [
+              "あらっています",
+              "あらって",
+              "あらいます",
+              "あらってください"
+            ],
+            "answer": 2,
+            "why": [
+              "The sentence goes on after the blank to 食べます, so the verb here takes the te-form, not ています.",
+              "The te-form joins actions in order: I go home, wash my hands, and eat. The last verb, 食べます, gives the ending for the whole sentence.",
+              "The sentence goes on after the blank to 食べます, so the verb here takes the te-form, not the ます ending.",
+              "てください asks someone to wash. This sentence tells what I do every day, and it goes on after the blank."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u06d6.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "このへやで",
+            "after": "[飲|の]んでもいいです。",
+            "tiles": [
+              "パンを",
+              "[食|た]べては",
+              "いけませんが",
+              "[水|みず]を"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "Which food goes with 食べては, and which drink goes with 飲んでも at the end?",
+            "full": "このへやでパンを{[食|た]べては}いけませんが[水|みず]を[飲|の]んでもいいです。",
+            "explain": "パンを goes with 食べては, and 食べては goes with いけません: you must not eat bread. が then turns to what is all right: 水を goes with 飲んでもいいです at the end. \"You must not eat bread in this room, but you may drink water.\""
+          },
+          {
+            "id": "n5u06d6.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[先生|せんせい]、ちょっと[外|そと]へ",
+            "after": "いいですか。",
+            "tiles": [
+              "ジュースを",
+              "[買|か]いに",
+              "[行|い]って",
+              "も"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "hint": "What do you go out to do? Which tile joins the te-form to いいですか?",
+            "full": "[先生|せんせい]、ちょっと[外|そと]へジュースを[買|か]いに{[行|い]って}もいいですか。",
+            "explain": "ジュースを goes with 買いに, and 買いに goes with 行って: go out to buy juice. Then 行って + もいいですか asks for permission. \"Teacher, may I go out for a moment to buy juice?\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u06d6.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the answer",
+            "q": "A「この　へやで　コーヒーを　飲んでも　いいですか。」\nB「すみません、ここでは（　　）。水は　いいですよ。」",
+            "options": [
+              "飲んで　ください",
+              "飲んでは　いけません",
+              "飲んでも　いいです",
+              "飲まなくても　いいです"
+            ],
+            "answer": 2,
+            "explain": "B starts with すみません and then says water is all right, so coffee is not allowed: 飲んでは　いけません. 飲まなくても　いいです says A does not need to drink it, which does not answer a request for permission. 飲んで　ください asks A to drink it, and 飲んでも　いいです allows it; neither fits すみません and the contrast with 水は　いいですよ."
+          },
+          {
+            "id": "n5u06d6.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the answer",
+            "q": "A「この　かみに　名前も　書きますか。」\nB「いいえ、名前は（　　）　いいです。ばんごうだけ　書いて　ください。」",
+            "options": [
+              "書いては",
+              "書かなくても",
+              "書きますも",
+              "書いても"
+            ],
+            "answer": 2,
+            "explain": "B says いいえ and asks for only the number, so there is no need to write the name: 書かなくても　いいです. 書いても　いいです would allow the name, which does not go with いいえ and ばんごうだけ. 書いては goes with いけません, not いいです. 書きますも is not Japanese: も follows the te-form."
+          },
+          {
+            "id": "n5u06d6.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "今　へやで　いもうとが　",
+            "after": "こえで　電話を　しないで　ください。",
+            "tiles": [
+              "ねて",
+              "います",
+              "から",
+              "大きい"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "full": "今　へやで　いもうとが　ねて　います　{から}　大きい　こえで　電話を　しないで　ください。",
+            "explain": "ねて, います, から, 大きい. いもうとが goes with ねて　います: she is sleeping now. から gives that as the reason. 大きい goes right before こえで: please don't talk on the phone in a loud voice."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "学校のおしらせ",
+        "en": "A notice board at a school",
+        "intro": "Tap each word on the notice board in the school hall.",
+        "words": [
+          {
+            "id": "every-day",
+            "word": "毎日",
+            "reading": "まいにち",
+            "gloss": "every day",
+            "parts": [
+              [
+                "毎",
+                "マイ",
+                "every"
+              ],
+              [
+                "日",
+                "ニチ",
+                "day"
+              ]
+            ]
+          },
+          {
+            "id": "every-week",
+            "word": "毎週",
+            "reading": "まいしゅう",
+            "gloss": "every week",
+            "parts": [
+              [
+                "毎",
+                "マイ",
+                "every"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "lights",
+            "word": "電気",
+            "reading": "でんき",
+            "gloss": "light; electricity",
+            "parts": [
+              [
+                "電",
+                "デン",
+                "electricity"
+              ],
+              [
+                "気",
+                "キ",
+                "spirit, energy"
+              ]
+            ]
+          },
+          {
+            "id": "water",
+            "word": "水",
+            "reading": "みず",
+            "gloss": "water",
+            "parts": [
+              [
+                "水",
+                "みず",
+                "water"
+              ]
+            ]
+          },
+          {
+            "id": "go-out",
+            "word": "出る",
+            "reading": "でる",
+            "gloss": "to go out, to leave",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ]
+            ]
+          },
+          {
+            "id": "pm",
+            "word": "午後",
+            "reading": "ごご",
+            "gloss": "p.m., afternoon",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "後",
+                "ゴ",
+                "after"
+              ]
+            ]
+          },
+          {
+            "id": "next-month",
+            "word": "来月",
+            "reading": "らいげつ",
+            "gloss": "next month",
+            "parts": [
+              [
+                "来",
+                "ライ",
+                "come, next"
+              ],
+              [
+                "月",
+                "ゲツ",
+                "month"
+              ]
+            ]
+          },
+          {
+            "id": "friday",
+            "word": "金よう日",
+            "reading": "きんようび",
+            "gloss": "Friday",
+            "parts": [
+              [
+                "金",
+                "キン",
+                "gold, Friday"
+              ],
+              [
+                "日",
+                "び",
+                "day"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u06d6.k1",
+          "kind": "choice",
+          "type": "表記",
+          "label": "How the exam asks it",
+          "q": "_まいにち_　午後　五時に　学校の　ドアを　しめます。",
+          "options": [
+            "毎日",
+            "母日",
+            "毎目",
+            "毎月"
+          ],
+          "answer": 1,
+          "explain": "まいにち, every day, is written 毎日. 母 (mother) looks like 毎 but is a different kanji, and 目 (eye) looks like 日. 毎月 is a real word, but it means every month and is read まいつき."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "情報検索",
+        "en": "Finding information",
+        "ask": "Until what time is the library open on Friday?",
+        "seconds": 90,
+        "passage": "学校の　としょしつ\n月よう日〜木よう日　午前九時〜午後六時\n^金よう日　午前九時〜午後三時^\n土よう日・日よう日　休み\n毎週　水よう日の　午後四時から　そうじを　します。その　時間は　入らないで　ください。\nとしょしつで　電話を　しないで　ください。",
+        "strategy": "Find the line that starts with 金よう日 and read the second time on it.",
+        "item": {
+          "id": "n5u06d6.r1",
+          "kind": "choice",
+          "type": "読解・情報検索",
+          "q": "金よう日、としょしつは　何時まで　あいて　いますか。",
+          "options": [
+            "午前九時",
+            "午後三時",
+            "午後四時",
+            "午後六時"
+          ],
+          "short": [
+            "9:00 a.m.",
+            "3:00 p.m.",
+            "4:00 p.m.",
+            "6:00 p.m."
+          ],
+          "answer": 2,
+          "explain": "The line 金よう日　午前九時〜午後三時 gives the Friday hours. The library opens at nine and closes at three in the afternoon.",
+          "why": [
+            "Nine in the morning is when the library opens, not when it closes.",
+            "",
+            "Four in the afternoon is when cleaning starts on Wednesdays.",
+            "Six in the evening is the closing time from Monday to Thursday, not Friday."
+          ]
+        }
+      }
+    }
+  },
+  "test": [
+    {
+      "id": "n5u06t.1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "この　ビルの　_出口_は　あちらです。",
+      "options": [
+        "でるくち",
+        "いりぐち",
+        "でくち",
+        "でぐち"
+      ],
+      "answer": 4,
+      "explain": "出口 is でぐち, exit. いりぐち is a real word, but it is 入口 (entrance), not 出口. In 出口 the 口 is ぐち, so でくち is not a word, and でるくち uses the verb でる; it is not a word either."
+    },
+    {
+      "id": "n5u06t.2",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "あしたの　_午後_、友だちと　えいがを　見に　行きます。",
+      "options": [
+        "ごこ",
+        "ごぜん",
+        "ごご",
+        "ごうご"
+      ],
+      "answer": 3,
+      "explain": "午後 is ごご, afternoon. ごぜん is a real word, but it is 午前 (morning, a.m.). ごうご has a long ごう, and ごこ has こ without the dakuten; neither is a word."
+    },
+    {
+      "id": "n5u06t.3",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "つかれましたね。少し　_やすんで_　ください。",
+      "options": [
+        "木んで",
+        "休んで",
+        "安んで",
+        "本んで"
+      ],
+      "answer": 2,
+      "explain": "やすんで (rest) is written 休んで, from 休みます. 安 is the やす of 安い (cheap), and it does not write the verb やすむ. 本 (book) and 木 (tree) only look like 休; 本んで and 木んで are not words."
+    },
+    {
+      "id": "n5u06t.4",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "先生の　話を　よく　_きいて_　ください。",
+      "options": [
+        "間いて",
+        "書いて",
+        "耳いて",
+        "聞いて"
+      ],
+      "answer": 4,
+      "explain": "きいて (listen) is 聞いて, from 聞きます. 書いて is a real word, but it is かいて (write). 間 is the かん of 時間 and 耳 means ear; 間いて and 耳いて are not words."
+    },
+    {
+      "id": "n5u06t.5",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "へやが　くらいですね。でんきを　（　　）　ください。",
+      "options": [
+        "しめて",
+        "けして",
+        "あけて",
+        "つけて"
+      ],
+      "answer": 4,
+      "explain": "The room is dark, so you ask someone to turn the light on: でんきを つけて ください. けして (turn off) would make the room darker. You open and close doors and windows with あけて and しめて, not a light."
+    },
+    {
+      "id": "n5u06t.6",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "A「すみません、トイレは　どこですか。」B「この　ろうかを　まっすぐ　行って、（　　）に　まがって　ください。」",
+      "options": [
+        "中",
+        "前",
+        "右",
+        "上"
+      ],
+      "answer": 3,
+      "explain": "まがって means turn, and you turn right or left: 右に まがって (turn right). 前に is the way you are already going (まっすぐ), so it is not a turn. 上に and 中に do not say which way to turn in a hallway."
+    },
+    {
+      "id": "n5u06t.7",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "あしたは　学校が　_休み_です。",
+      "options": [
+        "あしたは　学校に　行きます。",
+        "あしたは　学校が　あさからです。",
+        "あしたは　学校で　べんきょうします。",
+        "あしたは　学校が　ありません。"
+      ],
+      "answer": 4,
+      "explain": "学校が 休みです means there is no school that day, the same as 学校が ありません. 学校に 行きます and 学校で べんきょうします say the opposite. 学校が あさからです says when school starts, so there is school."
+    },
+    {
+      "id": "n5u06t.8",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "あの　人は　_わたしの　おばあさん_です。",
+      "options": [
+        "あの　人は　わたしの　あにの　子どもです。",
+        "あの　人は　わたしの　母の　お母さんです。",
+        "あの　人は　わたしの　父の　おねえさんです。",
+        "あの　人は　わたしの　母の　いもうとです。"
+      ],
+      "answer": 2,
+      "explain": "おばあさん is your grandmother, and your mother's mother is a grandmother. Your father's older sister and your mother's younger sister are aunts (おばさん). Your older brother's child is a niece or nephew."
+    },
+    {
+      "id": "n5u06t.9",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "友だちと　五時まで　こうえんで　（　　）、うちへ　かえりました。",
+      "options": [
+        "あそって",
+        "あそんで",
+        "あそいで",
+        "あそびて"
+      ],
+      "answer": 2,
+      "explain": "あそびます (play) is a verb whose ます form ends in び, so its て form is あそんで: あそんで、かえりました (played, then went home). You cannot add て straight to the stem, so あそびて is wrong. あそって and あそいで use the endings of other verbs (like まって and およいで)."
+    },
+    {
+      "id": "n5u06t.10",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "あぶないですから、この　川で　（　　）　ください。",
+      "options": [
+        "およがなくて",
+        "およいで",
+        "およがないで",
+        "およぎませんで"
+      ],
+      "answer": 3,
+      "explain": "The river is dangerous, so this asks people not to swim: およがないで ください. およいで ください asks them to swim, the opposite of what あぶないですから needs. The polite ません form does not go before で ください, and およがなくて ください is not a request."
+    },
+    {
+      "id": "n5u06t.11",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「この　えんぴつで　（　　）　いいですか。」B「いいえ、ペンで　書いて　ください。」",
+      "options": [
+        "書きても",
+        "書いては",
+        "書くも",
+        "書いても"
+      ],
+      "answer": 4,
+      "explain": "A asks for permission, which is the て form + も いいですか: 書いても いいですか (may I write?). 書きて is not the て form of 書きます. 書いては goes with いけません, not いいですか. 書く (the dictionary form) does not go before も here."
+    },
+    {
+      "id": "n5u06t.12",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "あしたは　休みですから、はやく　（　　）　いいです。ゆっくり　ねて　ください。",
+      "options": [
+        "おきなくても",
+        "おきても",
+        "おきては",
+        "おきないくても"
+      ],
+      "answer": 1,
+      "explain": "It is a holiday and the speaker says to sleep in, so you don't have to get up early: おきなくても いいです. おきても いいです (you may get up early) does not fit ゆっくり ねて ください. おきては goes with いけません, not いいです. おきないくても keeps the い of ない, which must be dropped (おきなくても)."
+    },
+    {
+      "id": "n5u06t.13",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「この　しんぶんを　うちへ　もって　かえっても　いいですか。」B「いいえ、みんなの　しんぶんですから、（　　）。」",
+      "options": [
+        "もって　かえっては　いけません",
+        "もって　かえらなくても　いいです",
+        "もって　かえっても　いいです",
+        "もって　かえって　ください"
+      ],
+      "answer": 1,
+      "explain": "B says いいえ to a request for permission and gives a reason (it is everyone's newspaper), so B says you must not take it home: もって かえっては いけません. もって かえっても いいです and もって かえって ください would mean yes, not いいえ. もって かえらなくても いいです (you don't have to take it) does not answer \"may I take it?\"."
+    },
+    {
+      "id": "n5u06t.14",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「もしもし、今　何を　して　いますか。」B「駅の　前で　友だちを　（　　）。」",
+      "options": [
+        "まって　ください",
+        "まちます",
+        "まって　います",
+        "まちました"
+      ],
+      "answer": 3,
+      "explain": "A asks what B is doing right now (今 何を して いますか), so B answers with the て form + います: まって います (I am waiting). まちます is for habits or plans, not this moment. まちました is finished, and まって ください asks A to wait, which does not answer the question."
+    },
+    {
+      "id": "n5u06t.15",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "日よう日、こうえんへ　花を　（　　）　行きました。",
+      "options": [
+        "見に",
+        "見へ",
+        "見るに",
+        "見ますに"
+      ],
+      "answer": 1,
+      "explain": "To say why you go somewhere, use the ます form without ます + に: 見に 行きました (went to see). The purpose takes に, not へ, so 見へ is wrong. The dictionary form (見る) and the full ます form (見ます) do not go before に 行きます."
+    },
+    {
+      "id": "n5u06t.16",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「どうやって　駅へ　行きますか。」B「この　みちを　",
+      "after": "　右に　まがって　ください。」",
+      "tiles": [
+        "まっすぐ",
+        "行って",
+        "二つめの",
+        "かどを"
+      ],
+      "star": 1,
+      "bank": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "full": "A「どうやって　駅へ　行きますか。」B「この　みちを　まっすぐ　{行って}　二つめの　かどを　右に　まがって　ください。」",
+      "explain": "まっすぐ, 行って, 二つめの, かどを. まっすぐ goes right before the verb it describes: まっすぐ 行って (go straight, and then). 二つめの joins the noun after it: 二つめの かどを (the second corner), and かどを comes just before 右に まがって. 行って cannot come after かどを, because then まがって has no corner to turn at."
+    },
+    {
+      "id": "n5u06t.17",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "あそこで　",
+      "after": "が　わたしの　あにです。",
+      "tiles": [
+        "ギターを",
+        "ひいて",
+        "いる",
+        "人"
+      ],
+      "star": 1,
+      "bank": [
+        1,
+        3,
+        0,
+        2
+      ],
+      "full": "あそこで　ギターを　{ひいて}　いる　人が　わたしの　あにです。",
+      "explain": "ギターを, ひいて, いる, 人. ギターを needs its verb after it: ギターを ひいて (playing the guitar). いる follows the て form to say it is happening now, and the whole part describes 人: ひいて いる 人 (the person who is playing). 人 must come last, right before が."
+    },
+    {
+      "id": "n5u06t.18",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "来年　とうきょうへ　",
+      "after": "　行く　つもりです。",
+      "tiles": [
+        "日本語",
+        "を",
+        "べんきょうし",
+        "に"
+      ],
+      "star": 2,
+      "bank": [
+        3,
+        2,
+        0,
+        1
+      ],
+      "full": "来年　とうきょうへ　日本語を　{べんきょうし}に　行く　つもりです。",
+      "explain": "日本語, を, べんきょうし, に. を marks what you study, so it goes right after 日本語: 日本語を べんきょうし. The purpose of going takes the ます form without ます + に: べんきょうしに 行く. に cannot go after 日本語, because then べんきょうし has nothing to join 行く."
+    },
+    {
+      "id": "n5u06t.19",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "みなさんへ\nあしたは　みんなで　山へ　行きます。あさ　八時に　学校の　前に　来て　ください。おべんとうと　飲みものを　もって　来て　ください。おかしは　もって　来ても　いいです。でも、ゲームは　もって　来ては　いけません。あしたは　いい　天気ですから、かさは　もって　来なくても　いいです。\n先生",
+      "q": "もって　来ては　いけない　ものは　どれですか。",
+      "options": [
+        "おかし",
+        "かさ",
+        "ゲーム",
+        "おべんとう"
+      ],
+      "answer": 3,
+      "short": [
+        "おかし",
+        "かさ",
+        "ゲーム",
+        "おべんとう"
+      ],
+      "explain": "The note says ゲームは もって 来ては いけません: games must not be brought. おかし is allowed (もって 来ても いいです). かさ is just not needed (もって 来なくても いいです), which is different from not allowed. おべんとう must be brought (もって 来て ください)."
+    },
+    {
+      "id": "n5u06t.20",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "みなさんへ\nあしたは　みんなで　山へ　行きます。あさ　八時に　学校の　前に　来て　ください。おべんとうと　飲みものを　もって　来て　ください。おかしは　もって　来ても　いいです。でも、ゲームは　もって　来ては　いけません。あしたは　いい　天気ですから、かさは　もって　来なくても　いいです。\n先生",
+      "q": "ただしい　ものは　どれですか。",
+      "options": [
+        "おかしは　もって　来ても　いいです。",
+        "かさは　もって　来て　ください。",
+        "飲みものは　もって　来ないで　ください。",
+        "おべんとうは　もって　来なくても　いいです。"
+      ],
+      "answer": 1,
+      "short": [
+        "おかしはいい",
+        "かさをもってくる",
+        "飲みものはだめ",
+        "おべんとうはいらない"
+      ],
+      "explain": "The note says おかしは もって 来ても いいです, so snacks are allowed. おべんとう and 飲みもの must be brought (もって 来て ください), so the options about 飲みもの and おべんとう say the opposite. かさ does not have to be brought because the weather will be good, so 来て ください is wrong."
+    },
+    {
+      "id": "n5u06t.21",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "さくらとしょかん\n火よう日〜日よう日　午前　九時〜午後　七時\n（月よう日は　休み）\n＊本は　一人　五さつまで　かりても　いいです。\n＊としょかんの　中で　飲みものを　飲まないで　ください。\n＊としょかんの　中で　電話を　かけては　いけません。",
+      "q": "ヤンさんは　としょかんで　何を　しても　いいですか。",
+      "options": [
+        "本を　読みながら　ジュースを　飲みます。",
+        "中で　友だちに　電話を　かけます。",
+        "本を　四さつ　かります。",
+        "月よう日に　本を　かります。"
+      ],
+      "answer": 3,
+      "short": [
+        "ジュース",
+        "電話",
+        "四さつ",
+        "月よう日"
+      ],
+      "explain": "One person may borrow up to five books (五さつまで), so four books is all right. Drinking inside is not allowed (飲まないで ください), and phone calls are not allowed (かけては いけません). The library is closed on 月よう日 (休み)."
+    },
+    {
+      "id": "n5u06t.22",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "さくらとしょかん\n火よう日〜日よう日　午前　九時〜午後　七時\n（月よう日は　休み）\n＊本は　一人　五さつまで　かりても　いいです。\n＊としょかんの　中で　飲みものを　飲まないで　ください。\n＊としょかんの　中で　電話を　かけては　いけません。",
+      "q": "リーさんは　本を　かりに　行きたいです。いつ　行きますか。",
+      "options": [
+        "月よう日の　午後　三時",
+        "水よう日の　午前　八時",
+        "金よう日の　午後　八時",
+        "土よう日の　午前　十一時"
+      ],
+      "answer": 4,
+      "short": [
+        "月・三時",
+        "水・八時",
+        "金・八時",
+        "土・十一時"
+      ],
+      "explain": "On 土よう日 the library is open from 午前 九時 to 午後 七時, so 午前 十一時 is fine. 月よう日 is the library's day off. 午前 八時 is before it opens at nine, and 午後 八時 is after it closes at seven."
+    },
+    {
+      "id": "n5u06t.23",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "リサさんへ\n今、わたしは　かぞくと　こうえんに　います。わたしは　木の　下で　この　メールを　書いて　います。いもうとは　いぬと　あそんで　います。父と　母は　店で　おべんとうを　買って　います。午後は　みんなで　川へ　魚を　見に　行く　つもりです。\nマリ",
+      "q": "いもうとは　今　何を　して　いますか。",
+      "options": [
+        "おべんとうを　買って　います。",
+        "川で　魚を　見て　います。",
+        "メールを　書いて　います。",
+        "いぬと　あそんで　います。"
+      ],
+      "answer": 4,
+      "short": [
+        "おべんとう",
+        "魚",
+        "メール",
+        "いぬ"
+      ],
+      "explain": "The email says いもうとは いぬと あそんで います: the sister is playing with the dog. マリ, the writer, is writing the email. The parents are buying lunch boxes. Seeing the fish at the river is the plan for the afternoon, not what anyone is doing now."
+    },
+    {
+      "id": "n5u06t.24",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "リサさんへ\n今、わたしは　かぞくと　こうえんに　います。わたしは　木の　下で　この　メールを　書いて　います。いもうとは　いぬと　あそんで　います。父と　母は　店で　おべんとうを　買って　います。午後は　みんなで　川へ　魚を　見に　行く　つもりです。\nマリ",
+      "q": "マリさんたちは　午後　何を　しますか。",
+      "options": [
+        "うちで　メールを　書きます。",
+        "川へ　魚を　見に　行きます。",
+        "こうえんで　いぬと　あそびます。",
+        "店で　おべんとうを　買います。"
+      ],
+      "answer": 2,
+      "short": [
+        "メール",
+        "川で魚",
+        "いぬ",
+        "おべんとう"
+      ],
+      "explain": "The email says 午後は みんなで 川へ 魚を 見に 行く つもりです: in the afternoon they plan to go to the river to see fish. Buying lunch boxes, writing the email and playing with the dog are what the family is doing now, in the park, not the afternoon plan."
+    }
+  ]
+}

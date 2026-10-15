@@ -1,0 +1,257 @@
+{
+  "title": "〜なんか・〜って（話題）",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u12d4.p1",
+        "form": "〜なんか（話しことば）",
+        "gloss": "something like …; kind of, somehow",
+        "connect": [
+          {"pos": "Noun, as a soft example in a suggestion", "rule": "〜＋{なんか}＋どう？"},
+          {"pos": "Noun + particle (に, で, と)", "rule": "〜＋{なんか}＋に／〜に＋{なんか}"},
+          {"pos": "Start of a sentence, for a vague feeling", "rule": "{なんか}＋〜（[変|へん]だ／寒い）"}
+        ],
+        "examples": [
+          {"ja": "今夜は寒いから、なべ{なんか}どう？", "en": "It's cold tonight, so how about hot pot or something?"},
+          {"ja": "あの店、{なんか}いつもとちがうね。店員さんが[全員|ぜんいん]新しい。", "en": "That shop feels kind of different. All the staff are new."}
+        ],
+        "watch": {
+          "note": "なんか takes the place of を and が, or comes just before them (ケーキなんかを). It does not come after を.",
+          "bad": "ケーキをなんかどう？",
+          "good": "ケーキなんかどう？"
+        }
+      },
+      {
+        "id": "n3u12d4.p2",
+        "form": "〜って（話題）",
+        "gloss": "as for …, … is (casual topic)",
+        "connect": [
+          {"pos": "Noun", "rule": "〜＋{って}"},
+          {"pos": "Verb, plain form + の", "rule": "〜の＋{って}"},
+          {"pos": "A word you want explained", "rule": "〜＋{って}＋何？／どういう意味？"}
+        ],
+        "examples": [
+          {"ja": "北海道の冬{って}、本当に長いんですね。", "en": "Winters in Hokkaido really are long, aren't they?"},
+          {"ja": "毎朝おべんとうを作るの{って}、大変じゃない？", "en": "Isn't making a packed lunch every morning hard work?"}
+        ],
+        "watch": {
+          "note": "って marks the topic, like は. A question word cannot be the topic, so it keeps が.",
+          "bad": "だれってこの本を書いたの？",
+          "good": "だれがこの本を書いたの？"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "なんか softens a suggestion or plays a thing down, while って simply puts a topic on the table, like は.",
+      "forms": [
+        {"form": "〜なんか（例示）", "tag": "やわらかく例を出す · something like", "mark": "dot", "ja": "[誕生日|たんじょうび]のプレゼント、花{なんか}どう？", "en": "How about flowers or something for the birthday present?"},
+        {"form": "〜なんか（軽視）", "tag": "低く言う · the likes of (unit 10)", "mark": "down", "ja": "テレビ{なんか}、もう何年も見ていないよ。", "en": "TV? I haven't watched it for years."},
+        {"form": "〜って（話題）", "tag": "話題を出す · as for (= は)", "mark": "dot", "ja": "東京の電車{って}、[本当|ほんとう]に[混|こ]んでいますね。", "en": "Tokyo's trains really are crowded, aren't they?"}
+      ],
+      "check": {
+        "id": "n3u12d4.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one?",
+        "q": "『サブスク』（　　）何？[最近|さいきん]よく聞くけど。",
+        "options": ["なんか", "って", "でも"],
+        "answer": 2,
+        "why": [
+          "なんか gives a soft example or plays something down. It cannot ask what a word means.",
+          "って puts the word up as the topic: what does サブスク mean? Here it is the same as というのは.",
+          "でも gives an example in a suggestion (お茶でもどう？). Here the speaker asks about one word."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u12d4.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "暑いね。^[冷|つめ]たいもの^（　　）飲みに行かない？",
+        "options": ["こそ", "さえ", "なんか", "って"],
+        "answer": 3,
+        "why": [
+          "こそ stresses this one and nothing else. The speaker is only offering an idea of what to drink.",
+          "さえ means even. Even something cold makes no sense in this invitation.",
+          "[冷|つめ]たいものなんか softens the invitation: something cold, for example.",
+          "って puts up a topic to say something about. Here [冷|つめ]たいもの is just what to drink, so it sounds wrong."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d4.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "ねえ、この漢字（　　）、^何て読むの？^",
+        "options": ["って", "ほど", "ばかり", "こそ"],
+        "answer": 1,
+        "why": [
+          "The kanji is the topic and the question asks about it: この漢字って, the casual way to say この漢字は.",
+          "ほど compares a degree, as in この漢字ほど[難|むずか]しい字はない. Nothing is compared here.",
+          "ばかり means nothing but. The speaker asks about one kanji.",
+          "こそ stresses this one and no other. A simple question about a reading has nothing to stress."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d4.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今日の[会議|かいぎ]、（　　）^いつもと[様子|ようす]がちがった^よね。[部長|ぶちょう]がずっと[静|しず]かで。",
+        "options": ["なんて", "ぜひ", "なるべく", "なんか"],
+        "answer": 4,
+        "why": [
+          "At the start of a sentence, なんて makes an exclamation with だろう (なんて広い[庭|にわ]だろう). This sentence is not an exclamation.",
+          "ぜひ goes with wishes and requests (ぜひ来てください). This sentence reports what happened.",
+          "なるべく means as … as possible and goes with plans and requests. It cannot describe a past meeting.",
+          "A vague feeling: the meeting felt somehow different from usual."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d4.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "一人で外国に住むの（　　）、^さびしくない？^",
+        "options": ["たびに", "って", "ところに", "ばかりに"],
+        "answer": 2,
+        "why": [
+          "たびに means every time. After a verb it takes the dictionary form directly (住むたびに), so 住むのたびに is not possible.",
+          "住むのって makes the action the topic: living alone abroad, isn't that lonely?",
+          "ところに means just when something happens, and it follows a verb directly. 住むのところに is not possible.",
+          "ばかりに follows a verb directly (住んだばかりに) and leads to a bad result. 住むのばかりに is not possible."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d4.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "せっかくだから、駅前の",
+        "after": "帰らない？",
+        "tiles": ["カフェの", "ケーキ", "なんか", "買って"],
+        "star": 2,
+        "bank": [1, 3, 2, 0],
+        "hint": "駅前の needs a noun. Which noun can take another の after it?",
+        "full": "せっかくだから、駅前のカフェのケーキなんか買って帰らない？",
+        "explain": "駅前のカフェの describes ケーキ. なんか comes right after ケーキ to soften the idea, and 買って joins 帰らない？"
+      },
+      {
+        "id": "n3u12d4.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "田中さんの",
+        "after": "働いてるの？",
+        "tiles": ["お兄さん", "って", "どこの", "会社で"],
+        "star": 2,
+        "bank": [2, 0, 3, 1],
+        "hint": "Put the topic first, then the question about it.",
+        "full": "田中さんのお兄さんってどこの会社で働いてるの？",
+        "explain": "田中さんのお兄さんって is the topic. The question follows: どこの会社で働いてるの？"
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u12d4.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今度の休みは、海（　　）に行きたいな。",
+        "options": ["こそ", "さえ", "なんか", "ほど"],
+        "answer": 3,
+        "explain": "海なんかに: the sea, for example, said softly. こそ and さえ would have to come after に (海にこそ, 海にさえ), so 海こそに and 海さえに are not possible. ほど compares a degree, and nothing is compared here."
+      },
+      {
+        "id": "n3u12d4.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "駅前にできた新しいスーパー（　　）、何時まで開いているんですか。",
+        "options": ["って", "まで", "ほど", "ばかり"],
+        "answer": 1,
+        "explain": "The new supermarket is the topic and the question asks about it: スーパーって, the casual way to say スーパーは. まで would mean even the supermarket, ほど compares a degree, and ばかり means nothing but; none fits a simple question."
+      },
+      {
+        "id": "n3u12d4.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "毎朝6時に",
+        "after": "大変ですね。",
+        "tiles": ["起きる", "のって", "思った", "より"],
+        "star": 2,
+        "bank": [3, 0, 2, 1],
+        "full": "毎朝6時に起きる{のって}思ったより大変ですね。",
+        "explain": "起きる, のって, 思った, より. 毎朝6時に起きる is the action, のって makes it the topic, and 思ったより goes with 大変ですね."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "インタビュー記事",
+    "en": "A magazine interview page",
+    "intro": "Tap every word you would have to read on the magazine page.",
+    "words": [
+      {"id": "article", "word": "記事", "reading": "きじ", "gloss": "article", "parts": [["記", "キ", "write down"], ["事", "ジ", "thing"]]},
+      {"id": "reporter", "word": "記者", "reading": "きしゃ", "gloss": "reporter, journalist", "parts": [["記", "キ", "write down"], ["者", "シャ", "person"]]},
+      {"id": "cover", "word": "表紙", "reading": "ひょうし", "gloss": "cover (of a magazine)", "parts": [["表", "ヒョウ", "surface"], ["紙", "シ", "paper"]]},
+      {"id": "latest", "word": "最新号", "reading": "さいしんごう", "gloss": "latest issue", "parts": [["最", "サイ", "most"], ["新", "シン", "new"], ["号", "ゴウ", "issue, number"]]},
+      {"id": "next", "word": "次号", "reading": "じごう", "gloss": "next issue", "parts": [["次", "ジ", "next"], ["号", "ゴウ", "issue, number"]]},
+      {"id": "athlete", "word": "選手", "reading": "せんしゅ", "gloss": "athlete, player", "parts": [["選", "セン", "choose"], ["手", "シュ", "person (skilled)"]]},
+      {"id": "usual", "word": "普段", "reading": "ふだん", "gloss": "usually, everyday", "parts": [["普", "フ", "common"], ["段", "ダン", "step"]]},
+      {"id": "weak", "word": "苦手", "reading": "にがて", "gloss": "bad at, not fond of", "parts": [["苦", "にが", "bitter"], ["手", "て", "hand"]]}
+    ],
+    "check": {
+      "id": "n3u12d4.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "_普段_はどんな音楽を聞いていますか。",
+      "options": ["ふだん", "ふたん", "ぶだん", "ふうだん"],
+      "answer": 1,
+      "explain": "普段 is read ふだん: what music do you usually listen to? ふたん drops the voicing on だ, ぶだん voices ふ, and ふうだん adds a long う."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（中文）",
+    "en": "Mid-length passage",
+    "ask": "What does the person in the interview actually say about each topic?",
+    "seconds": 100,
+    "passage": "【この人に聞きたい】マラソン選手・山下ゆいさん\n記者：走っている間って、何を考えているんですか。\n山下：何も考えてないんです。なんか、気がついたらゴールしてるって感じですね。\n記者：普段の練習で大事にしていることは？\n山下：よく寝ることかな。^練習と同じくらい大事です^。\n記者：苦手なことってありますか。\n山下：料理です。この前カレーを作ったら、なんかあまくて。^しおとさとうを間違えてたんです^。\n記者：これから走りたい人にひとこと。\n山下：いきなり長く走らなくていいんです。^まずは散歩なんかから始めてみてください^。",
+    "strategy": "Read each answer closely: なんか often softens an example, so check what is only an example and what is really said.",
+    "item": {
+      "id": "n3u12d4.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（中文）",
+      "q": "山下さんについて、この記事の内容と合うものはどれか。",
+      "options": [
+        "走っている間は、いつもゴールのことを考えている。",
+        "練習より寝ることのほうがずっと大事だと思っている。",
+        "カレーがあまくなったのは、作り方を知らなかったからだ。",
+        "走り始める人には、散歩のような軽いことから始めるようにすすめている。"
+      ],
+      "short": [
+        "いつもゴールのことを考える",
+        "寝ることのほうがずっと大事",
+        "作り方を知らなかった",
+        "散歩などから始めるようにすすめる"
+      ],
+      "answer": 4,
+      "explain": "まずは散歩なんかから始めてみてください: she tells beginners not to run long at once but to start with something light, such as walking.",
+      "why": [
+        "She says she thinks of nothing (何も考えてない) and suddenly finds she has finished.",
+        "She says sleep is as important as practice (同じくらい), not much more important.",
+        "The curry was sweet because she mixed up the salt and the sugar, not because she did not know the recipe.",
+        ""
+      ]
+    }
+  }
+}

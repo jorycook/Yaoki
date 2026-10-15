@@ -1,0 +1,558 @@
+{
+ "title": "〜のことだから・〜ことだし",
+ "grammar": {
+  "points": [
+   {
+    "id": "u03d5.p1",
+    "form": "〜のことだから",
+    "gloss": "knowing X, (I expect) …",
+    "connect": [
+     {
+      "pos": "名詞（人）",
+      "rule": "名詞 ＋ {のことだから}"
+     },
+     {
+      "pos": "後ろ",
+      "rule": "{のことだから}、〜だろう／〜に違いない／〜はずだ"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "時間に厳しい山田さん{のことだから}、もう駅に着いているだろう。",
+      "en": "Knowing how strict Yamada-san is about time, she's probably at the station already."
+     },
+     {
+      "ja": "[心配性|しんぱいしょう]の母{のことだから}、何度も電話してくるに違いない。",
+      "en": "Knowing what a worrier my mother is, she's sure to call again and again."
+     }
+    ],
+    "watch": {
+     "note": "The noun before のことだから is a person (or a group) whose character the speaker knows, and a guess follows. A plain reason like the weather takes から.",
+     "bad": "大雨のことだから、試合は中止だろう。",
+     "good": "大雨だから、試合は中止だろう。"
+    }
+   },
+   {
+    "id": "u03d5.p2",
+    "form": "〜ことだし",
+    "gloss": "since …, (let's / I'll) …",
+    "connect": [
+     {
+      "pos": "動・い形",
+      "rule": "普通形 ＋ {ことだし}"
+     },
+     {
+      "pos": "な形・名詞",
+      "rule": "〜な／〜である ＋ {ことだし}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "雨も止んだ{ことだし}、そろそろ出かけようか。",
+      "en": "The rain has stopped, so shall we head out?"
+     },
+     {
+      "ja": "仕事も一段落した{ことだし}、今夜は早く帰ることにしよう。",
+      "en": "Work has calmed down, so I'll go home early tonight."
+     }
+    ],
+    "watch": {
+     "note": "ことだし gives one reason among others, and what follows is a suggestion, a decision or a wish. For a result that simply happened, use から or ので.",
+     "bad": "雨が降ったことだし、試合が中止になった。",
+     "good": "雨が降ったので、試合が中止になった。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three give a reason. What changes is what the reason is and what comes after it.",
+   "forms": [
+    {
+     "form": "〜のことだから",
+     "tag": "人柄から推測 · knowing X",
+     "mark": "dot",
+     "ja": "慎重な兄{のことだから}、遅延も考えて早めに家を出ただろう。",
+     "en": "Knowing how careful my brother is, he'll have left early in case of delays."
+    },
+    {
+     "form": "〜ことだし",
+     "tag": "理由の一つ・提案 · since…, let's",
+     "mark": "dot",
+     "ja": "終電も近い{ことだし}、今日はこの辺で帰ろう。",
+     "en": "The last train is coming up, so let's call it a night."
+    },
+    {
+     "form": "〜以上は",
+     "tag": "当然・決意 · now that…, must",
+     "mark": "dot",
+     "ja": "約束した{以上は}、遅れるわけにはいかない。",
+     "en": "Now that I've promised, I can't be late."
+    }
+   ],
+   "check": {
+    "id": "u03d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "旅行の前の日",
+    "q": "準備のいい兄（　　）、もう明日の乗り換えを調べてあるだろう。",
+    "options": [
+     "のことだから",
+     "ことだし",
+     "以上は"
+    ],
+    "answer": 1,
+    "why": [
+     "A person whose character you know (準備のいい兄), then a guess with だろう.",
+     "ことだし cannot follow a noun directly; it would need である, and it leads to a suggestion, not a guess.",
+     "以上は cannot follow a noun directly either, and it leads to a duty or resolve, not a guess about someone."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u03d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "仕事の早い^彼女^（　　）、もう資料を全部そろえている^はずだ^。",
+    "options": [
+     "からには",
+     "ばかりに",
+     "のことだから",
+     "あまり"
+    ],
+    "answer": 3,
+    "why": [
+     "からには cannot follow a noun directly, and it leads to a duty or resolve.",
+     "ばかりに cannot follow a noun directly, and it needs a result the speaker regrets.",
+     "A person you know well (仕事の早い彼女), then a confident guess with はずだ.",
+     "あまり follows a feeling noun with の, as in 心配のあまり. 彼女 is a person."
+    ]
+   },
+   {
+    "id": "u03d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "バスも^もうすぐ来る^（　　）、そろそろバス停に^行こうか^。",
+    "options": [
+     "ことだし",
+     "以上は",
+     "のことだから",
+     "ばかりに"
+    ],
+    "answer": 1,
+    "why": [
+     "One reason (the bus is coming soon), then a casual suggestion with 〜ようか.",
+     "A bus about to come is not a commitment that binds anyone, so 以上は sounds wrong here.",
+     "のことだから follows a noun for a person, not a verb.",
+     "ばかりに needs a bad result the speaker regrets, not a suggestion."
+    ]
+   },
+   {
+    "id": "u03d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "せっかく天気もいい（　　）、^歩いて帰ることにした^。",
+    "options": [
+     "あまり",
+     "ことだし",
+     "のことだから",
+     "ばかりに"
+    ],
+    "answer": 2,
+    "why": [
+     "あまり means a feeling or state goes too far and something unwanted happens. A calm decision does not fit.",
+     "One reason (good weather), then a decision with ことにした. も hints that there are other reasons too.",
+     "のことだから follows a noun for a person, not an adjective.",
+     "ばかりに needs a result the speaker regrets. Walking home is a choice, not a regret."
+    ]
+   },
+   {
+    "id": "u03d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^時間にルーズな^佐藤さん（　　）、今日も遅刻する^に違いない^。",
+    "options": [
+     "ことだし",
+     "以上は",
+     "ばかりに",
+     "のことだから"
+    ],
+    "answer": 4,
+    "why": [
+     "ことだし cannot follow a noun directly, and it leads to a suggestion, not a guess.",
+     "以上は cannot follow a noun directly, and it leads to a duty or resolve.",
+     "ばかりに cannot follow a noun directly, and nothing has happened yet to regret.",
+     "Sato-san's known habit (時間にルーズ), then a guess with に違いない."
+    ]
+   },
+   {
+    "id": "u03d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの",
+    "after": "時間どおりに来るだろう。",
+    "tiles": [
+     "まじめな",
+     "山田さんの",
+     "ことだから",
+     "きっと"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "Which tile describes the person? のことだから comes right after the person.",
+    "full": "あのまじめな山田さんの{ことだから}きっと時間どおりに来るだろう。",
+    "explain": "あの and まじめな both describe 山田さん, and 山田さんの joins ことだから. きっと sits before the guess."
+   },
+   {
+    "id": "u03d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "せっかく",
+    "after": "温泉にでも入って帰ろう。",
+    "tiles": [
+     "遠く",
+     "まで",
+     "来た",
+     "ことだし"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "ことだし follows a plain-form verb. What did we do that makes this a good idea?",
+    "full": "せっかく遠くまで来た{ことだし}温泉にでも入って帰ろう。",
+    "explain": "遠くまで来た is the reason, in the plain form before ことだし. The suggestion 帰ろう follows."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u03d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "子どもが好きな佐藤さん（　　）、きっといい先生になるだろう。",
+    "options": [
+     "ことだし",
+     "以上は",
+     "のことだから",
+     "ばかりに"
+    ],
+    "answer": 3,
+    "explain": "A person whose character the speaker knows, then a guess with だろう: のことだから. ことだし, 以上は and ばかりに cannot follow a noun directly, and none of them leads to a guess like this."
+   },
+   {
+    "id": "u03d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "今日はみんな疲れている（　　）、打ち上げは来週にしませんか。",
+    "options": [
+     "のことだから",
+     "ことだし",
+     "あまり",
+     "ばかりに"
+    ],
+    "answer": 2,
+    "explain": "One reason, then a suggestion (〜ませんか): ことだし. のことだから follows a noun for a person. あまり and ばかりに lead to a result that has happened, not a suggestion."
+   },
+   {
+    "id": "u03d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "雨も",
+    "after": "帰りましょうか。",
+    "tiles": [
+     "強く",
+     "なってきた",
+     "ことだし",
+     "暗くなる前に"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "full": "雨も強く{なってきた}ことだし暗くなる前に帰りましょうか。",
+    "explain": "強く, なってきた, ことだし, 暗くなる前に. 強くなってきた is the reason before ことだし, and 暗くなる前に goes with 帰りましょうか."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅で",
+  "en": "At the station",
+  "intro": "Tap every word you would read on the boards and signs.",
+  "words": [
+   {
+    "id": "transfer",
+    "word": "乗換",
+    "reading": "のりかえ",
+    "gloss": "change (of trains)",
+    "parts": [
+     [
+      "乗",
+      "のり",
+      "ride"
+     ],
+     [
+      "換",
+      "かえ",
+      "change"
+     ]
+    ]
+   },
+   {
+    "id": "gate",
+    "word": "改札口",
+    "reading": "かいさつぐち",
+    "gloss": "ticket gate",
+    "parts": [
+     [
+      "改札",
+      "かいさつ",
+      "ticket check"
+     ],
+     [
+      "口",
+      "ぐち",
+      "opening, way out"
+     ]
+    ]
+   },
+   {
+    "id": "suspend",
+    "word": "運休",
+    "reading": "うんきゅう",
+    "gloss": "service suspended",
+    "parts": [
+     [
+      "運",
+      "ウン",
+      "run: 運転"
+     ],
+     [
+      "休",
+      "キュウ",
+      "rest: 休日"
+     ]
+    ]
+   },
+   {
+    "id": "delay",
+    "word": "遅延",
+    "reading": "ちえん",
+    "gloss": "delay",
+    "parts": [
+     [
+      "遅",
+      "チ",
+      "late: 遅刻"
+     ],
+     [
+      "延",
+      "エン",
+      "extend: 延長"
+     ]
+    ]
+   },
+   {
+    "id": "local",
+    "word": "各駅停車",
+    "reading": "かくえきていしゃ",
+    "gloss": "local train (stops at every station)",
+    "parts": [
+     [
+      "各駅",
+      "かくえき",
+      "every station"
+     ],
+     [
+      "停車",
+      "ていしゃ",
+      "stopping"
+     ]
+    ]
+   },
+   {
+    "id": "rapid",
+    "word": "快速",
+    "reading": "かいそく",
+    "gloss": "rapid train",
+    "parts": [
+     [
+      "快",
+      "カイ",
+      "pleasant, brisk: 快適"
+     ],
+     [
+      "速",
+      "ソク",
+      "speed: 速度"
+     ]
+    ]
+   },
+   {
+    "id": "last",
+    "word": "終電",
+    "reading": "しゅうでん",
+    "gloss": "last train",
+    "parts": [
+     [
+      "終",
+      "シュウ",
+      "end: 終点"
+     ],
+     [
+      "電",
+      "デン",
+      "electric (train): 電車"
+     ]
+    ]
+   },
+   {
+    "id": "fare",
+    "word": "運賃",
+    "reading": "うんちん",
+    "gloss": "fare",
+    "parts": [
+     [
+      "運",
+      "ウン",
+      "carry: 運送"
+     ],
+     [
+      "賃",
+      "チン",
+      "fee, wage: 家賃"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u03d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "大雨の影響で、電車に_遅延_が発生しています。",
+   "options": [
+    "ちいん",
+    "ちえん",
+    "じえん",
+    "ちえい"
+   ],
+   "answer": 2,
+   "explain": "遅 is チ as in 遅刻, and 延 is エン as in 延長: ちえん. ちいん and ちえい get 延 wrong, and じえん gets 遅 wrong."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "男の学生はこのあとまず何をしますか。",
+  "audio": [
+   [
+    "N",
+    "大学で、男の学生と女の学生が、ゼミの発表の準備について話しています。男の学生はこのあとまず何をしますか。",
+    "大学で、男の学生と女の学生が、ゼミの発表の準備について話しています。男の学生はこのあとまずなにをしますか。"
+   ],
+   [
+    "M",
+    "来週の発表のスライド、だいたいできたよ。ただ、グラフの数字がひとつ合わないんだ。",
+    null
+   ],
+   [
+    "F",
+    "あ、それなら、田中さんにデータを確認してもらうように、さっき私から頼んでおいたよ。",
+    null
+   ],
+   [
+    "M",
+    "ありがとう。じゃあ、すぐスライドを直せるね。",
+    null
+   ],
+   [
+    "F",
+    "でも、田中さん、今日はアルバイトで、返事は夜になるって。",
+    null
+   ],
+   [
+    "M",
+    "そうか。まあ、田中さんのことだから、今夜中にはちゃんと調べてくれるだろうね。",
+    "そうか。まあ、田中さんのことだから、こんやじゅうにはちゃんと調べてくれるだろうね。"
+   ],
+   [
+    "F",
+    "うん。じゃあ、待っている間に、配るレジュメを作っちゃえば？時間もあることだし。",
+    null
+   ],
+   [
+    "M",
+    "そうだね。数字は後で入れることにして、そうするよ。先生に送るのは、全部そろってからでいいよね。",
+    null
+   ],
+   [
+    "F",
+    "うん、それでいいと思う。",
+    null
+   ],
+   [
+    "N",
+    "男の学生はこのあとまず何をしますか。",
+    "男の学生はこのあとまずなにをしますか。"
+   ]
+  ],
+  "item": {
+   "id": "u03d5.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "男の学生はこのあとまず何をしますか。",
+   "script": [
+    "ナレーター：大学で、男の学生と女の学生が、ゼミの発表の準備について話しています。男の学生はこのあとまず何をしますか。",
+    "男：来週の発表のスライド、だいたいできたよ。ただ、グラフの数字がひとつ合わないんだ。",
+    "女：あ、それなら、田中さんにデータを確認してもらうように、さっき私から頼んでおいたよ。",
+    "男：ありがとう。じゃあ、すぐスライドを直せるね。",
+    "女：でも、田中さん、今日はアルバイトで、返事は夜になるって。",
+    "男：そうか。まあ、田中さんのことだから、今夜中にはちゃんと調べてくれるだろうね。",
+    "女：うん。じゃあ、待っている間に、配るレジュメを作っちゃえば？時間もあることだし。",
+    "男：そうだね。数字は後で入れることにして、そうするよ。先生に送るのは、全部そろってからでいいよね。",
+    "女：うん、それでいいと思う。",
+    "ナレーター：男の学生はこのあとまず何をしますか。"
+   ],
+   "options": [
+    "田中さんにデータの確認を頼む",
+    "スライドの数字を直す",
+    "レジュメを作る",
+    "先生にレジュメを送る"
+   ],
+   "printed": true,
+   "short": [
+    "田中さんに頼む",
+    "スライドを直す",
+    "レジュメを作る",
+    "先生に送る"
+   ],
+   "answer": 3,
+   "why": [
+    "Already done: the woman asked Tanaka-san a moment ago.",
+    "Later: he can fix the numbers only after Tanaka-san replies tonight.",
+    "He agrees to make the handout while he waits, and to fill in the numbers later.",
+    "Later: he will send it to the teacher once everything is ready."
+   ]
+  }
+ }
+}

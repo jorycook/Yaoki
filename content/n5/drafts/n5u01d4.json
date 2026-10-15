@@ -1,0 +1,481 @@
+{
+ "title": "〜の・〜と",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u01d4.p1",
+    "form": "〜の",
+    "gloss": "'s, of (whose, what kind)",
+    "connect": [
+     {
+      "pos": "Noun: who owns it",
+      "rule": "〜 ＋ {の} ＋ 〜"
+     },
+     {
+      "pos": "Noun: where someone belongs",
+      "rule": "〜 ＋ {の} ＋ 〜"
+     },
+     {
+      "pos": "Noun: what kind",
+      "rule": "〜 ＋ {の} ＋ 〜"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "これは[母|はは]{の}[本|ほん]です。",
+      "en": "This is my mother's book."
+     },
+     {
+      "ja": "[中山|なかやま]さんは[日本語|にほんご]{の}[先生|せんせい]です。",
+      "en": "Ms. Nakayama is a Japanese teacher."
+     }
+    ],
+    "watch": {
+     "note": "When one noun tells you about another noun, put の between them. The owner or the kind comes first, then の, then the thing.",
+     "bad": "これはわたし本です。",
+     "good": "これはわたしの本です。"
+    }
+   },
+   {
+    "id": "n5u01d4.p2",
+    "form": "〜と",
+    "gloss": "and (between nouns)",
+    "connect": [
+     {
+      "pos": "Two nouns",
+      "rule": "〜 ＋ {と} ＋ 〜"
+     },
+     {
+      "pos": "Three nouns",
+      "rule": "〜 ＋ {と} ＋ 〜 ＋ {と} ＋ 〜"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[父|ちち]{と}[母|はは]は[先生|せんせい]です。",
+      "en": "My father and mother are teachers."
+     },
+     {
+      "ja": "[友|とも]だち{と}わたしは[大学|だいがく]の[学生|がくせい]です。",
+      "en": "My friend and I are university students."
+     }
+    ],
+    "watch": {
+     "note": "This と joins nouns only, like 父と母. It does not join two sentences, and it does not join adjectives to mean \"big and new\". To say two people are teachers, join the people with と and say です once.",
+     "bad": "父は先生ですと母も先生です。",
+     "good": "父と母は先生です。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three come right after a noun, but each one tells you something different.",
+   "forms": [
+    {
+     "form": "〜の",
+     "tag": "だれの・どんな · whose, what kind",
+     "mark": "dot",
+     "ja": "[母|はは]{の}[友|とも]だちです。",
+     "en": "She is my mother's friend."
+    },
+    {
+     "form": "〜と",
+     "tag": "AとB · and",
+     "mark": "up",
+     "ja": "[母|はは]{と}[友|とも]だちです。",
+     "en": "They are my mother and a friend."
+    },
+    {
+     "form": "〜も",
+     "tag": "おなじ · too",
+     "mark": "dot",
+     "ja": "[母|はは]{も}[先生|せんせい]です。",
+     "en": "My mother is a teacher too."
+    }
+   ],
+   "check": {
+    "id": "n5u01d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "アルバム",
+    "q": "A：これはだれの[本|ほん]ですか。　B：[父|ちち]（　　）[本|ほん]です。",
+    "options": [
+     "の",
+     "と",
+     "も"
+    ],
+    "answer": 1,
+    "why": [
+     "The owner, then の, then the thing: 父の本 is my father's book.",
+     "父と本 would mean \"my father and a book\". The question asks whose book it is.",
+     "父も本です would mean \"my father is a book too\"."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u01d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：それはだれのかさですか。　B：^わたし^（　　）かさです。",
+    "options": [
+     "の",
+     "も",
+     "は",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "The owner わたし, then の, then かさ: my umbrella.",
+     "わたしもかさです would mean \"I am an umbrella too\".",
+     "わたしはかさです would mean \"I am an umbrella\".",
+     "を marks the thing you act on with a verb. There is no verb here."
+    ]
+   },
+   {
+    "id": "n5u01d4.d2",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "これは",
+    "after": "です。",
+    "tiles": [
+     "わたし",
+     "の",
+     "[友|とも]だち",
+     "の[本|ほん]"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "The owner always comes before の. Who is the friend's, and whose is the book?",
+    "full": "これはわたし{の}[友|とも]だちの[本|ほん]です。",
+    "explain": "わたしの友だち is my friend, and 友だちの本 is the friend's book. So わたし, の, 友だち, の本: my friend's book."
+   },
+   {
+    "id": "n5u01d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[山川|やまかわ]さんは^[中学校|ちゅうがっこう]^（　　）[先生|せんせい]です。",
+    "options": [
+     "と",
+     "の",
+     "か",
+     "も"
+    ],
+    "answer": 2,
+    "why": [
+     "中学校と先生 would mean \"a junior high school and a teacher\". A person cannot be a school.",
+     "Where the teacher belongs: 中学校 + の + 先生, a junior high school teacher.",
+     "中学校か先生 would mean \"a junior high school or a teacher\".",
+     "中学校も先生です would mean \"the school is a teacher too\", which makes no sense."
+    ]
+   },
+   {
+    "id": "n5u01d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[日本語|にほんご]の[先生|せんせい]は^ふたり^です。[中山|なかやま]さん（　　）[山川|やまかわ]さんです。",
+    "options": [
+     "と",
+     "の",
+     "も",
+     "か"
+    ],
+    "answer": 1,
+    "why": [
+     "と joins the two names: Nakayama and Yamakawa. That makes two teachers.",
+     "中山さんの山川さん would be one person, but the clue says there are two.",
+     "中山さんも山川さんです would mean \"Nakayama is Yamakawa too\", which makes no sense.",
+     "か means \"or\". It gives one person, not two."
+    ]
+   },
+   {
+    "id": "n5u01d4.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "これは^[父|ちち]の[本|ほん]^（　　）^[母|はは]の[本|ほん]^です。",
+    "options": [
+     "の",
+     "と",
+     "も",
+     "を"
+    ],
+    "answer": 2,
+    "why": [
+     "父の本の母の本 would mean \"my mother's book of my father's book\", which makes no sense.",
+     "と joins the two things: my father's book and my mother's book.",
+     "父の本も母の本です would mean \"Dad's book is Mom's book too\". It does not fit after これは.",
+     "を marks the thing you act on with a verb. There is no verb here."
+    ]
+   },
+   {
+    "id": "n5u01d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしの[父|ちち]",
+    "after": "です。",
+    "tiles": [
+     "と",
+     "[母|はは]",
+     "は",
+     "[先生|せんせい]"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "と goes between the two people. は comes after both of them.",
+    "full": "わたしの[父|ちち]{と}[母|はは]は[先生|せんせい]です。",
+    "explain": "父と母 joins the two people, は comes after them, and 先生です says what they are: my father and mother are teachers."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u01d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "これは　だれ（　　）かさですか。",
+    "options": [
+     "の",
+     "も",
+     "を",
+     "が"
+    ],
+    "answer": 1,
+    "explain": "だれのかさ means \"whose umbrella\": だれ + の + かさ. も, を and が cannot sit between だれ and かさ in this sentence."
+   },
+   {
+    "id": "n5u01d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしの　すきな　くだものは　りんご（　　）バナナです。",
+    "options": [
+     "の",
+     "と",
+     "も",
+     "を"
+    ],
+    "answer": 2,
+    "explain": "と joins two nouns: apples and bananas. りんごのバナナ (\"the apple's banana\") and りんごもバナナ make no sense, and を needs a verb."
+   },
+   {
+    "id": "n5u01d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの　女の　人は　",
+    "after": "　です。",
+    "tiles": [
+     "わたし",
+     "の",
+     "日本語の",
+     "先生"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "あの　女の　人は　わたしの　{日本語の}　先生　です。",
+    "explain": "わたし, の, 日本語の, 先生: my Japanese teacher. The owner わたし comes first, and 日本語の must sit right before 先生 to say what kind of teacher."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "かぞくのアルバム",
+  "en": "A page of a family album",
+  "intro": "Tap each label under the photos.",
+  "words": [
+   {
+    "id": "father",
+    "word": "父",
+    "reading": "ちち",
+    "gloss": "(my) father",
+    "parts": [
+     [
+      "父",
+      "ちち",
+      "father"
+     ]
+    ]
+   },
+   {
+    "id": "mother",
+    "word": "母",
+    "reading": "はは",
+    "gloss": "(my) mother",
+    "parts": [
+     [
+      "母",
+      "はは",
+      "mother"
+     ]
+    ]
+   },
+   {
+    "id": "boy",
+    "word": "男の子",
+    "reading": "おとこのこ",
+    "gloss": "boy",
+    "parts": [
+     [
+      "男",
+      "おとこ",
+      "man, male"
+     ],
+     [
+      "子",
+      "こ",
+      "child"
+     ]
+    ]
+   },
+   {
+    "id": "girl",
+    "word": "女の子",
+    "reading": "おんなのこ",
+    "gloss": "girl",
+    "parts": [
+     [
+      "女",
+      "おんな",
+      "woman, female"
+     ],
+     [
+      "子",
+      "こ",
+      "child"
+     ]
+    ]
+   },
+   {
+    "id": "friend",
+    "word": "友だち",
+    "reading": "ともだち",
+    "gloss": "friend",
+    "parts": [
+     [
+      "友",
+      "とも",
+      "friend"
+     ]
+    ]
+   },
+   {
+    "id": "child",
+    "word": "子ども",
+    "reading": "こども",
+    "gloss": "child, children",
+    "parts": [
+     [
+      "子",
+      "こ",
+      "child"
+     ]
+    ]
+   },
+   {
+    "id": "name",
+    "word": "名前",
+    "reading": "なまえ",
+    "gloss": "name",
+    "parts": [
+     [
+      "名",
+      "な",
+      "name"
+     ],
+     [
+      "前",
+      "まえ",
+      "front, before"
+     ]
+    ]
+   },
+   {
+    "id": "teacher",
+    "word": "先生",
+    "reading": "せんせい",
+    "gloss": "teacher",
+    "parts": [
+     [
+      "先",
+      "セン",
+      "ahead, before"
+     ],
+     [
+      "生",
+      "セイ",
+      "life, born"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u01d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "しゃしんの　_女の子_は　わたしの　友だちです。",
+   "options": [
+    "おとこのこ",
+    "おんなのこ",
+    "おんなのひと",
+    "おとこのひと"
+   ],
+   "answer": 2,
+   "explain": "女 is おんな and 子 is こ: 女の子, a girl. おとこのこ is 男の子, and おんなのひと and おとこのひと are 女の人 and 男の人."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Who is who in the photo?",
+  "seconds": 90,
+  "passage": "これは　わたしの　かぞくの　しゃしんです。右の　人は　父です。左の　人は　母です。父と　母は　中学校の　先生です。まん中の　男の子は　わたしです。^わたしの　となりの　女の子^は　^父の　友だちの　子ども^です。名前は　ゆきちゃんです。ゆきちゃんと　わたしは　いい　友だちです。",
+  "strategy": "Find the girl in the text, then read the の after her carefully: whose friend, and whose child.",
+  "item": {
+   "id": "n5u01d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "しゃしんの　まん中の　男の子の　となりの　女の子は　だれですか。",
+   "options": [
+    "わたしの　いもうと",
+    "父の　友だち",
+    "父の　友だちの　子ども",
+    "母の　友だちの　子ども"
+   ],
+   "short": [
+    "わたしのいもうと",
+    "父の友だち",
+    "父の友だちの子ども",
+    "母の友だちの子ども"
+   ],
+   "answer": 3,
+   "explain": "The boy in the middle is the writer. The girl next to him is 父の友だちの子ども: the child of his father's friend.",
+   "why": [
+    "The text never says she is the writer's sister.",
+    "Not the friend. She is the friend's child: 友だちの子ども.",
+    "",
+    "The friend is the father's friend (父の友だち), not the mother's."
+   ]
+  }
+ }
+}

@@ -1,0 +1,3453 @@
+{
+  "days": {
+    "1": {
+      "title": "〜は〜です・〜じゃありません",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u01d1.p1",
+            "form": "〜は〜です",
+            "gloss": "A is B",
+            "connect": [
+              {
+                "pos": "Noun (the topic), then noun (what it is)",
+                "rule": "〜 ＋ は ＋ 〜 ＋ {です}"
+              },
+              {
+                "pos": "Another person's name + さん",
+                "rule": "〜さん ＋ は ＋ 〜 ＋ {です}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "わたし{は}[学生|がくせい]{です}。",
+                "en": "I am a student."
+              },
+              {
+                "ja": "ルイスさん{は}ブラジル[人|じん]{です}。",
+                "en": "Luis is Brazilian."
+              }
+            ],
+            "watch": {
+              "note": "The little word after the topic is written は but said わ. Write it with は.",
+              "bad": "わたしわがくせいです。",
+              "good": "わたしはがくせいです。"
+            }
+          },
+          {
+            "id": "n5u01d1.p2",
+            "form": "〜じゃありません",
+            "gloss": "A is not B",
+            "connect": [
+              {
+                "pos": "Noun",
+                "rule": "〜 ＋ {じゃありません}"
+              },
+              {
+                "pos": "Noun, more formal",
+                "rule": "〜 ＋ {ではありません}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "わたしは[先生|せんせい]{じゃありません}。",
+                "en": "I am not a teacher."
+              },
+              {
+                "ja": "ルイスさんはかいしゃいん{じゃありません}。",
+                "en": "Luis is not a company employee."
+              }
+            ],
+            "watch": {
+              "note": "じゃありません takes the place of です. Keep じゃ (or では): without it, せんせいありません does not mean \"not a teacher\".",
+              "bad": "わたしはせんせいありません。",
+              "good": "わたしはせんせいじゃありません。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "Three polite endings after a noun: one says it is, two say it is not.",
+          "forms": [
+            {
+              "form": "〜です",
+              "tag": "そうです · it is",
+              "mark": "dot",
+              "ja": "わたしは[学生|がくせい]{です}。",
+              "en": "I am a student."
+            },
+            {
+              "form": "〜じゃありません",
+              "tag": "ちがいます · it is not",
+              "mark": "down",
+              "ja": "わたしは[先生|せんせい]{じゃありません}。",
+              "en": "I am not a teacher."
+            },
+            {
+              "form": "〜ではありません",
+              "tag": "かたい · it is not (formal)",
+              "mark": "down",
+              "ja": "わたしはかいしゃいん{ではありません}。",
+              "en": "I am not a company employee. (more formal)"
+            }
+          ],
+          "check": {
+            "id": "n5u01d1.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "じこしょうかい",
+            "q": "マリアさんは[先生|せんせい]（　　）。^[日本語|にほんご]をおしえます^。",
+            "options": [
+              "ですか",
+              "です",
+              "じゃありません"
+            ],
+            "answer": 2,
+            "why": [
+              "This asks whether she is a teacher, but the speaker already knows: the next sentence says she teaches Japanese.",
+              "Maria teaches Japanese, so she is a teacher: use です.",
+              "This says she is not a teacher, but the next sentence says she teaches Japanese."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u01d1.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "はじめまして。わたし（　　）^ルイスです^。",
+            "options": [
+              "で",
+              "は",
+              "を",
+              "へ"
+            ],
+            "answer": 2,
+            "why": [
+              "で shows where something happens, as in がっこうで. It cannot mark the topic.",
+              "は marks the topic, the person you talk about: わたし. Then ルイスです says who that is.",
+              "を marks the thing an action is done to, as in パンをたべます. There is no action here.",
+              "へ shows the direction you go, as in がっこうへいきます. It cannot mark the topic."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d1.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "わたしは^[中国人|ちゅうごくじん]^（　　）。",
+            "options": [
+              "です",
+              "ます",
+              "は",
+              "を"
+            ],
+            "answer": 1,
+            "why": [
+              "中国人 is a noun, and です after a noun says what someone is.",
+              "ます goes after a verb, as in たべます. 中国人 is a noun.",
+              "は marks a topic. The sentence still needs an ending after 中国人.",
+              "を marks the thing an action is done to. There is no action, and no ending."
+            ]
+          },
+          {
+            "id": "n5u01d1.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "わたしは[先生|せんせい]（　　）。^[学生|がくせい]です^。",
+            "options": [
+              "です",
+              "ます",
+              "を",
+              "じゃありません"
+            ],
+            "answer": 4,
+            "why": [
+              "先生です would say I am a teacher, but the next sentence says I am a student.",
+              "ます goes after a verb. 先生 is a noun.",
+              "を marks the thing an action is done to. The sentence would have no ending.",
+              "The next sentence says I am a student, so I am not a teacher: 先生じゃありません."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d1.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ルイスさんは[日本人|にほんじん]（　　）。^ブラジル[人|じん]です^。",
+            "options": [
+              "ありません",
+              "ではありません",
+              "です",
+              "ですか"
+            ],
+            "answer": 2,
+            "why": [
+              "Without では, ありません here would mean \"there is none\", not \"is not\".",
+              "Luis is Brazilian, so he is not Japanese. ではありません is the formal way to say \"is not\".",
+              "日本人です would say he is Japanese, but the next sentence says he is Brazilian.",
+              "This asks whether he is Japanese, but the next sentence already says what he is: Brazilian."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d1.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "はじめまして。",
+            "after": "。",
+            "tiles": [
+              "わたしは",
+              "[日本語|にほんご]の",
+              "[先生|せんせい]",
+              "です"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "hint": "Start with the topic and は. です comes at the very end.",
+            "full": "はじめまして。わたし{は}[日本語|にほんご]の[先生|せんせい]{です}。",
+            "explain": "わたしは is the topic, so it comes first. 日本語の tells what kind of teacher, so it sits right before 先生, and です closes the sentence."
+          },
+          {
+            "id": "n5u01d1.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしは",
+            "after": "。",
+            "tiles": [
+              "[学校|がっこう]の",
+              "[先生|せんせい]",
+              "では",
+              "ありません"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "hint": "Which tiles make \"is not\"? They come after the noun.",
+            "full": "わたしは[学校|がっこう]の[先生|せんせい]{ではありません}。",
+            "explain": "学校の tells what kind of teacher, so it sits right before 先生. では and ありません together mean \"is not\" (more formal than じゃありません), and they follow the noun."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u01d1.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「マリアさんは　先生ですか。」\nB「いいえ、先生（　　）。学生です。」",
+            "options": [
+              "ます",
+              "ありません",
+              "じゃありません",
+              "です"
+            ],
+            "answer": 3,
+            "explain": "いいえ and 学生です show that Maria is not a teacher, so 先生じゃありません. 先生です says the opposite, ます goes after a verb, not a noun, and ありません without じゃ does not mean \"is not\" here."
+          },
+          {
+            "id": "n5u01d1.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ルイスさん（　　）　ブラジル人です。",
+            "options": [
+              "に",
+              "で",
+              "は",
+              "を"
+            ],
+            "answer": 3,
+            "explain": "は marks ルイスさん as the topic, and ブラジル人です says what he is. を marks the thing an action is done to, に marks a time or a place to go, and で marks where something happens. None of them can mark the topic."
+          },
+          {
+            "id": "n5u01d1.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしの",
+            "after": "。かいしゃいんです。",
+            "tiles": [
+              "父は",
+              "日本語の",
+              "先生",
+              "じゃありません"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "わたしの父は日本語の{先生}じゃありません。かいしゃいんです。",
+            "explain": "父は, 日本語の, 先生, じゃありません. わたしの goes with 父, the topic. 日本語の tells what kind of teacher, and じゃありません comes last, after the noun."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "じこしょうかいカード",
+        "en": "A self-introduction card",
+        "intro": "Tap each word on the card you fill in on your first day at the language school.",
+        "words": [
+          {
+            "id": "name",
+            "word": "名前",
+            "reading": "なまえ",
+            "gloss": "name",
+            "parts": [
+              [
+                "名",
+                "な",
+                "name"
+              ],
+              [
+                "前",
+                "まえ",
+                "front, before"
+              ]
+            ]
+          },
+          {
+            "id": "country",
+            "word": "国",
+            "reading": "くに",
+            "gloss": "country",
+            "parts": [
+              [
+                "国",
+                "くに",
+                "country"
+              ]
+            ]
+          },
+          {
+            "id": "student",
+            "word": "学生",
+            "reading": "がくせい",
+            "gloss": "student",
+            "parts": [
+              [
+                "学",
+                "ガク",
+                "study"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, birth"
+              ]
+            ]
+          },
+          {
+            "id": "teacher",
+            "word": "先生",
+            "reading": "せんせい",
+            "gloss": "teacher",
+            "parts": [
+              [
+                "先",
+                "セン",
+                "ahead, before"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, birth"
+              ]
+            ]
+          },
+          {
+            "id": "company",
+            "word": "会社",
+            "reading": "かいしゃ",
+            "gloss": "company (where you work)",
+            "parts": [
+              [
+                "会",
+                "カイ",
+                "meet"
+              ],
+              [
+                "社",
+                "シャ",
+                "company"
+              ]
+            ]
+          },
+          {
+            "id": "japanese",
+            "word": "日本語",
+            "reading": "にほんご",
+            "gloss": "Japanese (the language)",
+            "parts": [
+              [
+                "日",
+                "ニ",
+                "sun, day"
+              ],
+              [
+                "本",
+                "ホン",
+                "origin, book"
+              ],
+              [
+                "語",
+                "ゴ",
+                "word, language"
+              ]
+            ]
+          },
+          {
+            "id": "school",
+            "word": "学校",
+            "reading": "がっこう",
+            "gloss": "school",
+            "parts": [
+              [
+                "学",
+                "ガッ",
+                "study"
+              ],
+              [
+                "校",
+                "コウ",
+                "school"
+              ]
+            ]
+          },
+          {
+            "id": "phone",
+            "word": "電話",
+            "reading": "でんわ",
+            "gloss": "telephone",
+            "parts": [
+              [
+                "電",
+                "デン",
+                "electricity"
+              ],
+              [
+                "話",
+                "ワ",
+                "talk"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u01d1.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "わたしは　日本語学校の　_学生_です。",
+          "options": [
+            "がっせい",
+            "かくせい",
+            "がくせ",
+            "がくせい"
+          ],
+          "answer": 4,
+          "explain": "学生 is がくせい, with a long せい at the end. 学 becomes がっ only before some sounds, as in 学校 (がっこう), not here. かくせい has the wrong first sound, and がくせ drops the い."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "発話表現",
+        "en": "Expressions",
+        "situation": "On her first day at a language school, a student with a name tag that says リン meets her new teacher.",
+        "ask": "はじめて　先生に　あいました。何と　いいますか。",
+        "item": {
+          "id": "n5u01d1.r1",
+          "kind": "choice",
+          "type": "発話表現",
+          "q": "はじめて　先生に　あいました。何と　いいますか。",
+          "script": [
+            "ナレーター：はじめて　先生に　あいました。何と　いいますか。",
+            "ナレーター：1",
+            "女：どうも　ありがとう。リンです。",
+            "ナレーター：2",
+            "女：はじめまして。リンです。よろしく　おねがいします。",
+            "ナレーター：3",
+            "女：はじめまして。リンさんですか。"
+          ],
+          "options": [
+            "どうも　ありがとう。リンです。",
+            "はじめまして。リンです。よろしく　おねがいします。",
+            "はじめまして。リンさんですか。"
+          ],
+          "printed": false,
+          "short": [
+            "ありがとう。リンです",
+            "はじめまして。リンです",
+            "リンさんですか"
+          ],
+          "answer": 2,
+          "why": [
+            "ありがとう is for thanks. The teacher has not done anything for her yet.",
+            "",
+            "She is Lin. リンさんですか asks the teacher if the teacher is Lin."
+          ]
+        },
+        "audio": [
+          [
+            "N",
+            "はじめて　先生に　あいました。何と　いいますか。",
+            "はじめて　せんせいに　あいました。なんと　いいますか。"
+          ],
+          [
+            "N",
+            "1",
+            "いち"
+          ],
+          [
+            "F",
+            "どうも　ありがとう。リンです。",
+            null
+          ],
+          [
+            "N",
+            "2",
+            "に"
+          ],
+          [
+            "F",
+            "はじめまして。リンです。よろしく　おねがいします。",
+            null
+          ],
+          [
+            "N",
+            "3",
+            "さん"
+          ],
+          [
+            "F",
+            "はじめまして。リンさんですか。",
+            null
+          ]
+        ]
+      }
+    },
+    "2": {
+      "title": "〜か・〜も",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u01d2.p1",
+            "form": "〜か",
+            "gloss": "question ending: …?",
+            "connect": [
+              {
+                "pos": "Noun",
+                "rule": "〜 ＋ です ＋ {か}"
+              },
+              {
+                "pos": "Answer: yes",
+                "rule": "はい、{そうです}。"
+              },
+              {
+                "pos": "Answer: no",
+                "rule": "いいえ、{ちがいます}。"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "リンさんは[学生|がくせい]です{か}。……はい、そうです。",
+                "en": "Lin, are you a student? Yes, I am."
+              },
+              {
+                "ja": "やまださんは[先生|せんせい]です{か}。……いいえ、ちがいます。[学生|がくせい]です。",
+                "en": "Is Ms Yamada a teacher? No, she isn't. She's a student."
+              }
+            ],
+            "watch": {
+              "note": "In polite talk, keep です before か. 学生か on its own sounds rough, not polite.",
+              "bad": "リンさんは学生か。",
+              "good": "リンさんは学生ですか。"
+            }
+          },
+          {
+            "id": "n5u01d2.p2",
+            "form": "〜も",
+            "gloss": "also, too",
+            "connect": [
+              {
+                "pos": "Noun, in place of は",
+                "rule": "〜 ＋ {も}（は → も）"
+              },
+              {
+                "pos": "Noun, in place of が",
+                "rule": "〜 ＋ {も}（が → も）"
+              },
+              {
+                "pos": "Two nouns",
+                "rule": "〜{も}　〜{も}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "わたしは[学生|がくせい]です。リンさん{も}[学生|がくせい]です。",
+                "en": "I am a student. Lin is a student too."
+              },
+              {
+                "ja": "[本|ほん]があります。ノート{も}あります。",
+                "en": "There is a book. There is a notebook too."
+              }
+            ],
+            "watch": {
+              "note": "も takes the place of は. Do not use both together.",
+              "bad": "リンさんはも学生です。",
+              "good": "リンさんも学生です。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "Three small words that change a です sentence: は gives the topic, も says \"too\", and か at the end asks.",
+          "forms": [
+            {
+              "form": "〜か",
+              "tag": "しつもん · question",
+              "mark": "dot",
+              "ja": "リンさんは[学生|がくせい]です{か}。",
+              "en": "Is Lin a student?"
+            },
+            {
+              "form": "〜も",
+              "tag": "おなじ · also, too",
+              "mark": "up",
+              "ja": "キムさん{も}[学生|がくせい]です。",
+              "en": "Kim is a student too."
+            },
+            {
+              "form": "〜は",
+              "tag": "トピック · as for",
+              "mark": "dot",
+              "ja": "やまださん{は}[先生|せんせい]です。",
+              "en": "Ms Yamada is a teacher."
+            }
+          ],
+          "check": {
+            "id": "n5u01d2.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "クラスで",
+            "q": "A：やまださんは[先生|せんせい]ですか。B：いいえ、ちがいます。やまださん（　　）[学生|がくせい]です。",
+            "options": [
+              "は",
+              "も",
+              "か"
+            ],
+            "answer": 1,
+            "why": [
+              "B now says what Ms Yamada really is: やまださんは学生です.",
+              "も means \"too\". Nobody else in this talk is a student, so there is nothing to add to.",
+              "か between names means \"or\", but no second name follows here."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u01d2.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：キムさんは[先生|せんせい]です（　　）。B：^はい、そうです^。",
+            "options": [
+              "を",
+              "か",
+              "も",
+              "は"
+            ],
+            "answer": 2,
+            "why": [
+              "を marks what a verb acts on. It cannot follow です.",
+              "か after です makes a question, and B answers it with はい、そうです.",
+              "も goes after a noun, as in キムさんも. It cannot end a sentence after です.",
+              "は goes after a noun, as in キムさんは. It cannot end a sentence after です."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d2.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：それは[日本語|にほんご]の[本|ほん]ですか。B：いいえ、（　　）。^ノートです^。",
+            "options": [
+              "そうですか",
+              "ちがいますか",
+              "ちがいます",
+              "そうです"
+            ],
+            "answer": 3,
+            "why": [
+              "そうですか means \"oh, I see\". It reacts to news. It does not answer A's question.",
+              "ちがいますか asks a question back. B is answering here, not asking.",
+              "After いいえ, ちがいます says \"that's not right\". Then B says what it really is: a notebook.",
+              "そうです means \"yes, that's right\". It clashes with いいえ, and B goes on to say it is a notebook."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d2.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "やまださん（　　）^キムさんも^[学生|がくせい]です。",
+            "options": [
+              "は",
+              "か",
+              "が",
+              "も"
+            ],
+            "answer": 4,
+            "why": [
+              "は does not pair with キムさんも. When two names share the sentence like this, each one takes も.",
+              "か between names means \"or\", and then キムさん would not take も.",
+              "が does not pair with キムさんも either. Each name takes も.",
+              "Both people are students: AもBも. キムさんも asks for も after やまださん too."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d2.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：^わたしは[学生|がくせい]です^。B：あ、わたし（　　）です。",
+            "options": [
+              "も",
+              "は",
+              "か",
+              "が"
+            ],
+            "answer": 1,
+            "why": [
+              "わたしもです means \"me too\": B is a student as well. も replaces the は of わたしは学生です.",
+              "わたしはです is not a sentence. は needs a word before です, as in わたしは学生です.",
+              "か cannot sit between わたし and です. To ask, か goes at the end: ですか.",
+              "わたしがです is not a sentence. が also needs a word before です."
+            ]
+          },
+          {
+            "id": "n5u01d2.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "やまださんは",
+            "after": "。",
+            "tiles": [
+              "[日本語|にほんご]の",
+              "[先生|せんせい]",
+              "です",
+              "か"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "What kind of teacher? 日本語の sits right before 先生. か always comes last.",
+            "full": "やまださんは[日本語|にほんご]の[先生|せんせい]です{か}。",
+            "explain": "日本語の describes 先生, so it goes first. Then です, and か at the very end turns the sentence into a question."
+          },
+          {
+            "id": "n5u01d2.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A：わたしは[日本語|にほんご]の[学生|がくせい]です。B：",
+            "after": "です。",
+            "tiles": [
+              "わたし",
+              "も",
+              "[日本語|にほんご]の",
+              "[学生|がくせい]"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "B is a Japanese student too. Which tile can follow わたし?",
+            "full": "A：わたしは[日本語|にほんご]の[学生|がくせい]です。B：わたし{も}[日本語|にほんご]の[学生|がくせい]です。",
+            "explain": "B says the same thing as A, so わたし takes も in place of は. 日本語の must sit right before 学生."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u01d2.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：すみません。これは　出口ですか。B：はい、（　　）。",
+            "options": [
+              "そうですか",
+              "なんですか",
+              "そうです",
+              "ちがいます"
+            ],
+            "answer": 3,
+            "explain": "はい goes with そうです: \"yes, it is\". はい、ちがいます contradicts itself. そうですか only reacts to news, and なんですか asks a new question instead of answering."
+          },
+          {
+            "id": "n5u01d2.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "つくえの　上に、本も　ノート（　　）　あります。",
+            "options": [
+              "を",
+              "も",
+              "は",
+              "が"
+            ],
+            "answer": 2,
+            "explain": "本も comes first, so ノート takes も too: 本もノートもあります, \"both a book and a notebook\". は and が cannot pair with 本も like this, and を is not used with あります."
+          },
+          {
+            "id": "n5u01d2.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A：",
+            "after": "。B：はい、そうです。",
+            "tiles": [
+              "これは",
+              "先生の",
+              "本",
+              "ですか"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "full": "A：これは　{先生の}　本ですか。B：はい、そうです。",
+            "explain": "これは, 先生の, 本, ですか. これは starts the question, 先生の must sit right before 本, and ですか ends it."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "きょうしつで",
+        "en": "In the classroom",
+        "intro": "Tap every label and notice you can see on the classroom wall.",
+        "words": [
+          {
+            "id": "book",
+            "word": "本",
+            "reading": "ほん",
+            "gloss": "book",
+            "parts": [
+              [
+                "本",
+                "ホン",
+                "book; origin"
+              ]
+            ]
+          },
+          {
+            "id": "teacher",
+            "word": "先生",
+            "reading": "せんせい",
+            "gloss": "teacher",
+            "parts": [
+              [
+                "先",
+                "セン",
+                "ahead"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, live"
+              ]
+            ]
+          },
+          {
+            "id": "student",
+            "word": "学生",
+            "reading": "がくせい",
+            "gloss": "student",
+            "parts": [
+              [
+                "学",
+                "ガク",
+                "study"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, live"
+              ]
+            ]
+          },
+          {
+            "id": "entrance",
+            "word": "入口",
+            "reading": "いりぐち",
+            "gloss": "entrance",
+            "parts": [
+              [
+                "入",
+                "いり",
+                "go in"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "name",
+            "word": "名前",
+            "reading": "なまえ",
+            "gloss": "name",
+            "parts": [
+              [
+                "名",
+                "な",
+                "name"
+              ],
+              [
+                "前",
+                "まえ",
+                "front, before"
+              ]
+            ]
+          },
+          {
+            "id": "japanese",
+            "word": "日本語",
+            "reading": "にほんご",
+            "gloss": "Japanese (language)",
+            "parts": [
+              [
+                "日",
+                "ニ",
+                "sun, day"
+              ],
+              [
+                "本",
+                "ホン",
+                "origin"
+              ],
+              [
+                "語",
+                "ゴ",
+                "language, word"
+              ]
+            ]
+          },
+          {
+            "id": "break",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "break, day off",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u01d2.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "すみません、_出口_は　どこですか。",
+          "options": [
+            "でくち",
+            "しゅつぐち",
+            "だしぐち",
+            "でぐち"
+          ],
+          "answer": 4,
+          "explain": "出口 is でぐち: 出 read で, and 口 becomes ぐち after it, as in 入口 (いりぐち). でくち misses that change, しゅつ is the reading in other words, and だしぐち is not a word."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "Who is each sentence about, and what is that person?",
+        "seconds": 90,
+        "passage": "みなさん、はじめまして。リンです。中国から　来ました。今、^大学生^です。ともだちの　ワンさんは　^日本語の　先生^です。でも、^わたしの　先生じゃ　ありません^。ワンさん^も　中国人^です。どうぞ　よろしく。",
+        "strategy": "Track the names: what is said about リンさん, what about ワンさん, and what も after a name adds.",
+        "item": {
+          "id": "n5u01d2.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "ただしい　ものは　どれですか。",
+          "options": [
+            "リンさんは　日本語の　先生です。",
+            "ワンさんは　中国人です。",
+            "ワンさんは　リンさんの　先生です。",
+            "ワンさんは　大学生です。"
+          ],
+          "short": [
+            "リン：日本語の先生",
+            "ワン：中国人",
+            "ワン：リンの先生",
+            "ワン：大学生"
+          ],
+          "answer": 2,
+          "explain": "ワンさんも中国人です: も means Wang is Chinese too, like Lin.",
+          "why": [
+            "Lin is a university student. The Japanese teacher is Wang.",
+            "",
+            "Wang is a teacher, but Lin says わたしの先生じゃありません: not my teacher.",
+            "Lin is the university student. Wang is a teacher."
+          ]
+        }
+      }
+    },
+    "3": {
+      "title": "これ／それ／あれ・この／その／あの",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u01d3.p1",
+            "form": "これ／それ／あれ／どれ",
+            "gloss": "this one, that one, that one over there, which one",
+            "connect": [
+              {
+                "pos": "Alone, as the subject",
+                "rule": "{これ}は〜です"
+              },
+              {
+                "pos": "Alone, as the object",
+                "rule": "{それ}をください"
+              },
+              {
+                "pos": "Question word",
+                "rule": "{どれ}が〜ですか"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "{それ}は[何|なん]ですか。",
+                "en": "What is that (near you)?"
+              },
+              {
+                "ja": "すみません、{あれ}をください。",
+                "en": "Excuse me, I'll take that one over there, please."
+              }
+            ],
+            "watch": {
+              "note": "これ, それ, あれ and どれ stand alone. A noun never comes right after them. To put a noun after the word, use この, その, あの or どの.",
+              "bad": "これ本は高いです。",
+              "good": "この本は高いです。"
+            }
+          },
+          {
+            "id": "n5u01d3.p2",
+            "form": "この／その／あの／どの",
+            "gloss": "this, that, that … over there, which (+ a noun)",
+            "connect": [
+              {
+                "pos": "Before a noun",
+                "rule": "{この}／{その}／{あの}＋かばん"
+              },
+              {
+                "pos": "Question word, before a noun",
+                "rule": "{どの}かばんですか"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "{この}[魚|さかな]は[安|やす]いです。",
+                "en": "This fish is cheap."
+              },
+              {
+                "ja": "{あの}[白|しろ]いかばんは[高|たか]いですか。",
+                "en": "Is that white bag over there expensive?"
+              }
+            ],
+            "watch": {
+              "note": "この, その, あの and どの always need a noun right after them. They cannot stand alone before は. With no noun, use これ, それ, あれ or どれ.",
+              "bad": "このは何ですか。",
+              "good": "これは何ですか。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "これ and この both point at something near you. The difference is whether a noun comes next.",
+          "forms": [
+            {
+              "form": "これ",
+              "tag": "もの · a thing, alone",
+              "mark": "dot",
+              "ja": "{これ}は[花|はな]です。",
+              "en": "This is a flower."
+            },
+            {
+              "form": "この",
+              "tag": "この＋もの · before a noun",
+              "mark": "dot",
+              "ja": "{この}[花|はな]は[安|やす]いです。",
+              "en": "This flower is cheap."
+            },
+            {
+              "form": "ここ",
+              "tag": "ばしょ · this place",
+              "mark": "dot",
+              "ja": "{ここ}は[本|ほん]やです。",
+              "en": "This place is a bookshop."
+            }
+          ],
+          "check": {
+            "id": "n5u01d3.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "花やで",
+            "q": "すみません、（　　）[花|はな]は[何|なん]ですか。",
+            "options": [
+              "ここ",
+              "これ",
+              "この"
+            ],
+            "answer": 3,
+            "why": [
+              "ここ means this place. It cannot go right before 花.",
+              "これ stands alone, as in これは何ですか. It cannot go right before 花.",
+              "A noun (花) comes right after the blank, so この."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u01d3.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：（　　）は[何|なん]ですか。　B：^それは^[魚|さかな]です。",
+            "options": [
+              "この",
+              "どれ",
+              "あの",
+              "これ"
+            ],
+            "answer": 4,
+            "why": [
+              "この needs a noun after it, as in この魚は.",
+              "どれ asks which one. It cannot ask 何ですか at the same time.",
+              "あの needs a noun after it, as in あの魚は.",
+              "これ stands alone before は. B answers with それ because the fish is near A."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d3.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "（　　）^かばん^は[高|たか]いです。",
+            "options": [
+              "どこ",
+              "それ",
+              "その",
+              "どれ"
+            ],
+            "answer": 3,
+            "why": [
+              "どこ asks where. It cannot go right before かばん.",
+              "それ stands alone. It cannot go right before かばん.",
+              "A noun (かばん) comes right after the blank, so その.",
+              "どれ cannot go before a noun, and this sentence is not a question."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d3.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：（　　）^かさ^がいいですか。　B：その[白|しろ]いかさがいいです。",
+            "options": [
+              "どの",
+              "[何|なに]",
+              "あれ",
+              "どれ"
+            ],
+            "answer": 1,
+            "why": [
+              "A asks which umbrella, and かさ comes right after the blank, so どの.",
+              "何 cannot go right before かさ like this.",
+              "あれ stands alone and does not ask a question.",
+              "どれ stands alone, as in どれがいいですか. It cannot go right before かさ."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d3.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "すみません、（　　）^を^ください。",
+            "options": [
+              "あの",
+              "どれ",
+              "どこ",
+              "あれ"
+            ],
+            "answer": 4,
+            "why": [
+              "あの needs a noun before を, as in あの花をください.",
+              "どれ asks which one. You cannot ask for something with a question word.",
+              "どこ asks where. A place is not something you ask a shop for.",
+              "あれ stands alone, so を can come right after it: あれをください."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d3.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、",
+            "after": "。",
+            "tiles": [
+              "どの",
+              "[人|ひと]が",
+              "[先生|せんせい]",
+              "ですか"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "どの needs a noun right after it. Which tile can follow どの?",
+            "full": "すみません、{どの}[人|ひと]が[先生|せんせい]ですか。",
+            "explain": "どの goes right before 人が. 先生 comes before ですか: どの人が先生ですか, \"Which person is the teacher?\""
+          },
+          {
+            "id": "n5u01d3.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、",
+            "after": "ですか。",
+            "tiles": [
+              "あれ",
+              "は",
+              "[何|なん]の",
+              "[店|みせ]"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "あれ stands alone, so は can come straight after it.",
+            "full": "すみません、{あれ}は[何|なん]の[店|みせ]ですか。",
+            "explain": "あれは comes first. 何の goes right before 店: あれは何の店ですか, \"What kind of shop is that?\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u01d3.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：その　魚は　高いですか。　B：いいえ、（　　）魚は　安いです。",
+            "options": [
+              "これ",
+              "この",
+              "どれ",
+              "ここ"
+            ],
+            "answer": 2,
+            "explain": "A noun (魚) comes right after the blank, and the fish is near B, so この. これ and ここ stand alone, and どれ is a question word that also cannot go before a noun."
+          },
+          {
+            "id": "n5u01d3.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：あなたの　かさは　（　　）ですか。　B：あの　白い　かさです。",
+            "options": [
+              "この",
+              "あの",
+              "どれ",
+              "どの"
+            ],
+            "answer": 3,
+            "explain": "B picks one umbrella out of several, so A asked which one: どれ. どの, この and あの all need a noun right after them."
+          },
+          {
+            "id": "n5u01d3.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、",
+            "after": "ですか。",
+            "tiles": [
+              "この",
+              "花",
+              "は",
+              "いくら"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "すみません、{この}　花は　いくらですか。",
+            "explain": "この, 花, は, いくら. この needs a noun right after it, so この花は comes first, then いくら before ですか."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "デパートで",
+        "en": "At a department store",
+        "intro": "Tap every word you would read on the floor guide and the price tags.",
+        "words": [
+          {
+            "id": "floor1",
+            "word": "一かい",
+            "reading": "いっかい",
+            "gloss": "first floor, ground floor",
+            "parts": [
+              [
+                "一",
+                "イッ",
+                "one"
+              ]
+            ]
+          },
+          {
+            "id": "books",
+            "word": "本や",
+            "reading": "ほんや",
+            "gloss": "bookshop",
+            "parts": [
+              [
+                "本",
+                "ホン",
+                "book"
+              ]
+            ]
+          },
+          {
+            "id": "flower",
+            "word": "花",
+            "reading": "はな",
+            "gloss": "flower",
+            "parts": [
+              [
+                "花",
+                "はな",
+                "flower"
+              ]
+            ]
+          },
+          {
+            "id": "fish",
+            "word": "魚",
+            "reading": "さかな",
+            "gloss": "fish",
+            "parts": [
+              [
+                "魚",
+                "さかな",
+                "fish"
+              ]
+            ]
+          },
+          {
+            "id": "price",
+            "word": "千円",
+            "reading": "せんえん",
+            "gloss": "1,000 yen",
+            "parts": [
+              [
+                "千",
+                "セン",
+                "thousand"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "cheap",
+            "word": "安い",
+            "reading": "やすい",
+            "gloss": "cheap",
+            "parts": [
+              [
+                "安",
+                "やす",
+                "cheap"
+              ]
+            ]
+          },
+          {
+            "id": "new",
+            "word": "新しい",
+            "reading": "あたらしい",
+            "gloss": "new",
+            "parts": [
+              [
+                "新",
+                "あたら",
+                "new"
+              ]
+            ]
+          },
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u01d3.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "デパートで　_新しい_　本を　買いました。",
+          "options": [
+            "あたしらい",
+            "あらたしい",
+            "あたらいし",
+            "あたらしい"
+          ],
+          "answer": 4,
+          "explain": "新しい is read あたらしい, \"new\". The other three mix up the order of the kana."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "即時応答",
+        "en": "Quick response",
+        "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+        "item": {
+          "id": "n5u01d3.r1",
+          "kind": "choice",
+          "type": "即時応答",
+          "q": "男：すみません、それは　何ですか。",
+          "script": [
+            "男：すみません、それは何ですか。",
+            "ナレーター：1",
+            "女：はい、そうです。",
+            "ナレーター：2",
+            "女：これは、日本のおかしです。",
+            "ナレーター：3",
+            "女：あれは、おかしです。"
+          ],
+          "options": [
+            "はい、そうです。",
+            "これは、日本のおかしです。",
+            "あれは、おかしです。"
+          ],
+          "printed": false,
+          "short": [
+            "はい、そうです",
+            "これは、日本のおかし",
+            "あれは、おかし"
+          ],
+          "answer": 2,
+          "why": [
+            "The man asks what it is, not a yes-or-no question, so はい、そうです does not answer him.",
+            "He says それ, so the thing is near the woman. She answers with これ and says what it is.",
+            "あれ is for something far from both people. He said それ, so the thing is near her."
+          ]
+        },
+        "audio": [
+          [
+            "M",
+            "すみません、それは何ですか。",
+            "すみません、それはなんですか。"
+          ],
+          [
+            "N",
+            "1",
+            null
+          ],
+          [
+            "F",
+            "はい、そうです。",
+            null
+          ],
+          [
+            "N",
+            "2",
+            null
+          ],
+          [
+            "F",
+            "これは、日本のおかしです。",
+            "これは、にほんのおかしです。"
+          ],
+          [
+            "N",
+            "3",
+            null
+          ],
+          [
+            "F",
+            "あれは、おかしです。",
+            null
+          ]
+        ]
+      }
+    },
+    "4": {
+      "title": "〜の・〜と",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u01d4.p1",
+            "form": "〜の",
+            "gloss": "'s, of (whose, what kind)",
+            "connect": [
+              {
+                "pos": "Noun: who owns it",
+                "rule": "〜 ＋ {の} ＋ 〜"
+              },
+              {
+                "pos": "Noun: where someone belongs",
+                "rule": "〜 ＋ {の} ＋ 〜"
+              },
+              {
+                "pos": "Noun: what kind",
+                "rule": "〜 ＋ {の} ＋ 〜"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "これは[母|はは]{の}[本|ほん]です。",
+                "en": "This is my mother's book."
+              },
+              {
+                "ja": "[中山|なかやま]さんは[日本語|にほんご]{の}[先生|せんせい]です。",
+                "en": "Ms. Nakayama is a Japanese teacher."
+              }
+            ],
+            "watch": {
+              "note": "When one noun tells you about another noun, put の between them. The owner or the kind comes first, then の, then the thing.",
+              "bad": "これはわたし本です。",
+              "good": "これはわたしの本です。"
+            }
+          },
+          {
+            "id": "n5u01d4.p2",
+            "form": "〜と",
+            "gloss": "and (between nouns)",
+            "connect": [
+              {
+                "pos": "Two nouns",
+                "rule": "〜 ＋ {と} ＋ 〜"
+              },
+              {
+                "pos": "Three nouns",
+                "rule": "〜 ＋ {と} ＋ 〜 ＋ {と} ＋ 〜"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[父|ちち]{と}[母|はは]は[先生|せんせい]です。",
+                "en": "My father and mother are teachers."
+              },
+              {
+                "ja": "[友|とも]だち{と}わたしは[大学|だいがく]の[学生|がくせい]です。",
+                "en": "My friend and I are university students."
+              }
+            ],
+            "watch": {
+              "note": "This と joins nouns only, like 父と母. It does not join two sentences, and it does not join adjectives to mean \"big and new\". To say two people are teachers, join the people with と and say です once.",
+              "bad": "父は先生ですと母も先生です。",
+              "good": "父と母は先生です。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three come right after a noun, but each one tells you something different.",
+          "forms": [
+            {
+              "form": "〜の",
+              "tag": "だれの・どんな · whose, what kind",
+              "mark": "dot",
+              "ja": "[母|はは]{の}[友|とも]だちです。",
+              "en": "She is my mother's friend."
+            },
+            {
+              "form": "〜と",
+              "tag": "AとB · and",
+              "mark": "up",
+              "ja": "[母|はは]{と}[友|とも]だちです。",
+              "en": "They are my mother and a friend."
+            },
+            {
+              "form": "〜も",
+              "tag": "おなじ · too",
+              "mark": "dot",
+              "ja": "[母|はは]{も}[先生|せんせい]です。",
+              "en": "My mother is a teacher too."
+            }
+          ],
+          "check": {
+            "id": "n5u01d4.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "アルバム",
+            "q": "A：これはだれの[本|ほん]ですか。　B：[父|ちち]（　　）[本|ほん]です。",
+            "options": [
+              "も",
+              "の",
+              "と"
+            ],
+            "answer": 2,
+            "why": [
+              "父も本です would mean \"my father is a book too\".",
+              "The owner, then の, then the thing: 父の本 is my father's book.",
+              "父と本 would mean \"my father and a book\". The question asks whose book it is."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u01d4.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：それはだれのかさですか。　B：^わたし^（　　）かさです。",
+            "options": [
+              "は",
+              "を",
+              "の",
+              "も"
+            ],
+            "answer": 3,
+            "why": [
+              "わたしはかさです would mean \"I am an umbrella\".",
+              "を marks the thing you act on with a verb. There is no verb here.",
+              "The owner わたし, then の, then かさ: my umbrella.",
+              "わたしもかさです would mean \"I am an umbrella too\"."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d4.d2",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "これは",
+            "after": "です。",
+            "tiles": [
+              "わたし",
+              "の",
+              "[友|とも]だち",
+              "の[本|ほん]"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "The owner always comes before の. Who is the friend's, and whose is the book?",
+            "full": "これはわたし{の}[友|とも]だちの[本|ほん]です。",
+            "explain": "わたしの友だち is my friend, and 友だちの本 is the friend's book. So わたし, の, 友だち, の本: my friend's book."
+          },
+          {
+            "id": "n5u01d4.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[山川|やまかわ]さんは^[中学校|ちゅうがっこう]^（　　）[先生|せんせい]です。",
+            "options": [
+              "か",
+              "も",
+              "と",
+              "の"
+            ],
+            "answer": 4,
+            "why": [
+              "中学校か先生 would mean \"a junior high school or a teacher\".",
+              "中学校も先生です would mean \"the school is a teacher too\", which makes no sense.",
+              "中学校と先生 would mean \"a junior high school and a teacher\". A person cannot be a school.",
+              "Where the teacher belongs: 中学校 + の + 先生, a junior high school teacher."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d4.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[日本語|にほんご]の[先生|せんせい]は^ふたり^です。[中山|なかやま]さん（　　）[山川|やまかわ]さんです。",
+            "options": [
+              "も",
+              "か",
+              "と",
+              "の"
+            ],
+            "answer": 3,
+            "why": [
+              "中山さんも山川さんです would mean \"Nakayama is Yamakawa too\", which makes no sense.",
+              "か means \"or\". It gives one person, not two.",
+              "と joins the two names: Nakayama and Yamakawa. That makes two teachers.",
+              "中山さんの山川さん would be one person, but the clue says there are two."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d4.d5",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "これは^[父|ちち]の[本|ほん]^（　　）^[母|はは]の[本|ほん]^です。",
+            "options": [
+              "を",
+              "の",
+              "と",
+              "も"
+            ],
+            "answer": 3,
+            "why": [
+              "を marks the thing you act on with a verb. There is no verb here.",
+              "父の本の母の本 would mean \"my mother's book of my father's book\", which makes no sense.",
+              "と joins the two things: my father's book and my mother's book.",
+              "父の本も母の本です would mean \"Dad's book is Mom's book too\". It does not fit after これは."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d4.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしの[父|ちち]",
+            "after": "です。",
+            "tiles": [
+              "と",
+              "[母|はは]",
+              "は",
+              "[先生|せんせい]"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "と goes between the two people. は comes after both of them.",
+            "full": "わたしの[父|ちち]{と}[母|はは]は[先生|せんせい]です。",
+            "explain": "父と母 joins the two people, は comes after them, and 先生です says what they are: my father and mother are teachers."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u01d4.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "これは　だれ（　　）かさですか。",
+            "options": [
+              "の",
+              "も",
+              "を",
+              "が"
+            ],
+            "answer": 1,
+            "explain": "だれのかさ means \"whose umbrella\": だれ + の + かさ. も, を and が cannot sit between だれ and かさ in this sentence."
+          },
+          {
+            "id": "n5u01d4.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "わたしの　すきな　くだものは　りんご（　　）バナナです。",
+            "options": [
+              "も",
+              "を",
+              "の",
+              "と"
+            ],
+            "answer": 4,
+            "explain": "と joins two nouns: apples and bananas. りんごのバナナ (\"the apple's banana\") and りんごもバナナ make no sense, and を needs a verb."
+          },
+          {
+            "id": "n5u01d4.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "あの　女の　人は　",
+            "after": "　です。",
+            "tiles": [
+              "わたし",
+              "の",
+              "日本語の",
+              "先生"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "full": "あの　女の　人は　わたしの　{日本語の}　先生　です。",
+            "explain": "わたし, の, 日本語の, 先生: my Japanese teacher. The owner わたし comes first, and 日本語の must sit right before 先生 to say what kind of teacher."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "かぞくのアルバム",
+        "en": "A page of a family album",
+        "intro": "Tap each label under the photos.",
+        "words": [
+          {
+            "id": "father",
+            "word": "父",
+            "reading": "ちち",
+            "gloss": "(my) father",
+            "parts": [
+              [
+                "父",
+                "ちち",
+                "father"
+              ]
+            ]
+          },
+          {
+            "id": "mother",
+            "word": "母",
+            "reading": "はは",
+            "gloss": "(my) mother",
+            "parts": [
+              [
+                "母",
+                "はは",
+                "mother"
+              ]
+            ]
+          },
+          {
+            "id": "boy",
+            "word": "男の子",
+            "reading": "おとこのこ",
+            "gloss": "boy",
+            "parts": [
+              [
+                "男",
+                "おとこ",
+                "man, male"
+              ],
+              [
+                "子",
+                "こ",
+                "child"
+              ]
+            ]
+          },
+          {
+            "id": "girl",
+            "word": "女の子",
+            "reading": "おんなのこ",
+            "gloss": "girl",
+            "parts": [
+              [
+                "女",
+                "おんな",
+                "woman, female"
+              ],
+              [
+                "子",
+                "こ",
+                "child"
+              ]
+            ]
+          },
+          {
+            "id": "friend",
+            "word": "友だち",
+            "reading": "ともだち",
+            "gloss": "friend",
+            "parts": [
+              [
+                "友",
+                "とも",
+                "friend"
+              ]
+            ]
+          },
+          {
+            "id": "child",
+            "word": "子ども",
+            "reading": "こども",
+            "gloss": "child, children",
+            "parts": [
+              [
+                "子",
+                "こ",
+                "child"
+              ]
+            ]
+          },
+          {
+            "id": "name",
+            "word": "名前",
+            "reading": "なまえ",
+            "gloss": "name",
+            "parts": [
+              [
+                "名",
+                "な",
+                "name"
+              ],
+              [
+                "前",
+                "まえ",
+                "front, before"
+              ]
+            ]
+          },
+          {
+            "id": "teacher",
+            "word": "先生",
+            "reading": "せんせい",
+            "gloss": "teacher",
+            "parts": [
+              [
+                "先",
+                "セン",
+                "ahead, before"
+              ],
+              [
+                "生",
+                "セイ",
+                "life, born"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u01d4.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "しゃしんの　_女の子_は　わたしの　友だちです。",
+          "options": [
+            "おんなのこ",
+            "おんなのひと",
+            "おとこのひと",
+            "おとこのこ"
+          ],
+          "answer": 1,
+          "explain": "女 is おんな and 子 is こ: 女の子, a girl. おとこのこ is 男の子, and おんなのひと and おとこのひと are 女の人 and 男の人."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "Who is who in the photo?",
+        "seconds": 90,
+        "passage": "これは　わたしの　かぞくの　しゃしんです。右の　人は　父です。左の　人は　母です。父と　母は　中学校の　先生です。まん中の　男の子は　わたしです。^わたしの　となりの　女の子^は　^父の　友だちの　子ども^です。名前は　ゆきちゃんです。ゆきちゃんと　わたしは　いい　友だちです。",
+        "strategy": "Find the girl in the text, then read the の after her carefully: whose friend, and whose child.",
+        "item": {
+          "id": "n5u01d4.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "しゃしんの　まん中の　男の子の　となりの　女の子は　だれですか。",
+          "options": [
+            "父の　友だち",
+            "父の　友だちの　子ども",
+            "母の　友だちの　子ども",
+            "わたしの　いもうと"
+          ],
+          "short": [
+            "父の友だち",
+            "父の友だちの子ども",
+            "母の友だちの子ども",
+            "わたしのいもうと"
+          ],
+          "answer": 2,
+          "explain": "The boy in the middle is the writer. The girl next to him is 父の友だちの子ども: the child of his father's friend.",
+          "why": [
+            "Not the friend. She is the friend's child: 友だちの子ども.",
+            "",
+            "The friend is the father's friend (父の友だち), not the mother's.",
+            "The text never says she is the writer's sister."
+          ]
+        }
+      }
+    },
+    "5": {
+      "title": "〜ね・〜よ",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u01d5.p1",
+            "form": "〜ね",
+            "gloss": "…, isn't it? / …, right?",
+            "connect": [
+              {
+                "pos": "Noun",
+                "rule": "〜 ＋ です ＋ {ね}"
+              },
+              {
+                "pos": "Adjective (い word)",
+                "rule": "〜い ＋ です ＋ {ね}"
+              },
+              {
+                "pos": "Verb, ます form",
+                "rule": "〜ます ＋ {ね}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[今日|きょう]はさむいです{ね}。",
+                "en": "It's cold today, isn't it?"
+              },
+              {
+                "ja": "[出口|でぐち]はあそこです{ね}。",
+                "en": "The exit is over there, right?"
+              }
+            ],
+            "watch": {
+              "note": "ね asks the listener to agree with something they know or feel too. Do not use it for news about yourself, like your name when you first meet.",
+              "bad": "はじめまして。わたしはキムですね。",
+              "good": "はじめまして。わたしはキムです。"
+            }
+          },
+          {
+            "id": "n5u01d5.p2",
+            "form": "〜よ",
+            "gloss": "I'm telling you (new to you)",
+            "connect": [
+              {
+                "pos": "Noun",
+                "rule": "〜 ＋ です ＋ {よ}"
+              },
+              {
+                "pos": "Verb, ます form",
+                "rule": "〜ます ＋ {よ}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[東口|ひがしぐち]はあちらです{よ}。",
+                "en": "The east exit is that way."
+              },
+              {
+                "ja": "この[電車|でんしゃ]は[九時|くじ]に[出|で]ます{よ}。",
+                "en": "This train leaves at nine, just so you know."
+              }
+            ],
+            "watch": {
+              "note": "Your friend says さむいですね. You feel the cold too, so agree with ね. よ here sounds like you are telling them something they do not know.",
+              "bad": "ええ、さむいですよ。",
+              "good": "ええ、さむいですね。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three end the same sentence. What changes is who knows the answer.",
+          "forms": [
+            {
+              "form": "〜ね",
+              "tag": "いっしょ · you know it too",
+              "mark": "dot",
+              "ja": "[西口|にしぐち]はこちらです{ね}。",
+              "en": "The west exit is this way, right?"
+            },
+            {
+              "form": "〜よ",
+              "tag": "おしえる · this is new to you",
+              "mark": "up",
+              "ja": "[西口|にしぐち]はこちらです{よ}。",
+              "en": "The west exit is this way (I'm telling you)."
+            },
+            {
+              "form": "〜か",
+              "tag": "しつもん · I don't know",
+              "mark": "dot",
+              "ja": "[西口|にしぐち]はこちらです{か}。",
+              "en": "Is the west exit this way?"
+            }
+          ],
+          "check": {
+            "id": "n5u01d5.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "駅で",
+            "q": "（わたしは^しっています^。[友|とも]だちは^しりません^。）あの[人|ひと]はもり[先生|せんせい]です（　　）。",
+            "options": [
+              "よ",
+              "か",
+              "ね"
+            ],
+            "answer": 1,
+            "why": [
+              "You know and your friend does not, so you tell them with よ.",
+              "か asks a question, but you already know who she is.",
+              "ね asks your friend to agree, but your friend does not know her."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u01d5.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "（ふたりは^いっしょに[空|そら]を[見|み]ています^。）A「いい[天気|てんき]です（　　）。」B「ええ、そうですね。」",
+            "options": [
+              "よ",
+              "か",
+              "を",
+              "ね"
+            ],
+            "answer": 4,
+            "why": [
+              "よ tells B something new, but B can see the sky too.",
+              "か asks a question, but A can see the weather. B's そうですね agrees; it does not answer a question.",
+              "を marks the thing a verb acts on. It cannot end a sentence after です.",
+              "Both can see the sky, so A shares a feeling B has too. B agrees with そうですね."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d5.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "（Bさんは^しりません^。）A「Bさん、あの[人|ひと]はわたしの[母|はは]です（　　）。」",
+            "options": [
+              "か",
+              "ね",
+              "よ",
+              "も"
+            ],
+            "answer": 3,
+            "why": [
+              "か asks a question, but A knows who her own mother is.",
+              "ね asks B to agree, but B does not know this.",
+              "B does not know, so A tells B something new with よ.",
+              "も means \"too\". It cannot end a sentence after です."
+            ]
+          },
+          {
+            "id": "n5u01d5.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "（ふたりは^いっしょに^ラーメンを[食|た]べています。）A「このラーメンはおいしいです（　　）。」",
+            "options": [
+              "を",
+              "と",
+              "よ",
+              "ね"
+            ],
+            "answer": 4,
+            "why": [
+              "を marks the thing a verb acts on. It cannot end a sentence after です.",
+              "と joins two nouns, as in パンとたまご. It cannot end this sentence.",
+              "よ tells B something new, but B is eating the same ramen.",
+              "Both are eating it, so A shares a feeling B has too."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d5.d4",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「すみません、[西口|にしぐち]はどこですか。」B「[西口|にしぐち]は",
+            "after": "。」",
+            "tiles": [
+              "あの",
+              "ビルの",
+              "[前|まえ]です",
+              "よ"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "A asks, so A does not know. Which ending tells new information, and where does it go?",
+            "full": "A「すみません、[西口|にしぐち]はどこですか。」B「[西口|にしぐち]はあのビルの[前|まえ]です{よ}。」",
+            "explain": "あの goes before ビルの, and ビルの before 前です: \"in front of that building\". よ comes last because B tells A something A does not know."
+          },
+          {
+            "id": "n5u01d5.d5",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "（^Aさんは[電車|でんしゃ]を[見|み]ました^。Bさんは[見|み]ませんでした。）A「あ、[電車|でんしゃ]が[来|き]ました（　　）。」",
+            "options": [
+              "よ",
+              "を",
+              "ね",
+              "か"
+            ],
+            "answer": 1,
+            "why": [
+              "A saw it and B did not, so A tells B something new with よ.",
+              "を marks the thing a verb acts on. It cannot end a sentence after ました.",
+              "ね asks B to agree, but B did not see the train.",
+              "か asks a question, but A saw the train and knows."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d5.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「",
+            "after": "。」B「ええ、そうですね。」",
+            "tiles": [
+              "[今日|きょう]は",
+              "いい",
+              "[天気|てんき]",
+              "ですね"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "A and B both feel the weather. いい describes a noun, and the ending that shares a feeling comes last.",
+            "full": "A「[今日|きょう]はいい[天気|てんき]です{ね}。」B「ええ、そうですね。」",
+            "explain": "今日は comes first as the topic. いい goes right before 天気, and ですね ends the sentence because A shares a feeling B has too."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u01d5.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "A「Bさん、いすの　上に　かさが　あります（　　）。」B「あ、わたしのです。ありがとうございます。」",
+            "options": [
+              "よ",
+              "か",
+              "を",
+              "ね"
+            ],
+            "answer": 1,
+            "explain": "B did not know and says thank you, so A tells B something new with よ. ね would ask B to agree with something B already knows, か would ask about an umbrella A can see, and を cannot end a sentence."
+          },
+          {
+            "id": "n5u01d5.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "（ふたりで　駅まで　あるいて　います。）A「今日は　あついです（　　）。」B「ええ、ほんとうに。」",
+            "options": [
+              "よ",
+              "ね",
+              "を",
+              "か"
+            ],
+            "answer": 2,
+            "explain": "They are walking together and both feel the heat, so A shares the feeling with ね and B agrees. か would ask something A can feel, よ would tell B something B already feels, and を cannot end a sentence."
+          },
+          {
+            "id": "n5u01d5.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「バスは　どこから　出ますか。」B「",
+            "after": "よ。」",
+            "tiles": [
+              "北口の",
+              "前",
+              "から",
+              "出ます"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "A「バスは　どこから　出ますか。」B「北口の　前{から}　出ますよ。」",
+            "explain": "北口の, 前, から, 出ます. 北口の describes 前, から follows the place the bus leaves from, and 出ます goes before よ."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "駅で",
+        "en": "At the station",
+        "intro": "Tap every sign you would read to find your train and your way out.",
+        "words": [
+          {
+            "id": "exit",
+            "word": "出口",
+            "reading": "でぐち",
+            "gloss": "exit",
+            "parts": [
+              [
+                "出",
+                "で",
+                "go out"
+              ],
+              [
+                "口",
+                "ぐち",
+                "opening, mouth"
+              ]
+            ]
+          },
+          {
+            "id": "entrance",
+            "word": "入口",
+            "reading": "いりぐち",
+            "gloss": "entrance",
+            "parts": [
+              [
+                "入",
+                "いり",
+                "go in"
+              ],
+              [
+                "口",
+                "ぐち",
+                "opening, mouth"
+              ]
+            ]
+          },
+          {
+            "id": "east",
+            "word": "東口",
+            "reading": "ひがしぐち",
+            "gloss": "east exit",
+            "parts": [
+              [
+                "東",
+                "ひがし",
+                "east"
+              ],
+              [
+                "口",
+                "ぐち",
+                "opening, mouth"
+              ]
+            ]
+          },
+          {
+            "id": "west",
+            "word": "西口",
+            "reading": "にしぐち",
+            "gloss": "west exit",
+            "parts": [
+              [
+                "西",
+                "にし",
+                "west"
+              ],
+              [
+                "口",
+                "ぐち",
+                "opening, mouth"
+              ]
+            ]
+          },
+          {
+            "id": "south",
+            "word": "南口",
+            "reading": "みなみぐち",
+            "gloss": "south exit",
+            "parts": [
+              [
+                "南",
+                "みなみ",
+                "south"
+              ],
+              [
+                "口",
+                "ぐち",
+                "opening, mouth"
+              ]
+            ]
+          },
+          {
+            "id": "north",
+            "word": "北口",
+            "reading": "きたぐち",
+            "gloss": "north exit",
+            "parts": [
+              [
+                "北",
+                "きた",
+                "north"
+              ],
+              [
+                "口",
+                "ぐち",
+                "opening, mouth"
+              ]
+            ]
+          },
+          {
+            "id": "train",
+            "word": "電車",
+            "reading": "でんしゃ",
+            "gloss": "train",
+            "parts": [
+              [
+                "電",
+                "デン",
+                "electricity"
+              ],
+              [
+                "車",
+                "シャ",
+                "vehicle"
+              ]
+            ]
+          },
+          {
+            "id": "station",
+            "word": "駅",
+            "reading": "えき",
+            "gloss": "station",
+            "parts": [
+              [
+                "駅",
+                "エキ",
+                "station"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u01d5.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "_北口_で　ともだちを　まちます。",
+          "options": [
+            "きたぐち",
+            "きたくち",
+            "みなみぐち",
+            "ひがしぐち"
+          ],
+          "answer": 1,
+          "explain": "北 is きた, and in 北口 the 口 is read ぐち, as in 出口 and 入口. きたくち is not a word. みなみぐち is 南口 and ひがしぐち is 東口."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "ポイント理解",
+        "en": "Point comprehension",
+        "ask": "男の人は　どの　出口から　出ますか。",
+        "audio": [
+          [
+            "N",
+            "駅で、男の人と女の人が話しています。男の人はどの出口から出ますか。",
+            null
+          ],
+          [
+            "M",
+            "すみません。山川大学は東口ですか。",
+            "すみません。やまかわだいがくはひがしぐちですか。"
+          ],
+          [
+            "F",
+            "山川大学ですか。東口じゃありません。北口ですよ。",
+            "やまかわだいがくですか。ひがしぐちじゃありません。きたぐちですよ。"
+          ],
+          [
+            "M",
+            "北口ですね。ありがとうございます。",
+            "きたぐちですね。ありがとうございます。"
+          ],
+          [
+            "F",
+            "あ、すみません。北口は山川デパートです。山川大学は西口ですよ。",
+            "あ、すみません。きたぐちはやまかわデパートです。やまかわだいがくはにしぐちですよ。"
+          ],
+          [
+            "M",
+            "西口ですね。わかりました。",
+            "にしぐちですね。わかりました。"
+          ],
+          [
+            "N",
+            "男の人はどの出口から出ますか。",
+            null
+          ]
+        ],
+        "item": {
+          "id": "n5u01d5.r1",
+          "kind": "choice",
+          "type": "ポイント理解",
+          "q": "男の人は　どの　出口から　出ますか。",
+          "script": [
+            "ナレーター：駅で、男の人と女の人が話しています。男の人はどの出口から出ますか。",
+            "男：すみません。山川大学は東口ですか。",
+            "女：山川大学ですか。東口じゃありません。北口ですよ。",
+            "男：北口ですね。ありがとうございます。",
+            "女：あ、すみません。北口は山川デパートです。山川大学は西口ですよ。",
+            "男：西口ですね。わかりました。",
+            "ナレーター：男の人はどの出口から出ますか。"
+          ],
+          "options": [
+            "北口",
+            "東口",
+            "西口",
+            "南口"
+          ],
+          "printed": true,
+          "short": [
+            "北口",
+            "東口",
+            "西口",
+            "南口"
+          ],
+          "answer": 3,
+          "why": [
+            "The woman says 北口 first, then corrects it: the north exit is for the department store.",
+            "The man asks about the east exit, but the woman says 東口じゃありません.",
+            "The woman corrects herself: 山川大学は西口ですよ. The man checks with 西口ですね.",
+            "Nobody talks about the south exit."
+          ],
+          "explain": null
+        }
+      }
+    },
+    "6": {
+      "title": "まとめ：似ている文法",
+      "grammar": {
+        "points": [],
+        "compare": {
+          "intro": "To tell the ten apart, look at what sits next to the blank: between two nouns you need の or と, after the topic you need は or も, before a noun この (これ stands alone), and at the very end です, じゃありません, か, ね or よ.",
+          "forms": [
+            {
+              "form": "〜は／〜も",
+              "tag": "ちがう・おなじ · topic or \"too\"",
+              "mark": "dot",
+              "ja": "[今日|きょう]{は}[休|やす]みです。あした{も}[休|やす]みです。",
+              "en": "Today is a day off. Tomorrow is a day off too."
+            },
+            {
+              "form": "これ／この",
+              "tag": "ひとりで・＋もの · alone or + noun",
+              "mark": "dot",
+              "ja": "{これ}はわたしのペンです。{この}ペンは[安|やす]いです。",
+              "en": "This is my pen. This pen is cheap."
+            },
+            {
+              "form": "〜の／〜と",
+              "tag": "どんな・AとB · of or and",
+              "mark": "dot",
+              "ja": "これは[日本語|にほんご]{の}[本|ほん]{と}ノートです。",
+              "en": "These are a Japanese book and a notebook."
+            }
+          ],
+          "check": {
+            "id": "n5u01d6.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "がっこうで",
+            "q": "A：この[白|しろ]いノートは^だれの^ですか。B：[先生|せんせい]（　　）です。",
+            "options": [
+              "と",
+              "の",
+              "も"
+            ],
+            "answer": 2,
+            "why": [
+              "先生とです would mean \"with the teacher\". A asked whose notebook it is.",
+              "A asks だれの, \"whose\". 先生のです answers it: it is the teacher's.",
+              "先生もです would mean \"the teacher too\". It does not say whose the notebook is."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u01d6.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[今週|こんしゅう]は[休|やす]みです。^[来週|らいしゅう]^（　　）^[休|やす]みです^。",
+            "options": [
+              "も",
+              "を",
+              "と",
+              "か"
+            ],
+            "answer": 1,
+            "why": [
+              "This week is a day off, and next week is the same, so も: \"next week too\".",
+              "を marks the thing an action is done to. 休みです is not an action.",
+              "と joins two nouns, as in 今週と来週は休みです. Here 来週 stands alone before 休みです, so と has nothing to join.",
+              "来週か休みです is not a sentence. A question か goes at the very end, after です."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d6.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^[先週|せんしゅう]^（　　）テストはどれですか。",
+            "options": [
+              "これ",
+              "この",
+              "の",
+              "と"
+            ],
+            "answer": 3,
+            "why": [
+              "これ stands alone and never comes before a noun. 先週これテスト is not Japanese.",
+              "この points at a thing near you. It cannot come right after 先週.",
+              "先週のテスト is \"last week's test\": の joins the two nouns.",
+              "と means \"and\". 先週とテスト would be \"last week and the test\"."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d6.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "（^ふたりでカレンダーを[見|み]ています^。）A「わあ、[毎日|まいにち]クラスがあります（　　）。」B「^ほんとうですね^。」",
+            "options": [
+              "か",
+              "を",
+              "よ",
+              "ね"
+            ],
+            "answer": 4,
+            "why": [
+              "か asks. A can see the answer, and B replies by agreeing, not answering.",
+              "を marks the thing an action is done to. It cannot end a sentence.",
+              "よ tells news the other person does not know. B is looking at the same calendar.",
+              "Both can see the calendar, so A shares what they both see: ね. B agrees."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d6.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^[父|ちち]は[先生|せんせい]です^。[母|はは]^も^[先生|せんせい]（　　）。",
+            "options": [
+              "を",
+              "です",
+              "じゃありません",
+              "ます"
+            ],
+            "answer": 2,
+            "why": [
+              "を marks the thing an action is done to. The sentence would have no ending.",
+              "も says the mother is the same as the father. He is a teacher, so she is a teacher too: 先生です.",
+              "This would say she is not a teacher. That does not match も after \"father is a teacher\".",
+              "ます goes after a verb. 先生 is a noun."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u01d6.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、",
+            "after": "ですか。",
+            "tiles": [
+              "この",
+              "クラスは",
+              "[何時|なんじ]",
+              "から"
+            ],
+            "star": 0,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "この is followed by a noun. Which tile is a noun?",
+            "full": "すみません、{この}クラスは[何時|なんじ]からですか。",
+            "explain": "この needs a noun right after it, and クラスは is the topic. Then 何時から asks the start time, and ですか closes the question."
+          },
+          {
+            "id": "n5u01d6.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「[午後|ごご]もクラスがありますか。」B「はい、",
+            "after": "よ。」",
+            "tiles": [
+              "[午後|ごご]は",
+              "[中山|なかやま][先生|せんせい]の",
+              "クラス",
+              "です"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "Start with the topic. Whose class is it?",
+            "full": "A「[午後|ごご]もクラスがありますか。」B「はい、[午後|ごご]は[中山|なかやま][先生|せんせい]{の}クラスですよ。」",
+            "explain": "午後は is the topic, so it comes first. 中山先生の tells whose class, so it sits right before クラス. です closes the sentence, and よ after it tells A something new."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u01d6.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "マリアさん（　　）　トムさんは　この　学校の　学生です。",
+            "options": [
+              "を",
+              "の",
+              "と",
+              "も"
+            ],
+            "answer": 3,
+            "explain": "と joins two people: マリアさんとトムさん are both students here. の would make Tom \"Maria's Tom\", which makes no sense. マリアさんも　トムさんは does not work: for both you would need マリアさんも　トムさんも. を marks the thing an action is done to."
+          },
+          {
+            "id": "n5u01d6.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「あしたは　休みですか。」\nB「いいえ、あしたも　クラスが　あります（　　）。」",
+            "options": [
+              "よ",
+              "を",
+              "ね",
+              "か"
+            ],
+            "answer": 1,
+            "explain": "A did not know and asked, so B tells new information: よ. ね is for something both people already know, but A just asked. か would turn B's answer into a question, and を cannot end a sentence."
+          },
+          {
+            "id": "n5u01d6.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「これは　あなたの　かさですか。」B「いいえ、",
+            "after": "。友だちのです。」",
+            "tiles": [
+              "それは",
+              "わたしの",
+              "かさ",
+              "じゃありません"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "full": "A「これは　あなたの　かさですか。」B「いいえ、それは{わたしの}かさじゃありません。友だちのです。」",
+            "explain": "それは, わたしの, かさ, じゃありません. それは is the topic: the umbrella is near A, so B says それ. わたしの goes before かさ, and じゃありません comes last, after the noun."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "日本語学校のカレンダー",
+        "en": "The week's calendar at a language school",
+        "intro": "Tap each word on the calendar by the front door of your language school.",
+        "words": [
+          {
+            "id": "Mon",
+            "word": "月",
+            "reading": "げつ",
+            "gloss": "Mon. (short label for Monday)",
+            "parts": [
+              [
+                "月",
+                "ゲツ",
+                "moon, month"
+              ]
+            ]
+          },
+          {
+            "id": "every day",
+            "word": "毎日",
+            "reading": "まいにち",
+            "gloss": "every day",
+            "parts": [
+              [
+                "毎",
+                "マイ",
+                "every"
+              ],
+              [
+                "日",
+                "ニチ",
+                "sun, day"
+              ]
+            ]
+          },
+          {
+            "id": "this week",
+            "word": "今週",
+            "reading": "こんしゅう",
+            "gloss": "this week",
+            "parts": [
+              [
+                "今",
+                "コン",
+                "now"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "last week",
+            "word": "先週",
+            "reading": "せんしゅう",
+            "gloss": "last week",
+            "parts": [
+              [
+                "先",
+                "セン",
+                "ahead, before"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "day off",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "day off, no class",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          },
+          {
+            "id": "morning",
+            "word": "午前",
+            "reading": "ごぜん",
+            "gloss": "morning, a.m.",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "前",
+                "ゼン",
+                "before"
+              ]
+            ]
+          },
+          {
+            "id": "afternoon",
+            "word": "午後",
+            "reading": "ごご",
+            "gloss": "afternoon, p.m.",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "後",
+                "ゴ",
+                "after"
+              ]
+            ]
+          },
+          {
+            "id": "time",
+            "word": "時間",
+            "reading": "じかん",
+            "gloss": "time, hour(s)",
+            "parts": [
+              [
+                "時",
+                "ジ",
+                "time, hour"
+              ],
+              [
+                "間",
+                "カン",
+                "between"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u01d6.k1",
+          "kind": "choice",
+          "type": "表記",
+          "label": "How the exam asks it",
+          "q": "あしたの　_ごご_は　テストが　あります。",
+          "options": [
+            "午後",
+            "後午",
+            "午前",
+            "五後"
+          ],
+          "answer": 1,
+          "explain": "ごご is 午後: 午 (noon) and 後 (after). 午前 is ごぜん, the morning. 五後 uses 五, the number five, not 午. 後午 has the two kanji the wrong way round."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "情報検索",
+        "en": "Finding information",
+        "ask": "Which line of the notice holds the one fact you need?",
+        "seconds": 90,
+        "passage": "さくら日本語学校\n今週の　かいわの　クラス\n十二日（月）　午後　二時〜三時\n十三日（火）　^午前^　十時〜十一時\n十五日（木）　午後　二時〜三時\n^十六日（金）　午前^　十時〜十一時\n※　^十三日は　先生が　休みです。クラスは　ありません。^",
+        "strategy": "Read the question first, then look only at the lines with 午前, and check the note at the bottom.",
+        "item": {
+          "id": "n5u01d6.r1",
+          "kind": "choice",
+          "type": "読解・情報検索",
+          "q": "リンさんは　午前の　かいわの　クラスに　出たいです。何日に　学校へ　行きますか。",
+          "options": [
+            "十二日",
+            "十三日",
+            "十五日",
+            "十六日"
+          ],
+          "short": [
+            "12日",
+            "13日",
+            "15日",
+            "16日"
+          ],
+          "answer": 4,
+          "explain": "Only two lines say 午前: the 13th and the 16th. The note says the teacher is off on the 13th and there is no class, so Lin goes on the 16th.",
+          "why": [
+            "The class on the 12th is 午後, in the afternoon.",
+            "The 13th has a morning class, but the note says the teacher is off and there is no class.",
+            "The class on the 15th is 午後, in the afternoon.",
+            ""
+          ]
+        }
+      }
+    }
+  },
+  "test": [
+    {
+      "id": "n5u01t.1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "わたしの　_国_は　ブラジルです。",
+      "options": [
+        "こく",
+        "まち",
+        "しま",
+        "くに"
+      ],
+      "answer": 4,
+      "explain": "国 on its own is くに. こく is how 国 sounds inside longer words such as 中国, never alone. まち (town) and しま (island) are other words with other kanji."
+    },
+    {
+      "id": "n5u01t.2",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "父の　_会社_は　駅の　前です。",
+      "options": [
+        "かいしゃ",
+        "がいしゃ",
+        "かいしや",
+        "かいじゃ"
+      ],
+      "answer": 1,
+      "explain": "会社 is かいしゃ, with a small ゃ. がいしゃ adds voicing to か, かいしや has a big や, and かいじゃ adds voicing to しゃ."
+    },
+    {
+      "id": "n5u01t.3",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "_でんしゃ_で　学校へ　行きます。",
+      "options": [
+        "雨車",
+        "電東",
+        "雨東",
+        "電車"
+      ],
+      "answer": 4,
+      "explain": "でんしゃ is 電車: 電 (electricity) with 車 (car). 雨 looks like the top of 電 but is あめ (rain), and 東 looks like 車 but is ひがし (east). Only 電車 is a word."
+    },
+    {
+      "id": "n5u01t.4",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "_ひがしぐち_は　あちらです。",
+      "options": [
+        "東口",
+        "車口",
+        "東日",
+        "車日"
+      ],
+      "answer": 1,
+      "explain": "ひがしぐち is 東口: 東 (east) and 口 (mouth, opening). 車 looks like 東 but is くるま, and 日 looks like 口 but is ひ or にち. Only 東口 is a word."
+    },
+    {
+      "id": "n5u01t.5",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "あしたは　学校が　（　　）です。",
+      "options": [
+        "休み",
+        "名前",
+        "入口",
+        "電話"
+      ],
+      "answer": 1,
+      "explain": "学校が休みです means there is no school tomorrow. A school cannot be a name (名前), an entrance (入口) or a telephone (電話)."
+    },
+    {
+      "id": "n5u01t.6",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "駅の　前の　（　　）で　じしょを　買いました。",
+      "options": [
+        "国",
+        "本や",
+        "電話",
+        "名前"
+      ],
+      "answer": 2,
+      "explain": "で here marks the place where you buy, and a bookshop (本や) sells dictionaries. A telephone (電話) and a name (名前) are not places, and a country (国) is not a shop in front of a station."
+    },
+    {
+      "id": "n5u01t.7",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "_この　本は　ふるいです_。",
+      "options": [
+        "この　本は　あたらしいです。",
+        "この　本は　あたらしくないです。",
+        "この　本は　大きくないです。",
+        "この　本は　たかくないです。"
+      ],
+      "answer": 2,
+      "explain": "ふるい (old) means the same as あたらしくない (not new). 大きくない is about size and たかくない about price, and あたらしい says the opposite."
+    },
+    {
+      "id": "n5u01t.8",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "ここは　_入口_です。",
+      "options": [
+        "ここから　出ます。",
+        "ここで　休みます。",
+        "ここで　買います。",
+        "ここから　入ります。"
+      ],
+      "answer": 4,
+      "explain": "An entrance (入口) is where you go in, so ここから入ります says the same thing. ここから出ます describes an exit (出口), and resting (休みます) or buying (買います) is not what an entrance is for."
+    },
+    {
+      "id": "n5u01t.9",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「それは　日本の　お金ですか。」B「いいえ、日本の　お金（　　）。中国の　お金です。」",
+      "options": [
+        "ですよ",
+        "じゃ　ありません",
+        "です",
+        "ですか"
+      ],
+      "answer": 2,
+      "explain": "B says いいえ and then names Chinese money, so B says it is not Japanese money: じゃありません. です and ですよ would say it is Japanese money, which clashes with いいえ, and ですか would ask a question back instead of answering."
+    },
+    {
+      "id": "n5u01t.10",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "父は　先生です。母（　　）　かいしゃいんです。",
+      "options": [
+        "の",
+        "を",
+        "は",
+        "も"
+      ],
+      "answer": 3,
+      "explain": "The mother has a different job from the father, so she is a new topic with は. も (also) would need her to have the same job as the father, but he is a teacher. 母のかいしゃいん would mean an employee belonging to the mother, and を does not go before です."
+    },
+    {
+      "id": "n5u01t.11",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「あの　男の　人は　だれです（　　）。」B「わたしの　父です。」",
+      "options": [
+        "か",
+        "よ",
+        "ね",
+        "を"
+      ],
+      "answer": 1,
+      "explain": "だれ (who) makes this a question, and a polite question ends in か. よ tells the listener something and ね asks them to agree; neither can end a question with だれ. を cannot end a sentence."
+    },
+    {
+      "id": "n5u01t.12",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「すみません。（　　）は　いくらですか。」B「それは　千円です。」",
+      "options": [
+        "あれ",
+        "どれ",
+        "これ",
+        "この"
+      ],
+      "answer": 3,
+      "explain": "B answers with それ (the thing near you), so the thing is near A: A says これ. この must have a noun after it, so この cannot stand before は. With あれ, B would also say あれ. どれ is a question word, and a question word does not come before は."
+    },
+    {
+      "id": "n5u01t.13",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「それは　何の　本ですか。」B「日本語（　　）　本です。」",
+      "options": [
+        "の",
+        "と",
+        "も",
+        "を"
+      ],
+      "answer": 1,
+      "explain": "何の本 asks what kind of book, and B answers 日本語の本: the の links 日本語 to 本 to say what the book is about. 日本語と本 would mean two things, Japanese and a book. も and を cannot join two nouns like this."
+    },
+    {
+      "id": "n5u01t.14",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "かばんの　中に　ノート（　　）　ペンが　あります。",
+      "options": [
+        "を",
+        "と",
+        "の",
+        "も"
+      ],
+      "answer": 2,
+      "explain": "The bag has two things in it, a notebook and a pen, and と joins them. ノートのペン would mean a pen that belongs to the notebook, which makes no sense. ノートもペンが is not a way to list two things (that would be ノートもペンも), and を cannot join two nouns."
+    },
+    {
+      "id": "n5u01t.15",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the ending",
+      "q": "（ふたりで　いっしょに　花を　見て　います。）A「きれいな　花です（　　）。」B「ええ、とても　きれいです。」",
+      "options": [
+        "ね",
+        "よ",
+        "か",
+        "を"
+      ],
+      "answer": 1,
+      "explain": "Both people are looking at the same flowers, so A shares the feeling and asks B to agree with ね, and B agrees. よ would tell B something new, but B can see the flowers too. か would ask about something A can see, and を cannot end a sentence."
+    },
+    {
+      "id": "n5u01t.16",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「それは　何ですか。」B「",
+      "after": "よ。」",
+      "tiles": [
+        "これは",
+        "日本の",
+        "おかし",
+        "です"
+      ],
+      "star": 2,
+      "bank": [
+        2,
+        0,
+        3,
+        1
+      ],
+      "full": "A「それは　何ですか。」B「これは　日本の　{おかし}ですよ。」",
+      "explain": "これは, 日本の, おかし, です. A says それ, so B, who holds it, says これは. 日本の describes おかし, so it comes just before it, and です goes before よ at the end."
+    },
+    {
+      "id": "n5u01t.17",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「リンさんは　学生です。",
+      "after": "か。」B「はい、そうです。」",
+      "tiles": [
+        "あの",
+        "人",
+        "も",
+        "学生です"
+      ],
+      "star": 2,
+      "bank": [
+        1,
+        3,
+        2,
+        0
+      ],
+      "full": "A「リンさんは　学生です。あの　人{も}　学生ですか。」B「はい、そうです。」",
+      "explain": "あの, 人, も, 学生です. あの needs the noun 人 right after it. も follows 人 because that person is a student too, like リンさん. 学生です goes before か."
+    },
+    {
+      "id": "n5u01t.18",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "A「リンさんは　日本人ですか。」B「いいえ、",
+      "after": "です。」",
+      "tiles": [
+        "リンさんは",
+        "中国",
+        "の",
+        "人"
+      ],
+      "star": 2,
+      "bank": [
+        3,
+        1,
+        0,
+        2
+      ],
+      "full": "A「リンさんは　日本人ですか。」B「いいえ、リンさんは　中国{の}　人です。」",
+      "explain": "リンさんは, 中国, の, 人. リンさんは is the topic and comes first. の joins 中国 and 人 (a person of China), so it sits between them, and 人 goes right before です."
+    },
+    {
+      "id": "n5u01t.19",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "q": "これは　何の　おかしですか。",
+      "options": [
+        "お母さんの　国の　おかし",
+        "りんごの　おかし",
+        "バナナの　おかし",
+        "マリアさんの　国の　おかし"
+      ],
+      "answer": 3,
+      "passage": "マリアさん\nきのうは　ありがとう　ございました。これは　わたしの　国の　おかしです。りんごの　おかしじゃ　ありません。バナナの　おかしです。とても　あまいですよ。二つ　あります。一つは　マリアさんの、一つは　お母さんのです。\nキム",
+      "short": [
+        "お母さんの国",
+        "りんご",
+        "バナナ",
+        "マリアさんの国"
+      ],
+      "explain": "キム writes バナナのおかしです right after saying it is not an apple sweet (りんごのおかしじゃありません). It is from キム's country (わたしの国), not マリア's, and お母さん is マリア's mother, who gets one of the two sweets."
+    },
+    {
+      "id": "n5u01t.20",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "q": "ただしい　ものは　どれですか。",
+      "options": [
+        "おかしは　あまく　ないです。",
+        "おかしは　一つです。",
+        "おかしは　キムさんの　国の　おかしです。",
+        "おかしは　マリアさんの　国の　おかしです。"
+      ],
+      "answer": 3,
+      "passage": "マリアさん\nきのうは　ありがとう　ございました。これは　わたしの　国の　おかしです。りんごの　おかしじゃ　ありません。バナナの　おかしです。とても　あまいですよ。二つ　あります。一つは　マリアさんの、一つは　お母さんのです。\nキム",
+      "short": [
+        "あまくない",
+        "一つ",
+        "キムさんの国",
+        "マリアさんの国"
+      ],
+      "explain": "わたしの国のおかし is written by キム, so it is a sweet from キム's country. There are two (二つあります), not one. It is not from マリア's country, and キム says it is very sweet (とてもあまいですよ)."
+    },
+    {
+      "id": "n5u01t.21",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "q": "リンさんは　日本語の　本が　ほしいです。何かいへ　行きますか。",
+      "options": [
+        "一かい",
+        "三かい",
+        "四かい",
+        "五かい"
+      ],
+      "answer": 4,
+      "passage": "山川デパート\n五かい　本や・きっさてん\n四かい　子どもの　ふく・おもちゃ\n三かい　男の　人の　ふく\n二かい　女の　人の　ふく・かばん\n一かい　花や・くつ\nちか一かい　魚・やさい・おかし\n出口は　一かいの　東口と　西口です。",
+      "short": [
+        "一かい",
+        "三かい",
+        "四かい",
+        "五かい"
+      ],
+      "explain": "Books are sold at the bookshop (本や), on 五かい. 一かい has flowers and shoes, 三かい has men's clothes, and 四かい has children's clothes and toys."
+    },
+    {
+      "id": "n5u01t.22",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "q": "キムさんは　お母さんに　花と　かばんを　買います。何かいと　何かいへ　行きますか。",
+      "options": [
+        "一かいと　二かい",
+        "一かいと　三かい",
+        "二かいと　五かい",
+        "二かいと　ちか一かい"
+      ],
+      "answer": 1,
+      "passage": "山川デパート\n五かい　本や・きっさてん\n四かい　子どもの　ふく・おもちゃ\n三かい　男の　人の　ふく\n二かい　女の　人の　ふく・かばん\n一かい　花や・くつ\nちか一かい　魚・やさい・おかし\n出口は　一かいの　東口と　西口です。",
+      "short": [
+        "一と二",
+        "一と三",
+        "二と五",
+        "二とちか一"
+      ],
+      "explain": "Flowers are at the florist (花や) on 一かい, and bags are on 二かい. 三かい has only men's clothes, 五かい has the bookshop and a café, and ちか一かい has food, not flowers."
+    },
+    {
+      "id": "n5u01t.23",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "q": "ただしい　ものは　どれですか。",
+      "options": [
+        "あさっての　クラスは　三かいです。",
+        "あしたは　クラスが　あります。",
+        "あしたは　中山先生が　学校に　来ます。",
+        "あさっては　クラスが　あります。"
+      ],
+      "answer": 4,
+      "passage": "リンさん\nあしたの　日本語の　クラスは　休みです。中山先生は　あした　学校に　来ません。あさっての　クラスは　あります。でも、きょうしつは　三かいの　きょうしつじゃ　ありません。二かいの　きょうしつです。\n山川",
+      "short": [
+        "三かいでクラス",
+        "あしたクラスがある",
+        "先生があした来る",
+        "あさってクラスがある"
+      ],
+      "explain": "The note says あさってのクラスはあります. Tomorrow the class is off (休みです) because 中山先生 is not coming (来ません), and the room is not on 三かい but on 二かい."
+    },
+    {
+      "id": "n5u01t.24",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "q": "あさって、リンさんは　どこへ　行きますか。",
+      "options": [
+        "三かいの　きょうしつ",
+        "二かいの　きょうしつ",
+        "中山先生の　うち",
+        "どこへも　行きません"
+      ],
+      "answer": 2,
+      "passage": "リンさん\nあしたの　日本語の　クラスは　休みです。中山先生は　あした　学校に　来ません。あさっての　クラスは　あります。でも、きょうしつは　三かいの　きょうしつじゃ　ありません。二かいの　きょうしつです。\n山川",
+      "short": [
+        "三かい",
+        "二かい",
+        "先生のうち",
+        "行かない"
+      ],
+      "explain": "There is a class the day after tomorrow, and it is in 二かいのきょうしつ. The note says it is not the room on 三かい (三かいのきょうしつじゃありません). 中山先生's home is never mentioned, and リン does go, because the class is on."
+    }
+  ]
+}

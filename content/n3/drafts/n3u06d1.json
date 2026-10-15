@@ -1,0 +1,468 @@
+{
+  "title": "〜によると・〜ということだ",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u06d1.p1",
+        "form": "〜によると／〜によれば",
+        "gloss": "according to …",
+        "connect": [
+          {
+            "pos": "Noun: the source, such as a person, the news or a website",
+            "rule": "〜＋{によると}（ニュースによると）"
+          },
+          {
+            "pos": "Noun: the same, a little more written",
+            "rule": "〜＋{によれば}（先生の話によれば）"
+          },
+          {
+            "pos": "End of the sentence: a hearsay form",
+            "rule": "普通形＋そうだ／らしい／ということだ"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "天気[予報|よほう]{によると}、明日は[雪|ゆき]が[降|ふ]るそうです。",
+            "en": "According to the weather forecast, it will snow tomorrow."
+          },
+          {
+            "ja": "母からのメール{によれば}、[祖父|そふ]はもう元気になったらしいです。",
+            "en": "According to the email from my mother, my grandfather seems to be well again."
+          }
+        ],
+        "watch": {
+          "note": "によると names where you heard something, so the end of the sentence shows that it is hearsay: そうだ, らしい or ということだ. Ending with a plain statement, as if it were your own information, sounds unfinished.",
+          "bad": "ニュースによると、明日は電車が止まります。",
+          "good": "ニュースによると、明日は電車が止まるそうです。"
+        }
+      },
+      {
+        "id": "n3u06d1.p2",
+        "form": "〜ということだ",
+        "gloss": "I hear that …; it is said (formal)",
+        "connect": [
+          {
+            "pos": "Verb or い adjective, plain form",
+            "rule": "開く＋{ということだ}"
+          },
+          {
+            "pos": "Noun or な adjective",
+            "rule": "〜（だ）＋{ということだ}（中止だということだ）"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "駅前の銀行は、来月から土曜日も開く{ということです}。",
+            "en": "I hear the bank in front of the station will open on Saturdays too from next month."
+          },
+          {
+            "ja": "田中さんは来月から京都で働く{ということです}。",
+            "en": "I am told that Tanaka-san will be working in Kyoto from next month."
+          }
+        ],
+        "watch": {
+          "note": "ということだ follows the plain form, even in a polite sentence. The politeness goes on the end: ということです.",
+          "bad": "明日は雨が降りますということです。",
+          "good": "明日は雨が降るということです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three pass on information from someone else; によると names the source, while そうだ and ということだ end the sentence, and ということだ sounds more formal, like a notice or the news.",
+      "forms": [
+        {
+          "form": "〜によると",
+          "tag": "情報のもと · according to",
+          "mark": "dot",
+          "ja": "新聞{によると}、この町の人口が[増|ふ]えているそうです。",
+          "en": "According to the newspaper, this town's population is growing. (によると names the source; the end still needs そうです or a similar form.)"
+        },
+        {
+          "form": "〜ということだ",
+          "tag": "かたい伝聞 · it is said (formal)",
+          "mark": "dot",
+          "ja": "市のプールは、来月十日間休む{ということです}。",
+          "en": "The city pool will be closed for ten days next month, it is reported. (Formal, as in a notice or the news.)"
+        },
+        {
+          "form": "〜そうだ（伝聞）",
+          "tag": "伝聞 · I hear (everyday)",
+          "mark": "dot",
+          "ja": "山田さんは来月、引っ[越|こ]す{そうです}。",
+          "en": "I hear Yamada-san is moving next month. (Everyday hearsay from N4: plain form + そうだ.)"
+        }
+      ],
+      "check": {
+        "id": "n3u06d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one names the source?",
+        "q": "^ラジオ^（　　）、[道路|どうろ]がとても[混|こ]んでいるそうです。",
+        "options": [
+          "ということだ",
+          "によると",
+          "そうだ"
+        ],
+        "answer": 2,
+        "why": [
+          "ということだ ends a sentence. It cannot follow ラジオ to name the source.",
+          "ラジオ is the source: according to the radio, the roads are very crowded. The sentence already ends with そうです.",
+          "そうだ also ends a sentence, and this sentence already has そうです at the end."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u06d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "薬の説明書（　　）、この薬を飲むと[眠|ねむ]くなることがある^そうです^。",
+        "options": [
+          "のに",
+          "のために",
+          "によると",
+          "ほど"
+        ],
+        "answer": 3,
+        "why": [
+          "のに needs な after a noun (説明書なのに), and it shows a contrast. There is no contrast here.",
+          "のために gives a purpose or a cause. The leaflet is not the reason the medicine makes you sleepy.",
+          "The leaflet is the source, and the sentence ends with そうです: according to the leaflet, this medicine can make you sleepy.",
+          "ほど compares degree, as in 説明書ほど (as much as the leaflet). Nothing is being compared here."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "店のホームページ（　　）、この[季節|きせつ]だけのケーキがある^らしいです^。",
+        "options": [
+          "ごとに",
+          "によれば",
+          "までに",
+          "のあいだに"
+        ],
+        "answer": 2,
+        "why": [
+          "ごとに means every or each, as in 一時間ごとに. There is only one website here, and it is the source of the news.",
+          "The website is the source, and らしいです shows it is hearsay: according to the shop's website, there is a cake sold only this season.",
+          "までに sets a deadline. A website is not a time.",
+          "のあいだに means during a stretch of time. A website is not a stretch of time."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^駅の[放送|ほうそう]では^、強い風で電車が三十分[遅|おく]れる（　　）。",
+        "options": [
+          "ことにします",
+          "ようにします",
+          "ところです",
+          "ということです"
+        ],
+        "answer": 4,
+        "why": [
+          "ことにします states the speaker's own decision. The speaker does not decide how late the train is.",
+          "ようにします is an effort or habit of the speaker. A late train is not the speaker's effort.",
+          "Dictionary form + ところです means someone is just about to do something. It does not pass on what an announcement said.",
+          "駅の[放送|ほうそう]では gives the source, and plain form + ということです passes on what it said: the train will be thirty minutes late because of strong wind."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "町の[祭|まつ]りは、雨のため^中止だ^（　　）。",
+        "options": [
+          "ということです",
+          "らしいです",
+          "ようです",
+          "みたいです"
+        ],
+        "answer": 1,
+        "why": [
+          "ということだ can follow noun + だ: 中止だということです. The town festival is cancelled because of the rain, it is reported.",
+          "らしい joins a noun directly, with no だ: 中止らしいです.",
+          "ようだ takes の after a noun: 中止のようです. It is also a guess, not a report.",
+          "みたいだ joins a noun directly, with no だ: 中止みたいです."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "店の人",
+        "after": "できないらしいです。",
+        "tiles": [
+          "によれば",
+          "このセーターは",
+          "洗う",
+          "ことが"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "によれば comes straight after the source. 洗う and ことが go together before できない.",
+        "full": "店の人{によれば}このセーターは洗うことができないらしいです。",
+        "explain": "によれば follows the source 店の人. このセーターは is the topic, and 洗うことが goes with できない: according to the shop assistant, this sweater cannot be washed."
+      },
+      {
+        "id": "n3u06d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "先生のお話では、明日の[授業|じゅぎょう]は",
+        "after": "です。",
+        "tiles": [
+          "[二階|にかい]の",
+          "教室で",
+          "行われる",
+          "ということ"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "ということ follows the plain form. Where will the class be held?",
+        "full": "先生のお話では、明日の[授業|じゅぎょう]は[二階|にかい]の教室で行われる{ということ}です。",
+        "explain": "[二階|にかい]の describes 教室, and 教室で tells where the class is held, so it comes before 行われる. ということ follows the plain form 行われる and です closes it: the teacher says tomorrow's class will be held in a classroom on the second floor."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u06d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "アンケート（　　）、この町の若い人の半分以上が車を持っていないそうだ。",
+        "options": [
+          "のせいで",
+          "ために",
+          "までに",
+          "によると"
+        ],
+        "answer": 4,
+        "explain": "The survey is the source and the sentence ends with そうだ: according to the survey, more than half of the young people in this town do not own a car. のせいで gives a cause with a bad result, but the survey did not cause anything. ために needs の after a noun, and it gives a purpose or a cause. までに sets a deadline, and a survey is not a time."
+      },
+      {
+        "id": "n3u06d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "市の発表では、新しい図書館は来年の春に（　　）。",
+        "options": [
+          "できたばかりだ",
+          "できるということだ",
+          "できるところだ",
+          "できることにした"
+        ],
+        "answer": 2,
+        "explain": "市の発表では gives the source, and plain form + ということだ passes on the news: the new library will open next spring, the city says. できたばかりだ is about something just finished, which clashes with 来年. できるところだ means just about to happen, not a year away. ことにした is a person's own decision, and a library cannot decide."
+      },
+      {
+        "id": "n3u06d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "部長",
+        "after": "時間が早くなるということだ。",
+        "tiles": [
+          "の話",
+          "によると",
+          "来週の",
+          "会議の"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "full": "部長の話{によると}来週の会議の時間が早くなるということだ。",
+        "explain": "の話, によると, 来週の, 会議の. 部長の話 is the source, so によると comes right after it. 来週の describes 会議, and 会議の describes 時間: according to the manager, the time of next week's meeting will be earlier."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "市役所からのお知らせ",
+    "en": "A notice from city hall",
+    "intro": "A notice from city hall is posted in your apartment building. It is about water and power being cut for repair work. Tap each word on it.",
+    "words": [
+      {
+        "id": "cityhall",
+        "word": "市役所",
+        "reading": "しやくしょ",
+        "gloss": "city hall",
+        "parts": [
+          ["市", "シ", "city"],
+          ["役", "ヤク", "role, service"],
+          ["所", "ショ", "place"]
+        ]
+      },
+      {
+        "id": "nowater",
+        "word": "断水",
+        "reading": "だんすい",
+        "gloss": "water supply cut off",
+        "parts": [
+          ["断", "ダン", "cut off"],
+          ["水", "スイ", "water"]
+        ]
+      },
+      {
+        "id": "powercut",
+        "word": "停電",
+        "reading": "ていでん",
+        "gloss": "power cut",
+        "parts": [
+          ["停", "テイ", "stop"],
+          ["電", "デン", "electricity"]
+        ]
+      },
+      {
+        "id": "schedule",
+        "word": "予定",
+        "reading": "よてい",
+        "gloss": "plan, schedule",
+        "parts": [
+          ["予", "ヨ", "beforehand"],
+          ["定", "テイ", "fixed"]
+        ]
+      },
+      {
+        "id": "onday",
+        "word": "当日",
+        "reading": "とうじつ",
+        "gloss": "on the day",
+        "parts": [
+          ["当", "トウ", "this, the very"],
+          ["日", "ジツ", "day"]
+        ]
+      },
+      {
+        "id": "change",
+        "word": "変更",
+        "reading": "へんこう",
+        "gloss": "change",
+        "parts": [
+          ["変", "ヘン", "change"],
+          ["更", "コウ", "anew"]
+        ]
+      },
+      {
+        "id": "counter",
+        "word": "窓口",
+        "reading": "まどぐち",
+        "gloss": "service counter",
+        "parts": [
+          ["窓", "まど", "window"],
+          ["口", "ぐち", "mouth, opening"]
+        ]
+      },
+      {
+        "id": "confirm",
+        "word": "確認",
+        "reading": "かくにん",
+        "gloss": "check, confirm",
+        "parts": [
+          ["確", "カク", "certain"],
+          ["認", "ニン", "recognise"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u06d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "水道の工事のため、明日の午前中は_断水_します。",
+      "options": [
+        "たんすい",
+        "だんみず",
+        "だんすい",
+        "たんみず"
+      ],
+      "answer": 3,
+      "explain": "断水 is read だんすい, the water supply is cut off: 断 has its on reading ダン (as in 判断), and 水 is read スイ, as in 水道 in the same sentence. たん has no voicing, and みず is the kun reading, which is not used in this word."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "男の人はこのあと、まず何をしますか。",
+    "audio": [
+      ["N", "会社で、女の人と男の人が話しています。男の人はこのあと、まず何をしますか。", "かいしゃで、おんなのひととおとこのひとがはなしています。おとこのひとはこのあと、まずなにをしますか。"],
+      ["F", "田中さん、さっきのニュース、見ましたか。台風が今夜こちらに来るそうですよ。", "たなかさん、さっきのニュース、みましたか。たいふうがこんやこちらにくるそうですよ。"],
+      ["M", "え、そうなんですか。明日は朝から京都で会議なんですが。", "え、そうなんですか。あしたはあさからきょうとでかいぎなんですが。"],
+      ["F", "鉄道会社のホームページによると、明日の朝は電車が止まるかもしれないということです。", "てつどうがいしゃのホームページによると、あしたのあさはでんしゃがとまるかもしれないということです。"],
+      ["M", "困ったなあ。今日のうちに京都に行ったほうがいいですかね。", "こまったなあ。きょうのうちにきょうとにいったほうがいいですかね。"],
+      ["F", "そうですね。でも、まず部長に相談したほうがいいと思いますよ。会議がオンラインになるかもしれませんし。", "そうですね。でも、まずぶちょうにそうだんしたほうがいいとおもいますよ。かいぎがオンラインになるかもしれませんし。"],
+      ["M", "そうですね。部長は今、席にいますか。", "そうですね。ぶちょうはいま、せきにいますか。"],
+      ["F", "さっき、お客さんのところに出かけました。三時ごろ戻るということです。", "さっき、おきゃくさんのところにでかけました。さんじごろもどるということです。"],
+      ["M", "三時か。じゃあ、それまでにホテルが空いているか調べておきます。", "さんじか。じゃあ、それまでにホテルがあいているかしらべておきます。"],
+      ["F", "あ、部長にはメールで聞いてみたらどうですか。すぐ返事をくれると思いますよ。", "あ、ぶちょうにはメールできいてみたらどうですか。すぐへんじをくれるとおもいますよ。"],
+      ["M", "そうですね。じゃあ、先にメールで聞いてみます。ホテルはそのあとにします。", "そうですね。じゃあ、さきにメールできいてみます。ホテルはそのあとにします。"],
+      ["N", "男の人はこのあと、まず何をしますか。", "おとこのひとはこのあと、まずなにをしますか。"]
+    ],
+    "item": {
+      "id": "n3u06d1.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "男の人はこのあと、まず何をしますか。",
+      "script": [
+        "ナレーター：会社で、女の人と男の人が話しています。男の人はこのあと、まず何をしますか。",
+        "女：田中さん、さっきのニュース、見ましたか。台風が今夜こちらに来るそうですよ。",
+        "男：え、そうなんですか。明日は朝から京都で会議なんですが。",
+        "女：鉄道会社のホームページによると、明日の朝は電車が止まるかもしれないということです。",
+        "男：困ったなあ。今日のうちに京都に行ったほうがいいですかね。",
+        "女：そうですね。でも、まず部長に相談したほうがいいと思いますよ。会議がオンラインになるかもしれませんし。",
+        "男：そうですね。部長は今、席にいますか。",
+        "女：さっき、お客さんのところに出かけました。三時ごろ戻るということです。",
+        "男：三時か。じゃあ、それまでにホテルが空いているか調べておきます。",
+        "女：あ、部長にはメールで聞いてみたらどうですか。すぐ返事をくれると思いますよ。",
+        "男：そうですね。じゃあ、先にメールで聞いてみます。ホテルはそのあとにします。",
+        "ナレーター：男の人はこのあと、まず何をしますか。"
+      ],
+      "options": [
+        "部長にメールを送る",
+        "ホテルを調べる",
+        "京都に行く",
+        "部長が戻るのを待つ"
+      ],
+      "printed": true,
+      "short": [
+        "部長にメール",
+        "ホテルを調べる",
+        "京都に行く",
+        "部長を待つ"
+      ],
+      "answer": 1,
+      "why": [
+        "The woman suggests asking the manager by email, and he says 先にメールで聞いてみます. The email comes first.",
+        "He planned to check hotels while waiting, but then says ホテルはそのあとにします.",
+        "Going to Kyoto today depends on what the manager says, and the meeting may move online.",
+        "The manager is back around three, but he decides not to wait and to email instead."
+      ]
+    }
+  }
+}

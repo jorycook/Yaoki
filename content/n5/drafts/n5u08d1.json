@@ -1,0 +1,256 @@
+{
+ "title": "〜より〜のほうが・〜と〜とどちら",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u08d1.p1",
+    "form": "AはBより〜・BよりAのほうが〜",
+    "gloss": "A is more … than B",
+    "connect": [
+     {"pos": "Noun は ＋ noun より ＋ adjective. The first 〜 is the thing you talk about. The second 〜, with より, is the one you measure it against", "rule": "〜は〜{より}[高|たか]いです"},
+     {"pos": "Noun より ＋ noun のほうが ＋ adjective. Here the winner comes second and takes のほうが", "rule": "〜より〜{のほうが}[安|やす]いです"}
+    ],
+    "examples": [
+     {"ja": "この[電車|でんしゃ]はバス{より}はやいです。", "en": "This train is faster than the bus."},
+     {"ja": "コーヒーよりおちゃ{のほうが}すきです。", "en": "I like tea more than coffee."}
+    ],
+    "watch": {
+     "note": "のほうが needs の between the noun and ほう. Do not drop it.",
+     "bad": "バスより電車ほうが安いです。",
+     "good": "バスより電車のほうが安いです。"
+    }
+   },
+   {
+    "id": "n5u08d1.p2",
+    "form": "AとBとどちらが〜ですか",
+    "gloss": "which is more …, A or B?",
+    "connect": [
+     {"pos": "Question: two nouns, each with と, then どちらが", "rule": "〜と〜と{どちらが}[高|たか]いですか"},
+     {"pos": "Answer: the one you choose ＋ のほうが", "rule": "〜{のほうが}[高|たか]いです"},
+     {"pos": "Answer when it is true of both", "rule": "{どちらも}[高|たか]いです"}
+    ],
+    "examples": [
+     {"ja": "[電車|でんしゃ]とバスと{どちらが}[安|やす]いですか。", "en": "Which is cheaper, the train or the bus?"},
+     {"ja": "A：いぬとねこと、どちらがすきですか。B：{どちらも}すきです。", "en": "A: Which do you like better, dogs or cats? B: I like both."}
+    ],
+    "watch": {
+     "note": "For two things, ask with どちら. どれ is for three or more things.",
+     "bad": "電車とバスとどれが安いですか。",
+     "good": "電車とバスとどちらが安いですか。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three are about choosing. How many things there are, and whether you ask or answer, decide the form.",
+   "forms": [
+    {"form": "〜より〜のほうが", "tag": "くらべる · A is more than B", "mark": "up", "ja": "バスより[電車|でんしゃ]{のほうが}はやいです。", "en": "The train is faster than the bus."},
+    {"form": "どちら", "tag": "二つ · which of two", "mark": "dot", "ja": "バスと[電車|でんしゃ]と{どちら}がはやいですか。", "en": "Which is faster, the bus or the train?"},
+    {"form": "どれ", "tag": "たくさん · which of three or more", "mark": "dot", "ja": "{どれ}があなたの[本|ほん]ですか。", "en": "Which one is your book? (of several)"}
+   ],
+   "check": {
+    "id": "n5u08d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Two things",
+    "q": "[電車|でんしゃ]とバスと（　　）が[安|やす]いですか。",
+    "options": ["どれ", "どちら", "なに"],
+    "answer": 2,
+    "why": [
+     "どれ is for three or more things. Here there are only two: the train and the bus.",
+     "Two things, 電車 and バス, are listed with と, so ask with どちら.",
+     "なに asks what something is. The two things are already named, so you ask which one."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u08d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[店|みせ]は^あの[店|みせ]^（　　）[安|やす]いです。",
+    "options": ["より", "から", "で", "と"],
+    "answer": 1,
+    "why": [
+     "This shop is being measured against that shop, so あの店 takes より: cheaper than that shop.",
+     "から means from or because. It does not compare two things.",
+     "で marks a place where something happens. It does not compare two things.",
+     "と means and or with. あの店と安いです does not make sense."
+    ]
+   },
+   {
+    "id": "n5u08d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^バスより^[電車|でんしゃ]（　　）はやいです。",
+    "options": ["のほうが", "ほうが", "よりが", "のほうを"],
+    "answer": 1,
+    "why": [
+     "バスより names the loser, so the winner 電車 takes のほうが: the train is faster.",
+     "の is missing. A noun needs の before ほう: 電車のほうが.",
+     "よりが is not a form. より already went on バス.",
+     "はやい is an adjective, so the winner takes が, not を."
+    ]
+   },
+   {
+    "id": "n5u08d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：^コーヒーとこうちゃと^（　　）がいいですか。B：こうちゃのほうがいいです。",
+    "options": ["どれ", "どちら", "どこ", "だれ"],
+    "answer": 2,
+    "why": [
+     "どれ is for three or more things. A offers only two drinks.",
+     "A offers two drinks, coffee and black tea, so A asks with どちら.",
+     "どこ asks about a place, not a drink.",
+     "だれ asks about a person, not a drink."
+    ]
+   },
+   {
+    "id": "n5u08d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：いぬとねこと、どちらがすきですか。B：（　　）すきです。^いぬもねこも^かわいいですから。",
+    "options": ["どちらも", "どれも", "どちらが", "なにも"],
+    "answer": 1,
+    "why": [
+     "B likes dogs and cats, both of the two, so B says どちらも.",
+     "どれも is for three or more things. A asked about only two animals.",
+     "どちらが asks a question. B is answering, not asking.",
+     "なにも goes with a negative verb, like なにもすきじゃありません. Here B says すきです."
+    ]
+   },
+   {
+    "id": "n5u08d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この[店|みせ]の",
+    "after": "です。",
+    "tiles": ["パンは", "あの[店|みせ]", "より", "[安|やす]い"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "この店の must go right before the thing it owns. より follows the shop you measure against.",
+    "full": "この[店|みせ]のパンはあの[店|みせ]{より}[安|やす]いです。",
+    "explain": "この店の goes with パン, so パンは comes first. あの店 is the one you measure against, so より comes right after it. 安い ends the sentence before です."
+   },
+   {
+    "id": "n5u08d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[電車|でんしゃ]と",
+    "after": "か。",
+    "tiles": ["バスと", "どちらが", "[安|やす]い", "です"],
+    "star": 1,
+    "bank": [3, 1, 0, 2],
+    "hint": "Each of the two things takes と. どちらが comes after both of them.",
+    "full": "[電車|でんしゃ]とバスと{どちらが}[安|やす]いですか。",
+    "explain": "電車と and バスと name the two things, then どちらが asks which. 安いです comes last, before か."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u08d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "電車は　バス（　　）　高いですが、はやいです。",
+    "options": ["より", "から", "で", "に"],
+    "answer": 1,
+    "explain": "The train is measured against the bus, so バス takes より: the train costs more than the bus, but it is faster. から means from or because, で marks a place or a means, and に marks a time or a place. None of them compares two things."
+   },
+   {
+    "id": "n5u08d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「にくと　魚と　どちらが　すきですか。」　B「魚（　　）　すきです。」",
+    "options": ["のほうが", "ほうが", "のほうで", "のほうへ"],
+    "answer": 1,
+    "explain": "A asks which of two, so B answers with the one B chooses ＋ のほうが: I like fish better. ほうが drops the の a noun needs. のほうで and のほうへ use the wrong small word; すき takes が."
+   },
+   {
+    "id": "n5u08d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この　電車は　",
+    "after": "です。",
+    "tiles": ["あの", "電車", "より", "新しい"],
+    "star": 2,
+    "bank": [3, 2, 0, 1],
+    "full": "この　電車は　あの　電車{より}　新しいです。",
+    "explain": "あの, 電車, より, 新しい. あの goes right before 電車, より follows the train you measure against, and 新しい ends the sentence before です: this train is newer than that one."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "二つの電車",
+  "en": "Two trains compared",
+  "intro": "A poster at the station compares a new train and an old train that go to the same town. Tap each word on it.",
+  "words": [
+   {"id": "train", "word": "電車", "reading": "でんしゃ", "gloss": "train", "parts": [["電", "デン", "electricity"], ["車", "シャ", "vehicle"]]},
+   {"id": "new", "word": "新しい", "reading": "あたらしい", "gloss": "new", "parts": [["新", "あたら", "new"]]},
+   {"id": "old", "word": "古い", "reading": "ふるい", "gloss": "old", "parts": [["古", "ふる", "old"]]},
+   {"id": "hour", "word": "一時間", "reading": "いちじかん", "gloss": "one hour", "parts": [["一", "イチ", "one"], ["時", "ジ", "time, hour"], ["間", "カン", "span, between"]]},
+   {"id": "minutes", "word": "三十分", "reading": "さんじゅっぷん", "gloss": "thirty minutes", "parts": [["三", "サン", "three"], ["十", "ジュッ", "ten"], ["分", "プン", "minute"]]},
+   {"id": "yen", "word": "千円", "reading": "せんえん", "gloss": "1,000 yen", "parts": [["千", "セン", "thousand"], ["円", "エン", "yen"]]},
+   {"id": "expensive", "word": "高い", "reading": "たかい", "gloss": "expensive", "parts": [["高", "たか", "high"]]},
+   {"id": "cheap", "word": "安い", "reading": "やすい", "gloss": "cheap", "parts": [["安", "やす", "cheap"]]}
+  ],
+  "check": {
+   "id": "n5u08d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_新しい_　電車に　のりたいです。",
+   "options": ["あたらしい", "あだらしい", "あらたしい", "あたらい"],
+   "answer": 1,
+   "explain": "新しい is read あたらしい, new: I want to ride the new train. あだらしい has だ instead of た, あらたしい swaps ら and た, and あたらい drops し."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人は　何で　大学まで　行きますか。",
+  "audio": [
+   ["N", "男の人と女の人が話しています。女の人は何で大学まで行きますか。", "おとこのひととおんなのひとがはなしています。おんなのひとはなんでだいがくまでいきますか。"],
+   ["F", "大学まで、バスと電車と、どちらがはやいですか。", "だいがくまで、バスとでんしゃと、どちらがはやいですか。"],
+   ["M", "電車のほうがはやいですよ。でも、駅まで十五分あるきます。", "でんしゃのほうがはやいですよ。でも、えきまでじゅうごふんあるきます。"],
+   ["F", "十五分ですか。バスはどうですか。", "じゅうごふんですか。バスはどうですか。"],
+   ["M", "バスは電車より時間がかかりますが、この店の前から出ますよ。", "バスはでんしゃよりじかんがかかりますが、このみせのまえからでますよ。"],
+   ["F", "じゃあ、バスで行きます。タクシーは高いですから。", "じゃあ、バスでいきます。タクシーはたかいですから。"],
+   ["N", "女の人は何で大学まで行きますか。", "おんなのひとはなんでだいがくまでいきますか。"]
+  ],
+  "item": {
+   "id": "n5u08d1.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人は　何で　大学まで　行きますか。",
+   "script": [
+    "ナレーター：男の人と女の人が話しています。女の人は何で大学まで行きますか。",
+    "女：大学まで、バスと電車と、どちらがはやいですか。",
+    "男：電車のほうがはやいですよ。でも、駅まで十五分あるきます。",
+    "女：十五分ですか。バスはどうですか。",
+    "男：バスは電車より時間がかかりますが、この店の前から出ますよ。",
+    "女：じゃあ、バスで行きます。タクシーは高いですから。",
+    "ナレーター：女の人は何で大学まで行きますか。"
+   ],
+   "options": ["電車", "バス", "タクシー", "じてんしゃ"],
+   "printed": true,
+   "short": ["電車", "バス", "タクシー", "じてんしゃ"],
+   "answer": 2,
+   "why": [
+    "The man says the train is faster, but it is a 15-minute walk to the station. She asks about the bus instead.",
+    "The bus takes longer than the train (電車より時間がかかります), but it leaves from in front of this shop. She says バスで行きます.",
+    "She says タクシーは高いですから: she does not take a taxi because it costs a lot.",
+    "Nobody talks about a bicycle."
+   ]
+  }
+ }
+}

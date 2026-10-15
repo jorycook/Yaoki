@@ -5,6 +5,12 @@
 <title>Listening</title>
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
+<script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
 </head>
 <body>
@@ -23,14 +29,15 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <div style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px">
 <a href="Readiness.dc.html" onClick="{{ toReadiness }}" aria-label="Close drill" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div role="img" aria-label="Question 4 of 6" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="width: 50%; height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0"></div></div>
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">練習 DRILL</div>
+<div style="flex-grow: 1"></div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ badge }}</div>
 </div>
 
+<div style="flex: 1 1 auto; min-height: 120px; overflow-y: auto; padding-bottom: 12px">
 <div style="padding: 6px 16px 0; display: flex; flex-direction: column; gap: 2px">
-<div style="font-size: 12px; font-weight: 800; color: #5A6382">聴解 · 即時応答　Quick response</div>
-<h1 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.35">いちばんいい返事は？</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382">Nothing is printed until you answer, just like the exam.</div>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">{{ kicker }}</div>
+<h1 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.35">{{ ask }}</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">{{ note }}</div>
 </div>
 
 <div style="margin: 12px 16px 0; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 12px">
@@ -44,23 +51,23 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 <div style="display: flex; align-items: center; gap: 8px">
 <button onClick="{{ playNormal }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap">もう一度 Replay</button>
-<button onClick="{{ playSlow }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap">ゆっくり 0.8×</button>
+<sc-if value="{{ hasSlow }}" hint-placeholder-val="{{ true }}"><button onClick="{{ playSlow }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap">ゆっくり 0.8×</button></sc-if>
 <div style="flex-grow: 1; text-align: right; font-size: 11px; font-weight: 700; color: #5A6382">drill only</div>
 </div>
 </div>
 
-<div style="margin: 12px 16px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<div style="margin: 12px 16px 0; display: grid; gap: 10px; grid-template-columns: {{ cols }}">
 <sc-for list="{{ answers }}" as="a" hint-placeholder-count="3">
-<button disabled="{{ a.off }}" aria-pressed="{{ a.on }}" onClick="{{ a.pick }}" style="height: 58px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; border: {{ a.border }}; background: {{ a.bg }}; box-shadow: {{ a.shadow }}; color: {{ a.color }}; font-weight: {{ a.weight }}">{{ a.n }}<sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ a.bad }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+<button disabled="{{ a.off }}" aria-pressed="{{ a.on }}" onClick="{{ a.pick }}" style="min-height: 58px; padding: 6px 12px; border-radius: 16px; display: flex; align-items: center; gap: 8px; border: {{ a.border }}; background: {{ a.bg }}; box-shadow: {{ a.shadow }}; color: {{ a.color }}; font-weight: {{ a.weight }}; font-size: {{ a.size }}; justify-content: {{ a.justify }}; text-align: left">{{ a.n }}<sc-if value="{{ a.printed }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="flex-grow: 1; font-size: 15px">{{ a.label }}</span></sc-if><sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ a.bad }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
 <sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
-<div style="margin: 10px 16px 0; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center">まず聞いてください　Listen first, then choose 1, 2 or 3.</div>
+<div style="margin: 10px 16px 0; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center">まず聞いてください　{{ waitNote }}</div>
 </sc-if>
 
-<div style="flex-grow: 1"></div>
+</div>
 <sc-if value="{{ answered }}" hint-placeholder-val="{{ true }}">
-<div style="padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<div style="flex-shrink: 0; box-sizing: border-box; max-height: 540px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
 <div style="display: flex; align-items: center; gap: 10px">
 <sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
@@ -69,30 +76,36 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; background: #FFFFFF; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3"/></svg>ノートに保存</div></sc-if>
 </div>
 
-<div style="padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
-<div style="font-size: 12px; font-weight: 800; color: #5A6382">スクリプト　Script</div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.9">女：この映画、わざわざ見に来るんじゃなかった。</div>
-<div style="display: flex; align-items: flex-start; gap: 8px">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 4px"><circle cx="12" cy="12" r="8.5"/></svg>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">1 そんなにつまらなかった？</strong>　Hears her regret and asks about it.</div>
+<div style="flex: 0 1 auto; min-height: 60px; overflow-y: auto; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; order: {{ scriptOrder }}">スクリプト　Script</div>
+<sc-for list="{{ script }}" as="l" hint-placeholder-count="1"><div lang="ja" style="order: {{ scriptOrder }}; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.9">{{ l.t }}</div></sc-for>
+<sc-for list="{{ replies }}" as="r" hint-placeholder-count="3">
+<div style="order: 1; display: flex; align-items: flex-start; gap: 8px">
+<sc-if value="{{ r.ok }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 4px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ r.no }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 4px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">{{ r.label }}</strong><sc-if value="{{ r.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　{{ r.why }}</div>
 </div>
-<div style="display: flex; align-items: flex-start; gap: 8px">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 4px"><path d="M6 6l12 12M18 6L6 18"/></svg>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">2 え、まだ見てないの？</strong><sc-if value="{{ picked2 }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　Hears a negative. She has just seen it.</div>
-</div>
-<div style="display: flex; align-items: flex-start; gap: 8px">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 4px"><path d="M6 6l12 12M18 6L6 18"/></svg>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">3 じゃあ、今度見に来ようよ。</strong><sc-if value="{{ picked3 }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　Takes it as "did not come". 〜んじゃなかった regrets what she did.</div>
-</div>
+</sc-for>
 </div>
 
-<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+<a href="Readiness.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
 </div>
 </sc-if>
 
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* the sample drill reached from Readiness */
+const SAMPLE = {
+ja: '即時応答', en: 'Quick response', ask: 'いちばんいい返事は？',
+item: {
+id: 'listening', type: '即時応答', clip: 'l_drill', slowClip: 'l_drill_slow', answer: 1,
+script: ['女：この映画、わざわざ見に来るんじゃなかった。'],
+options: ['そんなにつまらなかった？', 'え、まだ見てないの？', 'じゃあ、今度見に来ようよ。'],
+short: ['そんなにつまらなかった？', 'まだ見てないの？', '今度見に来ようよ'],
+why: ['Hears her regret and asks about it.', 'Hears a negative. She has just seen it.', 'Takes it as "did not come". 〜んじゃなかった regrets what she did.'],
+},
+};
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -108,14 +121,21 @@ if (window.ykSound) window.ykSound.stop();
 renderVals() {
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const ANSWER = 1;
-const SHORT = { 2: 'まだ見てないの？', 3: '今度見に来ようよ' };
+const C = window.ykCourse;
+/* a day's listening lesson, or the drill reached from Readiness (the sample item) */
+const app = this.props.app || {};
+const fromDay = !!(app.day && app.day.skill && app.day.skill.kind === 'listening');
+const sk = fromDay ? app.day.skill : SAMPLE;
+const it = sk.item;
+const ANSWER = it.answer;
+const SHORT = {};
+it.options.forEach((o, k) => { SHORT[k + 1] = (it.short && it.short[k]) || C.plain(o); });
 const HEIGHTS = [10, 20, 30, 16, 34, 24, 12, 28, 38, 22, 14, 26, 32, 18, 10, 24, 30, 20, 12, 26, 16, 8];
 /* the line and its three replies are one clip (and a slower take of it): the waveform fills while it plays, then the answers unlock. If the sound cannot play, the waveform fills for a short stand-in time instead */
 const play = (rate) => () => {
 clearInterval(this.timer);
 const snd = window.ykSound;
-const key = rate === 1 ? 'l_drill' : 'l_drill_slow';
+const key = rate === 1 ? it.clip : it.slowClip || it.clip;
 const standIn = 2600 / rate;
 let sound = !!(snd && snd.has(key) && snd.unlock() && snd.play(key));
 let heard = false;
@@ -150,7 +170,7 @@ this.setState({ progress: done });
 const answered = s.pick !== null;
 const correct = answered && s.pick === ANSWER;
 const wrong = answered && s.pick !== ANSWER;
-const answers = [1, 2, 3].map((n) => {
+const answers = it.options.map((_, k) => k + 1).map((n) => {
 const on = s.pick === n;
 let look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700 };
 if (s.played && !answered) look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 800 };
@@ -158,13 +178,17 @@ if (answered && n === ANSWER) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3
 else if (answered && on) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440', weight: 800 };
 return {
 n,
+label: C.plain(it.options[n - 1]),
+printed: !!it.printed,
+size: it.printed ? '16px' : '22px',
+justify: it.printed ? 'flex-start' : 'center',
 on,
 off: !s.played || answered,
 right: answered && n === ANSWER,
 bad: answered && on && n !== ANSWER,
 pick: () => {
 if (!s.played || answered) return;
-if (n !== ANSWER && this.props.miss) this.props.miss({ src: 'listening', wrong: SHORT[n] });
+if (n !== ANSWER && this.props.miss && it.id) this.props.miss({ src: it.id, wrong: SHORT[n] });
 this.setState({ pick: n });
 },
 ...look,
@@ -187,7 +211,23 @@ verdictJa: wrong ? 'おしい！' : 'せいかい！',
 verdictEn: wrong ? 'Not quite' : 'Correct',
 sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
 tone: wrong ? '#C7361E' : '#0B7A6B',
-toReadiness: nav('Readiness'),
+toReadiness: nav(fromDay ? 'Today' : 'Readiness'),
+toDone: (e) => {
+if (fromDay && this.props.save) this.props.save({ prog: { r: 1 } });
+nav(fromDay ? 'Today' : 'Readiness')(e);
+},
+badge: fromDay ? '練習 DRILL' : '練習 DRILL',
+kicker: '聴解 · ' + it.type + '　' + (sk.en || ''),
+ask: sk.ask,
+/* 発話表現 shows a picture on the paper; here a line describes it */
+note: sk.situation ? 'The picture: ' + sk.situation : it.printed ? 'The choices are printed, as on the paper.' : 'Nothing is printed until you answer, just like the exam.',
+cols: it.printed ? '1fr' : 'repeat(' + it.options.length + ', minmax(0, 1fr))',
+waitNote: 'Listen first, then choose ' + it.options.map((_, k) => k + 1).join(', ').replace(/, (\d)$/, ' or $1') + '.',
+hasSlow: !!it.slowClip,
+/* with printed choices the reasons come first, the long conversation after them */
+scriptOrder: it.printed ? 2 : 0,
+script: (it.type === '即時応答' ? [it.q || (it.script || [])[0] || ''] : it.script || []).map((t) => ({ t })),
+replies: it.options.map((o, k) => ({ label: (k + 1) + ' ' + C.plain(o), why: (it.why && it.why[k]) || '', ok: k + 1 === ANSWER, no: k + 1 !== ANSWER, mine: s.pick === k + 1 && k + 1 !== ANSWER })),
 };
 }
 }

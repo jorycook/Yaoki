@@ -1,0 +1,268 @@
+{
+ "title": "〜らしい（典型）・〜らしくない",
+ "grammar": {
+  "points": [
+   {
+    "id": "n3u05d1.p1",
+    "form": "〜らしい",
+    "gloss": "typical of; just like a true …",
+    "connect": [
+     {"pos": "Noun", "rule": "〜＋{らしい}（春らしい・学生らしい）"},
+     {"pos": "Before a noun (it works like an い-adjective)", "rule": "学生{らしい}服・春{らしい}天気"},
+     {"pos": "Before a verb, らしい becomes らしく", "rule": "春{らしく}なる"}
+    ],
+    "examples": [
+     {"ja": "今日は[暖|あたた]かくて、春{らしい}天気ですね。", "en": "It is warm today. Real spring weather, isn't it?"},
+     {"ja": "三十分も早く来たんですか。田中さん{らしい}ですね。", "en": "You came thirty minutes early? That is so like you, Tanaka."}
+    ],
+    "watch": {
+     "note": "This らしい joins the noun directly, with no の or だ in between. It says the thing has all the good, expected qualities of that noun. After a plain form, as in 雨がふるらしい, らしい is the N4 \"I hear\".",
+     "bad": "今日は春のらしい天気です。",
+     "good": "今日は春らしい天気です。"
+    }
+   },
+   {
+    "id": "n3u05d1.p2",
+    "form": "〜らしくない",
+    "gloss": "not like (someone); not what you expect of …",
+    "connect": [
+     {"pos": "Noun", "rule": "〜＋{らしくない}（きみらしくない）"},
+     {"pos": "Before a noun", "rule": "冬{らしくない}日"},
+     {"pos": "Polite, past", "rule": "〜{らしくありません}・〜{らしくなかった}"}
+    ],
+    "examples": [
+     {"ja": "えっ、[宿題|しゅくだい]を[忘|わす]れたの？きみ{らしくない}ね。", "en": "What, you forgot your homework? That's not like you."},
+     {"ja": "十二月なのに二十度もあって、冬{らしくない}ですね。", "en": "It's December, but it's twenty degrees. It doesn't feel like winter at all."}
+    ],
+    "watch": {
+     "note": "らしい ends like an い-adjective, so its negative is made the same way: 高い becomes 高くない, and らしい becomes らしくない or らしくありません.",
+     "bad": "今日は寒くて、春らしいではありません。",
+     "good": "今日は寒くて、春らしくありません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three use らしい: the first two say whether something has the qualities you expect of a noun, while the N4 らしい after a plain form passes on what you heard.",
+   "forms": [
+    {"form": "〜らしい", "tag": "いかにも · typical of", "mark": "dot", "ja": "ゆかたを着ると、夏{らしい}気分になります。", "en": "When I wear a yukata, I really feel it is summer."},
+    {"form": "〜らしくない", "tag": "いつもとちがう · not like", "mark": "down", "ja": "このカレーはとてもあまくて、カレー{らしくない}味です。", "en": "This curry is very sweet. It doesn't taste like a curry."},
+    {"form": "〜らしい（N4）", "tag": "伝聞 · I hear", "mark": "dot", "ja": "駅前に新しいカフェができる{らしい}です。", "en": "I hear a new café is opening in front of the station."}
+   ],
+   "check": {
+    "id": "n3u05d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which one passes on news?",
+    "q": "^天気[予報|よほう]で言っていましたが^、来週は雨が多い（　　）です。",
+    "options": ["らしく", "らしくない", "らしい"],
+    "answer": 3,
+    "why": [
+     "らしく must be followed by a verb or a clause, and the sentence ends with です.",
+     "らしくない follows a noun (冬らしくない). After the plain form 多い it cannot be used.",
+     "Plain form + らしい is the N4 \"I hear\": the weather forecast said there will be a lot of rain next week."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u05d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このお店のパンは、[本当|ほんとう]にフランス（　　）^味^がします。",
+    "options": ["らしく", "らしい", "らしさ", "のらしい"],
+    "answer": 2,
+    "why": [
+      "らしく goes before a verb, but here the noun 味 comes right after the blank.",
+      "Noun + らしい before a noun: the bread has a real French taste.",
+      "らしさ is a noun (Frenchness). フランスらしさ味 is not Japanese.",
+      "Typical らしい joins the noun directly, with no の."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[公園|こうえん]で^元気に走り回る^子どもたちは、[本当|ほんとう]に子ども（　　）ですね。",
+    "options": ["そう", "よう", "はず", "らしい"],
+    "answer": 4,
+    "why": [
+      "そう (looks like) does not join a noun directly. You would need 子どもだそう, which means \"I hear they are children\".",
+      "よう needs の after a noun (子どものよう), and it says something only looks like a child.",
+      "はず needs の after a noun, and it means \"should be\". It does not fit children you are watching.",
+      "Noun + らしい: running around full of energy is just what children are like."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^いつもは^よく話す兄が、今日はずっと[静|しず]かです。兄（　　）ので、[心配|しんぱい]です。",
+    "options": ["らしくない", "じゃないらしい", "ほどじゃない", "らしいだ"],
+    "answer": 1,
+    "why": [
+      "My brother usually talks a lot, so being quiet is not like him. That is why I am worried.",
+      "じゃないらしい means \"I hear it isn't him\". The speaker knows it is his brother.",
+      "ほどじゃない compares two things (not as much as …). Nothing is compared here.",
+      "らしい ends like an い-adjective, so だ cannot follow it."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^まだ入社一年目なのに^、新人（　　）[落|お]ち[着|つ]いた話し方ですね。",
+    "options": ["らしい", "らしいの", "らしくない", "らしさが"],
+    "answer": 3,
+    "why": [
+      "なのに shows a surprise, so the calm way of speaking is not what you expect of a new employee. らしい says the opposite.",
+      "らしい goes straight before a noun phrase, with no の.",
+      "Noun + らしくない before a noun: a calm way of speaking that is unusual for someone in their first year.",
+      "らしさが would need a verb after it, such as ある. Here 落ち着いた話し方 follows."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u05d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[息子|むすこ]は大学に入ってから、",
+    "after": "きました。",
+    "tiles": ["話し方も", "大人", "らしく", "なって"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "Before a verb, らしい becomes らしく. What has changed about the son?",
+    "full": "[息子|むすこ]は大学に入ってから、話し方も大人{らしく}なってきました。",
+    "explain": "話し方も is what changed, so it comes first. 大人らしく goes before the verb なる, and なって joins きました: since he started university, even the way my son talks has become more grown-up."
+   },
+   {
+    "id": "n3u05d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "テストの前に",
+    "after": "らしくないね。",
+    "tiles": ["勉強しない", "のは", "まじめな", "きみ"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "What you do comes first, marked with のは. Then who you are, right before らしくない.",
+    "full": "テストの前に勉強しないのはまじめなきみ{らしくない}ね。",
+    "explain": "勉強しないのは is the action being judged. まじめな describes きみ, and きみ joins らしくない directly: not studying before a test is not like you, since you are so serious."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u05d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "山田さんはどんなときも最後まであきらめない。本当にスポーツ選手（　　）人だ。",
+    "options": ["みたい", "らしく", "ように", "らしい"],
+    "answer": 4,
+    "explain": "Noun + らしい before a noun: never giving up is what you expect of a true athlete. みたい needs な before a noun (みたいな). らしく goes before a verb, not a noun. ように goes before a verb, and after a noun it needs の (選手のような人)."
+   },
+   {
+    "id": "n3u05d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "部長はいつも時間にきびしいのに、今日は会議に三十分もおくれてきた。部長（　　）ね。",
+    "options": ["らしかった", "らしくない", "じゃないらしい", "らしいそうだ"],
+    "answer": 2,
+    "explain": "The manager is usually strict about time, so being thirty minutes late is not like him: 部長らしくない. らしかった says it was typical of him, the opposite of what のに shows. じゃないらしい means \"I hear it isn't the manager\", which makes no sense here. らしいそうだ puts two hearsay endings together and is not used."
+   },
+   {
+    "id": "n3u05d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "今日は朝から",
+    "after": "一日でした。",
+    "tiles": ["雪が", "降って", "冬", "らしい"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "full": "今日は朝から雪が降って冬{らしい}一日でした。",
+    "explain": "雪が, 降って, 冬, らしい. 雪が goes with 降って, and 冬らしい must sit right before 一日: it snowed from the morning, and it was a real winter day."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "春の着こなしアドバイス",
+  "en": "Spring fashion tips",
+  "intro": "A fashion website gives advice on what to wear this spring. Tap each word on the page.",
+  "words": [
+   {"id": "season", "word": "季節", "reading": "きせつ", "gloss": "season", "parts": [["季", "キ", "season"], ["節", "セツ", "season, joint"]]},
+   {"id": "trend", "word": "流行", "reading": "りゅうこう", "gloss": "fashion, trend", "parts": [["流", "リュウ", "flow"], ["行", "コウ", "go"]]},
+   {"id": "everyday", "word": "普段着", "reading": "ふだんぎ", "gloss": "everyday clothes", "parts": [["普", "フ", "usual"], ["段", "ダン", "step, level"], ["着", "ぎ", "wear"]]},
+   {"id": "suit", "word": "似合う", "reading": "にあう", "gloss": "to suit, to look good on", "parts": [["似", "に", "resemble"], ["合", "あ", "fit"]]},
+   {"id": "combination", "word": "組み合わせ", "reading": "くみあわせ", "gloss": "combination", "parts": [["組", "く", "put together"], ["合", "あ", "fit"]]},
+   {"id": "warm", "word": "暖かい", "reading": "あたたかい", "gloss": "warm (weather)", "parts": [["暖", "あたた", "warm"]]},
+   {"id": "shoes", "word": "靴", "reading": "くつ", "gloss": "shoes", "parts": [["靴", "くつ", "shoes"]]},
+   {"id": "young", "word": "若者", "reading": "わかもの", "gloss": "young people", "parts": [["若", "わか", "young"], ["者", "もの", "person"]]}
+  ],
+  "check": {
+   "id": "n3u05d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "週末は_普段着_で出かけることが多いです。",
+   "options": ["ふだんき", "ふだんちゃく", "ふたんぎ", "ふだんぎ"],
+   "answer": 4,
+   "explain": "普段着 is read ふだんぎ, everyday clothes: 普段 is ふだん, and 着 becomes ぎ after it, as in 下着 (したぎ). ふだんき keeps き, ふだんちゃく uses the on reading チャク, and ふたんぎ drops the voicing of だん."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "女の人はこのあと、まず何をしますか。",
+  "audio": [
+   ["N", "服の店で、女の人と店の人が話しています。女の人はこのあと、まず何をしますか。", "ふくのみせで、おんなのひととみせのひとがはなしています。おんなのひとはこのあと、まずなにをしますか。"],
+   ["F", "すみません。来週、友だちのけっこん式があるんですが、着ていく服をさがしているんです。", "すみません。らいしゅう、ともだちのけっこんしきがあるんですが、きていくふくをさがしているんです。"],
+   ["M", "それでしたら、こちらのワンピースはいかがですか。春らしい明るい色で、人気があるんですよ。", "それでしたら、こちらのワンピースはいかがですか。はるらしいあかるいいろで、にんきがあるんですよ。"],
+   ["F", "きれいですね。でも、普段は黒い服が多いので、こんなに明るい色はわたしらしくないかなと思って。", "きれいですね。でも、ふだんはくろいふくがおおいので、こんなにあかるいいろはわたしらしくないかなとおもって。"],
+   ["M", "そんなことありませんよ。きっとお似合いです。上に黒いジャケットを着れば、落ち着いた感じにもなりますよ。", "そんなことありませんよ。きっとおにあいです。うえにくろいジャケットをきれば、おちついたかんじにもなりますよ。"],
+   ["F", "ジャケットは家にあるので、だいじょうぶです。あ、でも、この服に合う靴を持っていないんです。", "ジャケットはいえにあるので、だいじょうぶです。あ、でも、このふくにあうくつをもっていないんです。"],
+   ["M", "靴でしたら、二階の売り場にたくさんございます。でも、先に服を決めてからのほうがいいと思いますよ。", "くつでしたら、にかいのうりばにたくさんございます。でも、さきにふくをきめてからのほうがいいとおもいますよ。"],
+   ["F", "そうですね。じゃあ、一度着てみます。靴はそのあとで見に行きます。", "そうですね。じゃあ、いちどきてみます。くつはそのあとでみにいきます。"],
+   ["M", "はい。試着室はあちらです。", "はい。しちゃくしつはあちらです。"],
+   ["N", "女の人はこのあと、まず何をしますか。", "おんなのひとはこのあと、まずなにをしますか。"]
+  ],
+  "item": {
+   "id": "n3u05d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "女の人はこのあと、まず何をしますか。",
+   "script": [
+    "ナレーター：服の店で、女の人と店の人が話しています。女の人はこのあと、まず何をしますか。",
+    "女：すみません。来週、友だちのけっこん式があるんですが、着ていく服をさがしているんです。",
+    "男：それでしたら、こちらのワンピースはいかがですか。春らしい明るい色で、人気があるんですよ。",
+    "女：きれいですね。でも、普段は黒い服が多いので、こんなに明るい色はわたしらしくないかなと思って。",
+    "男：そんなことありませんよ。きっとお似合いです。上に黒いジャケットを着れば、落ち着いた感じにもなりますよ。",
+    "女：ジャケットは家にあるので、だいじょうぶです。あ、でも、この服に合う靴を持っていないんです。",
+    "男：靴でしたら、二階の売り場にたくさんございます。でも、先に服を決めてからのほうがいいと思いますよ。",
+    "女：そうですね。じゃあ、一度着てみます。靴はそのあとで見に行きます。",
+    "男：はい。試着室はあちらです。",
+    "ナレーター：女の人はこのあと、まず何をしますか。"
+   ],
+   "options": ["黒いジャケットを買う", "明るい色のワンピースを着てみる", "二階で靴を見る", "黒いワンピースをさがす"],
+   "printed": true,
+   "short": ["ジャケットを買う", "ワンピースを着る", "靴を見る", "黒い服をさがす"],
+   "answer": 2,
+   "why": [
+    "The clerk suggests a black jacket, but she already has one at home (ジャケットは家にあるので).",
+    "She decides to try the dress on first: じゃあ、一度着てみます.",
+    "She will look at shoes, but only after trying on the dress (靴はそのあとで見に行きます).",
+    "She usually wears black, but she does not go looking for a black dress. She tries the bright one."
+   ]
+  }
+ }
+}

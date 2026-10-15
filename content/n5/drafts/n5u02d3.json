@@ -1,0 +1,521 @@
+{
+ "title": "〜に〜があります・〜は〜にあります",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u02d3.p1",
+    "form": "〜に〜があります／〜に〜がいます",
+    "gloss": "there is … in (a place)",
+    "connect": [
+     {
+      "pos": "Place, then a thing",
+      "rule": "〜{に}〜{があります}"
+     },
+     {
+      "pos": "Place, then a person or animal",
+      "rule": "〜{に}〜{がいます}"
+     },
+     {
+      "pos": "Question: what or who is there",
+      "rule": "〜{に}[何|なに]{がありますか}／〜{に}だれ{がいますか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[一|いっ]かい{に}[花|はな]や{があります}。",
+      "en": "There is a flower shop on the first floor."
+     },
+     {
+      "ja": "[入口|いりぐち]{に}[店|みせ]の[人|ひと]{がいます}。",
+      "en": "There is a shop assistant at the entrance."
+     }
+    ],
+    "watch": {
+     "note": "The place comes first and the new thing takes が. A question word like 何 or だれ never takes は. Use が: 何がありますか.",
+     "bad": "あそこに何はありますか。",
+     "good": "あそこに何がありますか。"
+    }
+   },
+   {
+    "id": "n5u02d3.p2",
+    "form": "〜は〜にあります／〜は〜にいます",
+    "gloss": "(the thing or person) is in (a place)",
+    "connect": [
+     {
+      "pos": "Thing, then place",
+      "rule": "〜{は}〜{にあります}"
+     },
+     {
+      "pos": "Person or animal, then place",
+      "rule": "〜{は}〜{にいます}"
+     },
+     {
+      "pos": "Question: where",
+      "rule": "〜{は}どこ{にありますか}／〜{は}どこ{にいますか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[水|みず]{は}あそこ{にあります}。",
+      "en": "The water is over there."
+     },
+     {
+      "ja": "[母|はは]{は}[二|に]かい{にいます}。",
+      "en": "My mother is on the second floor."
+     }
+    ],
+    "watch": {
+     "note": "To say where someone or something is, the place takes に. で is for the place where you do something, as in 店で買います.",
+     "bad": "母は店でいます。",
+     "good": "母は店にいます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three join a thing and a place. The word order and が or は show what the listener already knows.",
+   "forms": [
+    {
+     "form": "〜に〜があります",
+     "tag": "なにが？ · what is there (new)",
+     "mark": "dot",
+     "ja": "[二|に]かい{に}[本|ほん]や{があります}。",
+     "en": "There is a bookshop on the second floor."
+    },
+    {
+     "form": "〜は〜にあります",
+     "tag": "どこに？ · where a known thing is",
+     "mark": "dot",
+     "ja": "[本|ほん]や{は}[二|に]かい{にあります}。",
+     "en": "The bookshop is on the second floor."
+    },
+    {
+     "form": "〜は〜です",
+     "tag": "ばしょ · short way to say where",
+     "mark": "dot",
+     "ja": "[本|ほん]や{は}[二|に]かい{です}。",
+     "en": "The bookshop is on the second floor (short form)."
+    }
+   ],
+   "check": {
+    "id": "n5u02d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "スーパーで",
+    "q": "すみません、[二|に]かいに[何|なに]（　　）ありますか。",
+    "options": [
+     "が",
+     "は",
+     "に"
+    ],
+    "answer": 1,
+    "why": [
+     "The place comes first with に, and the thing you ask about takes が: 何がありますか.",
+     "A question word like 何 never takes は.",
+     "に already marks the place (二かい). 何 is the thing, not a place."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u02d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^あそこに^いぬ（　　）いますよ。",
+    "options": [
+     "が",
+     "を",
+     "で",
+     "へ"
+    ],
+    "answer": 1,
+    "why": [
+     "The place comes first with に, and the dog is new information, so が.",
+     "を marks what you do something to. いる does not take を.",
+     "で marks where you do something. Here いぬ is who is there, not a place.",
+     "へ marks where you go. いぬ is not a place you go to."
+    ]
+   },
+   {
+    "id": "n5u02d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[本|ほん]やは^[二|に]かい^（　　）あります。",
+    "options": [
+     "に",
+     "を",
+     "が",
+     "へ"
+    ],
+    "answer": 1,
+    "why": [
+     "二かい is where the bookshop is, and the place before あります takes に.",
+     "を marks what you do something to. あります does not take を.",
+     "The bookshop already has は. 二かいが would make the second floor the thing that exists.",
+     "へ marks where you go. あります does not take へ."
+    ]
+   },
+   {
+    "id": "n5u02d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：お[父|とう]さんは（　　）いますか。　B：^[入口|いりぐち]にいます^。",
+    "options": [
+     "どこに",
+     "どこが",
+     "どこを",
+     "だれが"
+    ],
+    "answer": 1,
+    "why": [
+     "B answers with a place (入口に), so A asked where: どこにいますか.",
+     "どこ is a place, so it takes に here, not が.",
+     "いる does not take を.",
+     "A already named the person (お父さんは). B answers with a place, not a person."
+    ]
+   },
+   {
+    "id": "n5u02d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：[一|いっ]かいに^[何|なに]が^ありますか。　B：（　　）。",
+    "options": [
+     "[水|みず]と[花|はな]があります",
+     "[水|みず]と[花|はな]がいます",
+     "[水|みず]と[花|はな]はどこですか",
+     "[水|みず]と[花|はな]にあります"
+    ],
+    "answer": 1,
+    "why": [
+     "A asks 何がありますか, so B names the things with が and uses あります.",
+     "Water and flowers are things, so あります, not います.",
+     "B must answer A's question, not ask a new one.",
+     "に marks the place. Water and flowers are the things that are there, so they take が."
+    ]
+   },
+   {
+    "id": "n5u02d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[店|みせ]の[入口|いりぐち]に",
+    "after": "よ。",
+    "tiles": [
+     "[安|やす]い",
+     "[花|はな]",
+     "が",
+     "あります"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "The place (入口に) is already first. What is there, and which word marks it?",
+    "full": "[店|みせ]の[入口|いりぐち]に[安|やす]い[花|はな]{があります}よ。",
+    "explain": "安い goes right before 花. The new thing takes が, and あります comes last: 店の入口に安い花がありますよ, \"There are cheap flowers at the shop entrance.\""
+   },
+   {
+    "id": "n5u02d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：すみません、[花|はな]はどこですか。　B：[花|はな]",
+    "after": "よ。",
+    "tiles": [
+     "は",
+     "[二|に]かい",
+     "に",
+     "あります"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "A already asked about the flowers, so they take は. Which tile marks the place?",
+    "full": "A：すみません、[花|はな]はどこですか。　B：[花|はな]{は}[二|に]かい{にあります}よ。",
+    "explain": "は goes right after 花 because A already knows about the flowers. Then the place 二かい with に, and あります last: 花は二かいにありますよ."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u02d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：きょうしつに　だれが　いますか。　B：先生（　　）　います。",
+    "options": [
+     "が",
+     "を",
+     "に",
+     "で"
+    ],
+    "answer": 1,
+    "explain": "A asks だれがいますか, so B names the new person with が. いる does not take を, に would make 先生 a place, and で marks where you do something."
+   },
+   {
+    "id": "n5u02d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母は　いま　二かい（　　）。",
+    "options": [
+     "に　あります",
+     "に　います",
+     "が　います",
+     "で　います"
+    ],
+    "answer": 2,
+    "explain": "母 is a person, so います, and the place where she is takes に. あります is for things, 二かいが would make the floor the one who is there, and で is for where you do something."
+   },
+   {
+    "id": "n5u02d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしの　うちの　ちかくに",
+    "after": "。",
+    "tiles": [
+     "大きい",
+     "店",
+     "が",
+     "あります"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     2,
+     0
+    ],
+    "full": "わたしの　うちの　ちかくに　大きい　店{が}　あります。",
+    "explain": "大きい, 店, が, あります. The place (ちかくに) comes first, 大きい goes right before 店, the new thing takes が, and あります comes last."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "スーパーで",
+  "en": "At a supermarket",
+  "intro": "Tap every word you would read on the signs above the aisles and the doors.",
+  "words": [
+   {
+    "id": "entrance",
+    "word": "入口",
+    "reading": "いりぐち",
+    "gloss": "entrance",
+    "parts": [
+     [
+      "入",
+      "いり",
+      "go in"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "exit",
+    "word": "出口",
+    "reading": "でぐち",
+    "gloss": "exit",
+    "parts": [
+     [
+      "出",
+      "で",
+      "go out"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "fish",
+    "word": "魚",
+    "reading": "さかな",
+    "gloss": "fish",
+    "parts": [
+     [
+      "魚",
+      "さかな",
+      "fish"
+     ]
+    ]
+   },
+   {
+    "id": "water",
+    "word": "水",
+    "reading": "みず",
+    "gloss": "water",
+    "parts": [
+     [
+      "水",
+      "みず",
+      "water"
+     ]
+    ]
+   },
+   {
+    "id": "flower",
+    "word": "花",
+    "reading": "はな",
+    "gloss": "flower",
+    "parts": [
+     [
+      "花",
+      "はな",
+      "flower"
+     ]
+    ]
+   },
+   {
+    "id": "floor2",
+    "word": "二かい",
+    "reading": "にかい",
+    "gloss": "second floor",
+    "parts": [
+     [
+      "二",
+      "ニ",
+      "two"
+     ]
+    ]
+   },
+   {
+    "id": "price",
+    "word": "百円",
+    "reading": "ひゃくえん",
+    "gloss": "100 yen",
+    "parts": [
+     [
+      "百",
+      "ヒャク",
+      "hundred"
+     ],
+     [
+      "円",
+      "エン",
+      "yen"
+     ]
+    ]
+   },
+   {
+    "id": "toilet",
+    "word": "お手あらい",
+    "reading": "おてあらい",
+    "gloss": "restroom, toilet",
+    "parts": [
+     [
+      "手",
+      "て",
+      "hand"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u02d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "店の　_入口_に　花が　あります。",
+   "options": [
+    "いりくち",
+    "いりぐち",
+    "にゅうぐち",
+    "いれくち"
+   ],
+   "answer": 2,
+   "explain": "入口 is read いりぐち, \"entrance\": 入 is いり and 口 becomes ぐち, as in 出口 (でぐち). いりくち misses the change to ぐ, and にゅうぐち and いれくち are not words."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "発話表現",
+  "en": "Expressions",
+  "situation": "In a supermarket, a man holding an empty basket looks around for the water and turns to a shop assistant.",
+  "ask": "店で　水を　買いたいです。店の　人に　何と　いいますか。",
+  "item": {
+   "id": "n5u02d3.r1",
+   "kind": "choice",
+   "type": "発話表現",
+   "q": "店で　水を　買いたいです。店の　人に　何と　いいますか。",
+   "script": [
+    "ナレーター：店で　水を　買いたいです。店の　人に　何と　いいますか。",
+    "ナレーター：1",
+    "男：すみません、水は　どこに　いますか。",
+    "ナレーター：2",
+    "男：すみません、あそこに　水が　ありますよ。",
+    "ナレーター：3",
+    "男：すみません、水は　どこに　ありますか。"
+   ],
+   "options": [
+    "すみません、水は　どこに　いますか。",
+    "すみません、あそこに　水が　ありますよ。",
+    "すみません、水は　どこに　ありますか。"
+   ],
+   "printed": false,
+   "short": [
+    "水は　どこに　いますか",
+    "あそこに　水が　ありますよ",
+    "水は　どこに　ありますか"
+   ],
+   "answer": 3,
+   "why": [
+    "Water is a thing, so the question needs あります, not います.",
+    "This tells the assistant where the water is. The man does not know, so he needs to ask.",
+    ""
+   ]
+  },
+  "audio": [
+   [
+    "N",
+    "店で　水を　買いたいです。店の　人に　何と　いいますか。",
+    "みせで　みずを　かいたいです。みせの　ひとに　なんと　いいますか。"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "M",
+    "すみません、水は　どこに　いますか。",
+    "すみません、みずは　どこに　いますか。"
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "M",
+    "すみません、あそこに　水が　ありますよ。",
+    "すみません、あそこに　みずが　ありますよ。"
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "M",
+    "すみません、水は　どこに　ありますか。",
+    "すみません、みずは　どこに　ありますか。"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,271 @@
+{
+ "title": "〜そうだ（様子）・〜そうだ（伝聞）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u07d1.p1",
+    "form": "〜そうだ（様子）",
+    "gloss": "looks like, looks as if it will",
+    "connect": [
+     {"pos": "Verb, ます form without ます", "rule": "ふります → ふり{そうです}"},
+     {"pos": "い-adjective without い (いい → よさ, ない → なさ)", "rule": "おいしい → おいし{そうです}、いい → よさ{そうです}"},
+     {"pos": "な-adjective without な", "rule": "[元気|げんき] → [元気|げんき]{そうです}"}
+    ],
+    "examples": [
+     {"ja": "このパン、{おいしそうです}ね。", "en": "This bread looks delicious, doesn't it?"},
+     {"ja": "空が[暗|くら]いです。雨が{ふりそうです}。", "en": "The sky is dark. It looks like it's going to rain."}
+    ],
+    "watch": {
+     "note": "This そうです tells what you guess from how something looks. A colour you can already see is not a guess, so say it plainly. Nouns do not take this そうです either.",
+     "bad": "このりんごは赤そうです。",
+     "good": "このりんごは赤くておいしそうです。"
+    }
+   },
+   {
+    "id": "n4u07d1.p2",
+    "form": "〜そうだ（伝聞）",
+    "gloss": "I hear that, they say",
+    "connect": [
+     {"pos": "Verb, plain form", "rule": "ふる → ふる{そうです}、ふった → ふった{そうです}"},
+     {"pos": "い-adjective, plain form", "rule": "[寒|さむ]い → [寒|さむ]い{そうです}"},
+     {"pos": "Noun or な-adjective, with だ", "rule": "〜だ{そうです}"}
+    ],
+    "examples": [
+     {"ja": "天気よほうによると、あしたは雨がふる{そうです}。", "en": "According to the weather forecast, it will rain tomorrow."},
+     {"ja": "ニュースによると、駅の前に新しいパン[屋|や]ができた{そうです}。", "en": "According to the news, a new bakery has opened in front of the station."}
+    ],
+    "watch": {
+     "note": "With a noun or a な-adjective, hearsay そうです needs だ before it.",
+     "bad": "田中さんのお兄さんは医者そうです。",
+     "good": "田中さんのお兄さんは医者だそうです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "The same そうです means two things, and the form before it tells you which.",
+   "forms": [
+    {"form": "〜そうだ（様子）", "tag": "見て · looks like (what you see)", "mark": "dot", "ja": "そのかばん、[重|おも]{そうです}ね。", "en": "That bag looks heavy."},
+    {"form": "〜そうだ（伝聞）", "tag": "聞いて · I hear (what you were told)", "mark": "dot", "ja": "あした[台風|たいふう]が来る{そうです}。", "en": "I hear a typhoon is coming tomorrow."},
+    {"form": "〜でしょう", "tag": "考えて · probably (your own guess)", "mark": "dot", "ja": "あしたは雨がふる{でしょう}。", "en": "It will probably rain tomorrow."}
+   ],
+   "check": {
+    "id": "n4u07d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Seen or heard?",
+    "q": "^友だちによると^、あの店のパンはとても（　　）。",
+    "options": ["おいしそうです", "おいしいそうです", "おいしいだそうです"],
+    "answer": 2,
+    "why": [
+     "おいしそう says how the bread looks. 友だちによると tells you the friend said it, so the sentence needs hearsay.",
+     "Hearsay joins the whole plain form: おいしい + そうです. The friend said the bread is very good.",
+     "だ comes before hearsay そうです only after a noun or a な-adjective. An い-adjective joins with no だ."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u07d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "空が[暗|くら]くなりました。^今にも^雨が（　　）。",
+    "options": ["ふるそうです", "ふりそうです", "ふったそうです", "ふりだそうです"],
+    "answer": 2,
+    "why": [
+     "This is hearsay (I hear it will rain). The speaker is looking at the dark sky, and 今にも (any moment now) goes with the 'looks like' そうです.",
+     "ます form ふり + そうです: the dark sky shows it is about to rain.",
+     "This says you heard that it rained. 今にも is about something that is just going to happen.",
+     "だ does not come between a verb and そうです. ふりだ is not a form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "店の中を見てください。^だれもいませんね^。あまり人気が（　　）。",
+    "options": ["なそうです", "なくそうです", "なさそうです", "ないそうです"],
+    "answer": 3,
+    "why": [
+     "ない does not just drop い here. Before this そうです it becomes なさ.",
+     "なく does not join そうです. なくそうです is not a form.",
+     "ない becomes なさ: なさそうです. Nobody is inside, so the shop does not look popular.",
+     "ないそうです is hearsay (I hear it is not popular). Here the speaker judges from what they see: だれもいませんね."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^ニュースによると^、きのう[北海道|ほっかいどう]で大雨が（　　）。",
+    "options": ["ふりそうでした", "ふるそうでした", "ふりましたそうです", "ふったそうです"],
+    "answer": 4,
+    "why": [
+     "ふりそう is how something looked. ニュースによると needs what you heard.",
+     "Hearsay そうです does not change to そうでした. The past goes before it: ふったそうです.",
+     "Hearsay そうです follows the plain form, not the ます form.",
+     "Plain past ふった + そうです: the news said it rained heavily yesterday."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^天気よほうによると^、来週はとても（　　）。",
+    "options": ["[寒|さむ]そうです", "[寒|さむ]いそうです", "[寒|さむ]いだそうです", "[寒|さむ]かったそうです"],
+    "answer": 2,
+    "why": [
+     "寒そう is a guess from how something looks. The forecast is something you heard, so it needs hearsay.",
+     "Plain form 寒い + そうです: the forecast says next week will be very cold.",
+     "An い-adjective takes no だ before そうです.",
+     "寒かった is past, but 来週 is next week."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u07d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "空が[暗|くら]いですね。かさを",
+    "after": "。",
+    "tiles": ["[持|も]って", "いった", "ほうが", "よさそうです"],
+    "star": 2,
+    "bank": [3, 0, 2, 1],
+    "hint": "〜たほうがいい gives advice. Before this そうです, いい becomes よさ.",
+    "full": "空が[暗|くら]いですね。かさを[持|も]っていったほうが{よさそうです}。",
+    "explain": "かさを持っていく is take an umbrella, and its past いった comes before ほうが. ほうがいい becomes ほうがよさそうです: from the dark sky, it looks better to take an umbrella."
+   },
+   {
+    "id": "n4u07d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "ニュースによると、駅の前に今月",
+    "after": "そうです。",
+    "tiles": ["できた", "パン[屋|や]は", "とても", "人気だ"],
+    "star": 1,
+    "bank": [3, 1, 0, 2],
+    "hint": "できた describes the bakery. 人気 is a noun, so hearsay needs だ.",
+    "full": "ニュースによると、駅の前に今月できたパン[屋|や]はとても{人気だ}そうです。",
+    "explain": "駅の前に今月できた describes パン屋, so パン屋は comes right after できた. とても goes before 人気だ, and 人気 is a noun, so だ joins it to hearsay そうです: the news says the new bakery is very popular."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u07d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "見て　ください。あの　子ども、プレゼントを　もらって　とても　（　　）ですね。",
+    "options": ["うれしいそう", "うれしくそう", "うれしそう", "うれしだそう"],
+    "answer": 3,
+    "explain": "見てください shows the speaker is looking at the child, so the 'looks' そう fits: drop い, うれしそうです. うれしいそうです is hearsay (I hear the child is happy), which does not fit what the speaker sees. うれしくそう and うれしだそう are not forms."
+   },
+   {
+    "id": "n4u07d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "天気よほうに　よると、あしたは　一日中　いい　天気（　　）。",
+    "options": ["そうです", "だそうです", "なそうです", "のそうです"],
+    "answer": 2,
+    "explain": "天気よほうによると needs hearsay, and 天気 is a noun, so だ comes before そうです: 天気だそうです. そうです does not join a noun directly, and な and の do not come before そうです."
+   },
+   {
+    "id": "n4u07d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "森さんに　よると、",
+    "after": "。",
+    "tiles": ["きのうの", "試験は", "かんたんだった", "そうです"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "full": "森さんに　よると、きのうの　試験は　{かんたんだった}　そうです。",
+    "explain": "きのうの, 試験は, かんたんだった, そうです. きのうの describes 試験. かんたん is a な-adjective, so its plain past かんたんだった comes before hearsay そうです: Mori-san says yesterday's test was easy."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "パン屋のはり紙",
+  "en": "A sign in a bakery window",
+  "intro": "A sign in the bakery window tells you about today's bread. Tap each word on it.",
+  "words": [
+   {"id": "new", "word": "新発売", "reading": "しんはつばい", "gloss": "new on sale", "parts": [["新", "シン", "new"], ["発", "ハツ", "start, send out"], ["売", "バイ", "sell"]]},
+   {"id": "sale", "word": "特売", "reading": "とくばい", "gloss": "special sale", "parts": [["特", "トク", "special"], ["売", "バイ", "sell"]]},
+   {"id": "tasting", "word": "試食", "reading": "ししょく", "gloss": "free tasting", "parts": [["試", "シ", "try"], ["食", "ショク", "eat"]]},
+   {"id": "order", "word": "注文", "reading": "ちゅうもん", "gloss": "order", "parts": [["注", "チュウ", "pour, note"], ["文", "モン", "writing"]]},
+   {"id": "soldout", "word": "売り切れ", "reading": "うりきれ", "gloss": "sold out", "parts": [["売", "う", "sell"], ["切", "き", "cut"]]},
+   {"id": "takeaway", "word": "持ち帰り", "reading": "もちかえり", "gloss": "takeaway", "parts": [["持", "も", "hold"], ["帰", "かえ", "return"]]},
+   {"id": "beef", "word": "牛肉", "reading": "ぎゅうにく", "gloss": "beef", "parts": [["牛", "ギュウ", "cow"], ["肉", "ニク", "meat"]]},
+   {"id": "opens", "word": "開店", "reading": "かいてん", "gloss": "shop opens", "parts": [["開", "カイ", "open"], ["店", "テン", "shop"]]}
+  ],
+  "check": {
+   "id": "n4u07d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "あしたは　パンの　_特売_が　あります。",
+   "options": ["とくはい", "どくばい", "とくばい", "とくうり"],
+   "answer": 3,
+   "explain": "特売 is read とくばい, a special sale: there is a bread sale tomorrow. 売 is read ばい here, not はい or うり, and 特 is とく, not どく."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "女の人は　何を　買いますか。",
+  "audio": [
+   ["N", "パン屋で、男の人と女の人が話しています。女の人は何を買いますか。", "パンやで、おとこのひととおんなのひとがはなしています。おんなのひとはなにをかいますか。"],
+   ["F", "わあ、どれもおいしそうですね。", null],
+   ["M", "ニュースによると、この店はカレーパンがいちばん人気だそうですよ。", "ニュースによると、このみせはカレーパンがいちばんにんきだそうですよ。"],
+   ["F", "へえ。あ、でも、カレーパンはもう売り切れですね。", "へえ。あ、でも、カレーパンはもううりきれですね。"],
+   ["M", "ほんとうだ。じゃあ、このチーズパンは？", null],
+   ["F", "うーん、上に赤いものがのっていて、ちょっとからそうですね。からいものはにがてなんです。", "うーん、うえにあかいものがのっていて、ちょっとからそうですね。からいものはにがてなんです。"],
+   ["M", "じゃあ、メロンパンはどうですか。大きくておいしそうですよ。", "じゃあ、メロンパンはどうですか。おおきくておいしそうですよ。"],
+   ["F", "ええ。でも、あしたの朝、食べたいんです。メロンパンは、つぎの日になるとかたくなるそうですから。", "ええ。でも、あしたのあさ、たべたいんです。メロンパンは、つぎのひになるとかたくなるそうですから。"],
+   ["M", "じゃあ、あんパンは？一日たっても、やわらかいそうですよ。", "じゃあ、あんパンは？いちにちたっても、やわらかいそうですよ。"],
+   ["F", "そうですか。じゃあ、それにします。", null],
+   ["N", "女の人は何を買いますか。", "おんなのひとはなにをかいますか。"]
+  ],
+  "item": {
+   "id": "n4u07d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "女の人は　何を　買いますか。",
+   "script": [
+    "ナレーター：パン屋で、男の人と女の人が話しています。女の人は何を買いますか。",
+    "女：わあ、どれもおいしそうですね。",
+    "男：ニュースによると、この店はカレーパンがいちばん人気だそうですよ。",
+    "女：へえ。あ、でも、カレーパンはもう売り切れですね。",
+    "男：ほんとうだ。じゃあ、このチーズパンは？",
+    "女：うーん、上に赤いものがのっていて、ちょっとからそうですね。からいものはにがてなんです。",
+    "男：じゃあ、メロンパンはどうですか。大きくておいしそうですよ。",
+    "女：ええ。でも、あしたの朝、食べたいんです。メロンパンは、つぎの日になるとかたくなるそうですから。",
+    "男：じゃあ、あんパンは？一日たっても、やわらかいそうですよ。",
+    "女：そうですか。じゃあ、それにします。",
+    "ナレーター：女の人は何を買いますか。"
+   ],
+   "options": ["あんパン", "カレーパン", "チーズパン", "メロンパン"],
+   "printed": true,
+   "short": ["あんパン", "カレーパン", "チーズパン", "メロンパン"],
+   "answer": 1,
+   "why": [
+    "She wants bread for tomorrow morning, and the man heard that あんパン stays soft a day later (やわらかいそうです). She says それにします.",
+    "It is the most popular (人気だそうです), but it is already sold out (売り切れ).",
+    "It has something red on top and looks spicy (からそう), and she does not like spicy food.",
+    "It looks good, but she heard it gets hard the next day (かたくなるそうです), and she will eat it tomorrow."
+   ],
+   "explain": null
+  }
+ }
+}

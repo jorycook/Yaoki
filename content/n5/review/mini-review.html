@@ -1,0 +1,271 @@
+<title>Yaoki N5 Mini Mock Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EE; --paper:#FFFFFF; --ink:#1B2440; --mute:#5D6377; --line:#DCD8CC;
+  --hl:#FFF0B8; --accent:#2F4FD0; --ok:#0B7A6B; --okbg:#E0F3EF; --fix:#C7361E; --fixbg:#FDEBE6;
+  --amber:#B87500; --amberbg:#FFF4D6; --red:#C7361E; --redbg:#FDEBE6; --chip:#ECE9DF;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171F; --paper:#1C2029; --ink:#E9EBF2; --mute:#9AA1B5; --line:#323847;
+  --hl:#4A4220; --accent:#8EA2FF; --ok:#4CC3AE; --okbg:#173A35; --fix:#FF8A72; --fixbg:#40221C;
+  --amber:#F2B43A; --amberbg:#3A3019; --red:#FF8A72; --redbg:#40221C; --chip:#262B36; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171F; --paper:#1C2029; --ink:#E9EBF2; --mute:#9AA1B5; --line:#323847;
+  --hl:#4A4220; --accent:#8EA2FF; --ok:#4CC3AE; --okbg:#173A35; --fix:#FF8A72; --fixbg:#40221C;
+  --amber:#F2B43A; --amberbg:#3A3019; --red:#FF8A72; --redbg:#40221C; --chip:#262B36; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP','Hiragino Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;padding-inline:16px;padding-block:20px 60px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+[lang="ja"]{font-family:'Noto Serif JP','Hiragino Mincho ProN',serif}
+h1{font-size:24px;line-height:1.3;margin:0;text-wrap:balance;font-weight:800}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:14px 0 0;font-weight:800}
+p{margin:0}
+.lede{color:var(--mute);max-width:65ch}
+.howto{display:grid;gap:6px;padding:12px 14px;border-left:3px solid var(--accent);background:var(--paper)}
+.howto b{font-weight:800}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;background:var(--bg);padding-block:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.count{font-weight:800;font-variant-numeric:tabular-nums;margin-right:auto}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:10px;padding:6px 12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.status{font-size:12px;color:var(--mute)}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.row.amber{border-left:5px solid var(--amber)}
+.row.red{border-left:5px solid var(--red)}
+.row.m-ok{background:linear-gradient(var(--okbg),var(--okbg))}
+.row.m-fix{background:linear-gradient(var(--fixbg),var(--fixbg))}
+.meta{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.meta .id{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace}
+.meta .lab{font-weight:800;letter-spacing:.04em}
+.head{font-size:16px;overflow-wrap:anywhere}
+.flag{font-size:13px;padding:8px 10px;border-radius:8px;background:var(--amberbg)}
+.row.red .flag{background:var(--redbg)}
+.flag b{font-weight:800}
+details summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:600}
+details>div{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.hl{background:var(--hl);font-weight:700;border-radius:3px;padding:0 2px}
+.ans{color:var(--ok);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.tiles{display:inline;padding:0 2px;border-bottom:2px solid var(--ok)}
+.star{color:var(--ok);font-weight:700}
+.star::before{content:'★';font-size:11px;vertical-align:super}
+.opts{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.opts li.ok::marker{color:var(--ok);font-weight:800}
+.opts li.ok>span[lang]{color:var(--ok);font-weight:700}
+.why{font-family:'Noto Sans JP',system-ui,sans-serif;font-size:13px;color:var(--mute)}
+.ex{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.en{font-size:13px;color:var(--mute)}
+.small{font-size:13px;color:var(--mute)}
+ul.small{margin:0;padding-left:18px}
+.bad{color:var(--fix)} .good{color:var(--ok)}
+.passage{padding:10px 12px;background:var(--bg);border-radius:8px;line-height:1.9;display:flex;flex-direction:column;gap:2px}
+.words{border-collapse:collapse;font-size:14px;width:100%}
+.words td{border-top:1px solid var(--line);padding:4px 8px 4px 0;vertical-align:top}
+.tablebox{overflow-x:auto}
+rt{font-size:9px;color:var(--mute)}
+.marks{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mark{min-width:72px;min-height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+.mark.okb[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.mark.fixb[aria-pressed="true"]{background:var(--fix);border-color:var(--fix);color:var(--paper)}
+.notebtn{background:none;border:none;color:var(--accent);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px}
+textarea{width:100%;box-sizing:border-box;min-height:64px;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;font-size:14px;background:var(--paper);color:var(--ink);resize:vertical}
+.empty{color:var(--mute);font-size:14px;padding:12px 0}
+.toast{font-size:12px;color:var(--ok);font-weight:700}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <div class="small" style="font-weight:800;letter-spacing:.08em">YAOKI N5 · CONTENT REVIEW</div>
+    <h1>Mini Mock: the 12 questions</h1>
+    <p class="lede">Everything in this unit, written as draft content for a JLPT N5 study app. Each row is one thing to judge. The rows marked amber or red are the ones I am least sure about; they come first.</p>
+  </header>
+  <section class="howto">
+    <p><b>Please mark each row OK or Fix.</b> For Fix, a word in the note box is enough: what is wrong, or the better wording.</p>
+    <p class="small">Flagged rows have the question I want answered. The other rows show the sentence with the answer in place; open "Options and reasons" only if something looks off. About 2 hours for this pilot unit; later units will be shorter, using your corrections as rules.</p>
+    <p class="small">What to look for: one right answer only (a wrong option a native speaker could accept is a bug), natural Japanese, N5 level, and English reasons that state a true rule.</p>
+  </section>
+
+  <div class="bar" role="toolbar" aria-label="Filter and progress">
+    <span class="count" id="count">0 of 0 marked</span>
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="flag" aria-pressed="false">Flagged</button>
+    <button class="chip" data-f="todo" aria-pressed="false">Not marked</button>
+    <button class="chip" data-f="fix" aria-pressed="false">To fix</button>
+    <button class="btn" id="copy">Copy all marks</button>
+    <span class="status" id="status" style="flex-basis:100%">Marks are kept on this device.</span>
+  </div>
+
+  <main id="main" class="wrap" style="gap:10px"></main>
+</div>
+
+<script>
+const ROWS = [{"id": "n5mock1", "group": "Mini mock", "label": "Mock · 漢字読み", "head": "<span lang=\"ja\">きのうの　<u>午後<\/u>、としょかんで　べんきょうしました。 → <b class=\"ans\">ごご<\/b><\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">こご<\/span><\/li><li class=\"ok\"><span lang=\"ja\">ごご<\/span><\/li><li class=\"no\"><span lang=\"ja\">ごうご<\/span><\/li><li class=\"no\"><span lang=\"ja\">ごこ<\/span><\/li><\/ol><p class=\"small\">午後 is ごご, \"afternoon\": 午 is ご and 後 is ご. こご and ごこ change one ご to こ, and ごうご adds a long sound that is not there.<\/p>", "level": "amber", "note": "漢字読み on 午後: the wrong readings ここ, ごうご and ごこ are look-alikes, two of them not words. Fair distractors for a mock?"}, {"id": "n5mock2", "group": "Mini mock", "label": "Mock · 表記", "head": "<span lang=\"ja\">毎あさ　<u>でんしゃ<\/u>で　会社へ　行きます。 → <b class=\"ans\">電車<\/b><\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">雨車<\/span><\/li><li class=\"no\"><span lang=\"ja\">電東<\/span><\/li><li class=\"ok\"><span lang=\"ja\">電車<\/span><\/li><li class=\"no\"><span lang=\"ja\">雨東<\/span><\/li><\/ol><p class=\"small\">でんしゃ, \"train\", is 電車: 電 (electric) and 車 (vehicle). 雨 (rain) is the top part of 電 only, and 東 (east) looks like 車 but is not. So 雨車, 電東 and 雨東 are not words.<\/p>", "level": "amber", "note": "表記 on でんしゃ. 毎あさ is written half in kana because 朝 is kept off this course's kanji list. Should 朝 be allowed at N5?"}, {"id": "n5mock3", "group": "Mini mock", "label": "Mock · 文脈規定", "head": "<span lang=\"ja\">へやが　さむいですね。<b class=\"ans\">まど<\/b>を　しめましょうか。<\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">でんき<\/span><\/li><li class=\"ok\"><span lang=\"ja\">まど<\/span><\/li><li class=\"no\"><span lang=\"ja\">かさ<\/span><\/li><li class=\"no\"><span lang=\"ja\">いす<\/span><\/li><\/ol><p class=\"small\">The room is cold, so they close the window: まどを しめる. でんき (the light) is turned off with けす, not しめる. A かさ (umbrella) is closed with とじる, and it does nothing for a cold room. いす (a chair) cannot be closed at all.<\/p>", "level": "green", "note": ""}, {"id": "n5mock4", "group": "Mini mock", "label": "Mock · 言い換え類義", "head": "<span lang=\"ja\">まどが　小さいので、<u>この　へやは　くらいです<\/u>。 → <b class=\"ans\">この　へやは　あかるく　ないです。<\/b><\/span>", "body": "<ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">この　へやは　あかるく　ないです。<\/span><\/li><li class=\"no\"><span lang=\"ja\">この　へやは　ひろく　ないです。<\/span><\/li><li class=\"no\"><span lang=\"ja\">この　へやは　しずかでは　ないです。<\/span><\/li><li class=\"no\"><span lang=\"ja\">この　へやは　きれいでは　ないです。<\/span><\/li><\/ol><p class=\"small\">くらい (dark) means the same as あかるく ない (not bright). ひろく ない is \"not big\", しずかでは ない is \"not quiet\" and きれいでは ない is \"not clean\". None of those is about light.<\/p>", "level": "amber", "note": "言い換え: この へやは くらいです = あかるく ないです. A fair N5 paraphrase?"}, {"id": "n5mock5", "group": "Mini mock", "label": "Mock · 文の文法1", "head": "<span lang=\"ja\">雨が　ふって　いますから、きょうは　どこへも　<b class=\"ans\">行きません<\/b>。<\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">行きます<\/span><\/li><li class=\"no\"><span lang=\"ja\">行きました<\/span><\/li><li class=\"ok\"><span lang=\"ja\">行きません<\/span><\/li><li class=\"no\"><span lang=\"ja\">行きましょう<\/span><\/li><\/ol><p class=\"small\">どこへも (\"not anywhere\") needs a negative verb after it, and it is raining, so the speaker stays in: 行きません. 行きます, 行きました and 行きましょう are all positive, so they cannot follow どこへも. (To say \"go somewhere\" you need どこかへ.)<\/p>", "level": "green", "note": ""}, {"id": "n5mock6", "group": "Mini mock", "label": "Mock · 文の文法1", "head": "<span lang=\"ja\">あには　わたし<b class=\"ans\">より<\/b>　せが　高いです。<\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">ほど<\/span><\/li><li class=\"no\"><span lang=\"ja\">まで<\/span><\/li><li class=\"ok\"><span lang=\"ja\">より<\/span><\/li><li class=\"no\"><span lang=\"ja\">から<\/span><\/li><\/ol><p class=\"small\">To compare two people, the one you measure against takes より: \"my brother is taller than me\". ほど is used with a negative (わたしほど 高く ないです). まで (\"until, as far as\") and から (\"from\") do not compare.<\/p>", "level": "amber", "note": "Answer より (あには わたしより せが 高いです). ほど as a distractor needs a negative ending: clearly wrong here, and is it N5?"}, {"id": "n5mock7", "group": "Mini mock", "label": "Mock · 文の文法2", "head": "<span lang=\"ja\">これは　<span class=\"tiles\">父が<b class=\"star\">書いた<\/b>本<\/span>　です。<\/span>", "body": "<p class=\"small\">Tiles (shown as): 本 / 書いた / 父 / が. ★ on tile 3<\/p><p class=\"small\">The sentence is これは 父 が 書いた 本 です, \"This is a book my father wrote.\" 父が 書いた describes 本, so it comes right before it, and が follows 父. The third blank (★) is 書いた. Other orders fail: 本が 父 書いた has 父 with no particle, and 父が 本 書いた leaves 本 with no particle and the sentence ends in 書いた です.<\/p>", "level": "amber", "note": "Star item: これは 父が 書いた 本です. The relative clause (父が書いた) may be above N5. Keep, or use a simpler sentence?"}, {"id": "n5mock8", "group": "Mini mock", "label": "Mock · 読解・内容理解（短文）", "head": "<span lang=\"ja\">キムさんは　あした　何を　しますか。 → <b class=\"ans\">スミスさんに　本を　わたして、ケーキを　いっしょに　食べます。<\/b><\/span>", "body": "<p lang=\"ja\" class=\"passage\">キムさん\nあしたの　午後　三時に　スミスさんが　うちに　来ます。わたしは　二時から　出かけますから、スミスさんに　つくえの　上の　本を　わたして　ください。それから、スミスさんと　いっしょに　テーブルの　上の　ケーキを　食べて　ください。\nゆき<\/p><ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">スミスさんに　本を　わたして、ケーキを　いっしょに　食べます。<\/span><\/li><li class=\"no\"><span lang=\"ja\">スミスさんに　本を　かりて、ケーキを　かいます。<\/span><\/li><li class=\"no\"><span lang=\"ja\">二時に　ゆきさんと　いっしょに　出かけます。<\/span><\/li><li class=\"no\"><span lang=\"ja\">三時に　スミスさんの　うちへ　行きます。<\/span><\/li><\/ol><p class=\"small\">Yuki asks Kim to give (わたして) Smith the book on the desk and to eat the cake with him. Kim does not borrow a book or buy a cake (2). Yuki goes out at two, alone (3). Smith comes to the house; Kim does not go to his (4).<\/p>", "level": "amber", "note": "Short passage: uses わたす. N5 enough?"}, {"id": "n5mock9", "group": "Mini mock", "label": "Mock · 読解・情報検索", "head": "<span lang=\"ja\">リンさんは　土よう日に、8さいの　むすこと　3さいの　むすめと　どうぶつえんへ　行きます。三人で　いくら　はらいますか。 → <b class=\"ans\">600円<\/b><\/span>", "body": "<p lang=\"ja\" class=\"passage\">みどり　どうぶつえん　ねだん\n\nおとな（13さいから）　300円\n子ども（6さいから　12さいまで）　200円\n5さいまでの　子ども　0円\n\n＊土よう日と　日よう日は、おとなは　400円です。<\/p><ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">500円<\/span><\/li><li class=\"ok\"><span lang=\"ja\">600円<\/span><\/li><li class=\"no\"><span lang=\"ja\">700円<\/span><\/li><li class=\"no\"><span lang=\"ja\">800円<\/span><\/li><\/ol><p class=\"small\">On Saturday an adult pays 400円. The 8-year-old son pays 200円 and the 3-year-old daughter pays nothing: 400 + 200 = 600円. 500円 uses the weekday adult price (300 + 200). 700円 and 800円 also charge the 3-year-old 200円.<\/p>", "level": "green", "note": ""}, {"id": "n5mock10", "group": "Mini mock", "label": "Mock · 課題理解", "head": "<span lang=\"ja\">男の人は　何を　買って　きますか。 → <b class=\"ans\">つめたい　おちゃ<\/b><\/span>", "body": "<div class=\"passage\" lang=\"ja\"><p>会社で　女の人と　男の人が　話して　います。男の人は　何を　買って　きますか。<\/p><p>女：すみません、コンビニへ　行きますか。<\/p><p>男：はい、行きますよ。<\/p><p>女：じゃあ、おちゃを　買って　きて　ください。<\/p><p>男：おちゃですね。つめたい　おちゃですか。<\/p><p>女：はい、つめたいのを　おねがいします。あ、それから、パンも　二つ　おねがいします。<\/p><p>男：パンは　さっき　わたしが　買いましたよ。つくえの　上に　あります。<\/p><p>女：あ、ほんとうだ。じゃあ、おちゃだけで　いいです。<\/p><p>男の人は　何を　買って　きますか。<\/p><\/div><ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">つめたい　おちゃ<\/span><\/li><li class=\"no\"><span lang=\"ja\">あたたかい　おちゃ<\/span><\/li><li class=\"no\"><span lang=\"ja\">つめたい　おちゃと　パン<\/span><\/li><li class=\"no\"><span lang=\"ja\">パン<\/span><\/li><\/ol><p class=\"small\">She asks for cold tea, then for two pieces of bread, but he already bought bread and it is on the desk, so she says おちゃだけで いいです: only the tea. Warm tea (2) is not what she wants. Tea and bread (3) and bread alone (4) are wrong because the bread is already there.<\/p>", "level": "amber", "note": "Listening (課題理解): uses コンビニ, つめたいのを and the casual ほんとうだ. Natural and N5 enough?"}, {"id": "n5mock11", "group": "Mini mock", "label": "Mock · ポイント理解", "head": "<span lang=\"ja\">二人は　あした　何時に　会いますか。 → <b class=\"ans\">1時<\/b><\/span>", "body": "<div class=\"passage\" lang=\"ja\"><p>男の人と　女の人が　話して　います。二人は　あした　何時に　会いますか。<\/p><p>男：あしたの　えいが、何時からですか。<\/p><p>女：二時半からです。<\/p><p>男：じゃあ、二時に　駅の　前で　会いましょうか。<\/p><p>女：うーん、その　前に　いっしょに　ひるごはんを　食べませんか。<\/p><p>男：いいですね。じゃあ、十二時半は　どうですか。<\/p><p>女：ちょっと　はやいですね。一時に　しましょう。<\/p><p>男：はい、わかりました。<\/p><p>二人は　あした　何時に　会いますか。<\/p><\/div><ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">12時半<\/span><\/li><li class=\"ok\"><span lang=\"ja\">1時<\/span><\/li><li class=\"no\"><span lang=\"ja\">2時<\/span><\/li><li class=\"no\"><span lang=\"ja\">2時半<\/span><\/li><\/ol><p class=\"small\">He first says two o'clock, but she wants lunch before the film. He offers 12:30, she says that is a little early, and they settle on 一時に しましょう: one o'clock. 12時半 was turned down, 2時 was the first plan, and 2時半 is when the film starts.<\/p>", "level": "green", "note": ""}, {"id": "n5mock12", "group": "Mini mock", "label": "Mock · 即時応答", "head": "<span lang=\"ja\">女：この　ペン、ちょっと　かりても　いいですか。 → <b class=\"ans\">ええ、どうぞ。<\/b><\/span>", "body": "<div class=\"passage\" lang=\"ja\"><p>女：この　ペン、ちょっと　かりても　いいですか。<\/p><p>1：ええ、どうぞ。<\/p><p>2：いいえ、かりません。<\/p><p>3：はい、ありがとうございます。<\/p><\/div><ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">ええ、どうぞ。<\/span><\/li><li class=\"no\"><span lang=\"ja\">いいえ、かりません。<\/span><\/li><li class=\"no\"><span lang=\"ja\">はい、ありがとうございます。<\/span><\/li><\/ol><p class=\"small\">She asks to borrow the pen, so the reply is permission: ええ、どうぞ. いいえ、かりません talks as if he were the one borrowing. はい、ありがとうございます is what the borrower says, not the owner.<\/p>", "level": "green", "note": ""}];
+const LS = 'yaoki-review-n5-mini';
+const marks = {};
+try { Object.assign(marks, JSON.parse(localStorage.getItem(LS) || '{}')); } catch (e) {}
+let filter = 'all';
+let col = null; // the shared db collection, when this viewer may write it
+const key = (id) => encodeURIComponent(id).replace(/%/g, '~');
+const rank = { red: 0, amber: 1, green: 2 };
+
+function saveLocal() { try { localStorage.setItem(LS, JSON.stringify(marks)); } catch (e) {} }
+const timers = {};
+function persist(id) {
+  saveLocal();
+  if (!col) return;
+  clearTimeout(timers[id]);
+  timers[id] = setTimeout(async () => {
+    const m = marks[id] || {};
+    try { await col.doc(key(id)).set({ id, state: m.state || '', note: m.note || '', at: Date.now() }); }
+    catch (e) {
+      if (e && (e.code === 'invalid_argument' || e.code === 'not_granted' || e.code === 'revoked')) { col = null; setStatus(false); }
+    }
+  }, 600);
+}
+
+function setStatus(shared) {
+  document.getElementById('status').textContent = shared
+    ? 'Marks are saved with this page, so they reach the app’s author as you go.'
+    : 'Marks are kept on this device. When you finish, tap Copy all marks and send the text back.';
+}
+
+function visible(r) {
+  const m = marks[r.id] || {};
+  if (filter === 'flag') return r.level !== 'green';
+  if (filter === 'todo') return !m.state;
+  if (filter === 'fix') return m.state === 'fix';
+  return true;
+}
+
+function el(tag, attrs, html) { const x = document.createElement(tag); Object.entries(attrs || {}).forEach(([k, v]) => x.setAttribute(k, v)); if (html != null) x.innerHTML = html; return x; }
+
+function rowNode(r) {
+  const m = marks[r.id] || {};
+  const box = el('article', { class: 'row ' + r.level + (m.state ? ' m-' + m.state : ''), id: 'r-' + key(r.id) });
+  const meta = el('div', { class: 'meta' });
+  meta.append(el('span', { class: 'lab' }, r.label), el('span', { class: 'id' }, r.id));
+  if (r.level !== 'green') meta.append(el('span', { style: 'font-weight:800;color:var(--' + r.level + ')' }, r.level === 'red' ? '● red' : '● amber'));
+  box.append(meta, el('div', { class: 'head' }, r.head));
+  if (r.note) box.append(el('div', { class: 'flag' }, '<b>Question:</b> ' + r.note.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))));
+  if (r.body) {
+    const d = el('details');
+    if (r.level !== 'green') d.open = true;
+    d.append(el('summary', {}, 'Options and reasons'), el('div', {}, r.body.replace(/<table/g, '<div class="tablebox"><table').replace(/<\/table>/g, '</table></div>')));
+    box.append(d);
+  }
+  const bar = el('div', { class: 'marks' });
+  const ok = el('button', { class: 'mark okb', 'aria-pressed': String(m.state === 'ok') }, 'OK');
+  const fix = el('button', { class: 'mark fixb', 'aria-pressed': String(m.state === 'fix') }, 'Fix');
+  const nb = el('button', { class: 'notebtn' }, m.note ? 'Edit note' : 'Add note');
+  const ta = el('textarea', { 'aria-label': 'Note for ' + r.id, placeholder: 'What is wrong, or the better wording' });
+  ta.value = m.note || '';
+  ta.hidden = !(m.note || m.state === 'fix');
+  const pick = (s) => {
+    const cur = marks[r.id] || {};
+    marks[r.id] = { ...cur, state: cur.state === s ? '' : s };
+    persist(r.id);
+    if (marks[r.id].state === 'fix') { ta.hidden = false; ta.focus(); }
+    refresh(r.id);
+  };
+  ok.onclick = () => pick('ok');
+  fix.onclick = () => pick('fix');
+  nb.onclick = () => { ta.hidden = false; ta.focus(); };
+  ta.oninput = () => { marks[r.id] = { ...(marks[r.id] || {}), note: ta.value }; persist(r.id); count(); };
+  bar.append(ok, fix, nb);
+  box.append(bar, ta);
+  return box;
+}
+
+function refresh(id) {
+  const r = ROWS.find((x) => x.id === id);
+  const old = document.getElementById('r-' + key(id));
+  if (old && r) old.replaceWith(rowNode(r));
+  count();
+}
+
+function count() {
+  const n = ROWS.filter((r) => (marks[r.id] || {}).state).length;
+  const f = ROWS.filter((r) => (marks[r.id] || {}).state === 'fix').length;
+  document.getElementById('count').textContent = n + ' of ' + ROWS.length + ' marked' + (f ? ' · ' + f + ' to fix' : '');
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.textContent = '';
+  const flagged = ROWS.filter((r) => r.level !== 'green' && visible(r)).sort((a, b) => rank[a.level] - rank[b.level]);
+  const rest = ROWS.filter((r) => r.level === 'green' && visible(r));
+  if (flagged.length) {
+    main.append(el('h2', {}, 'Look at these first · ' + flagged.length));
+    const l = el('div', { class: 'list' }); flagged.forEach((r) => l.append(rowNode(r))); main.append(l);
+  }
+  let g = null, l = null;
+  rest.forEach((r) => {
+    if (r.group !== g) { g = r.group; main.append(el('h2', { lang: 'ja' }, g.replace(/[<>&]/g, ''))); l = el('div', { class: 'list' }); main.append(l); }
+    l.append(rowNode(r));
+  });
+  if (!flagged.length && !rest.length) main.append(el('p', { class: 'empty' }, 'Nothing here.'));
+  count();
+}
+
+document.querySelectorAll('.chip').forEach((c) => c.onclick = () => {
+  filter = c.dataset.f;
+  document.querySelectorAll('.chip').forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+  render();
+});
+
+document.getElementById('copy').onclick = async () => {
+  const lines = ['Yaoki N5 unit mini mock review'];
+  ROWS.forEach((r) => {
+    const m = marks[r.id] || {};
+    if (!m.state && !m.note) return;
+    lines.push(r.id + '\t' + (m.state ? m.state.toUpperCase() : '-') + (m.note ? '\t' + m.note.replace(/\s+/g, ' ') : ''));
+  });
+  const n = ROWS.filter((r) => !(marks[r.id] || {}).state).length;
+  lines.push(n ? n + ' rows not marked' : 'All rows marked');
+  const text = lines.join('\n');
+  const b = document.getElementById('copy');
+  try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; }
+  catch (e) {
+    const ta = el('textarea', { 'aria-label': 'Your marks as text' }); ta.value = text;
+    b.after(ta); ta.select(); b.textContent = 'Select and copy the text below';
+  }
+  setTimeout(() => { b.textContent = 'Copy all marks'; }, 2500);
+};
+
+setStatus(false);
+render();
+
+/* shared marks: read what is saved with the page, and save there too when this viewer may */
+(async () => {
+  if (!window.claude || !window.claude.use) return;
+  const db = await window.claude.use('db');
+  if (!db) return;
+  const user = await window.claude.use('user');
+  const c = db.collection('marks');
+  const stored = {};
+  try {
+    const snap = await c.get();
+    let changed = false;
+    snap.docs.forEach((d) => {
+      const v = d.data() || {};
+      if (v.id) stored[v.id] = (v.state || '') + '|' + (v.note || '');
+      if (v.id && ROWS.some((r) => r.id === v.id)) {
+        const mine = marks[v.id];
+        if (!mine || (!mine.state && !mine.note)) { marks[v.id] = { state: v.state || '', note: v.note || '' }; changed = true; }
+      }
+    });
+    if (changed) { saveLocal(); render(); }
+  } catch (e) {}
+  const can = user ? await user.can('data.write') : null;
+  if (can === false) return;
+  col = c;
+  setStatus(true);
+  /* marks made on this device before the shared store was reachable */
+  Object.keys(marks).forEach((id) => {
+    const m = marks[id];
+    if ((m.state || m.note) && ROWS.some((r) => r.id === id) && stored[id] !== (m.state || '') + '|' + (m.note || '')) persist(id);
+  });
+})();
+</script>

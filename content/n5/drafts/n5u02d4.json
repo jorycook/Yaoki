@@ -1,0 +1,457 @@
+{
+ "title": "〜の上／中／前・〜や〜など",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u02d4.p1",
+    "form": "〜の上／中／前",
+    "gloss": "on, in, in front of (where exactly)",
+    "connect": [
+     {
+      "pos": "Noun (the thing you measure from) + position word",
+      "rule": "〜 ＋ {の} ＋ {[上|うえ]}／{[下|した]}／{[中|なか]}／{[外|そと]} ＋ に"
+     },
+     {
+      "pos": "Noun + position word",
+      "rule": "〜 ＋ {の} ＋ {[前|まえ]}／{[後|うし]ろ}／{[右|みぎ]}／{[左|ひだり]}／{となり} ＋ に"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "つくえ{の[上|うえ]}に[日本語|にほんご]の[本|ほん]があります。",
+      "en": "There is a Japanese book on the desk."
+     },
+     {
+      "ja": "ねこはいす{の[下|した]}にいます。",
+      "en": "The cat is under the chair."
+     }
+    ],
+    "watch": {
+     "note": "Put の between the thing and the position word. The thing comes first: つくえの下 is \"under the desk\".",
+     "bad": "かばんはつくえ下にあります。",
+     "good": "かばんはつくえの下にあります。"
+    }
+   },
+   {
+    "id": "n5u02d4.p2",
+    "form": "〜や〜（など）",
+    "gloss": "A and B (and other things)",
+    "connect": [
+     {
+      "pos": "Two nouns, as examples",
+      "rule": "〜 ＋ {や} ＋ 〜"
+     },
+     {
+      "pos": "Two nouns, and more like them",
+      "rule": "〜 ＋ {や} ＋ 〜 ＋ {など}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "かばんの[中|なか]に[本|ほん]{や}ノートがあります。",
+      "en": "In the bag there are books, notebooks and so on."
+     },
+     {
+      "ja": "れいぞうこに[魚|さかな]{や}くだもの{など}があります。",
+      "en": "In the fridge there is fish, fruit and other things."
+     }
+    ],
+    "watch": {
+     "note": "や joins two or more nouns and hints that there are other things too. With only one noun, you cannot say 本や. Say 本など (books and so on).",
+     "bad": "つくえの上に本やがあります。",
+     "good": "つくえの上に本などがあります。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three come right after a noun. の上 says where something is; や and と list things.",
+   "forms": [
+    {
+     "form": "〜の上",
+     "tag": "ばしょ · where",
+     "mark": "dot",
+     "ja": "つくえ{の[上|うえ]}にペンがあります。",
+     "en": "There is a pen on the desk."
+    },
+    {
+     "form": "〜や〜",
+     "tag": "いくつか · and others",
+     "mark": "up",
+     "ja": "つくえの[上|うえ]にペン{や}ノートがあります。",
+     "en": "On the desk there are pens, notebooks and other things."
+    },
+    {
+     "form": "〜と〜",
+     "tag": "ぜんぶ · and (that is all)",
+     "mark": "dot",
+     "ja": "つくえの[上|うえ]にペン{と}ノートがあります。",
+     "en": "On the desk there are a pen and a notebook."
+    }
+   ],
+   "check": {
+    "id": "n5u02d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "はこの中",
+    "q": "A：はこの[中|なか]に[何|なに]がありますか。　B：ペン（　　）けしゴムです。^それだけです^。",
+    "options": [
+     "の",
+     "や",
+     "と"
+    ],
+    "answer": 3,
+    "why": [
+     "ペンのけしゴム would be \"the pen's eraser\". B is listing two things.",
+     "や hints that there are other things too, but B says それだけです: that is all.",
+     "B names everything in the box, so と: a pen and an eraser, nothing else."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u02d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "つくえ（　　）^[上|うえ]^に[本|ほん]があります。",
+    "options": [
+     "の",
+     "に",
+     "と",
+     "が"
+    ],
+    "answer": 1,
+    "why": [
+     "The thing, then の, then the position word: つくえの上, on the desk.",
+     "に comes after the position word (上に), not between つくえ and 上.",
+     "つくえと上 would mean \"the desk and the top\", two separate things.",
+     "が marks what is there. Here 本が already does that."
+    ]
+   },
+   {
+    "id": "n5u02d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the word",
+    "q": "わたしは^[山川|やまかわ]さんの[右|みぎ]^にいます。[山川|やまかわ]さんはわたしの（　　）にいます。",
+    "options": [
+     "[右|みぎ]",
+     "[左|ひだり]",
+     "[前|まえ]",
+     "[上|うえ]"
+    ],
+    "answer": 2,
+    "why": [
+     "Two people side by side cannot both be on the other's right.",
+     "If I am on Ms. Yamakawa's right, she is on my left.",
+     "We are side by side, so she is not in front of me.",
+     "A person standing next to me is not above me."
+    ]
+   },
+   {
+    "id": "n5u02d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "かばんの[中|なか]に[本|ほん]（　　）ノート^など^があります。",
+    "options": [
+     "や",
+     "の",
+     "も",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "や joins the two nouns, and など says there are other things too.",
+     "本のノート would be \"a book's notebook\", which makes no sense.",
+     "本もノートなど does not join the two things. も means \"too\".",
+     "を marks the thing you act on with a verb. あります does not take を."
+    ]
+   },
+   {
+    "id": "n5u02d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[店|みせ]には^いろいろなもの^があります。パン（　　）ぎゅうにゅうなどです。",
+    "options": [
+     "の",
+     "や",
+     "で",
+     "を"
+    ],
+    "answer": 2,
+    "why": [
+     "パンのぎゅうにゅう would be \"bread's milk\", which makes no sense.",
+     "The shop has many things, so や gives two examples and など says there are more.",
+     "で does not join two nouns in a list.",
+     "を needs a verb that acts on something. です does not take を."
+    ]
+   },
+   {
+    "id": "n5u02d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしのかばんは",
+    "after": "あります。",
+    "tiles": [
+     "[中山|なかやま]さんの",
+     "いすの",
+     "[下|した]",
+     "に"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "Whose chair is it? Then the chair, then the position word, then に.",
+    "full": "わたしのかばんは[中山|なかやま]さんのいす{の[下|した]}にあります。",
+    "explain": "中山さんのいす is Mr. Nakayama's chair. いすの下 is under the chair, and に comes after the position word: under Mr. Nakayama's chair."
+   },
+   {
+    "id": "n5u02d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "れいぞうこの[中|なか]に[魚|さかな]",
+    "after": "あります。",
+    "tiles": [
+     "や",
+     "くだもの",
+     "など",
+     "が"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "や goes between two nouns. など comes after the last noun, and が after など.",
+    "full": "れいぞうこの[中|なか]に[魚|さかな]{や}くだものなどがあります。",
+    "explain": "魚やくだもの joins the two foods, など says there are more, and が marks what is there before あります."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u02d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ぎんこうは　えきの　前（　　）あります。",
+    "options": [
+     "を",
+     "で",
+     "に",
+     "が"
+    ],
+    "answer": 3,
+    "explain": "The place where something is takes に: えきの前に あります. を needs an action verb, で marks where an action happens, and ぎんこうは already says what is there, so が does not fit."
+   },
+   {
+    "id": "n5u02d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "テーブルの　上に　りんご（　　）バナナなどが　あります。",
+    "options": [
+     "の",
+     "や",
+     "を",
+     "へ"
+    ],
+    "answer": 2,
+    "explain": "や joins two nouns, and など says there is more: apples, bananas and so on. りんごのバナナ makes no sense, を needs an action verb, and へ shows a direction."
+   },
+   {
+    "id": "n5u02d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "かぎは　テレビの　",
+    "after": "　あります。",
+    "tiles": [
+     "前の",
+     "テーブルの",
+     "上",
+     "に"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "full": "かぎは　テレビの　前の　{テーブルの}　上に　あります。",
+    "explain": "前の, テーブルの, 上, に: the key is on the table in front of the TV. テレビの前の テーブル is the table in front of the TV, and テーブルの上に says it is on top of that table."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "きょうしつのえ",
+  "en": "A picture of a classroom",
+  "intro": "Tap each label on the picture of the classroom.",
+  "words": [
+   {
+    "id": "on",
+    "word": "上",
+    "reading": "うえ",
+    "gloss": "on, above, top",
+    "parts": [
+     [
+      "上",
+      "うえ",
+      "up, above"
+     ]
+    ]
+   },
+   {
+    "id": "under",
+    "word": "下",
+    "reading": "した",
+    "gloss": "under, below",
+    "parts": [
+     [
+      "下",
+      "した",
+      "down, below"
+     ]
+    ]
+   },
+   {
+    "id": "in",
+    "word": "中",
+    "reading": "なか",
+    "gloss": "in, inside",
+    "parts": [
+     [
+      "中",
+      "なか",
+      "middle, inside"
+     ]
+    ]
+   },
+   {
+    "id": "outside",
+    "word": "外",
+    "reading": "そと",
+    "gloss": "outside",
+    "parts": [
+     [
+      "外",
+      "そと",
+      "outside"
+     ]
+    ]
+   },
+   {
+    "id": "front",
+    "word": "前",
+    "reading": "まえ",
+    "gloss": "in front, the front",
+    "parts": [
+     [
+      "前",
+      "まえ",
+      "front, before"
+     ]
+    ]
+   },
+   {
+    "id": "back",
+    "word": "後ろ",
+    "reading": "うしろ",
+    "gloss": "behind, the back",
+    "parts": [
+     [
+      "後",
+      "うし",
+      "behind, after"
+     ]
+    ]
+   },
+   {
+    "id": "right",
+    "word": "右",
+    "reading": "みぎ",
+    "gloss": "right",
+    "parts": [
+     [
+      "右",
+      "みぎ",
+      "right"
+     ]
+    ]
+   },
+   {
+    "id": "left",
+    "word": "左",
+    "reading": "ひだり",
+    "gloss": "left",
+    "parts": [
+     [
+      "左",
+      "ひだり",
+      "left"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u02d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "まどの　_外_に　大きい　木が　あります。",
+   "options": [
+    "なか",
+    "そと",
+    "うち",
+    "しろ"
+   ],
+   "answer": 2,
+   "explain": "外 is そと, outside. なか is 中 (inside), うち means inside or home and is not read from 外 here, and しろ means white."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Where is the key?",
+  "seconds": 90,
+  "passage": "アンナさんへ　へやの　かぎは　つくえの　上に　ありません。^つくえの　となりの　本だなの　中^に　あります。本だなの　上にも　はこが　ありますが、はこの　中は　ペンや　ノートなどです。れいぞうこに　パンや　くだものが　あります。どうぞ。　けい子より",
+  "strategy": "Find かぎ, then read past ありません to the sentence that says where it really is.",
+  "item": {
+   "id": "n5u02d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "かぎは　どこに　ありますか。",
+   "options": [
+    "つくえの　上",
+    "本だなの　中",
+    "本だなの　上の　はこの　中",
+    "れいぞうこの　中"
+   ],
+   "short": [
+    "つくえの上",
+    "本だなの中",
+    "本だなの上のはこの中",
+    "れいぞうこの中"
+   ],
+   "answer": 2,
+   "explain": "The note says the key is not on the desk (ありません). The next sentence says it is in the bookshelf next to the desk: 本だなの中.",
+   "why": [
+    "The note says つくえの上に ありません: it is not on the desk.",
+    "",
+    "The box on the bookshelf has pens, notebooks and so on, not the key.",
+    "The fridge has bread and fruit, not the key."
+   ]
+  }
+ }
+}

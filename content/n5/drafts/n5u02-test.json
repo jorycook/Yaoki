@@ -1,0 +1,428 @@
+[
+ {
+  "id": "n5u02t.1",
+  "kind": "choice",
+  "type": "漢字読み",
+  "label": "Kanji reading",
+  "q": "ぎんこうは　駅の　_左_に　あります。",
+  "options": [
+   "みぎ",
+   "ひだり",
+   "ひがし",
+   "にし"
+  ],
+  "answer": 2,
+  "explain": "左 is ひだり, left. みぎ is 右 (right), which looks like 左 but has 口 at the bottom. ひがし is 東 (east) and にし is 西 (west)."
+ },
+ {
+  "id": "n5u02t.2",
+  "kind": "choice",
+  "type": "漢字読み",
+  "label": "Kanji reading",
+  "q": "つくえの　上に　りんごが　_三つ_　あります。",
+  "options": [
+   "みつ",
+   "さんつ",
+   "みっつ",
+   "さっつ"
+  ],
+  "answer": 3,
+  "explain": "三つ is みっつ, with a small っ. みつ leaves out the small っ, and さんつ and さっつ use さん, the reading of 三 in words like 三百 or 三人. None of them is a word for three things."
+ },
+ {
+  "id": "n5u02t.3",
+  "kind": "choice",
+  "type": "表記",
+  "label": "Kanji spelling",
+  "q": "こうえんの　_いりぐち_に　大きい　木が　あります。",
+  "options": [
+   "人口",
+   "入日",
+   "入口",
+   "人日"
+  ],
+  "answer": 3,
+  "explain": "いりぐち is 入口: 入 (go in) with 口 (opening). 人 looks like 入 but is ひと (person), so 人口 is another word (population), not いりぐち. 入日 and 人日 have 日 (day) in place of 口."
+ },
+ {
+  "id": "n5u02t.4",
+  "kind": "choice",
+  "type": "表記",
+  "label": "Kanji spelling",
+  "q": "_みず_は　れいぞうこの　中に　あります。",
+  "options": [
+   "水",
+   "木",
+   "小",
+   "少"
+  ],
+  "answer": 1,
+  "explain": "みず is 水 (water). 木 is き (tree), 小 is the 小 of 小さい (small), and 少 is the 少 of 少し (a little). They look a little like 水 but none of them is read みず."
+ },
+ {
+  "id": "n5u02t.5",
+  "kind": "choice",
+  "type": "文脈規定",
+  "label": "Word in context",
+  "q": "本やは　この　ビルの　三（　　）に　あります。",
+  "options": [
+   "つ",
+   "かい",
+   "まい",
+   "にん"
+  ],
+  "answer": 2,
+  "explain": "A shop in a building is on a floor, and floors are counted with かい: 三かい. 三つ counts things, 三まい counts flat things such as paper, and 三にん counts people. Only かい says where in the building."
+ },
+ {
+  "id": "n5u02t.6",
+  "kind": "choice",
+  "type": "文脈規定",
+  "label": "Word in context",
+  "q": "ここは　（　　）です。本が　たくさん　あります。",
+  "options": [
+   "ぎんこう",
+   "しょくどう",
+   "びょういん",
+   "としょかん"
+  ],
+  "answer": 4,
+  "explain": "A place with a lot of books is a library, としょかん. A bank (ぎんこう) has money, a cafeteria (しょくどう) has food, and a hospital (びょういん) has doctors; none of them is known for having many books."
+ },
+ {
+  "id": "n5u02t.7",
+  "kind": "choice",
+  "type": "言い換え類義",
+  "label": "Same meaning",
+  "q": "_ぎんこうは　ゆうびんきょくの　右に　あります_。",
+  "options": [
+   "ゆうびんきょくは　ぎんこうの　右に　あります。",
+   "ゆうびんきょくは　ぎんこうの　左に　あります。",
+   "ぎんこうは　ゆうびんきょくの　左に　あります。",
+   "ゆうびんきょくは　ぎんこうの　前に　あります。"
+  ],
+  "answer": 2,
+  "explain": "If the bank is on the right of the post office, the post office is on the left of the bank. Option 1 puts the post office on the right, option 3 moves the bank to the left, and option 4 puts the post office in front, not beside it."
+ },
+ {
+  "id": "n5u02t.8",
+  "kind": "choice",
+  "type": "言い換え類義",
+  "label": "Same meaning",
+  "q": "ここは　_お手あらい_です。",
+  "options": [
+   "ここは　だいどころです。",
+   "ここは　げんかんです。",
+   "ここは　おふろです。",
+   "ここは　トイレです。"
+  ],
+  "answer": 4,
+  "explain": "お手あらい and トイレ are two words for the same room, the toilet. だいどころ is the kitchen, げんかん is the entrance of a house where you take off your shoes, and おふろ is the bath."
+ },
+ {
+  "id": "n5u02t.9",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the word",
+  "q": "A「すみません。この　ちかくに　ぎんこうは　ありますか。」B「ええ、（　　）に　ありますよ。あの　たかい　たてものです。」",
+  "options": [
+   "ここ",
+   "あそこ",
+   "あれ",
+   "どこ"
+  ],
+  "answer": 2,
+  "explain": "B points to a tall building over there (あの), so the bank is あそこ, a place far from both people. ここ would mean the place where they are standing, which does not fit あの. あれ is a thing, not a place, so あれにあります does not say where. どこ asks a question, but B is answering one."
+ },
+ {
+  "id": "n5u02t.10",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the word",
+  "q": "（パーティーで）A「中山さん、（　　）は　わたしの　クラスの　キムさんです。」B「はじめまして。中山です。」",
+  "options": [
+   "この",
+   "ここ",
+   "こちら",
+   "どちら"
+  ],
+  "answer": 3,
+  "explain": "When you introduce someone who is with you, you say こちらは, the polite \"this person\". この must have a noun right after it, so この cannot stand before は. ここ is a place, and a place cannot be キムさん. どちら is a question word, and A is not asking anything."
+ },
+ {
+  "id": "n5u02t.11",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the form",
+  "q": "へやに　テレビは　ありますが、つくえは　（　　）。",
+  "options": [
+   "います",
+   "あります",
+   "いません",
+   "ありません"
+  ],
+  "answer": 4,
+  "explain": "が here means \"but\", so the second half says the opposite of the first: there is a TV but no desk. A desk is a thing, so it takes ありません. あります would not be the opposite of the first half, and います and いません are for people and animals, not for a desk."
+ },
+ {
+  "id": "n5u02t.12",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the particle",
+  "q": "A「ジョンさんは　どこですか。」B「ジョンさんは　いま　としょかん（　　）　います。」",
+  "options": [
+   "に",
+   "で",
+   "を",
+   "へ"
+  ],
+  "answer": 1,
+  "explain": "To say where someone is, the place takes に before います: としょかんにいます. で marks the place where you do an action (としょかんでべんきょうします), but います only says where he is. を and へ do not mark the place where someone is."
+ },
+ {
+  "id": "n5u02t.13",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the word",
+  "q": "つくえの　上に　ノートや　じしょ（　　）が　あります。",
+  "options": [
+   "の",
+   "ぐらい",
+   "ごろ",
+   "など"
+  ],
+  "answer": 4,
+  "explain": "や lists a few examples, and など after the last one means \"and other things like that\": ノートやじしょなど. じしょのが あります does not make sense here. ぐらい is for an amount such as a number or a time span, and ごろ is for a point in time; じしょ is neither."
+ },
+ {
+  "id": "n5u02t.14",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the word",
+  "q": "A「おとうとさんは　（　　）ですか。」B「八つです。」",
+  "options": [
+   "いくら",
+   "いくつ",
+   "いつ",
+   "どれ"
+  ],
+  "answer": 2,
+  "explain": "B answers 八つです, eight years old, so A asks a child's age with いくつ. いくら asks a price, and a person has no price. いつ asks when, and 八つ is not a time. どれ asks which one, and 八つです does not pick one out."
+ },
+ {
+  "id": "n5u02t.15",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the word",
+  "q": "きょうしつに　学生が　二十人（　　）　います。",
+  "options": [
+   "ごろ",
+   "いくら",
+   "ぐらい",
+   "いくつ"
+  ],
+  "answer": 3,
+  "explain": "二十人 is a number of people, and ぐらい after an amount means \"about\": about twenty students. ごろ means \"around\" only with a point in time, such as 三時ごろ, not with a number of people. いくら and いくつ are question words, and this sentence is not a question."
+ },
+ {
+  "id": "n5u02t.16",
+  "kind": "star",
+  "type": "文の文法2",
+  "label": "Build the sentence",
+  "before": "A「あ、あの　木の　",
+  "after": "が　いますよ。」B「ええ、かわいいですね。」",
+  "tiles": [
+   "下",
+   "に",
+   "白い",
+   "ねこ"
+  ],
+  "star": 2,
+  "bank": [
+   3,
+   0,
+   2,
+   1
+  ],
+  "full": "A「あ、あの　木の　下に　{白い}　ねこが　いますよ。」B「ええ、かわいいですね。」",
+  "explain": "下, に, 白い, ねこ. 木の needs a position word after it, so 下 comes first: 木の下 (under the tree). に marks that place. 白い describes ねこ, so it comes right before it, and ねこ goes before が います, because a cat is alive and takes います."
+ },
+ {
+  "id": "n5u02t.17",
+  "kind": "star",
+  "type": "文の文法2",
+  "label": "Build the sentence",
+  "before": "A「わたしの　さいふは　どこですか。」B「かばんの　",
+  "after": "ありますよ。」",
+  "tiles": [
+   "中",
+   "の",
+   "小さい",
+   "はこに"
+  ],
+  "star": 1,
+  "bank": [
+   2,
+   0,
+   3,
+   1
+  ],
+  "full": "A「わたしの　さいふは　どこですか。」B「かばんの　中{の}　小さい　はこに　ありますよ。」",
+  "explain": "中, の, 小さい, はこに. かばんの中 is the inside of the bag. の joins it to the box: the small box in the bag. 小さい describes はこ, so it comes right before it, and はこに, with に for the place, goes before あります."
+ },
+ {
+  "id": "n5u02t.18",
+  "kind": "star",
+  "type": "文の文法2",
+  "label": "Build the sentence",
+  "before": "A「あしたは　何時から　うちに　いますか。」B「",
+  "after": "いますよ。」",
+  "tiles": [
+   "午後",
+   "五時",
+   "ごろ",
+   "から"
+  ],
+  "star": 2,
+  "bank": [
+   1,
+   3,
+   0,
+   2
+  ],
+  "full": "A「あしたは　何時から　うちに　いますか。」B「午後　五時{ごろ}から　いますよ。」",
+  "explain": "午後, 五時, ごろ, から. 午後 (p.m.) comes before the hour, as in 午後五時. ごろ (around) goes right after the time, and から (from) comes last, answering A's 何時から."
+ },
+ {
+  "id": "n5u02t.19",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "ジョンさん\nわたしの　あたらしい　へやは　二かいです。へやには　ベッドと　つくえが　あります。テレビは　ありません。つくえの　上に　とけいが　あります。まどの　外に　高い　木が　あります。木の　上には　ときどき　白い　とりが　います。\nゆき",
+  "q": "ゆきさんの　へやに　ない　ものは　どれですか。",
+  "options": [
+   "ベッド",
+   "つくえ",
+   "テレビ",
+   "とけい"
+  ],
+  "answer": 3,
+  "short": [
+   "ベッド",
+   "つくえ",
+   "テレビ",
+   "とけい"
+  ],
+  "explain": "ゆき writes テレビはありません: there is no TV. The room has a bed and a desk (ベッドとつくえがあります), and the clock is on the desk (つくえの上にとけいがあります)."
+ },
+ {
+  "id": "n5u02t.20",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "ジョンさん\nわたしの　あたらしい　へやは　二かいです。へやには　ベッドと　つくえが　あります。テレビは　ありません。つくえの　上に　とけいが　あります。まどの　外に　高い　木が　あります。木の　上には　ときどき　白い　とりが　います。\nゆき",
+  "q": "ただしい　ものは　どれですか。",
+  "options": [
+   "ゆきさんの　へやは　一かいに　あります。",
+   "とけいは　つくえの　下に　あります。",
+   "高い　木は　へやの　中に　あります。",
+   "白い　とりは　ときどき　木の　上に　います。"
+  ],
+  "answer": 4,
+  "short": [
+   "へやは一かい",
+   "とけいはつくえの下",
+   "木はへやの中",
+   "とりは木の上"
+  ],
+  "explain": "ゆき writes 木の上にはときどき白いとりがいます: sometimes a white bird is in the tree. The room is on 二かい, not 一かい. The clock is on the desk (上), not under it (下). The tall tree is outside the window (まどの外), not in the room."
+ },
+ {
+  "id": "n5u02t.21",
+  "kind": "choice",
+  "type": "読解・情報検索",
+  "label": "Finding information",
+  "passage": "パンの　店「やまの　パン」\nメロンパン　一つ　百五十円\nカレーパン　一つ　二百円\nサンドイッチ　一つ　三百五十円\n午後　五時から　パンと　サンドイッチは　ぜんぶ　一つ　百円です。\n店の　前に　テーブルと　いすが　あります。どうぞ。",
+  "q": "リンさんは　午後　二時に　この　店で　カレーパンを　二つ　買います。いくらですか。",
+  "options": [
+   "百円",
+   "二百円",
+   "四百円",
+   "七百円"
+  ],
+  "answer": 3,
+  "short": [
+   "百円",
+   "二百円",
+   "四百円",
+   "七百円"
+  ],
+  "explain": "At two in the afternoon the 五時から price does not apply yet, so a カレーパン is 二百円 each, and two are 四百円. 百円 is the after-five price of one. 二百円 is one at the normal price, or two after five. 七百円 is two sandwiches."
+ },
+ {
+  "id": "n5u02t.22",
+  "kind": "choice",
+  "type": "読解・情報検索",
+  "label": "Finding information",
+  "passage": "パンの　店「やまの　パン」\nメロンパン　一つ　百五十円\nカレーパン　一つ　二百円\nサンドイッチ　一つ　三百五十円\n午後　五時から　パンと　サンドイッチは　ぜんぶ　一つ　百円です。\n店の　前に　テーブルと　いすが　あります。どうぞ。",
+  "q": "キムさんは　午後　六時に　この　店で　メロンパンを　一つと　サンドイッチを　一つ　買います。いくらですか。",
+  "options": [
+   "二百円",
+   "二百五十円",
+   "四百円",
+   "五百円"
+  ],
+  "answer": 1,
+  "short": [
+   "二百円",
+   "二百五十円",
+   "四百円",
+   "五百円"
+  ],
+  "explain": "Six p.m. is after five, and from five everything is 百円 each, so two things are 二百円. 五百円 is the normal price (百五十円 and 三百五十円). 二百五十円 takes the normal price for the メロンパン only, and 四百円 is the price of two カレーパン before five."
+ },
+ {
+  "id": "n5u02t.23",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "マイクさん\nあした　いっしょに　えいがを　見ませんか。えいがは　午後　二時からです。えいがかんは　駅から　あるいて　十分ぐらいです。わたしは　一時半ごろ　駅の　東口の　前に　います。東口の　前には　大きい　花やが　あります。\nゆか",
+  "q": "ゆかさんは　あした　何時ごろ　どこに　いますか。",
+  "options": [
+   "一時半ごろ　えいがかんの　前",
+   "一時半ごろ　駅の　東口の　前",
+   "二時ごろ　駅の　東口の　前",
+   "二時ごろ　えいがかんの　前"
+  ],
+  "answer": 2,
+  "short": [
+   "一時半 えいがかん",
+   "一時半 東口",
+   "二時 東口",
+   "二時 えいがかん"
+  ],
+  "explain": "ゆか writes 一時半ごろ駅の東口の前にいます. 二時 is when the film starts, not when she waits. She waits at the station's east exit, not in front of the cinema, which is ten minutes away."
+ },
+ {
+  "id": "n5u02t.24",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "マイクさん\nあした　いっしょに　えいがを　見ませんか。えいがは　午後　二時からです。えいがかんは　駅から　あるいて　十分ぐらいです。わたしは　一時半ごろ　駅の　東口の　前に　います。東口の　前には　大きい　花やが　あります。\nゆか",
+  "q": "ただしい　ものは　どれですか。",
+  "options": [
+   "えいがは　一時半からです。",
+   "えいがかんは　駅の　中に　あります。",
+   "駅から　えいがかんまで　十分ぐらいです。",
+   "花やは　駅の　西口の　前に　あります。"
+  ],
+  "answer": 3,
+  "short": [
+   "えいがは一時半から",
+   "えいがかんは駅の中",
+   "駅から十分ぐらい",
+   "花やは西口"
+  ],
+  "explain": "ゆか writes えいがかんは駅からあるいて十分ぐらいです. The film starts at 二時; 一時半 is when she will be at the station. The cinema is a ten-minute walk away, so it is not inside the station. The flower shop is in front of the east exit (東口), not the west exit."
+ }
+]

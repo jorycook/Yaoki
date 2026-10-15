@@ -1,0 +1,476 @@
+{
+ "title": "〜で（場所）・〜で（道具）",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u03d4.p1",
+    "form": "〜で（場所）",
+    "gloss": "at, in (where you do something)",
+    "connect": [
+     {
+      "pos": "Noun (the place) + action verb, ます form",
+      "rule": "〜 ＋ {で} ＋ [食|た]べます／[読|よ]みます"
+     },
+     {
+      "pos": "Noun (the place) + what you do",
+      "rule": "〜 ＋ {で} ＋ 〜 ＋ を ＋ verb"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[学校|がっこう]{で}[日本語|にほんご]をべんきょうします。",
+      "en": "I study Japanese at school."
+     },
+     {
+      "ja": "[駅|えき]の[前|まえ]の[店|みせ]{で}パンを[買|か]います。",
+      "en": "I buy bread at the shop in front of the station."
+     }
+    ],
+    "watch": {
+     "note": "で is for the place where you do something. あります and います only say where a thing or a person is, so that place takes に: 学校に としょかんが あります.",
+     "bad": "学校でとしょかんがあります。",
+     "good": "学校にとしょかんがあります。"
+    }
+   },
+   {
+    "id": "n5u03d4.p2",
+    "form": "〜で（道具）",
+    "gloss": "with, by, in (what you use)",
+    "connect": [
+     {
+      "pos": "Noun (a tool)",
+      "rule": "〜 ＋ {で} ＋ [食|た]べます／[書|か]きます"
+     },
+     {
+      "pos": "Noun (a way to travel)",
+      "rule": "〜 ＋ {で} ＋ [行|い]きます／[来|き]ます"
+     },
+     {
+      "pos": "Noun (a language)",
+      "rule": "〜 ＋ {で} ＋ [話|はな]します"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "はし{で}[魚|さかな]を[食|た]べます。",
+      "en": "I eat fish with chopsticks."
+     },
+     {
+      "ja": "[毎日|まいにち][電車|でんしゃ]{で}[会社|かいしゃ]へ[行|い]きます。",
+      "en": "I go to work by train every day."
+     }
+    ],
+    "watch": {
+     "note": "With 行きます, the bus is how you go, so it takes で. バスに goes with a different verb: バスに のります (get on the bus).",
+     "bad": "バスに学校へ行きます。",
+     "good": "バスで学校へ行きます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three come right after a noun. で says where you do something or what you use; に with あります says where a thing is.",
+   "forms": [
+    {
+     "form": "〜で（場所）",
+     "tag": "するところ · where you do it",
+     "mark": "dot",
+     "ja": "[学校|がっこう]{で}[本|ほん]を[読|よ]みます。",
+     "en": "I read books at school."
+    },
+    {
+     "form": "〜に（あります）",
+     "tag": "あるところ · where it is",
+     "mark": "dot",
+     "ja": "[学校|がっこう]{に}[本|ほん]がたくさんあります。",
+     "en": "There are a lot of books at school."
+    },
+    {
+     "form": "〜で（道具）",
+     "tag": "つかうもの · what you use",
+     "mark": "dot",
+     "ja": "ペン{で}[名前|なまえ]を[書|か]きます。",
+     "en": "I write my name with a pen."
+    }
+   ],
+   "check": {
+    "id": "n5u03d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "学校の店",
+    "q": "[学校|がっこう]の[中|なか]に[店|みせ]があります。その[店|みせ]（　　）^パンを[買|か]います^。",
+    "options": [
+     "に",
+     "を",
+     "で"
+    ],
+    "answer": 3,
+    "why": [
+     "に says where a thing is, with あります. Here you do something there: 買います.",
+     "パンを already has を. その店を パンを has two を and makes no sense.",
+     "Buying is an action, so the shop where you buy takes で."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u03d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは[毎日|まいにち]うち（　　）^テレビを[見|み]ます^。",
+    "options": [
+     "で",
+     "に",
+     "を",
+     "が"
+    ],
+    "answer": 1,
+    "why": [
+     "見ます is an action, so the place where you watch takes で: at home.",
+     "に would say where something is. Watching TV is an action, so に does not fit.",
+     "テレビを already has を. うちを テレビを has two を.",
+     "うちが would make the house the one watching TV."
+    ]
+   },
+   {
+    "id": "n5u03d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きょうしつ（　　）^つくえやいすがあります^。",
+    "options": [
+     "で",
+     "に",
+     "を",
+     "へ"
+    ],
+    "answer": 2,
+    "why": [
+     "あります here says where desks and chairs are. That is not an action, so で does not fit.",
+     "Where things are takes に before あります: in the classroom.",
+     "あります does not take を.",
+     "へ shows a direction you go to. あります is not going anywhere."
+    ]
+   },
+   {
+    "id": "n5u03d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "はし（　　）^ごはんを[食|た]べます^。",
+    "options": [
+     "を",
+     "に",
+     "で",
+     "と"
+    ],
+    "answer": 3,
+    "why": [
+     "ごはんを already has を. はしを ごはんを has two を.",
+     "はしに does not say what you eat with.",
+     "Chopsticks are what you use to eat, so they take で.",
+     "はしと ごはんを would mean you eat the chopsticks and the rice."
+    ]
+   },
+   {
+    "id": "n5u03d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは[毎日|まいにち][電車|でんしゃ]（　　）^[会社|かいしゃ]へ[行|い]きます^。",
+    "options": [
+     "を",
+     "と",
+     "に",
+     "で"
+    ],
+    "answer": 4,
+    "why": [
+     "行きます does not take を for the train here.",
+     "電車と would mean you go together with the train, like with a friend.",
+     "電車に goes with のります (get on). With 行きます it does not fit.",
+     "The train is how you go, so it takes で: by train."
+    ]
+   },
+   {
+    "id": "n5u03d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[山川|やまかわ]さんは[毎日|まいにち]バス",
+    "after": "よ。",
+    "tiles": [
+     "で",
+     "[学校|がっこう]",
+     "へ",
+     "[来|き]ます"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "First say how Ms. Yamakawa comes, then where she comes to, then the verb.",
+    "full": "[山川|やまかわ]さんは[毎日|まいにち]バス{で}[学校|がっこう]へ[来|き]ますよ。",
+    "explain": "バスで is how she comes. 学校へ is where she comes to, and 来ます goes last, right before よ."
+   },
+   {
+    "id": "n5u03d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[中山|なかやま]さんはいつも[駅|えき]の[前|まえ]の[店|みせ]",
+    "after": "。",
+    "tiles": [
+     "で",
+     "パン",
+     "を",
+     "[買|か]います"
+    ],
+    "star": 0,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "The shop is where the action happens. Then what is bought, then the verb.",
+    "full": "[中山|なかやま]さんはいつも[駅|えき]の[前|まえ]の[店|みせ]{で}パンを[買|か]います。",
+    "explain": "店で is where Mr. Nakayama buys. パンを is what he buys, and 買います comes last."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u03d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きのう　デパート（　　）　くつを　買いました。",
+    "options": [
+     "に",
+     "で",
+     "を",
+     "へ"
+    ],
+    "answer": 2,
+    "explain": "Buying is an action, so the place where you buy takes で: デパートで 買いました. に would say where something is, くつを already has を, and へ shows the direction you go to, which needs a verb like 行きました."
+   },
+   {
+    "id": "n5u03d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この　かみには　えんぴつ（　　）　名前を　書きます。",
+    "options": [
+     "を",
+     "が",
+     "へ",
+     "で"
+    ],
+    "answer": 4,
+    "explain": "The pencil is what you write with, so it takes で. 名前を already has を, えんぴつが would make the pencil the writer, and へ shows a direction."
+   },
+   {
+    "id": "n5u03d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「きのう　学校",
+    "after": "か。」　B「カレーです。」",
+    "tiles": [
+     "で",
+     "何",
+     "を",
+     "食べました"
+    ],
+    "star": 0,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "A「きのう　学校{で}　何を　食べましたか。」　B「カレーです。」",
+    "explain": "で, 何, を, 食べました: what did you eat at school yesterday? 学校で is where the eating happened, 何を asks what was eaten, and B answers カレーです."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "センターのおしらせ",
+  "en": "A notice at a community centre",
+  "intro": "Tap each word on the notice about this week's Japanese classes.",
+  "words": [
+   {
+    "id": "japanese",
+    "word": "日本語",
+    "reading": "にほんご",
+    "gloss": "Japanese (language)",
+    "parts": [
+     [
+      "日",
+      "ニ",
+      "sun, day"
+     ],
+     [
+      "本",
+      "ホン",
+      "origin, book"
+     ],
+     [
+      "語",
+      "ゴ",
+      "language, word"
+     ]
+    ]
+   },
+   {
+    "id": "speak",
+    "word": "話す",
+    "reading": "はなす",
+    "gloss": "to speak, to talk",
+    "parts": [
+     [
+      "話",
+      "はな",
+      "talk"
+     ]
+    ]
+   },
+   {
+    "id": "read",
+    "word": "読む",
+    "reading": "よむ",
+    "gloss": "to read",
+    "parts": [
+     [
+      "読",
+      "よ",
+      "read"
+     ]
+    ]
+   },
+   {
+    "id": "write",
+    "word": "書く",
+    "reading": "かく",
+    "gloss": "to write",
+    "parts": [
+     [
+      "書",
+      "か",
+      "write"
+     ]
+    ]
+   },
+   {
+    "id": "listen",
+    "word": "聞く",
+    "reading": "きく",
+    "gloss": "to listen, to hear",
+    "parts": [
+     [
+      "聞",
+      "き",
+      "hear, listen"
+     ]
+    ]
+   },
+   {
+    "id": "watch",
+    "word": "見る",
+    "reading": "みる",
+    "gloss": "to see, to watch",
+    "parts": [
+     [
+      "見",
+      "み",
+      "see"
+     ]
+    ]
+   },
+   {
+    "id": "closed",
+    "word": "休み",
+    "reading": "やすみ",
+    "gloss": "closed, day off",
+    "parts": [
+     [
+      "休",
+      "やす",
+      "rest"
+     ]
+    ]
+   },
+   {
+    "id": "afternoon",
+    "word": "午後",
+    "reading": "ごご",
+    "gloss": "afternoon, p.m.",
+    "parts": [
+     [
+      "午",
+      "ゴ",
+      "noon"
+     ],
+     [
+      "後",
+      "ゴ",
+      "after"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u03d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "土よう日の　_午後_は　日本語の　クラスが　あります。",
+   "options": [
+    "ごぜん",
+    "こご",
+    "ごご",
+    "ごこう"
+   ],
+   "answer": 3,
+   "explain": "午後 is ごご, afternoon. ごぜん is 午前 (morning). こご and ごこう are not words; both kanji here are read ご."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Where does Lin eat lunch on Fridays?",
+  "seconds": 90,
+  "passage": "リンさんは　わたしの　クラスの　友だちです。毎日　電車で　学校へ　来ます。ひるごはんは　いつも　学校の　しょくどうで　食べますが、^金よう日は　学校の　前の　こうえんで^　食べます。よるは　うちで　日本語の　本を　読みます。",
+  "strategy": "Find ひるごはん, then read past が to see where Lin eats on 金よう日.",
+  "item": {
+   "id": "n5u03d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "リンさんは　金よう日に　どこで　ひるごはんを　食べますか。",
+   "options": [
+    "学校の　しょくどう",
+    "学校の　前の　こうえん",
+    "えきの　前の　店",
+    "うち"
+   ],
+   "short": [
+    "学校のしょくどう",
+    "学校の前のこうえん",
+    "えきの前の店",
+    "うち"
+   ],
+   "answer": 2,
+   "explain": "Lin usually eats lunch in the school cafeteria, but the sentence after が says 金よう日は 学校の 前の こうえんで 食べます: on Fridays, in the park in front of the school.",
+   "why": [
+    "That is where Lin usually eats, but not on Fridays.",
+    "",
+    "The note does not talk about a shop by the station.",
+    "Lin reads books at home in the evening. The note does not say Lin eats lunch there."
+   ]
+  }
+ }
+}

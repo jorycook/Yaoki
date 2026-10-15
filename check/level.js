@@ -1,5 +1,5 @@
 // What the app-side tests need to know about the level the app was built for. YK_LEVEL=N1 tests the N1 app
-// (run-app.sh passes the same setting to the build); the default is the app for N5 to N2.
+// (run-app.sh passes the same setting to the build); the default is the main app, for N5 to N2.
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
@@ -48,7 +48,8 @@ if (LEVEL === 'N1') {
     drillSrc: 'g.' + l.id + '.d0', teachClip: 'g.' + l.id + '.0.0',
   };
 } else {
-  TEXT = { appName: 'Yaoki', tabCount: '101問', weekTheme: '原因・理由', teachTitle: '〜ばかりに', drillWrong: 'あまり', drillLine: '寝坊した', drillSrc: 'drill', teachClip: 't_ex1' };
+  /* the main app (N5 to N2): a new plan starts on day 1 of its N2 unit 3, 原因・理由 (〜ことから, then 〜につき) */
+  TEXT = { appName: 'Yaoki', tabCount: '101問', weekTheme: '原因・理由', teachTitle: '〜ことから', drillWrong: 'あまり', drillLine: '道がぬれていた', drillSrc: 'u03d1.d1', teachClip: 't_ex1' };
 }
 
 module.exports = { LEVEL, PROJECT, clips, mockClips, listeningMs, course, ...TEXT };

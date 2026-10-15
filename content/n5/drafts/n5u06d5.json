@@ -1,0 +1,263 @@
+{
+ "title": "〜に行く・〜つもりです",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u06d5.p1",
+    "form": "〜に行きます",
+    "gloss": "go (somewhere) to do something",
+    "connect": [
+     {"pos": "Verb, ます form without ます", "rule": "[買|か]います → [買|か]い{に[行|い]きます}"},
+     {"pos": "Noun of action (かいもの, さんぽ)", "rule": "〜{に[行|い]きます}"},
+     {"pos": "Also with 来ます and かえります", "rule": "〜{に}[来|き]ます／かえります"}
+    ],
+    "examples": [
+     {"ja": "あした、[本|ほん]を[買|か]い{に[行|い]きます}。", "en": "Tomorrow I am going to buy a book."},
+     {"ja": "[日|にち]よう[日|び]は、かいもの{に[行|い]きます}。", "en": "On Sunday I am going shopping."}
+    ],
+    "watch": {
+     "note": "Drop ます first, then add に: 買います becomes 買いに. The whole ます form does not go before に.",
+     "bad": "本を買いますに行きます。",
+     "good": "本を買いに行きます。"
+    }
+   },
+   {
+    "id": "n5u06d5.p2",
+    "form": "〜つもりです",
+    "gloss": "plan to; intend to",
+    "connect": [
+     {"pos": "Verb, dictionary form (learn these as a set for now)", "rule": "[行|い]く{つもりです}／[見|み]る{つもりです}"},
+     {"pos": "Verb, ない form: plan not to", "rule": "[行|い]かない{つもりです}"},
+     {"pos": "Asking about a plan", "rule": "[何|なに]をする{つもりですか}"}
+    ],
+    "examples": [
+     {"ja": "[来週|らいしゅう]、[山|やま]へ[行|い]く{つもりです}。", "en": "I plan to go to the mountains next week."},
+     {"ja": "あしたは、[外|そと]へ[出|で]ない{つもりです}。", "en": "I don't plan to go out tomorrow."}
+    ],
+    "watch": {
+     "note": "The verb before つもり is the dictionary form (行く), not the polite ます form (行きます).",
+     "bad": "来週、山へ行きますつもりです。",
+     "good": "来週、山へ行くつもりです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "Both に行きます sentences use に, but one says what you go to do and one says where you go; つもりです says what you plan.",
+   "forms": [
+    {"form": "[買|か]いに[行|い]きます", "tag": "なにをしに · to do something", "mark": "dot", "ja": "パンを[買|か]い{に}[行|い]きます。", "en": "I am going out to buy bread."},
+    {"form": "[駅|えき]に[行|い]きます", "tag": "どこに · to a place", "mark": "dot", "ja": "あした、[駅|えき]{に}[行|い]きます。", "en": "I am going to the station tomorrow."},
+    {"form": "[行|い]くつもりです", "tag": "つもり · plan to", "mark": "dot", "ja": "あした、[山|やま]へ[行|い]く{つもりです}。", "en": "I plan to go to the mountains tomorrow."}
+   ],
+   "check": {
+    "id": "n5u06d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "しゃしん",
+    "q": "あした、[友|とも]だちと[山|やま]へ^しゃしんをとり^（　　）。",
+    "options": ["に[行|い]きます", "へ[行|い]きます", "つもりです"],
+    "answer": 1,
+    "why": [
+     "とり is the ます form of とります without ます. With に行きます it says what you go to do: take photos.",
+     "へ marks a place you go to, and しゃしんをとり is not a place. 山へ already says where.",
+     "つもりです needs the dictionary form: とるつもりです. とりつもりです is not Japanese."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u06d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あした、デパートへくつを（　　）^に[行|い]きます^。",
+    "options": ["[買|か]い", "[買|か]う", "[買|か]って", "[買|か]います"],
+    "answer": 1,
+    "why": [
+     "Before に行きます, use the ます form without ます: 買います becomes 買い.",
+     "買う is the dictionary form. In this pattern, drop ます from 買います instead: 買いに.",
+     "買って is the te-form. 買ってに is not Japanese.",
+     "買いますに is not Japanese. Take ます off first: 買いに."
+    ]
+   },
+   {
+    "id": "n5u06d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "[日|にち]よう[日|び]は、[母|はは]と^かいもの^（　　）[行|い]きます。",
+    "options": ["に", "を", "で", "が"],
+    "answer": 1,
+    "why": [
+     "かいもの is a noun of action. かいものに行きます means \"go shopping\".",
+     "かいものを行きます is not said. To say what you go to do, use に.",
+     "で shows where something happens or how. かいもので行きます does not mean \"go shopping\".",
+     "が would make かいもの the one who goes. The speaker and mother are the ones going."
+    ]
+   },
+   {
+    "id": "n5u06d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[来週|らいしゅう]の[休|やす]みは、うみへ（　　）^つもりです^。",
+    "options": ["[行|い]く", "[行|い]き", "[行|い]きます", "[行|い]って"],
+    "answer": 1,
+    "why": [
+     "つもりです follows the dictionary form: 行くつもりです, \"I plan to go\".",
+     "行き is the ます form without ます. It goes before に行きます, not before つもり.",
+     "行きますつもりです is a common mistake. つもり takes the dictionary form 行く.",
+     "行って is the te-form. 行ってつもりです is not Japanese."
+    ]
+   },
+   {
+    "id": "n5u06d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^あしたはテストです^。[今日|きょう]はテレビを（　　）つもりです。",
+    "options": ["[見|み]ない", "[見|み]ません", "[見|み]て", "[見|み]に"],
+    "answer": 1,
+    "why": [
+     "There is a test tomorrow, so the plan is not to watch TV. ない form + つもりです means \"plan not to\".",
+     "見ません is the polite \"not\" ending. つもり takes the ない form: 見ないつもりです.",
+     "見て is the te-form. 見てつもりです is not Japanese.",
+     "見に goes before 行きます or 来ます, not before つもり."
+    ]
+   },
+   {
+    "id": "n5u06d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[日|にち]よう[日|び]、[友|とも]だちが",
+    "after": "。",
+    "tiles": ["うち", "へ", "あそび", "に[来|き]ます"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "First the place with へ. Then what the friend comes to do, with に来ます.",
+    "full": "[日|にち]よう[日|び]、[友|とも]だちがうちへあそび{に[来|き]ます}。",
+    "explain": "うちへ says where the friend comes, and あそびに来ます says why: \"On Sunday a friend is coming to my house to hang out.\""
+   },
+   {
+    "id": "n5u06d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[来週|らいしゅう]の[休|やす]みは、",
+    "after": "です。",
+    "tiles": ["[山|やま]", "へ", "[行|い]く", "つもり"],
+    "star": 2,
+    "bank": [3, 0, 2, 1],
+    "hint": "The place comes first with へ. The dictionary form 行く goes right before つもり.",
+    "full": "[来週|らいしゅう]の[休|やす]みは、[山|やま]へ[行|い]く{つもり}です。",
+    "explain": "山へ is where, 行く is the dictionary form, and つもりです comes last: \"Next week on my day off, I plan to go to the mountains.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u06d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「あした　何を　しますか。」B「としょかんへ　本を（　　）　行きます。」",
+    "options": ["かえしに", "かえす", "かえします", "かえさない"],
+    "answer": 1,
+    "explain": "B goes to the library to return a book: かえしに行きます, the ます form without ます plus に. かえす行きます and かえします行きます are not Japanese; to say what you go to do, drop ます and add に. かえさない is a \"not\" form and makes no sense with 行きます here."
+   },
+   {
+    "id": "n5u06d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「あしたも　会社に　行きますか。」B「いいえ、あしたは　休みです。会社には（　　）　つもりです。」",
+    "options": ["行かない", "行く", "行きません", "行って"],
+    "answer": 1,
+    "explain": "B says いいえ and tomorrow is a day off, so B plans not to go: 行かないつもりです. 行くつもりです means B plans to go, which does not fit いいえ. 行きません is the polite ending and cannot go before つもり. 行ってつもりです is not Japanese."
+   },
+   {
+    "id": "n5u06d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「日よう日は　何を　しますか。」B「山へ　",
+    "after": "　つもりです。」",
+    "tiles": ["しゃしん", "を", "とりに", "行く"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "full": "A「日よう日は　何を　しますか。」B「山へ　しゃしんをとりに行く　{つもり}です。」",
+    "explain": "しゃしん, を, とりに, 行く. しゃしんを is what B takes, とりに says what B goes to do, and the dictionary form 行く comes right before つもりです."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "カレンダーの　よてい",
+  "en": "A wall calendar with plans for next week's days off",
+  "intro": "Tap every word on the calendar you need to know when and where this family is going.",
+  "words": [
+   {"id": "nextweek", "word": "来週", "reading": "らいしゅう", "gloss": "next week", "parts": [["来", "ライ", "come"], ["週", "シュウ", "week"]]},
+   {"id": "lastweek", "word": "先週", "reading": "せんしゅう", "gloss": "last week", "parts": [["先", "セン", "before, ahead"], ["週", "シュウ", "week"]]},
+   {"id": "dayoff", "word": "休み", "reading": "やすみ", "gloss": "day off, holiday", "parts": [["休", "やす", "rest"]]},
+   {"id": "saturday", "word": "土よう日", "reading": "どようび", "gloss": "Saturday", "parts": [["土", "ド", "earth, soil"], ["日", "び", "day"]]},
+   {"id": "am", "word": "午前", "reading": "ごぜん", "gloss": "a.m., morning", "parts": [["午", "ゴ", "noon"], ["前", "ゼン", "before"]]},
+   {"id": "mountain", "word": "山", "reading": "やま", "gloss": "mountain", "parts": [["山", "やま", "mountain"]]},
+   {"id": "river", "word": "川", "reading": "かわ", "gloss": "river", "parts": [["川", "かわ", "river"]]},
+   {"id": "go", "word": "行く", "reading": "いく", "gloss": "go", "parts": [["行", "い", "go"]]}
+  ],
+  "check": {
+   "id": "n5u06d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_来週_の　土よう日は　川へ　行く　つもりです。",
+   "options": ["らいしゅう", "らいしゅ", "こんしゅう", "せんしゅう"],
+   "answer": 1,
+   "explain": "来週 is read らいしゅう, \"next week\". らいしゅ is missing the long う. こんしゅう is 今週 (this week) and せんしゅう is 先週 (last week)."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "男の人は　土よう日　はじめに　どこへ　行きますか。",
+  "audio": [
+   ["N", "女の人と男の人が話しています。男の人は、土よう日、はじめにどこへ行きますか。", "おんなのひとと　おとこのひとが　はなしています。おとこのひとは、どようび、はじめに　どこへ　いきますか。"],
+   ["F", "土よう日、いっしょに出かけませんか。", "どようび、いっしょに　でかけませんか。"],
+   ["M", "いいですね。こうえんへ行きますか。", "いいですね。こうえんへ　いきますか。"],
+   ["F", "土よう日は、雨ですよ。駅の前のデパートへ、くつを買いに行きませんか。", "どようびは、あめですよ。えきの　まえの　デパートへ、くつを　かいに　いきませんか。"],
+   ["M", "いいですよ。ぼくは、本やへ、本を買いに行くつもりです。", "いいですよ。ぼくは、ほんやへ、ほんを　かいに　いく　つもりです。"],
+   ["F", "じゃあ、デパートの後で、本やへ行きましょう。", "じゃあ、デパートの　あとで、ほんやへ　いきましょう。"],
+   ["M", "でも、デパートは十一時からですよ。本やは九時からです。", "でも、デパートは　じゅういちじからですよ。ほんやは　くじからです。"],
+   ["F", "そうですか。じゃあ、はじめに本やへ行きましょう。ひるごはんは、デパートのレストランで食べましょう。", "そうですか。じゃあ、はじめに　ほんやへ　いきましょう。ひるごはんは、デパートの　レストランで　たべましょう。"],
+   ["M", "はい、そうしましょう。", null],
+   ["N", "男の人は、土よう日、はじめにどこへ行きますか。", "おとこのひとは、どようび、はじめに　どこへ　いきますか。"]
+  ],
+  "item": {
+   "id": "n5u06d5.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "男の人は　土よう日　はじめに　どこへ　行きますか。",
+   "script": [
+    "ナレーター：女の人と男の人が話しています。男の人は、土よう日、はじめにどこへ行きますか。",
+    "女：土よう日、いっしょに出かけませんか。",
+    "男：いいですね。こうえんへ行きますか。",
+    "女：土よう日は、雨ですよ。駅の前のデパートへ、くつを買いに行きませんか。",
+    "男：いいですよ。ぼくは、本やへ、本を買いに行くつもりです。",
+    "女：じゃあ、デパートの後で、本やへ行きましょう。",
+    "男：でも、デパートは十一時からですよ。本やは九時からです。",
+    "女：そうですか。じゃあ、はじめに本やへ行きましょう。ひるごはんは、デパートのレストランで食べましょう。",
+    "男：はい、そうしましょう。",
+    "ナレーター：男の人は、土よう日、はじめにどこへ行きますか。"
+   ],
+   "options": ["こうえん", "デパート", "本や", "レストラン"],
+   "printed": true,
+   "short": ["こうえん", "デパート", "本や", "レストラン"],
+   "answer": 3,
+   "why": [
+    "The man asks about the park, but the woman says it will rain on Saturday, so they do not go there.",
+    "They first planned the department store, but it opens at eleven, so they go there after the bookshop.",
+    "The bookshop opens at nine and the store at eleven, so the woman says はじめに本やへ行きましょう and he agrees.",
+    "They will eat lunch at the restaurant in the department store, later in the day."
+   ]
+  }
+ }
+}

@@ -1,0 +1,264 @@
+{
+ "title": "〜すぎる・〜方",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u03d5.p1",
+    "form": "〜すぎる",
+    "gloss": "too …; … too much",
+    "connect": [
+     {"pos": "Verb, ます form without ます", "rule": "食べます → 食べ{すぎる}"},
+     {"pos": "い-adjective without い (いい becomes よ)", "rule": "高い → 高{すぎる}／いい → よ{すぎる}"},
+     {"pos": "な-adjective without な", "rule": "しずかな → しずか{すぎる}"}
+    ],
+    "examples": [
+     {"ja": "ケーキを食べ{すぎて}、おなかがいたいです。", "en": "I ate too much cake, and now my stomach hurts."},
+     {"ja": "この[図書館|としょかん]はしずか{すぎて}、ねむくなります。", "en": "This library is too quiet. It makes me sleepy."}
+    ],
+    "watch": {
+     "note": "An い-adjective drops its い before すぎる: 高い → 高すぎる. いい is special: よすぎる.",
+     "bad": "このくつは高いすぎます。",
+     "good": "このくつは高すぎます。"
+    }
+   },
+   {
+    "id": "n4u03d5.p2",
+    "form": "〜方",
+    "gloss": "how to …; the way of …ing",
+    "connect": [
+     {"pos": "Verb, ます form without ます", "rule": "[使|つか]います → [使|つか]い{[方|かた]}"},
+     {"pos": "The thing it acts on takes の, not を", "rule": "[漢字|かんじ]を読む → [漢字|かんじ]の読み{[方|かた]}"},
+     {"pos": "It is a noun", "rule": "読み{[方|かた]}を[教|おし]えてください"}
+    ],
+    "examples": [
+     {"ja": "この[漢字|かんじ]の読み{[方|かた]}を[教|おし]えてください。", "en": "Please tell me how to read this kanji."},
+     {"ja": "新しいカメラの[使|つか]い{[方|かた]}がわかりません。", "en": "I don't know how to use my new camera."}
+    ],
+    "watch": {
+     "note": "読み方 is a noun, so the thing you read joins it with の, not を.",
+     "bad": "漢字を読み方を教えてください。",
+     "good": "漢字の読み方を教えてください。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three go on the ます form without ます, but each one means something different.",
+   "forms": [
+    {"form": "使いすぎる", "tag": "やりすぎ · too much", "mark": "up", "ja": "スマホを[使|つか]い{すぎて}、目がいたいです。", "en": "I used my phone too much, and my eyes hurt."},
+    {"form": "使い方", "tag": "やりかた · how to", "mark": "dot", "ja": "このきかいの[使|つか]い{[方|かた]}を[教|おし]えてください。", "en": "Please show me how to use this machine."},
+    {"form": "使いやすい", "tag": "かんたん · easy to", "mark": "dot", "ja": "このきかいはボタンが大きくて、[使|つか]い{やすい}です。", "en": "This machine has big buttons, so it is easy to use."}
+   ],
+   "check": {
+    "id": "n4u03d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "テスト",
+    "q": "^はじめて^[使|つか]うので、このカメラの（　　）を[教|おし]えてください。",
+    "options": ["[使|つか]いすぎ", "[使|つか]い[方|かた]", "[使|つか]いやすい"],
+    "answer": 2,
+    "why": [
+     "[使|つか]いすぎ means using it too much. That is not something you ask someone to teach you.",
+     "It is the first time, so the speaker asks how to use the camera: [使|つか]い[方|かた].",
+     "[使|つか]いやすい is an adjective. It cannot sit between の and を; a noun goes there."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u03d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このかばんは^五万円^です。わたしには（　　）。",
+    "options": ["高すぎます", "高いすぎます", "高くすぎます", "安すぎます"],
+    "answer": 1,
+    "why": [
+     "Fifty thousand yen is too expensive for the speaker. 高い drops its い before すぎる.",
+     "The い of 高い drops before すぎる: 高すぎます.",
+     "高く is the adverb form. すぎる goes on 高, not on 高く.",
+     "A bag for fifty thousand yen is not too cheap."
+    ]
+   },
+   {
+    "id": "n4u03d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このいすは^きもちが^（　　）、すぐにねてしまいます。",
+    "options": ["よすぎて", "いすぎて", "よくすぎて", "よいすぎて"],
+    "answer": 1,
+    "why": [
+     "きもちがいい becomes きもちがよすぎる: the chair is too comfortable, so the speaker falls asleep.",
+     "いい changes to よ before すぎる, so いすぎて is wrong.",
+     "よく is the adverb form. すぎる goes on よ, not on よく.",
+     "よい keeps its い here. Like 高い → 高すぎる, the い drops: よすぎる."
+    ]
+   },
+   {
+    "id": "n4u03d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[漢字|かんじ]（　　）^読み[方|かた]^を[教|おし]えてください。",
+    "options": ["の", "を", "が", "に"],
+    "answer": 1,
+    "why": [
+     "読み[方|かた] is a noun, so the kanji joins it with の: [漢字|かんじ]の読み[方|かた].",
+     "を needs a verb such as 読む. 読み[方|かた] is a noun, and it already has its own を.",
+     "が does not join one noun to another noun.",
+     "に would mean \"to\" or \"at\" the kanji. It cannot join the kanji to 読み[方|かた]."
+    ]
+   },
+   {
+    "id": "n4u03d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "すみません、^駅への^（　　）を[教|おし]えてください。",
+    "options": ["行き[方|かた]", "行く[方|かた]", "行って[方|かた]", "行きすぎ"],
+    "answer": 1,
+    "why": [
+     "\"How to get to the station\": 行きます without ます, plus [方|かた].",
+     "In the meaning \"how to\", [方|かた] goes on 行き, not on the dictionary form 行く.",
+     "[方|かた] never follows the te-form.",
+     "行きすぎ means going too far. That is not something you ask someone to teach you."
+    ]
+   },
+   {
+    "id": "n4u03d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのうは",
+    "after": "、きょうは[頭|あたま]がいたいです。",
+    "tiles": ["おさけを", "飲み", "すぎた", "ので"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "すぎた goes right after the ます form without ます. What did the speaker drink too much of?",
+    "full": "きのうはおさけを飲み{すぎた}ので、きょうは[頭|あたま]がいたいです。",
+    "explain": "おさけを is what was drunk, 飲みすぎた says it was too much, and ので gives the reason for the headache."
+   },
+   {
+    "id": "n4u03d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この",
+    "after": "[教|おし]えてください。",
+    "tiles": ["[料理|りょうり]の", "[作|つく]り[方|かた]を", "もう", "一度"],
+    "star": 1,
+    "bank": [3, 1, 0, 2],
+    "hint": "この needs a noun right after it. Then the dish joins 作り方 with の.",
+    "full": "この[料理|りょうり]の[作|つく]り{[方|かた]}をもう一度[教|おし]えてください。",
+    "explain": "この[料理|りょうり]の[作|つく]り[方|かた]を is what the speaker wants to learn. もう一度 (once more) goes right before the verb."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u03d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "夜の　こうえんは（　　）、少し　こわいです。",
+    "options": ["しずかすぎて", "しずかなすぎて", "しずかにすぎて", "しずかですぎて"],
+    "answer": 1,
+    "explain": "A な-adjective drops な before すぎる: しずかすぎて, \"so quiet that it is a little scary\". な, に and です never come between the adjective and すぎる."
+   },
+   {
+    "id": "n4u03d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：この　字は　何と　読みますか。　B：さあ、わたしも　（　　）が　わかりません。",
+    "options": ["読み方", "書き方", "読みすぎ", "読みやすい"],
+    "answer": 1,
+    "explain": "A asks how to read the kanji, and B does not know the reading either: 読み方. 書き方 is how to write it, which A did not ask. 読みすぎ means reading too much. 読みやすい is an adjective and cannot sit before が here."
+   },
+   {
+    "id": "n4u03d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あつかったので、　",
+    "after": "　しまいました。",
+    "tiles": ["つめたい", "ジュースを", "飲み", "すぎて"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "full": "あつかったので、　つめたい　ジュースを　飲み　{すぎて}　しまいました。",
+    "explain": "つめたい, ジュースを, 飲み, すぎて. つめたい describes ジュース, and すぎて goes on 飲み, the ます form without ます, before しまいました."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "きっぷの　買い方",
+  "en": "A guide on a ticket machine at a train station",
+  "intro": "Tap every word you need to buy the right ticket: where you are going, what kind of train, and how much it costs.",
+  "words": [
+   {"id": "howto", "word": "使い方", "reading": "つかいかた", "gloss": "how to use", "parts": [["使", "つか", "use"], ["方", "かた", "way"]]},
+   {"id": "fare", "word": "料金", "reading": "りょうきん", "gloss": "fare, charge", "parts": [["料", "リョウ", "fee"], ["金", "キン", "money"]]},
+   {"id": "dest", "word": "行き先", "reading": "いきさき", "gloss": "destination", "parts": [["行", "い", "go"], ["先", "さき", "ahead, end"]]},
+   {"id": "express", "word": "特急", "reading": "とっきゅう", "gloss": "limited express", "parts": [["特", "トッ", "special"], ["急", "キュウ", "hurry"]]},
+   {"id": "platform", "word": "乗り場", "reading": "のりば", "gloss": "boarding place", "parts": [["乗", "の", "ride"], ["場", "ば", "place"]]},
+   {"id": "map", "word": "地図", "reading": "ちず", "gloss": "map", "parts": [["地", "チ", "ground"], ["図", "ズ", "drawing"]]},
+   {"id": "depart", "word": "発車", "reading": "はっしゃ", "gloss": "departure (of a train)", "parts": [["発", "ハッ", "set off"], ["車", "シャ", "vehicle"]]},
+   {"id": "caution", "word": "注意", "reading": "ちゅうい", "gloss": "caution, take care", "parts": [["注", "チュウ", "pour, focus"], ["意", "イ", "mind"]]}
+  ],
+  "check": {
+   "id": "n4u03d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "おとなの　_料金_は　いくらですか。",
+   "options": ["りょうきん", "りょきん", "りょうぎん", "りょうかね"],
+   "answer": 1,
+   "explain": "料金 (fare) is りょう + きん. 料 has a long vowel, as in 料理, so りょきん is wrong. 金 does not change to ぎん here, and かね is its kun'yomi, used in お金, not in 料金."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "即時応答",
+  "en": "Quick response",
+  "ask": "文を　聞いて、いちばん　いい　答えを　一つ　えらんで　ください。",
+  "audio": [
+   ["F", "すみません、きっぷの買い方がわからないんですが。", "すみません、きっぷの　かいかたが　わからないんですが。"],
+   ["N", "1", "いち"],
+   ["M", "じゃあ、買いすぎないでくださいね。", "じゃあ、かいすぎないでくださいね。"],
+   ["N", "2", "に"],
+   ["M", "いいですよ。まず、ここにお金を入れてください。", "いいですよ。まず、ここに　おかねを　いれてください。"],
+   ["N", "3", "さん"],
+   ["M", "ええ、とても買いやすいですね。", "ええ、とても　かいやすいですね。"]
+  ],
+  "item": {
+   "id": "n4u03d5.r1",
+   "kind": "choice",
+   "type": "即時応答",
+   "q": "女：すみません、きっぷの　買い方が　わからないんですが。",
+   "script": [
+    "女：すみません、きっぷの買い方がわからないんですが。",
+    "ナレーター：1",
+    "男：じゃあ、買いすぎないでくださいね。",
+    "ナレーター：2",
+    "男：いいですよ。まず、ここにお金を入れてください。",
+    "ナレーター：3",
+    "男：ええ、とても買いやすいですね。"
+   ],
+   "options": [
+    "じゃあ、買いすぎないでくださいね。",
+    "いいですよ。まず、ここにお金を入れてください。",
+    "ええ、とても買いやすいですね。"
+   ],
+   "printed": false,
+   "short": [
+    "買いすぎないでください",
+    "まず、お金を入れてください",
+    "とても買いやすいですね"
+   ],
+   "answer": 2,
+   "why": [
+     "She asked how to buy a ticket. A warning not to buy too many does not answer her.",
+     "She does not know how to buy a ticket, so he shows her the first step.",
+     "ええ and ですね agree with her as if she had said buying was easy. She said she does not know how."
+   ]
+  }
+ }
+}

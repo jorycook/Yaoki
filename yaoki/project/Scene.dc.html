@@ -5,6 +5,12 @@
 <title>Kanji in a scene</title>
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
+<script src="./sound-course.js"></script>
 <script src="./sound-lessons.js"></script>
 </head>
 <body>
@@ -20,9 +26,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px">
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
-<div role="img" aria-label="{{ progressLabel }}" style="flex-grow: 1; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px">
+<div role="img" aria-label="{{ progressLabel }}" style="flex-grow: 1; display: grid; gap: 4px; grid-template-columns: {{ barCols }}">
 <sc-for list="{{ bars }}" as="b" hint-placeholder-count="8">
 <div style="height: 10px; border-radius: 5px; background: {{ b.bg }}"></div>
 </sc-for>
@@ -30,39 +36,20 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 12px; font-weight: 800; color: #C7361E">学習 LEARN</div>
 </div>
 
-<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px">
-<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">市役所で <span style="font-size: 15px; font-weight: 700; color: #5A6382">At the city office</span></h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382">Tap every sign you would have to read. {{ count }} of 8 found.</div>
+<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">{{ titleJa }} <span style="font-size: 15px; font-weight: 700; color: #5A6382">{{ titleEn }}</span></h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">{{ intro }} {{ count }} of {{ total }} found.</div>
 </div>
 
-<div lang="ja" style="margin-top: 12px; padding: 10px; border-radius: 20px; background: #E9ECF4; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px">
-<div style="padding: 8px 10px; border-radius: 12px; background: #1B2440; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
-<div style="display: flex; align-items: center; gap: 8px">
-<div style="width: 30px; font-size: 12px; font-weight: 700">1番</div>
-<button onClick="{{ w.resid.tap }}" aria-pressed="{{ w.resid.on }}" style="position: relative; height: 46px; padding: 0 12px; border-radius: 10px; background: #2A3560; color: #F2B43A; font-size: 17px; font-weight: 800; border: {{ w.resid.edge }}; outline: {{ w.resid.ring }}; box-shadow: {{ w.resid.glow }}">住民票<sc-if value="{{ w.resid.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-<button onClick="{{ w.cert.tap }}" aria-pressed="{{ w.cert.on }}" style="position: relative; height: 46px; padding: 0 10px; border-radius: 10px; background: none; color: #FFFFFF; font-size: 16px; font-weight: 700; border: {{ w.cert.edge }}; outline: {{ w.cert.ring }}; box-shadow: {{ w.cert.glow }}">証明書<sc-if value="{{ w.cert.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-<div style="flex-grow: 1"></div>
-<div style="font-size: 15px; font-weight: 700">128番</div>
-</div>
-<div style="display: flex; align-items: center; gap: 8px">
-<div style="width: 30px; font-size: 12px; font-weight: 700">2番</div>
-<button onClick="{{ w.reissue.tap }}" aria-pressed="{{ w.reissue.on }}" style="position: relative; height: 46px; padding: 0 10px; border-radius: 10px; background: none; color: #FFFFFF; font-size: 16px; font-weight: 700; border: {{ w.reissue.edge }}; outline: {{ w.reissue.ring }}; box-shadow: {{ w.reissue.glow }}">再発行<sc-if value="{{ w.reissue.badge }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-<div style="flex-grow: 1; font-size: 14px; font-weight: 700; padding-left: 4px; white-space: nowrap">マイナンバーカード</div>
-<div style="font-size: 15px; font-weight: 700">131番</div>
-</div>
-</div>
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
-<button onClick="{{ w.ticket.tap }}" aria-pressed="{{ w.ticket.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #F2B43A; font-size: 15px; font-weight: 800; outline: {{ w.ticket.ring }}; box-shadow: {{ w.ticket.glow }}">番号札<sc-if value="{{ w.ticket.badge }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-<button onClick="{{ w.form.tap }}" aria-pressed="{{ w.form.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #2F4FD0; color: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.form.ring }}; box-shadow: {{ w.form.glow }}">申請書<sc-if value="{{ w.form.badge }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-<button onClick="{{ w.sample.tap }}" aria-pressed="{{ w.sample.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.sample.ring }}; box-shadow: {{ w.sample.glow }}">記入例<sc-if value="{{ w.sample.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-</div>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
-<button onClick="{{ w.fee.tap }}" aria-pressed="{{ w.fee.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.fee.ring }}; box-shadow: {{ w.fee.glow }}">手数料<sc-if value="{{ w.fee.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-<button onClick="{{ w.ident.tap }}" aria-pressed="{{ w.ident.on }}" style="position: relative; height: 46px; border-radius: 8px; border: 2px solid #1B2440; background: #0B7A6B; color: #FFFFFF; font-size: 15px; font-weight: 800; outline: {{ w.ident.ring }}; box-shadow: {{ w.ident.glow }}">本人確認<sc-if value="{{ w.ident.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
-</div>
+<div lang="ja" style="margin-top: 12px; padding: 12px; border-radius: 20px; background: #1B2440; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; flex-shrink: 0">
+<sc-for list="{{ words }}" as="w" hint-placeholder-count="8">
+<button onClick="{{ w.tap }}" aria-pressed="{{ w.on }}" style="position: relative; height: 46px; padding: 0 10px; border-radius: 10px; font-size: 17px; font-weight: 800; white-space: nowrap; background: {{ w.bg }}; color: {{ w.ink }}; border: {{ w.edge }}; outline: {{ w.ring }}; box-shadow: {{ w.glow }}">{{ w.word }}<sc-if value="{{ w.badge }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button>
+</sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <div style="display: flex; align-items: center; gap: 12px">
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.1; white-space: nowrap; flex-shrink: 0; font-size: {{ d.size }}">{{ d.word }}</div>
 <div style="flex-grow: 1; display: flex; flex-direction: column">
@@ -81,29 +68,33 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 8px">
+<div style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="font-size: 12px; font-weight: 800">試験ではこう出る　How the exam asks it · 語形成</div>
+<div style="font-size: 12px; font-weight: 800">試験ではこう出る　How the exam asks it · {{ checkType }}</div>
 </sc-if>
 <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800">
-<sc-if value="{{ right }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
-<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div style="display: flex; align-items: flex-start; gap: 6px; font-size: 12px; font-weight: 800; line-height: 1.45">
+<sc-if value="{{ right }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
 <div>{{ verdict }}</div>
 </div>
+<div style="font-size: 12px; font-weight: 500; line-height: 1.45">{{ explain }}</div>
 </sc-if>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">カードの（　　）発行を申し込んだ。</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">{{ checkQ }}</div>
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div lang="ja" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+<div lang="ja" style="display: grid; gap: 6px; grid-template-columns: {{ choiceCols }}">
 <sc-for list="{{ choices }}" as="c" hint-placeholder-count="4">
 <button onClick="{{ c.pick }}" style="height: 44px; padding: 0; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800">{{ c.label }}</button>
 </sc-for>
 </div>
 </sc-if>
-<sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
-<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 44px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
-</sc-if>
 </div>
+
+</div>
+
+<sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
+<a href="Today.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+</sc-if>
 
 </div>
 </x-dc>
@@ -111,82 +102,95 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 class Component extends DCLogic {
 constructor(props) {
 super(props);
-/* the designed moment: three signs found, 再発行 open */
-this.state = { found: ['ticket', 'form', 'reissue'], sel: 'reissue', quiz: null, playing: false };
+const scene = this.scene(props);
+const first = scene.words[0] ? scene.words[0].id : null;
+/* inside the prototype the first word is open; on its own the artboard shows the designed moment: three words found */
+this.state = props && props.go
+? { found: first ? [first] : [], sel: first, quiz: null, playing: false }
+: { found: scene.words.slice(0, 3).map((w) => w.id), sel: scene.words[2] ? scene.words[2].id : first, quiz: null, playing: false };
+}
+scene(props) {
+const C = window.ykCourse;
+const app = (props && props.app) || { day: C.day('u03d4') };
+return (app.day && app.day.scene) || { words: [], check: { options: [] } };
 }
 componentWillUnmount() {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 }
 renderVals() {
+const C = window.ykCourse;
 const s = this.state;
+const scene = this.scene(this.props);
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
-const k = (c, on, mean) => ({ c, on, mean });
-/* each word is shown as its two building blocks: at N2 the exam asks how words are put together (語形成) */
-const WORDS = {
-resid: { word: '住民票', reading: 'じゅうみんひょう', gloss: 'residence certificate', kanji: [k('住民', 'じゅうみん', 'residents'), k('票', 'ヒョウ', 'slip, ballot')] },
-cert: { word: '証明書', reading: 'しょうめいしょ', gloss: 'certificate', kanji: [k('証明', 'しょうめい', 'proof'), k('書', 'ショ', 'document')] },
-reissue: { word: '再発行', reading: 'さいはっこう', gloss: 'reissue, a replacement', kanji: [k('再', 'サイ', 'again: 再開'), k('発行', 'はっこう', 'issue')] },
-ticket: { word: '番号札', reading: 'ばんごうふだ', gloss: 'number ticket', kanji: [k('番号', 'ばんごう', 'number'), k('札', 'ふだ', 'tag, ticket')] },
-form: { word: '申請書', reading: 'しんせいしょ', gloss: 'application form', kanji: [k('申請', 'しんせい', 'application'), k('書', 'ショ', 'document')] },
-sample: { word: '記入例', reading: 'きにゅうれい', gloss: 'filled-in sample', kanji: [k('記入', 'きにゅう', 'filling in'), k('例', 'レイ', 'example')] },
-fee: { word: '手数料', reading: 'てすうりょう', gloss: 'handling fee', kanji: [k('手数', 'てすう', 'trouble'), k('料', 'リョウ', 'fee: 送料')] },
-ident: { word: '本人確認', reading: 'ほんにんかくにん', gloss: 'identity check', kanji: [k('本人', 'ほんにん', 'the person'), k('確認', 'かくにん', 'check')] },
-};
-const w = {};
-Object.keys(WORDS).forEach((id) => {
-const on = s.sel === id;
-const found = s.found.includes(id);
-w[id] = {
+const words = scene.words.map((w) => {
+const on = s.sel === w.id;
+const found = s.found.includes(w.id);
+return {
+word: w.word,
 on,
 badge: found && !on,
+bg: on ? '#2A3560' : 'transparent',
+ink: on ? '#F2B43A' : '#FFFFFF',
 edge: found ? '2px solid #6E7BA8' : '2px dashed #6E7BA8',
 ring: on ? '3px solid #F2B43A' : 'none',
 glow: on ? '0 0 0 5px #1B2440' : 'none',
 tap: () => {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
-this.setState({ sel: id, found: found ? s.found : s.found.concat(id), playing: false });
+this.setState({ sel: w.id, found: found ? this.state.found : this.state.found.concat(w.id), playing: false });
 },
 };
 });
-const cur = WORDS[s.sel];
+const cur = scene.words.find((w) => w.id === s.sel) || scene.words[0] || { word: '', reading: '', gloss: '', parts: [] };
 const len = cur.word.length;
-const PARTS = { 1: '再', 2: '復', 3: '改', 4: '重' };
+const it = scene.check || { options: [] };
 const answered = s.quiz !== null;
-const right = answered && s.quiz === 1;
+const right = answered && s.quiz === it.answer;
+const answer = it.options[it.answer - 1] || '';
 return {
-w,
+titleJa: scene.ja,
+titleEn: scene.en,
+intro: scene.intro || 'Tap every word you would have to read.',
+words,
 count: s.found.length,
-progressLabel: s.found.length + ' of 8 words found',
-bars: [0, 1, 2, 3, 4, 5, 6, 7].map((i) => ({ bg: i < s.found.length ? '#C7361E' : '#DDE1EC' })),
-d: { ...cur, size: len >= 4 ? '28px' : len === 3 ? '34px' : '40px' },
+total: scene.words.length,
+progressLabel: s.found.length + ' of ' + scene.words.length + ' words found',
+barCols: 'repeat(' + Math.max(1, scene.words.length) + ', minmax(0, 1fr))',
+bars: scene.words.map((_, i) => ({ bg: i < s.found.length ? '#C7361E' : '#DDE1EC' })),
+d: { word: cur.word, reading: cur.reading, gloss: cur.gloss, size: len >= 4 ? '28px' : len === 3 ? '34px' : '40px', kanji: (cur.parts || []).map((p) => ({ c: p[0], on: p[1], mean: p[2] })) },
 playBg: s.playing ? '#F2B43A' : '#E8ECFB',
 /* each word is a short clip: the button stays lit while it is said. If the sound cannot play, it just lights up for a moment */
 play: () => {
 clearTimeout(this.timer);
 const snd = window.ykSound;
-const key = 's_' + s.sel;
-const sound = !!(snd && snd.has(key) && snd.unlock() && snd.play(key));
+const key = cur.clip;
+const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
 this.setState({ playing: true });
 this.timer = setTimeout(() => this.setState({ playing: false }), sound ? snd.ms(key) + 150 : 1200);
 },
+checkType: it.type,
+checkQ: C.plain(it.q),
 asking: !answered,
 answered,
 right,
 wrong: answered && !right,
-verdict: right ? 'せいかい！ 1 再発行' : 'おしい！ 正解は 1 再発行。 Saved to your notebook.',
+verdict: right ? 'せいかい！ ' + it.answer + ' ' + answer : 'おしい！ 正解は ' + it.answer + ' ' + answer + '。 Saved to your notebook.',
+explain: it.explain || (it.why ? it.why[(s.quiz || 1) - 1] : ''),
 tone: right ? '#0B7A6B' : '#C7361E',
-choices: [1, 2, 3, 4].map((n) => ({
-label: n + ' ' + PARTS[n],
+/* four short readings sit in one row; longer options take two columns, sentences one */
+choiceCols: (() => { const w = Math.max(0, ...it.options.map((o) => C.plain(o).length)); const n = w <= 3 ? it.options.length : w <= 9 ? 2 : 1; return 'repeat(' + Math.max(1, n) + ', minmax(0, 1fr))'; })(),
+choices: it.options.map((o, k) => ({
+label: (k + 1) + ' ' + o,
 pick: () => {
-if (n !== 1 && this.props.miss) this.props.miss({ src: 'scene', wrong: PARTS[n] });
-this.setState({ quiz: n });
+if (this.state.quiz !== null) return;
+if (k + 1 !== it.answer && this.props.miss) this.props.miss({ src: it.id, wrong: o });
+this.setState({ quiz: k + 1 });
 },
 })),
 toToday: nav('Today'),
 toDone: (e) => {
-if (this.props.save) this.props.save({ k: 1 });
+if (this.props.save) this.props.save({ prog: { k: 1 } });
 nav('Today')(e);
 },
 };

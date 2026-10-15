@@ -1,0 +1,428 @@
+[
+ {
+  "id": "n5u03t.1",
+  "kind": "choice",
+  "type": "漢字読み",
+  "label": "Kanji reading",
+  "q": "_先週_は　雨が　よく　ふりました。",
+  "options": [
+   "せんしゅう",
+   "せんしゅ",
+   "さきしゅう",
+   "せいしゅう"
+  ],
+  "answer": 1,
+  "explain": "先週 is せんしゅう, last week. せんしゅ has a short しゅ in place of しゅう, so it is a different word. さきしゅう uses さき, the reading of 先 when it stands alone, and せいしゅう has せい in place of せん; neither is a word."
+ },
+ {
+  "id": "n5u03t.2",
+  "kind": "choice",
+  "type": "漢字読み",
+  "label": "Kanji reading",
+  "q": "よる　うちで　日本の　うたを　_聞きます_。",
+  "options": [
+   "ききます",
+   "かきます",
+   "いきます",
+   "おきます"
+  ],
+  "answer": 1,
+  "explain": "聞きます is ききます, listen. かきます is 書きます (write), いきます is 行きます (go), and おきます is get up. None of them is read from 聞, and you listen to a song."
+ },
+ {
+  "id": "n5u03t.3",
+  "kind": "choice",
+  "type": "表記",
+  "label": "Kanji spelling",
+  "q": "駅の　_きたぐち_で　友だちを　まちます。",
+  "options": [
+   "北口",
+   "北日",
+   "東口",
+   "南口"
+  ],
+  "answer": 1,
+  "explain": "きたぐち is 北口: 北 (north) with 口 (exit). 北日 has 日 (day) in place of 口, and it is not a word. 東口 is ひがしぐち (east exit) and 南口 is みなみぐち (south exit); they are real words but not read きたぐち."
+ },
+ {
+  "id": "n5u03t.4",
+  "kind": "choice",
+  "type": "表記",
+  "label": "Kanji spelling",
+  "q": "母に　てがみを　_かきます_。",
+  "options": [
+   "書きます",
+   "言きます",
+   "話きます",
+   "読きます"
+  ],
+  "answer": 1,
+  "explain": "かきます (write) is 書きます. 言 is the い of 言います (say), 話 is the はな of 話します (speak), and 読 is the よ of 読みます (read). None of them is read か, so 言きます, 話きます and 読きます are not words."
+ },
+ {
+  "id": "n5u03t.5",
+  "kind": "choice",
+  "type": "文脈規定",
+  "label": "Word in context",
+  "q": "駅で　電車に　（　　）。",
+  "options": [
+   "のります",
+   "おります",
+   "かいます",
+   "よみます"
+  ],
+  "answer": 1,
+  "explain": "電車に goes with のります: get on the train. おります (get off) takes を or から, as in 電車をおります, not に. かいます (buy) and よみます (read) do not take 電車に, and you do not buy or read a train."
+ },
+ {
+  "id": "n5u03t.6",
+  "kind": "choice",
+  "type": "文脈規定",
+  "label": "Word in context",
+  "q": "（　　）は　日よう日でした。あしたは　火よう日です。",
+  "options": [
+   "おととい",
+   "きのう",
+   "きょう",
+   "あさって"
+  ],
+  "answer": 2,
+  "explain": "If tomorrow is Tuesday, today is Monday, so yesterday, きのう, was Sunday. おととい (the day before yesterday) was Saturday. きょう is Monday, and it does not go with the past でした. あさって (the day after tomorrow) is in the future, so it cannot take でした."
+ },
+ {
+  "id": "n5u03t.7",
+  "kind": "choice",
+  "type": "言い換え類義",
+  "label": "Same meaning",
+  "q": "_まいばん_　日本語の　本を　読みます。",
+  "options": [
+   "あさは　いつも　日本語の　本を　読みます。",
+   "よるは　いつも　日本語の　本を　読みます。",
+   "よるは　ときどき　日本語の　本を　読みます。",
+   "よるは　日本語の　本を　読みません。"
+  ],
+  "answer": 2,
+  "explain": "まいばん means every evening, so it is the same as よるは いつも (in the evening, always). Option 1 says in the morning. Option 3 says only sometimes (ときどき). Option 4 says the person does not read in the evening."
+ },
+ {
+  "id": "n5u03t.8",
+  "kind": "choice",
+  "type": "言い換え類義",
+  "label": "Same meaning",
+  "q": "きょうは　_しごとを　休みます_。",
+  "options": [
+   "きょうは　会社へ　行きます。",
+   "きょうは　会社へ　行きません。",
+   "きょうは　会社で　はたらきます。",
+   "きょうは　会社に　います。"
+  ],
+  "answer": 2,
+  "explain": "しごとを 休みます means taking the day off work, so the person does not go to the office: 会社へ 行きません. Option 1 says the opposite. Options 3 and 4 say the person works or is at the office today."
+ },
+ {
+  "id": "n5u03t.9",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the form",
+  "q": "A「パクさんは　おさけを　飲みますか。」B「いいえ、おさけは　（　　）。」",
+  "options": [
+   "飲みます",
+   "飲みません",
+   "飲みませんでした",
+   "飲みましょう"
+  ],
+  "answer": 2,
+  "explain": "A asks about a habit with 飲みますか, and B says いいえ, so B answers with the polite no ending: 飲みません. 飲みます is a yes answer, which does not follow いいえ. 飲みませんでした is about one time in the past, but A did not ask about the past. 飲みましょう (let's drink) is a suggestion, not an answer about B's habit."
+ },
+ {
+  "id": "n5u03t.10",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the form",
+  "q": "けさは　じかんが　ありませんでしたから、あさごはんを　（　　）。",
+  "options": [
+   "食べました",
+   "食べませんでした",
+   "食べません",
+   "食べましょう"
+  ],
+  "answer": 2,
+  "explain": "けさ (this morning) is past, and there was no time, so the person did not eat: 食べませんでした. 食べました says the person ate, which does not follow \"there was no time\". 食べません is not past, so it does not fit けさ. 食べましょう (let's eat) is a suggestion, not something that happened."
+ },
+ {
+  "id": "n5u03t.11",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the particle",
+  "q": "きのう　としょかんで　本（　　）　二さつ　かりました。",
+  "options": [
+   "を",
+   "が",
+   "に",
+   "へ"
+  ],
+  "answer": 1,
+  "explain": "本 is the thing you borrow, so it takes を: 本を かりました. が would make the book the one who borrows. に and へ mark a person or a place, not the thing you borrow."
+ },
+ {
+  "id": "n5u03t.12",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the particle",
+  "q": "A「きのうは　何時に　うち（　　）　かえりましたか。」B「十時ごろです。」",
+  "options": [
+   "へ",
+   "を",
+   "で",
+   "と"
+  ],
+  "answer": 1,
+  "explain": "うち is where you go back to, and the place you go to takes へ: うちへ かえりました. を does not mark the place you go back to. で marks where you do something, not where you go. と means \"with\", and you do not go home with your home."
+ },
+ {
+  "id": "n5u03t.13",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the particle",
+  "q": "日よう日は　こうえん（　　）　友だちと　テニスを　しました。",
+  "options": [
+   "に",
+   "で",
+   "を",
+   "へ"
+  ],
+  "answer": 2,
+  "explain": "The park is where they played tennis, and the place of an action takes で: こうえんで テニスを しました. に marks where something is (こうえんに 木が あります) or where you go, but しました is an action. を is already on テニス, and へ marks where you go, which does not fit しました."
+ },
+ {
+  "id": "n5u03t.14",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the particle",
+  "q": "わたしは　毎日　じてんしゃ（　　）　駅まで　行きます。",
+  "options": [
+   "で",
+   "を",
+   "に",
+   "が"
+  ],
+  "answer": 1,
+  "explain": "A bicycle is how the person goes, and the thing you use takes で: じてんしゃで 行きます. を would make the bicycle the thing you go, which does not make sense. に is for getting on (じてんしゃに のります), not with 行きます. が would make the bicycle the one who goes."
+ },
+ {
+  "id": "n5u03t.15",
+  "kind": "choice",
+  "type": "文の文法1",
+  "label": "Choose the form",
+  "q": "A「この　りんご、おいしいですよ。一つ　食べ（　　）。」B「ありがとうございます。いただきます。」",
+  "options": [
+   "ませんか",
+   "ました",
+   "ませんでした",
+   "ましたか"
+  ],
+  "answer": 1,
+  "explain": "B thanks A and says いただきます, so A is offering an apple: 食べませんか (won't you have one?). 食べました and 食べませんでした tell what A did, and B would not thank A for that. 食べましたか asks if B already ate one, and ありがとうございます is not an answer to that question."
+ },
+ {
+  "id": "n5u03t.16",
+  "kind": "star",
+  "type": "文の文法2",
+  "label": "Build the sentence",
+  "before": "A「ケンさん、来週は　何を　しますか。」B「来週の　",
+  "after": "。」A「そうですか。いいですね。」",
+  "tiles": [
+   "土よう日に",
+   "国",
+   "へ",
+   "かえります"
+  ],
+  "star": 2,
+  "bank": [
+   3,
+   2,
+   0,
+   1
+  ],
+  "full": "A「ケンさん、来週は　何を　しますか。」B「来週の　土よう日に　国{へ}　かえります。」A「そうですか。いいですね。」",
+  "explain": "土よう日に, 国, へ, かえります. 来週の needs a noun after it, and only 土よう日 fits (来週の土よう日, Saturday next week). へ comes right after the place you go, 国, and the verb かえります ends the sentence."
+ },
+ {
+  "id": "n5u03t.17",
+  "kind": "star",
+  "type": "文の文法2",
+  "label": "Build the sentence",
+  "before": "A「きれいな　しゃしんですね。」B「ありがとうございます。",
+  "after": "　とりました。」",
+  "tiles": [
+   "父",
+   "の",
+   "古い",
+   "カメラで"
+  ],
+  "star": 2,
+  "bank": [
+   2,
+   3,
+   1,
+   0
+  ],
+  "full": "A「きれいな　しゃしんですね。」B「ありがとうございます。父の　{古い}　カメラで　とりました。」",
+  "explain": "父, の, 古い, カメラで. 父の goes before the thing that is his, and 古い describes the camera, so it comes right before カメラで: my father's old camera. 古い cannot come before 父, because 古い is for things, not people. カメラで, with で for the thing you use, comes right before とりました."
+ },
+ {
+  "id": "n5u03t.18",
+  "kind": "star",
+  "type": "文の文法2",
+  "label": "Build the sentence",
+  "before": "A「つかれましたね。あの　",
+  "after": "　少し　休みませんか。」B「ええ、そうしましょう。」",
+  "tiles": [
+   "大きい",
+   "木",
+   "の",
+   "下で"
+  ],
+  "star": 1,
+  "bank": [
+   3,
+   1,
+   0,
+   2
+  ],
+  "full": "A「つかれましたね。あの　大きい　{木}の　下で　少し　休みませんか。」B「ええ、そうしましょう。」",
+  "explain": "大きい, 木, の, 下で. 大きい describes 木 (that big tree). 木の下 is \"under the tree\", and 下で, with で for the place where you do something, goes before 休みませんか. 大きい cannot describe 下, so 木の大きい下 does not work."
+ },
+ {
+  "id": "n5u03t.19",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "きのうは　日よう日でした。午前は　うちで　そうじを　しました。午後は　友だちと　電車で　こうえんへ　行きました。こうえんの　花は　とても　きれいでした。よるは　テレビを　見ませんでした。日本語の　本を　読みました。",
+  "q": "この　人は　きのうの　よる　何を　しましたか。",
+  "options": [
+   "そうじを　しました。",
+   "テレビを　見ました。",
+   "日本語の　本を　読みました。",
+   "友だちと　こうえんへ　行きました。"
+  ],
+  "answer": 3,
+  "short": [
+   "そうじ",
+   "テレビ",
+   "日本語の本",
+   "こうえん"
+  ],
+  "explain": "The writer says よるは テレビを 見ませんでした。日本語の 本を 読みました: in the evening the writer read a Japanese book. The cleaning was in the morning (午前). The writer did not watch TV (見ませんでした). The trip to the park with a friend was in the afternoon (午後)."
+ },
+ {
+  "id": "n5u03t.20",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "きのうは　日よう日でした。午前は　うちで　そうじを　しました。午後は　友だちと　電車で　こうえんへ　行きました。こうえんの　花は　とても　きれいでした。よるは　テレビを　見ませんでした。日本語の　本を　読みました。",
+  "q": "ただしい　ものは　どれですか。",
+  "options": [
+   "午前は　うちに　いました。",
+   "ひとりで　こうえんへ　行きました。",
+   "バスで　こうえんへ　行きました。",
+   "こうえんの　花は　きれいじゃ　ありませんでした。"
+  ],
+  "answer": 1,
+  "short": [
+   "午前はうち",
+   "ひとりで",
+   "バスで",
+   "花はきれいじゃない"
+  ],
+  "explain": "The writer cleaned at home in the morning (午前は うちで そうじを しました), so the writer was at home. The writer went with a friend (友だちと), not alone, and by train (電車で), not by bus. The flowers were very pretty (とても きれいでした)."
+ },
+ {
+  "id": "n5u03t.21",
+  "kind": "choice",
+  "type": "読解・情報検索",
+  "label": "Finding information",
+  "passage": "みどりセンター　土よう日の　クラス\n午前　十時から　十一時半まで　かんじ（二かい）\n午後　一時から　二時半まで　日本の　りょうり（一かい）\n午後　三時から　四時まで　日本の　うた（二かい）\nお金は　いりません。\n日よう日は　休みです。",
+  "q": "キムさんは　りょうりの　クラスに　行きます。何時に　何かいへ　行きますか。",
+  "options": [
+   "十時に　二かい",
+   "一時に　一かい",
+   "一時に　二かい",
+   "三時に　一かい"
+  ],
+  "answer": 2,
+  "short": [
+   "十時 二かい",
+   "一時 一かい",
+   "一時 二かい",
+   "三時 一かい"
+  ],
+  "explain": "The cooking class (日本の りょうり) is from 一時 on 一かい. 十時 on 二かい is the kanji class. 二かい is the floor of the kanji and song classes, not the cooking class. 三時 is when the song class starts."
+ },
+ {
+  "id": "n5u03t.22",
+  "kind": "choice",
+  "type": "読解・情報検索",
+  "label": "Finding information",
+  "passage": "みどりセンター　土よう日の　クラス\n午前　十時から　十一時半まで　かんじ（二かい）\n午後　一時から　二時半まで　日本の　りょうり（一かい）\n午後　三時から　四時まで　日本の　うた（二かい）\nお金は　いりません。\n日よう日は　休みです。",
+  "q": "アンナさんは　土よう日の　午後　二時半から　ひまです。どの　クラスに　行きますか。",
+  "options": [
+   "かんじの　クラス",
+   "りょうりの　クラス",
+   "うたの　クラス",
+   "日よう日の　クラス"
+  ],
+  "answer": 3,
+  "short": [
+   "かんじ",
+   "りょうり",
+   "うた",
+   "日よう日"
+  ],
+  "explain": "From 二時半 the only class that has not started yet is the song class, from 三時 to 四時. The kanji class is in the morning, and the cooking class ends at 二時半. There is no Sunday class, because 日よう日は 休みです."
+ },
+ {
+  "id": "n5u03t.23",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "ケンさん\n来週の　土よう日に　こうえんで　テニスを　しませんか。わたしは　午前は　しごとが　ありますから、午後　一時から　しましょう。こうえんまでは　駅から　バスで　行きましょう。十二時半に　駅の　南口で　会いましょう。\nたなか",
+  "q": "二人は　土よう日、何時に　どこで　会いますか。",
+  "options": [
+   "十二時半に　駅の　南口で",
+   "一時に　駅の　南口で",
+   "十二時半に　こうえんで",
+   "一時に　こうえんで"
+  ],
+  "answer": 1,
+  "short": [
+   "十二時半 南口",
+   "一時 南口",
+   "十二時半 こうえん",
+   "一時 こうえん"
+  ],
+  "explain": "たなか writes 十二時半に 駅の 南口で 会いましょう. 一時 is when the tennis starts, not when they meet. They meet at the station and then go to the park by bus, so they do not meet at the park."
+ },
+ {
+  "id": "n5u03t.24",
+  "kind": "choice",
+  "type": "読解・内容理解（短文）",
+  "label": "Short passage",
+  "passage": "ケンさん\n来週の　土よう日に　こうえんで　テニスを　しませんか。わたしは　午前は　しごとが　ありますから、午後　一時から　しましょう。こうえんまでは　駅から　バスで　行きましょう。十二時半に　駅の　南口で　会いましょう。\nたなか",
+  "q": "ただしい　ものは　どれですか。",
+  "options": [
+   "テニスは　午前からです。",
+   "二人は　こうえんまで　あるいて　行きます。",
+   "たなかさんは　土よう日の　午前　しごとが　あります。",
+   "二人は　こうえんの　入口で　会います。"
+  ],
+  "answer": 3,
+  "short": [
+   "テニスは午前",
+   "あるいて行く",
+   "午前にしごと",
+   "こうえんの入口"
+  ],
+  "explain": "たなか writes 午前は しごとが あります: there is work on Saturday morning. That is why the tennis is in the afternoon (午後 一時から), not the morning. They go to the park by bus (バスで), not on foot. They meet at the station's south exit (駅の 南口), not at the park entrance."
+ }
+]

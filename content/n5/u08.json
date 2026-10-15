@@ -1,0 +1,3460 @@
+{
+  "days": {
+    "1": {
+      "title": "〜より〜のほうが・〜と〜とどちら",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u08d1.p1",
+            "form": "AはBより〜・BよりAのほうが〜",
+            "gloss": "A is more … than B",
+            "connect": [
+              {
+                "pos": "Noun は ＋ noun より ＋ adjective. The first 〜 is the thing you talk about. The second 〜, with より, is the one you measure it against",
+                "rule": "〜は〜{より}[高|たか]いです"
+              },
+              {
+                "pos": "Noun より ＋ noun のほうが ＋ adjective. Here the winner comes second and takes のほうが",
+                "rule": "〜より〜{のほうが}[安|やす]いです"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "この[電車|でんしゃ]はバス{より}はやいです。",
+                "en": "This train is faster than the bus."
+              },
+              {
+                "ja": "コーヒーよりおちゃ{のほうが}すきです。",
+                "en": "I like tea more than coffee."
+              }
+            ],
+            "watch": {
+              "note": "のほうが needs の between the noun and ほう. Do not drop it.",
+              "bad": "バスより電車ほうが安いです。",
+              "good": "バスより電車のほうが安いです。"
+            }
+          },
+          {
+            "id": "n5u08d1.p2",
+            "form": "AとBとどちらが〜ですか",
+            "gloss": "which is more …, A or B?",
+            "connect": [
+              {
+                "pos": "Question: two nouns, each with と, then どちらが",
+                "rule": "〜と〜と{どちらが}[高|たか]いですか"
+              },
+              {
+                "pos": "Answer: the one you choose ＋ のほうが",
+                "rule": "〜{のほうが}[高|たか]いです"
+              },
+              {
+                "pos": "Answer when it is true of both",
+                "rule": "{どちらも}[高|たか]いです"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[電車|でんしゃ]とバスと{どちらが}[安|やす]いですか。",
+                "en": "Which is cheaper, the train or the bus?"
+              },
+              {
+                "ja": "A：いぬとねこと、どちらがすきですか。B：{どちらも}すきです。",
+                "en": "A: Which do you like better, dogs or cats? B: I like both."
+              }
+            ],
+            "watch": {
+              "note": "For two things, ask with どちら. どれ is for three or more things.",
+              "bad": "電車とバスとどれが安いですか。",
+              "good": "電車とバスとどちらが安いですか。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three are about choosing. How many things there are, and whether you ask or answer, decide the form.",
+          "forms": [
+            {
+              "form": "〜より〜のほうが",
+              "tag": "くらべる · A is more than B",
+              "mark": "up",
+              "ja": "バスより[電車|でんしゃ]{のほうが}はやいです。",
+              "en": "The train is faster than the bus."
+            },
+            {
+              "form": "どちら",
+              "tag": "二つ · which of two",
+              "mark": "dot",
+              "ja": "バスと[電車|でんしゃ]と{どちら}がはやいですか。",
+              "en": "Which is faster, the bus or the train?"
+            },
+            {
+              "form": "どれ",
+              "tag": "たくさん · which of three or more",
+              "mark": "dot",
+              "ja": "{どれ}があなたの[本|ほん]ですか。",
+              "en": "Which one is your book? (of several)"
+            }
+          ],
+          "check": {
+            "id": "n5u08d1.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Two things",
+            "q": "[電車|でんしゃ]とバスと（　　）が[安|やす]いですか。",
+            "options": [
+              "なに",
+              "どれ",
+              "どちら"
+            ],
+            "answer": 3,
+            "why": [
+              "なに asks what something is. The two things are already named, so you ask which one.",
+              "どれ is for three or more things. Here there are only two: the train and the bus.",
+              "Two things, 電車 and バス, are listed with と, so ask with どちら."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u08d1.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この[店|みせ]は^あの[店|みせ]^（　　）[安|やす]いです。",
+            "options": [
+              "から",
+              "で",
+              "と",
+              "より"
+            ],
+            "answer": 4,
+            "why": [
+              "から means from or because. It does not compare two things.",
+              "で marks a place where something happens. It does not compare two things.",
+              "と means and or with. あの店と安いです does not make sense.",
+              "This shop is being measured against that shop, so あの店 takes より: cheaper than that shop."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d1.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^バスより^[電車|でんしゃ]（　　）はやいです。",
+            "options": [
+              "ほうが",
+              "よりが",
+              "のほうを",
+              "のほうが"
+            ],
+            "answer": 4,
+            "why": [
+              "の is missing. A noun needs の before ほう: 電車のほうが.",
+              "よりが is not a form. より already went on バス.",
+              "はやい is an adjective, so the winner takes が, not を.",
+              "バスより names the loser, so the winner 電車 takes のほうが: the train is faster."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d1.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：^コーヒーとこうちゃと^（　　）がいいですか。B：こうちゃのほうがいいです。",
+            "options": [
+              "どちら",
+              "どこ",
+              "だれ",
+              "どれ"
+            ],
+            "answer": 1,
+            "why": [
+              "A offers two drinks, coffee and black tea, so A asks with どちら.",
+              "どこ asks about a place, not a drink.",
+              "だれ asks about a person, not a drink.",
+              "どれ is for three or more things. A offers only two drinks."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d1.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：いぬとねこと、どちらがすきですか。B：（　　）すきです。^いぬもねこも^かわいいですから。",
+            "options": [
+              "どちらも",
+              "どれも",
+              "どちらが",
+              "なにも"
+            ],
+            "answer": 1,
+            "why": [
+              "B likes dogs and cats, both of the two, so B says どちらも.",
+              "どれも is for three or more things. A asked about only two animals.",
+              "どちらが asks a question. B is answering, not asking.",
+              "なにも goes with a negative verb, like なにもすきじゃありません. Here B says すきです."
+            ]
+          },
+          {
+            "id": "n5u08d1.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "この[店|みせ]の",
+            "after": "です。",
+            "tiles": [
+              "パンは",
+              "あの[店|みせ]",
+              "より",
+              "[安|やす]い"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "この店の must go right before the thing it owns. より follows the shop you measure against.",
+            "full": "この[店|みせ]のパンはあの[店|みせ]{より}[安|やす]いです。",
+            "explain": "この店の goes with パン, so パンは comes first. あの店 is the one you measure against, so より comes right after it. 安い ends the sentence before です."
+          },
+          {
+            "id": "n5u08d1.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[電車|でんしゃ]と",
+            "after": "か。",
+            "tiles": [
+              "バスと",
+              "どちらが",
+              "[安|やす]い",
+              "です"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "Each of the two things takes と. どちらが comes after both of them.",
+            "full": "[電車|でんしゃ]とバスと{どちらが}[安|やす]いですか。",
+            "explain": "電車と and バスと name the two things, then どちらが asks which. 安いです comes last, before か."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u08d1.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "電車は　バス（　　）　高いですが、はやいです。",
+            "options": [
+              "より",
+              "から",
+              "で",
+              "に"
+            ],
+            "answer": 1,
+            "explain": "The train is measured against the bus, so バス takes より: the train costs more than the bus, but it is faster. から means from or because, で marks a place or a means, and に marks a time or a place. None of them compares two things."
+          },
+          {
+            "id": "n5u08d1.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「にくと　魚と　どちらが　すきですか。」　B「魚（　　）　すきです。」",
+            "options": [
+              "のほうで",
+              "のほうへ",
+              "のほうが",
+              "ほうが"
+            ],
+            "answer": 3,
+            "explain": "A asks which of two, so B answers with the one B chooses ＋ のほうが: I like fish better. ほうが drops the の a noun needs. のほうで and のほうへ use the wrong small word; すき takes が."
+          },
+          {
+            "id": "n5u08d1.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "この　電車は　",
+            "after": "です。",
+            "tiles": [
+              "あの",
+              "電車",
+              "より",
+              "新しい"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "full": "この　電車は　あの　電車{より}　新しいです。",
+            "explain": "あの, 電車, より, 新しい. あの goes right before 電車, より follows the train you measure against, and 新しい ends the sentence before です: this train is newer than that one."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "二つの電車",
+        "en": "Two trains compared",
+        "intro": "A poster at the station compares a new train and an old train that go to the same town. Tap each word on it.",
+        "words": [
+          {
+            "id": "train",
+            "word": "電車",
+            "reading": "でんしゃ",
+            "gloss": "train",
+            "parts": [
+              [
+                "電",
+                "デン",
+                "electricity"
+              ],
+              [
+                "車",
+                "シャ",
+                "vehicle"
+              ]
+            ]
+          },
+          {
+            "id": "new",
+            "word": "新しい",
+            "reading": "あたらしい",
+            "gloss": "new",
+            "parts": [
+              [
+                "新",
+                "あたら",
+                "new"
+              ]
+            ]
+          },
+          {
+            "id": "old",
+            "word": "古い",
+            "reading": "ふるい",
+            "gloss": "old",
+            "parts": [
+              [
+                "古",
+                "ふる",
+                "old"
+              ]
+            ]
+          },
+          {
+            "id": "hour",
+            "word": "一時間",
+            "reading": "いちじかん",
+            "gloss": "one hour",
+            "parts": [
+              [
+                "一",
+                "イチ",
+                "one"
+              ],
+              [
+                "時",
+                "ジ",
+                "time, hour"
+              ],
+              [
+                "間",
+                "カン",
+                "span, between"
+              ]
+            ]
+          },
+          {
+            "id": "minutes",
+            "word": "三十分",
+            "reading": "さんじゅっぷん",
+            "gloss": "thirty minutes",
+            "parts": [
+              [
+                "三",
+                "サン",
+                "three"
+              ],
+              [
+                "十",
+                "ジュッ",
+                "ten"
+              ],
+              [
+                "分",
+                "プン",
+                "minute"
+              ]
+            ]
+          },
+          {
+            "id": "yen",
+            "word": "千円",
+            "reading": "せんえん",
+            "gloss": "1,000 yen",
+            "parts": [
+              [
+                "千",
+                "セン",
+                "thousand"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "expensive",
+            "word": "高い",
+            "reading": "たかい",
+            "gloss": "expensive",
+            "parts": [
+              [
+                "高",
+                "たか",
+                "high"
+              ]
+            ]
+          },
+          {
+            "id": "cheap",
+            "word": "安い",
+            "reading": "やすい",
+            "gloss": "cheap",
+            "parts": [
+              [
+                "安",
+                "やす",
+                "cheap"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u08d1.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "_新しい_　電車に　のりたいです。",
+          "options": [
+            "あたらい",
+            "あたらしい",
+            "あだらしい",
+            "あらたしい"
+          ],
+          "answer": 2,
+          "explain": "新しい is read あたらしい, new: I want to ride the new train. あだらしい has だ instead of た, あらたしい swaps ら and た, and あたらい drops し."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "ポイント理解",
+        "en": "Point comprehension",
+        "ask": "女の人は　何で　大学まで　行きますか。",
+        "audio": [
+          [
+            "N",
+            "男の人と女の人が話しています。女の人は何で大学まで行きますか。",
+            "おとこのひととおんなのひとがはなしています。おんなのひとはなんでだいがくまでいきますか。"
+          ],
+          [
+            "F",
+            "大学まで、バスと電車と、どちらがはやいですか。",
+            "だいがくまで、バスとでんしゃと、どちらがはやいですか。"
+          ],
+          [
+            "M",
+            "電車のほうがはやいですよ。でも、駅まで十五分あるきます。",
+            "でんしゃのほうがはやいですよ。でも、えきまでじゅうごふんあるきます。"
+          ],
+          [
+            "F",
+            "十五分ですか。バスはどうですか。",
+            "じゅうごふんですか。バスはどうですか。"
+          ],
+          [
+            "M",
+            "バスは電車より時間がかかりますが、この店の前から出ますよ。",
+            "バスはでんしゃよりじかんがかかりますが、このみせのまえからでますよ。"
+          ],
+          [
+            "F",
+            "じゃあ、バスで行きます。タクシーは高いですから。",
+            "じゃあ、バスでいきます。タクシーはたかいですから。"
+          ],
+          [
+            "N",
+            "女の人は何で大学まで行きますか。",
+            "おんなのひとはなんでだいがくまでいきますか。"
+          ]
+        ],
+        "item": {
+          "id": "n5u08d1.r1",
+          "kind": "choice",
+          "type": "ポイント理解",
+          "q": "女の人は　何で　大学まで　行きますか。",
+          "script": [
+            "ナレーター：男の人と女の人が話しています。女の人は何で大学まで行きますか。",
+            "女：大学まで、バスと電車と、どちらがはやいですか。",
+            "男：電車のほうがはやいですよ。でも、駅まで十五分あるきます。",
+            "女：十五分ですか。バスはどうですか。",
+            "男：バスは電車より時間がかかりますが、この店の前から出ますよ。",
+            "女：じゃあ、バスで行きます。タクシーは高いですから。",
+            "ナレーター：女の人は何で大学まで行きますか。"
+          ],
+          "options": [
+            "電車",
+            "バス",
+            "タクシー",
+            "じてんしゃ"
+          ],
+          "printed": true,
+          "short": [
+            "電車",
+            "バス",
+            "タクシー",
+            "じてんしゃ"
+          ],
+          "answer": 2,
+          "why": [
+            "The man says the train is faster, but it is a 15-minute walk to the station. She asks about the bus instead.",
+            "The bus takes longer than the train (電車より時間がかかります), but it leaves from in front of this shop. She says バスで行きます.",
+            "She says タクシーは高いですから: she does not take a taxi because it costs a lot.",
+            "Nobody talks about a bicycle."
+          ]
+        }
+      }
+    },
+    "2": {
+      "title": "〜の中で〜がいちばん・どちらも／どれも",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u08d2.p1",
+            "form": "〜の中で〜がいちばん",
+            "gloss": "the most … of all (three or more)",
+            "connect": [
+              {
+                "pos": "〜 is the group (a noun), then the one that is the most",
+                "rule": "〜{の[中|なか]で}〜が{いちばん}〜です"
+              },
+              {
+                "pos": "Asking: 何 for a thing, どこ for a place, だれ for a person",
+                "rule": "〜{の[中|なか]で}[何|なに]／どこ／だれが{いちばん}〜ですか"
+              },
+              {
+                "pos": "Three or more things named one by one: ask with どれ",
+                "rule": "〜と〜と〜{の[中|なか]で}、どれが{いちばん}〜ですか"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "くだもの{の[中|なか]で}りんごが{いちばん}すきです。",
+                "en": "Of all fruits, I like apples best."
+              },
+              {
+                "ja": "[行|い]ったところ{の[中|なか]で}、どこが{いちばん}よかったですか。",
+                "en": "Of the places you went to, which one was the best?"
+              }
+            ],
+            "watch": {
+              "note": "いちばん picks one out of three or more. With only two things, ask with どちら.",
+              "bad": "りんごとみかんの中で、どれがいちばんすきですか。",
+              "good": "りんごとみかんと、どちらがすきですか。"
+            }
+          },
+          {
+            "id": "n5u08d2.p2",
+            "form": "どちらも／どれも",
+            "gloss": "both / every one of them",
+            "connect": [
+              {
+                "pos": "Two things: both (with a negative ending: neither)",
+                "rule": "{どちらも}〜です・{どちらも}〜じゃありません"
+              },
+              {
+                "pos": "Three or more: things, people, places",
+                "rule": "{どれも}・{だれも}・{どこも}"
+              },
+              {
+                "pos": "The ending can be positive or negative; だれも almost always takes a negative",
+                "rule": "{どれも}おいしいです・{だれも}いません"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "この[二|ふた]つのケーキは{どちらも}おいしいです。",
+                "en": "Both of these two cakes are delicious."
+              },
+              {
+                "ja": "へやには{だれも}いません。",
+                "en": "There is nobody in the room."
+              }
+            ],
+            "watch": {
+              "note": "だれも with a positive verb is not said for \"everyone\". Use みんな for that: みんな来ます.",
+              "bad": "あしたのパーティーには、だれも来ます。",
+              "good": "あしたのパーティーには、みんな来ます。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three compare things. いちばん picks one out of three or more, のほうが picks one out of two, and どれも says the same thing about all of them.",
+          "forms": [
+            {
+              "form": "〜の中で〜がいちばん",
+              "tag": "いちばん · the most (three or more)",
+              "mark": "up",
+              "ja": "この[三|みっ]つの[中|なか]で、これが{いちばん}[安|やす]いです。",
+              "en": "Of these three, this one is the cheapest."
+            },
+            {
+              "form": "〜より〜のほうが",
+              "tag": "二つ · more (of two)",
+              "mark": "up",
+              "ja": "これ{のほうが}それより[安|やす]いです。",
+              "en": "This one is cheaper than that one."
+            },
+            {
+              "form": "どれも",
+              "tag": "ぜんぶ · all of them",
+              "mark": "dot",
+              "ja": "この[三|みっ]つは{どれも}[安|やす]いです。",
+              "en": "All three of these are cheap."
+            }
+          ],
+          "check": {
+            "id": "n5u08d2.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "くだものの話",
+            "q": "A：りんごとみかんと、どちらがすきですか。B：（　　）すきです。",
+            "options": [
+              "いちばん",
+              "どちらも",
+              "どれも"
+            ],
+            "answer": 2,
+            "why": [
+              "いちばん needs three or more things, and B does not say which one. いちばんすきです does not answer A's question.",
+              "A asks about two fruits, and B likes both: どちらもすきです.",
+              "どれも is for three or more. With two things, use どちらも."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u08d2.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "くだものの（　　）、^[何|なに]がいちばん^すきですか。",
+            "options": [
+              "[中|なか]が",
+              "[中|なか]を",
+              "[中|なか]に",
+              "[中|なか]で"
+            ],
+            "answer": 4,
+            "why": [
+              "が is already on 何, the one being picked. くだものの中が does not fit here.",
+              "を marks what a verb acts on. There is no verb here that takes 中を.",
+              "With いちばん, the group you choose from is marked with の中で. の中に is for where something is, like かばんの中にあります.",
+              "の中で gives the group: of all fruits, which one do you like best?"
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d2.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：かぞくの[中|なか]で、（　　）がいちばんせが[高|たか]いですか。B：^[父|ちち]です^。",
+            "options": [
+              "[何|なに]",
+              "だれ",
+              "いつ",
+              "どこ"
+            ],
+            "answer": 2,
+            "why": [
+              "何 asks about a thing. For people in the family, ask with だれ.",
+              "The answer is a person (父), so the question word is だれ: who is the tallest?",
+              "いつ asks about a time, but B answers with a person.",
+              "どこ asks about a place, but B answers with a person."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d2.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^この[二|ふた]つのかさは^（　　）[高|たか]いです。",
+            "options": [
+              "どれも",
+              "だれも",
+              "どこも",
+              "どちらも"
+            ],
+            "answer": 4,
+            "why": [
+              "どれも is for three or more things. Here there are only two.",
+              "だれも is for people, and umbrellas are not people.",
+              "どこも is for places, and umbrellas are not places.",
+              "二つ means two umbrellas, so \"both\" is どちらも."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d2.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A：この[店|みせ]の^パン^はどうですか。B：（　　）おいしいですよ。",
+            "options": [
+              "どこも",
+              "どれも",
+              "だれも",
+              "[何|なに]も"
+            ],
+            "answer": 2,
+            "why": [
+              "どこも is for places. B is talking about the bread, not about places.",
+              "The shop has many kinds of bread, and どれも with a positive ending means every one of them is good.",
+              "だれも is for people, and bread is not a person.",
+              "何も goes with a negative ending, like 何もありません. 何もおいしいです is not said."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d2.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "この[三|みっ]つのかばんの",
+            "after": "。",
+            "tiles": [
+              "[中|なか]で",
+              "どれが",
+              "いちばん[安|やす]い",
+              "ですか"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "First finish the group with の中で. Then the question word, then what you want to know.",
+            "full": "この[三|みっ]つのかばんの[中|なか]でどれが{いちばん}[安|やす]いですか。",
+            "explain": "かばんの needs 中で right after it to make the group. どれが is the one being picked, then いちばん安い, and ですか ends the question."
+          },
+          {
+            "id": "n5u08d2.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[本|ほん]を[三|さん]さつ[読|よ]みましたが、",
+            "after": "。",
+            "tiles": [
+              "どれも",
+              "あまり",
+              "おもしろく",
+              "ありませんでした"
+            ],
+            "star": 0,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "Which word means \"every one of the three books\"? あまり needs a negative ending.",
+            "full": "[本|ほん]を[三|さん]さつ[読|よ]みましたが、{どれも}あまりおもしろくありませんでした。",
+            "explain": "どれも, every one of the three books, comes first. あまり goes before the negative おもしろくありませんでした, which ends the sentence."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u08d2.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「この　店の　ケーキの　中で　（　　）が　いちばん　人気が　ありますか。」\nB「この　白い　ケーキです。」",
+            "options": [
+              "どこ",
+              "いつ",
+              "だれ",
+              "どれ"
+            ],
+            "answer": 4,
+            "explain": "A picks one cake out of the shop's cakes, so the question word is どれ. だれ is for people, どこ is for places and いつ is for times, but B answers with a cake."
+          },
+          {
+            "id": "n5u08d2.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "A「へやに　だれか　いますか。」\nB「いいえ、（　　）　いません。」",
+            "options": [
+              "だれが",
+              "だれも",
+              "だれに",
+              "だれか"
+            ],
+            "answer": 2,
+            "explain": "いいえ … いません means there is nobody, and \"nobody\" is だれも with a negative ending. だれか is \"someone\" and does not fit after いいえ, だれが asks \"who\", and だれに does not go with いません here."
+          },
+          {
+            "id": "n5u08d2.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「",
+            "after": "　いちばん　新しい　本ですか。」\nB「その　白い　本です。」",
+            "tiles": [
+              "この",
+              "三つの",
+              "中で",
+              "どれが"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              0,
+              2,
+              1
+            ],
+            "full": "A「この　三つの　{中で}　どれが　いちばん　新しい　本ですか。」\nB「その　白い　本です。」",
+            "explain": "この, 三つの, 中で, どれが. この goes before 三つの, the group ends with 中で, and どれが, the one being picked, comes right before いちばん."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "デパートの人気ランキング",
+        "en": "A poster of this month's most popular items in a department store",
+        "intro": "Tap every word with kanji that you can find on the ranking poster.",
+        "words": [
+          {
+            "id": "this month",
+            "word": "今月",
+            "reading": "こんげつ",
+            "gloss": "this month",
+            "parts": [
+              [
+                "今",
+                "コン",
+                "now"
+              ],
+              [
+                "月",
+                "ゲツ",
+                "month, moon"
+              ]
+            ]
+          },
+          {
+            "id": "popular",
+            "word": "人気",
+            "reading": "にんき",
+            "gloss": "popularity, popular",
+            "parts": [
+              [
+                "人",
+                "ニン",
+                "person"
+              ],
+              [
+                "気",
+                "キ",
+                "spirit, air"
+              ]
+            ]
+          },
+          {
+            "id": "shop",
+            "word": "店",
+            "reading": "みせ",
+            "gloss": "shop",
+            "parts": [
+              [
+                "店",
+                "みせ",
+                "shop"
+              ]
+            ]
+          },
+          {
+            "id": "new",
+            "word": "新しい",
+            "reading": "あたらしい",
+            "gloss": "new",
+            "parts": [
+              [
+                "新",
+                "あたら",
+                "new"
+              ]
+            ]
+          },
+          {
+            "id": "book",
+            "word": "本",
+            "reading": "ほん",
+            "gloss": "book",
+            "parts": [
+              [
+                "本",
+                "ホン",
+                "book"
+              ]
+            ]
+          },
+          {
+            "id": "flower",
+            "word": "花",
+            "reading": "はな",
+            "gloss": "flower",
+            "parts": [
+              [
+                "花",
+                "はな",
+                "flower"
+              ]
+            ]
+          },
+          {
+            "id": "fish",
+            "word": "魚",
+            "reading": "さかな",
+            "gloss": "fish",
+            "parts": [
+              [
+                "魚",
+                "さかな",
+                "fish"
+              ]
+            ]
+          },
+          {
+            "id": "1000 yen",
+            "word": "千円",
+            "reading": "せんえん",
+            "gloss": "1,000 yen",
+            "parts": [
+              [
+                "千",
+                "セン",
+                "thousand"
+              ],
+              [
+                "円",
+                "エン",
+                "yen, circle"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u08d2.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "この　店で　いちばん　_人気_が　ある　本は　どれですか。",
+          "options": [
+            "にんき",
+            "にき",
+            "にんぎ",
+            "ひんき"
+          ],
+          "answer": 1,
+          "explain": "人気 is read にんき, \"popular\". 人 is にん here, as in 三人, and 気 is き, as in 天気. にんぎ, ひんき and にき are not words."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "Which season does Yuki like best, and why?",
+        "seconds": 90,
+        "passage": "マリアさんへ\nわたしは　一年の　中で　あきが　いちばん　すきです。^天気が　よくて、山の　木が　とても　きれいだからです^。なつは　あついですから、あまり　すきじゃ　ありません。食べものの　中では　魚が　いちばん　すきです。父の　店の　魚は　どれも　おいしいですよ。\nユキ",
+        "strategy": "Find the sentence with いちばんすき about a season, then read the next sentence: the reason ends in からです.",
+        "item": {
+          "id": "n5u08d2.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "ユキさんは　どうして　あきが　いちばん　すきですか。",
+          "options": [
+            "魚が　おいしいから",
+            "天気が　よくて、山の　木が　きれいだから",
+            "あきは　あついから",
+            "父の　店が　あるから"
+          ],
+          "short": [
+            "魚がおいしい",
+            "天気と山の木",
+            "あきはあつい",
+            "父の店がある"
+          ],
+          "answer": 2,
+          "explain": "Right after あきがいちばんすきです, Yuki writes the reason: 天気がよくて、山の木がとてもきれいだからです.",
+          "why": [
+            "Fish is Yuki's favourite food, and the fish is good, but that is not why Yuki likes autumn.",
+            "",
+            "It is summer that is hot (なつはあついですから), and that is why Yuki does not like summer.",
+            "Yuki's father has a shop with good fish, but this is about food, not about autumn."
+          ]
+        }
+      }
+    },
+    "3": {
+      "title": "〜くなる・〜になる",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u08d3.p1",
+            "form": "〜くなります",
+            "gloss": "become … (い adjective)",
+            "connect": [
+              {
+                "pos": "い adjective: change the last い to く",
+                "rule": "さむい → さむ{くなります}"
+              },
+              {
+                "pos": "いい is special: it becomes よく",
+                "rule": "いい → {よくなります}"
+              },
+              {
+                "pos": "Past: it has changed and is like that now",
+                "rule": "[高|たか]い → [高|たか]{くなりました}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "[外|そと]がくら{くなりました}ね。",
+                "en": "It's got dark outside, hasn't it."
+              },
+              {
+                "ja": "くすりを[飲|の]みましたから、{よくなりました}。",
+                "en": "I took some medicine, so I got better."
+              }
+            ],
+            "watch": {
+              "note": "Take off the last い and add く. Do not keep the い and add に.",
+              "bad": "いぬが大きいになりました。",
+              "good": "いぬが大きくなりました。"
+            }
+          },
+          {
+            "id": "n5u08d3.p2",
+            "form": "〜になります",
+            "gloss": "become … (な adjective, noun)",
+            "connect": [
+              {
+                "pos": "な adjective: no な, add に",
+                "rule": "しずか → しずか{になります}"
+              },
+              {
+                "pos": "〜 is a noun",
+                "rule": "〜{になります}（[先生|せんせい]{になりたいです}）"
+              },
+              {
+                "pos": "〜 is a time or an age",
+                "rule": "[十時|じゅうじ]{になりました}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "よるは、この[道|みち]もしずか{になります}。",
+                "en": "At night, this street gets quiet too."
+              },
+              {
+                "ja": "わたしは[先生|せんせい]{になりたいです}。",
+                "en": "I want to become a teacher."
+              }
+            ],
+            "watch": {
+              "note": "げんき ends in き, but it is a な adjective, so it takes に. げんきく is not a form.",
+              "bad": "子どもはもうげんきくなりました。",
+              "good": "子どもはもうげんきになりました。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "All three can talk about the past, but only なりました says that something changed.",
+          "forms": [
+            {
+              "form": "〜くなりました",
+              "tag": "〜い → 〜く＋なる · became (い adjective)",
+              "mark": "dot",
+              "ja": "コーヒーがつめた{くなりました}。",
+              "en": "The coffee has gone cold."
+            },
+            {
+              "form": "〜になりました",
+              "tag": "〜＋に＋なる · became (な adjective, noun)",
+              "mark": "dot",
+              "ja": "[駅|えき]の[前|まえ]がにぎやか{になりました}。",
+              "en": "The area in front of the station has become lively."
+            },
+            {
+              "form": "〜かったです／〜でした",
+              "tag": "〜かった・〜でした · was (no change)",
+              "mark": "dot",
+              "ja": "きのうはさむ{かったです}。",
+              "en": "It was cold yesterday."
+            }
+          ],
+          "check": {
+            "id": "n5u08d3.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "ギター",
+            "q": "[前|まえ]はへたでしたが、[今|いま]はじょうず（　　）。",
+            "options": [
+              "になりました",
+              "くなりました",
+              "でした"
+            ],
+            "answer": 1,
+            "why": [
+              "Before it was bad, now it is good: a change. じょうず is a な adjective, so it takes に: \"I used to be bad, but now I've got good.\"",
+              "く is for い adjectives such as さむい. じょうず is a な adjective, so じょうずく is not a form.",
+              "でした is the past, but 今は means \"now\". \"Now it was good\" does not work, and it does not show the change either."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u08d3.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[雨|あめ]がふって、^さむ^（　　）なりました。",
+            "options": [
+              "い",
+              "くて",
+              "に",
+              "く"
+            ],
+            "answer": 4,
+            "why": [
+              "The い must change to く before なりました. さむいなりました is not correct.",
+              "くて means \"and\" (さむくて、…). It cannot come right before なりました.",
+              "に is for な adjectives and nouns. さむい is an い adjective.",
+              "さむい is an い adjective: take off い and add く. \"It rained and it got cold.\""
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d3.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "^くすりを[飲|の]みました^から、かぜはもう（　　）なりました。",
+            "options": [
+              "よく",
+              "いいに",
+              "よに",
+              "いく"
+            ],
+            "answer": 1,
+            "why": [
+              "いい is special: before なります it becomes よく. \"I took medicine, so my cold is already better.\"",
+              "いい is an い adjective, so it does not take に.",
+              "よに is not a form. You need the whole よく.",
+              "いく is the verb \"go\". It is not a form of いい."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d3.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "わたしは[来年|らいねん]、^[大学生|だいがくせい]^（　　）なります。",
+            "options": [
+              "に",
+              "が",
+              "く",
+              "を"
+            ],
+            "answer": 1,
+            "why": [
+              "大学生 is a noun, so it takes に before なります: \"I will become a university student next year.\"",
+              "なります marks what you become with に. 大学生が would make the student the subject, but the subject here is わたし.",
+              "く is for い adjectives. 大学生 is a noun.",
+              "を marks the thing you do something to. なります does not take を."
+            ]
+          },
+          {
+            "id": "n5u08d3.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[駅|えき]が[新|あたら]しくなって、^きれい^（　　）なりました。",
+            "options": [
+              "く",
+              "に",
+              "な",
+              "で"
+            ],
+            "answer": 2,
+            "why": [
+              "きれい ends in い, but it is a な adjective, so きれいく is not a form.",
+              "きれい is a な adjective, so it takes に: \"The station became new and got clean.\"",
+              "な goes before a noun (きれいな駅). It cannot come before なりました.",
+              "で joins two ideas (きれいで、…). It cannot come right before なりました."
+            ]
+          },
+          {
+            "id": "n5u08d3.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[外|そと]が",
+            "after": "つけましょう。",
+            "tiles": [
+              "くらく",
+              "なりました",
+              "から、",
+              "[電気|でんき]を"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "くらい becomes くらく before なりました. から comes right after the reason, and 電気を goes before つけましょう.",
+            "full": "[外|そと]がくら{くなりました}から、[電気|でんき]をつけましょう。",
+            "explain": "くらく, なりました, から、, 電気を. It has got dark, and that is the reason, so から follows なりました: \"It's got dark outside, so let's turn on the light.\""
+          },
+          {
+            "id": "n5u08d3.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしは",
+            "after": "。",
+            "tiles": [
+              "[日本語|にほんご]の",
+              "[先生|せんせい]に",
+              "なり",
+              "たいです"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "日本語の tells what kind of teacher, so it goes before 先生に. たいです joins the ます stem なり.",
+            "full": "わたしは[日本語|にほんご]の[先生|せんせい]{になり}たいです。",
+            "explain": "日本語の, 先生に, なり, たいです. 先生 is a noun, so it takes に before なります, and なりたいです means \"want to become\": \"I want to become a Japanese teacher.\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u08d3.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "へやを　そうじしましたから、　（　　）　なりました。",
+            "options": [
+              "きれいに",
+              "きれいな",
+              "きれいで",
+              "きれいく"
+            ],
+            "answer": 1,
+            "explain": "きれい is a な adjective, so it takes に before なりました: \"I cleaned the room, so it got clean.\" きれいく is not a form, even though きれい ends in い. きれいな goes before a noun, and きれいで joins two ideas."
+          },
+          {
+            "id": "n5u08d3.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "この　店の　ケーキは　先月から　百円　（　　）　なりました。",
+            "options": [
+              "高かった",
+              "高くて",
+              "高い",
+              "高く"
+            ],
+            "answer": 4,
+            "explain": "高い is an い adjective, so い changes to く before なりました: \"The cake at this shop has gone up by 100 yen since last month.\" 高い and 高かった cannot come right before なりました, and 高くて means \"expensive and …\"."
+          },
+          {
+            "id": "n5u08d3.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "もう",
+            "after": "か。",
+            "tiles": [
+              "十時に",
+              "なりました",
+              "から、",
+              "ねましょう"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "full": "もう　十時に　{なりました}　から、　ねましょう　か。",
+            "explain": "十時に, なりました, から、, ねましょう. A time takes に before なります, から follows the reason, and ねましょうか is the suggestion: \"It's already ten o'clock, so shall we go to bed?\""
+          }
+        ]
+      },
+      "scene": {
+        "ja": "駅前の店のおしらせ",
+        "en": "A notice at a shop by the station",
+        "intro": "Tap every word you would read on the notice about the shop's changes.",
+        "words": [
+          {
+            "id": "shop",
+            "word": "店",
+            "reading": "みせ",
+            "gloss": "shop",
+            "parts": [
+              [
+                "店",
+                "みせ",
+                "shop"
+              ]
+            ]
+          },
+          {
+            "id": "by the station",
+            "word": "駅前",
+            "reading": "えきまえ",
+            "gloss": "in front of the station",
+            "parts": [
+              [
+                "駅",
+                "エキ",
+                "station"
+              ],
+              [
+                "前",
+                "まえ",
+                "front, before"
+              ]
+            ]
+          },
+          {
+            "id": "new",
+            "word": "新しい",
+            "reading": "あたらしい",
+            "gloss": "new",
+            "parts": [
+              [
+                "新",
+                "あたら",
+                "new"
+              ]
+            ]
+          },
+          {
+            "id": "bigger",
+            "word": "大きく",
+            "reading": "おおきく",
+            "gloss": "big (before なります: become bigger)",
+            "parts": [
+              [
+                "大",
+                "おお",
+                "big"
+              ]
+            ]
+          },
+          {
+            "id": "this month",
+            "word": "今月",
+            "reading": "こんげつ",
+            "gloss": "this month",
+            "parts": [
+              [
+                "今",
+                "コン",
+                "now"
+              ],
+              [
+                "月",
+                "ゲツ",
+                "month, moon"
+              ]
+            ]
+          },
+          {
+            "id": "next month",
+            "word": "来月",
+            "reading": "らいげつ",
+            "gloss": "next month",
+            "parts": [
+              [
+                "来",
+                "ライ",
+                "come, next"
+              ],
+              [
+                "月",
+                "ゲツ",
+                "month, moon"
+              ]
+            ]
+          },
+          {
+            "id": "100 yen",
+            "word": "百円",
+            "reading": "ひゃくえん",
+            "gloss": "100 yen",
+            "parts": [
+              [
+                "百",
+                "ヒャク",
+                "hundred"
+              ],
+              [
+                "円",
+                "エン",
+                "yen, circle"
+              ]
+            ]
+          },
+          {
+            "id": "more expensive",
+            "word": "高く",
+            "reading": "たかく",
+            "gloss": "expensive (before なります: go up in price)",
+            "parts": [
+              [
+                "高",
+                "たか",
+                "high, expensive"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u08d3.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "_来月_から　コーヒーが　百円　高く　なります。",
+          "options": [
+            "らいがつ",
+            "らいげつ",
+            "きげつ",
+            "らいつき"
+          ],
+          "answer": 2,
+          "explain": "来月, \"next month\", is read らいげつ. 月 is がつ in the names of months (一月, いちがつ), but in 来月 and 今月 it is げつ. らいつき is not a word, and 来 is not read き at the start of 来月."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "即時応答",
+        "en": "Quick response",
+        "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+        "item": {
+          "id": "n5u08d3.r1",
+          "kind": "choice",
+          "type": "即時応答",
+          "q": "女：リーさん、日本語が　じょうずに　なりましたね。",
+          "script": [
+            "女：リーさん、日本語がじょうずになりましたね。",
+            "ナレーター：1",
+            "男：そうですか。じゃあ、がんばってください。",
+            "ナレーター：2",
+            "男：ありがとうございます。まいにちれんしゅうしましたから。",
+            "ナレーター：3",
+            "男：はい、じょうずにしました。"
+          ],
+          "options": [
+            "そうですか。じゃあ、がんばって　ください。",
+            "ありがとうございます。まいにち　れんしゅうしましたから。",
+            "はい、じょうずに　しました。"
+          ],
+          "printed": false,
+          "short": [
+            "がんばって ください",
+            "ありがとうございます",
+            "じょうずに しました"
+          ],
+          "answer": 2,
+          "why": [
+            "She is praising him. がんばって ください is what you say to someone else who has work ahead, not a reply to a compliment.",
+            "She says his Japanese has got better. He thanks her and gives the reason: he practised every day.",
+            "じょうずに します means making something good on purpose. It does not answer a remark about how his Japanese has changed."
+          ]
+        },
+        "audio": [
+          [
+            "F",
+            "リーさん、日本語がじょうずになりましたね。",
+            "リーさん、にほんごが　じょうずに　なりましたね。"
+          ],
+          [
+            "N",
+            "1",
+            null
+          ],
+          [
+            "M",
+            "そうですか。じゃあ、がんばってください。",
+            null
+          ],
+          [
+            "N",
+            "2",
+            null
+          ],
+          [
+            "M",
+            "ありがとうございます。まいにちれんしゅうしましたから。",
+            null
+          ],
+          [
+            "N",
+            "3",
+            null
+          ],
+          [
+            "M",
+            "はい、じょうずにしました。",
+            null
+          ]
+        ]
+      }
+    },
+    "4": {
+      "title": "〜くする・〜にする",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u08d4.p1",
+            "form": "〜くします",
+            "gloss": "make it …",
+            "connect": [
+              {
+                "pos": "い-adjective: drop い, add く",
+                "rule": "あかるい → あかる{くします}"
+              },
+              {
+                "pos": "Asking someone to do it",
+                "rule": "[小|ちい]さい → [小|ちい]さ{くしてください}"
+              },
+              {
+                "pos": "いい is special: it becomes よく",
+                "rule": "いい → よ{くします}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "でんきをつけて、へやをあかる{くします}。",
+                "en": "I'll turn on the light and make the room bright."
+              },
+              {
+                "ja": "ラジオのおとを[小|ちい]さ{くしてください}。",
+                "en": "Please turn the radio down."
+              }
+            ],
+            "watch": {
+              "note": "The い-adjective changes to く before します. It cannot stay as い.",
+              "bad": "へやをあたたかいします。",
+              "good": "へやをあたたかくします。"
+            }
+          },
+          {
+            "id": "n5u08d4.p2",
+            "form": "〜にします",
+            "gloss": "make it …; I'll have …",
+            "connect": [
+              {
+                "pos": "な-adjective (making something so)",
+                "rule": "きれい ＋ {にします}"
+              },
+              {
+                "pos": "〜 is a noun (choosing or deciding)",
+                "rule": "〜 ＋ {にします}"
+              },
+              {
+                "pos": "Choosing \"the … one\": い-adjective + の",
+                "rule": "[大|おお]きいの ＋ {にします}"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "おきゃくさんが[来|き]ますから、へやをきれい{にします}。",
+                "en": "A guest is coming, so I'll make my room clean."
+              },
+              {
+                "ja": "「[何|なに]を[飲|の]みますか。」「コーヒー{にします}。」",
+                "en": "\"What will you drink?\" \"I'll have coffee.\""
+              }
+            ],
+            "watch": {
+              "note": "きれい ends in い, but it is a な-adjective, so it takes に, not く.",
+              "bad": "へやをきれいくします。",
+              "good": "へやをきれいにします。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "The first two are about the same room: なる says it changes, くする says someone changes it. にする after a noun says what you choose.",
+          "forms": [
+            {
+              "form": "〜くなる",
+              "tag": "かわる · it becomes",
+              "mark": "dot",
+              "ja": "へやがあかる{くなりました}。",
+              "en": "The room got bright."
+            },
+            {
+              "form": "〜くする",
+              "tag": "かえる · someone makes it",
+              "mark": "dot",
+              "ja": "へやをあかる{くしました}。",
+              "en": "I made the room bright."
+            },
+            {
+              "form": "〜にする",
+              "tag": "えらぶ · choose",
+              "mark": "dot",
+              "ja": "わたしはコーヒー{にします}。",
+              "en": "I'll have coffee."
+            }
+          ],
+          "check": {
+            "id": "n5u08d4.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "へやのでんき",
+            "q": "でんきをつけて、へや^を^あかるく（　　）。",
+            "options": [
+              "にしました",
+              "しました",
+              "なりました"
+            ],
+            "answer": 2,
+            "why": [
+              "あかるい is an い-adjective, so it takes く alone. You cannot add に after あかるく.",
+              "へやを has を: I did something to the room. あかるくしました means \"I made it bright\".",
+              "なりました goes with が: へやがあかるくなりました. After へやを it does not fit."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u08d4.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "テレビのおとが^[大|おお]きい^です。もうすこし（　　）ください。",
+            "options": [
+              "[小|ちい]さにして",
+              "[小|ちい]さくなって",
+              "[小|ちい]さくして",
+              "[小|ちい]さいして"
+            ],
+            "answer": 3,
+            "why": [
+              "小さい is an い-adjective. It does not take に.",
+              "なってください asks the person to become small. Here you ask them to change the sound, so use して.",
+              "小さい becomes 小さく before して: \"please turn it down\".",
+              "The い must change to く before して."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d4.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "へやが^くらい^ですね。でんきをつけて、（　　）しましょう。",
+            "options": [
+              "あかるくて",
+              "あかるく",
+              "あかるい",
+              "あかるいに"
+            ],
+            "answer": 2,
+            "why": [
+              "The て form joins two ideas. It does not go before する here.",
+              "あかるい becomes あかるく before しましょう: \"let's make it bright\".",
+              "The い must change to く before する.",
+              "An い-adjective does not take に."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d4.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「[何|なに]に^しますか^。」「わたしはこうちゃ（　　）します。」",
+            "options": [
+              "で",
+              "に",
+              "を",
+              "が"
+            ],
+            "answer": 2,
+            "why": [
+              "で does not say what you choose. Use に.",
+              "The question is 何にしますか, so the answer is こうちゃにします: \"I'll have tea\".",
+              "こうちゃをします is not said. To say what you choose, use に.",
+              "が does not go before します to say what you choose."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d4.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "おきゃくさんが[来|き]ますから、へやを（　　）^します^。",
+            "options": [
+              "きれいに",
+              "きれいく",
+              "きれいな",
+              "きれいだ"
+            ],
+            "answer": 1,
+            "why": [
+              "きれい is a な-adjective, so it takes に before します.",
+              "きれい ends in い, but it is not an い-adjective. It never takes く.",
+              "きれいな needs a noun after it, like きれいなへや.",
+              "きれいだ ends a sentence. It cannot go before します."
+            ]
+          },
+          {
+            "id": "n5u08d4.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "すみません、",
+            "after": "ください。",
+            "tiles": [
+              "テレビの",
+              "おとを",
+              "[小|ちい]さく",
+              "して"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "Whose sound is it? Then how do you want it? して comes right before ください.",
+            "full": "すみません、テレビのおとを[小|ちい]さ{くして}ください。",
+            "explain": "テレビの goes right before おとを. 小さく joins on to して, and してください asks the person to do it."
+          },
+          {
+            "id": "n5u08d4.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[友|とも]だちが[来|き]ますから、",
+            "after": "しました。",
+            "tiles": [
+              "へやと",
+              "だいどころを",
+              "きれい",
+              "に"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "hint": "Which two places did you clean? に comes right after きれい.",
+            "full": "[友|とも]だちが[来|き]ますから、へやとだいどころをきれい{にしました}。",
+            "explain": "へやと joins on to だいどころを: \"the room and the kitchen\". きれい is a な-adjective, so に comes after it, then しました."
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u08d4.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "ちょっと　あついですね。まどを　あけて、へやを　（　　）　しましょう。",
+            "options": [
+              "すずしい",
+              "すずしいに",
+              "すずしくて",
+              "すずしく"
+            ],
+            "answer": 4,
+            "explain": "すずしい is an い-adjective, so it becomes すずしく before しましょう: \"let's make the room cool\". すずしい must change to く, an い-adjective does not take に, and the て form すずしくて does not go before する."
+          },
+          {
+            "id": "n5u08d4.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "「大きい　コップと　小さい　コップが　あります。どちらに　しますか。」「じゃあ、大きい（　　）に　します。」",
+            "options": [
+              "く",
+              "が",
+              "の",
+              "な"
+            ],
+            "answer": 3,
+            "explain": "大きいの means \"the big one\", and 大きいのに します says which one you choose. An い-adjective does not take な, 大きいく is not a form, and が cannot come before に."
+          },
+          {
+            "id": "n5u08d4.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "わたしは　コーヒーに　しますが、",
+            "after": "します。",
+            "tiles": [
+              "友だちは",
+              "オレンジ",
+              "ジュース",
+              "に"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "full": "わたしは　コーヒーに　しますが、友だちは　オレンジ　ジュース{に}　します。",
+            "explain": "友だちは, オレンジ, ジュース, に. 友だちは shows the other person. オレンジ ジュース is what the friend chooses, and に comes before します."
+          }
+        ]
+      },
+      "scene": {
+        "ja": "きっさてんのランチメニュー",
+        "en": "The lunch menu at a coffee shop",
+        "intro": "Tap each word on the menu that tells you the food, the drink, the size or the price.",
+        "words": [
+          {
+            "id": "large",
+            "word": "大きい",
+            "reading": "おおきい",
+            "gloss": "big, large",
+            "parts": [
+              [
+                "大",
+                "おお",
+                "big"
+              ]
+            ]
+          },
+          {
+            "id": "small",
+            "word": "小さい",
+            "reading": "ちいさい",
+            "gloss": "small",
+            "parts": [
+              [
+                "小",
+                "ちい",
+                "small"
+              ]
+            ]
+          },
+          {
+            "id": "water",
+            "word": "水",
+            "reading": "みず",
+            "gloss": "water",
+            "parts": [
+              [
+                "水",
+                "みず",
+                "water"
+              ]
+            ]
+          },
+          {
+            "id": "drinks",
+            "word": "飲みもの",
+            "reading": "のみもの",
+            "gloss": "drinks",
+            "parts": [
+              [
+                "飲",
+                "の",
+                "drink"
+              ]
+            ]
+          },
+          {
+            "id": "yen",
+            "word": "円",
+            "reading": "えん",
+            "gloss": "yen",
+            "parts": [
+              [
+                "円",
+                "エン",
+                "yen, circle"
+              ]
+            ]
+          },
+          {
+            "id": "white wine",
+            "word": "白ワイン",
+            "reading": "しろワイン",
+            "gloss": "white wine",
+            "parts": [
+              [
+                "白",
+                "しろ",
+                "white"
+              ]
+            ]
+          },
+          {
+            "id": "fish",
+            "word": "魚",
+            "reading": "さかな",
+            "gloss": "fish",
+            "parts": [
+              [
+                "魚",
+                "さかな",
+                "fish"
+              ]
+            ]
+          },
+          {
+            "id": "half",
+            "word": "半分",
+            "reading": "はんぶん",
+            "gloss": "half",
+            "parts": [
+              [
+                "半",
+                "ハン",
+                "half"
+              ],
+              [
+                "分",
+                "ブン",
+                "part"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u08d4.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "_飲みもの_は　何に　しますか。",
+          "options": [
+            "のみの",
+            "のみもの",
+            "たべもの",
+            "よみもの"
+          ],
+          "answer": 2,
+          "explain": "飲みもの is のみもの, something to drink. たべもの is 食べもの and よみもの is 読みもの, and のみの is not this word."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "内容理解（短文）",
+        "en": "Short passage",
+        "ask": "Why did the writer choose curry?",
+        "seconds": 90,
+        "passage": "今日は　友だちと　駅の　前の　店で　ひるごはんを　食べました。友だちは　魚の　ランチに　しました。わたしも　魚が　すきですが、^きのうの　ばんも　魚を　食べました^から、^カレーに　しました^。飲みものは　二人とも　つめたい　コーヒーに　しました。",
+        "strategy": "Find カレーに しました, then read the reason that comes before から.",
+        "item": {
+          "id": "n5u08d4.r1",
+          "kind": "choice",
+          "type": "読解・内容理解（短文）",
+          "q": "「わたし」は　どうして　カレーに　しましたか。",
+          "options": [
+            "きのうの　ばんも　魚を　食べたから。",
+            "カレーが　安かったから。",
+            "魚が　きらいだから。",
+            "友だちが　カレーに　したから。"
+          ],
+          "answer": 1,
+          "short": [
+            "きのうも魚を食べた",
+            "カレーが安かった",
+            "魚がきらい",
+            "友だちがカレーにした"
+          ],
+          "explain": "The writer ate fish last night too (きのうの ばんも 魚を 食べました), and から says that is why she chose curry.",
+          "why": [
+            "",
+            "The passage says nothing about the price.",
+            "She says she likes fish too (わたしも 魚が すきです).",
+            "The friend chose the fish lunch, not curry."
+          ]
+        }
+      }
+    },
+    "5": {
+      "title": "〜だけ・〜しか〜ない",
+      "grammar": {
+        "points": [
+          {
+            "id": "n5u08d5.p1",
+            "form": "〜だけ",
+            "gloss": "only; just",
+            "connect": [
+              {
+                "pos": "Noun (が and を are usually dropped)",
+                "rule": "〜{だけ}：[水|みず]{だけ}[飲|の]みました"
+              },
+              {
+                "pos": "Number + counter",
+                "rule": "[一|ひと]つ{だけ}／[一人|ひとり]{だけ}／[五分|ごふん]{だけ}"
+              },
+              {
+                "pos": "The ending stays positive",
+                "rule": "[一|ひと]つ{だけ}[買|か]いました"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "パンを[一|ひと]つ{だけ}[買|か]いました。",
+                "en": "I bought just one piece of bread."
+              },
+              {
+                "ja": "この[店|みせ]は、にちようび{だけ}[休|やす]みです。",
+                "en": "This shop is closed only on Sundays."
+              }
+            ],
+            "watch": {
+              "note": "だけ comes straight after the noun. Do not put を in front of it: say コーヒーだけ, not コーヒーをだけ.",
+              "bad": "けさはコーヒーをだけ飲みました。",
+              "good": "けさはコーヒーだけ飲みました。"
+            }
+          },
+          {
+            "id": "n5u08d5.p2",
+            "form": "〜しか〜ません",
+            "gloss": "only (and not enough)",
+            "connect": [
+              {
+                "pos": "Noun or number + しか, then a negative ending",
+                "rule": "〜{しか}…ません：[百円|ひゃくえん]{しか}ありません"
+              },
+              {
+                "pos": "Past: the negative past ending",
+                "rule": "[一人|ひとり]{しか}[来|き]ませんでした"
+              },
+              {
+                "pos": "The feeling: less than you want",
+                "rule": "[時間|じかん]が[五分|ごふん]{しか}ありません"
+              }
+            ],
+            "examples": [
+              {
+                "ja": "さいふに[千円|せんえん]{しか}ありません。",
+                "en": "I only have 1,000 yen in my wallet."
+              },
+              {
+                "ja": "きのうのパーティーには、[三人|さんにん]{しか}[来|き]ませんでした。",
+                "en": "Only three people came to the party yesterday."
+              }
+            ],
+            "watch": {
+              "note": "しか means \"only\", but the ending after it is always negative. With a positive ending, use だけ.",
+              "bad": "さいふに五百円しかあります。",
+              "good": "さいふに五百円しかありません。"
+            }
+          }
+        ],
+        "compare": {
+          "intro": "だけ and しか both mean \"only\", but they take different endings; ぐらい is not \"only\" at all.",
+          "forms": [
+            {
+              "form": "[一|ひと]つだけ[買|か]いました",
+              "tag": "だけ · only",
+              "mark": "dot",
+              "ja": "りんごを[一|ひと]つ{だけ}[買|か]いました。",
+              "en": "I bought just one apple."
+            },
+            {
+              "form": "[百円|ひゃくえん]しかありません",
+              "tag": "しか〜ません · only, not enough",
+              "mark": "down",
+              "ja": "さいふに[百円|ひゃくえん]{しか}ありません。",
+              "en": "I have only 100 yen in my wallet."
+            },
+            {
+              "form": "[千円|せんえん]ぐらいです",
+              "tag": "ぐらい · about",
+              "mark": "dot",
+              "ja": "このかさは[千円|せんえん]{ぐらい}です。",
+              "en": "This umbrella is about 1,000 yen."
+            }
+          ],
+          "check": {
+            "id": "n5u08d5.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "テスト",
+            "q": "A：お[金|かね]、たくさんありますか。B：^いいえ^、[千円|せんえん]（　　）ありません。",
+            "options": [
+              "だけ",
+              "しか",
+              "ぐらい"
+            ],
+            "answer": 2,
+            "why": [
+              "千円だけありません would mean \"just 1,000 yen is missing\". That does not answer the question.",
+              "B says いいえ: there is not much money, only 1,000 yen. しか goes with the negative ありません.",
+              "ぐらい means \"about\". 千円ぐらいありません does not make sense after いいえ."
+            ]
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u08d5.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "おなかがいっぱいですから、ケーキは[一|ひと]つ（　　）^[食|た]べました^。",
+            "options": [
+              "しか",
+              "も",
+              "だけ",
+              "に"
+            ],
+            "answer": 3,
+            "why": [
+              "しか needs a negative ending. Here the ending is 食べました, which is positive.",
+              "一つも goes with a negative ending: 一つも食べませんでした (I didn't eat even one). It does not go with 食べました.",
+              "The ending 食べました is positive, so \"only one\" is 一つだけ.",
+              "に does not go after 一つ here. 一つに食べました is not Japanese."
+            ]
+          },
+          {
+            "id": "n5u08d5.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the ending",
+            "q": "A：ジュースを[買|か]いませんか。B：すみません、^[百円|ひゃくえん]しか^（　　）。",
+            "options": [
+              "ありません",
+              "ありました",
+              "あって",
+              "あります"
+            ],
+            "answer": 1,
+            "why": [
+              "しか needs a negative ending: 百円しかありません, \"I only have 100 yen\".",
+              "ありました is positive too. しか never goes with it.",
+              "あって is the te-form. It cannot end the sentence here, and しか needs a negative ending.",
+              "あります is positive. After しか, the ending must be negative."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d5.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "A：たまごはたくさんありますか。B：^いいえ^、[二|ふた]つ（　　）ありません。",
+            "options": [
+              "で",
+              "だけ",
+              "を",
+              "しか"
+            ],
+            "answer": 4,
+            "why": [
+              "で does not fit here. 二つでありません is not Japanese.",
+              "二つだけありません would mean \"just two are missing\". B says いいえ, there are not many eggs, so that does not fit.",
+              "を does not go with ありません. 二つをありません is not Japanese.",
+              "There are not many eggs, only two. しか goes with the negative ありません."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d5.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "けさは^[時間|じかん]がありませんでした^から、コーヒー（　　）[飲|の]みました。",
+            "options": [
+              "だけ",
+              "しか",
+              "にだけ",
+              "をだけ"
+            ],
+            "answer": 1,
+            "why": [
+              "There was no time, so only coffee. The ending 飲みました is positive, so use だけ.",
+              "しか needs a negative ending, but 飲みました is positive.",
+              "に does not go with 飲みます. You drink something を, not に.",
+              "だけ comes straight after the noun. を cannot come before it: コーヒーをだけ is wrong."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d5.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "[電車|でんしゃ]まで",
+            "after": "、はしりましょう。",
+            "tiles": [
+              "[五分|ごふん]",
+              "しか",
+              "ありません",
+              "から"
+            ],
+            "star": 1,
+            "bank": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "How much time comes first, then しか, then the negative ending, then から for the reason.",
+            "full": "[電車|でんしゃ]まで[五分|ごふん]{しか}ありませんから、はしりましょう。",
+            "explain": "五分しかありません says there is not much time, and から gives the reason for running: \"There are only five minutes until the train, so let's run.\""
+          },
+          {
+            "id": "n5u08d5.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "きのうは",
+            "after": "、ねむいです。",
+            "tiles": [
+              "[三時間|さんじかん]",
+              "だけ",
+              "ねました",
+              "から"
+            ],
+            "star": 1,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "How long comes first, then だけ, then the positive ending, then から.",
+            "full": "きのうは[三時間|さんじかん]{だけ}ねましたから、ねむいです。",
+            "explain": "三時間だけ comes before the positive ending ねました, and から gives the reason: \"I only slept three hours yesterday, so I'm sleepy.\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u08d5.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "A「りんごを　たくさん　買いましたか。」B「いいえ、高かったですから、二つ（　　）　買いませんでした。」",
+            "options": [
+              "と",
+              "だけ",
+              "が",
+              "しか"
+            ],
+            "answer": 4,
+            "explain": "The apples were expensive, so B bought only two: 二つしか買いませんでした. しか goes with the negative ending. 二つだけ買いませんでした would mean \"I didn't buy just two\", which does not fit. が and と cannot go between 二つ and 買いませんでした here."
+          },
+          {
+            "id": "n5u08d5.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "A「よく　テレビを　見ますか。」B「いいえ。いそがしいですから、毎日　三十分（　　）　見ます。」",
+            "options": [
+              "が",
+              "だけ",
+              "の",
+              "しか"
+            ],
+            "answer": 2,
+            "explain": "B is busy and watches only a little: 三十分だけ見ます. The ending 見ます is positive, so だけ fits. しか needs a negative ending (三十分しか見ません). が and の cannot go between 三十分 and 見ます."
+          },
+          {
+            "id": "n5u08d5.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「ケーキを　たくさん　買いましたか。」B「いいえ。店に　",
+            "after": "。」",
+            "tiles": [
+              "一つ",
+              "しか",
+              "ありません",
+              "でした"
+            ],
+            "star": 2,
+            "bank": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "full": "A「ケーキを　たくさん　買いましたか。」B「いいえ。店に　一つ　{しか}　ありません　でした。」",
+            "explain": "一つ, しか, ありません, でした. 一つしか needs a negative ending, and ありませんでした is the negative past: \"There was only one at the shop.\""
+          }
+        ]
+      },
+      "scene": {
+        "ja": "えいがかんの　きっぷうりば",
+        "en": "The notice at the ticket counter of a small cinema",
+        "intro": "Tap every word on the notice you need to know how much a ticket is and when you can go in.",
+        "words": [
+          {
+            "id": "entrance",
+            "word": "入口",
+            "reading": "いりぐち",
+            "gloss": "entrance",
+            "parts": [
+              [
+                "入",
+                "いり",
+                "enter"
+              ],
+              [
+                "口",
+                "ぐち",
+                "mouth, opening"
+              ]
+            ]
+          },
+          {
+            "id": "oneperson",
+            "word": "一人",
+            "reading": "ひとり",
+            "gloss": "one person",
+            "parts": [
+              [
+                "一",
+                "ひと",
+                "one"
+              ],
+              [
+                "人",
+                "り",
+                "person"
+              ]
+            ]
+          },
+          {
+            "id": "thousandyen",
+            "word": "千円",
+            "reading": "せんえん",
+            "gloss": "1,000 yen",
+            "parts": [
+              [
+                "千",
+                "セン",
+                "thousand"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "hundredyen",
+            "word": "百円",
+            "reading": "ひゃくえん",
+            "gloss": "100 yen",
+            "parts": [
+              [
+                "百",
+                "ヒャク",
+                "hundred"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "child",
+            "word": "子ども",
+            "reading": "こども",
+            "gloss": "child",
+            "parts": [
+              [
+                "子",
+                "こ",
+                "child"
+              ]
+            ]
+          },
+          {
+            "id": "pm",
+            "word": "午後",
+            "reading": "ごご",
+            "gloss": "p.m., afternoon",
+            "parts": [
+              [
+                "午",
+                "ゴ",
+                "noon"
+              ],
+              [
+                "後",
+                "ゴ",
+                "after"
+              ]
+            ]
+          },
+          {
+            "id": "oclock",
+            "word": "時",
+            "reading": "じ",
+            "gloss": "o'clock",
+            "parts": [
+              [
+                "時",
+                "ジ",
+                "time, o'clock"
+              ]
+            ]
+          },
+          {
+            "id": "closed",
+            "word": "休み",
+            "reading": "やすみ",
+            "gloss": "closed; day off",
+            "parts": [
+              [
+                "休",
+                "やす",
+                "rest"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u08d5.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "きっぷは　_一人_　千円です。",
+          "options": [
+            "ひとにん",
+            "いちり",
+            "いちにん",
+            "ひとり"
+          ],
+          "answer": 4,
+          "explain": "\"One person\" is read ひとり. いちにん is not how you say one person in a sentence like this, and ひとにん and いちり are not readings of 一人."
+        }
+      },
+      "skill": {
+        "kind": "listening",
+        "ja": "課題理解",
+        "en": "Task comprehension",
+        "ask": "二人は　何を　買いますか。",
+        "audio": [
+          [
+            "N",
+            "店で、男の人と女の人が話しています。二人は、何を買いますか。",
+            "みせで、おとこのひとと　おんなのひとが　はなしています。ふたりは、なにを　かいますか。"
+          ],
+          [
+            "M",
+            "ぼくは、今、五百円しかありません。",
+            "ぼくは、いま、ごひゃくえんしか　ありません。"
+          ],
+          [
+            "F",
+            "わたしは三百円あります。二人で八百円ですね。",
+            "わたしは　さんびゃくえん　あります。ふたりで　はっぴゃくえんですね。"
+          ],
+          [
+            "M",
+            "あのケーキ、おいしいですよ。一つ六百円です。",
+            "あの　ケーキ、おいしいですよ。ひとつ　ろっぴゃくえんです。"
+          ],
+          [
+            "F",
+            "じゃあ、ケーキは一つだけ買いましょう。それから、ジュースも飲みたいです。ジュースは一本百五十円です。",
+            "じゃあ、ケーキは　ひとつだけ　かいましょう。それから、ジュースも　のみたいです。ジュースは　いっぽん　ひゃくごじゅうえんです。"
+          ],
+          [
+            "M",
+            "ケーキと、ジュース二本で、九百円ですね。ぼくたちは、八百円しかありませんよ。",
+            "ケーキと、ジュース　にほんで、きゅうひゃくえんですね。ぼくたちは、はっぴゃくえんしか　ありませんよ。"
+          ],
+          [
+            "F",
+            "そうですね。じゃあ、ケーキはだめですね。パンはどうですか。パンは一つ二百円です。",
+            "そうですね。じゃあ、ケーキは　だめですね。パンは　どうですか。パンは　ひとつ　にひゃくえんです。"
+          ],
+          [
+            "M",
+            "いいですね。じゃあ、パンを二つと、ジュースを二本買いましょう。七百円ですね。",
+            "いいですね。じゃあ、パンを　ふたつと、ジュースを　にほん　かいましょう。ななひゃくえんですね。"
+          ],
+          [
+            "F",
+            "はい、そうしましょう。",
+            null
+          ],
+          [
+            "N",
+            "二人は、何を買いますか。",
+            "ふたりは、なにを　かいますか。"
+          ]
+        ],
+        "item": {
+          "id": "n5u08d5.r1",
+          "kind": "choice",
+          "type": "課題理解",
+          "q": "二人は　何を　買いますか。",
+          "script": [
+            "ナレーター：店で、男の人と女の人が話しています。二人は、何を買いますか。",
+            "男：ぼくは、今、五百円しかありません。",
+            "女：わたしは三百円あります。二人で八百円ですね。",
+            "男：あのケーキ、おいしいですよ。一つ六百円です。",
+            "女：じゃあ、ケーキは一つだけ買いましょう。それから、ジュースも飲みたいです。ジュースは一本百五十円です。",
+            "男：ケーキと、ジュース二本で、九百円ですね。ぼくたちは、八百円しかありませんよ。",
+            "女：そうですね。じゃあ、ケーキはだめですね。パンはどうですか。パンは一つ二百円です。",
+            "男：いいですね。じゃあ、パンを二つと、ジュースを二本買いましょう。七百円ですね。",
+            "女：はい、そうしましょう。",
+            "ナレーター：二人は、何を買いますか。"
+          ],
+          "options": [
+            "ケーキ　一つと　ジュース　二本",
+            "ケーキ　一つだけ",
+            "パン　二つと　ジュース　二本",
+            "パン　二つだけ"
+          ],
+          "printed": true,
+          "short": [
+            "ケーキ一つとジュース二本",
+            "ケーキ一つだけ",
+            "パン二つとジュース二本",
+            "パン二つだけ"
+          ],
+          "answer": 3,
+          "why": [
+            "A cake and two juices cost 900 yen, but they have only 800 yen together.",
+            "The woman wants juice too, and in the end they choose bread instead of the cake.",
+            "Two pieces of bread (400 yen) and two juices (300 yen) make 700 yen, which they can pay. The man says 買いましょう and the woman agrees.",
+            "They buy juice as well as the bread."
+          ]
+        }
+      }
+    },
+    "6": {
+      "title": "まとめ：似ている文法",
+      "grammar": {
+        "points": [],
+        "compare": {
+          "intro": "To tell this unit's points apart, ask how many things you compare (より／のほうが and どちら for two, の中でいちばん for three or more, どちらも／どれも for all of them), whether something changes by itself (くなる／になる) or someone changes it (くする／にする), and whether the ending is negative: だけ and しか both mean only, but しか always needs a negative ending.",
+          "forms": [
+            {
+              "form": "〜くなります",
+              "tag": "かわる · it becomes (い adjective)",
+              "mark": "dot",
+              "ja": "このシャツは[先週|せんしゅう]より[安|やす]{くなりました}。",
+              "en": "This shirt has got cheaper than last week."
+            },
+            {
+              "form": "〜くします",
+              "tag": "かえる · someone makes it (い adjective)",
+              "mark": "dot",
+              "ja": "[店|みせ]の[人|ひと]がシャツを[安|やす]{くしました}。",
+              "en": "The shop staff made the shirt cheaper."
+            },
+            {
+              "form": "〜にします",
+              "tag": "〜に＋する · make it (noun, な adjective)",
+              "mark": "dot",
+              "ja": "[店|みせ]の[人|ひと]がシャツを[千円|せんえん]{にしました}。",
+              "en": "The shop staff made the shirt 1,000 yen."
+            }
+          ],
+          "check": {
+            "id": "n5u08d6.c1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "セールのかばん",
+            "q": "セールですから、[店|みせ]の[人|ひと]^が^かばん^を^[安|やす]く（　　）。",
+            "options": [
+              "しました",
+              "にしました",
+              "なりました"
+            ],
+            "answer": 1,
+            "why": [
+              "店の人が is the person who acts and かばんを is the thing changed, so 安くしました: the shop staff made the bags cheaper.",
+              "安く already has く. に goes after a noun or a な adjective, like 千円にしました, not after 安く.",
+              "なりました says something changed by itself, and that thing takes が: かばんが安くなりました. With 店の人が and かばんを, it does not fit."
+            ],
+            "explain": null
+          }
+        },
+        "drill": [
+          {
+            "id": "n5u08d6.d1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "A：^うどんとそば^、（　　）にしますか。B：そばにします。",
+            "options": [
+              "どちらも",
+              "いちばん",
+              "どれ",
+              "どちら"
+            ],
+            "answer": 4,
+            "why": [
+              "どちらも means both. It answers a question; it cannot ask which one, and どちらもにしますか is not said.",
+              "いちばん needs a group of three or more and a word that asks, like どれがいちばん. いちばんにしますか does not ask which one.",
+              "どれ is for three or more things. Here there are only two.",
+              "A offers two things, うどん and そば, so A asks with どちら: which will you have?"
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d6.d2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "このセールは[今日|きょう]（　　）^です^よ。",
+            "options": [
+              "より",
+              "だけ",
+              "どれも",
+              "しか"
+            ],
+            "answer": 2,
+            "why": [
+              "より compares two things, but nothing is compared here. 今日よりです is not said.",
+              "The ending です is positive, so \"only today\" is 今日だけです.",
+              "どれも is about three or more things. It cannot follow 今日.",
+              "しか needs a negative ending, like 今日しかありません. Here the ending is です."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d6.d3",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the form",
+            "q": "[新|あたら]しい[店|みせ]がたくさんできて、この[道|みち]^が^（　　）。",
+            "options": [
+              "にぎやかくしました",
+              "にぎやかくなりました",
+              "にぎやかになりました",
+              "にぎやかにしました"
+            ],
+            "answer": 3,
+            "why": [
+              "にぎやかく is not a form, and しました does not fit この道が either.",
+              "にぎやか is a な adjective, so にぎやかく is not a form.",
+              "この道が is the thing that changed, so use なりました. にぎやか is a な adjective, so it takes に: the street got lively.",
+              "しました needs someone who acts and a thing with を. Here この道が is the thing that changed."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d6.d4",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the word",
+            "q": "このかばんは[三|みっ]つの^[中|なか]で^（　　）[大|おお]きいです。",
+            "options": [
+              "いちばん",
+              "より",
+              "のほうが",
+              "どちらも"
+            ],
+            "answer": 1,
+            "why": [
+              "三つの中で gives a group of three, so いちばん picks the one: this bag is the biggest of the three.",
+              "より follows the thing you measure against, like あのかばんより. It cannot come after 中で.",
+              "のほうが follows the winner of two, like このかばんのほうが. It cannot come after 中で.",
+              "どちらも is about two things, and it says the same about both. Here one bag out of three is picked."
+            ],
+            "explain": null
+          },
+          {
+            "id": "n5u08d6.d5",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "セールでも、このシャツは[前|まえ]より",
+            "after": "。",
+            "tiles": [
+              "[百円|ひゃくえん]",
+              "しか",
+              "[安|やす]く",
+              "なりませんでした"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "How much comes first, then しか. しか needs a negative ending, and 安い changes before なる.",
+            "full": "セールでも、このシャツは[前|まえ]より[百円|ひゃくえん]しか{[安|やす]く}なりませんでした。",
+            "explain": "百円, しか, 安く, なりませんでした. 百円しか needs a negative ending, so it goes with なりませんでした. 安い becomes 安く before なる: \"Even in the sale, this shirt only got 100 yen cheaper than before.\""
+          },
+          {
+            "id": "n5u08d6.d6",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A：[何|なに]にしますか。B：メニューの",
+            "after": "します。",
+            "tiles": [
+              "[中|なか]で",
+              "いちばん",
+              "[安|やす]いの",
+              "に"
+            ],
+            "star": 2,
+            "bank": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "メニューの needs 中で to make the group. 安いの means \"the cheap one\", and に comes right before します.",
+            "full": "A：[何|なに]にしますか。B：メニューの[中|なか]でいちばん{[安|やす]いの}にします。",
+            "explain": "中で, いちばん, 安いの, に. メニューの中で is the group, いちばん安いの is the cheapest one, and にします says what you choose: \"I'll have the cheapest one on the menu.\""
+          }
+        ],
+        "exam": [
+          {
+            "id": "n5u08d6.e1",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the answer",
+            "q": "この　店の　ケーキは　どれも　おいしいですが、チーズケーキが　（　　）　すきです。",
+            "options": [
+              "どちらも",
+              "だけ",
+              "いちばん",
+              "しか"
+            ],
+            "answer": 3,
+            "explain": "どれも shows there are many cakes, and the speaker picks one: チーズケーキが　いちばん　すきです, I like the cheesecake best. どちらも is about two things and does not pick one. だけ cannot come after が here, and しか needs a negative ending, but the ending is すきです."
+          },
+          {
+            "id": "n5u08d6.e2",
+            "kind": "choice",
+            "type": "文の文法1",
+            "label": "Choose the answer",
+            "q": "あつく　なりましたから、かみを　（　　）。",
+            "options": [
+              "みじかいに　しました",
+              "みじかいに　なりました",
+              "みじかく　なりました",
+              "みじかく　しました"
+            ],
+            "answer": 4,
+            "explain": "かみを has を, so someone changed the hair: みじかく　しました, I had my hair cut short. なりました needs が (かみが　みじかく　なりました), so it does not fit after かみを. みじかい is an い adjective, so it takes く, not に."
+          },
+          {
+            "id": "n5u08d6.e3",
+            "kind": "star",
+            "type": "文の文法2",
+            "label": "Build the sentence",
+            "before": "A「どちらの　かばんに　しますか。」\nB「",
+            "after": "、それに　します。」",
+            "tiles": [
+              "白い",
+              "かばんの",
+              "ほうが",
+              "安いですから"
+            ],
+            "star": 2,
+            "bank": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "full": "A「どちらの　かばんに　しますか。」\nB「白い　かばんの　{ほうが}　安いですから、それに　します。」",
+            "explain": "白い, かばんの, ほうが, 安いですから. 白い goes before かばん, a noun needs の before ほうが, and から gives the reason for the choice: \"The white bag is cheaper, so I'll take that one.\""
+          }
+        ]
+      },
+      "scene": {
+        "ja": "古本の店のセール",
+        "en": "A sale poster at a second-hand bookshop",
+        "intro": "Tap each word on the bookshop's sale poster with its old and new prices.",
+        "words": [
+          {
+            "id": "used-book",
+            "word": "古本",
+            "reading": "ふるほん",
+            "gloss": "second-hand book",
+            "parts": [
+              [
+                "古",
+                "ふる",
+                "old"
+              ],
+              [
+                "本",
+                "ホン",
+                "book"
+              ]
+            ]
+          },
+          {
+            "id": "this-week",
+            "word": "今週",
+            "reading": "こんしゅう",
+            "gloss": "this week",
+            "parts": [
+              [
+                "今",
+                "コン",
+                "now"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "next-week",
+            "word": "来週",
+            "reading": "らいしゅう",
+            "gloss": "next week",
+            "parts": [
+              [
+                "来",
+                "ライ",
+                "come, next"
+              ],
+              [
+                "週",
+                "シュウ",
+                "week"
+              ]
+            ]
+          },
+          {
+            "id": "foreign-language",
+            "word": "外国語",
+            "reading": "がいこくご",
+            "gloss": "foreign language",
+            "parts": [
+              [
+                "外",
+                "ガイ",
+                "outside"
+              ],
+              [
+                "国",
+                "コク",
+                "country"
+              ],
+              [
+                "語",
+                "ゴ",
+                "language"
+              ]
+            ]
+          },
+          {
+            "id": "2000-yen",
+            "word": "二千円",
+            "reading": "にせんえん",
+            "gloss": "2,000 yen",
+            "parts": [
+              [
+                "二",
+                "ニ",
+                "two"
+              ],
+              [
+                "千",
+                "セン",
+                "thousand"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "800-yen",
+            "word": "八百円",
+            "reading": "はっぴゃくえん",
+            "gloss": "800 yen",
+            "parts": [
+              [
+                "八",
+                "ハッ",
+                "eight"
+              ],
+              [
+                "百",
+                "ピャク",
+                "hundred"
+              ],
+              [
+                "円",
+                "エン",
+                "yen"
+              ]
+            ]
+          },
+          {
+            "id": "cheaply",
+            "word": "安く",
+            "reading": "やすく",
+            "gloss": "cheaper, cheaply (from 安い)",
+            "parts": [
+              [
+                "安",
+                "やす",
+                "cheap"
+              ]
+            ]
+          },
+          {
+            "id": "every-day",
+            "word": "毎日",
+            "reading": "まいにち",
+            "gloss": "every day",
+            "parts": [
+              [
+                "毎",
+                "マイ",
+                "every"
+              ],
+              [
+                "日",
+                "ニチ",
+                "day"
+              ]
+            ]
+          }
+        ],
+        "check": {
+          "id": "n5u08d6.k1",
+          "kind": "choice",
+          "type": "漢字読み",
+          "label": "How the exam asks it",
+          "q": "この　本は　今週だけ　_八百円_です。",
+          "options": [
+            "はっぴゃくえん",
+            "はっひゃくえん",
+            "はちびゃくえん",
+            "はちひゃくえん"
+          ],
+          "answer": 1,
+          "explain": "八百円 is read はっぴゃくえん: 八 becomes はっ and 百 becomes ぴゃく. はちひゃくえん, はっひゃくえん and はちびゃくえん are not how 800 is said."
+        }
+      },
+      "skill": {
+        "kind": "reading",
+        "ja": "情報検索",
+        "en": "Finding information",
+        "ask": "Which item at the café will get cheaper from next month?",
+        "seconds": 90,
+        "passage": "山川カフェの　おしらせ\n来月から　すこし　かわります。\n（今月　→　来月）\nコーヒー　三百円　→　三百五十円\nこうちゃ　三百円（かわりません）\nケーキ　四百円　→　四百五十円\n^サンドイッチ　五百円　→　四百五十円^\nこれからも　よろしく　おねがいします。",
+        "strategy": "Compare the two prices on each line and find the one where the second price, next month's, is lower.",
+        "item": {
+          "id": "n5u08d6.r1",
+          "kind": "choice",
+          "type": "読解・情報検索",
+          "q": "来月から　安く　なる　ものは　どれですか。",
+          "options": [
+            "ケーキ",
+            "サンドイッチ",
+            "コーヒー",
+            "こうちゃ"
+          ],
+          "short": [
+            "ケーキ",
+            "サンドイッチ",
+            "コーヒー",
+            "こうちゃ"
+          ],
+          "answer": 2,
+          "explain": "The sandwich line reads 五百円　→　四百五十円: 500 yen this month, 450 yen next month. It is the only price that goes down.",
+          "why": [
+            "Cake goes from 400 yen to 450 yen, so it gets more expensive.",
+            "",
+            "Coffee goes from 300 yen to 350 yen, so it gets more expensive.",
+            "Tea stays at 300 yen (かわりません, no change)."
+          ]
+        }
+      }
+    }
+  },
+  "test": [
+    {
+      "id": "n5u08t.1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "りんごを　_半分_に　きって、友だちと　食べました。",
+      "options": [
+        "はんぶん",
+        "はんぷん",
+        "はんふん",
+        "ばんぶん"
+      ],
+      "answer": 1,
+      "explain": "半分 is はんぶん, half. The 分 in this word is ぶん, with the dakuten. はんふん and はんぷん give 分 the sounds it has in times (ふん, ぷん), which are not used in 半分. ばんぶん wrongly puts a dakuten on は."
+    },
+    {
+      "id": "n5u08t.2",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "Kanji reading",
+      "q": "この　まちは　前より　人が　_多く_　なりました。",
+      "options": [
+        "おうく",
+        "すくなく",
+        "たく",
+        "おおく"
+      ],
+      "answer": 4,
+      "explain": "多く is おおく, from 多い (many). おうく spells the long お with う; 多い is written おおい. すくなく is a real word, but it is 少なく (few), the opposite. たく is not a reading of 多く."
+    },
+    {
+      "id": "n5u08t.3",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "この　店の　やさいは　先週より　_やすく_　なりました。",
+      "options": [
+        "高く",
+        "安く",
+        "休く",
+        "女く"
+      ],
+      "answer": 2,
+      "explain": "やすく (cheaper) is 安く, from 安い. 休 is the やす of 休みます, but 休く is not a word. 女 looks like the bottom of 安, but 女く is not a word. 高く is a real word, but it is たかく (more expensive)."
+    },
+    {
+      "id": "n5u08t.4",
+      "kind": "choice",
+      "type": "表記",
+      "label": "Kanji spelling",
+      "q": "この　くつは　ちょっと　_ちいさい_です。もっと　大きいのは　ありますか。",
+      "options": [
+        "小さい",
+        "少ない",
+        "小い",
+        "少さい"
+      ],
+      "answer": 1,
+      "explain": "ちいさい (small) is written 小さい. 少 looks like 小 with an extra stroke, but 少さい is not a word. 少ない is a real word, but it is すくない (few). 小い leaves out the さ that 小さい needs."
+    },
+    {
+      "id": "n5u08t.5",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "わたしの　へやは　せまいですが、あねの　へやは　（　　）です。",
+      "options": [
+        "みじかい",
+        "ひろい",
+        "ほそい",
+        "せまい"
+      ],
+      "answer": 2,
+      "explain": "が (but) shows the two rooms are different: my room is small, but my sister's is big, ひろい. せまい would make them the same, so が does not fit. みじかい (short) and ほそい (thin) are not used for the size of a room."
+    },
+    {
+      "id": "n5u08t.6",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "Word in context",
+      "q": "子どもの　ときは　にんじんが　きらいでしたが、今は　（　　）に　なりました。",
+      "options": [
+        "きらい",
+        "じょうず",
+        "すき",
+        "へた"
+      ],
+      "answer": 3,
+      "explain": "でしたが (was, but) shows a change: I disliked carrots as a child, but now I like them, すきに なりました. きらい would mean nothing changed. じょうず (good at) and へた (bad at) are for skills, not for food."
+    },
+    {
+      "id": "n5u08t.7",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "はこの　中に　りんごが　_二つしか　ありません_。",
+      "options": [
+        "はこの　中に　りんごが　二つも　あります。",
+        "はこの　中に　りんごが　一つも　ありません。",
+        "はこの　中に　りんごが　二つだけ　あります。",
+        "はこの　中に　りんごが　二つより　多く　あります。"
+      ],
+      "answer": 3,
+      "explain": "二つしか ありません means there are only two, which is the same as 二つだけ あります. 二つも あります stresses that two is a lot, the opposite feeling. 一つも ありません means there are none. 二つより 多く means more than two."
+    },
+    {
+      "id": "n5u08t.8",
+      "kind": "choice",
+      "type": "言い換え類義",
+      "label": "Same meaning",
+      "q": "きのう、_へやを　きれいに　しました_。",
+      "options": [
+        "きのう、へやで　あそびました。",
+        "きのう、へやを　かりました。",
+        "きのう、へやが　きたなく　なりました。",
+        "きのう、へやを　そうじしました。"
+      ],
+      "answer": 4,
+      "explain": "へやを きれいに しました means I made the room clean, which is closest to そうじしました (cleaned). きたなく なりました says the room got dirty, the opposite. あそびました (played) and かりました (rented) say nothing about making it clean."
+    },
+    {
+      "id": "n5u08t.9",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "きのうより　今日（　　）　さむいですね。",
+      "options": [
+        "のほうが",
+        "より",
+        "ほうが",
+        "のほうに"
+      ],
+      "answer": 1,
+      "explain": "きのうより already gives the thing compared, so the colder day takes のほうが: 今日のほうが さむい. 今日より would compare today with today. ほう needs の after a noun, so ほうが alone is wrong. さむい needs が for the thing that is cold, not に."
+    },
+    {
+      "id": "n5u08t.10",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「この　白い　くつと　あの　くろい　くつと、（　　）が　すきですか。」B「白い　くつの　ほうが　すきです。」",
+      "options": [
+        "どこ",
+        "どなた",
+        "どれ",
+        "どちら"
+      ],
+      "answer": 4,
+      "explain": "A names two pairs of shoes with と…と, so the question word is どちら (which of the two). どれ is for three or more. どこ asks about a place and どなた about a person, and B answers with one of the shoes."
+    },
+    {
+      "id": "n5u08t.11",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "わたしの　まちは、一年の　中で　八月が　（　　）　あついです。",
+      "options": [
+        "いちばん",
+        "どちら",
+        "ほう",
+        "どれ"
+      ],
+      "answer": 1,
+      "explain": "〜の 中で X が いちばん says X is the most of a group: in the whole year, August is the hottest. どちら and どれ are question words and cannot sit in a statement like this. ほう is used with のほうが to compare two things, and there is no の before it here."
+    },
+    {
+      "id": "n5u08t.12",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "A「この　二つの　カメラ、どちらが　いいですか。」B「（　　）　いいですが、こちらの　ほうが　安いですよ。」",
+      "options": [
+        "どちらも",
+        "なにも",
+        "どれも",
+        "どちらが"
+      ],
+      "answer": 1,
+      "explain": "B says both cameras are good (but this one is cheaper). For two things, both is どちらも. どれも is for three or more, and A asks about 二つ. どちらが is a question and does not answer one. なにも goes with a negative ending, not with いいです."
+    },
+    {
+      "id": "n5u08t.13",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "もう　五時ですね。空が　くらく　（　　）ね。",
+      "options": [
+        "でした",
+        "なりました",
+        "ありました",
+        "しました"
+      ],
+      "answer": 2,
+      "explain": "The sky changed on its own, so くらく takes なりました (became dark). くらく しました means someone made it dark, and that needs を, not 空が. ありました and でした do not follow the く form."
+    },
+    {
+      "id": "n5u08t.14",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "ズボンが　長いですから、少し　みじかく　（　　）　ください。",
+      "options": [
+        "いて",
+        "して",
+        "なって",
+        "あって"
+      ],
+      "answer": 2,
+      "explain": "The speaker asks a person to make the trousers shorter: みじかく して ください. みじかく なって ください asks the trousers themselves to become short, which a person cannot ask. あって and いて do not follow the く form to mean make or become."
+    },
+    {
+      "id": "n5u08t.15",
+      "kind": "choice",
+      "type": "文の文法1",
+      "label": "Choose the form",
+      "q": "月よう日から　金よう日まで　しごとが　いそがしいですから、テレビは　日よう日（　　）　見ます。",
+      "options": [
+        "を",
+        "だけ",
+        "が",
+        "しか"
+      ],
+      "answer": 2,
+      "explain": "The speaker watches TV only on Sunday, and the verb 見ます is positive, so the word is だけ. しか means only too, but it needs a negative verb (見ません). を and が do not go after 日よう日 here; テレビは is what is watched."
+    },
+    {
+      "id": "n5u08t.16",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "わたしの　かぞくの　",
+      "after": "　人は　母です。",
+      "tiles": [
+        "中で",
+        "いちばん",
+        "はやく",
+        "おきる"
+      ],
+      "star": 1,
+      "bank": [
+        3,
+        1,
+        0,
+        2
+      ],
+      "full": "わたしの　かぞくの　中で　{いちばん}　はやく　おきる　人は　母です。",
+      "explain": "中で, いちばん, はやく, おきる. かぞくの must be followed by 中で (in my family). いちばん goes right before the word it makes the most: いちばん はやく (the earliest). はやく describes おきる, and おきる describes 人, so it comes just before 人は."
+    },
+    {
+      "id": "n5u08t.17",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "わたしは　いつも　コーヒーに　",
+      "after": "　飲みます。",
+      "tiles": [
+        "さとうを",
+        "入れて",
+        "あまく",
+        "して"
+      ],
+      "star": 2,
+      "bank": [
+        3,
+        0,
+        2,
+        1
+      ],
+      "full": "わたしは　いつも　コーヒーに　さとうを　入れて　{あまく}　して　飲みます。",
+      "explain": "さとうを, 入れて, あまく, して. さとうを needs its verb after it: さとうを 入れて (put in sugar). An adjective before する takes the く form: あまく して (make it sweet). して joins to 飲みます, so it comes last."
+    },
+    {
+      "id": "n5u08t.18",
+      "kind": "star",
+      "type": "文の文法2",
+      "label": "Build the sentence",
+      "before": "ケーキが　",
+      "after": "　しましょう。",
+      "tiles": [
+        "一つ",
+        "しか",
+        "ありませんから",
+        "半分に"
+      ],
+      "star": 1,
+      "bank": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "full": "ケーキが　一つ　{しか}　ありませんから　半分に　しましょう。",
+      "explain": "一つ, しか, ありませんから, 半分に. しか follows the amount and needs a negative verb after it: 一つしか ありません (there is only one). から gives the reason. 半分に goes with しましょう at the end: 半分に しましょう (let's cut it in half)."
+    },
+    {
+      "id": "n5u08t.19",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "駅の　前に　新しい　パンやが　あります。今日、母と　はじめて　行きました。となりの　店より　少し　高いですが、パンが　大きくて、とても　おいしかったです。わたしは　チーズの　パンを　三つ　買いました。母は　あまい　パンを　一つだけ　買いました。こんどは　友だちと　行きたいです。",
+      "q": "ただしい　ものは　どれですか。",
+      "options": [
+        "新しい　パンやは　となりの　店より　安いです。",
+        "新しい　パンやの　パンは　大きいです。",
+        "母は　チーズの　パンを　三つ　買いました。",
+        "わたしは　友だちと　パンやへ　行きました。"
+      ],
+      "answer": 2,
+      "short": [
+        "となりより安い",
+        "パンが大きい",
+        "母がチーズ三つ",
+        "友だちと行った"
+      ],
+      "explain": "The writer says パンが 大きくて, とても おいしかった: the bread is big. The new shop is a little more expensive (高い) than the shop next door, not cheaper. The writer bought three cheese breads; the mother bought one sweet bread. The writer went with the mother and wants to go with friends next time."
+    },
+    {
+      "id": "n5u08t.20",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "駅の　前に　新しい　パンやが　あります。今日、母と　はじめて　行きました。となりの　店より　少し　高いですが、パンが　大きくて、とても　おいしかったです。わたしは　チーズの　パンを　三つ　買いました。母は　あまい　パンを　一つだけ　買いました。こんどは　友だちと　行きたいです。",
+      "q": "母は　何を　買いましたか。",
+      "options": [
+        "あまい　パンを　一つ",
+        "あまい　パンを　三つ",
+        "チーズの　パンを　一つ",
+        "チーズの　パンを　三つ"
+      ],
+      "answer": 1,
+      "short": [
+        "あまいの一つ",
+        "あまいの三つ",
+        "チーズ一つ",
+        "チーズ三つ"
+      ],
+      "explain": "The passage says 母は あまい パンを 一つだけ 買いました. Three cheese breads (チーズの パンを 三つ) is what the writer bought. Neither person bought three sweet breads or one cheese bread."
+    },
+    {
+      "id": "n5u08t.21",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "レストラン　やま　ランチ（十一時から　二時まで）\nカレー　七百円\n魚の　ランチ　九百円\nパンと　スープ　六百円\n・ランチを　食べる　人は、コーヒーと　こうちゃが　百円に　なります。\n・土よう日と　日よう日は、パンと　スープだけです。",
+      "q": "日よう日に　この　レストランで　ランチを　食べます。何を　食べますか。",
+      "options": [
+        "カレーと　パン",
+        "カレー",
+        "魚の　ランチ",
+        "パンと　スープ"
+      ],
+      "answer": 4,
+      "short": [
+        "カレーとパン",
+        "カレー",
+        "魚",
+        "パンとスープ"
+      ],
+      "explain": "The notice says 土よう日と 日よう日は、パンと スープだけです: on Saturday and Sunday there is only bread and soup. Curry and the fish lunch are not served on Sunday, and curry with bread is not on the menu."
+    },
+    {
+      "id": "n5u08t.22",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "label": "Finding information",
+      "passage": "レストラン　やま　ランチ（十一時から　二時まで）\nカレー　七百円\n魚の　ランチ　九百円\nパンと　スープ　六百円\n・ランチを　食べる　人は、コーヒーと　こうちゃが　百円に　なります。\n・土よう日と　日よう日は、パンと　スープだけです。",
+      "q": "火よう日に　カレーと　コーヒーを　たのみます。ぜんぶで　いくらですか。",
+      "options": [
+        "七百円",
+        "八百円",
+        "九百円",
+        "千円"
+      ],
+      "answer": 2,
+      "short": [
+        "七百円",
+        "八百円",
+        "九百円",
+        "千円"
+      ],
+      "explain": "Curry is 七百円, and with a lunch, coffee is 百円 (コーヒーと こうちゃが 百円に なります). 700 + 100 = 八百円. 七百円 leaves out the coffee. 九百円 is the price of the fish lunch. 千円 does not match any order here."
+    },
+    {
+      "id": "n5u08t.23",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "ケンさんへ\n先週から　駅の　前の　としょかんが　新しく　なりました。前より　大きく　なって、本も　多く　なりました。でも、月よう日は　休みです。日よう日は　人が　多いですから、わたしは　いつも　土よう日に　行きます。こんど、いっしょに　行きませんか。\nマリ",
+      "q": "新しい　としょかんは　どう　なりましたか。",
+      "options": [
+        "前より　大きく　なりました。",
+        "前より　小さく　なりました。",
+        "本が　少なく　なりました。",
+        "日よう日が　休みに　なりました。"
+      ],
+      "answer": 1,
+      "short": [
+        "大きくなった",
+        "小さくなった",
+        "本が少ない",
+        "日よう日休み"
+      ],
+      "explain": "マリ writes 前より 大きく なって, 本も 多く なりました: the library got bigger and has more books. So it did not get smaller, and the books did not become fewer. The day off is 月よう日; on 日よう日 it is open and crowded."
+    },
+    {
+      "id": "n5u08t.24",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "label": "Short passage",
+      "passage": "ケンさんへ\n先週から　駅の　前の　としょかんが　新しく　なりました。前より　大きく　なって、本も　多く　なりました。でも、月よう日は　休みです。日よう日は　人が　多いですから、わたしは　いつも　土よう日に　行きます。こんど、いっしょに　行きませんか。\nマリ",
+      "q": "マリさんは　どうして　土よう日に　としょかんへ　行きますか。",
+      "options": [
+        "日よう日は　休みだからです。",
+        "土よう日は　本が　多いからです。",
+        "日よう日は　人が　多いからです。",
+        "ケンさんと　行くからです。"
+      ],
+      "answer": 3,
+      "short": [
+        "日よう日休み",
+        "土よう日本が多い",
+        "日よう日人が多い",
+        "ケンさんと"
+      ],
+      "explain": "マリ writes 日よう日は 人が 多いですから, わたしは いつも 土よう日に 行きます: Sunday is crowded, so she goes on Saturday. The library is closed on 月よう日, not 日よう日. The books are not more on Saturday. マリ only invites ケン for next time; that is not why she goes on Saturday."
+    }
+  ]
+}

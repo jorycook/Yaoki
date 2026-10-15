@@ -1,0 +1,538 @@
+{
+  "title": "〜ていただけませんか・〜てくださいませんか",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u04d5.p1",
+        "form": "〜ていただけませんか",
+        "gloss": "could I have you do...? (very polite)",
+        "connect": [
+          {
+            "pos": "Verb, te-form",
+            "rule": "[待|ま]つ→[待|ま]って{いただけませんか}／書く→書いて{いただけませんか}"
+          },
+          {
+            "pos": "From いただく, the humble word for もらう",
+            "rule": "〜てもらえませんか→〜て{いただけませんか}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "すみませんが、ここに名前を書いて{いただけませんか}。",
+            "en": "Excuse me, could I ask you to write your name here?"
+          },
+          {
+            "ja": "先生、この[漢字|かんじ]の読み[方|かた]を[教|おし]えて{いただけませんか}。",
+            "en": "Sensei, could you tell me how to read this kanji?"
+          }
+        ],
+        "watch": {
+          "note": "The request uses いただける, the can form of いただく, just as もらえませんか uses もらえる. いただきませんか is not a request.",
+          "bad": "すみません、もういちど言っていただきませんか。",
+          "good": "すみません、もういちど言っていただけませんか。"
+        }
+      },
+      {
+        "id": "n4u04d5.p2",
+        "form": "〜てくださいませんか",
+        "gloss": "would you kindly do...? (very polite)",
+        "connect": [
+          {
+            "pos": "Verb, te-form",
+            "rule": "[待|ま]つ→[待|ま]って{くださいませんか}／書く→書いて{くださいませんか}"
+          },
+          {
+            "pos": "From くださる, the respectful word for くれる",
+            "rule": "〜てくれませんか→〜て{くださいませんか}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "すみません、[私|わたし]たちの[写真|しゃしん]をとって{くださいませんか}。",
+            "en": "Excuse me, would you take a photo of us?"
+          },
+          {
+            "ja": "先生、もう少しゆっくり話して{くださいませんか}。",
+            "en": "Sensei, would you speak a little more slowly?"
+          }
+        ],
+        "watch": {
+          "note": "くださる has a special ます form: くださいます, not くださります. So the request is くださいませんか.",
+          "bad": "すみません、まどをあけてくださりませんか。",
+          "good": "すみません、まどをあけてくださいませんか。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three ask someone to write something for you; てくれませんか and てもらえませんか are fine with friends and coworkers, and the two new forms go one step higher, for a teacher, a customer or a stranger.",
+      "forms": [
+        {
+          "form": "書いていただけませんか",
+          "tag": "とてもていねい · very polite (I receive)",
+          "mark": "up",
+          "ja": "すみませんが、ここに[住所|じゅうしょ]を書いて{いただけませんか}。",
+          "en": "Excuse me, could I ask you to write your address here?"
+        },
+        {
+          "form": "書いてくださいませんか",
+          "tag": "とてもていねい · very polite (you give)",
+          "mark": "up",
+          "ja": "先生、この本に名前を書いて{くださいませんか}。",
+          "en": "Sensei, would you kindly write your name in this book?"
+        },
+        {
+          "form": "書いてくれませんか",
+          "tag": "ていねい · polite, for friends (like てもらえませんか)",
+          "mark": "dot",
+          "ja": "[田中|たなか]さん、ここに[住所|じゅうしょ]を書いて{くれませんか}。",
+          "en": "Tanaka-san, could you write your address here? (書いてもらえませんか is the same level.)"
+        }
+      ],
+      "check": {
+        "id": "n4u04d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "じゅぎょうのあとで",
+        "q": "^先生^に：「すみません、ここをもう一[度|ど][説明|せつめい]して（　　）。」",
+        "options": [
+          "あげませんか",
+          "くださいませんか",
+          "くれ"
+        ],
+        "answer": 2,
+        "why": [
+          "てあげる is doing something for another person. 説明してあげませんか suggests the teacher explain it to someone else. It does not ask for yourself.",
+          "You ask your teacher to do something for you, so you use the very polite くださいませんか.",
+          "くれ is a rough order, used only with close friends or family. Saying it to a teacher is rude."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u04d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "すみませんが、ここで少し（　　）^いただけませんか^。",
+        "options": [
+          "[待|ま]つ",
+          "[待|ま]って",
+          "[待|ま]った",
+          "[待|ま]たない"
+        ],
+        "answer": 2,
+        "why": [
+          "待つ is the dictionary form. いただけませんか needs the te-form before it.",
+          "いただけませんか follows the te-form: 待っていただけませんか, \"could you wait a little here?\"",
+          "待った is the た form. 待ったいただけませんか is not Japanese.",
+          "待たない is the ない form. It does not go before いただけませんか."
+        ]
+      },
+      {
+        "id": "n4u04d5.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "すみません、電気を（　　）^くださいませんか^。",
+        "options": [
+          "けした",
+          "けさない",
+          "けして",
+          "けす"
+        ],
+        "answer": 3,
+        "why": [
+          "けした is the た form. くださいませんか needs the te-form before it.",
+          "けさない is the ない form. It does not go before くださいませんか.",
+          "くださいませんか follows the te-form: けしてくださいませんか, \"would you turn off the light?\"",
+          "けす is the dictionary form. けすくださいませんか is not Japanese."
+        ]
+      },
+      {
+        "id": "n4u04d5.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the ending",
+        "q": "すみません、^よく聞こえませんでした^。もう少し大きい[声|こえ]で（　　）。",
+        "options": [
+          "話してもいいですか",
+          "話しませんでしたか",
+          "話していただきませんか",
+          "話していただけませんか"
+        ],
+        "answer": 4,
+        "why": [
+          "てもいいですか asks if you yourself may do it. The speaker could not hear, so they want the other person to speak louder.",
+          "話しませんでしたか asks about the past: \"didn't you speak?\" It is not a request.",
+          "The request needs いただける, the can form: いただけませんか. いただきませんか is not a request.",
+          "The speaker could not hear, so they ask the other person to speak louder: 話していただけませんか."
+        ]
+      },
+      {
+        "id": "n4u04d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the ending",
+        "q": "^[知|し]らない人^に：すみません、ちょっとペンを[貸|か]して（　　）。",
+        "options": [
+          "あげませんか",
+          "くださいませんか",
+          "もらいませんか",
+          "いただきませんか"
+        ],
+        "answer": 2,
+        "why": [
+          "てあげる is doing something for another person. 貸してあげませんか suggests lending a pen to someone else, not to you.",
+          "You ask a stranger to lend you a pen, so the very polite くださいませんか fits.",
+          "もらいませんか invites the listener to get someone to lend a pen. It does not ask this person for anything.",
+          "The request needs the can form いただける: 貸していただけませんか. いただきませんか is not a request."
+        ]
+      },
+      {
+        "id": "n4u04d5.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "先生、",
+        "after": "いただけませんか。",
+        "tiles": [
+          "[私|わたし]が",
+          "書いた",
+          "[作文|さくぶん]を",
+          "読んで"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "私が書いた describes the essay. The thing comes with を, and the te-form sits right before いただけませんか.",
+        "full": "先生、[私|わたし]が書いた[作文|さくぶん]を読んで{いただけませんか}。",
+        "explain": "私が書いた describes 作文, 作文を is what the teacher reads, and 読んで is the te-form before いただけませんか: \"Sensei, could you read the essay I wrote?\""
+      },
+      {
+        "id": "n4u04d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "すみません、",
+        "after": "くださいませんか。",
+        "tiles": [
+          "ここから",
+          "駅までの",
+          "道を",
+          "[教|おし]えて"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "From here, to the station: から comes before まで. 駅までの describes 道, and the te-form goes right before くださいませんか.",
+        "full": "すみません、ここから駅までの道を[教|おし]えて{くださいませんか}。",
+        "explain": "ここから駅までの describes 道, 道を is what you want to know, and 教えて is the te-form before くださいませんか: \"Excuse me, would you tell me the way from here to the station?\""
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u04d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "（会社の　うけつけで）A「すみません、ここに　お名前を　書いて（　　）。」B「はい、わかりました。」",
+        "options": [
+          "あげませんか",
+          "いただきませんか",
+          "いただけませんか",
+          "もらいましたか"
+        ],
+        "answer": 3,
+        "explain": "A politely asks the visitor to write their name, and B agrees: 書いていただけませんか. いただきませんか is not a request; the request needs the can form いただける. あげませんか would ask B to write it for someone else. もらいましたか asks about the past, which does not fit B's answer はい、わかりました."
+      },
+      {
+        "id": "n4u04d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "学生「先生、この　本を　一週間　（　　）　くださいませんか。」先生「ええ、いいですよ。」",
+        "options": [
+          "借りて",
+          "貸した",
+          "貸して",
+          "借りる"
+        ],
+        "answer": 3,
+        "explain": "The student asks the teacher to lend the book: 貸してくださいませんか. 借りてくださいませんか would ask the teacher to borrow it. 貸した and 借りる are not the te-form, which くださいませんか needs."
+      },
+      {
+        "id": "n4u04d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A「すみません、",
+        "after": "　教えて　いただけませんか。」B「はい、こちらです。」",
+        "tiles": [
+          "駅まで",
+          "行く",
+          "バスの",
+          "時間を"
+        ],
+        "star": 2,
+        "bank": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "full": "A「すみません、駅まで　行く　バスの　時間を　教えて　{いただけませんか}。」B「はい、こちらです。」",
+        "explain": "駅まで, 行く, バスの, 時間を. 駅まで行く describes バス, バスの describes 時間, and 時間を is what A wants to know: \"Excuse me, could you tell me the times of the buses to the station?\""
+      }
+    ]
+  },
+  "scene": {
+    "ja": "ホテルのフロントのお知らせ",
+    "en": "A notice at a hotel front desk",
+    "intro": "Tap every word on the front desk notice and the check-in card that a guest needs to read.",
+    "words": [
+      {
+        "id": "notice",
+        "word": "お知らせ",
+        "reading": "おしらせ",
+        "gloss": "notice, information",
+        "parts": [
+          [
+            "知",
+            "し",
+            "know"
+          ]
+        ]
+      },
+      {
+        "id": "breakfast",
+        "word": "朝食",
+        "reading": "ちょうしょく",
+        "gloss": "breakfast",
+        "parts": [
+          [
+            "朝",
+            "チョウ",
+            "morning"
+          ],
+          [
+            "食",
+            "ショク",
+            "eat"
+          ]
+        ]
+      },
+      {
+        "id": "venue",
+        "word": "会場",
+        "reading": "かいじょう",
+        "gloss": "the room where it is held",
+        "parts": [
+          [
+            "会",
+            "カイ",
+            "meet"
+          ],
+          [
+            "場",
+            "ジョウ",
+            "place"
+          ]
+        ]
+      },
+      {
+        "id": "basement",
+        "word": "地下",
+        "reading": "ちか",
+        "gloss": "basement, underground",
+        "parts": [
+          [
+            "地",
+            "チ",
+            "ground"
+          ],
+          [
+            "下",
+            "カ",
+            "below"
+          ]
+        ]
+      },
+      {
+        "id": "start",
+        "word": "開始",
+        "reading": "かいし",
+        "gloss": "start, opens at",
+        "parts": [
+          [
+            "開",
+            "カイ",
+            "open"
+          ],
+          [
+            "始",
+            "シ",
+            "begin"
+          ]
+        ]
+      },
+      {
+        "id": "bicycle",
+        "word": "自転車",
+        "reading": "じてんしゃ",
+        "gloss": "bicycle",
+        "parts": [
+          [
+            "自",
+            "ジ",
+            "self"
+          ],
+          [
+            "転",
+            "テン",
+            "roll, turn"
+          ],
+          [
+            "車",
+            "シャ",
+            "vehicle"
+          ]
+        ]
+      },
+      {
+        "id": "lending",
+        "word": "貸し出し",
+        "reading": "かしだし",
+        "gloss": "for loan, lending out",
+        "parts": [
+          [
+            "貸",
+            "か",
+            "lend"
+          ],
+          [
+            "出",
+            "だ",
+            "out"
+          ]
+        ]
+      },
+      {
+        "id": "address",
+        "word": "住所",
+        "reading": "じゅうしょ",
+        "gloss": "address",
+        "parts": [
+          [
+            "住",
+            "ジュウ",
+            "live"
+          ],
+          [
+            "所",
+            "ショ",
+            "place"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n4u04d5.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "こちらに　お名前と　_住所_を　書いて　いただけませんか。",
+      "options": [
+        "じゅしょ",
+        "じゅうしょ",
+        "じゅうしょう",
+        "すみしょ"
+      ],
+      "answer": 2,
+      "explain": "住所 is じゅうしょ: 住 is ジュウ with a long う, and 所 is a short しょ. じゅしょ drops the long vowel, じゅうしょう adds one, and すみ is the kun reading of 住, not used here."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "発話表現",
+    "en": "Expressions",
+    "situation": "At a hotel front desk, a man with a suitcase points out to the street and speaks to the woman at the desk; a taxi is drawn in a thought bubble.",
+    "ask": "ホテルの　人に　タクシーを　よんで　ほしいです。何と　いいますか。",
+    "item": {
+      "id": "n4u04d5.r1",
+      "kind": "choice",
+      "type": "発話表現",
+      "q": "ホテルの　人に　タクシーを　よんで　ほしいです。何と　いいますか。",
+      "script": [
+        "ナレーター：ホテルの　人に　タクシーを　よんで　ほしいです。何と　いいますか。",
+        "ナレーター：1",
+        "男：すみません、タクシーを　よんでも　いいですか。",
+        "ナレーター：2",
+        "男：すみません、タクシーを　よんで　いただけませんか。",
+        "ナレーター：3",
+        "男：すみません、タクシーを　よんで　あげませんか。"
+      ],
+      "options": [
+        "すみません、タクシーを　よんでも　いいですか。",
+        "すみません、タクシーを　よんで　いただけませんか。",
+        "すみません、タクシーを　よんで　あげませんか。"
+      ],
+      "printed": false,
+      "short": [
+        "よんでもいいですか",
+        "よんでいただけませんか",
+        "よんであげませんか"
+      ],
+      "answer": 2,
+      "why": [
+        "よんでもいいですか asks if the man himself may call a taxi. He wants the hotel staff to call one.",
+        "",
+        "てあげる is doing something for another person. よんであげませんか suggests calling a taxi for someone else, not asking for himself."
+      ]
+    },
+    "audio": [
+      [
+        "N",
+        "ホテルの　人に　タクシーを　よんで　ほしいです。何と　いいますか。",
+        "ホテルの　ひとに　タクシーを　よんで　ほしいです。なんと　いいますか。"
+      ],
+      [
+        "N",
+        "1",
+        "いち"
+      ],
+      [
+        "M",
+        "すみません、タクシーを　よんでも　いいですか。",
+        null
+      ],
+      [
+        "N",
+        "2",
+        "に"
+      ],
+      [
+        "M",
+        "すみません、タクシーを　よんで　いただけませんか。",
+        null
+      ],
+      [
+        "N",
+        "3",
+        "さん"
+      ],
+      [
+        "M",
+        "すみません、タクシーを　よんで　あげませんか。",
+        null
+      ]
+    ]
+  }
+}

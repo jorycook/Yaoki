@@ -1,0 +1,256 @@
+{
+  "title": "〜てはいけません・〜なくてもいいです",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u06d3.p1",
+        "form": "〜てはいけません",
+        "gloss": "you must not …",
+        "connect": [
+          {"pos": "Verb, te-form ending in て (は here sounds like わ)", "rule": "[入|はい]っ{てはいけません}／[食|た]べ{てはいけません}"},
+          {"pos": "Verb, te-form ending in で: keep で", "rule": "[飲|の]ん{ではいけません}／およい{ではいけません}"},
+          {"pos": "Saying no to \"may I …?\" (てもいいですか)", "rule": "いいえ、[入|はい]っ{てはいけません}。"}
+        ],
+        "examples": [
+          {"ja": "ここでたばこをすっ{てはいけません}。", "en": "You must not smoke here."},
+          {"ja": "この[川|かわ]でおよい{ではいけません}。", "en": "You must not swim in this river."}
+        ],
+        "watch": {
+          "note": "When the te-form ends in で, keep で: 飲んで becomes 飲んではいけません. 飲んてはいけません is wrong.",
+          "bad": "ここでジュースを飲んてはいけません。",
+          "good": "ここでジュースを飲んではいけません。"
+        }
+      },
+      {
+        "id": "n5u06d3.p2",
+        "form": "〜なくてもいいです",
+        "gloss": "you don't have to …",
+        "connect": [
+          {"pos": "Verb, ない form: take off the last い and add くてもいいです", "rule": "[書|か]かない→[書|か]かな{くてもいいです}／[来|こ]ない→[来|こ]な{くてもいいです}"},
+          {"pos": "ない forms to learn as fixed shapes for now (unit 7 teaches how to make them)", "rule": "[書|か]きます→[書|か]か{ない}／[読|よ]みます→[読|よ]ま{ない}／[入|はい]ります→[入|はい]ら{ない}／[行|い]きます→[行|い]か{ない}"},
+          {"pos": "More fixed ない forms for now", "rule": "[食|た]べます→[食|た]べ{ない}／[見|み]ます→[見|み]{ない}／します→し{ない}／[来|き]ます→[来|こ]{ない}"}
+        ],
+        "examples": [
+          {"ja": "あしたは[学校|がっこう]へ[来|こ]な{くてもいいです}。", "en": "You don't have to come to school tomorrow."},
+          {"ja": "[名前|なまえ]はかたかなで[書|か]かな{くてもいいです}。", "en": "You don't have to write your name in katakana."}
+        ],
+        "watch": {
+          "note": "Take off the い of ない before くてもいいです. 来ないくても is wrong. Say 来なくても.",
+          "bad": "あしたは来ないくてもいいです。",
+          "good": "あしたは来なくてもいいです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three are about rules: what you may do, what you must not do, and what you do not need to do.",
+      "forms": [
+        {"form": "〜てもいいです", "tag": "〜て＋もいいです · you may", "mark": "dot", "ja": "ここで[休|やす]ん{でもいいです}。", "en": "You may rest here."},
+        {"form": "〜てはいけません", "tag": "〜て＋はいけません · you must not", "mark": "down", "ja": "ここで[食|た]べ{てはいけません}。", "en": "You must not eat here."},
+        {"form": "〜なくてもいいです", "tag": "〜な＋くてもいいです · you don't have to", "mark": "dot", "ja": "[今日|きょう]は[来|こ]な{くてもいいです}。", "en": "You don't have to come today."}
+      ],
+      "check": {
+        "id": "n5u06d3.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "プールのきまり",
+        "q": "プールのそばはあぶないですから、（　　）。",
+        "options": ["はしってもいいです", "はしらなくてもいいです", "はしってはいけません"],
+        "answer": 3,
+        "why": [
+          "てもいいです gives permission. Running is not allowed where it is dangerous (あぶないですから).",
+          "なくてもいいです means \"you don't have to run\". Nobody has to run, so this is not a rule here.",
+          "あぶないですから gives the reason for a rule: \"It's dangerous by the pool, so you must not run.\""
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u06d3.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：[先生|せんせい]、ここでパンを[食|た]べてもいいですか。B：^いいえ^、（　　）。",
+        "options": ["[食|た]べてもいいです", "[食|た]べなくてもいいです", "[食|た]べてはいけません", "[食|た]べてください"],
+        "answer": 3,
+        "why": [
+          "食べてもいいです means \"yes, you may\". It does not fit after いいえ.",
+          "食べなくてもいいです means \"you don't have to eat\". A asked for permission, not whether he has to eat.",
+          "いいえ says no to \"may I eat?\", and 食べてはいけません says it: \"No, you must not eat.\"",
+          "食べてください means \"please eat\". It does not fit after いいえ."
+        ]
+      },
+      {
+        "id": "n5u06d3.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^プールの[中|なか]で^ジュースを（　　）。",
+        "options": ["[飲|の]んてはいけません", "[飲|の]んではいけません", "[飲|の]みてはいけません", "[飲|の]むではいけません"],
+        "answer": 2,
+        "why": [
+          "The te-form of 飲みます ends in で: 飲んで. 飲んて is not a word.",
+          "飲んで is the te-form of 飲みます. 飲んではいけません: \"You must not drink juice in the pool.\"",
+          "飲みて is not a word. The te-form is 飲んで.",
+          "はいけません follows the te-form, not the dictionary form 飲む. Say 飲んではいけません."
+        ]
+      },
+      {
+        "id": "n5u06d3.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[土|ど]よう[日|び]は^じゅぎょうがありません^。[学校|がっこう]へ（　　）。",
+        "options": ["[来|き]なくてもいいです", "[来|こ]ないくてもいいです", "[来|こ]なくてもいいです", "[来|く]なくてもいいです"],
+        "answer": 3,
+        "why": [
+          "The ない form of 来ます is 来ない, read こない. きなくて is not a word.",
+          "Take off the い of 来ない before くても. 来ないくても is wrong.",
+          "There are no classes, so 来なくてもいいです: \"You don't have to come to school.\" 来 is read こ here.",
+          "くなくて is not a word. The ない form of 来ます is こない."
+        ]
+      },
+      {
+        "id": "n5u06d3.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この[本|ほん]はながいですから、[今日|きょう]^ぜんぶ^[読|よ]（　　）。",
+        "options": ["みなくてもいいです", "むなくてもいいです", "まないくてもいいです", "まなくてもいいです"],
+        "answer": 4,
+        "why": [
+          "読みなくて is not a word. The ない form of 読みます is 読まない.",
+          "読むなくて is not a word. The ない form is 読まない.",
+          "Take off the い of 読まない before くても. 読まないくても is wrong.",
+          "読まない minus い, plus くてもいいです: \"The book is long, so you don't have to read it all today.\""
+        ]
+      },
+      {
+        "id": "n5u06d3.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "テストの",
+        "after": "いけません。",
+        "tiles": ["とき", "となりの", "[人|ひと]と", "[話|はな]しては"],
+        "star": 3,
+        "bank": [2, 0, 3, 1],
+        "hint": "テストの goes with とき. となりの goes right before the person, and 話しては comes just before いけません.",
+        "full": "テストのときとなりの[人|ひと]と[話|はな]し{ては}いけません。",
+        "explain": "とき, となりの, 人と, 話しては. テストのとき is \"during the test\", and となりの describes 人: \"During the test, you must not talk with the person next to you.\""
+      },
+      {
+        "id": "n5u06d3.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[今日|きょう]は[雨|あめ]ですから、",
+        "after": "です。",
+        "tiles": ["プールに", "[入|はい]ら", "なくても", "いい"],
+        "star": 2,
+        "bank": [3, 1, 0, 2],
+        "hint": "入ら is the ない form without ない. なくても joins it, and いい comes just before です.",
+        "full": "[今日|きょう]は[雨|あめ]ですから、プールに[入|はい]ら{なくても}いいです。",
+        "explain": "プールに, 入ら, なくても, いい. プールに goes with 入ら, and 入らなくてもいいです means \"you don't have to go in\": \"It's raining today, so you don't have to go in the pool.\""
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u06d3.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "ここは　先生の　へやです。　学生は　入っては（　　）。",
+        "options": ["いいです", "ください", "いけません", "しません"],
+        "answer": 3,
+        "explain": "入っては needs いけません after it: \"Students must not go in.\" Permission is 入っても いいです, with も, not は. ください follows the te-form alone (入って ください), and 入っては しません is not a phrase."
+      },
+      {
+        "id": "n5u06d3.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今日は　しゅくだいが　ありません。　何も（　　）　いいです。",
+        "options": ["しても", "しなくても", "しては", "しないくても"],
+        "answer": 2,
+        "explain": "There is no homework, so しなくても いいです: \"You don't have to do anything.\" 何も needs a negative after it, so しても いいです fails. しては goes with いけません, not いいです, and しないくても is not a form: the い of しない drops before くても."
+      },
+      {
+        "id": "n5u06d3.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "プールに　入る",
+        "after": "いけません。",
+        "tiles": ["前に", "パンや", "おかしを", "食べては"],
+        "star": 3,
+        "bank": [1, 3, 0, 2],
+        "full": "プールに　入る　前に　パンや　おかしを　{食べては}　いけません。",
+        "explain": "前に, パンや, おかしを, 食べては. 入る前に is \"before going in\", パンや おかしを is what you eat, and 食べては goes with いけません: \"You must not eat bread or sweets before going in the pool.\""
+      }
+    ]
+  },
+  "scene": {
+    "ja": "学校のプールで",
+    "en": "At the school pool",
+    "intro": "Tap every word you would read on the rules sign at the school pool.",
+    "words": [
+      {"id": "student", "word": "学生", "reading": "がくせい", "gloss": "student", "parts": [["学", "ガク", "study"], ["生", "セイ", "life, birth"]]},
+      {"id": "teacher", "word": "先生", "reading": "せんせい", "gloss": "teacher", "parts": [["先", "セン", "ahead, before"], ["生", "セイ", "life, birth"]]},
+      {"id": "hours", "word": "時間", "reading": "じかん", "gloss": "hours, time", "parts": [["時", "ジ", "time, hour"], ["間", "カン", "between, interval"]]},
+      {"id": "closed", "word": "休み", "reading": "やすみ", "gloss": "closed (day), holiday", "parts": [["休", "やす", "rest"]]},
+      {"id": "water", "word": "水", "reading": "みず", "gloss": "water", "parts": [["水", "みず", "water"]]},
+      {"id": "enter", "word": "入る", "reading": "はいる", "gloss": "to go in", "parts": [["入", "はい", "enter"]]},
+      {"id": "food", "word": "食べもの", "reading": "たべもの", "gloss": "food", "parts": [["食", "た", "eat"]]},
+      {"id": "drinks", "word": "飲みもの", "reading": "のみもの", "gloss": "drinks", "parts": [["飲", "の", "drink"]]}
+    ],
+    "check": {
+      "id": "n5u06d3.k1",
+      "kind": "choice",
+      "type": "表記",
+      "label": "How the exam asks it",
+      "q": "プールに　_はいる_　前に、　シャワーを　あびて　ください。",
+      "options": ["人る", "入る", "八る", "大る"],
+      "answer": 2,
+      "explain": "はいる, \"to go in\", is written 入る. 人 (person), 八 (eight) and 大 (big) look a little like 入, but 人る, 八る and 大る are not words."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "即時応答",
+    "en": "Quick response",
+    "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+    "item": {
+      "id": "n5u06d3.r1",
+      "kind": "choice",
+      "type": "即時応答",
+      "q": "男：先生、プールの　中で　ぼうしを　とっても　いいですか。",
+      "script": [
+        "男：先生、プールの　中で　ぼうしを　とっても　いいですか。",
+        "ナレーター：1",
+        "女：いいえ、とらなくても　いいです。",
+        "ナレーター：2",
+        "女：はい、とりました。",
+        "ナレーター：3",
+        "女：いいえ、とっては　いけません。"
+      ],
+      "options": ["いいえ、とらなくても　いいです。", "はい、とりました。", "いいえ、とっては　いけません。"],
+      "printed": false,
+      "short": ["とらなくてもいいです", "とりました", "とってはいけません"],
+      "answer": 3,
+      "why": [
+        "とらなくてもいいです means \"you don't have to take it off\". The boy asks for permission, so this does not answer him.",
+        "とりました says what someone did. The boy asks whether he may take his cap off.",
+        ""
+      ]
+    },
+    "audio": [
+      ["M", "先生、プールの　中で　ぼうしを　とっても　いいですか。", "せんせい、プールの　なかで　ぼうしを　とっても　いいですか。"],
+      ["N", "1", "いち"],
+      ["F", "いいえ、とらなくても　いいです。", null],
+      ["N", "2", "に"],
+      ["F", "はい、とりました。", null],
+      ["N", "3", "さん"],
+      ["F", "いいえ、とっては　いけません。", null]
+    ]
+  }
+}

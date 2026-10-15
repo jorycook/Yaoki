@@ -1,0 +1,264 @@
+{
+  "title": "〜と・〜なら",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u05d3.p1",
+        "form": "〜と",
+        "gloss": "when, whenever (it always follows)",
+        "connect": [
+          {"pos": "Verb, dictionary form", "rule": "おす ＋ {と}"},
+          {"pos": "Verb, ない form", "rule": "入れない ＋ {と}"},
+          {"pos": "い-adjective", "rule": "[暗|くら]い ＋ {と}"}
+        ],
+        "examples": [
+          {"ja": "お金を入れる{と}、ボタンが[光|ひか]ります。", "en": "When you put money in, the buttons light up."},
+          {"ja": "[春|はる]になる{と}、花がたくさんさきます。", "en": "When spring comes, lots of flowers bloom."}
+        ],
+        "watch": {
+          "note": "The part after と is something that just happens. It cannot be a request, an invitation or a wish. Use たら for those.",
+          "bad": "ひまになると、あそびに来てください。",
+          "good": "ひまになったら、あそびに来てください。"
+        }
+      },
+      {
+        "id": "n4u05d3.p2",
+        "form": "〜なら",
+        "gloss": "if that's the case, as for",
+        "connect": [
+          {"pos": "Noun", "rule": "〜 ＋ {なら}"},
+          {"pos": "Verb, plain form", "rule": "行く ＋ {なら}"},
+          {"pos": "い-adjective", "rule": "安い ＋ {なら}"}
+        ],
+        "examples": [
+          {"ja": "A「来月、[京都|きょうと]に行きます。」\nB「[京都|きょうと]に行く{なら}、古いおてらを見るといいですよ。」", "en": "A: I'm going to Kyoto next month. B: If you're going to Kyoto, you should see the old temples."},
+          {"ja": "A「コーヒーが飲みたいですね。」\nB「コーヒー{なら}、駅の前の店がおいしいですよ。」", "en": "A: I'd like some coffee. B: If it's coffee you want, the shop in front of the station is good."}
+        ],
+        "watch": {
+          "note": "なら takes up a plan or a topic and gives advice or an opinion about it. It is not used for things that always happen. Use と for those.",
+          "bad": "春になるなら、花がさきます。",
+          "good": "春になると、花がさきます。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All four can mean \"if\", but at a vending machine each one does a different job.",
+      "forms": [
+        {"form": "〜と", "tag": "いつも · it always follows", "mark": "dot", "ja": "このボタンをおす{と}、お[茶|ちゃ]が出ます。", "en": "When you press this button, tea comes out. The machine always works this way."},
+        {"form": "〜ば", "tag": "ひつようなこと · if (what you need to do)", "mark": "dot", "ja": "このボタンをおせ{ば}、お[茶|ちゃ]が出ますよ。", "en": "If you press this button, you'll get tea. The focus is on what you need to do to get the result."},
+        {"form": "〜たら", "tag": "〜てから · once it is done", "mark": "dot", "ja": "お金を入れ{たら}、このボタンをおしてください。", "en": "Once you've put the money in, press this button. A request follows, so in this sentence only たら fits."},
+        {"form": "〜なら", "tag": "話をうけて · if that's the case", "mark": "dot", "ja": "A「お[茶|ちゃ]はありますか。」\nB「お[茶|ちゃ]{なら}、右の[青|あお]いボタンですよ。」", "en": "A: Is there any tea? B: If it's tea you want, it's the blue button on the right. なら takes up what the other person said."}
+      ],
+      "check": {
+        "id": "n4u05d3.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "じどうはんばいきの前で",
+        "q": "A「お[茶|ちゃ]を^買いたいんですが^、どのボタンですか。」\nB「お[茶|ちゃ]を（　　）、右の[青|あお]いボタンですよ。」",
+        "options": ["買うと", "買うなら", "買ったら"],
+        "answer": 2,
+        "why": [
+          "と needs a result that follows the action. Here B is not telling a result; the button is something A needs before buying.",
+          "B takes up what A said (お茶を買いたい) and gives information for that plan: \"If you're buying tea, it's the blue button on the right.\"",
+          "たら would mean after buying. But A has to press the button before the tea is bought, so the order is wrong."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u05d3.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この道をまっすぐ（　　）^と^、駅があります。",
+        "options": ["行って", "行き", "行った", "行く"],
+        "answer": 4,
+        "why": [
+          "The て form does not join to と to mean \"when\".",
+          "The ます stem cannot come before と.",
+          "Before this と (\"when, if\"), use the dictionary form, not the た form.",
+          "Dictionary form + と: \"If you go straight along this road, you come to the station.\""
+        ]
+      },
+      {
+        "id": "n4u05d3.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "駅に（　　）、^そこから^電話してください。",
+        "options": ["[着|つ]くと", "[着|つ]いたら", "[着|つ]くなら", "[着|つ]いたと"],
+        "answer": 2,
+        "why": [
+          "The part after と cannot be a request like 電話してください.",
+          "たら can be followed by a request, and そこから shows you are already at the station: \"When you get to the station, call me from there.\"",
+          "なら would mean calling before you arrive. That does not fit そこから (from the station).",
+          "Before this と (\"when, if\"), use the dictionary form, not the た form."
+        ]
+      },
+      {
+        "id": "n4u05d3.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「[冬|ふゆ]休みに[北海道|ほっかいどう]へ行きます。」\nB「[北海道|ほっかいどう]へ（　　）、あたたかいコートを^[持|も]って行った^ほうがいいですよ。」",
+        "options": ["行くと", "行ったら", "行くなら", "行って"],
+        "answer": 3,
+        "why": [
+          "The part after と cannot be advice like ほうがいいです.",
+          "たら would mean after you get there. But you take the coat with you before you go (持って行く), so the order is wrong.",
+          "B takes up A's plan and gives advice for before the trip: \"If you're going to Hokkaido, you'd better take a warm coat.\"",
+          "The て form joins two actions in order: go there, then take a coat with you. That makes no sense here."
+        ]
+      },
+      {
+        "id": "n4u05d3.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "A「この[近|ちか]くに、^じどうはんばいきはありますか^。」\nB「じどうはんばいき（　　）、駅の前にありますよ。」",
+        "options": ["なら", "と", "たら", "ば"],
+        "answer": 1,
+        "why": [
+          "なら after a noun takes up the thing A asked about: \"A vending machine? There's one in front of the station.\"",
+          "と straight after a noun means \"and\" or \"with\". It does not make a condition here.",
+          "たら does not join straight to a noun. A noun needs だったら.",
+          "ば does not join straight to a noun."
+        ]
+      },
+      {
+        "id": "n4u05d3.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このボタンを",
+        "after": "出ます。",
+        "tiles": ["おす", "と、", "あたたかい", "お[茶|ちゃ]が"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "hint": "The action comes first, then と, then what always happens. Which word describes お茶?",
+        "full": "このボタンをおす{と}、あたたかいお[茶|ちゃ]が出ます。",
+        "explain": "おす, と、, あたたかい, お茶が. The dictionary form おす comes before と, and what the machine always does follows: \"When you press this button, hot tea comes out.\""
+      },
+      {
+        "id": "n4u05d3.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A「すしが食べたいです。」\nB「すし",
+        "after": "ですよ。」",
+        "tiles": ["なら、", "駅前の", "店が", "いい"],
+        "star": 2,
+        "bank": [1, 3, 0, 2],
+        "hint": "B takes up the word すし first. Then, which place is good?",
+        "full": "A「すしが食べたいです。」\nB「すし{なら}、駅前の店がいいですよ。」",
+        "explain": "なら、, 駅前の, 店が, いい. すしなら takes up what A said, 駅前の describes 店, and 店がいいです is the advice: \"If it's sushi you want, the shop in front of the station is good.\""
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u05d3.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "春に　なる　（　　）、　花を　見に　たくさんの　人が　来ます。",
+        "options": ["と", "なら", "ように", "ために"],
+        "answer": 1,
+        "explain": "と shows something that always happens when spring comes: \"When spring comes, lots of people come to see the flowers.\" なら takes up a plan or something someone said, not something that happens every year. ように and ために show a purpose, and spring coming is not something people do on purpose."
+      },
+      {
+        "id": "n4u05d3.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「日本語の　本を　買いたいんですが。」\nB「日本語の　本を　（　　）、　駅の　前の　本屋が　いいですよ。」",
+        "options": ["買うと", "買ったら", "買えば", "買うなら"],
+        "answer": 4,
+        "explain": "B takes up A's plan with なら and gives advice: \"If you're buying Japanese books, the bookshop in front of the station is good.\" と cannot be followed by advice. 買ったら would mean after buying, but you choose the shop before you buy. 買えば does not fit: B is not saying what A must do to get a result."
+      },
+      {
+        "id": "n4u05d3.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "お金を　入れて、",
+        "after": "と、　すぐ　出て　きます。",
+        "tiles": ["好きな", "飲み物の", "ボタンを", "おす"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "full": "お金を　入れて、　好きな　飲み物の　ボタンを　おす{と}、　すぐ　出て　きます。",
+        "explain": "好きな, 飲み物の, ボタンを, おす. 好きな describes 飲み物, 飲み物の describes ボタン, and the dictionary form おす comes before と: \"Put the money in and press the button for the drink you like, and it comes out at once.\""
+      }
+    ]
+  },
+  "scene": {
+    "ja": "じどうはんばいき",
+    "en": "A vending machine at the station",
+    "intro": "Tap every word you would read on the vending machine and its instruction sticker.",
+    "words": [
+      {"id": "how to use", "word": "使い方", "reading": "つかいかた", "gloss": "how to use", "parts": [["使", "つか", "use"], ["方", "かた", "way, method"]]},
+      {"id": "charge", "word": "料金", "reading": "りょうきん", "gloss": "charge, price", "parts": [["料", "リョウ", "fee, materials"], ["金", "キン", "money, gold"]]},
+      {"id": "sold out", "word": "売り切れ", "reading": "うりきれ", "gloss": "sold out", "parts": [["売", "う", "sell"], ["切", "き", "cut"]]},
+      {"id": "drink", "word": "飲み物", "reading": "のみもの", "gloss": "drink", "parts": [["飲", "の", "drink"], ["物", "もの", "thing"]]},
+      {"id": "tea", "word": "お茶", "reading": "おちゃ", "gloss": "tea, green tea", "parts": [["茶", "チャ", "tea"]]},
+      {"id": "light up", "word": "光る", "reading": "ひかる", "gloss": "light up, shine", "parts": [["光", "ひか", "light"]]},
+      {"id": "work", "word": "動く", "reading": "うごく", "gloss": "move, work (of a machine)", "parts": [["動", "うご", "move"]]},
+      {"id": "out of service", "word": "使用中止", "reading": "しようちゅうし", "gloss": "out of service", "parts": [["使", "シ", "use"], ["用", "ヨウ", "use, business"], ["中", "チュウ", "middle"], ["止", "シ", "stop"]]}
+    ],
+    "check": {
+      "id": "n4u05d3.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "この　飲み物の　_料金_は　百二十円です。",
+      "options": ["りょきん", "りょうきん", "りょうぎん", "りょうけん"],
+      "answer": 2,
+      "explain": "料金, \"charge, price\", is read りょうきん, with a long りょう and an unvoiced き. りょきん drops the long vowel, りょうぎん adds voicing, and りょうけん reads 金 wrongly."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "ポイント理解",
+    "en": "Point comprehension",
+    "ask": "女の人は　何を　買いますか。",
+    "audio": [
+      ["N", "駅で、男の人と女の人が話しています。女の人は、何を買いますか。", "えきで、おとこのひととおんなのひとがはなしています。おんなのひとは、なにをかいますか。"],
+      ["F", "あたたかいコーヒーが飲みたいんですが、ありますか。", null],
+      ["M", "あ、コーヒーは売り切れですね。つめたいジュースならありますけど。", "あ、コーヒーはうりきれですね。つめたいジュースならありますけど。"],
+      ["F", "つめたいのはちょっと……。", null],
+      ["M", "じゃ、あたたかいお茶はどうですか。", "じゃ、あたたかいおちゃはどうですか。"],
+      ["F", "お茶はあまり好きじゃないんです。この赤いボタンは何ですか。", "おちゃはあまりすきじゃないんです。このあかいボタンはなんですか。"],
+      ["M", "それをおすと、あたたかいココアが出ますよ。", null],
+      ["F", "ココア、いいですね。それにします。", null],
+      ["M", "お金を入れたら、ボタンが光りますから、それからおしてください。", "おかねをいれたら、ボタンがひかりますから、それからおしてください。"],
+      ["N", "女の人は、何を買いますか。", "おんなのひとは、なにをかいますか。"]
+    ],
+    "item": {
+      "id": "n4u05d3.r1",
+      "kind": "choice",
+      "type": "ポイント理解",
+      "q": "女の人は　何を　買いますか。",
+      "script": [
+        "ナレーター：駅で、男の人と女の人が話しています。女の人は、何を買いますか。",
+        "女：あたたかいコーヒーが飲みたいんですが、ありますか。",
+        "男：あ、コーヒーは売り切れですね。つめたいジュースならありますけど。",
+        "女：つめたいのはちょっと……。",
+        "男：じゃ、あたたかいお茶はどうですか。",
+        "女：お茶はあまり好きじゃないんです。この赤いボタンは何ですか。",
+        "男：それをおすと、あたたかいココアが出ますよ。",
+        "女：ココア、いいですね。それにします。",
+        "男：お金を入れたら、ボタンが光りますから、それからおしてください。",
+        "ナレーター：女の人は、何を買いますか。"
+      ],
+      "options": ["あたたかい　コーヒー", "つめたい　ジュース", "あたたかい　ココア", "あたたかい　お茶"],
+      "printed": true,
+      "short": ["コーヒー", "ジュース", "ココア", "お茶"],
+      "answer": 3,
+      "why": [
+        "She wants hot coffee, but it is sold out: コーヒーは売り切れですね.",
+        "He offers cold juice (つめたいジュースなら), but she does not want a cold drink: つめたいのはちょっと.",
+        "The red button gives hot cocoa (おすと、あたたかいココアが出ます), and she says それにします.",
+        "He suggests hot tea, but she does not like tea much: お茶はあまり好きじゃないんです."
+      ]
+    }
+  }
+}

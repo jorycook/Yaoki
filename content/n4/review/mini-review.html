@@ -1,0 +1,271 @@
+<title>Yaoki N4 Mini Mock Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EE; --paper:#FFFFFF; --ink:#1B2440; --mute:#5D6377; --line:#DCD8CC;
+  --hl:#FFF0B8; --accent:#2F4FD0; --ok:#0B7A6B; --okbg:#E0F3EF; --fix:#C7361E; --fixbg:#FDEBE6;
+  --amber:#B87500; --amberbg:#FFF4D6; --red:#C7361E; --redbg:#FDEBE6; --chip:#ECE9DF;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171F; --paper:#1C2029; --ink:#E9EBF2; --mute:#9AA1B5; --line:#323847;
+  --hl:#4A4220; --accent:#8EA2FF; --ok:#4CC3AE; --okbg:#173A35; --fix:#FF8A72; --fixbg:#40221C;
+  --amber:#F2B43A; --amberbg:#3A3019; --red:#FF8A72; --redbg:#40221C; --chip:#262B36; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171F; --paper:#1C2029; --ink:#E9EBF2; --mute:#9AA1B5; --line:#323847;
+  --hl:#4A4220; --accent:#8EA2FF; --ok:#4CC3AE; --okbg:#173A35; --fix:#FF8A72; --fixbg:#40221C;
+  --amber:#F2B43A; --amberbg:#3A3019; --red:#FF8A72; --redbg:#40221C; --chip:#262B36; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:'Noto Sans JP','Hiragino Sans',system-ui,sans-serif;font-size:15px;line-height:1.6;padding-inline:16px;padding-block:20px 60px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+[lang="ja"]{font-family:'Noto Serif JP','Hiragino Mincho ProN',serif}
+h1{font-size:24px;line-height:1.3;margin:0;text-wrap:balance;font-weight:800}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:14px 0 0;font-weight:800}
+p{margin:0}
+.lede{color:var(--mute);max-width:65ch}
+.howto{display:grid;gap:6px;padding:12px 14px;border-left:3px solid var(--accent);background:var(--paper)}
+.howto b{font-weight:800}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:2;background:var(--bg);padding-block:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.count{font-weight:800;font-variant-numeric:tabular-nums;margin-right:auto}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn{border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);border-radius:10px;padding:6px 12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.status{font-size:12px;color:var(--mute)}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.row.amber{border-left:5px solid var(--amber)}
+.row.red{border-left:5px solid var(--red)}
+.row.m-ok{background:linear-gradient(var(--okbg),var(--okbg))}
+.row.m-fix{background:linear-gradient(var(--fixbg),var(--fixbg))}
+.meta{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.meta .id{font-variant-numeric:tabular-nums;font-family:ui-monospace,Menlo,monospace}
+.meta .lab{font-weight:800;letter-spacing:.04em}
+.head{font-size:16px;overflow-wrap:anywhere}
+.flag{font-size:13px;padding:8px 10px;border-radius:8px;background:var(--amberbg)}
+.row.red .flag{background:var(--redbg)}
+.flag b{font-weight:800}
+details summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:600}
+details>div{margin-top:8px;display:flex;flex-direction:column;gap:8px}
+.hl{background:var(--hl);font-weight:700;border-radius:3px;padding:0 2px}
+.ans{color:var(--ok);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.tiles{display:inline;padding:0 2px;border-bottom:2px solid var(--ok)}
+.star{color:var(--ok);font-weight:700}
+.star::before{content:'★';font-size:11px;vertical-align:super}
+.opts{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.opts li.ok::marker{color:var(--ok);font-weight:800}
+.opts li.ok>span[lang]{color:var(--ok);font-weight:700}
+.why{font-family:'Noto Sans JP',system-ui,sans-serif;font-size:13px;color:var(--mute)}
+.ex{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.en{font-size:13px;color:var(--mute)}
+.small{font-size:13px;color:var(--mute)}
+ul.small{margin:0;padding-left:18px}
+.bad{color:var(--fix)} .good{color:var(--ok)}
+.passage{padding:10px 12px;background:var(--bg);border-radius:8px;line-height:1.9;display:flex;flex-direction:column;gap:2px}
+.words{border-collapse:collapse;font-size:14px;width:100%}
+.words td{border-top:1px solid var(--line);padding:4px 8px 4px 0;vertical-align:top}
+.tablebox{overflow-x:auto}
+rt{font-size:9px;color:var(--mute)}
+.marks{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mark{min-width:72px;min-height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+.mark.okb[aria-pressed="true"]{background:var(--ok);border-color:var(--ok);color:var(--paper)}
+.mark.fixb[aria-pressed="true"]{background:var(--fix);border-color:var(--fix);color:var(--paper)}
+.notebtn{background:none;border:none;color:var(--accent);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px}
+textarea{width:100%;box-sizing:border-box;min-height:64px;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;font-size:14px;background:var(--paper);color:var(--ink);resize:vertical}
+.empty{color:var(--mute);font-size:14px;padding:12px 0}
+.toast{font-size:12px;color:var(--ok);font-weight:700}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <div class="small" style="font-weight:800;letter-spacing:.08em">YAOKI N4 · CONTENT REVIEW</div>
+    <h1>Mini Mock: the 12 questions</h1>
+    <p class="lede">Everything in this unit, written as draft content for a JLPT N4 study app. Each row is one thing to judge. The rows marked amber or red are the ones I am least sure about; they come first.</p>
+  </header>
+  <section class="howto">
+    <p><b>Please mark each row OK or Fix.</b> For Fix, a word in the note box is enough: what is wrong, or the better wording.</p>
+    <p class="small">Flagged rows have the question I want answered. The other rows show the sentence with the answer in place; open "Options and reasons" only if something looks off. About 2 hours for this pilot unit; later units will be shorter, using your corrections as rules.</p>
+    <p class="small">What to look for: one right answer only (a wrong option a native speaker could accept is a bug), natural Japanese, N4 level, and English reasons that state a true rule.</p>
+  </section>
+
+  <div class="bar" role="toolbar" aria-label="Filter and progress">
+    <span class="count" id="count">0 of 0 marked</span>
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="flag" aria-pressed="false">Flagged</button>
+    <button class="chip" data-f="todo" aria-pressed="false">Not marked</button>
+    <button class="chip" data-f="fix" aria-pressed="false">To fix</button>
+    <button class="btn" id="copy">Copy all marks</button>
+    <span class="status" id="status" style="flex-basis:100%">Marks are kept on this device.</span>
+  </div>
+
+  <main id="main" class="wrap" style="gap:10px"></main>
+</div>
+
+<script>
+const ROWS = [{"id": "n4mock1", "group": "Mini mock", "label": "Mock · 漢字読み", "head": "<span lang=\"ja\">この　<u>特急<\/u>は　つぎの　駅には　止まりません。 → <b class=\"ans\">とっきゅう<\/b><\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">とくきゅう<\/span><\/li><li class=\"ok\"><span lang=\"ja\">とっきゅう<\/span><\/li><li class=\"no\"><span lang=\"ja\">とっきょう<\/span><\/li><li class=\"no\"><span lang=\"ja\">とくきょう<\/span><\/li><\/ol><p class=\"small\">特急 is とっきゅう, a limited express train: it does not stop at the next station. 特 is とく on its own, but in this word it becomes とっ, so とくきゅう is wrong. 急 is きゅう (as in 急行), so とっきょう and とくきょう are wrong.<\/p>", "level": "amber", "note": "漢字読み on 特急. The explanation says 特 is とく on its own but becomes とっ in this word. Accurate enough for learners?"}, {"id": "n4mock2", "group": "Mini mock", "label": "Mock · 表記", "head": "<span lang=\"ja\"><u>しつもん<\/u>が　ある　方は、手を　あげて　ください。 → <b class=\"ans\">質問<\/b><\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">質門<\/span><\/li><li class=\"no\"><span lang=\"ja\">習問<\/span><\/li><li class=\"no\"><span lang=\"ja\">習門<\/span><\/li><li class=\"ok\"><span lang=\"ja\">質問<\/span><\/li><\/ol><p class=\"small\">しつもん, \"a question\", is 質問. 門 (gate) looks like the outside of 問 but has no 口, so 質門 and 習門 are not words. 習 (learn, as in 習う) is not しつ, so 習問 is not a word either.<\/p>", "level": "amber", "note": "The instructions above each item (e.g. ＿＿＿の　ことばは　どう　書きますか。) were written from memory of the N4 paper. Do they match the real wording?"}, {"id": "n4mock3", "group": "Mini mock", "label": "Mock · 文脈規定", "head": "<span lang=\"ja\">きょうは　<b class=\"ans\">風<\/b>が　強いので、かさが　させません。<\/span>", "body": "<ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">風<\/span><\/li><li class=\"no\"><span lang=\"ja\">空<\/span><\/li><li class=\"no\"><span lang=\"ja\">声<\/span><\/li><li class=\"no\"><span lang=\"ja\">色<\/span><\/li><\/ol><p class=\"small\">The umbrella cannot be held up because the wind is strong: 風が 強い. 空 (the sky) is not strong or weak. 声 (a voice) and 色 (a colour) can be strong in some sentences, but neither one stops you from using an umbrella.<\/p>", "level": "amber", "note": "Answer 風 (きょうは風が強いので、かさがさせません). Is かさがさせません natural here?"}, {"id": "n4mock4", "group": "Mini mock", "label": "Mock · 言い換え類義", "head": "<span lang=\"ja\">けさ　リンさんは　<u>じゅぎょうに　ちこくしました<\/u>。 → <b class=\"ans\">じゅぎょうに　おくれて　来ました。<\/b><\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">じゅぎょうを　休みました。<\/span><\/li><li class=\"no\"><span lang=\"ja\">じゅぎょうに　早く　来ました。<\/span><\/li><li class=\"ok\"><span lang=\"ja\">じゅぎょうに　おくれて　来ました。<\/span><\/li><li class=\"no\"><span lang=\"ja\">じゅぎょうの　前に　帰りました。<\/span><\/li><\/ol><p class=\"small\">ちこくする means arriving late, so it is closest to おくれて 来ました (came late). 休みました means Lin did not come at all. 早く 来ました is the opposite. 前に 帰りました (went home before the class) says nothing about being late.<\/p>", "level": "green", "note": ""}, {"id": "n4mock5", "group": "Mini mock", "label": "Mock · 文の文法1", "head": "<span lang=\"ja\">A「コンビニへ　行って　きます。」\nB「コンビニへ　<b class=\"ans\">行くなら<\/b>、切手を　買って　きて　くれませんか。」<\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">行かなくても<\/span><\/li><li class=\"no\"><span lang=\"ja\">行くのに<\/span><\/li><li class=\"no\"><span lang=\"ja\">行っても<\/span><\/li><li class=\"ok\"><span lang=\"ja\">行くなら<\/span><\/li><\/ol><p class=\"small\">なら picks up what the other person has just said: \"if you are going to the convenience store, could you buy me some stamps?\" 行かなくても (even if you do not go) does not fit a request to buy something there. 行くのに (although you go) and 行っても (even if you go) show a contrast, but there is no contrast between going and buying stamps.<\/p>", "level": "green", "note": ""}, {"id": "n4mock6", "group": "Mini mock", "label": "Mock · 文の文法1", "head": "<span lang=\"ja\">先生、この　本は　もう　<b class=\"ans\">お読みに　なりました<\/b>か。<\/span>", "body": "<ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">お読みしました<\/span><\/li><li class=\"ok\"><span lang=\"ja\">お読みに　なりました<\/span><\/li><li class=\"no\"><span lang=\"ja\">お読みください<\/span><\/li><li class=\"no\"><span lang=\"ja\">読ませました<\/span><\/li><\/ol><p class=\"small\">The student asks about the teacher's own action, so it needs respectful お〜に なる: お読みに なりましたか, \"have you read it?\" お読みしました is the humble form, used for the speaker's own actions, never the teacher's. お読みください is a request (please read), which cannot come before か here. 読ませました is causative (made someone read), which is not the question.<\/p>", "level": "amber", "note": "Answer お読みに なりました (先生、この本はもう…か). Is お読みください clearly wrong before か?"}, {"id": "n4mock7", "group": "Mini mock", "label": "Mock · 文の文法2", "head": "<span lang=\"ja\">これは　世界中で　<span class=\"tiles\">多くの人に<b class=\"star\">読まれて<\/b>いる<\/span>　本です。<\/span>", "body": "<p class=\"small\">Tiles (shown as): 人に / いる / 多くの / 読まれて. ★ on tile 3<\/p><p class=\"small\">The sentence is これは 世界中で 多くの 人に 読まれて いる 本です, \"This is a book read by many people all over the world.\" 多くの describes 人, and 人に marks who does the reading in the passive. 読まれて いる comes together and describes 本. So the third blank (★) is 読まれて. Orders such as 人に 多くの… or 読まれて いる 多くの 人に… leave 多くの with no noun or 人に with no verb.<\/p>", "level": "amber", "note": "Star item: これは世界中で多くの人に読まれている本です, ★ on 読まれて. Only one order?"}, {"id": "n4mock8", "group": "Mini mock", "label": "Mock · 読解・内容理解（短文）", "head": "<span lang=\"ja\">この　メモを　読んだ　人が　みんな　しなければ　ならない　ことは　何ですか。 → <b class=\"ans\">つくえの　上の　物を　かたづけて　おく。<\/b><\/span>", "body": "<p lang=\"ja\" class=\"passage\">みなさんへ\n来週の　月曜日に　エアコンの　工事が　あります。工事の　人が　朝　九時に　来るので、八時半までに　つくえの　上の　物を　かたづけて　おいて　ください。パソコンは　そのままで　かまいません。\nまた、工事の　間は　コピーきが　使えません。コピーが　ひつような　人は、金曜日までに　して　おいて　ください。\n山下<\/p><ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">パソコンを　かたづけて　おく。<\/span><\/li><li class=\"no\"><span lang=\"ja\">金曜日までに　コピーを　して　おく。<\/span><\/li><li class=\"ok\"><span lang=\"ja\">つくえの　上の　物を　かたづけて　おく。<\/span><\/li><li class=\"no\"><span lang=\"ja\">月曜日の　九時に　工事の　人と　会う。<\/span><\/li><\/ol><p class=\"small\">Everyone must clear the things on their desk by 8:30 on Monday. The computer can stay as it is (そのままで かまいません), so 1 is wrong. Copies are only for people who need them (ひつような 人は), not everyone (2). The workers come at nine, but nobody is asked to meet them (4).<\/p>", "level": "green", "note": ""}, {"id": "n4mock9", "group": "Mini mock", "label": "Mock · 読解・情報検索", "head": "<span lang=\"ja\">マリアさんは　さくら市に　住んで　います。毎日　午前中は　アルバイトが　あります。ケーキか　すしの　作り方を　ならいたいです。マリアさんは　どの　きょうしつに　行きますか。いくら　はらいますか。 → <b class=\"ans\">③で、1,000円<\/b><\/span>", "body": "<p lang=\"ja\" class=\"passage\">さくら市　料理きょうしつ（5月）\n\n①　5月10日　カレー　800円\n②　5月17日　ぎょうざ　1,000円\n③　5月21日　ケーキ　1,200円\n④　5月24日　すし　1,500円\n\n＊時間は　午前10時から　午後1時までです。③だけ　午後6時から　9時までです。\n＊さくら市に　住んで　いる　人は、ねだんが　200円　安く　なります。\n＊もうしこみは　電話で　どうぞ。<\/p><ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">③で、1,000円<\/span><\/li><li class=\"no\"><span lang=\"ja\">③で、1,200円<\/span><\/li><li class=\"no\"><span lang=\"ja\">④で、1,300円<\/span><\/li><li class=\"no\"><span lang=\"ja\">④で、1,500円<\/span><\/li><\/ol><p class=\"small\">Maria works every morning, and the sushi class (④) runs from 10 to 1, so she can only go to the cake class (③), which is in the evening. She lives in Sakura City, so 1,200円 becomes 1,000円. 1,200円 forgets the 200円 discount. Both ④ answers are wrong because ④ is in the morning.<\/p>", "level": "amber", "note": "The class dates have no weekdays, and ④ (10:00–13:00) is ruled out as a morning class for someone who works every morning. Clear enough?"}, {"id": "n4mock10", "group": "Mini mock", "label": "Mock · 課題理解", "head": "<span lang=\"ja\">男の人は　この　あと　まず　何を　しますか。 → <b class=\"ans\">れいぞうこの　中を　見る<\/b><\/span>", "body": "<div class=\"passage\" lang=\"ja\"><p>会社で　女の人と　男の人が　話して　います。男の人は　この　あと　まず　何を　しますか。<\/p><p>女：山田さん、あしたの　おきゃくさんの　じゅんびを　手つだって　いただけませんか。<\/p><p>男：はい。何を　しましょうか。<\/p><p>女：この　しりょうを　十まい　コピーして　ほしいんです。それから、おちゃも　買って　おいて　ください。<\/p><p>男：わかりました。じゃあ、すぐ　コピーして　きます。<\/p><p>女：あ、ちょっと　待って　ください。コピーきは　今　こわれて　いるそうです。午後には　なおるらしいので、コピーは　その　あとで　いいです。<\/p><p>男：じゃあ、先に　おちゃを　買いに　行きます。<\/p><p>女：おちゃは　まだ　れいぞうこに　あるかもしれません。見て　きて　くれますか。なければ、買いに　行って　ください。<\/p><p>男：はい、わかりました。<\/p><p>男の人は　この　あと　まず　何を　しますか。<\/p><\/div><ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">しりょうを　コピーする<\/span><\/li><li class=\"no\"><span lang=\"ja\">おちゃを　買いに　行く<\/span><\/li><li class=\"ok\"><span lang=\"ja\">れいぞうこの　中を　見る<\/span><\/li><li class=\"no\"><span lang=\"ja\">コピーきを　なおす<\/span><\/li><\/ol><p class=\"small\">The copier is broken until the afternoon, so the copies wait (1). He offers to buy tea first, but she says there may still be some in the fridge and asks him to look; he buys tea only if there is none. So his first job is to look in the fridge. Buying tea (2) comes later, and only if needed. Nobody asks him to fix the copier (4); it is expected to be fixed in the afternoon.<\/p>", "level": "green", "note": ""}, {"id": "n4mock11", "group": "Mini mock", "label": "Mock · ポイント理解", "head": "<span lang=\"ja\">女の人は　どうして　ねむいのですか。 → <b class=\"ans\">となりの　人が　夜中に　歌ったから<\/b><\/span>", "body": "<div class=\"passage\" lang=\"ja\"><p>女の人と　男の人が　話して　います。女の人は　どうして　ねむいのですか。<\/p><p>男：ねむそうですね。きのう　おそくまで　仕事を　したんですか。<\/p><p>女：いいえ、仕事は　早く　終わりました。<\/p><p>男：じゃあ、また　夜中まで　えいがを　見て　いたんですか。<\/p><p>女：それも　ちがいます。十一時には　ねましたよ。でも、夜中の　二時ごろ、となりの　へやの　人に　大きな　声で　歌を　歌われて……。その　あと、ねられなかったんです。<\/p><p>男：それは　たいへんでしたね。<\/p><p>女の人は　どうして　ねむいのですか。<\/p><\/div><ol class=\"opts\"><li class=\"ok\"><span lang=\"ja\">となりの　人が　夜中に　歌ったから<\/span><\/li><li class=\"no\"><span lang=\"ja\">おそくまで　仕事を　したから<\/span><\/li><li class=\"no\"><span lang=\"ja\">夜中まで　えいがを　見て　いたから<\/span><\/li><li class=\"no\"><span lang=\"ja\">子どもが　夜中に　ないたから<\/span><\/li><\/ol><p class=\"small\">She says the person next door sang loudly at about two in the morning (歌を 歌われて, a passive of trouble), and she could not sleep after that. Work finished early (2). She says ちがいます to the film (3) and went to bed at eleven. Nobody mentions a crying child (4).<\/p>", "level": "green", "note": ""}, {"id": "n4mock12", "group": "Mini mock", "label": "Mock · 即時応答", "head": "<span lang=\"ja\">女：すみません、ちょっと　気分が　わるいので、きょうは　早く　帰らせて　いただけませんか。 → <b class=\"ans\">ええ、いいですよ。おだいじに。<\/b><\/span>", "body": "<div class=\"passage\" lang=\"ja\"><p>女：すみません、ちょっと　気分が　わるいので、きょうは　早く　帰らせて　いただけませんか。<\/p><p>1：ええ、早く　帰って　あげます。<\/p><p>2：ええ、いいですよ。おだいじに。<\/p><p>3：はい、帰らせて　いただきます。<\/p><\/div><ol class=\"opts\"><li class=\"no\"><span lang=\"ja\">ええ、早く　帰って　あげます。<\/span><\/li><li class=\"ok\"><span lang=\"ja\">ええ、いいですよ。おだいじに。<\/span><\/li><li class=\"no\"><span lang=\"ja\">はい、帰らせて　いただきます。<\/span><\/li><\/ol><p class=\"small\">She asks permission to go home early because she feels unwell (帰らせて いただけませんか). The reply gives permission and wishes her well: ええ、いいですよ。おだいじに. 早く 帰って あげます means he will go home himself, as a favour, which answers nothing. 帰らせて いただきます is what the person asking says, not the one giving permission.<\/p>", "level": "amber", "note": "Quick response, answer ええ、いいですよ。おだいじに。 The reply ええ、早く帰ってあげます may sound like nonsense rather than just wrong. Fine as a distractor?"}];
+const LS = 'yaoki-review-n4-mini';
+const marks = {};
+try { Object.assign(marks, JSON.parse(localStorage.getItem(LS) || '{}')); } catch (e) {}
+let filter = 'all';
+let col = null; // the shared db collection, when this viewer may write it
+const key = (id) => encodeURIComponent(id).replace(/%/g, '~');
+const rank = { red: 0, amber: 1, green: 2 };
+
+function saveLocal() { try { localStorage.setItem(LS, JSON.stringify(marks)); } catch (e) {} }
+const timers = {};
+function persist(id) {
+  saveLocal();
+  if (!col) return;
+  clearTimeout(timers[id]);
+  timers[id] = setTimeout(async () => {
+    const m = marks[id] || {};
+    try { await col.doc(key(id)).set({ id, state: m.state || '', note: m.note || '', at: Date.now() }); }
+    catch (e) {
+      if (e && (e.code === 'invalid_argument' || e.code === 'not_granted' || e.code === 'revoked')) { col = null; setStatus(false); }
+    }
+  }, 600);
+}
+
+function setStatus(shared) {
+  document.getElementById('status').textContent = shared
+    ? 'Marks are saved with this page, so they reach the app’s author as you go.'
+    : 'Marks are kept on this device. When you finish, tap Copy all marks and send the text back.';
+}
+
+function visible(r) {
+  const m = marks[r.id] || {};
+  if (filter === 'flag') return r.level !== 'green';
+  if (filter === 'todo') return !m.state;
+  if (filter === 'fix') return m.state === 'fix';
+  return true;
+}
+
+function el(tag, attrs, html) { const x = document.createElement(tag); Object.entries(attrs || {}).forEach(([k, v]) => x.setAttribute(k, v)); if (html != null) x.innerHTML = html; return x; }
+
+function rowNode(r) {
+  const m = marks[r.id] || {};
+  const box = el('article', { class: 'row ' + r.level + (m.state ? ' m-' + m.state : ''), id: 'r-' + key(r.id) });
+  const meta = el('div', { class: 'meta' });
+  meta.append(el('span', { class: 'lab' }, r.label), el('span', { class: 'id' }, r.id));
+  if (r.level !== 'green') meta.append(el('span', { style: 'font-weight:800;color:var(--' + r.level + ')' }, r.level === 'red' ? '● red' : '● amber'));
+  box.append(meta, el('div', { class: 'head' }, r.head));
+  if (r.note) box.append(el('div', { class: 'flag' }, '<b>Question:</b> ' + r.note.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))));
+  if (r.body) {
+    const d = el('details');
+    if (r.level !== 'green') d.open = true;
+    d.append(el('summary', {}, 'Options and reasons'), el('div', {}, r.body.replace(/<table/g, '<div class="tablebox"><table').replace(/<\/table>/g, '</table></div>')));
+    box.append(d);
+  }
+  const bar = el('div', { class: 'marks' });
+  const ok = el('button', { class: 'mark okb', 'aria-pressed': String(m.state === 'ok') }, 'OK');
+  const fix = el('button', { class: 'mark fixb', 'aria-pressed': String(m.state === 'fix') }, 'Fix');
+  const nb = el('button', { class: 'notebtn' }, m.note ? 'Edit note' : 'Add note');
+  const ta = el('textarea', { 'aria-label': 'Note for ' + r.id, placeholder: 'What is wrong, or the better wording' });
+  ta.value = m.note || '';
+  ta.hidden = !(m.note || m.state === 'fix');
+  const pick = (s) => {
+    const cur = marks[r.id] || {};
+    marks[r.id] = { ...cur, state: cur.state === s ? '' : s };
+    persist(r.id);
+    if (marks[r.id].state === 'fix') { ta.hidden = false; ta.focus(); }
+    refresh(r.id);
+  };
+  ok.onclick = () => pick('ok');
+  fix.onclick = () => pick('fix');
+  nb.onclick = () => { ta.hidden = false; ta.focus(); };
+  ta.oninput = () => { marks[r.id] = { ...(marks[r.id] || {}), note: ta.value }; persist(r.id); count(); };
+  bar.append(ok, fix, nb);
+  box.append(bar, ta);
+  return box;
+}
+
+function refresh(id) {
+  const r = ROWS.find((x) => x.id === id);
+  const old = document.getElementById('r-' + key(id));
+  if (old && r) old.replaceWith(rowNode(r));
+  count();
+}
+
+function count() {
+  const n = ROWS.filter((r) => (marks[r.id] || {}).state).length;
+  const f = ROWS.filter((r) => (marks[r.id] || {}).state === 'fix').length;
+  document.getElementById('count').textContent = n + ' of ' + ROWS.length + ' marked' + (f ? ' · ' + f + ' to fix' : '');
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.textContent = '';
+  const flagged = ROWS.filter((r) => r.level !== 'green' && visible(r)).sort((a, b) => rank[a.level] - rank[b.level]);
+  const rest = ROWS.filter((r) => r.level === 'green' && visible(r));
+  if (flagged.length) {
+    main.append(el('h2', {}, 'Look at these first · ' + flagged.length));
+    const l = el('div', { class: 'list' }); flagged.forEach((r) => l.append(rowNode(r))); main.append(l);
+  }
+  let g = null, l = null;
+  rest.forEach((r) => {
+    if (r.group !== g) { g = r.group; main.append(el('h2', { lang: 'ja' }, g.replace(/[<>&]/g, ''))); l = el('div', { class: 'list' }); main.append(l); }
+    l.append(rowNode(r));
+  });
+  if (!flagged.length && !rest.length) main.append(el('p', { class: 'empty' }, 'Nothing here.'));
+  count();
+}
+
+document.querySelectorAll('.chip').forEach((c) => c.onclick = () => {
+  filter = c.dataset.f;
+  document.querySelectorAll('.chip').forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+  render();
+});
+
+document.getElementById('copy').onclick = async () => {
+  const lines = ['Yaoki N4 unit mini mock review'];
+  ROWS.forEach((r) => {
+    const m = marks[r.id] || {};
+    if (!m.state && !m.note) return;
+    lines.push(r.id + '\t' + (m.state ? m.state.toUpperCase() : '-') + (m.note ? '\t' + m.note.replace(/\s+/g, ' ') : ''));
+  });
+  const n = ROWS.filter((r) => !(marks[r.id] || {}).state).length;
+  lines.push(n ? n + ' rows not marked' : 'All rows marked');
+  const text = lines.join('\n');
+  const b = document.getElementById('copy');
+  try { await navigator.clipboard.writeText(text); b.textContent = 'Copied'; }
+  catch (e) {
+    const ta = el('textarea', { 'aria-label': 'Your marks as text' }); ta.value = text;
+    b.after(ta); ta.select(); b.textContent = 'Select and copy the text below';
+  }
+  setTimeout(() => { b.textContent = 'Copy all marks'; }, 2500);
+};
+
+setStatus(false);
+render();
+
+/* shared marks: read what is saved with the page, and save there too when this viewer may */
+(async () => {
+  if (!window.claude || !window.claude.use) return;
+  const db = await window.claude.use('db');
+  if (!db) return;
+  const user = await window.claude.use('user');
+  const c = db.collection('marks');
+  const stored = {};
+  try {
+    const snap = await c.get();
+    let changed = false;
+    snap.docs.forEach((d) => {
+      const v = d.data() || {};
+      if (v.id) stored[v.id] = (v.state || '') + '|' + (v.note || '');
+      if (v.id && ROWS.some((r) => r.id === v.id)) {
+        const mine = marks[v.id];
+        if (!mine || (!mine.state && !mine.note)) { marks[v.id] = { state: v.state || '', note: v.note || '' }; changed = true; }
+      }
+    });
+    if (changed) { saveLocal(); render(); }
+  } catch (e) {}
+  const can = user ? await user.can('data.write') : null;
+  if (can === false) return;
+  col = c;
+  setStatus(true);
+  /* marks made on this device before the shared store was reachable */
+  Object.keys(marks).forEach((id) => {
+    const m = marks[id];
+    if ((m.state || m.note) && ROWS.some((r) => r.id === id) && stored[id] !== (m.state || '') + '|' + (m.note || '')) persist(id);
+  });
+})();
+</script>

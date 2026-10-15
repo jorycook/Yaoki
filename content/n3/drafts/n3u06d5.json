@@ -1,0 +1,270 @@
+{
+  "title": "〜とか（伝聞）・〜っけ",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u06d5.p1",
+        "form": "〜とか（伝聞）",
+        "gloss": "I hear (something like) …",
+        "connect": [
+          {"pos": "Verb or i-adjective, plain form", "rule": "休む／休んだ／高い＋{とか}"},
+          {"pos": "Noun or na-adjective", "rule": "雨だ／[静|しず]かだ＋{とか}"}
+        ],
+        "examples": [
+          {"ja": "山下さんのおじょうさん、来年[留学|りゅうがく]する{とか}。", "en": "Mr Yamashita's daughter is going to study abroad next year, or so I hear."},
+          {"ja": "[隣|となり]の[部屋|へや]の人、プロの歌手だ{とか}。", "en": "The person in the next flat is a professional singer, apparently."}
+        ],
+        "watch": {
+          "note": "Sentence-final とか passes on something you heard and are not quite sure of. Do not use it for your own plans or for things you know first-hand.",
+          "bad": "わたしは来月、引っ越すとか。",
+          "good": "わたしは来月、引っ越します。"
+        }
+      },
+      {
+        "id": "n3u06d5.p2",
+        "form": "〜っけ",
+        "gloss": "was it …? (checking a memory)",
+        "connect": [
+          {"pos": "Noun or na-adjective", "rule": "何時だ／何時だった＋{っけ}"},
+          {"pos": "Verb or i-adjective", "rule": "言った／行くんだ＋{っけ}"},
+          {"pos": "Polite", "rule": "〜でした／〜ました＋{っけ}"}
+        ],
+        "examples": [
+          {"ja": "あれ、[次|つぎ]の[会議|かいぎ]って何曜日だ{っけ}？", "en": "Hmm, what day is the next meeting again?"},
+          {"ja": "すみません、お名前、何とおっしゃいました{っけ}？", "en": "Sorry, what did you say your name was?"}
+        ],
+        "watch": {
+          "note": "っけ checks something you once knew or were told and have now forgotten. For a question about something new to you, just ask with か.",
+          "bad": "はじめて来たんですが、駅はどこでしたっけ。",
+          "good": "はじめて来たんですが、駅はどこですか。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "Hearsay とか ends the sentence and passes on news, listing とか gives examples inside the sentence, and っけ checks something you have forgotten.",
+      "forms": [
+        {"form": "〜とか（伝聞）", "tag": "聞いた話 · I hear (vague)", "mark": "dot", "ja": "[課長|かちょう]、来週から海外に行く{とか}。", "en": "The section chief is going abroad next week, I hear."},
+        {"form": "〜とか（例示）", "tag": "例をあげる · things like (N4)", "mark": "dot", "ja": "[週末|しゅうまつ]は、そうじ{とか}せんたく{とか}をしています。", "en": "At weekends I do things like cleaning and laundry."},
+        {"form": "〜っけ", "tag": "思い出す · was it …?", "mark": "dot", "ja": "[課長|かちょう]が海外に行くの、来週だった{っけ}？", "en": "Was it next week that the section chief goes abroad?"}
+      ],
+      "check": {
+        "id": "n3u06d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one passes on something you heard?",
+        "q": "聞いた話を[伝|つた]えているのはどれですか。",
+        "options": [
+          "休みの日は、そうじとかせんたくとかをします。",
+          "山田さん、会社をやめるとか。",
+          "あれ、明日は何時に集まるんだっけ。"
+        ],
+        "answer": 2,
+        "why": [
+          "Here とか lists examples inside the sentence (cleaning, laundry and so on). Nothing was heard from anyone.",
+          "Plain form + とか at the end passes on news: Mr Yamada is leaving the company, or so I hear.",
+          "っけ checks something the speaker once knew and has forgotten: what time are we meeting tomorrow again?"
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u06d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^母から聞いたんですが^、駅前のスーパー、来月で[閉店|へいてん]する（　　）。",
+        "options": ["ために", "っけ", "ながら", "とか"],
+        "answer": 4,
+        "why": [
+          "ために gives a purpose or a reason, and a main clause would have to follow it. Here the sentence ends.",
+          "っけ checks something you have forgotten. The speaker is passing on news she has just heard from her mother.",
+          "ながら joins two actions done at the same time, and a main clause would have to follow it. Here the sentence ends.",
+          "Plain form + とか passes on hearsay: the supermarket is closing next month, or so I hear."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d5.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あれ、^家を出るとき^、げんかんのかぎをちゃんと（　　）っけ。",
+        "options": ["かける", "かけた", "かけよう", "かけて"],
+        "answer": 2,
+        "why": [
+          "かける is not past. The speaker has already left and is checking that one moment at the door.",
+          "Past form + っけ: did I lock the front door when I left? The speaker is checking something already done.",
+          "The volitional form (let's lock) does not join っけ.",
+          "The te-form does not join っけ."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d5.d3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[週末|しゅうまつ]の花火大会は、",
+        "after": "とか。",
+        "tiles": ["雨が", "[降|ふ]ったら", "来週に", "なる"],
+        "star": 2,
+        "bank": [3, 1, 0, 2],
+        "hint": "とか comes after the plain form なる. What happens if it rains?",
+        "full": "[週末|しゅうまつ]の花火大会は、雨が[降|ふ]ったら来週になる{とか}。",
+        "explain": "雨が goes with [降|ふ]ったら, the condition. 来週に goes with なる, and とか comes right after the plain form なる: if it rains, the fireworks will move to next week, or so I hear."
+      },
+      {
+        "id": "n3u06d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "すみません、^この[書類|しょるい]のしめきり^、何日（　　）？",
+        "options": ["でしたっけ", "だとか", "ましたっけ", "っけでした"],
+        "answer": 1,
+        "why": [
+          "何日 + でした + っけ: a polite check of a date you were told and have forgotten.",
+          "だとか passes on something you heard. A question with 何 asks for information instead.",
+          "ました follows the ます stem of a verb. 何日 is a noun, so it takes でした.",
+          "っけ always comes at the very end. でした cannot follow it."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d5.d5",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：[最近|さいきん]、林さんを見ませんね。B：^くわしくは知らないんですが^、今はおおさかの[支店|してん]で働いている（　　）。",
+        "options": ["ように", "っけ", "とか", "まで"],
+        "answer": 3,
+        "why": [
+          "Ending with ように gives an instruction (make sure to …). That makes no sense as an answer about where Mr Hayashi is now.",
+          "B is giving A news and says he does not know the details. He is passing on what he heard, not checking his own memory.",
+          "Plain form + とか passes on vague hearsay: he is working at the Osaka branch now, I hear. くわしくは知らない fits its vagueness.",
+          "まで follows the dictionary form (働くまで), and a main clause would have to follow it."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u06d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あれ、",
+        "after": "[置|お]いたっけ。",
+        "tiles": ["山田さんに", "借りた", "[傘|かさ]は", "どこに"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "hint": "っけ follows the past form. What did the speaker borrow, and from whom?",
+        "full": "あれ、山田さんに借りた[傘|かさ]はどこに[置|お]いた{っけ}。",
+        "explain": "山田さんに goes with 借りた, and 借りた describes [傘|かさ]. [傘|かさ]は is the topic, and どこに goes with [置|お]いた: where did I put the umbrella I borrowed from Mr Yamada?"
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u06d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：山本さん、今日は元気がないですね。B：ええ、大事な試験に落ちた（　　）。",
+        "options": ["とか", "うちに", "までに", "ところへ"],
+        "answer": 1,
+        "explain": "B passes on what she heard about Mr Yamamoto: plain form + とか. うちに and までに do not follow the た form, and ところへ needs a main clause after it, but here the sentence ends."
+      },
+      {
+        "id": "n3u06d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あれ、田中さんの誕生日って、来週の金曜日（　　）っけ？",
+        "options": ["な", "で", "だった", "の"],
+        "answer": 3,
+        "explain": "A noun joins っけ through だ or だった: 金曜日だったっけ checks a date the speaker once knew. な, で and の cannot come right before っけ."
+      },
+      {
+        "id": "n3u06d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "田中さんの",
+        "after": "けっこんするとか。",
+        "tiles": ["お子さんが", "通っている", "学校の", "先生が"],
+        "star": 2,
+        "bank": [2, 3, 0, 1],
+        "full": "田中さんのお子さんが通っている{学校の}先生がけっこんするとか。",
+        "explain": "お子さんが, 通っている, 学校の, 先生が. お子さんが is the subject of 通っている, which describes 学校; 学校の describes 先生, and 先生が is the subject of けっこんする: I hear a teacher at the Tanakas' child's school is getting married."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "冷蔵庫のメモ",
+    "en": "A note on the fridge",
+    "intro": "A family's reminder note on the fridge lists this week's plans. Tap each word on it.",
+    "words": [
+      {"id": "booking", "word": "予約", "reading": "よやく", "gloss": "booking, appointment", "parts": [["予", "ヨ", "before"], ["約", "ヤク", "promise"]]},
+      {"id": "dentist", "word": "歯医者", "reading": "はいしゃ", "gloss": "dentist", "parts": [["歯", "は", "tooth"], ["医", "イ", "medicine"], ["者", "シャ", "person"]]},
+      {"id": "payment", "word": "支払い", "reading": "しはらい", "gloss": "payment", "parts": [["支", "シ", "support, pay out"], ["払", "はら", "pay"]]},
+      {"id": "delivery", "word": "宅配便", "reading": "たくはいびん", "gloss": "parcel delivery", "parts": [["宅", "タク", "home"], ["配", "ハイ", "hand out"], ["便", "ビン", "post, service"]]},
+      {"id": "eggs", "word": "卵", "reading": "たまご", "gloss": "egg", "parts": [["卵", "たまご", "egg"]]},
+      {"id": "birthday", "word": "誕生日", "reading": "たんじょうび", "gloss": "birthday", "parts": [["誕", "タン", "birth"], ["生", "ジョウ", "life"], ["日", "ビ", "day"]]},
+      {"id": "dontforget", "word": "忘れずに", "reading": "わすれずに", "gloss": "without forgetting, be sure to", "parts": [["忘", "わす", "forget"]]},
+      {"id": "pickup", "word": "お迎え", "reading": "おむかえ", "gloss": "picking someone up", "parts": [["迎", "むか", "meet, welcome"]]}
+    ],
+    "check": {
+      "id": "n3u06d5.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "今月の電気代の_支払い_、忘れないでね。",
+      "options": ["しばらい", "じはらい", "しわらい", "しはらい"],
+      "answer": 4,
+      "explain": "支払い is しはらい: 支 is シ and 払い is はらい, as in 払う. The sound does not change to ばらい or じ here."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "発話表現",
+    "en": "Expressions",
+    "situation": "A woman stands at the fridge looking at the family calendar; she wrote 歯医者 on Thursday but not the time, and she turns to ask her husband.",
+    "ask": "歯医者の予約の時間を思い出せません。夫に何と言いますか。",
+    "item": {
+      "id": "n3u06d5.r1",
+      "kind": "choice",
+      "type": "発話表現",
+      "q": "歯医者の予約の時間を思い出せません。夫に何と言いますか。",
+      "script": [
+        "ナレーター：歯医者の予約の時間を思い出せません。夫に何と言いますか。",
+        "ナレーター：1",
+        "女：歯医者の予約、十時だとか。",
+        "ナレーター：2",
+        "女：歯医者の予約、何時にしましょうか。",
+        "ナレーター：3",
+        "女：歯医者の予約、何時だったっけ？"
+      ],
+      "options": [
+        "歯医者の予約、十時だとか。",
+        "歯医者の予約、何時にしましょうか。",
+        "歯医者の予約、何時だったっけ？"
+      ],
+      "printed": false,
+      "short": ["十時だとか", "何時にしましょうか", "何時だったっけ"],
+      "answer": 3,
+      "why": [
+        "だとか passes on a time she heard from someone. She wants to find out the time, not tell it.",
+        "This asks to choose a time. The appointment is already made; she has only forgotten when it is.",
+        ""
+      ],
+      "explain": "だったっけ checks something she once knew and has forgotten: what time was the dentist appointment again?"
+    },
+    "audio": [
+      ["N", "歯医者の予約の時間を思い出せません。夫に何と言いますか。", "はいしゃのよやくのじかんをおもいだせません。おっとになんといいますか。"],
+      ["N", "1", "いち"],
+      ["F", "歯医者の予約、十時だとか。", "はいしゃのよやく、じゅうじだとか。"],
+      ["N", "2", "に"],
+      ["F", "歯医者の予約、何時にしましょうか。", "はいしゃのよやく、なんじにしましょうか。"],
+      ["N", "3", "さん"],
+      ["F", "歯医者の予約、何時だったっけ？", "はいしゃのよやく、なんじだったっけ？"]
+    ]
+  }
+}

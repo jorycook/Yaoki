@@ -1,0 +1,550 @@
+{
+ "title": "意向形・〜（よ）うと思う",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u02d1.p1",
+    "form": "意向形",
+    "gloss": "let's … (plain, to friends)",
+    "connect": [
+     {
+      "pos": "る-verbs: drop る and add よう",
+      "rule": "食べる → 食べ{よう}・見る → 見{よう}"
+     },
+     {
+      "pos": "う-verbs: the last sound moves to the お-row, then add う",
+      "rule": "行く → 行{こう}・飲む → 飲{もう}・[待|ま]つ → [待|ま]{とう}・[帰|かえ]る → [帰|かえ]{ろう}"
+     },
+     {
+      "pos": "する and 来る are special (来よう is read こよう)",
+      "rule": "する → {しよう}・来る → 来{よう}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "あした、いっしょに[海|うみ]へ行{こう}よ。",
+      "en": "Let's go to the sea together tomorrow."
+     },
+     {
+      "ja": "おなかがすいたね。何か食べ{よう}。",
+      "en": "I'm hungry. Let's eat something."
+     }
+    ],
+    "watch": {
+     "note": "う-verbs do not take よう after the ます stem. The last sound moves to the お-row: 行く → 行こう. Only る-verbs take よう.",
+     "bad": "あした、いっしょに行きようよ。",
+     "good": "あした、いっしょに行こうよ。"
+    }
+   },
+   {
+    "id": "n4u02d1.p2",
+    "form": "〜（よ）うと思う",
+    "gloss": "I'm thinking of …ing",
+    "connect": [
+     {
+      "pos": "Verb, volitional form: your own plan, as you say it now",
+      "rule": "[帰|かえ]ろう ＋ {と[思|おも]います}"
+     },
+     {
+      "pos": "Verb, volitional form: a plan you have had for a while",
+      "rule": "[帰|かえ]ろう ＋ {と[思|おも]っています}"
+     },
+     {
+      "pos": "Someone else's plan: use と思っています, not と思います",
+      "rule": "[兄|あに]は[帰|かえ]ろう ＋ {と[思|おも]っています}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[夏|なつ]休みに、国へ[帰|かえ]ろう{と[思|おも]います}。",
+      "en": "I'm thinking of going back to my country for the summer holidays."
+     },
+     {
+      "ja": "来年から、ピアノを[習|なら]おう{と[思|おも]っています}。",
+      "en": "I've been thinking of learning the piano from next year."
+     }
+    ],
+    "watch": {
+     "note": "Before と思う, the verb stays in the plain volitional form. The politeness goes on 思います, not on the verb before と.",
+     "bad": "あした、図書館へ行きましょうと思います。",
+     "good": "あした、図書館へ行こうと思います。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three are about watching a movie. Two invite someone; one tells your own plan.",
+   "forms": [
+    {
+     "form": "〜（よ）う",
+     "tag": "さそう · let's, to a friend",
+     "mark": "dot",
+     "ja": "いっしょに[映画|えいが]を見{よう}よ。",
+     "en": "Let's watch a movie together."
+    },
+    {
+     "form": "〜ましょう",
+     "tag": "ていねい · let's, polite",
+     "mark": "dot",
+     "ja": "いっしょに[映画|えいが]を見{ましょう}。",
+     "en": "Let's watch a movie together (polite)."
+    },
+    {
+     "form": "〜（よ）うと思う",
+     "tag": "よてい · I'm thinking of",
+     "mark": "dot",
+     "ja": "[映画|えいが]を見よう{と[思|おも]っています}。",
+     "en": "I'm thinking of watching a movie."
+    }
+   ],
+   "check": {
+    "id": "n4u02d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "しゅうまつの話",
+    "q": "A：しゅうまつは何をしますか。B：[妹|いもうと]と[映画|えいが]を（　　）。",
+    "options": [
+     "見よう",
+     "見ましょう",
+     "見ようと[思|おも]っています"
+    ],
+    "answer": 3,
+    "why": [
+     "見よう invites someone to watch with you. It does not answer the question, and A spoke politely.",
+     "見ましょう invites A to watch with you and your sister. A asked about your plans.",
+     "A asks what you will do, so you tell your plan: volitional + と思っています."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u02d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：^おなかがすいたね^。B：じゃあ、あの店で何か（　　）。",
+    "options": [
+     "食べろう",
+     "食べよう",
+     "食べるう",
+     "食べおう"
+    ],
+    "answer": 2,
+    "why": [
+     "ろう is for う-verbs that end in る, like 帰る → 帰ろう. 食べる is a る-verb.",
+     "食べる is a る-verb: drop る and add よう. A plain \"let's\" fits a hungry friend.",
+     "Do not keep る. It goes, and よう takes its place.",
+     "おう is not an ending for 食べる. る-verbs take よう."
+    ]
+   },
+   {
+    "id": "n4u02d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：もう六時だね。B：^そろそろ^家に（　　）か。",
+    "options": [
+     "[帰|かえ]よう",
+     "[帰|かえ]ろう",
+     "[帰|かえ]りよう",
+     "[帰|かえ]るよう"
+    ],
+    "answer": 2,
+    "why": [
+     "帰る looks like a る-verb, but it is a う-verb (帰らない). So る does not just drop.",
+     "帰る is a う-verb: る moves to ろ, then う. 帰ろうか is a friendly \"shall we go home?\"",
+     "よう does not go after the ます stem 帰り.",
+     "The dictionary form 帰る stays whole here, so this is not a volitional form."
+    ]
+   },
+   {
+    "id": "n4u02d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "来年は日本の大学で[勉強|べんきょう]（　　）^と[思|おも]っています^。",
+    "options": [
+     "しよう",
+     "しましょう",
+     "しろう",
+     "すよう"
+    ],
+    "answer": 1,
+    "why": [
+     "する is special: its volitional form is しよう. しよう + と思っています tells your plan.",
+     "Before と思う, the verb is plain. The polite ます is already on 思っています.",
+     "しろう is not a form of する. The volitional form is しよう.",
+     "すよう is not a form of する. The volitional form is しよう."
+    ]
+   },
+   {
+    "id": "n4u02d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[兄|あに]は^来月、車を買おう（　　）。",
+    "options": [
+     "と[思|おも]います",
+     "と[思|おも]っています",
+     "を[思|おも]っています",
+     "と[思|おも]いましょう"
+    ],
+    "answer": 2,
+    "why": [
+     "と思います tells your own plan. This is your brother's plan.",
+     "Someone else's plan takes と思っています: my brother is thinking of buying a car.",
+     "The plan is quoted with と, not を.",
+     "思いましょう means \"let's think\". It makes no sense after 買おう."
+    ]
+   },
+   {
+    "id": "n4u02d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：しゅうまつ、ひま？B：うん。じゃあ、",
+    "after": "よ。",
+    "tiles": [
+     "おいしい",
+     "おすしを",
+     "食べに",
+     "行こう"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "おいしい needs a noun right after it. 食べに says why you go.",
+    "full": "A：しゅうまつ、ひま？B：うん。じゃあ、おいしいおすしを食べに行{こう}よ。",
+    "explain": "おいしい describes おすし, so it sits right before it. おすしを goes with 食べに (to eat), and 行こう, the plain \"let's go\", ends the sentence before よ."
+   },
+   {
+    "id": "n4u02d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[夏|なつ]休みに、",
+    "after": "[思|おも]っています。",
+    "tiles": [
+     "車の",
+     "[運転|うんてん]を",
+     "[習|なら]おう",
+     "と"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "と goes right before 思っています. What comes right before と?",
+    "full": "[夏|なつ]休みに、車の[運転|うんてん]を[習|なら]おう{と[思|おも]っています}。",
+    "explain": "車の describes 運転, and 運転を is what you learn. The volitional 習おう comes before と, and と goes right before 思っています."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u02d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「のどが　かわいたね。」　B「うん、あの　店で　お茶でも　（　　）。」",
+    "options": [
+     "飲もう",
+     "飲みよう",
+     "飲みろう",
+     "飲めよう"
+    ],
+    "answer": 1,
+    "explain": "飲む is a う-verb: む moves to も, then う. 飲もう is a plain \"let's drink\" between friends. 飲みよう and 飲みろう add an ending to the ます stem, and 飲めよう is not a form of 飲む."
+   },
+   {
+    "id": "n4u02d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「大学を　出てから、どう　しますか。」　B「国へ　帰って、父の　会社で　（　　）。」",
+    "options": [
+     "はたらこうを　思って　います",
+     "はたらきましょうと　思って　います",
+     "はたらいて　思って　います",
+     "はたらこうと　思って　います"
+    ],
+    "answer": 4,
+    "explain": "A plan for after university: volitional はたらこう + と思っています. The plan is quoted with と, not を. ましょう is not used before と思う, and the て form cannot join 思っています this way."
+   },
+   {
+    "id": "n4u02d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「あしたは　何を　する？」　B「天気が　いいから、",
+    "after": "海へ　行こうよ。」",
+    "tiles": [
+     "母が",
+     "作った",
+     "おべんとうを",
+     "持って"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "full": "A「あしたは　何を　する？」　B「天気が　いいから、母が　{作った}　おべんとうを　持って　海へ　行こうよ。」",
+    "explain": "母が, 作った, おべんとうを, 持って. 母が作った describes おべんとう, so it comes right before it. おべんとうを goes with 持って, and 持って leads into 海へ行こうよ."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "グループチャットのまとめ",
+  "en": "A group chat summary",
+  "intro": "Your friends planned a day at the sea in the group chat, and someone pinned a summary. Tap each word on it.",
+  "words": [
+   {
+    "id": "sat",
+    "word": "土曜日",
+    "reading": "どようび",
+    "gloss": "Saturday",
+    "parts": [
+     [
+      "土",
+      "ド",
+      "earth; Saturday"
+     ],
+     [
+      "曜",
+      "ヨウ",
+      "day of the week"
+     ],
+     [
+      "日",
+      "び",
+      "day"
+     ]
+    ]
+   },
+   {
+    "id": "morning",
+    "word": "朝",
+    "reading": "あさ",
+    "gloss": "morning",
+    "parts": [
+     [
+      "朝",
+      "あさ",
+      "morning"
+     ]
+    ]
+   },
+   {
+    "id": "meet",
+    "word": "集まる",
+    "reading": "あつまる",
+    "gloss": "gather, meet up",
+    "parts": [
+     [
+      "集",
+      "あつ",
+      "gather"
+     ]
+    ]
+   },
+   {
+    "id": "drive",
+    "word": "運転",
+    "reading": "うんてん",
+    "gloss": "driving",
+    "parts": [
+     [
+      "運",
+      "ウン",
+      "carry, move: 運動"
+     ],
+     [
+      "転",
+      "テン",
+      "turn, roll"
+     ]
+    ]
+   },
+   {
+    "id": "sea",
+    "word": "海",
+    "reading": "うみ",
+    "gloss": "the sea",
+    "parts": [
+     [
+      "海",
+      "うみ",
+      "sea"
+     ]
+    ]
+   },
+   {
+    "id": "lunch",
+    "word": "昼ご飯",
+    "reading": "ひるごはん",
+    "gloss": "lunch",
+    "parts": [
+     [
+      "昼",
+      "ひる",
+      "noon"
+     ],
+     [
+      "飯",
+      "ハン",
+      "meal, rice"
+     ]
+    ]
+   },
+   {
+    "id": "photo",
+    "word": "写真",
+    "reading": "しゃしん",
+    "gloss": "photo",
+    "parts": [
+     [
+      "写",
+      "シャ",
+      "copy, take a picture"
+     ],
+     [
+      "真",
+      "シン",
+      "true"
+     ]
+    ]
+   },
+   {
+    "id": "things",
+    "word": "持ち物",
+    "reading": "もちもの",
+    "gloss": "things to bring",
+    "parts": [
+     [
+      "持",
+      "も",
+      "hold, carry"
+     ],
+     [
+      "物",
+      "もの",
+      "thing"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u02d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "車の　_運転_は　兄が　します。",
+   "options": [
+    "うんでん",
+    "うんてん",
+    "うてん",
+    "うんてい"
+   ],
+   "answer": 2,
+   "explain": "運転 is read うんてん, driving: my brother will do the driving. 転 is てん with no voicing, so うんでん is wrong. うてん drops the ん of 運, and てい is not a reading of 転."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "女の　人は　土曜日に　何を　持って　いきますか。",
+  "audio": [
+   [
+    "N",
+    "男の人と女の人が話しています。女の人は、土曜日に何を持っていきますか。",
+    "おとこのひとと　おんなのひとが　はなしています。おんなのひとは、どようびに　なにを　もっていきますか。"
+   ],
+   [
+    "M",
+    "土曜日の海、楽しみだね。昼ご飯は、ぼくがおべんとうを作ろうと思ってるんだ。",
+    "どようびの　うみ、たのしみだね。ひるごはんは、ぼくが　おべんとうを　つくろうと　おもってるんだ。"
+   ],
+   [
+    "F",
+    "ありがとう。じゃあ、わたしは飲み物を持っていこうか。",
+    "ありがとう。じゃあ、わたしは　のみものを　もっていこうか。"
+   ],
+   [
+    "M",
+    "飲み物は、海の近くの店で買えるよ。",
+    "のみものは、うみの　ちかくの　みせで　かえるよ。"
+   ],
+   [
+    "F",
+    "そう。じゃあ、カメラを持っていこうかな。",
+    "そう。じゃあ、カメラを　もっていこうかな。"
+   ],
+   [
+    "M",
+    "カメラは、ぼくが持っていくよ。新しいのを買ったんだ。",
+    "カメラは、ぼくが　もっていくよ。あたらしいのを　かったんだ。"
+   ],
+   [
+    "F",
+    "そうなんだ。それなら、わたしは、みんなであそべるボールを持っていくね。",
+    "そうなんだ。それなら、わたしは、みんなで　あそべる　ボールを　もっていくね。"
+   ],
+   [
+    "M",
+    "いいね。じゃあ、土曜日の朝、駅で。",
+    "いいね。じゃあ、どようびの　あさ、えきで。"
+   ],
+   [
+    "N",
+    "女の人は、土曜日に何を持っていきますか。",
+    "おんなのひとは、どようびに　なにを　もっていきますか。"
+   ]
+  ],
+  "item": {
+   "id": "n4u02d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "女の　人は　土曜日に　何を　持って　いきますか。",
+   "script": [
+    "ナレーター：男の人と女の人が話しています。女の人は、土曜日に何を持っていきますか。",
+    "男：土曜日の海、楽しみだね。昼ご飯は、ぼくがおべんとうを作ろうと思ってるんだ。",
+    "女：ありがとう。じゃあ、わたしは飲み物を持っていこうか。",
+    "男：飲み物は、海の近くの店で買えるよ。",
+    "女：そう。じゃあ、カメラを持っていこうかな。",
+    "男：カメラは、ぼくが持っていくよ。新しいのを買ったんだ。",
+    "女：そうなんだ。それなら、わたしは、みんなであそべるボールを持っていくね。",
+    "男：いいね。じゃあ、土曜日の朝、駅で。",
+    "ナレーター：女の人は、土曜日に何を持っていきますか。"
+   ],
+   "options": [
+    "おべんとう",
+    "飲み物",
+    "カメラ",
+    "ボール"
+   ],
+   "printed": true,
+   "short": [
+    "おべんとう",
+    "飲み物",
+    "カメラ",
+    "ボール"
+   ],
+   "answer": 4,
+   "why": [
+    "The man is making the lunch: ぼくがおべんとうを作ろうと思ってるんだ.",
+    "She offers to bring drinks, but he says they can buy them at a shop near the sea.",
+    "She thinks of the camera, but he will bring his new one.",
+    "Her last decision: みんなであそべるボールを持っていくね."
+   ]
+  }
+ }
+}

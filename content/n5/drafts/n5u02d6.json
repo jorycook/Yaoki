@@ -1,0 +1,416 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "To tell this unit's points apart, ask what the blank is about: a thing or a person or animal (あります or います), a new thing or one already named (〜に〜があります or 〜は〜にあります), a place or a thing (ここ or これ), a price or a number of things (いくら or いくつ), and about what time or about how long (ごろ or ぐらい).",
+   "forms": [
+    {
+     "form": "あります／います",
+     "tag": "もの・ひとやどうぶつ · thing or living thing",
+     "mark": "dot",
+     "ja": "[外|そと]に[木|き]{があります}。[木|き]の[下|した]に[子|こ]ども{がいます}。",
+     "en": "There is a tree outside. There is a child under the tree."
+    },
+    {
+     "form": "〜に〜があります／〜は〜にあります",
+     "tag": "あたらしい・しっている · new thing or known thing",
+     "mark": "dot",
+     "ja": "[五|ご]かい{に}レストラン{が}あります。レストラン{は}[五|ご]かい{に}あります。",
+     "en": "There is a restaurant on the fifth floor. The restaurant is on the fifth floor."
+    },
+    {
+     "form": "〜ごろ／〜ぐらい",
+     "tag": "なんじ・どのぐらい · what time or how long",
+     "mark": "dot",
+     "ja": "[九時|くじ]{ごろ}ホテルを[出|で]ます。[駅|えき]まで[五分|ごふん]{ぐらい}です。",
+     "en": "I leave the hotel around nine. It is about five minutes to the station."
+    }
+   ],
+   "check": {
+    "id": "n5u02d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "ホテルで",
+    "q": "ロビーに^[山川|やまかわ]さん^が（　　）よ。",
+    "options": [
+     "あります",
+     "います",
+     "です"
+    ],
+    "answer": 2,
+    "why": [
+     "あります is for things. 山川さん is a person.",
+     "山川さん is a person, so います: \"Mr. Yamakawa is in the lobby.\"",
+     "ロビーに already says where, so the sentence needs a verb for being there. 山川さんがですよ is not Japanese."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u02d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[電話|でんわ]^は[一|いっ]かいの[入口|いりぐち]の[右|みぎ]に（　　）。",
+    "options": [
+     "あります",
+     "います",
+     "です",
+     "など"
+    ],
+    "answer": 1,
+    "why": [
+     "A phone is a thing, and 電話は〜にあります says where the phone is.",
+     "います is for people and animals. A phone is a thing.",
+     "右に needs a verb after it. With です you would say 右です, without に.",
+     "など comes after a list of things, as in 本やノートなど. It cannot take the place of the verb."
+    ]
+   },
+   {
+    "id": "n5u02d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the question word",
+    "q": "A：このホテルには、へやが（　　）ありますか。B：^[百|ひゃく]ぐらい^あります。",
+    "options": [
+     "いくら",
+     "いくつ",
+     "[何時|なんじ]ごろ",
+     "どこに"
+    ],
+    "answer": 2,
+    "why": [
+     "いくら asks a price. B answers with a number of rooms.",
+     "B says about a hundred, so A asked how many: いくつ.",
+     "何時ごろ asks about what time. 百ぐらい is not a time.",
+     "どこに asks where. B answers how many, not where."
+    ]
+   },
+   {
+    "id": "n5u02d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：リンさんはどこにいますか。B：（　　）にいますよ。^あのまどの[前|まえ]^です。",
+    "options": [
+     "あれ",
+     "こちら",
+     "あそこ",
+     "あの"
+    ],
+    "answer": 3,
+    "why": [
+     "あれ points at a thing, not a place. You cannot be \"in\" あれ here.",
+     "こちら points to the speaker's side, but B says あのまど, a window far from both people.",
+     "Lin is by a window far from both people (あの), so B points at that place: あそこ.",
+     "あの needs a noun right after it, as in あのまど. It cannot come before に."
+    ]
+   },
+   {
+    "id": "n5u02d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particle",
+    "q": "ホテルのへやの[中|なか]（　　）テレビやれいぞうこが^あります^。",
+    "options": [
+     "で",
+     "に",
+     "を",
+     "が"
+    ],
+    "answer": 2,
+    "why": [
+     "で marks the place where you do something. あります says where a thing is, so it takes に.",
+     "With あります, the place where things are takes に: へやの中に.",
+     "を marks the thing an action is done to. あります is not that kind of verb.",
+     "が already comes after テレビやれいぞうこ. へやの中 is the place, not the thing that is there."
+    ]
+   },
+   {
+    "id": "n5u02d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A：[山川|やまかわ]さんはどこにいますか。B：",
+    "after": "よ。",
+    "tiles": [
+     "[外|そと]の",
+     "[車|くるま]の",
+     "[中|なか]に",
+     "います"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "Which car? Then where in the car? A person comes last with います.",
+    "full": "A：[山川|やまかわ]さんはどこにいますか。B：[外|そと]の[車|くるま]{の[中|なか]}に{います}よ。",
+    "explain": "外の車 is the car outside. 車の中に is inside the car. 山川さん is a person, so います comes last: he is in the car outside."
+   },
+   {
+    "id": "n5u02d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[一|いっ]かいの",
+    "after": "があります。",
+    "tiles": [
+     "[店|みせ]",
+     "の[中|なか]に",
+     "パンや",
+     "[水|みず]など"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "First say the place, then list what is there.",
+    "full": "[一|いっ]かいの[店|みせ]{の[中|なか]に}パン{や}[水|みず]{など}があります。",
+    "explain": "一かいの店 is the shop on the first floor, and の中に says inside it. Then the list: パンや comes first and 水など closes it, right before があります."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u02d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ホテルの　ロビーに　だれ（　　）　いますか。",
+    "options": [
+     "が",
+     "は",
+     "を",
+     "で"
+    ],
+    "answer": 1,
+    "explain": "ロビーに　だれが　いますか asks who is in the lobby: the person who is there takes が. だれ is a question word, and a question word does not take は. を marks the thing an action is done to, and います has none. で marks where you do something; here the place already has に."
+   },
+   {
+    "id": "n5u02d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「ホテルから　駅まで　どのぐらい　かかりますか。」\nB「十五分（　　）です。」",
+    "options": [
+     "ごろ",
+     "ぐらい",
+     "いくら",
+     "など"
+    ],
+    "answer": 2,
+    "explain": "A asks how long it takes, so B gives about how long: 十五分ぐらい. ごろ goes with a point in time, like 九時ごろ, not with how long something takes. いくら asks a price. など comes after a list of things."
+   },
+   {
+    "id": "n5u02d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「トイレは　どこに　ありますか。」B「",
+    "after": "ありますよ。」",
+    "tiles": [
+     "あそこの",
+     "エレベーターの",
+     "右",
+     "に"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "A「トイレは　どこに　ありますか。」B「あそこの　エレベーターの　{右}に　ありますよ。」",
+    "explain": "あそこの, エレベーターの, 右, に. あそこの points at the elevator over there, エレベーターの右 is to the right of it, and に comes after the position word, right before あります."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "ビルのあんないばん",
+  "en": "The floor guide in an office building",
+  "intro": "Tap each word on the floor guide by the elevator.",
+  "words": [
+   {
+    "id": "1st floor",
+    "word": "一かい",
+    "reading": "いっかい",
+    "gloss": "first floor (street level)",
+    "parts": [
+     [
+      "一",
+      "イッ",
+      "one"
+     ]
+    ]
+   },
+   {
+    "id": "5th floor",
+    "word": "五かい",
+    "reading": "ごかい",
+    "gloss": "fifth floor",
+    "parts": [
+     [
+      "五",
+      "ゴ",
+      "five"
+     ]
+    ]
+   },
+   {
+    "id": "phone",
+    "word": "電話",
+    "reading": "でんわ",
+    "gloss": "telephone",
+    "parts": [
+     [
+      "電",
+      "デン",
+      "electricity"
+     ],
+     [
+      "話",
+      "ワ",
+      "talk"
+     ]
+    ]
+   },
+   {
+    "id": "men",
+    "word": "男",
+    "reading": "おとこ",
+    "gloss": "men (on a toilet door)",
+    "parts": [
+     [
+      "男",
+      "おとこ",
+      "man"
+     ]
+    ]
+   },
+   {
+    "id": "women",
+    "word": "女",
+    "reading": "おんな",
+    "gloss": "women (on a toilet door)",
+    "parts": [
+     [
+      "女",
+      "おんな",
+      "woman"
+     ]
+    ]
+   },
+   {
+    "id": "company",
+    "word": "会社",
+    "reading": "かいしゃ",
+    "gloss": "company, office",
+    "parts": [
+     [
+      "会",
+      "カイ",
+      "meet"
+     ],
+     [
+      "社",
+      "シャ",
+      "company"
+     ]
+    ]
+   },
+   {
+    "id": "east exit",
+    "word": "東口",
+    "reading": "ひがしぐち",
+    "gloss": "east entrance or exit",
+    "parts": [
+     [
+      "東",
+      "ひがし",
+      "east"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   },
+   {
+    "id": "west exit",
+    "word": "西口",
+    "reading": "にしぐち",
+    "gloss": "west entrance or exit",
+    "parts": [
+     [
+      "西",
+      "にし",
+      "west"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, opening"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u02d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "ビルの　_西口_の　前に　電話が　あります。",
+   "options": [
+    "ひがしぐち",
+    "にしぐち",
+    "にしくち",
+    "せいぐち"
+   ],
+   "answer": 2,
+   "explain": "西口 is にしぐち: 西 (にし, west) and 口, which becomes ぐち after にし. ひがしぐち is 東口, the east side. にしくち misses the change from く to ぐ, and せいぐち is not a word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which floor of the building do you need?",
+  "seconds": 90,
+  "passage": "さくらビル\n五かい　山川会社\n四かい　^日本語学校^\n三かい　レストラン（午前十一時から　午後十時まで）\n二かい　^本や^、カメラの　店\n一かい　きっさてん、電話\n※　トイレは　二かいと　四かいに　あります。",
+  "strategy": "Look for the shop that sells books, 本や, and do not stop at the first line with 日本語.",
+  "item": {
+   "id": "n5u02d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "リーさんは　日本語の　本を　買いたいです。何かいへ　行きますか。",
+   "options": [
+    "一かい",
+    "二かい",
+    "四かい",
+    "五かい"
+   ],
+   "short": [
+    "1かい",
+    "2かい",
+    "4かい",
+    "5かい"
+   ],
+   "answer": 2,
+   "explain": "Books are sold at a 本や, and the guide puts the 本や on the second floor. The fourth floor has 日本語 in its name, but it is a school, not a shop.",
+   "why": [
+    "The first floor has a café and a phone, not books.",
+    "",
+    "四かい is a Japanese school. It has 日本語 in its name, but it does not sell books.",
+    "The fifth floor is a company office."
+   ]
+  }
+ }
+}

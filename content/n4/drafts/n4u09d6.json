@@ -1,0 +1,440 @@
+{
+  "title": "まとめ：似ている文法",
+  "grammar": {
+    "points": [],
+    "compare": {
+      "intro": "To tell this unit's forms apart, ask who acts: respect forms like お〜になる raise the other person's action and humble forms like お〜する lower your own, てくださる marks the kind person with が while ていただく marks them with に, お〜ください asks the listener to do something while お〜します says you will do it, and でございます is a very polite です while ております is a humble ています.",
+      "forms": [
+        {
+          "form": "お〜になる",
+          "tag": "そんけい · they do it (respect)",
+          "mark": "dot",
+          "ja": "おきゃくさまが、ロビーでお[待|ま]ち{になっています}。",
+          "en": "The guest is waiting in the lobby."
+        },
+        {
+          "form": "お〜する",
+          "tag": "けんじょう · I do it (humble)",
+          "mark": "dot",
+          "ja": "では、わたしが[正門|せいもん]の前でお[待|ま]ち{します}。",
+          "en": "Then I will wait for you in front of the main gate."
+        },
+        {
+          "form": "お〜ください",
+          "tag": "おねがい · please do it (request)",
+          "mark": "dot",
+          "ja": "こちらのいすで、少しお[待|ま]ち{ください}。",
+          "en": "Please wait a moment on this chair."
+        }
+      ],
+      "check": {
+        "id": "n4u09d6.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "会社のげんかんで",
+        "q": "おきゃくさま、^どうぞ^、こちらのスリッパを（　　）。",
+        "options": [
+          "お[使|つか]いします",
+          "お[使|つか]いになります",
+          "お[使|つか]いください"
+        ],
+        "answer": 3,
+        "why": [
+          "お〜します is humble: the speaker would be the one using the slippers. The speaker is offering them to the guest.",
+          "お〜になります raises the guest, but it only states what the guest will do. After どうぞ, the speaker is inviting the guest to use them, so it needs a request.",
+          "どうぞ offers the slippers, and the guest is the one who uses them, so the polite request お〜ください: Please, do use these slippers."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u09d6.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^となりの[田中|たなか]さんが^、わたしに[野菜|やさい]をたくさん分けて（　　）。",
+        "options": [
+          "いただきました",
+          "くださいました",
+          "さしあげました",
+          "おりました"
+        ],
+        "answer": 2,
+        "why": [
+          "ていただく marks the kind person with に: [田中|たなか]さんに…分けていただきました. Here [田中|たなか]さん has が.",
+          "[田中|たなか]さん (が) did something kind for me (わたしに), so てくださいました: Mr Tanaka next door kindly gave me lots of vegetables.",
+          "てさしあげる is for doing something for a person you respect. Here the vegetables come to わたし, so it does not fit.",
+          "ておる is humble, for yourself or your own side, not for a neighbour. 分けておりました also says nothing about a kindness to me."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u09d6.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "（駅で）^おきゃくさまは^、どの電車に（　　）か。",
+        "options": [
+          "お[乗|の]りします",
+          "お[乗|の]りください",
+          "お[乗|の]りになります",
+          "[乗|の]っております"
+        ],
+        "answer": 3,
+        "why": [
+          "お〜します is humble: the speaker does it. Here the customer is the one who rides.",
+          "お〜ください asks someone to do something. It does not make a question with か.",
+          "The customer is the one who rides, so the respect form お〜になります: Which train will you take?",
+          "ておる is humble, so it cannot raise a customer. [乗|の]っております would also talk about riding now, not about which train they will take."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u09d6.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "（会社で）おきゃくさま、タクシーが来たら、^わたしが^（　　）。",
+        "options": [
+          "およびください",
+          "およびになります",
+          "よんでください",
+          "およびします"
+        ],
+        "answer": 4,
+        "why": [
+          "お〜ください asks the guest to call, but わたしが says the speaker will do it.",
+          "お〜になる raises the person who acts. You never use it for yourself, and here わたしが is the one who calls.",
+          "てください also asks the listener to do it, but わたしが says the speaker will call.",
+          "わたしが shows the speaker acts, so the humble お〜します: When the taxi comes, I will call you."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u09d6.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：すみません、[山田|やまだ]さんはいらっしゃいますか。B：はい、^わたしが^[山田|やまだ]（　　）。",
+        "options": [
+          "でございます",
+          "でいらっしゃいます",
+          "ております",
+          "でおります"
+        ],
+        "answer": 1,
+        "why": [
+          "でございます is a very polite です, and you can use it about yourself: Yes, I am Yamada.",
+          "でいらっしゃいます is the respect form of です. It raises the person, so you never use it about yourself.",
+          "ております follows the te-form of a verb, not a name.",
+          "わたしが[山田|やまだ]でおります is not said. おります is the humble いる; to say who you are politely, use でございます."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u09d6.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "（うけつけで）",
+        "after": "、こちらでお[待|ま]ちください。",
+        "tiles": [
+          "社長に",
+          "お会いに",
+          "なる",
+          "[方|かた]は"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "The guests are the ones who meet the president, so their action takes お〜になる. お[待|ま]ちください at the end asks them to wait.",
+        "full": "（うけつけで）社長に{お会いに}なる[方|かた]は、こちらでお[待|ま]ちください。",
+        "explain": "社長に, お会いに, なる, [方|かた]は. 社長に goes with お会いになる, the respect form for what the guests do, and お会いになる describes [方|かた]は. Then お[待|ま]ちください asks those people to wait: Those who are meeting the president, please wait here."
+      },
+      {
+        "id": "n4u09d6.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "わたしは、",
+        "after": "[働|はたら]いております。",
+        "tiles": [
+          "先生に",
+          "しょうかいして",
+          "いただいた",
+          "会社で"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "hint": "に marks the teacher, so the favour verb is いただいた, not くださった. ております at the end is the humble ています for my own action.",
+        "full": "わたしは、先生に{しょうかいして}いただいた会社で[働|はたら]いております。",
+        "explain": "先生に, しょうかいして, いただいた, 会社で. 先生に goes with ていただいた, and しょうかいしていただいた describes 会社. 会社で then goes with [働|はたら]いております, my own action in humble form: I work at a company my teacher kindly introduced me to."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u09d6.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "Ａ「先生は　この　ニュースを　もう　（　　）か。」　Ｂ「ええ、けさ　テレビで　見ました。」",
+        "options": [
+          "はいけんしました",
+          "お見に　なりました",
+          "ごらんに　なりました",
+          "お見せしました"
+        ],
+        "answer": 3,
+        "explain": "A asks about the teacher's action, so the respect form ごらんに　なりました: Have you already seen this news? はいけんしました is humble, for your own action. 見る has its own respect verb ごらんに　なる, so お見に　なりました is not said. お見せしました means 'I showed', which is not what A asks."
+      },
+      {
+        "id": "n4u09d6.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "Ａ「この　かさ、田中さんのですね。」　Ｂ「ええ。わたしが　あとで　（　　）。」",
+        "options": [
+          "おかえしください",
+          "おかえしに　なります",
+          "かえして　いらっしゃいます",
+          "おかえしします"
+        ],
+        "answer": 4,
+        "explain": "わたしが shows that B will give the umbrella back to Mr Tanaka, so the humble おかえしします: I will return it to him later. おかえしください asks someone else to return it. おかえしに　なります and かえして　いらっしゃいます are respect forms, which are never used for your own action."
+      },
+      {
+        "id": "n4u09d6.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "先生が　",
+        "after": "　して　おります。",
+        "tiles": [
+          "書いて",
+          "くださった",
+          "手紙は",
+          "大切に"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "full": "先生が　書いて　くださった　{手紙は}　大切に　して　おります。",
+        "explain": "書いて, くださった, 手紙は, 大切に. 先生が goes with 書いて　くださった, which describes 手紙. 大切に goes with して　おります, the humble ています for my own action: I take good care of the letter my teacher kindly wrote me."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "会社見学のごあんない",
+    "en": "A notice for a company tour",
+    "intro": "Tap each word on the company's notice about its factory tour.",
+    "words": [
+      {
+        "id": "tour",
+        "word": "見学",
+        "reading": "けんがく",
+        "gloss": "tour, visit to learn",
+        "parts": [
+          [
+            "見",
+            "ケン",
+            "see"
+          ],
+          [
+            "学",
+            "ガク",
+            "learn"
+          ]
+        ]
+      },
+      {
+        "id": "factory",
+        "word": "工場",
+        "reading": "こうじょう",
+        "gloss": "factory",
+        "parts": [
+          [
+            "工",
+            "コウ",
+            "craft, work"
+          ],
+          [
+            "場",
+            "ジョウ",
+            "place"
+          ]
+        ]
+      },
+      {
+        "id": "meeting-up",
+        "word": "集合",
+        "reading": "しゅうごう",
+        "gloss": "meeting up, gathering",
+        "parts": [
+          [
+            "集",
+            "シュウ",
+            "gather"
+          ],
+          [
+            "合",
+            "ゴウ",
+            "fit, join"
+          ]
+        ]
+      },
+      {
+        "id": "main-gate",
+        "word": "正門",
+        "reading": "せいもん",
+        "gloss": "main gate",
+        "parts": [
+          [
+            "正",
+            "セイ",
+            "correct, main"
+          ],
+          [
+            "門",
+            "モン",
+            "gate"
+          ]
+        ]
+      },
+      {
+        "id": "start",
+        "word": "開始",
+        "reading": "かいし",
+        "gloss": "start",
+        "parts": [
+          [
+            "開",
+            "カイ",
+            "open"
+          ],
+          [
+            "始",
+            "シ",
+            "begin"
+          ]
+        ]
+      },
+      {
+        "id": "explanation",
+        "word": "説明",
+        "reading": "せつめい",
+        "gloss": "explanation",
+        "parts": [
+          [
+            "説",
+            "セツ",
+            "explain"
+          ],
+          [
+            "明",
+            "メイ",
+            "clear"
+          ]
+        ]
+      },
+      {
+        "id": "staff",
+        "word": "社員",
+        "reading": "しゃいん",
+        "gloss": "company staff, employee",
+        "parts": [
+          [
+            "社",
+            "シャ",
+            "company"
+          ],
+          [
+            "員",
+            "イン",
+            "member"
+          ]
+        ]
+      },
+      {
+        "id": "lunch",
+        "word": "昼食",
+        "reading": "ちゅうしょく",
+        "gloss": "lunch",
+        "parts": [
+          [
+            "昼",
+            "チュウ",
+            "noon"
+          ],
+          [
+            "食",
+            "ショク",
+            "eat"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n4u09d6.k1",
+      "kind": "choice",
+      "type": "文脈規定",
+      "label": "How the exam asks it",
+      "q": "あしたは　朝　九時に　正門の　前に　（　　）して　ください。",
+      "options": [
+        "見学",
+        "開始",
+        "集合",
+        "説明"
+      ],
+      "answer": 3,
+      "explain": "集合する is to meet up at a set place, and 正門の　前に gives that place: please gather in front of the main gate at nine tomorrow. 見学する takes a place with を (工場を　見学する), 開始する needs a thing that starts, and 説明する needs something to explain, so none of them fits 正門の　前に."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "情報検索",
+    "en": "Finding information",
+    "ask": "Which day can Hayashi bring fifteen colleagues for the tour and bread making?",
+    "seconds": 90,
+    "passage": "みどり食品　工場見学の　ごあんない\n月曜日　工場見学だけ　　　　　　　二十人まで\n水曜日　工場見学と　パンづくり　　十人まで\n^金曜日　工場見学と　パンづくり　　二十人まで^\n土曜日　工場見学だけ　　　　　　　三十人まで\n※どの日も　午前十時に　正門に　お集まりください。\n※^パンづくりは　水曜日と　金曜日だけ　ございます^。\n※見学を　なさる　方は、一週間前までに　お電話ください。",
+    "strategy": "First find the days with bread making, then check how many people each of those days can take.",
+    "item": {
+      "id": "n4u09d6.r1",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "q": "林さんは　会社の　人　十五人と　いっしょに、工場見学と　パンづくりを　したいです。何曜日に　行きますか。",
+      "options": [
+        "月曜日",
+        "水曜日",
+        "金曜日",
+        "土曜日"
+      ],
+      "short": [
+        "月曜日",
+        "水曜日",
+        "金曜日",
+        "土曜日"
+      ],
+      "answer": 3,
+      "explain": "Bread making is only on Wednesday and Friday. Hayashi's group is sixteen people, and Wednesday takes only ten, so Friday, which takes up to twenty, is the day.",
+      "why": [
+        "Monday is the tour only, with no bread making.",
+        "Wednesday has bread making, but only ten people can come, and the group is sixteen.",
+        "",
+        "Saturday takes thirty people, but it is the tour only, with no bread making."
+      ]
+    }
+  }
+}

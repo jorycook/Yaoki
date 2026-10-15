@@ -1,0 +1,536 @@
+{
+ "title": "〜ながら・〜うちに",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u06d5.p1",
+    "form": "〜ながら",
+    "gloss": "while (doing two things at once)",
+    "connect": [
+     {
+      "pos": "Verb, ます form without ます",
+      "rule": "[歌|うた]います → [歌|うた]い{ながら}"
+     },
+     {
+      "pos": "The main action comes last, after the comma",
+      "rule": "〜{ながら}、[料理|りょうり]をします"
+     },
+     {
+      "pos": "One person does both actions",
+      "rule": "わたしは〜{ながら}、〜ます"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "[音楽|おんがく]を聞き{ながら}、[料理|りょうり]をします。",
+      "en": "I cook while listening to music."
+     },
+     {
+      "ja": "父はいつもテレビを見{ながら}、ごはんを食べます。",
+      "en": "My father always eats while watching TV."
+     }
+    ],
+    "watch": {
+     "note": "The same person does both actions. When two different people do things at the same time, ながら cannot join them; use 間 (unit 6, day 3).",
+     "bad": "母が料理をしながら、わたしはしゅくだいをしました。",
+     "good": "母が料理をしている間、わたしはしゅくだいをしていました。"
+    }
+   },
+   {
+    "id": "n4u06d5.p2",
+    "form": "〜うちに",
+    "gloss": "while it lasts; before it changes",
+    "connect": [
+     {
+      "pos": "い-adjective",
+      "rule": "あたたかい{うちに}、わかい{うちに}"
+     },
+     {
+      "pos": "な-adjective + な, or noun + の",
+      "rule": "[元気|げんき]な{うちに}、子どもの{うちに}"
+     },
+     {
+      "pos": "Verb, ない form (before something happens)",
+      "rule": "[暗|くら]くならない{うちに}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "スープがあたたかい{うちに}、飲んでください。",
+      "en": "Please have the soup while it is still hot."
+     },
+     {
+      "ja": "[暗|くら]くならない{うちに}、[家|いえ]に[帰|かえ]りましょう。",
+      "en": "Let's go home before it gets dark."
+     }
+    ],
+    "watch": {
+     "note": "The part before うちに stays in the non-past form, even when the sentence is about the past: わかいうちに, not わかかったうちに.",
+     "bad": "わかかったうちに、いろいろな国へ行きました。",
+     "good": "わかいうちに、いろいろな国へ行きました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three talk about time: ながら joins two actions at once, うちに says do it before a state ends, and 間に says something happens inside a period.",
+   "forms": [
+    {
+     "form": "〜ながら",
+     "tag": "同時に · at the same time",
+     "mark": "dot",
+     "ja": "[地図|ちず]を見{ながら}、[歩|ある]きました。",
+     "en": "I walked while looking at the map."
+    },
+    {
+     "form": "〜うちに",
+     "tag": "かわる前に · while it lasts",
+     "mark": "dot",
+     "ja": "雨がふらない{うちに}、[帰|かえ]りましょう。",
+     "en": "Let's go back before it starts raining."
+    },
+    {
+     "form": "〜間に",
+     "tag": "その時間の中で · during",
+     "mark": "dot",
+     "ja": "[昼休|ひるやす]みの{間に}、[銀行|ぎんこう]へ行きました。",
+     "en": "I went to the bank during the lunch break."
+    }
+   ],
+   "check": {
+    "id": "n4u06d5.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which one fits?",
+    "q": "ラジオを聞き（　　）、^[料理|りょうり]をしました^。",
+    "options": [
+     "ながら",
+     "うちに",
+     "間に"
+    ],
+    "answer": 1,
+    "why": [
+     "聞き is the ます form without ます, which is the shape ながら joins: I cooked while listening to the radio.",
+     "うちに does not join the ます form without ます. It follows an adjective, a noun + の, or a verb such as 聞かない or 聞いている.",
+     "間に does not join the ます form without ます. It follows a noun + の or a verb such as 聞いている, and it means at some point during that time."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u06d5.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[兄|あに]はいつも[音楽|おんがく]を（　　）、^[勉強|べんきょう]します^。",
+    "options": [
+     "聞くながら",
+     "聞いてながら",
+     "聞きながら",
+     "聞いたながら"
+    ],
+    "answer": 3,
+    "why": [
+     "ながら does not join the dictionary form. Take the ます form 聞きます and drop ます.",
+     "ながら does not join the te-form.",
+     "聞きます without ます is 聞き, and ながら joins it: he always studies while listening to music.",
+     "ながら does not join the た form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d5.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^あぶないですから^、[自転車|じてんしゃ]に（　　）、[電話|でんわ]を[使|つか]わないでください。",
+    "options": [
+     "[乗|の]るまで",
+     "[乗|の]りながら",
+     "[乗|の]る前に",
+     "[乗|の]らないうちに"
+    ],
+    "answer": 2,
+    "why": [
+     "Not using the phone until you get on the bike has nothing to do with danger.",
+     "Using a phone while riding a bike is dangerous, so do not do both at once: ながら.",
+     "Using a phone before you get on the bike is not dangerous, so あぶないですから does not fit.",
+     "Before you get on the bike there is no danger, so this does not fit あぶないですから."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d5.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "スープが（　　）、^どうぞ飲んでください^。",
+    "options": [
+     "あたたかくて",
+     "あたたかいまで",
+     "あたたかいながら",
+     "あたたかいうちに"
+    ],
+    "answer": 4,
+    "why": [
+     "A reason with the て form cannot be followed by a request like 飲んでください.",
+     "まで does not follow an adjective like this. It follows a verb or a noun.",
+     "ながら for two things at once joins a verb's ます form without ます. あたたかい is not an action.",
+     "The soup is hot now and will get cold, so drink it while it is hot: あたたかいうちに."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d5.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[暗|くら]く（　　）、^[早|はや]く^[家|いえ]に[帰|かえ]りましょう。",
+    "options": [
+     "ならないうちに",
+     "なりながら",
+     "なったうちに",
+     "ならないながら"
+    ],
+    "answer": 1,
+    "why": [
+     "Let's go home soon, before it gets dark: ならないうちに.",
+     "ながら needs one person doing two actions. It getting dark and us going home are not that.",
+     "うちに does not follow the た form. Use the ない form: ならないうちに.",
+     "ながら does not join the ない form."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d5.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[姉|あね]はいつも",
+    "after": "。",
+    "tiles": [
+     "[歌|うた]を",
+     "[歌|うた]いながら",
+     "[料理|りょうり]を",
+     "します"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "The main action comes last. ながら goes on the action done along with it.",
+    "full": "[姉|あね]はいつも[歌|うた]を[歌|うた]いながら[料理|りょうり]をします。",
+    "explain": "歌を goes with 歌いながら (while singing songs). The main action, 料理をします, comes last: my sister always cooks while singing."
+   },
+   {
+    "id": "n4u06d5.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "",
+    "after": "ください。",
+    "tiles": [
+     "[野菜|やさい]が",
+     "[新|あたら]しい",
+     "うちに",
+     "[使|つか]って"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "What is new now but will not stay new? うちに comes right after it.",
+    "full": "[野菜|やさい]が[新|あたら]しい{うちに}[使|つか]ってください。",
+    "explain": "野菜が新しい is the state that will not last, so うちに comes right after it. 使って joins ください: please use the vegetables while they are fresh."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u06d5.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母は　いつも　歌を（　　）、そうじを　します。",
+    "options": [
+     "歌うながら",
+     "歌いながら",
+     "歌いうちに",
+     "歌ってながら"
+    ],
+    "answer": 2,
+    "explain": "ながら joins the ます form without ます: 歌います becomes 歌いながら. My mother always cleans while singing. 歌うながら uses the dictionary form and 歌ってながら the te-form, which ながら does not join. うちに does not join 歌い."
+   },
+   {
+    "id": "n4u06d5.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨が　ふらない（　　）、せんたくものを　入れましょう。",
+    "options": [
+     "ながら",
+     "のに",
+     "までに",
+     "うちに"
+    ],
+    "answer": 4,
+    "explain": "Bring the washing in before it starts to rain: ふらないうちに. ながら does not join the ない form. のに (although) cannot be followed by ましょう. までに does not follow the ない form."
+   },
+   {
+    "id": "n4u06d5.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "クッキーが　",
+    "after": "食べましょう。",
+    "tiles": [
+     "やけたら",
+     "まだ",
+     "あたたかい",
+     "うちに"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "クッキーが　やけたら　まだ　あたたかい　{うちに}　食べましょう。",
+    "explain": "やけたら, まだ, あたたかい, うちに. クッキーが goes with やけたら (when the cookies are baked). まだ comes before あたたかい (still warm), and うちに follows あたたかい: let's eat them while they are still warm."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "カレーの　作り方",
+  "en": "A recipe card for curry",
+  "intro": "A recipe card for beef curry is stuck on the kitchen wall. Tap each word on it.",
+  "words": [
+   {
+    "id": "recipe",
+    "word": "作り方",
+    "reading": "つくりかた",
+    "gloss": "how to make, recipe",
+    "parts": [
+     [
+      "作",
+      "つく",
+      "make"
+     ],
+     [
+      "方",
+      "かた",
+      "way"
+     ]
+    ]
+   },
+   {
+    "id": "prepare",
+    "word": "用意",
+    "reading": "ようい",
+    "gloss": "getting ready",
+    "parts": [
+     [
+      "用",
+      "ヨウ",
+      "use, task"
+     ],
+     [
+      "意",
+      "イ",
+      "mind, meaning"
+     ]
+    ]
+   },
+   {
+    "id": "vegetables",
+    "word": "野菜",
+    "reading": "やさい",
+    "gloss": "vegetables",
+    "parts": [
+     [
+      "野",
+      "ヤ",
+      "field"
+     ],
+     [
+      "菜",
+      "サイ",
+      "greens"
+     ]
+    ]
+   },
+   {
+    "id": "beef",
+    "word": "牛肉",
+    "reading": "ぎゅうにく",
+    "gloss": "beef",
+    "parts": [
+     [
+      "牛",
+      "ギュウ",
+      "cow"
+     ],
+     [
+      "肉",
+      "ニク",
+      "meat"
+     ]
+    ]
+   },
+   {
+    "id": "wash",
+    "word": "洗う",
+    "reading": "あらう",
+    "gloss": "wash",
+    "parts": [
+     [
+      "洗",
+      "あら",
+      "wash"
+     ]
+    ]
+   },
+   {
+    "id": "cut",
+    "word": "切る",
+    "reading": "きる",
+    "gloss": "cut",
+    "parts": [
+     [
+      "切",
+      "き",
+      "cut"
+     ]
+    ]
+   },
+   {
+    "id": "lowheat",
+    "word": "弱火",
+    "reading": "よわび",
+    "gloss": "low heat",
+    "parts": [
+     [
+      "弱",
+      "よわ",
+      "weak"
+     ],
+     [
+      "火",
+      "び",
+      "fire"
+     ]
+    ]
+   },
+   {
+    "id": "taste",
+    "word": "味",
+    "reading": "あじ",
+    "gloss": "taste, flavour",
+    "parts": [
+     [
+      "味",
+      "あじ",
+      "taste"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n4u06d5.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "なべに　ふたを　して、_弱火_で　にて　ください。",
+   "options": [
+    "じゃくか",
+    "よわひ",
+    "よわび",
+    "よはび"
+   ],
+   "answer": 3,
+   "explain": "弱火 is read よわび, low heat: put the lid on the pot and simmer on low heat. ひ becomes び after よわ. じゃくか uses the on readings, よわひ misses the change to び, and よはび has は instead of わ."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "発話表現",
+  "en": "Expressions",
+  "situation": "At home, a woman puts a plate of curry she has just cooked, still steaming, in front of her friend at the table.",
+  "ask": "作った　ばかりの　カレーを　友だちに　出します。何と　いいますか。",
+  "item": {
+   "id": "n4u06d5.r1",
+   "kind": "choice",
+   "type": "発話表現",
+   "q": "作った　ばかりの　カレーを　友だちに　出します。何と　いいますか。",
+   "script": [
+    "ナレーター：作った　ばかりの　カレーを　友だちに　出します。何と　いいますか。",
+    "ナレーター：1",
+    "女：いただきます。",
+    "ナレーター：2",
+    "女：あたたかく　なったら、食べて　ください。",
+    "ナレーター：3",
+    "女：あたたかい　うちに、食べて　ください。"
+   ],
+   "options": [
+    "いただきます。",
+    "あたたかく　なったら、食べて　ください。",
+    "あたたかい　うちに、食べて　ください。"
+   ],
+   "printed": false,
+   "short": [
+    "いただきます",
+    "あたたかくなったら",
+    "あたたかいうちに"
+   ],
+   "answer": 3,
+   "why": [
+    "いただきます is said by the person who is about to eat, not by the cook serving the food.",
+    "The curry is just made, so it is already hot. Telling the friend to wait until it gets warm makes no sense.",
+    ""
+   ]
+  },
+  "audio": [
+   [
+    "N",
+    "作った　ばかりの　カレーを　友だちに　出します。何と　いいますか。",
+    "つくった　ばかりの　カレーを　ともだちに　だします。なんと　いいますか。"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "F",
+    "いただきます。",
+    null
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "F",
+    "あたたかく　なったら、食べて　ください。",
+    "あたたかく　なったら、たべて　ください。"
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "F",
+    "あたたかい　うちに、食べて　ください。",
+    "あたたかい　うちに、たべて　ください。"
+   ]
+  ]
+ }
+}

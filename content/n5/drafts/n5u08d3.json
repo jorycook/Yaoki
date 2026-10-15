@@ -1,0 +1,264 @@
+{
+ "title": "〜くなる・〜になる",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u08d3.p1",
+    "form": "〜くなります",
+    "gloss": "become … (い adjective)",
+    "connect": [
+     {"pos": "い adjective: change the last い to く", "rule": "さむい → さむ{くなります}"},
+     {"pos": "いい is special: it becomes よく", "rule": "いい → {よくなります}"},
+     {"pos": "Past: it has changed and is like that now", "rule": "[高|たか]い → [高|たか]{くなりました}"}
+    ],
+    "examples": [
+     {"ja": "[外|そと]がくら{くなりました}ね。", "en": "It's got dark outside, hasn't it."},
+     {"ja": "くすりを[飲|の]みましたから、{よくなりました}。", "en": "I took some medicine, so I got better."}
+    ],
+    "watch": {
+     "note": "Take off the last い and add く. Do not keep the い and add に.",
+     "bad": "いぬが大きいになりました。",
+     "good": "いぬが大きくなりました。"
+    }
+   },
+   {
+    "id": "n5u08d3.p2",
+    "form": "〜になります",
+    "gloss": "become … (な adjective, noun)",
+    "connect": [
+     {"pos": "な adjective: no な, add に", "rule": "しずか → しずか{になります}"},
+     {"pos": "〜 is a noun", "rule": "〜{になります}（[先生|せんせい]{になりたいです}）"},
+     {"pos": "〜 is a time or an age", "rule": "[十時|じゅうじ]{になりました}"}
+    ],
+    "examples": [
+     {"ja": "よるは、この[道|みち]もしずか{になります}。", "en": "At night, this street gets quiet too."},
+     {"ja": "わたしは[先生|せんせい]{になりたいです}。", "en": "I want to become a teacher."}
+    ],
+    "watch": {
+     "note": "げんき ends in き, but it is a な adjective, so it takes に. げんきく is not a form.",
+     "bad": "子どもはもうげんきくなりました。",
+     "good": "子どもはもうげんきになりました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three can talk about the past, but only なりました says that something changed.",
+   "forms": [
+    {"form": "〜くなりました", "tag": "〜い → 〜く＋なる · became (い adjective)", "mark": "dot", "ja": "コーヒーがつめた{くなりました}。", "en": "The coffee has gone cold."},
+    {"form": "〜になりました", "tag": "〜＋に＋なる · became (な adjective, noun)", "mark": "dot", "ja": "[駅|えき]の[前|まえ]がにぎやか{になりました}。", "en": "The area in front of the station has become lively."},
+    {"form": "〜かったです／〜でした", "tag": "〜かった・〜でした · was (no change)", "mark": "dot", "ja": "きのうはさむ{かったです}。", "en": "It was cold yesterday."}
+   ],
+   "check": {
+    "id": "n5u08d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "ギター",
+    "q": "[前|まえ]はへたでしたが、[今|いま]はじょうず（　　）。",
+    "options": ["になりました", "くなりました", "でした"],
+    "answer": 1,
+    "why": [
+     "Before it was bad, now it is good: a change. じょうず is a な adjective, so it takes に: \"I used to be bad, but now I've got good.\"",
+     "く is for い adjectives such as さむい. じょうず is a な adjective, so じょうずく is not a form.",
+     "でした is the past, but 今は means \"now\". \"Now it was good\" does not work, and it does not show the change either."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u08d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[雨|あめ]がふって、^さむ^（　　）なりました。",
+    "options": ["に", "く", "い", "くて"],
+    "answer": 2,
+    "why": [
+     "に is for な adjectives and nouns. さむい is an い adjective.",
+     "さむい is an い adjective: take off い and add く. \"It rained and it got cold.\"",
+     "The い must change to く before なりました. さむいなりました is not correct.",
+     "くて means \"and\" (さむくて、…). It cannot come right before なりました."
+    ]
+   },
+   {
+    "id": "n5u08d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^くすりを[飲|の]みました^から、かぜはもう（　　）なりました。",
+    "options": ["いく", "よく", "いいに", "よに"],
+    "answer": 2,
+    "why": [
+     "いく is the verb \"go\". It is not a form of いい.",
+     "いい is special: before なります it becomes よく. \"I took medicine, so my cold is already better.\"",
+     "いい is an い adjective, so it does not take に.",
+     "よに is not a form. You need the whole よく."
+    ]
+   },
+   {
+    "id": "n5u08d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは[来年|らいねん]、^[大学生|だいがくせい]^（　　）なります。",
+    "options": ["に", "が", "く", "を"],
+    "answer": 1,
+    "why": [
+     "大学生 is a noun, so it takes に before なります: \"I will become a university student next year.\"",
+     "なります marks what you become with に. 大学生が would make the student the subject, but the subject here is わたし.",
+     "く is for い adjectives. 大学生 is a noun.",
+     "を marks the thing you do something to. なります does not take を."
+    ]
+   },
+   {
+    "id": "n5u08d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[駅|えき]が[新|あたら]しくなって、^きれい^（　　）なりました。",
+    "options": ["く", "に", "な", "で"],
+    "answer": 2,
+    "why": [
+     "きれい ends in い, but it is a な adjective, so きれいく is not a form.",
+     "きれい is a な adjective, so it takes に: \"The station became new and got clean.\"",
+     "な goes before a noun (きれいな駅). It cannot come before なりました.",
+     "で joins two ideas (きれいで、…). It cannot come right before なりました."
+    ]
+   },
+   {
+    "id": "n5u08d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[外|そと]が",
+    "after": "つけましょう。",
+    "tiles": ["くらく", "なりました", "から、", "[電気|でんき]を"],
+    "star": 1,
+    "bank": [3, 1, 0, 2],
+    "hint": "くらい becomes くらく before なりました. から comes right after the reason, and 電気を goes before つけましょう.",
+    "full": "[外|そと]がくら{くなりました}から、[電気|でんき]をつけましょう。",
+    "explain": "くらく, なりました, から、, 電気を. It has got dark, and that is the reason, so から follows なりました: \"It's got dark outside, so let's turn on the light.\""
+   },
+   {
+    "id": "n5u08d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは",
+    "after": "。",
+    "tiles": ["[日本語|にほんご]の", "[先生|せんせい]に", "なり", "たいです"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "日本語の tells what kind of teacher, so it goes before 先生に. たいです joins the ます stem なり.",
+    "full": "わたしは[日本語|にほんご]の[先生|せんせい]{になり}たいです。",
+    "explain": "日本語の, 先生に, なり, たいです. 先生 is a noun, so it takes に before なります, and なりたいです means \"want to become\": \"I want to become a Japanese teacher.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u08d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "へやを　そうじしましたから、　（　　）　なりました。",
+    "options": ["きれいく", "きれいに", "きれいな", "きれいで"],
+    "answer": 2,
+    "explain": "きれい is a な adjective, so it takes に before なりました: \"I cleaned the room, so it got clean.\" きれいく is not a form, even though きれい ends in い. きれいな goes before a noun, and きれいで joins two ideas."
+   },
+   {
+    "id": "n5u08d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この　店の　ケーキは　先月から　百円　（　　）　なりました。",
+    "options": ["高い", "高く", "高かった", "高くて"],
+    "answer": 2,
+    "explain": "高い is an い adjective, so い changes to く before なりました: \"The cake at this shop has gone up by 100 yen since last month.\" 高い and 高かった cannot come right before なりました, and 高くて means \"expensive and …\"."
+   },
+   {
+    "id": "n5u08d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "もう",
+    "after": "か。",
+    "tiles": ["十時に", "なりました", "から、", "ねましょう"],
+    "star": 1,
+    "bank": [2, 3, 0, 1],
+    "full": "もう　十時に　{なりました}　から、　ねましょう　か。",
+    "explain": "十時に, なりました, から、, ねましょう. A time takes に before なります, から follows the reason, and ねましょうか is the suggestion: \"It's already ten o'clock, so shall we go to bed?\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "駅前の店のおしらせ",
+  "en": "A notice at a shop by the station",
+  "intro": "Tap every word you would read on the notice about the shop's changes.",
+  "words": [
+   {"id": "shop", "word": "店", "reading": "みせ", "gloss": "shop", "parts": [["店", "みせ", "shop"]]},
+   {"id": "by the station", "word": "駅前", "reading": "えきまえ", "gloss": "in front of the station", "parts": [["駅", "エキ", "station"], ["前", "まえ", "front, before"]]},
+   {"id": "new", "word": "新しい", "reading": "あたらしい", "gloss": "new", "parts": [["新", "あたら", "new"]]},
+   {"id": "bigger", "word": "大きく", "reading": "おおきく", "gloss": "big (before なります: become bigger)", "parts": [["大", "おお", "big"]]},
+   {"id": "this month", "word": "今月", "reading": "こんげつ", "gloss": "this month", "parts": [["今", "コン", "now"], ["月", "ゲツ", "month, moon"]]},
+   {"id": "next month", "word": "来月", "reading": "らいげつ", "gloss": "next month", "parts": [["来", "ライ", "come, next"], ["月", "ゲツ", "month, moon"]]},
+   {"id": "100 yen", "word": "百円", "reading": "ひゃくえん", "gloss": "100 yen", "parts": [["百", "ヒャク", "hundred"], ["円", "エン", "yen, circle"]]},
+   {"id": "more expensive", "word": "高く", "reading": "たかく", "gloss": "expensive (before なります: go up in price)", "parts": [["高", "たか", "high, expensive"]]}
+  ],
+  "check": {
+   "id": "n5u08d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_来月_から　コーヒーが　百円　高く　なります。",
+   "options": ["らいつき", "らいがつ", "らいげつ", "きげつ"],
+   "answer": 3,
+   "explain": "来月, \"next month\", is read らいげつ. 月 is がつ in the names of months (一月, いちがつ), but in 来月 and 今月 it is げつ. らいつき is not a word, and 来 is not read き at the start of 来月."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "即時応答",
+  "en": "Quick response",
+  "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+  "item": {
+   "id": "n5u08d3.r1",
+   "kind": "choice",
+   "type": "即時応答",
+   "q": "女：リーさん、日本語が　じょうずに　なりましたね。",
+   "script": [
+    "女：リーさん、日本語がじょうずになりましたね。",
+    "ナレーター：1",
+    "男：そうですか。じゃあ、がんばってください。",
+    "ナレーター：2",
+    "男：ありがとうございます。まいにちれんしゅうしましたから。",
+    "ナレーター：3",
+    "男：はい、じょうずにしました。"
+   ],
+   "options": [
+    "そうですか。じゃあ、がんばって　ください。",
+    "ありがとうございます。まいにち　れんしゅうしましたから。",
+    "はい、じょうずに　しました。"
+   ],
+   "printed": false,
+   "short": [
+    "がんばって ください",
+    "ありがとうございます",
+    "じょうずに しました"
+   ],
+   "answer": 2,
+   "why": [
+    "She is praising him. がんばって ください is what you say to someone else who has work ahead, not a reply to a compliment.",
+    "She says his Japanese has got better. He thanks her and gives the reason: he practised every day.",
+    "じょうずに します means making something good on purpose. It does not answer a remark about how his Japanese has changed."
+   ]
+  },
+  "audio": [
+   ["F", "リーさん、日本語がじょうずになりましたね。", "リーさん、にほんごが　じょうずに　なりましたね。"],
+   ["N", "1", null],
+   ["M", "そうですか。じゃあ、がんばってください。", null],
+   ["N", "2", null],
+   ["M", "ありがとうございます。まいにちれんしゅうしましたから。", null],
+   ["N", "3", null],
+   ["M", "はい、じょうずにしました。", null]
+  ]
+ }
+}

@@ -1,0 +1,273 @@
+{
+ "title": "〜間・〜間に",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u06d3.p1",
+    "form": "〜間",
+    "gloss": "all through, the whole time while",
+    "connect": [
+     {"pos": "Noun", "rule": "〜の{間}"},
+     {"pos": "Verb, ている form", "rule": "[待|ま]っている{間}"},
+     {"pos": "Verb, ない form", "rule": "いない{間}"}
+    ],
+    "examples": [
+     {"ja": "[夏|なつ]休みの{間}、ずっとおばあさんの[家|いえ]にいました。", "en": "I stayed at my grandmother's house all through the summer holiday."},
+     {"ja": "電車に[乗|の]っている{間}、ずっと本を読んでいました。", "en": "I was reading a book the whole time I was on the train."}
+    ],
+    "watch": {
+     "note": "間 with no に needs a second part that lasts the whole time. Going out happens in one moment, so it takes 間に.",
+     "bad": "母がねている間、出かけました。",
+     "good": "母がねている間に、出かけました。"
+    }
+   },
+   {
+    "id": "n4u06d3.p2",
+    "form": "〜間に",
+    "gloss": "at some point while, during",
+    "connect": [
+     {"pos": "Noun", "rule": "〜の{間に}"},
+     {"pos": "Verb, ている form", "rule": "ねている{間に}"},
+     {"pos": "Verb, ない form", "rule": "いない{間に}"}
+    ],
+    "examples": [
+     {"ja": "母がねている{間に}、ケーキを[作|つく]りました。", "en": "I made a cake while my mother was asleep."},
+     {"ja": "わたしが出かけている{間に}、友だちから電話がありました。", "en": "A friend called while I was out."}
+    ],
+    "watch": {
+     "note": "間に marks one point inside the time. ずっと fills the whole time, so drop the に.",
+     "bad": "夏休みの間に、ずっとアルバイトをしていました。",
+     "good": "夏休みの間、ずっとアルバイトをしていました。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three tie an action to a time: 間 fills a whole span, 間に happens once inside a span, and まえに looks at the time before something.",
+   "forms": [
+    {"form": "〜間", "tag": "ずっと · all through", "mark": "dot", "ja": "雨がふっている{間}、ずっと[家|いえ]にいました。", "en": "I stayed home the whole time it was raining."},
+    {"form": "〜間に", "tag": "その中で一回 · at some point during", "mark": "dot", "ja": "雨がやんでいる{間に}、[買|か]い[物|もの]に行きました。", "en": "I went shopping while the rain had stopped."},
+    {"form": "〜まえに", "tag": "その前 · before", "mark": "dot", "ja": "雨がふる{まえに}、[家|いえ]に[帰|かえ]りました。", "en": "I went home before it rained."}
+   ],
+   "check": {
+    "id": "n4u06d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Whole time or one point?",
+    "q": "母がねている（　　）、[家|いえ]を出ました。",
+    "options": ["間", "間に", "まえに"],
+    "answer": 2,
+    "why": [
+     "家を出る happens in one moment. 間 with no に needs an action that lasts the whole time she sleeps.",
+     "I left at one point while she was asleep, so 間に.",
+     "まえに follows the dictionary form (ねるまえに). It does not join the ている form."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u06d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[冬|ふゆ]休みの（　　）、^ずっと^国に[帰|かえ]っていました。",
+    "options": ["間に", "間が", "間", "間で"],
+    "answer": 3,
+    "why": [
+     "ずっと says the whole holiday. 間に is for something at one point, so it does not go with ずっと.",
+     "冬休みの間 tells when. が would make it the subject of 帰っていました, which does not work.",
+     "Being back home lasted the whole holiday (ずっと), so 間 with no に.",
+     "間で is not used to say when here. 冬休みの間で does not work in this sentence."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしが出かけている（　　）、^にもつがとどきました^。",
+    "options": ["間", "あとで", "前に", "間に"],
+    "answer": 4,
+    "why": [
+     "とどきました happens in one moment. 間 with no に needs something that lasts the whole time I was out.",
+     "あとで follows the た form (出かけたあとで), not the ている form.",
+     "前に follows the dictionary form (出かける前に), not the ている form.",
+     "The parcel came at one point while I was out, so 間に."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the second part",
+    "q": "電車に^[乗|の]っている間^、（　　）。",
+    "options": ["きっぷをなくしました", "ずっと[音楽|おんがく]を聞いていました", "友だちから電話がありました", "駅でおりました"],
+    "answer": 2,
+    "why": [
+     "Losing a ticket happens at one moment. That needs 乗っている間に.",
+     "Listening went on for the whole ride, and 間 with no に needs exactly that.",
+     "A call comes at one point. That needs 乗っている間に.",
+     "Getting off ends the ride. It cannot happen while you are still riding."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "[京都|きょうと]にいる（　　）、^[一度|いちど]だけ^雨がふりました。",
+    "options": ["間に", "間", "あとで", "から"],
+    "answer": 1,
+    "why": [
+     "一度だけ: it rained once, at one point during the stay, so 間に.",
+     "間 with no に would mean it rained the whole stay, but 一度だけ says only once.",
+     "あとで follows the た form, not the dictionary form いる.",
+     "から gives a reason. Being in Kyoto is not the reason it rained."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u06d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[妹|いもうと]が",
+    "after": "わたしはケーキをやきました。",
+    "tiles": ["ピアノの", "れんしゅうを", "している", "間に"],
+    "star": 1,
+    "bank": [3, 0, 2, 1],
+    "hint": "ピアノの describes れんしゅう. 間に comes right after the ている form.",
+    "full": "[妹|いもうと]がピアノのれんしゅうをしている{間に}わたしはケーキをやきました。",
+    "explain": "ピアノの goes before れんしゅうを, and れんしゅうを goes with している. 間に follows the ている form: at some point while my sister was practising the piano, I baked a cake."
+   },
+   {
+    "id": "n4u06d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "母が",
+    "after": "車の中で[待|ま]っていました。",
+    "tiles": ["[買|か]い[物|もの]を", "している", "間", "わたしは"],
+    "star": 2,
+    "bank": [3, 2, 0, 1],
+    "hint": "Waiting lasts the whole time, so 間 has no に. わたしは starts the second part.",
+    "full": "母が[買|か]い[物|もの]をしている{間}わたしは車の中で[待|ま]っていました。",
+    "explain": "母が買い物をしている is the span of time, and 間 closes it. わたしは starts the second part. 待っていました lasts the whole time, so 間 takes no に: I waited in the car all the time my mother was shopping."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u06d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "かいぎを　して　いる（　　）、けいたい電話が　一回　なりました。",
+    "options": ["間に", "間", "前に", "あとで"],
+    "answer": 1,
+    "explain": "The phone rang once (一回), at one point during the meeting, so 間に is right. 間 with no に needs something that lasts the whole meeting. 前に follows the dictionary form (する前に) and あとで follows the た form (したあとで), so neither joins している."
+   },
+   {
+    "id": "n4u06d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母が　ねて　いる　間、子どもたちは　しずかに（　　）。",
+    "options": ["しました", "して　みました", "して　いました", "して　しまいました"],
+    "answer": 3,
+    "explain": "間 with no に needs an action that goes on the whole time, so していました is right: the children kept quiet all the time their mother slept. しました, してみました and してしまいました each tell one finished action, which does not fill the whole span."
+   },
+   {
+    "id": "n4u06d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしが　",
+    "after": "から　電話が　ありました。",
+    "tiles": ["シャワーを", "あびている", "間に", "だれか"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "full": "わたしが　シャワーを　あびている　{間に}　だれかから　電話が　ありました。",
+    "explain": "シャワーを, あびている, 間に, だれか. シャワーをあびている is the span of time, and 間に follows it because the call came at one point. だれか joins から after it: someone called while I was in the shower."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "海外旅行のスケジュール",
+  "en": "A trip abroad schedule",
+  "intro": "This is the schedule for a five-day trip abroad. Tap each word on it.",
+  "words": [
+   {"id": "departure", "word": "出発", "reading": "しゅっぱつ", "gloss": "departure, leaving", "parts": [["出", "シュッ", "go out"], ["発", "パツ", "start, leave"]]},
+   {"id": "meeting", "word": "集合", "reading": "しゅうごう", "gloss": "meeting up (a group)", "parts": [["集", "シュウ", "gather"], ["合", "ゴウ", "fit, join"]]},
+   {"id": "breakfast", "word": "朝食", "reading": "ちょうしょく", "gloss": "breakfast", "parts": [["朝", "チョウ", "morning"], ["食", "ショク", "eat, food"]]},
+   {"id": "dinner", "word": "夕食", "reading": "ゆうしょく", "gloss": "dinner, evening meal", "parts": [["夕", "ユウ", "evening"], ["食", "ショク", "eat, food"]]},
+   {"id": "market", "word": "市場", "reading": "いちば", "gloss": "market", "parts": [["市", "いち", "market, city"], ["場", "ば", "place"]]},
+   {"id": "church", "word": "教会", "reading": "きょうかい", "gloss": "church", "parts": [["教", "キョウ", "teach"], ["会", "カイ", "meet"]]},
+   {"id": "arrive", "word": "着く", "reading": "つく", "gloss": "arrive", "parts": [["着", "つ", "arrive, wear"]]},
+   {"id": "return home", "word": "帰国", "reading": "きこく", "gloss": "returning to your own country", "parts": [["帰", "キ", "return"], ["国", "コク", "country"]]}
+  ],
+  "check": {
+   "id": "n4u06d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "あしたは　ホテルを　八時に　_出発_します。",
+   "options": ["しゅはつ", "しゅっぱつ", "しゅうぱつ", "しゅっはつ"],
+   "answer": 2,
+   "explain": "出発, departure, is read しゅっぱつ: しゅつ becomes しゅっ and はつ becomes ぱつ. しゅはつ and しゅっはつ miss the ぱ, and しゅうぱつ has a long しゅう instead of the small っ."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人は　旅行の　間に　何を　なくしましたか。",
+  "audio": [
+   ["N", "男の人と女の人が話しています。女の人は旅行の間に、何をなくしましたか。", "おとこのひととおんなのひとがはなしています。おんなのひとはりょこうのあいだに、なにをなくしましたか。"],
+   ["M", "田中さん、夏休みの旅行はどうでしたか。", "たなかさん、なつやすみのりょこうはどうでしたか。"],
+   ["F", "楽しかったです。でも、旅行の間、ずっと雨でした。", "たのしかったです。でも、りょこうのあいだ、ずっとあめでした。"],
+   ["M", "それはざんねんでしたね。", null],
+   ["F", "それに、バスに乗っている間に、かさをなくしてしまったんです。", "それに、バスにのっているあいだに、かさをなくしてしまったんです。"],
+   ["M", "えっ、かさをですか。", null],
+   ["F", "ええ。カメラもなくしたと思って、しんぱいしました。でも、かばんの中にありました。", "ええ。カメラもなくしたとおもって、しんぱいしました。でも、かばんのなかにありました。"],
+   ["M", "よかったですね。パスポートはだいじょうぶでしたか。", null],
+   ["F", "はい。パスポートは、旅行の間、ずっとポケットに入れていました。", "はい。パスポートは、りょこうのあいだ、ずっとポケットにいれていました。"],
+   ["M", "さいふは？", null],
+   ["F", "さいふは、友だちがなくしたんです。でも、つぎの日に見つかりましたよ。", "さいふは、ともだちがなくしたんです。でも、つぎのひにみつかりましたよ。"],
+   ["N", "女の人は旅行の間に、何をなくしましたか。", "おんなのひとはりょこうのあいだに、なにをなくしましたか。"]
+  ],
+  "item": {
+   "id": "n4u06d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人は　旅行の　間に　何を　なくしましたか。",
+   "script": [
+    "ナレーター：男の人と女の人が話しています。女の人は旅行の間に、何をなくしましたか。",
+    "男：田中さん、夏休みの旅行はどうでしたか。",
+    "女：楽しかったです。でも、旅行の間、ずっと雨でした。",
+    "男：それはざんねんでしたね。",
+    "女：それに、バスに乗っている間に、かさをなくしてしまったんです。",
+    "男：えっ、かさをですか。",
+    "女：ええ。カメラもなくしたと思って、しんぱいしました。でも、かばんの中にありました。",
+    "男：よかったですね。パスポートはだいじょうぶでしたか。",
+    "女：はい。パスポートは、旅行の間、ずっとポケットに入れていました。",
+    "男：さいふは？",
+    "女：さいふは、友だちがなくしたんです。でも、つぎの日に見つかりましたよ。",
+    "ナレーター：女の人は旅行の間に、何をなくしましたか。"
+   ],
+   "options": ["カメラ", "パスポート", "さいふ", "かさ"],
+   "printed": true,
+   "short": ["カメラ", "パスポート", "さいふ", "かさ"],
+   "answer": 4,
+   "why": [
+    "She thought she had lost her camera, but it was in her bag: かばんの中にありました.",
+    "She kept her passport in her pocket the whole trip: 旅行の間、ずっとポケットに入れていました.",
+    "The wallet was lost by her friend, not by her: 友だちがなくしたんです.",
+    "She lost her umbrella at one point on the bus: バスに乗っている間に、かさをなくしてしまったんです."
+   ],
+   "explain": null
+  }
+ }
+}

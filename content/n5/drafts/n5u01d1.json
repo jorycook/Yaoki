@@ -1,0 +1,538 @@
+{
+ "title": "〜は〜です・〜じゃありません",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u01d1.p1",
+    "form": "〜は〜です",
+    "gloss": "A is B",
+    "connect": [
+     {
+      "pos": "Noun (the topic), then noun (what it is)",
+      "rule": "〜 ＋ は ＋ 〜 ＋ {です}"
+     },
+     {
+      "pos": "Another person's name + さん",
+      "rule": "〜さん ＋ は ＋ 〜 ＋ {です}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "わたし{は}[学生|がくせい]{です}。",
+      "en": "I am a student."
+     },
+     {
+      "ja": "ルイスさん{は}ブラジル[人|じん]{です}。",
+      "en": "Luis is Brazilian."
+     }
+    ],
+    "watch": {
+     "note": "The little word after the topic is written は but said わ. Write it with は.",
+     "bad": "わたしわがくせいです。",
+     "good": "わたしはがくせいです。"
+    }
+   },
+   {
+    "id": "n5u01d1.p2",
+    "form": "〜じゃありません",
+    "gloss": "A is not B",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ {じゃありません}"
+     },
+     {
+      "pos": "Noun, more formal",
+      "rule": "〜 ＋ {ではありません}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "わたしは[先生|せんせい]{じゃありません}。",
+      "en": "I am not a teacher."
+     },
+     {
+      "ja": "ルイスさんはかいしゃいん{じゃありません}。",
+      "en": "Luis is not a company employee."
+     }
+    ],
+    "watch": {
+     "note": "じゃありません takes the place of です. Keep じゃ (or では): without it, せんせいありません does not mean \"not a teacher\".",
+     "bad": "わたしはせんせいありません。",
+     "good": "わたしはせんせいじゃありません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "Three polite endings after a noun: one says it is, two say it is not.",
+   "forms": [
+    {
+     "form": "〜です",
+     "tag": "そうです · it is",
+     "mark": "dot",
+     "ja": "わたしは[学生|がくせい]{です}。",
+     "en": "I am a student."
+    },
+    {
+     "form": "〜じゃありません",
+     "tag": "ちがいます · it is not",
+     "mark": "down",
+     "ja": "わたしは[先生|せんせい]{じゃありません}。",
+     "en": "I am not a teacher."
+    },
+    {
+     "form": "〜ではありません",
+     "tag": "かたい · it is not (formal)",
+     "mark": "down",
+     "ja": "わたしはかいしゃいん{ではありません}。",
+     "en": "I am not a company employee. (more formal)"
+    }
+   ],
+   "check": {
+    "id": "n5u01d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "じこしょうかい",
+    "q": "マリアさんは[先生|せんせい]（　　）。^[日本語|にほんご]をおしえます^。",
+    "options": [
+     "です",
+     "じゃありません",
+     "ではありません"
+    ],
+    "answer": 1,
+    "why": [
+     "Maria teaches Japanese, so she is a teacher: use です.",
+     "This says she is not a teacher, but the next sentence says she teaches Japanese.",
+     "This also means \"is not\", only more formal. It fails for the same reason."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u01d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "はじめまして。わたし（　　）^ルイスです^。",
+    "options": [
+     "は",
+     "を",
+     "へ",
+     "で"
+    ],
+    "answer": 1,
+    "why": [
+     "は marks the topic, the person you talk about: わたし. Then ルイスです says who that is.",
+     "を marks the thing an action is done to, as in パンをたべます. There is no action here.",
+     "へ shows the direction you go, as in がっこうへいきます. It cannot mark the topic.",
+     "で shows where something happens, as in がっこうで. It cannot mark the topic."
+    ]
+   },
+   {
+    "id": "n5u01d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは^[中国人|ちゅうごくじん]^（　　）。",
+    "options": [
+     "です",
+     "ます",
+     "は",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "中国人 is a noun, and です after a noun says what someone is.",
+     "ます goes after a verb, as in たべます. 中国人 is a noun.",
+     "は marks a topic. The sentence still needs an ending after 中国人.",
+     "を marks the thing an action is done to. There is no action, and no ending."
+    ]
+   },
+   {
+    "id": "n5u01d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは[先生|せんせい]（　　）。^[学生|がくせい]です^。",
+    "options": [
+     "じゃありません",
+     "です",
+     "ます",
+     "を"
+    ],
+    "answer": 1,
+    "why": [
+     "The next sentence says I am a student, so I am not a teacher: 先生じゃありません.",
+     "先生です would say I am a teacher, but the next sentence says I am a student.",
+     "ます goes after a verb. 先生 is a noun.",
+     "を marks the thing an action is done to. The sentence would have no ending."
+    ]
+   },
+   {
+    "id": "n5u01d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ルイスさんは[日本人|にほんじん]（　　）。^ブラジル[人|じん]です^。",
+    "options": [
+     "ではありません",
+     "です",
+     "ではます",
+     "ありません"
+    ],
+    "answer": 1,
+    "why": [
+     "Luis is Brazilian, so he is not Japanese. ではありません is the formal way to say \"is not\".",
+     "日本人です would say he is Japanese, but the next sentence says he is Brazilian.",
+     "ではます is not a Japanese form.",
+     "Without では, ありません here would mean \"there is none\", not \"is not\"."
+    ]
+   },
+   {
+    "id": "n5u01d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "はじめまして。",
+    "after": "。",
+    "tiles": [
+     "わたしは",
+     "[日本語|にほんご]の",
+     "[先生|せんせい]",
+     "です"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "hint": "Start with the topic and は. です comes at the very end.",
+    "full": "はじめまして。わたし{は}[日本語|にほんご]の[先生|せんせい]{です}。",
+    "explain": "わたしは is the topic, so it comes first. 日本語の tells what kind of teacher, so it sits right before 先生, and です closes the sentence."
+   },
+   {
+    "id": "n5u01d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは",
+    "after": "。",
+    "tiles": [
+     "[学校|がっこう]の",
+     "[先生|せんせい]",
+     "では",
+     "ありません"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "Which tiles make \"is not\"? They come after the noun.",
+    "full": "わたしは[学校|がっこう]の[先生|せんせい]{ではありません}。",
+    "explain": "学校の tells what kind of teacher, so it sits right before 先生. では and ありません together mean \"is not\" (more formal than じゃありません), and they follow the noun."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u01d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「マリアさんは　先生ですか。」\nB「いいえ、先生（　　）。学生です。」",
+    "options": [
+     "じゃありません",
+     "です",
+     "ます",
+     "ありません"
+    ],
+    "answer": 1,
+    "explain": "いいえ and 学生です show that Maria is not a teacher, so 先生じゃありません. 先生です says the opposite, ます goes after a verb, not a noun, and ありません without じゃ does not mean \"is not\" here."
+   },
+   {
+    "id": "n5u01d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ルイスさん（　　）　ブラジル人です。",
+    "options": [
+     "は",
+     "を",
+     "に",
+     "で"
+    ],
+    "answer": 1,
+    "explain": "は marks ルイスさん as the topic, and ブラジル人です says what he is. を marks the thing an action is done to, に marks a time or a place to go, and で marks where something happens. None of them can mark the topic."
+   },
+   {
+    "id": "n5u01d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしの",
+    "after": "。かいしゃいんです。",
+    "tiles": [
+     "父は",
+     "日本語の",
+     "先生",
+     "じゃありません"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "わたしの父は日本語の{先生}じゃありません。かいしゃいんです。",
+    "explain": "父は, 日本語の, 先生, じゃありません. わたしの goes with 父, the topic. 日本語の tells what kind of teacher, and じゃありません comes last, after the noun."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "じこしょうかいカード",
+  "en": "A self-introduction card",
+  "intro": "Tap each word on the card you fill in on your first day at the language school.",
+  "words": [
+   {
+    "id": "name",
+    "word": "名前",
+    "reading": "なまえ",
+    "gloss": "name",
+    "parts": [
+     [
+      "名",
+      "な",
+      "name"
+     ],
+     [
+      "前",
+      "まえ",
+      "front, before"
+     ]
+    ]
+   },
+   {
+    "id": "country",
+    "word": "国",
+    "reading": "くに",
+    "gloss": "country",
+    "parts": [
+     [
+      "国",
+      "くに",
+      "country"
+     ]
+    ]
+   },
+   {
+    "id": "student",
+    "word": "学生",
+    "reading": "がくせい",
+    "gloss": "student",
+    "parts": [
+     [
+      "学",
+      "ガク",
+      "study"
+     ],
+     [
+      "生",
+      "セイ",
+      "life, birth"
+     ]
+    ]
+   },
+   {
+    "id": "teacher",
+    "word": "先生",
+    "reading": "せんせい",
+    "gloss": "teacher",
+    "parts": [
+     [
+      "先",
+      "セン",
+      "ahead, before"
+     ],
+     [
+      "生",
+      "セイ",
+      "life, birth"
+     ]
+    ]
+   },
+   {
+    "id": "company",
+    "word": "会社",
+    "reading": "かいしゃ",
+    "gloss": "company (where you work)",
+    "parts": [
+     [
+      "会",
+      "カイ",
+      "meet"
+     ],
+     [
+      "社",
+      "シャ",
+      "company"
+     ]
+    ]
+   },
+   {
+    "id": "japanese",
+    "word": "日本語",
+    "reading": "にほんご",
+    "gloss": "Japanese (the language)",
+    "parts": [
+     [
+      "日",
+      "ニ",
+      "sun, day"
+     ],
+     [
+      "本",
+      "ホン",
+      "origin, book"
+     ],
+     [
+      "語",
+      "ゴ",
+      "word, language"
+     ]
+    ]
+   },
+   {
+    "id": "school",
+    "word": "学校",
+    "reading": "がっこう",
+    "gloss": "school",
+    "parts": [
+     [
+      "学",
+      "ガッ",
+      "study"
+     ],
+     [
+      "校",
+      "コウ",
+      "school"
+     ]
+    ]
+   },
+   {
+    "id": "phone",
+    "word": "電話",
+    "reading": "でんわ",
+    "gloss": "telephone",
+    "parts": [
+     [
+      "電",
+      "デン",
+      "electricity"
+     ],
+     [
+      "話",
+      "ワ",
+      "talk"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u01d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "わたしは　日本語学校の　_学生_です。",
+   "options": [
+    "がくせい",
+    "がっせい",
+    "かくせい",
+    "がくせ"
+   ],
+   "answer": 1,
+   "explain": "学生 is がくせい, with a long せい at the end. 学 becomes がっ only before some sounds, as in 学校 (がっこう), not here. かくせい has the wrong first sound, and がくせ drops the い."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "発話表現",
+  "en": "Expressions",
+  "situation": "On her first day at a language school, a student with a name tag that says リン meets her new teacher.",
+  "ask": "はじめて　先生に　あいました。何と　いいますか。",
+  "item": {
+   "id": "n5u01d1.r1",
+   "kind": "choice",
+   "type": "発話表現",
+   "q": "はじめて　先生に　あいました。何と　いいますか。",
+   "script": [
+    "ナレーター：はじめて　先生に　あいました。何と　いいますか。",
+    "ナレーター：1",
+    "女：どうも　ありがとう。リンです。",
+    "ナレーター：2",
+    "女：はじめまして。リンです。よろしく　おねがいします。",
+    "ナレーター：3",
+    "女：はじめまして。リンさんですか。"
+   ],
+   "options": [
+    "どうも　ありがとう。リンです。",
+    "はじめまして。リンです。よろしく　おねがいします。",
+    "はじめまして。リンさんですか。"
+   ],
+   "printed": false,
+   "short": [
+    "ありがとう。リンです",
+    "はじめまして。リンです",
+    "リンさんですか"
+   ],
+   "answer": 2,
+   "why": [
+    "ありがとう is for thanks. The teacher has not done anything for her yet.",
+    "",
+    "She is Lin. リンさんですか asks the teacher if the teacher is Lin."
+   ]
+  },
+  "audio": [
+   [
+    "N",
+    "はじめて　先生に　あいました。何と　いいますか。",
+    "はじめて　せんせいに　あいました。なんと　いいますか。"
+   ],
+   [
+    "N",
+    "1",
+    "いち"
+   ],
+   [
+    "F",
+    "どうも　ありがとう。リンです。",
+    null
+   ],
+   [
+    "N",
+    "2",
+    "に"
+   ],
+   [
+    "F",
+    "はじめまして。リンです。よろしく　おねがいします。",
+    null
+   ],
+   [
+    "N",
+    "3",
+    "さん"
+   ],
+   [
+    "F",
+    "はじめまして。リンさんですか。",
+    null
+   ]
+  ]
+ }
+}

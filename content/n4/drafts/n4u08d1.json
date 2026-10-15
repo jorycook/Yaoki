@@ -1,0 +1,464 @@
+{
+  "title": "受身形・〜に〜られる",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u08d1.p1",
+        "form": "受身形（〜れる・〜られる）",
+        "gloss": "be done (passive form)",
+        "connect": [
+          {
+            "pos": "う-verb: change the last sound to the あ sound (う becomes わ) and add れる",
+            "rule": "書く → 書{かれる}、言う → 言{われる}"
+          },
+          {
+            "pos": "る-verb: drop る and add られる",
+            "rule": "食べる → 食べ{られる}、見る → 見{られる}"
+          },
+          {
+            "pos": "The two irregular verbs, する and 来る",
+            "rule": "する → {される}、来る → 来{られる}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[弟|おとうと]は母に{しかられました}。",
+            "en": "My younger brother was scolded by our mother."
+          },
+          {
+            "ja": "[田中|たなか]さんは先生に[注意|ちゅうい]{されました}。",
+            "en": "Tanaka was warned by the teacher."
+          }
+        ],
+        "watch": {
+          "note": "A う-verb changes its last sound to the あ sound and adds れる. Do not add られる to it.",
+          "bad": "わたしはみんなにわらわられました。",
+          "good": "わたしはみんなにわらわれました。"
+        }
+      },
+      {
+        "id": "n4u08d1.p2",
+        "form": "〜は〜に〜られる",
+        "gloss": "someone does something to me",
+        "connect": [
+          {
+            "pos": "Noun: the person or animal who does the action",
+            "rule": "〜{に}〜（ら）れる"
+          },
+          {
+            "pos": "Noun: the one it happens to (often わたし, and then often left out)",
+            "rule": "〜は〜{に}〜（ら）れる"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[作文|さくぶん]がじょうずだと、先生に{ほめられました}。",
+            "en": "My teacher praised me for writing good essays."
+          },
+          {
+            "ja": "こうえんで[犬|いぬ]に{かまれました}。",
+            "en": "I was bitten by a dog in the park."
+          }
+        ],
+        "watch": {
+          "note": "The one who does the action takes に. If you mark it with が, it becomes the one the action happens to.",
+          "bad": "わたしは先生がほめられました。",
+          "good": "わたしは先生にほめられました。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "The passive, 〜てもらう and the potential can look alike, but they say different things.",
+      "forms": [
+        {
+          "form": "受身形（〜に〜られる）",
+          "tag": "うけみ · someone does something to you",
+          "mark": "dot",
+          "ja": "わたしは[兄|あに]に{わらわれました}。",
+          "en": "I was laughed at by my older brother."
+        },
+        {
+          "form": "〜てもらう",
+          "tag": "してもらう · someone does it for you (thankful)",
+          "mark": "dot",
+          "ja": "[兄|あに]に[自転車|じてんしゃ]をなおして{もらいました}。",
+          "en": "My older brother fixed my bicycle for me."
+        },
+        {
+          "form": "可能形",
+          "tag": "できる · can do",
+          "mark": "dot",
+          "ja": "[弟|おとうと]はもうひとりでごはんが{食べられます}。",
+          "en": "My little brother can already eat by himself."
+        }
+      ],
+      "check": {
+        "id": "n4u08d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Passive, てもらう or potential?",
+        "q": "テストの前なのにゲームをしていて、母に（　　）。",
+        "options": [
+          "しかってもらいました",
+          "しかれました",
+          "しかられました"
+        ],
+        "answer": 3,
+        "why": [
+          "てもらう says you were glad someone did it for you. Being scolded for playing games is not a favour you asked for.",
+          "しかれる is the potential (can scold). It does not fit 母に: the mother is the one who scolds.",
+          "しかる is a う-verb, so the passive is しかられる. Mother did the scolding (母に), and it happened to me."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u08d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "わたしは^友だちに^たんじょうびのパーティーに（　　）。",
+        "options": [
+          "さそいられました",
+          "さそわられました",
+          "さそえました",
+          "さそわれました"
+        ],
+        "answer": 4,
+        "why": [
+          "さそう is a う-verb, so られる does not go on さそい. さそいられる is not a form.",
+          "A う-verb adds れる after the あ sound, not られる. さそわられる is not a form.",
+          "さそえる is the potential (can invite). The one you invite would take を, not に.",
+          "さそう is a う-verb ending in う, so う becomes わ and れる is added. My friend invited me: 友だちにさそわれました."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[図書館|としょかん]で大きい[声|こえ]で話して、^先生に^（　　）。",
+        "options": [
+          "[注意|ちゅうい]しられました",
+          "[注意|ちゅうい]されました",
+          "[注意|ちゅうい]できました",
+          "[注意|ちゅうい]しました"
+        ],
+        "answer": 2,
+        "why": [
+          "The passive of する is される. しられる is not a form.",
+          "注意する becomes 注意される. I talked loudly, so the teacher warned me.",
+          "できる is the potential of する (could warn). The one who talked loudly is not the one who warns.",
+          "注意しました means I warned someone. I was the one who talked loudly, so I did not warn the teacher."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the particle",
+        "q": "テストで百てんをとって、わたしは先生（　　）^ほめられました^。",
+        "options": [
+          "が",
+          "を",
+          "に",
+          "で"
+        ],
+        "answer": 3,
+        "why": [
+          "With が, the teacher would be the one praised. But わたしは tells us I was praised.",
+          "を marks a thing that is acted on. The teacher is the one who praised, not the one praised.",
+          "In a passive sentence the one who does the action takes に: I was praised by the teacher.",
+          "で marks a place or a means. It cannot mark the person who praised."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "じゅぎょう中にねてしまって、^みんなに^（　　）。",
+        "options": [
+          "わらわれました",
+          "わらいました",
+          "わらいられました",
+          "わらえました"
+        ],
+        "answer": 1,
+        "why": [
+          "わらう is a う-verb: う becomes わ and れる is added. I fell asleep, and everyone laughed at me.",
+          "わらいました means I laughed. With みんなに, everyone is the one who laughed, so the passive is needed.",
+          "わらう is a う-verb, so られる does not go on わらい. わらいられる is not a form.",
+          "わらえる is the potential (can laugh). It does not fit みんなに or the meaning here."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n4u08d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "きのう、駅で",
+        "after": "。",
+        "tiles": [
+          "[知|し]らない人に",
+          "[声|こえ]を",
+          "かけられて",
+          "びっくりしました"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "声をかける means to speak to someone. Who did it to me, and how did I feel?",
+        "full": "きのう、駅で[知|し]らない人に[声|こえ]を{かけられて}びっくりしました。",
+        "explain": "知らない人に is the one who did the action, and 声を goes right before かけられて. The te-form かけられて gives the reason for びっくりしました: a stranger spoke to me at the station and I was surprised."
+      },
+      {
+        "id": "n4u08d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[弟|おとうと]は",
+        "after": "。",
+        "tiles": [
+          "おもちゃを",
+          "かたづけなくて",
+          "母に",
+          "しかられました"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          1,
+          2,
+          0
+        ],
+        "hint": "The reason comes first with なくて. Then who scolded him, then the passive.",
+        "full": "[弟|おとうと]はおもちゃをかたづけなくて母に{しかられました}。",
+        "explain": "おもちゃを goes with かたづけなくて, which gives the reason. Then 母に (who scolded) comes right before しかられました: my brother did not put his toys away, so he was scolded by our mother."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u08d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "テストで　百てんを　とって、父に　（　　）。",
+        "options": [
+          "ほめられました",
+          "ほめました",
+          "ほめりました",
+          "ほめれました"
+        ],
+        "answer": 1,
+        "explain": "ほめる is a る-verb, so the passive is ほめられる. My father did the praising (父に), and it happened to me. ほめました would need 父を, and the one who got 100 points is the one praised. ほめりました is not a form. ほめれました is a casual way to say the potential (could praise), not the passive."
+      },
+      {
+        "id": "n4u08d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "弟は　学校で　友だちに　（　　）、ないて　帰って　きました。",
+        "options": [
+          "たたいて",
+          "たたかれて",
+          "たたけて",
+          "たたかられて"
+        ],
+        "answer": 2,
+        "explain": "たたく is a う-verb: く becomes か and れる is added. A friend hit my brother (友だちに), so he came home crying. たたいて would need 友だちを, and it would make my brother the one who hit. たたけて is the potential. たたかられて is not a form."
+      },
+      {
+        "id": "n4u08d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "それは　",
+        "after": "。",
+        "tiles": [
+          "母に",
+          "言われる",
+          "まで",
+          "知りませんでした"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "full": "それは　母に　{言われる}　まで　知りませんでした。",
+        "explain": "母に, 言われる, まで, 知りませんでした. 母に goes with the passive 言われる (my mother told me), まで follows it (until), and 知りませんでした ends the sentence: I did not know that until my mother told me."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "学校からのお知らせ",
+    "en": "A note home from school",
+    "intro": "The class teacher sends a note home about how a pupil is doing at school. Tap each word on it.",
+    "words": [
+      {
+        "id": "essay",
+        "word": "作文",
+        "reading": "さくぶん",
+        "gloss": "essay, composition",
+        "parts": [
+          ["作", "サク", "make"],
+          ["文", "ブン", "writing"]
+        ]
+      },
+      {
+        "id": "kanji",
+        "word": "漢字",
+        "reading": "かんじ",
+        "gloss": "kanji, Chinese characters",
+        "parts": [
+          ["漢", "カン", "China"],
+          ["字", "ジ", "character, letter"]
+        ]
+      },
+      {
+        "id": "exam",
+        "word": "試験",
+        "reading": "しけん",
+        "gloss": "exam, test",
+        "parts": [
+          ["試", "シ", "try"],
+          ["験", "ケン", "test"]
+        ]
+      },
+      {
+        "id": "question",
+        "word": "質問",
+        "reading": "しつもん",
+        "gloss": "question",
+        "parts": [
+          ["質", "シツ", "quality"],
+          ["問", "モン", "ask"]
+        ]
+      },
+      {
+        "id": "caution",
+        "word": "注意",
+        "reading": "ちゅうい",
+        "gloss": "warning, care; to tell someone off",
+        "parts": [
+          ["注", "チュウ", "pour, pay attention"],
+          ["意", "イ", "mind"]
+        ]
+      },
+      {
+        "id": "study",
+        "word": "勉強",
+        "reading": "べんきょう",
+        "gloss": "study",
+        "parts": [
+          ["勉", "ベン", "effort"],
+          ["強", "キョウ", "strong"]
+        ]
+      },
+      {
+        "id": "family",
+        "word": "家族",
+        "reading": "かぞく",
+        "gloss": "family",
+        "parts": [
+          ["家", "カ", "house"],
+          ["族", "ゾク", "family, group"]
+        ]
+      },
+      {
+        "id": "lively",
+        "word": "元気",
+        "reading": "げんき",
+        "gloss": "lively, well",
+        "parts": [
+          ["元", "ゲン", "origin"],
+          ["気", "キ", "spirit"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n4u08d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "わからない　ことが　あったら、先生に　_質問_して　ください。",
+      "options": [
+        "しもん",
+        "しつもん",
+        "じつもん",
+        "しつもう"
+      ],
+      "answer": 2,
+      "explain": "質問 is read しつもん, a question: if there is something you don't understand, ask the teacher. しもん drops the つ, じつもん has じ instead of し, and しつもう ends in う instead of ん."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "男の　学生は　家に　帰って、まず　何を　しますか。",
+    "audio": [
+      ["N", "学校で、先生と男の学生が話しています。男の学生は家に帰って、まず何をしますか。", "がっこうで、せんせいとおとこのがくせいがはなしています。おとこのがくせいはいえにかえって、まずなにをしますか。"],
+      ["F", "田中くん、この作文、とてもよかったですよ。", "たなかくん、このさくぶん、とてもよかったですよ。"],
+      ["M", "ありがとうございます。先生にほめられたのは、はじめてです。", "ありがとうございます。せんせいにほめられたのは、はじめてです。"],
+      ["F", "来週の月曜日に、みんなの前で読んでくれませんか。", "らいしゅうのげつようびに、みんなのまえでよんでくれませんか。"],
+      ["M", "えっ、ぼくがですか。じゃあ、書きなおします。母にも、いつも字がきたないと言われるので。", "えっ、ぼくがですか。じゃあ、かきなおします。ははにも、いつもじがきたないといわれるので。"],
+      ["F", "いいえ、書きなおさなくてもいいですよ。家で一回、声に出して読んでみてください。", "いいえ、かきなおさなくてもいいですよ。いえでいっかい、こえにだしてよんでみてください。"],
+      ["M", "はい。漢字のれんしゅうもしなければなりませんね。", "はい。かんじのれんしゅうもしなければなりませんね。"],
+      ["F", "漢字のテストは来月ですから、そちらはあとでいいですよ。それより、このお知らせを、今日おうちの方に見せてください。あしたまでにへんじがほしいんです。", "かんじのテストはらいげつですから、そちらはあとでいいですよ。それより、このおしらせを、きょうおうちのかたにみせてください。あしたまでにへんじがほしいんです。"],
+      ["M", "わかりました。じゃあ、帰ったらすぐ母に見せます。それから、作文を読むれんしゅうをします。", "わかりました。じゃあ、かえったらすぐははにみせます。それから、さくぶんをよむれんしゅうをします。"],
+      ["N", "男の学生は家に帰って、まず何をしますか。", "おとこのがくせいはいえにかえって、まずなにをしますか。"]
+    ],
+    "item": {
+      "id": "n4u08d1.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "男の　学生は　家に　帰って、まず　何を　しますか。",
+      "script": [
+        "ナレーター：学校で、先生と男の学生が話しています。男の学生は家に帰って、まず何をしますか。",
+        "女：田中くん、この作文、とてもよかったですよ。",
+        "男：ありがとうございます。先生にほめられたのは、はじめてです。",
+        "女：来週の月曜日に、みんなの前で読んでくれませんか。",
+        "男：えっ、ぼくがですか。じゃあ、書きなおします。母にも、いつも字がきたないと言われるので。",
+        "女：いいえ、書きなおさなくてもいいですよ。家で一回、声に出して読んでみてください。",
+        "男：はい。漢字のれんしゅうもしなければなりませんね。",
+        "女：漢字のテストは来月ですから、そちらはあとでいいですよ。それより、このお知らせを、今日おうちの方に見せてください。あしたまでにへんじがほしいんです。",
+        "男：わかりました。じゃあ、帰ったらすぐ母に見せます。それから、作文を読むれんしゅうをします。",
+        "ナレーター：男の学生は家に帰って、まず何をしますか。"
+      ],
+      "options": [
+        "作文を　書きなおす",
+        "作文を　読む　れんしゅうを　する",
+        "漢字の　れんしゅうを　する",
+        "お知らせを　母に　見せる"
+      ],
+      "printed": true,
+      "short": [
+        "作文を書きなおす",
+        "作文を読むれんしゅう",
+        "漢字のれんしゅう",
+        "お知らせを見せる"
+      ],
+      "answer": 4,
+      "why": [
+        "The teacher says 書きなおさなくてもいいですよ: he does not need to rewrite it.",
+        "He will practise reading the essay, but after showing the note: それから, 作文を読むれんしゅうをします.",
+        "The kanji test is next month, so the teacher says that can wait (あとでいいですよ).",
+        "The teacher wants an answer by tomorrow, and he says 帰ったらすぐ母に見せます: this comes first."
+      ],
+      "explain": null
+    }
+  }
+}

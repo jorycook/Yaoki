@@ -1,0 +1,251 @@
+{
+ "title": "謙譲語・お〜する",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u09d2.p1",
+    "form": "謙譲語（まいる・いただく・もうす・はいけんする・いたす・うかがう・おる）",
+    "gloss": "special humble verbs for what I do",
+    "connect": [
+     {"pos": "行く／来る and いる (go, come, be)", "rule": "行く・来る → {まいります}、いる → {おります}"},
+     {"pos": "食べる／飲む／もらう and する (eat, drink, receive, do)", "rule": "食べる・飲む・もらう → {いただきます}、する → {いたします}"},
+     {"pos": "言う, 見る and 聞く or visit (say, see, hear, visit)", "rule": "言う → {もうします}、見る → {はいけんします}、聞く・たずねる → {うかがいます}"}
+    ],
+    "examples": [
+     {"ja": "お電話ありがとうございます。さくら書店の[田中|たなか]と{もうします}。", "en": "Thank you for calling. This is Tanaka from Sakura Bookshop."},
+     {"ja": "あしたの午後三時に、そちらへ{まいります}。", "en": "I will come to your office at three tomorrow afternoon."}
+    ],
+    "watch": {
+     "note": "These verbs lower your own action, so they are only for what you or your side do. When the teacher comes, use the respect verb from day 1.",
+     "bad": "先生は何時にまいりますか。",
+     "good": "先生は何時にいらっしゃいますか。"
+    }
+   },
+   {
+    "id": "n4u09d2.p2",
+    "form": "お〜する・ご〜する（いたす）",
+    "gloss": "I (humbly) do … for you",
+    "connect": [
+     {"pos": "Verb, ます stem (the ます form without ます)", "rule": "お＋[持|も]ち＋{します}（{いたします}）"},
+     {"pos": "する-noun, such as [説明|せつめい] or あんない", "rule": "ご＋あんない＋{します}（{いたします}）"}
+    ],
+    "examples": [
+     {"ja": "[旅行|りょこう]の[写真|しゃしん]、こんど{お見せします}ね。", "en": "I'll show you the photos from my trip next time."},
+     {"ja": "では、[会場|かいじょう]まで{ごあんないいたします}。", "en": "Well then, I will show you the way to the venue."}
+    ],
+    "watch": {
+     "note": "お goes on the ます stem: 送ります, so お送りします. The dictionary form does not go after お.",
+     "bad": "あしたまでにお送るします。",
+     "good": "あしたまでにお送りします。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three are polite verbs; ask who does the action: you (humble, today) or the person you respect (respect, day 1).",
+   "forms": [
+    {"form": "お〜する", "tag": "じぶんがする · I do it for you", "mark": "dot", "ja": "けっかは、あとで{お[知|し]らせします}。", "en": "We will let you know the results later."},
+    {"form": "うかがう・もうす など", "tag": "とくべつなことば · special humble verb", "mark": "dot", "ja": "その話は、[田中|たなか]さんから{うかがいました}。", "en": "I heard about that from Tanaka-san."},
+    {"form": "お〜になる", "tag": "あいてがする · they do it (respect)", "mark": "dot", "ja": "社長はもう{お[帰|かえ]りになりました}。", "en": "The company president has already gone home."}
+   ],
+   "check": {
+    "id": "n4u09d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Who does it?",
+    "q": "先生、そのかばんは^わたしが^（　　）。",
+    "options": ["お[持|も]ちになります", "お[持|も]ちします", "[持|も]っていらっしゃいます"],
+    "answer": 2,
+    "why": [
+     "お〜になる raises the person who does the action, but here わたしが does it: you cannot use respect for yourself.",
+     "わたしが carries the teacher's bag, an action done for the teacher, so the humble お持ちします fits: let me carry that bag.",
+     "いらっしゃる is respect for someone else's action, but わたしが is the speaker, who cannot raise their own action."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u09d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "お電話ありがとうございます。^さくら書店の中山^と（　　）。",
+    "options": ["おっしゃいます", "はいけんします", "もうします", "まいります"],
+    "answer": 3,
+    "why": [
+      "おっしゃる is the respect verb for someone else's saying. Nakayama is giving his own name, so it cannot raise himself.",
+      "はいけんする means see or look at. It does not give a name.",
+      "The shop worker gives his own name: 〜ともうします is the humble way to say 〜といいます.",
+      "まいる means go or come. It does not follow a name with と."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "先生、あした[研究室|けんきゅうしつ]に（　　）^もいいですか^。",
+    "options": ["うかがって", "いらっしゃって", "おいでになって", "めしあがって"],
+    "answer": 1,
+    "why": [
+      "〜てもいいですか asks permission for the speaker's own visit, so the humble うかがう (visit) fits.",
+      "いらっしゃる is respect for the teacher's coming. The speaker is the one who visits.",
+      "おいでになる is also respect for someone else's coming or going, not for the speaker.",
+      "めしあがる is respect for eating. It does not take に with a room."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨がふっていますね。^よかったら^、このかさを（　　）よ。",
+    "options": ["お[貸|か]しになります", "ご[貸|か]しします", "お[貸|か]すします", "お[貸|か]しします"],
+    "answer": 4,
+    "why": [
+      "お〜になる is respect for someone else's action. Here the speaker offers to lend the umbrella.",
+      "貸す is not a する-noun, so it takes お, not ご.",
+      "お goes on the ます stem 貸し, not on the dictionary form 貸す.",
+      "よかったら offers help: お + 貸し + します, I'll lend you this umbrella."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "では、^わたしが^[使|つか]い[方|かた]を（　　）。",
+    "options": ["お[説明|せつめい]します", "ご[説明|せつめい]します", "ご[説明|せつめい]になります", "ご[説明|せつめい]されます"],
+    "answer": 2,
+    "why": [
+      "説明 is a する-noun that takes ご, not お.",
+      "わたしが explains to the listener: ご + 説明 + します is the humble form.",
+      "ご〜になる is respect for someone else's action, but わたしが does the explaining.",
+      "される here would make it respect or passive for someone else. わたしが needs the humble します."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n4u09d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あした、",
+    "after": "。",
+    "tiles": ["社長の", "お話を", "うかがいに", "まいります"],
+    "star": 2,
+    "bank": [3, 1, 0, 2],
+    "hint": "の joins two nouns. The ます stem + に tells the purpose of going.",
+    "full": "あした、社長のお話を{うかがいにまいります}。",
+    "explain": "社長の describes お話, so 社長のお話を comes first. うかがう (hear, humble) in the ます stem + に gives the purpose, and まいります (go, humble) ends the sentence: tomorrow I will go to hear the president's talk."
+   },
+   {
+    "id": "n4u09d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "メールで、",
+    "after": "します。",
+    "tiles": ["駅から", "会社までの", "[地図|ちず]を", "お[送|おく]り"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "〜から〜までの describes a noun. お + ます stem comes right before します.",
+    "full": "メールで、駅から会社までの[地図|ちず]を{お[送|おく]りします}。",
+    "explain": "駅から会社までの (from the station to the office) describes 地図, so it comes before 地図を. お送り joins します at the end: I will send you a map from the station to our office by email."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u09d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "先生、わたしも　先生の　しゃしんを（　　）。とても　きれいでした。",
+    "options": ["おっしゃいました", "まいりました", "ごらんに　なりました", "はいけんしました"],
+    "answer": 4,
+    "explain": "わたしも tells us the speaker saw the teacher's photos, so the humble はいけんしました (saw) is right. ごらんになりました is respect for someone else's seeing, not the speaker's. おっしゃいました (said) and まいりました (came, went) do not take しゃしんを."
+   },
+   {
+    "id": "n4u09d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「この　ケーキを　二つ　ください。」\nB「はい。では、はこに（　　）ね。」",
+    "options": ["お入れします", "お入りします", "お入れに　なります", "ご入れします"],
+    "answer": 1,
+    "explain": "The shop worker puts the cakes into a box for the customer: お + 入れ + します. お入りします comes from 入る (go in yourself), so it would mean the worker goes into the box. お入れになります is respect for someone else's action. 入れる is not a する-noun, so it does not take ご."
+   },
+   {
+    "id": "n4u09d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのう　先生が　",
+    "after": "。",
+    "tiles": ["お書きに", "なった", "本を", "いただきました"],
+    "star": 1,
+    "bank": [3, 0, 2, 1],
+    "full": "きのう　先生が　お書きに　なった　本を　{いただきました}。",
+    "explain": "お書きに, なった, 本を, いただきました. 先生が お書きに なった (respect, the teacher's action) describes 本, and いただきました (received, humble, my action) ends the sentence: yesterday I received a book the teacher wrote."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "電話注文のメモ",
+  "en": "A phone order memo",
+  "intro": "A shop worker writes this memo while taking an order on the phone. Tap each word on it.",
+  "words": [
+   {"id": "order", "word": "注文", "reading": "ちゅうもん", "gloss": "order", "parts": [["注", "チュウ", "pour, attention"], ["文", "モン", "writing"]]},
+   {"id": "goods", "word": "品物", "reading": "しなもの", "gloss": "goods, item", "parts": [["品", "しな", "goods"], ["物", "もの", "thing"]]},
+   {"id": "address", "word": "住所", "reading": "じゅうしょ", "gloss": "address", "parts": [["住", "ジュウ", "live"], ["所", "ショ", "place"]]},
+   {"id": "shipping", "word": "送料", "reading": "そうりょう", "gloss": "shipping fee", "parts": [["送", "ソウ", "send"], ["料", "リョウ", "fee"]]},
+   {"id": "price", "word": "代金", "reading": "だいきん", "gloss": "price, payment", "parts": [["代", "ダイ", "charge"], ["金", "キン", "money"]]},
+   {"id": "urgent", "word": "急ぎ", "reading": "いそぎ", "gloss": "urgent", "parts": [["急", "いそ", "hurry"]]},
+   {"id": "question", "word": "質問", "reading": "しつもん", "gloss": "question", "parts": [["質", "シツ", "quality"], ["問", "モン", "ask"]]},
+   {"id": "dispatch", "word": "発送", "reading": "はっそう", "gloss": "sending out, dispatch", "parts": [["発", "ハッ", "set out"], ["送", "ソウ", "send"]]}
+  ],
+  "check": {
+   "id": "n4u09d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_送料_は　いくらですか。",
+   "options": ["そうりょ", "そりょう", "そうりょう", "おくりょう"],
+   "answer": 3,
+   "explain": "送料 is read そうりょう, the shipping fee: how much is shipping? そうりょ drops the long う at the end, そりょう drops it in the middle, and おくりょう uses the kun reading of 送, which this word does not use."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What is the main point of the shop's email?",
+  "seconds": 90,
+  "passage": "山下さま\nさくら書店の　中村と　もうします。先週　お電話で　ご注文の　本の　ことで、メールを　お送りします。\n本は　十日に　店に　とどく　よていでしたが、^おくれて　十五日に　なりました^。もうしわけ　ありません。本が　とどいたら、わたしから　お電話いたします。\nお店に　いらっしゃるのが　むずかしい　ときは、ご住所まで　お送りする　ことも　できます。その　ときは、送料が　五百円　かかります。\nどうぞ　よろしく　おねがいいたします。",
+  "strategy": "Read past the greeting to the sentence with でしたが: the change of plan is what the email is for.",
+  "item": {
+   "id": "n4u09d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "この　メールで　中村さんが　いちばん　つたえたい　ことは　何ですか。",
+   "options": [
+    "本は　もう　店に　とどいて　いる　こと。",
+    "本が　店に　とどく　日が　おそく　なった　こと。",
+    "本は　かならず　家まで　送る　こと。",
+    "本を　送る　ときは　お金が　かからない　こと。"
+   ],
+   "short": ["もうとどいている", "とどく日がおそくなった", "かならず家まで送る", "送るのはお金がかからない"],
+   "answer": 2,
+   "explain": "The email was written because the book is late: it was to come on the 10th, but おくれて十五日になりました. The rest tells what will happen next.",
+   "why": [
+    "The book has not come yet. Nakamura-san will call when it arrives (とどいたら).",
+    "",
+    "The shop sends the book only if coming to the shop is hard (むずかしいときは). It is a choice, not a plan.",
+    "Sending the book costs 500 yen for shipping (送料が五百円かかります)."
+   ]
+  }
+ }
+}

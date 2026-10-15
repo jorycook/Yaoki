@@ -1,0 +1,10 @@
+# Unit 5: notes from the drafting agents (for the flags file)
+
+- d1: d4 なくてもいいです (N5) as a wrong option. Script uses 〜んです, 〜てから. c1, d3 なければなりません wrong only because a comma and clause follow. d4 relies on かならず not going with ません. d1 行ければ (potential) distractor; k1 時別 表記 distractor. Words: 特別なねだん, 有料, 品物, 入会. d5 star order (あと二回来ればコーヒーが無料に).
+- d2: e2 みても/みると as wrong options (ても, と come in days 3–4). d3 (みてあげます/みてもいいですか/みたらいいですか) and d4 (みた) wrong only in this sentence. c1 rejects たらどうですか/たほうがいいです on form, maybe easy. Words: かんりにん (kana), ポスト for a door slot, 近所, 住所, 顔色. d6 さいきん太ってしまって natural?
+- d3: compare has four forms (ば, たら, と, なら); check has three. e2 買えば with 本屋がいいですよ, c1 買ったら: second answers? Kana じどうはんばいき, おてら. Uses 北海道, ココア, 〜といいですよ, 使用中止. d4 easy.
+- d4: d6 star 上手に何度れんしゅうしても judged unnatural. d5 運動/しなくても on separate tiles. c1 行かなくても ruled out on logic. d4, e1 reason: 何度 + たら/ば leads to a question, check. d3, e2 ても ruled out by context only. Kana おぼえる, こうえん, れんしゅう, へんじ. 早めに, 用意 in passage.
+- d5: c1, d3, e2 場合は fails on meaning. d2, e1 かどうか fails because a notice/request follows. d4 のかどうか near-miss of 休みなのかどうか. Kana 天気よほう, ばんごう. 台風, 集合 maybe above N4. d5 かぜでねつが高い場合は natural?
+- d6: d1 どんなに…ても maybe above the unit. d2 reason for 帰れば (cannot report a single past discovery), confirm. c1 claim that と cannot be followed by ほうがいい advice, confirm. d4 (noun + なら) easy. d5 試合があるかどうか, e2 なくても〜できません naturalness. Library notice scene and lending-rules reading.
+- test: t.12 飲めば/飲むと/飲んだら wrong only because coffee keeps you awake. t.10 relies on と/ば after an action verb not ending in a request. t.11 走ったら ruled out on timing; some may accept it. t.15 あると wrong only because a request follows. t.5 目ざまし時計, t.13 時間どおり maybe above N4. t.16 あと千円あれば close to day 1's pattern. ば, と, なくても tested only as star items.
+- blind solve: d5.d1 option たら read as a second answer (止まったら); replaced by と. d4.k1 and d5.k1 both test the reading of 中止 with near-identical distractors; one should test another word.

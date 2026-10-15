@@ -1,0 +1,11 @@
+# Unit 7: notes from the drafting agents (for the flags file)
+
+- d1: れきし in kana (歴史 added to the list later). d3, e2 (に関する + noun with a non-speech verb: (健康)（　）番組, (サービス)（　）アンケート): に関して really fails? c1 来週の旅行について説明会に出ました fails clearly? d2 distractor までの. Listening 資料代 200 yen beside free 参加費. Stars d5, d6, e3 one order?
+- d2: d3 私にとっての一番の楽しみ (私の一番の楽しみ more usual). d5, d6 no comma after のに対して/にとって. e3 弟に対して、とても怒っていた natural? d4 目上の人に対する言葉づかい (目上 above N3?). Passage uses 最中 (unit 1). Scene: customer survey; check 漢字読み.
+- d3: つうやく, しゅみ, やちん, ぼしゅう in kana; scene title 観光案内ボランティアぼしゅう looks odd. c1 祖父としては一番の楽しみです: としては clearly wrong? d4 教師としての経験 has only one として form among options (easier). Scene check 漢字読み 資格; listening answer: taking festival photos.
+- d4: によって and によっては overlap (天候によって中止になることもある is normal), so never side by side except c1 (relies on さまざまです), confirm. 営業時間 → 開店時間/開いている時間 (営 added later); question 「わたし」 for 筆者. e3 single-character tile か; d5 使い方によっては natural?
+- d5: 向け/向き overlap (初心者向けのコース common): 向け wrong only where nobody made the thing; 向き wrong only where someone made or limited it (d1, d3, e1). Check d3 (向きなので一年生は参加できません), d4 (兄はえいぎょう向き). c1 answer is にとって (comparison form). e3 説明した外国人向けの… clunky. Scene check 表記 さかみち. Listening gist: 二つのコースのちがいと選び方.
+- d6: c1 としては clearly wrong (the station is the subject)? d2 私にとって＋取りたいと思っています clearly wrong? d3 点数によって決めます ("based on", close to "depending on"). e3 long. Scene title 日本語学校の時間割; クラス for 講座. Check 言い換え類義 欠席 (also tested in unit 4 d6).
+- test: 留守 (るす) irregular. 7 もう clearly wrong for ほぼ? 14 leaves 向き out (overlap); 13 leaves plain によって out. 23 assumes a health insurance card counts as proof of age. Star 16 についての話 less natural than 料理の話. 階段 recurs from day 5.
+- blind solve: to fix d5.e2 second answer (初心者向け); d5.c1/d2.e1 near-duplicates (この町は〇〇にとって住みやすい); d3.e3/d3.r1 (station directions volunteer); d1.k1 定員 in d1.r1 script; recycled: ごみの出し方 (d4.d3, d5.e3, d1.d6), ホテルのサービス (d1.e2, d2.k1), 〜向けに作られている (d5.e1, d6.d4), 初心者向き (d5.e2) vs 初めての人向き (d5.r1).
+- fixed after it: d5.e2 now 米作り向き (向け cannot fit); d5.c1 lift helps wheelchair users (にとって); d3.e3 father coaching football (として); d1.k1 now 持参 (scene word 内容 swapped for 持参); rubbish kept only in d4.d3 (d1.d6, d5.e3 changed); d1.e2 marathon leaflet; d6.d4 用意されて frame, option に対して replaced by として.

@@ -1,0 +1,251 @@
+{
+ "title": "〜という・〜といった",
+ "grammar": {
+  "points": [
+   {
+    "id": "n3u06d4.p1",
+    "form": "〜という",
+    "gloss": "the content of a noun (that says …)",
+    "connect": [
+     {"pos": "Verb or い-adjective, plain form", "rule": "[普通形|ふつうけい]＋{という}＋〜"},
+     {"pos": "Noun or な-adjective", "rule": "〜（だ）＋{という}＋〜"},
+     {"pos": "Noun, a name (N4)", "rule": "〜＋{という}＋人／店"}
+    ],
+    "examples": [
+     {"ja": "台風で、明日は電車が止まる{という}ニュースを見ました。", "en": "I saw news that the trains will stop tomorrow because of the typhoon."},
+     {"ja": "毎朝30分歩く{という}[約束|やくそく]を、[妻|つま]としました。", "en": "I made a promise to my wife that I would walk for 30 minutes every morning."}
+    ],
+    "watch": {
+     "note": "A clause that ends in だ cannot sit directly before a noun. Put という between them: 中止だというメール.",
+     "bad": "明日の会議は中止だメールが来ました。",
+     "good": "明日の会議は中止だというメールが来ました。"
+    }
+   },
+   {
+    "id": "n3u06d4.p2",
+    "form": "〜といった",
+    "gloss": "such as A and B (examples)",
+    "connect": [
+     {"pos": "Nouns listed with や", "rule": "〜や〜＋{といった}＋〜"},
+     {"pos": "Nouns listed with 、", "rule": "〜、〜＋{といった}＋〜"}
+    ],
+    "examples": [
+     {"ja": "外国から来た友だちを、すしやてんぷら{といった}日本料理の店に[案内|あんない]しました。", "en": "I took my friend from abroad to a restaurant serving Japanese food such as sushi and tempura."},
+     {"ja": "図書館では、CDやDVD{といった}本以外の物も借りられます。", "en": "At the library you can also borrow things other than books, such as CDs and DVDs."}
+    ],
+    "watch": {
+     "note": "といった gives examples from a group, so the noun for the group must come right after it. Without that noun, use など.",
+     "bad": "母はバラやゆりといったが好きです。",
+     "good": "母はバラやゆりといった花が好きです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "という tells you what a noun says, while といった and など give examples.",
+   "forms": [
+    {"form": "〜という＋〜", "tag": "内容 · what the noun says", "mark": "dot", "ja": "[雪|ゆき]で道が通れない{という}[連絡|れんらく]がありました。", "en": "We got word that the road is closed because of snow."},
+    {"form": "〜といった", "tag": "例 · such as (a little formal)", "mark": "dot", "ja": "ねこや犬{といった}ペットは、このマンションではかえません。", "en": "You cannot keep pets such as cats and dogs in this building."},
+    {"form": "〜など（N5）", "tag": "例 · and so on (everyday)", "mark": "dot", "ja": "ペンやノート{など}を買いました。", "en": "I bought pens, notebooks and so on."}
+   ],
+   "check": {
+    "id": "n3u06d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Which one?",
+    "q": "この[動物園|どうぶつえん]では、パンダやコアラ（　　）人気のある動物が見られます。",
+    "options": ["という", "といった", "によると"],
+    "answer": 2,
+    "why": [
+     "という would present パンダやコアラ as the name or content of 動物. Two examples from a group take といった.",
+     "Pandas and koalas are examples of popular animals: AやB＋といった＋noun.",
+     "によると follows the source of information, such as ニュース. Pandas and koalas are not a source."
+    ],
+    "explain": null
+   }
+  },
+  "drill": [
+   {
+    "id": "n3u06d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "大家さんから、^来週エレベーターが止まる^（　　）[連絡|れんらく]がありました。",
+    "options": ["とのことだ", "によると", "という", "ようだ"],
+    "answer": 3,
+    "why": [
+     "とのことだ ends a sentence. It cannot come before the noun 連絡.",
+     "によると follows the source, as in 大家さんによると. Here a clause comes before the blank.",
+     "The clause is what the message said: 止まる＋という＋連絡.",
+     "ようだ ends a sentence. It cannot come before the noun 連絡."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u06d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "今日は午後から^大雨^（　　）[予報|よほう]を聞いて、かさを持って出かけました。",
+    "options": ["のという", "でという", "なという", "だという"],
+    "answer": 4,
+    "why": [
+     "No の goes between a noun and という.",
+     "で joins two clauses. It cannot sit before という.",
+     "な joins a な-adjective to a noun. 大雨 is a noun, and な does not go before という.",
+     "Noun＋だ＋という＋noun: the forecast said heavy rain. (大雨という, without だ, is also fine.)"
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u06d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^シャンプーやせっけん^（　　）毎日使う物は、まとめて買うと安くなります。",
+    "options": ["といった", "によって", "ということは", "そうな"],
+    "answer": 1,
+    "why": [
+     "Shampoo and soap are examples of things you use every day: AやB＋といった＋noun.",
+     "によって gives a cause, a means or a difference. None of these fits shampoo and soap here.",
+     "ということは starts a new clause (that means …). It cannot join a list to a noun.",
+     "そう (looks like) does not attach to a noun such as せっけん."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u06d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この大学には、^中国やタイ^（　　）アジアの国から来た[留学生|りゅうがくせい]が多いです。",
+    "options": ["ということだ", "によると", "といった", "みたいだ"],
+    "answer": 3,
+    "why": [
+     "ということだ ends a sentence. It cannot come before アジアの国.",
+     "によると follows the source of information. China and Thailand are not a source here.",
+     "China and Thailand are examples of Asian countries: AやB＋といった＋noun.",
+     "みたいだ ends a sentence. Before a noun it would have to be みたいな."
+    ],
+    "explain": null
+   },
+   {
+    "id": "n3u06d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "駅前に大きな病院が",
+    "after": "、うれしいです。",
+    "tiles": ["できる", "という", "話が", "[本当|ほんとう]なら"],
+    "star": 2,
+    "bank": [2, 0, 3, 1],
+    "hint": "What is the 話 about? The content comes right before という.",
+    "full": "駅前に大きな病院ができるという話が[本当|ほんとう]なら、うれしいです。",
+    "explain": "病院ができる is the content of the talk, so という and 話が follow it. 本当なら comes last and leads into うれしいです."
+   },
+   {
+    "id": "n3u06d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[週末|しゅうまつ]は、",
+    "after": "楽しんでいます。",
+    "tiles": ["テニスや", "[水泳|すいえい]", "といった", "スポーツを"],
+    "star": 1,
+    "bank": [3, 2, 0, 1],
+    "hint": "や joins two examples. Which tile names the group they belong to?",
+    "full": "[週末|しゅうまつ]は、テニスや[水泳|すいえい]といったスポーツを楽しんでいます。",
+    "explain": "テニスや水泳 are the examples, といった follows them, and スポーツを is the group, the object of 楽しんでいます."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n3u06d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "駅前のパン屋が来月店を閉める（　　）うわさを聞いて、とても残念に思った。",
+    "options": ["という", "ということだ", "によって", "そうだ"],
+    "answer": 1,
+    "explain": "The clause is what the rumour says: 閉める＋という＋うわさ. ということだ and そうだ end a sentence and cannot come before the noun うわさ, and によって gives a cause or means and does not follow a clause like this."
+   },
+   {
+    "id": "n3u06d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この店では、ハンバーグやカレー（　　）子どもが好きな料理が安く食べられる。",
+    "options": ["ように", "によると", "とのことだ", "といった"],
+    "answer": 4,
+    "explain": "Hamburg steak and curry are examples of food children like: AやB＋といった＋noun. ように after a noun needs の (カレーのように), によると follows a source of information, and とのことだ ends a sentence."
+   },
+   {
+    "id": "n3u06d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "アメリカに住む友人から、",
+    "after": "届いた。",
+    "tiles": ["来年", "日本に来る", "という", "手紙が"],
+    "star": 1,
+    "bank": [2, 3, 1, 0],
+    "full": "アメリカに住む友人から、来年日本に来る{という}手紙が届いた。",
+    "explain": "来年, 日本に来る, という, 手紙が. 来年日本に来る is what the letter says, という joins it to 手紙, and 手紙が is the subject of 届いた."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "資料館の入り口",
+  "en": "The entrance of a local history museum",
+  "intro": "Tap every word you would have to read at the museum entrance.",
+  "words": [
+   {"id": "guide", "word": "案内", "reading": "あんない", "gloss": "guide, information", "parts": [["案", "アン", "plan, idea"], ["内", "ナイ", "inside"]]},
+   {"id": "admission", "word": "入館料", "reading": "にゅうかんりょう", "gloss": "admission fee", "parts": [["入", "ニュウ", "enter"], ["館", "カン", "hall, building"], ["料", "リョウ", "fee"]]},
+   {"id": "reception", "word": "受付", "reading": "うけつけ", "gloss": "reception desk", "parts": [["受", "うけ", "receive"], ["付", "つけ", "attach"]]},
+   {"id": "discount", "word": "割引", "reading": "わりびき", "gloss": "discount", "parts": [["割", "わり", "divide"], ["引", "びき", "pull, take off"]]},
+   {"id": "forbidden", "word": "禁止", "reading": "きんし", "gloss": "not allowed", "parts": [["禁", "キン", "forbid"], ["止", "シ", "stop"]]},
+   {"id": "booking", "word": "予約", "reading": "よやく", "gloss": "booking, reservation", "parts": [["予", "ヨ", "in advance"], ["約", "ヤク", "promise"]]},
+   {"id": "local", "word": "地元", "reading": "じもと", "gloss": "local (this area)", "parts": [["地", "ジ", "land"], ["元", "もと", "origin"]]},
+   {"id": "here", "word": "現在地", "reading": "げんざいち", "gloss": "you are here (on a map)", "parts": [["現", "ゲン", "present"], ["在", "ザイ", "be there"], ["地", "チ", "place"]]}
+  ],
+  "check": {
+   "id": "n3u06d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_地元_の人に人気の店を教えてもらった。",
+   "options": ["ちもと", "じげん", "じもと", "ちげん"],
+   "answer": 3,
+   "explain": "地元 is read じもと: a local person told me about a popular shop. 地 is ジ here, not the チ of 地図, and 元 is もと, not the ゲン of 元気."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "What does the guide say about the museum and the class, and what must a visitor do?",
+  "seconds": 100,
+  "passage": "山川町は、昔からやきものの町として知られています。駅から歩いて10分の「山川やきもの館」には、皿や茶わんといった、町の人が毎日の生活で使ってきた物がたくさん並んでいます。^高い美術品ではなく^、ふつうの家で使われていた物が中心です。二階には、昔の人が割れた皿を直して使い続けたという話を^紹介する^コーナーがあり、物を大切にする町の心がよくわかります。また、^土曜日と日曜日には、茶わんを作る教室があります^。作った茶わんは、やいたあと、^一か月ほどで家に送ってもらえます^。^人気の教室なので、参加したい人は二週間前までに電話で予約してください^。",
+  "strategy": "Check each option against the details: what kind of objects are shown, when the class runs, and what you must do beforehand.",
+  "item": {
+   "id": "n3u06d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "この案内の内容に合うものはどれか。",
+   "options": [
+    "やきもの館には、有名な人が作った高い美術品が多く並んでいる。",
+    "茶わんを作る教室に参加したい人は、早めに電話で予約する必要がある。",
+    "茶わんを作る教室は毎日あり、作った物はその日に持って帰れる。",
+    "二階では、割れた皿の直し方を習うことができる。"
+   ],
+   "short": ["有名な人の高い美術品が多い", "早めに電話で予約する", "毎日あり、その日に持ち帰れる", "割れた皿の直し方を習える"],
+   "answer": 2,
+   "explain": "人気の教室なので、参加したい人は二週間前までに電話で予約してください: you must book by phone two weeks ahead.",
+   "why": [
+    "The guide says the opposite: 高い美術品ではなく, the objects are everyday things from ordinary homes.",
+    "",
+    "The class is only on Saturdays and Sundays, and the bowls are sent home about a month later.",
+    "The second floor only tells the story (話を紹介する) of people mending plates. It does not teach you how."
+   ]
+  }
+ }
+}

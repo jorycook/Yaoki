@@ -1,0 +1,241 @@
+{
+ "title": "〜たら・〜たらどうですか",
+ "grammar": {
+  "points": [
+   {
+    "id": "n4u05d2.p1",
+    "form": "〜たら",
+    "gloss": "if …, when … (then)",
+    "connect": [
+     {"pos": "Verb, た form + ら", "rule": "行った → 行った{ら}"},
+     {"pos": "い-adjective, ない form: かった + ら", "rule": "高い → 高かった{ら}、行かない → 行かなかった{ら}"},
+     {"pos": "〜 (noun or な-adjective) + だった + ら", "rule": "雨 → 雨{だったら}"}
+    ],
+    "examples": [
+     {"ja": "[家|いえ]に[帰|かえ]った{ら}、すぐ電話しますね。", "en": "When I get home, I'll call you right away."},
+     {"ja": "わからないことがあった{ら}、いつでも聞いてください。", "en": "If there is anything you don't understand, ask me any time."}
+    ],
+    "watch": {
+     "note": "たら joins the た form. For a noun or a な-adjective, the た form is だった, so 雨だったら, not 雨たら.",
+     "bad": "雨たら、うちで本を読みます。",
+     "good": "雨だったら、うちで本を読みます。"
+    }
+   },
+   {
+    "id": "n4u05d2.p2",
+    "form": "〜たらどうですか",
+    "gloss": "why don't you …? (advice)",
+    "connect": [
+     {"pos": "Verb, た form + らどうですか", "rule": "休んだ → 休んだ{らどうですか}"},
+     {"pos": "Casual, to a friend or family", "rule": "休んだ{らどう？}"}
+    ],
+    "examples": [
+     {"ja": "[顔色|かおいろ]が[悪|わる]いですね。今日は[早|はや]く[帰|かえ]った{らどうですか}。", "en": "You look pale. Why don't you go home early today?"},
+     {"ja": "わからないことばは、先生に聞いてみた{らどうですか}。", "en": "Why don't you try asking the teacher about the words you don't know?"}
+    ],
+    "watch": {
+     "note": "たらどうですか is advice about what the other person could do. To offer to do something yourself, use ましょうか.",
+     "bad": "にもつが多いですね。私が持ったらどうですか。",
+     "good": "にもつが多いですね。私が持ちましょうか。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "たら alone sets a condition for what comes next. Add どうですか and it becomes gentle advice; たほうがいいです is stronger advice.",
+   "forms": [
+    {"form": "〜たら", "tag": "もし・〜とき · if, when", "mark": "dot", "ja": "ねつが下がった{ら}、学校に行ってもいいですよ。", "en": "When your fever goes down, you can go to school."},
+    {"form": "〜たらどうですか", "tag": "ていあん · why don't you", "mark": "dot", "ja": "ねつがありますね。[病院|びょういん]に行った{らどうですか}。", "en": "You have a fever. Why don't you go to the hospital?"},
+    {"form": "〜たほうがいいです", "tag": "つよいアドバイス · you'd better", "mark": "up", "ja": "ねつが高いですね。すぐ[病院|びょういん]に行っ{たほうがいいです}よ。", "en": "Your fever is high. You'd better go to the hospital right away."}
+   ],
+   "check": {
+    "id": "n4u05d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "電話で",
+    "q": "[仕事|しごと]が[終|お]わっ（　　）、^すぐそちらへ行きます^。",
+    "options": ["たらどうですか", "たら", "たほうがいいです"],
+    "answer": 2,
+    "why": [
+     "たらどうですか ends a sentence with advice. Here a second clause follows, and I am talking about my own plan.",
+     "終わったら sets the time: once work is over, I will come straight away.",
+     "たほうがいいです ends a sentence with advice. It cannot join すぐそちらへ行きます."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n4u05d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^もし^[明日|あした]雨（　　）、[旅行|りょこう]はやめます。",
+    "options": ["だら", "でたら", "だったら", "たら"],
+    "answer": 3,
+    "why": [
+      "だら is not a form. A noun needs the past だった before ら.",
+      "で is not the past of だ, so でたら is not said.",
+      "雨 is a noun, so 雨だったら: if it rains tomorrow, I'll call off the trip.",
+      "たら does not join a noun directly. 雨たら is not said."
+    ]
+   },
+   {
+    "id": "n4u05d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "駅に（　　）、電話してください。^車でむかえに行きます^。",
+    "options": ["[着|つ]きたら", "[着|つ]いたら", "[着|つ]くら", "[着|つ]いたり"],
+    "answer": 2,
+    "why": [
+      "たら joins the た form 着いた, not the ます stem 着き.",
+      "着いたら: once you arrive at the station, call me, and I'll come by car.",
+      "ら does not join the dictionary form. Make the た form first: 着いたら.",
+      "たり needs a second たり and する (着いたりします). It cannot set the time for the request."
+    ]
+   },
+   {
+    "id": "n4u05d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「[夜|よる]、^よくねられないんです^。」\nB「ねる前に、あたたかいミルクを飲んで（　　）。」",
+    "options": ["みてあげます", "みてもいいですか", "みたらいいですか", "みたらどうですか"],
+    "answer": 4,
+    "why": [
+      "B would be drinking the milk for A. A is the one who cannot sleep, so B should give advice.",
+      "This asks if B may drink the milk, which does not answer A's problem.",
+      "This asks A what B should do. B is the one giving advice here.",
+      "A cannot sleep, so B gives advice: why don't you try drinking warm milk?"
+    ]
+   },
+   {
+    "id": "n4u05d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "駅の前のパン[屋|や]、^おいしいですよ^。[一度|いちど]（　　）どうですか。",
+    "options": ["食べてみたら", "食べてみた", "食べてみたり", "食べてみるら"],
+    "answer": 1,
+    "why": [
+      "The た form + ら + どうですか: why don't you try it once?",
+      "どうですか cannot follow the plain past directly. ら is missing.",
+      "たり lists actions and needs する. It does not join どうですか.",
+      "ら does not join the dictionary form. It must be 食べてみたら."
+    ]
+   },
+   {
+    "id": "n4u05d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[日曜|にちよう]日、",
+    "after": "ください。",
+    "tiles": ["ひま", "だったら", "あそびに", "来て"],
+    "star": 2,
+    "bank": [3, 2, 0, 1],
+    "hint": "ひま is a な-adjective. What does it need before ら? Which tile joins ください?",
+    "full": "[日曜|にちよう]日、ひま{だったら}あそびに来てください。",
+    "explain": "ひま needs だったら to make the condition. Then the request: あそびに来て, and 来て joins ください."
+   },
+   {
+    "id": "n4u05d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「さいきん[太|ふと]ってしまって。」\nB「じゃ、毎日",
+    "after": "ですか。」",
+    "tiles": ["バスに", "[乗|の]らないで", "[歩|ある]いたら", "どう"],
+    "star": 1,
+    "bank": [2, 3, 1, 0],
+    "hint": "Which tile takes バスに? Which form joins どう?",
+    "full": "A「さいきん[太|ふと]ってしまって。」\nB「じゃ、毎日バスに[乗|の]らないで[歩|ある]いた{らどう}ですか。」",
+    "explain": "バスに goes with 乗らないで, \"without taking the bus\". Then 歩いたら + どうですか gives the advice: why don't you walk?"
+   }
+  ],
+  "exam": [
+   {
+    "id": "n4u05d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「今　この　本を　読んで　いるんですが、とても　おもしろいですよ。」\nB「そうですか。じゃ、（　　）　貸して　ください。」",
+    "options": ["読み終わりたら", "読み終わったり", "読み終わったら", "読み終わるら"],
+    "answer": 3,
+    "explain": "B asks A to lend the book once A has finished it: 読み終わったら. たら joins the た form, so 読み終わりたら and 読み終わるら are not forms, and 読み終わったり needs another たり and する."
+   },
+   {
+    "id": "n4u05d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「京都へ　行きたいんですが、ホテルが　まだ　ないんです。」\nB「駅の　前の　ホテルに　電話して　（　　）　どうですか。」",
+    "options": ["みた", "みたら", "みても", "みると"],
+    "answer": 2,
+    "explain": "B gives advice: 電話してみたらどうですか, why don't you try calling? どうですか needs たら before it; みた has no ら, and みても and みると do not make advice with どうですか."
+   },
+   {
+    "id": "n4u05d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「田中さんは　まだ　来て　いませんね。」\nB「ちょっと　出かけますから、田中さんが　",
+    "after": "。」",
+    "tiles": ["来たら", "私に", "教えて", "ください"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "full": "A「田中さんは　まだ　来て　いませんね。」\nB「ちょっと　出かけますから、田中さんが　{来たら}　私に　教えて　ください。」",
+    "explain": "田中さんが goes with 来たら, the condition. Then the request: 私に 教えて ください, \"please tell me\"."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "アパートで",
+  "en": "The house-rules notice by the mailboxes of an apartment building",
+  "intro": "Tap every word with kanji that you can find on the apartment notice.",
+  "words": [
+   {"id": "fire", "word": "火事", "reading": "かじ", "gloss": "fire (in a building)", "parts": [["火", "カ", "fire"], ["事", "ジ", "thing, matter"]]},
+   {"id": "caution", "word": "注意", "reading": "ちゅうい", "gloss": "caution, care", "parts": [["注", "チュウ", "pour, pay attention"], ["意", "イ", "mind"]]},
+   {"id": "address", "word": "住所", "reading": "じゅうしょ", "gloss": "address", "parts": [["住", "ジュウ", "live"], ["所", "ショ", "place"]]},
+   {"id": "neighbours", "word": "近所", "reading": "きんじょ", "gloss": "neighbourhood, the neighbours", "parts": [["近", "キン", "near"], ["所", "ジョ", "place"]]},
+   {"id": "bicycle", "word": "自転車", "reading": "じてんしゃ", "gloss": "bicycle", "parts": [["自", "ジ", "self"], ["転", "テン", "roll"], ["車", "シャ", "vehicle"]]},
+   {"id": "weekday", "word": "曜日", "reading": "ようび", "gloss": "day of the week", "parts": [["曜", "ヨウ", "weekday"], ["日", "ビ", "day"]]},
+   {"id": "night", "word": "夜", "reading": "よる", "gloss": "night", "parts": [["夜", "よる", "night"]]},
+   {"id": "noise", "word": "音", "reading": "おと", "gloss": "sound, noise", "parts": [["音", "おと", "sound"]]}
+  ],
+  "check": {
+   "id": "n4u05d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_近所_の　人に　会ったら、あいさつを　しましょう。",
+   "options": ["きんしょ", "ちかじょ", "ちかしょ", "きんじょ"],
+   "answer": 4,
+   "explain": "近所 is read きんじょ, \"neighbourhood\". 近 is キン here, not ちか, and 所 becomes じょ after きん. きんしょ, ちかじょ and ちかしょ are not words."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "In each situation on the notice, what should a resident do?",
+  "seconds": 90,
+  "passage": "さくらアパートの　みなさんへ\n１．ごみは　火曜日と　金曜日の　朝　八時までに　出して　ください。\n２．かぎを　なくしたら、山田に　電話して　ください。^夜　十時を　すぎたら、電話は　しないで、わたしの　へやの　ポストに　手紙を　入れて　ください^。つぎの　日の　朝、新しい　かぎを　持って　いきます。\n３．火事が　起きたら、エレベーターは　使わないで、かいだんで　外に　出て　ください。\nかんりにん　山田（１０１）",
+  "strategy": "Find the たら clause that matches the situation in the question, then read what comes after it, including any later たら that changes the rule.",
+  "item": {
+   "id": "n4u05d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "夜　十一時に　かぎを　なくした　人は　どう　しますか。",
+   "options": ["すぐ　山田さんに　電話を　する。", "山田さんの　へやの　ポストに　手紙を　入れる。", "つぎの　日の　朝、山田さんの　へやへ　行く。", "新しい　かぎを　買いに　行く。"],
+   "short": ["すぐ電話をする", "ポストに手紙を入れる", "つぎの日の朝へやへ行く", "新しいかぎを買う"],
+   "answer": 2,
+   "explain": "After 10 p.m. the notice says not to phone but to put a letter in Yamada's mailbox: 夜十時をすぎたら、電話はしないで、わたしのへやのポストに手紙を入れてください.",
+   "why": [
+     "Phoning is only for before 10 p.m. After that, 電話はしないで.",
+     "",
+     "The next morning Yamada brings the new key (持っていきます). The resident does not go to Yamada's room.",
+     "Yamada brings a new key. The notice says nothing about buying one."
+   ]
+  }
+ }
+}

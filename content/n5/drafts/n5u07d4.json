@@ -1,0 +1,437 @@
+{
+  "title": "〜でしょう・〜と思います",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u07d4.p1",
+        "form": "〜でしょう",
+        "gloss": "probably; …, right?",
+        "connect": [
+          {
+            "pos": "Verb or い-adjective, plain form",
+            "rule": "ふる／さむい ＋ {でしょう}"
+          },
+          {
+            "pos": "〜 is a noun or a な-adjective (no だ)",
+            "rule": "〜 ＋ {でしょう}"
+          },
+          {
+            "pos": "Checking with the listener (voice goes up)",
+            "rule": "〜{でしょう}？"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "あしたの[午後|ごご]は[雨|あめ]{でしょう}。",
+            "en": "Tomorrow afternoon it will probably rain."
+          },
+          {
+            "ja": "このケーキ、おいしい{でしょう}？",
+            "en": "This cake is good, isn't it?"
+          }
+        ],
+        "watch": {
+          "note": "でしょう takes the place of です. Do not put です before it.",
+          "bad": "あしたはさむいですでしょう。",
+          "good": "あしたはさむいでしょう。"
+        }
+      },
+      {
+        "id": "n5u07d4.p2",
+        "form": "〜とおもいます",
+        "gloss": "I think …",
+        "connect": [
+          {
+            "pos": "Verb or い-adjective, plain form",
+            "rule": "[来|こ]ない／たかい ＋ {とおもいます}"
+          },
+          {
+            "pos": "〜 is a noun or a な-adjective: add だ",
+            "rule": "〜だ ＋ {とおもいます}"
+          },
+          {
+            "pos": "Plain past works too",
+            "rule": "[来|き]た／[雨|あめ]だった ＋ {とおもいます}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[山川|やまかわ]さんは[今日|きょう]は[来|こ]ない{とおもいます}。",
+            "en": "I think Mr. Yamakawa won't come today."
+          },
+          {
+            "ja": "リンさんは[学生|がくせい]だ{とおもいます}。",
+            "en": "I think Lin is a student."
+          }
+        ],
+        "watch": {
+          "note": "A noun before とおもいます needs だ: 先生だとおもいます.",
+          "bad": "あの人は先生とおもいます。",
+          "good": "あの人は先生だとおもいます。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three talk about tomorrow's weather. What changes is how sure the speaker is, and whose view it is.",
+      "forms": [
+        {
+          "form": "〜でしょう",
+          "tag": "たぶん · probably",
+          "mark": "dot",
+          "ja": "あしたは[雨|あめ]{でしょう}。",
+          "en": "It will probably rain tomorrow."
+        },
+        {
+          "form": "〜とおもいます",
+          "tag": "わたしのいけん · I think",
+          "mark": "dot",
+          "ja": "あしたは[雨|あめ]がふる{とおもいます}。",
+          "en": "I think it will rain tomorrow."
+        },
+        {
+          "form": "〜です",
+          "tag": "ほんとう · a sure fact",
+          "mark": "dot",
+          "ja": "[今日|きょう]は[雨|あめ]{です}。",
+          "en": "It's rainy today."
+        }
+      ],
+      "check": {
+        "id": "n5u07d4.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "あしたのてんき",
+        "q": "「あしたは[雨|あめ]ですか。」「たぶん[雨|あめ]^だ^（　　）。」",
+        "options": [
+          "でしょう",
+          "とおもいます",
+          "です"
+        ],
+        "answer": 2,
+        "why": [
+          "でしょう comes right after 雨, without だ: 雨でしょう.",
+          "A noun takes だ before とおもいます: 雨だとおもいます.",
+          "です comes right after 雨, without だ."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u07d4.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^あした^の[午前|ごぜん]は[雨|あめ]が（　　）。",
+        "options": [
+          "ふるでしょう",
+          "ふりますでしょう",
+          "ふったでしょう",
+          "ふってでしょう"
+        ],
+        "answer": 1,
+        "why": [
+          "The plain form ふる + でしょう: a guess about tomorrow.",
+          "The polite ます form does not go before でしょう.",
+          "ふった is past, but あした is tomorrow.",
+          "The て form does not go before でしょう."
+        ]
+      },
+      {
+        "id": "n5u07d4.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「この[本|ほん]、おもしろい（　　）？」「^ええ、とても^おもしろいです。」",
+        "options": [
+          "でしょう",
+          "ですでしょう",
+          "だでしょう",
+          "なでしょう"
+        ],
+        "answer": 1,
+        "why": [
+          "おもしろい + でしょう with the voice going up: \"It's interesting, right?\"",
+          "でしょう takes the place of です. You cannot use both.",
+          "だ does not go before でしょう.",
+          "おもしろい is an い-adjective, so it never takes な."
+        ]
+      },
+      {
+        "id": "n5u07d4.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[山川|やまかわ]さんはかぜですから、^あした^は（　　）とおもいます。",
+        "options": [
+          "[来|こ]ない",
+          "[来|き]ません",
+          "[来|こ]なくて",
+          "[来|こ]なかった"
+        ],
+        "answer": 1,
+        "why": [
+          "The plain form 来ない goes before とおもいます.",
+          "来ません is the polite form. Before と, use the plain form.",
+          "The て form cannot end the thought before と.",
+          "来なかった is past, but あした is tomorrow."
+        ]
+      },
+      {
+        "id": "n5u07d4.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あの[人|ひと]はリンさんのお[父|とう]さん（　　）^とおもいます^。",
+        "options": [
+          "だ",
+          "な",
+          "です",
+          "の"
+        ],
+        "answer": 1,
+        "why": [
+          "お父さん is a noun, so it takes だ before とおもいます.",
+          "な does not come after a noun at the end of a thought.",
+          "です is polite. Before と, use the plain だ.",
+          "お父さんの needs a noun after it, and とおもいます is not one."
+        ]
+      },
+      {
+        "id": "n5u07d4.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あしたは",
+        "after": "。",
+        "tiles": [
+          "[雨|あめ]が",
+          "ふって、",
+          "さむい",
+          "でしょう"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "What happens first, then what is it like? でしょう comes last.",
+        "full": "あしたは[雨|あめ]がふって、さむい{でしょう}。",
+        "explain": "雨が goes with ふって, and the comma joins it to the next part. さむい is the plain form, so でしょう comes right after it."
+      },
+      {
+        "id": "n5u07d4.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あ、",
+        "after": "おもいます。",
+        "tiles": [
+          "この",
+          "かさは",
+          "[山川|やまかわ]さんの",
+          "だと"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "この points at the umbrella. Whose is it? だと comes right before おもいます.",
+        "full": "あ、このかさは[山川|やまかわ]さんのだ{とおもいます}。",
+        "explain": "この goes right before かさは. 山川さんの means \"Mr. Yamakawa's\", and it takes だ before とおもいます, like a noun."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u07d4.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "「リンさんは　どこですか。」「さあ。でも、もう　うちへ　（　　）と　おもいます。」",
+        "options": [
+          "かえった",
+          "かえりました",
+          "かえって",
+          "かえり"
+        ],
+        "answer": 1,
+        "explain": "もう says it has already happened, so the plain past かえった goes before と おもいます. かえりました is polite and cannot go before と, and かえって and かえり cannot end the thought."
+      },
+      {
+        "id": "n5u07d4.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "あしたは　東の　ほうは　はれですが、西の　ほうは　雨（　　）。",
+        "options": [
+          "でしょう",
+          "だでしょう",
+          "ですでしょう",
+          "だと"
+        ],
+        "answer": 1,
+        "explain": "A noun takes でしょう directly: 雨でしょう, a guess about tomorrow. でしょう never comes after だ or です, and 雨だと cannot end the sentence."
+      },
+      {
+        "id": "n5u07d4.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あの　店の",
+        "after": "おもいます。",
+        "tiles": [
+          "ケーキは",
+          "やすくて",
+          "おいしい",
+          "と"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "あの　店の　ケーキは　やすくて　{おいしい}と　おもいます。",
+        "explain": "ケーキは, やすくて, おいしい, と. 店の describes ケーキ. やすくて joins on to おいしい, and the plain form おいしい goes before と おもいます."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "新聞の天気よほう",
+    "en": "The weather forecast in the newspaper",
+    "intro": "Tap each word on the forecast that tells you when, where and what the weather will be.",
+    "words": [
+      {
+        "id": "weather",
+        "word": "天気",
+        "reading": "てんき",
+        "gloss": "weather",
+        "parts": [
+          ["天", "テン", "sky, heaven"],
+          ["気", "キ", "air, spirit"]
+        ]
+      },
+      {
+        "id": "rain",
+        "word": "雨",
+        "reading": "あめ",
+        "gloss": "rain",
+        "parts": [
+          ["雨", "あめ", "rain"]
+        ]
+      },
+      {
+        "id": "am",
+        "word": "午前",
+        "reading": "ごぜん",
+        "gloss": "morning, a.m.",
+        "parts": [
+          ["午", "ゴ", "noon"],
+          ["前", "ゼン", "before"]
+        ]
+      },
+      {
+        "id": "pm",
+        "word": "午後",
+        "reading": "ごご",
+        "gloss": "afternoon, p.m.",
+        "parts": [
+          ["午", "ゴ", "noon"],
+          ["後", "ゴ", "after"]
+        ]
+      },
+      {
+        "id": "east",
+        "word": "東",
+        "reading": "ひがし",
+        "gloss": "east",
+        "parts": [
+          ["東", "ひがし", "east"]
+        ]
+      },
+      {
+        "id": "west",
+        "word": "西",
+        "reading": "にし",
+        "gloss": "west",
+        "parts": [
+          ["西", "にし", "west"]
+        ]
+      },
+      {
+        "id": "north",
+        "word": "北",
+        "reading": "きた",
+        "gloss": "north",
+        "parts": [
+          ["北", "きた", "north"]
+        ]
+      },
+      {
+        "id": "friday",
+        "word": "金よう日",
+        "reading": "きんようび",
+        "gloss": "Friday",
+        "parts": [
+          ["金", "キン", "gold; Friday"],
+          ["日", "び", "day"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n5u07d4.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "あしたの　_午後_は　雨でしょう。",
+      "options": [
+        "ごご",
+        "ごぜん",
+        "ごうご",
+        "ごごう"
+      ],
+      "answer": 1,
+      "explain": "午後 is ごご, the afternoon. ごぜん is 午前, the morning. ごうご and ごごう are not words."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "内容理解（短文）",
+    "en": "Short passage",
+    "ask": "Why is the writer taking a sweater?",
+    "seconds": 90,
+    "passage": "今日は　あさから　雨でした。でも、天気よほうでは　「あしたは　はれるでしょう」と　言って　いました。あしたは　友だちと　山へ　行きます。^山の　上は　さむいと　おもいます^。^だから^、セーターを　もって　行きます。",
+    "strategy": "Find とおもいます: the writer's own guess comes before it, and だから tells you what she does because of it.",
+    "item": {
+      "id": "n5u07d4.r1",
+      "kind": "choice",
+      "type": "読解・内容理解（短文）",
+      "q": "この　人は　どうして　セーターを　もって　行きますか。",
+      "options": [
+        "あしたは　雨が　ふるから。",
+        "山の　上は　さむいと　おもうから。",
+        "友だちが　さむいと　言ったから。",
+        "今日は　雨で　さむかったから。"
+      ],
+      "short": [
+        "あしたは雨がふる",
+        "山の上はさむいとおもう",
+        "友だちが言った",
+        "今日さむかった"
+      ],
+      "answer": 2,
+      "explain": "The writer thinks it will be cold on the mountain (さむいと おもいます), and だから says that is why she takes a sweater.",
+      "why": [
+        "The forecast says it will be sunny tomorrow (はれるでしょう).",
+        "",
+        "The writer thinks this herself. The friend says nothing.",
+        "Today it rained, but the passage does not say it was cold, and the sweater is for the mountain."
+      ]
+    }
+  }
+}

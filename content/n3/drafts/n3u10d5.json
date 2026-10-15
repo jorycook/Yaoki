@@ -1,0 +1,595 @@
+{
+  "title": "〜くらい（軽視）・〜でも（例示）",
+  "grammar": {
+    "points": [
+      {
+        "id": "n3u10d5.p1",
+        "form": "〜くらい／〜ぐらい",
+        "gloss": "at least; it is only a small thing",
+        "connect": [
+          {
+            "pos": "Noun",
+            "rule": "〜＋{くらい}／{ぐらい}"
+          },
+          {
+            "pos": "Verb, plain form (often with で: just because)",
+            "rule": "〜る／〜た＋{くらい}（で）"
+          },
+          {
+            "pos": "この, その, それ",
+            "rule": "その＋{くらい}／それ＋{ぐらい}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[遅|おく]れるときは、メール{ぐらい}してください。",
+            "en": "When you are going to be late, at least send me a message."
+          },
+          {
+            "ja": "一回[失敗|しっぱい]した{くらいで}、あきらめないでください。",
+            "en": "Don't give up just because you failed once."
+          }
+        ],
+        "watch": {
+          "note": "くらい and ぐらい take the place of を and が. Do not keep を in front of them: say メールぐらい, not メールをぐらい.",
+          "bad": "遅れるなら、メールをぐらい送ってください。",
+          "good": "遅れるなら、メールぐらい送ってください。"
+        }
+      },
+      {
+        "id": "n3u10d5.p2",
+        "form": "〜でも",
+        "gloss": "… or something (a loose suggestion)",
+        "connect": [
+          {
+            "pos": "Noun",
+            "rule": "〜＋{でも}"
+          },
+          {
+            "pos": "Noun + particle (に, と, へ)",
+            "rule": "〜に＋{でも}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "少し休んで、コーヒー{でも}飲みませんか。",
+            "en": "Let's take a short break. How about a coffee or something?"
+          },
+          {
+            "ja": "今度の休みは、海に{でも}行きたいですね。",
+            "en": "On my next day off, I'd like to go to the sea or somewhere."
+          }
+        ],
+        "watch": {
+          "note": "でも makes the thing one loose idea among others. When you order one exact thing in a shop, でも sounds odd; use を.",
+          "bad": "すみません、コーヒーでもください。",
+          "good": "すみません、コーヒーをください。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three sit right after a noun, but they do different jobs: making light of it, giving a loose example, or pointing to an extreme case.",
+      "forms": [
+        {
+          "form": "〜ぐらい",
+          "tag": "せめて · at least (it's small)",
+          "mark": "down",
+          "ja": "ひまなら、[皿|さら]洗い{ぐらい}[手伝|てつだ]ってよ。",
+          "en": "If you're free, at least help with the dishes."
+        },
+        {
+          "form": "〜でも",
+          "tag": "たとえば · … or something",
+          "mark": "dot",
+          "ja": "ひまなら、いっしょにお茶{でも}飲もうよ。",
+          "en": "If you're free, let's have tea or something."
+        },
+        {
+          "form": "〜さえ",
+          "tag": "〜も · even (an extreme case)",
+          "mark": "up",
+          "ja": "この問題は[難|むずか]しくて、先生{さえ}分かりませんでした。",
+          "en": "This problem was so hard that even the teacher couldn't solve it."
+        }
+      ],
+      "check": {
+        "id": "n3u10d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which one means even?",
+        "q": "[忙|いそが]しくて、昼ご飯を食べる時間（　　）ありません。",
+        "options": [
+          "でも",
+          "ぐらい",
+          "さえ"
+        ],
+        "answer": 3,
+        "why": [
+          "でも gives a loose example for a suggestion or wish. ありません is neither.",
+          "ぐらい (at least) goes with doing or asking for something small. It cannot mean not even with ありません.",
+          "さえ marks the extreme case: I don't even have time to eat lunch."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u10d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^となりに[住|す]んでいるんだから^、会ったらあいさつ（　　）してください。",
+        "options": [
+          "ほど",
+          "ぐらい",
+          "しか",
+          "ずつ"
+        ],
+        "answer": 2,
+        "why": [
+          "ほど shows degree and needs a comparison, as in 前ほど…ない. Nothing is compared here.",
+          "あいさつ is a small thing: you live next door, so at least say hello.",
+          "しか needs a negative verb (あいさつしかしない), and してください is not negative.",
+          "ずつ follows a number or amount (一つずつ), not あいさつ."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u10d5.d2",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "雨で試合が中止になったので、",
+        "after": "借りてこようかな。",
+        "tiles": [
+          "前から",
+          "見たかった",
+          "映画",
+          "でも"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "でも comes right after the noun it offers as a loose idea. Which film?",
+        "full": "雨で試合が中止になったので、前から見たかった映画{でも}借りてこようかな。",
+        "explain": "前から goes with 見たかった, and 見たかった describes 映画. でも follows 映画 and comes before 借りて: the match was called off, so maybe I'll rent a film I've wanted to see for a while, or something."
+      },
+      {
+        "id": "n3u10d5.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[疲|つか]れたね。少し[座|すわ]って、あまいもの（　　）^食べようか^。",
+        "options": [
+          "さえ",
+          "しか",
+          "ほど",
+          "でも"
+        ],
+        "answer": 4,
+        "why": [
+          "さえ points to an extreme case (even). A tired friend's suggestion has no extreme case.",
+          "しか needs a negative verb, and 食べようか is a suggestion.",
+          "ほど shows degree with a comparison. Nothing is compared here.",
+          "でも offers sweets as one loose idea: shall we have something sweet or something?"
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u10d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^ちょっと^[寝|ね]ぼうした（　　）、そんなに[怒|おこ]らないでよ。",
+        "options": [
+          "ぐらいで",
+          "とたんで",
+          "[最中|さいちゅう]で",
+          "たびで"
+        ],
+        "answer": 1,
+        "why": [
+          "Plain form + ぐらいで: just because I overslept a little, don't get so angry. ぐらい makes the oversleeping a small thing.",
+          "とたん is followed by に or nothing, not で, and it tells what happened at that moment.",
+          "[最中|さいちゅう] follows a noun with の or the ている form, not the た form [寝|ね]ぼうした.",
+          "たび takes に, not で, and means every time ([寝|ね]ぼうするたびに). It does not give a small reason."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u10d5.d5",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[週末|しゅうまつ]は、家族とおんせん（　　）^行こうと思っています^。",
+        "options": [
+          "にしか",
+          "でもに",
+          "にでも",
+          "にずつ"
+        ],
+        "answer": 3,
+        "why": [
+          "しか needs a negative verb, and 行こうと思っています is not negative.",
+          "でも comes after the particle, not before it: にでも.",
+          "Noun + に + でも: a hot spring is one loose idea for the weekend.",
+          "ずつ follows a number or amount, not a place."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u10d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "そんな",
+        "after": "できるでしょう。",
+        "tiles": [
+          "[簡単|かんたん]な",
+          "こと",
+          "くらい",
+          "自分で"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          2,
+          0,
+          1
+        ],
+        "hint": "くらい comes right after the thing being made light of. What kind of thing is it?",
+        "full": "そんな[簡単|かんたん]なこと{くらい}自分でできるでしょう。",
+        "explain": "そんな and [簡単|かんたん]な both describe こと, and くらい follows こと to make it a small matter. 自分で goes with できる: you can surely do something that simple yourself."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u10d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "簡単な料理（　　）なら、私にも作れます。",
+        "options": [
+          "さえ",
+          "くらい",
+          "しか",
+          "でも"
+        ],
+        "answer": 2,
+        "explain": "くらいなら: if it is only a simple dish, I can make it too. さえなら is not used; with さえ the condition is said with ば, as in 料理さえできれば. しか needs a negative verb, so しかなら is not possible. でもなら is not possible either."
+      },
+      {
+        "id": "n3u10d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "仕事のあと、時間があったら、ビール（　　）飲みに行きませんか。",
+        "options": [
+          "さえ",
+          "まで",
+          "ほど",
+          "でも"
+        ],
+        "answer": 4,
+        "explain": "This is an invitation, and でも offers beer as one loose idea: shall we go for a beer or something? さえ and まで mean even, which makes no sense in a friendly invitation. ほど shows degree and needs a comparison."
+      },
+      {
+        "id": "n3u10d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "いくら忙しくても、",
+        "after": "は覚えておいてください。",
+        "tiles": [
+          "自分の",
+          "子どもの",
+          "誕生日",
+          "ぐらい"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "いくら忙しくても、自分の子どもの{誕生日}ぐらいは覚えておいてください。",
+        "explain": "自分の, 子どもの, 誕生日, ぐらい. 自分の describes 子ども, 子どもの describes 誕生日, and ぐらい follows 誕生日 before は: however busy you are, at least remember your own child's birthday."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "ふれあいカフェのお知らせ",
+    "en": "A community café notice",
+    "intro": "A notice on the community centre board invites neighbours to a monthly café. Tap each word on it.",
+    "words": [
+      {
+        "id": "mingling",
+        "word": "交流",
+        "reading": "こうりゅう",
+        "gloss": "mingling, exchange",
+        "parts": [
+          [
+            "交",
+            "コウ",
+            "cross, mix"
+          ],
+          [
+            "流",
+            "リュウ",
+            "flow"
+          ]
+        ]
+      },
+      {
+        "id": "join",
+        "word": "参加",
+        "reading": "さんか",
+        "gloss": "taking part",
+        "parts": [
+          [
+            "参",
+            "サン",
+            "go, take part"
+          ],
+          [
+            "加",
+            "カ",
+            "add"
+          ]
+        ]
+      },
+      {
+        "id": "free",
+        "word": "無料",
+        "reading": "むりょう",
+        "gloss": "free of charge",
+        "parts": [
+          [
+            "無",
+            "ム",
+            "none"
+          ],
+          [
+            "料",
+            "リョウ",
+            "fee"
+          ]
+        ]
+      },
+      {
+        "id": "booking",
+        "word": "予約",
+        "reading": "よやく",
+        "gloss": "booking",
+        "parts": [
+          [
+            "予",
+            "ヨ",
+            "before"
+          ],
+          [
+            "約",
+            "ヤク",
+            "promise"
+          ]
+        ]
+      },
+      {
+        "id": "desk",
+        "word": "受付",
+        "reading": "うけつけ",
+        "gloss": "reception desk",
+        "parts": [
+          [
+            "受",
+            "う",
+            "receive"
+          ],
+          [
+            "付",
+            "つ",
+            "attach"
+          ]
+        ]
+      },
+      {
+        "id": "asyoulike",
+        "word": "自由",
+        "reading": "じゆう",
+        "gloss": "free, as you like",
+        "parts": [
+          [
+            "自",
+            "ジ",
+            "self"
+          ],
+          [
+            "由",
+            "ユウ",
+            "reason, way"
+          ]
+        ]
+      },
+      {
+        "id": "parenting",
+        "word": "子育て",
+        "reading": "こそだて",
+        "gloss": "raising children",
+        "parts": [
+          [
+            "子",
+            "こ",
+            "child"
+          ],
+          [
+            "育",
+            "そだ",
+            "raise"
+          ]
+        ]
+      },
+      {
+        "id": "tidyup",
+        "word": "片付け",
+        "reading": "かたづけ",
+        "gloss": "tidying up",
+        "parts": [
+          [
+            "片",
+            "かた",
+            "one side"
+          ],
+          [
+            "付",
+            "づ",
+            "attach"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u10d5.k1",
+      "kind": "choice",
+      "type": "表記",
+      "label": "How the exam asks it",
+      "q": "毎月のカフェに、ぜひご家族で_さんか_してください。",
+      "options": [
+        "参家",
+        "参加",
+        "散加",
+        "参化"
+      ],
+      "answer": 2,
+      "explain": "さんか is 参加: 参 (サン, take part) and 加 (カ, add). 参家 uses 家 (house), 散加 uses 散 (サン, scatter) and 参化 uses 化 (カ, change). They sound alike, but none of them is a word."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "概要理解",
+    "en": "Gist",
+    "ask": "話の前に質問はありません。まず話を聞いて、それから質問とせんたくしを聞いて、1から4の中から最もよいものを一つえらんでください。",
+    "audio": [
+      [
+        "N",
+        "女の人が友だちの留守番電話にメッセージを残しています。",
+        "おんなのひとがともだちのるすばんでんわにメッセージをのこしています。"
+      ],
+      [
+        "F",
+        "もしもし、山下です。お元気ですか。最近ずっと忙しそうですね。",
+        "もしもし、やましたです。おげんきですか。さいきんずっといそがしそうですね。"
+      ],
+      [
+        "F",
+        "実は、駅前に新しいカフェができたんです。",
+        "じつは、えきまえにあたらしいカフェができたんです。"
+      ],
+      [
+        "F",
+        "ケーキがおいしいと評判なので、来週の土曜日の午後、いっしょにお茶でもどうですか。",
+        "ケーキがおいしいとひょうばんなので、らいしゅうのどようびのごご、いっしょにおちゃでもどうですか。"
+      ],
+      [
+        "F",
+        "土曜日が無理なら、日曜日でもかまいません。たまにはお茶ぐらい付き合ってくださいね。",
+        "どようびがむりなら、にちようびでもかまいません。たまにはおちゃぐらいつきあってくださいね。"
+      ],
+      [
+        "F",
+        "あ、それから、この前お貸しした本は、急ぎませんから、ゆっくり読んでください。",
+        "あ、それから、このまえおかししたほんは、いそぎませんから、ゆっくりよんでください。"
+      ],
+      [
+        "F",
+        "都合が分かったら、メールでいいので返事をください。待っています。",
+        "つごうがわかったら、メールでいいのでへんじをください。まっています。"
+      ],
+      [
+        "N",
+        "女の人は、何のためにメッセージを残しましたか。",
+        "おんなのひとは、なんのためにメッセージをのこしましたか。"
+      ],
+      [
+        "N",
+        "1",
+        "いち"
+      ],
+      [
+        "N",
+        "貸した本を返してもらうため",
+        "かしたほんをかえしてもらうため"
+      ],
+      [
+        "N",
+        "2",
+        "に"
+      ],
+      [
+        "N",
+        "土曜日の予定を変えるため",
+        "どようびのよていをかえるため"
+      ],
+      [
+        "N",
+        "3",
+        "さん"
+      ],
+      [
+        "N",
+        "友だちをカフェにさそうため",
+        "ともだちをカフェにさそうため"
+      ],
+      [
+        "N",
+        "4",
+        "よん"
+      ],
+      [
+        "N",
+        "カフェの場所を教えるため",
+        "カフェのばしょをおしえるため"
+      ]
+    ],
+    "item": {
+      "id": "n3u10d5.r1",
+      "kind": "choice",
+      "type": "概要理解",
+      "q": "女の人は、何のためにメッセージを残しましたか。",
+      "script": [
+        "ナレーター：女の人が友だちの留守番電話にメッセージを残しています。",
+        "女：もしもし、山下です。お元気ですか。最近ずっと忙しそうですね。実は、駅前に新しいカフェができたんです。ケーキがおいしいと評判なので、来週の土曜日の午後、いっしょにお茶でもどうですか。土曜日が無理なら、日曜日でもかまいません。たまにはお茶ぐらい付き合ってくださいね。あ、それから、この前お貸しした本は、急ぎませんから、ゆっくり読んでください。都合が分かったら、メールでいいので返事をください。待っています。",
+        "ナレーター：女の人は、何のためにメッセージを残しましたか。",
+        "ナレーター：1　貸した本を返してもらうため",
+        "ナレーター：2　土曜日の予定を変えるため",
+        "ナレーター：3　友だちをカフェにさそうため",
+        "ナレーター：4　カフェの場所を教えるため"
+      ],
+      "options": [
+        "貸した本を返してもらうため",
+        "土曜日の予定を変えるため",
+        "友だちをカフェにさそうため",
+        "カフェの場所を教えるため"
+      ],
+      "printed": false,
+      "short": [
+        "本を返してほしい",
+        "予定の変更",
+        "カフェへのさそい",
+        "カフェの場所"
+      ],
+      "answer": 3,
+      "why": [
+        "She mentions the book only at the end, and says there is no hurry to give it back.",
+        "No plan is being changed. Sunday is only offered in case Saturday does not suit her friend.",
+        "",
+        "She says the café is in front of the station, but that is only a detail of the invitation."
+      ],
+      "explain": "The whole message is an invitation: a new café has opened, so how about tea on Saturday afternoon (or Sunday), and please reply. The book and the café's place are side details."
+    }
+  }
+}

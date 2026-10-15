@@ -1,0 +1,545 @@
+{
+  "title": "〜に（時間）・〜から〜まで",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u05d1.p1",
+        "form": "〜に（時間）",
+        "gloss": "at, on (a time or a day)",
+        "connect": [
+          {
+            "pos": "A clock time: 〜 is the number, as in 七時に",
+            "rule": "〜[時|じ]{に}"
+          },
+          {
+            "pos": "A day of the week: 〜 is the day, as in 月よう日に",
+            "rule": "〜よう[日|び]{に}"
+          },
+          {
+            "pos": "Words like 毎日, あした, きのう, 今: no に before the verb (〜ます)",
+            "rule": "[毎日|まいにち]・あした・きのう・[今|いま] ＋ 〜ます"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "あさ[七時|しちじ]{に}おきます。",
+            "en": "I get up at seven in the morning."
+          },
+          {
+            "ja": "[日|にち]よう[日|び]{に}[友|とも]だちと[会|あ]います。",
+            "en": "I am meeting a friend on Sunday."
+          }
+        ],
+        "watch": {
+          "note": "Words that count from today, like あした and きのう, and words like 毎日 and 今, take no に. Put the verb part right after them.",
+          "bad": "あしたに学校へ行きます。",
+          "good": "あした学校へ行きます。"
+        }
+      },
+      {
+        "id": "n5u05d1.p2",
+        "form": "〜から〜まで",
+        "gloss": "from … until / to …",
+        "connect": [
+          {
+            "pos": "Times or days: the start, then the end",
+            "rule": "[九時|くじ]{から}[五時|ごじ]{まで}"
+          },
+          {
+            "pos": "Places: where you start, then where you end",
+            "rule": "[駅|えき]{から}[学校|がっこう]{まで}"
+          },
+          {
+            "pos": "Each one can also stand alone: 〜 is a time or a place",
+            "rule": "〜{から}・〜{まで}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "ぎんこうは[九時|くじ]{から}[三時|さんじ]{まで}です。",
+            "en": "The bank is open from nine to three."
+          },
+          {
+            "ja": "[駅|えき]{から}[学校|がっこう]{まで}あるきます。",
+            "en": "I walk from the station to school."
+          }
+        ],
+        "watch": {
+          "note": "In English you say \"from nine\". The start takes から, not に. に marks one point in time, not a start.",
+          "bad": "九時に五時まではたらきます。",
+          "good": "九時から五時まではたらきます。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three go after a time: に marks one point, から and まで mark the start and the end, and ごろ makes the time rough.",
+      "forms": [
+        {
+          "form": "〜に",
+          "tag": "その時間 · at (one point in time)",
+          "mark": "dot",
+          "ja": "[七時|しちじ]{に}おきます。",
+          "en": "I get up at seven."
+        },
+        {
+          "form": "〜から〜まで",
+          "tag": "はじめとおわり · from … until",
+          "mark": "dot",
+          "ja": "[九時|くじ]{から}[五時|ごじ]{まで}はたらきます。",
+          "en": "I work from nine until five."
+        },
+        {
+          "form": "〜ごろ",
+          "tag": "だいたい · about, around",
+          "mark": "dot",
+          "ja": "[七時|しちじ]{ごろ}おきます。",
+          "en": "I get up at about seven."
+        }
+      ],
+      "check": {
+        "id": "n5u05d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "店のじかん",
+        "q": "この[店|みせ]は[十時|じゅうじ]（　　）[八時|はちじ]までです。",
+        "options": [
+          "に",
+          "から",
+          "ごろ"
+        ],
+        "answer": 2,
+        "why": [
+          "に marks one point in time, as in 十時に行きます. It cannot give the start before 八時まで.",
+          "まで gives the closing time, so the opening time takes から: from ten until eight.",
+          "ごろ means \"about\". 十時ごろ八時まで does not give a start, so the sentence does not work."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u05d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[毎日|まいにち]^あさ[六時|ろくじ]^（　　）おきます。",
+        "options": [
+          "で",
+          "に",
+          "を",
+          "へ"
+        ],
+        "answer": 2,
+        "why": [
+          "六時でおきます is not Japanese. The time when you do something takes に.",
+          "六時 is a clock time, so it takes に: I get up at six.",
+          "を marks the thing a verb acts on, as in パンを食べます. 六時 is the time, not a thing you act on.",
+          "へ marks the place you go to. 六時 is a time, not a place."
+        ]
+      },
+      {
+        "id": "n5u05d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「^いつ^[山|やま]へ[行|い]きますか。」\nB「（　　）[行|い]きます。」",
+        "options": [
+          "あしたに",
+          "あしたを",
+          "あした",
+          "あしたで"
+        ],
+        "answer": 3,
+        "why": [
+          "あした counts from today, so it takes no に.",
+          "を marks the thing a verb acts on. あした is the time, and it takes nothing.",
+          "あした takes no particle: あした行きます, I will go tomorrow.",
+          "あしたで is not Japanese here. あした takes nothing before the verb."
+        ]
+      },
+      {
+        "id": "n5u05d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "この[店|みせ]は[午前|ごぜん][十時|じゅうじ]^から^[午後|ごご][七時|しちじ]（　　）です。",
+        "options": [
+          "に",
+          "を",
+          "まで",
+          "で"
+        ],
+        "answer": 3,
+        "why": [
+          "に marks the time something happens, as in 七時に行きます. After から, the end time takes まで.",
+          "を marks the thing a verb acts on. 七時をです is not Japanese.",
+          "から gives the opening time, so まで gives the closing time: until seven.",
+          "七時でです is not Japanese. After から, the end time takes まで."
+        ]
+      },
+      {
+        "id": "n5u05d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "[月|げつ]よう[日|び]（　　）[金|きん]よう[日|び]^まで^[学校|がっこう]へ[行|い]きます。",
+        "options": [
+          "から",
+          "に",
+          "まで",
+          "で"
+        ],
+        "answer": 1,
+        "why": [
+          "金よう日まで gives the last day, so the first day takes から: from Monday to Friday.",
+          "に marks one day, as in 月よう日に行きます. With 金よう日まで after it, the first day needs から.",
+          "まで already sits after 金よう日. 月よう日まで金よう日まで is not Japanese.",
+          "月よう日で does not give a start. The first day takes から."
+        ]
+      },
+      {
+        "id": "n5u05d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あしたは",
+        "after": "。",
+        "tiles": [
+          "[七時|しちじ]",
+          "[半|はん]",
+          "に",
+          "おきます"
+        ],
+        "star": 2,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "半 comes right after the hour. Then the time takes に, and the verb comes last.",
+        "full": "あしたは[七時|しちじ][半|はん]{に}おきます。",
+        "explain": "七時半 is one time, so 半 sits right after 七時. A clock time takes に, and おきます ends the sentence. あした itself takes no に; は is fine after it."
+      },
+      {
+        "id": "n5u05d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "ぎんこうは[午前|ごぜん]",
+        "after": "です。",
+        "tiles": [
+          "[九時|くじ]",
+          "から",
+          "[午後|ごご][三時|さんじ]",
+          "まで"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "hint": "午前 needs an hour right after it. The start takes から, the end takes まで.",
+        "full": "ぎんこうは[午前|ごぜん][九時|くじ]{から}[午後|ごご][三時|さんじ]{まで}です。",
+        "explain": "午前 goes with 九時: nine in the morning. That is the start, so から follows it. 午後三時 is the end, so まで follows it, right before です."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u05d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "わたしは　毎週　土よう日（　　）　プールへ　行きます。",
+        "options": [
+          "で",
+          "に",
+          "を",
+          "が"
+        ],
+        "answer": 2,
+        "explain": "土よう日 is a day of the week, so it takes に: on Saturdays. 毎週 itself takes no particle. で does not give the day when something happens, を marks a thing a verb acts on, and が marks who or what does something. None of them fits after 土よう日 here."
+      },
+      {
+        "id": "n5u05d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A「この　店は　何時（　　）ですか。」\nB「よる　九時までです。」",
+        "options": [
+          "から",
+          "まで",
+          "に",
+          "を"
+        ],
+        "answer": 2,
+        "explain": "B answers with 九時まで, the closing time, so A asked 何時までですか: until what time? 何時から asks the opening time, which B does not give. 何時にですか and 何時をですか do not work after この店は."
+      },
+      {
+        "id": "n5u05d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あしたの　",
+        "after": "ですか。",
+        "tiles": [
+          "テスト",
+          "は",
+          "何時",
+          "から"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "あしたの　テストは　{何時}からですか。",
+        "explain": "テスト, は, 何時, から. あしたの describes テスト, so テスト comes first, then は. The question is 何時からですか: from what time is tomorrow's test?"
+      }
+    ]
+  },
+  "scene": {
+    "ja": "ぎんこうのドア",
+    "en": "A bank's door sign",
+    "intro": "Tap each word on the opening-hours sign on the door of a small bank.",
+    "words": [
+      {
+        "id": "monday",
+        "word": "月よう日",
+        "reading": "げつようび",
+        "gloss": "Monday",
+        "parts": [
+          [
+            "月",
+            "ゲツ",
+            "moon, Monday"
+          ],
+          [
+            "日",
+            "び",
+            "day"
+          ]
+        ]
+      },
+      {
+        "id": "am",
+        "word": "午前",
+        "reading": "ごぜん",
+        "gloss": "a.m., morning",
+        "parts": [
+          [
+            "午",
+            "ゴ",
+            "noon"
+          ],
+          [
+            "前",
+            "ゼン",
+            "before"
+          ]
+        ]
+      },
+      {
+        "id": "nine",
+        "word": "九時",
+        "reading": "くじ",
+        "gloss": "nine o'clock",
+        "parts": [
+          [
+            "九",
+            "ク",
+            "nine"
+          ],
+          [
+            "時",
+            "ジ",
+            "o'clock, time"
+          ]
+        ]
+      },
+      {
+        "id": "pm",
+        "word": "午後",
+        "reading": "ごご",
+        "gloss": "p.m., afternoon",
+        "parts": [
+          [
+            "午",
+            "ゴ",
+            "noon"
+          ],
+          [
+            "後",
+            "ゴ",
+            "after"
+          ]
+        ]
+      },
+      {
+        "id": "three-thirty",
+        "word": "三時半",
+        "reading": "さんじはん",
+        "gloss": "half past three",
+        "parts": [
+          [
+            "三",
+            "サン",
+            "three"
+          ],
+          [
+            "時",
+            "ジ",
+            "o'clock, time"
+          ],
+          [
+            "半",
+            "ハン",
+            "half"
+          ]
+        ]
+      },
+      {
+        "id": "saturday",
+        "word": "土よう日",
+        "reading": "どようび",
+        "gloss": "Saturday",
+        "parts": [
+          [
+            "土",
+            "ド",
+            "earth, Saturday"
+          ],
+          [
+            "日",
+            "び",
+            "day"
+          ]
+        ]
+      },
+      {
+        "id": "sunday",
+        "word": "日よう日",
+        "reading": "にちようび",
+        "gloss": "Sunday",
+        "parts": [
+          [
+            "日",
+            "ニチ",
+            "sun, Sunday"
+          ],
+          [
+            "日",
+            "び",
+            "day"
+          ]
+        ]
+      },
+      {
+        "id": "closed",
+        "word": "休み",
+        "reading": "やすみ",
+        "gloss": "closed, day off",
+        "parts": [
+          [
+            "休",
+            "やす",
+            "rest"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n5u05d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "ぎんこうは　_午後_三時までです。",
+      "options": [
+        "ごぜん",
+        "ごご",
+        "ごこ",
+        "ごうご"
+      ],
+      "answer": 2,
+      "explain": "午後 is ごご, the afternoon. ごぜん is 午前, the morning, a different word. ごこ and ごうご are not words."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "即時応答",
+    "en": "Quick response",
+    "ask": "えなどが　ありません。ぶんを　聞いて、1から3の　中から、いちばん　いい　ものを　一つ　えらんで　ください。",
+    "item": {
+      "id": "n5u05d1.r1",
+      "kind": "choice",
+      "type": "即時応答",
+      "q": "男：すみません、この　店は　何時までですか。",
+      "script": [
+        "男：すみません、この　店は　何時までですか。",
+        "ナレーター：1",
+        "女：午前　十時からです。",
+        "ナレーター：2",
+        "女：八時間です。",
+        "ナレーター：3",
+        "女：よる　八時までです。"
+      ],
+      "options": [
+        "午前　十時からです。",
+        "八時間です。",
+        "よる　八時までです。"
+      ],
+      "printed": false,
+      "short": [
+        "午前十時からです",
+        "八時間です",
+        "よる八時までです"
+      ],
+      "answer": 3,
+      "why": [
+        "十時から is the opening time. The man asks 何時まで, until what time.",
+        "八時間 is how many hours. The man asks for a clock time with 何時.",
+        ""
+      ]
+    },
+    "audio": [
+      [
+        "M",
+        "すみません、この　店は　何時までですか。",
+        "すみません、この　みせは　なんじまでですか。"
+      ],
+      [
+        "N",
+        "1",
+        "いち"
+      ],
+      [
+        "F",
+        "午前　十時からです。",
+        "ごぜん　じゅうじからです。"
+      ],
+      [
+        "N",
+        "2",
+        "に"
+      ],
+      [
+        "F",
+        "八時間です。",
+        "はちじかんです。"
+      ],
+      [
+        "N",
+        "3",
+        "さん"
+      ],
+      [
+        "F",
+        "よる　八時までです。",
+        "よる　はちじまでです。"
+      ]
+    ]
+  }
+}

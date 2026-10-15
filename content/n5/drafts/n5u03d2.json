@@ -1,0 +1,246 @@
+{
+ "title": "〜ました・〜ませんでした",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u03d2.p1",
+    "form": "〜ました",
+    "gloss": "did (polite past)",
+    "connect": [
+     {"pos": "Verb, ます form", "rule": "〜ます → 〜{ました}"},
+     {"pos": "Question", "rule": "〜{ましたか}"},
+     {"pos": "Yes answer", "rule": "はい、〜{ました}"}
+    ],
+    "examples": [
+     {"ja": "きのう、[友|とも]だちと[魚|さかな]を[食|た]べ{ました}。", "en": "Yesterday I ate fish with a friend."},
+     {"ja": "[先週|せんしゅう]、[新|あたら]しい[本|ほん]を[買|か]い{ました}。", "en": "I bought a new book last week."}
+    ],
+    "watch": {
+     "note": "The past of ます is ました. Do not add でした to ます.",
+     "bad": "きのう、すしを食べますでした。",
+     "good": "きのう、すしを食べました。"
+    }
+   },
+   {
+    "id": "n5u03d2.p2",
+    "form": "〜ませんでした",
+    "gloss": "did not (polite past)",
+    "connect": [
+     {"pos": "Verb, ます form", "rule": "〜ます → 〜{ませんでした}"},
+     {"pos": "No answer", "rule": "いいえ、〜{ませんでした}"}
+    ],
+    "examples": [
+     {"ja": "きのうは[何|なに]も[食|た]べ{ませんでした}。", "en": "I didn't eat anything yesterday."},
+     {"ja": "A：[先週|せんしゅう]、[学校|がっこう]へ[行|い]きましたか。B：いいえ、[行|い]き{ませんでした}。", "en": "A: Did you go to school last week? B: No, I didn't."}
+    ],
+    "watch": {
+     "note": "ません is for now, habits and the future. For something that did not happen in the past, add でした: 行きませんでした. 行かないでした is a common mistake too; it is not standard polite Japanese.",
+     "bad": "きのう、学校へ行きません。",
+     "good": "きのう、学校へ行きませんでした。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three are polite verb endings. What changes is the time, and whether it happened.",
+   "forms": [
+    {"form": "〜ました", "tag": "かこ · did", "mark": "dot", "ja": "きのう、[学校|がっこう]へ[行|い]き{ました}。", "en": "I went to school yesterday."},
+    {"form": "〜ませんでした", "tag": "かこ・ない · didn't", "mark": "down", "ja": "きのう、[学校|がっこう]へ[行|い]き{ませんでした}。", "en": "I didn't go to school yesterday."},
+    {"form": "〜ません", "tag": "いま・これから · don't, won't", "mark": "down", "ja": "あした、[学校|がっこう]へ[行|い]き{ません}。", "en": "I won't go to school tomorrow."}
+   ],
+   "check": {
+    "id": "n5u03d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "きのうのこと",
+    "q": "A：きのう、[学校|がっこう]へ[行|い]きましたか。B：はい、（　　）。",
+    "options": ["[行|い]きました", "[行|い]きませんでした", "[行|い]きません"],
+    "answer": 1,
+    "why": [
+     "はい to a question about yesterday: the polite past, 行きました.",
+     "行きませんでした means \"I didn't go\". It clashes with はい.",
+     "行きません is not past, and it means \"I don't go\". It clashes with はい too."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u03d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^きのう^、デパートで[花|はな]を[買|か]い（　　）。",
+    "options": ["ます", "ました", "ません", "ますでした"],
+    "answer": 2,
+    "why": [
+     "ます is for now, habits and the future. きのう points to the past.",
+     "きのう is the past, and the sentence says it happened: 買いました.",
+     "ません is not past, and it means \"don't\". For yesterday you need a past form.",
+     "There is no ますでした. The past of ます is ました."
+    ]
+   },
+   {
+    "id": "n5u03d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：きのう、テレビを[見|み]ましたか。B：^いいえ^、（　　）。",
+    "options": ["[見|み]ました", "[見|み]ませんでした", "[見|み]ません", "[見|み]ないでした"],
+    "answer": 2,
+    "why": [
+     "見ました means \"I watched\". It clashes with いいえ.",
+     "いいえ to a question about yesterday: the polite past no form, 見ませんでした.",
+     "見ません is not past. The question is about yesterday, so add でした.",
+     "見ないでした is a common mistake, not standard polite Japanese. Say 見ませんでした."
+    ]
+   },
+   {
+    "id": "n5u03d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[先週|せんしゅう]の[日|にち]よう[日|び]^は、^[何|なに]も^（　　）。",
+    "options": ["しました", "しませんでした", "しません", "します"],
+    "answer": 2,
+    "why": [
+     "何も (nothing) goes with a not form. しました says you did something.",
+     "Last Sunday is past, and 何も needs a not form: しませんでした.",
+     "しません is a not form, but it is not past. 先週 needs でした after ません.",
+     "します is not past, and 何も needs a not form."
+    ]
+   },
+   {
+    "id": "n5u03d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：きのう、[何|なに]を[食|た]べ（　　）か。B：^カレーを[食|た]べました^。",
+    "options": ["ます", "ました", "ません", "ませんでした"],
+    "answer": 2,
+    "why": [
+     "何を食べますか asks about now or later. きのう and B's answer are in the past.",
+     "B answers 食べました, so the question is in the past too: 食べましたか.",
+     "食べませんか is an invitation (won't you eat?), not a question about yesterday.",
+     "何を食べませんでしたか asks what you did not eat. B tells what she ate."
+    ]
+   },
+   {
+    "id": "n5u03d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この[花|はな]は、[駅|えき]の",
+    "after": "。",
+    "tiles": ["[前|まえ]の", "[店|みせ]で", "[買|か]い", "ました"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "駅の needs a noun right after it. ました comes last, right after the verb.",
+    "full": "この[花|はな]は、[駅|えき]の[前|まえ]の[店|みせ]で[買|か]い{ました}。",
+    "explain": "駅の前の is \"in front of the station\" and it describes 店. 店で says where, then 買い and ました make the past verb."
+   },
+   {
+    "id": "n5u03d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのうは、",
+    "after": "。うちにいました。",
+    "tiles": ["どこ", "へも", "[行|い]き", "ませんでした"],
+    "star": 3,
+    "bank": [3, 1, 0, 2],
+    "hint": "どこへも means \"(not) anywhere\". Which ending is past and a not form?",
+    "full": "きのうは、どこへも[行|い]き{ませんでした}。うちにいました。",
+    "explain": "どこ and へも go together, then the verb. きのう is past and どこへも needs a not form, so 行きませんでした."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u03d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きのう、スーパーで　たまごを（　　）。",
+    "options": ["買います", "買いました", "買いません", "買いませんか"],
+    "answer": 2,
+    "explain": "きのう is the past, and the sentence says what was bought: 買いました. 買います and 買いません are not past, and 買いませんか is an invitation."
+   },
+   {
+    "id": "n5u03d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：先週の　土よう日、山へ　行きましたか。B：いいえ、（　　）。うちに　いました。",
+    "options": ["行きました", "行きます", "行きません", "行きませんでした"],
+    "answer": 4,
+    "explain": "いいえ to a question about last Saturday, and B stayed at home: 行きませんでした. 行きました clashes with いいえ, and 行きます and 行きません are not past."
+   },
+   {
+    "id": "n5u03d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "先週の　日よう日、",
+    "after": "。",
+    "tiles": ["友だちの", "うち", "へ", "行きました"],
+    "star": 1,
+    "bank": [3, 1, 0, 2],
+    "full": "先週の　日よう日、友だちの　{うち}へ　行きました。",
+    "explain": "友だちの, うち, へ, 行きました. 友だちの describes うち, へ marks where to, and the verb comes last."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "スーパーのレシート",
+  "en": "A supermarket receipt",
+  "intro": "Tap every word you can find on the receipt.",
+  "words": [
+   {"id": "branch", "word": "駅前店", "reading": "えきまえてん", "gloss": "station-front branch", "parts": [["駅", "エキ", "station"], ["前", "まえ", "front"], ["店", "テン", "shop"]]},
+   {"id": "pm", "word": "午後", "reading": "ごご", "gloss": "p.m., afternoon", "parts": [["午", "ゴ", "noon"], ["後", "ゴ", "after"]]},
+   {"id": "water", "word": "水", "reading": "みず", "gloss": "water", "parts": [["水", "みず", "water"]]},
+   {"id": "two", "word": "二本", "reading": "にほん", "gloss": "two (bottles)", "parts": [["二", "ニ", "two"], ["本", "ホン", "counter for long things"]]},
+   {"id": "fish", "word": "魚", "reading": "さかな", "gloss": "fish", "parts": [["魚", "さかな", "fish"]]},
+   {"id": "flower", "word": "花", "reading": "はな", "gloss": "flowers", "parts": [["花", "はな", "flower"]]},
+   {"id": "hundred", "word": "百円", "reading": "ひゃくえん", "gloss": "100 yen", "parts": [["百", "ヒャク", "hundred"], ["円", "エン", "yen"]]},
+   {"id": "thousand", "word": "千円", "reading": "せんえん", "gloss": "1,000 yen", "parts": [["千", "セン", "thousand"], ["円", "エン", "yen"]]}
+  ],
+  "check": {
+   "id": "n5u03d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　花は　_千円_でした。",
+   "options": ["せんえん", "ぜんえん", "せいえん", "ちえん"],
+   "answer": 1,
+   "explain": "千円 is read せんえん. 千 becomes ぜん only after 三 (三千, さんぜん). せいえん and ちえん are not readings of 千円."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What did the writer do last weekend, and what did they not do?",
+  "seconds": 90,
+  "passage": "先週の　土よう日、^母と^　駅の　前の　店へ　行きました。魚と　花を　買いました。^本も　見ましたが、買いませんでした^。日よう日は　雨でした。^どこへも　行きませんでした^。^うちで　テレビを　見ました^。^しゅくだいは　しませんでした^。",
+  "strategy": "Look at the end of each sentence: 〜ました means it happened, 〜ませんでした means it did not.",
+  "item": {
+   "id": "n5u03d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "この　人に　ついて、ただしい　ものは　どれですか。",
+   "options": [
+    "土よう日に　本を　買いました。",
+    "日よう日は　うちに　いました。",
+    "日よう日に　しゅくだいを　しました。",
+    "土よう日に　ひとりで　店へ　行きました。"
+   ],
+   "short": ["本を買った", "日よう日はうちにいた", "しゅくだいをした", "ひとりで店へ行った"],
+   "answer": 2,
+   "explain": "On Sunday the writer went nowhere (どこへも行きませんでした) and watched TV at home, so the writer was at home.",
+   "why": [
+    "The writer looked at books but writes 買いませんでした: no book was bought.",
+    "",
+    "The writer writes しゅくだいはしませんでした: no homework was done.",
+    "The writer went with 母 (mother), not alone."
+   ]
+  }
+ }
+}

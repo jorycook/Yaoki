@@ -96,6 +96,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 
 <sc-if value="{{ v.paper }}" hint-placeholder-val="{{ false }}">
 <div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+<div data-paper-scroll style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 4px; display: flex; flex-direction: column">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div lang="ja" style="flex-grow: 1; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ q.mondai }}</div>
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ pos }}</div>
@@ -148,7 +149,8 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <button onClick="{{ toggleFlag }}" aria-pressed="{{ flagOn }}" style="height: 44px; padding: 0 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; border: {{ flagBorder }}; background: {{ flagBg }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ flagFill }}" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg>あとで見直す　Flag</button>
 </div>
 
-<div style="flex-grow: 1"></div>
+</div>
+<div style="flex-shrink: 0; height: 10px"></div>
 <div style="display: grid; grid-template-columns: 1.1fr 1.6fr; gap: 10px">
 <button disabled="{{ first }}" onClick="{{ prev }}" style="height: 54px; padding: 0; border-radius: 16px; font-weight: 800; font-size: 15px; white-space: nowrap; background: #FFFFFF; border: {{ prevBorder }}; color: {{ prevInk }}; box-shadow: {{ prevShadow }}">まえへ　Previous</button>
 <button onClick="{{ next }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; white-space: nowrap; font-size: {{ nextSize }}">{{ nextLabel }}</button>
@@ -287,7 +289,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 10px 12px; border-radius: 14px; background: #E8ECFB; font-size: 12px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">ミニ模試は形式の練習です。</strong> The mini teaches the format, so your Readiness estimate stays as it is. A full mock gives three scores out of 60 and a pass judgement.</div>
+<div style="margin-top: 12px; padding: 10px 12px; border-radius: 14px; background: #E8ECFB; font-size: 12px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">ミニ模試は形式の練習です。</strong> {{ miniNote }}</div>
 
 <sc-if value="{{ anyWrong }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; line-height: 1.45">
@@ -407,21 +409,21 @@ const plain = (t) => ({ t, bg: 'transparent', pad: '0' });
 const mark = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px' });
 const L = (t, align) => ({ t, align: align || 'left' });
 /* the mini mock: N2's two test sections in the real order. Vocabulary, grammar and reading share one clock */
-const SECS = [
+let SECS = [
 { n: 1, ja: '言語知識（文字・語彙・文法）・読解', short: '言語知識・読解', en: 'Vocabulary, grammar, reading', total: 600, items: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
 { n: 2, ja: '聴解', short: '聴解', en: 'Listening', total: 0, items: [10, 11, 12] },
 ];
 /* listening is always the last section, and the only one paced by the audio */
-const LISTEN = SECS[SECS.length - 1];
+let LISTEN = SECS[SECS.length - 1];
 /* the answers are gone through by the four areas of the N2 paper, so each list fits one screen */
-const AREAS = [
+let AREAS = [
 { ja: '文字・語彙', items: [1, 2, 3, 4, 5] },
 { ja: '文法', items: [6, 7] },
 { ja: '読解', items: [8, 9] },
 { ja: '聴解', items: [10, 11, 12] },
 ];
 /* one original question for each item type it covers; n is the place in the whole paper, no the number inside its section, m the 問題 it belongs to on a real N2 paper */
-const ITEMS = [
+let ITEMS = [
 {
 n: 1, no: 1, m: '問題1', type: '漢字読み', kind: 'word',
 rubric: '＿＿＿の言葉の読み方として最もよいものを選びなさい。',
@@ -540,12 +542,12 @@ why: 'He asks to start the meeting an hour later. Reply 1 hears "being late", an
 },
 ];
 /* what the audio does in each listening question, in order. With sound, a spoken part lasts as long as its clip and a silent part as long as "wait"; without sound every part takes its short stand-in time */
-const PARTS = {
+let PARTS = {
 10: [{ k: 'q', ja: '質問', en: 'the question', clip: 'm10_q', sim: 2000 }, { k: 'talk', ja: '話', en: 'the conversation', clip: 'm10_talk', sim: 4200 }, { k: 'q2', ja: '質問', en: 'the question again', clip: 'm10_q2', sim: 1600 }, { k: 'ans', ja: '解答', en: 'answer time', wait: 8000, sim: 6000 }],
 11: [{ k: 'talk', ja: '話', en: 'the talk', clip: 'm11_talk', sim: 4200 }, { k: 'choices', ja: '質問・選択肢', en: 'the question and the four choices', clip: 'm11_q', sim: 4000 }, { k: 'ans', ja: '解答', en: 'answer time', wait: 8000, sim: 6000 }],
 12: [{ k: 'line', ja: '文', en: 'the line', clip: 'm12_line', sim: 1600 }, { k: 'replies', ja: '返事 1・2・3', en: 'the three replies', clip: 'm12_replies', sim: 3400 }, { k: 'ans', ja: '解答', en: 'answer time', wait: 6000, sim: 5000 }],
 };
-const MOCK_CLIPS = ['m_check', 'm10_q', 'm10_talk', 'm10_q2', 'm11_talk', 'm11_q', 'm12_line', 'm12_replies'];
+let MOCK_CLIPS = ['m_check', 'm10_q', 'm10_talk', 'm10_q2', 'm11_talk', 'm11_q', 'm12_line', 'm12_replies'];
 /* how long a part lasts: the clip plus a breath, the silent wait, or the stand-in time when there is no sound */
 const partMs = (p, sound) => {
 if (!sound) return p.sim;
@@ -554,6 +556,95 @@ return ((window.ykSound && window.ykSound.ms(p.clip)) || p.sim) + 400;
 };
 const WAVE = [10, 18, 26, 14, 30, 22, 12, 28, 36, 20, 14, 26, 32, 18, 10, 24, 30, 18, 12, 22, 34, 16, 26, 12];
 /* the designed moments shown when the artboard is not inside the prototype: a run with three slips (questions 3, 5 and 11) */
+/* ---------- the mini mock of each level ----------
+   N2's is written out above in the form the screen uses. Other levels' mini mocks are course data
+   (content/n5/mini.json, items n5mock1 … n5mock12) and are turned into the same form here. */
+const MOCK_N2 = { level: 'N2', prefix: 'mock', SECS, AREAS, ITEMS, PARTS, MOCK_CLIPS };
+const mockCache = {};
+function mockFrom(level) {
+  const C = window.ykCourse;
+  const pre = level.toLowerCase() + 'mock';
+  const its = [];
+  for (let n = 1; C.item(pre + n); n++) its.push(C.item(pre + n));
+  if (its.length < 4) return null;
+  const segsOf = (q) => {
+    /* the sentence as printed: underlined words, everything else plain */
+    const out = [];
+    String(q).split('_').forEach((t, k) => { if (t) out.push(k % 2 ? U(t) : P(t)); });
+    return out;
+  };
+  const fullOf = (it) => {
+    const ans = C.plain(it.options[it.answer - 1]);
+    if (it.order) {
+      const tiles = it.order.map((o) => C.plain(it.options[o - 1]));
+      return [plain(it.before || ''), ...tiles.map((t, k) => (k === it.star ? mark(t) : plain(t))), plain(it.after || '')];
+    }
+    const q = String(it.q);
+    if (q.indexOf('（　　）') >= 0) { const [a, b] = q.split('（　　）'); return [plain(a), mark(ans), plain(b || '')]; }
+    const m = /^(.*?)_(.+?)_(.*)$/.exec(q);
+    if (m) return [plain(m[1]), mark(m[2] + (/読み|表記/.test(it.type) ? '（' + ans + '）' : '')), plain(m[3])];
+    return [plain(q)];
+  };
+  const scriptOf = (t) => String(t || '').split('\n').filter(Boolean).map((l) => { const m = /^(男|女|[123])：(.*)$/.exec(l); return m ? [m[1], m[2]] : ['', l]; });
+  const listenKinds = /課題|ポイント|概要|即時|発話/;
+  const listen = its.filter((it) => listenKinds.test(it.type));
+  const paper = its.filter((it) => !listenKinds.test(it.type));
+  const items = its.map((it, k) => {
+    const n = k + 1;
+    const base = { n, m: it.label || '', type: it.type, rubric: it.rubric || '', options: it.options.map((o) => C.plain(o)), answer: it.answer, short: it.short, why: it.explain || '' };
+    if (listenKinds.test(it.type)) {
+      return { ...base, no: listen.indexOf(it) + 1, kind: /即時|発話/.test(it.type) ? 'quick' : 'task', ask: C.plain(it.q), script: scriptOf(it.script) };
+    }
+    const no = paper.indexOf(it) + 1;
+    if (it.passage) return { ...base, no, kind: 'passage', passage: String(it.passage).split('\n').map((t) => L(t)), ask: C.plain(it.q) };
+    if (it.order) {
+      const segs = [K(it.before || '')];
+      for (let b = 0; b < 4; b++) segs.push(b === it.star ? ST : BL);
+      segs.push(K(it.after || ''));
+      return { ...base, no, kind: 'word', segs, full: fullOf(it) };
+    }
+    return { ...base, no, kind: 'word', segs: segsOf(it.q), full: fullOf(it) };
+  });
+  const parts = {};
+  const clips = ['m_check'];
+  items.forEach((x, k) => {
+    const src = its[k].parts;
+    if (!src) return;
+    parts[x.n] = src.map((pt) => {
+      const clip = pt.lines ? pre + x.n + '_' + pt.k : null;
+      if (clip) clips.push(clip);
+      return { k: pt.k, ja: pt.ja, en: pt.en, clip, sim: pt.sim || 2000, wait: pt.wait };
+    });
+  });
+  const nums = (list) => list.map((it) => its.indexOf(it) + 1);
+  const byArea = (re) => nums(paper.filter((it) => re.test(it.type)));
+  return {
+    level, prefix: pre, ITEMS: items, PARTS: parts, MOCK_CLIPS: clips,
+    SECS: [
+      { n: 1, ja: '言語知識（文字・語彙・文法）・読解', short: '言語知識・読解', en: 'Vocabulary, grammar, reading · ' + level, total: 60 * paper.length, items: nums(paper) },
+      { n: 2, ja: '聴解', short: '聴解', en: 'Listening', total: 0, items: nums(listen) },
+    ],
+    AREAS: [
+      { ja: '文字・語彙', items: byArea(/漢字|表記|文脈|言い換え|語形成|用法/) },
+      { ja: '文法', items: byArea(/文法/) },
+      { ja: '読解', items: byArea(/読解/) },
+      { ja: '聴解', items: nums(listen) },
+    ],
+  };
+}
+/* make the level's mini mock the one this screen runs */
+let MOCK = MOCK_N2;
+function useMock(level) {
+  const lv = level || 'N2';
+  if (MOCK.level === lv) return MOCK;
+  if (lv === 'N2') MOCK = MOCK_N2;
+  else { if (!(lv in mockCache)) mockCache[lv] = mockFrom(lv); MOCK = mockCache[lv] || MOCK_N2; }
+  ({ SECS, AREAS, ITEMS, PARTS, MOCK_CLIPS } = MOCK);
+  LISTEN = SECS[SECS.length - 1];
+  BASE.t = SECS[0].total;
+  return MOCK;
+}
+const levelOf = (props) => (props && props.app && props.app.level) || (window.ykCourse && window.ykCourse.level()) || 'N2';
 const SAMPLE = { 1: 2, 2: 3, 3: 2, 4: 4, 5: 3, 6: 1, 7: 3, 8: 4, 9: 2, 10: 3, 11: 4, 12: 3 };
 const upTo = (n) => { const a = {}; Object.keys(SAMPLE).forEach((k) => { if (+k <= n) a[k] = SAMPLE[k]; }); return a; };
 const BASE = { view: 'intro', live: false, sec: 0, i: 0, answers: {}, flags: {}, t: SECS[0].total, used: [null], sheet: false, quit: false, paused: false, noStart: false, timeUp: false, next: 1, bt: 60, checkP: 0, checking: false, checkMs: 2000, checkSound: true, sound: false, li: 0, ph: 0, pt: 0, tab: 0, open: null };
@@ -570,6 +661,7 @@ answers: { view: 'answers', answers: SAMPLE, used: [512], tab: 0 },
 class Component extends DCLogic {
 constructor(props) {
 super(props);
+useMock(levelOf(props));
 this.state = this.firstState(props);
 }
 firstState(props) {
@@ -590,7 +682,9 @@ if (document.visibilityState === 'hidden' && s.view === 'listening' && s.live &&
 document.addEventListener('visibilitychange', this.onHide);
 if (this.state.live) this.clockOn();
 }
-componentDidUpdate(prev) {
+componentDidUpdate(prev, was) {
+/* a long question scrolls on its own; the next one starts at its top */
+if (was && (was.i !== this.state.i || was.sec !== this.state.sec)) document.querySelectorAll('[data-paper-scroll]').forEach((el) => { el.scrollTop = 0; });
 if (!this.props.go && prev && prev.view !== this.props.view) {
 this.clockOff();
 this.hush();
@@ -782,7 +876,7 @@ const a = s.answers;
 /* every miss goes to the notebook, named by what was chosen */
 if (this.props.miss) {
 ITEMS.forEach((it) => {
-if (a[it.n] !== it.answer) this.props.miss({ src: 'mock' + it.n, wrong: a[it.n] ? (it.short || it.options)[a[it.n] - 1] : '無解答' });
+if (a[it.n] !== it.answer) this.props.miss({ src: MOCK.prefix + it.n, wrong: a[it.n] ? (it.short || it.options)[a[it.n] - 1] : '無解答' });
 });
 }
 if (this.props.save) this.props.save({ mock: { a, used: s.used, done: true, score: ITEMS.filter((it) => a[it.n] === it.answer).length } });
@@ -886,6 +980,7 @@ script: (it.script || []).map((l) => ({ who: l[0], t: l[1] })),
 };
 }
 renderVals() {
+useMock(levelOf(this.props));
 const s = this.state;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
 const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
@@ -963,7 +1058,7 @@ const low = v.paper && s.t <= 30;
 const card = (x) => ({ n: x.n, ja: x.ja, en: x.en, count: x.items.length + '問', time: x.total ? Math.round(x.total / 60) + '分' : '音声が終わるまで' });
 const upNext = SECS[Math.min(s.next, SECS.length - 1)];
 const titles = {
-intro: ['ミニ模試', 'Mini mock · N2'],
+intro: ['ミニ模試', 'Mini mock · ' + MOCK.level],
 paper: [sec.short, 'Section ' + sec.n + ' of ' + SECS.length],
 break: ['休憩', 'Break'],
 listening: ['聴解', s.sound || !s.live ? 'Listening · the audio plays once' : 'Listening · no sound here, timing only'],
@@ -974,6 +1069,7 @@ return {
 v,
 band: { quit: running, home: v.intro || v.result, back: v.answers, title: titles[0], sub: titles[1], clock: v.paper, sheet: v.paper },
 clock: fmt(s.t),
+miniNote: MOCK.level === 'N2' ? 'The mini teaches the format, so your Readiness estimate stays as it is. A full mock gives three scores out of 60 and a pass judgement.' : 'The mini teaches the format of the ' + MOCK.level + ' paper. A full ' + MOCK.level + ' mock is still to come.',
 clockLabel: 'Time left in this section: ' + fmt(s.t),
 clockBg: low ? '#E2452B' : '#FFFFFF',
 clockInk: low ? '#FFFFFF' : '#1B2440',
@@ -988,7 +1084,7 @@ rules: [
 begin: () => {
 /* the tap that starts the run also lets sound start later, and the listening clips are decoded while section 1 is answered */
 const snd = window.ykSound;
-if (snd && snd.has('m10_q') && snd.unlock()) snd.ready(MOCK_CLIPS);
+if (snd && snd.has(MOCK_CLIPS[1]) && snd.unlock()) snd.ready(MOCK_CLIPS);
 this.changedAt = Date.now();
 this.setState({ ...BASE, view: 'paper', live: true });
 this.clockOn();

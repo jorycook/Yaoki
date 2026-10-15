@@ -10,6 +10,9 @@ const { chromium } = require('playwright');
 const N1 = require('./level.js').course();
 const N1_THEME = N1.units[0].ja;
 const N1_LESSON = N1.lessons[0].grammar.patterns[0].p;
+// the main app (N5 to N2): a new plan starts on day 1 of its N2 unit 3, 原因・理由, with 〜ことから
+const MAIN_THEME = '原因・理由';
+const MAIN_LESSON = '〜ことから';
 
 const DOCS = path.resolve(process.env.YK_DOCS || path.join(__dirname, '..', 'docs'));
 const PORT = +(process.env.TWO_APPS_PORT || 8767);
@@ -55,12 +58,12 @@ const server = http.createServer((req, res) => {
     await page.waitForSelector('#yk-stage > .sc-host');
   };
 
-  // the N5 to N2 app: set the goal, so it opens on the week path from now on
+  // the main app (N5 to N2): set the goal, so it opens on the week path from now on
   const n2 = await open('?sw');
   await stored(n2);
   await click(n2, 'button:has-text("Paint the first eye")');
   await click(n2, 'a:has-text("Start")', 800);
-  ok((await text(n2)).includes('〜ばかりに'), 'N2 app: the week path should show the N2 lesson');
+  ok((await text(n2)).includes(MAIN_THEME) && (await text(n2)).includes(MAIN_LESSON), 'main app: the week path should show its first N2 lesson, ' + MAIN_THEME + ' and ' + MAIN_LESSON);
 
   // the N1 app at its own address: a fresh start, not the N2 app's progress
   const n1 = await open('n1/?sw');
@@ -76,6 +79,13 @@ const server = http.createServer((req, res) => {
   ok(JSON.stringify(keys) === JSON.stringify(['yaoki.v1:/Yaoki/', 'yaoki.v1:/Yaoki/n1/']), 'each app should keep its own saved progress, got ' + JSON.stringify(keys));
   const stores = await n1.evaluate(() => caches.keys());
   ok(stores.length === 2 && stores.some((k) => k.startsWith('yaoki:/Yaoki/:')) && stores.some((k) => k.startsWith('yaoki:/Yaoki/n1/:')), 'each app should keep its own offline copy, got ' + JSON.stringify(stores));
+  // the N1 course's clips are not part of its install: with a plan made, the N1 app has its own worker store all of
+  // them in the background, in its own store only
+  const CLIPS = fs.readdirSync(path.join(DOCS, 'n1', 'assets', 'audio')).filter((f) => /\.mp3$/.test(f));
+  const clipsIn = () => n1.evaluate(async () => { const out = {}; for (const k of await caches.keys()) out[k] = (await (await caches.open(k)).keys()).filter((r) => /\.mp3\?h=/.test(r.url)).length; return out; });
+  let held = await clipsIn();
+  for (let i = 0; i < 120 && (held[stores.find((k) => k.startsWith('yaoki:/Yaoki/n1/:'))] || 0) < CLIPS.length; i++) { await n1.waitForTimeout(500); held = await clipsIn(); }
+  ok(Object.entries(held).every(([k, n]) => (k.startsWith('yaoki:/Yaoki/n1/:') ? n === CLIPS.length : n === 0)), `the N1 app's store should hold all ${CLIPS.length} clips, and only it, got ` + JSON.stringify(held));
 
   // offline, each address still opens its own app where it was left
   await ctx.setOffline(true);
@@ -83,10 +93,12 @@ const server = http.createServer((req, res) => {
   await n1.waitForSelector('#yk-stage > .sc-host');
   await n1.waitForTimeout(500);
   ok((await text(n1)).includes(N1_LESSON), 'offline: the N1 app should open on its week path');
+  const clip = await n1.evaluate((f) => fetch('./assets/audio/' + f).then(async (r) => r.ok && (await r.arrayBuffer()).byteLength > 1000, () => false), CLIPS[0]);
+  ok(clip, 'offline: a clip of the N1 course should load from its store');
   await n2.reload();
   await n2.waitForSelector('#yk-stage > .sc-host');
   await n2.waitForTimeout(500);
-  ok((await text(n2)).includes('〜ばかりに'), 'offline: the N5 to N2 app should open on its week path');
+  ok((await text(n2)).includes(MAIN_LESSON), 'offline: the main app should open on its week path');
   ok((await n2.evaluate(() => window.__ykBuild)).startsWith('Yaoki prototype') && (await n1.evaluate(() => window.__ykBuild)).startsWith('Yaoki N1 prototype'), 'each address should have its own build');
   await ctx.setOffline(false);
 

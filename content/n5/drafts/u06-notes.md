@@ -1,0 +1,10 @@
+# Unit 6: notes from the drafting agents (for the flags file)
+
+- d1: made-up wrong te-forms (読みて, 読いて, 読って, 行いて, 行きて, 行んで, 書きて, 書いで, しって, するて, まちて, まつて, まんで, 見って, 見んで). う-verb row lists ぎ → いで. Scene 後ろ split as 後 = うし; 四十分 よんじゅっぷん. Words: しゅくだい, そうじ, そば, ゆっくり, おりる, かお, あらう, プリント. Stars easy.
+- d2: ない forms as set shapes before unit 7. Words: すわる, じしょ, まどをあける, でんわをかける, おかし, ごみをもってかえる, さんぽ, おしらせ, こうえん. Made-up wrong options はいりぐち, いりこう (k1); すわるも, すわりますも, すわりも (e2). d1 入って and d4 ええ、どうぞ / あけましょう fail on meaning only. Stars d6, e3 same pattern. 午前, 午後 on a park sign.
+- d3: なくてもいいです N5/N4 line; はしらない, とらない not in the table. Made-up forms (飲んて, 飲みて, 飲むでは, きなくて, くなくて, 来ないくても, 読みなくて, 読むなくて, しないくても); 表記 distractors 人る, 八る, 大る. e1 入ってはしません clearly wrong? d1 and listening: いいえ + なくてもいいです wrong only as non-answer to permission. Listening はい、とりました too easy? Words: じゅぎょう, あぶない, ぼうしをとる, たばこをすう, シャワーをあびる, おかし. Stars d5, e3 easy.
+- d4: p1 watch 父は今、新聞を読みます grammatical as "about to read". Points labelled 〜ています（いま）/（じょうたい）. d5 splits 人 and と. d6 人のあの名前 rejected? e3 白い only with シャツ? 今日, 三年前. Scene distractor でんか is a real word.
+- d5: つもり N5/N4 line; plain forms as fixed shape. Words: かえす, 本や, しゃしんをとる, あそびに来ます, 出かけませんか, こうえん, テスト. Made-up らいしゅ, 買いますに, 行ってつもり, 見てつもり. d4 見る left out. Stars easy.
+- d6: d3 中国, 来年. d4 ています and ます options wrong only because the sentence continues. c1 もって来てはいけません wrong on logic only. d5 no comma after いけませんが. e3 close to day 2 star. Words: としょしつ, ばんごう, いもうと, こたえ. k1 distractor 毎月 real word.
+- test: made-up distractors でくち, でるくち, 安んで, 本んで, 木んで (t.1, t.3, t.8); t.8 explain uses おばさん. てください only in star t.16. t.14 まちます clearly wrong for 今何をしていますか? t.17 ひいている人 (noun-modifying) above N5? t.6 ろうか, t.18 べんきょうし tile. t.21 closed on Mondays.
+- blind solve: 1 real problem fixed: d3.d3 options differed only in readings (now in kana); the build now refuses options that read the same without readings. d6.d2 行っています (gone and there now) borderline N5, two blanks. d3.d4 blank cuts the verb (読（　　）).

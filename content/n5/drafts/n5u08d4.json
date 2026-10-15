@@ -1,0 +1,470 @@
+{
+ "title": "〜くする・〜にする",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u08d4.p1",
+    "form": "〜くします",
+    "gloss": "make it …",
+    "connect": [
+     {
+      "pos": "い-adjective: drop い, add く",
+      "rule": "あかるい → あかる{くします}"
+     },
+     {
+      "pos": "Asking someone to do it",
+      "rule": "[小|ちい]さい → [小|ちい]さ{くしてください}"
+     },
+     {
+      "pos": "いい is special: it becomes よく",
+      "rule": "いい → よ{くします}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "でんきをつけて、へやをあかる{くします}。",
+      "en": "I'll turn on the light and make the room bright."
+     },
+     {
+      "ja": "ラジオのおとを[小|ちい]さ{くしてください}。",
+      "en": "Please turn the radio down."
+     }
+    ],
+    "watch": {
+     "note": "The い-adjective changes to く before します. It cannot stay as い.",
+     "bad": "へやをあたたかいします。",
+     "good": "へやをあたたかくします。"
+    }
+   },
+   {
+    "id": "n5u08d4.p2",
+    "form": "〜にします",
+    "gloss": "make it …; I'll have …",
+    "connect": [
+     {
+      "pos": "な-adjective (making something so)",
+      "rule": "きれい ＋ {にします}"
+     },
+     {
+      "pos": "〜 is a noun (choosing or deciding)",
+      "rule": "〜 ＋ {にします}"
+     },
+     {
+      "pos": "Choosing \"the … one\": い-adjective + の",
+      "rule": "[大|おお]きいの ＋ {にします}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "おきゃくさんが[来|き]ますから、へやをきれい{にします}。",
+      "en": "A guest is coming, so I'll make my room clean."
+     },
+     {
+      "ja": "「[何|なに]を[飲|の]みますか。」「コーヒー{にします}。」",
+      "en": "\"What will you drink?\" \"I'll have coffee.\""
+     }
+    ],
+    "watch": {
+     "note": "きれい ends in い, but it is a な-adjective, so it takes に, not く.",
+     "bad": "へやをきれいくします。",
+     "good": "へやをきれいにします。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "The first two are about the same room: なる says it changes, くする says someone changes it. にする after a noun says what you choose.",
+   "forms": [
+    {
+     "form": "〜くなる",
+     "tag": "かわる · it becomes",
+     "mark": "dot",
+     "ja": "へやがあかる{くなりました}。",
+     "en": "The room got bright."
+    },
+    {
+     "form": "〜くする",
+     "tag": "かえる · someone makes it",
+     "mark": "dot",
+     "ja": "へやをあかる{くしました}。",
+     "en": "I made the room bright."
+    },
+    {
+     "form": "〜にする",
+     "tag": "えらぶ · choose",
+     "mark": "dot",
+     "ja": "わたしはコーヒー{にします}。",
+     "en": "I'll have coffee."
+    }
+   ],
+   "check": {
+    "id": "n5u08d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "へやのでんき",
+    "q": "でんきをつけて、へや^を^あかるく（　　）。",
+    "options": [
+     "しました",
+     "なりました",
+     "にしました"
+    ],
+    "answer": 1,
+    "why": [
+     "へやを has を: I did something to the room. あかるくしました means \"I made it bright\".",
+     "なりました goes with が: へやがあかるくなりました. After へやを it does not fit.",
+     "あかるい is an い-adjective, so it takes く alone. You cannot add に after あかるく."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u08d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "テレビのおとが^[大|おお]きい^です。もうすこし（　　）ください。",
+    "options": [
+     "[小|ちい]さくして",
+     "[小|ちい]さいして",
+     "[小|ちい]さにして",
+     "[小|ちい]さくなって"
+    ],
+    "answer": 1,
+    "why": [
+     "小さい becomes 小さく before して: \"please turn it down\".",
+     "The い must change to く before して.",
+     "小さい is an い-adjective. It does not take に.",
+     "なってください asks the person to become small. Here you ask them to change the sound, so use して."
+    ]
+   },
+   {
+    "id": "n5u08d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "へやが^くらい^ですね。でんきをつけて、（　　）しましょう。",
+    "options": [
+     "あかるく",
+     "あかるい",
+     "あかるいに",
+     "あかるくて"
+    ],
+    "answer": 1,
+    "why": [
+     "あかるい becomes あかるく before しましょう: \"let's make it bright\".",
+     "The い must change to く before する.",
+     "An い-adjective does not take に.",
+     "The て form joins two ideas. It does not go before する here."
+    ]
+   },
+   {
+    "id": "n5u08d4.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「[何|なに]に^しますか^。」「わたしはこうちゃ（　　）します。」",
+    "options": [
+     "に",
+     "を",
+     "が",
+     "で"
+    ],
+    "answer": 1,
+    "why": [
+     "The question is 何にしますか, so the answer is こうちゃにします: \"I'll have tea\".",
+     "こうちゃをします is not said. To say what you choose, use に.",
+     "が does not go before します to say what you choose.",
+     "で does not say what you choose. Use に."
+    ]
+   },
+   {
+    "id": "n5u08d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "おきゃくさんが[来|き]ますから、へやを（　　）^します^。",
+    "options": [
+     "きれいに",
+     "きれいく",
+     "きれいな",
+     "きれいだ"
+    ],
+    "answer": 1,
+    "why": [
+     "きれい is a な-adjective, so it takes に before します.",
+     "きれい ends in い, but it is not an い-adjective. It never takes く.",
+     "きれいな needs a noun after it, like きれいなへや.",
+     "きれいだ ends a sentence. It cannot go before します."
+    ]
+   },
+   {
+    "id": "n5u08d4.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "すみません、",
+    "after": "ください。",
+    "tiles": [
+     "テレビの",
+     "おとを",
+     "[小|ちい]さく",
+     "して"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "Whose sound is it? Then how do you want it? して comes right before ください.",
+    "full": "すみません、テレビのおとを[小|ちい]さ{くして}ください。",
+    "explain": "テレビの goes right before おとを. 小さく joins on to して, and してください asks the person to do it."
+   },
+   {
+    "id": "n5u08d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[友|とも]だちが[来|き]ますから、",
+    "after": "しました。",
+    "tiles": [
+     "へやと",
+     "だいどころを",
+     "きれい",
+     "に"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "Which two places did you clean? に comes right after きれい.",
+    "full": "[友|とも]だちが[来|き]ますから、へやとだいどころをきれい{にしました}。",
+    "explain": "へやと joins on to だいどころを: \"the room and the kitchen\". きれい is a な-adjective, so に comes after it, then しました."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u08d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ちょっと　あついですね。まどを　あけて、へやを　（　　）　しましょう。",
+    "options": [
+     "すずしく",
+     "すずしい",
+     "すずしいに",
+     "すずしくて"
+    ],
+    "answer": 1,
+    "explain": "すずしい is an い-adjective, so it becomes すずしく before しましょう: \"let's make the room cool\". すずしい must change to く, an い-adjective does not take に, and the て form すずしくて does not go before する."
+   },
+   {
+    "id": "n5u08d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "「大きい　コップと　小さい　コップが　あります。どちらに　しますか。」「じゃあ、大きい（　　）に　します。」",
+    "options": [
+     "の",
+     "な",
+     "く",
+     "が"
+    ],
+    "answer": 1,
+    "explain": "大きいの means \"the big one\", and 大きいのに します says which one you choose. An い-adjective does not take な, 大きいく is not a form, and が cannot come before に."
+   },
+   {
+    "id": "n5u08d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは　コーヒーに　しますが、",
+    "after": "します。",
+    "tiles": [
+     "友だちは",
+     "オレンジ",
+     "ジュース",
+     "に"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "わたしは　コーヒーに　しますが、友だちは　オレンジ　ジュース{に}　します。",
+    "explain": "友だちは, オレンジ, ジュース, に. 友だちは shows the other person. オレンジ ジュース is what the friend chooses, and に comes before します."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "きっさてんのランチメニュー",
+  "en": "The lunch menu at a coffee shop",
+  "intro": "Tap each word on the menu that tells you the food, the drink, the size or the price.",
+  "words": [
+   {
+    "id": "large",
+    "word": "大きい",
+    "reading": "おおきい",
+    "gloss": "big, large",
+    "parts": [
+     [
+      "大",
+      "おお",
+      "big"
+     ]
+    ]
+   },
+   {
+    "id": "small",
+    "word": "小さい",
+    "reading": "ちいさい",
+    "gloss": "small",
+    "parts": [
+     [
+      "小",
+      "ちい",
+      "small"
+     ]
+    ]
+   },
+   {
+    "id": "water",
+    "word": "水",
+    "reading": "みず",
+    "gloss": "water",
+    "parts": [
+     [
+      "水",
+      "みず",
+      "water"
+     ]
+    ]
+   },
+   {
+    "id": "drinks",
+    "word": "飲みもの",
+    "reading": "のみもの",
+    "gloss": "drinks",
+    "parts": [
+     [
+      "飲",
+      "の",
+      "drink"
+     ]
+    ]
+   },
+   {
+    "id": "yen",
+    "word": "円",
+    "reading": "えん",
+    "gloss": "yen",
+    "parts": [
+     [
+      "円",
+      "エン",
+      "yen, circle"
+     ]
+    ]
+   },
+   {
+    "id": "white wine",
+    "word": "白ワイン",
+    "reading": "しろワイン",
+    "gloss": "white wine",
+    "parts": [
+     [
+      "白",
+      "しろ",
+      "white"
+     ]
+    ]
+   },
+   {
+    "id": "fish",
+    "word": "魚",
+    "reading": "さかな",
+    "gloss": "fish",
+    "parts": [
+     [
+      "魚",
+      "さかな",
+      "fish"
+     ]
+    ]
+   },
+   {
+    "id": "half",
+    "word": "半分",
+    "reading": "はんぶん",
+    "gloss": "half",
+    "parts": [
+     [
+      "半",
+      "ハン",
+      "half"
+     ],
+     [
+      "分",
+      "ブン",
+      "part"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u08d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "_飲みもの_は　何に　しますか。",
+   "options": [
+    "のみもの",
+    "たべもの",
+    "よみもの",
+    "のみの"
+   ],
+   "answer": 1,
+   "explain": "飲みもの is のみもの, something to drink. たべもの is 食べもの and よみもの is 読みもの, and のみの is not this word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Why did the writer choose curry?",
+  "seconds": 90,
+  "passage": "今日は　友だちと　駅の　前の　店で　ひるごはんを　食べました。友だちは　魚の　ランチに　しました。わたしも　魚が　すきですが、^きのうの　ばんも　魚を　食べました^から、^カレーに　しました^。飲みものは　二人とも　つめたい　コーヒーに　しました。",
+  "strategy": "Find カレーに しました, then read the reason that comes before から.",
+  "item": {
+   "id": "n5u08d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "「わたし」は　どうして　カレーに　しましたか。",
+   "options": [
+    "魚が　きらいだから。",
+    "友だちが　カレーに　したから。",
+    "きのうの　ばんも　魚を　食べたから。",
+    "カレーが　安かったから。"
+   ],
+   "answer": 3,
+   "short": [
+    "魚がきらい",
+    "友だちがカレーにした",
+    "きのうも魚を食べた",
+    "カレーが安かった"
+   ],
+   "explain": "The writer ate fish last night too (きのうの ばんも 魚を 食べました), and から says that is why she chose curry.",
+   "why": [
+    "She says she likes fish too (わたしも 魚が すきです).",
+    "The friend chose the fish lunch, not curry.",
+    "",
+    "The passage says nothing about the price."
+   ]
+  }
+ }
+}

@@ -1,0 +1,416 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "To tell this unit's points apart, ask three things: is the word an い-adjective or a な-adjective (that decides the present, past, not and joining forms), does すき or じょうず come after it (then the thing takes が), and do you want a thing (〜がほしいです) or want to do something (〜たいです).",
+   "forms": [
+    {
+     "form": "〜くて／〜で",
+     "tag": "つなぐ · joining two words",
+     "mark": "dot",
+     "ja": "この[店|みせ]は[古|ふる]{くて}[小|ちい]さいです。でも、きれい{で}しずかです。",
+     "en": "This shop is old and small. But it is clean and quiet."
+    },
+    {
+     "form": "〜かったです／〜でした",
+     "tag": "きのうのこと · it was",
+     "mark": "dot",
+     "ja": "[山|やま]はさむ{かったです}。でも、[花|はな]がきれい{でした}。",
+     "en": "It was cold on the mountain. But the flowers were beautiful."
+    },
+    {
+     "form": "〜がほしいです／〜たいです",
+     "tag": "ものか、することか · a thing or an action",
+     "mark": "dot",
+     "ja": "[新|あたら]しいくつ{がほしいです}。あした[買|か]い{たいです}。",
+     "en": "I want new shoes. I want to buy them tomorrow."
+    }
+   ],
+   "check": {
+    "id": "n5u04d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "[川|かわ]で",
+    "q": "^きのう^の[川|かわ]はとてもきれい（　　）。",
+    "options": [
+     "かったです",
+     "でした",
+     "です"
+    ],
+    "answer": 2,
+    "why": [
+     "きれい ends in い, but it is a な-adjective, so it never takes かったです.",
+     "きれい is a な-adjective, and きのう is past: きれいでした.",
+     "きれいです is the present. きのう needs the past."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u04d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「この[白|しろ]いシャツ、どうですか。」B「いいですね。^でも、ちょっと[高|たか]いです^。もっと（　　）シャツがほしいです。」",
+    "options": [
+     "[安|やす]い",
+     "[安|やす]くて",
+     "[安|やす]いな",
+     "[安|やす]かったです"
+    ],
+    "answer": 1,
+    "why": [
+     "Right before a noun, an い-adjective stays as it is: 安いシャツ. B wants a cheaper shirt than this one.",
+     "安くて joins 安い to another describing word. Here a noun, シャツ, comes next, so it does not fit.",
+     "な is for な-adjectives such as しずか. 安い is an い-adjective and takes no な.",
+     "安かったです is the polite past and ends a sentence. It cannot sit right before シャツ."
+    ]
+   },
+   {
+    "id": "n5u04d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the phrase",
+    "q": "^[先週|せんしゅう]^、[駅|えき]の[前|まえ]の[店|みせ]でカレーを[食|た]べました。（　　）。",
+    "options": [
+     "[安|やす]いでおいしかったです",
+     "[安|やす]くておいしいでした",
+     "[安|やす]くておいしかったです",
+     "[安|やす]かったでおいしいです"
+    ],
+    "answer": 3,
+    "why": [
+     "安い is an い-adjective, so it joins with くて, not で.",
+     "安くて is right, but おいしい is an い-adjective. Its past is おいしかったです, not おいしいでした.",
+     "安い joins with くて, and the last word carries the past for the whole sentence: おいしかったです.",
+     "安かった does not join with で. Use 安くて, and put the past on the last word: おいしかったです."
+    ]
+   },
+   {
+    "id": "n5u04d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the particles",
+    "q": "わたしは[電車|でんしゃ]（　　）^すきです^。[日|にち]よう[日|び]、[大|おお]きい[駅|えき]（　　）^[行|い]きたいです^。",
+    "options": [
+     "を／へ",
+     "が／へ",
+     "で／へ",
+     "が／で"
+    ],
+    "answer": 2,
+    "why": [
+     "すきです takes が for the thing you like, not を.",
+     "The thing you like takes が: 電車がすきです. With 行きたいです, the place you go to takes へ, as with 行きます.",
+     "で marks where you do something or what you use. It cannot mark the thing you like.",
+     "が is right for 電車, but 駅 is where you go. 行きたいです keeps the へ of 行きます, so で does not fit."
+    ]
+   },
+   {
+    "id": "n5u04d6.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^[前|まえ]は^コーヒーが（　　）。^でも、[今|いま]は^[毎日|まいにち][飲|の]みます。",
+    "options": [
+     "きらかったです",
+     "すきでした",
+     "きらいです",
+     "きらいでした"
+    ],
+    "answer": 4,
+    "why": [
+     "きらい ends in い, but it is a な-adjective. It does not change like an い-adjective.",
+     "すきでした has the right form, but でも needs a change: liked it before, and still drinks it now, is no contrast.",
+     "きらいです is the present. 前は needs the past.",
+     "きらい is a な-adjective, so its past is きらいでした. でも then shows the change: now I drink it every day."
+    ]
+   },
+   {
+    "id": "n5u04d6.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "わたしは",
+    "after": "。",
+    "tiles": [
+     "[白|しろ]くて",
+     "[小|ちい]さい",
+     "ねこが",
+     "ほしいです"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "Which tile joins to another describing word? Which one can sit right before a noun?",
+    "full": "わたしは[白|しろ]くて{[小|ちい]さい}ねこがほしいです。",
+    "explain": "白くて joins to the next describing word, 小さい. 小さい sits right before the noun, ねこ. The thing you want takes が, and ほしいです comes last."
+   },
+   {
+    "id": "n5u04d6.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "きのうの",
+    "after": "。",
+    "tiles": [
+     "こうえんは",
+     "[花|はな]が",
+     "[多|おお]くて",
+     "きれいでした"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "きのうの needs a noun right after it. The past goes on the last word only.",
+    "full": "きのうのこうえんは[花|はな]が{[多|おお]くて}きれいでした。",
+    "explain": "きのうのこうえんは is the topic. 花が多くて says what was there and joins to きれいでした, which carries the past for both."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u04d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きのうの　テストは　（　　）、むずかしかったです。",
+    "options": [
+     "長いで",
+     "長くて",
+     "長かったで",
+     "長いくて"
+    ],
+    "answer": 2,
+    "explain": "長い is an い-adjective, so it joins with くて: 長くて、むずかしかったです. The past goes on the last word only. 長いで and 長かったで use で, which is for な-adjectives and nouns, and 長いくて keeps the い it should drop."
+   },
+   {
+    "id": "n5u04d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "わたしは　えいがが　すきです。こんどの　日よう日、新しい　えいがを　（　　）。",
+    "options": [
+     "ほしいです",
+     "見ほしいです",
+     "見たいです",
+     "見るたいです"
+    ],
+    "answer": 3,
+    "explain": "Seeing a film is an action, so use たい on the ます form: 見ます → 見たいです. ほしいです is for a thing and takes が, not を. 見ほしいです is not a form, and たい does not join 見る."
+   },
+   {
+    "id": "n5u04d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「きのうの　レストランは　どうでしたか。」B「",
+    "after": "とても　おいしかったです。」",
+    "tiles": [
+     "店は",
+     "古くて",
+     "小さかったですが",
+     "りょうりは"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     2,
+     0
+    ],
+    "full": "A「きのうの　レストランは　どうでしたか。」B「店は　古くて　{小さかったですが}　りょうりは　とても　おいしかったです。」",
+    "explain": "店は, 古くて, 小さかったですが, りょうりは. The shop was old and small: 古くて joins to 小さかったです. が (but) then turns to the food, and りょうりは goes with おいしかったです."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "山のまちのパンフレット",
+  "en": "A travel brochure for a mountain town",
+  "intro": "Tap each word on the brochure page for a small mountain town.",
+  "words": [
+   {
+    "id": "old",
+    "word": "古い",
+    "reading": "ふるい",
+    "gloss": "old (things, not people)",
+    "parts": [
+     [
+      "古",
+      "ふる",
+      "old"
+     ]
+    ]
+   },
+   {
+    "id": "long",
+    "word": "長い",
+    "reading": "ながい",
+    "gloss": "long",
+    "parts": [
+     [
+      "長",
+      "なが",
+      "long"
+     ]
+    ]
+   },
+   {
+    "id": "many",
+    "word": "多い",
+    "reading": "おおい",
+    "gloss": "many, a lot",
+    "parts": [
+     [
+      "多",
+      "おお",
+      "many"
+     ]
+    ]
+   },
+   {
+    "id": "west-exit",
+    "word": "西口",
+    "reading": "にしぐち",
+    "gloss": "west exit (of a station)",
+    "parts": [
+     [
+      "西",
+      "にし",
+      "west"
+     ],
+     [
+      "口",
+      "ぐち",
+      "mouth, exit"
+     ]
+    ]
+   },
+   {
+    "id": "every-day",
+    "word": "毎日",
+    "reading": "まいにち",
+    "gloss": "every day",
+    "parts": [
+     [
+      "毎",
+      "マイ",
+      "every"
+     ],
+     [
+      "日",
+      "ニチ",
+      "day"
+     ]
+    ]
+   },
+   {
+    "id": "am",
+    "word": "午前",
+    "reading": "ごぜん",
+    "gloss": "morning, a.m.",
+    "parts": [
+     [
+      "午",
+      "ゴ",
+      "noon"
+     ],
+     [
+      "前",
+      "ゼン",
+      "before"
+     ]
+    ]
+   },
+   {
+    "id": "foreign",
+    "word": "外国",
+    "reading": "がいこく",
+    "gloss": "foreign country",
+    "parts": [
+     [
+      "外",
+      "ガイ",
+      "outside"
+     ],
+     [
+      "国",
+      "コク",
+      "country"
+     ]
+    ]
+   },
+   {
+    "id": "child",
+    "word": "子ども",
+    "reading": "こども",
+    "gloss": "child, children",
+    "parts": [
+     [
+      "子",
+      "こ",
+      "child"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u04d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　まちには　_古い_　店が　たくさん　あります。",
+   "options": [
+    "ふるい",
+    "ひろい",
+    "くろい",
+    "ふかい"
+   ],
+   "answer": 1,
+   "explain": "古い is ふるい, \"old\". ひろい (wide), くろい (black) and ふかい (deep) are real words, but they are written with other kanji or in kana."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "How much does a ten-year-old child pay for the tour?",
+  "seconds": 90,
+  "passage": "山の　まち　バスツアー\n毎日　午前九時半に　駅の　西口を　出ます。\n古い　店が　多い　道を　あるきます。川の　そばで　魚を　食べます。\n大人　三千円\n^子ども（六さい〜十二さい）　千五百円^\n五さいまでの　子どもは　お金は　いりません。",
+  "strategy": "Find the line for children and check which ages it covers.",
+  "item": {
+   "id": "n5u04d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "十さいの　子どもは　いくら　はらいますか。",
+   "options": [
+    "三千円",
+    "千五百円",
+    "四千五百円",
+    "お金は　いりません"
+   ],
+   "short": [
+    "3,000円",
+    "1,500円",
+    "4,500円",
+    "free"
+   ],
+   "answer": 2,
+   "explain": "The line 子ども（六さい〜十二さい） covers children from six to twelve. A ten-year-old pays 千五百円.",
+   "why": [
+    "Three thousand yen is the price for 大人, adults.",
+    "",
+    "Four thousand five hundred yen is one adult and one child together. The question asks about the child only.",
+    "Only children up to five years old pay nothing."
+   ]
+  }
+ }
+}

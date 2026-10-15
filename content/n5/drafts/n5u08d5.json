@@ -1,0 +1,263 @@
+{
+  "title": "〜だけ・〜しか〜ない",
+  "grammar": {
+    "points": [
+      {
+        "id": "n5u08d5.p1",
+        "form": "〜だけ",
+        "gloss": "only; just",
+        "connect": [
+          {"pos": "Noun (が and を are usually dropped)", "rule": "〜{だけ}：[水|みず]{だけ}[飲|の]みました"},
+          {"pos": "Number + counter", "rule": "[一|ひと]つ{だけ}／[一人|ひとり]{だけ}／[五分|ごふん]{だけ}"},
+          {"pos": "The ending stays positive", "rule": "[一|ひと]つ{だけ}[買|か]いました"}
+        ],
+        "examples": [
+          {"ja": "パンを[一|ひと]つ{だけ}[買|か]いました。", "en": "I bought just one piece of bread."},
+          {"ja": "この[店|みせ]は、にちようび{だけ}[休|やす]みです。", "en": "This shop is closed only on Sundays."}
+        ],
+        "watch": {
+          "note": "だけ comes straight after the noun. Do not put を in front of it: say コーヒーだけ, not コーヒーをだけ.",
+          "bad": "けさはコーヒーをだけ飲みました。",
+          "good": "けさはコーヒーだけ飲みました。"
+        }
+      },
+      {
+        "id": "n5u08d5.p2",
+        "form": "〜しか〜ません",
+        "gloss": "only (and not enough)",
+        "connect": [
+          {"pos": "Noun or number + しか, then a negative ending", "rule": "〜{しか}…ません：[百円|ひゃくえん]{しか}ありません"},
+          {"pos": "Past: the negative past ending", "rule": "[一人|ひとり]{しか}[来|き]ませんでした"},
+          {"pos": "The feeling: less than you want", "rule": "[時間|じかん]が[五分|ごふん]{しか}ありません"}
+        ],
+        "examples": [
+          {"ja": "さいふに[千円|せんえん]{しか}ありません。", "en": "I only have 1,000 yen in my wallet."},
+          {"ja": "きのうのパーティーには、[三人|さんにん]{しか}[来|き]ませんでした。", "en": "Only three people came to the party yesterday."}
+        ],
+        "watch": {
+          "note": "しか means \"only\", but the ending after it is always negative. With a positive ending, use だけ.",
+          "bad": "さいふに五百円しかあります。",
+          "good": "さいふに五百円しかありません。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "だけ and しか both mean \"only\", but they take different endings; ぐらい is not \"only\" at all.",
+      "forms": [
+        {"form": "[一|ひと]つだけ[買|か]いました", "tag": "だけ · only", "mark": "dot", "ja": "りんごを[一|ひと]つ{だけ}[買|か]いました。", "en": "I bought just one apple."},
+        {"form": "[百円|ひゃくえん]しかありません", "tag": "しか〜ません · only, not enough", "mark": "down", "ja": "さいふに[百円|ひゃくえん]{しか}ありません。", "en": "I have only 100 yen in my wallet."},
+        {"form": "[千円|せんえん]ぐらいです", "tag": "ぐらい · about", "mark": "dot", "ja": "このかさは[千円|せんえん]{ぐらい}です。", "en": "This umbrella is about 1,000 yen."}
+      ],
+      "check": {
+        "id": "n5u08d5.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "テスト",
+        "q": "A：お[金|かね]、たくさんありますか。B：^いいえ^、[千円|せんえん]（　　）ありません。",
+        "options": ["だけ", "しか", "ぐらい"],
+        "answer": 2,
+        "why": [
+          "千円だけありません would mean \"just 1,000 yen is missing\". That does not answer the question.",
+          "B says いいえ: there is not much money, only 1,000 yen. しか goes with the negative ありません.",
+          "ぐらい means \"about\". 千円ぐらいありません does not make sense after いいえ."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n5u08d5.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "おなかがいっぱいですから、ケーキは[一|ひと]つ（　　）^[食|た]べました^。",
+        "options": ["しか", "も", "だけ", "に"],
+        "answer": 3,
+        "why": [
+          "しか needs a negative ending. Here the ending is 食べました, which is positive.",
+          "一つも goes with a negative ending: 一つも食べませんでした (I didn't eat even one). It does not go with 食べました.",
+          "The ending 食べました is positive, so \"only one\" is 一つだけ.",
+          "に does not go after 一つ here. 一つに食べました is not Japanese."
+        ]
+      },
+      {
+        "id": "n5u08d5.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the ending",
+        "q": "A：ジュースを[買|か]いませんか。B：すみません、^[百円|ひゃくえん]しか^（　　）。",
+        "options": ["あります", "ありません", "ありました", "あって"],
+        "answer": 2,
+        "why": [
+          "あります is positive. After しか, the ending must be negative.",
+          "しか needs a negative ending: 百円しかありません, \"I only have 100 yen\".",
+          "ありました is positive too. しか never goes with it.",
+          "あって is the te-form. It cannot end the sentence here, and しか needs a negative ending."
+        ]
+      },
+      {
+        "id": "n5u08d5.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "A：たまごはたくさんありますか。B：^いいえ^、[二|ふた]つ（　　）ありません。",
+        "options": ["だけ", "を", "しか", "で"],
+        "answer": 3,
+        "why": [
+          "二つだけありません would mean \"just two are missing\". B says いいえ, there are not many eggs, so that does not fit.",
+          "を does not go with ありません. 二つをありません is not Japanese.",
+          "There are not many eggs, only two. しか goes with the negative ありません.",
+          "で does not fit here. 二つでありません is not Japanese."
+        ]
+      },
+      {
+        "id": "n5u08d5.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "けさは^[時間|じかん]がありませんでした^から、コーヒー（　　）[飲|の]みました。",
+        "options": ["をだけ", "だけ", "しか", "にだけ"],
+        "answer": 2,
+        "why": [
+          "だけ comes straight after the noun. を cannot come before it: コーヒーをだけ is wrong.",
+          "There was no time, so only coffee. The ending 飲みました is positive, so use だけ.",
+          "しか needs a negative ending, but 飲みました is positive.",
+          "に does not go with 飲みます. You drink something を, not に."
+        ]
+      },
+      {
+        "id": "n5u08d5.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[電車|でんしゃ]まで",
+        "after": "、はしりましょう。",
+        "tiles": ["[五分|ごふん]", "しか", "ありません", "から"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "hint": "How much time comes first, then しか, then the negative ending, then から for the reason.",
+        "full": "[電車|でんしゃ]まで[五分|ごふん]{しか}ありませんから、はしりましょう。",
+        "explain": "五分しかありません says there is not much time, and から gives the reason for running: \"There are only five minutes until the train, so let's run.\""
+      },
+      {
+        "id": "n5u08d5.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "きのうは",
+        "after": "、ねむいです。",
+        "tiles": ["[三時間|さんじかん]", "だけ", "ねました", "から"],
+        "star": 1,
+        "bank": [3, 1, 0, 2],
+        "hint": "How long comes first, then だけ, then the positive ending, then から.",
+        "full": "きのうは[三時間|さんじかん]{だけ}ねましたから、ねむいです。",
+        "explain": "三時間だけ comes before the positive ending ねました, and から gives the reason: \"I only slept three hours yesterday, so I'm sleepy.\""
+      }
+    ],
+    "exam": [
+      {
+        "id": "n5u08d5.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "A「りんごを　たくさん　買いましたか。」B「いいえ、高かったですから、二つ（　　）　買いませんでした。」",
+        "options": ["だけ", "が", "しか", "と"],
+        "answer": 3,
+        "explain": "The apples were expensive, so B bought only two: 二つしか買いませんでした. しか goes with the negative ending. 二つだけ買いませんでした would mean \"I didn't buy just two\", which does not fit. が and と cannot go between 二つ and 買いませんでした here."
+      },
+      {
+        "id": "n5u08d5.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the word",
+        "q": "A「よく　テレビを　見ますか。」B「いいえ。いそがしいですから、毎日　三十分（　　）　見ます。」",
+        "options": ["が", "だけ", "の", "しか"],
+        "answer": 2,
+        "explain": "B is busy and watches only a little: 三十分だけ見ます. The ending 見ます is positive, so だけ fits. しか needs a negative ending (三十分しか見ません). が and の cannot go between 三十分 and 見ます."
+      },
+      {
+        "id": "n5u08d5.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A「ケーキを　たくさん　買いましたか。」B「いいえ。店に　",
+        "after": "。」",
+        "tiles": ["一つ", "しか", "ありません", "でした"],
+        "star": 2,
+        "bank": [1, 3, 0, 2],
+        "full": "A「ケーキを　たくさん　買いましたか。」B「いいえ。店に　一つ　{しか}　ありません　でした。」",
+        "explain": "一つ, しか, ありません, でした. 一つしか needs a negative ending, and ありませんでした is the negative past: \"There was only one at the shop.\""
+      }
+    ]
+  },
+  "scene": {
+    "ja": "えいがかんの　きっぷうりば",
+    "en": "The notice at the ticket counter of a small cinema",
+    "intro": "Tap every word on the notice you need to know how much a ticket is and when you can go in.",
+    "words": [
+      {"id": "entrance", "word": "入口", "reading": "いりぐち", "gloss": "entrance", "parts": [["入", "いり", "enter"], ["口", "ぐち", "mouth, opening"]]},
+      {"id": "oneperson", "word": "一人", "reading": "ひとり", "gloss": "one person", "parts": [["一", "ひと", "one"], ["人", "り", "person"]]},
+      {"id": "thousandyen", "word": "千円", "reading": "せんえん", "gloss": "1,000 yen", "parts": [["千", "セン", "thousand"], ["円", "エン", "yen"]]},
+      {"id": "hundredyen", "word": "百円", "reading": "ひゃくえん", "gloss": "100 yen", "parts": [["百", "ヒャク", "hundred"], ["円", "エン", "yen"]]},
+      {"id": "child", "word": "子ども", "reading": "こども", "gloss": "child", "parts": [["子", "こ", "child"]]},
+      {"id": "pm", "word": "午後", "reading": "ごご", "gloss": "p.m., afternoon", "parts": [["午", "ゴ", "noon"], ["後", "ゴ", "after"]]},
+      {"id": "oclock", "word": "時", "reading": "じ", "gloss": "o'clock", "parts": [["時", "ジ", "time, o'clock"]]},
+      {"id": "closed", "word": "休み", "reading": "やすみ", "gloss": "closed; day off", "parts": [["休", "やす", "rest"]]}
+    ],
+    "check": {
+      "id": "n5u08d5.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "きっぷは　_一人_　千円です。",
+      "options": ["いちにん", "ひとり", "ひとにん", "いちり"],
+      "answer": 2,
+      "explain": "\"One person\" is read ひとり. いちにん is not how you say one person in a sentence like this, and ひとにん and いちり are not readings of 一人."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "二人は　何を　買いますか。",
+    "audio": [
+      ["N", "店で、男の人と女の人が話しています。二人は、何を買いますか。", "みせで、おとこのひとと　おんなのひとが　はなしています。ふたりは、なにを　かいますか。"],
+      ["M", "ぼくは、今、五百円しかありません。", "ぼくは、いま、ごひゃくえんしか　ありません。"],
+      ["F", "わたしは三百円あります。二人で八百円ですね。", "わたしは　さんびゃくえん　あります。ふたりで　はっぴゃくえんですね。"],
+      ["M", "あのケーキ、おいしいですよ。一つ六百円です。", "あの　ケーキ、おいしいですよ。ひとつ　ろっぴゃくえんです。"],
+      ["F", "じゃあ、ケーキは一つだけ買いましょう。それから、ジュースも飲みたいです。ジュースは一本百五十円です。", "じゃあ、ケーキは　ひとつだけ　かいましょう。それから、ジュースも　のみたいです。ジュースは　いっぽん　ひゃくごじゅうえんです。"],
+      ["M", "ケーキと、ジュース二本で、九百円ですね。ぼくたちは、八百円しかありませんよ。", "ケーキと、ジュース　にほんで、きゅうひゃくえんですね。ぼくたちは、はっぴゃくえんしか　ありませんよ。"],
+      ["F", "そうですね。じゃあ、ケーキはだめですね。パンはどうですか。パンは一つ二百円です。", "そうですね。じゃあ、ケーキは　だめですね。パンは　どうですか。パンは　ひとつ　にひゃくえんです。"],
+      ["M", "いいですね。じゃあ、パンを二つと、ジュースを二本買いましょう。七百円ですね。", "いいですね。じゃあ、パンを　ふたつと、ジュースを　にほん　かいましょう。ななひゃくえんですね。"],
+      ["F", "はい、そうしましょう。", null],
+      ["N", "二人は、何を買いますか。", "ふたりは、なにを　かいますか。"]
+    ],
+    "item": {
+      "id": "n5u08d5.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "二人は　何を　買いますか。",
+      "script": [
+        "ナレーター：店で、男の人と女の人が話しています。二人は、何を買いますか。",
+        "男：ぼくは、今、五百円しかありません。",
+        "女：わたしは三百円あります。二人で八百円ですね。",
+        "男：あのケーキ、おいしいですよ。一つ六百円です。",
+        "女：じゃあ、ケーキは一つだけ買いましょう。それから、ジュースも飲みたいです。ジュースは一本百五十円です。",
+        "男：ケーキと、ジュース二本で、九百円ですね。ぼくたちは、八百円しかありませんよ。",
+        "女：そうですね。じゃあ、ケーキはだめですね。パンはどうですか。パンは一つ二百円です。",
+        "男：いいですね。じゃあ、パンを二つと、ジュースを二本買いましょう。七百円ですね。",
+        "女：はい、そうしましょう。",
+        "ナレーター：二人は、何を買いますか。"
+      ],
+      "options": ["ケーキ　一つと　ジュース　二本", "ケーキ　一つだけ", "パン　二つと　ジュース　二本", "パン　二つだけ"],
+      "printed": true,
+      "short": ["ケーキ一つとジュース二本", "ケーキ一つだけ", "パン二つとジュース二本", "パン二つだけ"],
+      "answer": 3,
+      "why": [
+        "A cake and two juices cost 900 yen, but they have only 800 yen together.",
+        "The woman wants juice too, and in the end they choose bread instead of the cake.",
+        "Two pieces of bread (400 yen) and two juices (300 yen) make 700 yen, which they can pay. The man says 買いましょう and the woman agrees.",
+        "They buy juice as well as the bread."
+      ]
+    }
+  }
+}

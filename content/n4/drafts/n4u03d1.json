@@ -1,0 +1,460 @@
+{
+  "title": "〜てある・〜ておく",
+  "grammar": {
+    "points": [
+      {
+        "id": "n4u03d1.p1",
+        "form": "〜てある",
+        "gloss": "has been done (and left that way)",
+        "connect": [
+          {
+            "pos": "Verb you do to a thing, te-form; the thing usually takes が",
+            "rule": "まどが[開|あ]けて{あります}"
+          },
+          {
+            "pos": "The same, plain form (in a note or casual talk)",
+            "rule": "名前が書いて{ある}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "[暑|あつ]いですから、まどが[開|あ]けて{あります}。",
+            "en": "It's hot, so the window has been opened (someone left it open)."
+          },
+          {
+            "ja": "れいぞうこにケーキが入れて{あります}。",
+            "en": "A cake has been put in the fridge (it's there, ready)."
+          }
+        ],
+        "watch": {
+          "note": "てある goes with a verb a person does to a thing, like 開ける (open something). 開く means the window opens or is open by itself, so it takes ている: まどが開いています.",
+          "bad": "まどが開いてあります。",
+          "good": "まどが開けてあります。"
+        }
+      },
+      {
+        "id": "n4u03d1.p2",
+        "form": "〜ておく",
+        "gloss": "do in advance; leave as it is",
+        "connect": [
+          {
+            "pos": "Verb, te-form: do it now, ready for later",
+            "rule": "買って{おきます}"
+          },
+          {
+            "pos": "Verb, te-form: leave a thing as it is",
+            "rule": "[開|あ]けて{おいて}ください"
+          },
+          {
+            "pos": "Casual speech: ておく often becomes とく",
+            "rule": "買っ{とく}、[開|あ]け{とく}"
+          }
+        ],
+        "examples": [
+          {
+            "ja": "パーティーの前に、[飲|の]み[物|もの]を買って{おきます}。",
+            "en": "I'll buy the drinks before the party (so we're ready)."
+          },
+          {
+            "ja": "[暑|あつ]いですから、まどは[開|あ]けて{おいて}ください。",
+            "en": "It's hot, so please leave the window open."
+          }
+        ],
+        "watch": {
+          "note": "おく joins the te-form. 読む becomes 読んで, so the form is 読んでおきます.",
+          "bad": "じゅぎょうの前に、本を読みておきます。",
+          "good": "じゅぎょうの前に、本を読んでおきます。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three can talk about an open window; they differ in whether someone did it on purpose and when.",
+      "forms": [
+        {
+          "form": "〜てある",
+          "tag": "だれかがした · left that way on purpose",
+          "mark": "dot",
+          "ja": "まどが[開|あ]けて{あります}。",
+          "en": "The window has been opened (someone opened it for a reason)."
+        },
+        {
+          "form": "〜ておく",
+          "tag": "じゅんび · do it now, ready for later",
+          "mark": "dot",
+          "ja": "みんなが来る前に、まどを[開|あ]けて{おきます}。",
+          "en": "I'll open the window before everyone comes."
+        },
+        {
+          "form": "〜ている",
+          "tag": "いまのようす · is open (just the state)",
+          "mark": "dot",
+          "ja": "まどが[開|あ]いて{います}。",
+          "en": "The window is open."
+        }
+      ],
+      "check": {
+        "id": "n4u03d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Ready ahead or already done?",
+        "q": "パーティーは六時からです。わたしが^あとで^[飲|の]み[物|もの]を買って（　　）。",
+        "options": [
+          "おきます",
+          "あります",
+          "います"
+        ],
+        "answer": 1,
+        "why": [
+          "あとで points to an action still to come, done so the party is ready: ておく.",
+          "てある tells the state now, after someone has already done it. あとで (later) does not fit that.",
+          "ている tells what is happening now or the state now. With あとで, 買っています does not fit."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "n4u03d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "かべに^カレンダーが^（　　）。",
+        "options": [
+          "かけてあります",
+          "かけています",
+          "かかってあります",
+          "かけておきます"
+        ],
+        "answer": 1,
+        "why": [
+          "Someone hung the calendar (かける), and the calendar takes が: it has been hung on the wall.",
+          "With カレンダーが, かけています says the calendar is hanging something. The calendar is the thing that was hung.",
+          "かかる means is hanging, with no one doing it. It does not take てある; say かかっています.",
+          "ておく tells what a person does to get ready. With カレンダーが, the calendar would be the one hanging something."
+        ]
+      },
+      {
+        "id": "n4u03d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "テーブルの上に、^メモが^（　　）。",
+        "options": [
+          "おいてあります",
+          "おいたあります",
+          "おきてあります",
+          "おいておきます"
+        ],
+        "answer": 1,
+        "why": [
+          "おく becomes おいて, and てある shows a memo someone put there: there is a memo on the table.",
+          "ある joins the te-form, not the た form.",
+          "The te-form of おく is おいて. おきて is the te-form of おきる (get up).",
+          "ておく tells what a person will do. With メモが, the memo would be the one doing it."
+        ]
+      },
+      {
+        "id": "n4u03d1.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "パーティーは六時からですから、^その前に^ケーキを（　　）。",
+        "options": [
+          "[作|つく]っておきます",
+          "[作|つく]りておきます",
+          "[作|つく]るておきます",
+          "[作|つく]ったおきます"
+        ],
+        "answer": 1,
+        "why": [
+          "その前に: the cake is made before the party, to be ready. 作る becomes 作って, then おきます.",
+          "作る is a う-verb, so its te-form is 作って, not 作りて.",
+          "おく joins the te-form, not the dictionary form.",
+          "おく joins the te-form, not the た form."
+        ]
+      },
+      {
+        "id": "n4u03d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^まだ[使|つか]っています^から、電気は（　　）ください。",
+        "options": [
+          "つけておいて",
+          "けして",
+          "つけてあって",
+          "ついておいて"
+        ],
+        "answer": 1,
+        "why": [
+          "The room is still in use, so the light should stay on: つけておいてください, please leave it on.",
+          "まだ使っています means the room is still in use. Asking to turn the light off does not follow from that.",
+          "てある has no request form. あって does not join ください here.",
+          "つく means the light comes on, with no one doing it. It is not done on purpose, so it does not take ておく; the verb a person does is つける."
+        ]
+      },
+      {
+        "id": "n4u03d1.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "このノートには、",
+        "after": "あります。",
+        "tiles": [
+          "先生が",
+          "話した",
+          "ことが",
+          "書いて"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "先生が話した describes こと. The te-form comes right before あります.",
+        "full": "このノートには、先生が話したことが{書いてあります}。",
+        "explain": "先生が話した is a short sentence that describes こと, and ことが is the thing that was written. 書いて joins あります: the things the teacher said have been written in this notebook."
+      },
+      {
+        "id": "n4u03d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "ねる前に、",
+        "after": "おきます。",
+        "tiles": [
+          "あした",
+          "[着|き]る",
+          "[服|ふく]を",
+          "出して"
+        ],
+        "star": 2,
+        "bank": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "hint": "あした着る describes 服. ておく joins the te-form.",
+        "full": "ねる前に、あした[着|き]る[服|ふく]を{出しておきます}。",
+        "explain": "あした着る describes 服 (the clothes I will wear tomorrow), so it comes right before 服を. 出して joins おきます: before bed, I get tomorrow's clothes out, ready."
+      }
+    ],
+    "exam": [
+      {
+        "id": "n4u03d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "へやの　ドアに　大きな　紙が　はって（　　）。",
+        "options": [
+          "あります",
+          "おきます",
+          "しまいます",
+          "みます"
+        ],
+        "answer": 1,
+        "explain": "紙が is the thing someone put up, so the verb takes てある: a large sheet of paper has been put up on the door. With 紙が, はっておきます, はってしまいます and はってみます would all make the paper the one doing the sticking."
+      },
+      {
+        "id": "n4u03d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "まだ　使いますから、テーブルの　おさらは　そのままに　して（　　）ください。",
+        "options": [
+          "おいて",
+          "あって",
+          "おきて",
+          "しまって"
+        ],
+        "answer": 1,
+        "explain": "The plates will be used again, so please leave them as they are: そのままにしておいてください. てある has no request form, so あってください does not fit. おきて is the te-form of おきる (get up), not of おく. しまって means finish it off completely, which does not go with leaving the plates as they are."
+      },
+      {
+        "id": "n4u03d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "れいぞうこに　",
+        "after": "　あります。",
+        "tiles": [
+          "母が",
+          "作った",
+          "ケーキが",
+          "入れて"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "full": "れいぞうこに　母が　作った　ケーキが　{入れて　あります}。",
+        "explain": "母が, 作った, ケーキが, 入れて. 母が作った describes ケーキ, and ケーキが is the thing that was put in. 入れて joins あります: the cake my mother made has been put in the fridge."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "パーティーのじゅんびリスト",
+    "en": "A party preparation list",
+    "intro": "A list on the wall of a community room says what to get ready for Saturday's party. Tap each word on it.",
+    "words": [
+      {
+        "id": "venue",
+        "word": "会場",
+        "reading": "かいじょう",
+        "gloss": "venue, the place of an event",
+        "parts": [
+          ["会", "カイ", "meet, gathering"],
+          ["場", "ジョウ", "place"]
+        ]
+      },
+      {
+        "id": "prepare",
+        "word": "用意",
+        "reading": "ようい",
+        "gloss": "getting ready, preparation",
+        "parts": [
+          ["用", "ヨウ", "use, task"],
+          ["意", "イ", "mind, meaning"]
+        ]
+      },
+      {
+        "id": "meet",
+        "word": "集合",
+        "reading": "しゅうごう",
+        "gloss": "meeting up, gathering (time and place)",
+        "parts": [
+          ["集", "シュウ", "gather"],
+          ["合", "ゴウ", "fit, come together"]
+        ]
+      },
+      {
+        "id": "start",
+        "word": "開始",
+        "reading": "かいし",
+        "gloss": "start",
+        "parts": [
+          ["開", "カイ", "open"],
+          ["始", "シ", "begin"]
+        ]
+      },
+      {
+        "id": "food",
+        "word": "料理",
+        "reading": "りょうり",
+        "gloss": "food, cooking",
+        "parts": [
+          ["料", "リョウ", "materials, fee"],
+          ["理", "リ", "reason, order"]
+        ]
+      },
+      {
+        "id": "music",
+        "word": "音楽",
+        "reading": "おんがく",
+        "gloss": "music",
+        "parts": [
+          ["音", "オン", "sound"],
+          ["楽", "ガク", "music, fun"]
+        ]
+      },
+      {
+        "id": "photo",
+        "word": "写真",
+        "reading": "しゃしん",
+        "gloss": "photo",
+        "parts": [
+          ["写", "シャ", "copy"],
+          ["真", "シン", "true"]
+        ]
+      },
+      {
+        "id": "bring",
+        "word": "持ち物",
+        "reading": "もちもの",
+        "gloss": "things to bring",
+        "parts": [
+          ["持", "も", "hold"],
+          ["物", "もの", "thing"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n4u03d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "パーティーの　_用意_は　もう　できましたか。",
+      "options": [
+        "ようい",
+        "よおい",
+        "ゆうい",
+        "ようぎ"
+      ],
+      "answer": 1,
+      "explain": "用意 is read ようい, getting ready: is everything ready for the party? よおい spells the long sound with お instead of う, ゆうい has ゆ instead of よ, and ようぎ has ぎ instead of い."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "男の　人は　この　あと、まず　何を　しますか。",
+    "audio": [
+      ["N", "女の人と男の人が、パーティーのじゅんびをしています。男の人はこのあと、まず何をしますか。", "おんなのひとと　おとこのひとが、パーティーの　じゅんびを　しています。おとこのひとは　このあと、まず　なにを　しますか。"],
+      ["M", "何かてつだいましょうか。", "なにか　てつだいましょうか。"],
+      ["F", "ありがとう。料理はもう作ってあります。いすもならべてありますよ。", "ありがとう。りょうりは　もう　つくって　あります。いすも　ならべて　ありますよ。"],
+      ["M", "飲み物はどうですか。", "のみものは　どうですか。"],
+      ["F", "ビールはきのう買っておきました。れいぞうこに入れてあります。でも、ジュースがないんです。", "ビールは　きのう　かって　おきました。れいぞうこに　いれて　あります。でも、ジュースが　ないんです。"],
+      ["M", "じゃあ、ぼくが買ってきましょうか。", "じゃあ、ぼくが　かって　きましょうか。"],
+      ["F", "あ、ジュースは山田さんが持ってきますから、だいじょうぶです。テーブルにおさらをならべておいてください。", "あ、ジュースは　やまださんが　もって　きますから、だいじょうぶです。テーブルに　おさらを　ならべて　おいて　ください。"],
+      ["M", "わかりました。あれ、まどが開けてありますね。しめましょうか。", "わかりました。あれ、まどが　あけて　ありますね。しめましょうか。"],
+      ["F", "これからたくさん人が来ますから、開けておいてください。", "これから　たくさん　ひとが　きますから、あけて　おいて　ください。"],
+      ["M", "はい。じゃあ、すぐやります。", null],
+      ["N", "男の人はこのあと、まず何をしますか。", "おとこのひとは　このあと、まず　なにを　しますか。"]
+    ],
+    "item": {
+      "id": "n4u03d1.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "男の　人は　この　あと、まず　何を　しますか。",
+      "script": [
+        "ナレーター：女の人と男の人が、パーティーのじゅんびをしています。男の人はこのあと、まず何をしますか。",
+        "男：何かてつだいましょうか。",
+        "女：ありがとう。料理はもう作ってあります。いすもならべてありますよ。",
+        "男：飲み物はどうですか。",
+        "女：ビールはきのう買っておきました。れいぞうこに入れてあります。でも、ジュースがないんです。",
+        "男：じゃあ、ぼくが買ってきましょうか。",
+        "女：あ、ジュースは山田さんが持ってきますから、だいじょうぶです。テーブルにおさらをならべておいてください。",
+        "男：わかりました。あれ、まどが開けてありますね。しめましょうか。",
+        "女：これからたくさん人が来ますから、開けておいてください。",
+        "男：はい。じゃあ、すぐやります。",
+        "ナレーター：男の人はこのあと、まず何をしますか。"
+      ],
+      "options": [
+        "ジュースを　買いに　行く",
+        "いすを　ならべる",
+        "テーブルに　おさらを　ならべる",
+        "まどを　しめる"
+      ],
+      "printed": true,
+      "short": [
+        "ジュースを買う",
+        "いすをならべる",
+        "おさらをならべる",
+        "まどをしめる"
+      ],
+      "answer": 3,
+      "why": [
+        "He offers to buy juice, but 山田さん is bringing it, so he does not need to.",
+        "いすもならべてあります: the chairs have already been set out.",
+        "She asks him to set out the plates on the table (ならべておいてください), and he says he will do it right away.",
+        "He offers to close the window, but she asks him to leave it open (開けておいてください)."
+      ]
+    }
+  }
+}

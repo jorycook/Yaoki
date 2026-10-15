@@ -1,0 +1,528 @@
+{
+ "title": "〜くて・〜で",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u04d3.p1",
+    "form": "〜くて",
+    "gloss": "…and (joining an い-adjective)",
+    "connect": [
+     {
+      "pos": "い-adjective (drop the last い)",
+      "rule": "[安|やす]い → [安|やす]{くて}／[大|おお]きい → [大|おお]き{くて}"
+     },
+     {
+      "pos": "いい (good) changes to よ",
+      "rule": "いい → {よくて}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "この[店|みせ]は[安|やす]{くて}おいしいです。",
+      "en": "This restaurant is cheap and the food is good."
+     },
+     {
+      "ja": "きょうは[天気|てんき]が{よくて}、あたたかいです。",
+      "en": "The weather is good today, and it is warm."
+     }
+    ],
+    "watch": {
+     "note": "An い-adjective drops its last い and adds くて. It never joins with で. いい becomes よくて.",
+     "bad": "このパンは安いでおいしいです。",
+     "good": "このパンは安くておいしいです。"
+    }
+   },
+   {
+    "id": "n5u04d3.p2",
+    "form": "〜で",
+    "gloss": "…and (joining a な-adjective or a noun)",
+    "connect": [
+     {
+      "pos": "な-adjective (no な before で)",
+      "rule": "しずか{で}／きれい{で}"
+     },
+     {
+      "pos": "Noun (〜 is a noun such as 学生)",
+      "rule": "〜{で}、〜です"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "このへやはしずか{で}きれいです。",
+      "en": "This room is quiet and clean."
+     },
+     {
+      "ja": "わたしは[学生|がくせい]{で}、[二十|にじゅっ]さいです。",
+      "en": "I am a student, and I am twenty."
+     }
+    ],
+    "watch": {
+     "note": "きれい ends in い, but it is a な-adjective. It takes で, not くて.",
+     "bad": "このこうえんはきれいくてしずかです。",
+     "good": "このこうえんはきれいでしずかです。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three use a describing word. くて and で join it to more words; な puts it right before a noun.",
+   "forms": [
+    {
+     "form": "〜くて",
+     "tag": "〜い → 〜くて · い-adjective, and…",
+     "mark": "dot",
+     "ja": "このりんごは[安|やす]{くて}[大|おお]きいです。",
+     "en": "These apples are cheap and big."
+    },
+    {
+     "form": "〜で",
+     "tag": "〜な → 〜で · な-adjective or noun, and…",
+     "mark": "dot",
+     "ja": "このへやはしずか{で}ひろいです。",
+     "en": "This room is quiet and large."
+    },
+    {
+     "form": "〜な〜",
+     "tag": "〜な＋〜 · right before a noun",
+     "mark": "dot",
+     "ja": "しずか{な}へやです。",
+     "en": "It is a quiet room."
+    }
+   ],
+   "check": {
+    "id": "n5u04d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "レストランで",
+    "q": "あのレストランはきれい（　　）おいしいです。",
+    "options": [
+     "くて",
+     "で",
+     "な"
+    ],
+    "answer": 2,
+    "why": [
+     "きれい ends in い, but it is a な-adjective, so きれいくて is wrong.",
+     "きれい is a な-adjective, and で joins it to おいしい.",
+     "な goes right before a noun. おいしい is not a noun."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u04d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[魚|さかな]は（　　）^おいしいです^。",
+    "options": [
+     "[安|やす]いで",
+     "[安|やす]くて",
+     "[安|やす]い",
+     "[安|やす]いくて"
+    ],
+    "answer": 2,
+    "why": [
+     "安い is an い-adjective. い-adjectives never join with で.",
+     "安い drops its い and adds くて to join おいしい.",
+     "Two describing words cannot just sit side by side here. 安い needs to change to 安くて.",
+     "Drop the い first: 安くて, not 安いくて."
+    ]
+   },
+   {
+    "id": "n5u04d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この[店|みせ]は（　　）^しずかです^。",
+    "options": [
+     "きれいくて",
+     "きれいな",
+     "きれいで",
+     "きれいだ"
+    ],
+    "answer": 3,
+    "why": [
+     "きれい is a な-adjective, even though it ends in い. It does not take くて.",
+     "な goes right before a noun. しずか is not a noun.",
+     "きれい is a な-adjective, and で joins it to しずかです.",
+     "だ ends a sentence. It cannot join きれい to しずかです."
+    ]
+   },
+   {
+    "id": "n5u04d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "マリアさんは^かいしゃいん^（　　）、[三十|さんじゅっ]さいです。",
+    "options": [
+     "な",
+     "の",
+     "くて",
+     "で"
+    ],
+    "answer": 4,
+    "why": [
+     "かいしゃいん is a noun. A noun does not take な.",
+     "の joins two nouns as \"the X's Y\". It cannot end the first part before the comma.",
+     "くて is only for い-adjectives. かいしゃいん is a noun.",
+     "かいしゃいん is a noun, and で joins it to the next part: \"she is an office worker and thirty\"."
+    ]
+   },
+   {
+    "id": "n5u04d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "きょうは[天気|てんき]が（　　）、^きもちがいいです^。",
+    "options": [
+     "よくて",
+     "いいくて",
+     "いいで",
+     "いくて"
+    ],
+    "answer": 1,
+    "why": [
+     "いい changes to よ before くて: よくて.",
+     "いい does not keep いい before くて. It becomes よくて.",
+     "いい is an い-adjective, so it never joins with で.",
+     "いくて is not a form of いい. いい becomes よくて."
+    ]
+   },
+   {
+    "id": "n5u04d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[駅|えき]の[前|まえ]に",
+    "after": "があります。",
+    "tiles": [
+     "[新|あたら]しくて",
+     "きれいな",
+     "パン",
+     "や"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "新しくて needs another describing word after it. Which word is the shop?",
+    "full": "[駅|えき]の[前|まえ]に[新|あたら]しくてきれいなパンやがあります。",
+    "explain": "新しくて joins to the next describing word, きれいな. きれいな goes right before the noun パンや, \"bakery\": 駅の前に新しくてきれいなパンやがあります, \"There is a new, nice bakery in front of the station.\""
+   },
+   {
+    "id": "n5u04d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あした、[友|とも]だちと",
+    "after": "へ[行|い]きます。",
+    "tiles": [
+     "きれい",
+     "で",
+     "[新|あたら]しい",
+     "レストラン"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "で comes right after a な-adjective. The place you go to comes right before へ.",
+    "full": "あした、[友|とも]だちときれい{で}[新|あたら]しいレストランへ[行|い]きます。",
+    "explain": "きれい is a な-adjective, so で follows it. 新しい goes right before レストラン, the place before へ: \"Tomorrow I am going to a nice, new restaurant with a friend.\""
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u04d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：新しい　先生は　どんな　人ですか。　B：とても　（　　）　おもしろいですよ。",
+    "options": [
+     "げんきくて",
+     "げんきで",
+     "げんきな",
+     "げんきだ"
+    ],
+    "answer": 2,
+    "explain": "げんき is a な-adjective, so it joins おもしろい with で. くて is only for い-adjectives, げんきな needs a noun right after it, and げんきだ cannot join two describing words."
+   },
+   {
+    "id": "n5u04d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この　白い　セーターは　（　　）　あたたかいです。",
+    "options": [
+     "安いで",
+     "安いくて",
+     "安くて",
+     "安い"
+    ],
+    "answer": 3,
+    "explain": "安い is an い-adjective: drop the い and add くて. い-adjectives never take で, 安いくて keeps the い, and 安い cannot sit right before another describing word ending the sentence."
+   },
+   {
+    "id": "n5u04d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの　パンやは",
+    "after": "です。",
+    "tiles": [
+     "パンが",
+     "おいしくて",
+     "店の人も",
+     "しんせつ"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     0,
+     2,
+     1
+    ],
+    "full": "あの　パンやは　パンが　おいしくて　{店の人も}　しんせつです。",
+    "explain": "パンが, おいしくて, 店の人も, しんせつ. おいしくて joins \"the bread is good\" to the next part, and しんせつ goes before です: \"At that bakery the bread is good, and the staff are kind too.\""
+   }
+  ]
+ },
+ "scene": {
+  "ja": "魚やで",
+  "en": "At a fish shop",
+  "intro": "Tap every word you would read on the price cards in the fish shop.",
+  "words": [
+   {
+    "id": "fish",
+    "word": "魚",
+    "reading": "さかな",
+    "gloss": "fish",
+    "parts": [
+     [
+      "魚",
+      "さかな",
+      "fish"
+     ]
+    ]
+   },
+   {
+    "id": "new",
+    "word": "新しい",
+    "reading": "あたらしい",
+    "gloss": "new, fresh",
+    "parts": [
+     [
+      "新",
+      "あたら",
+      "new"
+     ]
+    ]
+   },
+   {
+    "id": "cheap",
+    "word": "安い",
+    "reading": "やすい",
+    "gloss": "cheap",
+    "parts": [
+     [
+      "安",
+      "やす",
+      "cheap, calm"
+     ]
+    ]
+   },
+   {
+    "id": "expensive",
+    "word": "高い",
+    "reading": "たかい",
+    "gloss": "expensive, high",
+    "parts": [
+     [
+      "高",
+      "たか",
+      "high"
+     ]
+    ]
+   },
+   {
+    "id": "big",
+    "word": "大きい",
+    "reading": "おおきい",
+    "gloss": "big",
+    "parts": [
+     [
+      "大",
+      "おお",
+      "big"
+     ]
+    ]
+   },
+   {
+    "id": "small",
+    "word": "小さい",
+    "reading": "ちいさい",
+    "gloss": "small",
+    "parts": [
+     [
+      "小",
+      "ちい",
+      "small"
+     ]
+    ]
+   },
+   {
+    "id": "half",
+    "word": "半分",
+    "reading": "はんぶん",
+    "gloss": "half",
+    "parts": [
+     [
+      "半",
+      "ハン",
+      "half"
+     ],
+     [
+      "分",
+      "ブン",
+      "part"
+     ]
+    ]
+   },
+   {
+    "id": "100yen",
+    "word": "百円",
+    "reading": "ひゃくえん",
+    "gloss": "100 yen",
+    "parts": [
+     [
+      "百",
+      "ヒャク",
+      "hundred"
+     ],
+     [
+      "円",
+      "エン",
+      "yen, circle"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "n5u04d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "すみません、この　魚を　_半分_　ください。",
+   "options": [
+    "はんぶん",
+    "はんふん",
+    "ばんぶん",
+    "はんぷん"
+   ],
+   "answer": 1,
+   "explain": "半分, \"half\", is read はんぶん. 分 is ふん or ぷん in times (五分, 十分), but in 半分 it is ぶん. はんふん, ばんぶん and はんぷん are not words."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "二人は　どの　店に　行きますか。",
+  "audio": [
+   [
+    "N",
+    "男の人と女の人が話しています。二人はどの店に行きますか。",
+    "おとこのひとと　おんなのひとが　はなしています。ふたりは　どの　みせに　いきますか。"
+   ],
+   [
+    "M",
+    "きょうのばんごはん、どこで食べますか。駅の前の新しい店はどうですか。",
+    "きょうの　ばんごはん、どこで　たべますか。えきの　まえの　あたらしい　みせは　どうですか。"
+   ],
+   [
+    "F",
+    "あの店はきれいで、いいですね。でも、高いですよ。",
+    "あの　みせは　きれいで、いいですね。でも、たかいですよ。"
+   ],
+   [
+    "M",
+    "そうですか。じゃあ、大学の前の店は？カレーが安くておいしいですよ。",
+    "そうですか。じゃあ、だいがくの　まえの　みせは？カレーが　やすくて　おいしいですよ。"
+   ],
+   [
+    "F",
+    "うーん、きのうもカレーを食べました。",
+    "うーん、きのうも　カレーを　たべました。"
+   ],
+   [
+    "M",
+    "じゃあ、川のそばの店はどうですか。しずかで、魚がおいしいですよ。",
+    "じゃあ、かわの　そばの　みせは　どうですか。しずかで、さかなが　おいしいですよ。"
+   ],
+   [
+    "F",
+    "魚、いいですね。高いですか。",
+    "さかな、いいですね。たかいですか。"
+   ],
+   [
+    "M",
+    "いいえ、あまり高くないです。",
+    "いいえ、あまり　たかくないです。"
+   ],
+   [
+    "F",
+    "じゃあ、そこへ行きましょう。",
+    null
+   ],
+   [
+    "N",
+    "二人はどの店に行きますか。",
+    "ふたりは　どの　みせに　いきますか。"
+   ]
+  ],
+  "item": {
+   "id": "n5u04d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "二人は　どの　店に　行きますか。",
+   "script": [
+    "ナレーター：男の人と女の人が話しています。二人はどの店に行きますか。",
+    "男：きょうのばんごはん、どこで食べますか。駅の前の新しい店はどうですか。",
+    "女：あの店はきれいで、いいですね。でも、高いですよ。",
+    "男：そうですか。じゃあ、大学の前の店は？カレーが安くておいしいですよ。",
+    "女：うーん、きのうもカレーを食べました。",
+    "男：じゃあ、川のそばの店はどうですか。しずかで、魚がおいしいですよ。",
+    "女：魚、いいですね。高いですか。",
+    "男：いいえ、あまり高くないです。",
+    "女：じゃあ、そこへ行きましょう。",
+    "ナレーター：二人はどの店に行きますか。"
+   ],
+   "options": [
+    "カレーが　安くて　おいしい　店",
+    "新しくて　きれいな　店",
+    "大きくて　にぎやかな　店",
+    "しずかで　魚が　おいしい　店"
+   ],
+   "printed": true,
+   "short": [
+    "カレーが 安くて おいしい",
+    "新しくて きれい",
+    "大きくて にぎやか",
+    "しずかで 魚が おいしい"
+   ],
+   "answer": 4,
+   "why": [
+    "The curry is cheap and good, but the woman ate curry yesterday too (きのうもカレーを食べました).",
+    "The woman likes the new shop by the station (きれいで、いいですね), but it is expensive (でも、高いですよ).",
+    "Nobody talks about a big, lively shop.",
+    "The shop by the river is quiet and the fish is good, and it is not very expensive. The woman says そこへ行きましょう."
+   ]
+  }
+ }
+}

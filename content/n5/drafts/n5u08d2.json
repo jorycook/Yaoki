@@ -1,0 +1,242 @@
+{
+ "title": "〜の中で〜がいちばん・どちらも／どれも",
+ "grammar": {
+  "points": [
+   {
+    "id": "n5u08d2.p1",
+    "form": "〜の中で〜がいちばん",
+    "gloss": "the most … of all (three or more)",
+    "connect": [
+     {"pos": "〜 is the group (a noun), then the one that is the most", "rule": "〜{の[中|なか]で}〜が{いちばん}〜です"},
+     {"pos": "Asking: 何 for a thing, どこ for a place, だれ for a person", "rule": "〜{の[中|なか]で}[何|なに]／どこ／だれが{いちばん}〜ですか"},
+     {"pos": "Three or more things named one by one: ask with どれ", "rule": "〜と〜と〜{の[中|なか]で}、どれが{いちばん}〜ですか"}
+    ],
+    "examples": [
+     {"ja": "くだもの{の[中|なか]で}りんごが{いちばん}すきです。", "en": "Of all fruits, I like apples best."},
+     {"ja": "[行|い]ったところ{の[中|なか]で}、どこが{いちばん}よかったですか。", "en": "Of the places you went to, which one was the best?"}
+    ],
+    "watch": {
+     "note": "いちばん picks one out of three or more. With only two things, ask with どちら.",
+     "bad": "りんごとみかんの中で、どれがいちばんすきですか。",
+     "good": "りんごとみかんと、どちらがすきですか。"
+    }
+   },
+   {
+    "id": "n5u08d2.p2",
+    "form": "どちらも／どれも",
+    "gloss": "both / every one of them",
+    "connect": [
+     {"pos": "Two things: both (with a negative ending: neither)", "rule": "{どちらも}〜です・{どちらも}〜じゃありません"},
+     {"pos": "Three or more: things, people, places", "rule": "{どれも}・{だれも}・{どこも}"},
+     {"pos": "The ending can be positive or negative; だれも almost always takes a negative", "rule": "{どれも}おいしいです・{だれも}いません"}
+    ],
+    "examples": [
+     {"ja": "この[二|ふた]つのケーキは{どちらも}おいしいです。", "en": "Both of these two cakes are delicious."},
+     {"ja": "へやには{だれも}いません。", "en": "There is nobody in the room."}
+    ],
+    "watch": {
+     "note": "だれも with a positive verb is not said for \"everyone\". Use みんな for that: みんな来ます.",
+     "bad": "あしたのパーティーには、だれも来ます。",
+     "good": "あしたのパーティーには、みんな来ます。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three compare things. いちばん picks one out of three or more, のほうが picks one out of two, and どれも says the same thing about all of them.",
+   "forms": [
+    {"form": "〜の中で〜がいちばん", "tag": "いちばん · the most (three or more)", "mark": "up", "ja": "この[三|みっ]つの[中|なか]で、これが{いちばん}[安|やす]いです。", "en": "Of these three, this one is the cheapest."},
+    {"form": "〜より〜のほうが", "tag": "二つ · more (of two)", "mark": "up", "ja": "これ{のほうが}それより[安|やす]いです。", "en": "This one is cheaper than that one."},
+    {"form": "どれも", "tag": "ぜんぶ · all of them", "mark": "dot", "ja": "この[三|みっ]つは{どれも}[安|やす]いです。", "en": "All three of these are cheap."}
+   ],
+   "check": {
+    "id": "n5u08d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "くだものの話",
+    "q": "A：りんごとみかんと、どちらがすきですか。B：（　　）すきです。",
+    "options": ["いちばん", "どちらも", "どれも"],
+    "answer": 2,
+    "why": [
+     "いちばん needs three or more things, and B does not say which one. いちばんすきです does not answer A's question.",
+     "A asks about two fruits, and B likes both: どちらもすきです.",
+     "どれも is for three or more. With two things, use どちらも."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "n5u08d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "くだものの（　　）、^[何|なに]がいちばん^すきですか。",
+    "options": ["[中|なか]に", "[中|なか]で", "[中|なか]が", "[中|なか]を"],
+    "answer": 2,
+    "why": [
+     "With いちばん, the group you choose from is marked with の中で. の中に is for where something is, like かばんの中にあります.",
+     "の中で gives the group: of all fruits, which one do you like best?",
+     "が is already on 何, the one being picked. くだものの中が does not fit here.",
+     "を marks what a verb acts on. There is no verb here that takes 中を."
+    ]
+   },
+   {
+    "id": "n5u08d2.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：かぞくの[中|なか]で、（　　）がいちばんせが[高|たか]いですか。B：^[父|ちち]です^。",
+    "options": ["どこ", "[何|なに]", "だれ", "いつ"],
+    "answer": 3,
+    "why": [
+     "どこ asks about a place, but B answers with a person.",
+     "何 asks about a thing. For people in the family, ask with だれ.",
+     "The answer is a person (父), so the question word is だれ: who is the tallest?",
+     "いつ asks about a time, but B answers with a person."
+    ]
+   },
+   {
+    "id": "n5u08d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^この[二|ふた]つのかさは^（　　）[高|たか]いです。",
+    "options": ["どちらも", "どれも", "だれも", "どこも"],
+    "answer": 1,
+    "why": [
+     "二つ means two umbrellas, so \"both\" is どちらも.",
+     "どれも is for three or more things. Here there are only two.",
+     "だれも is for people, and umbrellas are not people.",
+     "どこも is for places, and umbrellas are not places."
+    ]
+   },
+   {
+    "id": "n5u08d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A：この[店|みせ]の^パン^はどうですか。B：（　　）おいしいですよ。",
+    "options": ["だれも", "[何|なに]も", "どこも", "どれも"],
+    "answer": 4,
+    "why": [
+     "だれも is for people, and bread is not a person.",
+     "何も goes with a negative ending, like 何もありません. 何もおいしいです is not said.",
+     "どこも is for places. B is talking about the bread, not about places.",
+     "The shop has many kinds of bread, and どれも with a positive ending means every one of them is good."
+    ]
+   },
+   {
+    "id": "n5u08d2.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この[三|みっ]つのかばんの",
+    "after": "。",
+    "tiles": ["[中|なか]で", "どれが", "いちばん[安|やす]い", "ですか"],
+    "star": 1,
+    "bank": [2, 0, 3, 1],
+    "hint": "First finish the group with の中で. Then the question word, then what you want to know.",
+    "full": "この[三|みっ]つのかばんの[中|なか]でどれが{いちばん}[安|やす]いですか。",
+    "explain": "かばんの needs 中で right after it to make the group. どれが is the one being picked, then いちばん安い, and ですか ends the question."
+   },
+   {
+    "id": "n5u08d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "[本|ほん]を[三|さん]さつ[読|よ]みましたが、",
+    "after": "。",
+    "tiles": ["どれも", "あまり", "おもしろく", "ありませんでした"],
+    "star": 0,
+    "bank": [3, 1, 0, 2],
+    "hint": "Which word means \"every one of the three books\"? あまり needs a negative ending.",
+    "full": "[本|ほん]を[三|さん]さつ[読|よ]みましたが、{どれも}あまりおもしろくありませんでした。",
+    "explain": "どれも, every one of the three books, comes first. あまり goes before the negative おもしろくありませんでした, which ends the sentence."
+   }
+  ],
+  "exam": [
+   {
+    "id": "n5u08d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「この　店の　ケーキの　中で　（　　）が　いちばん　人気が　ありますか。」\nB「この　白い　ケーキです。」",
+    "options": ["だれ", "どれ", "どこ", "いつ"],
+    "answer": 2,
+    "explain": "A picks one cake out of the shop's cakes, so the question word is どれ. だれ is for people, どこ is for places and いつ is for times, but B answers with a cake."
+   },
+   {
+    "id": "n5u08d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "A「へやに　だれか　いますか。」\nB「いいえ、（　　）　いません。」",
+    "options": ["だれか", "だれが", "だれも", "だれに"],
+    "answer": 3,
+    "explain": "いいえ … いません means there is nobody, and \"nobody\" is だれも with a negative ending. だれか is \"someone\" and does not fit after いいえ, だれが asks \"who\", and だれに does not go with いません here."
+   },
+   {
+    "id": "n5u08d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "A「",
+    "after": "　いちばん　新しい　本ですか。」\nB「その　白い　本です。」",
+    "tiles": ["この", "三つの", "中で", "どれが"],
+    "star": 2,
+    "bank": [3, 0, 2, 1],
+    "full": "A「この　三つの　{中で}　どれが　いちばん　新しい　本ですか。」\nB「その　白い　本です。」",
+    "explain": "この, 三つの, 中で, どれが. この goes before 三つの, the group ends with 中で, and どれが, the one being picked, comes right before いちばん."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "デパートの人気ランキング",
+  "en": "A poster of this month's most popular items in a department store",
+  "intro": "Tap every word with kanji that you can find on the ranking poster.",
+  "words": [
+   {"id": "this month", "word": "今月", "reading": "こんげつ", "gloss": "this month", "parts": [["今", "コン", "now"], ["月", "ゲツ", "month, moon"]]},
+   {"id": "popular", "word": "人気", "reading": "にんき", "gloss": "popularity, popular", "parts": [["人", "ニン", "person"], ["気", "キ", "spirit, air"]]},
+   {"id": "shop", "word": "店", "reading": "みせ", "gloss": "shop", "parts": [["店", "みせ", "shop"]]},
+   {"id": "new", "word": "新しい", "reading": "あたらしい", "gloss": "new", "parts": [["新", "あたら", "new"]]},
+   {"id": "book", "word": "本", "reading": "ほん", "gloss": "book", "parts": [["本", "ホン", "book"]]},
+   {"id": "flower", "word": "花", "reading": "はな", "gloss": "flower", "parts": [["花", "はな", "flower"]]},
+   {"id": "fish", "word": "魚", "reading": "さかな", "gloss": "fish", "parts": [["魚", "さかな", "fish"]]},
+   {"id": "1000 yen", "word": "千円", "reading": "せんえん", "gloss": "1,000 yen", "parts": [["千", "セン", "thousand"], ["円", "エン", "yen, circle"]]}
+  ],
+  "check": {
+   "id": "n5u08d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この　店で　いちばん　_人気_が　ある　本は　どれですか。",
+   "options": ["にんぎ", "ひんき", "にんき", "にき"],
+   "answer": 3,
+   "explain": "人気 is read にんき, \"popular\". 人 is にん here, as in 三人, and 気 is き, as in 天気. にんぎ, ひんき and にき are not words."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "Which season does Yuki like best, and why?",
+  "seconds": 90,
+  "passage": "マリアさんへ\nわたしは　一年の　中で　あきが　いちばん　すきです。^天気が　よくて、山の　木が　とても　きれいだからです^。なつは　あついですから、あまり　すきじゃ　ありません。食べものの　中では　魚が　いちばん　すきです。父の　店の　魚は　どれも　おいしいですよ。\nユキ",
+  "strategy": "Find the sentence with いちばんすき about a season, then read the next sentence: the reason ends in からです.",
+  "item": {
+   "id": "n5u08d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "ユキさんは　どうして　あきが　いちばん　すきですか。",
+   "options": ["魚が　おいしいから", "天気が　よくて、山の　木が　きれいだから", "あきは　あついから", "父の　店が　あるから"],
+   "short": ["魚がおいしい", "天気と山の木", "あきはあつい", "父の店がある"],
+   "answer": 2,
+   "explain": "Right after あきがいちばんすきです, Yuki writes the reason: 天気がよくて、山の木がとてもきれいだからです.",
+   "why": [
+    "Fish is Yuki's favourite food, and the fish is good, but that is not why Yuki likes autumn.",
+    "",
+    "It is summer that is hot (なつはあついですから), and that is why Yuki does not like summer.",
+    "Yuki's father has a shop with good fish, but this is about food, not about autumn."
+   ]
+  }
+ }
+}

@@ -1,0 +1,436 @@
+{
+  "title": "まとめ：似ている文法",
+  "grammar": {
+    "points": [],
+    "compare": {
+      "intro": "Match each casual form to its full form: ちゃう is てしまう (done, often by mistake), とく is ておく (done in advance) and てる is ている (going on, or already so); なきゃ, なくちゃ and ないと all mean 'have to' (from なければ, なくては, ないと); じゃない either reminds or approves ('nice, isn't it?') or is a plain 'not' (an い-adjective's 'not' is くない); でしょ asks the listener to agree, but でしょう with a falling tone is only a guess; なんか softens an example or a feeling, while って just puts a topic on the table; and かな wonders aloud, while ってば repeats a point with impatience.",
+      "forms": [
+        {
+          "form": "〜ちゃう",
+          "tag": "てしまう · done (oops, or all of it)",
+          "mark": "dot",
+          "ja": "おいしかったから、ケーキを二つも食べ{ちゃった}。",
+          "en": "It was so good that I ended up eating two pieces of cake."
+        },
+        {
+          "form": "〜とく",
+          "tag": "ておく · do in advance",
+          "mark": "dot",
+          "ja": "友だちが[泊|と]まりに来るから、ふとんを出し{とく}ね。",
+          "en": "A friend is coming to stay, so I'll get the futon out."
+        },
+        {
+          "form": "〜てる",
+          "tag": "ている · going on now",
+          "mark": "dot",
+          "ja": "姉は今、台所でクッキーを作っ{てる}よ。",
+          "en": "My sister is making cookies in the kitchen right now."
+        }
+      ],
+      "check": {
+        "id": "n3u12d6.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Which full form is it?",
+        "q": "^さっきから^ずっと、外で犬が（　　）。どうしたんだろう。",
+        "options": [
+          "[鳴|な]いとく",
+          "[鳴|な]いてる",
+          "[鳴|な]いちゃう"
+        ],
+        "answer": 2,
+        "why": [
+          "とく is ておく, doing something on purpose to get ready. A dog barking is not preparation.",
+          "さっきから ずっと: the barking started a while ago and is still going on. That is ている, short form てる.",
+          "ちゃう is てしまう, an action that ends up done. It cannot describe barking that has gone on since a while ago."
+        ],
+        "explain": null
+      }
+    },
+    "drill": [
+      {
+        "id": "n3u12d6.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^しまった^。[間違|まちが]えて、[大事|だいじ]なメールを（　　）。",
+        "options": [
+          "[消|け]しちゃった",
+          "[消|け]しとく",
+          "[消|け]しとかなきゃ",
+          "[消|け]すかな"
+        ],
+        "answer": 1,
+        "why": [
+          "しまった and [間違|まちが]えて: it happened by mistake and the speaker is upset. ちゃった (てしまった) says something went wrong.",
+          "とく (ておく) is doing something on purpose, to get ready. It clashes with [間違|まちが]えて, by mistake.",
+          "とかなきゃ means 'I must do it in advance', a plan. Nobody plans to do something by mistake.",
+          "かな wonders about something you are not sure of. Here the speaker knows exactly what happened."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d6.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：^明日^、[大家|おおや]さんが[部屋|へや]を見に来るんだって。\nB：え、じゃあ^今夜中に^きれいにし（　　）。",
+        "options": [
+          "てる",
+          "なきゃ",
+          "ちゃった",
+          "たかな"
+        ],
+        "answer": 2,
+        "why": [
+          "てる says something is going on now or is already so. 今夜中に points to a job that is still ahead.",
+          "The landlord comes tomorrow, so the room has to be clean by tonight: しなきゃ (しなければ), 'I have to'.",
+          "ちゃった says it is already done. 今夜中に, by the end of tonight, sets a deadline that is still ahead.",
+          "したかな wonders whether something was done. B is not wondering about the past; B is reacting to news about tomorrow."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d6.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：このペン、Bさんの？\nB：^ううん^、（　　）。^私のは青いの^。",
+        "options": [
+          "私のでしょ",
+          "私のかな",
+          "私のじゃない",
+          "私のってば"
+        ],
+        "answer": 3,
+        "why": [
+          "でしょ asks the listener to agree that it is B's pen. B has just said ううん.",
+          "かな wonders. B is sure: B's pen is blue.",
+          "After ううん, this じゃない is a plain 'not': it is not mine. It is not the じゃない that reminds someone.",
+          "ってば insists on a point, and after a noun it needs だ (私のだってば). Even then it would say 'it is mine', the opposite of ううん."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d6.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^[理由|りゆう]はよくわからないけど^、今日は朝から（　　）頭が重いんだよね。",
+        "options": [
+          "って",
+          "ってば",
+          "でしょ",
+          "なんか"
+        ],
+        "answer": 4,
+        "why": [
+          "って after 朝から would make it a topic or a quote, and neither joins to 頭が重い.",
+          "ってば comes at the end of a sentence, to repeat a point with impatience. It cannot sit in the middle here.",
+          "でしょ also comes at the end of a sentence, to ask for agreement. It cannot sit before 頭が.",
+          "The speaker does not know why, so なんか, 'somehow', softens the feeling."
+        ],
+        "explain": null
+      },
+      {
+        "id": "n3u12d6.d5",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "[昨日|きのう]の夜は、",
+        "after": "、気がついたら朝だった。",
+        "tiles": [
+          "テレビを",
+          "見てる",
+          "うちに",
+          "[寝|ね]ちゃって"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "hint": "うちに follows an action that is going on. Which tile says something happened without meaning to?",
+        "full": "[昨日|きのう]の夜は、テレビを{見てる}うちに[寝|ね]ちゃって、気がついたら朝だった。",
+        "explain": "テレビを, 見てる, うちに, [寝|ね]ちゃって. 見てる (見ている) is an action going on, and うちに follows it: while I was watching TV. [寝|ね]ちゃって ([寝|ね]てしまって) says I fell asleep without meaning to."
+      },
+      {
+        "id": "n3u12d6.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A：明日の[会議|かいぎ]の[資料|しりょう]、どこ？\nB：え、",
+        "after": "でしょ。",
+        "tiles": [
+          "つくえの上に",
+          "[置|お]いといた",
+          "って",
+          "言った"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          0,
+          2,
+          1
+        ],
+        "hint": "って quotes what B said before, and でしょ reminds A of it. Which tile is what B did in advance?",
+        "full": "A：明日の[会議|かいぎ]の[資料|しりょう]、どこ？\nB：え、つくえの上に{[置|お]いといた}って言ったでしょ。",
+        "explain": "つくえの上に, [置|お]いといた, って, 言った. [置|お]いといた ([置|お]いておいた) says B put the papers there in advance. って quotes it, and 言ったでしょ reminds A: I told you, right?"
+      }
+    ],
+    "exam": [
+      {
+        "id": "n3u12d6.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：明日のピクニック、何か持ってきてくれる？\nB：いいよ。じゃあ、おにぎり（　　）作っていこうか。",
+        "options": [
+          "って",
+          "かな",
+          "ってば",
+          "なんか"
+        ],
+        "answer": 4,
+        "explain": "なんか gives one example and keeps the offer light: rice balls or something like that. って puts a topic on the table to talk about, but おにぎり here is simply the thing B will make. かな and ってば end a sentence, so they cannot come before 作っていこうか."
+      },
+      {
+        "id": "n3u12d6.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "A：この映画、こわい？\nB：ううん、ぜんぜん（　　）よ。子どもでも見られるよ。",
+        "options": [
+          "こわいじゃない",
+          "こわくない",
+          "こわいでしょ",
+          "こわいかな"
+        ],
+        "answer": 2,
+        "explain": "B says no (ううん, ぜんぜん), so a plain negative: こわくない. An い-adjective says 'not' with くない, so こわいじゃない can only be the じゃない that reminds or approves, 'it's scary, isn't it', the opposite of what B means. こわいでしょ asks A to agree that it is scary, and こわいかな wonders, which does not fit ううん, ぜんぜん."
+      },
+      {
+        "id": "n3u12d6.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "A：あれ、シャンプーがもうないよ。\nB：ごめん、昨日ぼくが",
+        "after": "ね。",
+        "tiles": [
+          "使っちゃった",
+          "から",
+          "今日",
+          "買っとく"
+        ],
+        "star": 3,
+        "bank": [
+          1,
+          3,
+          0,
+          2
+        ],
+        "full": "A：あれ、シャンプーがもうないよ。\nB：ごめん、昨日ぼくが使っちゃったから今日{買っとく}ね。",
+        "explain": "使っちゃった, から, 今日, 買っとく. 使っちゃった (使ってしまった) follows ぼくが: I used it all up yesterday. から gives the reason, and 今日買っとく (買っておく) is what B will do so there is shampoo again. 今日 cannot go before 使っちゃった, because 昨日 already says when it was used."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "家族のグループチャット",
+    "en": "A family group chat",
+    "intro": "Tap each word in the family chat about Grandma's birthday dinner.",
+    "words": [
+      {
+        "id": "contact",
+        "word": "連絡",
+        "reading": "れんらく",
+        "gloss": "contact, getting in touch",
+        "parts": [
+          [
+            "連",
+            "レン",
+            "link"
+          ],
+          [
+            "絡",
+            "ラク",
+            "connect"
+          ]
+        ]
+      },
+      {
+        "id": "reply",
+        "word": "返信",
+        "reading": "へんしん",
+        "gloss": "reply (to a message)",
+        "parts": [
+          [
+            "返",
+            "ヘン",
+            "return"
+          ],
+          [
+            "信",
+            "シン",
+            "message, trust"
+          ]
+        ]
+      },
+      {
+        "id": "away",
+        "word": "留守",
+        "reading": "るす",
+        "gloss": "being out, away from home",
+        "parts": [
+          [
+            "留",
+            "ル",
+            "stay"
+          ],
+          [
+            "守",
+            "ス",
+            "guard"
+          ]
+        ]
+      },
+      {
+        "id": "grandma",
+        "word": "祖母",
+        "reading": "そぼ",
+        "gloss": "grandmother (one's own)",
+        "parts": [
+          [
+            "祖",
+            "ソ",
+            "ancestor"
+          ],
+          [
+            "母",
+            "ボ",
+            "mother"
+          ]
+        ]
+      },
+      {
+        "id": "birthday",
+        "word": "誕生日",
+        "reading": "たんじょうび",
+        "gloss": "birthday",
+        "parts": [
+          [
+            "誕",
+            "タン",
+            "birth"
+          ],
+          [
+            "生",
+            "ジョウ",
+            "life"
+          ],
+          [
+            "日",
+            "ビ",
+            "day"
+          ]
+        ]
+      },
+      {
+        "id": "celebration",
+        "word": "お祝い",
+        "reading": "おいわい",
+        "gloss": "celebration, present",
+        "parts": [
+          [
+            "祝",
+            "いわ",
+            "celebrate"
+          ]
+        ]
+      },
+      {
+        "id": "prepare",
+        "word": "準備",
+        "reading": "じゅんび",
+        "gloss": "preparation",
+        "parts": [
+          [
+            "準",
+            "ジュン",
+            "standard"
+          ],
+          [
+            "備",
+            "ビ",
+            "prepare"
+          ]
+        ]
+      },
+      {
+        "id": "late",
+        "word": "遅れる",
+        "reading": "おくれる",
+        "gloss": "to be late",
+        "parts": [
+          [
+            "遅",
+            "おく",
+            "late, slow"
+          ]
+        ]
+      }
+    ],
+    "check": {
+      "id": "n3u12d6.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "家族のチャットで、父からの質問にすぐ_返信_した。",
+      "options": [
+        "へんじん",
+        "へいしん",
+        "へんしん",
+        "はんしん"
+      ],
+      "answer": 3,
+      "explain": "返信, a reply to a message, is へんしん: 返 ヘン (return, as in 返事) and 信 シン (message). へんじん wrongly makes し voiced, へいしん stretches へん into へい, and はんしん uses a reading 返 does not have."
+    }
+  },
+  "skill": {
+    "kind": "reading",
+    "ja": "情報検索",
+    "en": "Finding information",
+    "ask": "Which of her sister's requests fall on the days Yuka is staying?",
+    "seconds": 90,
+    "passage": "ゆかへ\n来週の留守番、ありがとう。お願いしたいことをまとめとくね。\n①ねこのごはんは、毎日朝と夜にあげて。量は袋に書いてあるとおりでいいよ。\n②ベランダの花の水やりは、^月曜と木曜だけ^。毎日やると、かれちゃうから。\n③ゴミは朝のうちに出しといてね。^ふつうのゴミは火曜と金曜^、^びんとかんは水曜^だよ。\n④エアコンは自由に使っていいけど、出かけるときは消しといてね。\n⑤何か困ったら、となりの山本さんに聞いて。私から頼んであるから。\n私は25日（日）の夜に帰るよ。おみやげ買ってくるね！\n姉より",
+    "strategy": "List the weekdays of Yuka's stay, then check each numbered request for those days only.",
+    "item": {
+      "id": "n3u12d6.r1",
+      "kind": "choice",
+      "type": "読解・情報検索",
+      "q": "ゆかさんは、10月22日（木）から25日（日）まで姉の部屋に泊まる。ねこのごはんのほかに、ゆかさんがしなければならないことはどれか。",
+      "options": [
+        "木曜日に花に水をやって、金曜日にふつうのゴミを出す。",
+        "木曜日と日曜日に花に水をやって、金曜日にびんとかんを出す。",
+        "毎日花に水をやって、金曜日にふつうのゴミを出す。",
+        "木曜日に花に水をやって、水曜日にびんとかんを出す。"
+      ],
+      "short": [
+        "木曜に水、金曜にゴミ",
+        "木・日に水、金曜にびん",
+        "毎日水、金曜にゴミ",
+        "木曜に水、水曜にびん"
+      ],
+      "answer": 1,
+      "explain": "Yuka stays from Thursday the 22nd to Sunday the 25th. Watering is only on Monday and Thursday (②), so she waters on Thursday. Ordinary rubbish goes out on Tuesday and Friday (③), so she puts it out on Friday. Wednesday, the day for bottles and cans, is not part of her stay.",
+      "why": [
+        "",
+        "Watering is only on Monday and Thursday, so not Sunday (②), and bottles and cans go out on Wednesday, not Friday (③).",
+        "② says only Monday and Thursday, and watering every day will make the flowers die.",
+        "Bottles and cans go out on Wednesday, but Yuka's stay starts on Thursday the 22nd, so there is no Wednesday in it."
+      ]
+    }
+  }
+}
