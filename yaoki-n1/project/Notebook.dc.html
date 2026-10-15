@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mistake notebook</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; padding: 0 16px; height: 44px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 22px; font-weight: 800; white-space: nowrap"><span lang="ja">間違いノート</span> <span style="font-size: 14px; font-weight: 700; color: #5A6382">Mistake notebook</span></h1>
+</div>
+
+<sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+<div style="margin: 8px 16px 0; padding: 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0">
+<div style="display: flex; align-items: center; gap: 12px">
+<svg viewBox="0 0 100 100" width="58" height="58" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<div lang="ja" style="font-size: 18px; font-weight: 800">まだ間違いはありません</div>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">No mistakes yet</div>
+</div>
+</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.5">When you get a question wrong in a lesson, a week test or a mini mock, it lands here with the right answer. Then it comes back for review:</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; font-size: 11px; font-weight: 800; text-align: center">
+<div style="padding: 7px 0; border-radius: 10px; background: #E8ECFB"><span lang="ja">あした</span><br>1 day</div>
+<div style="padding: 7px 0; border-radius: 10px; background: #E8ECFB"><span lang="ja">3日後</span><br>3 days</div>
+<div style="padding: 7px 0; border-radius: 10px; background: #E8ECFB"><span lang="ja">1週間後</span><br>7 days</div>
+<div style="padding: 7px 0; border-radius: 10px; background: #E0F3EF"><span lang="ja">卒業</span><br>cleared</div>
+</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.5">Three right answers in a row, each a little further apart, and it leaves the notebook.</div>
+</div>
+<a href="Today.dc.html" onClick="{{ toToday }}" style="margin: 16px 16px 0; height: 50px; flex-shrink: 0; box-sizing: border-box; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center"><span lang="ja">今日の学習へ</span>　Today's study</a>
+</sc-if>
+
+<sc-if value="{{ !empty }}" hint-placeholder-val="{{ true }}">
+<div style="margin: 8px 16px 0; padding: 12px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382"><span lang="ja">今日の復習</span>　Due today</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="font-size: 44px; font-weight: 800; line-height: 1.1">{{ dueN }}</div><div style="font-size: 14px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ dueLine }}</div></div>
+</div>
+<sc-if value="{{ hasAreas }}" hint-placeholder-val="{{ true }}">
+<div lang="ja" style="display: flex; flex-direction: column; gap: 3px; font-size: 12px; font-weight: 700; text-align: right; flex-shrink: 0">
+<sc-for list="{{ dueAreas }}" as="d" hint-placeholder-count="3"><div style="white-space: nowrap">{{ d.ja }} <span style="font-weight: 800">{{ d.n }}</span></div></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ stamp }}" hint-placeholder-val="{{ false }}">
+<div style="width: 56px; height: 56px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 24px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: yk-stamp 500ms ease-out both" aria-hidden="true">済</div>
+</sc-if>
+</div>
+<sc-if value="{{ hasRev }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: -4px; font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.4">{{ revLine }}</div>
+</sc-if>
+<sc-if value="{{ canReview }}" hint-placeholder-val="{{ true }}">
+<a href="Review.dc.html" onClick="{{ toReview }}" style="height: 50px; box-sizing: border-box; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap"><span lang="ja">復習する</span>　{{ reviewEn }}</a>
+</sc-if>
+<sc-if value="{{ !canReview }}" hint-placeholder-val="{{ false }}">
+<button disabled style="height: 50px; border-radius: 14px; background: #EEF0F6; border: 2px solid #C9D0E3; color: #5A6382; font-weight: 800; font-size: 16px; white-space: nowrap; cursor: default"><span lang="ja">復習する</span>　Review 0 due</button>
+<div style="margin-top: -2px; font-size: 12px; font-weight: 700; line-height: 1.45">{{ noneLine }}</div>
+</sc-if>
+</div>
+
+<div role="tablist" aria-label="Filter by area" style="margin: 14px 16px 0; display: grid; grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr; gap: 6px; flex-shrink: 0">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+<button role="tab" aria-selected="{{ t.on }}" aria-label="{{ t.aria }}" onClick="{{ t.pick }}" style="height: 46px; min-width: 0; padding: 0 2px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border: {{ t.border }}; background: {{ t.bg }}; color: {{ t.ink }}"><span lang="ja" style="font-size: 11px; font-weight: 800; white-space: nowrap">{{ t.ja }}</span><span style="font-size: 14px; font-weight: 800; line-height: 1.1; color: {{ t.countInk }}">{{ t.n }}</span></button>
+</sc-for>
+</div>
+
+<div style="margin-top: 10px; padding: 0 16px 14px; flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+<div style="flex-shrink: 0; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 5px">
+<div style="display: flex; align-items: center; gap: 8px">
+<div lang="ja" style="padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: {{ r.tagBg }}; color: {{ r.tagInk }}">{{ r.type }}</div>
+<div style="flex-grow: 1; min-width: 0; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {{ r.whenInk }}; font-weight: {{ r.whenWeight }}">{{ r.when }}</div>
+<div role="img" aria-label="{{ r.pipLabel }}" style="display: flex; gap: 4px; flex-shrink: 0"><sc-for list="{{ r.pips }}" as="p" hint-placeholder-count="3"><div style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: {{ p.border }}; background: {{ p.bg }}"></div></sc-for></div>
+</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis"><sc-for list="{{ r.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
+<div lang="ja" style="display: flex; flex-wrap: wrap; align-items: center; gap: 3px 10px; font-size: 13px; font-weight: 800; min-width: 0">
+<span style="display: inline-flex; align-items: center; gap: 6px; min-width: 0; max-width: 100%"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="You answered" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg><span style="min-width: 0; color: #5A6382; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ r.wrong }}</span></span>
+<span style="display: inline-flex; align-items: center; gap: 6px; min-width: 0; max-width: 100%"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg><span style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ r.right }}</span></span>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{ noRows }}" hint-placeholder-val="{{ false }}">
+<div style="flex-shrink: 0; padding: 14px; border-radius: 16px; border: 2px dashed #C9D0E3; font-size: 13px; font-weight: 700; color: #5A6382; line-height: 1.45">{{ noRowsLine }}</div>
+</sc-if>
+<sc-if value="{{ hasCleared }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ toggleCleared }}" aria-expanded="{{ clearedOpen }}" style="flex-shrink: 0; min-height: 44px; padding: 0 14px; border-radius: 16px; background: #E0F3EF; border: 0; display: flex; align-items: center; gap: 10px; text-align: left">
+<span lang="ja" style="padding: 2px 8px; border-radius: 8px; background: #0B7A6B; color: #FFFFFF; font-size: 11px; font-weight: 800; flex-shrink: 0">卒業</span>
+<span style="flex-grow: 1; font-size: 13px; font-weight: 800">{{ clearedLabel }}</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; transition: transform 150ms; transform: {{ chevron }}"><path d="M6 9l6 6 6-6"/></svg>
+</button>
+<sc-if value="{{ clearedOpen }}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{ clearedRows }}" as="c" hint-placeholder-count="2">
+<div style="flex-shrink: 0; padding: 8px 14px; border-radius: 14px; background: #FFFFFF; border: 2px dashed #C9D0E3; display: flex; flex-direction: column; gap: 3px">
+<div style="display: flex; align-items: center; gap: 8px">
+<div lang="ja" style="padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: {{ c.tagBg }}; color: {{ c.tagInk }}">{{ c.type }}</div>
+<div style="flex-grow: 1; min-width: 0; font-size: 11px; font-weight: 700; color: #0B7A6B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ c.when }}</div>
+</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; color: #5A6382; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ c.line }}</div>
+</div>
+</sc-for>
+</sc-if>
+</sc-if>
+<div style="flex-shrink: 0; padding: 2px 2px 0; font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">A mistake comes back after 1, 3 and 7 days. Three right answers in a row and it leaves the notebook.</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+<nav aria-label="Main" style="flex-shrink: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
+<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"menu":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* the notebook's four areas, as the exam's sections: their names, colours, and about how many minutes a review item takes */
+const AREA = {
+v: { ja: '文字・語彙', en: 'vocabulary', bg: '#FDEBE6', ink: '#C7361E', min: 0.5 },
+g: { ja: '文法', en: 'grammar', bg: '#E8ECFB', ink: '#2F4FD0', min: 0.75 },
+r: { ja: '読解', en: 'reading', bg: '#FFF4D6', ink: '#1B2440', min: 2.5 },
+l: { ja: '聴解', en: 'listening', bg: '#E0F3EF', ink: '#0B7A6B', min: 1 },
+};
+const TABS = ['all', 'v', 'g', 'r', 'l'];
+const FILL = { border: '2px solid #0B7A6B', bg: '#0B7A6B' };
+const HOLLOW = { border: '2px solid #C9D0E3', bg: 'transparent' };
+/* a saved time (ms) as an ISO date; null when it is not a time */
+const iso = (t) => (Number.isFinite(+t) && +t > 0 ? new Date(+t).toISOString().slice(0, 10) : null);
+const isDate = (d) => typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d);
+/* a saved time as the date on this device, as N.today() counts days */
+const local = (t) => { if (!iso(t)) return null; const d = new Date(+t); const two = (n) => (n < 10 ? '0' : '') + n; return d.getFullYear() + '-' + two(d.getMonth() + 1) + '-' + two(d.getDate()); };
+/* one-line texts are cut to their width here, so nothing runs past the card: a full-width character takes 1 em,
+   any other about 0.62 em, and … takes 1. A part marked keep (the underlined word of a question, its blank) stays
+   in view: when it would fall past the end, the start of the line is cut instead */
+const em = (c) => (c.charCodeAt(0) > 0x2e7f ? 1 : 0.62);
+const fit = (segs, room) => {
+const chars = [];
+segs.forEach((g, k) => { for (const c of g.t) chars.push({ c, k }); });
+let total = chars.reduce((a, x) => a + em(x.c), 0);
+if (total <= room) return segs;
+let last = -1;
+chars.forEach((x, i) => { if (segs[x.k].keep) last = i; });
+let start = 0;
+let used = 0;
+if (last >= 0) {
+let upTo = chars.slice(0, last + 1).reduce((a, x) => a + em(x.c), 0);
+/* … at the start, the text up to the end of the kept part, and room for … at the end */
+if (upTo > room - 1) {
+used = 1;
+while (start < last && 1 + upTo + 1 > room) { upTo -= em(chars[start].c); total -= em(chars[start].c); start++; }
+}
+}
+const out = [];
+let cur = null;
+const put = (k, c) => { if (cur && cur.k === k) cur.t += c; else { cur = { k, t: c }; out.push(cur); } };
+if (used) put(-1, '…');
+const cut = used + total > room;
+for (let i = start; i < chars.length; i++) {
+const x = chars[i];
+if (cut && used + em(x.c) > room - 1) { put(x.k, '…'); break; }
+put(x.k, x.c);
+used += em(x.c);
+}
+return out.map((o) => (o.k < 0 ? { t: o.t, line: 'none' } : { ...segs[o.k], t: o.t }));
+};
+const fitText = (t, room) => fit([{ t }], room).map((g) => g.t).join('');
+/* a mock question's own item in the bank, and its mock: the sentence with its marks, the passage */
+const rawOf = (q) => {
+const N = window.ykN1;
+if (!q || q.mock == null) return null;
+const mk = (N.mocks || []).filter((x) => String(x.id) === String(q.mock))[0];
+const all = mk ? mk.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
+return all[q.n - 1] ? { it: all[q.n - 1], mk } : null;
+};
+/* the sentence of a passage that holds its blank */
+const blankSentence = (paras) => {
+for (const p of paras || []) for (const t of String(p).match(/[^。！？]+[。！？]?/g) || []) if (t.indexOf('（　　）') >= 0) return t.trim();
+return '';
+};
+/* the line a row shows: the question's line with its underlined word. A mock question shows its sentence as the
+   paper has it, and a passage question that asks about a blank shows the sentence with the blank */
+const segsOf = (q) => {
+const N = window.ykN1;
+const whole = (q.type === '漢字読み' && !!q.word) || !!q.usage;
+const raw = rawOf(q);
+let text = q.line;
+if (raw && raw.it.kind === 'sentence' && raw.it.ja) text = raw.it.ja;
+if (raw && (raw.it.kind === 'passage' || raw.it.kind === 'pair') && String(q.ja).indexOf('（　　）') >= 0) text = blankSentence(raw.it.passage || raw.it.texts) || text;
+/* the four blanks of a sentence-order question, spaced as the lesson questions show them */
+text = String(text || '').replace(/[＿★]{2,}/g, (t) => ' ' + [...t].join(' ') + ' ');
+const out = [];
+N.segs(text).filter((g) => g.t).forEach((g) => g.t.split(/(（　　）)/).filter((t) => t).forEach((t) => {
+const gap = t === '（　　）';
+out.push({ t, line: !gap && (whole || g.mark) ? '2px solid #1B2440' : 'none', keep: gap || g.mark });
+}));
+return out;
+};
+/* about how many minutes an item takes to review: by its area, and longer for a mock's passage or talk */
+const MIN_KIND = { passage: 2.5, pair: 2.5, task: 1.5, gist: 1.5 };
+const minOf = (q) => MIN_KIND[q.kind] || (AREA[q.area] || AREA.g).min;
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* tab: the area shown (all, v, g, r, l); open: the cleared group unfolded */
+this.state = { tab: 'all', open: false };
+}
+/* on the canvas there is no app: a few mistakes from the sample plan's days, at different steps */
+sample() {
+const N = window.ykN1;
+const plan = N.demo();
+const i = N.openDay(plan);
+const v = N.view(plan, i);
+const w = N.view(plan, Math.max(0, i - 1));
+const lid = v && v.grammar ? v.grammar.id : N.lessons[0].id;
+const pid = w && w.grammar ? w.grammar.id : lid;
+const t = N.today();
+const at = (n) => Date.parse(N.add(t, n) + 'T09:00:00Z');
+const wrongOf = (src) => {
+const q = N.item(src);
+if (!q) return '';
+const k = q.answer === 1 ? 1 : 0;
+return q.short ? q.short[k] : N.plain(q.options[k]);
+};
+const m = (src, more) => ({ src, wrong: wrongOf(src), ...more });
+/* and from the first mini mock: a reading question due today, and a listening question back tomorrow */
+const mock = (N.mocks || [])[0];
+const paper = mock ? mock.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
+const nOf = (area) => paper.findIndex((x) => x.area === area) + 1;
+const mocks = [];
+if (mock && nOf('r')) mocks.push(m('m' + mock.id + '.' + nOf('r'), { at: at(-6), step: 1, next: t }));
+if (mock && nOf('l')) mocks.push(m('m' + mock.id + '.' + nOf('l'), { at: at(0) }));
+return mocks.concat([
+m('g.' + lid + '.d0', { at: at(0) }),
+m('k.' + (v && v.ki.length ? v.ki[0] : 0) + '.0', { at: at(-4), step: 1, next: t }),
+m('l.' + pid, { at: at(-11), step: 2, next: t }),
+m('g.' + pid + '.x2', { at: at(-1) }),
+m('w.' + (v && v.wi.length ? v.wi[0] : 0), { at: at(-2), step: 1, next: N.add(t, 2) }),
+m('r.' + pid, { at: at(-12), step: 3, cleared: N.add(t, -1) }),
+]);
+}
+/* when a mistake comes back: the date its last review set, or the day after it was made, on this device's
+   calendar as N.due() counts it */
+back(m) {
+const N = window.ykN1;
+return isDate(m.next) ? m.next : iso(m.at) ? N.add(N.localDay(+m.at), 1) : N.today();
+}
+/* due today: as N.due() has it, so the count is the Today screen's; an entry whose date N.due() cannot read is due,
+   so a review sets it right */
+due(m) {
+try { return window.ykN1.due(m); } catch (e) { return true; }
+}
+renderVals() {
+const N = window.ykN1;
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const app = this.props.app;
+const list = app ? (Array.isArray(app.mistakes) ? app.mistakes : []) : this.sample();
+const t = N.today();
+/* every mistake the bank can rebuild (a lesson's question, or a mini mock's); one it cannot is kept, but not shown */
+const all = [];
+list.forEach((m, k) => {
+const q = m && typeof m.src === 'string' ? N.item(m.src) : null;
+const raw = q ? rawOf(q) : null;
+if (q) all.push({ m, q, k, due: !m.cleared && this.due(m), back: this.back(m), mk: raw ? raw.mk.en || raw.mk.title || '' : '' });
+});
+const active = all.filter((e) => !e.m.cleared);
+const cleared = all.filter((e) => e.m.cleared);
+/* what is due comes first, the longest waiting at the top; then the rest by the day they come back */
+active.sort((a, b) => (b.due - a.due) || (a.back < b.back ? -1 : a.back > b.back ? 1 : 0) || ((+b.m.at || 0) - (+a.m.at || 0)) || a.k - b.k);
+const due = active.filter((e) => e.due);
+/* a short date never breaks between its day and month */
+const day = (d) => N.fmt.short(d).replace(' ', '\u00a0');
+const short = (d) => (d === N.add(t, 1) ? 'tomorrow' : day(d));
+const rows = active.filter((e) => s.tab === 'all' || e.q.area === s.tab).map((e) => {
+const a = AREA[e.q.area] || AREA.g;
+const step = Math.max(0, Math.min(3, +e.m.step || 0));
+return {
+key: e.m.src,
+type: e.q.type,
+tagBg: a.bg,
+tagInk: a.ink,
+/* a mock question names its mock */
+/* a date N.due() cannot read never comes due: it has no day to come back on */
+when: (e.due ? 'due today' : e.back > t ? 'back ' + short(e.back) : 'no date set') + (e.mk ? ' · ' + e.mk : ''),
+whenInk: e.due ? '#C7361E' : '#5A6382',
+whenWeight: e.due ? 800 : 700,
+pips: [0, 1, 2].map((n) => (n < step ? FILL : HOLLOW)),
+pipLabel: step + ' of 3 right in a row',
+segs: fit(segsOf(e.q), 21.4),
+wrong: fitText(N.plain(String(e.m.wrong || '')) || '—', 23.2),
+right: fitText(N.plain(String(e.q.right || '')), 21.6),
+};
+});
+const clearedHere = cleared.filter((e) => s.tab === 'all' || e.q.area === s.tab);
+const clearedRows = clearedHere.map((e) => {
+const a = AREA[e.q.area] || AREA.g;
+return { key: e.m.src, type: e.q.type, tagBg: a.bg, tagInk: a.ink, when: isDate(e.m.cleared) ? 'cleared ' + day(e.m.cleared) : 'cleared', line: fit(segsOf(e.q), 22.8).map((g) => g.t).join('') };
+});
+const tabs = TABS.map((key) => {
+const n = key === 'all' ? active.length : active.filter((e) => e.q.area === key).length;
+const on = s.tab === key;
+const name = key === 'all' ? 'すべて' : AREA[key].ja;
+return {
+key,
+ja: name,
+n,
+on,
+aria: (key === 'all' ? 'All areas' : AREA[key].en) + ', ' + n + ' in the notebook',
+pick: () => this.setState({ tab: key }),
+border: on ? '2px solid #1B2440' : '2px solid #DDE1EC',
+bg: on ? '#1B2440' : '#FFFFFF',
+ink: on ? '#FFFFFF' : '#1B2440',
+countInk: on ? '#FFFFFF' : '#5A6382',
+};
+});
+/* today's review: how many, by area, and about how long */
+const dueAreas = ['v', 'g', 'r', 'l'].map((key) => ({ ja: AREA[key].ja, n: due.filter((e) => e.q.area === key).length })).filter((d) => d.n);
+const mins = Math.max(1, Math.ceil(due.reduce((sum, e) => sum + minOf(e.q), 0)));
+/* the last review's outcome */
+const rev = app ? app.rev : null;
+const revDay = rev && typeof rev.of === 'number' && rev.of > 0 ? local(rev.at) : null;
+const revLine = revDay ? (revDay === t ? "Today's review: " : 'Last review, ' + day(revDay) + ': ') + (+rev.right || 0) + ' of ' + rev.of + ' right.' : '';
+const next = (active.filter((e) => !e.due && e.back > t)[0] || {}).back || null;
+const tabName = s.tab === 'all' ? '' : AREA[s.tab].en + ' ';
+return {
+empty: !all.length,
+dueN: due.length,
+dueLine: due.length ? (due.length === 1 ? 'item' : 'items') + ' · about ' + mins + ' min' : 'items · all caught up',
+hasAreas: due.length > 0,
+dueAreas,
+stamp: !due.length && revDay === t,
+hasRev: !!revDay,
+revLine,
+canReview: due.length > 0,
+reviewEn: 'Review ' + due.length + ' due',
+noneLine: next ? 'Nothing is due today. The next one comes back ' + (next === N.add(t, 1) ? 'tomorrow.' : 'on ' + day(next) + '.') : 'Nothing left to review. A new mistake comes back the day after.',
+tabs,
+rows,
+noRows: !rows.length,
+noRowsLine: clearedHere.length ? 'No ' + tabName + 'mistakes left to review.' : 'No ' + tabName + 'mistakes in the notebook.',
+hasCleared: clearedHere.length > 0,
+clearedOpen: s.open,
+clearedLabel: 'Cleared · ' + clearedHere.length,
+chevron: s.open ? 'rotate(180deg)' : 'none',
+clearedRows,
+toggleCleared: () => this.setState({ open: !this.state.open }),
+toReview: nav('Review'),
+toToday: nav('Today'),
+toMain: nav('Main'),
+toNotebook: nav('Notebook'),
+toMock: nav('Mock'),
+toReadiness: nav('Readiness'),
+};
+}
+}
+</script>
+</body>
+</html>

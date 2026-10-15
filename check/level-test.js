@@ -1,9 +1,9 @@
 // Several levels in one app: picking N5 on the goal screen, the week path and the teach page at N5,
 // switching level from the menu (each level keeps its own plan and notebook), and coming back after a restart.
-// usage: bash run-app.sh level-test.js      (expects the test build of the app served on localhost:8765)
+// usage: bash run-app.sh level-test.js      (expects the test build of the app served on localhost:$PORT, 8765 by default)
 const { chromium } = require('playwright');
 
-const BASE = 'http://localhost:8765/';
+const BASE = 'http://localhost:' + (process.env.PORT || '8765') + '/';
 const KEY = 'yaoki.v1:/';
 let fails = 0;
 const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + msg); } };

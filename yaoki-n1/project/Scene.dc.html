@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kanji and words</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div data-yk-frame="scene" style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="group" aria-label="{{ barLabel }}" style="flex-grow: 1; min-width: 0; display: grid; gap: 6px; grid-template-columns: {{ barCols }}">
+<sc-for list="{{ bar }}" as="b" hint-placeholder-count="3"><button onClick="{{ b.go }}" aria-disabled="{{ b.off }}" aria-label="{{ b.aria }}" aria-current="{{ b.cur }}" style="height: 44px; min-width: 0; padding: 0; border: 0; background: transparent; display: flex; align-items: center; cursor: {{ b.cursor }}"><span style="display: block; width: 100%; height: 10px; border-radius: 5px; background: {{ b.bg }}"></span></button></sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #C7361E; white-space: nowrap; flex-shrink: 0"><span lang="ja">{{ stepJa }}</span> {{ stepEn }}</div>
+</div>
+
+<sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
+<div lang="ja" style="font-size: 18px; font-weight: 800">漢字・語彙はありません</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">{{ noneLine }}</div>
+</div>
+<div style="flex-grow: 1"></div>
+<a href="Today.dc.html" onClick="{{ toToday }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">もどる</span>　Back to today</a>
+</sc-if>
+
+<sc-if value="{{ atK }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3"><span lang="ja">漢字</span> <span style="font-size: 15px; font-weight: 700; color: #5A6382">{{ kTitle }}</span></h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">Tap one for its readings and words. {{ seenLine }}</div>
+</div>
+<div role="list" aria-label="{{ kTitle }}" style="margin-top: 12px; flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; box-sizing: border-box; padding: 10px 10px 12px; border-radius: 20px; background: #E9ECF4; border: 2px solid #1B2440; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-content: start; gap: 8px">
+<sc-for list="{{ grid }}" as="k" hint-placeholder-count="18">
+<div role="listitem" style="min-width: 0"><button onClick="{{ k.open }}" aria-label="{{ k.aria }}" style="position: relative; width: 100%; height: 60px; padding: 0; border-radius: 14px; border: 2px solid #1B2440; display: flex; align-items: center; justify-content: center; background: {{ k.bg }}; box-shadow: {{ k.shadow }}"><span lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 32px; font-weight: 600; line-height: 1">{{ k.c }}</span><sc-if value="{{ k.seen }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; right: 3px; top: 3px; width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center">済</span></sc-if></button></div>
+</sc-for>
+</div>
+<div style="flex-grow: 1; min-height: 12px"></div>
+<button onClick="{{ fromK }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　{{ fromKLabel }}</button>
+</sc-if>
+
+<sc-if value="{{ atW }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3"><span lang="ja">語彙</span> <span style="font-size: 15px; font-weight: 700; color: #5A6382">{{ wTitle }}</span></h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">Listen to each word, then see it at work.</div>
+</div>
+<div style="position: relative; margin-top: 12px; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column">
+<div role="list" aria-label="{{ wTitle }}" style="flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-bottom: 28px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{ words }}" as="w" hint-placeholder-count="4">
+<div role="listitem" style="flex-shrink: 0; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.2; font-size: {{ w.size }}">{{ w.w }}</div>
+<div lang="ja" style="font-size: 15px; font-weight: 800">{{ w.r }}</div>
+</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.35; color: #5A6382">{{ w.en }}</div>
+</div>
+<button aria-label="{{ w.aria }}" aria-pressed="{{ w.on }}" onClick="{{ w.play }}" style="width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ w.bg }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button>
+</div>
+<div style="padding: 8px 10px; border-radius: 12px; background: #F4F5F9; display: flex; flex-direction: column; gap: 3px">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.65"><sc-for list="{{ w.ex }}" as="g" hint-placeholder-count="3"><span style="background: {{ g.bg }}; padding: {{ g.pad }}; border-radius: {{ g.rad }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div style="font-size: 12.5px; font-weight: 500; line-height: 1.4; color: #5A6382">{{ w.exEn }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 24px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none"></div>
+</div>
+<div style="flex-grow: 1; min-height: 12px"></div>
+<button onClick="{{ fromW }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　Next: the quiz</button>
+</sc-if>
+
+<sc-if value="{{ atQ }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ !finished }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 6px 0 4px; flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0">
+<div style="flex-grow: 1; min-width: 0"><span lang="ja">{{ qType }}</span>　{{ qAsk }}</div>
+<div role="img" aria-label="{{ countAria }}" style="padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; white-space: nowrap">{{ count }}</div>
+</div>
+<sc-if value="{{ qBig }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 22px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; justify-content: center; flex-shrink: 0">
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.25; text-align: center; font-size: {{ qBigSize }}; border-bottom: {{ qBigLine }}">{{ qWord }}</div>
+</div>
+</sc-if>
+<sc-if value="{{ qLine }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="padding: 8px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ sentence }}" as="g" hint-placeholder-count="3"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+</sc-if>
+<div style="display: grid; gap: 8px; flex-shrink: 0; grid-template-columns: {{ optCols }}">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-disabled="{{ o.off }}" style="min-height: 50px; min-width: 0; padding: 6px 10px; border-radius: 14px; display: flex; align-items: center; gap: 7px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}; cursor: {{ o.cursor }}"><span style="font-size: 12px; flex-shrink: 0; color: {{ o.numColor }}">{{ o.n }}</span><span lang="ja" style="flex-grow: 1; min-width: 0; line-height: 1.4; white-space: {{ optWs }}; font-size: {{ optSize }}">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+</sc-for>
+</div>
+</div>
+<div style="flex-grow: 1; min-height: 10px"></div>
+<sc-if value="{{ !checked }}" hint-placeholder-val="{{ true }}">
+<button disabled="{{ noPick }}" onClick="{{ check }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}"><span lang="ja">こたえる</span>　Check</button>
+</sc-if>
+<sc-if value="{{ checked }}" hint-placeholder-val="{{ false }}">
+<div style="margin: 0 -16px -34px; min-height: 0; flex-shrink: 0; padding: 12px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 5l14 14M19 5L5 19"/></svg>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<div style="font-size: 20px; font-weight: 800; white-space: nowrap"><span lang="ja">おしい！</span> <span style="font-size: 14px; font-weight: 700">Not quite</span></div>
+<div style="font-size: 13px; font-weight: 800; line-height: 1.35"><span lang="ja">正解</span>　{{ answerN }} <span lang="ja">{{ answerLabel }}</span></div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true" style="flex-shrink: 0"><circle cx="12" cy="12" r="9"/></svg>
+<div style="flex-grow: 1; font-size: 20px; font-weight: 800"><span lang="ja">せいかい！</span> <span style="font-size: 14px; font-weight: 700">Correct</span></div>
+</div>
+</sc-if>
+<div style="min-height: 0; overflow-y: auto; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">解説</span>　Why</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.4">{{ why }}</div>
+</div>
+<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; flex-shrink: 0">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
+Saved to your mistake notebook. Back tomorrow.
+</div>
+</sc-if>
+<button onClick="{{ next }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}"><span lang="ja">つぎへ</span>　{{ nextLabel }}</button>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ finished }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3"><span lang="ja">確認</span> <span style="font-size: 15px; font-weight: 700; color: #5A6382">Quiz done</span></h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382">{{ kwLine }}</div>
+</div>
+<div style="margin-top: 12px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">Right first time</div>
+<div role="img" aria-label="{{ scoreAria }}" style="font-size: 44px; font-weight: 800; line-height: 1">{{ score }}<span style="font-size: 20px; color: #5A6382"> / {{ total }}</span></div>
+<div aria-hidden="true" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 5px">
+<sc-for list="{{ dots }}" as="d" hint-placeholder-count="12"><sc-if value="{{ d.right }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ !d.right }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></sc-for>
+</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; text-align: center">{{ scoreLine }}</div>
+</div>
+<sc-if value="{{ hasMissed }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 12px; flex: 0 1 auto; min-height: 0; overflow-y: auto; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">まちがえた問題</span>　To look at again</div>
+<sc-for list="{{ missed }}" as="m" hint-placeholder-count="2"><div style="display: flex; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid #DDE1EC; flex-shrink: 0">
+<div lang="ja" style="width: 112px; flex-shrink: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.2; white-space: nowrap; font-size: {{ m.size }}">{{ m.w }}</div>
+<div style="min-width: 0; display: flex; flex-direction: column"><div lang="ja" style="font-size: 14px; font-weight: 800">{{ m.r }}</div><div style="font-size: 12.5px; font-weight: 500; color: #5A6382">{{ m.en }}</div></div>
+</div></sc-for>
+</div>
+</sc-if>
+<div style="flex-grow: 1; min-height: 12px"></div>
+<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; flex-shrink: 0; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">できた</span>　Done</a>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ sheet }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; z-index: 5; display: flex; flex-direction: column">
+<button aria-label="Close the kanji" onClick="{{ closeSheet }}" style="flex: 1 1 auto; min-height: 0; border: 0; padding: 0; background: rgba(27, 36, 64, 0.45); cursor: default; animation: yk-fade 200ms ease-out"></button>
+<div role="dialog" aria-label="{{ ks.aria }}" style="flex-shrink: 0; max-height: 790px; overflow-y: auto; overflow-x: hidden; box-sizing: border-box; padding: 4px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out">
+<div style="display: flex; align-items: center; gap: 8px; height: 44px; flex-shrink: 0">
+<div style="flex-grow: 1; min-width: 0; font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">漢字</span>　{{ ks.pos }}</div>
+<button aria-label="Close" onClick="{{ closeSheet }}" style="width: 44px; height: 44px; margin-right: -10px; border: 0; padding: 0; background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 14px; flex-shrink: 0">
+<div lang="ja" style="width: 92px; height: 92px; flex-shrink: 0; box-sizing: border-box; border-radius: 18px; background: #FFF4D6; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; justify-content: center; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 64px; font-weight: 600; line-height: 1">{{ ks.c }}</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 16px; font-weight: 800; line-height: 1.3">{{ ks.en }}</div>
+<sc-if value="{{ ks.hasStrokes }}" hint-placeholder-val="{{ true }}"><div style="align-self: flex-start; padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap"><span lang="ja">{{ ks.strokesJa }}</span>　{{ ks.strokes }}</div></sc-if>
+</div>
+</div>
+<sc-if value="{{ ks.hasReadings }}" hint-placeholder-val="{{ true }}">
+<div style="padding: 10px 12px; border-radius: 14px; background: #F4F5F9; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
+<sc-if value="{{ ks.hasOn }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: baseline; gap: 10px"><div style="width: 48px; flex-shrink: 0; font-size: 11px; font-weight: 800; color: #5A6382"><span lang="ja">音</span> on</div><div lang="ja" style="min-width: 0; font-size: 16px; font-weight: 800; line-height: 1.4">{{ ks.on }}</div></div></sc-if>
+<sc-if value="{{ ks.hasKun }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: baseline; gap: 10px"><div style="width: 48px; flex-shrink: 0; font-size: 11px; font-weight: 800; color: #5A6382"><span lang="ja">訓</span> kun</div><div lang="ja" style="min-width: 0; font-size: 16px; font-weight: 800; line-height: 1.4"><sc-for list="{{ ks.kun }}" as="r" hint-placeholder-count="2"><span style="white-space: nowrap">{{ r.stem }}<span style="font-weight: 500; color: #5A6382">{{ r.oku }}</span>{{ r.sep }}</span></sc-for></div></div></sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ ks.hasWords }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; flex-shrink: 0">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; padding-bottom: 4px"><span lang="ja">ことば</span>　Words with it</div>
+<sc-for list="{{ ks.words }}" as="x" hint-placeholder-count="3"><div style="display: flex; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid #DDE1EC">
+<div lang="ja" style="width: 96px; flex-shrink: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.2; white-space: nowrap; font-size: {{ x.size }}">{{ x.w }}</div>
+<div style="min-width: 0; display: flex; flex-direction: column"><div lang="ja" style="font-size: 14px; font-weight: 800">{{ x.r }}</div><div style="font-size: 12.5px; font-weight: 500; line-height: 1.35; color: #5A6382">{{ x.en }}</div></div>
+</div></sc-for>
+</div>
+</sc-if>
+<div style="display: flex; gap: 8px; flex-shrink: 0">
+<sc-if value="{{ ks.hasPrev }}" hint-placeholder-val="{{ true }}"><button onClick="{{ ks.prev }}" aria-label="{{ ks.prevLabel }}" style="width: 54px; height: 54px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></sc-if>
+<button onClick="{{ ks.next }}" style="flex: 1 1 0; min-width: 0; height: 54px; padding: 0 10px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; white-space: nowrap; display: flex; align-items: center; justify-content: center"><span lang="ja">{{ ks.nextJa }}</span>　{{ ks.nextEn }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* step: k (kanji), w (words) or q (quiz), '' for the first the day has; reached: the furthest step opened (by place);
+   seen: the kanji opened (by place in the day); open: the kanji in the sheet, -1 when it is closed;
+   n, pick, checked: the quiz question shown, the option chosen, answered; marks: right or wrong, per question answered;
+   finished: the score is up; playing: the word clip whose button is lit.
+   On its own the artboard shows the designed moment: three kanji already seen */
+const canvas = !(props && props.go);
+this.state = { step: '', reached: 0, seen: canvas ? [0, 1, 2] : [], open: -1, n: 0, pick: null, checked: false, marks: [], finished: false, playing: '' };
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+/* the plan and the day shown: the day opened on the path, or else the day to work on */
+where() {
+const N = window.ykN1;
+const app = this.props.app || {};
+/* on the canvas, or in a test without a plan: the sample plan (week 3, day 4 open) */
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const i = N.openDay(plan);
+return { plan, i, v: N.view(plan, i) };
+}
+/* a question as the quiz shows it: an option the bank could not fill is left out, and the answer counted again */
+tidy(q) {
+if (!q || !Array.isArray(q.options)) return null;
+const keep = q.options.map((o, k) => ({ o, k: k + 1 })).filter((x) => x.o != null && x.o !== '');
+const answer = keep.findIndex((x) => x.k === q.answer) + 1;
+return answer > 0 && keep.length >= 2 ? { ...q, options: keep.map((x) => x.o), answer } : null;
+}
+/* the day's quiz: its kanji readings, then a question for each of its words */
+quiz(plan, i, v) {
+const N = window.ykN1;
+const ks = v.kanji.length ? N.kanjiQuiz(plan, i, 8) : [];
+const ws = v.wi.map((wi) => N.wordQ(wi));
+return ks.concat(ws).map((q) => this.tidy(q)).filter(Boolean);
+}
+/* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line */
+segs(text) {
+const s = window.ykN1.segs(text);
+return s.map((g, n) => {
+const first = g.mark && !(s[n - 1] && s[n - 1].mark);
+const last = g.mark && !(s[n + 1] && s[n + 1].mark);
+return {
+t: g.t, r: g.r, ruby: g.ruby, plain: g.plain, bg: g.hl,
+pad: '0 ' + (last ? 3 : 0) + 'px 0 ' + (first ? 3 : 0) + 'px',
+rad: (first ? '4px' : '0') + ' ' + (last ? '4px 4px' : '0 0') + ' ' + (first ? '4px' : '0'),
+ws: g.mark ? 'nowrap' : 'normal',
+};
+});
+}
+/* a question sentence: the 【word】 underlined as on the exam, the blank kept on one line */
+sentence(ja) {
+const out = [];
+window.ykN1.segs(ja).forEach((g) => {
+const line = g.mark ? '2.5px solid #1B2440' : '0';
+if (g.ruby) { out.push({ t: g.t, r: g.r, ruby: true, plain: false, line, ws: 'normal' }); return; }
+g.t.split(/(（　　）)/).forEach((t) => {
+if (t) out.push({ t, r: '', ruby: false, plain: true, line, ws: t === '（　　）' || g.mark ? 'nowrap' : 'normal' });
+});
+});
+return out;
+}
+/* the word a quiz question is about, with its reading and meaning, for the list of misses */
+about(q) {
+const N = window.ykN1;
+const s = String(q.src).split('.');
+const x = s[0] === 'k' ? (N.kanji[+s[1]] && N.kanji[+s[1]].w[+s[2]]) : s[0] === 'w' ? N.word(+s[1]) : null;
+const out = x ? { w: x.w, r: x.r, en: x.en } : { w: q.word || '', r: N.plain(q.options[q.answer - 1]), en: '' };
+/* the word column is 112px wide: as large as fits there (18px at most) */
+out.size = Math.max(13, Math.min(18, Math.floor(112 / Math.max(1, N.plain(out.w).length)))) + 'px';
+return out;
+}
+/* close the kanji sheet or move on: the sound stops */
+hush() {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+renderVals() {
+const N = window.ykN1;
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+/* without the course scripts there is nothing to show */
+if (!N) return { none: true, bar: [], barCols: '1fr', barLabel: 'Kanji and words', stepJa: '漢字・語彙', stepEn: '', noneLine: 'The course could not be loaded. Go back to today\'s plan and try again.', toToday: nav('Today') };
+const { plan, i, v } = this.where();
+const kanji = v ? v.kanji.filter(Boolean) : [];
+const wis = v ? v.wi.filter((wi) => N.word(wi)) : [];
+const qs = v ? this.quiz(plan, i, { kanji, wi: wis }) : [];
+const K = kanji.length;
+const W = wis.length;
+/* the steps this day has, in order */
+const steps = [];
+if (K) steps.push('k');
+if (W) steps.push('w');
+if (qs.length) steps.push('q');
+const NAMES = { k: ['漢字', 'KANJI', 'Kanji'], w: ['語彙', 'WORDS', 'Words'], q: ['確認', 'QUIZ', 'Quiz'] };
+const step = steps.indexOf(s.step) >= 0 ? s.step : steps[0];
+const at = steps.indexOf(step);
+const reached = Math.max(at, s.reached);
+const goStep = (to) => {
+this.hush();
+this.setState({ step: steps[to], reached: Math.max(this.state.reached, to), open: -1, playing: '' });
+};
+const bar = steps.map((k, n) => ({
+bg: n <= at ? '#C7361E' : '#DDE1EC',
+off: n > reached,
+cursor: n > reached || n === at ? 'default' : 'pointer',
+cur: n === at ? 'step' : 'false',
+aria: NAMES[k][2] + (n > reached ? ', not yet open' : ''),
+/* a step already opened can be opened again from the bar */
+go: () => { if (n <= reached && n !== at) goStep(n); },
+}));
+const base = {
+bar,
+barCols: 'repeat(' + Math.max(1, steps.length) + ', minmax(0, 1fr))',
+barLabel: 'Step ' + (at + 1) + ' of ' + steps.length,
+stepJa: step ? NAMES[step][0] : '漢字・語彙',
+stepEn: step ? NAMES[step][1] : '',
+none: !step,
+atK: step === 'k',
+atW: step === 'w',
+atQ: step === 'q',
+sheet: false,
+ks: {},
+toToday: nav('Today'),
+};
+if (!step) {
+const kind = v ? v.kind : '';
+base.barLabel = 'Kanji and words';
+base.noneLine = kind === 'test' ? 'This is a week test day: its kanji and words are in the test. Go back to today\'s plan to start it.'
+: kind === 'review' ? 'This is a review day: kanji and words you have learned come back in the mixed review. Go back to today\'s plan to start it.'
+: 'This day has no kanji or words to learn. Go back to today\'s plan to see what it holds.';
+return base;
+}
+const nextName = (from) => steps[from + 1] === 'w' ? 'Next: words' : 'Next: the quiz';
+
+/* ---------- step 1: the kanji ---------- */
+if (step === 'k') {
+const seen = s.seen.filter((n) => n < K);
+const open = (n) => {
+this.hush();
+this.setState({ open: n, seen: this.state.seen.indexOf(n) >= 0 ? this.state.seen : this.state.seen.concat(n) });
+};
+base.kTitle = K === 1 ? '1 kanji' : K + ' kanji';
+base.seenLine = seen.length + ' of ' + K + ' seen.';
+base.grid = kanji.map((k, n) => {
+const on = seen.indexOf(n) >= 0;
+return {
+c: k.c,
+seen: on,
+bg: on ? '#E8ECFB' : '#FFFFFF',
+shadow: on ? 'none' : '0 3px 0 #1B2440',
+aria: k.c + ': ' + (k.en || []).slice(0, 2).join(', ') + (on ? ', seen' : ''),
+open: () => open(n),
+};
+});
+base.fromK = () => goStep(at + 1);
+base.fromKLabel = nextName(at);
+const o = s.open;
+if (o >= 0 && o < K) {
+const k = kanji[o];
+const dash = (r) => String(r).replace(/-/g, '〜');
+/* kun readings: the part before the dot is the kanji's own, the rest is written in kana after it */
+const kun = (k.kun || []).map((r, j, all) => {
+const t = dash(r);
+const dot = t.indexOf('.');
+return { stem: dot < 0 ? t : t.slice(0, dot), oku: dot < 0 ? '' : t.slice(dot + 1), sep: j < all.length - 1 ? '、' : '' };
+});
+const words = (k.w || []).slice(0, 3).map((x) => ({ w: x.w, r: x.r, en: x.en, size: Math.max(14, Math.min(22, Math.floor(96 / Math.max(1, x.w.length)))) + 'px' }));
+const last = o >= K - 1;
+base.sheet = true;
+base.ks = {
+c: k.c,
+aria: 'Kanji ' + k.c,
+pos: (o + 1) + ' of ' + K,
+en: (k.en || []).join(', '),
+hasStrokes: !!k.s,
+strokesJa: k.s + '画',
+strokes: k.s === 1 ? '1 stroke' : k.s + ' strokes',
+hasOn: !!(k.on && k.on.length),
+on: (k.on || []).map(dash).join('、'),
+hasKun: kun.length > 0,
+kun,
+hasReadings: !!((k.on && k.on.length) || kun.length),
+hasWords: words.length > 0,
+words,
+hasPrev: o > 0,
+prevLabel: o > 0 ? 'Back to ' + kanji[o - 1].c : '',
+prev: () => open(o - 1),
+nextJa: last ? 'とじる' : 'つぎの漢字',
+nextEn: last ? 'Close' : 'Next kanji',
+next: () => { if (last) { this.hush(); this.setState({ open: -1 }); } else open(o + 1); },
+};
+}
+base.closeSheet = () => { this.hush(); this.setState({ open: -1 }); };
+return base;
+}
+
+/* ---------- step 2: the words ---------- */
+if (step === 'w') {
+/* each word is a short clip, the word then its example: its button stays lit while it plays, and a second tap stops it.
+   When the clip is missing or cannot play, the button lights for a stand-in time that follows the length of the text */
+const play = (key, text) => () => {
+clearTimeout(this.timer);
+const snd = window.ykSound;
+if (this.state.playing === key) {
+if (snd) snd.stop();
+this.setState({ playing: '' });
+return;
+}
+const sound = !!(snd && snd.has(key) && snd.unlock() && snd.play(key));
+if (!sound && snd) snd.stop();
+this.setState({ playing: key });
+this.timer = setTimeout(() => this.setState({ playing: '' }), sound ? snd.ms(key) : 150 * text.length + 600);
+};
+base.wTitle = W === 1 ? '1 word' : W + ' words';
+base.words = wis.map((wi) => {
+const w = N.word(wi);
+const at2 = N.words[wi];
+const key = 'w.' + N.lessons[at2.li].id + '.' + at2.i;
+const len = N.plain(w.w).length;
+const ex = w.ex || {};
+return {
+w: w.w, r: w.r, en: w.en,
+size: (len <= 2 ? 30 : len === 3 ? 28 : len === 4 ? 26 : len === 5 ? 24 : len === 6 ? 22 : 20) + 'px',
+ex: this.segs(ex.ja || ''),
+exEn: ex.en || '',
+aria: 'Play ' + N.plain(w.w) + ' and its example',
+on: s.playing === key,
+bg: s.playing === key ? '#F2B43A' : '#E8ECFB',
+play: play(key, N.plain(w.w) + N.plain(ex.ja || '')),
+};
+});
+base.fromW = () => goStep(at + 1);
+return base;
+}
+
+/* ---------- step 3: the quiz ---------- */
+const total = qs.length;
+const n = Math.max(0, Math.min(s.n, total - 1));
+const q = qs[n];
+const TYPES = { '漢字読み': 'Choose the reading', '文脈規定': 'Choose the word that fits', '言い換え類義': 'Closest in meaning', '用法': 'Which sentence uses it well?' };
+base.finished = s.finished;
+if (s.finished) {
+const score = qs.filter((x, k) => s.marks[k] === true).length;
+const missed = qs.filter((x, k) => s.marks[k] === false).map((x) => this.about(x));
+const parts = [];
+if (K) parts.push(K === 1 ? '1 kanji' : K + ' kanji');
+if (W) parts.push(W === 1 ? '1 word' : W + ' words');
+base.kwLine = 'You met ' + parts.join(' and ') + '.';
+base.score = score;
+base.total = total;
+base.scoreAria = score + ' of ' + total + ' right first time';
+base.dots = qs.map((x, k) => ({ right: s.marks[k] === true }));
+base.scoreLine = !missed.length ? 'Every answer right first time.' : 'The ones you missed are saved to your mistake notebook. They come back tomorrow.';
+base.hasMissed = missed.length > 0;
+base.missed = missed;
+base.toDone = (e) => {
+const app = this.props.app || {};
+const save = this.props.save;
+if (save && app.plan && app.plan.days && app.plan.days[i]) save({ plan: N.mark(app.plan, i, { k: 1 }) });
+nav('Today')(e);
+};
+return base;
+}
+const ANSWER = q.answer;
+const options = q.options;
+const big = q.type === '漢字読み' || q.usage || !q.ja;
+const optsPlain = options.map((o) => N.plain(o));
+const longest = Math.max(1, ...optsPlain.map((o) => o.length));
+/* short options sit two to a row, at one size as large as fits (17px at most); longer ones and sentences take a row each */
+const two = !q.usage && longest <= 6 && options.length === 4;
+const opts = options.map((label, k) => {
+const num = k + 1;
+const on = s.pick === num;
+let look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 800, numColor: '#5A6382' };
+if (!s.checked && on) look = { border: '2.5px solid #2F4FD0', bg: '#E8ECFB', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#2F4FD0' };
+if (s.checked) {
+if (num === ANSWER) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3EF', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#5A6382' };
+else if (on) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440', weight: 800, numColor: '#5A6382' };
+else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700, numColor: '#5A6382' };
+}
+return {
+n: num,
+label: optsPlain[k],
+on,
+off: s.checked,
+cursor: s.checked ? 'default' : 'pointer',
+right: s.checked && num === ANSWER,
+bad: s.checked && on && num !== ANSWER,
+/* once checked the answer stands */
+pick: () => { if (!this.state.checked) this.setState({ pick: num }); },
+...look,
+};
+});
+const correct = s.checked && s.pick === ANSWER;
+const wrong = s.checked && s.pick !== ANSWER;
+const wordLen = N.plain(q.word || '').length;
+Object.assign(base, {
+qType: q.type,
+qAsk: TYPES[q.type] || 'Choose the answer',
+count: (n + 1) + ' / ' + total,
+countAria: 'Question ' + (n + 1) + ' of ' + total,
+qBig: big,
+qLine: !big,
+qWord: N.plain(q.word || ''),
+qBigSize: (wordLen <= 4 ? 34 : wordLen <= 6 ? 30 : 26) + 'px',
+/* a reading question underlines its word, as the exam does */
+qBigLine: q.type === '漢字読み' ? '2.5px solid #1B2440' : '0',
+sentence: big ? [] : this.sentence(q.ja),
+opts,
+optCols: two ? 'repeat(2, minmax(0, 1fr))' : 'minmax(0, 1fr)',
+optWs: two ? 'nowrap' : 'normal',
+optSize: (two ? Math.max(13, Math.min(17, Math.floor(104 / longest))) : q.usage ? 15 : 16) + 'px',
+checked: s.checked,
+correct,
+wrong,
+noPick: s.pick === null,
+answerN: ANSWER,
+/* a sentence answer is marked above; a short one is named here too */
+answerLabel: q.usage ? '' : optsPlain[ANSWER - 1] || '',
+why: q.why || '',
+ck: s.pick === null
+? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' }
+: { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' },
+sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
+tone: wrong ? '#C7361E' : '#0B7A6B',
+nextLabel: n >= total - 1 ? 'See your score' : 'Next question',
+check: () => {
+const st = this.state;
+if (st.pick === null || st.checked) return;
+const right = st.pick === ANSWER;
+/* a wrong answer goes to the notebook, named by the question */
+if (!right && this.props.miss) this.props.miss({ src: q.src, wrong: N.plain(options[st.pick - 1]) });
+const marks = st.marks.slice();
+marks[n] = right;
+this.setState({ checked: true, marks });
+},
+next: () => {
+if (n >= total - 1) this.setState({ finished: true, checked: false, pick: null });
+else this.setState({ n: n + 1, pick: null, checked: false });
+},
+});
+return base;
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mock</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px; flex-shrink: 0">
+<h1 style="margin: 0; flex-grow: 1; font-size: 22px; font-weight: 800; white-space: nowrap">模擬試験 <span style="font-size: 14px; font-weight: 700; color: #5A6382">Mock exam · N1</span></h1>
+<sc-if value="{{ hasDays }}" hint-placeholder-val="{{ true }}">
+<div role="img" aria-label="{{ daysAria }}" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; flex-shrink: 0">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<div lang="ja" style="font-weight: 800; font-size: 14px; white-space: nowrap">{{ days }}</div>
+</div>
+</sc-if>
+</div>
+
+<sc-if value="{{ hasIntro }}" hint-placeholder-val="{{ true }}">
+<div style="margin: 8px 16px 0; font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5; flex-shrink: 0">{{ intro }}</div>
+</sc-if>
+
+<div style="margin-top: 12px; padding: 0 16px 8px; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px">
+<sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+<div style="flex-shrink: 0; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">模試はまだありません。</strong> There is no mini mock in this copy of the app yet. Your week tests are on the path.</div>
+</sc-if>
+<sc-for list="{{ mocks }}" as="m" hint-placeholder-count="3">
+<sc-if value="{{ m.open }}" hint-placeholder-val="{{ $index === 0 }}">
+<div style="flex-shrink: 0; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px">
+<h2 lang="ja" style="margin: 0; font-size: 20px; font-weight: 800; white-space: nowrap">{{ m.title }}</h2>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ m.en }}</div>
+</div>
+<div lang="ja" style="height: 28px; padding: 0 10px; border-radius: 14px; background: #FFF4D6; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; flex-shrink: 0; white-space: nowrap">{{ m.size }}</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div lang="ja" style="font-size: 14px; font-weight: 800">{{ m.whenJa }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382">{{ m.whenEn }}</div>
+</div>
+<sc-if value="{{ m.fresh }}" hint-placeholder-val="{{ true }}">
+<div style="font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">{{ m.aboutJa }}</strong> {{ m.aboutEn }}</div>
+<a href="MockRun.dc.html" onClick="{{ m.start }}" style="height: 50px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">はじめる　Start</a>
+</sc-if>
+<sc-if value="{{ m.taken }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 12px">
+<div aria-hidden="true" style="width: 44px; height: 44px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 19px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: rotate(-9deg)">済</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ m.lastLabel }}</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><div style="font-size: 28px; font-weight: 800; line-height: 1.15">{{ m.score }}</div><div style="font-size: 14px; font-weight: 700; color: #5A6382">/ {{ m.of }}</div></div>
+</div>
+</div>
+<sc-if value="{{ m.hasAreas }}" hint-placeholder-val="{{ true }}">
+<div role="img" aria-label="{{ m.areasAria }}" style="display: grid; gap: 6px; grid-template-columns: {{ m.areaCols }}">
+<sc-for list="{{ m.areas }}" as="r" hint-placeholder-count="4">
+<div style="padding: 5px 0 6px; border-radius: 10px; background: #F4F5F9; display: flex; flex-direction: column; align-items: center">
+<div lang="ja" style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ r.ja }}</div>
+<div style="font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums">{{ r.score }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="MockRun.dc.html" onClick="{{ m.result }}" style="height: 50px; border-radius: 14px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; white-space: nowrap">結果を見る　Result</a>
+<a href="MockRun.dc.html" onClick="{{ m.again }}" style="height: 50px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; white-space: nowrap">もう一度　Again</a>
+</div>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ m.shut }}" hint-placeholder-val="{{ $index !== 0 }}">
+<button onClick="{{ m.pick }}" aria-expanded="false" aria-label="{{ m.aria }}" style="flex-shrink: 0; min-height: 64px; padding: 10px 14px 10px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 10px; text-align: left">
+<span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 8px"><span lang="ja" style="font-size: 16px; font-weight: 800; white-space: nowrap">{{ m.title }}</span><span style="font-size: 12px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ m.en }}</span></span>
+<span style="font-size: 12px; font-weight: 500; color: #5A6382">{{ m.whenEn }}</span>
+</span>
+<sc-if value="{{ m.chipDone }}" hint-placeholder-val="{{ false }}">
+<span style="display: flex; align-items: center; gap: 6px; flex-shrink: 0"><span aria-hidden="true" style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; border: 2px solid #E2452B; color: #C7361E; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(-9deg)">済</span><span style="font-size: 15px; font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums">{{ m.chipScore }}</span></span>
+</sc-if>
+<sc-if value="{{ m.chipReady }}" hint-placeholder-val="{{ false }}">
+<span lang="ja" style="height: 28px; padding: 0 10px; border-radius: 14px; background: #FFF4D6; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; flex-shrink: 0; white-space: nowrap">受けどき</span>
+</sc-if>
+<sc-if value="{{ m.chipLater }}" hint-placeholder-val="{{ true }}">
+<span style="display: flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 14px; background: #F4F5F9; border: 2px solid #C9D0E3; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0; white-space: nowrap">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<span lang="ja">{{ m.chipDays }}</span>
+</span>
+</sc-if>
+</button>
+</sc-if>
+</sc-for>
+</div>
+
+<div style="flex-grow: 1"></div>
+<nav aria-label="Main" style="flex-shrink: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
+<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+const N = window.ykN1;
+const same = (a, b) => String(a) === String(b);
+/* the four areas of the N1 paper, in its order */
+const AREAS = [{ k: 'v', ja: '文字・語彙' }, { k: 'g', ja: '文法' }, { k: 'r', ja: '読解' }, { k: 'l', ja: '聴解' }];
+const WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'];
+/* a mock's questions in paper order, numbered as MockRun numbers them (n: the place in the whole paper) */
+const itemsOf = (f) => (f.sections || []).reduce((all, s) => all.concat(s.items || []), []).map((x, k) => ({ ...x, n: k + 1 }));
+/* about how long a mock takes: its section clock, the break, and the listening audio (each clip and a breath, or
+   before the clip is made about 150 ms a character and 600 ms) with its answer times, to the next 5 minutes.
+   A part's clip is named in the file (mock 1), or else m<id>.<n>.<part>, as MockRun plays it */
+const minutesOf = (f) => {
+const snd = window.ykSound;
+const secs = f.sections || [];
+const all = itemsOf(f);
+const listen = all.slice(all.length - (secs.length ? (secs[secs.length - 1].items || []).length : 0));
+let sec = secs.slice(0, -1).reduce((t, s) => t + (s.min || 10) * 60, 0) + (f.break == null ? 1 : f.break) * 60;
+listen.forEach((x) => {
+sec += x.wait || 8;
+(x.audio || []).forEach((a) => {
+const chars = (a.lines || []).reduce((n, l) => n + N.plain(l[1]).length, 0);
+const clip = a.clip || 'm' + f.id + '.' + x.n + '.' + a.part;
+sec += (((snd && snd.ms(clip)) || 600 + 150 * chars) + 400) / 1000;
+});
+});
+return Math.ceil(sec / 60 / 5) * 5;
+};
+/* where a mock is best taken in this plan: after the week in which "after" of the grammar units have been taught
+   (0: any time). A plan too short for every lesson places it at the same share of the lessons it teaches.
+   d is the first day after that week, or the plan's last day */
+const placeOf = (plan, after) => {
+if (!after || !plan.days.length) return null;
+const taught = [];
+plan.days.forEach((x, i) => { if (x.t === 0 && x.g >= 0) taught.push(i); });
+const units = Math.max(1, (N.units || []).length);
+const k = Math.ceil((taught.length * Math.min(after, units)) / units);
+const wk = k > 0 ? Math.floor(taught[k - 1] / 7) + 1 : 1;
+return { wk, d: plan.days[Math.min(wk * 7, plan.days.length - 1)].d };
+};
+/* the score in each area of a result: kept with it, or worked out from its answers */
+const byOf = (items, r) => {
+if (r.by) return r.by;
+const by = {};
+if (r.a) AREAS.forEach((ar) => {
+const of = items.filter((x) => x.area === ar.k);
+if (of.length) by[ar.k] = { score: of.filter((x) => r.a[x.n] === x.answer).length, of: of.length };
+});
+return by;
+};
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { open: null };
+}
+/* the result kept for a mock: the last run (app.mock), or else the plan's; null when it was not taken */
+kept(id) {
+const app = this.props.app || {};
+const m = app.mock;
+const first = (N.mocks[0] || {}).id;
+if (m && m.done && same(m.id == null ? first : m.id, id)) return m;
+const r = app.plan && app.plan.mocks && app.plan.mocks[id];
+return r && r.score != null ? r : null;
+}
+renderVals() {
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const app = this.props.app || {};
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const today = N.today();
+const files = N.mocks || [];
+/* open a mock in MockRun: the result of its last run, or (again) its briefing for a new one. The last result stays on
+   the card until a new run is handed in. The mock that was open before keeps its result in the plan */
+const run = (id, again) => (e) => {
+const now = this.props.app || {};
+const cur = now.mock;
+const curId = cur && (cur.id == null ? (files[0] || {}).id : cur.id);
+if (this.props.save) {
+if (cur && same(curId, id)) this.props.save({ mock: { ...cur, id, again } });
+else {
+const r = this.kept(id);
+const patch = { mock: r ? { ...r, done: true, id, again } : { id, again } };
+/* a result kept only as the last run (taken before there was a plan) goes into the plan before it is replaced */
+const f = files.filter((x) => same(x.id, curId))[0];
+const p = now.plan;
+if (f && cur.done && cur.score != null && p && p.days && !(p.mocks && p.mocks[curId])) {
+const items = itemsOf(f);
+patch.plan = N.result(p, 'mocks', f.id, { score: cur.score, of: cur.of || items.length, at: cur.at || N.today(), by: byOf(items, cur), a: cur.a || {}, used: cur.used || [null] });
+}
+this.props.save(patch);
+}
+}
+nav('MockRun')(e);
+};
+const rows = files.map((f) => {
+const items = itemsOf(f);
+const place = placeOf(plan, f.after);
+const wait = place ? N.diff(today, place.d) : 0;
+const r = this.kept(f.id);
+const by = r ? byOf(items, r) : null;
+const areas = by ? AREAS.filter((ar) => by[ar.k]).map((ar) => ({ ja: ar.ja, score: by[ar.k].score + '/' + by[ar.k].of })) : [];
+const about = f.about || {};
+return {
+id: f.id,
+title: f.title || 'ミニ模試',
+en: f.en || 'Mini mock',
+size: items.length + '問 · 約' + minutesOf(f) + '分',
+whenJa: place ? '第' + place.wk + '週のあとがおすすめ' : 'いつでも受けられます',
+whenEn: place ? 'Best after week ' + place.wk + ' · ' + N.fmt.md(place.d) : 'Any time',
+taken: !!r,
+at: r ? r.at : '',
+fresh: !r,
+ready: !r && wait <= 0,
+wait,
+aboutJa: about.ja || '',
+aboutEn: about.en || '',
+lastLabel: '前回の結果　Last result' + (r && r.at ? ' · ' + N.fmt.short(r.at) : ''),
+score: r ? r.score : 0,
+of: r ? r.of || items.length : items.length,
+hasAreas: areas.length > 0,
+areas,
+areaCols: 'repeat(' + Math.max(1, areas.length) + ', minmax(0, 1fr))',
+areasAria: areas.map((x) => x.ja + ' ' + x.score).join(', '),
+chipDone: !!r,
+chipScore: r ? r.score + '/' + (r.of || items.length) : '',
+chipReady: !r && wait <= 0,
+chipLater: !r && wait > 0,
+chipDays: wait + '日後',
+start: run(f.id, false),
+result: run(f.id, false),
+again: run(f.id, true),
+pick: () => this.setState({ open: f.id }),
+};
+});
+/* the card that is open: the one tapped; or the mock opened last, unless it was taken on an earlier day and another
+   one's time has come; or the next to take (the first not taken whose time has come, then the first not taken) */
+const ready = rows.filter((x) => x.ready)[0];
+const last = rows.filter((x) => app.mock && same(x.id, app.mock.id == null ? (files[0] || {}).id : app.mock.id))[0];
+let open = rows.filter((x) => this.state.open != null && same(x.id, this.state.open))[0];
+open = open || (last && (!last.taken || last.at === today || !ready) ? last : null) || ready || rows.filter((x) => x.fresh)[0] || rows[0];
+const mocks = rows.map((x) => ({
+...x,
+open: x === open,
+shut: x !== open,
+aria: x.title + ', ' + x.whenEn + ', ' + (x.taken ? 'last result ' + x.chipScore : x.ready ? 'ready to take' : 'best in ' + x.wait + ' days'),
+}));
+const left = plan.exam ? N.diff(today, plan.exam) : -1;
+const most = rows.length ? Math.max.apply(null, files.map(minutesOf)) : 0;
+return {
+mocks,
+none: !rows.length,
+hasIntro: rows.length > 0,
+intro: (WORDS[rows.length] || rows.length) + (rows.length === 1 ? ' short paper' : ' short papers') + ' in the real format, about ' + most + ' minutes' + (rows.length === 1 ? '. Mistakes go to your notebook.' : ' each, spread over your plan.'),
+hasDays: left >= 0,
+days: left > 0 ? 'あと' + left + '日' : '試験当日',
+daysAria: left > 0 ? left + ' days to the exam' : 'The exam is today',
+toMain: nav('Main'),
+toNotebook: nav('Notebook'),
+toMock: nav('Mock'),
+toReadiness: nav('Readiness'),
+};
+}
+}
+</script>
+</body>
+</html>

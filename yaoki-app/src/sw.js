@@ -8,9 +8,16 @@ const HOME = new URL('./', self.location.href).pathname;
 const PREFIX = 'yaoki:' + HOME + ':';
 const CACHE = PREFIX + VERSION;
 const FILES = __FILES__;
+/* #if N1 */
+/* the course's spoken clips, one file each (645 of them, about 21 MB), are not part of the install (it would make the
+   first download five times larger): a clip is stored the first time it is played, and the app asks for all the others
+   in the background once the learner has a plan. Each file carries a hash of its content, so a new build keeps the
+   ones that did not change. */
+/* #else */
 /* each level's sound, one file per unit, is not part of the install (it would make the first download several
    times larger): a unit's file is stored the first time it is used, and the app asks for the rest of the chosen
    level in the background. Each file carries a hash of its content, so a new build keeps the ones that did not change. */
+/* #end */
 const LAZY = __LAZY__;
 const lazyKey = (f) => f + '?h=' + LAZY[f];
 const lazyOf = (url) => { const p = './' + new URL(url).pathname.slice(HOME.length); return LAZY[p] ? p : null; };
@@ -92,6 +99,11 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('message', (event) => {
   const lv = event.data && event.data.keepLevel;
   if (typeof lv !== 'string' || !/^n\d$/.test(lv)) return;
+  /* #if N1 */
+  /* the N1 app is one level: its lazy files are the course's clips (assets/audio/*.mp3), asked for once there is a plan */
+  const mine = lv === 'n1' ? Object.keys(LAZY) : [];
+  /* #else */
   const mine = Object.keys(LAZY).filter((f) => f.indexOf('sound-course-' + lv + '-') >= 0);
+  /* #end */
   event.waitUntil(caches.open(CACHE).then(async (cache) => { for (const f of mine) { try { await keepLazy(cache, f); } catch (e) { /* offline: try again next time */ } } }));
 });

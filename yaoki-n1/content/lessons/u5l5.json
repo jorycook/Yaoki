@@ -1,0 +1,222 @@
+{
+  "id": "u5l5",
+  "unit": 5,
+  "lesson": 5,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜なくして（は）",
+        "en": "without …, … cannot happen",
+        "conn": [["名詞", "名詞 ＋ 【なくして（は）】"]],
+        "ex": [
+          { "ja": "皆様のご支援【なくしては】、ここまで続けてこられませんでした。", "en": "Without all your support, we could never have kept going this long." },
+          { "ja": "互いの信頼【なくして】、チームとして成果を上げることはできない。", "en": "Without mutual trust, no team can produce results." }
+        ],
+        "note": "Not a plain \"without\". A noun comes first, and what follows says something cannot happen. Otherwise use なしで.",
+        "bad": "コーヒーは砂糖なくして飲む。",
+        "good": "コーヒーは砂糖なしで飲む。",
+        "tag": ["名詞が不可欠", "no X, no Y"],
+        "cmp": { "ja": "対話【なくして】信頼は生まれない。", "en": "Without dialogue, no trust can grow." }
+      },
+      {
+        "p": "〜ことなしに",
+        "en": "without doing …",
+        "conn": [["動詞", "辞書形 ＋ 【ことなしに】"]],
+        "ex": [
+          { "ja": "自ら現場に足を運ぶ【ことなしに】、正しい判断は下せない。", "en": "You cannot make a sound judgement without going to the site yourself." },
+          { "ja": "彼は誰にも打ち明ける【ことなしに】、一人で会社を去っていった。", "en": "Without confiding in anyone, he left the company on his own." }
+        ],
+        "note": "Only a verb in the dictionary form goes before it. After a noun such as 説明, add する first.",
+        "bad": "説明ことなしに値上げした。",
+        "good": "説明することなしに値上げした。",
+        "tag": ["動作をせずに", "without doing X"],
+        "cmp": { "ja": "一度も休む【ことなしに】走り続けた。", "en": "He kept running without a single break." }
+      },
+      {
+        "p": "〜ずとも",
+        "en": "even without doing …, it is fine",
+        "conn": [["動詞", "ない形 ＋ 【ずとも】"], ["する", "する → 【せずとも】"]],
+        "ex": [
+          { "ja": "そんなに急が【ずとも】、会議には十分間に合いますよ。", "en": "No need to rush like that. You will be in plenty of time for the meeting." },
+          { "ja": "わざわざ窓口に出向か【ずとも】、手続きはネットで済ませられる。", "en": "You need not go to the counter in person. The paperwork can be done online." }
+        ],
+        "note": "する becomes せずとも, not しずとも. What follows says things are fine anyway: いい, 分かる, 間に合う.",
+        "bad": "心配しずとも大丈夫です。",
+        "good": "心配せずとも大丈夫です。",
+        "tag": ["なくても平気", "fine even without"],
+        "cmp": { "ja": "言わ【ずとも】分かっている。", "en": "I know without being told." }
+      }
+    ],
+    "compare": {
+      "intro": "All mean \"without\". なくして: a noun, then \"cannot\". ことなしに: a verb. ずとも: \"it is fine\" anyway.",
+      "check": {
+        "scene": "新人研修",
+        "ja": "手を動かす（　　）、仕事は覚えられない。",
+        "options": ["なくしては", "ことなしに", "ずとも"],
+        "answer": 2,
+        "notes": [
+          "おしい！ The meaning fits, but なくしては follows a noun, not 動かす.",
+          "せいかい！ Dictionary form + ことなしに: without hands-on work, you cannot learn.",
+          "おしい！ ずとも needs 動かさ and leads to \"it is fine\"; here you cannot learn."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "地域住民の理解（　　）、【新しい施設の建設は進められない】。",
+        "options": ["あっての", "なくしては", "ともなると", "とあって"],
+        "answer": 2,
+        "why": [
+          "あっての also links a must-have to a result, but a noun must follow, as in 理解あっての計画.",
+          "Noun + なくしては, then \"cannot\": no local understanding, no new building.",
+          "ともなると means \"once it comes to\" something bigger; it does not mean \"without\".",
+          "とあって gives a special occasion as the cause of a scene; understanding is not one."
+        ]
+      },
+      {
+        "ja": "挫折を経験する（　　）、【本当の強さは身につかない】。",
+        "options": ["そばから", "なくしては", "ずとも", "ことなしに"],
+        "answer": 4,
+        "why": [
+          "そばから is for something undone as soon as it is done, as in 覚えるそばから忘れる.",
+          "なくしては needs a noun, as in 挫折の経験なくしては; it cannot follow 経験する.",
+          "ずとも would need 経験せずとも, and it leads to \"it is fine\"; here it is not.",
+          "Dictionary form + ことなしに, then \"cannot\": without setbacks, no real strength."
+        ]
+      },
+      {
+        "ja": "この程度の用件なら、わざわざ会って話さ（　　）、【メールで十分だろう】。",
+        "options": ["んがため", "ずじまいで", "ずとも", "んばかりに"],
+        "answer": 3,
+        "why": [
+          "んがため means \"in order to\"; it gives a purpose, so it cannot say meeting is unneeded.",
+          "ずじまいで regrets that something never got done; it does not say it is unneeded.",
+          "ない-stem + ずとも: there is no need to meet and talk, as an email will do.",
+          "んばかりに means \"as if about to\" and describes a manner, as in 泣かんばかりに."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "これくらいの風邪なら、",
+      "post": "寝ていれば治る。",
+      "tiles": ["医者に", "診て", "もらわ", "ずとも"],
+      "star": 2,
+      "hint": "ずとも follows the ない-stem of a verb. Which tile is a ない-stem, and which verb does it finish?",
+      "why": "医者に, 診て, もらわ, ずとも. 診てもらう is one unit with 医者に before it, and ずとも follows its ない-stem もらわ."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "長年の地道な研究の積み重ね（　　）、今回の発見はあり得なかった。",
+        "options": ["なくしては", "ことなしに", "あっての", "にもまして"],
+        "answer": 1,
+        "why": "Noun + なくしては, then あり得なかった: without years of research, no discovery. ことなしに needs a verb (積み重ねることなしに), あっての must be followed by a noun, and にもまして compares degree."
+      },
+      {
+        "kind": "form",
+        "ja": "上司にいちいち指示され（　　）、彼女は自分で判断して動ける。",
+        "options": ["ことなしに", "んばかりに", "んがために", "ずとも"],
+        "answer": 4,
+        "why": "ない-stem + ずとも: she can act without being told each step. ことなしに needs the dictionary form (指示されることなしに). んばかりに means \"as if about to\", んがために \"in order to\"."
+      },
+      {
+        "kind": "order",
+        "pre": "現場で働く",
+        "post": "改革は成功しない。",
+        "tiles": ["人々の", "声に", "耳を傾ける", "ことなしに"],
+        "star": 1,
+        "why": "人々の, 声に, 耳を傾ける, ことなしに. 現場で働く describes 人々, 声に耳を傾ける is one phrase, and ことなしに follows the dictionary form right before the result."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "おのずと", "r": "おのずと", "en": "naturally, of its own accord",
+      "ex": { "ja": "毎日続けていれば、結果は【おのずと】ついてくるものだ。", "en": "If you keep at it every day, results will come of their own accord." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "経験を積めば、やるべきことは【おのずと】見えてくる。",
+        "options": ["一気に", "かえって", "自然に", "わざわざ"],
+        "answer": 3,
+        "why": "おのずと: it comes about by itself, unforced, like 自然に. 一気に is \"all at once\", かえって \"on the contrary\", わざわざ \"going out of your way\"."
+      }
+    },
+    {
+      "w": "察する", "r": "さっする", "en": "to sense, to guess (feelings)",
+      "ex": { "ja": "彼女の沈んだ声から、何かあったのだと【察した】。", "en": "From her flat voice, I sensed that something had happened." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "彼の顔色から、何か事情があると察した。",
+          "医師が聴診器で胸の音を察した。",
+          "社長が地方の工場を察して回った。",
+          "来週の天気を察して、旅行の日程を決めた。"
+        ],
+        "answer": 1,
+        "why": "察する is reading feelings or circumstances that go unsaid, as from a face. The others want 聴く (listen), 視察する (inspect) and 予想する (forecast)."
+      }
+    },
+    {
+      "w": "暗黙", "r": "あんもく", "en": "tacit, unspoken",
+      "ex": { "ja": "互いに干渉しないのが、二人の【暗黙】の約束だった。", "en": "Never interfering with each other was their unspoken agreement." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "この部署では、新人が最初に出社するのが（　　）の了解になっている。",
+        "options": ["沈黙", "暗黙", "黙秘", "黙読"],
+        "answer": 2,
+        "why": "暗黙の了解 is an understanding nobody has put into words. 沈黙 is silence itself, 黙秘 refusing to answer (to the police), 黙読 reading silently."
+      }
+    },
+    {
+      "w": "以心伝心", "r": "いしんでんしん", "en": "understanding without words",
+      "ex": { "ja": "長年組んできた相棒とは、【以心伝心】で通じ合える。", "en": "My partner of many years and I understand each other without a word." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "ベテランの二人は【以心伝心】で、息の合った仕事ぶりを見せた。",
+        "options": ["細かく相談し合って", "互いに張り合って", "役割を分担して", "言わずとも通じ合って"],
+        "answer": 4,
+        "why": "以心伝心 is understanding each other without words: 言わずとも通じ合って. 相談し合って is the opposite, 張り合って is rivalry, 分担して is splitting the work."
+      }
+    },
+    {
+      "w": "腹を探る", "r": "はらをさぐる", "en": "to sound out someone's intentions",
+      "ex": { "ja": "彼は雑談を装って、こちらの【腹を探って】きた。", "en": "Under cover of small talk, he tried to sound out what I was thinking." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "交渉の序盤は、双方とも相手の（　　）ような発言に終始した。",
+        "options": ["腹を割る", "腹を探る", "腹を決める", "腹を立てる"],
+        "answer": 2,
+        "why": "腹を探る: probing the other side's real aims, common early in talks. 腹を割る is speaking frankly, 腹を決める deciding, 腹を立てる getting angry."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "理由",
+    "en": "Find the reason given",
+    "passage": "日本の職場には、明文化されていない決まりが少なくない。上司より先に退社しない、会議で若手は先に発言しない、といった類のものだ。こうした暗黙のルールに新人が戸惑うのは、内容が理不尽だから【というより】、誰もそれを教えてくれない【からだ】。言わずとも分かるはずだという周囲の思い込みが、新人を置き去りにしているのである。",
+    "ask": "筆者によると、新人が戸惑うのはなぜか。",
+    "options": ["ルールの内容が理不尽だから。", "上司より先に帰れないから。", "誰もルールを教えてくれないから。", "周囲が新人をわざと突き放すから。"],
+    "short": ["内容が理不尽", "上司より先に帰れない", "誰も教えてくれない", "周囲がわざと突き放す"],
+    "answer": 3,
+    "tip": "For a reason question, find のは〜からだ. In AというよりB, the writer's reason is B, not A.",
+    "why": "のは…からだ states the reason, and というより sets aside the first idea: nobody explains the rules.",
+    "whyNot": [
+      "Option 1 is the idea the writer sets aside with というより.",
+      "Option 2 is only an example of such a rule, not the cause of the confusion.",
+      "",
+      "Option 4 goes too far. The text blames an assumption, not a wish to push newcomers away."
+    ]
+  },
+  "listening": {
+    "who": "女",
+    "line": "お茶でしょ。言わずとも分かるわよ、何年一緒だと思ってるの。",
+    "replies": ["分からないなら聞いてくれよ。", "そう言わずに、入れてくれよ。", "さすがだね、よく分かったな。"],
+    "answer": 3,
+    "notes": [
+      "Hears 分からない; she says she knows without being told.",
+      "Hears a refusal; she is about to make the tea.",
+      "Fits: she knew what he wanted without being told."
+    ],
+    "short": ["分からないなら聞いて", "そう言わずに入れて", "さすが、よく分かった"]
+  }
+}

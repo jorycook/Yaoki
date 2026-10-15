@@ -20,6 +20,9 @@
 <sc-if value="{{ at.Teach }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Teach" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Compare }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Compare" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Drill }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Drill" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<!-- #if N1 -->
+<sc-if value="{{ at.Star }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Star" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<!-- #end -->
 <sc-if value="{{ at.Exam }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Exam" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Scene }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Scene" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Reading }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Reading" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
@@ -44,6 +47,16 @@
 </div>
 
 <sc-if value="{{ asking }}">
+<!-- #if N1 -->
+<div style="padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 3px">
+<div style="font-size: 13px; font-weight: 800"><span lang="ja">レベル</span>　Level · N1</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">This prototype holds the N1 course: 48 grammar lessons with their words, reading and listening, the 1,113 N1 kanji and four mini mocks, laid out over your exam date and daily time. N5 to N2 have their own app.</div>
+</div>
+
+<sc-if value="{{ planned }}">
+<button onClick="{{ changeGoal }}" style="height: 50px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 15px"><span lang="ja">試験日・勉強時間を変える</span>　Change the plan</button>
+</sc-if>
+<!-- #else -->
 <div style="padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 13px; font-weight: 800"><span lang="ja">レベル</span>　Level · {{ level }}</div>
 <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
@@ -53,6 +66,7 @@
 </div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">Each level keeps its own plan and notebook. The course is being written unit by unit; days not written yet are marked 準備中.</div>
 </div>
+<!-- #end -->
 
 <div style="padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
 <button aria-label="Play the test sound" onClick="{{ playTest }}" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ testBg }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></button>
@@ -87,9 +101,14 @@
 class Component extends DCLogic {
 constructor(props) {
 super(props);
+/* #if N1 */
+/* the app's one memory (see ykApp.start in yk-app.js): which screen is up, whether the goal has been set, the study plan (n1.js; it keeps each day's progress), the mistakes made, the outcome of the notebook review and the last mini mock. ykApp.start() reads back what was saved on this device */
+this.state = { ...window.ykApp.start(), menu: false, confirm: false, testing: false, tested: false, heard: false };
+/* #else */
 /* the app's one memory (see course.js): the plan, the progress of every session, the mistakes and the last mini mock. ykApp.start() reads back what was saved on this device */
 this.state = { ...window.ykApp.start(), menu: false, confirm: false, testing: false, tested: false, heard: false };
 this.h = window.ykCourse.handlers(() => this.state, (fn) => this.setState(fn));
+/* #end */
 }
 componentDidMount() {
 window.ykApp.onScreen(this.state.screen);
@@ -107,6 +126,9 @@ const s = this.state;
 const at = {};
 SCREENS.forEach((n) => { at[n] = s.screen === n; });
 const closeMenu = () => { clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); this.setState({ menu: false, confirm: false, testing: false }); };
+/* #if N1 */
+const app = { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan };
+/* #else */
 const app = window.ykCourse.view(s);
 /* the menu changes level: the level's own plan comes back, or its goal screen the first time */
 const levels = app.levels.map((x) => {
@@ -119,15 +141,26 @@ bg: on ? '#2F4FD0' : '#FFFFFF', color: on ? '#FFFFFF' : off ? '#9AA1B5' : '#1B24
 pick: () => { if (off) return; closeMenu(); this.h.level(x.level); },
 };
 });
+/* #end */
 return {
 at,
 app,
+/* #if N1 */
+/* leaving the goal screen is what marks the goal as set: from then on the app opens on the week path */
+go: (to) => this.setState({ screen: to, started: s.started || to !== 'Goal' }),
+save: (patch) => this.setState(patch),
+miss: (m) => this.setState((st) => ({ mistakes: [{ ...m, at: Date.now() }].concat((st.mistakes || []).filter((x) => x.src !== m.src)) })),
+/* the learner can change the exam date or the daily time: the goal screen re-plans what is left */
+planned: !!s.plan,
+changeGoal: () => { closeMenu(); this.setState({ screen: 'Goal' }); },
+/* #else */
 level: app.level,
 levels,
 go: this.h.go,
 save: this.h.save,
 miss: this.h.miss,
 reviewed: this.h.reviewed,
+/* #end */
 openMenu: () => this.setState({ menu: true, confirm: false, tested: false }),
 closeMenu,
 menuOpen: s.menu,
@@ -139,7 +172,11 @@ reset: () => {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 window.ykApp.forget();
+/* #if N1 */
+this.setState({ screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null, menu: false, confirm: false, testing: false });
+/* #else */
 this.setState({ ...window.ykCourse.fresh(), menu: false, confirm: false, testing: false });
+/* #end */
 },
 /* the same test sound as the mock's sound check; when it cannot play, the note says so */
 playTest: () => {
@@ -157,7 +194,11 @@ version: window.ykApp.version,
 };
 }
 }
+/* #if N1 */
+const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
+/* #else */
 const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
+/* #end */
 </script>
 </body>
 </html>

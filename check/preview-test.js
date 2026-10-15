@@ -1,10 +1,14 @@
 // Smoke test of the preview variant (the app as a page inside Claude), wrapped in a stand-in for the host's page skeleton.
-// usage: node preview-test.js   (serves ../yaoki-app/dist-test-preview itself on port 8766; PREVIEW_DIR names another build)
+// usage: node preview-test.js   (serves ../yaoki-app/dist-test-preview itself on port 8766; PREVIEW_DIR names another build,
+// by default the preview of the YK_TESTDIR build; PREVIEW_PORT another port; YK_LEVEL=N1 for the N1 app)
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const { chromium } = require('playwright');
-const DIR = path.join(__dirname, '..', 'yaoki-app', process.env.PREVIEW_DIR || 'dist-test-preview');
+// the level the app was built for (YK_LEVEL=N1 for the N1 app)
+const LV = require('./level.js');
+const DIR = path.join(__dirname, '..', 'yaoki-app', process.env.PREVIEW_DIR || (process.env.YK_TESTDIR || 'dist-test') + '-preview');
+const PORT = +(process.env.PREVIEW_PORT || 8766);
 const PREACT = fs.readFileSync(path.join(__dirname, '..', 'yaoki-app', 'node_modules', 'preact', 'dist', 'preact.min.js'));
 const fontsCss = fs.readFileSync(path.join(__dirname, 'site', 'fonts.css'), 'utf8');
 const out = path.join(__dirname, 'out');
@@ -20,7 +24,7 @@ const server = http.createServer((req, res) => {
   res.end(fs.readFileSync(f));
 });
 (async () => {
-  await new Promise((r) => server.listen(8766, r));
+  await new Promise((r) => server.listen(PORT, r));
   const browser = await chromium.launch();
   let fails = 0;
   const ok = (c, m) => { if (!c) { fails += 1; console.log('  FAIL: ' + m); } };
@@ -36,7 +40,7 @@ const server = http.createServer((req, res) => {
     await page.route('https://fonts.googleapis.com/**', (r) => r.fulfill({ contentType: 'text/css', body: fontsCss }));
     // the stand-in font list points at the test harness's own font folder
     await page.route('http://localhost:8765/fonts/**', (r) => { const f = path.join(__dirname, 'node_modules', '@fontsource', new URL(r.request().url()).pathname.replace('/fonts/', '')); return fs.existsSync(f) ? r.fulfill({ contentType: 'font/woff2', body: fs.readFileSync(f) }) : r.abort(); });
-    await page.goto('http://localhost:8766/');
+    await page.goto('http://localhost:' + PORT + '/');
     await page.waitForSelector('#yk-stage > .sc-host', { timeout: 10000 });
     await page.evaluate(() => document.fonts.ready);
     await page.waitForTimeout(400);
@@ -44,8 +48,8 @@ const server = http.createServer((req, res) => {
     ok((await t()).includes('目標を決めよう'), name + ': should open on the goal screen, with no install page even on an iPhone');
     await page.locator('button:has-text("Paint the first eye")').first().click(); await page.waitForTimeout(400);
     await page.locator('a:has-text("Start")').first().click(); await page.waitForTimeout(700);
-    ok((await t()).includes('原因・理由'), name + ': Start should reach the week path');
-    await page.locator('button[aria-label^="Level N2"]').first().click(); await page.waitForTimeout(500);
+    ok((await t()).includes(LV.weekTheme), name + ': Start should reach the week path');
+    await page.locator('button[aria-label^="Level ' + LV.LEVEL + '"]').first().click(); await page.waitForTimeout(500);
     ok((await t()).includes('preview'), name + ': the menu should show the preview build stamp');
     const r = await page.evaluate(() => { const b = document.querySelector('#yk-stage').getBoundingClientRect(); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), vw: innerWidth, vh: innerHeight, scroll: document.documentElement.scrollHeight, sw: !!navigator.serviceWorker && !!navigator.serviceWorker.controller }; });
     // on a short frame the design's empty top zone (42 of its 844 px) is left out above the frame; nothing else may stick out
@@ -57,7 +61,7 @@ const server = http.createServer((req, res) => {
     ok(!asked.some((u) => /sw\.js/.test(u)), name + ': the preview should not ask for an offline worker');
     ok(logs.length === 0, name + ': console problems ' + JSON.stringify(logs.slice(0, 4)));
     await page.screenshot({ path: path.join(out, 'preview-' + name + '.png') });
-    const outside = asked.filter((u) => !u.startsWith('http://localhost:8766/'));
+    const outside = asked.filter((u) => !u.startsWith('http://localhost:' + PORT + '/'));
     console.log(name + ': requests outside the page: ' + JSON.stringify([...new Set(outside.map((u) => new URL(u).host))]));
     await ctx.close();
   }

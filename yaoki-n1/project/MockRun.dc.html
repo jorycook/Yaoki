@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mock run</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
+<script src="./sound-mock.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div onClick="{{ wake }}" style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column">
+
+<div style="flex-shrink: 0; padding: 50px 16px 10px; background: #1B2440; color: #FFFFFF; display: flex; align-items: center; gap: 8px">
+<sc-if value="{{ band.quit }}" hint-placeholder-val="{{ false }}">
+<button aria-label="Quit the mock" onClick="{{ askQuit }}" style="width: 44px; height: 44px; margin-left: -10px; border: 0; background: none; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</sc-if>
+<sc-if value="{{ band.home }}" hint-placeholder-val="{{ true }}">
+<a href="Mock.dc.html" onClick="{{ toMock }}" aria-label="Back to the mock exam tab" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
+</sc-if>
+<sc-if value="{{ band.back }}" hint-placeholder-val="{{ false }}">
+<button aria-label="Back to the result" onClick="{{ toResult }}" style="width: 44px; height: 44px; margin-left: -10px; border: 0; background: none; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+</sc-if>
+<div style="flex-grow: 1; min-width: 0; height: 44px; display: flex; flex-direction: column; justify-content: center">
+<div lang="ja" style="font-size: 16px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ band.title }}</div>
+<div style="font-size: 11px; font-weight: 500; color: #C9D0E3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ band.sub }}</div>
+</div>
+<sc-if value="{{ band.clock }}" hint-placeholder-val="{{ false }}">
+<div role="timer" aria-label="{{ clockLabel }}" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; flex-shrink: 0; background: {{ clockBg }}; color: {{ clockInk }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }}</div>
+</sc-if>
+<sc-if value="{{ band.sheet }}" hint-placeholder-val="{{ false }}">
+<button aria-label="Open the answer sheet" onClick="{{ openSheet }}" style="height: 44px; padding: 0 10px; border-radius: 12px; border: 2px solid #5A6382; background: none; color: #FFFFFF; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>{{ doneCount }}</button>
+</sc-if>
+</div>
+
+<sc-if value="{{ v.intro }}" hint-placeholder-val="{{ true }}">
+<div style="flex-grow: 1; min-height: 0; padding: 14px 16px 34px; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
+<h1 lang="ja" style="margin: 0; font-size: 23px; font-weight: 800; line-height: 1.3; white-space: nowrap">{{ introTitle }}</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ introSub }}</div>
+</div>
+<svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+</div>
+
+<div style="margin-top: 14px; padding: 6px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column">
+<sc-for list="{{ brief }}" as="p" hint-placeholder-count="3">
+<sc-if value="{{ p.sec }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 0">
+<div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ p.n }}</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div lang="ja" style="font-size: 14px; font-weight: 800">{{ p.ja }}</div>
+<div style="font-size: 11px; font-weight: 500; color: #5A6382">{{ p.en }}</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; white-space: nowrap">
+<div lang="ja" style="font-size: 13px; font-weight: 800">{{ p.count }}</div>
+<div lang="ja" style="font-size: 11px; font-weight: 500; color: #5A6382">{{ p.time }}</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ p.brk }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #5A6382"><div style="flex-grow: 1; height: 0; border-top: 2px dashed #C9D0E3"></div><div lang="ja">{{ breakLabel }}</div><div style="flex-grow: 1; height: 0; border-top: 2px dashed #C9D0E3"></div></div>
+</sc-if>
+</sc-for>
+</div>
+
+<div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 11px; font-weight: 800; color: #C7361E">模試のルール　HOW IT RUNS</div>
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
+<div style="display: flex; align-items: baseline; gap: 10px">
+<div lang="ja" style="width: 34px; flex-shrink: 0; font-size: 13px; font-weight: 800">{{ r.ja }}</div>
+<div style="flex-grow: 1; font-size: 13px; font-weight: 500; line-height: 1.4">{{ r.en }}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="flex-grow: 1"></div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: #FFF4D6; font-size: 12px; font-weight: 700; line-height: 1.45">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2.5" y="14" width="4.5" height="7" rx="1.5"/><rect x="17" y="14" width="4.5" height="7" rx="1.5"/></svg>
+<div>静かな場所とイヤホンを用意してください。 Find a quiet place and put your earphones in.</div>
+</div>
+<button onClick="{{ begin }}" style="margin-top: 12px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">はじめる　Start section 1</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ v.none }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 14px 16px 34px; display: flex; flex-direction: column">
+<div style="padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">模試はまだありません。</strong> There is no mini mock in this copy of the app yet.</div>
+<div style="flex-grow: 1"></div>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">もどる　Back</a>
+</div>
+</sc-if>
+
+<sc-if value="{{ v.paper }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+<div style="flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column">
+<div style="display: flex; align-items: baseline; gap: 8px">
+<div lang="ja" style="flex-grow: 1; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ q.mondai }}</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ pos }}</div>
+</div>
+<div lang="ja" style="margin-top: 3px; font-size: 12px; font-weight: 500; line-height: 1.5">{{ q.rubric }}</div>
+
+<sc-if value="{{ q.isWord }}" hint-placeholder-val="{{ true }}">
+<div lang="ja" style="margin-top: 10px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><span style="display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 7px; background: #1B2440; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 12px; font-weight: 800; margin-right: 8px; vertical-align: 3px">{{ q.no }}</span><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap">{{ g.lead }}<sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for>{{ g.tail }}</span></sc-if></sc-for></div>
+</sc-if>
+
+<sc-if value="{{ q.isUsage }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; padding: 10px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; align-items: center; gap: 10px">
+<div style="width: 24px; height: 24px; border-radius: 7px; background: #1B2440; color: #FFFFFF; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ q.no }}</div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 22px; font-weight: 600">{{ q.word }}</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ q.isPassage }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ q.hasLead }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="margin-top: 8px; font-size: 12px; font-weight: 700; color: #5A6382">{{ q.lead }}</div></sc-if>
+<div lang="ja" style="margin-top: 6px; padding: 10px 14px; border-radius: 14px; background: #FFFFFF; border: 2px solid #C9D0E3; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.7; display: flex; flex-direction: column">
+<sc-for list="{{ q.passage }}" as="p" hint-placeholder-count="3"><div><sc-for list="{{ p.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div></sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ q.isPair }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{ q.texts }}" as="x" hint-placeholder-count="2">
+<div style="padding: 8px 12px 9px; border-radius: 14px; background: #FFFFFF; border: 2px solid #C9D0E3; display: flex; align-items: flex-start; gap: 10px">
+<div style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px">{{ x.tag }}</div>
+<div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 13px; font-weight: 600; line-height: 1.6"><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ q.hasAsk }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="margin-top: 10px; display: flex; align-items: flex-start; gap: 8px">
+<div style="width: 24px; height: 24px; border-radius: 7px; background: #1B2440; color: #FFFFFF; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ q.no }}</div>
+<div style="font-size: 14px; font-weight: 800; line-height: 1.55; padding-top: 1px">{{ q.ask }}</div>
+</div>
+</sc-if>
+
+<div lang="ja" style="margin-top: 12px; display: flex; flex-direction: column; gap: {{ q.optGap }}">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="padding: 0 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px; text-align: left; min-height: {{ q.optH }}; font-family: {{ q.optFont }}; font-size: {{ q.optSize }}; line-height: 1.5; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="width: 30px; height: 22px; box-sizing: border-box; border-radius: 11px; border: 2px solid #1B2440; display: flex; align-items: center; justify-content: center; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 12px; font-weight: 800; flex-shrink: 0; background: {{ o.ovalBg }}; color: {{ o.ovalInk }}">{{ o.n }}</span><span>{{ o.label }}</span></button>
+</sc-for>
+</div>
+
+<div style="margin-top: 6px; display: flex; justify-content: flex-end">
+<button onClick="{{ toggleFlag }}" aria-pressed="{{ flagOn }}" style="height: 44px; padding: 0 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; border: {{ flagBorder }}; background: {{ flagBg }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ flagFill }}" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg>あとで見直す　Flag</button>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1.1fr 1.6fr; gap: 10px">
+<button disabled="{{ first }}" onClick="{{ prev }}" style="height: 54px; padding: 0; border-radius: 16px; font-weight: 800; font-size: 15px; white-space: nowrap; background: #FFFFFF; border: {{ prevBorder }}; color: {{ prevInk }}; box-shadow: {{ prevShadow }}; cursor: {{ prevCursor }}">まえへ　Previous</button>
+<button onClick="{{ next }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; white-space: nowrap; font-size: {{ nextSize }}">{{ nextLabel }}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ v.rest }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 14px 16px 34px; display: flex; flex-direction: column">
+<sc-if value="{{ timeUp }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 8px 12px; border-radius: 12px; background: #FDEBE6; font-size: 12px; font-weight: 700; line-height: 1.45"><span lang="ja" style="font-weight: 800; color: #C7361E">時間切れです。</span> Time ran out, so your answers were handed in as they were.</div>
+</sc-if>
+<div style="margin-top: 10px; display: flex; flex-direction: column; align-items: center; text-align: center">
+<svg viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<div style="margin-top: 8px; font-size: 12px; font-weight: 700; color: #5A6382">{{ restLabel }}</div>
+<div role="timer" aria-label="{{ restAria }}" style="font-size: 56px; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; color: {{ restInk }}">{{ restClock }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">水を飲んで、目を休めましょう。<br>Drink some water and rest your eyes.</div>
+</div>
+
+<div style="margin-top: 16px; padding: 10px 14px 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 11px; font-weight: 800; color: #C7361E">つぎの科目　NEXT SECTION</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ up.n }}</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div lang="ja" style="font-size: 14px; font-weight: 800">{{ up.ja }}</div>
+<div style="font-size: 11px; font-weight: 500; color: #5A6382">{{ up.en }}</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; white-space: nowrap">
+<div lang="ja" style="font-size: 13px; font-weight: 800">{{ up.count }}</div>
+<div lang="ja" style="font-size: 11px; font-weight: 500; color: #5A6382">{{ up.time }}</div>
+</div>
+</div>
+</div>
+
+<sc-if value="{{ soundCheck }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 14px">
+<button aria-label="Play the test sound" onClick="{{ playCheck }}" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ checkBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="{{ checkInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 14px; font-weight: 800">音量チェック　Sound check</div>
+<div aria-hidden="true" style="height: 22px; display: flex; align-items: center; gap: 4px">
+<sc-for list="{{ checkBars }}" as="b" hint-placeholder-count="14">
+<div style="width: 4px; border-radius: 2px; height: {{ b.h }}; background: {{ b.bg }}"></div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ checkNote }}</div>
+</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.45">You can start early. On the real test day the break is longer.</div>
+<button onClick="{{ startNext }}" style="margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">{{ startLabel }}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ v.listening }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+<div style="display: flex; align-items: baseline; gap: 8px">
+<div lang="ja" style="flex-grow: 1; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ lq.mondai }}</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ lpos }}</div>
+</div>
+<div lang="ja" style="margin-top: 3px; font-size: 12px; font-weight: 500; line-height: 1.5; text-wrap: pretty">{{ lq.rubric }}</div>
+
+<div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 24px; height: 24px; border-radius: 7px; background: #1B2440; color: #FFFFFF; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ lq.no }}</div>
+<div aria-hidden="true" style="flex-grow: 1; height: 40px; display: flex; align-items: center; justify-content: space-between">
+<sc-for list="{{ wave }}" as="b" hint-placeholder-count="24">
+<div style="width: 4px; border-radius: 2px; height: {{ b.h }}; background: {{ b.bg }}"></div>
+</sc-for>
+</div>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ speakerInk }}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M4 10v4h3l5 4V6L7 10z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>
+</div>
+<div role="img" aria-label="{{ phaseAria }}" lang="ja" style="display: flex; gap: 5px">
+<sc-for list="{{ phases }}" as="p" hint-placeholder-count="4">
+<div style="height: 26px; border-radius: 8px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; white-space: nowrap; flex: {{ p.flex }}; background: {{ p.bg }}; color: {{ p.ink }}">{{ p.ja }}</div>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{ lq.printed }}" hint-placeholder-val="{{ true }}">
+<div lang="ja" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{ lopts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="min-height: 48px; padding: 0 12px; border-radius: 12px; display: flex; align-items: center; gap: 10px; text-align: left; font-size: 15px; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="width: 30px; height: 22px; box-sizing: border-box; border-radius: 11px; border: 2px solid #1B2440; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; background: {{ o.ovalBg }}; color: {{ o.ovalInk }}">{{ o.n }}</span><span>{{ o.label }}</span></button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ lq.spoken }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; display: grid; gap: 10px; grid-template-columns: {{ lq.cols }}">
+<sc-for list="{{ lopts }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="height: 64px; border-radius: 16px; font-size: 24px; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: 800; transform: {{ o.press }}">{{ o.n }}</button>
+</sc-for>
+</div>
+<div style="margin-top: 10px; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center; line-height: 1.5">{{ lq.spokenNote }}</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+<div style="padding: 10px 12px; border-radius: 14px; display: flex; flex-direction: column; gap: 7px; transition: background 200ms; background: {{ foot.bg }}">
+<div style="display: flex; align-items: baseline; gap: 8px; font-size: 13px; font-weight: 800">
+<div style="flex-grow: 1">{{ foot.line }}</div>
+<div style="font-variant-numeric: tabular-nums">{{ foot.clock }}</div>
+</div>
+<div style="height: 8px; border-radius: 4px; background: #FFFFFF; overflow: hidden"><div style="height: 8px; border-radius: 4px; width: {{ foot.w }}; background: {{ foot.ink }}"></div></div>
+</div>
+<div style="margin-top: 8px; font-size: 11px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.45">音声は一度だけです。まえの問題にはもどれません。<br>The audio plays once. You cannot go back to a question.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ v.result }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 14px 16px 34px; display: flex; flex-direction: column">
+<div style="display: flex; align-items: flex-end; gap: 12px">
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">正解数　Correct answers</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 52px; font-weight: 800; line-height: 1.1">{{ score }}</h1><div style="font-size: 18px; font-weight: 700; color: #5A6382">/ {{ of }}</div></div>
+</div>
+<svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+</div>
+
+<div style="margin-top: 12px; padding: 2px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column">
+<sc-for list="{{ secRows }}" as="r" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 10px; padding: 11px 0; border-top: {{ r.rule }}">
+<div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ r.n }}</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px">
+<div lang="ja" style="font-size: 14px; font-weight: 800">{{ r.ja }}</div>
+<div role="img" aria-label="{{ r.marksLabel }}" style="display: flex; flex-wrap: wrap; gap: 5px">
+<sc-for list="{{ r.marks }}" as="m" hint-placeholder-count="4">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ m.ink }}" stroke-width="4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" style="display: {{ m.ring }}"/><path d="M6 6l12 12M18 6L6 18" style="display: {{ m.cross }}"/></svg>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; white-space: nowrap">
+<div style="font-size: 17px; font-weight: 800">{{ r.score }}</div>
+<div style="font-size: 11px; font-weight: 500; color: #5A6382">{{ r.time }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin-top: 12px; padding: 10px 12px; border-radius: 14px; background: #E8ECFB; font-size: 12px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">ミニ模試は形式の練習です。</strong> Your score in each area is kept for the Readiness tab. The real paper gives three scores out of 60 and a pass judgement.</div>
+
+<sc-if value="{{ anyWrong }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; line-height: 1.45">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
+<div>{{ savedLine }}</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+<button onClick="{{ toAnswers }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">解答と解説　Answers and reasons</button>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="margin-top: 6px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800">とじる　Close</a>
+</div>
+</sc-if>
+
+<sc-if value="{{ v.answers }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; padding: 12px 16px 34px; display: flex; flex-direction: column">
+<div role="tablist" aria-label="Areas" style="display: grid; gap: 6px; flex-shrink: 0; grid-template-columns: {{ tabCols }}">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+<button role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="height: 46px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: {{ t.border }}; background: {{ t.bg }}; color: {{ t.ink }}"><span lang="ja" style="font-size: 13px; font-weight: 800">{{ t.ja }}</span><span style="font-size: 11px; font-weight: 700">{{ t.score }}</span></button>
+</sc-for>
+</div>
+<div style="margin-top: 10px; flex-grow: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 7px">
+<sc-for list="{{ ansRows }}" as="r" hint-placeholder-count="4">
+<div style="flex-shrink: 0; padding: 8px 14px 9px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 0; font-size: 12px; font-weight: 800">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ r.ink }}" stroke-width="4" stroke-linecap="round" role="img" aria-label="{{ r.verdict }}" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5" style="display: {{ r.ring }}"/><path d="M6 6l12 12M18 6L6 18" style="display: {{ r.cross }}"/></svg>
+<div lang="ja" style="flex-shrink: 0; white-space: nowrap">{{ r.title }}</div>
+<sc-if value="{{ r.bad }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="margin-left: auto; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 700; color: #5A6382">{{ r.yours }}</div></sc-if>
+</div>
+<sc-if value="{{ r.hasAsk }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="font-size: 13px; font-weight: 700; line-height: 1.5">{{ r.ask }}</div>
+</sc-if>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.55"><sc-for list="{{ r.full }}" as="g" hint-placeholder-count="3"><span style="border-radius: 4px; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-for></div>
+<div style="font-size: 12px; font-weight: 500; line-height: 1.4">{{ r.why }}</div>
+<sc-if value="{{ r.hasScript }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}" style="align-self: flex-start; height: 44px; margin: -6px 0 -8px; padding: 0; border: 0; background: none; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ r.toggleLabel }}</button>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="margin-top: 4px; padding: 8px 10px; border-radius: 10px; background: #F4F5F9; display: flex; flex-direction: column; gap: 3px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 13px; font-weight: 600; line-height: 1.55">
+<sc-for list="{{ r.script }}" as="l" hint-placeholder-count="5">
+<div style="display: flex; gap: 6px"><span style="flex-shrink: 0; width: 16px; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 11px; font-weight: 800; color: #5A6382; padding-top: 2px">{{ l.who }}</span><span><sc-for list="{{ l.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></span></div>
+</sc-for>
+</div>
+</sc-if>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
+<button aria-label="Close the answer sheet" onClick="{{ closeSheet }}" style="flex-grow: 1; border: 0; padding: 0; background: transparent"></button>
+<div role="dialog" aria-modal="true" aria-label="Answer sheet" style="padding: 10px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out">
+<div aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #C9D0E3"></div>
+<div style="display: flex; align-items: baseline; gap: 8px">
+<h2 style="margin: 0; flex-grow: 1; font-size: 18px; font-weight: 800">解答用紙 <span style="font-size: 13px; font-weight: 700; color: #5A6382">Answer sheet</span></h2>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382">{{ sheetCount }}</div>
+</div>
+<div style="display: flex; flex-direction: column; border: 2px solid #1B2440; border-radius: 14px; overflow: hidden">
+<sc-for list="{{ sheetRows }}" as="r" hint-placeholder-count="5">
+<button onClick="{{ r.go }}" aria-label="{{ r.label }}" style="height: 46px; padding: 0 12px; border: 0; border-radius: 0; display: flex; align-items: center; gap: 10px; text-align: left; border-top: {{ r.rule }}; background: {{ r.bg }}">
+<span style="width: 20px; font-size: 15px; font-weight: 800">{{ r.no }}</span>
+<span style="display: flex; gap: 6px"><sc-for list="{{ r.ovals }}" as="o" hint-placeholder-count="4"><span style="width: 30px; height: 22px; box-sizing: border-box; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; border: {{ o.border }}; background: {{ o.bg }}; color: {{ o.ink }}">{{ o.n }}</span></sc-for></span>
+<span lang="ja" style="flex-grow: 1; font-size: 11px; font-weight: 700; color: #5A6382; text-align: right">{{ r.type }}</span>
+<sc-if value="{{ r.flag }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Flagged" style="flex-shrink: 0"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></svg></sc-if>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px; font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">
+<sc-if value="{{ hasBlanks }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="font-weight: 800; color: #C7361E">{{ blankLine }}</div></sc-if>
+<div><span lang="ja" style="font-weight: 700; color: #1B2440">提出すると、この科目にはもどれません。</span><br>After you submit, you cannot come back to this section.</div>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px">
+<button onClick="{{ closeSheet }}" style="height: 54px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; font-weight: 800; font-size: 16px">もどる　Back</button>
+<button onClick="{{ submitNow }}" style="height: 54px; border-radius: 16px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 4px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 16px">提出する　Submit</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ pausedOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; justify-content: flex-end; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
+<div role="dialog" aria-modal="true" aria-label="Listening paused" style="padding: 18px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out">
+<h2 lang="ja" style="margin: 0; font-size: 18px; font-weight: 800">{{ pausedJa }}</h2>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ pausedEn }}</div>
+<button onClick="{{ resume }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">{{ resumeLabel }}</button>
+<sc-if value="{{ pausedNoStart }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ resumeSilent }}" style="margin-top: 4px; height: 50px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 15px">音声なしで続ける　Continue without sound</button>
+</sc-if>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 48px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #C7361E">中止する　Quit</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ quitOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
+<button aria-label="Keep going" onClick="{{ closeQuit }}" style="flex-grow: 1; border: 0; padding: 0; background: transparent"></button>
+<div role="dialog" aria-modal="true" aria-label="Quit the mock?" style="padding: 18px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out">
+<h2 lang="ja" style="margin: 0; font-size: 18px; font-weight: 800">模試を中止しますか？</h2>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Quit the mock? Nothing from this run is saved, and the clock keeps running while you decide.</div>
+<button onClick="{{ closeQuit }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px">つづける　Continue</button>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 48px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; color: #C7361E">中止する　Quit</a>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["intro","paper","sheet","reading","break","listening","result","answers"],"default":"intro"},"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* every section clock and the break run at this rate: a test sets it small to reach the time-up path */
+const CLOCK = 1;
+const N = window.ykN1;
+const mark = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px' });
+const plainSeg = (t) => ({ t, bg: 'transparent', pad: '0' });
+/* the four areas of the N1 paper, in its order. The answers are gone through by area, so each list fits one screen */
+const AREAS = [{ k: 'v', ja: '文字・語彙' }, { k: 'g', ja: '文法' }, { k: 'r', ja: '読解' }, { k: 'l', ja: '聴解' }];
+/* what the audio does in each kind of listening question, in order; the answer time follows, as long as the file's
+   "wait". With sound, a spoken part lasts as long as its clip; without sound every part takes its short stand-in time */
+const PARTS = {
+task: [{ k: 'q', ja: '質問', en: 'the question', sim: 2000 }, { k: 'talk', ja: '話', en: 'the conversation', sim: 4200 }, { k: 'q2', ja: '質問', en: 'the question again', sim: 1600 }],
+gist: [{ k: 'talk', ja: '話', en: 'the talk', sim: 4200 }, { k: 'choices', ja: '質問・選択肢', en: 'the question and the four choices', sim: 4000 }],
+quick: [{ k: 'line', ja: '文', en: 'the line', sim: 1600 }, { k: 'replies', ja: '返事 1・2・3', en: 'the three replies', sim: 3400 }],
+};
+/* the sound check before listening is the app's one test sound */
+const CHECK = 'm_check';
+const same = (a, b) => String(a) === String(b);
+const noRuby = (t) => String(t || '').replace(/《[^》]*》/g, '');
+/* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
+const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
+const NO_END = /[（「『【〔〈《［｛]+$/;
+/* a question sentence as the paper draws it: 【…】 underlined, （　　） a blank, and the four blanks of a
+   sentence-order question (＿ and ★ for the starred one) kept together on one line */
+const paperSegs = (text) => {
+const out = [];
+noRuby(text).split(/(【[^】]*】|（　　）|[＿★]+)/).filter((t) => t).forEach((t) => {
+if (t === '（　　）') out.push({ blank: true });
+else if (/^[＿★]+$/.test(t)) {
+const prev = out[out.length - 1];
+const lead = prev && prev.text && prev.line === 'none' ? (prev.t.match(NO_END) || [''])[0] : '';
+if (lead) prev.t = prev.t.slice(0, -lead.length);
+out.push({ slots: [...t].map((c) => ({ star: c === '★' })), lead, tail: '' });
+} else if (t[0] === '【') out.push({ text: true, t: t.slice(1, -1), line: '2px solid #1B2440', ws: 'nowrap' });
+else {
+const prev = out[out.length - 1];
+const tail = prev && prev.slots ? (t.match(NO_START) || [''])[0] : '';
+if (tail) prev.tail = tail;
+if (t.length > tail.length) out.push({ text: true, t: t.slice(tail.length), line: 'none', ws: 'normal' });
+}
+});
+return out.filter((g) => !g.text || g.t);
+};
+/* a passage paragraph or a text of a pair: 【…】 underlined */
+const lineSegs = (text) => noRuby(text).split(/(【[^】]*】)/).filter((t) => t).map((t) => (t[0] === '【' ? { t: t.slice(1, -1), line: '2px solid #1B2440' } : { t, line: 'none' }));
+/* the answer in its sentence: 【…】 marked */
+const fullSegs = (text) => noRuby(text).split(/(【[^】]*】)/).filter((t) => t).map((t) => (t[0] === '【' ? mark(t.slice(1, -1)) : plainSeg(t)));
+/* a mock file (content/mocks/m<id>.json), ready to run: its items numbered through the paper (n) and inside their
+   section (no), and each listening item's audio parts with their clips: named in the file, or m<id>.<n>.<part> */
+const build = (f) => {
+if (!f || !Array.isArray(f.sections) || f.sections.length < 2) return null;
+const items = [];
+const secs = f.sections.map((s, k) => {
+const list = (s.items || []).map((x, j) => {
+const n = items.length + 1;
+const it = { ...x, n, no: j + 1, options: (x.options || []).map((o) => N.plain(o)) };
+if (x.kind === 'sentence') it.segs = paperSegs(x.ja);
+if (x.passage) it.passage = x.passage.map((p) => ({ segs: lineSegs(p) }));
+if (x.texts) it.texts = x.texts.map((t, i) => ({ tag: 'ABCD'[i], segs: lineSegs(t) }));
+it.full = x.full ? fullSegs(x.full) : null;
+if (PARTS[x.kind]) {
+const said = x.audio || [];
+it.parts = PARTS[x.kind].map((p) => {
+const a = said.filter((y) => y.part === p.k)[0] || { lines: [] };
+return { ...p, clip: a.clip || 'm' + f.id + '.' + n + '.' + p.k, lines: a.lines || [] };
+}).concat([{ k: 'ans', ja: '解答', en: 'answer time', wait: (x.wait || 8) * 1000, sim: Math.round((x.wait || 8) * 7.5) * 100 }]);
+it.script = it.parts.reduce((all, p) => all.concat(p.lines || []), []).map((l) => ({ who: l[0], segs: N.segs(l[1]).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) }));
+}
+items.push(it);
+return n;
+});
+const clocked = k < f.sections.length - 1;
+return { n: k + 1, ja: s.ja, short: s.short || s.ja, en: s.en, total: clocked ? Math.max(1, Math.round((s.min || 10) * 60 * CLOCK)) : 0, items: list };
+});
+const listen = secs[secs.length - 1];
+/* a file this screen cannot run (no question in a section, a listening question without its audio) counts as no mock */
+if (!secs[0].items.length || !listen.items.length || listen.items.some((n) => !items[n - 1].parts)) return null;
+const clips = [CHECK];
+listen.items.forEach((n) => items[n - 1].parts.forEach((p) => { if (p.clip && p.k !== 'ans') clips.push(p.clip); }));
+return {
+id: f.id, title: f.title || 'ミニ模試', en: f.en || 'Mini mock', items, secs, listen, clips,
+brk: Math.max(1, Math.round((f.break == null ? 1 : f.break) * 60 * CLOCK)),
+areas: AREAS.map((a) => ({ ...a, items: items.filter((it) => it.area === a.k).map((it) => it.n) })).filter((a) => a.items.length),
+};
+};
+/* the mock this run is for: the one the mock tab picked (app.mock.id), or the first */
+const pick = (app) => {
+const all = N.mocks || [];
+const want = app && app.mock && app.mock.id;
+return build(all.filter((m) => want != null && same(m.id, want))[0] || all[0]);
+};
+/* the result kept for a mock: the last run (app.mock), or the plan's; null when it was not taken or its answers are not kept */
+const keptFor = (app, mk) => {
+const m = app && app.mock;
+if (m && m.done && m.a && same(m.id == null ? (N.mocks[0] || {}).id : m.id, mk.id)) return m;
+const r = app && app.plan && app.plan.mocks && app.plan.mocks[mk.id];
+return r && r.a ? r : null;
+};
+/* how long a part lasts: the clip plus a breath, the silent wait, or the stand-in time when there is no sound */
+const partMs = (p, sound) => {
+if (!sound) return p.sim;
+if (p.k === 'ans') return p.wait;
+return ((window.ykSound && window.ykSound.ms(p.clip)) || p.sim) + 400;
+};
+/* about how long a part takes with sound: its clip and a breath, or before the clip is made, about 150 ms a character and 600 ms */
+const estMs = (p) => (p.k === 'ans' ? p.wait : ((window.ykSound && window.ykSound.ms(p.clip)) || 600 + 150 * p.lines.reduce((n, l) => n + N.plain(l[1]).length, 0)) + 400);
+const WAVE = [10, 18, 26, 14, 30, 22, 12, 28, 36, 20, 14, 26, 32, 18, 10, 24, 30, 18, 12, 22, 34, 16, 26, 12];
+const BASE = { view: 'intro', live: false, sec: 0, i: 0, answers: {}, flags: {}, t: 600, used: [null], sheet: false, quit: false, paused: false, noStart: false, timeUp: false, next: 1, bt: 60, checkP: 0, checking: false, checkMs: 2000, checkSound: true, sound: false, li: 0, ph: 0, pt: 0, tab: 0, open: null };
+/* the designed moments shown when the artboard is not inside the prototype: a run with three slips (the 3rd and
+   5th questions and the second listening question), at points scaled to the mock's own clocks */
+const designed = (mk, view) => {
+const sample = {};
+const slips = [3, 5, mk.listen.items[Math.min(1, mk.listen.items.length - 1)]];
+mk.items.forEach((it) => { sample[it.n] = slips.indexOf(it.n) >= 0 ? (it.answer % it.options.length) + 1 : it.answer; });
+const upTo = (n) => { const a = {}; Object.keys(sample).forEach((k) => { if (+k <= n) a[k] = sample[k]; }); return a; };
+const s1 = mk.secs[0];
+const used = [Math.round(s1.total * 0.85)];
+const last = s1.items.length - 1;
+return {
+intro: {},
+paper: { view: 'paper', sec: 0, i: 2, answers: upTo(3), flags: { 2: true }, t: Math.round(s1.total * 0.75) },
+sheet: { view: 'paper', sec: 0, i: 2, answers: upTo(3), flags: { 2: true }, t: Math.round(s1.total * 0.75), sheet: true },
+reading: { view: 'paper', sec: 0, i: last, answers: upTo(s1.items[last] - 1), flags: { 2: true }, t: Math.round(s1.total * 0.21) },
+break: { view: 'break', next: 1, bt: Math.round(mk.brk * 0.7), answers: upTo(s1.items[last]), used },
+listening: { view: 'listening', li: 1, ph: 0, pt: 1900, answers: upTo(mk.listen.items[0]), used },
+result: { view: 'result', answers: sample, used },
+answers: { view: 'answers', answers: sample, used, tab: 0 },
+}[view] || {};
+};
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = this.firstState(props);
+}
+firstState(props) {
+this.mk = pick(props && props.app);
+const mk = this.mk;
+if (!mk) return { ...BASE, view: 'none' };
+const base = { ...BASE, t: mk.secs[0].total, bt: mk.brk };
+/* inside the prototype a run starts at the briefing, or reopens at its result once it is done (unless Again was tapped); on its own the artboard shows the designed moment named by the view tweak */
+if (props && props.go) {
+const app = props.app || {};
+const kept = keptFor(app, mk);
+if (kept && !(app.mock && app.mock.again)) return { ...base, view: 'result', answers: kept.a || {}, used: kept.used || [null] };
+return base;
+}
+return { ...base, ...designed(mk, props && props.view) };
+}
+componentDidMount() {
+/* the app was put aside (lock screen, a call, another app): the listening section waits instead of playing to nobody */
+this.onHide = () => {
+const s = this.state;
+if (document.visibilityState === 'hidden' && s.view === 'listening' && s.live && !s.paused) this.pause();
+};
+document.addEventListener('visibilitychange', this.onHide);
+if (this.state.live) this.clockOn();
+}
+componentDidUpdate(prev) {
+if (!this.props.go && prev && prev.view !== this.props.view) {
+this.clockOff();
+this.hush();
+this.setState(this.firstState(this.props));
+}
+}
+componentWillUnmount() {
+document.removeEventListener('visibilitychange', this.onHide);
+this.clockOff();
+this.hush();
+}
+hush() {
+if (window.ykSound) window.ykSound.stop();
+}
+/* the listening item at place li of the listening section, and its audio parts */
+listenItem(li) {
+const L = this.mk.listen.items;
+return this.mk.items[L[Math.min(li, L.length - 1)] - 1];
+}
+clockOn() {
+this.clockOff();
+this.lastTick = 0;
+/* the section clock and the break follow real time, so they keep running when the app is put aside */
+this.paperEnds = Date.now() + this.state.t * 1000;
+this.breakEnds = Date.now() + this.state.bt * 1000;
+this.timer = setInterval(() => this.onTick(), 100);
+}
+/* the listening section stops and waits for a tap. noStart: the sound would not come, so the sheet also offers to go on without it */
+pause(noStart) {
+const s = this.state;
+const snd = window.ykSound;
+const part = this.listenItem(s.li).parts[s.ph];
+/* where a spoken part stood, by the audio's own clock, and never short of a point reached before an earlier pause:
+   picking up always starts from the furthest point heard */
+let pt = s.pt;
+if (s.sound && part.k !== 'ans') {
+pt = Math.max(pt, this.heardMs(), this.far || 0);
+this.far = pt;
+}
+this.hush();
+/* whatever happened to the old audio output, the tap that continues gets a new one */
+if (snd && snd.retire) snd.retire();
+this.lastTick = 0;
+this.changedAt = Date.now();
+this.setState({ paused: true, noStart: !!noStart, pt });
+}
+/* how far the clip of the current part has really played, by the audio's clock; -1 before it starts */
+heardMs() {
+const snd = window.ykSound;
+return snd && snd.at ? snd.at() : -1;
+}
+clockOff() {
+clearInterval(this.timer);
+this.timer = null;
+}
+onTick() {
+const s = this.state;
+/* real time since the last tick: with a voice playing, the page has to follow the clock, not count ticks */
+const now = Date.now();
+/* the phone's clock was set back: every deadline goes back with it */
+if (this.lastTick && now < this.lastTick - 1000) {
+const back = this.lastTick - now;
+this.paperEnds -= back;
+this.breakEnds -= back;
+if (this.cueAt) this.cueAt -= back;
+if (this.changedAt) this.changedAt -= back;
+this.lastTick = now - 100;
+}
+const gap = this.lastTick ? now - this.lastTick : 0;
+const dt = this.lastTick ? Math.min(gap, 1500) : 100;
+this.lastTick = now;
+if (s.view === 'paper') {
+const left = Math.max(0, Math.ceil((this.paperEnds - now) / 1000));
+if (left <= 0) this.submitSection(true);
+else if (left !== s.t) this.setState({ t: left });
+}
+if (s.view === 'break') {
+const patch = {};
+const bt = Math.max(0, Math.ceil((this.breakEnds - now) / 1000));
+if (bt !== s.bt) patch.bt = bt;
+if (s.checking) {
+const p = s.checkP + (s.checkSound ? dt : 100) / s.checkMs;
+if (p >= 1) {
+patch.checkP = 1;
+patch.checking = false;
+/* the browser may have held the sound back: say so instead of asking whether it was heard */
+if (s.checkSound && !(window.ykSound && window.ykSound.on())) patch.checkSound = false;
+} else patch.checkP = p;
+}
+if (Object.keys(patch).length) this.setState(patch);
+}
+if (s.view === 'listening' && !s.paused) {
+const parts = this.listenItem(s.li).parts;
+const part = parts[s.ph];
+const spoken = part.k !== 'ans';
+const snd = window.ykSound;
+/* the timer itself was held up for seconds: the page was frozen in the background */
+if (gap > 3000) { this.pause(); return; }
+let sound = s.sound;
+let pt = s.pt;
+if (sound && spoken) {
+/* a spoken part keeps time with its clip, which may start late and stands still when nothing is heard */
+const at = this.heardMs();
+const over = snd && snd.over ? snd.over() : -1;
+const can = !!(snd && snd.worked && snd.worked());
+if (over >= 0) {
+/* the clip has ended by itself: nothing is playing now, and the breath after it runs on the wall clock */
+pt = Math.max(pt, snd.ms(part.clip) + over);
+} else if (at >= 0 && snd.on()) {
+this.heard = true;
+pt = at;
+} else if (at >= 0 && this.heard) {
+/* the sound stopped after it had started (a call, the lock screen): wait for the learner instead of running on
+   in silence. If the clip cannot be played at all any more, the sheet also offers to go on without sound */
+this.pause(!snd.has(part.clip));
+return;
+} else if (now - this.cueAt > (this.heard ? 5000 : can ? 3000 : 1200)) {
+/* the clip has not begun, or nothing is coming out. Where sound has come out before, ask;
+   where it never has (a viewer that blocks it), go on by timing alone, at the same point of the part */
+if (this.heard || can) { this.pause(true); return; }
+sound = false;
+this.hush();
+pt = this.backTo != null ? this.backTo : Math.min(1, pt / partMs(part, true)) * partMs(part, false);
+this.backTo = null;
+} else if (at >= 0) pt = at;
+}
+/* the answer time, and every part of a run without sound, count on the page's own clock */
+if (!(sound && spoken)) pt += sound ? dt : 100;
+let ph = s.ph;
+let li = s.li;
+let moved = false;
+if (pt >= partMs(part, sound)) {
+pt = 0;
+ph += 1;
+moved = true;
+if (ph >= parts.length) { ph = 0; li += 1; }
+}
+if (li >= this.mk.listen.items.length) this.finishRun();
+else {
+/* a new question puts new answer buttons under the finger: a tap already on its way is ignored */
+if (li !== s.li) this.changedAt = now;
+this.setState({ li, ph, pt, sound });
+if (moved) {
+this.far = 0;
+this.backTo = null;
+this.cue(li, ph, sound, 0);
+}
+}
+}
+}
+/* start the clip for a listening part ("from" milliseconds into it), or silence for the answer time */
+cue(li, ph, sound, from) {
+const snd = window.ykSound;
+this.cueAt = Date.now();
+if (!sound || !snd) return;
+const part = this.listenItem(li).parts[ph];
+if (part.k !== 'ans') snd.play(part.clip, from || 0);
+else snd.halt();
+}
+/* can this mock's listening be played here? Only once every clip of it exists (until then it runs on timing alone).
+   Asked from a tap, which is what lets a browser start sound */
+soundOn() {
+const snd = window.ykSound;
+return !!(snd && this.mk.clips.every((c) => c === CHECK || snd.has(c)) && snd.unlock());
+}
+/* called from a tap, which is what lets a browser start sound */
+startListening(li) {
+const snd = window.ykSound;
+/* "Continue without sound" holds for one run only */
+this.noSound = false;
+const sound = this.soundOn();
+this.heard = false;
+this.far = 0;
+this.backTo = null;
+this.lastTick = 0;
+this.changedAt = Date.now();
+this.setState({ view: 'listening', li, ph: 0, pt: 0, paused: false, noStart: false, timeUp: false, live: true, sound });
+this.cue(li, 0, sound, 0);
+/* the clip that is due goes to the decoder first, the others behind it */
+if (sound) snd.ready(this.mk.clips);
+if (!this.timer) this.clockOn();
+}
+submitSection(timeUp) {
+const s = this.state;
+const used = s.used.slice();
+used[s.sec] = this.mk.secs[s.sec].total - (timeUp ? 0 : s.t);
+this.breakEnds = Date.now() + this.mk.brk * 1000;
+this.changedAt = Date.now();
+this.setState({ view: 'break', next: s.sec + 1, bt: this.mk.brk, checkP: 0, checking: false, used, sheet: false, quit: false, timeUp: !!timeUp });
+}
+startNext() {
+/* at N1 the only section after the break is listening */
+this.hush();
+this.startListening(0);
+}
+finishRun() {
+const s = this.state;
+const mk = this.mk;
+this.clockOff();
+this.hush();
+const a = s.answers;
+const right = (it) => a[it.n] === it.answer;
+/* every miss goes to the notebook, named m<mock id>.<place in the paper>, with what was chosen */
+if (this.props.miss) {
+mk.items.forEach((it) => {
+if (!right(it)) this.props.miss({ src: 'm' + mk.id + '.' + it.n, wrong: a[it.n] ? N.plain((it.short || it.options)[a[it.n] - 1]) : '無解答' });
+});
+}
+const score = mk.items.filter(right).length;
+const of = mk.items.length;
+/* the score in each area, for the readiness tab */
+const by = {};
+mk.areas.forEach((ar) => { by[ar.k] = { score: ar.items.filter((n) => right(mk.items[n - 1])).length, of: ar.items.length }; });
+const app = this.props.app || {};
+const at = N.today();
+const patch = { mock: { id: mk.id, a, used: s.used, done: true, score, of, at } };
+/* the plan keeps every mock's last result; the sample plan of the canvas is not saved */
+if (app.plan && app.plan.days) patch.plan = N.result(app.plan, 'mocks', mk.id, { score, of, at, by, a, used: s.used });
+if (this.props.save) this.props.save(patch);
+this.setState({ view: 'result', live: false, quit: false, paused: false, noStart: false });
+}
+/* MOCK-METHODS */
+listenVals(s, fmt, choose, look) {
+const it = this.listenItem(s.li);
+const parts = it.parts.map((x) => ({ ...x, audio: x.k !== 'ans', ms: partMs(x, s.sound) }));
+const cur = parts[Math.min(s.ph, parts.length - 1)];
+const pick = s.answers[it.n] || null;
+const audioTotal = parts.reduce((sum, x) => sum + (x.audio ? x.ms : 0), 0);
+let heard = 0;
+parts.forEach((x, n) => { if (x.audio) heard += n < s.ph ? x.ms : n === s.ph ? Math.min(s.pt, x.ms) : 0; });
+const frac = heard / audioTotal;
+const left = Math.max(1, Math.ceil((cur.ms - s.pt) / 1000));
+const drain = Math.max(0, 100 - (s.pt / cur.ms) * 100).toFixed(1) + '%';
+/* a live run without sound still keeps the exam's timing, and says that nothing is playing */
+const silent = s.live && !s.sound;
+let foot = { bg: '#E8ECFB', line: silent ? '音声は再生されません　No sound here' : '音声が流れています　Audio playing', clock: '', w: (frac * 100).toFixed(1) + '%', ink: '#2F4FD0' };
+if (cur.k === 'ans') foot = { bg: '#FFE9B0', line: '解答時間　Answer now', clock: fmt(left), w: drain, ink: '#1B2440' };
+return {
+lq: {
+...it,
+mondai: it.m + '　' + it.type,
+/* 課題理解 prints its choices; 概要理解 and 即時応答 print nothing */
+printed: it.kind === 'task',
+spoken: it.kind !== 'task',
+cols: 'repeat(' + it.options.length + ', minmax(0, 1fr))',
+spokenNote: it.kind === 'gist' ? '質問も選択肢も音声だけです　The question and the choices are spoken, not printed.' : '選択肢は音声だけです　The choices are spoken, not printed.',
+},
+lpos: (Math.min(s.li, this.mk.listen.items.length - 1) + 1) + ' / ' + this.mk.listen.items.length,
+lopts: it.options.map((label, k) => ({ n: k + 1, label, aria: (it.kind === 'quick' ? 'Reply ' : 'Choice ') + (k + 1), on: pick === k + 1, pick: choose(it, k + 1), ...look(pick === k + 1) })),
+wave: WAVE.map((h, n) => ({ h: h + 'px', bg: n < Math.round(frac * WAVE.length) ? '#2F4FD0' : '#C9D0E3' })),
+speakerInk: cur.audio && !silent ? '#2F4FD0' : '#C9D0E3',
+phases: parts.map((x, n) => ({
+ja: x.ja,
+flex: x.k === 'replies' || x.k === 'choices' ? '1.8 1 0' : '1 1 0',
+bg: n === s.ph ? (x.audio ? '#2F4FD0' : '#F2B43A') : n < s.ph ? '#E8ECFB' : '#F4F5F9',
+ink: n === s.ph ? (x.audio ? '#FFFFFF' : '#1B2440') : n < s.ph ? '#2F4FD0' : '#5A6382',
+})),
+phaseAria: 'Now: ' + cur.en,
+foot,
+};
+}
+resultVals(s, fmt) {
+const mk = this.mk;
+const a = s.answers;
+/* ○ for right, ✕ for wrong: both shapes are in the markup and one is shown */
+const sign = (ok) => ({ ink: ok ? '#0B7A6B' : '#C7361E', ring: ok ? 'inline' : 'none', cross: ok ? 'none' : 'inline' });
+const right = (it) => a[it.n] === it.answer;
+const of = (group) => group.items.map((n) => mk.items[n - 1]);
+const tally = (group) => of(group).filter(right).length + ' / ' + group.items.length;
+const total = mk.items.filter(right).length;
+const wrong = mk.items.length - total;
+const tab = Math.min(s.tab, mk.areas.length - 1);
+return {
+score: total,
+of: mk.items.length,
+secRows: mk.secs.map((sec, k) => ({
+n: sec.n,
+ja: sec.short,
+rule: k === 0 ? 'none' : '2px solid #EEF0F6',
+score: tally(sec),
+time: sec.total ? (s.used[k] == null ? '' : fmt(s.used[k]) + ' of ' + fmt(sec.total)) : 'paced by the audio',
+marks: of(sec).map((it) => sign(right(it))),
+marksLabel: of(sec).filter(right).length + ' of ' + sec.items.length + ' correct',
+})),
+anyWrong: wrong > 0,
+savedLine: wrong === 1 ? '1 mistake saved to your notebook. It comes back tomorrow.' : wrong + ' mistakes saved to your notebook. They come back tomorrow.',
+toAnswers: () => this.setState({ view: 'answers', tab: 0, open: null }),
+tabCols: 'repeat(' + mk.areas.length + ', minmax(0, 1fr))',
+tabs: mk.areas.map((area, k) => ({
+ja: area.ja,
+score: tally(area),
+on: tab === k,
+pick: () => this.setState({ tab: k, open: null }),
+border: tab === k ? '2px solid #1B2440' : '2px solid #DDE1EC',
+bg: tab === k ? '#1B2440' : '#FFFFFF',
+ink: tab === k ? '#FFFFFF' : '#1B2440',
+})),
+/* one row per question: the verdict, what was chosen, the right answer in place, and the reason */
+ansRows: of(mk.areas[tab]).map((it) => {
+const mine = a[it.n] || null;
+const ok = mine === it.answer;
+const inSentence = !!it.full && (it.kind === 'sentence' || it.kind === 'usage');
+return {
+ok,
+bad: !ok,
+...sign(ok),
+verdict: ok ? 'Correct' : 'Wrong',
+title: it.no + ' · ' + it.type,
+yours: 'あなたの答え：' + (mine ? N.plain((it.short || it.options)[mine - 1]) : '無解答'),
+hasAsk: !inSentence && !!it.ask,
+ask: N.plain(it.ask),
+full: inSentence ? it.full : [mark(it.answer + '　' + it.options[it.answer - 1])],
+why: it.why,
+hasScript: !!it.script,
+open: s.open === it.n,
+toggle: () => this.setState({ open: this.state.open === it.n ? null : it.n }),
+toggleLabel: s.open === it.n ? 'スクリプトを閉じる　Hide the script' : 'スクリプトを見る　Show the script',
+script: it.script || [],
+};
+}),
+};
+}
+renderVals() {
+const s = this.state;
+const mk = this.mk;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const toMock = (e) => {
+this.hush();
+/* leaving a second attempt before it is handed in puts the last result back on the card */
+const last = this.props.app && this.props.app.mock;
+if (this.props.save && last && last.again) this.props.save({ mock: { ...last, again: false } });
+nav('Mock')(e);
+};
+if (!mk) return { v: { none: true }, band: { home: true, title: 'ミニ模試', sub: 'Mini mock · N1' }, toMock };
+const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (sec % 60);
+/* a clock's length in the briefing: minutes, or seconds when a test has made it short */
+const span = (sec) => (sec >= 60 ? Math.round(sec / 60) + '分' : sec + '秒');
+const v = { intro: s.view === 'intro', paper: s.view === 'paper', rest: s.view === 'break', listening: s.view === 'listening', result: s.view === 'result', answers: s.view === 'answers' };
+const running = v.paper || v.rest || v.listening;
+const sec = mk.secs[Math.min(s.sec, mk.secs.length - 2)];
+const list = sec.items.map((n) => mk.items[n - 1]);
+const item = list[Math.min(s.i, list.length - 1)];
+const picked = s.answers[item.n] || null;
+const look = (on) => ({
+border: on ? '2.5px solid #2F4FD0' : '2px solid #1B2440',
+bg: on ? '#E8ECFB' : '#FFFFFF',
+shadow: on ? 'none' : '0 3px 0 #1B2440',
+weight: on ? 800 : 700,
+press: on ? 'translateY(3px)' : 'none',
+ovalBg: on ? '#1B2440' : '#FFFFFF',
+ovalInk: on ? '#FFFFFF' : '#1B2440',
+});
+/* like a mark sheet, tapping the filled oval again rubs it out */
+const choose = (it, n) => () => {
+if (!settled()) return;
+const a = { ...this.state.answers };
+if (a[it.n] === n) delete a[it.n];
+else a[it.n] = n;
+this.setState({ answers: a });
+};
+const opts = item.options.map((label, k) => ({ n: k + 1, label, on: picked === k + 1, pick: choose(item, k + 1), ...look(picked === k + 1) }));
+const usage = item.kind === 'usage';
+const sentence = item.kind === 'sentence';
+const q = {
+...item,
+mondai: item.m + '　' + item.type,
+isWord: sentence,
+isUsage: usage,
+isPassage: item.kind === 'passage',
+hasLead: !!item.lead,
+isPair: item.kind === 'pair',
+hasAsk: item.kind === 'passage' || item.kind === 'pair',
+optH: usage ? '60px' : sentence ? '50px' : '44px',
+optFont: usage ? "'Klee One', 'Hiragino Mincho ProN', serif" : 'inherit',
+optSize: usage ? '15px' : sentence ? '16px' : '14px',
+optGap: sentence ? '10px' : '7px',
+};
+/* a second tap that follows the first within a moment lands on whatever the first one put under the finger
+   (Answer sheet, Submit and Start section 2 share one spot): it is ignored */
+const settled = () => { const since = Date.now() - (this.changedAt || 0); return since > 350 || since < 0; };
+/* the tap lets sound start again. A spoken part picks up two seconds before the cut so the sentence is whole; the answer time goes on from where it stood */
+const resume = (silent) => () => {
+if (!settled()) return;
+const st = this.state;
+const snd = window.ykSound;
+if (silent) this.noSound = true;
+const sound = !this.noSound && this.soundOn();
+const part = this.listenItem(st.li).parts[st.ph];
+/* how far through the part the run was, carried over when it changes between sound and timing alone */
+let from = Math.min(1, st.pt / partMs(part, st.sound)) * partMs(part, sound);
+if (sound && part.k !== 'ans') from = st.sound ? Math.max(0, Math.min(st.pt, snd.ms(part.clip)) - 2000) : 0;
+if (sound !== st.sound) this.far = 0;
+/* where a silent part stood, in case the sound that is tried again does not come */
+this.backTo = st.sound ? null : st.pt;
+this.heard = false;
+this.lastTick = 0;
+this.setState({ paused: false, noStart: false, pt: from, sound });
+this.cue(st.li, st.ph, sound, from);
+if (sound) snd.ready(mk.clips);
+};
+/* was something being said when the section paused? */
+const nowParts = this.listenItem(s.li).parts;
+const spoken = s.sound && nowParts[Math.min(s.ph, nowParts.length - 1)].k !== 'ans';
+const answered = list.filter((it) => s.answers[it.n]).length;
+const blanks = list.length - answered;
+const flagOn = !!s.flags[item.n];
+const last = s.i === list.length - 1;
+const low = v.paper && s.t <= 30;
+/* how a section is announced in the briefing and at the break */
+const card = (x) => ({ n: x.n, ja: x.ja, en: x.en, count: x.items.length + '問', time: x.total ? span(x.total) : '音声が終わるまで' });
+const upNext = mk.secs[Math.min(s.next, mk.secs.length - 1)];
+/* about how long the whole mock takes: the section clock, the break and the listening audio with its answer times, to the next 5 minutes */
+const listenMs = mk.listen.items.reduce((sum, n) => sum + mk.items[n - 1].parts.reduce((t, p) => t + estMs(p), 0), 0);
+const minutes = Math.ceil((mk.secs[0].total + mk.brk + listenMs / 1000) / 60 / 5) * 5;
+const titles = {
+intro: [mk.title, mk.en + ' · N1'],
+paper: [sec.short, 'Section ' + sec.n + ' of ' + mk.secs.length],
+break: ['休憩', 'Break'],
+listening: ['聴解', s.sound || !s.live ? 'Listening · the audio plays once' : 'Listening · no sound here, timing only'],
+result: [mk.title + '　結果', mk.en + ' result'],
+answers: ['解答と解説', 'Answers and reasons'],
+}[s.view];
+return {
+v,
+band: { quit: running, home: v.intro || v.result, back: v.answers, title: titles[0], sub: titles[1], clock: v.paper, sheet: v.paper },
+clock: fmt(s.t),
+clockLabel: 'Time left in this section: ' + fmt(s.t),
+clockBg: low ? '#E2452B' : '#FFFFFF',
+clockInk: low ? '#FFFFFF' : '#1B2440',
+doneCount: answered + '/' + list.length,
+introTitle: '試験と同じ形式で、' + mk.items.length + '問',
+introSub: 'The real format, cut short: both sections in order, one break, one result. About ' + minutes + ' minutes.',
+brief: [{ sec: true, ...card(mk.secs[0]) }, { brk: true }, { sec: true, ...card(mk.listen) }],
+breakLabel: '休憩 ' + span(mk.brk) + '　Break',
+rules: [
+{ ja: '時間', en: 'Section 1 has one clock for vocabulary, grammar and reading. You divide it yourself, and it never pauses.' },
+{ ja: '提出', en: 'Once you submit a section, you cannot go back.' },
+{ ja: '聴解', en: 'The audio plays once and sets the pace.' },
+{ ja: '結果', en: 'Mistakes go to your notebook with the reasons.' },
+],
+begin: () => {
+/* the tap that starts the run also lets sound start later, and the listening clips are decoded while section 1 is answered */
+const snd = window.ykSound;
+if (this.soundOn()) snd.ready(mk.clips);
+this.changedAt = Date.now();
+this.setState({ ...BASE, t: mk.secs[0].total, bt: mk.brk, view: 'paper', live: true });
+this.clockOn();
+},
+wake: () => {
+/* a designed moment stands still until it is touched, then its clock runs from there */
+if (!this.state.live && running) {
+if (this.state.view === 'listening') return this.startListening(this.state.li);
+if (window.ykSound) window.ykSound.unlock();
+this.setState({ live: true });
+this.clockOn();
+}
+},
+q,
+opts,
+pos: (s.i + 1) + ' / ' + list.length,
+flagOn,
+flagBorder: flagOn ? '2px solid #1B2440' : '2px solid #DDE1EC',
+flagBg: flagOn ? '#FFE9B0' : 'transparent',
+flagFill: flagOn ? '#F2B43A' : 'none',
+toggleFlag: () => {
+const f = { ...this.state.flags };
+if (f[item.n]) delete f[item.n];
+else f[item.n] = true;
+this.setState({ flags: f });
+},
+first: s.i === 0,
+prevBorder: s.i === 0 ? '2px solid #DDE1EC' : '2px solid #1B2440',
+prevInk: s.i === 0 ? '#C9D0E3' : '#1B2440',
+prevShadow: s.i === 0 ? 'none' : '0 4px 0 #1B2440',
+prevCursor: s.i === 0 ? 'default' : 'pointer',
+prev: () => { if (settled()) this.setState({ i: Math.max(0, s.i - 1) }); },
+nextLabel: last ? '解答用紙へ　Answer sheet' : 'つぎへ　Next',
+nextSize: last ? '15px' : '16px',
+next: () => {
+if (!settled()) return;
+if (last) this.changedAt = Date.now();
+this.setState(last ? { sheet: true } : { i: s.i + 1 });
+},
+sheetOpen: v.paper && s.sheet,
+openSheet: () => { this.changedAt = Date.now(); this.setState({ sheet: true }); },
+closeSheet: () => { this.changedAt = Date.now(); this.setState({ sheet: false }); },
+sheetCount: answered + ' / ' + list.length + ' answered',
+sheetRows: list.map((it, k) => {
+const a = s.answers[it.n] || null;
+return {
+no: it.no,
+type: it.type,
+flag: !!s.flags[it.n],
+label: 'Question ' + it.no + ', ' + it.type + ', ' + (a ? 'answer ' + a : 'not answered'),
+rule: k === 0 ? 'none' : '2px solid #EEF0F6',
+bg: k === s.i ? '#F4F5F9' : '#FFFFFF',
+go: () => { this.changedAt = Date.now(); this.setState({ i: k, sheet: false }); },
+ovals: it.options.map((_, j) => (a === j + 1
+? { n: j + 1, border: '2px solid #1B2440', bg: '#1B2440', ink: '#FFFFFF' }
+: { n: j + 1, border: '2px solid #C9D0E3', bg: '#FFFFFF', ink: '#5A6382' })),
+};
+}),
+hasBlanks: blanks > 0,
+blankLine: '未解答が' + blanks + '問あります。',
+submitNow: () => { if (settled()) this.submitSection(false); },
+quitOpen: running && s.quit,
+pausedOpen: v.listening && s.paused && !s.quit,
+pausedNoStart: s.noStart,
+pausedJa: s.noStart ? '音声を再生できません' : spoken ? '音声が止まりました' : '一時停止しました',
+pausedEn: s.noStart
+? 'The sound would not start. If a call or another app is using it, end that first and try again. Without sound, the section runs on timing alone.'
+: spoken
+? 'The audio stopped because the app was interrupted. When you continue, it picks up a moment before the place where it stopped.'
+: 'The section paused because the app was interrupted. When you continue, it goes on from where it stopped.',
+resumeLabel: s.noStart ? 'もう一度試す　Try again' : 'つづける　Continue',
+resume: resume(false),
+resumeSilent: resume(true),
+askQuit: () => this.setState({ quit: true }),
+closeQuit: () => { this.changedAt = Date.now(); this.setState({ quit: false }); },
+toMock,
+toResult: () => this.setState({ view: 'result' }),
+timeUp: v.rest && s.timeUp,
+restLabel: s.bt > 0 ? '休憩の残り時間　Break left' : '時間です　Time to start',
+restAria: 'Break time left: ' + fmt(s.bt),
+restClock: fmt(s.bt),
+restInk: s.bt > 0 ? '#1B2440' : '#C7361E',
+up: card(upNext),
+/* the break before listening carries the sound check */
+soundCheck: upNext.total === 0,
+playCheck: () => {
+const snd = window.ykSound;
+const ok = !!(snd && snd.has(CHECK) && snd.unlock());
+if (ok) { snd.ready(mk.clips); snd.play(CHECK); }
+this.setState({ checking: true, checkP: 0, checkMs: ok ? snd.ms(CHECK) : 2000, checkSound: ok });
+},
+checkBg: s.checking ? '#F2B43A' : '#2F4FD0',
+checkInk: s.checking ? '#1B2440' : '#FFFFFF',
+checkBars: [8, 14, 20, 12, 18, 22, 10, 16, 20, 12, 8, 18, 14, 10].map((h, n) => ({ h: h + 'px', bg: n < Math.round(s.checkP * 14) ? '#2F4FD0' : '#C9D0E3' })),
+checkNote: s.checking ? 'Playing the test sound…' : s.checkP < 1 ? 'イヤホンをつけて、音量を調節してください。 Set your volume before the audio starts.' : s.checkSound ? '聞こえましたか。 If not, turn it up and play it again.' : '音声を再生できません。 No sound in this viewer, so the listening section will run on timing alone.',
+startLabel: 'つぎの科目へ　Start section ' + upNext.n,
+startNext: () => { if (settled()) this.startNext(); },
+...this.listenVals(s, fmt, choose, look),
+...this.resultVals(s, fmt),
+};
+}
+}
+</script>
+</body>
+</html>

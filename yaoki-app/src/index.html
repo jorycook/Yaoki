@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Yaoki</title>
-<meta name="description" content="Yaoki, a JLPT study app. Prototype with N2 sample content.">
+<title>%APP_NAME%</title>
+<meta name="description" content="Yaoki, a JLPT study app. %APP_ABOUT%">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F4F5F9">
 <meta name="color-scheme" content="light">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Yaoki">
+<meta name="apple-mobile-web-app-title" content="%APP_NAME%">
 <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
@@ -27,16 +27,8 @@
 <script src="./assets/build.js"></script>
 <script src="./assets/preact.min.js"></script>
 <script src="./assets/yk-runtime.js"></script>
-<script src="./assets/sound.js"></script>
-<script src="./assets/course-n2.js"></script>
-<script src="./assets/course-n5.js"></script>
-<script src="./assets/course-n4.js"></script>
-<script src="./assets/course-n3.js"></script>
-<script src="./assets/course.js"></script>
+<script src="./assets/sound.js"></script>%EXTRA_SCRIPTS%
 <script src="./assets/screens.js"></script>
-<script src="./assets/yk-app.js"></script>
-<script async src="./assets/sound-mock.js"></script>
-<script async src="./assets/sound-lessons.js"></script>
-<script async src="./assets/sound-course.js"></script>
+<script src="./assets/yk-app.js"></script>%ASYNC_SCRIPTS%
 </body>
 </html>

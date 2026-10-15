@@ -44,6 +44,66 @@
       return s && typeof s === 'object' ? s : null;
     } catch (e) { return null; }
   }
+  /* #if N1 */
+  /* the N1 app's memory: which screen is up, whether the goal has been set, the study plan (made on the goal screen
+     by n1.js; it keeps each day's progress), the mistakes made, the outcome of the notebook review and the last mini mock */
+  function whole(n, max) {
+    n = Number(n);
+    return n >= 0 && n <= max && Math.floor(n) === n ? n : 0;
+  }
+  function start() {
+    var s = { screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null };
+    var from = null;
+    if (TEST) {
+      var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
+      from = { started: true, g: query.get('g'), k: query.get('k'), r: query.get('r'), mistakes: json('m', []), rev: json('rev', null), mock: json('mock', null), plan: query.get('plan') === 'demo' ? (window.ykN1 ? window.ykN1.demo() : null) : json('plan', null) };
+      /* day=n: open that day of the plan (plan=demo is the canvas's sample plan) */
+      if (from.plan && query.has('day')) from.plan.open = +query.get('day');
+      s.screen = query.get('screen') || 'Goal';
+      from.started = s.screen !== 'Goal';
+    } else {
+      from = load();
+      if (from && from.started) s.screen = 'Main';
+    }
+    if (from) {
+      s.started = !!from.started;
+      s.g = whole(from.g, 3);
+      s.k = whole(from.k, 1);
+      s.r = whole(from.r, 1);
+      s.mistakes = Array.isArray(from.mistakes) ? from.mistakes.filter(function (m) { return m && typeof m.src === 'string'; }) : [];
+      s.rev = from.rev && typeof from.rev === 'object' ? from.rev : null;
+      s.mock = from.mock && typeof from.mock === 'object' && from.mock.done ? from.mock : null;
+      s.plan = from.plan && typeof from.plan === 'object' && Array.isArray(from.plan.days) ? from.plan : null;
+    }
+    if (!window.YK.has(s.screen)) s.screen = s.started ? 'Main' : 'Goal';
+    return s;
+  }
+  function remember(s) {
+    if (TEST || !canSave) return;
+    /* a second attempt at the mini mock that is still open is not a result yet */
+    var keep = { started: !!s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    if (s.plan) keep.plan = s.plan;
+    var text = JSON.stringify(keep);
+    keepCourseSound(s);
+    if (text === lastSaved) return;
+    try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
+  }
+  /* the offline copy stores each clip of the course the first time it is played, and all of them, in the background,
+     once the learner has a plan (see sw.js). Only this app's own worker is asked: on a first visit the page can be held
+     by the worker of the main app in the folder above (its scope holds this folder), which does not keep these clips,
+     so the request waits until this app's worker is in charge, and is made as soon as it takes over */
+  var soundAsked = false;
+  var planned = false;
+  function keepCourseSound(s) {
+    if (s) planned = !!s.plan;
+    if (soundAsked || !planned) return;
+    try {
+      var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
+      if (sw && sw.scriptURL.split('?')[0] === new URL('sw.js', location.href).href) { sw.postMessage({ keepLevel: 'n1' }); soundAsked = true; }
+    } catch (e) {}
+  }
+  try { if (navigator.serviceWorker) navigator.serviceWorker.addEventListener('controllerchange', function () { keepCourseSound(null); }); } catch (e) {}
+  /* #else */
   var C = window.ykCourse;
   function obj(x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : null; }
   function dateOk(d) { return typeof d === 'string' && /^\d{4}-\d\d-\d\d$/.test(d); }
@@ -113,6 +173,7 @@
       if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }
     } catch (e) {}
   }
+  /* #end */
   function forget() {
     lastSaved = '';
     try { localStorage.removeItem(KEY); } catch (e) {}

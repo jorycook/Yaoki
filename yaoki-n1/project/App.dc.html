@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prototype</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
+<script src="./sound-mock.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif">
+<sc-if value="{{ at.Goal }}" hint-placeholder-val="{{ true }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Goal" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Main }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Today }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Today" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Teach }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Teach" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Compare }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Compare" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Drill }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Drill" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Star }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Star" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Exam }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Exam" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Review }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Review" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Mock }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Mock" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.MockRun }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="MockRun" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Scene }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Scene" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Reading }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Reading" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.WeekTest }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Notebook }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Notebook" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Readiness }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Readiness" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Listening }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Listening" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* one shared memory for the whole flow: which screen is up, the study plan (made on the goal screen; it keeps each day's progress), mistakes made, the outcome of the notebook review, and the last mini mock */
+this.state = { screen: 'Goal', g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null };
+}
+renderVals() {
+const s = this.state;
+const at = {};
+['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'].forEach((n) => { at[n] = s.screen === n; });
+return {
+at,
+app: { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan },
+go: (to) => this.setState({ screen: to }),
+save: (patch) => this.setState(patch),
+miss: (m) => this.setState((st) => ({ mistakes: [{ ...m, at: Date.now() }].concat((st.mistakes || []).filter((x) => x.src !== m.src)) })),
+};
+}
+}
+</script>
+</body>
+</html>

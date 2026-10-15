@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Week path</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./n1-content.js"></script>
+<script src="./n1.js"></script>
+<script src="./audio/clips.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}
+a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px; flex-shrink: 0">
+<button aria-label="Level N1, change level" onClick="{{ openMenu }}" style="height: 44px; padding: 0 16px; border-radius: 22px; border: 2px solid #1B2440; background: #FFFFFF; font-weight: 800; font-size: 16px">N1</button>
+<div style="flex-grow: 1"></div>
+<div role="img" aria-label="{{ stampsLabel }}" style="display: flex; align-items: center; gap: 6px; height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 22px; background: #FFFFFF; border: 2px solid #DDE1EC">
+<div lang="ja" style="width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; color: #C7361E; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(-10deg)">済</div>
+<div style="font-weight: 800; font-size: 15px">{{ stamps }}</div>
+</div>
+<div role="img" aria-label="{{ leftLabel }}" style="display: flex; align-items: center; gap: 6px; height: 44px; box-sizing: border-box; padding: 0 12px; border-radius: 22px; background: #FFFFFF; border: 2px solid #DDE1EC">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+<div lang="ja" style="font-weight: 800; font-size: 15px; white-space: nowrap">{{ left }}</div>
+</div>
+</div>
+
+<div style="margin: 12px 16px 8px; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0">
+<div style="display: flex; align-items: center; gap: 4px">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; white-space: nowrap"><span lang="ja">第{{ wk }}週</span> · Week {{ wk }} of {{ weeks }}</div>
+<div lang="ja" style="font-size: 26px; font-weight: 800; line-height: 31px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ theme.ja }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 18px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ theme.en }}</div>
+</div>
+<button aria-label="Previous week" disabled="{{ atFirst }}" onClick="{{ prevWeek }}" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 14px; border: 2px solid #DDE1EC; background: #FFFFFF; padding: 0; display: flex; align-items: center; justify-content: center; opacity: {{ prevLook.op }}; cursor: {{ prevLook.cur }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+<svg viewBox="0 0 100 100" width="56" height="56" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<button aria-label="Next week" disabled="{{ atLast }}" onClick="{{ nextWeek }}" style="width: 44px; height: 44px; flex-shrink: 0; border-radius: 14px; border: 2px solid #DDE1EC; background: #FFFFFF; padding: 0; display: flex; align-items: center; justify-content: center; opacity: {{ nextLook.op }}; cursor: {{ nextLook.cur }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px" role="img" aria-label="{{ cardLabel }}">
+<sc-for list="{{ cells }}" as="c" hint-placeholder-count="7">
+<sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="height: 40px; border-radius: {{ c.radius }}; border: 2.5px solid #E2452B; color: #C7361E; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; transform: rotate({{ c.rot }}deg); animation: {{ c.anim }}">済</div>
+</sc-if>
+<sc-if value="{{ c.hi }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="height: 40px; border-radius: {{ c.radius }}; border: 2.5px dashed #2F4FD0; background: #E8ECFB; color: #2F4FD0; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">{{ c.mark }}</div>
+</sc-if>
+<sc-if value="{{ c.test }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="height: 40px; border-radius: 12px; border: 2.5px solid #1B2440; background: #F2B43A; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">試</div>
+</sc-if>
+<sc-if value="{{ c.review }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="height: 40px; border-radius: 50%; border: 2.5px solid #F2B43A; background: #FFF4D6; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">復</div>
+</sc-if>
+<sc-if value="{{ c.plain }}" hint-placeholder-val="{{ true }}">
+<div style="height: 40px; border-radius: 50%; border: 2.5px solid #DDE1EC; color: #5A6382; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ c.mark }}</div>
+</sc-if>
+<sc-if value="{{ c.skip }}" hint-placeholder-val="{{ false }}">
+<div style="height: 40px; border-radius: 50%; border: 2.5px dashed #C9D0E3; color: #5A6382; font-weight: 500; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ c.mark }}</div>
+</sc-if>
+<sc-if value="{{ c.empty }}" hint-placeholder-val="{{ false }}">
+<div style="height: 40px"></div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{ behind }}" hint-placeholder-val="{{ false }}">
+<div style="margin: 0 16px 2px; height: 22px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding-left: 12px; border-radius: 12px; background: #FFF4D6; box-shadow: inset 0 0 0 2px #F2B43A">
+<div style="flex-grow: 1; min-width: 0; font-size: 13px; font-weight: 800; line-height: 18px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere"><span lang="ja">{{ behindJa }}</span> · {{ behindEn }}</div>
+<button aria-label="Open the menu to change the plan" onClick="{{ openMenu }}" style="height: 44px; margin: -20px 0 -2px; flex-shrink: 0; padding: 18px 10px 0; border: 0; background: none; color: #2F4FD0; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 2px">Change the plan<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+</sc-if>
+
+<div style="position: relative; flex-grow: 1; overflow: hidden; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
+<svg width="390" height="{{ pathH }}" viewBox="0 0 390 {{ pathH }}" fill="none" aria-hidden="true" style="position: absolute; left: 0; top: 0"><polyline points="{{ line }}" stroke="#C9D0E3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 13"/><polyline points="{{ redLine }}" stroke="#E2452B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+<sc-for list="{{ nodes }}" as="n" hint-placeholder-count="7">
+<sc-if value="{{ n.isDone }}" hint-placeholder-val="{{ false }}">
+<a href="{{ n.href }}" onClick="{{ n.tap }}" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: {{ n.radius }}; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; transform: rotate({{ n.rot }}deg); animation: {{ n.anim }}">済</a>
+</sc-if>
+<sc-if value="{{ n.isHi }}" hint-placeholder-val="{{ false }}">
+<a href="{{ n.href }}" onClick="{{ n.tap }}" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: {{ n.radius }}; border: 3px solid #1B2440; background: #2F4FD0; box-shadow: 0 5px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 26px; display: flex; align-items: center; justify-content: center">{{ n.mark }}</a>
+</sc-if>
+<sc-if value="{{ n.isOpenDay }}" hint-placeholder-val="{{ false }}">
+<a href="{{ n.href }}" onClick="{{ n.tap }}" aria-label="{{ n.aria }}" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 50%; border: 3px solid #2F4FD0; background: #FFFFFF; color: #2F4FD0; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center">{{ n.mark }}</a>
+</sc-if>
+<sc-if value="{{ n.isOpenTest }}" hint-placeholder-val="{{ true }}">
+<a href="{{ n.href }}" onClick="{{ n.tap }}" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 18px; border: 3px solid #1B2440; background: #F2B43A; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center">試</a>
+</sc-if>
+<sc-if value="{{ n.isLock }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ n.tap }}" aria-label="{{ n.aria }}" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 50%; border: 3px solid #C9D0E3; background: #E6E9F3; display: flex; align-items: center; justify-content: center; padding: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></button>
+</sc-if>
+<sc-if value="{{ n.isLockTest }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ n.tap }}" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 18px; border: 3px solid #C9D0E3; background: #E6E9F3; color: #5A6382; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; padding: 0">試<div aria-hidden="true" style="position: absolute; right: -7px; top: -7px; width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C9D0E3; background: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></button>
+</sc-if>
+<sc-if value="{{ n.isSkip }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ n.aria }}" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: {{ n.size }}px; height: {{ n.size }}px; box-sizing: border-box; border-radius: 50%; border: 3px dashed #C9D0E3; background: #F4F5F9; color: #5A6382; font-weight: 700; font-size: 18px; display: flex; align-items: center; justify-content: center">{{ n.mark }}</div>
+</sc-if>
+<sc-if value="{{ n.isExam }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ n.aria }}" lang="ja" style="position: absolute; left: {{ n.l }}px; top: {{ n.t }}px; width: 52px; height: 52px; box-sizing: border-box; border-radius: 16px; border: 3px solid #1B2440; background: #1B2440; box-shadow: 0 4px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">試験</div>
+</sc-if>
+<sc-if value="{{ n.label }}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: {{ n.lx }}px; top: {{ n.ly }}px; width: {{ n.lw }}px; display: flex; flex-direction: column">
+<div lang="ja" style="font-size: 11px; font-weight: 700; color: #5A6382; line-height: 16px">{{ n.day }}</div>
+<div lang="ja" style="font-size: 14px; line-height: 20px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere; font-weight: {{ n.weight }}; color: {{ n.color }}">{{ n.title }}</div>
+</div>
+</sc-if>
+</sc-for>
+
+<sc-if value="{{ call }}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; left: {{ call.l }}px; top: {{ call.t }}px; width: {{ call.w }}px; box-sizing: border-box; padding: 6px 12px 8px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 11px; font-weight: 800; line-height: 15px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere; color: {{ call.hc }}"><span lang="ja">{{ call.hj }}</span> {{ call.he }}</div>
+<div lang="ja" style="font-size: 15px; font-weight: 800; line-height: 21px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: {{ call.lines }}; overflow: hidden; overflow-wrap: anywhere">{{ call.title }}</div>
+<div lang="{{ call.subLang }}" style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ call.sub }}</div>
+<sc-if value="{{ call.when }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ call.when }}</div>
+</sc-if>
+<sc-if value="{{ call.link }}" hint-placeholder-val="{{ true }}">
+<a href="{{ call.href }}" onClick="{{ call.tap }}" style="margin-top: 4px; height: 44px; box-sizing: border-box; flex-shrink: 0; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px; white-space: nowrap; display: flex; align-items: center; justify-content: center"><span lang="ja">{{ call.bj }}</span>　{{ call.be }}</a>
+</sc-if>
+<sc-if value="{{ call.ask }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ call.tap }}" style="margin-top: 4px; height: 44px; box-sizing: border-box; flex-shrink: 0; border-radius: 14px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 15px; white-space: nowrap; display: flex; align-items: center; justify-content: center"><span lang="ja">{{ call.bj }}</span>　{{ call.be }}</button>
+</sc-if>
+</div>
+</sc-if>
+</div>
+
+<nav aria-label="Main" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC; flex-shrink: 0">
+<a href="Main.dc.html" onClick="{{ toMain }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
+<a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Readiness.dc.html" onClick="{{ toReadiness }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+</nav>
+
+<sc-if value="{{ ask }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
+<button aria-label="Close" onClick="{{ closeAsk }}" style="flex-grow: 1; border: 0; padding: 0; background: transparent"></button>
+<div role="dialog" aria-modal="true" aria-label="{{ ask.en }}" style="padding: 10px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out">
+<div aria-hidden="true" style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #C9D0E3"></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800"><span lang="ja">この日を先に開く</span> <span style="font-size: 13px; font-weight: 700; color: #5A6382">{{ ask.en }}</span></h2>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ ask.note }}</div>
+</div>
+<div style="padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; background: #F4F5F9; display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div lang="ja" style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ ask.head }}</div>
+<div lang="ja" style="font-size: 16px; font-weight: 800; line-height: 22px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere">{{ ask.title }}</div>
+<div lang="{{ ask.subLang }}" style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; overflow-wrap: anywhere">{{ ask.sub }}</div>
+</div>
+<div style="display: flex; gap: 10px">
+<button onClick="{{ closeAsk }}" style="flex: 1 1 0; height: 54px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; color: #1B2440; font-weight: 800; font-size: 16px"><span lang="ja">やめる</span>　Cancel</button>
+<a href="{{ ask.href }}" onClick="{{ ask.open }}" style="flex: 1 1 0; height: 54px; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center"><span lang="ja">開く</span>　Open</a>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"menu":{"editor":null},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* wk: the week shown (0 until the learner browses: the week of the highlighted day); ask: the day the open-early sheet asks about */
+this.state = { wk: 0, ask: -1 };
+}
+renderVals() {
+const N = window.ykN1;
+const app = this.props.app || {};
+const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
+const days = plan.days;
+const weeks = Math.ceil(days.length / 7);
+const t = N.today();
+const toExam = N.diff(t, plan.exam);
+const over = toExam <= 0;
+const first = N.current(plan);
+const allDone = N.done(days[first]);
+const opened = plan.open != null && !!days[plan.open] && !N.done(days[plan.open]) && !N.empty(days[plan.open]);
+/* the highlighted day: the one opened, else the day to work on (N.current passes over a day with nothing planned);
+   once the exam has come, the end of the path */
+const hi = over ? days.length - 1 : opened ? plan.open : first;
+const wk = Math.min(weeks, Math.max(1, this.state.wk || Math.floor(hi / 7) + 1));
+const from = (wk - 1) * 7;
+const late = over || allDone ? 0 : N.diff(days[first].d, t);
+const behind = late >= 2;
+const ROT = [-9, 6, -4, 8, -6, 5, -10];
+/* where the 7 days sit across the path, the test day swinging out at the end */
+const X = [64, 104, 140, 104, 64, 110, 180];
+/* a day just finished (still the opened one) gets its stamp pressed again */
+const just = plan.open != null && days[plan.open] && N.done(days[plan.open]) ? plan.open : -1;
+
+/* opening a day: keep it as plan.open, then go to its screen. On the canvas (no go) the link itself is followed */
+const target = (i) => days[i] && days[i].t === 1 ? 'WeekTest' : 'Today';
+const openAt = (i) => (e) => {
+const go = this.props.go;
+if (!go) return;
+if (e && e.preventDefault) e.preventDefault();
+const cur = (this.props.app || {}).plan;
+if (cur && cur.days[i] && this.props.save) this.props.save({ plan: N.withOpen(cur, i) });
+this.setState({ ask: -1 });
+go(target(i));
+};
+const askAt = (i) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ ask: i }); };
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+/* a day ahead of today asks first, unless it is already the opened one */
+const free = (i) => days[i].d <= t || N.done(days[i]) || (plan.open === i && opened);
+
+/* what a day holds, as the callout and the sheet say it */
+const holds = (i) => {
+const v = N.view(plan, i);
+if (v.kind !== 'study') {
+const qs = N.testFor(plan, i);
+const has = (types) => qs.some((q) => types.indexOf(q.type) >= 0);
+const parts = [qs.length + '問'];
+if (has(['漢字読み'])) parts.push('漢字');
+if (has(['文脈規定', '言い換え類義', '用法'])) parts.push('語彙');
+if (has(['文の文法1', '文の文法2'])) parts.push('文法');
+return parts.join(' · ');
+}
+/* a day with nothing on it (N.empty) */
+if (v.empty) return 'Its work moved to later days.';
+const parts = [];
+if (v.grammar) parts.push('文法');
+if (v.kanji.length) parts.push('漢字' + v.kanji.length);
+if (v.words.length) parts.push('語彙' + v.words.length);
+if (v.reading) parts.push('読解');
+if (v.listening) parts.push('聴解');
+return parts.join(' · ');
+};
+const opensIn = (i) => { const n = N.diff(t, days[i].d); return n === 1 ? 'Opens tomorrow' : 'Opens in ' + n + ' days'; };
+
+/* the callout of the highlighted day, if it is in this week */
+const hiPos = hi >= from && hi < from + 7 ? hi - from : -1;
+let call = null;
+if (hiPos >= 0) {
+const v = N.view(plan, hi);
+const dayJa = v.dow + '日目';
+const isToday = v.d === t;
+call = { hc: '#2F4FD0', hj: dayJa + ' · ' + (isToday ? '今日' : v.date), he: isToday ? 'TODAY' : '', title: v.title, sub: holds(hi), subLang: v.empty ? 'en' : 'ja', when: '', link: true, ask: false, href: target(hi) + '.dc.html', tap: openAt(hi), bj: v.started ? 'つづける' : 'はじめる', be: v.started ? 'Continue' : 'Start' };
+if (over) {
+Object.assign(call, { hc: '#C7361E', hj: '試験 · ' + N.fmt.md(plan.exam), he: toExam === 0 ? 'EXAM DAY' : '', title: '試験おつかれさま', sub: 'Time to set your next goal.', subLang: 'en', href: 'Goal.dc.html', tap: nav('Goal'), bj: '次の目標', be: 'Next goal' });
+} else if (allDone) {
+Object.assign(call, { hc: '#C7361E', hj: dayJa + ' · 済', he: 'ALL DONE', title: 'ぜんぶ済み', sub: 'Every day is stamped.', subLang: 'en', href: 'Mock.dc.html', tap: nav('Mock'), bj: '模試', be: 'Mock exam' });
+} else if (!free(hi)) {
+Object.assign(call, { when: opensIn(hi), link: false, ask: true, tap: askAt(hi), bj: '先に開く', be: 'Open early' });
+}
+}
+/* the callout's title takes up to three lines (full-width characters are 1em; a character's slack per line keeps the
+   guess on the safe side). The callout is sized for that, and the title is cut at that many lines. Beside a node at
+   the left edge the callout may have to move right of its neighbours, so its width there is taken from that place */
+const est = (str, px) => [...String(str)].reduce((w, ch) => w + (ch.charCodeAt(0) < 0x2E80 ? 0.62 : 1) * px, 0);
+const room = call ? 374 - (X[hiPos] < 100 ? 144 : Math.min(X[hiPos], 108) + 46) - 28 : 0;
+const callLines = call ? Math.min(3, Math.max(1, Math.ceil(est(call.title, 15) / (room - 15)))) : 0;
+const callH = call ? 104 + callLines * 21 + (call.when ? 19 : 0) : 0;
+
+/* the path: 7 places down the region, the highlighted one tall enough for its callout, the test day at the end */
+const pathH = behind ? 458 : 482;
+const slots = [];
+let fixed = 0;
+let flex = 0;
+for (let j = 0; j < 7; j++) {
+const s = j === hiPos ? callH + 12 : j === 6 ? 62 : 0;
+slots.push(s);
+fixed += s;
+if (!s) flex++;
+}
+const each = Math.min(76, (pathH - 10 - fixed) / Math.max(1, flex));
+const nodes = [];
+let y = 6;
+const count = Math.min(7, days.length - from);
+const pts = [];
+let red = -1;
+for (let j = 0; j < 7; j++) {
+const h = slots[j] || each;
+const cy = y + h / 2;
+y += h;
+/* the plan's last week ends at the exam itself */
+if (j === count && from + count === days.length) {
+pts.push(X[j] + ',' + Math.round(cy));
+nodes.push({ isExam: true, l: X[j] - 26, t: Math.round(cy - 26), size: 52, r: 26, cx: X[j], cy, label: true, day: N.fmt.md(plan.exam), title: '試験本番', weight: 800, color: '#1B2440', aria: 'The exam, ' + N.fmt.en(plan.exam) });
+}
+if (j >= count) continue;
+const i = from + j;
+const x = days[i];
+const v = N.view(plan, i);
+const test = x.t === 1;
+const done = N.done(x);
+/* a study day left with nothing on it (a missed day whose work a new plan moved on, N.empty): never done, never a lesson */
+const skip = N.empty(x);
+const isHi = i === hi;
+const ok = free(i);
+const cx = isHi ? Math.min(X[j], 108) : X[j];
+const size = isHi ? 68 : test ? 60 : 52;
+const r = size / 2;
+pts.push(cx + ',' + Math.round(cy));
+/* the red line runs up to the first day still to do, past the days with nothing on them */
+if (red === -1 && !done && !skip) red = j;
+const name = 'Day ' + v.dow + ' of week ' + wk + (test ? ', week test' : x.t === 2 ? ', review' : '');
+const n = {
+l: cx - r, t: Math.round(cy - r), size, r, cx, cy,
+radius: test ? (isHi ? '20px' : '18px') : '50%',
+rot: ROT[j], anim: i === just ? 'yk-stamp 450ms ease-out both' : 'none',
+mark: test ? '試' : done && isHi ? '済' : String(v.dow),
+isHi, isDone: !isHi && done, isSkip: !isHi && skip,
+isOpenDay: !isHi && !done && !skip && ok && !test, isOpenTest: !isHi && !done && ok && test,
+isLock: !isHi && !done && !skip && !ok && !test, isLockTest: !isHi && !done && !ok && test,
+href: target(i) + '.dc.html',
+tap: ok ? openAt(i) : askAt(i),
+aria: name + (skip && !isHi ? ', nothing planned: its work moved to later days' : done ? ', done. Open it again' : isHi ? ', ' + (ok ? 'open. Go to it' : 'ahead of plan. Open early') : ok ? ', open. Go to it' : ', locked. Open early'),
+label: !isHi,
+day: v.dow + '日目', title: v.title,
+weight: skip ? 500 : test ? 800 : 700,
+color: skip || (!done && !ok) ? '#5A6382' : '#1B2440',
+};
+nodes.push(n);
+}
+/* a label sits right of its node, and right of a neighbour that comes close enough to touch it */
+nodes.forEach((n) => {
+let lx = n.cx + n.r + 12;
+nodes.forEach((o) => { if (o !== n && Math.abs(o.cy - n.cy) < o.r + 22) lx = Math.max(lx, o.cx + o.r + 8); });
+Object.assign(n, { lx, ly: Math.round(n.cy - 18), lw: 374 - lx });
+});
+if (red === -1) red = count - 1;
+const redLine = red > 0 ? pts.slice(0, red + 1).join(' ') : '';
+
+/* the callout sits beside its node, between the nodes and labels above and below it; if it cannot fit there it
+   moves right of the nodes in its way */
+if (call) {
+const me = nodes[hiPos];
+let left = me.cx + me.r + 12;
+const boxes = [];
+nodes.forEach((o) => { if (o !== me) boxes.push({ l: o.cx - o.r, r: o.cx + o.r, t: o.cy - o.r, b: o.cy + o.r + (o.size === 60 ? 4 : 0), cy: o.cy }, { l: o.lx, r: 374, t: o.cy - 18, b: o.cy + 18, cy: o.cy }); });
+const place = () => {
+let lo = 2;
+let hiB = pathH - 2;
+boxes.forEach((o) => { if (o.r > left) { if (o.cy < me.cy) lo = Math.max(lo, o.b + 4); else hiB = Math.min(hiB, o.t - 4); } });
+return hiB - lo >= callH ? Math.round(Math.min(Math.max(me.cy - callH / 2, lo), hiB - callH)) : null;
+};
+let top = place();
+if (top === null) {
+nodes.forEach((o) => { if (o !== me && Math.abs(o.cy - me.cy) < callH / 2 + o.r + 4) left = Math.max(left, o.cx + o.r + 8); });
+top = place();
+}
+if (top === null) top = Math.round(me.cy - callH / 2);
+Object.assign(call, { l: left, t: top, w: 374 - left, lines: callLines });
+}
+
+/* the stamp row: the week's 7 days */
+const cells = [];
+for (let j = 0; j < 7; j++) {
+const i = from + j;
+const x = days[i];
+if (!x) { cells.push({ empty: true }); continue; }
+const done = N.done(x);
+const isHi = i === hi && !done;
+const skip = !isHi && N.empty(x);
+cells.push({
+done, hi: !done && isHi, test: !done && !isHi && x.t === 1, review: !done && !isHi && x.t === 2,
+plain: !done && !isHi && !skip && x.t === 0, skip, empty: false,
+mark: x.t === 1 ? '試' : String(j + 1),
+radius: x.t === 1 ? '12px' : '50%',
+rot: ROT[j], anim: i === just ? 'yk-stamp 450ms ease-out both' : 'none',
+});
+}
+const stamped = cells.filter((c) => c.done).length;
+const skipped = cells.filter((c) => c.skip).length;
+const hiNote = hiPos >= 0 && !N.done(days[hi]) ? ', day ' + (hiPos + 1) + ' is the open day' : '';
+const testNote = count === 7 ? ', day 7 is the week test' : '';
+
+/* the open-early sheet */
+let ask = null;
+const ai = this.state.ask;
+if (ai >= 0 && days[ai]) {
+const v = N.view(plan, ai);
+ask = {
+en: 'Open day ' + v.dow + ' early?',
+note: 'It is planned for ' + N.fmt.en(v.d) + '. The rest of your plan stays as it is.',
+head: '第' + v.wk + '週 ' + v.dow + '日目 · ' + v.date,
+title: v.title,
+sub: holds(ai),
+subLang: v.empty ? 'en' : 'ja',
+href: target(ai) + '.dc.html',
+open: openAt(ai),
+};
+}
+
+const stamps = N.stamps(plan);
+return {
+stamps,
+stampsLabel: stamps + (stamps === 1 ? ' day' : ' days') + ' stamped',
+left: toExam > 0 ? 'あと' + toExam + '日' : toExam === 0 ? '試験日' : '試験後',
+leftLabel: toExam > 0 ? toExam + (toExam === 1 ? ' day' : ' days') + ' to the exam' : toExam === 0 ? 'The exam is today' : 'The exam is over',
+wk, weeks,
+theme: N.weekTheme(plan, wk),
+atFirst: wk <= 1,
+atLast: wk >= weeks,
+/* a week button at the end of the plan is faded */
+prevLook: wk <= 1 ? { op: 0.35, cur: 'default' } : { op: 1, cur: 'pointer' },
+nextLook: wk >= weeks ? { op: 0.35, cur: 'default' } : { op: 1, cur: 'pointer' },
+prevWeek: () => this.setState({ wk: Math.max(1, wk - 1) }),
+nextWeek: () => this.setState({ wk: Math.min(weeks, wk + 1) }),
+cells,
+cardLabel: 'Stamp card for week ' + wk + ': ' + stamped + ' of ' + count + ' days stamped' + (skipped ? ', ' + skipped + ' with nothing planned' : '') + hiNote + testNote,
+behind,
+behindJa: late + '日遅れ',
+behindEn: late + ' days behind',
+pathH,
+line: pts.join(' '),
+redLine,
+nodes,
+call,
+ask,
+closeAsk: () => this.setState({ ask: -1 }),
+/* the installed app hands in a menu to open from the level chip; on the canvas the chip stays a picture */
+openMenu: this.props.menu,
+toMain: nav('Main'),
+toNotebook: nav('Notebook'),
+toMock: nav('Mock'),
+toReadiness: nav('Readiness'),
+};
+}
+}
+</script>
+</body>
+</html>

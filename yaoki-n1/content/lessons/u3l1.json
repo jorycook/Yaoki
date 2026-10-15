@@ -1,0 +1,222 @@
+{
+  "id": "u3l1",
+  "unit": 3,
+  "lesson": 1,
+  "grammar": {
+    "patterns": [
+      {
+        "p": "〜ばこそ",
+        "en": "precisely because …",
+        "conn": [["動詞", "仮定形（思え）＋ 【ばこそ】"], ["い形", "〜けれ ＋ 【ばこそ】"], ["な形・名詞", "〜であれ ＋ 【ばこそ】"]],
+        "ex": [
+          { "ja": "部下の成長を願え【ばこそ】、あえて厳しいことを言うのだ。", "en": "Precisely because I want my staff to grow, I choose to say harsh things." },
+          { "ja": "目標が高けれ【ばこそ】、日々の努力にも身が入る。", "en": "Precisely because the goal is high, you put your all into the daily work." }
+        ],
+        "note": "It takes the ば-form: 思えばこそ, not 思うばこそ. It often ends in のだ to stress the one true reason.",
+        "bad": "君を思うばこそ言うのだ。",
+        "good": "君を思えばこそ言うのだ。",
+        "tag": ["唯一の理由", "the real reason"],
+        "cmp": { "ja": "好きであれ【ばこそ】、続けられる。", "en": "You can keep it up precisely because you love it." }
+      },
+      {
+        "p": "〜あっての",
+        "en": "only possible thanks to …",
+        "conn": [["名詞", "名詞A ＋ 【あっての】 ＋ 名詞B"], ["名詞", "名詞 ＋ 【あっての】こと"]],
+        "ex": [
+          { "ja": "信用【あっての】取引だから、約束は必ず守る。", "en": "Deals only work if there is trust, so we always keep our word." },
+          { "ja": "命【あっての】物種《ものだね》だ。無理をせず引き返そう。", "en": "Nothing matters if you do not come back alive. Let's not push it and turn back." }
+        ],
+        "note": "Noun + あっての + noun: B cannot exist without A. No verb comes before it: 努力あっての, not 努力したあっての.",
+        "bad": "努力したあっての合格だ。",
+        "good": "努力あっての合格だ。",
+        "tag": ["不可欠な前提", "without A, no B"],
+        "cmp": { "ja": "ファン【あっての】プロスポーツだ。", "en": "Professional sport exists only thanks to its fans." }
+      },
+      {
+        "p": "〜と相まって",
+        "en": "combined with …",
+        "conn": [["名詞", "名詞 ＋ 【と相まって】"], ["名詞", "AとBが ＋ 【相まって】"]],
+        "ex": [
+          { "ja": "ビザの緩和が円安【と相まって】、外国人観光客が大幅に増えた。", "en": "Easier visas, combined with the weak yen, brought a surge of foreign tourists." },
+          { "ja": "紅葉の美しさと澄んだ空気が【相まって】、散策は格別だった。", "en": "The autumn colours and the clear air together made the walk something special." }
+        ],
+        "note": "It joins two causes that together bring a result. It is not \"together with\" a person: for that, use と一緒に.",
+        "bad": "友人と相まって旅行した。",
+        "good": "友人と一緒に旅行した。",
+        "tag": ["相乗効果", "causes combined"],
+        "cmp": { "ja": "才能が努力【と相まって】開花した。", "en": "Her talent, combined with hard work, blossomed." }
+      }
+    ],
+    "compare": {
+      "intro": "All three give a cause: the only real one, a must-have, or two working together.",
+      "check": {
+        "scene": "老舗の店主",
+        "ja": "うちは常連さん（　　）店ですから。",
+        "options": ["ばこそ", "あっての", "と相まって"],
+        "answer": 2,
+        "notes": [
+          "おしい！ ばこそ follows a ば-form such as いればこそ, never a bare noun.",
+          "せいかい！ Noun + あっての + noun: the shop exists only thanks to its regulars.",
+          "おしい！ と相まって joins two causes and leads to a result, not to a noun."
+        ]
+      }
+    },
+    "drills": [
+      {
+        "ja": "経験が浅いのは承知の上だ。君の力を（　　）、【この大役を任せたのだ】。",
+        "options": ["信じたが最後", "信じるものを", "信じればこそ", "信じるとあって"],
+        "answer": 3,
+        "why": [
+          "が最後 says once it happens, something bad follows that cannot be undone.",
+          "ものを voices regret or reproach: even though, or if only.",
+          "ば-form + こそ: trust is the one real reason for the role, and のだ stresses it.",
+          "とあって needs a special occasion and a scene others observe, not my own choice."
+        ]
+      },
+      {
+        "ja": "【患者】（　　）【医療】だということを、若い医師には忘れないでほしい。",
+        "options": ["あっての", "ならではの", "きっての", "をおいて"],
+        "answer": 1,
+        "why": [
+          "Noun + あっての + noun: without patients, there would be no medicine.",
+          "ならではの praises what only A can offer, as in プロならではの技.",
+          "きっての means the best in a group or place, as in 社内きっての.",
+          "をおいて needs ない after it: no one but A, as in 彼をおいていない."
+        ]
+      },
+      {
+        "ja": "新監督の采配が【選手たちの成長】（　　）、【チームは十年ぶりの優勝を果たした】。",
+        "options": ["をよそに", "にかまけて", "にもまして", "と相まって"],
+        "answer": 4,
+        "why": [
+          "をよそに means ignoring others' feelings, as in 周囲の心配をよそに.",
+          "にかまけて means too busy with one thing to see to another.",
+          "にもまして means even more than, and 采配が is then left without a verb.",
+          "AがBと相まって: the tactics and the players' growth together bring the win."
+        ]
+      }
+    ],
+    "star": {
+      "pre": "あえて口出ししないのは、",
+      "post": "だ。",
+      "tiles": ["部下の", "判断を", "信頼すれば", "こそ"],
+      "star": 2,
+      "hint": "ばこそ follows a ば-form, and the reason it gives closes with だ. Which noun does 部下の describe?",
+      "why": "部下の describes 判断を, the thing that is trusted. Then comes the ば-form 信頼すれば, and こそ closes the reason before だ."
+    },
+    "exam": [
+      {
+        "kind": "form",
+        "ja": "駅前の再開発が若い世代の移住（　　）、町に活気が戻りつつある。",
+        "options": ["にひきかえ", "と相まって", "にかこつけて", "をものともせず"],
+        "answer": 2,
+        "why": "AがBと相まって: the redevelopment and young people moving in together revive the town. にひきかえ sets up a contrast, にかこつけて uses an excuse, and をものともせず defies an obstacle."
+      },
+      {
+        "kind": "form",
+        "ja": "病気をして初めて分かったが、健康（　　）、仕事も趣味も楽しめるのだ。",
+        "options": ["であろうと", "であったばかりに", "ではあるまいし", "であればこそ"],
+        "answer": 4,
+        "why": "Health is the one real reason: であれば + こそ, closed by のだ. であろうと concedes (even if), ではあるまいし leads to advice or criticism, and ばかりに brings a bad result."
+      },
+      {
+        "kind": "order",
+        "pre": "この成功は、",
+        "post": "ことです。",
+        "tiles": ["陰で", "支えてくれた", "皆さん", "あっての"],
+        "star": 1,
+        "why": "陰で, 支えてくれた, 皆さん, あっての. 陰で goes with 支えてくれた, which describes 皆さん. Noun + あっての then leads into ことです: the success was only possible thanks to them."
+      }
+    ]
+  },
+  "vocab": [
+    {
+      "w": "培う", "r": "つちかう", "en": "to cultivate, foster",
+      "ex": { "ja": "海外勤務で【培った】語学力を、今の仕事に生かしている。", "en": "I use the language skills I built up abroad in my job now." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "長年の現場経験によって（　　）判断力は、何物にも代えがたい。",
+        "options": ["耕された", "栽培された", "培われた", "飼育された"],
+        "answer": 3,
+        "why": "培う is building up a skill or trust over time, so 培われた判断力 fits. 耕す is tilling soil, 栽培する growing crops and 飼育する raising animals."
+      }
+    },
+    {
+      "w": "恩恵", "r": "おんけい", "en": "benefit, blessing",
+      "ex": { "ja": "この町は、温泉という自然の【恩恵】を受けて発展してきた。", "en": "This town has grown thanks to a gift of nature: its hot springs." },
+      "q": {
+        "type": "用法",
+        "options": [
+          "台風の恩恵で、電車が止まってしまった。",
+          "彼は恩恵な人で、誰にでも親切だ。",
+          "上司の恩恵を得て、明日は休むことにした。",
+          "新路線開通の恩恵は、沿線の商店にも及んだ。"
+        ],
+        "answer": 4,
+        "why": "恩恵 is a benefit that nature, society or a new service brings, as in 4. A storm brings 影響, 恩恵 is no な-adjective, and leave needs 許可."
+      }
+    },
+    {
+      "w": "賜物", "r": "たまもの", "en": "fruit, result (of effort)",
+      "ex": { "ja": "この記録は、地道な練習の【賜物】と言えるだろう。", "en": "This record is surely the fruit of patient, steady practice." },
+      "q": {
+        "type": "文脈規定",
+        "ja": "新製品の成功は、開発チームが重ねた試行錯誤の（　　）だ。",
+        "options": ["賜物", "名残", "手柄", "恩義"],
+        "answer": 1,
+        "why": "賜物 is a good result that effort has earned. 名残 is a trace of the past, 手柄 is credit owed to a person, and 恩義 is a debt of gratitude."
+      }
+    },
+    {
+      "w": "謙虚", "r": "けんきょ", "en": "modest, humble",
+      "ex": { "ja": "どれほど実績を積んでも、【謙虚】な姿勢を忘れない人だ。", "en": "However much she achieves, she never loses her modest manner." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "彼女は実績があるのに、いつも【謙虚】だ。",
+        "options": ["遠慮して何も言わない", "控えめで偉ぶらない", "誰にでも愛想がいい", "自分に厳しい"],
+        "answer": 2,
+        "why": "謙虚 is modest, never acting superior: 控えめで偉ぶらない. Holding back is 遠慮, pleasant to all is 愛想がいい, and hard on oneself is another trait."
+      }
+    },
+    {
+      "w": "頭が上がらない", "r": "あたまがあがらない", "en": "to be forever in someone's debt",
+      "ex": { "ja": "家計を支えてくれている妻には、【頭が上がらない】。", "en": "My wife keeps our household going, and I am forever in her debt." },
+      "q": {
+        "type": "言い換え類義",
+        "ja": "留学中に何かと面倒を見てくれた叔父には、今でも【頭が上がらない】。",
+        "options": ["顔を合わせたくない", "病気で起き上がれない", "恩があって逆らえない", "腹が立ってしかたない"],
+        "answer": 3,
+        "why": "頭が上がらない: you owe someone so much that you cannot stand up to them. It is not about avoiding them, lying ill in bed, or anger."
+      }
+    }
+  ],
+  "reading": {
+    "skill": "対比",
+    "en": "How do the two sides differ?",
+    "passage": "才能に恵まれた選手は、初めから多くのことを器用にこなせる。【だが】、それゆえに基礎の反復を軽んじ、伸び悩む者も少なくない。【一方】、不器用な選手は、できないことが多いからこそ、一つ一つの動きを考え抜いて身につけるしかない。その遠回りが、【やがて】揺るぎない土台となる。才能の差は、練習の質次第で覆し得るのだ。",
+    "ask": "筆者は二種類の選手をどう比べているか。",
+    "options": ["才能のある選手は必ず伸び悩む。", "器用な選手ほど動きを考え抜く。", "不器用さが、かえって確かな土台を生む。", "才能の差は練習では埋められない。"],
+    "short": ["才能ある選手は必ず伸び悩む", "器用な選手ほど考え抜く", "不器用さが土台を生む", "才能の差は埋まらない"],
+    "answer": 3,
+    "tip": "In a contrast, sort each point into its side. Watch for 一方 and だが, and check no option swaps the sides.",
+    "why": "After 一方, the clumsy player must think through each move, and やがて that long way round becomes a firm base.",
+    "whyNot": [
+      "Option 1 is too strong. The text says 少なくない, not that every gifted player stalls.",
+      "Option 2 swaps the sides. Thinking each move through belongs to the clumsy player.",
+      "",
+      "Option 4 is the opposite. The last line says the gap can be overturned by how one practises."
+    ]
+  },
+  "listening": {
+    "who": "男",
+    "line": "うちが三十年やってこられたのも、お客さんあってのことですよ。",
+    "replies": ["えっ、お店をたたむんですか。", "いえ、ご主人の腕のおかげですよ。", "ええ、お客さんは大事にしないと。"],
+    "answer": 2,
+    "notes": [
+      "Hears a farewell; he is simply thanking his customers.",
+      "Hands the credit back, as his humble あっての invites.",
+      "Hears business advice; he is thanking her, a regular."
+    ],
+    "short": ["店をたたむのか", "ご主人の腕のおかげ", "客は大事にしないと"]
+  }
+}
