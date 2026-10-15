@@ -31,7 +31,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 
 <sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-direction: column; flex-shrink: 1; min-height: 0">
+<div style="display: flex; flex-direction: column; min-height: 0; flex-shrink: {{ topShrink }}">
 
 <div style="margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; flex-shrink: 0">
 <div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><span lang="ja">{{ tag }}</span></div>
@@ -157,7 +157,12 @@ try {
 const host = this.__host && this.__host.base;
 const box = (host && host.querySelector && host.querySelector('[data-yk-passage]')) || document.querySelector('[data-yk-passage]');
 const mark = box && box.querySelector('[data-yk-mark="1"]');
-if (mark) box.scrollTop = Math.max(0, mark.offsetTop - 14);
+if (!mark) return;
+/* the line holding the mark (its box sits in the middle of its line) goes to the top, a little below the edge */
+const L = parseFloat(getComputedStyle(mark.parentNode).lineHeight) || 27;
+const mr = mark.getClientRects()[0] || mark.getBoundingClientRect();
+const lineTop = mr.top - (L - mr.height) / 2;
+box.scrollTop = Math.max(0, Math.round(box.scrollTop + lineTop - box.getBoundingClientRect().top - 2 - 3));
 } catch (e) { /* nothing to scroll */ }
 }
 componentWillUnmount() {
@@ -285,7 +290,7 @@ barAria: 'Reading question 1 of 1',
 clock,
 budget,
 clockAria: 'Time ' + clock + ' of ' + budget,
-tag: bank ? (r.type || '読解') + ' · ' + (r.skill || '') : '読解スキル · ' + (r.skill || ''),
+tag: bank ? [r.type || '読解', r.skill].filter(Boolean).join(' · ') : '読解スキル · ' + (r.skill || ''),
 skillEn: r.en || '',
 /* once checked, the signposts light up, and the passage keeps a few lines so the explanation has room */
 blocks: this.blocks(entry, r, s.checked),
@@ -293,6 +298,8 @@ lead: bank && r.lead ? N.plain(r.lead) : '',
 gap: kind === 'pair' ? '8px' : kind === 'mid' ? '2px' : '0',
 fade: bank ? 'block' : 'none',
 passMax: s.checked && bank ? '168px' : 'none',
+/* while asking, a long passage gives way to the question and options and scrolls; once checked, the sheet takes the squeeze instead */
+topShrink: s.checked ? 0 : 1,
 ask: N.plain(r.ask),
 opts,
 whys,

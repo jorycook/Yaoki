@@ -88,6 +88,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="flex-shrink: 0; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 5px">
 <div style="display: flex; align-items: center; gap: 8px">
 <div lang="ja" style="padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: {{ r.tagBg }}; color: {{ r.tagInk }}">{{ r.type }}</div>
+<sc-if value="{{ r.review }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="padding: 2px 7px; border-radius: 8px; font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: #FFF4D6; color: #1B2440">{{ r.level }}</div></sc-if>
 <div style="flex-grow: 1; min-width: 0; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: {{ r.whenInk }}; font-weight: {{ r.whenWeight }}">{{ r.when }}</div>
 <div role="img" aria-label="{{ r.pipLabel }}" style="display: flex; gap: 4px; flex-shrink: 0"><sc-for list="{{ r.pips }}" as="p" hint-placeholder-count="3"><div style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: {{ p.border }}; background: {{ p.bg }}"></div></sc-for></div>
 </div>
@@ -112,6 +113,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="flex-shrink: 0; padding: 8px 14px; border-radius: 14px; background: #FFFFFF; border: 2px dashed #C9D0E3; display: flex; flex-direction: column; gap: 3px">
 <div style="display: flex; align-items: center; gap: 8px">
 <div lang="ja" style="padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: {{ c.tagBg }}; color: {{ c.tagInk }}">{{ c.type }}</div>
+<sc-if value="{{ c.review }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="padding: 2px 7px; border-radius: 8px; font-size: 11px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: #FFF4D6; color: #1B2440">{{ c.level }}</div></sc-if>
 <div style="flex-grow: 1; min-width: 0; font-size: 11px; font-weight: 700; color: #0B7A6B; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ c.when }}</div>
 </div>
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; color: #5A6382; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ c.line }}</div>
@@ -215,8 +217,9 @@ out.push({ t, line: !gap && (whole || g.mark) ? '2px solid #1B2440' : 'none', ke
 }));
 return out;
 };
-/* about how many minutes an item takes to review: by its area, and longer for a mock's passage or talk */
-const MIN_KIND = { passage: 2.5, pair: 2.5, task: 1.5, gist: 1.5 };
+/* about how many minutes an item takes to review: by its area, and longer for a passage or a talk (a mock's, or a
+   lesson's longer reading or listening item) */
+const MIN_KIND = { passage: 2.5, pair: 2.5, mid: 2.5, info: 2.5, task: 1.5, point: 1.5, gist: 1.5 };
 const minOf = (q) => MIN_KIND[q.kind] || (AREA[q.area] || AREA.g).min;
 class Component extends DCLogic {
 constructor(props) {
@@ -249,12 +252,15 @@ const nOf = (area) => paper.findIndex((x) => x.area === area) + 1;
 const mocks = [];
 if (mock && nOf('r')) mocks.push(m('m' + mock.id + '.' + nOf('r'), { at: at(-6), step: 1, next: t }));
 if (mock && nOf('l')) mocks.push(m('m' + mock.id + '.' + nOf('l'), { at: at(0) }));
-return mocks.concat([
+const more = [];
+if (N.reviewPool && N.reviewPool.length) more.push(m(N.reviewPool[0], { at: at(-1) }));
+if (N.item('r.' + pid + '.2')) more.push(m('r.' + pid + '.2', { at: at(-3), step: 1, next: t }));
+return mocks.concat(more, [
 m('g.' + lid + '.d0', { at: at(0) }),
 m('k.' + (v && v.ki.length ? v.ki[0] : 0) + '.0', { at: at(-4), step: 1, next: t }),
 m('l.' + pid, { at: at(-11), step: 2, next: t }),
 m('g.' + pid + '.x2', { at: at(-1) }),
-m('w.' + (v && v.wi.length ? v.wi[0] : 0), { at: at(-2), step: 1, next: N.add(t, 2) }),
+m(v && v.wi.length && N.words[v.wi[0]] ? 'w.' + N.lessons[N.words[v.wi[0]].li].id + '.' + N.words[v.wi[0]].i : 'w.' + lid + '.0', { at: at(-2), step: 1, next: N.add(t, 2) }),
 m('r.' + pid, { at: at(-12), step: 3, cleared: N.add(t, -1) }),
 ]);
 }
@@ -297,6 +303,9 @@ const step = Math.max(0, Math.min(3, +e.m.step || 0));
 return {
 key: e.m.src,
 type: e.q.type,
+/* a review question of the earlier levels says its level */
+review: !!e.q.review,
+level: e.q.review ? '復習 ' + e.q.level : '',
 tagBg: a.bg,
 tagInk: a.ink,
 /* a mock question names its mock */
@@ -314,7 +323,7 @@ right: fitText(N.plain(String(e.q.right || '')), 21.6),
 const clearedHere = cleared.filter((e) => s.tab === 'all' || e.q.area === s.tab);
 const clearedRows = clearedHere.map((e) => {
 const a = AREA[e.q.area] || AREA.g;
-return { key: e.m.src, type: e.q.type, tagBg: a.bg, tagInk: a.ink, when: isDate(e.m.cleared) ? 'cleared ' + day(e.m.cleared) : 'cleared', line: fit(segsOf(e.q), 22.8).map((g) => g.t).join('') };
+return { key: e.m.src, type: e.q.type, review: !!e.q.review, level: e.q.review ? '復習 ' + e.q.level : '', tagBg: a.bg, tagInk: a.ink, when: isDate(e.m.cleared) ? 'cleared ' + day(e.m.cleared) : 'cleared', line: fit(segsOf(e.q), 22.8).map((g) => g.t).join('') };
 });
 const tabs = TABS.map((key) => {
 const n = key === 'all' ? active.length : active.filter((e) => e.q.area === key).length;

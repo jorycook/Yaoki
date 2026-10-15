@@ -138,6 +138,9 @@ const app = this.props.app || {};
 const plan = app.plan && app.plan.days && app.plan.days.length ? app.plan : N.demo();
 const i = N.openDay(plan);
 const v = N.view(plan, i);
+/* a kanji or word the bank no longer holds (a plan saved against a larger bank) is left out, as Scene leaves it out */
+v.kanji = v.kanji.filter(Boolean);
+v.words = v.words.filter(Boolean);
 const p = v.p || {};
 const g = p.g || 0;
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
@@ -258,20 +261,27 @@ href: 'Scene.dc.html', tap: nav('Scene'), aria: 'Kanji and words: ' + counts.joi
 }, 'k', rows.length + 1);
 }
 if (v.reading) {
-const r = v.reading.reading;
+/* the lesson's short item shows its skill; a bank item (mid, info, pair) its kind and the paper's name for it */
+const r = v.reading.item || {};
+const RK = { mid: 'mid passage', info: 'information', pair: 'two texts' };
+const rk = RK[v.reading.kind] || '';
 row({
 icon: '読', iconBg: '#FFF4D6', iconColor: '#1B2440',
-lj: '読解', le: 'Reading',
-main: r.skill, sub: r.en,
-href: 'Reading.dc.html', tap: nav('Reading'), aria: 'Reading: ' + r.en,
+lj: '読解', le: rk ? 'Reading · ' + rk : 'Reading',
+main: rk ? r.type || r.skill : r.skill, sub: r.en,
+href: 'Reading.dc.html', tap: nav('Reading'), aria: 'Reading: ' + (rk ? rk + ', ' : '') + r.en,
 }, 'r', rows.length + 1);
 }
 if (v.listening) {
+/* the paper's name for the item's kind: the lesson's quick-response item, or a bank item's own type */
+const LJ = { quick: '即時応答', task: '課題理解', point: 'ポイント理解', gist: '概要理解' };
+const LE = { quick: 'Quick response', task: 'Task', point: 'Key point', gist: 'Main idea' };
+const lt = (v.listening.item || {}).type || LJ[v.listening.kind] || '即時応答';
 row({
 icon: '聴', iconBg: '#E0F3EF', iconColor: '#0B7A6B',
 lj: '聴解', le: 'Listening',
-main: '即時応答', mainEn: 'Quick response', weight: 800,
-href: 'Listening.dc.html', tap: nav('Listening'), aria: 'Listening: quick response',
+main: lt, mainEn: LE[v.listening.kind] || 'Quick response', weight: 800,
+href: 'Listening.dc.html', tap: nav('Listening'), aria: 'Listening: ' + (LE[v.listening.kind] || 'quick response').toLowerCase(),
 }, 'l', rows.length + 1);
 }
 } else if (v.kind === 'review') {
@@ -292,7 +302,7 @@ const n = parts.length;
 const mixedTest = v.kind === 'test' && N.weekTest(plan, v.wk).length < 6;
 let hint = '';
 if (v.kind === 'test') hint = dayDone ? 'The week test is done. Open it to see how it went.' : mixedTest ? 'A mixed review of what you have learned, in one test.' : 'The kanji, words and grammar of this week, in one test.';
-else if (v.kind === 'review') hint = !dayDone ? 'No new lessons on this day: a mixed review, then your notebook.' : due ? 'The review is done. Clear what is due in your notebook.' : 'The review is done, and nothing is due in your notebook.';
+else if (v.kind === 'review') hint = !dayDone ? 'No new lessons on this day: a mixed review, with questions from N2 to N4, then your notebook.' : due ? 'The review is done. Clear what is due in your notebook.' : 'The review is done, and nothing is due in your notebook.';
 else if (!n) hint = '';
 else if (dayDone) hint = 'Every part is done. Open a card to go over it again.';
 else if (n === 1) hint = 'One part on this day. Tap the card to begin.';

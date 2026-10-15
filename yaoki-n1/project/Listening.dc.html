@@ -250,7 +250,8 @@ let heard = false;
 let rest = 0;
 const finish = () => {
 clearInterval(this.timer);
-if (!(waitMs > 0)) { this.setState({ playing: false, played: true, progress: 1, part: -1, left: 0 }); return; }
+/* no answer time for a quick item, nor for a replay once the answer has been given */
+if (!(waitMs > 0) || this.state.pick !== null) { this.setState({ playing: false, played: true, progress: 1, part: -1, left: 0 }); return; }
 /* the answer time: the seconds left, until it runs out or an answer is given */
 const end = Date.now() + waitMs;
 this.setState({ playing: false, played: true, progress: 1, part: -1, left: Math.ceil(waitMs / 1000) });
@@ -383,8 +384,9 @@ const partJa = (c) => (c.part === 'talk' && e.kind === 'gist' ? '話' : (PART[c.
 const partEn = (c) => (c.part === 'talk' && e.kind === 'gist' ? 'the talk' : (PART[c.part] || { en: 'a part' }).en);
 const parts = quick ? [] : clips.map((c, k) => ({ ja: partJa(c), bg: s.playing && k === s.part ? '#2F4FD0' : '#EEF0F6', ink: s.playing && k === s.part ? '#FFFFFF' : '#5A6382' }))
 .concat([{ ja: '解答' + (s.left > 0 ? ' ' + s.left : ''), bg: s.left > 0 ? '#F2B43A' : '#EEF0F6', ink: s.left > 0 ? '#1B2440' : '#5A6382' }]);
-/* said once the play button is tapped: the sound files load in the background, so before then a clip may not be named yet */
-const noClip = (s.playing || s.played) && clips.some((c) => !recorded(c));
+/* said once the play button is tapped (the sound files load in the background, so before then a clip may not be named
+   yet), and no longer once answered, when the script needs the room */
+const noClip = (s.playing || s.played) && !answered && clips.some((c) => !recorded(c));
 return {
 has: true,
 none: false,

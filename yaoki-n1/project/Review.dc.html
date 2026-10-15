@@ -35,6 +35,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ session }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 6px; display: flex; align-items: center; gap: 8px; flex-shrink: 0">
 <div lang="ja" style="padding: 3px 9px; border-radius: 8px; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: {{ it.tagBg }}; color: {{ it.tagInk }}">{{ it.type }}</div>
+<sc-if value="{{ it.review }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="padding: 3px 8px; border-radius: 8px; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0; background: #FFF4D6; color: #1B2440">{{ it.level }}</div></sc-if>
 <div style="flex-grow: 1; min-width: 0; font-size: 12px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ pos }}</div>
 <div role="img" aria-label="{{ pipLabel }}" style="display: flex; gap: 4px; flex-shrink: 0"><sc-for list="{{ pips }}" as="p" hint-placeholder-count="3"><div style="width: 11px; height: 11px; box-sizing: border-box; border-radius: 50%; border: {{ p.border }}; background: {{ p.bg }}"></div></sc-for></div>
 <div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap; flex-shrink: 0">in a row</div>
@@ -117,7 +118,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 
 <sc-if value="{{ it.isNumbers }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 12px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; flex-shrink: 0">
+<div style="margin-top: 12px; display: grid; gap: 10px; flex-shrink: 0; grid-template-columns: {{ it.numCols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
 <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-disabled="{{ o.off }}" aria-label="{{ o.aria }}" style="height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 21px; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}; cursor: {{ o.cursor }}">{{ o.n }}<sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
@@ -233,13 +234,20 @@ const KIND = {
 '用法': { ask: 'Which sentence uses it well?', rubric: 'この言葉が正しく使われている文を一つ選んでください。' },
 '文の文法1': { ask: 'Choose the form', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。' },
 '文の文法2': { ask: 'Which tile goes on the ★?', rubric: '並べ替えたとき★の位置に来る語句を一つ選んでください。' },
+'表記': { ask: 'Choose the kanji', rubric: '下線部の言葉を漢字で書くとき、正しいものを一つ選んでください。' },
+'語形成': { ask: 'Choose the part that fits', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。' },
 '読解': { ask: 'Read, then answer', rubric: '' },
 '即時応答': { ask: 'Choose the best reply', rubric: 'はじめに短い文が流れます。続いてそれへの答えを聞き、正しい返事を一つ選んでください。' },
 '文章の文法': { ask: 'Choose what fits the text', rubric: '' },
+'内容理解（中文）': { ask: 'Read, then answer', rubric: '' },
+'情報検索': { ask: 'Find what applies', rubric: '' },
 '統合理解': { ask: 'Read A and B, then answer', rubric: '' },
 '課題理解': { ask: 'Listen, then answer', rubric: '' },
+'ポイント理解': { ask: 'Listen for the point', rubric: '' },
 '概要理解': { ask: 'Listen for the gist', rubric: '' },
 };
+/* how a lesson's longer reading or listening item (BANKS.md) is laid out: as the mock kinds the screen draws */
+const LAYOUT = { mid: 'passage', info: 'passage', pair: 'pair', task: 'task', point: 'task', gist: 'gist' };
 /* a mini mock's question of a type not named above: what it asks, by how the paper lays it out. A mock question
    brings the instruction of its own paper */
 const BY_KIND = {
@@ -249,7 +257,7 @@ task: 'Listen, then answer', gist: 'Listen for the gist', quick: 'Choose the bes
 /* the parts of a mock question's audio, played in turn */
 const PART = {
 q: { ja: '質問', en: 'the question' }, talk: { ja: '話', en: 'the talk' }, q2: { ja: '質問', en: 'the question again' },
-choices: { ja: '選択肢', en: 'the question and the choices' }, line: { ja: '文', en: 'the line' }, replies: { ja: '返事', en: 'the three replies' },
+choices: { ja: '選択肢', en: 'the question and the four choices' }, line: { ja: '文', en: 'the line' }, replies: { ja: '返事', en: 'the three replies' },
 };
 /* the breath between two parts of the audio, in milliseconds */
 const GAP = 400;
@@ -303,6 +311,9 @@ return out.filter((g) => !g.text || g.t);
 const fullSegs = (text) => noRuby(text).split(/(【[^】]*】)/).filter((t) => t).map((t) => (t[0] === '【' ? markSeg(t.slice(1, -1)) : plainSeg(t)));
 /* a paragraph of a passage or a text of a pair: 【…】 underlined, and its blank, which holds the answer once checked */
 const textSegs = (text, fill) => noRuby(text).split(/(【[^】]*】|（　　）)/).filter((t) => t).map((t) => (t === '（　　）' ? (fill ? markSeg(fill) : BLANK) : t[0] === '【' ? underSeg(t.slice(1, -1)) : plainSeg(t)));
+/* a lesson's longer reading (BANKS.md): its 【signposts】 are the lines the answer turns on, so, as the Reading screen
+   draws them, they stay plain until the answer is checked and light up then */
+const bankSegs = (text, lit) => noRuby(text).split(/(【[^】]*】|（　　）)/).filter((t) => t).map((t) => (t === '（　　）' ? BLANK : t[0] === '【' ? (lit ? markSeg(t.slice(1, -1)) : plainSeg(t.slice(1, -1))) : plainSeg(t)));
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -369,7 +380,7 @@ m('g.' + lid + '.d0', { at: at(0) }),
 m('k.' + (v && v.ki.length ? v.ki[0] : 0) + '.0', { at: at(-4), step: 1, next: t }),
 m('l.' + pid, { at: at(-11), step: 2, next: t }),
 m('g.' + pid + '.x2', { at: at(-1) }),
-m('w.' + (v && v.wi.length ? v.wi[0] : 0), { at: at(-2), step: 1, next: N.add(t, 2) }),
+m(v && v.wi.length && N.words[v.wi[0]] ? 'w.' + N.lessons[N.words[v.wi[0]].li].id + '.' + N.words[v.wi[0]].i : 'w.' + lid + '.0', { at: at(-2), step: 1, next: N.add(t, 2) }),
 m('r.' + pid, { at: at(-12), step: 3, cleared: N.add(t, -1) }),
 ]);
 }
@@ -390,14 +401,22 @@ const mk = (N.mocks || []).filter((x) => String(x.id) === String(q.mock))[0];
 const all = mk ? mk.sections.reduce((a, sec) => a.concat(sec.items || []), []) : [];
 return all[q.n - 1] ? { it: all[q.n - 1], mk } : null;
 }
+/* the audio parts of a listening question, as MOCKS.md and BANKS.md write them: a mock question's, or a lesson's
+   longer item's (N.listenings, by its src) */
+audioOf(e) {
+const N = window.ykN1;
+if (e.raw && e.raw.it.audio) return e.raw.it.audio;
+const b = (N.listenings || []).filter((x) => x.src === e.q.src)[0];
+return b && b.item && Array.isArray(b.item.audio) ? b.item.audio : [];
+}
 /* what the play button plays, in turn, each with its stand-in time for when its clip is missing (about 150 ms a
    character, and 600 ms). A lesson's line and its replies are one clip (each reply after its number, with a
-   second's pause before it); a mock question has a clip for each part of its audio */
+   second's pause before it); a mock question or a lesson's longer item has a clip for each part of its audio */
 clipsOf(e) {
 const N = window.ykN1;
 const q = e.q;
 if (Array.isArray(q.clips) && q.clips.length) {
-const said = (e.raw && e.raw.it.audio) || [];
+const said = this.audioOf(e);
 return q.clips.map((key, k) => {
 const a = said[k] || { lines: [] };
 const chars = (a.lines || []).reduce((n, l) => n + N.plain(l[1]).length, 0);
@@ -433,7 +452,7 @@ const N = window.ykN1;
 const s = String(src).split('.');
 const l = s[0] === 'g' || s[0] === 'r' ? N.lessons[N.lessonIndex(s[1])] : null;
 if (!l) return {};
-if (s[0] === 'r') return { skill: l.reading.skill || '', en: l.reading.en || '', whyNot: l.reading.whyNot || [] };
+if (s[0] === 'r') { const r = (s[2] === '2' ? l.reading2 : l.reading) || {}; return { skill: r.skill || '', en: r.en || '', whyNot: r.whyNot || [] }; }
 const n = +String(s[2] || '').slice(1);
 const q = s[2] && s[2][0] === 'd' ? l.grammar.drills[n] : s[2] && s[2][0] === 'x' ? l.grammar.exam[n] : null;
 if (!q) return {};
@@ -463,11 +482,12 @@ return [pre ? plain(pre) : null].concat(tiles.map((t, k) => (k === q.star ? mark
 if (q.type === '読解') {
 return N.segs(q.passage).filter((g) => g.t).map((g) => (g.ruby ? { ruby: true, text: false, t: g.t, r: g.r } : checked && g.mark ? mark(g.t) : plain(g.t)));
 }
-/* the underlined word of a 言い換え類義 question is always shown; a drill's clue only once checked */
+/* the underlined word of a 言い換え類義 question, or of a review question of an earlier level (a reading, a
+   writing, a paraphrase), is always shown; a drill's clue only once checked */
 const raw = ex.ja && /（　　）/.test(ex.ja) ? ex.ja : q.ja;
 const out = [];
 N.segs(raw).forEach((g) => {
-const show = g.mark && (q.type === '言い換え類義' || checked);
+const show = g.mark && (q.type === '言い換え類義' || !!q.review || checked);
 g.t.split('（　　）').forEach((t, k) => {
 if (k) out.push(checked ? mark(right) : BLANK);
 if (t) out.push(show ? under(t) : plain(t));
@@ -547,7 +567,9 @@ const m = e.m;
 const ex = this.extra(q.src);
 /* a mock question: its item in the bank, and how its paper lays it out (sentence, usage, passage, pair, task, gist, quick) */
 const raw = e.raw ? e.raw.it : null;
-const layout = raw ? q.kind || raw.kind || '' : '';
+/* a lesson's longer reading or listening item is laid out as the mock kinds are */
+const layout = raw ? q.kind || raw.kind || '' : LAYOUT[q.kind] || '';
+const bank = !raw && !!LAYOUT[q.kind];
 const kind = KIND[q.type] || { ask: BY_KIND[layout] || 'Choose the answer', rubric: raw ? '' : '正しいものを一つ選んでください。' };
 const area = AREA[q.area] || AREA.g;
 const isListen = !!q.listen;
@@ -557,8 +579,12 @@ const isPair = layout === 'pair';
 const isWord = q.type === '漢字読み' && !!q.word;
 const isUsage = !!q.usage || q.type === '用法';
 /* the line and its three replies, chosen by number: a lesson's listening, a mock's 即時応答. A mock's 課題理解 and
-   概要理解 have their choices printed */
-const isNumbers = isListen && (!layout || layout === 'quick');
+   概要理解 have their choices printed; a lesson's 概要理解 only speaks them, so it shows the numbers 1 to 4 */
+const isGist = bank && layout === 'gist';
+const isNumbers = isListen && (!layout || layout === 'quick' || isGist);
+/* the texts of a passage, a notice or a pair: a lesson's longer reading holds its paragraphs or lines in passage */
+const texts = isPair ? q.texts || [] : Array.isArray(q.passage) ? q.passage : q.texts || [];
+const lead = (raw && raw.lead) || q.lead || '';
 const checked = s.checked;
 const pick = s.pick;
 const correct = checked && pick === q.answer;
@@ -585,7 +611,7 @@ on,
 /* not disabled buttons: the marked answers must stay clear */
 off: locked || checked,
 cursor: locked || checked ? 'default' : 'pointer',
-aria: 'Reply ' + num + (checked && num === q.answer ? ', the right answer' : checked && on ? ', your answer, wrong' : ''),
+aria: (isGist ? 'Choice ' : 'Reply ') + num + (checked && num === q.answer ? ', the right answer' : checked && on ? ', your answer, wrong' : ''),
 right: checked && num === q.answer,
 bad: checked && on && num !== q.answer,
 pick: () => { const now = this.state; if (!now.checked && !(isListen && !now.played)) this.setState({ pick: num }); },
@@ -686,7 +712,7 @@ this.timer = setInterval(tick, 80);
 /* said once the play button is tapped: the sound files load in the background, so before then a clip may not be named yet */
 const noClip = isListen && (s.playing || s.played) && clips.some((c) => !recorded(c));
 /* the script of a mock question's talk, shown once checked (a line and its replies show on their own) */
-const script = isListen && !isNumbers && raw ? (raw.audio || []).reduce((all, a) => all.concat(a.lines || []), []).map((l) => ({ who: l[0], segs: N.segs(l[1]).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) })) : [];
+const script = isListen && layout && layout !== 'quick' ? this.audioOf(e).reduce((all, a) => all.concat(a.lines || []), []).map((l) => ({ who: l[0], segs: N.segs(l[1]).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) })) : [];
 /* the explanations: why the answer is right, and why the pick was not, where the bank has a note per option */
 const was = (k) => (q.was ? q.was[k - 1] : k);
 /* a kanji word's meaning can end cut short with …; no full stop after it */
@@ -696,7 +722,7 @@ if (ex.whys && pick) {
 why = ex.whys[was(q.answer) - 1] || why;
 if (wrong) whyNot = ex.whys[was(pick) - 1] || '';
 }
-if (isReading && wrong && ex.whyNot) whyNot = ex.whyNot[was(pick) - 1] || '';
+if ((isReading || (bank && (isPassage || isPair))) && wrong && ex.whyNot) whyNot = ex.whyNot[was(pick) - 1] || '';
 const isLast = s.i >= n - 1;
 const check = () => {
 const now = this.state;
@@ -728,10 +754,12 @@ return {
 session: true,
 it: {
 /* a reading names its skill in the tag, as the reading screen does, so its four options fit below the passage */
-type: isReading && ex.skill ? q.type + ' · ' + ex.skill : q.type,
+type: (isReading || (bank && (isPassage || isPair))) && ex.skill ? q.type + ' · ' + ex.skill : q.type,
+review: !!q.review,
+level: q.review ? '復習 ' + q.level : '',
 tagBg: area.bg,
 tagInk: area.ink,
-ask: isReading && ex.en ? ex.en : kind.ask,
+ask: (isReading || (bank && (isPassage || isPair))) && ex.en ? ex.en : kind.ask,
 /* a mock question names its mock */
 hasFrom: !!e.raw,
 from: e.raw ? e.raw.mk.en || e.raw.mk.title || '' : '',
@@ -745,6 +773,7 @@ isPassage,
 isPair,
 isListen,
 isNumbers,
+numCols: 'repeat(' + (isGist ? 4 : 3) + ', minmax(0, 1fr))',
 isText: !isWord && !isUsage && !isReading && !isPassage && !isPair && !isListen,
 isChoice: !isNumbers,
 hasQuestion: isReading || isPassage || isPair,
@@ -752,11 +781,11 @@ word: N.plain(q.word || ''),
 reading: N.plain(q.options[q.answer - 1] || ''),
 en: q.en || '',
 segs: this.segs(e, checked),
-hasLead: isPassage && !!(raw && raw.lead),
-lead: isPassage && raw ? N.plain(raw.lead || '') : '',
+hasLead: isPassage && !!lead,
+lead: isPassage ? N.plain(lead) : '',
 /* a passage's blank holds the answer once checked */
-paras: isPassage ? (q.texts || []).map((t) => ({ segs: textSegs(t, checked ? labels[q.answer - 1] : '') })) : [],
-pair: isPair ? (q.texts || []).map((t, k) => ({ tag: 'ABCD'[k] || String(k + 1), aria: 'Text ' + ('ABCD'[k] || String(k + 1)), segs: textSegs(t, '') })) : [],
+paras: isPassage ? texts.map((t) => ({ segs: bank ? bankSegs(t, checked) : textSegs(t, checked ? labels[q.answer - 1] : '') })) : [],
+pair: isPair ? texts.map((t, k) => ({ tag: 'ABCD'[k] || String(k + 1), aria: 'Text ' + ('ABCD'[k] || String(k + 1)), segs: bank ? bankSegs(t, checked) : textSegs(t, '') })) : [],
 question: isReading || isPassage || isPair ? N.plain(q.ja) : '',
 line: isNumbers ? N.plain(q.ja) : '',
 cols: wide ? 'minmax(0, 1fr)' : 'repeat(2, minmax(0, 1fr))',
@@ -776,7 +805,7 @@ checked,
 correct,
 wrong,
 waiting: locked,
-waitLine: isNumbers ? 'Listen first, then choose 1, 2 or 3.' : 'Listen first, then choose.',
+waitLine: isGist ? 'Listen first, then choose 1 to 4.' : isNumbers ? 'Listen first, then choose 1, 2 or 3.' : 'Listen first, then choose.',
 verdictJa: wrong ? 'おしい！' : 'せいかい！',
 verdictEn: wrong ? 'Not quite' : 'Correct',
 panelEdge: wrong ? '#C7361E' : '#0B7A6B',
@@ -786,10 +815,10 @@ why,
 hasWhyNot: !!whyNot,
 whyNot,
 /* a reading's note names the option itself */
-hasPickLabel: !isReading && !!pick,
+hasPickLabel: !isReading && !(bank && (isPassage || isPair)) && !!pick,
 pickLabel: pick ? labels[pick - 1] || '' : '',
 /* the replies, said after the line: a lesson's with a note on each, a mock's as its choices */
-replies: (isNumbers ? (q.replies || q.options || []).slice(0, 3) : []).map((text, k) => {
+replies: (isNumbers ? (q.replies || q.options || []).slice(0, isGist ? 4 : 3) : []).map((text, k) => {
 const note = (q.notes || [])[k] || '';
 return { n: k + 1, text: N.plain(text), note, hasNote: !!note, ok: k + 1 === q.answer, mine: wrong && pick === k + 1 };
 }),

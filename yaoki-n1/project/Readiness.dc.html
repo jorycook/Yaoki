@@ -103,6 +103,18 @@ a:hover{color:#1B2440}
 </sc-if>
 </div>
 
+<div role="img" aria-label="{{ rvAria }}" style="flex-shrink: 0; padding: 10px 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: baseline; gap: 8px">
+<div style="flex-grow: 1; min-width: 0; font-size: 14px; font-weight: 800; white-space: nowrap"><span lang="ja">復習</span>　Review of N2 to N4</div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ rvCount }}</div>
+</div>
+<div style="height: 8px; border-radius: 4px; background: #D9E0F8; overflow: hidden"><div style="height: 8px; border-radius: 0 4px 4px 0; background: #2F4FD0; width: {{ rvW }}"></div></div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.4">{{ rvLine }}</div>
+<sc-if value="{{ rvHasDue }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800; line-height: 1.4"><span lang="ja" style="padding: 2px 7px; border-radius: 8px; background: #FFF4D6; white-space: nowrap; flex-shrink: 0">{{ rvDueJa }}</span><span style="min-width: 0">{{ rvDueLine }}</span></div>
+</sc-if>
+</div>
+
 <div style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div style="flex-grow: 1; font-size: 14px; font-weight: 800; white-space: nowrap"><span lang="ja">週テスト</span>　Week tests</div>
@@ -374,7 +386,25 @@ if (!mocks.length) mocksLine = 'No mini mock taken yet.' + (bank.length ? ' ' + 
 else mocksLine = mocks.length + ' taken' + (mocksRight[1] ? ' · ' + num(mocksRight[0]) + ' of ' + num(mocksRight[1]) + ' right (' + Math.round((mocksRight[0] / mocksRight[1]) * 100) + '%)' : '') + (bank.length > inBank ? ' · ' + (bank.length - inBank) + ' still to take' : '') + '.';
 
 /* the notebook: what is due today */
-const due = this.dueCount(Array.isArray(app.mistakes) ? app.mistakes : []);
+const mistakes = Array.isArray(app.mistakes) ? app.mistakes : [];
+const due = this.dueCount(mistakes);
+
+/* the review of the earlier levels: the questions met so far (two in each study day's quiz, four in a week test,
+   six on a review day or in a week test that was a mixed review, as N.dayReview gives them) of the pool, and the
+   review mistakes (x.…) due in the notebook */
+const pool = (N.reviewPool || []).length;
+let met = 0;
+days.forEach((x, i) => {
+const p = x.p || {};
+if (x.t === 0 && p.k >= 1 && (this.size(x, 'k') || this.size(x, 'w'))) met += 2;
+else if (x.t === 1 && p.t >= 1) met += N.weekTest(plan, Math.floor(i / 7) + 1).length < 6 ? 6 : 4;
+else if (x.t === 2 && p.v >= 1) met += 6;
+});
+met = Math.min(met, pool);
+const rvDue = this.dueCount(mistakes.filter((m) => m && typeof m.src === 'string' && m.src.indexOf('x.') === 0));
+const rvAll = mistakes.filter((m) => m && typeof m.src === 'string' && m.src.indexOf('x.') === 0 && !m.cleared && N.item(m.src)).length;
+const rvLine = (pool ? (met ? num(met) + ' met so far' : 'None met yet') + ': two in each day quiz, four in a week test, six on a review day.' : 'No review questions in this course yet.');
+const rvDueLine = rvDue ? rvDue + (rvDue === 1 ? ' review mistake' : ' review mistakes') + ' due in your notebook.' : rvAll ? rvAll + ' in your notebook, none due today.' : 'None in your notebook.';
 
 /* the note under the bars: the exam has passed, or the plan does not hold the whole course (not on exam day) */
 let noteText = '';
@@ -418,6 +448,13 @@ hasMocks: mocks.length > 0,
 mocks,
 mocksLabel: mocks.map((c) => c.aria).join('. '),
 mocksLine,
+rvCount: pool ? num(met) + ' of ' + num(pool) : '',
+rvW: pct(met, pool),
+rvLine,
+rvHasDue: pool > 0,
+rvDueJa: rvDue ? '要復習' : 'ノート',
+rvDueLine,
+rvAria: 'Review of the earlier levels: ' + num(met) + ' of ' + num(pool) + ' questions met. ' + rvDueLine,
 nbBg: due ? '#2F4FD0' : '#FFFFFF',
 nbInk: due ? '#FFFFFF' : '#1B2440',
 nbLine: due ? due + ' due today' : 'Nothing due today',
