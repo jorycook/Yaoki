@@ -8,7 +8,6 @@
 <script src="./n1-content.js"></script>
 <script src="./n1.js"></script>
 <script src="./audio/clips.js"></script>
-<script src="./sound-lessons.js"></script>
 </head>
 <body>
 <x-dc>
@@ -62,7 +61,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3"><span lang="ja">語彙</span> <span style="font-size: 15px; font-weight: 700; color: #5A6382">{{ wTitle }}</span></h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382">Listen to each word, then see it at work.</div>
 </div>
-<div role="list" aria-label="{{ wTitle }}" style="margin-top: 12px; flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-bottom: 6px; display: flex; flex-direction: column; gap: 10px">
+<div style="position: relative; margin-top: 12px; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column">
+<div role="list" aria-label="{{ wTitle }}" style="flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-bottom: 28px; display: flex; flex-direction: column; gap: 10px">
 <sc-for list="{{ words }}" as="w" hint-placeholder-count="4">
 <div role="listitem" style="flex-shrink: 0; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; align-items: flex-start; gap: 10px">
@@ -81,6 +81,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 </sc-for>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 24px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none"></div>
 </div>
 <div style="flex-grow: 1; min-height: 12px"></div>
 <button onClick="{{ fromW }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　Next: the quiz</button>

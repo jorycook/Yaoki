@@ -180,7 +180,7 @@ const firstOpen = parts.filter((x) => !x.done)[0];
 const nextKey = firstOpen ? firstOpen.key : '';
 const isDone = (key) => parts.some((x) => x.key === key && x.done);
 /* mistakes due in the notebook (shown on a review day) */
-const due = (app.mistakes || []).filter((m) => N.due(m)).length;
+const due = (app.mistakes || []).filter((m) => m && typeof m.src === 'string' && N.item(m.src) && N.due(m)).length;
 
 /* the big card: grammar with its steps, or the week test, or the mixed review */
 let big = null;

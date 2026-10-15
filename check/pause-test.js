@@ -65,7 +65,7 @@ const LV = require('./level.js');
     const info = await inspect(page);
     await page.screenshot({ path: path.join(out, 'ps-' + name + '.png') });
     const bad = info.errors.length || info.issues.length || info.unresolved;
-    console.log(`${name}: root=${info.rootH}` + (bad ? ' PROBLEMS ' + JSON.stringify({ e: info.errors, i: info.issues, u: info.unresolved }) : ''));
+    console.log(`${name}: root=${info.rootH}` + (bad ? ' PROBLEMS ' + JSON.stringify({ e: info.errors, i: info.issues, u: info.unresolved }) : '') + (info.pad.length ? ' PAD WARNING ' + JSON.stringify(info.pad) : ''));
     ok(!bad, name + ': layout or runtime problems');
   };
   // the last clip that started: the first listening clip, picked up "into" milliseconds from its start

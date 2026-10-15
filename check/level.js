@@ -23,17 +23,18 @@ const mockClips = ['m10_q', 'm10_talk', 'm10_q2', 'm11_talk', 'm11_q', 'm12_line
 const listeningMs = mockClips.reduce((n, ms) => n + ms + 400, 0) + 8000 + 8000 + 6000;
 
 /* the N1 course as the app has it: the content bank and the plan engine (window.ykN1), run here on a given day */
+const N1_PROJECT = path.join(__dirname, '..', 'yaoki-n1', 'project');
 function course(today) {
   const sandbox = { window: { __ykToday: today || undefined }, console };
   vm.createContext(sandbox);
-  for (const f of ['n1-content.js', 'n1.js']) vm.runInContext(fs.readFileSync(path.join(PROJECT, f), 'utf8'), sandbox, { filename: f });
+  for (const f of ['n1-content.js', 'n1.js']) vm.runInContext(fs.readFileSync(path.join(N1_PROJECT, f), 'utf8'), sandbox, { filename: f });
   return sandbox.window.ykN1;
 }
 
 /* words the shared checks look for. weekTheme: the week path's banner once a goal is set on the first screen;
-   teachTitle: the first teach page's heading; drillWrong, drillLine: a wrong option of the first drill and words its
-   notebook line shows; drillSrc: the notebook's name for that drill; teachClip: the first teach page example's clip;
-   tabCount: words only the mock tab shows */
+   teachTitle: the first teach page's heading; drillWrong, drillLine: a wrong option of the first drill, and the words
+   before its blank, which its notebook line always shows (it keeps the blank in view); drillSrc: the notebook's name
+   for that drill; teachClip: the first teach page example's clip; tabCount: words only the mock tab shows */
 let TEXT;
 if (LEVEL === 'N1') {
   /* a new plan starts with the first lesson of the first unit */
@@ -43,7 +44,7 @@ if (LEVEL === 'N1') {
   const wrong = d.options.filter((o, k) => k + 1 !== d.answer).sort((a, b) => b.length - a.length)[0];
   TEXT = {
     appName: 'Yaoki N1', tabCount: 'short papers in the real format', weekTheme: N.units[0].ja,
-    teachTitle: l.grammar.patterns[0].p, drillWrong: N.plain(wrong), drillLine: N.plain(d.ja).replace(/[。！？]$/, '').slice(-6),
+    teachTitle: l.grammar.patterns[0].p, drillWrong: N.plain(wrong), drillLine: N.plain(d.ja).split('（　　）')[0].slice(-5),
     drillSrc: 'g.' + l.id + '.d0', teachClip: 'g.' + l.id + '.0.0',
   };
 } else {

@@ -27,7 +27,7 @@ const fresh = (open) => { const p = N.demo(); p.days.forEach((x) => { x.p = {}; 
 const DEMO = N.demo();
 const ONLY = process.argv[2] ? new RegExp(process.argv[2]) : null;
 /* the jobs whose every state is kept as a screenshot */
-const KEEP = /^(lesson-u1l1|lesson-u3l4|lesson-u8l6|week-6|week-62|mock-\d|main|today-(0|4|6|17|20|56)$)/;
+const KEEP = /^(lesson-u1l1|lesson-u3l4|lesson-u8l6|week-6|week-27|week-62|mock-\d|main|goal-|today-(0|4|6|17|20|56)$)/;
 
 const jobs = [];
 
@@ -186,10 +186,30 @@ N.mocks.forEach((m) => {
         if (k) await t.click(`[role=tab] >> nth=${k}`);
         await t.shot('answers-' + (k + 1));
       }
-      const scripts = await t.page.locator('button:has-text("Show the script")').count();
-      for (let k = 0; k < scripts; k++) {
-        await t.click(`button:has-text("Show the script") >> nth=${k}`);
+      /* each script opened in turn: an open one's button says Hide */
+      for (let k = 0; k < 3 && (await t.page.locator('button:has-text("Show the script")').count()); k++) {
+        await t.click('button:has-text("Show the script") >> nth=0');
         await t.shot('script-' + (k + 1));
+      }
+    },
+  });
+});
+
+/* ---------- the goal: every session at every daily time, for a first goal and for a new plan ---------- */
+[['goal-first', `TShell.dc.html?screen=Goal&ykdate=${TODAY}`], ['goal-replan', `TShell.dc.html?screen=Goal&plan=demo&day=17&ykdate=${TODAY}`]].forEach(([name, url]) => {
+  jobs.push({
+    name,
+    url,
+    run: async (t) => {
+      for (let k = 0; k < 3; k++) {
+        await t.click('button[aria-haspopup="dialog"]', 400);
+        if (k === 0) await t.shot('sessions');
+        await t.click(`[role=dialog] button[aria-pressed] >> nth=${k}`, 200);
+        await t.click('[role=dialog] button:has-text("Confirm")', 400);
+        for (const pace of ['30分', '45分', '60分']) {
+          await t.click(`button:has-text("${pace}")`, 250);
+          await t.shot(`session-${k + 1}-${pace.replace('分', 'min')}`);
+        }
       }
     },
   });
@@ -225,7 +245,7 @@ jobs.push({
   let shots = 0;
   const todo = jobs.filter((j) => !ONLY || ONLY.test(j.name));
   const runJob = async (job) => {
-    const prep = job.clock ? (page) => page.clock.install() : undefined;
+    const prep = job.clock ? (page) => page.clock.install({ time: new Date(TODAY + 'T10:00:00') }) : undefined;
     const { page, logs } = await openBoard(browser, job.url, fontsCss, prep);
     const lines = [];
     let problems = 0;
@@ -251,6 +271,8 @@ jobs.push({
       expect: (cond, msg) => { if (!cond) { problems++; lines.push('   FAIL ' + msg); } },
       shot: async (state) => {
         shots++;
+        /* a state is looked at once it has settled: a sheet that slides up, a stamp pressed in */
+        await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running' || a.effect.getTiming().iterations === Infinity), null, { timeout: 3000 }).catch(() => {});
         const info = await inspect(page);
         /* text its own box cuts off: a box that hides what overflows it, holding more than it shows. A box that cuts on
            purpose (a one-line clamp, an ellipsis) or that only frames a bar or a picture is left out */
@@ -262,7 +284,8 @@ jobs.push({
             if (cs.webkitLineClamp !== 'none' || cs.textOverflow === 'ellipsis' || !el.textContent.trim()) continue;
             const r = el.getBoundingClientRect();
             if (!r.width || !r.height || r.width >= 389 || el.closest('svg')) continue;
-            if (el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1) res.push(`CUT ${el.tagName.toLowerCase()} "${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 30)}" ${el.scrollWidth}x${el.scrollHeight} in ${el.clientWidth}x${el.clientHeight}`);
+            /* a list that scrolls one way may hide the other way only */
+            if ((cs.overflowY === 'hidden' && el.scrollHeight > el.clientHeight + 1) || (cs.overflowX === 'hidden' && el.scrollWidth > el.clientWidth + 1)) res.push(`CUT ${el.tagName.toLowerCase()} "${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 30)}" ${el.scrollWidth}x${el.scrollHeight} in ${el.clientWidth}x${el.clientHeight}`);
           }
           return res;
         });
@@ -280,7 +303,7 @@ jobs.push({
       await page.screenshot({ path: path.join(out, 'sw-n1-' + job.name + '-failed.png') }).catch(() => {});
     }
     const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
-    if (noisy.length) { problems++; lines.push('   console: ' + JSON.stringify(noisy.slice(0, 4))); }
+    if (noisy.length) { problems++; lines.push('   FAIL console problems: ' + JSON.stringify(noisy.slice(0, 4))); }
     bad += problems;
     if (lines.length || keep) console.log(job.name + (problems ? ': ' + problems + ' problem(s)' : ': ok') + (lines.length ? '\n' + lines.join('\n') : ''));
     await page.close();

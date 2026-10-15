@@ -14,7 +14,8 @@ const TODAY = '2026-10-14';
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
-  const { page, logs } = await openBoard(browser, 'App.dc.html?ykdate=' + TODAY, fontsCss);
+  // the page's own clock stands on that day too, so a mistake made now is made on it
+  const { page, logs } = await openBoard(browser, 'App.dc.html?ykdate=' + TODAY, fontsCss, (pg) => pg.clock.install({ time: new Date(TODAY + 'T10:00:00') }));
   const startUrl = page.url();
   let fails = 0;
   let pads = 0;
@@ -271,6 +272,9 @@ const TODAY = '2026-10-14';
   await at('30-listening', 'いちばんいい返事は');
   ok(await has('Listen first'), 'listening: the replies should wait for the audio');
   const lkey = 'l.' + day.id;
+  // the slower take starts first; a tap on the play button then starts the item again at full speed
+  await click('button[aria-label^="Play slowly"]', 900);
+  if (SOUND) ok(near(await played(), clips[lkey + '.slow']), `listening: the slow take (${lkey}.slow, ${clips[lkey + '.slow']} ms) should have started, got ` + JSON.stringify(await played()));
   const t0 = Date.now();
   await click('button[aria-label="Play audio"]', 300);
   await page.waitForFunction(() => [...document.querySelectorAll('button[aria-label^="Reply"]')].filter((b) => b.getAttribute('aria-disabled') !== 'true').length === 3, null, { timeout: 60000 });

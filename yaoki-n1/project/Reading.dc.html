@@ -67,7 +67,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><span lang="ja">正解</span>　{{ answerN }}</div></sc-if>
 </div>
 
-<div style="min-height: 0; overflow-y: auto; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; min-height: 0; display: flex; flex-direction: column">
+<div style="min-height: 0; overflow-y: auto; padding: 12px 14px 16px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">解説</span>　Why each option</div>
 <sc-for list="{{ whys }}" as="w" hint-placeholder-count="4"><div style="display: flex; align-items: flex-start; gap: 8px; flex-shrink: 0">
 <sc-if value="{{ w.right }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
@@ -83,6 +84,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 13px; font-weight: 500; word-break: keep-all; overflow-wrap: anywhere; line-height: 1.45">{{ tip }}</div>
 </div>
 </sc-if>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16px; border-radius: 0 0 16px 16px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF); pointer-events: none"></div>
 </div>
 
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">

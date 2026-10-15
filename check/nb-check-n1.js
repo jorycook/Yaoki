@@ -14,6 +14,8 @@ const N = course(TODAY);
 const enc = (o) => encodeURIComponent(JSON.stringify(o));
 /* the time a mistake was made: two days ago, a second apart, so the notebook and the review keep them in the order given */
 const AT = Date.parse(N.add(TODAY, -2) + 'T09:00:00Z');
+/* the page's own clock stands on that day too, so a review done now is done on it */
+const ON_DAY = (page) => page.clock.install({ time: new Date(TODAY + 'T10:00:00') });
 
 /* a question as the screens show it: an option the bank could not fill is left out, and the answer counted again */
 const tidy = (q) => {
@@ -77,7 +79,7 @@ const lineOf = (q) => {
   for (let i = 0; i < entries.length; i += PER) {
     const group = entries.slice(i, i + PER);
     const m = group.map((e, j) => ({ src: e.src, wrong: e.wrong, at: AT - j * 1000 }));
-    const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Notebook&plan=demo&day=17&ykdate=' + TODAY + '&m=' + enc(m), fontsCss);
+    const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Notebook&plan=demo&day=17&ykdate=' + TODAY + '&m=' + enc(m), fontsCss, ON_DAY);
     const info = await inspect(page);
     const rows = await page.evaluate(() => {
       const clipped = (el) => !!el && el.scrollWidth > el.clientWidth + 1;
@@ -114,6 +116,7 @@ const lineOf = (q) => {
       const text = lineOf(e.q);
       if (/（　　）/.test(text) && !r.line.includes('（　　）')) problems.push(`${e.src}: the blank is cut off: ${r.line}`);
       if ((e.q.type === '漢字読み' || e.q.usage || /【/.test(text)) && !r.under) problems.push(`${e.src}: the underlined word is cut off: ${r.line}`);
+      if (!N.plain(String(e.q.right || '')).startsWith(r.right.replace(/…$/, '')) || !r.right) problems.push(`${e.src}: the right answer should be ${e.q.right}, got ${r.right}`);
       if (e.q.mock && !r.when.includes('Mini mock ' + e.q.mock)) problems.push(`${e.src}: the row should name its mock: ${r.when}`);
     });
     const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
@@ -122,7 +125,7 @@ const lineOf = (q) => {
     pads += info.pad.length;
     const widest = rows.reduce((a, r) => Math.max(a, r.w), 0);
     console.log(`page ${i / PER + 1}: ${group[0].src} … ${group[group.length - 1].src}, ${rows.length} rows, widest line ${widest}px` + (info.pad.length ? ' PAD WARNING ' + JSON.stringify(info.pad) : ''));
-    for (const p of problems) console.log('   ' + p);
+    for (const p of problems) console.log('   FAIL: ' + p);
     bad += problems.length;
     await page.close();
   }
@@ -132,7 +135,7 @@ const lineOf = (q) => {
     const longest = entries.slice().sort((a, b) => String(b.q.line).length - String(a.q.line).length);
     const m = longest.slice(0, 8).map((e, j) => ({ src: e.src, wrong: e.wrong, at: AT - j * 1000, step: 3, cleared: N.add(TODAY, -1) }))
       .concat(longest.slice(8, 12).map((e, j) => ({ src: e.src, wrong: e.wrong, at: AT - j * 1000, step: 2, next: N.add(TODAY, 5) })));
-    const { page } = await openBoard(browser, 'TShell.dc.html?screen=Notebook&plan=demo&day=17&ykdate=' + TODAY + '&m=' + enc(m), fontsCss);
+    const { page } = await openBoard(browser, 'TShell.dc.html?screen=Notebook&plan=demo&day=17&ykdate=' + TODAY + '&m=' + enc(m), fontsCss, ON_DAY);
     await page.locator('button[aria-expanded]:has-text("Cleared")').first().click({ timeout: 4000 });
     await page.waitForTimeout(400);
     const info = await inspect(page);
@@ -149,7 +152,7 @@ const lineOf = (q) => {
     if (info.errors.length || info.issues.length || info.unresolved) problems.push('PROBLEMS ' + JSON.stringify(info.issues));
     pads += info.pad.length;
     console.log(`cleared: ${res.cleared.length} rows` + (info.pad.length ? ' PAD WARNING ' + JSON.stringify(info.pad) : ''));
-    for (const p of problems) console.log('   ' + p);
+    for (const p of problems) console.log('   FAIL: ' + p);
     bad += problems.length;
     await page.close();
   }
@@ -182,7 +185,7 @@ const lineOf = (q) => {
     ].filter(Boolean);
     /* all due today, in the order given; the first two have been right twice already, so a right answer now clears them */
     const m = list.map((e, j) => ({ src: e.src, wrong: e.wrong, at: AT - j * 1000, next: TODAY, ...(j < 2 ? { step: 2 } : {}) }));
-    const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Notebook&plan=demo&day=17&ykdate=' + TODAY + '&m=' + enc(m), fontsCss);
+    const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Notebook&plan=demo&day=17&ykdate=' + TODAY + '&m=' + enc(m), fontsCss, ON_DAY);
     let fails = 0;
     const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('   FAIL: ' + msg); } };
     const body = async () => ((await page.locator('#yk-stage').textContent()) || '').replace(/\s+/g, ' ');
@@ -229,7 +232,7 @@ const lineOf = (q) => {
     ok(t.includes('Cleared · 2'), 'notebook: the two answered right a third time should be cleared');
     ok(t.includes('back 17 Oct') && t.includes('back tomorrow'), 'notebook: right answers come back in 3 days, wrong ones tomorrow');
     const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
-    if (noisy.length) { fails++; console.log('   console: ' + JSON.stringify(noisy.slice(0, 4))); }
+    if (noisy.length) { fails++; console.log('   FAIL console problems: ' + JSON.stringify(noisy.slice(0, 4))); }
     console.log(`review: ${list.length} items (${list.map((e) => e.src).join(' ')}), ${right} right`);
     bad += fails;
     await page.close();

@@ -10,7 +10,8 @@ const { mockClips, listeningMs } = require('./level.js');
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
-  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Mock&plan=demo&day=17&ykdate=2026-10-14', fontsCss);
+  // the page's own clock stands on that day too, so a mistake made now is made on it
+  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Mock&plan=demo&day=17&ykdate=2026-10-14', fontsCss, (pg) => pg.clock.install({ time: new Date('2026-10-14T10:00:00') }));
   const startUrl = page.url();
   let fails = 0;
   const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + msg); } };

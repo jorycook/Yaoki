@@ -102,7 +102,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </sc-if>
 <sc-if value="{{ !q.big }}" hint-placeholder-val="{{ false }}">
-<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap"><sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for></span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap">{{ g.lead }}<sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for>{{ g.tail }}</span></sc-if></sc-for></div>
 </sc-if>
 
 <div lang="ja" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
@@ -220,6 +220,9 @@ const fmt = (sec) => Math.floor(sec / 60) + ':' + (sec % 60 < 10 ? '0' : '') + (
 const plainSeg = (t) => ({ t, bg: 'transparent', pad: '0', ws: 'normal' });
 /* a marked run stays on one line unless it is too long for one */
 const markSeg = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px', ws: t.length > 16 ? 'normal' : 'nowrap' });
+/* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
+const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
+const NO_END = /[（「『【〔〈《［｛]+$/;
 /* the two sections of the N1 paper the test follows */
 const SECS = [
 { ja: '文字・語彙', en: 'Kanji, vocabulary', aria: 'Kanji and vocabulary' },
@@ -393,10 +396,15 @@ sentence(q) {
 const N = window.ykN1;
 const text = (t, under) => ({ text: true, t, line: under ? '2px solid #1B2440' : 'none', ws: under || t.length <= 14 ? 'nowrap' : 'normal' });
 if (q.order) {
-const pre = N.plain(q.pre);
-const post = N.plain(q.post);
+/* a mark that cannot start a line (、) or a bracket that cannot end one goes with the blanks, which never break, so
+   the rest of the sentence can still wrap */
+const whole = { pre: N.plain(q.pre), post: N.plain(q.post) };
+const lead = (whole.pre.match(NO_END) || [''])[0];
+const tail = (whole.post.match(NO_START) || [''])[0];
+const pre = whole.pre.slice(0, whole.pre.length - lead.length);
+const post = whole.post.slice(tail.length);
 const slots = [0, 1, 2, 3].map((k) => ({ star: k === q.star }));
-return [pre ? text(pre) : null, { slots }, post ? text(post) : null].filter(Boolean);
+return [pre ? text(pre) : null, { slots, lead, tail }, post ? text(post) : null].filter(Boolean);
 }
 if (q.type === '言い換え類義') {
 const segs = N.segs(q.ja);

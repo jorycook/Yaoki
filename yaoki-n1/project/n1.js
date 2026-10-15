@@ -91,10 +91,11 @@
     /* the days the content needs at this pace; a tenth of the plan (up to 12 days) is kept for review before the
        exam when the plan is long enough */
     var reserve = S >= 20 ? Math.min(12, Math.round(S * 0.1)) : 0;
-    var learn = Math.max(1, Math.min(S - reserve, Math.ceil(need / per)));
+    /* with nothing left to teach, every study day is a review day */
+    var learn = need <= 0 ? 0 : Math.max(1, Math.min(S - reserve, Math.ceil(need / per)));
     if (S === 0) learn = 0;
     /* what fits: everything, or the same share of every stream when time is short */
-    var f = learn ? Math.min(1, (learn * per) / Math.max(1, need)) : 0;
+    var f = need <= 0 ? 1 : learn ? Math.min(1, (learn * per) / Math.max(1, need)) : 0;
     var take = function (arr, cap) { return arr.slice(0, Math.min(cap, f >= 1 ? arr.length : Math.round(arr.length * f))); };
     var g = take(left.g, learn), r = take(left.r, learn), l = take(left.l, learn), k = take(left.k, 1e9), w = take(left.w, 1e9);
     study.forEach(function (x, j) {

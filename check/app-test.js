@@ -1,6 +1,7 @@
 // Checks that belong to the installable app only: saved progress, the menu, the Add to Home Screen page,
 // fitting the design to different phones, working offline and picking up a new build.
-// usage: bash run-app.sh app-test.js      (expects the test build of the app served on localhost:8765)
+// usage: bash run-app.sh app-test.js      (expects the test build of the app served on localhost:$PORT, 8765 by default,
+// from yaoki-app/$YK_TESTDIR, dist-test by default; YK_LEVEL=N1 for the N1 app)
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -8,17 +9,18 @@ const { chromium, devices } = require('playwright');
 // the level the app was built for (YK_LEVEL=N1 for the N1 app): its name, its menu chip and a few words of its lessons
 const LV = require('./level.js');
 
-const BASE = 'http://localhost:8765/';
+const BASE = 'http://localhost:' + (process.env.PORT || '8765') + '/';
 const out = path.join(__dirname, 'out');
 const APPDIR = path.join(__dirname, '..', 'yaoki-app');
-const TESTDIR = path.join(APPDIR, 'dist-test');
+const TESTNAME = process.env.YK_TESTDIR || 'dist-test';
+const TESTDIR = path.join(APPDIR, TESTNAME);
 // saved progress is kept under the folder the app is served from
 const KEY = 'yaoki.v1:/';
 const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
 let fails = 0;
 const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + msg); } };
 const note = (msg) => console.log(msg);
-const rebuild = (env) => execFileSync('node', ['build.mjs'], { cwd: APPDIR, env: { ...process.env, NODE_PATH: '/opt/npm-tools/node_modules', YK_OUT: 'dist-test', ...env }, stdio: 'ignore' });
+const rebuild = (env) => execFileSync('node', ['build.mjs'], { cwd: APPDIR, env: { ...process.env, NODE_PATH: '/opt/npm-tools/node_modules', YK_OUT: TESTNAME, ...env }, stdio: 'ignore' });
 
 async function ready(page) {
   await page.waitForSelector('#yk-stage > .sc-host', { timeout: 10000 });
@@ -28,6 +30,11 @@ async function ready(page) {
 const text = async (page) => ((await page.locator('#yk-stage').textContent()) || '').replace(/\s+/g, ' ');
 const click = async (page, sel, wait = 450) => { await page.locator(sel).first().click({ timeout: 5000 }); await page.waitForTimeout(wait); };
 const saved = async (page) => JSON.parse((await page.evaluate((k) => localStorage.getItem(k), KEY)) || 'null');
+// the teach pages, one (N2) or three (N1), then on to the comparison
+const throughTeach = async (page) => {
+  for (let n = 0; n < 3 && !(await page.locator('a:has-text("Next")').count()); n++) await click(page, 'button:has-text("Next")', 600);
+  await click(page, 'a:has-text("Next")', 700);
+};
 const watch = (page, logs) => {
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') logs.push(m.type() + ': ' + m.text().slice(0, 200)); });
   page.on('pageerror', (e) => logs.push('pageerror: ' + String(e).slice(0, 200)));
@@ -80,19 +87,19 @@ const placed = (page) => page.evaluate(() => {
     ok((await page.evaluate(() => Object.keys(localStorage))).length === 0, 'nothing at all should be left in storage before the first tap, got ' + JSON.stringify(await page.evaluate(() => Object.keys(localStorage))));
     await click(page, 'button:has-text("Paint the first eye")');
     await click(page, 'a:has-text("Start")', 700);
-    ok((await text(page)).includes('原因・理由'), 'Start should lead to the week path');
+    ok((await text(page)).includes(LV.weekTheme), 'Start should lead to the week path');
     await click(page, 'a:has-text("はじめる")', 700);
     await click(page, 'a:has-text("Start with the teach page")', 700);
-    await click(page, 'a:has-text("Next")', 700);
+    await throughTeach(page);
     await click(page, 'a:has-text("Start the drill")', 700);
     await click(page, 'button:has-text("' + LV.drillWrong + '")');
     await click(page, 'button:has-text("Check")', 600);
     ok((await text(page)).includes('Saved to your mistake notebook'), 'the drill should record the mistake');
     const s1 = await saved(page);
-    ok(s1 && s1.started === true && s1.mistakes.length === 1 && s1.mistakes[0].src === 'drill', 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
+    ok(s1 && s1.started === true && s1.mistakes.length === 1 && s1.mistakes[0].src === LV.drillSrc, 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
     await page.reload();
     await ready(page);
-    ok((await text(page)).includes('原因・理由') && !(await text(page)).includes('目標を決めよう'), 'after closing and reopening, the app should open on the week path');
+    ok((await text(page)).includes(LV.weekTheme) && !(await text(page)).includes('目標を決めよう'), 'after closing and reopening, the app should open on the week path');
     await click(page, 'nav a:has-text("Notebook")', 600);
     ok((await text(page)).includes(LV.drillLine) && (await text(page)).includes(LV.drillWrong), 'the saved mistake should be in the notebook after reopening');
     await page.screenshot({ path: path.join(out, 'app-notebook-restored.png') });
@@ -336,7 +343,7 @@ const placed = (page) => page.evaluate(() => {
     await ctx.setOffline(true);
     await page.reload();
     await ready(page);
-    ok((await text(page)).includes('原因・理由'), 'offline, the app should still open (on the week path, since the goal was set)');
+    ok((await text(page)).includes(LV.weekTheme), 'offline, the app should still open (on the week path, since the goal was set)');
     // a typeface is fetched the first time a screen uses it: ask for all five cuts while offline
     const fontsOk = await page.evaluate(async () => {
       const wants = ["500 16px 'M PLUS Rounded 1c'", "700 16px 'M PLUS Rounded 1c'", "800 16px 'M PLUS Rounded 1c'", "400 16px 'Klee One'", "600 16px 'Klee One'"];
@@ -347,7 +354,7 @@ const placed = (page) => page.evaluate(() => {
     ok(fontsOk.every(Boolean), 'offline, all five font files should load from the stored copy, got ' + JSON.stringify(fontsOk));
     await click(page, 'a:has-text("はじめる")', 700);
     await click(page, 'a:has-text("Start with the teach page")', 700);
-    const played = await page.evaluate(async () => { const s = window.ykSound; s.unlock(); const okPlay = s.play('t_ex1'); await new Promise((r) => setTimeout(r, 900)); return okPlay && s.on(); });
+    const played = await page.evaluate(async (key) => { const s = window.ykSound; s.unlock(); const okPlay = s.play(key); await new Promise((r) => setTimeout(r, 900)); return okPlay && s.on(); }, LV.teachClip);
     ok(played, 'offline, a clip should still play');
     await page.screenshot({ path: path.join(out, 'app-offline-teach.png') });
     ok(logs.filter((l) => !/Failed to load resource/.test(l)).length === 0, 'console problems offline: ' + JSON.stringify(logs.slice(0, 5)));
@@ -366,7 +373,7 @@ const placed = (page) => page.evaluate(() => {
     await ready(page);
     const v2 = await page.evaluate(() => window.__ykBuild);
     ok(v2 !== v1 && /0\.1-test-update/.test(v2), `back on the week path the app should restart into the new build, was "${v1}", now "${v2}"`);
-    ok((await text(page)).includes('原因・理由'), 'after the restart the app should be on the week path with progress kept');
+    ok((await text(page)).includes(LV.weekTheme), 'after the restart the app should be on the week path with progress kept');
     const caches2 = await page.evaluate(() => caches.keys());
     ok(caches2.length === 1 && caches2[0] !== stored.keys[0], 'the old stored copy should be removed, got ' + JSON.stringify(caches2));
 
@@ -377,7 +384,7 @@ const placed = (page) => page.evaluate(() => {
     await ready(page);
     const v3 = await page.evaluate(() => window.__ykBuild);
     ok(/0\.1-test-update-2/.test(v3), `opened with a newer build waiting, the app should switch to it before the first tap, was "${v2}", now "${v3}"`);
-    ok((await text(page)).includes('原因・理由'), 'after that switch the app should still be on the week path');
+    ok((await text(page)).includes(LV.weekTheme), 'after that switch the app should still be on the week path');
 
     // another app kept in a different folder of the same site must not lose its store when this one updates
     await page.evaluate(() => caches.open('yaoki:/n1/:abc').then((c) => c.put('/n1/x', new Response('x'))));

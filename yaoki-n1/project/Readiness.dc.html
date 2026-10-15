@@ -208,8 +208,7 @@ dueCount(list) {
 const N = window.ykN1;
 return list.filter((m) => {
 if (!m || typeof m.src !== 'string' || m.cleared || !N.item(m.src)) return false;
-if (m.next && !isDate(m.next)) return true;
-try { return N.due(m); } catch (e) { return true; }
+try { return N.due(m); } catch (e) { return false; }
 }).length;
 }
 renderVals() {
