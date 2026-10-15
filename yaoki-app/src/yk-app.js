@@ -89,15 +89,20 @@
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
   }
   /* the offline copy stores each clip of the course the first time it is played, and all of them, in the background,
-     once the learner has a plan (see sw.js) */
+     once the learner has a plan (see sw.js). Only this app's own worker is asked: on a first visit the page can be held
+     by the worker of the main app in the folder above (its scope holds this folder), which does not keep these clips,
+     so the request waits until this app's worker is in charge, and is made as soon as it takes over */
   var soundAsked = false;
+  var planned = false;
   function keepCourseSound(s) {
-    if (soundAsked || !s.plan) return;
+    if (s) planned = !!s.plan;
+    if (soundAsked || !planned) return;
     try {
       var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
-      if (sw) { sw.postMessage({ keepLevel: 'n1' }); soundAsked = true; }
+      if (sw && sw.scriptURL.split('?')[0] === new URL('sw.js', location.href).href) { sw.postMessage({ keepLevel: 'n1' }); soundAsked = true; }
     } catch (e) {}
   }
+  try { if (navigator.serviceWorker) navigator.serviceWorker.addEventListener('controllerchange', function () { keepCourseSound(null); }); } catch (e) {}
   /* #else */
   var C = window.ykCourse;
   function obj(x) { return x && typeof x === 'object' && !Array.isArray(x) ? x : null; }

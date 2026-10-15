@@ -18,6 +18,8 @@ const DOCS = path.resolve(process.env.YK_DOCS || path.join(__dirname, '..', 'doc
 const PORT = +(process.env.TWO_APPS_PORT || 8767);
 const BASE = 'http://localhost:' + PORT + '/Yaoki/';
 const TYPES = { '.js': 'text/javascript', '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.png': 'image/png', '.woff2': 'font/woff2', '.txt': 'text/plain' };
+// while set, the N1 app's install (the files its offline worker asks for under ?v=) is held back this many ms a file, as a slow network would
+let slowN1 = 0;
 const server = http.createServer((req, res) => {
   let url = decodeURIComponent(req.url.split('?')[0]);
   if (!url.startsWith('/Yaoki/')) { res.writeHead(404); res.end(); return; }
@@ -25,8 +27,9 @@ const server = http.createServer((req, res) => {
   if (url.endsWith('/')) url += 'index.html';
   const f = path.join(DOCS, url);
   if (!f.startsWith(DOCS) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); res.end('not found'); return; }
-  res.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' });
-  res.end(fs.readFileSync(f));
+  const send = () => { res.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }); res.end(fs.readFileSync(f)); };
+  if (slowN1 && url.startsWith('/n1/') && /[?&]v=/.test(req.url)) setTimeout(send, slowN1);
+  else send();
 });
 
 (async () => {
@@ -48,7 +51,6 @@ const server = http.createServer((req, res) => {
   const text = async (page) => ((await page.locator('#yk-stage').textContent()) || '').replace(/\s+/g, ' ');
   const click = async (page, sel, wait = 600) => { await page.locator(sel).first().click({ timeout: 5000 }); await page.waitForTimeout(wait); };
   // wait until this page's own offline worker has stored the app and is in charge of the page
-  // (an app in a folder below another is first controlled by the other's worker, whose scope holds it, until its own takes over)
   // (an app in a folder below another is first controlled by the other's worker, whose scope holds it, until its own
   // takes over; the app then restarts into its own copy by itself, which a reload here must not cut across)
   const stored = async (page) => {
@@ -65,15 +67,23 @@ const server = http.createServer((req, res) => {
   await click(n2, 'a:has-text("Start")', 800);
   ok((await text(n2)).includes(MAIN_THEME) && (await text(n2)).includes(MAIN_LESSON), 'main app: the week path should show its first N2 lesson, ' + MAIN_THEME + ' and ' + MAIN_LESSON);
 
-  // the N1 app at its own address: a fresh start, not the N2 app's progress
+  // the N1 app at its own address: a fresh start, not the N2 app's progress. On this first visit the page is held by the
+  // main app's worker (its scope, /Yaoki/, holds /Yaoki/n1/) until the N1 app's own has installed; with the install held
+  // back as on a slow network, the plan is made in that window, and the clips must still be asked of the N1 app's own
+  // worker once it takes over (checked below)
+  slowN1 = 2500;
   const n1 = await open('n1/?sw');
   ok((await text(n1)).includes('目標を決めよう') && (await text(n1)).includes('N5〜N2は別のアプリです'), 'N1 app: should open on its own goal screen, got ' + (await text(n1)).slice(0, 80));
-  await stored(n1);
-  const scope = await n1.evaluate(() => navigator.serviceWorker.getRegistration().then((r) => new URL(r.scope).pathname));
-  ok(scope === '/Yaoki/n1/', 'N1 app: its offline worker should be its own, for /Yaoki/n1/, got ' + scope);
+  const first = await n1.evaluate(() => { const c = navigator.serviceWorker.controller; return c ? new URL(c.scriptURL).pathname : null; });
+  ok(first === '/Yaoki/sw.js', 'N1 app: on a first visit the main app\'s worker should hold the page until the N1 app\'s own is in, got ' + first);
   await click(n1, 'button:has-text("Paint the first eye")');
   await click(n1, 'a:has-text("Start")', 800);
   ok((await text(n1)).includes(N1_THEME) && (await text(n1)).includes(N1_LESSON), 'N1 app: the week path should show the first N1 unit and lesson, ' + N1_THEME + ' and ' + N1_LESSON);
+  slowN1 = 0;
+  await stored(n1);
+  const scope = await n1.evaluate(() => navigator.serviceWorker.getRegistration().then((r) => new URL(r.scope).pathname));
+  ok(scope === '/Yaoki/n1/', 'N1 app: its offline worker should be its own, for /Yaoki/n1/, got ' + scope);
+  ok((await text(n1)).includes(N1_LESSON), 'N1 app: after its own worker took over, it should reopen on its week path');
 
   const keys = await n1.evaluate(() => Object.keys(localStorage).sort());
   ok(JSON.stringify(keys) === JSON.stringify(['yaoki.v1:/Yaoki/', 'yaoki.v1:/Yaoki/n1/']), 'each app should keep its own saved progress, got ' + JSON.stringify(keys));
