@@ -114,7 +114,8 @@ async function holdFirstPhrase(page, nth) {
   step('load a backup: one new text, one already here, one empty entry');
   const fixture = await writeBackup([
     saved.texts[0],
-    { title: '短い話', text: '駅の忘れ物センターには、毎日たくさんの傘が届く。', created: saved.texts[0].created + 1000, seen: [0, 2], n: 9, av: 4 },
+    /* saved by an older engine (av 4): its marks are kept because the phrase count (5) still matches */
+    { title: '短い話', text: '駅の忘れ物センターには、毎日たくさんの傘が届く。', created: saved.texts[0].created + 1000, seen: [0, 2], n: 5, av: 4 },
     { title: '空', text: '   ' },
   ]);
   await page.setInputFiles('#import-file', fixture);
@@ -153,7 +154,31 @@ async function holdFirstPhrase(page, nth) {
         return strip(o) === strip(src);
       }, t.text);
       ok(same, t.title + ': ' + t.text.length + ' characters, ' + n + ' phrases, shown text matches the backup');
-      if (t.title === '始末書') await page.screenshot({ path: path.join(out, 'reader-shimatsusho.png') });
+      if (/^始末書/.test(t.title)) {
+        /* a text's own glosses: the lens must show the context sense, not the dictionary's first sense */
+        const checks = { '始末書　上': [['渡しました', /hand over/, /ferry/], ['仰いました', /honorific/, /look up/]],
+                         '始末書　中': [['仰いました', /honorific/, /look up/]],
+                         '始末書　下　追記': [['差して', /insert/, /shine/]] }[t.title] || [];
+        for (const [frag, want, bad] of checks) {
+          /* the phrase's text without its furigana */
+          const idx = await page.evaluate((f) => {
+            const all = Array.from(document.querySelectorAll('#passage .ph'));
+            return all.findIndex((b) => { const c = b.cloneNode(true); c.querySelectorAll('.rt').forEach((r) => r.remove()); return c.textContent.includes(f); });
+          }, frag);
+          ok(idx >= 0, t.title + ': there is a phrase containing ' + frag);
+          if (idx < 0) continue;
+          const ph = page.locator('#passage .ph').nth(idx);
+          await ph.scrollIntoViewIfNeeded();
+          const b = await ph.boundingBox();
+          await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
+          await page.mouse.down();
+          await page.waitForTimeout(250);
+          const lens = await page.locator('#lens').innerText();
+          await page.mouse.up();
+          ok(want.test(lens) && !bad.test(lens), t.title + ': holding ' + frag + ' shows the context gloss (' + lens.replace(/\s+/g, ' ').slice(0, 80) + ')');
+        }
+        if (t.title === '始末書　上') await page.screenshot({ path: path.join(out, 'reader-shimatsusho.png') });
+      }
       await page.locator('#read-back').click();
     }
   }

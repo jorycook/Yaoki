@@ -43,7 +43,19 @@ for (const w of works) {
     ok(text.length > 0 && text.length <= MAX, p.file + ': ' + text.length + ' characters (1 to ' + MAX + ')');
     ok(/[぀-ヿ㐀-鿿]/.test(text), p.file + ': holds Japanese text');
     ok(!/[《》｜［＃]/.test(text), p.file + ': no Aozora notation or ruby markup left in it');
-    texts[w.id].push({ title: p.title, text });
+    let glosses = null;
+    if (p.glosses) {
+      const gf = path.join(LIB, p.glosses);
+      const gin = path.resolve(gf).startsWith(path.resolve(LIB) + path.sep);
+      ok(gin && fs.existsSync(gf), w.id + ': ' + p.glosses + ' is there');
+      if (gin && fs.existsSync(gf)) {
+        try { glosses = JSON.parse(fs.readFileSync(gf, 'utf8')); } catch (e) { ok(false, p.glosses + ' is valid JSON (' + e.message + ')'); }
+        const maps = ['gl', 'glx', 'rd', 'rdx', 'sf', 'bf', 'bfx'].filter((k) => glosses && glosses[k] && typeof glosses[k] === 'object');
+        ok(glosses && maps.length > 0, p.glosses + ': holds override maps (' + maps.join(', ') + ')');
+        if (glosses && glosses.gl) ok(Object.values(glosses.gl).every((v) => typeof v === 'string' && v.trim()), p.glosses + ': every gloss is a non-empty string');
+      }
+    }
+    texts[w.id].push({ title: p.title, text, glosses });
   }
 }
 
@@ -137,6 +149,29 @@ const strip = (s) => s.replace(/\s+/g, '');
     ok(await page.locator('#read-title').innerText() === titles[pick], 'the reader opens ' + titles[pick]);
     const n = await page.locator('#passage .ph').count();
     ok(strip(await shownText(page)) === strip(texts[w.id][pick].text), titles[pick] + ': ' + texts[w.id][pick].text.length + ' characters, ' + n + ' phrases, the whole text is shown');
+    const gl = texts[w.id][pick].glosses;
+    if (gl && gl.gl) {
+      /* the part's own glosses: hold a phrase holding one of its words and read the lens */
+      const probe = { shimatsusho: ['仰いました', /honorific/, /look up/] }[w.id] || null;
+      if (probe) {
+        const idx = await page.evaluate((f) => {
+          const all = Array.from(document.querySelectorAll('#passage .ph'));
+          return all.findIndex((b) => { const c = b.cloneNode(true); c.querySelectorAll('.rt').forEach((r) => r.remove()); return c.textContent.includes(f); });
+        }, probe[0]);
+        ok(idx >= 0, titles[pick] + ': has a phrase with ' + probe[0]);
+        if (idx >= 0) {
+          const ph = page.locator('#passage .ph').nth(idx);
+          await ph.scrollIntoViewIfNeeded();
+          const b = await ph.boundingBox();
+          await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
+          await page.mouse.down();
+          await page.waitForTimeout(250);
+          const lens = await page.locator('#lens').innerText();
+          await page.mouse.up();
+          ok(probe[1].test(lens) && !probe[2].test(lens), titles[pick] + ': holding ' + probe[0] + ' shows the gloss chosen for the text (' + lens.replace(/\s+/g, ' ').slice(0, 70) + ')');
+        }
+      }
+    }
     await page.screenshot({ path: path.join(out, 'library-' + w.id + '-read.png') });
     await page.locator('#read-back').click();
     await page.waitForSelector('#v-lib:not([hidden])');

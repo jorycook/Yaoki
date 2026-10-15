@@ -1,9 +1,11 @@
 /* Reader engine: turns Japanese text into phrases with readings, word glosses and grammar notes.
-   Needs a kuromoji tokenizer (IPADIC) and the compact JMdict lines. Runs in a worker, on the page, or in Node. */
+   Needs a kuromoji tokenizer (IPADIC) and the compact JMdict lines. Runs in a worker, on the page, or in Node.
+   A text may carry its own glosses and readings, chosen for its context (see analyze): the dictionary's first
+   sense is often the wrong one (渡す is "to ferry across" before it is "to hand over"). */
 (function (root) {
 'use strict';
 
-var VERSION = 4;
+var VERSION = 5;
 var KANJI = /[㐀-䶿一-鿿豈-﫿々〆]/;
 var OPEN = '「『（(〈《【〔［[｛{“‘"\'';
 
@@ -11,6 +13,58 @@ function hira(s) {
   return s ? s.replace(/[ァ-ヶ]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x60); }) : '';
 }
 function hasKanji(s) { return KANJI.test(s); }
+function kata(s) {
+  return s ? s.replace(/[ぁ-ゖ]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) + 0x60); }) : '';
+}
+/* Runs of kanji and non-kanji in a string: [[text, isKanji], ...] */
+function runsOf(s) {
+  var runs = [], cur = '', curK = null;
+  Array.from(s).forEach(function (ch) {
+    var k = KANJI.test(ch);
+    if (curK === null || k === curK) cur += ch; else { runs.push([cur, curK]); cur = ch; }
+    curK = k;
+  });
+  if (cur) runs.push([cur, curK]);
+  return runs;
+}
+
+/* ---------- words the tokenizer cuts in two ---------- */
+
+function mkTok(surface, basic, pos, d1, reading) {
+  return { surface_form: surface, basic_form: basic, pos: pos, pos_detail_1: d1, pos_detail_2: '*', pos_detail_3: '*',
+    conjugated_type: '*', conjugated_form: '*', reading: reading, pronunciation: reading, word_type: 'KNOWN' };
+}
+/* IPADIC does not know 失くす (it knows 無くす), 倹しい, 待受 or 生き死に, so it cuts them into pieces that get the
+   wrong readings and glosses (失 しつ + くし "regret"). The pieces are put back together here. A number followed by
+   行 is counting lines of text (三行 さんぎょう), which the tokenizer reads こう. */
+function fixTokens(toks) {
+  var out = [];
+  for (var i = 0; i < toks.length; i++) {
+    var t = toks[i], n1 = toks[i + 1], n2 = toks[i + 2];
+    if (t.surface_form === '失' && n1 && n1.pos !== '記号' && /^く/.test(n1.surface_form)) {
+      var s = '失' + n1.surface_form, j = i + 1, noun = false;
+      if (n1.surface_form === 'くせ' && n2 && n2.surface_form === 'る') { s += 'る'; j = i + 2; }
+      else if (n1.surface_form === 'くし' && n2 && n2.surface_form === '物' && n2.pos === '名詞') { s += '物'; j = i + 2; noun = true; }
+      var base = noun ? s : s === '失くせる' ? '失くせる' : '失くす';
+      out.push(mkTok(s, base, noun ? '名詞' : '動詞', noun ? '一般' : '自立', kata('な' + s.slice(1))));
+      i = j;
+      continue;
+    }
+    if (t.surface_form === '倹' && n1 && n1.surface_form === 'しい') { out.push(mkTok('倹しい', '倹しい', '形容詞', '自立', 'ツマシイ')); i++; continue; }
+    if (t.surface_form === '待' && n1 && n1.surface_form === '受') { out.push(mkTok('待受', '待受け', '名詞', '一般', 'マチウケ')); i++; continue; }
+    if (t.surface_form === '生' && n1 && n1.surface_form === 'き死') {
+      var ni = n2 && n2.surface_form === 'に' && n2.pos === '助詞';
+      out.push(mkTok(ni ? '生き死に' : '生き死', '生き死に', '名詞', '一般', ni ? 'イキシニ' : 'イキシ'));
+      i += ni ? 2 : 1;
+      continue;
+    }
+    if (t.surface_form === '行' && t.pos_detail_1 === '接尾' && t.pos_detail_2 === '助数詞' && i > 0 && toks[i - 1].pos_detail_1 === '数') {
+      t = Object.assign({}, t, { reading: 'ギョウ', pronunciation: 'ギョー' });
+    }
+    out.push(t);
+  }
+  return out;
+}
 function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 function lemma(t) { return t.basic_form && t.basic_form !== '*' ? t.basic_form : t.surface_form; }
 
@@ -468,9 +522,10 @@ Engine.prototype.merge = function (toks, i) {
   return null;
 };
 
-Engine.prototype.paragraph = function (text) {
+Engine.prototype.paragraph = function (text, ov) {
   var self = this, dict = this.dict;
-  var toks = this.tokenizer.tokenize(text);
+  ov = ov || emptyOverrides();
+  var toks = fixTokens(this.tokenizer.tokenize(text));
   var chunks = [], chunk = null, word = null, pendingHead = '', joinNext = false, prefixOpen = false;
 
   function closeChunk() { chunk = null; word = null; joinNext = false; prefixOpen = false; }
@@ -597,7 +652,7 @@ Engine.prototype.paragraph = function (text) {
         return ng ? { s: segs, e: ng } : { s: segs, f: 1 };
       }
       var head = w.toks[w.preLen || 0] || w.toks[0];
-      var en = '', rd = '';
+      var en = '', rd = '', baseText = w.key, baseRead = null;
       var isNumber = head.pos_detail_1 === '数' && /^[0-9０-９.,]+$/.test(head.surface_form);
       if (!isNumber) {
         var stemReading = '';
@@ -675,11 +730,27 @@ Engine.prototype.paragraph = function (text) {
         else if (head.pos_detail_1 === '固有名詞') {
           en = head.pos_detail_2 === '人名' ? '(a name)' : head.pos_detail_2 === '地域' ? '(a place)' : head.pos_detail_2 === '組織' ? '(an organisation)' : '(a name)';
         }
+        /* the text's own gloss, reading or base form for this word, by key or by this occurrence of the key (key#n) */
+        var occ = ov.n[w.key] = (ov.n[w.key] || 0) + 1, occKey = w.key + '#' + occ;
+        var ovG = ov.glx[occKey] != null ? ov.glx[occKey] : ov.gl[w.key];
+        if (ovG != null) en = String(ovG);
+        var surfAll = w.toks.map(function (t) { return t.surface_form; }).join('');
+        var ovR = ov.rdx[occKey] != null ? ov.rdx[occKey] : ov.rd[w.key];
+        var ovS = ov.sf[surfAll];
+        if (ovS) segs = furi(surfAll, String(ovS));
+        else if (ovR) { var rr = runReadings(surfAll, ovR); if (rr) segs = rr; }
+        if (ovR && hasKanji(w.key)) {
+          var kr = runReadings(w.key, ovR);
+          if (kr) rd = kr.map(function (p) { return p[1] || p[0]; }).join('');
+        }
+        var ovB = ov.bfx[occKey] || ov.bf[w.key];
+        if (ovB) { baseText = ovB[0] || baseText; baseRead = ovB[1] != null ? ovB[1] : null; }
       }
       var o = { s: segs };
       if (en) o.e = en;
+      if (!isNumber) o.k = w.key;
       if (!isNumber) {
-        var cand = [w.key, hasKanji(w.key) ? rd : '', en];
+        var cand = [baseText, baseRead != null ? baseRead : (hasKanji(w.key) ? rd : ''), en];
         if (!first) { first = cand; firstWeak = w.cls === 'x' || w.cls === 'd'; }
         else if (firstWeak && w.cls !== 'x' && w.cls !== 'd') { first = cand; firstWeak = false; }
       }
@@ -697,11 +768,36 @@ Engine.prototype.paragraph = function (text) {
   return out;
 };
 
-Engine.prototype.analyze = function (text) {
-  var self = this;
+/* A reading for the kanji of a surface: one hiragana string for a single kanji run (or, for several runs, the
+   reading of the whole surface), or an array with one string per kanji run. Returns furigana pieces, or null. */
+function runReadings(surface, val) {
+  var runs = runsOf(surface), ks = runs.filter(function (r) { return r[1]; });
+  if (!ks.length) return null;
+  var vals = Array.isArray(val) ? val.map(String) : null;
+  if (vals) { if (vals.length !== ks.length) return null; }
+  else if (ks.length === 1) vals = [String(val)];
+  else return furi(surface, String(val));
+  var n = 0;
+  return runs.map(function (r) { return r[1] ? [r[0], vals[n++]] : [r[0], '']; });
+}
+function emptyOverrides() { return { gl: {}, glx: {}, rd: {}, rdx: {}, sf: {}, bf: {}, bfx: {}, n: {} }; }
+/* overrides, all optional:
+     gl:  { key: gloss }            the gloss shown for every occurrence of a word (key = its base form as the
+                                    engine keys it; the k field of each word in the analysis says which)
+     glx: { 'key#n': gloss }        the gloss for the n-th occurrence of the key in the text (n from 1)
+     rd:  { key: reading }          furigana for the word's kanji: one hiragana string for a word with one run
+                                    of kanji, an array with one string per run otherwise
+     rdx: { 'key#n': reading }      the same for one occurrence
+     sf:  { surface: reading }      furigana for a word exactly as written, as the whole word's reading
+     bf:  { key: [base, reading] }  what the looked-up list shows as the word's base form and its reading
+     bfx: { 'key#n': [base, reading] }
+   Readings are in hiragana. */
+Engine.prototype.analyze = function (text, overrides) {
+  var self = this, ov = emptyOverrides();
+  if (overrides) ['gl', 'glx', 'rd', 'rdx', 'sf', 'bf', 'bfx'].forEach(function (f) { if (overrides[f] && typeof overrides[f] === 'object') ov[f] = overrides[f]; });
   var paras = String(text).replace(/\r\n?/g, '\n').split('\n').map(function (line) {
     var trimmed = line.replace(/^[\s　]+|[\s　]+$/g, '');
-    return trimmed ? self.paragraph(trimmed) : [];
+    return trimmed ? self.paragraph(trimmed, ov) : [];
   });
   /* collapse runs of blank lines */
   var clean = [];
