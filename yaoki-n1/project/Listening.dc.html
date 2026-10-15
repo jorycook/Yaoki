@@ -32,34 +32,57 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
 <div style="padding: 6px 16px 0; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
-<div style="font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">聴解 · 即時応答</span>　Quick response</div>
-<h1 lang="ja" style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.35">いちばんいい返事は？</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382">Nothing is printed until you answer, just like the exam.</div>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">聴解 · {{ typeJa }}</span>　{{ typeEn }}</div>
+<h1 lang="ja" style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.35">{{ ask }}</h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ hint }}</div>
 </div>
 
 <div style="margin: 12px 16px 0; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0">
 <div style="display: flex; align-items: center; gap: 14px">
-<button aria-label="Play audio" onClick="{{ playNormal }}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
-<div aria-hidden="true" style="flex-grow: 1; height: 40px; display: flex; align-items: center; justify-content: space-between">
+<button aria-label="{{ playLabel }}" onClick="{{ playNormal }}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+<div aria-hidden="true" style="height: 40px; display: flex; align-items: center; justify-content: space-between">
 <sc-for list="{{ bars }}" as="b" hint-placeholder-count="22">
 <div style="width: 4px; border-radius: 2px; height: {{ b.h }}; background: {{ b.bg }}"></div>
 </sc-for>
 </div>
+<sc-if value="{{ hasParts }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ partsLabel }}" style="display: flex; align-items: center; gap: 4px; min-width: 0">
+<sc-for list="{{ parts }}" as="c" hint-placeholder-count="4">
+<div lang="ja" style="padding: 1px 7px; border-radius: 7px; font-size: 11px; font-weight: 800; white-space: nowrap; transition: background 150ms; background: {{ c.bg }}; color: {{ c.ink }}">{{ c.ja }}</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
 </div>
 <div style="display: flex; align-items: center; gap: 8px">
 <button onClick="{{ playNormal }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap"><span lang="ja">もう一度</span> Replay</button>
+<sc-if value="{{ isQuick }}" hint-placeholder-val="{{ true }}">
 <button aria-label="Play slowly, at 0.8 times the speed" onClick="{{ playSlow }}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap"><span lang="ja">ゆっくり</span> 0.8×</button>
+</sc-if>
 <div style="flex-grow: 1; min-width: 0; text-align: right; font-size: 11px; font-weight: 700; color: #5A6382">drill only</div>
 </div>
+<sc-if value="{{ noClip }}" hint-placeholder-val="{{ false }}">
+<div style="padding: 6px 10px; border-radius: 10px; background: #FFF4D6; font-size: 12px; font-weight: 700; line-height: 1.45"><span lang="ja">音声準備中</span>　{{ noClipLine }}</div>
+</sc-if>
 </div>
 
-<div style="margin: 12px 16px 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; flex-shrink: 0">
+<sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
+<div style="margin: 12px 16px 0; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<sc-for list="{{ answers }}" as="a" hint-placeholder-count="4">
+<button aria-disabled="{{ a.off }}" aria-pressed="{{ a.on }}" aria-label="{{ a.aria }}" onClick="{{ a.pick }}" style="min-height: 48px; box-sizing: border-box; padding: 6px 12px; border-radius: 14px; display: flex; align-items: center; gap: 10px; text-align: left; line-height: 1.4; border: {{ a.border }}; background: {{ a.bg }}; box-shadow: {{ a.shadow }}; color: {{ a.color }}; font-weight: {{ a.weight }}; cursor: {{ a.cursor }}"><span style="font-size: 13px; flex-shrink: 0; width: 14px">{{ a.n }}</span><span lang="ja" style="flex-grow: 1; min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600">{{ a.label }}</span></button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}">
+<div style="margin: 12px 16px 0; display: grid; gap: 10px; flex-shrink: 0; grid-template-columns: {{ gridCols }}">
 <sc-for list="{{ answers }}" as="a" hint-placeholder-count="3">
 <button aria-disabled="{{ a.off }}" aria-pressed="{{ a.on }}" aria-label="{{ a.aria }}" onClick="{{ a.pick }}" style="height: 58px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; border: {{ a.border }}; background: {{ a.bg }}; box-shadow: {{ a.shadow }}; color: {{ a.color }}; font-weight: {{ a.weight }}; cursor: {{ a.cursor }}">{{ a.n }}<sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ a.bad }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
+</sc-if>
 <sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
-<div style="margin: 10px 16px 0; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center; flex-shrink: 0"><span lang="ja">まず聞いてください</span>　Listen first, then choose 1, 2 or 3.</div>
+<div style="margin: 10px 16px 0; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center; flex-shrink: 0"><span lang="ja">まず聞いてください</span>　{{ waitLine }}</div>
 </sc-if>
 
 <div style="flex-grow: 1; min-height: 8px"></div>
@@ -73,7 +96,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 
 <div style="position: relative; min-height: 0; display: flex; flex-direction: column">
-<div style="min-height: 0; overflow-y: auto; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<div style="min-height: 0; overflow-y: auto; padding: 12px 14px 16px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<sc-if value="{{ isQuick }}" hint-placeholder-val="{{ true }}">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">スクリプト</span>　Script</div>
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; flex-shrink: 0">{{ who }}：<sc-for list="{{ line }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <sc-for list="{{ replies }}" as="x" hint-placeholder-count="3"><div style="display: flex; align-items: flex-start; gap: 8px; flex-shrink: 0">
@@ -81,6 +105,22 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ !x.right }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 3px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
 <div style="min-width: 0; font-size: 13px; font-weight: 500; line-height: 1.5"><strong lang="ja" style="font-weight: 800">{{ x.n }} {{ x.text }}</strong><sc-if value="{{ x.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800; white-space: nowrap">your pick</span></sc-if><span style="word-break: keep-all; overflow-wrap: anywhere">　{{ x.note }}</span></div>
 </div></sc-for>
+</sc-if>
+<sc-if value="{{ !isQuick }}" hint-placeholder-val="{{ false }}">
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">選択肢</span>　Options</div>
+<sc-for list="{{ options }}" as="x" hint-placeholder-count="4"><div style="display: flex; align-items: flex-start; gap: 8px; flex-shrink: 0">
+<sc-if value="{{ x.right }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ !x.right }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div style="min-width: 0; font-size: 13px; line-height: 1.45"><strong lang="ja" style="font-weight: 800">{{ x.n }} {{ x.text }}</strong><sc-if value="{{ x.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800; white-space: nowrap">your pick</span></sc-if></div>
+</div></sc-for>
+<div style="margin-top: 4px; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">スクリプト</span>　Script</div>
+<sc-for list="{{ script }}" as="x" hint-placeholder-count="3"><div style="display: flex; align-items: flex-start; gap: 8px; flex-shrink: 0">
+<div lang="ja" style="flex-shrink: 0; min-width: 24px; box-sizing: border-box; margin-top: 2px; padding: 1px 6px; border-radius: 7px; font-size: 11px; font-weight: 800; text-align: center; white-space: nowrap; background: {{ x.bg }}; color: {{ x.ink }}">{{ x.who }}</div>
+<div lang="ja" style="min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.65"><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; background: {{ g.hl }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div>
+</div></sc-for>
+<div style="margin-top: 4px; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">解説</span>　Why</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; word-break: keep-all; overflow-wrap: anywhere; flex-shrink: 0">{{ why }}</div>
+</sc-if>
 </div>
 <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16px; border-radius: 0 0 16px 16px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF); pointer-events: none"></div>
 </div>
@@ -104,6 +144,22 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* the kinds of listening item (SCREENS.md): the lesson's own quick-response item, and the bank's longer ones */
+const KIND = {
+quick: { ja: '即時応答', en: 'Quick response', hint: 'Nothing is printed until you answer, just like the exam.', wait: 'Listen first, then choose 1, 2 or 3.' },
+task: { ja: '課題理解', en: 'Task comprehension', hint: 'The question and the conversation are spoken. Choose 1 to 4 in the answer time.', wait: 'Listen first, then choose 1 to 4.' },
+point: { ja: 'ポイント理解', en: 'Point comprehension', hint: 'The question and the talk are spoken. Choose 1 to 4 in the answer time.', wait: 'Listen first, then choose 1 to 4.' },
+gist: { ja: '概要理解', en: 'Gist comprehension', hint: 'Nothing is printed: the four choices are spoken too. Choose 1 to 4.', wait: 'Listen first, then choose 1 to 4.' },
+};
+/* the parts of a bank item's audio, played in turn, as the pills name them */
+const PART = {
+q: { ja: '質問', en: 'the question' }, talk: { ja: '会話', en: 'the conversation' }, q2: { ja: '質問', en: 'the question again' },
+choices: { ja: '選択肢', en: 'the question and the four choices' },
+};
+/* the breath between two parts of the audio, in milliseconds */
+const GAP = 400;
+/* the speaker of a script line: the narrator, a man, a woman, or a numbered choice */
+const WHO = { '': 'ナレーター', '男': '男', '女': '女' };
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -112,8 +168,8 @@ super(props);
 const day = this.dayOf();
 const at = this.where(day);
 this.state = props && props.go
-? { day, played: false, playing: false, progress: 0, pick: null }
-: { day, played: true, playing: false, progress: 1, pick: at ? at.t.answer : 1 };
+? { day, played: false, playing: false, progress: 0, part: -1, left: 0, pick: null }
+: { day, played: true, playing: false, progress: 1, part: -1, left: 0, pick: at ? at.item.answer : 1 };
 }
 componentWillUnmount() {
 clearInterval(this.timer);
@@ -132,17 +188,20 @@ dayOf() {
 const N = window.ykN1;
 return N ? N.openDay(this.plan()) : -1;
 }
-/* the listening item of day i, with its lesson; null when the day has none */
+/* the listening entry of day i (quick, task, point or gist) with its item; null when the day has none */
 where(i) {
 const N = window.ykN1;
 if (!N) return null;
 const plan = this.plan();
 const d = i != null && plan.days[i] ? i : N.openDay(plan);
 const v = N.view(plan, d);
-const lesson = v && v.kind === 'study' ? v.listening : null;
-const t = lesson && lesson.listening;
-if (!t || !t.replies || t.replies.length < 3) return null;
-return { i: d, lesson, t };
+const e = v && v.kind === 'study' ? v.listening : null;
+const item = e && e.item;
+if (!item) return null;
+const quick = e.kind === 'quick';
+if (quick && !(item.replies && item.replies.length >= 3)) return null;
+if (!quick && !(item.options && item.options.length >= 4 && item.audio && item.audio.length)) return null;
+return { i: d, e, item, quick };
 }
 /* listening done for the day: progress only goes up, and only a real plan is saved */
 saveDone(i) {
@@ -150,6 +209,101 @@ const N = window.ykN1;
 const app = this.props.app || {};
 const x = app.plan && app.plan.days && app.plan.days[i];
 if (this.props.save && x && !(x.p && x.p.l >= 1)) this.props.save({ plan: N.mark(app.plan, i, { l: 1 }) });
+}
+/* what the play button plays, in turn, each with its stand-in time for when its clip is missing (about 150 ms a
+   character, and 600 ms). A quick item's line and its three replies are one clip (each reply after its number, with
+   a second's pause before it), and l.<lesson id>.slow a slower take of it (0.8×) whose stand-in is 1.25 times as
+   long; a bank item has a clip for each part of its audio */
+clipsOf(at, slow) {
+const N = window.ykN1;
+const { e, item } = at;
+if (at.quick) {
+const replies = item.replies.slice(0, 3);
+const chars = N.plain(item.line).length + replies.reduce((a, x) => a + N.plain(x).length + 3, 0);
+const ms = 150 * chars + 600 + 1000 * replies.length;
+return [{ key: slow ? e.slow : e.clips[0], part: '', ms: slow ? ms * 1.25 : ms }];
+}
+return item.audio.map((a, k) => {
+const chars = (a.lines || []).reduce((n, l) => n + N.plain(l[1]).length, 0);
+return { key: e.clips[k] || '', part: a.part || '', ms: 600 + 150 * chars };
+});
+}
+/* play the clips in turn, with a breath between them: the waveform fills as they play, the pill of the part playing
+   lights, then the answers unlock. A bank item then has its answer time, counted down on the 解答 pill. A clip that is
+   missing, or a sound that will not start, gives way to its stand-in time */
+run(clips, waitMs) {
+clearInterval(this.timer);
+const snd = window.ykSound;
+const has = (c) => !!(snd && c.key && snd.has(c.key));
+/* sound for this play: a clip to play, and an output opened inside this tap */
+let mute = !(snd && clips.some(has) && snd.unlock());
+if (!mute) snd.ready(clips.filter(has).map((c) => c.key));
+else if (snd) snd.stop();
+/* each part's length, fixed for this play: its clip's, or its stand-in time */
+const lens = clips.map((c) => (has(c) && snd.ms(c.key)) || c.ms);
+const total = lens.reduce((a, l) => a + l, 0) + GAP * Math.max(0, clips.length - 1);
+let k = 0;
+let from = 0;
+let before = 0;
+let sound = false;
+let heard = false;
+let rest = 0;
+const finish = () => {
+clearInterval(this.timer);
+if (!(waitMs > 0)) { this.setState({ playing: false, played: true, progress: 1, part: -1, left: 0 }); return; }
+/* the answer time: the seconds left, until it runs out or an answer is given */
+const end = Date.now() + waitMs;
+this.setState({ playing: false, played: true, progress: 1, part: -1, left: Math.ceil(waitMs / 1000) });
+this.timer = setInterval(() => {
+const left = Math.ceil((end - Date.now()) / 1000);
+if (left <= 0 || this.state.pick !== null) { clearInterval(this.timer); this.setState({ left: 0 }); }
+else if (left !== this.state.left) this.setState({ left });
+}, 200);
+};
+const begin = (j) => {
+k = j;
+from = Date.now();
+heard = false;
+rest = 0;
+sound = !mute && has(clips[j]) && snd.play(clips[j].key);
+if (!sound && snd) snd.stop();
+this.setState({ part: j });
+};
+const tick = () => {
+const c = clips[k];
+const len = lens[k];
+/* the breath before the next part */
+if (rest) {
+if (Date.now() >= rest) { before += len + GAP; begin(k + 1); }
+else this.setState({ progress: Math.min(1, (before + len + GAP - (rest - Date.now())) / total) });
+return;
+}
+const gone = Date.now() - from;
+/* without sound the waveform fills for the clip's time, or its stand-in time */
+let done = gone / len;
+if (sound) {
+/* with sound it keeps time with the clip itself, which may start a moment after it is asked for */
+const on = snd.on();
+const atMs = snd.at ? snd.at() : gone;
+if (on && atMs > 0) heard = true;
+/* the sound stopped after it had started (a call, the app put aside): stop waiting, it can be played again */
+if (heard && (!on || atMs < 0)) { snd.stop(); finish(); return; }
+/* it never started: a browser can hold the audio back even after a tap. Stop waiting after a second, or after
+   a few seconds where sound has come out before, and go on without sound */
+if (!heard && (!snd.has(c.key) || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; mute = true; snd.stop(); }
+else done = Math.max(0, atMs) / snd.ms(c.key);
+/* the clip has come to its end by itself */
+if (sound && snd.over && snd.over() >= 0) done = 1;
+}
+if (done >= 1) {
+if (k >= clips.length - 1) { finish(); return; }
+rest = Date.now() + GAP;
+}
+this.setState({ progress: Math.min(1, (before + Math.min(1, done) * len) / total) });
+};
+this.setState({ playing: true, progress: 0, part: 0, left: 0 });
+begin(0);
+this.timer = setInterval(tick, 80);
 }
 renderVals() {
 const N = window.ykN1;
@@ -159,57 +313,26 @@ const at = this.where(s.day);
 if (!at) {
 return { has: false, none: true, barW: '0%', barAria: 'Listening', toToday: nav('Today') };
 }
-const { i, lesson, t } = at;
-const ANSWER = t.answer;
-const replies = t.replies.slice(0, 3);
-const key = 'l.' + lesson.id;
+const { i, e, item, quick } = at;
+const kind = KIND[e.kind] || KIND.task;
+const ANSWER = item.answer;
+const key = e.src;
 const HEIGHTS = [10, 20, 30, 16, 34, 24, 12, 28, 38, 22, 14, 26, 32, 18, 10, 24, 30, 20, 12, 26, 16, 8];
-/* the line and its three numbered replies are one clip, and l.<lesson id>.slow a slower take of it (0.8×): the
-   waveform fills while it plays, then the answers unlock. Without the clip, the waveform fills for a stand-in time:
-   about 150 ms a character (each reply after its number), 600 ms more, and the second's pause before each reply;
-   the slow take's stand-in is 1.25 times as long */
-const chars = N.plain(t.line).length + replies.reduce((a, x) => a + N.plain(x).length + 3, 0);
-const normalIn = 150 * chars + 600 + 1000 * replies.length;
-const play = (slow) => () => {
-clearInterval(this.timer);
+/* what is chosen from: a quick item's three numbered replies, a bank item's four options */
+const choices = quick ? item.replies.slice(0, 3) : item.options.slice(0, 4);
+const labels = choices.map((t) => N.plain(t));
+const shortOf = (n) => (item.short || [])[n - 1] || labels[n - 1];
+const clips = this.clipsOf(at, false);
 const snd = window.ykSound;
-const clip = slow ? key + '.slow' : key;
-const standIn = slow ? normalIn * 1.25 : normalIn;
-let sound = !!(snd && snd.has(clip) && snd.unlock() && snd.play(clip));
-if (!sound && snd) snd.stop();
-let heard = false;
-const started = Date.now();
-this.setState({ playing: true, progress: 0 });
-this.timer = setInterval(() => {
-const gone = Date.now() - started;
-/* without sound the waveform fills for the stand-in time */
-let done = gone / standIn;
-if (sound) {
-/* with sound it keeps time with the clip itself, which may start a moment after the tap */
-const on = snd.on();
-const atMs = snd.at ? snd.at() : gone;
-if (on && atMs > 0) heard = true;
-/* the sound stopped after it had started (a call, the app put aside): stop waiting, it can be played again */
-if (heard && (!on || atMs < 0)) { done = 1; snd.stop(); }
-/* it never started: a browser can hold the audio back even after a tap. Stop waiting after a second,
-   or after a few seconds where sound has come out before */
-else if (!heard && (!snd.has(clip) || gone > (snd.worked && snd.worked() ? 4000 : 1200))) { sound = false; snd.stop(); }
-else done = Math.max(0, atMs) / snd.ms(clip);
-/* the clip has come to its end by itself */
-if (snd.over && snd.over() >= 0) done = 1;
-}
-if (done >= 1) {
-clearInterval(this.timer);
-this.setState({ playing: false, played: true, progress: 1 });
-} else {
-this.setState({ progress: done });
-}
-}, 80);
-};
+/* a recording exists for a clip: the sound files name it */
+const recorded = (c) => !!(snd && c.key && snd.ms(c.key) > 0);
+const waitMs = quick ? 0 : Math.max(4, Math.min(15, +item.wait || 8)) * 1000;
+const play = (slow) => () => this.run(slow ? this.clipsOf(at, true) : clips, waitMs);
 const answered = s.pick !== null;
 const correct = answered && s.pick === ANSWER;
 const wrong = answered && s.pick !== ANSWER;
-const answers = [1, 2, 3].map((n) => {
+const answers = choices.map((text, k) => {
+const n = k + 1;
 const on = s.pick === n;
 let look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700 };
 if (s.played && !answered) look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 800 };
@@ -217,8 +340,9 @@ if (answered && n === ANSWER) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3
 else if (answered && on) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440', weight: 800 };
 return {
 n,
+label: labels[k],
 on,
-aria: 'Reply ' + n + (answered && n === ANSWER ? ', the right answer' : answered && on ? ', your answer, wrong' : ''),
+aria: (quick ? 'Reply ' : 'Option ') + n + (quick ? '' : ', ' + labels[k]) + (answered && n === ANSWER ? ', the right answer' : answered && on ? ', your answer, wrong' : ''),
 /* not a disabled button: the app dims those, and the marked answers must stay clear */
 off: !s.played || answered,
 cursor: !s.played || answered ? 'default' : 'pointer',
@@ -227,49 +351,85 @@ bad: answered && on && n !== ANSWER,
 pick: () => {
 const now = this.state;
 if (!now.played || now.pick !== null) return;
-if (n !== ANSWER && this.props.miss) this.props.miss({ src: key, wrong: (t.short || [])[n - 1] || N.plain(replies[n - 1]) });
-this.setState({ pick: n });
+if (n !== ANSWER && this.props.miss) this.props.miss({ src: key, wrong: shortOf(n) });
+/* the answer time, if it is still running, ends with the answer */
+this.setState({ pick: n, left: 0 });
 /* the item is answered: the listening is done for the day */
 this.saveDone(i);
 },
 ...look,
 };
 });
-/* the script, once answered: the line, then each reply with its mark and note */
-const segs = (text) => N.segs(text).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain }));
-const rows = replies.map((text, k) => ({
+const segs = (text) => N.segs(text).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain, hl: g.hl, pad: g.pad }));
+/* the script, once answered. A quick item: the line, then each reply with its mark and note. A bank item: its four
+   options with their marks, then every line of every part with its speaker (a numbered choice's chip takes the
+   mark's colour), then why */
+const replies = quick ? choices.map((text, k) => ({
 n: k + 1,
-text: N.plain(text),
+text: labels[k],
 right: k + 1 === ANSWER,
 mine: wrong && s.pick === k + 1,
-note: (t.notes || [])[k] || '',
-}));
+note: (item.notes || [])[k] || '',
+})) : [];
+const options = quick ? [] : choices.map((text, k) => ({ n: k + 1, text: labels[k], right: k + 1 === ANSWER, mine: wrong && s.pick === k + 1 }));
+const script = quick ? [] : item.audio.reduce((all, a) => all.concat(a.lines || []), []).map((l) => {
+const who = String(l[0] == null ? '' : l[0]);
+const num = /^[1-4]$/.test(who) ? +who : 0;
+const chip = num === ANSWER ? { bg: '#E0F3EF', ink: '#0B7A6B' } : num && wrong && num === s.pick ? { bg: '#FDEBE6', ink: '#C7361E' } : { bg: '#EEF0F6', ink: '#5A6382' };
+return { who: WHO[who] || who, segs: segs(l[1]), bg: chip.bg, ink: chip.ink };
+});
+/* the pills: each part of a bank item's audio, lit while it plays, then the answer time with its seconds left */
+const partJa = (c) => (c.part === 'talk' && e.kind === 'gist' ? '話' : (PART[c.part] || { ja: '音声' }).ja);
+const partEn = (c) => (c.part === 'talk' && e.kind === 'gist' ? 'the talk' : (PART[c.part] || { en: 'a part' }).en);
+const parts = quick ? [] : clips.map((c, k) => ({ ja: partJa(c), bg: s.playing && k === s.part ? '#2F4FD0' : '#EEF0F6', ink: s.playing && k === s.part ? '#FFFFFF' : '#5A6382' }))
+.concat([{ ja: '解答' + (s.left > 0 ? ' ' + s.left : ''), bg: s.left > 0 ? '#F2B43A' : '#EEF0F6', ink: s.left > 0 ? '#1B2440' : '#5A6382' }]);
+/* said once the play button is tapped: the sound files load in the background, so before then a clip may not be named yet */
+const noClip = (s.playing || s.played) && clips.some((c) => !recorded(c));
 return {
 has: true,
 none: false,
+isQuick: quick,
+typeJa: quick ? kind.ja : item.type || kind.ja,
+typeEn: kind.en,
+ask: quick ? 'いちばんいい返事は？' : N.plain(item.ask),
+hint: kind.hint,
 barW: answered ? '100%' : '0%',
-barAria: 'Quick response, question 1 of 1',
+barAria: kind.en + ', question 1 of 1',
 bars: HEIGHTS.map((h, n) => ({ h: h + 'px', bg: n < Math.round(s.progress * HEIGHTS.length) ? '#2F4FD0' : '#C9D0E3' })),
 playBg: s.playing ? '#F2B43A' : '#2F4FD0',
 playInk: s.playing ? '#1B2440' : '#FFFFFF',
+playLabel: quick ? 'Play audio' : 'Play the audio: ' + clips.map(partEn).join(', then ') + ', then the answer time',
 playNormal: play(false),
 playSlow: play(true),
+hasParts: !quick,
+parts,
+partsLabel: quick ? '' : 'In turn: ' + clips.map(partEn).join(', ') + ', then the answer time' + (s.left > 0 ? ', ' + s.left + ' seconds left' : ''),
+noClip,
+noClipLine: clips.every((c) => !recorded(c)) ? 'No recording of this yet: the bar runs for about as long as it would take.' : 'Part of this has no recording yet: the bar runs for about as long as it would take.',
+/* task and point print their options; a quick item and a gist item show only numbers, and so does every kind once answered */
+showList: !quick && e.kind !== 'gist' && !answered,
+showGrid: quick || e.kind === 'gist' || answered,
+gridCols: 'repeat(' + choices.length + ', minmax(0, 1fr))',
 answers,
 waiting: !s.played,
+waitLine: kind.wait,
 answered,
 correct,
 wrong,
-who: t.who === '男' ? '男' : '女',
-line: segs(t.line),
-replies: rows,
+who: quick ? (item.who === '男' ? '男' : '女') : '',
+line: quick ? segs(item.line) : [],
+replies,
+options,
+script,
+why: quick ? '' : String(item.why || ''),
 verdictJa: wrong ? 'おしい！' : 'せいかい！',
 verdictEn: wrong ? 'Not quite' : 'Correct',
 sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
 tone: wrong ? '#C7361E' : '#0B7A6B',
 toToday: nav('Today'),
-toDone: (e) => {
+toDone: (e2) => {
 this.saveDone(i);
-nav('Today')(e);
+nav('Today')(e2);
 },
 };
 }

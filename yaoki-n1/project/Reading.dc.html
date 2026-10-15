@@ -27,23 +27,38 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div role="img" aria-label="{{ barAria }}" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0; transition: width 240ms; width: {{ barW }}"></div></div>
-<sc-if value="{{ has }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="{{ clockAria }}" style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }} <span style="font-size: 11px; font-weight: 700; color: #5A6382">/ 1:30</span></div></sc-if>
+<sc-if value="{{ has }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="{{ clockAria }}" style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 13px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }} <span style="font-size: 11px; font-weight: 700; color: #5A6382">/ {{ budget }}</span></div></sc-if>
 </div>
 
 <sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-direction: column; flex-shrink: 0">
+<div style="display: flex; flex-direction: column; flex-shrink: 1; min-height: 0">
 
-<div style="margin-top: 6px; display: flex; align-items: center; gap: 8px">
-<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><span lang="ja">読解スキル · {{ skill }}</span></div>
+<div style="margin-top: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; flex-shrink: 0">
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0"><span lang="ja">{{ tag }}</span></div>
 <div style="min-width: 0; font-size: 12px; font-weight: 700; line-height: 1.35; color: #5A6382">{{ skillEn }}</div>
 </div>
 
-<div lang="ja" style="margin-top: 10px; padding: 12px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7"><sc-for list="{{ passage }}" as="g" hint-placeholder-count="5"><span style="border-radius: {{ g.rad }}; transition: background 200ms, box-shadow 200ms; background: {{ g.bg }}; box-shadow: {{ g.glow }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div style="position: relative; margin-top: 10px; min-height: 0; flex-shrink: 1; display: flex; flex-direction: column; max-height: {{ passMax }}">
+<div data-yk-passage lang="ja" style="min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 12px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; display: flex; flex-direction: column; gap: {{ gap }}">
+<sc-if value="{{ lead }}" hint-placeholder-val="{{ false }}">
+<div style="flex-shrink: 0; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.45; color: #5A6382; padding-bottom: 4px">{{ lead }}</div>
+</sc-if>
+<sc-for list="{{ blocks }}" as="b" hint-placeholder-count="1">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 4px; padding: {{ b.pad }}; border-bottom: {{ b.line }}">
+<sc-if value="{{ b.label }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex"><span aria-label="{{ b.labelAria }}" style="width: 24px; height: 24px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center">{{ b.label }}</span></div>
+</sc-if>
+<div style="font-size: {{ b.size }}; line-height: {{ b.lh }}; text-indent: {{ b.indent }}"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="5"><span data-yk-mark="{{ g.mk }}" style="border-radius: {{ g.rad }}; transition: background 200ms, box-shadow 200ms; background: {{ g.bg }}; box-shadow: {{ g.glow }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+</div>
+</sc-for>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 2px; right: 2px; bottom: 2px; height: 18px; border-radius: 0 0 18px 18px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF); pointer-events: none; display: {{ fade }}"></div>
+</div>
 
-<h1 lang="ja" style="margin: 14px 0 0; font-size: 17px; font-weight: 800; line-height: 1.4">{{ ask }}</h1>
+<h1 lang="ja" style="margin: 14px 0 0; font-size: 17px; font-weight: 800; line-height: 1.4; flex-shrink: 0">{{ ask }}</h1>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div lang="ja" style="margin-top: 10px; display: flex; flex-direction: column; gap: 9px">
+<div lang="ja" style="margin-top: 10px; display: flex; flex-direction: column; gap: 9px; flex-shrink: 0">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
 <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="min-height: 46px; padding: 6px 14px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 1.35; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: #1B2440; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="font-size: 12px; font-weight: 800; flex-shrink: 0; color: {{ o.numColor }}">{{ o.n }}</span><span style="flex-grow: 1; min-width: 0"><sc-for list="{{ o.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></span></button>
 </sc-for>
@@ -134,6 +149,17 @@ const t = Math.min(599, Math.floor((now - this.began) / 1000));
 if (t !== this.state.t) this.setState({ t });
 }, 200);
 }
+componentDidUpdate() {
+/* once checked, the passage is cut to a few lines: bring the first lit signpost into view */
+if (!this.want) return;
+this.want = false;
+try {
+const host = this.__host && this.__host.base;
+const box = (host && host.querySelector && host.querySelector('[data-yk-passage]')) || document.querySelector('[data-yk-passage]');
+const mark = box && box.querySelector('[data-yk-mark="1"]');
+if (mark) box.scrollTop = Math.max(0, mark.offsetTop - 14);
+} catch (e) { /* nothing to scroll */ }
+}
 componentWillUnmount() {
 clearInterval(this.timer);
 }
@@ -150,7 +176,7 @@ dayOf() {
 const N = window.ykN1;
 return N ? N.openDay(this.plan()) : -1;
 }
-/* the reading item of the day shown, with its lesson; null when the day has none */
+/* the reading of the day shown: its bank entry (kind, src, lesson) and its item; null when the day has none */
 where() {
 const N = window.ykN1;
 if (!N) return null;
@@ -158,10 +184,10 @@ const plan = this.plan();
 const s = this.state || {};
 const i = s.day != null && plan.days[s.day] ? s.day : N.openDay(plan);
 const v = N.view(plan, i);
-const lesson = v && v.kind === 'study' ? v.reading : null;
-const r = lesson && lesson.reading;
+const entry = v && v.kind === 'study' ? v.reading : null;
+const r = entry && entry.item;
 if (!r || !r.options || r.options.length < 4) return null;
-return { i, lesson, r };
+return { i, entry, r };
 }
 /* reading done for the day: progress only goes up, and only a real plan is saved */
 saveDone(i) {
@@ -190,12 +216,26 @@ const last = g.mark && !(s[n + 1] && s[n + 1].mark);
 const on = lit && g.mark;
 return {
 t: g.t, r: g.r, ruby: g.ruby, plain: g.plain,
+mk: on ? '1' : '',
 bg: on ? '#FFE9B0' : 'transparent',
 glow: on ? (first ? '-2px' : '0') + ' 0 0 #FFE9B0, ' + (last ? '2px' : '0') + ' 0 0 #FFE9B0' : 'none',
 rad: (first ? '4px' : '0') + ' ' + (last ? '4px 4px' : '0 0') + ' ' + (first ? '4px' : '0'),
 ws: g.mark && run[n] <= 10 ? 'nowrap' : 'normal',
 };
 });
+}
+/* the passage as blocks of the scrolling region, by kind: short, one paragraph; mid, two or three paragraphs with a
+   first-line indent; info, a notice's lines each on a row of its own; pair, texts A and B each under its label */
+blocks(entry, r, lit) {
+const kind = entry.kind;
+const para = { label: '', labelAria: '', size: '16px', lh: '1.7', indent: '0', pad: '0', line: 'none' };
+if (kind === 'info') {
+const lines = Array.isArray(r.passage) ? r.passage : [r.passage];
+return lines.map((t, n) => ({ ...para, size: '15px', lh: '1.6', pad: '3px 0', line: n < lines.length - 1 ? '1px solid #DDE1EC' : 'none', segs: this.segs(t, lit) }));
+}
+if (kind === 'pair') return (r.texts || []).slice(0, 2).map((t, n) => ({ ...para, label: 'AB'[n], labelAria: 'Text ' + 'AB'[n], pad: n ? '6px 0 0' : '0', segs: this.segs(t, lit) }));
+if (kind === 'mid') return (Array.isArray(r.passage) ? r.passage : [r.passage]).map((t) => ({ ...para, indent: '1em', segs: this.segs(t, lit) }));
+return [{ ...para, segs: this.segs(Array.isArray(r.passage) ? r.passage.join('') : r.passage, lit) }];
 }
 renderVals() {
 const N = window.ykN1;
@@ -205,7 +245,9 @@ const at = this.where();
 if (!at) {
 return { has: false, none: true, barW: '0%', barAria: 'Reading', toToday: nav('Today') };
 }
-const { i, lesson, r } = at;
+const { i, entry, r } = at;
+const kind = entry.kind;
+const bank = kind !== 'short';
 const ANSWER = r.answer;
 const options = r.options.slice(0, 4);
 const opts = options.map((text, k) => {
@@ -233,17 +275,24 @@ const wrong = s.checked && s.pick !== ANSWER;
 const mm = Math.floor(s.t / 60);
 const ss = s.t % 60;
 const clock = mm + ':' + (ss < 10 ? '0' : '') + ss;
+/* the time the paper allows: a short item 1:30; a longer passage, a notice or a pair of texts more */
+const budget = { mid: '3:00', info: '2:30', pair: '3:00' }[kind] || '1:30';
 return {
 has: true,
 none: false,
 barW: s.checked ? '100%' : '0%',
 barAria: 'Reading question 1 of 1',
 clock,
-clockAria: 'Time ' + clock + ' of 1:30',
-skill: r.skill || '',
+budget,
+clockAria: 'Time ' + clock + ' of ' + budget,
+tag: bank ? (r.type || '読解') + ' · ' + (r.skill || '') : '読解スキル · ' + (r.skill || ''),
 skillEn: r.en || '',
-/* once checked, the signposts light up */
-passage: this.segs(r.passage, s.checked),
+/* once checked, the signposts light up, and the passage keeps a few lines so the explanation has room */
+blocks: this.blocks(entry, r, s.checked),
+lead: bank && r.lead ? N.plain(r.lead) : '',
+gap: kind === 'pair' ? '8px' : kind === 'mid' ? '2px' : '0',
+fade: bank ? 'block' : 'none',
+passMax: s.checked && bank ? '168px' : 'none',
 ask: N.plain(r.ask),
 opts,
 whys,
@@ -264,7 +313,8 @@ tone: wrong ? '#C7361E' : '#0B7A6B',
 check: () => {
 const now = this.state;
 if (now.pick === null || now.checked) return;
-if (now.pick !== ANSWER && this.props.miss) this.props.miss({ src: 'r.' + lesson.id, wrong: (r.short || [])[now.pick - 1] || N.plain(options[now.pick - 1]) });
+if (now.pick !== ANSWER && this.props.miss) this.props.miss({ src: entry.src, wrong: (r.short || [])[now.pick - 1] || N.plain(options[now.pick - 1]) });
+this.want = true;
 this.setState({ checked: true });
 /* the question is answered: the reading is done for the day */
 this.saveDone(i);
