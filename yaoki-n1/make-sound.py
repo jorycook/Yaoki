@@ -132,7 +132,8 @@ def lesson_clips(lesson):
     for p, pat in enumerate(lesson['grammar']['patterns']):
         for e, ex in enumerate(pat['ex']):
             out.append(('g.%s.%d.%d' % (lid, p, e), [(NARR, spoken(ex['ja']))]))
-    for n, w in enumerate(lesson.get('vocab', [])):
+    # the lesson's five words, then the fifteen of its word bank (BANKS.md), numbered on from 5
+    for n, w in enumerate(list(lesson.get('vocab', [])) + list(lesson.get('vocab2', []))):
         out.append(('w.%s.%d' % (lid, n), [(NARR, w['r'] + '。'), 0.6, (NARR, spoken(w['ex']['ja']))]))
     t = lesson['listening']
     other = WOMAN if t['who'] == '男' else MAN
@@ -140,7 +141,26 @@ def lesson_clips(lesson):
     out.append(('l.%s' % lid, parts))
     # the slower take, for the 0.8x button
     out.append(('l.%s.slow' % lid, parts, 0.8))
+    # the longer listening item of the bank: one clip per part, as a mock's (l.<lesson id>.<part>)
+    t2 = lesson.get('listening2')
+    if t2:
+        for a in t2['audio']:
+            out.append(('l.%s.%s' % (lid, a['part']), part_lines(a['lines'], t2['kind'])))
     return out
+
+
+def part_lines(lines, kind):
+    """the parts of a listening item (a mock's or the bank's) as (voice, text) with pauses: a numbered choice is said
+    by the narrator, or in a quick-response item by the other speaker than the line's"""
+    speakers = [w for w, _ in lines if w in VOICE]
+    parts = []
+    for who, text in lines:
+        if who in ('1', '2', '3', '4'):
+            voice = NARR if kind != 'quick' else (WOMAN if speakers and speakers[0] == '男' else MAN)
+            parts += [1.0, (voice, NUM[int(who) - 1] + spoken(text))]
+        else:
+            parts += [0.5, (VOICE.get(who, NARR), spoken(text))]
+    return parts[1:]
 
 
 def mock_clips(mock):
@@ -152,17 +172,8 @@ def mock_clips(mock):
             n += 1
             if 'audio' not in it or any('clip' in a for a in it['audio']):
                 continue
-            speakers = [w for a in it['audio'] for w, _ in a['lines'] if w in VOICE]
             for a in it['audio']:
-                parts = []
-                for who, text in a['lines']:
-                    if who in ('1', '2', '3', '4'):
-                        # a numbered choice or reply: by the narrator (gist), or by the other speaker than the line's (quick)
-                        voice = NARR if it['kind'] != 'quick' else (WOMAN if speakers and speakers[0] == '男' else MAN)
-                        parts += [1.0, (voice, NUM[int(who) - 1] + spoken(text))]
-                    else:
-                        parts += [0.5, (VOICE.get(who, NARR), spoken(text))]
-                out.append(('m%d.%d.%s' % (mock['id'], n, a['part']), parts[1:]))
+                out.append(('m%d.%d.%s' % (mock['id'], n, a['part']), part_lines(a['lines'], it['kind'])))
     return out
 
 
@@ -201,14 +212,24 @@ def make_files(items):
 
 
 def lessons_in_order():
+    """the lessons with their banks, as build-content.mjs joins them (so the clips follow the same numbering)"""
     import json
     syllabus = json.load(open(os.path.join(HERE, 'content', 'syllabus.json'), encoding='utf-8'))
     out = []
     for w in syllabus['weeks']:
+        banks = {}
+        for kind in ('words', 'reading', 'listening'):
+            f = os.path.join(HERE, 'content', kind, 'u%d.json' % w['n'])
+            banks[kind] = json.load(open(f, encoding='utf-8')) if os.path.exists(f) else None
         for d in w['days']:
             f = os.path.join(HERE, 'content', 'lessons', 'u%dl%d.json' % (w['n'], d['d']))
-            if os.path.exists(f):
-                out.append(json.load(open(f, encoding='utf-8')))
+            if not os.path.exists(f):
+                continue
+            lesson = json.load(open(f, encoding='utf-8'))
+            lesson['vocab2'] = (banks['words'] or {}).get('lessons', {}).get(str(d['d']), [])
+            items = (banks['listening'] or {}).get('items') or []
+            lesson['listening2'] = items[d['d'] - 1] if len(items) >= d['d'] else None
+            out.append(lesson)
     return out
 
 

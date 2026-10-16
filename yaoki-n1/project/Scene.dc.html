@@ -90,9 +90,10 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 
 <sc-if value="{{ atQ }}" hint-placeholder-val="{{ false }}">
 <sc-if value="{{ !finished }}" hint-placeholder-val="{{ true }}">
-<div style="padding: 6px 0 4px; flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 10px">
+<div style="position: relative; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column">
+<div data-sc-quiz="1" style="padding: 6px 0 16px; flex: 0 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0">
-<div style="flex-grow: 1; min-width: 0"><span lang="ja">{{ qType }}</span>　{{ qAsk }}</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap"><sc-if value="{{ qReview }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="padding: 2px 7px; border-radius: 8px; background: #FFF4D6; color: #1B2440; white-space: nowrap; flex-shrink: 0">{{ qLevel }}</span></sc-if><span><span lang="ja">{{ qType }}</span>　{{ qAsk }}</span></div>
 <div role="img" aria-label="{{ countAria }}" style="padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; white-space: nowrap">{{ count }}</div>
 </div>
 <sc-if value="{{ qBig }}" hint-placeholder-val="{{ true }}">
@@ -101,13 +102,15 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </sc-if>
 <sc-if value="{{ qLine }}" hint-placeholder-val="{{ false }}">
-<div lang="ja" style="padding: 8px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ sentence }}" as="g" hint-placeholder-count="3"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-for></div>
+<div lang="ja" style="padding: 8px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9; flex-shrink: 0"><sc-for list="{{ sentence }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; white-space: {{ g.ws }}"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></span></sc-if><sc-if value="{{ g.slots }}" hint-placeholder-val="{{ false }}"><span style="white-space: nowrap">{{ g.lead }}<sc-for list="{{ g.slots }}" as="b" hint-placeholder-count="4"><sc-if value="{{ b.star }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Star blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if><sc-if value="{{ !b.star }}" hint-placeholder-val="{{ true }}"><span role="img" aria-label="Blank" style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if></sc-for>{{ g.tail }}</span></sc-if></sc-for></div>
 </sc-if>
 <div style="display: grid; gap: 8px; flex-shrink: 0; grid-template-columns: {{ optCols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
 <button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-disabled="{{ o.off }}" style="min-height: 50px; min-width: 0; padding: 6px 10px; border-radius: 14px; display: flex; align-items: center; gap: 7px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}; cursor: {{ o.cursor }}"><span style="font-size: 12px; flex-shrink: 0; color: {{ o.numColor }}">{{ o.n }}</span><span lang="ja" style="flex-grow: 1; min-width: 0; line-height: 1.4; white-space: {{ optWs }}; font-size: {{ optSize }}">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none"></div>
 </div>
 <div style="flex-grow: 1; min-height: 10px"></div>
 <sc-if value="{{ !checked }}" hint-placeholder-val="{{ true }}">
@@ -130,9 +133,12 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="flex-grow: 1; font-size: 20px; font-weight: 800"><span lang="ja">せいかい！</span> <span style="font-size: 14px; font-weight: 700">Correct</span></div>
 </div>
 </sc-if>
-<div style="min-height: 0; overflow-y: auto; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px">
+<div style="position: relative; flex-shrink: 0; display: flex; flex-direction: column">
+<div data-sc-why="1" style="box-sizing: border-box; max-height: {{ whyMax }}; overflow-y: auto; padding: 10px 14px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">解説</span>　Why</div>
 <div style="font-size: 13px; font-weight: 500; line-height: 1.4">{{ why }}</div>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 14px; border-radius: 0 0 16px 16px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF); pointer-events: none"></div>
 </div>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; flex-shrink: 0">
@@ -159,12 +165,15 @@ Saved to your mistake notebook. Back tomorrow.
 <div style="font-size: 13px; font-weight: 500; line-height: 1.45; text-align: center">{{ scoreLine }}</div>
 </div>
 <sc-if value="{{ hasMissed }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 12px; flex: 0 1 auto; min-height: 0; overflow-y: auto; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px">
+<div style="position: relative; margin-top: 12px; flex: 0 1 auto; min-height: 0; display: flex; flex-direction: column">
+<div style="flex: 0 1 auto; min-height: 0; overflow-y: auto; padding: 10px 14px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382; flex-shrink: 0"><span lang="ja">まちがえた問題</span>　To look at again</div>
 <sc-for list="{{ missed }}" as="m" hint-placeholder-count="2"><div style="display: flex; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid #DDE1EC; flex-shrink: 0">
 <div lang="ja" style="width: 112px; flex-shrink: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.2; white-space: nowrap; font-size: {{ m.size }}">{{ m.w }}</div>
 <div style="min-width: 0; display: flex; flex-direction: column"><div lang="ja" style="font-size: 14px; font-weight: 800">{{ m.r }}</div><div style="font-size: 12.5px; font-weight: 500; color: #5A6382">{{ m.en }}</div></div>
 </div></sc-for>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 2px; right: 2px; bottom: 2px; height: 14px; border-radius: 0 0 14px 14px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF); pointer-events: none"></div>
 </div>
 </sc-if>
 <div style="flex-grow: 1; min-height: 12px"></div>
@@ -213,6 +222,12 @@ Saved to your mistake notebook. Back tomorrow.
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
+const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
+const NO_END = /[（「『【〔〈《［｛]+$/;
+/* the explanation box once checked: at most WHY_MAX tall, and down to WHY_MIN when the question needs the room */
+const WHY_MAX = 192;
+const WHY_MIN = 112;
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -223,6 +238,24 @@ super(props);
    On its own the artboard shows the designed moment: three kanji already seen */
 const canvas = !(props && props.go);
 this.state = { step: '', reached: 0, seen: canvas ? [0, 1, 2] : [], open: -1, n: 0, pick: null, checked: false, marks: [], finished: false, playing: '' };
+}
+/* once a question is checked, a long explanation gives up height until the question and its options above the sheet
+   show whole: down to WHY_MIN, below which it scrolls in its own box, with a fade */
+componentDidUpdate() {
+const s = this.state;
+const key = s.checked && !s.finished ? s.step + ':' + s.n : '';
+if (key === this.fitted) return;
+this.fitted = key;
+if (!key) { if (s.whyMax) this.setState({ whyMax: 0 }); return; }
+try {
+const host = this.__host && this.__host.base;
+const root = host && host.querySelector ? host : document;
+const quiz = root.querySelector('[data-sc-quiz]');
+const why = root.querySelector('[data-sc-why]');
+if (!quiz || !why) return;
+const hidden = quiz.scrollHeight - quiz.clientHeight;
+if (hidden > 1) this.setState({ whyMax: Math.max(WHY_MIN, Math.floor(why.offsetHeight - hidden)) });
+} catch (e) { /* nothing to fit */ }
 }
 componentWillUnmount() {
 clearTimeout(this.timer);
@@ -244,12 +277,18 @@ const keep = q.options.map((o, k) => ({ o, k: k + 1 })).filter((x) => x.o != nul
 const answer = keep.findIndex((x) => x.k === q.answer) + 1;
 return answer > 0 && keep.length >= 2 ? { ...q, options: keep.map((x) => x.o), answer } : null;
 }
-/* the day's quiz: its kanji readings, then a question for each of its words */
+/* the day's quiz: its kanji readings, then a question for each of its words, then two questions of the earlier
+   levels (N.dayReview: marked review, with their level) */
 quiz(plan, i, v) {
 const N = window.ykN1;
-const ks = v.kanji.length ? N.kanjiQuiz(plan, i, 8) : [];
+/* a kanji the bank no longer holds (a plan saved against a larger bank) is left out of the quiz as it is left out of
+   the kanji step: N.kanjiQuiz reads the day's own list, so it gets the list without it */
+const kis = (plan.days[i].k || []).filter((ki) => N.kanji[ki]);
+const safe = kis.length === (plan.days[i].k || []).length ? plan : { days: Object.assign([], plan.days, { [i]: { ...plan.days[i], k: kis } }) };
+const ks = kis.length ? N.kanjiQuiz(safe, i, 8) : [];
 const ws = v.wi.map((wi) => N.wordQ(wi));
-return ks.concat(ws).map((q) => this.tidy(q)).filter(Boolean);
+const rs = ks.length || ws.length ? N.dayReview(plan, i, 2) : [];
+return ks.concat(ws, rs).map((q) => this.tidy(q)).filter(Boolean);
 }
 /* text with 【marks】 and 漢字《よみ》 as segments: a marked run is one highlight, kept on one line */
 segs(text) {
@@ -265,14 +304,27 @@ ws: g.mark ? 'nowrap' : 'normal',
 };
 });
 }
-/* a question sentence: the 【word】 underlined as on the exam, the blank kept on one line */
-sentence(ja) {
+/* a question sentence: the 【word】 underlined as on the exam, the blank kept on one line; a sentence-order
+   question as pre ＿ ＿ ★ ＿ post, a mark that cannot start a line (、) or a bracket that cannot end one kept
+   with the slots, which never break */
+sentence(q) {
+const N = window.ykN1;
 const out = [];
-window.ykN1.segs(ja).forEach((g) => {
+if (q.order) {
+const pre = N.plain(q.pre), post = N.plain(q.post);
+const lead = (pre.match(NO_END) || [''])[0];
+const tail = (post.match(NO_START) || [''])[0];
+const text = (t) => ({ t, r: '', ruby: false, plain: true, text: true, line: '0', ws: 'normal' });
+if (pre.length > lead.length) out.push(text(pre.slice(0, pre.length - lead.length)));
+out.push({ text: false, slots: [0, 1, 2, 3].map((k) => ({ star: k === q.star })), lead, tail });
+if (post.length > tail.length) out.push(text(post.slice(tail.length)));
+return out;
+}
+N.segs(q.ja).forEach((g) => {
 const line = g.mark ? '2.5px solid #1B2440' : '0';
-if (g.ruby) { out.push({ t: g.t, r: g.r, ruby: true, plain: false, line, ws: 'normal' }); return; }
+if (g.ruby) { out.push({ t: g.t, r: g.r, ruby: true, plain: false, text: true, line, ws: 'normal' }); return; }
 g.t.split(/(（　　）)/).forEach((t) => {
-if (t) out.push({ t, r: '', ruby: false, plain: true, line, ws: t === '（　　）' || g.mark ? 'nowrap' : 'normal' });
+if (t) out.push({ t, r: '', ruby: false, plain: true, text: true, line, ws: t === '（　　）' || (g.mark && t.length <= 14) ? 'nowrap' : 'normal' });
 });
 });
 return out;
@@ -281,10 +333,13 @@ return out;
 about(q) {
 const N = window.ykN1;
 const s = String(q.src).split('.');
-const x = s[0] === 'k' ? (N.kanji[+s[1]] && N.kanji[+s[1]].w[+s[2]]) : s[0] === 'w' ? N.word(+s[1]) : null;
-const out = x ? { w: x.w, r: x.r, en: x.en } : { w: q.word || '', r: N.plain(q.options[q.answer - 1]), en: '' };
-/* the word column is 112px wide: as large as fits there (18px at most) */
-out.size = Math.max(13, Math.min(18, Math.floor(112 / Math.max(1, N.plain(out.w).length)))) + 'px';
+const x = s[0] === 'k' ? (N.kanji[+s[1]] && N.kanji[+s[1]].w[+s[2]]) : s[0] === 'w' ? N.word(s.length > 2 ? N.wordIndex(s[1], +s[2]) : +s[1]) : null;
+const right = N.plain(q.options[q.answer - 1]);
+/* a review question of the earlier levels: its word with its reading, or its level with the answer (a sentence
+   answer wraps on the reading line), and where it came from */
+const out = x ? { w: x.w, r: x.r, en: x.en } : q.review ? { w: q.word || '復習 ' + q.level, r: right, en: q.level + ' review' + (q.en ? ': ' + q.en : '') } : { w: q.word || '', r: right, en: '' };
+/* the word column is 112px wide: as large as fits there with a little to spare (18px at most) */
+out.size = Math.max(13, Math.min(18, Math.floor(108 / Math.max(1, N.plain(out.w).length)))) + 'px';
 return out;
 }
 /* close the kanji sheet or move on: the sound stops */
@@ -455,7 +510,7 @@ return base;
 const total = qs.length;
 const n = Math.max(0, Math.min(s.n, total - 1));
 const q = qs[n];
-const TYPES = { '漢字読み': 'Choose the reading', '文脈規定': 'Choose the word that fits', '言い換え類義': 'Closest in meaning', '用法': 'Which sentence uses it well?' };
+const TYPES = { '漢字読み': 'Choose the reading', '表記': 'Choose the kanji', '語形成': 'Choose the part that fits', '文脈規定': 'Choose the word that fits', '言い換え類義': 'Closest in meaning', '用法': 'Which sentence uses it well?', '文の文法1': 'Choose the form', '文の文法2': 'Which tile goes on the ★?' };
 base.finished = s.finished;
 if (s.finished) {
 const score = qs.filter((x, k) => s.marks[k] === true).length;
@@ -463,7 +518,8 @@ const missed = qs.filter((x, k) => s.marks[k] === false).map((x) => this.about(x
 const parts = [];
 if (K) parts.push(K === 1 ? '1 kanji' : K + ' kanji');
 if (W) parts.push(W === 1 ? '1 word' : W + ' words');
-base.kwLine = 'You met ' + parts.join(' and ') + '.';
+const R = qs.filter((x) => x.review).length;
+base.kwLine = 'You met ' + parts.join(' and ') + (R ? ', and ' + R + ' review question' + (R === 1 ? '' : 's') + ' from N2 to N4.' : '.');
 base.score = score;
 base.total = total;
 base.scoreAria = score + ' of ' + total + ' right first time';
@@ -481,7 +537,9 @@ return base;
 }
 const ANSWER = q.answer;
 const options = q.options;
-const big = q.type === '漢字読み' || q.usage || !q.ja;
+/* a word on its own: a kanji word's reading, a usage question; a sentence otherwise (a reading question of an earlier
+   level underlines its word in a sentence), or the slots of a sentence-order question */
+const big = (q.type === '漢字読み' && !!q.word) || q.usage || (!q.ja && !q.order);
 const optsPlain = options.map((o) => N.plain(o));
 const longest = Math.max(1, ...optsPlain.map((o) => o.length));
 /* short options sit two to a row, at one size as large as fits (17px at most); longer ones and sentences take a row each */
@@ -515,6 +573,8 @@ const wordLen = N.plain(q.word || '').length;
 Object.assign(base, {
 qType: q.type,
 qAsk: TYPES[q.type] || 'Choose the answer',
+qReview: !!q.review,
+qLevel: q.review ? '復習 ' + q.level : '',
 count: (n + 1) + ' / ' + total,
 countAria: 'Question ' + (n + 1) + ' of ' + total,
 qBig: big,
@@ -522,8 +582,8 @@ qLine: !big,
 qWord: N.plain(q.word || ''),
 qBigSize: (wordLen <= 4 ? 34 : wordLen <= 6 ? 30 : 26) + 'px',
 /* a reading question underlines its word, as the exam does */
-qBigLine: q.type === '漢字読み' ? '2.5px solid #1B2440' : '0',
-sentence: big ? [] : this.sentence(q.ja),
+qBigLine: q.type === '漢字読み' && q.word ? '2.5px solid #1B2440' : '0',
+sentence: big ? [] : this.sentence(q),
 opts,
 optCols: two ? 'repeat(2, minmax(0, 1fr))' : 'minmax(0, 1fr)',
 optWs: two ? 'nowrap' : 'normal',
@@ -536,6 +596,7 @@ answerN: ANSWER,
 /* a sentence answer is marked above; a short one is named here too */
 answerLabel: q.usage ? '' : optsPlain[ANSWER - 1] || '',
 why: q.why || '',
+whyMax: (s.whyMax || WHY_MAX) + 'px',
 ck: s.pick === null
 ? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' }
 : { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' },

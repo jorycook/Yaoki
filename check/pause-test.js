@@ -4,6 +4,8 @@
 // usage: bash run.sh pause-test.js   or   bash run-app.sh pause-test.js   (NOSOUND=1 / HELDBACK=1 for the silent run)
 // FULL=1 lets the section play to the end after the interruptions (about two and a half minutes more)
 // instead of trying the "sound will not start" sheet and quitting.
+// The N1 app also has longer listening items in its lessons (the bank's task, point and gist items, a clip for each
+// part of the audio): one is put aside while it plays, and must stop, give the answers and play again from the start.
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -265,7 +267,65 @@ const LV = require('./level.js');
     await shot('05-quit');
   }
 
-  const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
+  // ---------- N1: a lesson's longer listening item put aside while it plays ----------
+  const more = [];
+  if (LV.LEVEL === 'N1') {
+    const TODAY = '2026-10-14';
+    const N = LV.course(TODAY);
+    const plan = N.make({ start: TODAY, exam: N.sessions(TODAY)[1].date, pace: 60 });
+    const di = plan.days.findIndex((x, i) => { const v = N.view(plan, i); return v.listening && v.listening.kind !== 'quick'; });
+    const e = N.view(plan, di).listening;
+    plan.open = di;
+    const { page: lp, logs: llogs } = await openBoard(browser, 'TShell.dc.html?screen=Listening&ykdate=' + TODAY + '&plan=' + encodeURIComponent(JSON.stringify(plan)), fontsCss, prep);
+    const lst = async () => (await lp.evaluate(() => window.__audio)).filter((a) => a.ev === 'start');
+    const lstops = async () => (await lp.evaluate(() => window.__audio)).filter((a) => a.ev === 'stop').length;
+    const lon = () => lp.evaluate(() => !!(window.ykSound && window.ykSound.on()));
+    const open4 = () => lp.evaluate(() => [...document.querySelectorAll('button[aria-label^="Option "]')].filter((b) => b.getAttribute('aria-disabled') !== 'true').length);
+    const lhide = (h) => lp.evaluate((hh) => {
+      Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => (hh ? 'hidden' : 'visible') });
+      Object.defineProperty(document, 'hidden', { configurable: true, get: () => hh });
+      document.dispatchEvent(new Event('visibilitychange'));
+    }, h);
+    const lshot = async (name) => {
+      const info = await inspect(lp);
+      await lp.screenshot({ path: path.join(out, 'ps-n1-' + name + '.png') });
+      const bad = info.errors.length || info.issues.length || info.unresolved;
+      console.log(`n1-${name}: root=${info.rootH}` + (bad ? ' PROBLEMS ' + JSON.stringify({ e: info.errors, i: info.issues, u: info.unresolved }) : '') + (info.pad.length ? ' PAD WARNING ' + JSON.stringify(info.pad) : ''));
+      ok(!bad, 'n1-' + name + ': layout or runtime problems');
+    };
+    ok(e.clips.length >= 2 && (await open4()) === 0, `N1 ${e.src} (${e.kind}): the options should wait for the audio`);
+    await lp.locator('button[aria-label^="Play the audio"]').first().click({ timeout: 5000 });
+    await lp.waitForTimeout(2500);
+    if (SOUND) {
+      ok(await lon(), `N1 ${e.src}: sound should be playing two seconds in`);
+      const st = await lst();
+      ok(st.length === 1 && Math.abs(st[0].d - LV.clips[e.clips[0]]) < 120, `N1 ${e.src}: its first part (${e.clips[0]}) should be playing, got ` + JSON.stringify(st));
+    }
+    await lshot('playing');
+    const s0 = await lstops();
+    const n0 = (await lst()).length;
+    await lhide(true);
+    await lp.waitForTimeout(400);
+    if (SOUND) ok((await lstops()) > s0 && !(await lon()), `N1 ${e.src}: put aside, the clip should be cut off`);
+    await lhide(false);
+    await lp.waitForTimeout(2500);
+    ok((await lst()).length === n0, `N1 ${e.src}: back in front, nothing should play before a tap`);
+    if (SOUND) ok((await open4()) === 4, `N1 ${e.src}: once the sound has stopped, the answers should be open (the item can be played again)`);
+    await lshot('put-aside');
+    if (SOUND) {
+      /* Replay starts the item again from its first part, from the beginning */
+      await lp.locator('button:has-text("Replay")').first().click({ timeout: 5000 });
+      await lp.waitForTimeout(1500);
+      const st = await lst();
+      const last = st[st.length - 1];
+      ok(st.length === n0 + 1 && Math.abs(last.d - LV.clips[e.clips[0]]) < 120 && last.o === 0 && (await lon()), `N1 ${e.src}: Replay should play the first part again from its start, got ` + JSON.stringify(st.slice(-2)));
+      await lshot('replayed');
+    }
+    more.push(...llogs);
+    await lp.close();
+  }
+
+  const noisy = logs.concat(more).filter((l) => !/Download the React DevTools/.test(l));
   console.log('console problems: ' + JSON.stringify(noisy.slice(0, 10)));
   console.log((SOUND ? 'with sound: ' : 'silent: ') + (fails === 0 && noisy.length === 0 ? 'PAUSE TEST PASS' : `PAUSE TEST FAIL (${fails} failed checks, ${noisy.length} console problems)`));
   await browser.close();

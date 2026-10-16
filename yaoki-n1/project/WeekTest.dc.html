@@ -42,9 +42,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 </div>
 
-<div style="margin-top: 16px; padding: 2px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; flex-shrink: 0">
+<div style="margin-top: 14px; padding: 2px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; flex-shrink: 0">
 <sc-for list="{{ secs }}" as="p" hint-placeholder-count="2">
-<div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: {{ p.rule }}">
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: {{ p.rule }}">
 <div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ p.n }}</div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div lang="ja" style="font-size: 14px; font-weight: 800">{{ p.ja }}</div>
@@ -53,7 +53,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div lang="ja" style="font-size: 14px; font-weight: 800; white-space: nowrap">{{ p.count }}</div>
 </div>
 </sc-for>
-<div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 2px dashed #DDE1EC">
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 2px dashed #DDE1EC">
 <div style="width: 26px; height: 26px; border-radius: 8px; background: #E8ECFB; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div lang="ja" style="font-size: 14px; font-weight: 800">制限時間</div>
@@ -63,7 +63,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <div style="font-size: 11px; font-weight: 800; color: #C7361E"><span lang="ja">テストのルール</span>　HOW IT RUNS</div>
 <sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
 <div style="display: flex; align-items: baseline; gap: 10px">
@@ -93,7 +93,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div role="timer" aria-label="{{ clockAria }}" style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0; border: 2px solid {{ clockEdge }}; color: {{ clockInk }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }}</div>
 </div>
 
-<div style="margin-top: 14px; display: flex; align-items: baseline; gap: 8px; font-size: 12px; font-weight: 800; flex-shrink: 0"><span lang="ja" style="color: #2F4FD0; white-space: nowrap">{{ q.type }}</span><span style="color: #5A6382">{{ q.ask }}</span></div>
+<div style="margin-top: 14px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; flex-shrink: 0"><sc-if value="{{ q.review }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="padding: 2px 7px; border-radius: 8px; background: #FFF4D6; color: #1B2440; white-space: nowrap; flex-shrink: 0">{{ q.level }}</span></sc-if><span lang="ja" style="color: #2F4FD0; white-space: nowrap">{{ q.type }}</span><span style="color: #5A6382; min-width: 0">{{ q.ask }}</span></div>
 <div lang="ja" style="margin-top: 3px; font-size: 12px; font-weight: 500; line-height: 1.5; flex-shrink: 0">{{ q.rubric }}</div>
 
 <sc-if value="{{ q.big }}" hint-placeholder-val="{{ true }}">
@@ -223,22 +223,26 @@ const markSeg = (t) => ({ t, bg: '#FFE9B0', pad: '0 3px', ws: t.length > 16 ? 'n
 /* marks that cannot start a line, and brackets that cannot end one: they stay with the blanks beside them */
 const NO_START = /^[、。，．・：；？！ー〜）」』】〕〉》］｝ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ々ゝゞ]+/;
 const NO_END = /[（「『【〔〈《［｛]+$/;
-/* the two sections of the N1 paper the test follows */
+/* the two sections of the N1 paper the test follows, then the review of the earlier levels (q.review) */
 const SECS = [
 { ja: '文字・語彙', en: 'Kanji, vocabulary', aria: 'Kanji and vocabulary' },
 { ja: '文法', en: 'Grammar', aria: 'Grammar' },
+{ ja: '復習', en: 'Review of N2 to N4', aria: 'Review of the earlier levels' },
 ];
 /* each question type: its section, what it asks, the exam's instruction and its name as a weak spot */
 const TYPES = {
-'漢字読み': { sec: 0, ask: 'Choose the reading', rubric: '＿＿＿の言葉の読み方として最もよいものを選びなさい。', weak: 'kanji readings' },
-'文脈規定': { sec: 0, ask: 'Choose the word that fits', rubric: '（　　）に入れるのに最もよいものを選びなさい。', weak: 'words in context' },
-'言い換え類義': { sec: 0, ask: 'Closest in meaning', rubric: '＿＿＿の言葉に意味が最も近いものを選びなさい。', weak: 'closest meanings' },
-'用法': { sec: 0, ask: 'Which sentence uses it well?', rubric: '次の言葉の使い方として最もよいものを選びなさい。', weak: 'word usage' },
-'文の文法1': { sec: 1, ask: 'Choose the form', rubric: '次の文の（　　）に入れるのに最もよいものを選びなさい。', weak: 'grammar forms' },
-'文の文法2': { sec: 1, ask: 'Which tile goes on the ★?', rubric: '次の文の★に入る最もよいものを選びなさい。', weak: 'star sentences' },
+'漢字読み': { sec: 0, ask: 'Choose the reading', rubric: '下線部の読み方として正しいものを一つ選んでください。', weak: 'kanji readings' },
+'表記': { sec: 0, ask: 'Choose the kanji', rubric: '下線部の言葉を漢字で書くとき、正しいものを一つ選んでください。', weak: 'kanji writing' },
+'語形成': { sec: 0, ask: 'Choose the part that fits', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。', weak: 'word formation' },
+'文脈規定': { sec: 0, ask: 'Choose the word that fits', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。', weak: 'words in context' },
+'言い換え類義': { sec: 0, ask: 'Closest in meaning', rubric: '下線部と意味がいちばん近い言葉を一つ選んでください。', weak: 'closest meanings' },
+'用法': { sec: 0, ask: 'Which sentence uses it well?', rubric: 'この言葉が正しく使われている文を一つ選んでください。', weak: 'word usage' },
+'文の文法1': { sec: 1, ask: 'Choose the form', rubric: '空欄に当てはまるいちばん適切な言葉を一つ選んでください。', weak: 'grammar forms' },
+'文の文法2': { sec: 1, ask: 'Which tile goes on the ★?', rubric: '並べ替えたとき★の位置に来る語句を一つ選んでください。', weak: 'star sentences' },
 };
-const OTHER = { sec: 1, ask: 'Choose the answer', rubric: '最もよいものを選びなさい。', weak: 'other questions' };
-const typeOf = (q) => TYPES[q.type] || OTHER;
+const OTHER = { sec: 1, ask: 'Choose the answer', rubric: '正しいものを一つ選んでください。', weak: 'other questions' };
+/* a review question of the earlier levels sits in the third section, whatever its type */
+const typeOf = (q) => (q.review ? { ...(TYPES[q.type] || OTHER), sec: 2 } : TYPES[q.type] || OTHER);
 /* the stamp the result gets, by the share of right answers */
 const STAMPS = [
 { min: 0.8, a: 'よく', b: 'できました', en: 'well done' },
@@ -285,7 +289,8 @@ if (!days[i]) return (this.at = { ...none, plan });
 const test = days[i].t === 1;
 const wk = Math.floor(i / 7) + 1;
 /* a week with nothing new has a mixed review for its test */
-const mixed = !test || N.weekTest(plan, wk).length < 6;
+let mixed = !test;
+try { mixed = mixed || N.weekTest(plan, wk).length < 6; } catch (e) { /* a kanji the bank no longer holds: the questions come out empty below */ }
 this.at = { ok: true, i, test, wk, key: test ? wk : 'r' + i, plan, date: N.view(plan, i).date, mixed };
 return this.at;
 }
@@ -300,7 +305,8 @@ questions() {
 if (this.qs) return this.qs;
 const N = window.ykN1;
 const at = this.where();
-this.qs = at.ok ? N.testFor(at.plan, at.i).map((q) => this.tidy(q)).filter(Boolean) : [];
+/* a plan saved against a larger bank can name a kanji the bank no longer holds: then there is no test to give */
+try { this.qs = at.ok ? N.testFor(at.plan, at.i).map((q) => this.tidy(q)).filter(Boolean) : []; } catch (e) { this.qs = []; }
 return this.qs;
 }
 total() {
@@ -394,7 +400,7 @@ return null;
 /* the question sentence as segments: a blank, the underlined word, or pre ＿ ＿ ★ ＿ post */
 sentence(q) {
 const N = window.ykN1;
-const text = (t, under) => ({ text: true, t, line: under ? '2px solid #1B2440' : 'none', ws: under || t.length <= 14 ? 'nowrap' : 'normal' });
+const text = (t, under) => ({ text: true, t, line: under ? '2px solid #1B2440' : 'none', ws: t.length <= 14 ? 'nowrap' : 'normal' });
 if (q.order) {
 /* a mark that cannot start a line (、) or a bracket that cannot end one goes with the blanks, which never break, so
    the rest of the sentence can still wrap */
@@ -406,9 +412,9 @@ const post = whole.post.slice(tail.length);
 const slots = [0, 1, 2, 3].map((k) => ({ star: k === q.star }));
 return [pre ? text(pre) : null, { slots, lead, tail }, post ? text(post) : null].filter(Boolean);
 }
-if (q.type === '言い換え類義') {
 const segs = N.segs(q.ja);
 if (segs.some((g) => g.mark)) return segs.filter((g) => g.t).map((g) => (g.mark ? text(g.t, true) : { ...text(g.t), ws: 'normal' }));
+if (q.type === '言い換え類義') {
 const cut = this.underline(N.plain(q.ja), q.word);
 if (cut) return [{ ...text(cut[0]), ws: 'normal' }, text(cut[1], true), { ...text(cut[2]), ws: 'normal' }].filter((g) => g.t);
 }
@@ -426,13 +432,13 @@ markSeg(tiles[q.star]),
 plainSeg(tiles.slice(q.star + 1).join('') + N.plain(q.post)),
 ].filter((g) => g.t);
 }
-if (q.type === '漢字読み') return [markSeg(N.plain(q.word) + '（' + right + '）')];
+if (q.type === '漢字読み' && q.word) return [markSeg(N.plain(q.word) + '（' + right + '）')];
 if (q.usage || q.type === '用法') {
 const cut = this.underline(right, q.word);
 return cut ? [plainSeg(cut[0]), markSeg(cut[1]), plainSeg(cut[2])].filter((g) => g.t) : [plainSeg(right)];
 }
-if (q.type === '言い換え類義') {
-const segs = N.segs(q.ja);
+/* a 【marked】 word with its answer after it: a paraphrase, or a reading or writing question of an earlier level */
+const segs = N.segs(q.ja || '');
 if (segs.some((g) => g.mark)) {
 const out = [];
 segs.forEach((g, k) => {
@@ -442,6 +448,7 @@ else if (g.t) out.push(plainSeg(g.t));
 });
 return out;
 }
+if (q.type === '言い換え類義') {
 const cut = this.underline(N.plain(q.ja), q.word);
 if (cut) return [plainSeg(cut[0]), markSeg(cut[1] + '（' + right + '）'), plainSeg(cut[2])].filter((g) => g.t);
 return [plainSeg(N.plain(q.ja)), markSeg(right)];
@@ -476,7 +483,7 @@ const cur = app.plan && app.plan.days && app.plan.days[at.i] ? app.plan : at.pla
 
 /* ---------- the intro ---------- */
 if (s.page === 'intro') {
-const per = [0, 0].map((x, sec) => qs.filter((q) => typeOf(q).sec === sec));
+const per = [0, 0, 0].map((x, sec) => qs.filter((q) => typeOf(q).sec === sec));
 const count = (list, type) => list.filter((q) => q.type === type).length;
 const say = (n, one, many) => n + ' ' + (n === 1 ? one : many);
 const secs = [];
@@ -484,7 +491,10 @@ per.forEach((list, sec) => {
 if (!list.length) return;
 const parts = sec === 0
 ? [say(count(list, '漢字読み'), 'kanji reading', 'kanji readings'), say(list.length - count(list, '漢字読み'), 'word question', 'word questions')]
-: [say(count(list, '文の文法1'), 'form', 'forms'), say(count(list, '文の文法2'), 'star sentence', 'star sentences')];
+: sec === 1
+? [say(count(list, '文の文法1'), 'form', 'forms'), say(count(list, '文の文法2'), 'star sentence', 'star sentences')]
+/* the review: how many from each level */
+: ['N2', 'N3', 'N4'].map((L) => { const n = list.filter((q) => q.level === L).length; return n ? n + ' from ' + L : '0'; });
 secs.push({ n: secs.length + 1, ja: SECS[sec].ja, en: parts.filter((p) => p[0] !== '0').join(', ') || SECS[sec].en, count: list.length + '問', rule: secs.length ? '2px solid #F4F5F9' : '0' });
 });
 const last = cur && cur.tests ? cur.tests[at.key] : null;
@@ -497,10 +507,10 @@ kindJa: at.test ? '週テスト' : '総復習',
 kindEn: at.test ? 'WEEK TEST' : 'MIXED REVIEW',
 introTitle: total + '問・約' + Math.round(T / 60) + '分',
 introLine: at.test && !at.mixed
-? 'Week ' + at.wk + ' in one go: its kanji, words and grammar, as the exam asks them.'
+? 'Week ' + at.wk + ' in one go: its kanji, words and grammar, as the exam asks them, then a few questions from N2 to N4.'
 : at.test
-? 'Week ' + at.wk + ' had nothing new, so this test mixes kanji, words and grammar from everything so far.'
-: 'Kanji, words and grammar from everything you have learned, a new pick each review day.',
+? 'Week ' + at.wk + ' had nothing new, so this test mixes kanji, words and grammar from everything so far, with questions from N2 to N4.'
+: 'Kanji, words and grammar from everything you have learned, with questions from N2 to N4: a new pick each review day.',
 secs,
 timeAllowed: fmt(T),
 rules: RULES,
@@ -522,7 +532,7 @@ const i = Math.max(0, Math.min(s.i, total - 1));
 const item = qs[i];
 const ty = typeOf(item);
 const picked = s.answers[i] || null;
-const big = item.type === '漢字読み' || !!item.usage || item.type === '用法' || !item.ja && !item.order;
+const big = (item.type === '漢字読み' && !!item.word) || !!item.usage || item.type === '用法' || !item.ja && !item.order;
 const word = N.plain(item.word || '');
 const q = {
 type: item.type,
@@ -533,6 +543,8 @@ word,
 bigSize: (word.length <= 4 ? 34 : word.length <= 6 ? 30 : 26) + 'px',
 /* a reading question underlines its word, as the exam does */
 bigLine: item.type === '漢字読み' ? '2.5px solid #1B2440' : '0',
+review: !!item.review,
+level: item.review ? '復習 ' + item.level : '',
 segs: big ? [] : this.sentence(item),
 };
 const opts = item.options.map((label, k) => {
@@ -594,7 +606,7 @@ const share = score / total;
 const stamp = STAMPS.find((x) => share >= x.min) || STAMPS[STAMPS.length - 1];
 /* the weak spot: the question type with the lowest share right, when it is under three in four */
 const byType = {};
-qs.forEach((q, n) => { const b = byType[q.type] || (byType[q.type] = { n: 0, r: 0, sec: typeOf(q).sec }); b.n++; if (right[n]) b.r++; });
+qs.forEach((q, n) => { const key = (q.review ? 'x:' : '') + q.type; const b = byType[key] || (byType[key] = { n: 0, r: 0, sec: typeOf(q).sec, type: q.type }); b.n++; if (right[n]) b.r++; });
 const weak = Object.keys(byType).map((k) => ({ k, ...byType[k] })).filter((b) => b.r < b.n && b.r / b.n < 0.75)
 .sort((a, b) => a.r / a.n - b.r / b.n || b.n - a.n)[0];
 const areas = [];
@@ -603,7 +615,7 @@ const ns = qs.map((q, n) => n).filter((n) => typeOf(qs[n]).sec === k);
 if (!ns.length) return;
 const r = ns.filter((n) => right[n]).length;
 const isWeak = !!weak && weak.sec === k;
-const weakLine = isWeak ? 'Weak spot: ' + (TYPES[weak.k] || OTHER).weak + ', ' + weak.r + ' of ' + weak.n : '';
+const weakLine = isWeak ? 'Weak spot: ' + (TYPES[weak.type] || OTHER).weak + ', ' + weak.r + ' of ' + weak.n : '';
 areas.push({
 ja: sec.ja, en: sec.en,
 score: r + ' / ' + ns.length,
@@ -618,7 +630,7 @@ qs.forEach((q, n) => {
 if (right[n]) return;
 const a = s.answers[n];
 const yours = a ? N.plain(q.options[a - 1]) : '無解答';
-const title = (n + 1) + ' · ' + q.type;
+const title = (n + 1) + ' · ' + q.type + (q.review ? ' · ' + q.level : '');
 rows.push({
 title,
 yours: 'あなたの答え：' + yours,

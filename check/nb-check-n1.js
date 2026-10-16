@@ -1,13 +1,15 @@
 // The N1 notebook with every kind of entry (YK_LEVEL=N1 bash run-app.sh nb-check-n1.js), on 14 Oct 2026: every
-// question of every lesson (drills, ★, exam-style, reading, listening), every word, the longest kanji words and every
-// question of the four mini mocks, each with its longest wrong answer, a page of entries at a time. Each row keeps its
+// question of every lesson (drills, ★, exam-style, its short and its longer reading and listening), every word (the
+// lesson's five and its bank's fifteen), the longest kanji words, every question of the four mini mocks and every
+// review question of the earlier levels (the N2 grammar, the N2 to N4 course items, the longest N2 kanji words),
+// each with its longest wrong answer, a page of entries at a time. Each row keeps its
 // one-line texts whole (the notebook cuts them itself, keeping the blank or the underlined word in view), and nothing
 // leaves the frame. Then a review of one entry of each kind, the hardest of each, through to the notebook again.
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const { openBoard, inspect, site, out } = require('./rt-check.js');
-const { course } = require('./level.js');
+const { course, clips } = require('./level.js');
 
 const TODAY = '2026-10-14';
 const N = course(TODAY);
@@ -42,8 +44,19 @@ const all = [];
 N.lessons.forEach((l) => {
   ['d0', 'd1', 'd2', 's', 'x0', 'x1', 'x2'].forEach((k) => all.push(worst('g.' + l.id + '.' + k)));
   all.push(worst('r.' + l.id), worst('l.' + l.id));
+  /* the lesson's longer reading and listening (BANKS.md) */
+  ['r.' + l.id + '.2', 'l.' + l.id + '.2'].forEach((src) => { if (N.item(src)) all.push(worst(src)); });
 });
-N.words.forEach((x, wi) => all.push(worst('w.' + wi)));
+/* every word by its name, w.<lesson id>.<n> (the lesson's five, then its bank's fifteen), and two by the older name
+   w.<word index> a notebook saved before the banks may hold */
+N.words.forEach((x) => all.push(worst('w.' + N.lessons[x.li].id + '.' + x.i)));
+[0, N.words.length - 1].forEach((wi) => all.push(worst('w.' + wi)));
+/* the review of the earlier levels: every N2 pattern's question and every course item; of the N2 kanji words, the
+   longest words and the longest wrong readings, as for the N1 kanji */
+N.reviewPool.filter((src) => !/^x\.k\./.test(src)).forEach((src) => all.push(worst(src)));
+const xk = N.reviewPool.filter((src) => /^x\.k\./.test(src)).map((src) => worst(src)).filter(Boolean);
+xk.slice().sort((a, b) => N.plain(b.q.word).length - N.plain(a.q.word).length).slice(0, 12).forEach((e) => all.push(e));
+xk.slice().sort((a, b) => b.wrong.length - a.wrong.length).slice(0, 6).forEach((e) => all.push(e));
 /* the kanji words with the longest word, and those with the longest wrong reading */
 const ks = [];
 N.kanji.forEach((k, ki) => k.w.forEach((w, wj) => ks.push({ ki, wj, len: N.plain(w.w).length })));
@@ -71,7 +84,7 @@ const lineOf = (q) => {
   let bad = 0;
   let pads = 0;
   const kinds = {};
-  entries.forEach((e) => { const k = e.src.replace(/^m\d+\./, 'mock.').replace(/\..*$/, '') + (e.q.mock ? '.' + e.q.kind : e.src[0] === 'g' ? '.' + e.src.split('.')[2][0] : ''); kinds[k] = (kinds[k] || 0) + 1; });
+  entries.forEach((e) => { const k = e.src.replace(/^m\d+\./, 'mock.').replace(/\..*$/, '') + (e.q.mock ? '.' + e.q.kind : e.src[0] === 'g' ? '.' + e.src.split('.')[2][0] : /^[rl]$/.test(e.src[0]) ? '.' + e.q.kind : e.q.review ? '.' + e.q.level : ''); kinds[k] = (kinds[k] || 0) + 1; });
   console.log('entries: ' + entries.length + ' ' + JSON.stringify(kinds));
 
   // ---------- the notebook, a page of entries at a time ----------
@@ -88,14 +101,18 @@ const lineOf = (q) => {
         const ans = line.nextElementSibling;
         const cut = [...ans.querySelectorAll('span')].filter((s) => s.style.textOverflow === 'ellipsis');
         const lines = new Set([...ans.children].map((c) => Math.round(c.getBoundingClientRect().top))).size;
+        /* the head: the type, a review question's level, then when it comes back (the one that may be cut short) */
+        const when = [...head.children].find((c) => c.style.textOverflow === 'ellipsis');
+        const level = [...head.children].slice(1).find((c) => c !== when && /^復習/.test(c.textContent.trim()));
         return {
           type: head.firstElementChild.textContent.trim(),
-          when: head.children[1].textContent.trim(),
+          level: level ? level.textContent.trim() : '',
+          when: when ? when.textContent.trim() : '',
           line: line.textContent,
           under: [...line.querySelectorAll('span')].some((s) => /solid/.test(s.style.borderBottom)),
           wrong: cut[0] ? cut[0].textContent : '',
           right: cut[1] ? cut[1].textContent : '',
-          clipped: [clipped(line) && 'line', clipped(head.children[1]) && 'when', cut.some(clipped) && 'answer'].filter(Boolean),
+          clipped: [clipped(line) && 'line', clipped(when) && 'when', level && clipped(level) && 'level', cut.some(clipped) && 'answer'].filter(Boolean),
           ansLines: lines,
           w: Math.round(line.getBoundingClientRect().width),
         };
@@ -118,6 +135,7 @@ const lineOf = (q) => {
       if ((e.q.type === '漢字読み' || e.q.usage || /【/.test(text)) && !r.under) problems.push(`${e.src}: the underlined word is cut off: ${r.line}`);
       if (!N.plain(String(e.q.right || '')).startsWith(r.right.replace(/…$/, '')) || !r.right) problems.push(`${e.src}: the right answer should be ${e.q.right}, got ${r.right}`);
       if (e.q.mock && !r.when.includes('Mini mock ' + e.q.mock)) problems.push(`${e.src}: the row should name its mock: ${r.when}`);
+      if (r.level !== (e.q.review ? '復習 ' + e.q.level : '')) problems.push(`${e.src}: the row should be marked ${e.q.review ? '復習 ' + e.q.level : 'with no level'}, got "${r.level}"`);
     });
     const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
     if (info.errors.length || info.issues.length || info.unresolved) problems.push('PROBLEMS ' + JSON.stringify({ e: info.errors, i: info.issues, u: info.unresolved }));
@@ -173,8 +191,17 @@ const lineOf = (q) => {
       pickBy(lessonKind('s'), len),
       pickBy(lessonKind('xf'), len),
       pickBy(lessonKind('xo'), len),
-      pickBy((e) => e.src[0] === 'r', len),
-      pickBy((e) => e.src[0] === 'l', (e) => -opts(e)),
+      pickBy((e) => e.src[0] === 'r' && e.q.kind === 'short', len),
+      pickBy((e) => e.src[0] === 'l' && e.q.kind === 'quick', (e) => -opts(e)),
+      /* the longer readings and listenings of the banks: the longest reading of each kind, the shortest talk of each */
+      ...['mid', 'info', 'pair'].map((k) => pickBy((e) => e.src[0] === 'r' && e.q.kind === k, len)),
+      ...['task', 'point', 'gist'].map((k) => pickBy((e) => e.src[0] === 'l' && e.q.kind === k, (e) => -e.q.clips.reduce((a, c) => a + (clips[c] || 0), 0))),
+      /* the review of the earlier levels: an N2 pattern, a course sentence, a ★ sentence, a usage question, an N2 kanji */
+      pickBy((e) => /^x\.n2\./.test(e.src), len),
+      pickBy((e) => e.q.review && !/^x\.(n2|k)\./.test(e.src) && !e.q.order && !e.q.usage, len),
+      pickBy((e) => e.q.review && e.q.order, len),
+      pickBy((e) => e.q.review && e.q.usage, opts),
+      pickBy((e) => /^x\.k\./.test(e.src), (e) => e.wrong.length),
       pickBy(mockKind('sentence', '漢字読み'), len),
       pickBy(mockKind('sentence', '文の文法2'), len),
       pickBy(mockKind('usage'), opts),
@@ -207,6 +234,9 @@ const lineOf = (q) => {
       const q = tidy(N.item(e.src));
       const name = String(n + 1).padStart(2, '0') + '-' + e.src.replace(/[^a-z0-9]+/gi, '-');
       ok((await body()).includes((n + 1) + ' / ' + list.length), `review ${e.src}: item ${n + 1} of ${list.length} expected`);
+      /* a review question of the earlier levels says its level; a bank item its paper's name */
+      if (q.review) ok((await body()).includes('復習 ' + q.level), `review ${e.src}: the item should be marked 復習 ${q.level}`);
+      if (/^[rl]\..*\.2$/.test(e.src)) ok((await body()).includes(q.type), `review ${e.src}: the item should name its type, ${q.type}`);
       if (q.listen) {
         ok((await page.locator('button[aria-pressed][aria-disabled="true"]').count()) === q.options.length, `review ${e.src}: the answers should wait for the audio`);
         await click('button[aria-label^="Play"]', 300);
@@ -233,6 +263,7 @@ const lineOf = (q) => {
     ok(t.includes('back 17 Oct') && t.includes('back tomorrow'), 'notebook: right answers come back in 3 days, wrong ones tomorrow');
     const noisy = logs.filter((l) => !/Download the React DevTools/.test(l));
     if (noisy.length) { fails++; console.log('   FAIL console problems: ' + JSON.stringify(noisy.slice(0, 4))); }
+    ok(list.length === 28, 'review: one entry of each of the 28 kinds expected, got ' + list.length);
     console.log(`review: ${list.length} items (${list.map((e) => e.src).join(' ')}), ${right} right`);
     bad += fails;
     await page.close();

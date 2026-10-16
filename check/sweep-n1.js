@@ -1,8 +1,10 @@
 // The N1 screens with all of the real content (YK_LEVEL=N1 NOSOUND=1 bash run-app.sh sweep-n1.js), on 14 Oct 2026:
 // every lesson through every state its screens have (the three teach pages, compare, each drill and the ★ question
-// answered wrong, the exam-style questions and their result, the kanji, words and quiz with each question explained,
-// reading and listening answered wrong), every week test and some mixed reviews question by question, the four mini
-// mocks from their briefing to the last script, every day of the sample plan on Today and every week of the path.
+// answered wrong, the exam-style questions and their result, the kanji, the lesson's twenty words and the quiz with
+// each question explained, its two review questions of the earlier levels included, reading and listening answered
+// wrong), every lesson's longer reading and listening of the banks answered wrong, every week test and some mixed
+// reviews question by question, the four mini mocks from their briefing to the last script, every day of the sample
+// plan on Today and every week of the path, and the first two weeks of new plans on Today.
 // Each state is checked for runtime errors, anything leaving the frame or too small to tap (problems), text cut off
 // by its own box (CUT, a problem too) and content in the bottom 34 px (PAD warnings).
 // Screenshots: out/sw-n1-<job>-<state>.png for the sample jobs, and for any state with a problem.
@@ -20,14 +22,16 @@ const tidy = (q) => {
   if (!q || !Array.isArray(q.options)) return null;
   const keep = q.options.map((o, k) => ({ o, k: k + 1 })).filter((x) => x.o != null && x.o !== '');
   const answer = keep.findIndex((x) => x.k === q.answer) + 1;
-  return answer > 0 && keep.length >= 2 ? { src: q.src, answer, n: keep.length } : null;
+  return answer > 0 && keep.length >= 2 ? { src: q.src, answer, n: keep.length, review: !!q.review, level: q.level || '' } : null;
 };
+/* the word indices of a lesson: its five, then its bank's fifteen */
+const lessonWords = (l) => N.words.map((x, wi) => (N.lessons[x.li] === l ? wi : -1)).filter((wi) => wi >= 0);
 /* the sample plan with nothing done yet, so every step of a day can be taken; and the sample plan as it is */
 const fresh = (open) => { const p = N.demo(); p.days.forEach((x) => { x.p = {}; }); p.open = open; return p; };
 const DEMO = N.demo();
 const ONLY = process.argv[2] ? new RegExp(process.argv[2]) : null;
 /* the jobs whose every state is kept as a screenshot */
-const KEEP = /^(lesson-u1l1|lesson-u3l4|lesson-u8l6|week-6|week-27|week-62|mock-\d|main|goal-|today-(0|4|6|17|20|56)$)/;
+const KEEP = /^(lesson-u1l1|lesson-u3l4|lesson-u8l6|bank-u1l1|bank-u1l2|bank-u1l6|bank-u8l6|week-6|week-27|week-62|mock-\d|main|goal-|today-(0|4|6|17|20|56)$|today-p60-[01]$)/;
 
 const jobs = [];
 
@@ -36,8 +40,11 @@ DEMO.days.forEach((x, i) => {
   if (x.t !== 0 || x.g < 0) return;
   const l = N.lessons[x.g];
   const plan = fresh(i);
+  /* the day holds all twenty of its lesson's words, the most the words step shows */
+  plan.days[i].w = lessonWords(l);
   const v = N.view(plan, i);
-  const quiz = N.kanjiQuiz(plan, i, 8).concat(v.wi.map((wi) => N.wordQ(wi))).map(tidy).filter(Boolean);
+  /* the quiz as Scene builds it: the kanji readings, the words, then two review questions of the earlier levels */
+  const quiz = N.kanjiQuiz(plan, i, 8).concat(v.wi.map((wi) => N.wordQ(wi)), N.dayReview(plan, i, 2)).map(tidy).filter(Boolean);
   /* the kanji whose sheet holds the most: the longest meaning, and the most readings */
   const most = (f) => v.kanji.reduce((b, k, n) => (f(k) > f(v.kanji[b]) ? n : b), 0);
   const sheets = [...new Set([most((k) => (k.en || []).join(', ').length), most((k) => (k.on || []).join('、').length + (k.kun || []).join('、').length)])];
@@ -92,16 +99,24 @@ DEMO.days.forEach((x, i) => {
         await t.click(v.words.length ? 'button:has-text("Next: words")' : 'button:has-text("Next: the quiz")');
       }
       if (v.words.length) {
+        t.expect(v.words.length === 20 && (await t.text()).includes('20 words'), 'the words step should show the lesson\'s 20 words');
+        t.expect((await t.page.locator('[role=list] button[aria-pressed]').count()) === 20, 'the words step should have a play button for each of the 20 words');
         await t.shot('words');
+        /* the list scrolls: its last word too */
+        await t.page.locator('[role=list] button[aria-pressed] >> nth=-1').scrollIntoViewIfNeeded();
+        await t.shot('words-end');
         await t.click('button:has-text("Next: the quiz")');
       }
+      t.expect(quiz.filter((q) => q.review).length === 2 && quiz.slice(-2).every((q) => q.review), 'the quiz should end with two review questions');
       for (let n = 0; n < quiz.length; n++) {
+        if (quiz[n].review) t.expect((await t.text()).includes('復習 ' + quiz[n].level), `quiz ${n + 1} (${quiz[n].src}) should be marked 復習 ${quiz[n].level}`);
         await t.pick(other(quiz[n].answer, quiz[n].n));
         await t.click('button:has-text("Check")');
         await t.shot('quiz-' + (n + 1) + '-' + quiz[n].src);
         await t.click(n === quiz.length - 1 ? 'button:has-text("See your score")' : 'button:has-text("Next question")');
       }
       await t.shot('quiz-score');
+      t.expect((await t.text()).includes('and 2 review questions from N2 to N4'), 'the score should count the two review questions');
       await t.click('a:has-text("Done")');
       // reading and listening, answered wrong
       await t.click('a[aria-label^="Reading:"]');
@@ -124,6 +139,66 @@ DEMO.days.forEach((x, i) => {
   });
 });
 
+/* ---------- every lesson's longer reading and listening (BANKS.md), on its own day: each answered wrong ---------- */
+const RK = { mid: 'mid passage', info: 'information', pair: 'two texts' };
+const LE = { task: 'task', point: 'key point', gist: 'main idea' };
+DEMO.days.forEach((x, i) => {
+  if (x.t !== 0 || x.g < 0) return;
+  const l = N.lessons[x.g];
+  const ri = N.readings.findIndex((e) => e.src === 'r.' + l.id + '.2');
+  const li = N.listenings.findIndex((e) => e.src === 'l.' + l.id + '.2');
+  if (ri < 0 || li < 0) return;
+  const plan = fresh(i);
+  plan.days[i].r = ri;
+  plan.days[i].l = li;
+  const re = N.readings[ri], le = N.listenings[li];
+  const r = re.item, it = le.item;
+  /* the stand-in time of the audio's parts with a breath between them (the sweep runs without the sound scripts) */
+  const audioMs = it.audio.reduce((a, p) => a + 600 + 150 * p.lines.reduce((n, ln) => n + N.plain(ln[1]).length, 0), 0) + 400 * (it.audio.length - 1);
+  jobs.push({
+    name: 'bank-' + l.id,
+    url: 'TShell.dc.html?screen=Today&ykdate=' + TODAY + '&plan=' + enc(plan),
+    clock: true,
+    run: async (t) => {
+      t.expect((await t.page.locator(`a[aria-label^="Reading: ${RK[re.kind]}, "]`).count()) === 1, `Today's reading card should name its kind, ${RK[re.kind]}`);
+      t.expect((await t.page.locator(`a[aria-label="Listening: ${LE[le.kind]}"]`).count()) === 1, `Today's listening card should name its kind, ${LE[le.kind]}`);
+      await t.shot('today');
+      await t.click('a[aria-label^="Reading:"]');
+      t.expect((await t.text()).includes(r.type), 'the reading should name its paper, ' + r.type);
+      await t.shot('reading-' + re.kind);
+      /* the passage scrolls inside its box: its end too */
+      await t.page.evaluate(() => { const b = document.querySelector('[data-yk-passage]'); if (b) b.scrollTop = b.scrollHeight; });
+      await t.shot('reading-end');
+      await t.pick(other(r.answer));
+      await t.click('button:has-text("Check")');
+      t.expect((await t.text()).includes('your pick') && (await t.text()).includes('STRATEGY'), 'the reading should explain each option and give the strategy');
+      await t.shot('reading-wrong');
+      await t.click('a:has-text("Next")');
+      await t.click('a[aria-label^="Listening:"]');
+      t.expect((await t.text()).includes(it.type), 'the listening should name its paper, ' + it.type);
+      t.expect((await t.page.locator('button[aria-label^="Option "]').count()) === 4, 'the listening should have four options');
+      await t.shot('listening-' + le.kind);
+      await t.click('button[aria-label^="Play the audio"]');
+      await t.page.clock.fastForward(Math.round(audioMs / 2));
+      await t.shot('listening-playing');
+      /* a jump of the clock fires a timer once: the parts that follow are reached a few seconds at a time */
+      const open4 = () => t.page.evaluate(() => [...document.querySelectorAll('button[aria-label^="Option "]')].filter((b) => b.getAttribute('aria-disabled') !== 'true').length === 4);
+      for (let k = 0; k < 120 && !(await open4()); k++) await t.page.clock.fastForward(1000);
+      await t.page.waitForFunction(() => [...document.querySelectorAll('button[aria-label^="Option "]')].filter((b) => b.getAttribute('aria-disabled') !== 'true').length === 4, null, { timeout: 15000 });
+      t.expect((await t.text()).includes('解答 '), 'the answer time should count down once the audio is over');
+      await t.shot('listening-answer-time');
+      await t.pick(other(it.answer));
+      t.expect((await t.text()).includes('Script'), 'the script should open once answered');
+      await t.shot('listening-wrong');
+      await t.page.evaluate(() => { document.querySelectorAll('#yk-stage div').forEach((d) => { if (getComputedStyle(d).overflowY === 'auto') d.scrollTop = d.scrollHeight; }); });
+      await t.shot('listening-wrong-end');
+      await t.click('a:has-text("Next")');
+      t.expect((await t.page.locator('a[aria-label^="Reading:"][aria-label$="Done"]').count()) === 1 && (await t.page.locator('a[aria-label^="Listening:"][aria-label$="Done"]').count()) === 1, 'Today should mark the reading and listening done');
+      await t.shot('today-after');
+    },
+  });
+});
+
 /* ---------- every week test, and the first mixed reviews ---------- */
 let reviews = 0;
 DEMO.days.forEach((x, i) => {
@@ -135,8 +210,14 @@ DEMO.days.forEach((x, i) => {
     url: 'TShell.dc.html?screen=WeekTest&ykdate=' + TODAY + '&plan=' + enc(plan),
     run: async (t) => {
       await t.shot('intro');
+      /* the intro lists its sections: the 復習 one with its four or six questions */
+      const rv = qs.filter((q) => q.review);
+      const byLevel = ['N2', 'N3', 'N4'].map((L) => [L, rv.filter((q) => q.level === L).length]).filter((p) => p[1]).map((p) => p[1] + ' from ' + p[0]).join(', ');
+      t.expect((await t.text()).replace(/\s+/g, '').includes(('復習' + byLevel + rv.length + '問').replace(/\s+/g, '')), 'the intro should list the 復習 section: ' + byLevel + ', ' + rv.length + '問');
       await t.click(x.t === 1 ? 'button:has-text("Start the test")' : 'button:has-text("Start the review")');
+      t.expect(qs.filter((q) => q.review).length === (x.t === 1 && N.weekTest(plan, Math.floor(i / 7) + 1).length >= 6 ? 4 : 6) && qs[qs.length - 1].review, 'the test should end with its review of the earlier levels (4 in a week test, 6 in a mixed review)');
       for (let n = 0; n < qs.length; n++) {
+        if (qs[n].review) t.expect((await t.text()).includes('復習 ' + qs[n].level), `question ${n + 1} (${qs[n].src}) should be marked 復習 ${qs[n].level}`);
         await t.shot('q' + (n + 1) + '-' + qs[n].src);
         await t.pick(other(qs[n].answer, qs[n].n), 120);
         await t.click(n === qs.length - 1 ? 'button:has-text("Finish")' : 'button:has-text("Next")', 200);
@@ -218,6 +299,15 @@ N.mocks.forEach((m) => {
 /* ---------- every day of the sample plan on Today, and every week of the path ---------- */
 DEMO.days.forEach((x, i) => {
   jobs.push({ name: 'today-' + i, url: `TShell.dc.html?screen=Today&plan=demo&day=${i}&ykdate=${TODAY}`, run: async (t) => { await t.shot('day'); } });
+});
+/* the sample plan keeps each lesson's short items; a new plan lays out the banks' longer ones too: its first two weeks
+   at each daily time, to the July session */
+const JULY = N.sessions(TODAY)[1].date;
+[30, 45, 60].forEach((pace) => {
+  const p = N.make({ start: TODAY, exam: JULY, pace });
+  p.days.slice(0, 14).forEach((x, i) => {
+    jobs.push({ name: 'today-p' + pace + '-' + i, url: `TShell.dc.html?screen=Today&ykdate=${TODAY}&plan=` + enc({ ...p, open: i }), run: async (t) => { await t.shot('day'); } });
+  });
 });
 jobs.push({
   name: 'main',

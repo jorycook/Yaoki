@@ -28,7 +28,7 @@ run "interruptions, sound"        timeout 300 bash run-app.sh pause-test.js
 run "interruptions, full run"     FULL=1 timeout 480 bash run-app.sh pause-test.js
 run "interruptions, held back"    HELDBACK=1 timeout 300 bash run-app.sh pause-test.js
 run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run-app.sh pause-test.js
-run "notebook entries"            timeout 420 bash run-app.sh nb-check-n1.js
+run "notebook entries"            timeout 720 bash run-app.sh nb-check-n1.js
 run "answer-state sweep"          NOSOUND=1 timeout 1200 bash run-app.sh sweep-n1.js
 run "every screen"                timeout 200 bash run-app.sh screens-app.js
 else
@@ -43,7 +43,10 @@ run "interruptions, full run"     FULL=1 timeout 480 bash run-app.sh pause-test.
 run "interruptions, held back"    HELDBACK=1 timeout 300 bash run-app.sh pause-test.js
 run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run-app.sh pause-test.js
 run "content sweep"                timeout 2400 bash run-app.sh content-sweep.js
-run "content sweep, N5"            LEVEL=N5 timeout 2400 bash run-app.sh content-sweep.js
+# the whole of N5 outlives one run's timeout (about an hour and a half): a unit at a time, every day still swept
+for u in 1 2 3 4 5 6 7 8; do
+  run "content sweep, N5 unit $u" LEVEL=N5 DAYS="$(printf 'n5u%02dd1,n5u%02dd2,n5u%02dd3,n5u%02dd4,n5u%02dd5,n5u%02dd6' $u $u $u $u $u $u)" timeout 2400 bash run-app.sh content-sweep.js
+done
 run "level switch"               timeout 400 bash run-app.sh level-test.js
 run "N5 mini mock, sound"        timeout 400 bash run-app.sh n5-mock.js
 run "N4 mini mock"                timeout 400 bash run-app.sh n4-mock.js
