@@ -41,7 +41,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap; flex-shrink: 0">in a row</div>
 </div>
 
-<div data-rv-body="1" style="position: relative; margin-top: 10px; flex-grow: 1; min-height: 0; overflow-y: auto; padding-bottom: 12px; display: flex; flex-direction: column">
+<div style="position: relative; margin-top: 10px; flex-grow: 1; min-height: 0; display: flex; flex-direction: column">
+<div data-rv-body="1" style="position: relative; flex-grow: 1; min-height: 0; overflow-y: auto; padding-bottom: 16px; display: flex; flex-direction: column">
 <div style="font-size: 13px; font-weight: 800; flex-shrink: 0">{{ it.ask }}<sc-if value="{{ it.hasFrom }}" hint-placeholder-val="{{ false }}"><span style="font-weight: 700; color: #5A6382"> · {{ it.from }}</span></sc-if></div>
 <sc-if value="{{ it.hasRubric }}" hint-placeholder-val="{{ true }}">
 <div lang="ja" style="margin-top: 2px; font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5; flex-shrink: 0">{{ it.rubric }}</div>
@@ -177,6 +178,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.45"><span lang="ja">前回</span>　Last time you chose: <span lang="ja">{{ it.last }}</span></div>
 </div>
 </sc-if>
+</div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 16px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none"></div>
 </div>
 
 <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
@@ -504,7 +507,7 @@ if (!body) return;
 if (to === 'top') { body.scrollTop = 0; return; }
 const panel = body.querySelector('[data-rv-panel]');
 if (!panel) return;
-const want = Math.min(panel.offsetTop - 8, panel.offsetTop + panel.offsetHeight + 12 - body.clientHeight);
+const want = Math.min(panel.offsetTop - 8, panel.offsetTop + panel.offsetHeight + 16 - body.clientHeight);
 if (want > body.scrollTop) {
 if (body.scrollTo) body.scrollTo({ top: want, behavior: 'smooth' });
 else body.scrollTop = want;

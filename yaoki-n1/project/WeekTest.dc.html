@@ -42,9 +42,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 </div>
 
-<div style="margin-top: 16px; padding: 2px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; flex-shrink: 0">
+<div style="margin-top: 14px; padding: 2px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; flex-shrink: 0">
 <sc-for list="{{ secs }}" as="p" hint-placeholder-count="2">
-<div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: {{ p.rule }}">
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: {{ p.rule }}">
 <div style="width: 26px; height: 26px; border-radius: 8px; background: #1B2440; color: #FFFFFF; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{ p.n }}</div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div lang="ja" style="font-size: 14px; font-weight: 800">{{ p.ja }}</div>
@@ -53,7 +53,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div lang="ja" style="font-size: 14px; font-weight: 800; white-space: nowrap">{{ p.count }}</div>
 </div>
 </sc-for>
-<div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 2px dashed #DDE1EC">
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 0; border-top: 2px dashed #DDE1EC">
 <div style="width: 26px; height: 26px; border-radius: 8px; background: #E8ECFB; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div lang="ja" style="font-size: 14px; font-weight: 800">制限時間</div>
@@ -63,7 +63,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <div style="font-size: 11px; font-weight: 800; color: #C7361E"><span lang="ja">テストのルール</span>　HOW IT RUNS</div>
 <sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
 <div style="display: flex; align-items: baseline; gap: 10px">
@@ -400,7 +400,7 @@ return null;
 /* the question sentence as segments: a blank, the underlined word, or pre ＿ ＿ ★ ＿ post */
 sentence(q) {
 const N = window.ykN1;
-const text = (t, under) => ({ text: true, t, line: under ? '2px solid #1B2440' : 'none', ws: under || t.length <= 14 ? 'nowrap' : 'normal' });
+const text = (t, under) => ({ text: true, t, line: under ? '2px solid #1B2440' : 'none', ws: t.length <= 14 ? 'nowrap' : 'normal' });
 if (q.order) {
 /* a mark that cannot start a line (、) or a bracket that cannot end one goes with the blanks, which never break, so
    the rest of the sentence can still wrap */

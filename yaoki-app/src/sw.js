@@ -9,8 +9,8 @@ const PREFIX = 'yaoki:' + HOME + ':';
 const CACHE = PREFIX + VERSION;
 const FILES = __FILES__;
 /* #if N1 */
-/* the course's spoken clips, one file each (645 of them, about 21 MB), are not part of the install (it would make the
-   first download five times larger): a clip is stored the first time it is played, and the app asks for all the others
+/* the course's spoken clips, one file each (1,493 of them, about 52 MB), are not part of the install (it would make the
+   first download about nine times larger): a clip is stored the first time it is played, and the app asks for all the others
    in the background once the learner has a plan. Each file carries a hash of its content, so a new build keeps the
    ones that did not change. */
 /* #else */
@@ -41,13 +41,19 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE)
       .then(async (cache) => {
         await cache.addAll(FILES.map(versioned));
-        /* carry over the sound files of earlier builds that are unchanged (nothing new is downloaded here) */
-        for (const f of Object.keys(LAZY)) {
-          for (const k of await caches.keys()) {
-            if (!k.startsWith(PREFIX) || k === CACHE) continue;
-            const old = await (await caches.open(k)).match(lazyKey(f));
-            if (old) { await cache.put(lazyKey(f), old); break; }
-          }
+        /* carry over the sound files of earlier builds that are unchanged (nothing new is downloaded here). The
+           earlier stores are opened once, and the files copied a batch at a time: with over a thousand clips, one
+           at a time would hold the new build back for many seconds */
+        const olds = [];
+        for (const k of await caches.keys()) if (k.startsWith(PREFIX) && k !== CACHE) olds.push(await caches.open(k));
+        const files = olds.length ? Object.keys(LAZY) : [];
+        for (let i = 0; i < files.length; i += 50) {
+          await Promise.all(files.slice(i, i + 50).map(async (f) => {
+            for (const old of olds) {
+              const res = await old.match(lazyKey(f));
+              if (res) { await cache.put(lazyKey(f), res); return; }
+            }
+          }));
         }
       })
       .then(() => self.skipWaiting())

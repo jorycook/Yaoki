@@ -43,7 +43,7 @@ const LEVELS = {
     words: ['n1-content.js', 'n1.js', 'audio/clips.js'],
     optional: ['audio/clips.js'],
     sounds: ['sound-mock.js'],
-    /* the spoken clips kept as files (645 of them, about 21 MB): sound.js fetches each when it is played. They are not part
+    /* the spoken clips kept as files (1,493 of them, about 52 MB): sound.js fetches each when it is played. They are not part
        of the install: the offline worker stores each the first time it is played, and all of them in the background once
        the learner has a plan (lazy) */
     audio: 'audio',

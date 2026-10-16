@@ -21,6 +21,9 @@ const LEVEL = process.env.LEVEL || 'N2';
     return openBoard(browser, q, fontsCss);
   };
   const check = async (page, logs, label) => {
+    /* a state is looked at once it has settled: a sheet that slides up (240 ms) can still be on its way on a busy
+       machine, and on its way it reaches below the frame */
+    await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running' || a.effect.getTiming().iterations === Infinity), null, { timeout: 3000 }).catch(() => {});
     const info = await inspect(page);
     shots += 1;
     const bad = info.errors.length || info.issues.length || info.unresolved || logs.length;

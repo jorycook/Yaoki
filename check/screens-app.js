@@ -56,6 +56,13 @@ if (LEVEL === 'N1') {
   noGrammar.days.slice(0, 6).forEach((x) => { x.g = -1; x.r = -1; x.l = -1; });
   const wordsOnly = JSON.parse(JSON.stringify(fresh60));
   wordsOnly.days[0].k = [];
+  /* the first days of a new plan that hold the banks' longer reading and listening, by kind */
+  const bankDay = (key, kind) => fresh60.days.findIndex((x, i) => { const v = N.view(fresh60, i); return v[key] && v[key].kind === kind; });
+  const RD = { mid: bankDay('reading', 'mid'), info: bankDay('reading', 'info'), pair: bankDay('reading', 'pair') };
+  const LD = { task: bankDay('listening', 'task'), point: bankDay('listening', 'point'), gist: bankDay('listening', 'gist') };
+  /* a day with all twenty of a lesson's words */
+  const twenty = JSON.parse(JSON.stringify(fresh60));
+  twenty.days[0].w = N.words.map((x, wi) => (x.li === N.lessons.length - 1 ? wi : -1)).filter((wi) => wi >= 0);
   const nothing = JSON.parse(JSON.stringify(fresh60));
   nothing.days.forEach((x) => { if (x.t !== 1) { x.g = -1; x.r = -1; x.l = -1; x.k = []; x.w = []; } });
   /* the sample plan part way through a day, with a week test and a mock taken */
@@ -78,6 +85,14 @@ if (LEVEL === 'N1') {
     { src: 'm1.10', wrong: '会議室を予約し直す', at: T - 8000, step: 2, next: N.add(TODAY, 6) },
     { src: 'm2.12', wrong: '無解答', at: T - 9000 },
     { src: 'g.' + N.lessons[3].id + '.x0', wrong: 'ものを', at: T - 10000, step: 3, cleared: N.add(TODAY, -1) },
+    /* a bank word by its name, the banks' longer reading and listening, and the review of the earlier levels */
+    { src: 'w.' + lid + '.17', wrong: N.plain(N.wordQ(N.wordIndex(lid, 17)).options[N.wordQ(N.wordIndex(lid, 17)).answer % 4]), at: T - 11000 },
+    { src: 'r.' + lid + '.2', wrong: N.item('r.' + lid + '.2').short[N.item('r.' + lid + '.2').answer % 4], at: T - 12000 },
+    { src: 'l.' + lid + '.2', wrong: N.item('l.' + lid + '.2').short[N.item('l.' + lid + '.2').answer % 4], at: T - 13000 },
+    { src: 'x.n2.0', wrong: N.item('x.n2.0').options[N.item('x.n2.0').answer % 4], at: T - 14000 },
+    { src: 'x.u03d1.e3', wrong: N.item('x.u03d1.e3').options[N.item('x.u03d1.e3').answer % 4], at: T - 15000 },
+    { src: 'x.n3u01t.8', wrong: N.item('x.n3u01t.8').options[N.item('x.n3u01t.8').answer % 4], at: T - 16000 },
+    { src: 'x.k.0.0', wrong: N.item('x.k.0.0').options[N.item('x.k.0.0').answer % 4], at: T - 17000, step: 1, next: N.add(TODAY, 2) },
   ];
   const mockDone = { id: 1, done: true, score: 9, of: 12, at: TODAY, a: { 1: 1, 2: 1, 3: 3, 4: 3, 5: 3, 6: 3, 7: 2, 8: 2, 9: 2, 10: 3, 11: 4, 12: 3 }, used: [520] };
   SCREENS = [
@@ -104,6 +119,9 @@ if (LEVEL === 'N1') {
     ['Today', at('2026-11-20') + plan(DEMO, 57) + '&m=' + enc(marks), 'review-due'],
     ['Today', at(TODAY) + plan(replanned, emptyDay), 'empty'],
     ['Today', at(TODAY) + plan(fresh60, kanjiDay), 'kanji-day'],
+    ['Today', at(TODAY) + plan(fresh60, RD.mid), 'bank-' + RD.mid],
+    ['Today', at(TODAY) + plan(fresh60, RD.info), 'bank-' + RD.info],
+    ['Today', at(TODAY) + plan(fresh60, RD.pair), 'bank-' + RD.pair],
     ['Teach', demo(17), 'demo'],
     ['Teach', demo(17), 'page-3', ['button:has-text("Next")', 'button:has-text("Next")']],
     ['Teach', at(TODAY) + plan(noGrammar, 2), 'none'],
@@ -120,12 +138,22 @@ if (LEVEL === 'N1') {
     ['Scene', demo(17), 'words', ['button:has-text("Next: words")']],
     ['Scene', demo(17), 'quiz', ['button:has-text("Next: words")', 'button:has-text("Next: the quiz")']],
     ['Scene', at(TODAY) + plan(wordsOnly, 0), 'words-only'],
+    ['Scene', at(TODAY) + plan(twenty, 0), 'twenty-words', ['button:has-text("Next: words")']],
     ['Scene', at(TODAY) + plan(fresh60, kanjiDay), 'kanji-day'],
     ['Scene', demo(20), 'none-test-day'],
     ['Reading', demo(17), 'demo'],
     ['Reading', demo(20), 'none'],
+    ['Reading', at(TODAY) + plan(fresh60, RD.mid), 'mid'],
+    ['Reading', at(TODAY) + plan(fresh60, RD.mid), 'mid-checked', ['button[aria-pressed] >> nth=0', 'button:has-text("Check")']],
+    ['Reading', at(TODAY) + plan(fresh60, RD.info), 'info'],
+    ['Reading', at(TODAY) + plan(fresh60, RD.info), 'info-checked', ['button[aria-pressed] >> nth=0', 'button:has-text("Check")']],
+    ['Reading', at(TODAY) + plan(fresh60, RD.pair), 'pair'],
+    ['Reading', at(TODAY) + plan(fresh60, RD.pair), 'pair-checked', ['button[aria-pressed] >> nth=0', 'button:has-text("Check")']],
     ['Listening', demo(17), 'demo'],
     ['Listening', demo(20), 'none'],
+    ['Listening', at(TODAY) + plan(fresh60, LD.task), 'task'],
+    ['Listening', at(TODAY) + plan(fresh60, LD.point), 'point'],
+    ['Listening', at(TODAY) + plan(fresh60, LD.gist), 'gist'],
     ['WeekTest', demo(20), 'test'],
     ['WeekTest', at(TODAY) + plan(midDay, 13), 'test-again'],
     ['WeekTest', demo(56), 'review'],
