@@ -4,6 +4,7 @@
 // missing, too long or in the wrong encoding. Then the library is used in a phone-sized browser: the button sits
 // just under From Aozora Bunko, every work in the catalog opens and lists its parts, adding all parts puts them
 // in the library in reading order, a part reads its whole text, and a catalog that fails to load says so.
+// A part with its own analysis file (目川日記) must show that analysis and open without loading the dictionary.
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -16,6 +17,9 @@ let fails = 0;
 const ok = (cond, msg) => { console.log((cond ? '  ok: ' : '  FAIL: ') + msg); if (!cond) fails += 1; };
 const step = (msg) => console.log('-- ' + msg);
 const norm = (raw) => raw.replace(/^﻿/, '').replace(/\r\n?/g, '\n').replace(/\s+$/, '');
+const squeeze = (s) => s.replace(/[\s　]+/g, '');
+/* the text an analysis shows (as the reader draws it), without spaces and line breaks */
+const anText = (a) => squeeze(a.paras.map((p) => p.map((c) => c.w ? (c.h || '') + c.w.map((w) => w.s.map((g) => g[0]).join('')).join('') + (c.t || '') : (c.x || '')).join('')).join(''));
 
 step('the catalog and its files');
 let cat = null;
@@ -55,7 +59,27 @@ for (const w of works) {
         if (glosses && glosses.gl) ok(Object.values(glosses.gl).every((v) => typeof v === 'string' && v.trim()), p.glosses + ': every gloss is a non-empty string');
       }
     }
-    texts[w.id].push({ title: p.title, text, glosses });
+    let analysis = null;
+    if (p.analysis) {
+      const af = path.join(LIB, p.analysis);
+      const ain = path.resolve(af).startsWith(path.resolve(LIB) + path.sep) && /^[a-z0-9-]+\/[A-Za-z0-9_.-]+\.json$/.test(p.analysis);
+      ok(ain && fs.existsSync(af), w.id + ': ' + p.analysis + ' is there, under a name the reader accepts');
+      if (ain && fs.existsSync(af)) {
+        try { analysis = JSON.parse(fs.readFileSync(af, 'utf8')); } catch (e) { ok(false, p.analysis + ' is valid JSON (' + e.message + ')'); }
+        const shape = analysis && Array.isArray(analysis.paras) && analysis.paras.every((pa) => Array.isArray(pa) && pa.every((c) => c && (c.w ? Array.isArray(c.w) && c.w.length && c.w.every((x) => Array.isArray(x.s) && x.s.every((g) => Array.isArray(g) && typeof g[0] === 'string' && typeof g[1] === 'string')) : typeof c.x === 'string')));
+        ok(shape, p.analysis + ': has the shape the engine produces');
+        ok(analysis && analysis.pre === 1 && typeof analysis.rev === 'string', p.analysis + ': is marked as made in advance, with a revision');
+        if (shape) ok(anText(analysis) === squeeze(text), p.analysis + ': shows exactly the text of ' + p.file);
+        if (shape) {
+          const words = analysis.paras.flat().filter((c) => c.w).flatMap((c) => c.w);
+          const content = words.filter((x) => !x.f);
+          ok(content.length && content.every((x) => typeof x.e === 'string' || !x.e) && content.filter((x) => x.e).length / content.length > 0.9, p.analysis + ': ' + content.length + ' words, ' + content.filter((x) => x.e).length + ' with a gloss');
+          const kanjiSegs = words.flatMap((x) => x.s).filter((g) => /[㐀-鿿々]/.test(g[0]));
+          ok(kanjiSegs.every((g) => g[1]), p.analysis + ': every kanji has its reading (' + kanjiSegs.length + ')');
+        }
+      }
+    }
+    texts[w.id].push({ title: p.title, text, glosses, analysis });
   }
 }
 
@@ -107,6 +131,10 @@ const strip = (s) => s.replace(/\s+/g, '');
 
   for (const [k, w] of works.entries()) {
     step(w.title + ': the work page');
+    if (!(await page.locator('#ykl-works').isVisible())) {
+      await page.click('#go-ykl');
+      await page.waitForSelector('#ykl-works .text-card');
+    }
     await page.locator('#ykl-works .text-card').nth(k).click();
     await page.waitForSelector('#ykl-work [data-part]', { timeout: 15000 });
     ok(await page.locator('#ykl-work .work-h').innerText().then((t) => t.startsWith(w.title)), 'the work page shows its title');
@@ -143,16 +171,28 @@ const strip = (s) => s.replace(/\s+/g, '');
 
     step(w.title + ': reading a part');
     const pick = Math.min(1, w.parts.length - 1);
+    const dictLoads = [];
+    const onReq = (r) => { if (/\/reader\/engine\/(jm-\d|dict\/)/.test(r.url())) dictLoads.push(r.url()); };
+    page.on('request', onReq);
     await page.locator('#ykl-work [data-part="' + pick + '"]').click();
     await page.waitForSelector('#v-read:not([hidden])');
     await page.waitForSelector('#passage .ph', { timeout: 180000 });
+    page.off('request', onReq);
+    if (texts[w.id][pick].analysis) {
+      ok(dictLoads.length === 0, titles[pick] + ': opened from its own analysis, without the dictionary (' + dictLoads.length + ' dictionary requests)');
+      ok(await page.locator('#passage .ph').count() === texts[w.id][pick].analysis.paras.flat().filter((c) => c.w).length, titles[pick] + ': as many phrases as its analysis');
+    }
     ok(await page.locator('#read-title').innerText() === titles[pick], 'the reader opens ' + titles[pick]);
     const n = await page.locator('#passage .ph').count();
     ok(strip(await shownText(page)) === strip(texts[w.id][pick].text), titles[pick] + ': ' + texts[w.id][pick].text.length + ' characters, ' + n + ' phrases, the whole text is shown');
-    const gl = texts[w.id][pick].glosses;
-    if (gl && gl.gl) {
-      /* the part's own glosses: hold a phrase holding one of its words and read the lens */
-      const probe = { shimatsusho: ['仰いました', /honorific/, /look up/] }[w.id] || null;
+    /* the part's own glosses or analysis: hold a phrase holding one of its words and read the lens */
+    const probes = [
+      { shimatsusho: ['仰いました', /honorific/, /look up/], 'mekawa-n5': ['駅です', /station/, /dictionary/], 'mekawa-n4': ['夏まつり', /festival/, /dictionary/],
+        'mekawa-n3': ['だるまは', /rights itself/, /dictionary/], 'mekawa-n2': ['吹雪が', /snowstorm/, /dictionary/] }[w.id] || null,
+      /* a note of the text's own, shown with the word meanings */
+      { 'mekawa-n3': ['はり始めた', /注[\s\S]*start pasting/, /文法[\s\S]*文法[\s\S]*文法[\s\S]*文法/] }[w.id] || null,
+    ];
+    for (const probe of probes) {
       if (probe) {
         const idx = await page.evaluate((f) => {
           const all = Array.from(document.querySelectorAll('#passage .ph'));

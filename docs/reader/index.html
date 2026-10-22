@@ -137,7 +137,10 @@ body.no-furi .ph.on .rt, body.no-furi #lens .rt { visibility: hidden; }
 .lg b { flex-shrink: 0; font-size: 11px; font-weight: 800; color: var(--accent-ink); }
 .lg span { flex-shrink: 0; font-family: var(--jp); font-size: 15px; font-weight: 600; }
 .lg em { font-style: normal; font-size: 12px; font-weight: 700; line-height: 16px; }
-body.no-mean .le { display: none; }
+.ln { display: flex; align-items: baseline; gap: 8px; padding: 5px 10px; border-radius: 10px; background: var(--note); line-height: 18px; }
+.ln b { flex-shrink: 0; font-size: 11px; font-weight: 800; color: var(--muted); }
+.ln em { font-style: normal; font-size: 12px; font-weight: 600; line-height: 16px; }
+body.no-mean .le, body.no-mean .ln { display: none; }
 body.no-gram .lg { display: none; }
 
 /* sheets */
@@ -360,7 +363,7 @@ body.no-gram .lg { display: none; }
 (function () {
 'use strict';
 
-var AV = 4;            /* analysis version the engine produces */
+var AV = 5;            /* analysis version the engine produces (engine/analyzer.js, VERSION) */
 var MAX = 30000;       /* characters per text */
 var SAMPLE = { id: 'sample', sample: true, title: '片目のだるま', created: 0,
   text: '祖母の家の棚に、片目だけ黒いだるまが置いてある。試験に合格したら、もう片方の目を入れるのだと祖母は言った。私は毎晩そのだるまを見ながら、辞書を引かずに本を読む練習を続けている。分からない言葉は、前後の文から意味を考えるようにしたら、少しずつ読めるようになってきた。',
@@ -522,7 +525,9 @@ function initStore() {
       S.db = db; S.mode = 'db';
       S.texts = snap.docs.map(function (d) {
         var x = d.data() || {};
-        return { id: d.id, title: x.title || '', by: x.by || '', text: x.text || '', created: x.created || 0, seen: (x.seen || []).slice(), n: x.n || 0, av: x.av || 0, ov: cleanOv(x.ov) };
+        var t = { id: d.id, title: x.title || '', by: x.by || '', text: x.text || '', created: x.created || 0, seen: (x.seen || []).slice(), n: x.n || 0, av: x.av || 0, ov: cleanOv(x.ov) };
+        if (srcOk(x.src)) t.src = x.src;
+        return t;
       });
       return true;
     }).catch(function () { return null; });
@@ -537,6 +542,7 @@ function createText(t) {
     var ref = S.db.collection('texts').doc();
     var rec = { title: t.title, by: t.by || '', text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n, av: t.av };
     if (t.ov) rec.ov = t.ov;
+    if (t.src) rec.src = t.src;
     return ref.set(rec).then(function () { t.id = ref.id; });
   }
   t.id = 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -630,6 +636,7 @@ function exportLibrary() {
   var list = S.texts.filter(function (t) { return !t.temp; }).map(function (t) {
     var x = { title: t.title, by: t.by || '', text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n || 0, av: t.av || 0 };
     if (t.ov) x.ov = t.ov;
+    if (t.src) x.src = t.src;
     return x;
   });
   if (!list.length) { toast('There are no texts of yours to save yet.'); return; }
@@ -652,6 +659,7 @@ function cleanEntry(x) {
     n: typeof x.n === 'number' ? x.n : 0, av: typeof x.av === 'number' ? x.av : 0 };
   var ov = cleanOv(x.ov);
   if (ov) out.ov = ov;
+  if (srcOk(x.src)) out.src = x.src;
   return out;
 }
 /* A text's own glosses and readings, chosen for its context (see engine/analyzer.js): only plain maps of strings are kept. */
@@ -959,6 +967,7 @@ function addParts(idx) {
       if (added[i]) return;
       var t = { title: partTitle(i), by: meta.by.slice(0, 60), text: parts[i].text, created: now + (n - i), seen: [], n: 0, av: 0 };
       if (parts[i].ov) t.ov = parts[i].ov;
+      if (parts[i].src) t.src = parts[i].src;
       return createText(t).then(function () { S.texts.unshift(t); added[i] = t; });
     });
   }, Promise.resolve()).then(function () { return true; }, function (err) {
@@ -1071,6 +1080,9 @@ function openYaokiWork(w) {
       var part = { text: text, title: pt, head: pt, start: first.trim().slice(0, 40) };
       var ov = cleanOv(pair[1]);
       if (ov) part.ov = ov;
+      /* or with its whole analysis, made for its text in advance: it is fetched when the part is first opened,
+         and the part then reads without the dictionary */
+      if (srcOk(w.parts[i].analysis)) part.src = w.parts[i].analysis;
       return part;
     }).filter(function (p) { return p.text.trim(); });
     if (!Z.parts.length) { box.appendChild(el('div', 'problem', 'There is no text in it to read.')); return; }
@@ -1098,27 +1110,15 @@ function openReader(t, an) {
   updateCount();
   var got = an ? Promise.resolve(an) : t.sample ? Promise.resolve(SAMPLE_AN) : AN.get(t.id);
   got.then(function (a) {
-    if (a && a.v === AV) return a;
-    var wait = el('div', 'wait');
-    var msg = el('div', null, 'Preparing this text. The dictionary loads once per visit.');
-    var track = el('div', 'track'), bar = el('i');
-    track.appendChild(bar); wait.appendChild(msg); wait.appendChild(track);
-    box.appendChild(wait);
-    ENG.onProgress = function (d, tt) { bar.style.width = Math.round(d / tt * 100) + '%'; msg.textContent = progressText(d, tt); };
-    return ENG.analyze(t.text, t.ov || null).then(function (fresh) {
-      AN.put(t.id, fresh);
-      if (t.av !== fresh.v) {
-        /* the looked-up list points at phrases by position, so it is kept only if the phrases did not move */
-        if (t.n && countPhrases(fresh) !== t.n && t.seen.length) {
-          t.seen = [];
-          toast('The readings for this text were improved, and its phrases changed, so its looked-up list starts over.');
-        }
-        t.av = fresh.v;
-      }
-      t.n = countPhrases(fresh);
-      persistSeen(t);
-      return fresh;
+    if (a && a.pre && t.src) refreshPrebuilt(t, a);
+    if (a && (a.pre || a.v === AV)) return a;
+    if (t.src && srcOk(t.src)) return fetchPrebuilt(t.src).then(function (pa) {
+      if (!pa || anText(pa) !== squeeze(t.text)) return analyzeText(t, box);
+      AN.put(t.id, pa);
+      keepSeen(t, pa);
+      return pa;
     });
+    return analyzeText(t, box);
   }).then(function (a) {
     if (S.cur !== t) return;
     renderPassage(a);
@@ -1130,6 +1130,75 @@ function openReader(t, an) {
     box.appendChild(p);
   });
 }
+/* the engine's analysis of a text (the dictionary loads once per visit) */
+function analyzeText(t, box) {
+  var wait = el('div', 'wait');
+  var msg = el('div', null, 'Preparing this text. The dictionary loads once per visit.');
+  var track = el('div', 'track'), bar = el('i');
+  track.appendChild(bar); wait.appendChild(msg); wait.appendChild(track);
+  box.appendChild(wait);
+  ENG.onProgress = function (d, tt) { bar.style.width = Math.round(d / tt * 100) + '%'; msg.textContent = progressText(d, tt); };
+  return ENG.analyze(t.text, t.ov || null).then(function (fresh) {
+    AN.put(t.id, fresh);
+    keepSeen(t, fresh);
+    return fresh;
+  });
+}
+/* after a new analysis: the looked-up list points at phrases by position, so it is kept only if the phrases did not move */
+function keepSeen(t, fresh) {
+  if (t.av !== fresh.v || (t.n && countPhrases(fresh) !== t.n)) {
+    if (t.n && countPhrases(fresh) !== t.n && t.seen.length) {
+      t.seen = [];
+      toast('The readings for this text were improved, and its phrases changed, so its looked-up list starts over.');
+    }
+    t.av = fresh.v;
+  }
+  t.n = countPhrases(fresh);
+  persistSeen(t);
+}
+/* a part's analysis corrected since this browser saved it (its rev changed): swap it in quietly */
+function refreshPrebuilt(t, a) {
+  if (!srcOk(t.src)) return;
+  fetchPrebuilt(t.src).then(function (pa) {
+    if (!pa || !pa.rev || pa.rev === a.rev || anText(pa) !== squeeze(t.text)) return;
+    AN.put(t.id, pa);
+    keepSeen(t, pa);
+    if (S.cur === t) renderPassage(pa);
+  });
+}
+/* a Yaoki Library part's own analysis: library/<work>/<file>.json, in the shape the engine produces, marked pre */
+function srcOk(src) { return typeof src === 'string' && /^[a-z0-9-]+\/[A-Za-z0-9_.-]+\.json$/.test(src); }
+function fetchPrebuilt(src) {
+  return fetch('library/' + src, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(cleanAn).catch(function () { return null; });
+}
+function cleanAn(a) {
+  if (!a || typeof a !== 'object' || !Array.isArray(a.paras)) return null;
+  var ok = a.paras.every(function (p) {
+    return Array.isArray(p) && p.every(function (c) {
+      if (!c || typeof c !== 'object') return false;
+      if (!c.w) return typeof c.x === 'string';
+      return Array.isArray(c.w) && c.w.length && c.w.every(function (w) {
+        return w && Array.isArray(w.s) && w.s.every(function (g) { return Array.isArray(g) && typeof g[0] === 'string' && typeof g[1] === 'string'; });
+      });
+    });
+  });
+  if (!ok) return null;
+  a.pre = 1;
+  if (typeof a.v !== 'number') a.v = 1;
+  return a;
+}
+/* the text an analysis shows, without spaces and line breaks (to check that it belongs to its text) */
+function anText(a) {
+  var o = '';
+  a.paras.forEach(function (p) { p.forEach(function (c) {
+    if (!c.w) { o += c.x || ''; return; }
+    o += (c.h || '');
+    c.w.forEach(function (w) { w.s.forEach(function (g) { o += g[0]; }); });
+    o += (c.t || '');
+  }); });
+  return squeeze(o);
+}
+function squeeze(s) { return String(s).replace(/[\s　]+/g, ''); }
 function rubyInto(node, segs) {
   segs.forEach(function (s) {
     if (s[1]) {
@@ -1193,6 +1262,12 @@ function buildLens(c) {
     var tag = el('b', null, '文法'); tag.lang = 'ja';
     var pat = el('span', null, g[0]); pat.lang = 'ja';
     line.appendChild(tag); line.appendChild(pat); line.appendChild(el('em', null, g[1]));
+    lens.appendChild(line);
+  });
+  (c.n || []).forEach(function (s) {
+    var line = el('div', 'ln');
+    var tag = el('b', null, '注'); tag.lang = 'ja';
+    line.appendChild(tag); line.appendChild(el('em', null, s));
     lens.appendChild(line);
   });
 }
