@@ -187,7 +187,7 @@ const strip = (s) => s.replace(/\s+/g, '');
     ok(strip(await shownText(page)) === strip(texts[w.id][pick].text), titles[pick] + ': ' + texts[w.id][pick].text.length + ' characters, ' + n + ' phrases, the whole text is shown');
     /* the part's own glosses or analysis: hold a phrase holding one of its words and read the lens */
     const probes = [
-      { shimatsusho: ['仰いました', /honorific/, /look up/], 'mekawa-n5': ['駅です', /station/, /dictionary/], 'mekawa-n4': ['夏まつり', /festival/, /dictionary/],
+      { shimatsusho: ['飲まれました', /honorific/, /swallowed/], 'mekawa-n5': ['駅です', /station/, /dictionary/], 'mekawa-n4': ['夏まつり', /festival/, /dictionary/],
         'mekawa-n3': ['だるまは', /rights itself/, /dictionary/], 'mekawa-n2': ['吹雪が', /snowstorm/, /dictionary/] }[w.id] || null,
       /* a note of the text's own, shown with the word meanings */
       { 'mekawa-n3': ['はり始めた', /注[\s\S]*start pasting/, /文法[\s\S]*文法[\s\S]*文法[\s\S]*文法/] }[w.id] || null,
