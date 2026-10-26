@@ -9,6 +9,7 @@ Yaoki is a JLPT study app prototype. There are two apps, built from the same she
 | `docs/` | The built main app, served by GitHub Pages at https://jorycook.github.io/Yaoki/. This is all a phone needs. |
 | `docs/n1/` | The built N1 app, served at https://jorycook.github.io/Yaoki/n1/. |
 | `docs/reader/` | Yaoki Reader, served at https://jorycook.github.io/Yaoki/reader/. It has no build step: these files are its source. |
+| `docs/typing/` | Kana Runner, a side-scroller for practising typing on a Japanese (JIS) keyboard: romaji, the symbol keys and the kana positions. Served at https://jorycook.github.io/Yaoki/typing/. No build step: `engine.js` holds the rules, `game.js` the game. |
 | `yaoki/project/` | The design canvas's files for the main app: 27 screens (`*.dc.html`), the course engine (`course.js`), each level's lessons (`course-n5.js` to `course-n2.js`, made from `content/`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`, `sound-course.js`, and one `sound-course-nX-uNN.js` per unit). 16 of the screens make up the app. |
 | `content/` | The main app's lessons as data, one folder per level (see `content/README.md`). |
 | `tools/` | `build-course.mjs` checks the content and writes the `course-*.js` files (the app build runs it), and the scripts that make the course's sound and review sheets. |
@@ -76,6 +77,13 @@ cd check
 bash run-reader.sh reader-test.js    # serves docs/ at /Yaoki/ as GitHub Pages does, with the app's offline worker running
 bash run-reader.sh aozora-test.js    # Aozora Bunko: search, fetch, parts, a downloaded zip (the copy of Aozora's files is played by the test)
 bash run-reader.sh library-test.js   # Yaoki Library: the catalog and its files, the button, every work and its parts, a part read in full
+```
+
+For Kana Runner (Node for the rules, Playwright for the page):
+
+```
+node check/typing-engine-test.js     # the romaji matching, the key tables and every word of the lists
+node check/typing-test.js            # plays the three modes with real key presses; SHOTS=<dir> keeps screenshots
 ```
 
 `NODE_PATH` may point at another Playwright install (the default is `/opt/npm-tools/node_modules`).

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kana Runner · JIS typing</title>
+<style>
+  :root {
+    --ink: #1f2328;
+    --muted: #5b636e;
+    --line: #d7d2c6;
+    --paper: #fbfaf6;
+    --accent: #2d6cdf;
+    --gold: #f5a623;
+    --bad: #c2362f;
+    --good: #1f9d55;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #e8e6e1;
+      --muted: #a4abb5;
+      --line: #3a3f47;
+      --paper: #17191c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #e8e6e1;
+    --muted: #a4abb5;
+    --line: #3a3f47;
+    --paper: #17191c;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', Meiryo, system-ui, sans-serif;
+  }
+  main { max-width: 1000px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 1.5rem; margin: 4px 0; }
+  h2 { font-size: 1rem; margin: 18px 0 6px; }
+  .lede, .notes { color: var(--muted); line-height: 1.55; }
+  .lede { margin: 0 0 12px; }
+  .notes { font-size: 0.92rem; }
+  .notes li { margin-bottom: 4px; }
+
+  .game {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 960 / 400;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #bfe6ff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
+  #stage { display: block; width: 100%; height: 100%; }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(251, 250, 246, 0.9);
+  }
+  .panel {
+    width: min(600px, calc(100% - 32px));
+    max-height: calc(100% - 24px);
+    overflow: auto;
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  }
+  .panel h2 { margin-top: 0; font-size: 1.2rem; }
+  .panel p { margin: 6px 0; line-height: 1.5; }
+  .muted { color: var(--muted); font-size: 0.9rem; }
+
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 8px; }
+  .tab, .stage, .btn {
+    font: inherit;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: #1f2328;
+    border-radius: 8px;
+    padding: 7px 12px;
+    cursor: pointer;
+  }
+  .tab[aria-selected="true"], .stage.on {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .stages { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+  .toggles { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; font-size: 0.95rem; }
+  .results { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 16px; margin: 10px 0; }
+  .results div span { color: var(--muted); font-size: 0.9rem; display: block; }
+  .results div strong { font-size: 1.3rem; }
+
+  #status {
+    min-height: 1.6em;
+    margin: 10px 2px 4px;
+    font-size: 0.98rem;
+    color: var(--ink);
+  }
+  #status.bad { color: var(--bad); font-weight: 600; }
+  #status.warn { color: #9a5b00; font-weight: 600; }
+
+  .kb { margin-top: 8px; }
+  .kb-row { display: flex; gap: 5px; margin-bottom: 5px; }
+  .key {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    user-select: none;
+    transition: background 0.08s;
+  }
+  .key .sub {
+    position: absolute;
+    top: 3px;
+    right: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .key.next {
+    background: #ffe08a;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.35);
+  }
+  .key.press { background: #cfe3ff; }
+  .kb-note { font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
+
+  @media (max-width: 640px) {
+    main { padding: 10px; }
+    .key { height: 34px; font-size: 12px; }
+    .kb-row { gap: 3px; }
+    .results { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kana Runner</h1>
+  <p class="lede">Type to run. Boxes come at you from the right, each with a prompt. Type the prompt on your Japanese (JIS) keyboard to jump over it. A box that reaches you costs a heart.</p>
+
+  <div class="game">
+    <canvas id="stage" width="960" height="400" role="img" aria-label="Side-scrolling game. Type the prompt on each box to jump over it."></canvas>
+
+    <div id="overlay" class="overlay">
+      <section id="menu" class="panel" aria-labelledby="menu-title">
+        <h2 id="menu-title">Choose what to practise</h2>
+        <div id="mode-tabs" class="tabs" role="tablist"></div>
+        <p id="mode-desc" class="muted"></p>
+        <div id="stage-list" class="stages"></div>
+        <div class="toggles">
+          <label><input type="checkbox" id="hints" checked> Show hints above boxes</label>
+          <label><input type="checkbox" id="kb-toggle" checked> Show keyboard</label>
+        </div>
+        <p id="best" class="muted"></p>
+        <div class="actions">
+          <button type="button" id="start" class="btn primary">Start (Enter)</button>
+          <span class="muted">Click here first, or press Enter.</span>
+        </div>
+      </section>
+
+      <section id="paused" class="panel" hidden>
+        <h2>Paused</h2>
+        <p class="muted">Press Esc or Enter to carry on.</p>
+        <div class="actions">
+          <button type="button" id="resume" class="btn primary">Resume</button>
+          <button type="button" id="quit" class="btn">Quit to menu</button>
+        </div>
+      </section>
+
+      <section id="over" class="panel" hidden>
+        <h2>Run over</h2>
+        <div class="results">
+          <div><span>Score</span><strong id="res-score">0</strong></div>
+          <div><span>Boxes cleared</span><strong id="res-cleared">0</strong></div>
+          <div><span>Accuracy</span><strong id="res-acc">0%</strong></div>
+          <div><span>Correct keys per minute</span><strong id="res-kpm">0</strong></div>
+          <div><span>Best combo</span><strong id="res-combo">0</strong></div>
+        </div>
+        <p id="res-note" class="muted"></p>
+        <div class="actions">
+          <button type="button" id="again" class="btn primary">Play again (Enter)</button>
+          <button type="button" id="to-menu" class="btn">Menu (Esc)</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <p id="status" role="status" aria-live="polite"></p>
+
+  <div id="kb" class="kb" aria-label="Japanese keyboard, JIS layout"></div>
+  <p class="kb-note">The keyboard shows the key to press in yellow. In the kana mode the keys show their kana, with the romaji letter under each.</p>
+
+  <h2>Before you play</h2>
+  <ul class="notes">
+    <li>Set your computer to a <strong>Japanese keyboard layout</strong>, so symbols land where this picture shows them. On Windows that is Settings › Time &amp; language › Language; on a Mac, the Japanese input source.</li>
+    <li>Set your input to <strong>英数 (direct / half-width alphanumeric)</strong> while you play. If keys do nothing, the Japanese input method is catching them.</li>
+    <li>Romaji mode is what you type when you write Japanese: <code>ka</code> gives か, <code>kka</code> gives っか. Every standard spelling is accepted.</li>
+    <li>Keys: <strong>Esc</strong> pauses, <strong>Backspace</strong> erases a wrong letter in romaji mode, <strong>Enter</strong> starts or restarts.</li>
+  </ul>
+</main>
+
+<script src="engine.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
