@@ -110,10 +110,13 @@ function expected(day) {
   ok(/書く Write/.test(card) && /本番 Exam-style/.test(card), "Today's kanji card names the writing step");
   ok(await page.locator('a[href="Scene.dc.html"] [aria-label="Lesson done"]').count() === 1, "Today's kanji card is stamped done");
 
-  // opened again: nothing left to write
+  // opened again: nothing left to write, so the scene leads straight to the question (the writing step says so if opened)
   await tap('a[href="Scene.dc.html"]', 700);
+  ok(await has('You have written every kanji and word here before.'), 'opened again, the scene says everything is written');
   await tap('button:has-text("Next: the exam question")', 400);
-  ok(await has('ぜんぶ書きました'), 'opened again, everything is written already');
+  ok(await has('本番') && await has('How the exam asks it'), 'opened again, Next goes straight to the question');
+  await tap('button[aria-label="Writing"]', 400);
+  ok(await has('ぜんぶ書きました'), 'opened again, the writing step says everything is written');
 
   for (const l of logs) console.log('  console: ' + l);
   ok(!logs.length, 'no console problems');

@@ -289,8 +289,9 @@ this.setState({ playing: true });
 this.timer = setTimeout(() => this.setState({ playing: false }), sound ? snd.ms(key) + 150 : 1200);
 },
 writeLine: parts.length ? 'Next you write: ' + parts.join(', and ') + '.' : 'You have written every kanji and word here before. Next, the exam question.',
-fromScene: () => { save({ prog: { ks: 1 } }); goStep(at + 1); },
-fromSceneLabel: steps[at + 1] === 'write' && s.queue.length ? 'Next: write' : 'Next: the exam question',
+/* with nothing to write (all of it written before), straight on to the question */
+fromScene: () => { save({ prog: s.queue.length ? { ks: 1 } : { ks: 1, kw: 1 } }); goStep(s.queue.length ? at + 1 : at + 2); },
+fromSceneLabel: s.queue.length ? 'Next: write' : 'Next: the exam question',
 });
 
 /* ---------- writing ---------- */

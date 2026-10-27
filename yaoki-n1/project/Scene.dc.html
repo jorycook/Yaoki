@@ -264,8 +264,9 @@ const KANJI = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/;
 class Component extends DCLogic {
 constructor(props) {
 super(props);
-/* step: k (kanji), w (words) or q (quiz), '' for the first the day has; reached: the furthest step opened (by place);
-   seen: the kanji opened (by place in the day); open: the kanji in the sheet, -1 when it is closed;
+/* step: k (kanji), w (words), x (the words written) or q (quiz), '' for the first the day has; reached: the furthest step opened (by place);
+   seen: the kanji opened (by place in the day); open: the kanji in the sheet, -1 when it is closed; openShow: that kanji
+   was written before it was opened (it is shown written out); xi, xDone: the word being written, and whether it is;
    n, pick, checked: the quiz question shown, the option chosen, answered; marks: right or wrong, per question answered;
    finished: the score is up; playing: the word clip whose button is lit.
    On its own the artboard shows the designed moment: three kanji already seen; props.moment 'write' opens the first
