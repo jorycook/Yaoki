@@ -299,11 +299,10 @@
     const stage = currentStage();
     if (mode === 'romaji' || mode === 'kanji') {
       const out = [];
-      const peers = stage.items.map((it) => it.text);
       for (const it of stage.items) {
         try {
           // a kanji card's reading is the answer: it shows only as a hint
-          out.push(romajiItem(it.text, mode === 'kanji' ? { reading: it.reading, gloss: it.gloss, hidden: true, peers } : { gloss: it.gloss }));
+          out.push(romajiItem(it.text, mode === 'kanji' ? { reading: it.reading, gloss: it.gloss, hidden: true } : { gloss: it.gloss }));
         } catch (err) {
           // a prompt the rules cannot spell is left out rather than stopping the round
         }
@@ -592,24 +591,6 @@
   // the game) tells nothing of the answer.
   const readingSlots = (item) => E.readingSlots(item.text);
 
-  // The widest text among a kanji card's stage, at this size.
-  function peerWidth(item) {
-    if (!item.peers) return 0;
-    const key = 'peers:' + item.peers[0] + '@' + Math.round(view.W);
-    if (!widths.has(key)) {
-      let most = 0;
-      for (const text of item.peers) {
-        const size = promptSize({ kind: 'romaji', text });
-        ctx.save();
-        ctx.font = '600 ' + size + 'px ' + JP;
-        most = Math.max(most, ctx.measureText(text).width);
-        ctx.restore();
-      }
-      widths.set(key, most);
-    }
-    return widths.get(key);
-  }
-
   function cardWidth(item) {
     if (item.kind !== 'romaji') return 70;
     const key = item.id + '@' + Math.round(view.W);
@@ -618,9 +599,10 @@
     ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
     if (item.hidden) {
-      // (but no wider than the widest text of its stage, which the pace allows for already, or
-      // the room promptSize keeps long cards to)
-      w = Math.max(w, Math.min(readingSlots(item) * Math.min(16, small(12)), Math.max(w, niceRoom(), peerWidth(item))));
+      // (but no wider than the text, or the room promptSize keeps long cards to: on a phone the
+      // world is often at its slowest for long sentences, so a wider card would only get less
+      // time; the longest readings there are drawn a little small, and are under the game too)
+      w = Math.max(w, Math.min(readingSlots(item) * Math.min(16, small(12)), Math.max(w, niceRoom())));
     } else if (item.reading && item.reading !== item.text) {
       ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
       w = Math.max(w, ctx.measureText(item.reading).width);
