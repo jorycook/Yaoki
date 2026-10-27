@@ -34,13 +34,13 @@ const ok = (cond, what) => { if (!cond) { fail.push(what); console.log('  FAIL '
 
   // the kanji: Next is shut until every one is written
   ok(await has(`0 of ${day.kanji.length} written.`), 'kanji step: none written yet');
-  ok(await has(`Write each kanji first · 0 of ${day.kanji.length}`), 'kanji step: Next is shut');
+  ok(await has(`Write all ${day.kanji.length} first`), 'kanji step: Next is shut');
   await page.locator(`button[aria-label^="${day.kanji[0]}:"]`).click();
   await page.waitForTimeout(400);
   for (let n = 0; n < day.kanji.length; n++) {
     const c = day.kanji[n];
     ok(await has(`${n + 1} of ${day.kanji.length}`), `sheet ${n + 1}: its place`);
-    ok(await has('Write it three times first'), `sheet ${n + 1}: Next kanji is shut`);
+    ok(await has('Write it 3 times'), `sheet ${n + 1}: Next kanji is shut`);
     const modes = [];
     for (let rep = 0; rep < 3; rep++) {
       const p = await padState(page);

@@ -10,6 +10,8 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
 const NOW = Date.UTC(2026, 9, 12, 15);
 /* LEVEL=N5 sweeps another level's days (N2 by default) */
 const LEVEL = process.env.LEVEL || 'N2';
+/* ONLY=scene sweeps the kanji lessons alone (the scene, the writing and the question), and leaves out the notebook */
+const SCENE = process.env.ONLY === 'scene';
 
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
@@ -54,6 +56,7 @@ const LEVEL = process.env.LEVEL || 'N2';
 
   for (const { id, day } of days) {
     const cur = '&cur=' + id;
+    if (!SCENE) {
     // teach pages and comparison
     for (const tp of day.grammar.points.length ? [0, 1] : []) {
       const { page, logs } = await open('Teach', cur + '&tp=' + tp);
@@ -106,6 +109,7 @@ const LEVEL = process.env.LEVEL || 'N2';
       await check(page, logs, `${id} exam result ${mode}`);
       await page.close();
     }
+    }
     // scene: every word card; then the writing, every kanji and word of it (written at once); then every option of its check
     {
       const { page, logs } = await open('Scene', cur);
@@ -132,7 +136,7 @@ const LEVEL = process.env.LEVEL || 'N2';
       await page.close();
     }
     // reading or listening: every option (listening waits for its clip, or its stand-in time without sound)
-    if (day.skill.kind === 'listening') {
+    if (!SCENE && day.skill.kind === 'listening') {
       for (let k = 0; k < day.skill.item.options.length; k++) {
         const { page, logs } = await open('Listening', cur);
         if (k === 0) await check(page, logs, `${id} listening before`);
@@ -145,7 +149,7 @@ const LEVEL = process.env.LEVEL || 'N2';
         await page.close();
       }
     }
-    if (day.skill.kind === 'reading') {
+    if (!SCENE && day.skill.kind === 'reading') {
       for (let k = 0; k < day.skill.item.options.length; k++) {
         const { page, logs } = await open('Reading', cur);
         await tap(page, `button[aria-pressed] >> nth=${k}`);
@@ -183,7 +187,7 @@ const LEVEL = process.env.LEVEL || 'N2';
   const today = '2026-10-12';
   /* with DAYS set, only those days' items; and the notebook is opened in batches, because the whole list
      no longer fits in one address (the test server refuses request lines over 64 KB) */
-  const mine = only.length ? items.filter((x) => only.some((d) => x.src.startsWith(d + '.'))) : items;
+  const mine = SCENE ? [] : only.length ? items.filter((x) => only.some((d) => x.src.startsWith(d + '.'))) : items;
   const BATCH = 100;
   for (let b = 0; b < mine.length; b += BATCH) {
     const part = mine.slice(b, b + BATCH);

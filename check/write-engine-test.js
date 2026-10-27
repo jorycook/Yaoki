@@ -29,7 +29,7 @@ function run(label, strokesFile) {
   const w = load(strokesFile);
   const W = w.ykWrite;
   const all = Object.keys(w.__ykStrokes);
-  const tally = { kanji: all.length, strokes: 0, right: 0, missedRight: [], wrongNext: 0, acceptedNext: [], backwards: 0, acceptedBack: [], backFlagged: 0, scribbles: 0, acceptedScribble: [], memory: 0, memoryFailed: [] };
+  const tally = { dots: 0, dotTaps: 0, tapsElsewhere: [], kanji: all.length, strokes: 0, right: 0, missedRight: [], wrongNext: 0, acceptedNext: [], backwards: 0, acceptedBack: [], backFlagged: 0, scribbles: 0, acceptedScribble: [], memory: 0, memoryFailed: [] };
   for (const c of all) {
     const n = W.count(c);
     for (let i = 0; i < n; i++) {
@@ -50,6 +50,14 @@ function run(label, strokesFile) {
       const rb = W.match(back, c, i, { leniency: 1 });
       tally.backwards++;
       if (rb.ok) tally.acceptedBack.push(c + (i + 1)); else if (rb.backwards) tally.backFlagged++;
+      /* a dot touched rather than drawn counts on the dot, and nowhere else */
+      if (W.points(c, i).length && model.length && (() => { let n = 0; for (let k = 1; k < model.length; k++) n += Math.hypot(model[k].x - model[k - 1].x, model[k].y - model[k - 1].y); return n; })() < 16) {
+        tally.dots++;
+        const mid = model[Math.floor(model.length / 2)];
+        if (W.tap({ x: mid.x + 1, y: mid.y - 1 }, c, i)) tally.dotTaps++;
+        if (W.tap({ x: mid.x + 30, y: mid.y + 30 }, c, i)) tally.tapsElsewhere.push(c + (i + 1));
+        if (i + 1 < n) { const o = W.points(c, i + 1); const om = o[Math.floor(o.length / 2)]; if (W.tap(om, c, i) && Math.hypot(om.x - mid.x, om.y - mid.y) > 8) tally.tapsElsewhere.push(c + (i + 1) + '/' + (i + 2)); }
+      }
       /* a scribble across the box */
       const scribble = [];
       for (let k = 0; k < 24; k++) scribble.push({ x: 15 + rand() * 80, y: 15 + rand() * 80 });
@@ -73,6 +81,7 @@ function run(label, strokesFile) {
   console.log(`  next stroke drawn instead, counted: ${tally.acceptedNext.length} of ${tally.wrongNext} (${pc(tally.acceptedNext.length, tally.wrongNext)})${tally.acceptedNext.length ? '  ' + tally.acceptedNext.slice(0, 30).join(' ') : ''}`);
   console.log(`  backwards, counted: ${tally.acceptedBack.length} of ${tally.backwards}; recognised as backwards: ${tally.backFlagged} (${pc(tally.backFlagged, tally.backwards)})${tally.acceptedBack.length ? '  ' + tally.acceptedBack.slice(0, 30).join(' ') : ''}`);
   console.log(`  scribbles, counted: ${tally.acceptedScribble.length} of ${tally.scribbles}${tally.acceptedScribble.length ? '  ' + tally.acceptedScribble.slice(0, 20).join(' ') : ''}`);
+  console.log(`  dots touched: ${tally.dotTaps} of ${tally.dots} counted; touched off the dot (or on the next stroke), counted: ${tally.tapsElsewhere.length}${tally.tapsElsewhere.length ? '  ' + tally.tapsElsewhere.slice(0, 20).join(' ') : ''}`);
   console.log(`  written smaller and off-centre from memory, every stroke counted: ${tally.memory} of ${tally.kanji} (${pc(tally.memory, tally.kanji)})${tally.memoryFailed.length ? '  first stroke not counted: ' + tally.memoryFailed.slice(0, 30).join(' ') : ''}`);
   return tally;
 }
@@ -81,7 +90,8 @@ const a = run('main app', path.join(ROOT, 'yaoki/project/strokes.js'));
 const b = run('N1 app', path.join(ROOT, 'yaoki-n1/project/strokes.js'));
 /* what has to hold: every stroke drawn right counts, nothing backwards or scribbled does, and a stroke drawn in the
    place of another is caught almost always (a few kanji have two strokes that are the same in all but name) */
-const bad = [a, b].some((t) => t.missedRight.length > 0 || t.acceptedBack.length > 0 || t.acceptedScribble.length > 0 ||
+/* a few short strokes sit closer to a later stroke than a touch on them can tell apart: almost all is enough there */
+const bad = [a, b].some((t) => t.missedRight.length > 0 || t.dotTaps < t.dots * 0.99 || t.tapsElsewhere.length > 0 || t.acceptedBack.length > 0 || t.acceptedScribble.length > 0 ||
   t.acceptedNext.length > t.wrongNext * 0.02 || t.memory < t.kanji * 0.97);
 console.log(bad ? 'WRITE ENGINE FAIL' : 'WRITE ENGINE PASS');
 process.exit(bad ? 1 : 0);

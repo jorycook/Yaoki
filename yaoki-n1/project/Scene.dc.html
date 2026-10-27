@@ -503,7 +503,7 @@ base.kBtn = kLocked
 : { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' };
 base.fromKJa = kLocked ? '書いてから' : 'つぎへ';
 base.fromK = () => { if (!kLocked) goStep(at + 1); };
-base.fromKLabel = kLocked ? 'Write each kanji first · ' + written + ' of ' + K : nextName(at);
+base.fromKLabel = kLocked ? (K === 1 ? 'Write it first' : 'Write all ' + K + ' first') : nextName(at);
 const o = s.open;
 if (o >= 0 && o < K) {
 const k = kanji[o];
@@ -546,7 +546,7 @@ btn: locked
 ? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none', cursor: 'default' }
 : { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' },
 nextJa: locked ? '書いてから' : last ? 'とじる' : 'つぎの漢字',
-nextEn: locked ? 'Write it three times first' : last ? 'Close' : 'Next kanji',
+nextEn: locked ? 'Write it 3 times' : last ? 'Close' : 'Next kanji',
 next: () => { if (locked) return; if (last) { this.hush(); this.setState({ open: -1 }); } else open(o + 1); },
 };
 }

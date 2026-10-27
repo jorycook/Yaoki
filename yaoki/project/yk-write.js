@@ -10,6 +10,7 @@
  *   pad(el, opts)           a writing pad drawn into the element el, returning its controller (see Pad below)
  *   match(points, c, i, o)  whether a drawn stroke (a list of {x, y} in the box) is stroke i of c: { ok, backwards }.
  *                           The pad uses it; it is exposed for the checks.
+ *   tap(point, c, i)        whether a touch that hardly moved counts as stroke i of c (only a dot can be touched in)
  *
  * A drawn stroke counts as stroke i when it runs close to it, starts and ends near its two ends, goes the same way, has
  * its shape and roughly its length, and does not fit a later stroke better. This follows the stroke matching of Hanzi
@@ -298,6 +299,18 @@
     return { ok: true, backwards: false };
   }
 
+  /* a touch that hardly moves, where stroke i of c is a dot: a finger often only touches a dot. It counts when it lands on
+     the dot (within 7 units) and nearer to it than to any stroke after it */
+  function tapFits(p, c, i) {
+    var k = info(c);
+    var s = k.strokes[i];
+    if (!s || s.len >= 16 || !p) return false;
+    var d = toLine(p, s.pts);
+    if (d > 7) return false;
+    for (var j = i + 1; j < k.strokes.length; j++) if (toLine(p, k.strokes[j].pts) < d) return false;
+    return true;
+  }
+
   /* ---------- drawing ---------- */
   function make(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
@@ -540,9 +553,13 @@
     var self = this;
     var o = this.o;
     if (!this.writing() || !el) { if (el && el.parentNode) el.parentNode.removeChild(el); return; }
-    /* a tap is not a stroke */
-    if (pts.length < 2 || length(pts) < 2) { if (el.parentNode) el.parentNode.removeChild(el); return; }
     var i = this.i;
+    /* a tap is not a stroke, except on a dot */
+    if (pts.length < 2 || length(pts) < 2) {
+      if (el.parentNode) el.parentNode.removeChild(el);
+      if (tapFits(pts[0], o.char, i)) this.accept(false);
+      return;
+    }
     var free = o.mode === 'memory' && i === 0;
     var r = match(pts, o.char, i, { leniency: o.leniency || (o.mode === 'memory' ? 1.15 : 1), free: free });
     if (r.ok) {
@@ -708,6 +725,7 @@
     draw: draw,
     strip: strip,
     match: match,
+    tap: tapFits,
     /* the points of stroke i of c, every 1.2 box units (the checks draw along them) */
     points: function (c, i) { var s = info(c).strokes[i]; return s ? s.pts.map(function (p) { return { x: p.x, y: p.y }; }) : []; },
     BOX: BOX

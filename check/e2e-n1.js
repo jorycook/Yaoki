@@ -247,7 +247,7 @@ const TODAY = '2026-10-14';
   await at('21-scene-kanji');
   ok(await has(day.K + ' kanji') && await has('0 of ' + day.K + ' written'), 'scene: the kanji count is missing');
   ok((await page.locator('[role=list] button').count()) === day.K, 'scene: one tile per kanji expected');
-  ok(await has('Write each kanji first · 0 of ' + day.K), 'scene: Next should wait until the kanji are written');
+  ok(await has('Write all ' + day.K + ' first') || (day.K === 1 && await has('Write it first')), 'scene: Next should wait until the kanji are written');
   await click('[role=list] button >> nth=0', 500);
   await at('22-scene-kanji-sheet');
   ok((await page.locator('[role=dialog][aria-label="Kanji ' + day.kanji[0] + '"]').count()) === 1, 'scene: the sheet should show the first kanji');
