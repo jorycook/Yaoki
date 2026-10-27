@@ -85,6 +85,7 @@
   const DOUBLES = /^[bcdfghjklmpqrstvwxyz]/; // letters っ may double (never n: nn is ん)
   const NN = ['nn', "n'", 'xn'];
   const SMALL_TU = ['xtu', 'ltu', 'xtsu', 'ltsu'];
+  const MAX_OPTS = 300;
 
   // A token is one or more kana typed as a unit: `opts` are its spellings, `units` the kana
   // it is made of, and `cuts` gives, for a joined spelling, where each later kana's letters
@@ -139,12 +140,14 @@
       } else if (t.mark === 'っ') {
         // っ: the next consonant doubled (kka, ccha, also tcha), or xtu, ltu… then the next kana.
         // The hint follows the next kana's own hint, and never doubles x or l.
+        // Not before a letter already doubled (wwa: www is typed as w), nor before x or l.
         const first = next.opts[0];
-        const pairs = [DOUBLES.test(first) && !/^[xl]/.test(first) ? [first[0], first] : ['xtu', first]];
+        const pairs = [DOUBLES.test(first) && !/^[xl]/.test(first) && first[0] !== first[1] ? [first[0], first] : ['xtu', first]];
         for (const o of next.opts) if (DOUBLES.test(o)) pairs.push([o[0], o]);
         for (const o of next.opts) if (o.startsWith('ch')) pairs.push(['t', o]);
         for (const pre of SMALL_TU) for (const o of next.opts) pairs.push([pre, o]);
-        tokens[0] = joined('っ', pairs, next);
+        // A run of っ would multiply the spellings; the first MAX_OPTS (hint first) are plenty.
+        tokens[0] = joined('っ', pairs.slice(0, MAX_OPTS), next);
       } else {
         // ん: a lone n before k, s, t…, punctuation and the like; nn (or n', xn) before a vowel,
         // y or n. At the end of the prompt it is nn (handled above).
@@ -271,6 +274,23 @@
     return before + cutsOf(t, o).filter((c) => c <= part.length).length;
   }
 
+  // The kana a refused key is put on. As unitAt(), except for the two slips that belong to
+  // ん and っ although the letters have moved on: one n too few before な行 (konn + i for こんに),
+  // and one consonant where っ needs two (kit + e for きって).
+  function blame(tokens, typed, key) {
+    const i = unitAt(tokens, typed);
+    const pos = at(tokens, typed);
+    if (i === null || !pos) return i;
+    const t = tokens[pos.index];
+    const part = typed.slice(pos.start);
+    const first = i - (cutsOf(t, t.opts.find((x) => x.length > part.length && x.startsWith(part)) || t.opts[0])
+      .filter((c) => c <= part.length).length);
+    if (t.units[0] === 'ん' && NA_ROW.test(t.units[1] || '') && part === 'nn' && /^[aiueoy]$/.test(key)) return first;
+    if (t.units[0] === 'っ' && t.units.length > 1 && part.length === 1 && key !== part && DOUBLES.test(part)) return first;
+    return i;
+  }
+  const NA_ROW = /^[なにぬねの]/;
+
   // The spellings of the kana being typed that are still open after `typed`.
   function choices(tokens, typed) {
     const pos = at(tokens, typed);
@@ -282,7 +302,8 @@
   // Why a key a learner is likely to try was not taken, for the line under the card.
   const NOTES = {
     wo: 'を = wo　(o is お)', di: 'ぢ = di　(ji is じ)', du: 'づ = du　(zu is ず)', ha: 'は = ha　(wa is わ)',
-    nn: 'ん before a vowel, y or n = nn', end: 'ん at the end = nn', xtu: 'っ before な行 = xtu　(nn is ん)',
+    nn: 'ん before a vowel, y or n = nn', nnn: 'ん before な行 = nn, then the kana: konnnichiha',
+    end: 'ん at the end = nn', xtu: 'っ before な行 = xtu　(nn is ん)',
   };
   function why(tokens, typed, key) {
     const pos = at(tokens, typed);
@@ -293,9 +314,12 @@
     const [k, ...rest] = kana;
     if (k === 'ん') {
       if (!rest.length) return /^n[^n']/.test(tried) ? NOTES.end : null;
+      if (NA_ROW.test(rest[0]) && /^nn[aiueoy]$/.test(tried)) return NOTES.nnn;
       const done = /^(nn|n'|xn)/.exec(tried);
       if (done) return tried.length > done[0].length ? note(rest, tried.slice(done[0].length)) : null;
-      if (/^n[aiueoyn]$/.test(tried)) return rest[0] === 'を' && tried === 'no' ? NOTES.wo : NOTES.nn;
+      if (/^n[aiueoyn]$/.test(tried) && /^[あいうえおやゆよなにぬねのをぁぃぅぇぉゃゅょ]/.test(rest[0])) {
+        return rest[0] === 'を' && tried === 'no' ? NOTES.wo : NOTES.nn;
+      }
       if (/^n./.test(tried)) return note(rest, tried.slice(1));
       return null;
     }
@@ -459,7 +483,7 @@
   ];
 
   const api = {
-    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, choices, why, keyFor, fingerFor, rowOf,
+    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, blame, choices, why, keyFor, fingerFor, rowOf,
     SINGLE, COMBO, SYMBOL_KEYS, PUNCT_KEYS, KANA_KEYS, KANA_SHIFT_KEYS,
     KANA_STAGES, SYMBOL_STAGES, KANA_KEY_STAGES,
   };

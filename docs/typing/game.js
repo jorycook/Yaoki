@@ -253,6 +253,8 @@
   // Markup helpers: text made safe for innerHTML, and Japanese marked as Japanese.
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const ja = (t) => '<span lang="ja">' + esc(t) + '</span>';
+  // Mixed text: only its kana and kanji marked as Japanese.
+  const jaMarked = (t) => esc(t).replace(/[\u3040-\u30ff\u4e00-\u9fff々〜・「」]+/g, (m) => '<span lang="ja">' + m + '</span>');
 
   // How much of an item is still on the weak list.
   function statKey(item) {
@@ -294,10 +296,10 @@
   let r = null;                 // the round being played
   let view = { W: 960, s: 1, oy: 0, dpr: 1, yx: 100 };
   let pal = palette();
-  let starting = false;
+  let startTicket = 0;
 
   async function startRound(weakOnly) {
-    if (starting) return;
+    const ticket = ++startTicket;
     const items = currentItems();
     if (!items || !items.length) return;
     let deck = deal(items, saved.len, weakOnly);
@@ -313,11 +315,10 @@
     const name = stageName();
     const level = saved.level;
     const unit = saved.unit[saved.level];
-    starting = true;
-    // Measure the cards in the typeface they are drawn in (a short wait at most).
+    // Measure the cards in the typeface they are drawn in (a short wait at most). A newer
+    // Start, or a pick made meanwhile, wins over this one.
     await fontsFor(deck);
-    starting = false;
-    if (phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) return;
+    if (ticket !== startTicket || phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) return;
     const mode = MODES[modeId];
     const pace = saved.pace[key] && saved.pace[key].p ? saved.pace[key] : START[mode.kind];
     r = {
@@ -326,6 +327,7 @@
       key,
       weakOnly,
       name,
+      course: modeId === 'course' ? { level, unit } : null,
       queue: deck.map((item) => ({ item, falls: 0 })),
       total: deck.length,
       cleared: 0,
@@ -414,15 +416,19 @@
     return w > room ? Math.max(least, Math.floor(size * room / w)) : size;
   }
 
-  // The prompt's type size: smaller for long prompts, and never wider than a card may be.
+  // The prompt's type size: smaller for long prompts (not under 14 while it fits), and never
+  // wider than a card may be.
   function promptSize(item) {
     if (item.kind !== 'romaji') return 32;
     const n = Array.from(item.text).length;
     const size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
-    return fit(item.text, size, Math.min(Math.max(160, 0.45 * (view.W - view.yx)), maxCard()) - 28, 10);
+    const nice = fit(item.text, size, Math.max(160, 0.45 * (view.W - view.yx)) - 28, 14);
+    return fit(item.text, nice, maxCard() - 28, 8);
   }
+  // Small type (readings, the lines under the route): at least about 9 CSS pixels.
+  const small = (size) => Math.max(size, 9 / view.s);
   function readingSize(item) {
-    return fit(item.reading, 12, maxCard() - 28, 8);
+    return fit(item.reading, Math.min(16, small(12)), maxCard() - 28, 8);
   }
 
   function cardWidth(item) {
@@ -614,11 +620,11 @@
   }
 
   // The kana (or key) a miss belongs to, kept for the round's weak spots.
-  function noteMiss(card) {
+  function noteMiss(card, pressed) {
     const it = card.item;
     let key;
     if (it.kind === 'romaji') {
-      const at = E.unitAt(it.tokens, card.typed);
+      const at = pressed ? E.blame(it.tokens, card.typed, pressed) : E.unitAt(it.tokens, card.typed);
       const i = at === null ? it.units.length - 1 : at;
       card.missedAt.add(i);
       key = it.units[i];
@@ -642,7 +648,7 @@
       }
       it.units.forEach((u, i) => {
         if (card.missedAt.has(i)) markMiss(r.stats, u);
-        else if (card.state === 'fallen' ? i < reached : !shown) markOk(r.stats, u);
+        else if (card.state === 'fallen' ? i < reached && card.level < 2 && !card.halted : !shown) markOk(r.stats, u);
       });
     } else if (card.misses || card.state === 'fallen') {
       markMiss(r.stats, statKey(it));
@@ -718,6 +724,11 @@
       sawKeyboard = true;
       $('touch-note').hidden = true;
       showKeyboard();
+    }
+    // A held Escape or Enter does nothing more than its first press did.
+    if (e.repeat && (e.key === 'Escape' || e.key === 'Enter')) {
+      e.preventDefault();
+      return;
     }
     // The settings sheet is modal: Escape closes it, and no key reaches the game behind it.
     if (!$('settings-sheet').hidden) {
@@ -808,7 +819,7 @@
     const typed = t.typed + c;
     if (!E.matchPrefix(t.item.tokens, typed)) {
       const note = saved.hints === 'never' ? '' : E.why(t.item.tokens, t.typed, c) || '';
-      miss(t, e.code, note && ja(note));
+      miss(t, e.code, jaMarked(note), c);
       return;
     }
     progress(t, e.code);
@@ -848,10 +859,10 @@
     flashKey(code, 'ok');
   }
 
-  function miss(card, code, note) {
+  function miss(card, code, note, pressed) {
     card.misses++;
     card.flashT = 0.3;
-    noteMiss(card);
+    noteMiss(card, pressed);
     raiseHint(card);
     flashKey(code, 'miss');
     setStatus(note, 'bad', true);
@@ -966,11 +977,12 @@
       const n = r.total > 20 ? 1 : r.total;
       for (let i = 0; i < n; i++) bar.appendChild(document.createElement('i'));
     }
-    if (r.total > 20) bar.firstElementChild.style.width = (100 * r.cleared / r.total) + '%';
+    const passed = r.cleared + r.skipped;
+    if (r.total > 20) bar.firstElementChild.style.width = (100 * passed / r.total) + '%';
     else [...bar.children].forEach((seg, i) => {
-      seg.className = i < r.cleared ? 'done' : i === r.cleared ? 'now' : '';
+      seg.className = i < r.cleared ? 'done' : i < passed ? 'skip' : i === passed ? 'now' : '';
     });
-    bar.setAttribute('aria-label', 'Card ' + Math.min(r.cleared + 1, r.total) + ' of ' + r.total);
+    bar.setAttribute('aria-label', 'Card ' + Math.min(passed + 1, r.total) + ' of ' + r.total);
     $('hud-falls').textContent = r.falls;
     $('hud-time').textContent = fmt(r.time);
   }
@@ -982,7 +994,9 @@
     $('res-line').textContent = fmt(r.time) + ' · ' + kpm + ' right keys a minute' + (r.skipped ? ' · ' + r.skipped + ' skipped' : '');
     $('res-keys').innerHTML = r.keysRight + ' <small>/ ' + r.keysTotal + '</small>';
     $('res-falls').textContent = r.falls;
-    $('res-falls-en').textContent = r.falls ? 'falls; each card came back and was cleared' : 'falls: Yaoki stayed up all round';
+    $('res-falls-en').textContent = !r.falls ? 'falls: Yaoki stayed up all round'
+      : r.skipped ? 'falls; ' + r.skipped + ' skipped with Tab, the others came back and were cleared'
+        : 'falls; each card came back and was cleared';
     $('res-hints').textContent = saved.hints === 'always' ? '—' : r.hints;
     $('res-hints-en').textContent = saved.hints === 'always' ? 'hints were on for every card' : saved.hints === 'never' ? 'hints were off' : 'cards where a hint showed';
 
@@ -1632,16 +1646,17 @@
     if (!text) return;
     const below = c.state === 'fallen' ? 'あとでもう一度　' + backText(r.fall ? r.fall.back : 0)
       : c.halted ? 'ゆっくりでいい　The world waits. Tab skips this card.' : '';
-    ctx.font = '800 12px ' + UI;
-    const small = Math.max(ctx.measureText(below).width, c.state === 'fallen' ? ctx.measureText('正解　answer').width : 0);
+    const captionFont = '800 ' + small(12) + 'px ' + UI;
+    ctx.font = captionFont;
+    const smallWidth = Math.max(ctx.measureText(below).width, c.state === 'fallen' ? ctx.measureText('正解　answer').width : 0);
     ctx.font = '800 20px ' + UI;
-    const width = Math.max(ctx.measureText(text).width, small);
+    const width = Math.max(ctx.measureText(text).width, smallWidth);
     const x = Math.max(10, Math.min(W - 10 - width, cx - ctx.measureText(text).width / 2));
     ctx.textAlign = 'left';
     if (c.state === 'fallen') {
       ctx.fillStyle = pal.bad;
       ctx.fillText(text, x, y);
-      ctx.font = '800 12px ' + UI;
+      ctx.font = captionFont;
       ctx.fillText('正解　answer', x, y - 22);
       ctx.fillStyle = pal.muted;
       ctx.fillText(below, x, y + 22);
@@ -1654,7 +1669,7 @@
       ctx.fillText(done, x, y);
     }
     if (below) {
-      ctx.font = '800 12px ' + UI;
+      ctx.font = captionFont;
       ctx.fillStyle = pal.muted;
       ctx.fillText(below, x, y + 22);
     }
@@ -1766,6 +1781,7 @@
   $('opt-sound').addEventListener('change', (e) => {
     saved.sound = e.target.checked;
     save();
+    if (saved.sound && r && r.course) loadSound(r.course.level, r.course.unit);
   });
   document.addEventListener('click', () => {
     if (window.ykSound) window.ykSound.unlock();

@@ -111,9 +111,11 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('1');
   check('a second miss shows the whole spelling (hint level 2)', (await state(page)).target.level === 2);
   if (shots) await page.screenshot({ path: `${shots}/romaji-miss.png` });
-  await page.keyboard.press(t.spell[0]);
-  await page.keyboard.press('Backspace');
-  check('Backspace takes back a typed letter', (await state(page)).target.typed === '');
+  if (t.spell.length > 1) {
+    await page.keyboard.press(t.spell[0]);
+    await page.keyboard.press('Backspace');
+    check('Backspace takes back a typed letter', (await state(page)).target.typed === '');
+  }
   await page.evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Process', keyCode: 229 })));
   check('an IME key shows the 英数 warning', /英数/.test(await page.textContent('#status')));
 
@@ -179,6 +181,11 @@ async function waitFor(fn, ms = 5000) {
   check('the result counts clean cards', (await page.textContent('#res-clean')) === '7', await page.textContent('#res-clean'));
   check('7 clean cards of 10 earn よくできました', /^よく/.test(await page.textContent('#res-stamp-text')), await page.textContent('#res-stamp-text'));
   check('focus moves to the result heading', await page.evaluate(() => document.activeElement.id === 'res-title'));
+  await sleep(100);
+  check('the result is announced in a live region that is not hidden', await page.evaluate(() => {
+    const el = document.getElementById('sr-prompt');
+    return /Round over/.test(el.textContent) && !el.closest('[hidden]');
+  }));
   check('the three missed keys show as weak spots', (await page.$$('#res-weak span')).length === 3);
   let saved = await stored(page);
   check('the round\'s pace and best are kept', saved.pace && saved.pace['symbol:plain'] && saved.best && saved.best['symbol:plain'] > 0, JSON.stringify({ pace: saved.pace, best: saved.best }));
@@ -196,6 +203,37 @@ async function waitFor(fn, ms = 5000) {
   const weakKeys = Object.keys((await stored(page)).stats.symbol);
   const wt = await target(page);
   check('the weak-spot round deals only the weak cards, each twice', s.total === 6 && weakKeys.includes(wt.text), JSON.stringify({ total: s.total, text: wt.text, weakKeys }));
+  await quit(page);
+
+  // ---- a weak spot leaves the list after its third clean answer in a row
+  await page.evaluate(() => {
+    const v = JSON.parse(localStorage.getItem('yaoki.typing.v1'));
+    v.stats = { symbol: { '@': { miss: 1, ok: 2 } } };
+    localStorage.setItem('yaoki.typing.v1', JSON.stringify(v));
+  });
+  await page.reload();
+  const bestBefore = (await stored(page)).best['symbol:plain'];
+  await page.click('#start-weak');
+  await playOut(page, async (c) => {
+    await sleep(250);
+    await page.keyboard.type(c.key, { delay: 20 });
+  });
+  saved = await stored(page);
+  check('three clean answers in a row take a key off the weak list', !saved.stats.symbol['@'], JSON.stringify(saved.stats));
+  check('a weak-spot round leaves the best alone', saved.best['symbol:plain'] === bestBefore);
+  await page.keyboard.press('Escape');
+
+  // ---- the saved pace sets the round's time: T = 1.4 × (reaction + keys / rate)
+  await page.evaluate(() => {
+    const v = JSON.parse(localStorage.getItem('yaoki.typing.v1'));
+    v.pace = { 'symbol:plain': { r: 3, p: 0.5 } };
+    localStorage.setItem('yaoki.typing.v1', JSON.stringify(v));
+  });
+  await page.reload();
+  await page.click('#start');
+  await target(page);
+  s = await state(page);
+  check('a saved pace is used for the round', Math.abs(s.T - 7) < 0.01, 'T ' + s.T);
   await quit(page);
 
   // ---- quitting keeps the misses already made
@@ -249,6 +287,42 @@ async function waitFor(fn, ms = 5000) {
   await page.click('#start');
   await target(page);
   check('when stuck, the first hint comes after 5 seconds', await waitFor(async () => ((await state(page)).target || {}).level === 1, 7000));
+  // a card with a hint shown is not clean; between keys the hint comes after 3 seconds
+  let st = await state(page);
+  const cleanBefore = st.clean;
+  await page.keyboard.type(st.target.spell, { delay: 20 });
+  check('a card typed after a hint showed is not counted clean', (await state(page)).clean === cleanBefore);
+  await quit(page);
+  await page.click('#start');
+  let long = await target(page);
+  while (long && long.spell.length < 2) {
+    await page.keyboard.type(long.spell);
+    long = await target(page);
+  }
+  await page.keyboard.press(long.spell[0]);
+  check('between keys, the stuck hint comes after 3 seconds', await waitFor(async () => ((await state(page)).target || {}).level === 1, 4500));
+  await quit(page);
+
+  // ---- notes for the usual slips: shown when stuck, not with hints off (seeded を)
+  await page.evaluate(() => {
+    const v = JSON.parse(localStorage.getItem('yaoki.typing.v1'));
+    v.stats = { kana: { 'を': { miss: 2, ok: 0 } } };
+    v.hints = 'never';
+    localStorage.setItem('yaoki.typing.v1', JSON.stringify(v));
+  });
+  await page.reload();
+  await page.click('#start-weak');
+  check('the weak-spot round deals を', (await target(page)).text === 'を');
+  await page.keyboard.press('o');
+  check('with hints off, a slip gets no note', (await page.textContent('#status')) === '');
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#hint-seg button:nth-child(2)');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  await page.keyboard.press('o');
+  check('when stuck, o for を gets the を = wo note', /wo/.test(await page.textContent('#status')));
+  check('only the kana of the note is marked Japanese', await page.evaluate(() => [...document.querySelectorAll('#status [lang="ja"]')].every((e) => !/[a-z]/.test(e.textContent))));
   await quit(page);
 
   // ---- a best does not count with hints always on
@@ -258,8 +332,23 @@ async function waitFor(fn, ms = 5000) {
   await page.click('#start');
   await playOut(page, (c) => page.keyboard.type(c.key, { delay: 20 }));
   check('a round with hints always on leaves the best alone', !(await stored(page)).best['symbol:shifted']);
+  check('with hints always on, the result says so instead of counting hints', (await page.textContent('#res-hints')) === '—');
+  check('ten clean cards earn たいへんよくできました', /^たいへん/.test(await page.textContent('#res-stamp-text')));
   await page.keyboard.press('Escape');
   await setHints(2);
+
+  // ---- five misses in ten cards: がんばりましょう
+  await page.click('#start');
+  let slips = 0;
+  await playOut(page, async (c) => {
+    if (slips < 5) {
+      slips++;
+      await page.keyboard.press('1');
+    }
+    await page.keyboard.type(c.key, { delay: 20 });
+  });
+  check('5 clean cards of 10 earn がんばりましょう', /^がんばり/.test(await page.textContent('#res-stamp-text')));
+  await page.keyboard.press('Escape');
 
   // ---- kana input: physical keys, the Shift layer, and an IME in kana mode
   await pick(page, 4, 1);
@@ -327,7 +416,11 @@ async function waitFor(fn, ms = 5000) {
     check('the waiting card does not knock him over again', !(await state(page)).falling && (await state(page)).target.halted);
     if (shots) await page.screenshot({ path: `${shots}/halted.png` });
     await page.keyboard.press('Tab');
-    check('Tab skips the waiting card', (await state(page)).skipped === 1);
+    s = await state(page);
+    check('Tab skips the waiting card', s.skipped === 1);
+    check('the bar counts the skipped card', (await page.getAttribute('#progress', 'aria-label')) === 'Card ' + Math.min(s.cleared + 2, s.total) + ' of ' + s.total);
+    await playOut(page, (c) => page.keyboard.type(c.key, { delay: 20 }));
+    check('the result says a card was skipped', /skipped/.test(await page.textContent('#res-falls-en')) && /skipped/.test(await page.textContent('#res-line')));
   }
   await page.close();
 
@@ -353,6 +446,16 @@ async function waitFor(fn, ms = 5000) {
   await page.click('#modes button:nth-child(3)');
   await sleep(2000);
   check('a mode picked during the font wait cancels that start', (await state(page)).phase === 'menu');
+  await page.click('#start');
+  await page.click('#stages .option:nth-child(2)');
+  await page.click('#start');
+  check('a second Start after a pick plays the new pick', await waitFor(async () => (await state(page)).phase === 'play', 4000));
+  check('…with the stage picked last', (await state(page)).mode === 'symbol' && /シフト/.test(await page.evaluate(() => document.querySelector('#stages [aria-pressed="true"]').textContent)));
+  await page.close();
+
+  // ---- keyboard labels at narrow widths: the Shift characters stay at 640 px
+  page = await open({ viewport: { width: 640, height: 900 } });
+  check('640px: the keyboard still shows the Shift characters', await page.evaluate(() => getComputedStyle(document.querySelector('[data-code="Digit2"] .sub')).display !== 'none'));
   await page.close();
 
   // ---- small screens and touch: no sideways scroll, the keyboard note, the result

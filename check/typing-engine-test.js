@@ -97,6 +97,27 @@ test('units() and unitAt() put a miss on the kana it belongs to', () => {
   assert.equal(E.unitAt(T('ねこ'), 'na'), null);
 });
 
+test('blame() puts the classic ん and っ slips on ん and っ', () => {
+  const b = (w, typed, key) => E.units(T(w))[E.blame(T(w), typed, key)];
+  assert.equal(b('こんにちは', 'konn', 'i'), 'ん');
+  assert.equal(b('おんな', 'onn', 'a'), 'ん');
+  assert.equal(b('こんな', 'kon', 'a'), 'ん');
+  assert.equal(b('きって', 'kit', 'e'), 'っ');
+  assert.equal(b('がっこう', 'gak', 'o'), 'っ');
+  assert.equal(b('いっしょ', 'is', 'h'), 'っ');
+  assert.equal(b('きって', 'kitt', 'a'), 'て');
+  assert.equal(b('せんせい', 'senn', 'd'), 'せ');
+});
+
+test('runs of っ stay small, and their hint is one both IMEs take', () => {
+  assert.equal(E.spell(T('あっっわ')), 'axtuwwa');
+  assert.equal(typeAll('っっか', 'kkka'), true);
+  const started = Date.now();
+  const tokens = T('あ' + 'っ'.repeat(8) + 'か');
+  assert.ok(Date.now() - started < 200, 'tokenize took ' + (Date.now() - started) + ' ms');
+  assert.ok(tokens.every((t) => t.opts.length <= 300));
+});
+
 test('nextChars() lights the right keys around っ and ん', () => {
   assert.deepEqual([...E.nextChars(T('きって'), 'ki')].sort(), ['l', 't', 'x']);
   assert.deepEqual([...E.nextChars(T('かんじ'), 'kan')].sort(), ["'", 'j', 'n', 'z']);
@@ -135,6 +156,10 @@ test('why() explains the usual learner slips', () => {
   // the な行 note only before な行
   assert.equal(E.why(T('きって'), 'ki', 'n'), null);
   assert.equal(E.why(T('がっこう'), 'gakk', 'a'), null);
+  // one n too few before な行, and no ん note before a consonant kana
+  assert.match(E.why(T('こんにちは'), 'konn', 'i'), /konnnichiha/);
+  assert.equal(E.why(T('せんせい'), 'sen', 'a'), null);
+  assert.equal(E.why(T('でんわ'), 'den', 'a'), null);
 });
 
 test('every built-in prompt types out by its hint', () => {
