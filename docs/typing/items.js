@@ -1464,7 +1464,7 @@
     ],
     record: [
       L('新記録！', 'New record', 'fan'),
-      L('自己ベスト！', 'Personal best', 'medal'),
+      L('連続記録！', 'Best run', 'medal'),
       L('記録更新！', 'Record broken', 'fireworks'),
       L('最高記録！', 'Best ever', 'fan'),
     ],

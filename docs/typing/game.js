@@ -679,10 +679,14 @@
     // the card of a trick in progress is held where it is: the trick moves it; a cleared card
     // whose stamp is still landing waits at the trick line, so its trick starts in front of him
     const line = view.yx + REACH + TRICK_LEAD;
+    let edge = -Infinity;
     for (const c of r.cards) {
       if (c.phase === 'trick') continue;
       const nx = c.x - speed * dt;
       c.x = c.phase === 'ride' && c.stampT < 0.2 ? Math.max(nx, Math.min(c.x, line)) : nx;
+      // and the card behind it keeps its distance
+      if (c.state === 'live') c.x = Math.max(c.x, edge + 30);
+      if (c.phase === 'ride') edge = c.x + c.w;
     }
     r.speedNow = speed;
     r.scroll += speed * dt;
@@ -738,7 +742,7 @@
         } else if (r.cleared + r.skipped === r.total - 1 && r.lastFor !== t) {
           r.lastFor = t;
           cheer('last', 1.4);
-          if (r.musicOn) music('cue', 'last');
+          if (r.musicOn && t.entry.falls < 2) music('cue', 'last');
         }
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
@@ -2157,7 +2161,7 @@
       for (const c of r.cards) {
         c.w = cardWidth(c.item);
         if (oldSpeed) c.x = view.yx + REACH + (c.x - oldYx - REACH) * (r.speed / oldSpeed);
-        if (c.state !== 'live') continue;
+        if (c.state !== 'live' && c.phase !== 'ride') continue;
         if (prev) c.x = Math.max(c.x, prev.x + prev.w + 30);
         prev = c;
       }
@@ -2484,8 +2488,9 @@
     const spec = TRICKS[kind];
     c.phase = 'trick';
     yk.hopT = 0;
+    const len = trickLength(c, spec);
     yk.trick = {
-      kind, card: c, t: 0, len: trickLength(c, spec),
+      kind, card: c, t: 0, len,
       // where the card goes as it passes him, and where its node lands behind him
       pass: view.yx - 22 - c.w - c.x,
       nodeOff: view.yx - NODE_BACK - (c.x + c.w / 2),
@@ -2495,7 +2500,7 @@
     // card for a smash (as he hits it)
     const at = { jump: [62, 46], spin: [68, 40], duck: [46, 128], smash: [96, 62] }[kind];
     const word = lineFor(kind, false);
-    yk.fx = { ja: word && word.ja ? word.ja : spec.ja, t: kind === 'smash' ? -spec.hit * spec.len : 0, x: view.yx + at[0], y: at[1], tilt: kind === 'duck' ? 0.1 : -0.14, big: kind === 'smash' };
+    yk.fx = { ja: word && word.ja ? word.ja : spec.ja, t: kind === 'smash' ? -spec.hit * len : 0, x: view.yx + at[0], y: at[1], tilt: kind === 'duck' ? 0.1 : -0.14, big: kind === 'smash' };
     if (kind !== 'smash') sfx(kind);
     r.tricks[kind]++;
   }
@@ -2504,10 +2509,16 @@
   function trickLength(c, spec) {
     let len = spec.len * (r.finale !== null ? 0.7 : 1);
     const line = view.yx + REACH + TRICK_LEAD;
-    const speed = Math.max(1, r.speedNow || r.speed);
+    // the world dashes only until the next live card is in view, then goes at its pace
+    const live = r.cards.find((x) => x.state === 'live');
+    const dashFor = r.finale !== null || !live ? Infinity : Math.max(0, live.x + live.w - (view.W - 8));
+    const fast = Math.max(1, r.speedNow || r.speed);
+    const cruise = Math.max(1, r.speed);
     for (const o of r.cards) {
       if (o === c || o.state !== 'done' || o.phase !== 'ride' || o.x < c.x) continue;
-      len = Math.min(len, Math.max(0.35, (o.x - line) / speed - 0.05));
+      const d = o.x - line;
+      const eta = d <= dashFor ? d / fast : dashFor / fast + (d - dashFor) / cruise;
+      len = Math.min(len, Math.max(0.35, eta - 0.05));
     }
     return len;
   }
@@ -3063,11 +3074,13 @@
     // the first step of a run or the first rise in a round keeps its first line (いいね！,
     // よいしょ！); the rest take turns
     if (first) {
+      if (!turns[occasion]) turns[occasion] = 1;
       const own = OWN_LINES[occasion] && OWN_LINES[occasion][0];
       return (own && list.find((x) => x.ja === own.ja)) || list[0];
     }
-    turns[occasion] = ((turns[occasion] || 0) + 1) % list.length;
-    return list[turns[occasion]] || list[0];
+    const k = (turns[occasion] || 0) % list.length;
+    turns[occasion] = (k + 1) % list.length;
+    return list[k] || list[0];
   }
   function cheer(occasion, life, opts = {}) {
     const yk = r.yk;
