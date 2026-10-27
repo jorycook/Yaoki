@@ -637,6 +637,12 @@ async function waitFor(fn, ms = 5000) {
   check('one ring a day towards a stage\'s はなまる', saved.seal['symbol:plain'].length === 1 && /Today's ring/.test(await page.textContent('#res-seal-text')), JSON.stringify(saved.seal));
   await page.keyboard.press('Escape');
   check('the menu shows the new card and the finished one', (await page.textContent('#day-count')) === '0 / 7' && /完成 1枚/.test(await page.textContent('#day-done')));
+  // the next morning, in the same tab: today's box is open again
+  await page.evaluate(() => {
+    window.__ykNow += 24 * 3600 * 1000;
+    document.dispatchEvent(new Event('visibilitychange'));
+  });
+  check('a menu left open overnight shows the new day when looked at again', /more typing for today/.test(await page.textContent('#day-hint')) && (await page.$('#day-boxes .day-box.open')) !== null);
   await page.close();
   page = await open({}, { 'yaoki.typing.v1': { mode: 'symbol', stage: { symbol: 'plain' }, len: 10, goal: 5, practice: { d: '2026-10-27', s: 200 } } }, [SFX_STUB, CLOCK]);
   check('the day card adds up: time typed and time left make the goal', /3:20 \/ 5:00/.test(await page.textContent('#day-line')) && /1:40/.test(await page.textContent('#day-hint')));

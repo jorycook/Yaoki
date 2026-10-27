@@ -55,7 +55,7 @@
   const HAPPY_T = 0.6;         // his smile after a clean card
   const CHEER_T = 1.2;         // a cheer's bubble
   const BUBBLE_POP = 0.15;
-  const VOICE_T = 0.9;          // a course word's clip: no effect sound over it
+  const VOICE_T = 0.9;          // no effect sound this long after a course word's clip starts (or its length, if longer)
   const DAY_TILTS = [-9, 6, -4, 8, -7, 5, -10];
 
   // ---------- what is kept between visits ----------
@@ -863,7 +863,7 @@
     const voice = !!(card.item.clip && saved.sound && window.ykSound && window.ykSound.has(card.item.clip));
     if (voice) {
       window.ykSound.play(card.item.clip);
-      r.voiceUntil = r.time + VOICE_T;
+      r.voiceUntil = r.time + Math.max(VOICE_T, (window.ykSound.ms ? window.ykSound.ms(card.item.clip) : 0) / 1000);
     }
     else {
       sfx('clear', { streak: clean ? r.run : 0 });
@@ -2102,8 +2102,10 @@
     const tau = c.stampT - 0.55 * STAMP_T;
     if (tau < 0 || (tau >= INK_T && (!c.ink || tau >= DROP_T))) return;
     const onNode = c.inkOn === 'node';
-    const x = onNode ? cx : c.x + c.w - 4;
-    const y = onNode ? GROUND - 16 : GROUND - CARD_H + 4;
+    // the badge shrinks with its card about (cx, GROUND) as it settles: its ink does too
+    const sc = onNode ? 1 : 1 - 0.4 * ease(settle);
+    const x = onNode ? cx : cx + (c.x + c.w - 4 - cx) * sc;
+    const y = onNode ? GROUND - 16 : GROUND - (CARD_H - 4) * sc;
     const fade = onNode ? 1 : 1 - settle;
     let drawn = false;
     ctx.save();
@@ -2111,7 +2113,7 @@
       const k = tau / INK_T;
       ctx.globalAlpha = 0.5 * (1 - k) * fade;
       ctx.beginPath();
-      ctx.arc(x, y, (onNode ? 15 : 12) + 10 * ease(k), 0, Math.PI * 2);
+      ctx.arc(x, y, ((onNode ? 15 : 12) + 10 * ease(k)) * sc, 0, Math.PI * 2);
       ctx.lineWidth = 2 * (1 - k);
       ctx.strokeStyle = pal.daruma;
       ctx.stroke();
@@ -2122,9 +2124,9 @@
       ctx.globalAlpha = (1 - k) * fade;
       ctx.fillStyle = pal.stamp;
       for (const d of c.ink) {
-        const dist = 10 + d.d * ease(k);
+        const dist = (10 + d.d * ease(k)) * sc;
         ctx.beginPath();
-        ctx.arc(x + Math.cos(d.a) * dist, y + Math.sin(d.a) * dist, d.r, 0, Math.PI * 2);
+        ctx.arc(x + Math.cos(d.a) * dist, y + Math.sin(d.a) * dist, d.r * sc, 0, Math.PI * 2);
         ctx.fill();
       }
       drawn = true;
@@ -2462,21 +2464,26 @@
       ctx.fillText(below, x, y + 22);
       return;
     }
+    // the newest letter pops: drawn a little larger for a moment, about its own centre (the
+    // grey hint and the green letters typed before it are drawn around it, not under it)
+    const pop = done && c.popT > 0 && !reducedMotion.matches ? 1 + 0.3 * (c.popT / POP_T) : 1;
     ctx.fillStyle = pal.muted;
-    ctx.fillText(text, x, y);
+    if (pop > 1) ctx.fillText(text.slice(done.length), x + ctx.measureText(done).width, y);
+    else ctx.fillText(text, x, y);
     if (done) {
       ctx.fillStyle = pal.good;
-      // the newest letter pops: drawn a little larger for a moment, about its own centre
-      ctx.fillText(done, x, y);
-      const pop = c.popT > 0 && !reducedMotion.matches ? 1 + 0.3 * (c.popT / POP_T) : 1;
       if (pop > 1) {
-        const w0 = ctx.measureText(done.slice(0, -1)).width;
+        const head = done.slice(0, -1);
+        const w0 = ctx.measureText(head).width;
         const w1 = ctx.measureText(done.slice(-1)).width;
+        ctx.fillText(head, x, y);
         ctx.save();
         ctx.translate(x + w0 + w1 / 2, y);
         ctx.scale(pop, pop);
         ctx.fillText(done.slice(-1), -w1 / 2, 0);
         ctx.restore();
+      } else {
+        ctx.fillText(done, x, y);
       }
     }
     if (below) {
@@ -2542,11 +2549,17 @@
     }
   }
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) return;
+    if (!document.hidden) {
+      if (phase === 'menu') renderDayCard(false);
+      return;
+    }
     if (phase === 'play') setPhase('paused');
     creditAway();
   });
   window.addEventListener('pagehide', creditAway);
+  window.addEventListener('pageshow', () => {
+    if (phase === 'menu') renderDayCard(false);
+  });
   if (darkScheme.addEventListener) {
     darkScheme.addEventListener('change', () => {
       pal = palette();
