@@ -198,7 +198,7 @@
   function romajiItem(text, extra) {
     const reading = extra.reading || text;
     const tokens = E.tokenize(reading);
-    return Object.assign({ kind: 'romaji', id: 'r:' + text + '|' + reading, text, tokens, len: E.spell(tokens).length }, extra);
+    return Object.assign({ kind: 'romaji', id: 'r:' + text + '|' + reading, text, tokens, units: E.units(tokens), len: E.spell(tokens).length }, extra);
   }
 
   // The prompts of the stage (or course week) picked in the menu, or null if not ready.
@@ -244,18 +244,22 @@
     if (saved.mode === 'course') {
       const units = courses[saved.level] || [];
       const u = units.find((x) => x.n === saved.unit[saved.level]);
-      return saved.level + ' · 第' + saved.unit[saved.level] + '週' + (u ? '　' + u.en : '');
+      return saved.level + ' · ' + ja('第' + saved.unit[saved.level] + '週') + (u ? '　' + esc(u.en) : '');
     }
     const st = currentStage();
-    return MODES[saved.mode].ja + ' · ' + st.ja + '　' + st.en;
+    return ja(MODES[saved.mode].ja + ' · ' + st.ja) + '　' + esc(st.en);
   }
+
+  // Markup helpers: text made safe for innerHTML, and Japanese marked as Japanese.
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const ja = (t) => '<span lang="ja">' + esc(t) + '</span>';
 
   // How much of an item is still on the weak list.
   function statKey(item) {
     return item.kind === 'symbol' ? item.text : item.text + (item.shift ? '+' : '');
   }
   function weakness(item, stats) {
-    if (item.kind === 'romaji') return item.tokens.reduce((n, t) => n + (stats[t.kana] ? stats[t.kana].miss : 0), 0);
+    if (item.kind === 'romaji') return item.units.reduce((n, u) => n + (stats[u] ? stats[u].miss : 0), 0);
     return stats[statKey(item)] ? stats[statKey(item)].miss : 0;
   }
 
@@ -296,24 +300,36 @@
     if (starting) return;
     const items = currentItems();
     if (!items || !items.length) return;
-    const deck = deal(items, saved.len, weakOnly);
+    let deck = deal(items, saved.len, weakOnly);
+    if (!deck.length && weakOnly) {
+      weakOnly = false;
+      deck = deal(items, saved.len, false);
+    }
     if (!deck.length) return;
+    // What is played is fixed now: a pick made while the typefaces load does not change it.
+    const from = phase;
+    const modeId = saved.mode;
+    const key = stageKey();
+    const name = stageName();
+    const level = saved.level;
+    const unit = saved.unit[saved.level];
     starting = true;
     // Measure the cards in the typeface they are drawn in (a short wait at most).
     await fontsFor(deck);
     starting = false;
-    const key = stageKey();
-    const mode = MODES[saved.mode];
+    if (phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) return;
+    const mode = MODES[modeId];
     const pace = saved.pace[key] && saved.pace[key].p ? saved.pace[key] : START[mode.kind];
     r = {
       kind: mode.kind,
       stats: mode.stats,
       key,
       weakOnly,
-      name: stageName(),
+      name,
       queue: deck.map((item) => ({ item, falls: 0 })),
       total: deck.length,
       cleared: 0,
+      skipped: 0,
       clean: 0,
       falls: 0,
       hints: 0,
@@ -330,13 +346,14 @@
       rock: 0,
       target: null,
       spokenAt: -9,
+      pendingSpeak: null,
       widest: 70,
       maxLen: Math.max(...deck.map((it) => it.len)),
       errors: 0,
     };
     setPhase('play');
     resize();
-    if (saved.mode === 'course' && saved.sound) loadSound(saved.level, saved.unit[saved.level]);
+    if (modeId === 'course' && saved.sound) loadSound(level, unit);
     setStatus('', '');
     hud();
   }
@@ -384,34 +401,43 @@
     return Promise.race([wait, new Promise((res) => setTimeout(res, 1500))]).then(() => widths.clear());
   }
 
+  // The widest a card may be: it must fit, whole, between Yaoki and the right edge, so it can
+  // come fully into view before it reaches him.
+  const maxCard = () => Math.max(70, view.W - 8 - (view.yx + REACH) - 30);
+
+  // A type size that fits `text` in `room`: the given size, or smaller for long text.
+  function fit(text, size, room, least) {
+    ctx.save();
+    ctx.font = '600 ' + size + 'px ' + JP;
+    const w = ctx.measureText(text).width;
+    ctx.restore();
+    return w > room ? Math.max(least, Math.floor(size * room / w)) : size;
+  }
+
   // The prompt's type size: smaller for long prompts, and never wider than a card may be.
   function promptSize(item) {
     if (item.kind !== 'romaji') return 32;
     const n = Array.from(item.text).length;
-    let size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
-    const cap = Math.max(160, 0.45 * (view.W - view.yx)) - 28;
-    ctx.save();
-    ctx.font = '600 ' + size + 'px ' + JP;
-    const w = ctx.measureText(item.text).width;
-    ctx.restore();
-    if (w > cap) size = Math.max(14, Math.floor(size * cap / w));
-    return size;
+    const size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
+    return fit(item.text, size, Math.min(Math.max(160, 0.45 * (view.W - view.yx)), maxCard()) - 28, 10);
+  }
+  function readingSize(item) {
+    return fit(item.reading, 12, maxCard() - 28, 8);
   }
 
   function cardWidth(item) {
     if (item.kind !== 'romaji') return 70;
     const key = item.id + '@' + Math.round(view.W);
     if (widths.has(key)) return widths.get(key);
-    const size = promptSize(item);
     ctx.save();
-    ctx.font = '600 ' + size + 'px ' + JP;
+    ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
     if (item.reading && item.reading !== item.text) {
-      ctx.font = '600 12px ' + JP;
+      ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
       w = Math.max(w, ctx.measureText(item.reading).width);
     }
     ctx.restore();
-    const out = Math.max(70, Math.ceil(w) + 28);
+    const out = Math.min(maxCard(), Math.max(70, Math.ceil(w) + 28));
     widths.set(key, out);
     return out;
   }
@@ -425,7 +451,7 @@
   function targetCard() {
     if (!r || r.fall) return null;
     const c = r.cards.find((x) => x.state === 'live');
-    return c && inView(c) ? c : null;
+    return c && (c.halted || inView(c)) ? c : null;
   }
 
   function update(dt) {
@@ -472,7 +498,7 @@
     const last = r.cards[r.cards.length - 1];
     if (r.queue.length) {
       if (!last) makeCard(r.queue.shift(), view.W + 10);
-      else if (last.x + spacing(last) <= view.W + 10) makeCard(r.queue.shift(), last.x + spacing(last));
+      else if (last.x + spacing(last) <= view.W + 10) makeCard(r.queue.shift(), view.W + 10);
     }
 
     // A live card that reaches Yaoki knocks him over, unless it has already done so twice:
@@ -484,7 +510,7 @@
         if (!first.halted) {
           first.halted = true;
           first.level = 2;
-          say(first.item.text + '. Take your time: the world waits for this one.');
+          say(first.item.text, 'Take your time: the world waits for this one. Tab skips it.');
         }
       } else {
         startFall(first);
@@ -501,6 +527,8 @@
         r.target = t;
         speakTarget(t);
         showInfo(t);
+      } else if (r.pendingSpeak === t) {
+        speakTarget(t);
       }
       t.idle += dt;
       raiseHint(t);
@@ -549,28 +577,33 @@
     return c.level;
   }
 
+  // A fallen card goes back into the deck to come round again after about three other cards
+  // (the cards already on the route come first, so it can be more), and the number is said.
   function startFall(card) {
     card.state = 'fallen';
     card.entry.falls++;
     const length = Math.min(3, 1.2 + 0.05 * card.item.len);
-    r.fall = { t: 0, card, length };
+    const ahead = r.cards.filter((c) => c.state === 'live' && c !== card).length;
+    const at = Math.max(0, Math.min(2 - ahead, r.queue.length));
+    r.fall = { t: 0, card, length, at, back: ahead + at };
     r.falls++;
     r.p = Math.max(0.5, r.p * 0.8);
     r.target = null;
     noteMiss(card);
     applyStats(card);
     const answer = card.item.kind === 'romaji' ? E.spell(card.item.tokens) : keyName(card.item);
-    say('Yaoki fell over and got up. ' + card.item.text + ' is ' + answer + '. It comes back in 3 cards.');
+    say(card.item.text, 'Yaoki fell over and got up. It is ' + answer + '. ' + backText(r.fall.back) + '.');
     showInfo(card);
     hud();
   }
+  const backText = (n) => (n === 0 ? 'Back next' : 'Back after ' + n + (n === 1 ? ' card' : ' cards'));
 
-  // After a fall the card goes back into the deck 3 places on, and the cards still to come
-  // are pushed back so the next one arrives no sooner than it would after a fresh start.
+  // After a fall the cards still to come are pushed back, so the next one arrives no sooner
+  // than it would after a fresh start.
   function endFall() {
     const card = r.fall.card;
-    card.state = 'removed';
-    r.queue.splice(Math.min(2, r.queue.length), 0, card.entry);
+    r.cards = r.cards.filter((c) => c !== card);
+    r.queue.splice(Math.min(r.fall.at, r.queue.length), 0, card.entry);
     r.fall = null;
     const live = r.cards.filter((c) => c.state === 'live');
     if (live.length) {
@@ -585,26 +618,47 @@
     const it = card.item;
     let key;
     if (it.kind === 'romaji') {
-      const pos = E.at(it.tokens, card.typed);
-      const i = pos ? pos.index : it.tokens.length - 1;
+      const at = E.unitAt(it.tokens, card.typed);
+      const i = at === null ? it.units.length - 1 : at;
       card.missedAt.add(i);
-      key = it.tokens[i].kana;
+      key = it.units[i];
     } else {
       key = statKey(it);
     }
     r.missed.set(key, (r.missed.get(key) || 0) + 1);
   }
 
-  // A card is over (cleared or fallen): its kana or key go on, or come off, the weak list.
+  // A card is over (cleared or fallen): its missed kana or key go on the weak list, and the
+  // ones typed cleanly count towards coming off it. Nothing counts as clean that was not
+  // typed (the rest of a fallen card) or was typed with the whole spelling on show.
   function applyStats(card) {
     const it = card.item;
+    const shown = card.state === 'fallen' || card.halted || card.level >= 2;
     if (it.kind === 'romaji') {
-      it.tokens.forEach((t, i) => (card.missedAt.has(i) ? markMiss(r.stats, t.kana) : markOk(r.stats, t.kana)));
+      let reached = it.units.length;
+      if (card.state === 'fallen') {
+        const at = E.unitAt(it.tokens, card.typed);
+        reached = Math.min(at === null ? 0 : at, ...card.missedAt);
+      }
+      it.units.forEach((u, i) => {
+        if (card.missedAt.has(i)) markMiss(r.stats, u);
+        else if (card.state === 'fallen' ? i < reached : !shown) markOk(r.stats, u);
+      });
     } else if (card.misses || card.state === 'fallen') {
       markMiss(r.stats, statKey(it));
-    } else {
+    } else if (!shown) {
       markOk(r.stats, statKey(it));
     }
+  }
+
+  // Quitting keeps the misses already made on the cards still out, and saves.
+  function keepMisses() {
+    for (const c of r.cards) {
+      if (c.state !== 'live' || !c.misses) continue;
+      if (c.item.kind === 'romaji') for (const i of c.missedAt) markMiss(r.stats, c.item.units[i]);
+      else markMiss(r.stats, statKey(c.item));
+    }
+    save();
   }
 
   // The player's reaction and typing rate, as moving averages over the cards they type.
@@ -629,8 +683,17 @@
     measure(card);
     applyStats(card);
     if (card.item.clip && saved.sound && window.ykSound && window.ykSound.has(card.item.clip)) window.ykSound.play(card.item.clip);
-    if (r.cleared >= r.total) r.endIn = 0.8;
+    if (r.cleared + r.skipped >= r.total) r.endIn = 0.8;
     setStatus('', '');
+    hud();
+  }
+
+  // A card that waits for Yaoki can be passed over with Tab (for a key this keyboard lacks).
+  function skipCard(card) {
+    r.cards = r.cards.filter((c) => c !== card);
+    r.skipped++;
+    r.target = null;
+    if (r.cleared + r.skipped >= r.total) r.endIn = 0.8;
     hud();
   }
 
@@ -656,6 +719,14 @@
       $('touch-note').hidden = true;
       showKeyboard();
     }
+    // The settings sheet is modal: Escape closes it, and no key reaches the game behind it.
+    if (!$('settings-sheet').hidden) {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeSettings();
+      }
+      return;
+    }
     if (window.ykSound && phase === 'play') window.ykSound.unlock();
     if (phase === 'menu') {
       if (e.key === 'Enter' && !e.target.closest('button, a, input, .scrim')) {
@@ -667,10 +738,10 @@
     if (phase === 'result') {
       if (e.key === 'Escape') {
         e.preventDefault();
-        setPhase('menu');
-      } else if (e.key === 'Enter' && !e.target.closest('button, a')) {
+        toMenu();
+      } else if (e.key === 'Enter' && !e.target.closest('button, a, input')) {
         e.preventDefault();
-        startRound(r ? r.weakOnly : false);
+        again();
       }
       return;
     }
@@ -689,6 +760,12 @@
       return;
     }
     if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const t = targetCard();
+      if (t && t.halted) skipCard(t);
+      return;
+    }
 
     if (r.kind === 'keys') {
       if (!KEYDEF[e.code] || /^(Shift|Control|Alt|Meta|CapsLock|Tab|Enter|Backspace|Space|Backquote|NonConvert|Convert|KanaMode)/.test(e.code)) return;
@@ -697,8 +774,8 @@
       return;
     }
     if (e.isComposing || e.keyCode === 229 || e.key === 'Process') {
-      setStatus('英数にしてください。　Keys are not reaching the game: switch the input to 英数 (direct input).', 'warn');
-      say('Keys are not reaching the game. Switch the input to 英数, direct input.');
+      setStatus(ja('英数にしてください。') + '　Keys are not reaching the game: switch the input to ' + ja('英数') + ' (direct input).', 'warn', true);
+      say('英数', 'Keys are not reaching the game. Switch the input to direct input.');
       return;
     }
     if (e.key === 'Backspace') {
@@ -724,13 +801,14 @@
     const c = e.key;
     if (/^[A-Z]$/.test(c)) {
       setStatus('Caps Lock or Shift is on. Romaji is typed in lower case.', 'warn');
-      say('Caps Lock or Shift is on. Romaji is typed in lower case.');
+      say('', 'Caps Lock or Shift is on. Romaji is typed in lower case.');
       return;
     }
     r.keysTotal++;
     const typed = t.typed + c;
     if (!E.matchPrefix(t.item.tokens, typed)) {
-      miss(t, e.code, saved.hints === 'never' ? '' : E.why(t.item.tokens, t.typed, c) || '');
+      const note = saved.hints === 'never' ? '' : E.why(t.item.tokens, t.typed, c) || '';
+      miss(t, e.code, note && ja(note));
       return;
     }
     progress(t, e.code);
@@ -774,8 +852,14 @@
     card.misses++;
     card.flashT = 0.3;
     noteMiss(card);
+    raiseHint(card);
     flashKey(code, 'miss');
-    setStatus(note, 'bad');
+    setStatus(note, 'bad', true);
+  }
+
+  // もう一度: the same kind of round again (a normal one if no weak spots are left).
+  function again() {
+    startRound(!!(r && r.weakOnly && weakItems().length));
   }
 
   // "Shift + 2", "Q": the key as printed on a JIS keyboard.
@@ -799,7 +883,8 @@
     $('menu').hidden = p !== 'menu';
     $('play').hidden = !(p === 'play' || p === 'paused');
     $('result').hidden = p !== 'result';
-    $('pause-sheet').hidden = p !== 'paused';
+    $('pause-sheet').hidden = p !== 'paused' || !$('settings-sheet').hidden;
+    $('app').inert = p === 'paused' || !$('settings-sheet').hidden;
     document.body.classList.toggle('playing', p === 'play' || p === 'paused');
     if (p === 'menu') {
       r = null;
@@ -817,26 +902,33 @@
     lastKeysSig = '';
   }
 
-  function setStatus(text, tone) {
+  // The line under the game; `html` when the text is markup (with its Japanese marked).
+  function setStatus(text, tone, html) {
     const s = $('status');
-    s.textContent = text;
+    if (html) s.innerHTML = text;
+    else s.textContent = text;
     s.className = 'status' + (tone ? ' ' + tone : '');
   }
 
-  // The screen reader hears the first card after a start or a pause, then a card at most
-  // every 2 seconds (word and reading only), each fall with its answer, and the result.
-  function say(text) {
+  // The screen reader hears each card (word and reading only, at most one every 2 seconds:
+  // a card that comes sooner is said when the 2 seconds are up), each fall with its answer,
+  // and the result. The Japanese part is marked as Japanese, so it is read in a Japanese voice.
+  function say(jaText, enText) {
     const el = $('sr-prompt');
     el.textContent = '';
     setTimeout(() => {
-      el.textContent = text;
+      el.innerHTML = (jaText ? ja(jaText) : '') + (enText ? (jaText ? '. ' : '') + esc(enText) : '');
     }, 30);
   }
   function speakTarget(card) {
-    if (r.time - r.spokenAt < 2) return;
+    if (r.time - r.spokenAt < 2) {
+      r.pendingSpeak = card;
+      return;
+    }
+    r.pendingSpeak = null;
     r.spokenAt = r.time;
     const it = card.item;
-    say(it.reading && it.reading !== it.text ? it.text + '、' + it.reading : it.text);
+    say(it.reading && it.reading !== it.text ? it.text + '、' + it.reading : it.text, '');
   }
 
   // The line under the canvas: the word being typed, its reading and meaning.
@@ -884,10 +976,10 @@
   }
 
   function showResult(kpm, isBest, prev, counts) {
-    $('res-kicker').textContent = '結果　RESULT · ' + r.name;
+    $('res-kicker').innerHTML = ja('結果') + '　RESULT · ' + r.name;
     $('res-clean').textContent = r.clean;
     $('res-clean-total').textContent = '/ ' + r.total;
-    $('res-line').textContent = fmt(r.time) + ' · ' + kpm + ' right keys a minute';
+    $('res-line').textContent = fmt(r.time) + ' · ' + kpm + ' right keys a minute' + (r.skipped ? ' · ' + r.skipped + ' skipped' : '');
     $('res-keys').innerHTML = r.keysRight + ' <small>/ ' + r.keysTotal + '</small>';
     $('res-falls').textContent = r.falls;
     $('res-falls-en').textContent = r.falls ? 'falls; each card came back and was cleared' : 'falls: Yaoki stayed up all round';
@@ -924,6 +1016,7 @@
       box.appendChild(chip);
     }
     $('again-weak').hidden = !weakItems().length;
+    say('結果', 'Round over. ' + r.clean + ' of ' + r.total + ' cards clean. ' + ['Stamp: excellent.', 'Stamp: well done.', 'Stamp: keep at it.'][tier]);
   }
 
   // ---------- the menu ----------
@@ -952,8 +1045,8 @@
       renderPicks();
       setKeyLabels();
     });
-    seg('len-seg', [[10, 'かるく', 'Light'], [20, 'ふつう', 'Regular'], [40, 'しっかり', 'Solid']].map(([n, ja, en]) => ({
-      value: n, cls: 'tile', html: '<b>' + n + '<small>枚</small></b><small><span lang="ja">' + ja + '</span>　' + en + '</small>',
+    seg('len-seg', [[10, 'かるく', 'Light'], [20, 'ふつう', 'Regular'], [40, 'しっかり', 'Solid']].map(([n, jaText, en]) => ({
+      value: n, cls: 'tile', html: '<b>' + n + '<small lang="ja">枚</small></b><small><span lang="ja">' + jaText + '</span>　' + en + '</small>',
     })), saved.len, (v) => {
       saved.len = v;
       save();
@@ -983,7 +1076,7 @@
     $('stage-pick').hidden = mode === 'course';
     const note = $('layout-note');
     note.hidden = !(layout.jis === false && (mode === 'symbol' || mode === 'keys'));
-    note.innerHTML = '<b lang="ja">JIS配列用</b>　This practice follows a Japanese (JIS) keyboard. Your keyboard is set to another layout, so some keys will not be where the picture shows them.';
+    note.innerHTML = '<b lang="ja">JIS配列用</b>　This practice follows a Japanese (JIS) keyboard. Your keyboard is set to another layout, so some keys will not be where the picture shows them. A card for a key you do not have waits in front of Yaoki; Tab skips it.';
     if (mode === 'course') renderCourse();
     else renderStages();
     refreshStart();
@@ -996,14 +1089,14 @@
     b.setAttribute('aria-pressed', String(!!o.on));
     if (o.disabled) b.disabled = true;
     b.innerHTML = '<span class="o-top"><span class="o-kick"></span></span><span class="o-ja" lang="ja"></span><span class="o-en"></span><span class="o-meta"></span>';
-    b.querySelector('.o-kick').textContent = o.kick || '';
+    b.querySelector('.o-kick').innerHTML = o.kick || '';
     b.querySelector('.o-ja').textContent = o.ja;
     b.querySelector('.o-en').textContent = o.en;
-    b.querySelector('.o-meta').textContent = o.meta || '';
+    b.querySelector('.o-meta').innerHTML = o.meta || '';
     if (o.tag) {
       const tag = document.createElement('span');
       tag.className = 'tag';
-      tag.textContent = o.tag;
+      tag.innerHTML = o.tag;
       b.querySelector('.o-top').appendChild(tag);
     }
     return b;
@@ -1022,7 +1115,7 @@
       const best = saved.best[key];
       const b = option({
         ja: st.ja, en: st.en,
-        meta: st.items.length + (saved.mode === 'romaji' ? ' prompts' : ' keys') + (best ? ' · 自己ベスト ' + best + ' keys/min' : ''),
+        meta: st.items.length + (saved.mode === 'romaji' ? ' prompts' : ' keys') + (best ? ' · ' + ja('自己ベスト') + ' ' + best + ' keys/min' : ''),
         on: st === cur,
       });
       b.addEventListener('click', () => {
@@ -1047,7 +1140,7 @@
     box.textContent = '';
     $('course-note').textContent = '';
     if (!courses[level]) {
-      $('course-note').textContent = '読み込み中　Loading the ' + level + ' words…';
+      $('course-note').innerHTML = ja('読み込み中') + '　Loading the ' + level + ' words…';
       loadCourse(level).then(() => {
         if (saved.mode === 'course' && saved.level === level && phase === 'menu') {
           renderCourse();
@@ -1068,13 +1161,13 @@
       const mine = place && place.level === level && place.unit === u.n;
       const best = saved.best['course:' + level + 'u' + u.n];
       const b = option({
-        kick: '第' + u.n + '週 · Week ' + u.n + ' of ' + units.length,
+        kick: ja('第' + u.n + '週') + ' · Week ' + u.n + ' of ' + units.length,
         ja: u.ja,
         en: u.en,
-        meta: u.words.length ? u.words.length + ' words' + (best ? ' · 自己ベスト ' + best + ' keys/min' : '') : '準備中　Not written yet',
+        meta: u.words.length ? u.words.length + ' words' + (best ? ' · ' + ja('自己ベスト') + ' ' + best + ' keys/min' : '') : ja('準備中') + '　Not written yet',
         on: u.n === saved.unit[level] && u.words.length > 0,
         disabled: !u.words.length,
-        tag: mine ? '今　NOW' : '',
+        tag: mine ? ja('今') + '　NOW' : '',
       });
       b.addEventListener('click', () => {
         saved.unit[level] = u.n;
@@ -1084,7 +1177,7 @@
       });
       box.appendChild(b);
     }
-    if (place && place.level === level) $('course-note').textContent = '今 marks the week you are on in the Yaoki app.';
+    if (place && place.level === level) $('course-note').innerHTML = ja('今') + ' marks the week you are on in the Yaoki app.';
   }
 
   function weakItems() {
@@ -1099,7 +1192,7 @@
     $('start').disabled = !ready;
     const n = ready ? weakItems().length : 0;
     $('start-weak').hidden = !n;
-    $('start-weak').textContent = '苦手を練習　Weak spots (' + n + ')';
+    $('start-weak').innerHTML = ja('苦手を練習') + '　Weak spots (' + n + ')';
   }
 
   // ---------- the keyboard ----------
@@ -1133,6 +1226,7 @@
       for (const key of row) {
         const el = document.createElement('div');
         el.className = 'key' + (key.mod ? ' mod' : '') + (key.code === 'KeyF' || key.code === 'KeyJ' ? ' bump' : '');
+        el.dataset.code = key.code;
         el.style.flexGrow = key.w;
         el.innerHTML = '<span class="sub"></span><span class="main"></span>';
         line.appendChild(el);
@@ -1265,7 +1359,8 @@
     const ch = wrap.clientHeight;
     if (!cw || !ch) return;
     const dpr = window.devicePixelRatio || 1;
-    const s = Math.max(0.85, Math.min(1.6, ch / H));
+    // Scaled by the height, but never so large that the route gets too short to type on.
+    const s = Math.max(0.5, Math.min(1.6, ch / H, cw / 520));
     const W = cw / s;
     const oldYx = view.yx;
     view = { W, s, oy: (ch - H * s) / 2, dpr, yx: Math.max(100, W - 1000) };
@@ -1277,9 +1372,13 @@
       widths.clear();
       r.widest = Math.max(70, ...r.cards.map((c) => cardWidth(c.item)), ...r.queue.map((e) => cardWidth(e.item)));
       setSpeed();
+      let prev = null;
       for (const c of r.cards) {
         c.w = cardWidth(c.item);
         if (oldSpeed) c.x = view.yx + REACH + (c.x - oldYx - REACH) * (r.speed / oldSpeed);
+        if (c.state !== 'live') continue;
+        if (prev) c.x = Math.max(c.x, prev.x + prev.w + 30);
+        prev = c;
       }
     }
   }
@@ -1411,7 +1510,7 @@
     if (it.kind === 'romaji') {
       const ruby = it.reading && it.reading !== it.text;
       if (ruby) {
-        ctx.font = '600 12px ' + JP;
+        ctx.font = '600 ' + readingSize(it) + 'px ' + JP;
         ctx.fillStyle = pal.muted;
         ctx.fillText(it.reading, cx, top + 16);
       }
@@ -1531,9 +1630,13 @@
     } else if (level >= 2) text = keyName(it);
     else if (level === 1) text = keyArea(it);
     if (!text) return;
+    const below = c.state === 'fallen' ? 'あとでもう一度　' + backText(r.fall ? r.fall.back : 0)
+      : c.halted ? 'ゆっくりでいい　The world waits. Tab skips this card.' : '';
+    ctx.font = '800 12px ' + UI;
+    const small = Math.max(ctx.measureText(below).width, c.state === 'fallen' ? ctx.measureText('正解　answer').width : 0);
     ctx.font = '800 20px ' + UI;
-    const width = ctx.measureText(text).width;
-    const x = Math.max(10, Math.min(W - 10 - width, cx - width / 2));
+    const width = Math.max(ctx.measureText(text).width, small);
+    const x = Math.max(10, Math.min(W - 10 - width, cx - ctx.measureText(text).width / 2));
     ctx.textAlign = 'left';
     if (c.state === 'fallen') {
       ctx.fillStyle = pal.bad;
@@ -1541,7 +1644,7 @@
       ctx.font = '800 12px ' + UI;
       ctx.fillText('正解　answer', x, y - 22);
       ctx.fillStyle = pal.muted;
-      ctx.fillText('あとでもう一度　Back in 3 cards', x, y + 22);
+      ctx.fillText(below, x, y + 22);
       return;
     }
     ctx.fillStyle = pal.muted;
@@ -1550,10 +1653,10 @@
       ctx.fillStyle = pal.good;
       ctx.fillText(done, x, y);
     }
-    if (c.halted) {
+    if (below) {
       ctx.font = '800 12px ' + UI;
       ctx.fillStyle = pal.muted;
-      ctx.fillText('ゆっくりでいい　The world waits for this one', x, y + 22);
+      ctx.fillText(below, x, y + 22);
     }
   }
 
@@ -1573,13 +1676,13 @@
             hudAt = 0;
             hud();
           }
-          r.errors = 0;
         }
       }
       if (phase === 'play' || phase === 'paused') {
         draw();
         refreshKeys();
       }
+      if (r) r.errors = 0;
     } catch (err) {
       // Never leave a dead round on screen: after a few errors in a row, go back to the menu.
       console.error(err);
@@ -1613,33 +1716,47 @@
     });
   }
 
+  const toMenu = () => {
+    setPhase('menu');
+    $('start').focus();
+  };
   $('start').addEventListener('click', () => startRound(false));
   $('start-weak').addEventListener('click', () => startRound(true));
-  $('again').addEventListener('click', () => startRound(r ? r.weakOnly : false));
+  $('again').addEventListener('click', again);
   $('again-weak').addEventListener('click', () => startRound(true));
-  $('close').addEventListener('click', () => setPhase('menu'));
+  $('close').addEventListener('click', toMenu);
   $('pause').addEventListener('click', () => setPhase('paused'));
   $('resume').addEventListener('click', () => setPhase('play'));
-  $('quit').addEventListener('click', () => setPhase('menu'));
-  $('open-settings').addEventListener('click', () => {
+  $('quit').addEventListener('click', () => {
+    if (r) keepMisses();
+    toMenu();
+  });
+
+  // The settings sheet, from the menu, the result or the pause sheet. While it is open the
+  // page behind it is inert; closing it goes back to where it was opened from.
+  let settingsFrom = null;
+  function openSettings(from) {
     if (phase === 'play') setPhase('paused');
+    settingsFrom = from;
     renderSettings();
     $('settings-sheet').hidden = false;
-    $('close-settings').focus();
-  });
-  const closeSettings = () => {
+    $('pause-sheet').hidden = true;
+    $('app').inert = true;
+    const first = $('hint-seg').querySelector('[aria-pressed="true"]') || $('close-settings');
+    first.focus();
+  }
+  function closeSettings() {
     $('settings-sheet').hidden = true;
-    $('open-settings').focus();
-  };
+    $('pause-sheet').hidden = phase !== 'paused';
+    $('app').inert = phase === 'paused';
+    if (phase === 'paused') $('resume').focus();
+    else if (settingsFrom && !settingsFrom.closest('[hidden]')) settingsFrom.focus();
+  }
+  $('open-settings').addEventListener('click', (e) => openSettings(e.currentTarget));
+  $('pause-settings').addEventListener('click', (e) => openSettings(e.currentTarget));
   $('close-settings').addEventListener('click', closeSettings);
   $('settings-sheet').addEventListener('click', (e) => {
     if (e.target === $('settings-sheet')) closeSettings();
-  });
-  $('settings-sheet').addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      e.stopPropagation();
-      closeSettings();
-    }
   });
   $('opt-kb').addEventListener('change', (e) => {
     saved.kb = e.target.checked;
@@ -1672,9 +1789,13 @@
           key: t.item.key || null, code: t.item.code || null, shift: !!t.item.shift, level: hintLevel(t), halted: t.halted,
         } : null,
         cleared: r ? r.cleared : 0,
+        skipped: r ? r.skipped : 0,
         total: r ? r.total : 0,
         falls: r ? r.falls : 0,
         falling: !!(r && r.fall),
+        back: r && r.fall ? r.fall.back : null,
+        W: view.W,
+        cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state })) : [],
         clean: r ? r.clean : 0,
         speed: r ? r.speed : 0,
         T: r ? r.T : 0,

@@ -165,12 +165,12 @@ body.playing #app { padding-top: 8px; }
 /* sheets: settings, pause */
 .scrim { position: fixed; inset: 0; z-index: 20; background: var(--scrim); animation: yk-fade 160ms ease-out; display: flex; align-items: flex-end; justify-content: center; }
 .sheet { width: min(640px, 100%); max-height: 92svh; overflow-y: auto; border-radius: 26px 26px 0 0; border-top: 2px solid var(--outline); background: var(--ground); padding: 18px 16px calc(22px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out; }
-.sheet h2 { font-size: 18px; color: var(--ink); }
-.sheet h2 small { font-size: 13px; font-weight: 700; color: var(--muted); }
+.sheet > h2 { font-size: 18px; color: var(--ink); }
+.sheet > h2 small { font-size: 13px; font-weight: 700; color: var(--muted); }
 .sheet .btn { width: 100%; }
 
 /* result */
-#result { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; max-width: 640px; }
+#result { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; max-width: 640px; overflow-x: clip; }
 .result-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .big { display: flex; align-items: baseline; gap: 6px; }
 .big strong { font-size: 56px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
@@ -181,7 +181,7 @@ body.playing #app { padding-top: 8px; }
 .stats { padding: 4px 16px; }
 .stats .row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 2px solid var(--line); }
 .stats .row:first-child { border-top: 0; }
-.stats .row b { flex-shrink: 0; min-width: 52px; text-align: right; font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.stats .row b { flex-shrink: 0; width: 104px; text-align: right; font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .stats .row b small { font-size: 14px; font-weight: 700; color: var(--muted); }
 .stats .row span { display: flex; flex-direction: column; font-size: 15px; font-weight: 800; }
 .stats .row span small { font-size: 12px; font-weight: 700; color: var(--muted); }
@@ -205,7 +205,10 @@ body.playing #app { padding-top: 8px; }
   h1.jp { font-size: 26px; }
   .key { height: 34px; font-size: 12px; border-radius: 8px; }
   .kb-row, .kb { gap: 3px; }
-  .key .sub { font-size: 8px; right: 3px; }
+  .key .sub { display: none; }
+  .key.mod { overflow: hidden; white-space: nowrap; }
+  .key.mod .main { font-size: 8px; }
+  .stats .row b { width: 84px; font-size: 22px; }
   .big strong { font-size: 44px; }
   .hanko { width: 104px; height: 104px; }
   .hanko div { font-size: 14px; }
@@ -242,40 +245,40 @@ body.playing #app { padding-top: 8px; }
     <p id="layout-note" class="notebox" hidden></p>
 
     <section class="block" aria-labelledby="mode-h">
-      <h2 id="mode-h">練習　What to practise</h2>
+      <h2 id="mode-h"><span lang="ja">練習</span>　What to practise</h2>
       <div id="modes" class="seg" role="group" aria-labelledby="mode-h"></div>
       <p id="mode-desc" class="hint"></p>
     </section>
 
     <section id="course-pick" class="block" aria-labelledby="level-h" hidden>
-      <h2 id="level-h">レベル　Level</h2>
+      <h2 id="level-h"><span lang="ja">レベル</span>　Level</h2>
       <div id="levels" class="seg" role="group" aria-labelledby="level-h"></div>
-      <h2 id="unit-h">週　Week</h2>
+      <h2 id="unit-h"><span lang="ja">週</span>　Week</h2>
       <div id="units" class="options" role="group" aria-labelledby="unit-h"></div>
       <p id="course-note" class="hint"></p>
     </section>
 
     <section id="stage-pick" class="block" aria-labelledby="stage-h">
-      <h2 id="stage-h">ステージ　Stage</h2>
+      <h2 id="stage-h"><span lang="ja">ステージ</span>　Stage</h2>
       <div id="stages" class="options" role="group" aria-labelledby="stage-h"></div>
     </section>
 
     <section class="block" aria-labelledby="len-h">
-      <h2 id="len-h">ラウンド　Cards per round</h2>
+      <h2 id="len-h"><span lang="ja">ラウンド</span>　Cards per round</h2>
       <div id="len-seg" class="seg" role="group" aria-labelledby="len-h"></div>
     </section>
 
     <div class="actions">
-      <button type="button" id="start" class="btn">はじめる　Start <kbd>Enter</kbd></button>
-      <button type="button" id="start-weak" class="btn quiet" hidden>苦手を練習　Weak spots</button>
+      <button type="button" id="start" class="btn"><span lang="ja">はじめる</span>　Start <kbd>Enter</kbd></button>
+      <button type="button" id="start-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
     </div>
 
     <aside class="notebox" aria-labelledby="before-h">
       <b id="before-h" lang="ja">はじめる前に</b>　Before you play
       <ul>
         <li>Set your computer to a <b>Japanese keyboard layout</b>, so the symbols are where the picture shows them.</li>
-        <li>Switch the input to <b lang="ja">英数</b> (direct input) while you play. What you type is checked the way the Japanese input method would read it: <b>nn</b> for ん before a vowel and at the end, <b>wo</b> for を.</li>
-        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last letter of the card you are typing.</li>
+        <li>Switch the input to <b lang="ja">英数</b> (direct input) while you play. What you type is checked the way the Japanese input method would read it: <b>nn</b> for <span lang="ja">ん</span> before a vowel, y or n and at the end, <b>wo</b> for <span lang="ja">を</span>.</li>
+        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last letter of the card you are typing. A card that waits in front of Yaoki can be skipped with <b>Tab</b>.</li>
       </ul>
     </aside>
   </section>
@@ -287,8 +290,8 @@ body.playing #app { padding-top: 8px; }
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
       <div id="progress" class="segs" role="img" aria-label="Card 1 of 20"></div>
-      <span class="chip" title="Falls">
-        <svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true"><g transform="rotate(-70 50 94)"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/></g></svg>
+      <span class="chip" title="ころんだ　Falls">
+        <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 54) rotate(-70) scale(.92) translate(-50 -50)"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="4" fill="#1B2440"/></g></svg>
         <span id="hud-falls">0</span><span class="sr-only">falls</span>
       </span>
       <span class="chip">
@@ -298,7 +301,7 @@ body.playing #app { padding-top: 8px; }
     </div>
     <div class="stage-wrap"><canvas id="stage" aria-hidden="true"></canvas></div>
     <p id="info" class="info"></p>
-    <p id="status" class="status"></p>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
     <p id="sr-prompt" class="sr-only" aria-live="polite"></p>
     <div id="kb" class="kb" aria-hidden="true"></div>
     <p id="next-line" class="next-line" aria-hidden="true"></p>
@@ -307,12 +310,12 @@ body.playing #app { padding-top: 8px; }
   <!-- the result of a round -->
   <section id="result" class="view" aria-labelledby="res-title" hidden>
     <div>
-      <div class="kicker red" id="res-kicker">結果　RESULT</div>
+      <div class="kicker red" id="res-kicker"><span lang="ja">結果</span>　RESULT</div>
       <h1 id="res-title" tabindex="-1" lang="ja">ラウンドおわり</h1>
     </div>
     <div class="result-top">
       <div>
-        <div class="hint">ノーミス　Clean cards</div>
+        <div class="hint"><span lang="ja">ノーミス</span>　Clean cards</div>
         <div class="big"><strong id="res-clean">0</strong><span id="res-clean-total">/ 0</span></div>
         <p class="hint" id="res-line"></p>
       </div>
@@ -325,14 +328,14 @@ body.playing #app { padding-top: 8px; }
     </div>
     <p id="res-best" hidden><span class="tag gold" lang="ja">自己ベスト！</span> <span class="hint" id="res-best-text"></span></p>
     <section id="res-weak-box" class="block" aria-labelledby="weak-h" hidden>
-      <h2 id="weak-h">苦手　Weak spots</h2>
+      <h2 id="weak-h"><span lang="ja">苦手</span>　Weak spots</h2>
       <div id="res-weak" class="weak"></div>
       <p class="hint">Saved. They come first in a weak-spot round, and leave the list after three clean answers in a row.</p>
     </section>
     <div class="actions">
-      <button type="button" id="again" class="btn">もう一度　Again <kbd>Enter</kbd></button>
-      <button type="button" id="again-weak" class="btn quiet" hidden>苦手を練習　Weak spots</button>
-      <button type="button" id="close" class="btn quiet">とじる　Close <kbd>Esc</kbd></button>
+      <button type="button" id="again" class="btn"><span lang="ja">もう一度</span>　Again <kbd>Enter</kbd></button>
+      <button type="button" id="again-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+      <button type="button" id="close" class="btn quiet"><span lang="ja">とじる</span>　Close <kbd>Esc</kbd></button>
     </div>
   </section>
 
@@ -345,9 +348,10 @@ body.playing #app { padding-top: 8px; }
 <div id="pause-sheet" class="scrim" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pause-h">
     <h2 id="pause-h"><span lang="ja">一時停止</span>　<small>Paused</small></h2>
-    <p class="hint">Nothing moves while this is open. If you quit, the misses so far stay in your weak spots, and the round does not count for a best time.</p>
-    <button type="button" id="resume" class="btn">つづける　Continue</button>
-    <button type="button" id="quit" class="btn danger">中止する　Quit the round</button>
+    <p class="hint">Nothing moves while this is open. If you quit, the misses so far stay in your weak spots, and the round does not count for your best (<span lang="ja">自己ベスト</span>).</p>
+    <button type="button" id="resume" class="btn"><span lang="ja">つづける</span>　Continue</button>
+    <button type="button" id="pause-settings" class="btn quiet"><span lang="ja">設定</span>　Settings</button>
+    <button type="button" id="quit" class="btn danger"><span lang="ja">中止する</span>　Quit the round</button>
   </div>
 </div>
 
@@ -355,13 +359,13 @@ body.playing #app { padding-top: 8px; }
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settings-h">
     <h2 id="settings-h"><span lang="ja">設定</span>　<small>Settings</small></h2>
     <div class="block">
-      <h2 id="hint-h">ヒント　Romaji and key hints</h2>
+      <h2 id="hint-h"><span lang="ja">ヒント</span>　Romaji and key hints</h2>
       <div id="hint-seg" class="seg" role="group" aria-labelledby="hint-h"></div>
-      <p class="hint">When stuck: the hint shows after a miss, or after three seconds without a key.</p>
+      <p class="hint">When stuck: the kana being typed shows after a miss, or after 5 seconds before the first key (3 seconds between keys); a second miss, or as long again, shows the whole spelling.</p>
     </div>
-    <label class="switch"><span>キーボード<small>Show the keyboard under the game</small></span><input type="checkbox" id="opt-kb" checked></label>
-    <label class="switch"><span>音<small>Say each course word when it is cleared</small></span><input type="checkbox" id="opt-sound" checked></label>
-    <button type="button" id="close-settings" class="btn">とじる　Close</button>
+    <label class="switch"><span><span lang="ja">キーボード</span><small>Show the keyboard under the game</small></span><input type="checkbox" id="opt-kb" checked></label>
+    <label class="switch"><span><span lang="ja">音</span><small>Say each course word when it is cleared</small></span><input type="checkbox" id="opt-sound" checked></label>
+    <button type="button" id="close-settings" class="btn"><span lang="ja">とじる</span>　Close</button>
   </div>
 </div>
 

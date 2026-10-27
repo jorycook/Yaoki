@@ -61,13 +61,13 @@
   combos('ふ', { 'ぁ': ['fa', 'fwa', 'hwa'], 'ぃ': ['fi', 'fwi', 'fyi', 'hwi'], 'ぅ': [null, 'fwu'], 'ぇ': ['fe', 'fwe', 'fye', 'hwe'], 'ぉ': ['fo', 'fwo', 'hwo'], 'ゃ': ['fya'], 'ゅ': ['fyu', 'hwyu'], 'ょ': ['fyo'] });
   combos('て', { 'ぃ': ['thi', "t'i"], 'ゃ': ['tha'], 'ゅ': ['thu', "t'yu"], 'ぇ': ['the'], 'ょ': ['tho'] });
   combos('で', { 'ぃ': ['dhi', "d'i"], 'ゃ': ['dha'], 'ゅ': ['dhu', "d'yu"], 'ぇ': ['dhe'], 'ょ': ['dho'] });
-  combos('と', { 'ぅ': ['twu', "t'u"] });
-  combos('ど', { 'ぅ': ['dwu', "d'u"] });
+  combos('と', { 'ぁ': ['twa'], 'ぃ': ['twi'], 'ぅ': ['twu', "t'u"], 'ぇ': ['twe'], 'ぉ': ['two'] });
+  combos('ど', { 'ぁ': ['dwa'], 'ぃ': ['dwi'], 'ぅ': ['dwu', "d'u"], 'ぇ': ['dwe'], 'ぉ': ['dwo'] });
   combos('う', { 'ぁ': ['wha'], 'ぃ': ['wi', 'whi'], 'ぇ': ['we', 'whe'], 'ぉ': ['who'] });
   combos('い', { 'ぇ': ['ye'] });
   combos('ゔ', { 'ぁ': ['va'], 'ぃ': ['vi', 'vyi'], 'ぇ': ['ve', 'vye'], 'ぉ': ['vo'], 'ゃ': ['vya'], 'ゅ': ['vyu'], 'ょ': ['vyo'] });
   combos('つ', { 'ぁ': ['tsa'], 'ぃ': ['tsi'], 'ぇ': ['tse'], 'ぉ': ['tso'] });
-  combos('く', { 'ぁ': ['qa', 'kwa', 'qwa'], 'ぃ': ['qi', 'kwi', 'qwi', 'qyi'], 'ぅ': [null, 'kwu', 'qwu'], 'ぇ': ['qe', 'kwe', 'qwe', 'qye'], 'ぉ': ['qo', 'kwo', 'qwo'], 'ゃ': ['qya'], 'ゅ': ['qyu'], 'ょ': ['qyo'] });
+  combos('く', { 'ぁ': ['qa', 'kwa', 'qwa'], 'ぃ': ['qi', 'kwi', 'qwi', 'qyi'], 'ぅ': [null, 'kwu', 'qwu'], 'ぇ': ['qe', 'kwe', 'qwe', 'qye'], 'ぉ': ['qo', 'kwo', 'qwo'], 'ゃ': [null, 'qya'], 'ゅ': [null, 'qyu'], 'ょ': [null, 'qyo'] });
   combos('ぐ', { 'ぁ': ['gwa'], 'ぃ': ['gwi'], 'ぅ': ['gwu'], 'ぇ': ['gwe'], 'ぉ': ['gwo'] });
   combos('す', { 'ぁ': ['swa'], 'ぃ': ['swi'], 'ぅ': ['swu'], 'ぇ': ['swe'], 'ぉ': ['swo'] });
   combos('ず', { 'ぁ': [null, 'zwa'], 'ぃ': [null, 'zwi'], 'ぅ': [null, 'zwu'], 'ぇ': [null, 'zwe'], 'ぉ': [null, 'zwo'] });
@@ -81,11 +81,30 @@
       .replace(/[～，．!?]/g, (c) => FOLD[c]);
   }
 
-  const NEEDS_NN = /^[aiueoyn']/;          // a lone n before these would make な, にゃ… instead of ん
-  const DOUBLES = /^[bcdfghjkmpqrstvwyz]/; // consonants that っ may double (never n, x or l)
+  const NEEDS_NN = /^[aiueoyn']/;           // a lone n before these would make な, にゃ… instead of ん
+  const DOUBLES = /^[bcdfghjklmpqrstvwxyz]/; // letters っ may double (never n: nn is ん)
   const NN = ['nn', "n'", 'xn'];
+  const SMALL_TU = ['xtu', 'ltu', 'xtsu', 'ltsu'];
 
-  // Turns a prompt into tokens. Each token has `opts`: the romaji it may be typed as.
+  // A token is one or more kana typed as a unit: `opts` are its spellings, `units` the kana
+  // it is made of, and `cuts` gives, for a joined spelling, where each later kana's letters
+  // start (so a miss can be put on the right kana).
+  const plain = (kana, opts) => ({ kana, units: [kana], opts, cuts: null });
+  const cutsOf = (t, o) => (t.cuts && t.cuts.get(o)) || [];
+  function joined(first, pairs, next) {
+    const opts = [];
+    const cuts = new Map();
+    for (const [pre, o] of pairs) {
+      const spelling = pre + o;
+      if (cuts.has(spelling)) continue;
+      opts.push(spelling);
+      cuts.set(spelling, [pre.length, ...cutsOf(next, o).map((c) => c + pre.length)]);
+    }
+    return { kana: first + next.kana, units: [first, ...next.units], opts, cuts };
+  }
+
+  // Turns a prompt into tokens. ん and っ join the token after them, so what they may be typed
+  // as depends on what is actually typed next.
   function tokenize(prompt) {
     const chars = Array.from(toHiragana(prompt));
     const base = [];
@@ -95,62 +114,53 @@
       if (COMBO[pair]) {
         const apart = [];
         for (const a of SINGLE[c]) for (const b of SINGLE[chars[i + 1]]) apart.push(a + b);
-        const joined = COMBO[pair];
-        const opts = joined[0] === null ? [...apart, ...joined.slice(1)] : [...joined, ...apart];
-        base.push({ kana: pair, opts: [...new Set(opts)] });
+        const list = COMBO[pair];
+        const opts = list[0] === null ? [...apart, ...list.slice(1)] : [...list, ...apart];
+        base.push(plain(pair, [...new Set(opts)]));
         i++;
-      } else if (c === 'ん') {
-        base.push({ kana: c, hatsuon: true });
-      } else if (c === 'っ' && i + 1 < chars.length && chars[i + 1] !== 'っ') {
-        base.push({ kana: c, sokuon: true });
+      } else if (c === 'ん' || c === 'っ') {
+        base.push({ kana: c, mark: c });
       } else if (SINGLE[c]) {
-        base.push({ kana: c, opts: SINGLE[c] });
+        base.push(plain(c, SINGLE[c]));
       } else {
         throw new Error('Unsupported character: ' + c);
       }
     }
 
-    // っ joins the mora after it: its consonant doubled (kka, ccha; also tcha), tied to the
-    // spelling actually typed next, or xtu / ltu / xtsu / ltsu followed by that mora.
+    // From the right, so each ん or っ meets the token after it already resolved.
     const tokens = [];
-    for (let i = 0; i < base.length; i++) {
+    for (let i = base.length - 1; i >= 0; i--) {
       const t = base[i];
-      if (!t.sokuon) {
-        tokens.push(t);
-        continue;
+      const next = tokens[0];
+      if (!t.mark) {
+        tokens.unshift(t);
+      } else if (!next) {
+        tokens.unshift(plain(t.kana, t.mark === 'ん' ? NN : SINGLE['っ']));
+      } else if (t.mark === 'っ') {
+        // っ: the next consonant doubled (kka, ccha, also tcha), or xtu, ltu… then the next kana.
+        // The hint follows the next kana's own hint, and never doubles x or l.
+        const first = next.opts[0];
+        const pairs = [DOUBLES.test(first) && !/^[xl]/.test(first) ? [first[0], first] : ['xtu', first]];
+        for (const o of next.opts) if (DOUBLES.test(o)) pairs.push([o[0], o]);
+        for (const o of next.opts) if (o.startsWith('ch')) pairs.push(['t', o]);
+        for (const pre of SMALL_TU) for (const o of next.opts) pairs.push([pre, o]);
+        tokens[0] = joined('っ', pairs, next);
+      } else {
+        // ん: a lone n before k, s, t…, punctuation and the like; nn (or n', xn) before a vowel,
+        // y or n. At the end of the prompt it is nn (handled above).
+        const single = next.opts.filter((o) => !NEEDS_NN.test(o)).map((o) => ['n', o]);
+        const full = [];
+        for (const n of NN) for (const o of next.opts) full.push([n, o]);
+        const hintSingle = /^[a-z]/.test(next.opts[0]) && !NEEDS_NN.test(next.opts[0]);
+        tokens[0] = joined('ん', hintSingle ? [...single, ...full] : [...full, ...single], next);
       }
-      const next = base[i + 1];
-      if (next.hatsuon || next.sokuon) {
-        tokens.push({ kana: t.kana, opts: SINGLE['っ'] });
-        continue;
-      }
-      const doubled = next.opts.filter((o) => DOUBLES.test(o)).map((o) => o[0] + o);
-      const tch = next.opts.filter((o) => o.startsWith('ch')).map((o) => 't' + o);
-      const spelled = [];
-      for (const s of SINGLE['っ']) for (const o of next.opts) spelled.push(s + o);
-      tokens.push({ kana: t.kana + next.kana, opts: [...new Set([...doubled, ...tch, ...spelled])] });
-      i++;
     }
-
-    // ん also joins what comes after it, so a lone n is judged by the spelling actually typed
-    // next: fine before k, s, t…, punctuation and the like; nn (or n', xn) before a vowel, y or
-    // n, and at the end of the prompt. Done from the right, so ん after ん works too.
-    for (let i = tokens.length - 1; i >= 0; i--) {
-      const t = tokens[i];
-      if (!t.hatsuon) continue;
-      const next = tokens[i + 1];
-      if (!next) {
-        tokens[i] = { kana: t.kana, opts: NN };
-        continue;
-      }
-      const single = next.opts.filter((o) => !NEEDS_NN.test(o)).map((o) => 'n' + o);
-      const full = [];
-      for (const n of NN) for (const o of next.opts) full.push(n + o);
-      const hintSingle = /^[a-z]/.test(next.opts[0]) && !NEEDS_NN.test(next.opts[0]);
-      tokens.splice(i, 2, { kana: t.kana + next.kana, opts: [...new Set(hintSingle ? [...single, ...full] : [...full, ...single])] });
-    }
-
     return tokens;
+  }
+
+  // The kana of a prompt one by one, as the tokens hold them.
+  function units(tokens) {
+    return tokens.flatMap((t) => t.units);
   }
 
   // True when `typed` is the start of some valid spelling of the prompt.
@@ -248,6 +258,19 @@
     return walk(0, 0);
   }
 
+  // The kana the next key belongs to, as an index into units(tokens); null if `typed` is
+  // not a valid start. Inside a joined token it goes by the letters typed so far.
+  function unitAt(tokens, typed) {
+    const pos = at(tokens, typed);
+    if (!pos) return null;
+    const t = tokens[pos.index];
+    const part = typed.slice(pos.start);
+    const o = t.opts.find((x) => x.length > part.length && x.startsWith(part)) || t.opts[0];
+    let before = 0;
+    for (let i = 0; i < pos.index; i++) before += tokens[i].units.length;
+    return before + cutsOf(t, o).filter((c) => c <= part.length).length;
+  }
+
   // The spellings of the kana being typed that are still open after `typed`.
   function choices(tokens, typed) {
     const pos = at(tokens, typed);
@@ -257,17 +280,36 @@
   }
 
   // Why a key a learner is likely to try was not taken, for the line under the card.
+  const NOTES = {
+    wo: 'を = wo　(o is お)', di: 'ぢ = di　(ji is じ)', du: 'づ = du　(zu is ず)', ha: 'は = ha　(wa is わ)',
+    nn: 'ん before a vowel, y or n = nn', end: 'ん at the end = nn', xtu: 'っ before な行 = xtu　(nn is ん)',
+  };
   function why(tokens, typed, key) {
     const pos = at(tokens, typed);
-    if (!pos) return null;
-    const kana = tokens[pos.index].kana;
-    const tried = typed.slice(pos.start) + key;
-    if ((kana[0] === 'を' && tried[0] === 'o') || (kana.startsWith('んを') && tried === 'no')) return 'を = wo　(o is お)';
-    if (kana[0] === 'ぢ' && /^[jz]/.test(tried)) return 'ぢ = di　(ji is じ)';
-    if (kana[0] === 'づ' && tried[0] === 'z') return 'づ = du　(zu is ず)';
-    if (kana === 'は' && tried[0] === 'w') return 'は = ha　(wa is わ)';
-    if (kana[0] === 'ん' && /^n[aiueoyn]/.test(tried)) return 'ん before a vowel, y or n = nn';
-    if (kana[0] === 'っ' && tried[0] === 'n') return 'っ before な行 = xtu　(nn is ん)';
+    return pos ? note(tokens[pos.index].units, typed.slice(pos.start) + key) : null;
+  }
+  // `tried`: the letters typed for these kana, the last one refused.
+  function note(kana, tried) {
+    const [k, ...rest] = kana;
+    if (k === 'ん') {
+      if (!rest.length) return /^n[^n']/.test(tried) ? NOTES.end : null;
+      const done = /^(nn|n'|xn)/.exec(tried);
+      if (done) return tried.length > done[0].length ? note(rest, tried.slice(done[0].length)) : null;
+      if (/^n[aiueoyn]$/.test(tried)) return rest[0] === 'を' && tried === 'no' ? NOTES.wo : NOTES.nn;
+      if (/^n./.test(tried)) return note(rest, tried.slice(1));
+      return null;
+    }
+    if (k === 'っ' && rest.length) {
+      const small = /^(xtsu|ltsu|xtu|ltu)/.exec(tried);
+      if (small) return tried.length > small[0].length ? note(rest, tried.slice(small[0].length)) : null;
+      if (tried[0] === 'n' && /^[なにぬねの]/.test(rest[0])) return NOTES.xtu;
+      if (tried.length > 1 && tried[0] === tried[1]) return note(rest, tried.slice(1));
+      return null;
+    }
+    if (k === 'を' && tried[0] === 'o') return NOTES.wo;
+    if (k && k[0] === 'ぢ' && /^[jz]/.test(tried)) return NOTES.di;
+    if (k && k[0] === 'づ' && tried[0] === 'z') return NOTES.du;
+    if (k === 'は' && tried[0] === 'w') return NOTES.ha;
     return null;
   }
 
@@ -417,7 +459,7 @@
   ];
 
   const api = {
-    toHiragana, tokenize, matchPrefix, isComplete, nextChars, spell, at, choices, why, keyFor, fingerFor, rowOf,
+    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, choices, why, keyFor, fingerFor, rowOf,
     SINGLE, COMBO, SYMBOL_KEYS, PUNCT_KEYS, KANA_KEYS, KANA_SHIFT_KEYS,
     KANA_STAGES, SYMBOL_STAGES, KANA_KEY_STAGES,
   };

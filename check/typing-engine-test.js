@@ -65,6 +65,43 @@ test('spellings that would give other kana are refused', () => {
   assert.equal(E.matchPrefix(T('きって'), 'kitta'), false);
 });
 
+test('the game sees a refused spelling at its first wrong key', () => {
+  // pressRomaji counts a miss when matchPrefix fails, so check that, not only isComplete.
+  const firstWrong = [
+    ['を', 'o'], ['ぢ', 'j'], ['ぢ', 'z'], ['づ', 'z'], ['っな', 'n'], ['こんな', 'kona'], ['ほん', 'hona'],
+    ['ほんや', 'hony'], ['せんえん', 'sene'], ['は', 'w'], ['まっちゃ', 'mact'],
+  ];
+  for (const [w, typed] of firstWrong) {
+    assert.equal(E.matchPrefix(T(w), typed), false, `${w}: ${typed} must be a miss`);
+    assert.equal(E.matchPrefix(T(w), typed.slice(0, -1)), true, `${w}: ${typed.slice(0, -1)} is still a valid start`);
+  }
+});
+
+test('hints are spellings both IMEs take, and Google-only spellings are still accepted', () => {
+  assert.equal(E.spell(T('あっい')), 'axtui');
+  assert.equal(E.spell(T('くゃ')), 'kuxya');
+  assert.equal(E.spell(T('あっぁ')), 'axtuxa');
+  for (const [w, typed] of [['とぁ', 'twa'], ['とぉ', 'two'], ['どぇ', 'dwe'], ['っっか', 'kkka'], ['あっぁ', 'axxa'], ['あっぁ', 'alla'], ['くゃ', 'qya']]) {
+    assert.equal(typeAll(w, typed), true, `${w} as ${typed}`);
+  }
+});
+
+test('units() and unitAt() put a miss on the kana it belongs to', () => {
+  assert.deepEqual(E.units(T('がっこう')), ['が', 'っ', 'こ', 'う']);
+  assert.deepEqual(E.units(T('こんばんは')), ['こ', 'ん', 'ば', 'ん', 'は']);
+  const at = (w, typed) => E.units(T(w))[E.unitAt(T(w), typed)];
+  assert.equal(at('がっこう', 'ga'), 'っ');
+  assert.equal(at('がっこう', 'gakk'), 'こ');
+  assert.equal(at('こんばんは', 'konbann'), 'は');
+  assert.equal(at('きんようび', 'kinn'), 'よ');
+  assert.equal(E.unitAt(T('ねこ'), 'na'), null);
+});
+
+test('nextChars() lights the right keys around っ and ん', () => {
+  assert.deepEqual([...E.nextChars(T('きって'), 'ki')].sort(), ['l', 't', 'x']);
+  assert.deepEqual([...E.nextChars(T('かんじ'), 'kan')].sort(), ["'", 'j', 'n', 'z']);
+});
+
 test('spell() goes on from the spelling actually typed', () => {
   assert.equal(E.spell(T('しゃしん'), 'sy'), 'syashinn');
   assert.equal(E.spell(T('こんばんは'), 'kon'), 'konbanha');
@@ -88,6 +125,16 @@ test('why() explains the usual learner slips', () => {
   assert.match(E.why(T('は'), '', 'w'), /ha/);
   assert.match(E.why(T('っな'), '', 'n'), /xtu/);
   assert.equal(E.why(T('ねこ'), 'ne', 'x'), null);
+  // a correct nn is never blamed, and the kana after ん get their own notes
+  assert.equal(E.why(T('せんせい'), 'senn', 'd'), null);
+  assert.match(E.why(T('ほんを'), 'honn', 'o'), /を = wo/);
+  assert.match(E.why(T('こんばんは'), 'konban', 'w'), /は = ha/);
+  assert.match(E.why(T('こんばんは'), 'konbann', 'w'), /は = ha/);
+  assert.match(E.why(T('かんづめ'), 'kan', 'z'), /du/);
+  assert.match(E.why(T('ほん'), 'hon', 'x'), /end/);
+  // the な行 note only before な行
+  assert.equal(E.why(T('きって'), 'ki', 'n'), null);
+  assert.equal(E.why(T('がっこう'), 'gakk', 'a'), null);
 });
 
 test('every built-in prompt types out by its hint', () => {

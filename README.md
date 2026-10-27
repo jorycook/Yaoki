@@ -144,7 +144,7 @@ Nothing a reader adds goes into this repository. Only the built-in sample (片�
 
 ## Yaoki Typing
 
-A typing game for a Japanese (JIS) keyboard, in the app's look: cards come along Yaoki's route, and typing a card stamps it 済. A card that reaches Yaoki knocks him over; he gets up again (七転び八起き) and the card comes back three cards later. A card that has knocked him over twice waits for him instead, so every round ends. There are four modes:
+A typing game for a Japanese (JIS) keyboard, in the app's look: cards come along Yaoki's route, and typing a card stamps it 済. A card that reaches Yaoki knocks him over; he gets up again (七転び八起き) and the card comes back later in the round, after about three other cards (the cards already on the route come first; the game says how many). A card that has knocked him over twice waits in front of him instead, and Tab skips it (for a key the keyboard lacks), so every round ends. There are four modes:
 
 - **語彙 Course words:** the words of a week of the main app's course, N5 to N2, read from `docs/assets/course-*.js`. The page starts at the level and week the learner is on in the app, if the app has been used in the same browser (it reads the app's saved state, `yaoki.v1:/Yaoki/`, and never writes it). A cleared word is spoken with the app's own clip, from `docs/assets/sound.js` and the week's sound file. So course words follow the app's content with no step of their own, but they need the app's files beside the page.
 - **ローマ字 Romaji:** kana, katakana, words and short sentences with Japanese punctuation, from the lists in `engine.js`.
@@ -153,7 +153,7 @@ A typing game for a Japanese (JIS) keyboard, in the app's look: cards come along
 
 A spelling is taken when Microsoft IME or Google 日本語入力 would turn it into the kana: so ぢ is `di`, を is `wo`, ん before a vowel, y or n is `nn`, and っ doubles the consonant actually typed next. The hint is always a spelling both accept. One rule is the game's own: ん at the end of a card takes `nn`, as there is no Enter to settle a lone n. Hints come in steps (the kana being typed, then the whole spelling) after a miss or a pause, or always, or never (設定 Settings).
 
-The cards are paced by the player: the game keeps a moving average of the reaction time and the keys a second for each stage and spaces the cards to suit, and the world speed is set once a round from the longest card. Misses are kept per kana or key; like the mistake notebook, one leaves the weak-spot list after three clean answers in a row, and 苦手を練習 deals a round of weak spots. Settings, paces, bests and weak spots are kept under `yaoki.typing.v1`. The page uses the main app's icons and Google Fonts, as the reader does, and has no offline worker of its own: it needs the network, or the browser's cache.
+The cards are paced by the player: the game keeps a moving average of the reaction time and the keys a second for each stage and spaces the cards to suit, and the world speed is set once a round from the longest card. Misses are kept per kana (ん and っ on their own) or per key; like the mistake notebook, one leaves the weak-spot list after three clean answers in a row (a card typed with its whole spelling on show, or the untyped rest of a card that fell, does not count), and 苦手を練習 deals a round of weak spots. Settings, paces, bests and weak spots are kept under `yaoki.typing.v1`. The page uses the main app's icons and Google Fonts, as the reader does, and has no offline worker of its own: it needs the network, or the browser's cache.
 
 ## Licences
 
