@@ -581,10 +581,12 @@
   }
   // Small type (readings, the lines under the route): at least about 9 CSS pixels.
   const small = (size) => Math.max(size, 9 / view.s);
-  // (a hidden reading fits the card, which is sized by the kanji alone)
   function readingSize(item, room = maxCard() - 28) {
     return fit(item.reading, Math.min(16, small(12)), room, 8);
   }
+  // A hidden reading's room, in kana: about three for each kanji shown and one for anything
+  // else, so the room (on the card and under the game) tells nothing of the answer.
+  const readingSlots = (item) => Array.from(item.text).reduce((n, ch) => n + (/[一-鿿々〆ヶ]/.test(ch) ? 3 : 1), 0);
 
   function cardWidth(item) {
     if (item.kind !== 'romaji') return 70;
@@ -593,7 +595,9 @@
     ctx.save();
     ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
-    if (item.reading && item.reading !== item.text && !item.hidden) {
+    if (item.hidden) {
+      w = Math.max(w, readingSlots(item) * Math.min(16, small(12)));
+    } else if (item.reading && item.reading !== item.text) {
       ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
       w = Math.max(w, ctx.measureText(item.reading).width);
     }
@@ -749,10 +753,12 @@
     const t = targetCard();
     if (t) {
       if (t.shownAt === null) t.shownAt = r.time;
-      if (t !== r.target) {
-        r.target = t;
-        // with hints always on, the whole hint is up before the card is said (a kanji with its reading)
-        if (saved.hints === 'always') t.level = 2;
+      const fresh = t !== r.target;
+      r.target = t;
+      t.idle += dt;
+      // the hint first, so the card is said and shown with it (a kanji with its reading)
+      raiseHint(t);
+      if (fresh) {
         speakTarget(t);
         showInfo(t);
         // a word from Yaoki as the round starts, and for its last card
@@ -767,13 +773,11 @@
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
       }
-      t.idle += dt;
       // a gentle nudge before any hint, once a card
       if (t.idle >= 3.5 && !t.nudged && !t.typed) {
         t.nudged = true;
         cheer('idle', 1.6);
       }
-      raiseHint(t);
     } else if (r.target && !r.fall) {
       r.target = null;
       showInfo(null);
@@ -911,8 +915,11 @@
     const shown = card.state === 'fallen' || card.halted || card.level >= 2;
     if (it.hidden) {
       // a kanji's reading: known if typed with no slip and no hint at all
-      if (card.misses || card.state === 'fallen' || card.halted || card.hinted) markMiss(r.stats, statKey(it));
-      else if (card.level < 1) markOk(r.stats, statKey(it));
+      if (card.misses || card.state === 'fallen' || card.halted || card.hinted) {
+        markMiss(r.stats, statKey(it));
+        // listed with the round's weak spots, even when only a hint showed it
+        if (!r.missed.has(statKey(it))) r.missed.set(statKey(it), 1);
+      } else if (card.level < 1) markOk(r.stats, statKey(it));
     } else if (it.kind === 'romaji') {
       let reached = it.units.length;
       if (card.state === 'fallen') {
@@ -1491,7 +1498,9 @@
     const en = [r.sayNext, card.entry.weak ? 'Weak spot.' : ''].filter(Boolean).join(' ');
     r.sayNext = '';
     // a kanji card's reading is the answer, so it is said only once it shows
-    say(it.reading && it.reading !== it.text && readingShown(card) ? it.text + '、' + it.reading : it.text, en);
+    const reading = it.reading && it.reading !== it.text && readingShown(card);
+    if (reading && it.hidden) card.readingSaid = true;
+    say(reading ? it.text + '、' + it.reading : it.text, en);
   }
 
   // The line under the canvas: the word being typed, its reading and meaning.
@@ -1506,14 +1515,17 @@
     ja.className = 'info-ja';
     ja.textContent = it.reading && it.reading !== it.text && !it.hidden ? it.text + '　' + it.reading : it.text;
     box.appendChild(ja);
-    // a kanji card's reading keeps its room while hidden, so the line does not jump when it shows
+    // a kanji card's reading has its room while hidden (by the kanji shown, as on the card),
+    // so the line does not jump when it shows
     if (it.hidden) {
       const rd = document.createElement('span');
       rd.lang = 'ja';
       rd.className = 'info-ja';
-      rd.textContent = it.reading;
-      if (!readingShown(card)) {
-        rd.style.visibility = 'hidden';
+      rd.style.minWidth = 'min(' + readingSlots(it) + 'em, 100%)';
+      if (readingShown(card)) rd.textContent = it.reading;
+      else {
+        // a space keeps the line's height, so a reading on a line of its own does not push it
+        rd.textContent = '\u3000';
         rd.setAttribute('aria-hidden', 'true');
       }
       box.appendChild(rd);

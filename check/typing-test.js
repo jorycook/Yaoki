@@ -520,13 +520,17 @@ async function waitFor(fn, ms = 5000) {
   check('a second slip shows the romaji, and lights the next key', (await state(page)).target.romajiShown && await waitFor(async () => (await page.$('#kb .key.next')) !== null, 1000));
   await page.keyboard.type((await state(page)).target.spell, { delay: 25 });
   kj = await target(page);
+  const stuck = kj.text;
   await sleep(2500);
   check('when stuck, the reading is still hidden after 2.5 seconds…', !(await state(page)).target.readingShown);
-  check('…and shows by 3.5 seconds', await waitFor(async () => ((await state(page)).target || {}).readingShown === true, 2500));
+  check('…and shows by 3.5 seconds', await waitFor(async () => ((await state(page)).target || {}).readingShown === true, 1400));
   if (shots) await page.screenshot({ path: `${shots}/kanji.png` });
-  await quit(page);
+  const kround = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
+  const kweak = kround ? await page.textContent('#res-weak') : '';
+  check('the round\'s weak spots list the slipped word, and the one only a hint showed', kweak.includes(slipped) && kweak.includes(stuck), JSON.stringify({ kweak, slipped, stuck }));
   const kst = (await stored(page)).stats || {};
-  check('a kanji slip goes on the weak list as the word, not as kana', (kst.kanji || {})[slipped] && kst.kanji[slipped].miss >= 1 && !Object.keys(kst.kana || {}).length, JSON.stringify(kst));
+  check('…kept as words, not as kana', (kst.kanji || {})[slipped] && kst.kanji[stuck] && !Object.keys(kst.kana || {}).length, JSON.stringify(kst));
+  await page.keyboard.press('Escape');
   await setHints(1);
   await pick(page, 5, 1);
   await page.click('#start');
@@ -536,7 +540,21 @@ async function waitFor(fn, ms = 5000) {
   check('with hints always on, the reading and romaji show from the start', kj.readingShown && kj.romajiShown && kinfo.includes(kj.reading), JSON.stringify({ kj, kinfo }));
   check('…and the reading is said with the word', await waitFor(async () => (await page.textContent('#sr-prompt')).includes(kj.reading), 1500), await page.textContent('#sr-prompt'));
   await quit(page);
-  await setHints(2);
+  // stuck with hints off, then turned on in the pause: the word is said again, with its reading
+  await setHints(3);
+  await page.click('#start');
+  kj = await target(page);
+  await sleep(3800);
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#hint-seg button:nth-child(2)');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  check('a reading shown as the round resumes is said with its word', await waitFor(async () => {
+    const said = await page.textContent('#sr-prompt');
+    return said.includes(kj.text) && said.includes(kj.reading);
+  }, 1500), await page.textContent('#sr-prompt'));
+  await quit(page);
   await pick(page, 5, 5);
   await page.click('#start');
   const kdone = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
