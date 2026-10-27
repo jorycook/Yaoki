@@ -18,6 +18,12 @@
  * Between visits, a day's typing time fills a box on a seven-day stamp card that never resets,
  * and たいへんよくできました on three different days gives a stage its はなまる. None of it
  * touches the learning data: the clean count, the pace, the bests and the weak spots.
+ *
+ * Cleared cards ride on to Yaoki, and he gets past each with a trick (a jump, a spin, a duck or
+ * a smash) before it settles behind him. Each round is played in a scene (scenes.js) under the
+ * graph paper, to its own tune (music.js); Yaoki's lines and their little items are in
+ * items.js. Each of those modules is optional: without it the round is plain paper, silent, or
+ * uses the few lines built in here.
  */
 (function () {
   'use strict';
@@ -77,7 +83,7 @@
 
   const DEFAULTS = {
     mode: null, stage: {}, level: null, unit: {}, hints: 'stuck', len: 20, kb: true, sound: true, best: {}, pace: {}, stats: {},
-    sfx: 'quiet', goal: 5, practice: null, stampCard: { days: [], done: 0, lastDay: null }, run: {}, seal: {},
+    sfx: 'quiet', music: 'on', goal: 5, practice: null, stampCard: { days: [], done: 0, lastDay: null }, run: {}, seal: {},
   };
   let saved = load();
   sanitize();
@@ -85,6 +91,7 @@
   // Keys added after the first version, checked so that any old or odd save still loads.
   function sanitize() {
     if (!['off', 'quiet', 'all'].includes(saved.sfx)) saved.sfx = 'quiet';
+    if (!['off', 'soft', 'on'].includes(saved.music)) saved.music = 'on';
     if (!GOALS.includes(saved.goal)) saved.goal = 5;
     const p = saved.practice;
     if (!p || typeof p !== 'object' || typeof p.d !== 'string' || !(p.s >= 0)) saved.practice = null;
@@ -371,6 +378,8 @@
   let startTicket = 0;
 
   async function startRound(weakOnly) {
+    // always from a click or a key press: the moment to wake the audio for the music
+    wakeAudio();
     const ticket = ++startTicket;
     const items = currentItems();
     if (!items || !items.length) return;
@@ -446,6 +455,10 @@
       tricks: { jump: 0, spin: 0, duck: 0, smash: 0 },
       scroll: 0,
       finale: null,
+      // the scene the round is played in, and its song
+      scene: window.TypingScenes && window.TypingScenes.forStage ? safely(() => window.TypingScenes.forStage(key), null) : null,
+      song: null,
+      musicOn: false,
       started: false,
       // a clean run one longer than the stage's record is cheered (rounds that can keep it)
       runRecordAt: !weakOnly && saved.hints !== 'always' && saved.run[key] ? saved.run[key] + 1 : 0,
@@ -455,8 +468,10 @@
       fxDrawn: 0,
     };
     markWeakCards();
+    r.song = songFor(r.scene);
     hush();
     setPhase('play');
+    startMusic();
     resize();
     if (modeId === 'course' && saved.sound) loadSound(level, unit);
     setStatus('', '');
@@ -713,6 +728,7 @@
           cheer('start', 1.4, { first: true });
         } else if (r.cleared + r.skipped === r.total - 1) {
           cheer('last', 1.4);
+          if (r.musicOn) music('cue', 'last');
         }
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
@@ -792,6 +808,7 @@
     r.yk.hopT = 0;
     r.yk.bubble = null;
     r.yk.fx = null;
+    if (r.musicOn) music('cue', 'fall');
     sfx('fall');
     noteMiss(card);
     applyStats(card);
@@ -809,6 +826,7 @@
     r.cards = r.cards.filter((c) => c !== card);
     r.queue.splice(Math.min(r.fall.at, r.queue.length), 0, card.entry);
     r.fall = null;
+    if (r.musicOn) music('setLevel', musicLevel());
     const live = r.cards.filter((c) => c.state === 'live');
     if (live.length) {
       const min = view.yx + REACH + r.speed * SLACK * (r.rt + live[0].item.len / r.p);
@@ -940,12 +958,17 @@
     if (voice) {
       window.ykSound.play(card.item.clip);
       r.voiceUntil = r.time + Math.max(VOICE_T, (window.ykSound.ms ? window.ykSound.ms(card.item.clip) : 0) / 1000);
-    }
-    else {
+      if (r.musicOn) music('duck', r.voiceUntil - r.time + 0.2);
+    } else {
       sfx('clear', { streak: clean ? r.run : 0 });
       if (card.star) sfx('gold');
       if (step >= 0) sfxLater('streak', { step }, 140);
       else if (card.comeback) sfxLater('up', null, 120);
+    }
+    // the music follows the clean run
+    if (r.musicOn) {
+      music('setLevel', musicLevel());
+      if (step >= 0) music('cue', 'step');
     }
     if (r.cleared + r.skipped >= r.total) startFinale();
     roundLines();
@@ -990,6 +1013,7 @@
   }
 
   function finishRound() {
+    if (r.musicOn) music('cue', 'end');
     creditPractice();
     saved.pace[r.key] = { r: Math.round(r.rt * 100) / 100, p: Math.round(r.p * 100) / 100 };
     const kpm = r.active > 0.2 ? Math.round(r.keysRight / (r.active / 60)) : 0;
@@ -1074,7 +1098,7 @@
       $('touch-note').hidden = true;
       showKeyboard();
     }
-    wakeSfx();
+    wakeAudio();
     // A held Escape or Enter does nothing more than its first press did.
     if (e.repeat && (e.key === 'Escape' || e.key === 'Enter')) {
       e.preventDefault();
@@ -1244,10 +1268,50 @@
   let sfxReady = false;
   const SFX_ALL_ONLY = new Set(['key', 'miss']);
   const UNDER_VOICE = new Set(['key', 'miss', 'jump', 'duck', 'spin', 'smash']);
-  function wakeSfx() {
-    if (!window.TypingSfx || saved.sfx === 'off') return;
+  function wakeAudio() {
+    if (!window.TypingSfx || (saved.sfx === 'off' && saved.music === 'off')) return;
     sfxReady = true;
     window.TypingSfx.unlock();
+  }
+  // With effects and music both off, the audio output is given back.
+  function sleepAudio() {
+    if (saved.sfx === 'off' && saved.music === 'off' && window.TypingSfx && window.TypingSfx.sleep) window.TypingSfx.sleep();
+  }
+
+  // ---------- music (music.js) ----------
+  // A song for each scene, made in the browser. It starts with the round, gets livelier as the
+  // clean run grows (5, then 10 in a row), drops back when Yaoki falls, dips while a course word
+  // is spoken, pauses with the round and ends with it.
+
+  const MUSIC_VOL = { off: 0, soft: 0.35, on: 0.7 };
+  function music(fn, ...args) {
+    const m = window.TypingMusic;
+    if (!m || typeof m[fn] !== 'function') return undefined;
+    try {
+      return m[fn](...args);
+    } catch (err) {
+      return undefined;
+    }
+  }
+  const musicLevel = () => (r.run >= 10 ? 3 : r.run >= 5 ? 2 : 1);
+  function songFor(scene) {
+    const m = window.TypingMusic;
+    if (!m || !Array.isArray(m.SONGS) || !m.SONGS.length) return null;
+    if (typeof m.forScene === 'function') {
+      const id = m.forScene(scene);
+      if (id) return id;
+    }
+    const scenes = window.TypingScenes && window.TypingScenes.SCENES ? window.TypingScenes.SCENES.map((x) => x.id) : [];
+    const i = Math.max(0, scenes.indexOf(scene));
+    return m.SONGS[i % m.SONGS.length].id;
+  }
+  function startMusic() {
+    if (!r || saved.music === 'off' || !sfxReady) return;
+    music('volume', MUSIC_VOL[saved.music]);
+    if (music('start', r.song) !== false) {
+      r.musicOn = true;
+      music('setLevel', r.cleared ? musicLevel() : 0);
+    }
   }
   function sfx(name, opts) {
     if (!sfxReady || !window.TypingSfx || saved.sfx === 'off') return;
@@ -1301,10 +1365,12 @@
     $('app').inert = p === 'paused' || !$('settings-sheet').hidden;
     document.body.classList.toggle('playing', p === 'play' || p === 'paused');
     if (p === 'menu') {
+      music('stop', 0.3);
       r = null;
       hush();
       renderMenu();
     }
+    if (p === 'paused') music('pause');
     if (p === 'paused') $('resume').focus();
     if (p === 'play') {
       if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur();
@@ -1313,6 +1379,14 @@
       if (was === 'paused' && r) {
         r.spokenAt = -9;
         r.target = null;
+        // the music goes on (or starts, if it was turned on during the pause)
+        wakeAudio();
+        if (r.musicOn && saved.music !== 'off') {
+          music('volume', MUSIC_VOL[saved.music]);
+          music('resume');
+        } else {
+          startMusic();
+        }
       }
     }
     if (p === 'result') $('res-title').focus();
@@ -1669,10 +1743,23 @@
     ], saved.sfx, (v) => {
       saved.sfx = v;
       save();
+      if (v === 'off') sleepAudio();
+      else wakeAudio();
+    });
+    seg('music-seg', [
+      { value: 'off', html: '<span lang="ja">なし</span>　<small>Off</small>' },
+      { value: 'soft', html: '<span lang="ja">小さめ</span>　<small>Soft</small>' },
+      { value: 'on', html: '<span lang="ja">あり</span>　<small>On</small>' },
+    ], saved.music, (v) => {
+      saved.music = v;
+      save();
       if (v === 'off') {
-        if (window.TypingSfx && window.TypingSfx.sleep) window.TypingSfx.sleep();
+        music('stop', 0.2);
+        if (r) r.musicOn = false;
+        sleepAudio();
       } else {
-        wakeSfx();
+        wakeAudio();
+        music('volume', MUSIC_VOL[v]);
       }
     });
     seg('goal-seg', GOALS.map((n, i) => ({
@@ -1974,8 +2061,23 @@
       lineStrong: v('--line-strong'), outline: v('--outline'), hard: v('--hard'), accentInk: v('--accent-ink'),
       good: v('--good'), bad: v('--bad'), badSoft: v('--bad-soft'), stamp: v('--stamp'), daruma: v('--daruma'), grid: v('--grid'),
       gold: v('--gold'), note: v('--note'),
+      dark: lightness(v('--ground')) < 0.5,
     };
   }
+  // 0 (black) to 1 (white), for a #rrggbb colour
+  function lightness(hex) {
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+    if (!m) return 1;
+    const n = parseInt(m[1], 16);
+    return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+  }
+  const safely = (fn, fallback) => {
+    try {
+      return fn();
+    } catch (err) {
+      return fallback;
+    }
+  };
 
   // A teacher's はなまる: n scallops round a ring of radius R, as an SVG path (also a Path2D).
   function hanamaruPath(R, n) {
@@ -2055,6 +2157,7 @@
     ctx.fillStyle = pal.ground;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.setTransform(dpr * s, 0, 0, dpr * s, 0, dpr * oy);
+    drawScene(W, oy / s);
     drawPaper(W, oy / s);
     if (!r) return;
     r.fxDrawn = 0;
@@ -2066,6 +2169,31 @@
     for (const c of r.cards) if (c.state !== 'done') drawCard(c, c === target);
     const under = r.fall ? r.fall.card : target;
     if (under) drawUnder(under, W);
+  }
+
+  // The round's scene (scenes.js), like a picture pasted into the notebook under its graph
+  // paper: it moves with the route, follows the round from start to end, and the season.
+  function drawScene(W, pad) {
+    const sc = window.TypingScenes;
+    if (!r || !r.scene || !sc || typeof sc.draw !== 'function' || r.sceneFailed) return;
+    const still = reducedMotion.matches;
+    ctx.save();
+    try {
+      sc.draw(ctx, {
+        scene: r.scene, W, top: -pad, bottom: H + pad, ground: GROUND,
+        scroll: still ? 0 : r.scroll, progress: Math.min(1, (r.cleared + r.skipped) / r.total), t: still ? 0 : r.time,
+        still, dark: pal.dark, season: seasonOf(clock()), pal,
+      });
+    } catch (err) {
+      // a scene that fails is left out for the rest of the round: the paper is enough
+      r.sceneFailed = true;
+      console.warn(err);
+    }
+    ctx.restore();
+  }
+  function seasonOf(t) {
+    const m = new Date(t).getMonth() + 1;
+    return m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
   }
 
   // Graph paper and the route: dotted ahead of Yaoki, traced red behind him (the app's map).
@@ -3229,7 +3357,7 @@
   });
   document.addEventListener('click', () => {
     if (window.ykSound) window.ykSound.unlock();
-    wakeSfx();
+    wakeAudio();
   });
 
   requestAnimationFrame((now) => {
@@ -3263,6 +3391,10 @@
         sfx: saved.sfx,
         yaoki: yk ? { bubble: yk.bubble ? yk.bubble.ja : null, item: yk.bubble ? yk.bubble.item : null, happy: isHappy(), hop: yk.lift > 0, liftMax: yk.liftMax, box: yk.box, trick: yk.trick ? yk.trick.kind : null } : null,
         tricks: r ? Object.assign({}, r.tricks) : null,
+        scene: r ? r.scene : null,
+        sceneFailed: !!(r && r.sceneFailed),
+        song: r ? r.song : null,
+        music: saved.music,
         fx: r ? r.fxDrawn : 0,
         cleared: r ? r.cleared : 0,
         skipped: r ? r.skipped : 0,
