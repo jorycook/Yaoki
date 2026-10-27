@@ -73,6 +73,7 @@
   const TRICK_LEAD = 34;       // a trick starts when a cleared card is this close to Yaoki's front
   const NODE_BACK = 40;        // where a passed card's node lands, behind him
   const SETTLE_T = 0.3;        // a card that just settles into its node
+  const HURRY = 2.2;           // how much faster a trick goes when the next card is waiting
   const NOD_T = 0.12;          // his nod for a right key
   const BLINK_T = 0.12;
   const FX_T = 0.6;            // a trick's sound word
@@ -629,7 +630,7 @@
     } else if (r.time >= yk.blinkAt) {
       yk.blinkT = 0;
     }
-    if (yk.fx && (yk.fx.t += dt) >= FX_T) yk.fx = null;
+    if (yk.fx && (yk.fx.t += dt * (yk.trick && yk.trick.rate ? yk.trick.rate : 1)) >= FX_T) yk.fx = null;
     if (yk.trail.length) {
       for (const st of yk.trail) st.age += dt;
       if (yk.trail[0].age >= TRAIL_T) yk.trail = yk.trail.filter((st) => st.age < TRAIL_T);
@@ -676,16 +677,18 @@
     }
     if (target) r.active += dt;
 
-    // the card of a trick in progress is held where it is: the trick moves it; a cleared card
-    // whose stamp is still landing waits at the trick line, so its trick starts in front of him
+    // The card of a trick in progress is held where it is: the trick moves it. A cleared card
+    // waits at the trick line while its stamp lands, or while he is busy with the card before
+    // it (that trick then hurries), so each card's trick starts in front of him; the cards
+    // behind it keep their distance.
     const line = view.yx + REACH + TRICK_LEAD;
     let edge = -Infinity;
     for (const c of r.cards) {
       if (c.phase === 'trick') continue;
       const nx = c.x - speed * dt;
-      c.x = c.phase === 'ride' && c.stampT < 0.2 ? Math.max(nx, Math.min(c.x, line)) : nx;
-      // and the card behind it keeps its distance
-      if (c.state === 'live') c.x = Math.max(c.x, edge + 30);
+      const hold = c.phase === 'ride' && (c.stampT < 0.2 || !!yk.trick);
+      c.x = hold ? Math.max(nx, Math.min(c.x, line)) : nx;
+      if (c.state === 'live' || c.phase === 'ride') c.x = Math.max(c.x, edge + 30);
       if (c.phase === 'ride') edge = c.x + c.w;
     }
     r.speedNow = speed;
@@ -717,11 +720,13 @@
     }
 
     // A cleared card that reaches him: he gets past it with a trick (once its stamp is down).
+    // If he is still busy with the one before, that trick hurries and this card waits its turn.
     if (!r.fall) {
       for (const c of r.cards) {
         if (c.state !== 'done' || c.phase !== 'ride' || c.stampT < 0.2 || c.x > view.yx + REACH + TRICK_LEAD) continue;
-        if (!yk.trick && !reducedMotion.matches) startTrick(c);
-        else settleCard(c);
+        if (reducedMotion.matches) settleCard(c);
+        else if (!yk.trick) startTrick(c);
+        else yk.trick.rate = HURRY;
       }
     }
 
@@ -2480,7 +2485,8 @@
   // of five or more), ducks while it sails over him (a card typed with a slip or a hint), or
   // smashes through it (a comeback, a weak-spot card typed clean, a card that waited for him).
   // It lands behind him as its 済 node, inside a はなまる if it was clean. One trick at a time:
-  // a card that comes while he is busy, or any card under reduced motion, simply settles.
+  // a card that comes while he is busy waits at his feet while that trick hurries. Under
+  // reduced motion there are no tricks: each card simply settles into its node.
 
   function startTrick(c) {
     const yk = r.yk;
@@ -2525,7 +2531,7 @@
   function updateTrick(dt) {
     const tr = r.yk.trick;
     if (!tr) return;
-    tr.t += dt;
+    tr.t += dt * (tr.rate || 1);
     if (tr.kind === 'smash' && !tr.hit && tr.t >= TRICKS.smash.hit * tr.len) {
       tr.hit = true;
       tr.shards = shardsOf(tr.card);
