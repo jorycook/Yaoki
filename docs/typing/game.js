@@ -460,6 +460,7 @@
       song: null,
       musicOn: false,
       started: false,
+      said: new Set(),
       // a clean run one longer than the stage's record is cheered (rounds that can keep it)
       runRecordAt: !weakOnly && saved.hints !== 'always' && saved.run[key] ? saved.run[key] + 1 : 0,
       sayNext: '',
@@ -653,7 +654,7 @@
       if (!r.fall.rose && r.fall.t >= 0.5 * r.fall.length) {
         r.fall.rose = true;
         sfx('up');
-        cheer('rise', r.fall.length - r.fall.t + 0.5, { first: r.falls === 1 });
+        cheer('rise', r.fall.length - r.fall.t + 0.5, { first: !r.said.has('rise') });
       }
       if (r.fall.t >= r.fall.length) endFall();
       return;
@@ -937,7 +938,7 @@
     if (clean || card.comeback) yk.happyT = HAPPY_T;
     if (step >= 0) {
       hop(step >= 2 ? 8 : 6);
-      cheer('step' + step, CHEER_T, { first: true });
+      cheer('step' + step, CHEER_T, { first: !r.said.has('step' + step) });
     } else if (card.comeback) {
       hop(6);
       cheer('comeback', 1);
@@ -2483,7 +2484,8 @@
     // its word: beside him at the top of a jump or spin, low beside him for a duck, over the
     // card for a smash (as he hits it)
     const at = { jump: [62, 46], spin: [68, 40], duck: [46, 128], smash: [96, 62] }[kind];
-    yk.fx = { ja: spec.ja, t: kind === 'smash' ? -spec.hit * spec.len : 0, x: view.yx + at[0], y: at[1], tilt: kind === 'duck' ? 0.1 : -0.14, big: kind === 'smash' };
+    const word = lineFor(kind, false);
+    yk.fx = { ja: word && word.ja ? word.ja : spec.ja, t: kind === 'smash' ? -spec.hit * spec.len : 0, x: view.yx + at[0], y: at[1], tilt: kind === 'duck' ? 0.1 : -0.14, big: kind === 'smash' };
     if (kind !== 'smash') sfx(kind);
     r.tricks[kind]++;
   }
@@ -3028,19 +3030,19 @@
     idle: [{ ja: 'うーん…', en: 'Hmm…', item: 'dango' }],
   };
   const PRIORITY = { step0: 3, step1: 3, step2: 3, step3: 3, record: 3, comeback: 2, rise: 2, halt: 2, star: 2, last: 2, endGood: 3, endOk: 3, endTry: 3, start: 1, half: 1, idle: 0 };
-  const said = {};
+  const turns = {};             // which line of each occasion comes next
   function lineFor(occasion, first) {
     const lib = window.TypingItems && window.TypingItems.LINES && window.TypingItems.LINES[occasion];
     const list = Array.isArray(lib) && lib.length ? lib : OWN_LINES[occasion] || [];
     if (!list.length) return null;
-    // the cheers for the steps of the run, and the first of a kind in a round, keep their
-    // first line; the rest take turns
+    // the first step of a run or the first rise in a round keeps its first line (いいね！,
+    // よいしょ！); the rest take turns
     if (first) {
       const own = OWN_LINES[occasion] && OWN_LINES[occasion][0];
       return (own && list.find((x) => x.ja === own.ja)) || list[0];
     }
-    said[occasion] = ((said[occasion] || 0) + 1) % list.length;
-    return list[said[occasion]] || list[0];
+    turns[occasion] = ((turns[occasion] || 0) + 1) % list.length;
+    return list[turns[occasion]] || list[0];
   }
   function cheer(occasion, life, opts = {}) {
     const yk = r.yk;
@@ -3049,6 +3051,7 @@
     const prio = PRIORITY[occasion] || 0;
     if (yk.bubble && yk.bubble.prio > prio && yk.bubble.t < yk.bubble.life) return;
     yk.bubble = { ja: line.ja, en: line.en, item: line.item, occasion, prio, t: 0, life };
+    r.said.add(occasion);
   }
 
   // The bubble: left of Yaoki and above his head, clear of the cards (they are all to his

@@ -14,11 +14,14 @@
  *   LINES: { occasion: [{ ja, en, item }, ...] },
  * }
  *
- * Every item is drawn in a 24-unit box round (0, 0) from Path2D shapes made once, on the
- * first draw, so a draw is a handful of fills and strokes. The outline stays about 1.5
- * logical units at the bubble's size (a little finer when tiny, a little bolder when big).
- * t (seconds) gives a few items a small idle motion (steam, a twinkle, a sway); t = 0 is a
- * still frame that reads on its own. draw() never throws and draws nothing for an unknown id.
+ * Every item is drawn in a 24-unit box round (0, 0) from Path2D shapes made once (when the
+ * page is idle, or on the first draw). The outline stays about 1.5 logical units at the
+ * bubble's size (a little finer when tiny, a little bolder when big). An item is a still
+ * layer, an optional pose (a whole-item bob, sway or beat that t drives) and optional moving
+ * bits drawn over it (steam, sparks, a paper strip); the still layer is kept as a bitmap at
+ * the size it is shown at, so a bubble that stays up costs one drawImage and the moving bits.
+ * t = 0 (reduced motion) is a still frame that reads on its own. draw() never throws, leaves
+ * the context as it found it, and draws nothing for an unknown id.
  *
  * The first line of each occasion is the one game.js has built in, so the first cheer of a
  * kind is always the same; the others take turns.
@@ -49,13 +52,12 @@
     greenDeep: '#6FB45A',
     leaf: '#86C765',
     matcha: '#B9D86A',
-    celadon: '#CFE8DA',
-    celadonDeep: '#A9D3BE',
+    celadon: '#C9E6D4',
+    celadonDeep: '#9DCDB4',
     blue: '#8DB4F2',
     blueDeep: '#6A92E6',
     sky: '#CDEBFA',
     drop: '#9FD3F5',
-    lilac: '#C3B4F2',
     wood: '#EBC48C',
     woodDeep: '#C98A4B',
     nori: '#2D3B3F',
@@ -201,7 +203,7 @@
   function build() {
     const A = Object.create(null);
 
-    // 桜: five notched petals and a deep pink heart; it turns a little in the breeze
+    // 桜: five notched petals and a deep pink heart, floating
     const sakura = mk((p) => {
       for (let i = 0; i < 5; i++) {
         p.at(0, 0.6, (i * TAU) / 5, 1);
@@ -215,23 +217,30 @@
         p.M(0, -3.4).L(0, -5.6);
       }
     });
-    A.sakura = (g, t) => {
-      if (t) g.c.rotate(0.1 * Math.sin(t * 1.3));
-      g.fo(sakura, COL.pink);
-      g.s(sakuraVeins, COL.pinkDeep, 0.8);
-      g.f(sakuraHeart, COL.pinkDeep);
+    A.sakura = {
+      still(g) {
+        g.fo(sakura, COL.pink);
+        g.s(sakuraVeins, COL.pinkDeep, 0.8);
+        g.f(sakuraHeart, COL.pinkDeep);
+      },
+      // it floats
+      pose(c, t) {
+        c.translate(0.6 * Math.sin(t * 1.3), 0.4 * Math.sin(t * 2.1));
+      },
     };
 
     // 星: the gold star of the weak-spot chips, with a glint; it twinkles
     const star = mk((p) => p.poly(starPts(5, 12.4, 5.4, 0, 1.4)));
     const starGlint = mk((p) => p.M(-3.2, -1.6).L(-1.6, -4.2));
-    A.star = (g, t) => {
-      if (t) {
+    A.star = {
+      still(g) {
+        g.fo(star, COL.gold);
+        g.s(starGlint, COL.white, 1.1);
+      },
+      pose(c, t) {
         const k = 1 + 0.06 * Math.sin(t * 4);
-        g.c.scale(k, k);
-      }
-      g.fo(star, COL.gold);
-      g.s(starGlint, COL.white, 1.1);
+        c.scale(k, k);
+      },
     };
 
     // 三色だんご: pink, white and green on a stick
@@ -241,18 +250,22 @@
       [mk((p) => p.circle(0.9, -0.9, 4.4)), COL.rice],
       [mk((p) => p.circle(5.7, -5.7, 4.4)), COL.pinkMid],
     ];
-    A.dango = (g) => {
-      g.tube(dangoStick, COL.wood, g.lw * 0.9);
-      for (const [b, fill] of dangoBalls) g.fo(b, fill);
+    A.dango = {
+      still(g) {
+        g.tube(dangoStick, COL.wood, g.lw * 0.9);
+        for (const [b, fill] of dangoBalls) g.fo(b, fill);
+      },
     };
 
     // おにぎり: a rounded triangle of rice with a band of nori
-    const onigiri = mk((p) => p.M(0, 9.6).A(11.8, 9.6, 0, -10.8, 4.2).A(0, -10.8, -11.8, 9.6, 3.6).A(-11.8, 9.6, 11.8, 9.6, 4.2).Z());
-    const nori = mk((p) => p.M(-5, 9.6).L(-5, 2.6).Q(-5, 1.6, -4, 1.6).L(4, 1.6).Q(5, 1.6, 5, 2.6).L(5, 9.6).Z());
-    A.onigiri = (g) => {
-      g.f(onigiri, COL.rice);
-      g.f(nori, COL.nori);
-      g.s(onigiri);
+    const onigiri = mk((p) => p.M(0, 10).A(12.2, 10, 0, -11.4, 4.4).A(0, -11.4, -12.2, 10, 3.8).A(-12.2, 10, 12.2, 10, 4.4).Z());
+    const nori = mk((p) => p.M(-5, 10).L(-5, 3).Q(-5, 2, -4, 2).L(4, 2).Q(5, 2, 5, 3).L(5, 10).Z());
+    A.onigiri = {
+      still(g) {
+        g.f(onigiri, COL.rice);
+        g.f(nori, COL.nori);
+        g.s(onigiri);
+      },
     };
 
     // たい焼き: a golden fish of batter, facing left
@@ -267,30 +280,36 @@
       p.M(-11.4, 2.2).L(-9.6, 2.6);                         // mouth
     });
     const taiyakiEye = mk((p) => p.circle(-7.2, -2.4, 1.3));
-    A.taiyaki = (g) => {
-      g.fo(taiyaki, '#ECB064');
-      g.s(taiyakiLines, null, 0.75);
-      g.f(taiyakiEye, g.o);
+    A.taiyaki = {
+      still(g) {
+        g.fo(taiyaki, '#ECB064');
+        g.s(taiyakiLines, null, 0.75);
+        g.f(taiyakiEye, g.o);
+      },
     };
 
     // 緑茶: a yunomi of green tea, steaming
-    const cupTop = -2.6;
-    const cupX = (y) => 8.6 - ((y - cupTop) * 2.2) / 13.6;
-    const cup = mk((p) => p.M(-8.6, cupTop).L(-cupX(8.8), 8.8).Q(-cupX(11), 11, -cupX(11) + 2.4, 11).L(cupX(11) - 2.4, 11).Q(cupX(11), 11, cupX(8.8), 8.8).L(8.6, cupTop).arc(0, cupTop, 8.6, 2.2, 0, Math.PI, true).Z());
-    const cupBand = mk((p) => p.poly([-cupX(3.6), 3.6, cupX(3.6), 3.6, cupX(6), 6, -cupX(6), 6]));
-    const teaTop = mk((p) => p.ellipse(0, cupTop, 8.6, 2.2));
-    const teaIn = mk((p) => p.ellipse(0, cupTop + 0.4, 6.8, 1.4));
+    const cupTop = -3.4;
+    const cupX = (y) => 9.6 - ((y - cupTop) * 2.4) / 14.8;
+    const cup = mk((p) => p.M(-9.6, cupTop).L(-cupX(9.2), 9.2).Q(-cupX(11.4), 11.4, -cupX(11.4) + 2.4, 11.4).L(cupX(11.4) - 2.4, 11.4).Q(cupX(11.4), 11.4, cupX(9.2), 9.2).L(9.6, cupTop).arc(0, cupTop, 9.6, 2.4, 0, Math.PI, true).Z());
+    const cupBand = mk((p) => p.poly([-cupX(3.4), 3.4, cupX(3.4), 3.4, cupX(6), 6, -cupX(6), 6]));
+    const teaTop = mk((p) => p.ellipse(0, cupTop, 9.6, 2.4));
+    const teaIn = mk((p) => p.ellipse(0, cupTop + 0.45, 7.6, 1.55));
     const steam = mk((p) => {
-      p.M(-3, -5.6).C(-5.4, -7.6, -0.8, -9.4, -3.2, -12);
-      p.M(3, -5.6).C(0.6, -7.6, 5.2, -9.4, 2.8, -12);
+      p.M(-3, -6.4).C(-5.2, -8.2, -0.8, -9.8, -3.1, -12);
+      p.M(3, -6.4).C(0.8, -8.2, 5.2, -9.8, 2.9, -12);
     });
-    A.tea = (g, t) => {
-      drawSteam(g, steam, t, 0);
-      g.fo(cup, COL.celadon);
-      g.f(cupBand, COL.celadonDeep);
-      g.fo(teaTop, COL.cream);
-      g.f(teaIn, COL.matcha);
-      g.s(cup);
+    A.tea = {
+      still(g) {
+        g.fo(cup, COL.celadon);
+        g.f(cupBand, COL.celadonDeep);
+        g.fo(teaTop, COL.cream);
+        g.f(teaIn, COL.matcha);
+        g.s(cup);
+      },
+      move(g, t) {
+        drawSteam(g, steam, t, 0);
+      },
     };
 
     // 扇子: a gold folding fan with a red sun, for records
@@ -340,14 +359,16 @@
     });
     const fanSun = mk((p) => p.circle(0, FAN_C - 9.2, 2.5));
     const fanRivet = mk((p) => p.circle(0, FAN_C, 1.3));
-    A.fan = (g) => {
-      g.fo(fanRibs, COL.woodDeep);
-      g.f(fanLeaf, COL.gold);
-      g.f(fanDark, '#E39E25');
-      g.f(fanSun, COL.daruma);
-      g.s(fanPleats, null, 0.55);
-      g.s(fanLeaf);
-      g.fo(fanRivet, COL.cream, 0.7);
+    A.fan = {
+      still(g) {
+        g.fo(fanRibs, COL.woodDeep);
+        g.f(fanLeaf, COL.gold);
+        g.f(fanDark, '#E39E25');
+        g.f(fanSun, COL.daruma);
+        g.s(fanPleats, null, 0.55);
+        g.s(fanLeaf);
+        g.fo(fanRivet, COL.cream, 0.7);
+      },
     };
 
     // 鯉のぼり: a blue carp and a red one on a pole, waving
@@ -363,12 +384,11 @@
     const carpPupil = mk((p) => p.circle(3.6, -0.8, 0.95));
     const kPole = mk((p) => p.M(-10.6, -10).L(-10.6, 11.8));
     const kBall = mk((p) => p.circle(-10.6, -10.6, 1.6));
-    function fish(g, x, y, s, fill, t, ph) {
+    function fish(g, x, y, s, fill) {
       const c = g.c;
       c.save();
       c.translate(x, y);
       c.scale(s, s);
-      if (t) c.transform(1, 0.07 * Math.sin(t * 3.2 + ph), 0, 1, 0, 0);
       g.fo(carp, fill);
       g.s(carpScales, null, 0.6);
       g.fo(carpMouth, COL.white, 0.8);
@@ -376,104 +396,137 @@
       g.f(carpPupil, g.o);
       c.restore();
     }
-    A.koinobori = (g, t) => {
-      g.tube(kPole, COL.wood, g.lw * 0.8);
-      fish(g, -9.4, -4.8, 1, COL.blueDeep, t, 0);
-      fish(g, -9.4, 5.2, 0.86, COL.red, t, 1.2);
-      g.fo(kBall, COL.gold, 0.8);
+    A.koinobori = {
+      still(g) {
+        g.tube(kPole, COL.wood, g.lw * 0.8);
+        fish(g, -9.4, -4.8, 1, COL.blueDeep);
+        fish(g, -9.4, 5.2, 0.86, COL.red);
+        g.fo(kBall, COL.gold, 0.8);
+      },
+      // the carp fill and stream from the pole with the wind
+      pose(c, t) {
+        c.translate(-10.6, 0);
+        c.scale(1 + 0.035 * Math.sin(t * 3.2), 1);
+        c.translate(10.6, 0);
+      },
     };
 
-    // 風鈴: a glass bell with a paper strip, swaying
-    const furinString = mk((p) => p.M(0, -12).L(0, -9.4));
-    const furinBell = mk((p) => p.M(-7.4, -0.6).C(-7.6, -6.6, -4.2, -9.6, 0, -9.6).C(4.2, -9.6, 7.6, -6.6, 7.4, -0.6).Q(0, 0.6, -7.4, -0.6).Z());
+    // 風鈴: a glass bell with goldfish on it and a paper strip, swaying
+    const furinString = mk((p) => p.M(0, -12.2).L(0, -10.4));
+    const furinBell = mk((p) => p.M(-8.6, -0.4).C(-9, -7.2, -5.2, -10.8, 0, -10.8).C(5.2, -10.8, 9, -7.2, 8.6, -0.4).Z());
+    const furinMouth = mk((p) => p.ellipse(0, -0.4, 8.6, 2.2));
     const furinFish = mk((p) => {
-      p.ellipse(-2.6, -4.6, 1.5, 1, -0.3);
-      p.ellipse(2.8, -3.4, 1.3, 0.9, 0.3);
+      p.ellipse(-3, -5.4, 2, 1.25, -0.25);
+      p.poly([-1.2, -5.9, 0.2, -7, 0.2, -4.6]);
+      p.ellipse(4, -4, 1.6, 1, 0.25);
+      p.poly([5.4, -3.6, 6.6, -2.4, 6.6, -4.6]);
     });
-    const furinGlint = mk((p) => p.M(-4.6, -3).Q(-4.6, -6.4, -2.2, -7.6));
-    const furinCord = mk((p) => p.M(0, -0.2).L(0, 3.2));
-    const furinStrip = mk((p) => p.rr(-2.7, 3, 5.4, 9, 0.8));
-    A.furin = (g, t) => {
-      const c = g.c;
-      c.save();
-      if (t) {
-        c.translate(0, -12);
-        c.rotate(0.1 * Math.sin(t * 2.2));
-        c.translate(0, 12);
-      }
-      g.s(furinString);
-      g.s(furinCord, null, 0.8);
-      c.save();
-      if (t) {
-        c.translate(0, 3);
-        c.rotate(0.16 * Math.sin(t * 2.2 - 0.7));
-        c.translate(0, -3);
-      }
-      g.fo(furinStrip, COL.goldPale);
-      c.restore();
-      g.fo(furinBell, COL.sky);
-      g.f(furinFish, COL.red);
-      g.s(furinGlint, COL.white, 1);
-      c.restore();
+    const furinGlint = mk((p) => p.M(-6, -3.4).Q(-6, -7.4, -3.2, -9));
+    const furinCord = mk((p) => p.M(0, -3.4).L(0, 3.6));
+    const furinClapper = mk((p) => p.circle(0, 0.2, 1.3));
+    const furinStrip = mk((p) => p.M(-2.8, 3.6).L(2.8, 3.6).L(2.8, 12).L(0, 10.8).L(-2.8, 12).Z());
+    A.furin = {
+      still(g) {
+        g.s(furinString);
+        g.s(furinCord, null, 0.75);
+        g.fo(furinStrip, COL.goldPale);
+        g.fo(furinBell, COL.sky);
+        g.fo(furinMouth, '#9CCBE8', 0.8);
+        g.f(furinFish, COL.red);
+        g.s(furinGlint, COL.white, 1.1);
+        g.fo(furinClapper, COL.goldPale, 0.6);
+      },
+      // it sways on its string
+      pose(c, t) {
+        c.translate(0.5 * Math.sin(t * 2.2), 0.15 * Math.sin(t * 4.4));
+      },
     };
 
     // 折り鶴: an origami crane, wings up
-    const craneBackWing = mk((p) => p.poly([-1, 1.4, 4.6, 1.4, 5.6, -10.6]));
-    const craneBody = mk((p) => p.poly([-5.6, 2.4, 0.2, 7.6, 5.8, 2.4, 0.2, 0.8]));
-    const craneNeck = mk((p) => p.poly([-5, 2.6, -2.6, 1.4, -9.8, -7.4]));
-    const craneHead = mk((p) => p.poly([-10.4, -7.8, -8.6, -6.6, -12, -3.6]));
-    const craneTail = mk((p) => p.poly([2.8, 1.4, 5.4, 2.6, 11.6, -6.4]));
-    const craneWing = mk((p) => p.poly([-3, 1.6, 2.4, 1.6, -2.4, -11.6]));
-    A.crane = (g) => {
-      g.fo(craneBackWing, COL.pinkDeep);
-      g.fo(craneTail, COL.pinkMid);
-      g.fo(craneNeck, COL.pinkMid);
-      g.fo(craneHead, COL.pinkMid);
-      g.fo(craneBody, COL.pinkMid);
-      g.fo(craneWing, COL.pink);
+    const craneBackWing = mk((p) => p.poly([0.6, 2.2, 6.6, 2.8, 7.4, -9.2]));
+    const craneBody = mk((p) => p.poly([-7.6, 3.6, 0, 1.4, 7.6, 3.6, 0, 8]));
+    const craneNeck = mk((p) => p.poly([-7.6, 3.6, -4.6, 2.4, -11.4, -4]));
+    const craneHead = mk((p) => p.poly([-11.4, -4, -10, -4.2, -12.4, -0.6]));
+    const craneTail = mk((p) => p.poly([4.6, 2.4, 7.6, 3.6, 12, -3.4]));
+    const craneWing = mk((p) => p.poly([-5, 2.8, 4.4, 2, 0, -11.6]));
+    const craneFold = mk((p) => p.M(0, 1.4).L(0, 8));
+    A.crane = {
+      still(g) {
+        g.fo(craneBackWing, COL.pinkDeep);
+        g.fo(craneTail, COL.pinkMid);
+        g.fo(craneNeck, COL.pinkMid);
+        g.fo(craneHead, COL.pinkMid);
+        g.fo(craneBody, COL.pinkMid);
+        g.s(craneFold, null, 0.5);
+        g.fo(craneWing, COL.pink);
+      },
+      pose(c, t) {
+        c.translate(0, Math.sin(t * 1.8) * 0.6);
+      },
     };
 
-    // けん玉: the red ball resting on the wooden cross
-    const kenBall = mk((p) => p.circle(0, -5.4, 6.4));
-    const kenGlint = mk((p) => p.ellipse(-2.6, -8, 1.6, 1.1, -0.6));
+    // けん玉: the wooden ken, a cup at each end of its cross, and the red ball on its string
+    const KEN = 0.32;
     const kenWood = mk((p) => {
-      p.rr(-9.8, 1, 19.6, 3.4, 1.6);                     // the cross
-      p.rr(-2.4, 2, 4.8, 10, 1.8);                       // the handle
-      p.M(-12, -0.4).L(-6.8, -0.4).L(-7.8, 3).L(-11, 3).Z();  // the cups
-      p.M(12, -0.4).L(6.8, -0.4).L(7.8, 3).L(11, 3).Z();
-      p.M(-3.4, 1).L(3.4, 1).L(2.4, 3).L(-2.4, 3).Z();
+      p.at(-3.4, 1.4, KEN, 1);
+      p.M(-0.9, -6.4).L(0, -10.2).L(0.9, -6.4).Z();                                     // the spike
+      p.rr(-1.9, -6.8, 3.8, 3, 0.8);
+      p.rr(-6.4, -4.4, 12.8, 2.8, 1);                                                   // the cross
+      p.M(-6, -4.2).L(-9.4, -6.2).Q(-8.2, -3, -9.4, 0.2).L(-6, -1.8).Z();               // big cup
+      p.M(6, -4.2).L(8.6, -5.4).Q(7.8, -3, 8.6, -0.6).L(6, -1.8).Z();                   // small cup
+      p.M(-1.8, -2).L(1.8, -2).L(1.8, 7.4).L(2.8, 9.4).Q(0, 8.4, -2.8, 9.4).L(-1.8, 7.4).Z();  // the stick and its cup
     });
-    const kenString = mk((p) => p.M(4.6, -1).Q(8, 4, 2.4, 8));
-    A.kendama = (g) => {
-      g.s(kenString, null, 0.7);
-      g.u(kenWood, COL.wood);
-      g.fo(kenBall, COL.red);
-      g.f(kenGlint, COL.white);
+    const kenString = mk((p) => p.M(-3.2, 2).C(2, 9.4, 8.4, 6, 7.4, -1.6));
+    const kenBall = mk((p) => p.circle(6.4, -6.2, 5.2));
+    const kenHole = mk((p) => p.ellipse(7.2, -1.8, 1.1, 0.6, 0.2));
+    const kenGlint = mk((p) => p.ellipse(4.2, -8.4, 1.5, 1, -0.6));
+    A.kendama = {
+      still(g) {
+        g.s(kenString, null, 0.6);
+        g.u(kenWood, COL.wood);
+        g.fo(kenBall, COL.red);
+        g.f(kenHole, g.o);
+        g.f(kenGlint, COL.white);
+      },
+      // a little toss
+      pose(c, t) {
+        c.translate(0, -Math.pow(Math.abs(Math.sin(t * 2.2)), 3) * 1);
+      },
     };
 
-    // だるま落とし: a stack of blocks, one knocked out, under a daruma head
-    const otoshiHead = mk((p) => p.M(-5.6, -3).C(-6.2, -8.4, -3.6, -12, 0, -12).C(3.6, -12, 6.2, -8.4, 5.6, -3).Z());
-    const otoshiFace = mk((p) => p.ellipse(0, -6.8, 3.4, 2.6));
+    // だるま落とし: a stack of blocks, one being knocked out, under a daruma head
+    const otoshiHead = mk((p) => p.M(-6.4, -2.6).C(-7, -8.6, -4, -12, 0, -12).C(4, -12, 7, -8.6, 6.4, -2.6).Z());
+    const otoshiFace = mk((p) => p.ellipse(0, -7, 4, 3));
     const otoshiEyes = mk((p) => {
-      p.circle(-1.3, -7.2, 0.75);
-      p.circle(1.3, -7.2, 0.75);
+      p.circle(-1.5, -7.4, 0.85);
+      p.circle(1.5, -7.4, 0.85);
     });
     const blocks = [
-      [mk((p) => p.rr(-7, -3, 14, 3.6, 0.8)), COL.blue],
-      [mk((p) => p.rr(-3.4, 0.6, 14, 3.6, 0.8)), COL.goldSoft],
-      [mk((p) => p.rr(-7, 4.2, 14, 3.6, 0.8)), COL.green],
-      [mk((p) => p.rr(-7, 7.8, 14, 3.6, 0.8)), COL.pinkMid],
+      [mk((p) => p.rr(-7.4, -2.6, 14.8, 4.6, 1)), COL.blue],
+      [mk((p) => p.rr(-3.2, 2, 14.8, 4.6, 1)), COL.goldSoft],
+      [mk((p) => p.rr(-7.4, 6.6, 14.8, 4.6, 1)), COL.green],
     ];
     const otoshiWhoosh = mk((p) => {
-      p.M(-11.6, 1.6).L(-7.6, 1.6);
-      p.M(-10.6, 3.4).L(-6.8, 3.4);
+      p.M(-11.8, 3.2).L(-7.8, 3.2);
+      p.M(-11, 5.4).L(-7.4, 5.4);
     });
-    A.otoshi = (g) => {
-      for (let i = blocks.length - 1; i >= 0; i--) g.fo(blocks[i][0], blocks[i][1]);
-      g.fo(otoshiHead, COL.daruma);
-      g.f(otoshiFace, COL.cream);
-      g.f(otoshiEyes, INK);
-      g.s(otoshiWhoosh, null, 0.75);
+    A.otoshi = {
+      still(g) {
+        g.fo(blocks[2][0], blocks[2][1]);
+        g.fo(blocks[0][0], blocks[0][1]);
+        g.fo(otoshiHead, COL.daruma);
+        g.f(otoshiFace, COL.cream);
+        g.f(otoshiEyes, INK);
+        g.s(otoshiWhoosh, null, 0.75);
+      },
+      // the middle block, on its way out
+      move(g, t) {
+        const c = g.c;
+        c.save();
+        if (t) c.translate(Math.abs(Math.sin(t * 2.4)) * 0.8, 0);
+        g.fo(blocks[1][0], blocks[1][1]);
+        c.restore();
+      },
     };
 
     // みかん: an orange with a leaf
@@ -482,52 +535,48 @@
     const mikanStem = mk((p) => p.circle(0, -7.6, 1.6));
     const mikanLeaf = mk((p) => p.M(0.6, -8.4).C(2, -12.4, 7, -13, 9.8, -10.8).C(7.6, -7.8, 3.6, -7, 0.6, -8.4).Z());
     const mikanVein = mk((p) => p.M(1.8, -8.8).Q(5, -10, 8, -10.6));
-    A.mikan = (g) => {
-      g.fo(mikan, COL.orange);
-      g.f(mikanGlint, '#FFD49A');
-      g.fo(mikanLeaf, COL.leaf, 0.85);
-      g.s(mikanVein, null, 0.55);
-      g.f(mikanStem, COL.greenDeep);
+    A.mikan = {
+      still(g) {
+        g.fo(mikan, COL.orange);
+        g.f(mikanGlint, '#FFD49A');
+        g.fo(mikanLeaf, COL.leaf, 0.85);
+        g.s(mikanVein, null, 0.55);
+        g.f(mikanStem, COL.greenDeep);
+      },
     };
 
-    // 紅葉: a Japanese maple leaf
-    const MOMIJI = [[0, 11.2], [0.72, 10.2], [-0.72, 10.2], [1.44, 7.6], [-1.44, 7.6], [2.15, 4.4], [-2.15, 4.4]];
-    const lobes = MOMIJI.slice().sort((a, b) => a[0] - b[0]);
-    const MC = [0, 1.8];
+    // 紅葉: a maple leaf, five toothed lobes on a stem
+    const MC = [0, 1.4];
+    const MOMIJI = [[-2.05, 6.6], [-1.08, 10], [0, 11.6], [1.08, 10], [2.05, 6.6]];
     const momiji = mk((p) => {
       const pt = (a, r) => [MC[0] + Math.sin(a) * r, MC[1] - Math.cos(a) * r];
-      let first = true;
-      for (let i = 0; i < lobes.length; i++) {
-        const [a, L] = lobes[i];
-        const w = 0.2 + 2.2 / L / 10;
-        const pts = [pt(a - w, L * 0.5), pt(a, L), pt(a + w, L * 0.5)];
-        if (i < lobes.length - 1) pts.push(pt((a + lobes[i + 1][0]) / 2, 2.6));
-        for (const [x, y] of pts) {
-          if (first) {
-            p.M(x, y);
-            first = false;
-          } else {
-            p.L(x, y);
-          }
-        }
-      }
-      const s = pt(Math.PI, 2.2);
-      p.L(s[0] + 0.8, s[1]).L(s[0] - 0.8, s[1]).Z();
+      const pts = [];
+      MOMIJI.forEach(([a, L], i) => {
+        pts.push(pt(a - 0.34, L * 0.46), pt(a - 0.3, L * 0.74), pt(a - 0.1, L * 0.68), pt(a, L), pt(a + 0.1, L * 0.68), pt(a + 0.3, L * 0.74), pt(a + 0.34, L * 0.46));
+        if (i < MOMIJI.length - 1) pts.push(pt((a + MOMIJI[i + 1][0]) / 2, 3.6));
+      });
+      pts.push(pt(Math.PI - 0.5, 2.6), pt(Math.PI + 0.5, 2.6));
+      p.M(pts[0][0], pts[0][1]);
+      for (let i = 1; i < pts.length; i++) p.L(pts[i][0], pts[i][1]);
+      p.Z();
     });
     const momijiVeins = mk((p) => {
-      for (const [a, L] of MOMIJI) {
-        p.M(MC[0], MC[1]).L(MC[0] + Math.sin(a) * L * 0.72, MC[1] - Math.cos(a) * L * 0.72);
-      }
+      for (const [a, L] of MOMIJI) p.M(MC[0], MC[1]).L(MC[0] + Math.sin(a) * L * 0.7, MC[1] - Math.cos(a) * L * 0.7);
     });
-    const momijiStem = mk((p) => p.M(0, 3.6).Q(0.4, 8, 2.2, 11.4));
-    A.momiji = (g, t) => {
-      if (t) g.c.rotate(0.08 * Math.sin(t * 1.4));
-      g.tube(momijiStem, '#E0603C', g.lw * 0.8);
-      g.fo(momiji, '#F27B50');
-      g.s(momijiVeins, '#C9502C', 0.6);
+    const momijiStem = mk((p) => p.M(0, 3.4).Q(0.2, 8, 2, 11.6));
+    A.momiji = {
+      still(g) {
+        g.tube(momijiStem, '#E0603C', g.lw * 0.8);
+        g.fo(momiji, '#F27B50');
+        g.s(momijiVeins, '#C9502C', 0.6);
+      },
+      // it drifts
+      pose(c, t) {
+        c.translate(0.7 * Math.sin(t * 1.4), 0.3 * Math.sin(t * 2.8));
+      },
     };
 
-    // 雪の結晶: six branched arms; it turns slowly
+    // 雪の結晶: six branched arms
     const snow = mk((p) => {
       for (let i = 0; i < 6; i++) {
         p.at(0, 0, (i * TAU) / 6, 1);
@@ -540,38 +589,53 @@
       for (let i = 0; i < 6; i++) pts.push(Math.sin((i * TAU) / 6) * 3, -Math.cos((i * TAU) / 6) * 3);
       p.poly(pts);
     });
-    A.snowflake = (g, t) => {
-      if (t) g.c.rotate(t * 0.35);
-      g.tube(snow, '#D6EEFC', g.lw * 1.2);
-      g.fo(snowHeart, '#D6EEFC');
+    A.snowflake = {
+      still(g) {
+        g.tube(snow, '#D6EEFC', g.lw * 1.2);
+        g.fo(snowHeart, '#D6EEFC');
+      },
+      // it glints as it falls
+      pose(c, t) {
+        const k = 1 + 0.05 * Math.sin(t * 2.4);
+        c.translate(0, 0.5 * Math.sin(t * 1.2));
+        c.scale(k, k);
+      },
     };
 
-    // 花火: a burst of petals in three colours, twinkling
-    const FW = [COL.pinkDeep, COL.gold, COL.blueDeep];
-    const fwPetals = FW.map((_, k) => mk((p) => {
-      for (let i = k; i < 9; i += 3) {
-        p.at(0, 0, (i * TAU) / 9, 1);
-        p.M(0, -3.2).C(1.9, -6, 2.2, -9.2, 0, -10.4).C(-2.2, -9.2, -1.9, -6, 0, -3.2).Z();
+    // 花火: a burst of coloured streaks with sparks at their ends
+    const FW = [COL.pinkDeep, COL.gold, COL.blueDeep, COL.gold];
+    const fwRays = FW.map((_, k) => mk((p) => {
+      for (let i = k; i < 8; i += 4) {
+        p.at(0, 0, (i * TAU) / 8, 1);
+        p.M(0, -4.2).L(0, -8.2);
       }
     }));
-    const fwDots = [];
-    for (let i = 0; i < 9; i++) {
-      const a = (i * TAU) / 9 + TAU / 18;
-      fwDots.push([Math.sin(a) * 10.6, -Math.cos(a) * 10.6]);
-    }
-    const fwCore = mk((p) => p.circle(0, 0, 2));
-    A.fireworks = (g, t) => {
-      for (let i = 0; i < 3; i++) g.fo(fwPetals[i], FW[i], 0.85);
-      g.fo(fwCore, COL.goldPale, 0.8);
-      const c = g.c;
-      c.fillStyle = COL.gold;
-      c.beginPath();
-      for (let i = 0; i < fwDots.length; i++) {
-        const r = t ? 0.6 + 0.6 * (0.5 + 0.5 * Math.sin(t * 6 + i * 2.1)) : 0.95;
-        c.moveTo(fwDots[i][0] + r, fwDots[i][1]);
-        c.arc(fwDots[i][0], fwDots[i][1], r, 0, TAU);
+    const fwTips = FW.map((_, k) => mk((p) => {
+      for (let i = k; i < 8; i += 4) {
+        p.at(0, 0, (i * TAU) / 8, 1);
+        p.circle(0, -10.4, 1.5);
       }
-      c.fill();
+    }));
+    // sparks between the streaks
+    const fwSparks = mk((p) => {
+      for (let i = 0; i < 8; i++) {
+        const a = (i * TAU) / 8 + TAU / 16;
+        p.circle(Math.sin(a) * 7.4, -Math.cos(a) * 7.4, 0.9);
+      }
+    });
+    const fwCore = mk((p) => p.circle(0, 0, 1.9));
+    A.fireworks = {
+      still(g) {
+        for (let i = 0; i < 4; i++) g.tube(fwRays[i], FW[i], g.lw * 1.05);
+        for (let i = 0; i < 4; i++) g.fo(fwTips[i], FW[i], 0.75);
+        g.fo(fwCore, COL.goldPale, 0.75);
+        g.f(fwSparks, COL.gold);
+      },
+      // it bursts again and again
+      pose(c, t) {
+        const k = 1 + 0.06 * Math.sin(t * 5);
+        c.scale(k, k);
+      },
     };
 
     // 凧: a diamond kite with a ribboned tail
@@ -586,27 +650,23 @@
       p.poly([KB[0], KB[1], KL[0], KL[1], KC[0], KC[1]]);
     });
     const kiteSticks = mk((p) => p.M(KT[0], KT[1]).L(KB[0], KB[1]).M(KL[0], KL[1]).L(KR[0], KR[1]));
-    const kiteBow = mk((p) => p.poly([-2.2, -1.4, 2.2, 1.4, 2.2, -1.4, -2.2, 1.4]));
-    A.kite = (g, t) => {
-      const c = g.c;
-      const w = t ? Math.sin(t * 3) : 0;
-      // the tail, drawn fresh so it can wave
-      c.beginPath();
-      c.moveTo(KB[0], KB[1]);
-      c.bezierCurveTo(-1 + w, 9.4, -4.4 - w, 7.6, -6.6, 10.4 + w * 0.6);
-      c.lineWidth = g.lw * 0.8;
-      c.strokeStyle = g.o;
-      c.stroke();
-      g.fo(kite, COL.white);
-      g.f(kiteA, COL.red);
-      g.s(kiteSticks, null, 0.55);
-      g.s(kite);
-      for (const [bx, by] of [[-1.6 + w * 0.4, 9.2], [-5.6 - w * 0.3, 9.6 + w * 0.5]]) {
-        c.save();
-        c.translate(bx, by);
-        g.fo(kiteBow, COL.goldSoft, 0.7);
-        c.restore();
-      }
+    const kiteTail = mk((p) => p.M(KB[0], KB[1]).C(-1, 9.4, -4.4, 7.6, -6.6, 10.4));
+    const kiteBows = mk((p) => {
+      for (const [bx, by] of [[-1.6, 9.2], [-5.6, 9.6]]) p.poly([bx - 2.2, by - 1.4, bx + 2.2, by + 1.4, bx + 2.2, by - 1.4, bx - 2.2, by + 1.4]);
+    });
+    A.kite = {
+      still(g) {
+        g.s(kiteTail, null, 0.8);
+        g.fo(kite, COL.white);
+        g.f(kiteA, COL.red);
+        g.s(kiteSticks, null, 0.55);
+        g.s(kite);
+        g.fo(kiteBows, COL.goldSoft, 0.7);
+      },
+      // riding the wind
+      pose(c, t) {
+        c.translate(0.7 * Math.sin(t * 1.3), 0.5 * Math.sin(t * 2.6));
+      },
     };
 
     // お弁当: rice with an umeboshi, tamagoyaki, broccoli and a sausage
@@ -622,15 +682,17 @@
       p.circle(5.6, 3.9, 1.6);
     });
     const sausage = mk((p) => p.ellipse(8, 3.4, 1.4, 2.4));
-    A.bento = (g) => {
-      g.fo(bentoBox, '#E7785C');
-      g.fo(bentoTray, COL.rice, 0.8);
-      g.s(bentoWall, null, 0.8);
-      g.fo(egg, COL.egg, 0.7);
-      g.s(eggLine, null, 0.45);
-      g.u(broc, COL.greenDeep);
-      g.fo(sausage, COL.coral, 0.7);
-      g.f(ume, COL.daruma);
+    A.bento = {
+      still(g) {
+        g.fo(bentoBox, '#E7785C');
+        g.fo(bentoTray, COL.rice, 0.8);
+        g.s(bentoWall, null, 0.8);
+        g.fo(egg, COL.egg, 0.7);
+        g.s(eggLine, null, 0.45);
+        g.u(broc, COL.greenDeep);
+        g.fo(sausage, COL.coral, 0.7);
+        g.f(ume, COL.daruma);
+      },
     };
 
     // ラーメン: a bowl with noodles, naruto, nori and chopsticks, steaming
@@ -649,17 +711,21 @@
     const ramenSteam = mk((p) => {
       p.M(-1.6, -6).C(-3.6, -8, 0, -9.4, -1.8, -11.6);
     });
-    A.ramen = (g, t) => {
-      drawSteam(g, ramenSteam, t, 1);
-      g.fo(ramenNori, COL.nori, 0.8);
-      g.fo(soup, '#FFE08A');
-      g.s(noodles, '#D9A03A', 0.7);
-      g.fo(naruto, COL.white, 0.7);
-      g.s(narutoSwirl, COL.pinkDeep, 0.7);
-      g.tube(chopsticks, COL.wood, g.lw * 0.7);
-      g.fo(bowlFoot, COL.red);
-      g.fo(bowl, COL.red);
-      g.s(bowlBand, COL.cream, 1.3);
+    A.ramen = {
+      still(g) {
+        g.fo(ramenNori, COL.nori, 0.8);
+        g.fo(soup, '#FFE08A');
+        g.s(noodles, '#D9A03A', 0.7);
+        g.fo(naruto, COL.white, 0.7);
+        g.s(narutoSwirl, COL.pinkDeep, 0.7);
+        g.tube(chopsticks, COL.wood, g.lw * 0.7);
+        g.fo(bowlFoot, COL.red);
+        g.fo(bowl, COL.red);
+        g.s(bowlBand, COL.cream, 1.3);
+      },
+      move(g, t) {
+        drawSteam(g, ramenSteam, t, 1);
+      },
     };
 
     // 富士山: Mt Fuji with its snow, a little sun and a cloud
@@ -692,12 +758,14 @@
       p.circle(-2.2, 8.4, 2.2);
       p.rr(-10.8, 8.2, 10.6, 2.6, 1.3);
     });
-    A.fuji = (g) => {
-      g.fo(fujiSun, COL.coral);
-      g.fo(fuji, '#86A9E8');
-      g.fo(fujiSnow, COL.white, 0.8);
-      g.s(fuji);
-      g.u(fujiCloud, COL.white);
+    A.fuji = {
+      still(g) {
+        g.fo(fujiSun, COL.coral);
+        g.fo(fuji, '#86A9E8');
+        g.fo(fujiSnow, COL.white, 0.8);
+        g.s(fuji);
+        g.u(fujiCloud, COL.white);
+      },
     };
 
     // 和傘: a red paper umbrella with its white ring and ribs
@@ -719,15 +787,17 @@
     });
     const handle = mk((p) => p.M(0, 0.6).L(0, 11.4));
     const knob = mk((p) => p.circle(0, -11.2, 1.3));
-    A.umbrella = (g) => {
-      g.s(underRibs, null, 0.6);
-      g.tube(handle, COL.woodDeep, g.lw * 1.1);
-      g.f(canopy, COL.red);
-      g.f(ringOut, COL.cream);
-      g.f(ringIn, COL.red);
-      g.s(ribs, null, 0.45);
-      g.s(canopy);
-      g.fo(knob, COL.lacquer, 0.6);
+    A.umbrella = {
+      still(g) {
+        g.s(underRibs, null, 0.6);
+        g.tube(handle, COL.woodDeep, g.lw * 1.1);
+        g.f(canopy, COL.red);
+        g.f(ringOut, COL.cream);
+        g.f(ringIn, COL.red);
+        g.s(ribs, null, 0.45);
+        g.s(canopy);
+        g.fo(knob, COL.lacquer, 0.6);
+      },
     };
 
     // 提灯: a plain red paper lantern with black caps, swaying a little
@@ -744,115 +814,123 @@
       p.rr(-4.6, 8.8, 9.2, 3, 0.8);
     });
     const lanternLoop = mk((p) => p.M(0, -12.4).L(0, -11));
-    A.lantern = (g, t) => {
-      if (t) {
-        g.c.translate(0, -12);
-        g.c.rotate(0.07 * Math.sin(t * 1.7));
-        g.c.translate(0, 12);
-      }
-      g.s(lanternLoop);
-      g.fo(lantern, '#F07A5E');
-      g.f(lanternGlow, '#FFB29C');
-      g.s(lanternRibs, null, 0.55);
-      g.s(lantern);
-      g.fo(lanternCaps, COL.lacquer, 0.8);
+    A.lantern = {
+      still(g) {
+        g.s(lanternLoop);
+        g.fo(lantern, '#F07A5E');
+        g.f(lanternGlow, '#FFB29C');
+        g.s(lanternRibs, null, 0.55);
+        g.s(lantern);
+        g.fo(lanternCaps, COL.lacquer, 0.8);
+      },
+      // it sways on its loop
+      pose(c, t) {
+        c.translate(0.5 * Math.sin(t * 1.7), 0);
+      },
     };
 
     // ゴールの旗: a checked flag, waving
     const flagPole = mk((p) => p.M(-9, -10).L(-9, 11.8));
     const flagKnob = mk((p) => p.circle(-9, -10.8, 1.6));
-    A.flag = (g, t) => {
-      const c = g.c;
-      const x0 = -9;
-      const x1 = 11.4;
-      const top = -10;
-      const bot = 1.6;
-      const wave = (x) => {
-        const u = (x - x0) / (x1 - x0);
-        return (t ? 1.6 * Math.sin(u * 4.2 - t * 4) : 1.6 * Math.sin(u * 4.2)) * (0.2 + u);
-      };
-      const N = 4;
-      const R = 3;
-      const xs = [];
-      for (let i = 0; i <= N; i++) xs.push(x0 + ((x1 - x0) * i) / N);
-      // the cloth
-      c.beginPath();
-      c.moveTo(x0, top + wave(x0));
-      for (let i = 1; i <= N; i++) c.lineTo(xs[i], top + wave(xs[i]));
-      for (let i = N; i >= 0; i--) c.lineTo(xs[i], bot + wave(xs[i]));
-      c.closePath();
-      c.fillStyle = COL.white;
-      c.fill();
-      // its dark squares
-      c.beginPath();
-      for (let i = 0; i < N; i++) {
-        for (let j = 0; j < R; j++) {
+    const FX0 = -9;
+    const FX1 = 11.4;
+    const FTOP = -10;
+    const FBOT = 1.6;
+    const fwave = (x) => {
+      const u = (x - FX0) / (FX1 - FX0);
+      return 1.6 * Math.sin(u * 4.2) * (0.2 + u);
+    };
+    const FXS = [];
+    for (let i = 0; i <= 8; i++) FXS.push(FX0 + ((FX1 - FX0) * i) / 8);
+    const flagCloth = mk((p) => {
+      p.M(FX0, FTOP + fwave(FX0));
+      for (let i = 1; i <= 8; i++) p.L(FXS[i], FTOP + fwave(FXS[i]));
+      for (let i = 8; i >= 0; i--) p.L(FXS[i], FBOT + fwave(FXS[i]));
+      p.Z();
+    });
+    // four columns of three squares, each column bent with the cloth
+    const flagChecks = mk((p) => {
+      const yAt = (x, f) => FTOP + fwave(x) + (FBOT - FTOP) * f;
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 3; j++) {
           if ((i + j) % 2) continue;
-          const yA = (x, f) => top + wave(x) + (bot - top) * f;
-          c.moveTo(xs[i], yA(xs[i], j / R));
-          c.lineTo(xs[i + 1], yA(xs[i + 1], j / R));
-          c.lineTo(xs[i + 1], yA(xs[i + 1], (j + 1) / R));
-          c.lineTo(xs[i], yA(xs[i], (j + 1) / R));
-          c.closePath();
+          const a = FXS[i * 2];
+          const m = FXS[i * 2 + 1];
+          const b = FXS[i * 2 + 2];
+          p.M(a, yAt(a, j / 3)).L(m, yAt(m, j / 3)).L(b, yAt(b, j / 3));
+          p.L(b, yAt(b, (j + 1) / 3)).L(m, yAt(m, (j + 1) / 3)).L(a, yAt(a, (j + 1) / 3)).Z();
         }
       }
-      c.fillStyle = '#2A3352';
-      c.fill();
-      c.beginPath();
-      c.moveTo(x0, top + wave(x0));
-      for (let i = 1; i <= N; i++) c.lineTo(xs[i], top + wave(xs[i]));
-      for (let i = N; i >= 0; i--) c.lineTo(xs[i], bot + wave(xs[i]));
-      c.closePath();
-      c.lineWidth = g.lw;
-      c.strokeStyle = g.o;
-      c.stroke();
-      g.tube(flagPole, COL.wood, g.lw * 0.9);
-      g.fo(flagKnob, COL.gold, 0.8);
+    });
+    A.flag = {
+      still(g) {
+        g.f(flagCloth, COL.white);
+        g.f(flagChecks, '#2A3352');
+        g.s(flagCloth);
+        g.tube(flagPole, COL.wood, g.lw * 0.9);
+        g.fo(flagKnob, COL.gold, 0.8);
+      },
+      // it flaps from the pole
+      pose(c, t) {
+        c.translate(-9, 0);
+        c.scale(1 + 0.04 * Math.sin(t * 3.6), 1 + 0.02 * Math.sin(t * 3.6 + 1.2));
+        c.translate(9, 0);
+      },
     };
 
     // キラキラ: a big twinkle and a small one, taking turns to shine
     const sparkBig = mk((p) => twinkle(p, 0, 0, 9.6));
     const sparkSmall = mk((p) => twinkle(p, 0, 0, 4.6));
     const sparkDot = mk((p) => p.circle(0, 0, 1.5));
-    A.sparkles = (g, t) => {
-      const c = g.c;
-      const a = t ? 1 + 0.1 * Math.sin(t * 4) : 1;
-      const b = t ? 1 + 0.25 * Math.sin(t * 4 + 2.4) : 1;
-      c.save();
-      c.translate(-2.2, 1.6);
-      c.scale(a, a);
-      g.fo(sparkBig, COL.gold);
-      c.restore();
-      c.save();
-      c.translate(7.2, -7);
-      c.scale(b, b);
-      g.fo(sparkSmall, COL.goldPale, 0.85);
-      c.restore();
-      c.save();
-      c.translate(7.4, 7.6);
-      g.fo(sparkDot, COL.goldSoft, 0.8);
-      c.restore();
+    A.sparkles = {
+      still(g) {
+        const c = g.c;
+        c.save();
+        c.translate(-2.2, 1.6);
+        g.fo(sparkBig, COL.gold);
+        c.restore();
+        c.save();
+        c.translate(7.4, 7.6);
+        g.fo(sparkDot, COL.goldSoft, 0.8);
+        c.restore();
+      },
+      // the small twinkle comes and goes
+      move(g, t) {
+        const c = g.c;
+        const b = t ? 1 + 0.3 * Math.sin(t * 4 + 2.4) : 1;
+        c.save();
+        c.translate(7.2, -7);
+        c.scale(b, b);
+        g.fo(sparkSmall, COL.goldPale, 0.85);
+        c.restore();
+      },
     };
 
     // 汗: Yaoki's drop of sweat
     const drop = mk((p) => p.M(0, -11.6).C(4.4, -5.6, 8, -1.2, 8, 3.2).C(8, 7.8, 4.4, 11.6, 0, 11.6).C(-4.4, 11.6, -8, 7.8, -8, 3.2).C(-8, -1.2, -4.4, -5.6, 0, -11.6).Z());
     const dropGlint = mk((p) => p.ellipse(-3.6, 3.6, 1.4, 2.8, 0.3));
-    A.sweat = (g, t) => {
-      if (t) g.c.translate(0, 0.6 * Math.sin(t * 3));
-      g.fo(drop, COL.drop);
-      g.f(dropGlint, COL.white);
+    A.sweat = {
+      still(g) {
+        g.fo(drop, COL.drop);
+        g.f(dropGlint, COL.white);
+      },
+      pose(c, t) {
+        c.translate(0, 0.6 * Math.sin(t * 3));
+      },
     };
 
     // ハート: a pink heart that beats
     const heart = mk((p) => p.M(0, 10.6).C(-5.4, 6.6, -11.8, 1.8, -11.8, -3.8).C(-11.8, -8.4, -8.2, -10.6, -5.6, -10.6).C(-3, -10.6, -1, -9, 0, -6.4).C(1, -9, 3, -10.6, 5.6, -10.6).C(8.2, -10.6, 11.8, -8.4, 11.8, -3.8).C(11.8, 1.8, 5.4, 6.6, 0, 10.6).Z());
     const heartGlint = mk((p) => p.ellipse(-6, -4.6, 2, 1.3, -0.7));
-    A.heart = (g, t) => {
-      if (t) {
-        const b = Math.pow(Math.max(0, Math.sin(t * 4.4)), 6);
-        g.c.scale(1 + 0.07 * b, 1 + 0.07 * b);
-      }
-      g.fo(heart, '#F98BA6');
-      g.f(heartGlint, COL.white);
+    A.heart = {
+      still(g) {
+        g.fo(heart, '#F98BA6');
+        g.f(heartGlint, COL.white);
+      },
+      pose(c, t) {
+        const b = 1 + 0.07 * Math.pow(Math.max(0, Math.sin(t * 4.4)), 6);
+        c.scale(b, b);
+      },
     };
 
     // 音符: two beamed quavers, bobbing
@@ -863,9 +941,13 @@
       p.rr(9, -10.4, 2.2, 15.4, 0.4);
       p.M(-3.6, -8.4).L(11.2, -10.6).L(11.2, -6.6).L(-3.6, -4.4).Z();
     });
-    A.note = (g, t) => {
-      if (t) g.c.translate(0, -Math.abs(Math.sin(t * 3)) * 1.2);
-      g.u(notes, COL.blue);
+    A.note = {
+      still(g) {
+        g.u(notes, COL.blue);
+      },
+      pose(c, t) {
+        c.translate(0, -Math.abs(Math.sin(t * 3)) * 1.2);
+      },
     };
 
     // はなまる: the teacher's flower circle, in the stamp's red
@@ -892,9 +974,10 @@
         p.L(Math.cos(ang) * r, Math.sin(ang) * r);
       }
     });
-    A.hanamaru = (g) => {
-      const pal = g.pal;
-      g.s(hanamaru, (pal && pal.stamp) || '#C7361E', 1.35);
+    A.hanamaru = {
+      still(g) {
+        g.s(hanamaru, (g.pal && g.pal.stamp) || '#C7361E', 1.35);
+      },
     };
 
     // 鉛筆: a yellow pencil, ready to write
@@ -905,13 +988,19 @@
     const pencilLead = mk((p) => p.at(0, 0, PR, 1).poly([-11.6, -1.25, -14, 0, -11.6, 1.25]));
     const pencilBand = mk((p) => p.at(0, 0, PR, 1).poly([8, -3.3, 10.6, -3.3, 10.6, 3.3, 8, 3.3]));
     const pencilRubber = mk((p) => p.at(0, 0, PR, 1).M(10.6, -3.3).L(12.4, -3.3).Q(14.4, -3.3, 14.4, 0).Q(14.4, 3.3, 12.4, 3.3).L(10.6, 3.3).Z());
-    A.pencil = (g) => {
-      g.fo(pencilRubber, COL.pinkMid);
-      g.fo(pencilBand, COL.silver);
-      g.fo(pencilWood, '#F6DBB1');
-      g.f(pencilLead, '#3A4256');
-      g.fo(pencilBody, COL.egg);
-      g.s(pencilFacet, '#E7B93C', 0.7);
+    A.pencil = {
+      still(g) {
+        g.fo(pencilRubber, COL.pinkMid);
+        g.fo(pencilBand, COL.silver);
+        g.fo(pencilWood, '#F6DBB1');
+        g.f(pencilLead, '#3A4256');
+        g.fo(pencilBody, COL.egg);
+        g.s(pencilFacet, '#E7B93C', 0.7);
+      },
+      // writing
+      pose(c, t) {
+        c.translate(0.5 * Math.sin(t * 5), 0.3 * Math.sin(t * 10));
+      },
     };
 
     // 独楽: a spinning top in bands of colour
@@ -926,21 +1015,28 @@
       p.M(-12, 3).Q(-12.4, 6, -10, 8.6);
       p.M(12, 3).Q(12.4, 6, 10, 8.6);
     });
-    A.koma = (g, t) => {
-      g.s(komaTip, null, 1.4);
-      g.fo(komaSide, COL.wood);
-      g.f(komaSideBand, COL.red);
-      g.s(komaSide);
-      g.fo(komaTop, COL.red);
-      g.f(komaRing1, COL.goldSoft);
-      g.f(komaRing2, COL.green);
-      g.s(komaRing1, null, 0.5);
-      g.fo(komaAxle, COL.woodDeep, 0.85);
-      if (t) {
+    A.koma = {
+      still(g) {
+        g.s(komaTip, null, 1.4);
+        g.fo(komaSide, COL.wood);
+        g.f(komaSideBand, COL.red);
+        g.s(komaSide);
+        g.fo(komaTop, COL.red);
+        g.f(komaRing1, COL.goldSoft);
+        g.f(komaRing2, COL.green);
+        g.s(komaRing1, null, 0.5);
+        g.fo(komaAxle, COL.woodDeep, 0.85);
+      },
+      // it hums as it spins
+      pose(c, t) {
+        c.translate(0.3 * Math.sin(t * 23), 0);
+      },
+      move(g, t) {
+        if (!t) return;
         g.alpha(0.5 + 0.5 * Math.sin(t * 9));
         g.s(komaSwish, null, 0.7);
         g.alpha(1);
-      }
+      },
     };
 
     // かえる: a green frog's face, for a hop
@@ -962,13 +1058,17 @@
       p.ellipse(-7.4, 4.2, 1.9, 1.2);
       p.ellipse(7.4, 4.2, 1.9, 1.2);
     });
-    A.frog = (g, t) => {
-      if (t) g.c.translate(0, -Math.pow(Math.abs(Math.sin(t * 2.4)), 4) * 1.4);
-      g.u(frog, COL.green);
-      g.fo(frogEyes, COL.white, 0.75);
-      g.f(frogPupils, INK);
-      g.f(frogCheeks, COL.pinkMid);
-      g.s(frogSmile, null, 0.8);
+    A.frog = {
+      still(g) {
+        g.u(frog, COL.green);
+        g.fo(frogEyes, COL.white, 0.75);
+        g.f(frogPupils, INK);
+        g.f(frogCheeks, COL.pinkMid);
+        g.s(frogSmile, null, 0.8);
+      },
+      pose(c, t) {
+        c.translate(0, -Math.pow(Math.abs(Math.sin(t * 2.4)), 4) * 1.4);
+      },
     };
 
     // かめ: a turtle, slow and steady
@@ -988,16 +1088,19 @@
       p.M(4, -1.4).L(7.8, -1.4);
       p.M(-5.8, -1.4).L(-10, -1.4);
     });
-    A.turtle = (g, t) => {
-      g.u(turtleLegs, COL.matcha);
-      g.c.save();
-      if (t) g.c.translate(Math.sin(t * 1.6) * 0.6, 0);
-      g.fo(turtleHead, COL.matcha);
-      g.f(turtleEye, INK);
-      g.c.restore();
-      g.fo(shell, '#7DBB8A');
-      g.s(shellLines, '#4E8F63', 0.6);
-      g.fo(shellRim, '#C9E6A0');
+    A.turtle = {
+      still(g) {
+        g.u(turtleLegs, COL.matcha);
+        g.fo(turtleHead, COL.matcha);
+        g.f(turtleEye, INK);
+        g.fo(shell, '#7DBB8A');
+        g.s(shellLines, '#4E8F63', 0.6);
+        g.fo(shellRim, '#C9E6A0');
+      },
+      // slow and steady
+      pose(c, t) {
+        c.translate(0.5 * Math.sin(t * 0.9), 0);
+      },
     };
 
     // 太鼓: a festival drum with its sticks
@@ -1016,23 +1119,22 @@
     const drumBand = mk((p) => p.M(-10.2, 4.4).Q(0, 6.8, 10.2, 4.4));
     const bachiL = mk((p) => p.M(-11, -11.2).L(-3, -4.2));
     const bachiR = mk((p) => p.M(11, -11.2).L(3, -4.2));
-    A.taiko = (g, t) => {
-      g.fo(drum, '#D9694F');
-      g.s(drumBand, COL.gold, 1.2);
-      g.f(drumStuds, COL.lacquer);
-      g.fo(drumHead, '#FBEBCB');
-      const c = g.c;
-      const hit = t ? 0.12 * Math.sin(t * 7) : 0;
-      for (const [b, sg] of [[bachiL, 1], [bachiR, -1]]) {
-        c.save();
-        if (hit) {
-          c.translate(sg * -11, -11.2);
-          c.rotate(sg * hit);
-          c.translate(sg * 11, 11.2);
-        }
-        g.tube(b, COL.wood, g.lw * 1.2);
-        c.restore();
-      }
+    A.taiko = {
+      still(g) {
+        g.fo(drum, '#D9694F');
+        g.s(drumBand, COL.gold, 1.2);
+        g.f(drumStuds, COL.lacquer);
+        g.fo(drumHead, '#FBEBCB');
+        g.tube(bachiL, COL.wood, g.lw * 1.2);
+        g.tube(bachiR, COL.wood, g.lw * 1.2);
+      },
+      // どん: it squashes on each beat
+      pose(c, t) {
+        const b = Math.pow(Math.max(0, Math.sin(t * 6)), 8);
+        c.translate(0, 11.4);
+        c.scale(1 + 0.04 * b, 1 - 0.05 * b);
+        c.translate(0, -11.4);
+      },
     };
 
     // かき氷: shaved ice with strawberry syrup in a glass
@@ -1044,12 +1146,14 @@
       p.ellipse(0, 10.4, 5.6, 1.5);
     });
     const glassGlint = mk((p) => p.M(-8, 2).Q(-6.4, 4.6, -3.6, 5.4));
-    A.kakigori = (g) => {
-      g.u(glassFoot, COL.sky);
-      g.fo(ice, COL.white);
-      g.fo(syrup, '#F7899F', 0.7);
-      g.fo(glass, COL.sky);
-      g.s(glassGlint, COL.white, 1);
+    A.kakigori = {
+      still(g) {
+        g.u(glassFoot, COL.sky);
+        g.fo(ice, COL.white);
+        g.fo(syrup, '#F7899F', 0.7);
+        g.fo(glass, COL.sky);
+        g.s(glassGlint, COL.white, 1);
+      },
     };
 
     // メダル: a gold medal on a ribbon
@@ -1058,18 +1162,24 @@
     const medal = mk((p) => p.circle(0, 4.4, 7.4));
     const medalRing = mk((p) => p.circle(0, 4.4, 5));
     const medalStar = mk((p) => p.poly(starPts(5, 3.2, 1.4, 0, 4.6)));
-    A.medal = (g, t) => {
-      g.fo(ribbonR, COL.blue);
-      g.fo(ribbonL, COL.red);
-      g.fo(medal, COL.gold);
-      g.s(medalRing, '#D99A22', 0.8);
-      const k = t ? 1 + 0.12 * Math.sin(t * 4) : 1;
-      g.c.save();
-      g.c.translate(0, 4.6);
-      g.c.scale(k, k);
-      g.c.translate(0, -4.6);
-      g.f(medalStar, COL.goldPale);
-      g.c.restore();
+    A.medal = {
+      still(g) {
+        g.fo(ribbonR, COL.blue);
+        g.fo(ribbonL, COL.red);
+        g.fo(medal, COL.gold);
+        g.s(medalRing, '#D99A22', 0.8);
+      },
+      // the star on it shines
+      move(g, t) {
+        const c = g.c;
+        const k = t ? 1 + 0.12 * Math.sin(t * 4) : 1;
+        c.save();
+        c.translate(0, 4.6);
+        c.scale(k, k);
+        c.translate(0, -4.6);
+        g.f(medalStar, COL.goldPale);
+        c.restore();
+      },
     };
 
     // お寿司: a salmon nigiri
@@ -1087,12 +1197,15 @@
       p.ellipse(3.4, 5.4, 1.1, 0.6, 0.2);
       p.ellipse(7.2, 6.2, 1.1, 0.6, -0.3);
     });
-    A.sushi = (g) => {
-      g.c.translate(0, 1.4);
-      g.fo(rice, COL.rice);
-      g.f(grains, '#E6E2D6');
-      g.fo(neta, COL.salmon);
-      g.s(fat, COL.salmonFat, 1);
+    A.sushi = {
+      still(g) {
+        g.c.translate(0, 1.4);
+        g.fo(rice, COL.rice);
+        g.f(grains, '#E6E2D6');
+        g.fo(neta, COL.salmon);
+        g.s(fat, COL.salmonFat, 1);
+        g.c.translate(0, -1.4);
+      },
     };
 
     return A;
@@ -1128,6 +1241,98 @@
     return ART;
   }
 
+  // ---------- sprites ----------
+  //
+  // Strokes are the costly part of a draw, so the still layer of an item is kept as a small
+  // bitmap at the exact pixel size it is shown at, once that size has held for two draws (a
+  // bubble pops in at a growing scale, then stays). It is put on whole device pixels when
+  // nothing moves it, so it stays as crisp as the shapes; a pose (a sway, a beat) moves the
+  // bitmap, and the moving bits are drawn as shapes over it each time. While the size is
+  // still changing, a bitmap of the same item at another size is scaled to fit if there is
+  // one, and the shapes are drawn if there is not.
+
+  const MARGIN = 3;             // item units kept round the 24-unit box for outlines and overhangs
+  const SPRITE_MAX = 320;       // device px: bigger than this is drawn as shapes
+  const KEEP = 24;              // bitmaps kept, the least recently used dropped first
+  const sprites = new Map();    // item, colours, line and size → bitmap
+  const near = new Map();       // item, colours and line → its latest bitmap, at any size
+  const seen = new Map();
+
+  function newCanvas(w) {
+    try {
+      if (typeof document !== 'undefined' && document.createElement) {
+        const cv = document.createElement('canvas');
+        cv.width = w;
+        cv.height = w;
+        return cv;
+      }
+      if (typeof OffscreenCanvas === 'function') return new OffscreenCanvas(w, w);
+    } catch (err) {
+      // no bitmaps here: the shapes will do
+    }
+    return null;
+  }
+
+  // the bitmap of an item's still layer at dk device px per unit, or null to draw shapes
+  function sprite(item, id, dk) {
+    const q = Math.round(dk * BOX * 2) / 2;
+    if (!(q >= 4) || !isFinite(q)) return null;
+    const stamp = id === 'hanamaru' ? (G.pal && G.pal.stamp) || '' : '';
+    const base = id + '|' + G.o + '|' + stamp + '|' + Math.round(G.lw * 1000);
+    const key = base + '|' + q;
+    const hit = sprites.get(key);
+    if (hit) {
+      sprites.delete(key);
+      sprites.set(key, hit);
+      return hit;
+    }
+    const kq = q / BOX;
+    // the first time at a size, borrow the item's bitmap at a nearby size, or draw shapes;
+    // make the bitmap if the size comes again
+    if (!seen.has(key)) {
+      if (seen.size > 48) seen.clear();
+      seen.set(key, 1);
+      const other = near.get(base);
+      return other && other.kq > kq * 0.6 && other.kq < kq * 1.6 ? other : null;
+    }
+    seen.delete(key);
+    const px = Math.ceil((BOX + MARGIN * 2) * kq);
+    if (px > SPRITE_MAX) return null;
+    const cv = newCanvas(px);
+    const sc = cv && cv.getContext('2d');
+    if (!sc) return null;
+    const main = G.c;
+    try {
+      sc.setTransform(kq, 0, 0, kq, px / 2, px / 2);
+      sc.lineJoin = 'round';
+      sc.lineCap = 'round';
+      G.c = sc;
+      item.still(G);
+    } finally {
+      G.c = main;
+    }
+    const sp = { cv, kq, px, w: px / kq };
+    sprites.set(key, sp);
+    if (sprites.size > KEEP) sprites.delete(sprites.keys().next().value);
+    near.delete(base);
+    near.set(base, sp);
+    if (near.size > KEEP) near.delete(near.keys().next().value);
+    return sp;
+  }
+
+  // the bitmap, centred on the pen's (0, 0)
+  function blit(c, sp, snap) {
+    const m = c.getTransform();
+    const tol = sp.kq * 0.02;
+    if (snap && Math.abs(m.b) < 1e-6 && Math.abs(m.c) < 1e-6 && Math.abs(m.a - sp.kq) < tol && Math.abs(m.d - sp.kq) < tol) {
+      c.setTransform(1, 0, 0, 1, 0, 0);
+      c.drawImage(sp.cv, Math.round(m.e - sp.px / 2), Math.round(m.f - sp.px / 2));
+      c.setTransform(m.a, m.b, m.c, m.d, m.e, m.f);
+    } else {
+      c.drawImage(sp.cv, -sp.w / 2, -sp.w / 2, sp.w, sp.w);
+    }
+  }
+
   // Draws the item centred on (x, y), fitting a size × size box.
   function draw(ctx, id, x, y, size, pal, t) {
     if (!ctx || typeof ctx.save !== 'function' || typeof id !== 'string') return;
@@ -1136,8 +1341,8 @@
     size = +size;
     if (!(size > 0) || !isFinite(size) || !isFinite(x) || !isFinite(y)) return;
     const A = art();
-    const fn = A && A[id];
-    if (!fn) return;
+    const item = A && A[id];
+    if (!item) return;
     t = +t || 0;
     if (!isFinite(t)) t = 0;
     const k = size / BOX;
@@ -1149,13 +1354,22 @@
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
       if (ctx.setLineDash) ctx.setLineDash([]);
-      ctx.shadowColor = 'rgba(0, 0, 0, 0)';
+      if (ctx.shadowBlur || ctx.shadowOffsetX || ctx.shadowOffsetY) ctx.shadowColor = 'rgba(0, 0, 0, 0)';
       G.c = ctx;
       G.o = (pal && typeof pal.outline === 'string' && pal.outline) || INK;
       G.lw = px / k;
       G.pal = pal || null;
       G.a0 = typeof ctx.globalAlpha === 'number' ? ctx.globalAlpha : 1;
-      fn(G, t);
+      let sp = null;
+      if (typeof ctx.getTransform === 'function' && typeof ctx.drawImage === 'function') {
+        const m = ctx.getTransform();
+        sp = sprite(item, id, Math.sqrt(Math.abs(m.a * m.d - m.b * m.c)));
+      }
+      const moving = !!(t && item.pose);
+      if (moving) item.pose(ctx, t);
+      if (sp) blit(ctx, sp, !moving);
+      else item.still(G);
+      if (item.move) item.move(G, t);
     } catch (err) {
       // an item that cannot be drawn is left out
     } finally {
@@ -1195,12 +1409,14 @@
       L('あと一枚！', 'One more card', 'flag'),
       L('これで最後！', 'This is it', 'taiko'),
       L('もうすぐゴール', 'Nearly there', 'kite'),
+      L('あとちょっと！', 'Almost there', 'lantern'),
     ],
     step0: [
       L('いいね！', 'Nice', 'sakura'),
       L('ナイス！', 'Nice one', 'sparkles'),
       L('その調子！', 'Keep it up', 'note'),
       L('じょうず！', 'Good typing', 'pencil'),
+      L('きれい！', 'Beautiful', 'momiji'),
     ],
     step1: [
       L('すごい！', 'Great', 'star'),
@@ -1224,7 +1440,7 @@
       L('もう大丈夫！', 'Got it now', 'onigiri'),
       L('覚えたね！', 'You learned it', 'pencil'),
       L('今度はできた！', 'Nailed it now', 'sakura'),
-      L('リベンジ成功！', 'Payback!', 'kendama'),
+      L('リベンジ成功！', 'Rematch won!', 'kendama'),
     ],
     rise: [
       L('よいしょ！', 'Up again', 'sweat'),
@@ -1236,8 +1452,8 @@
     halt: [
       L('ゆっくりでいい', 'Take your time', 'tea'),
       L('あわてないで', 'No rush', 'turtle'),
-      L('待ってるよ', "I'll wait", 'furin'),
-      L('ひと休み', 'Deep breath', 'tea'),
+      L('待ってるよ', "I'll wait", 'tea'),
+      L('ひと呼吸', 'Deep breath', 'furin'),
       L('一歩ずつね', 'Step by step', 'turtle'),
     ],
     star: [
@@ -1254,15 +1470,17 @@
     ],
     endGood: [
       L('やったね！', 'Well done', 'fireworks'),
-      L('はなまる！', 'Top marks', 'hanamaru'),
+      L('すばらしい！', 'Wonderful', 'hanamaru'),
       L('大成功！', 'Big success', 'medal'),
       L('最高だった！', 'That was great', 'sparkles'),
+      L('お祭りだ！', 'Party time!', 'lantern'),
     ],
     endOk: [
       L('おつかれ！', 'Good work', 'tea'),
       L('よくできました', 'Nicely done', 'sakura'),
       L('いい感じ！', 'Nice going', 'dango'),
       L('ひと休みしよう', "Let's rest", 'mikan'),
+      L('ごほうびだね', 'Treat time!', 'kakigori'),
     ],
     endTry: [
       L('つぎがある！', 'Next time', 'onigiri'),
@@ -1273,9 +1491,11 @@
     idle: [
       L('うーん…', 'Hmm…', 'dango'),
       L('だんご食べたい', 'Dango, anyone?', 'dango'),
-      L('おなかすいた…', 'I’m hungry…', 'ramen'),
+      L('おなかすいた…', "I'm hungry…", 'ramen'),
       L('おーい？', 'Hello?', 'note'),
       L('たい焼き…', 'Taiyaki…', 'taiyaki'),
+      L('お弁当まだ？', 'Lunch yet?', 'bento'),
+      L('おすし食べたい', 'Craving sushi', 'sushi'),
       L('次のキーは？', "What's next?", 'pencil'),
       L('いっしょにやろ', "Let's do it", 'heart'),
     ],
@@ -1304,6 +1524,14 @@
       L('まわれー！', 'Spin away!', 'snowflake'),
     ],
   };
+
+  // make the shapes while the page is idle, so the first bubble does not wait for them
+  try {
+    if (typeof requestIdleCallback === 'function') requestIdleCallback(art, { timeout: 3000 });
+    else if (typeof setTimeout === 'function') setTimeout(art, 300);
+  } catch (err) {
+    // they are made on the first draw instead
+  }
 
   window.TypingItems = { ITEMS, draw, LINES };
 })();
