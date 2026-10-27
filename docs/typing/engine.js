@@ -500,7 +500,7 @@
         '図書館:としょかん=library|新聞:しんぶん=newspaper|会社:かいしゃ=company|銀行:ぎんこう=bank|' +
         '病院:びょういん=hospital|映画:えいが=film|音楽:おんがく=music|料理:りょうり=cooking|写真:しゃしん=photo|' +
         '旅行:りょこう=travel|宿題:しゅくだい=homework|勉強:べんきょう=study|練習:れんしゅう=practice|' +
-        '質問:しつもん=question|電話:でんわ=telephone|今日:きょう=today|明日:あした=tomorrow|昨日:きのう=yesterday|' +
+        '質問:しつもん=question|電話:でんわ=telephone|今日:きょう=today|毎週:まいしゅう=every week|先週:せんしゅう=last week|' +
         '毎日:まいにち=every day|午後:ごご=afternoon|半分:はんぶん=half|大人:おとな=adult|子供:こども=child|' +
         '家族:かぞく=family|兄弟:きょうだい=siblings|動物:どうぶつ=animal|果物:くだもの=fruit|野菜:やさい=vegetables|' +
         '牛乳:ぎゅうにゅう=milk|仕事:しごと=work|世界:せかい=world|季節:きせつ=season|花火:はなび=fireworks|' +
@@ -525,14 +525,14 @@
     {
       id: 'yoji', ja: '四字熟語', en: 'Four-character idioms',
       items: kanji(
-        '七転八起:しちてんはっき=fall seven times, rise eight|一期一会:いちごいちえ=a once-in-a-lifetime meeting|' +
+        '心機一転:しんきいってん=a fresh start|一期一会:いちごいちえ=a once-in-a-lifetime meeting|' +
         '十人十色:じゅうにんといろ=to each their own|一石二鳥:いっせきにちょう=two birds with one stone|' +
         '一生懸命:いっしょうけんめい=with all one\'s might|以心伝心:いしんでんしん=unspoken understanding|' +
         '三日坊主:みっかぼうず=someone who soon gives up|日進月歩:にっしんげっぽ=rapid, constant progress|' +
         '起承転結:きしょうてんけつ=intro, development, twist, conclusion|花鳥風月:かちょうふうげつ=the beauties of nature|' +
         '温故知新:おんこちしん=finding new ideas in the old|臨機応変:りんきおうへん=adapting to the moment|' +
         '自業自得:じごうじとく=you reap what you sow|異口同音:いくどうおん=with one voice|' +
-        '千差万別:せんさばんべつ=endless variety|単刀直入:たんとうちょくにゅう=straight to the point|' +
+        '電光石火:でんこうせっか=as fast as lightning|単刀直入:たんとうちょくにゅう=straight to the point|' +
         '晴耕雨読:せいこううどく=work in sun, read in rain|大器晩成:たいきばんせい=great talents ripen late|' +
         '有言実行:ゆうげんじっこう=doing what you say|一日一善:いちにちいちぜん=a good deed a day|' +
         '半信半疑:はんしんはんぎ=half in doubt|四苦八苦:しくはっく=great hardship|' +
@@ -549,7 +549,7 @@
         '七転び八起き。:ななころびやおき。=Fall down seven times, get up eight.|' +
         '電車で学校へ行きます。:でんしゃでがっこうへいきます。=I go to school by train.|' +
         '桜がきれいに咲いています。:さくらがきれいにさいています。=The cherry blossoms are blooming beautifully.|' +
-        '少し休みましょう。:すこしやすみましょう。=Let\'s rest a little.|明日は早く寝ます。:あしたははやくねます。=I will go to bed early tomorrow.|' +
+        '少し休みましょう。:すこしやすみましょう。=Let\'s rest a little.|今夜は早く寝ます。:こんやははやくねます。=I will go to bed early tonight.|' +
         'お茶をもう一杯ください。:おちゃをもういっぱいください。=Another cup of tea, please.|' +
         'この本はとても面白いです。:このほんはとてもおもしろいです。=This book is very interesting.|' +
         '窓を開けてもいいですか。:まどをあけてもいいですか。=May I open the window?|道に迷いました。:みちにまよいました。=I got lost.|' +
@@ -557,7 +557,7 @@
         '宿題を忘れないでください。:しゅくだいをわすれないでください。=Please don\'t forget your homework.|' +
         '駅の前で待っています。:えきのまえでまっています。=I am waiting in front of the station.|' +
         '風邪をひいてしまいました。:かぜをひいてしまいました。=I have caught a cold.|' +
-        '来年、日本へ留学します。:らいねん、にほんへりゅうがくします。=Next year I will study in Japan.|' +
+        '来年、京都へ留学します。:らいねん、きょうとへりゅうがくします。=Next year I will study in Kyoto.|' +
         '失敗は成功のもと。:しっぱいはせいこうのもと。=Failure is the seed of success.|' +
         '石の上にも三年。:いしのうえにもさんねん。=Patience wins in the end.|継続は力なり。:けいぞくはちからなり。=Keeping at it is strength.|' +
         '急がば回れ。:いそがばまわれ。=More haste, less speed.'),
