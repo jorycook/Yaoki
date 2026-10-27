@@ -494,6 +494,35 @@ async function waitFor(fn, ms = 5000) {
   if (shots) await page.screenshot({ path: `${shots}/course-dark.png` });
   await page.close();
 
+  // ---- kanji (advanced): the reading is the answer, shown only as a hint
+  page = await open();
+  await pick(page, 5, 2);
+  check('the kanji mode has its five levels', (await page.$$('#stages .option')).length === 5 && /漢字/.test(await page.textContent('#modes [aria-pressed="true"]')));
+  await page.click('#len-seg button:nth-child(1)');
+  await page.click('#start');
+  let kj = await target(page);
+  check('a kanji card shows the word without its reading', !!kj.reading && !kj.readingShown && !(await page.textContent('#info')).includes(kj.reading), JSON.stringify(kj));
+  await page.keyboard.type(kj.spell, { delay: 25 });
+  check('typed from memory, it is clean', (await state(page)).clean === 1);
+  kj = await target(page);
+  await page.keyboard.press('1');
+  kj = (await state(page)).target;
+  check('a slip shows the reading first, on the card and under the game', kj.readingShown && kj.level === 1 && (await page.textContent('#info')).includes(kj.reading), JSON.stringify(kj));
+  await sleep(120);
+  check('…but not yet the romaji or the keys', (await page.$('#kb .key.next')) === null);
+  await page.keyboard.press('1');
+  check('a second slip shows the romaji, and lights the next key', (await state(page)).target.level === 2 && await waitFor(async () => (await page.$('#kb .key.next')) !== null, 1000));
+  await page.keyboard.type((await state(page)).target.spell, { delay: 25 });
+  kj = await target(page);
+  check('when stuck, the reading shows after 5 seconds', !kj.readingShown && await waitFor(async () => ((await state(page)).target || {}).readingShown === true, 7000));
+  if (shots) await page.screenshot({ path: `${shots}/kanji.png` });
+  await quit(page);
+  await pick(page, 5, 5);
+  await page.click('#start');
+  const kdone = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
+  check('a round of sentences with kanji can be played to the end', kdone && (await state(page)).phase === 'result');
+  await page.close();
+
   // ---- sound effects: quiet by default, all, off; the kana fill; the fall's drum and bounce
   page = await open({}, null, SFX_STUB);
   check('sound effects are quiet by default', (await state(page)).sfx === 'quiet');

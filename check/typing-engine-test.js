@@ -182,6 +182,25 @@ test('every built-in prompt types out by its hint', () => {
   }
 });
 
+test('every kanji item has its reading and meaning, and the reading types out by its hint', () => {
+  const seen = new Set();
+  let n = 0;
+  for (const stage of E.KANJI_STAGES) {
+    assert.ok(stage.items.length >= 20, `${stage.id} has enough items`);
+    for (const it of stage.items) {
+      n++;
+      assert.ok(it.text && it.reading && it.gloss, `${stage.id}: ${it.text} is complete`);
+      assert.ok(/[\u4e00-\u9fff]/.test(it.text), `${stage.id}: ${it.text} has kanji`);
+      assert.ok(!/[\u4e00-\u9fff]/.test(it.reading), `${stage.id}: the reading of ${it.text} is kana`);
+      assert.ok(!seen.has(it.text), `${it.text} is not repeated`);
+      seen.add(it.text);
+      const hint = E.spell(T(it.reading));
+      assert.equal(typeAll(it.reading, hint), true, `${stage.id}: ${it.text} (${it.reading}) typed as ${hint}`);
+    }
+  }
+  assert.ok(n >= 150, 'kanji items: ' + n);
+});
+
 test('every course word (N5 to N2) types out by its hint', () => {
   global.window = {};
   let n = 0;

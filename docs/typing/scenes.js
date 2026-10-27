@@ -2626,8 +2626,9 @@
     'romaji:basic': 'shitamachi', 'romaji:voiced': 'chikurin', 'romaji:katakana': 'machi', 'romaji:words': 'matsuri', 'romaji:phrases': 'densha',
     'symbol:plain': 'uchuu', 'symbol:shifted': 'uminaka', 'symbol:punct': 'fuji', 'symbol:all': 'umi',
     'keys:home': 'tanbo', 'keys:top': 'yukiguni', 'keys:bottom': 'joka', 'keys:number': 'umi', 'keys:shift': 'chikurin', 'keys:all': 'fuji',
+    'kanji:single': 'fuji', 'kanji:jukugo': 'joka', 'kanji:advanced': 'yukiguni', 'kanji:yoji': 'chikurin', 'kanji:sentences': 'densha',
   });
-  const MODE_DEFAULT = table({ romaji: 'shitamachi', symbol: 'uchuu', keys: 'tanbo', course: 'shitamachi' });
+  const MODE_DEFAULT = table({ romaji: 'shitamachi', symbol: 'uchuu', keys: 'tanbo', course: 'shitamachi', kanji: 'fuji' });
 
   function forStage(key) {
     const k = typeof key === 'string' ? key : '';
