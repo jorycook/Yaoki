@@ -1283,7 +1283,12 @@
   // clean run grows (5, then 10 in a row), drops back when Yaoki falls, dips while a course word
   // is spoken, pauses with the round and ends with it.
 
-  const MUSIC_VOL = { off: 0, soft: 0.35, on: 0.7 };
+  const MUSIC_VOL = { off: 0, soft: 0.3, on: 0.6 };
+  // the tune that suits each scene of scenes.js
+  const SCENE_SONG = {
+    shitamachi: 'matsuri', chikurin: 'take', umi: 'umi', fuji: 'yuki', machi: 'yoru', tanbo: 'matsuri',
+    yukiguni: 'yuki', uchuu: 'uchu', uminaka: 'umi', matsuri: 'matsuri', densha: 'yoru', joka: 'take',
+  };
   function music(fn, ...args) {
     const m = window.TypingMusic;
     if (!m || typeof m[fn] !== 'function') return undefined;
@@ -1297,10 +1302,8 @@
   function songFor(scene) {
     const m = window.TypingMusic;
     if (!m || !Array.isArray(m.SONGS) || !m.SONGS.length) return null;
-    if (typeof m.forScene === 'function') {
-      const id = m.forScene(scene);
-      if (id) return id;
-    }
+    const own = SCENE_SONG[scene];
+    if (own && m.SONGS.some((x) => x.id === own)) return own;
     const scenes = window.TypingScenes && window.TypingScenes.SCENES ? window.TypingScenes.SCENES.map((x) => x.id) : [];
     const i = Math.max(0, scenes.indexOf(scene));
     return m.SONGS[i % m.SONGS.length].id;
@@ -2182,7 +2185,7 @@
       sc.draw(ctx, {
         scene: r.scene, W, top: -pad, bottom: H + pad, ground: GROUND,
         scroll: still ? 0 : r.scroll, progress: Math.min(1, (r.cleared + r.skipped) / r.total), t: still ? 0 : r.time,
-        still, dark: pal.dark, season: seasonOf(clock()), pal,
+        still, dark: pal.dark, season: r.season || (r.season = seasonOf(clock())), pal,
       });
     } catch (err) {
       // a scene that fails is left out for the rest of the round: the paper is enough

@@ -11,20 +11,32 @@
  * short cadence at the end.
  *
  * It plays into the effects' output (sfx.js, TypingSfx.audio()), through its own bus and a
- * gentle compressor, well under the effects. A short look-ahead scheduler (a timer every
- * 25 ms, notes placed up to 0.12 s ahead on the audio clock) keeps the beat tight. When the
- * output is closed (the page hidden, the effects turned off) the music stops cleanly and
- * keeps its place, as if paused. Every call is safe without audio and never throws.
+ * gentle compressor, under the effects. A short look-ahead scheduler (a timer every 25 ms,
+ * notes placed up to 0.12 s ahead on the audio clock) keeps the beat tight. When the output is
+ * closed (the page hidden, the effects turned off) the music stops cleanly and keeps its
+ * place, as if paused. Every call is safe without audio and never throws.
+ *
+ *   TypingMusic.SONGS              [{ id, ja, en, bpm }]
+ *   TypingMusic.start(id)          start or switch to a song at level 1; false if no output
+ *   TypingMusic.stop(fade = 0.4)   fade out and stop
+ *   TypingMusic.pause() / resume() keep the place / go on (from the bar's start on a new output)
+ *   TypingMusic.setLevel(0..3)     0 sparse, 1 groove, 2 + tune, 3 + counter-melody; next beat
+ *   TypingMusic.duck(seconds)      dip to a quarter meanwhile
+ *   TypingMusic.cue(name)          'step', 'fall', 'last' or 'end', on the next beat
+ *   TypingMusic.volume(v)          0..1 (0.6 at first; 0 mutes); returns the volume
+ *   TypingMusic.state()            { playing, paused, song, level, bpm, heard, section, bar,
+ *                                    tension, ending, volume }
  */
 (function () {
   'use strict';
 
   const LOOKAHEAD = 0.12;   // seconds of notes placed ahead of the audio clock
   const TICK = 25;          // ms between scheduler runs
-  const TRIM = 0.62;        // the bus's level after the compressor (set by measurement)
+  const TRIM = 0.2;         // the bus's level after the compressor (set by measurement)
   const DEFAULT_VOLUME = 0.6;
   const BRIGHT = [0.8, 1, 1.08, 1.32];   // filter brightness by level
   const SHINE = [-3, 0, 0.5, 2.5];       // high-shelf gain (dB) by level
+  const LEVEL_GAIN = [0.85, 0.9, 1, 1.1]; // the whole mix grows a little with each level
   const VEL = { X: 1, x: 0.7, o: 0.38 };
   const IDX = '0123456789abcdefghij';
 
@@ -41,9 +53,9 @@
     {
       id: 'matsuri', ja: 'お祭り', en: 'Festival', bpm: 140, swing: 0,
       scale: [0, 2, 5, 7, 9],                       // yo scale on D: D E G A B
-      end: 'D5', roll: 'shime', gain: 1,
+      end: 'D5', roll: 'shime', gain: 0.89,
       echo: [3, 0.26, 0.2],
-      mix: { drums: 1, perc: 0.95, bass: 0.95, comp: 0.8, lead: 0.92, counter: 0.5 },
+      mix: { drums: 1, perc: 1.02, bass: 0.85, comp: 0.99, lead: 0.97, counter: 0.54 },
       chords: {
         A: ['D5', 'D5', 'G', 'Asus4', 'D5', 'D5', 'Em7', 'Asus4'],
         B: ['G', 'Asus4', 'Em7', 'D5', 'G', 'Asus4', 'Em7', 'Asus4'],
@@ -53,7 +65,7 @@
         { v: 'ka', p: { 1: '..x...x...x...x.', 3: '..x...x.o.x...xo' } },
         { v: 'shime', p: { 1: '....X.......X...', 2: '....X.......X..o', 3: '..o.X..o..o.X.o.' } },
         { v: 'shaker', p: { 0: '..x...x...x...x.', 1: 'xoXoxoXoxoXoxoXo' } },
-        { v: 'kane', p: { 3: 'X.xxX.x.X.xxX.x.' } },
+        { v: 'chanchiki', p: { 3: 'X.xxX.x.X.xxX.x.' } },
       ],
       fill: { from: 8, don: '........X.xxX.XX', shime: '........o.o.oxox', ka: '................' },
       bass: { v: 'tri', low: 38, p: { 0: '1.......1.....5.', 1: '1.81.18.1.81.58.' } },
@@ -70,9 +82,9 @@
     {
       id: 'umi', ja: '海', en: 'Surf', bpm: 148, swing: 0,
       scale: [0, 4, 5, 7, 11],                      // Ryukyu (Okinawan) scale on C: C E F G B
-      end: 'C', roll: 'snare', gain: 1,
+      end: 'C', roll: 'snare', gain: 1.06,
       echo: [3, 0.36, 0.28],
-      mix: { drums: 1, perc: 0.9, bass: 0.95, comp: 0.75, lead: 0.8, counter: 0.5 },
+      mix: { drums: 1, perc: 1.16, bass: 1.29, comp: 1.01, lead: 1.14, counter: 0.49 },
       chords: {
         A: ['C', 'F', 'G', 'C', 'C', 'F', 'G', 'C'],
         B: ['F', 'G', 'C', 'Am', 'F', 'G', 'C', 'G7'],
@@ -99,9 +111,9 @@
     {
       id: 'yoru', ja: '夜', en: 'City night', bpm: 116, swing: 0.1,
       scale: [0, 2, 4, 7, 9],                       // yonanuki major on F: F G A C D
-      end: 'FM7', roll: 'snare', gain: 1,
+      end: 'FM7', roll: 'snare', gain: 1.19,
       echo: [3, 0.3, 0.22],
-      mix: { drums: 1, perc: 0.9, bass: 1, comp: 0.85, lead: 0.85, counter: 0.5 },
+      mix: { drums: 1, perc: 0.98, bass: 1.28, comp: 0.27, lead: 0.96, counter: 0.38 },
       chords: {
         A: ['BbM7', 'C7', 'Am7', 'Dm7'],            // the "royal road" of J-pop
         B: ['BbM7', 'A7', 'Dm7', 'Cm7 F7'],
@@ -129,9 +141,9 @@
     {
       id: 'take', ja: '竹', en: 'Bamboo', bpm: 108, swing: 0,
       scale: [0, 2, 3, 7, 8],                       // hirajoshi (a koto tuning) on A: A B C E F
-      end: 'Am', roll: 'shime', gain: 1,
+      end: 'Am', roll: 'shime', gain: 1.29,
       echo: [3, 0.34, 0.28],
-      mix: { drums: 1, perc: 0.9, bass: 1, comp: 0.9, lead: 0.95, counter: 0.55 },
+      mix: { drums: 1, perc: 0.45, bass: 0.55, comp: 0.52, lead: 0.62, counter: 0.25 },
       chords: {
         A: ['Am', 'FM7', 'Am', 'Esus4'],
         B: ['FM7', 'Dm7', 'Am', 'Esus4', 'FM7', 'Dm7', 'Esus4', 'E5'],
@@ -157,9 +169,9 @@
     {
       id: 'uchu', ja: '宇宙', en: 'Space', bpm: 128, swing: 0,
       scale: [0, 3, 5, 7, 10],                      // min'yō scale on D: D F G A C
-      end: 'Dm', endVoice: 'bell', roll: 'snare', gain: 1,
+      end: 'Dm', endVoice: 'bell', roll: 'snare', gain: 1.27,
       echo: [3, 0.4, 0.3],
-      mix: { drums: 1, perc: 0.85, bass: 1, comp: 0.8, lead: 0.85, counter: 0.5 },
+      mix: { drums: 1, perc: 0.54, bass: 0.61, comp: 0.64, lead: 1, counter: 0.27 },
       chords: {
         A: ['Dm', 'BbM7', 'C', 'Am'],
         B: ['Gm7', 'Am7', 'BbM7', 'C', 'Gm7', 'Am7', 'BbM7', 'C7sus4'],
@@ -187,9 +199,9 @@
     {
       id: 'yuki', ja: '雪', en: 'Snow', bpm: 124, swing: 0.12,
       scale: [0, 2, 3, 7, 9],                       // kumoi scale on E: E F# G B C#
-      end: 'Em', roll: 'snare', gain: 1,
+      end: 'Em', roll: 'snare', gain: 1.33,
       echo: [3, 0.32, 0.26],
-      mix: { drums: 1, perc: 0.85, bass: 1, comp: 0.75, lead: 0.85, counter: 0.5 },
+      mix: { drums: 1, perc: 0.99, bass: 0.73, comp: 0.46, lead: 1.17, counter: 0.42 },
       chords: {
         A: ['Em', 'A', 'G', 'D'],
         B: ['G', 'A', 'F#m7', 'Bm7'],
@@ -323,7 +335,7 @@
     const d = noise.getChannelData(0);
     let seed = 22695477;
     for (let i = 0; i < n; i++) {
-      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      seed = (Math.imul(seed, 1103515245) + 12345) & 0x7fffffff;
       d[i] = seed / 0x3fffffff - 1;
     }
     const wave = (count, fn) => {
@@ -477,8 +489,8 @@
     shaker(x, t, v, out) {
       hiss(x, out, t, 'bandpass', 5200 * x.bright, 1.4, 0.012, 0.06, v * 0.28);
     },
-    // the atarigane, the festival's little hand gong: "chan" open, "chiki" damped
-    kane(x, t, v, out, p, ch) {
+    // the atarigane, the festival band's little hand gong: "chan" open, "chiki" damped
+    chanchiki(x, t, v, out, p, ch) {
       const d = ch === 'X' ? 0.22 : 0.05;
       tone(x, out, t, 'triangle', 1580, 1580, 0, 0.001, d, v * 0.1);
       tone(x, out, t, 'sine', 2390, 2390, 0, 0.001, d * 0.8, v * 0.08);
@@ -505,7 +517,7 @@
       tone(x, out, t, 'triangle', 2400, 200, 0.22, 0.002, 0.25, v * 0.12);
     },
   };
-  const PERC_BUS = { hat: 1, ohat: 1, shaker: 1, kane: 1, jingle: 1, crash: 1, whistle: 1, zap: 1 };
+  const PERC_BUS = { hat: 1, ohat: 1, shaker: 1, chanchiki: 1, jingle: 1, crash: 1, whistle: 1, zap: 1 };
 
   // A rising whoosh of noise for the last card's tension.
   function riser(x, t, len, out) {
@@ -545,7 +557,7 @@
     },
     // a surf-guitar pulse: held notes are tremolo-picked
     surf(x, out, t, f, dur, v, o) {
-      return chip(x, out, t, f, dur, v * 0.75, o, x.r.pulse25, 3400, dur > 0.25 ? o.trem : 0);
+      return chip(x, out, t, f, dur, v * 1.1, o, x.r.pulse25, 3400, dur > 0.25 ? o.trem : 0);
     },
     // a shamisen (or Okinawan sanshin) pluck: a bright twang that dulls fast
     shami(x, out, t, f, dur, v) {
@@ -667,7 +679,7 @@
       const len = o.dead ? 0.04 : dur + 0.08;
       fl.frequency.setValueAtTime(2000 * x.bright, t);
       fl.frequency.exponentialRampToValueAtTime(500, t + 0.12);
-      perc(g, t, v * 0.7, 0.003, len);
+      perc(g, t, v * 1.2, 0.003, len);
       a.connect(fl);
       fl.connect(g);
       g.connect(out);
@@ -803,7 +815,7 @@
       return g;
     };
     const x = { ctx, r: resources(ctx), bright: 1, seed: 0, nodes, part: {}, lv: {} };
-    x.mix = gain(def.gain || 1);
+    x.mix = gain((def.gain || 1) * LEVEL_GAIN[1]);
     x.shine = ctx.createBiquadFilter();
     x.shine.type = 'highshelf';
     x.shine.frequency.value = 3200;
@@ -837,7 +849,7 @@
       node.connect(sp);
       sp.connect(x.mix);
     };
-    const MIX = { drums: 0.85, perc: 0.6, bass: 0.6, comp: 0.36, lead: 0.34, counter: 0.3, fx: 0.4 };
+    const MIX = { drums: 0.15, perc: 0.2, bass: 0.08, comp: 0.1, lead: 0.065, counter: 0.08, fx: 0.07 };
     const PAN = { drums: 0, perc: 0.22, bass: 0, comp: -0.28, lead: 0, counter: 0.32, fx: 0 };
     for (const name of Object.keys(MIX)) {
       const v = MIX[name] * ((def.mix && def.mix[name]) || 1);
@@ -845,16 +857,20 @@
       x.part[name] = gain(v);
       pan(x.part[name], PAN[name]);
     }
-    // the echo: a dotted-eighth delay for the tune and the counter-melody
+    // the echo: a dotted-eighth delay for the tune and the counter-melody, fed at each part's
+    // own level
     const e = def.echo;
-    x.send = gain(1);
     const delay = ctx.createDelay(2);
     delay.delayTime.value = e[0] * def.sd;
     const damp = filter(x, 'lowpass', 2600, 0.5);
     const fb = gain(e[1]);
     const wet = gain(e[2]);
     nodes.push(delay, damp);
-    x.send.connect(delay);
+    x.sends = {};
+    for (const name of ['lead', 'counter', 'fx']) {
+      x.sends[name] = gain(x.lv[name]);
+      x.sends[name].connect(delay);
+    }
     delay.connect(damp);
     damp.connect(fb);
     fb.connect(delay);
@@ -963,6 +979,7 @@
       p.level = p.target;
       try {
         x.shine.gain.setTargetAtTime(SHINE[p.level], t, 0.08);
+        x.mix.gain.setTargetAtTime((p.def.gain || 1) * LEVEL_GAIN[p.level], t, 0.08);
       } catch (err) {
         // gone
       }
@@ -998,13 +1015,13 @@
   function endSeq(p, n, t) {
     const def = p.def, x = p.x, k = n - p.endStep, lead = VOICE[def.lead.v];
     if (k < 4) {
-      lead(x, x.part.fx, t, hz(degree(def, 6 + k)), p.sd * 0.85, 0.6, { send: x.send, trem: 1.5 / p.sd });
+      lead(x, x.part.fx, t, hz(degree(def, 6 + k)), p.sd * 0.85, 0.6, { send: x.sends.fx, trem: 1.5 / p.sd });
       DRUM.don(x, t, 0.45 + 0.15 * k, x.part.drums, 1.3 + 0.1 * k);
       p.events += 2;
       return;
     }
     const ch = def.endChord, cv = VOICE[def.endVoice || def.comp.v];
-    lead(x, x.part.fx, t, hz(degree(def, 10)), 1.0, 0.65, { send: x.send, trem: 1.5 / p.sd });
+    lead(x, x.part.fx, t, hz(degree(def, 10)), 1.0, 0.65, { send: x.sends.fx, trem: 1.5 / p.sd });
     for (let i = 0; i < 4; i++) cv(x, x.part.fx, t + i * 0.014, hz(chordTone(ch, def.comp.low, i)), 1.1, 0.5, { cut: 3000 });
     VOICE[def.bass.v](x, x.part.bass, t, hz(bassNote(ch, def.bass.low, '1')), 1.1, 0.95, {});
     DRUM.don(x, t, 1, x.part.drums, 0.85);
@@ -1072,7 +1089,7 @@
     const bc = partChar(def, def.bass, L, n);
     if (bc !== '.' && bc !== '-') {
       const steps = holdOf((m) => partChar(def, def.bass, L, m), n);
-      VOICE[def.bass.v](x, x.part.bass, tt, hz(bassNote(ch, def.bass.low, bc)), steps * p.sd - 0.015, accent(s) * 0.9,
+      VOICE[def.bass.v](x, x.part.bass, tt, hz(bassNote(ch, def.bass.low, bc)), steps * p.sd - 0.015, accent(s) * (L === 0 ? 0.65 : 0.9),
         { dead: bc === 'x', pop: bc === '8' });
       p.events++;
     }
@@ -1100,11 +1117,11 @@
         const steps = holdOf((m) => leadChar(def, m), n);
         const m = degree(def, IDX.indexOf(lc)), dur = steps * p.sd - 0.012;
         const prev = p.prev, joined = prev && Math.abs(prev.end - tt) < p.sd * 0.45 && Math.abs(prev.m - m) <= 7 && prev.m !== m;
-        const after = leadChar(def, n - 1);
+        const before = leadChar(def, n - 1);
         const o = {
-          send: x.send, trem: 1.5 / p.sd,
-          from: joined ? hz(prev.m) : 0,
-          slide: !joined && steps >= 4 && (after === '.' || (prev && m - prev.m >= 5)),
+          send: x.sends.lead, trem: 1.5 / p.sd,
+          from: joined ? hz(prev.m) : 0,     // legato: glide from the note before
+          slide: !joined && steps >= 4 && (before === '.' || (prev && m - prev.m >= 5)),   // scoop into a long note
         };
         keep(p, 'lead', VOICE[def.lead.v](x, x.part.lead, tt, hz(m), dur, accent(s) * 0.85, o));
         p.prev = { m, end: tt + dur + 0.012 };
@@ -1122,14 +1139,14 @@
         if (lc !== '.' && lc !== '-') {
           const steps = holdOf((m) => leadChar(def, m), n);
           const m = degree(def, IDX.indexOf(lc) + cp.harm);
-          keep(p, 'counter', VOICE[cp.v](x, x.part.counter, tt, hz(m), steps * p.sd - 0.012, accent(s) * 0.75, { send: x.send }));
+          keep(p, 'counter', VOICE[cp.v](x, x.part.counter, tt, hz(m), steps * p.sd - 0.012, accent(s) * 0.75, { send: x.sends.counter }));
           p.events++;
         }
       } else {
         const kc = partChar(def, cp, L, n);
         if (kc !== '.' && kc !== '-') {
           const steps = holdOf((m) => partChar(def, cp, L, m), n);
-          keep(p, 'counter', VOICE[cp.v](x, x.part.counter, tt, hz(chordTone(ch, cp.low, +kc)), steps * p.sd - 0.012, accent(s) * 0.75, { send: x.send }));
+          keep(p, 'counter', VOICE[cp.v](x, x.part.counter, tt, hz(chordTone(ch, cp.low, +kc)), steps * p.sd - 0.012, accent(s) * 0.75, { send: x.sends.counter }));
           p.events++;
         }
       }
@@ -1152,9 +1169,6 @@
     } catch (err) {
       return null;
     }
-  }
-  function volGain(v) {
-    return v;
   }
   function arm(ms) {
     clearTimeout(timer);
@@ -1184,8 +1198,9 @@
   }
   function bringBus(p, a) {
     p.ctx = a.ctx;
-    p.x = makeBus(a.ctx, a.out, p.def, volGain(VOL));
+    p.x = makeBus(a.ctx, a.out, p.def, VOL);
     p.x.shine.gain.value = SHINE[p.level];
+    p.x.mix.gain.value = (p.def.gain || 1) * LEVEL_GAIN[p.level];
     p.silent = VOL === 0;
     const left = (duckUntil - performance.now()) / 1000;
     if (left > 0) duckBus(p.x, left);
@@ -1211,10 +1226,7 @@
           // fell behind (a busy page): skip what is already past, keeping the grid
           if (P.t0 + P.abs * P.sd < now) P.abs = Math.ceil((now - P.t0) / P.sd);
           let t;
-          while (!P.done && (t = P.t0 + P.abs * P.sd) < now + LOOKAHEAD) {
-            play(P, P.abs, t);
-            P.abs++;
-          }
+          while (!P.done && (t = P.t0 + P.abs * P.sd) < now + LOOKAHEAD) play(P, P.abs++, t);
         }
         prune(P, now);
       }
@@ -1231,7 +1243,7 @@
   }
 
   const api = {
-    SONGS: SONGS.map((s) => Object.freeze({ id: s.id, ja: s.ja, en: s.en, bpm: s.bpm })),
+    SONGS: Object.freeze(SONGS.map((s) => Object.freeze({ id: s.id, ja: s.ja, en: s.en, bpm: s.bpm }))),
 
     // Start (or switch to) a song at level 1; false if there is no audio output.
     start(song) {
@@ -1241,7 +1253,7 @@
         const a = output();
         halt(0.15);
         if (!a) return false;
-        P = makePlayer(a.ctx, a.out, def, 1, volGain(VOL));
+        P = makePlayer(a.ctx, a.out, def, 1, VOL);
         P.silent = VOL === 0;
         if (tracing) P.trace = [];
         const left = (duckUntil - performance.now()) / 1000;
@@ -1338,7 +1350,7 @@
     // Musical one-shots on the next beat: 'step', 'fall', 'last', 'end'.
     cue(name) {
       try {
-        if (!P || mode === 'stopped' || P.done) return;
+        if (!P || mode === 'stopped' || P.done || P.endStep >= 0) return;
         if (name === 'end' && mode === 'paused') {
           halt(0);
           return;
@@ -1358,7 +1370,7 @@
           if (isFinite(n)) VOL = Math.min(Math.max(n, 0), 1);
           if (P) {
             P.silent = VOL === 0;
-            if (mode === 'playing') P.x.vol.gain.setTargetAtTime(volGain(VOL), P.ctx.currentTime, 0.04);
+            if (mode === 'playing') P.x.vol.gain.setTargetAtTime(VOL, P.ctx.currentTime, 0.04);
           }
         }
       } catch (err) {
@@ -1396,33 +1408,50 @@
       return out;
     },
 
-    // For tests: render `seconds` of a song at a level into an OfflineAudioContext. `events`
-    // is a list of { step, level } or { step, cue } to apply at those steps. Resolves to
-    // { buffer, events } (events: the number of notes made).
+    // For tests: render `seconds` of a song at a level into an OfflineAudioContext, scheduled
+    // in slices with suspend() as the live scheduler would. `opts.events` is a list of
+    // { step, level } or { step, cue } to apply at those steps; `opts.solo` lists the parts to
+    // keep (drums, perc, bass, comp, lead, counter, fx). Resolves to { buffer, events }.
     _renderTo(octx, song, level, seconds, opts) {
       const o = opts || {};
       const def = find(song);
       if (!def || !octx) return Promise.reject(new Error('no song or context'));
       const p = makePlayer(octx, octx.destination, def, level === undefined ? 1 : level, o.volume === undefined ? DEFAULT_VOLUME : o.volume);
       p.x.shine.gain.value = SHINE[p.level];
+      p.x.mix.gain.value = (def.gain || 1) * LEVEL_GAIN[p.level];
+      if (o.solo) for (const k of Object.keys(p.x.part)) if (o.solo.indexOf(k) < 0) p.x.part[k].gain.value = 0;
       p.t0 = 0.05;
       const ev = (o.events || []).slice().sort((a, b) => a.step - b.step);
-      const end = seconds || 16;
-      for (let n = 0; !p.done && p.t0 + n * p.sd < end; n++) {
-        while (ev.length && ev[0].step <= n) {
-          const e = ev.shift();
-          if (e.level !== undefined) p.target = e.level;
-          if (e.cue === 'fall') p.target = 0;
-          if (e.cue) p.cue[e.cue] = true;
+      const end = seconds || 16, slice = 0.1;
+      let n = 0;
+      const upTo = (time) => {
+        for (; !p.done && p.t0 + n * p.sd < Math.min(time, end); n++) {
+          while (ev.length && ev[0].step <= n) {
+            const e = ev.shift();
+            if (e.level !== undefined) p.target = e.level;
+            if (e.cue === 'fall') p.target = 0;
+            if (e.cue) p.cue[e.cue] = true;
+          }
+          play(p, n, p.t0 + n * p.sd);
         }
-        play(p, n, p.t0 + n * p.sd);
+        prune(p, time - LOOKAHEAD);
+      };
+      upTo(LOOKAHEAD);
+      for (let k = 1; k * slice < end; k++) {
+        octx.suspend(k * slice).then(() => {
+          upTo(k * slice + LOOKAHEAD);
+          octx.resume();
+        }, () => {});
       }
       return octx.startRendering().then((buffer) => ({ buffer, events: p.events }));
     },
-    // For tests: record [step, time, audio clock when scheduled] for each step played.
+    // For tests: record [step, time, audio clock when scheduled] for each step played
+    // (_trace(true) starts afresh, _trace(false) stops, _trace() reads).
     _trace(on) {
-      tracing = !!on;
-      if (P) P.trace = tracing ? [] : null;
+      if (on !== undefined) {
+        tracing = !!on;
+        if (P) P.trace = tracing ? [] : null;
+      }
       return P && P.trace ? P.trace : null;
     },
     _t0() {

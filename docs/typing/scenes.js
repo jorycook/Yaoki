@@ -31,6 +31,10 @@
   const DEFAULT = 'shitamachi';
   const UI = "'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif";
   const NONE = [];
+  const FONT_SIGN = '800 8.5px ' + UI;
+  const FONT_STALL = '700 8.5px ' + UI;
+  const FONT_STATION = '800 11px ' + UI;
+  const FONT_SMALL = '700 5px ' + UI;
 
   // ---------- seeded numbers: the same place every time ----------
 
@@ -272,6 +276,26 @@
     ctx.globalAlpha = 1;
   }
 
+  // A beam of light from (x, y) towards dir (1 right, -1 left), fading with distance.
+  function glowWedge(ctx, x, y, dir, len, half, key) {
+    glow(ctx, 0, 0, 0, key, 0);   // makes the gradient
+    const g = F.K.glow[key];
+    if (!g) return;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(len * dir, len);
+    ctx.globalAlpha = F.A[key] || 1;
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(0, -0.01);
+    ctx.lineTo(1, -half / len);
+    ctx.lineTo(1, half / len);
+    ctx.lineTo(0, 0.01);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
   // ---------- unit drawings, made on the first frame ----------
 
   const U = {};
@@ -331,11 +355,17 @@
       const xr = -bez(L[0], L[2], L[4], from);
       const xl = bez(L[0], L[2], L[4], from);
       const y = bez(L[1], L[3], L[5], from);
-      const teeth = 9;
-      for (let k = 1; k < teeth * 2; k++) {
-        const x = xr + ((xl - xr) * k) / (teeth * 2);
-        const deep = k % 2 ? 0.035 + 0.05 * hash(k, 77) : -0.02 - 0.02 * hash(k, 78);
-        p.lineTo(x, y + deep);
+      // streaks of snow of different lengths down the gullies
+      const n2 = 9;
+      const w = (xl - xr) / n2;
+      for (let k = 0; k < n2; k++) {
+        const x = xr + k * w;
+        const deep = 0.03 + 0.08 * hash(k, 77) * (1 - Math.abs(k - (n2 - 1) / 2) / n2);
+        const notch = -0.012 - 0.018 * hash(k, 78);
+        const tip = x + w * (0.4 + 0.2 * hash(k, 79));
+        p.lineTo(x + w * 0.18, y + notch);
+        p.quadraticCurveTo(tip - w * 0.12, y + deep * 0.5, tip, y + deep);
+        p.quadraticCurveTo(tip + w * 0.1, y + deep * 0.4, x + w * 0.85, y + notch * 0.6);
       }
       p.closePath();
       return p;
@@ -348,15 +378,18 @@
     U.hanaDash = [U.hanaLen + 2, U.hanaLen + 2];
     U.dots = [0.01, 6.2];
     U.fuji = fujiPaths();
+    // a maple leaf (紅葉): five lobes, the lower two smaller, and its stalk
     U.maple = new Path2D();
-    for (let k = 0; k < 10; k++) {
-      const a = -Math.PI / 2 + (k * TAU) / 10;
-      const r = k % 2 ? 0.45 : 1;
+    const lobes = [[-90, 1], [-62, 0.36], [-32, 0.92], [-3, 0.34], [24, 0.64], [90, 0.26], [156, 0.64], [183, 0.34], [212, 0.92], [242, 0.36]];
+    lobes.forEach(([deg, r], k) => {
+      const a = (deg * Math.PI) / 180;
       if (!k) U.maple.moveTo(Math.cos(a) * r, Math.sin(a) * r);
       else U.maple.lineTo(Math.cos(a) * r, Math.sin(a) * r);
-    }
+    });
     U.maple.closePath();
+    U.maple.rect(-0.06, 0.2, 0.12, 0.62);
     U.fish = new Path2D('M-.5 0Q-.1-.34 .3-.05L.52-.25 .46 0 .52.25 .3.05Q-.1.34-.5 0Z');
+    U.fishBelly = new Path2D('M-.44 .05Q-.1.24 .26.05Q-.1.12-.44.05Z');
     U.hull = new Path2D('M-11 0H11L7.5 3.5H-8Z');
     U.sail = new Path2D('M0-1V-17L9-2Z');
     U.jib = new Path2D('M-1.5-1V-13L-8-2Z');
@@ -424,13 +457,14 @@
         const x = R() * 300;
         const y = y0 + Math.pow(R(), 1.4) * (y1 - y0);
         const r = 0.5 + R() * 0.8;
-        if (R() < 0.18) items.push({ x, y, r: r + 0.3, ph: R() * TAU, sp: 0.8 + R() * 1.6 });
+        if (R() < 0.22) items.push({ x, y, r: r + 0.3, ph: R() * TAU, sp: 0.8 + R() * 1.6 });
         else circ(P[R() < 0.8 ? 0 : 1], x, y, r);
       }
     }, (ctx, items) => {
       if (!setFill(ctx, 'star')) return;
       const a = ctx.globalAlpha;
-      for (const s of items) {
+      for (let q = 0; q < items.length; q++) {
+        const s = items[q];
         ctx.globalAlpha = a * (0.35 + 0.65 * Math.abs(Math.sin(F.t * s.sp + s.ph)));
         ctx.beginPath();
         ctx.moveTo(s.x, s.y - s.r * 2.6);
@@ -631,15 +665,15 @@
     sky: { light: ['#D8E5F3', '#E8EEF3', '#F6EFE2'], dark: ['#0D1326', '#131A31', '#1B2340'] },
     light: {
       fuji: '#CBD6E9', fujiShade: '#C2CDE3', cap: '#F3F6FB', far: '#D7DEEB', chimney: '#CDD5E5',
-      wall: '#EAE4D8', wood: '#DCCFBA', roof: '#BAC5D9', roofLine: '#A9B4CB', win: '#D3DDEB', winOff: '#D3DDEB',
-      noren: '#C4D0EA', noren2: '#E6D0C6', woodLine: '#CBBCA4', plant: '#C3D5BD', vend: '#D4E0EF', vendLit: '#F2EFE4',
+      wall: '#EAE4D8', wood: '#DDD1BD', roof: '#C0CADC', roofLine: '#B3BDD1', win: '#D6DFEC', winOff: '#D6DFEC',
+      noren: '#C7D2EA', noren2: '#E8D3C9', woodLine: ['#CDBFA8', 0.8], plant: '#C3D5BD', vend: '#D4E0EF', vendLit: '#F2EFE4',
       pole: '#C0C8D7', wire: '#B4BCCD', ground: '#EEECE5',
     },
     dark: {
       fuji: '#19213B', fujiShade: '#161D35', cap: '#2A3454', far: '#121830', chimney: '#141A32',
-      wall: '#171D33', wood: '#131A2D', roof: '#10162A', roofLine: '#1D2540', win: ['#F0C46B', 0.55], winOff: '#1D2440',
+      wall: '#171D33', wood: '#131A2D', roof: '#10162A', roofLine: '#1D2540', win: ['#F0C46B', 0.4], winOff: '#1D2440',
       noren: '#27325C', noren2: '#3B2C40', woodLine: '#1D2439', plant: '#15233A', vend: '#1D2B47', vendLit: ['#BFE6F2', 0.5],
-      pole: '#0D1226', wire: '#2A3250', ground: '#141A2D', blink: ['#F0C46B', 0.5],
+      pole: '#0D1226', wire: '#2A3250', ground: '#141A2D', blink: ['#F0C46B', 0.4],
     },
     make() {
       return {
@@ -668,7 +702,8 @@
           }, (ctx, items) => {
             // by night a window or two goes on and off
             if (!F.dark || !setFill(ctx, 'blink')) return;
-            for (const it of items) {
+            for (let q = 0; q < items.length; q++) {
+              const it = items[q];
               if (hash(it.s, Math.floor(F.t / it.per)) < 0.5) ctx.fillRect(it.x, it.y, it.w, it.h);
             }
             ctx.globalAlpha = 1;
@@ -753,15 +788,15 @@
   // ----- 竹林: a bamboo grove, light falling between the stalks -----
   scene({
     id: 'chikurin', ja: '竹林', en: 'Bamboo grove', stillT: 6,
-    sky: { light: ['#E5EFE3', '#ECF2E8', '#F3F4EA'], dark: ['#0C1520', '#101C25', '#13212A'] },
+    sky: { light: ['#E5EFE3', '#ECF2E8', '#F3F4EA'], dark: ['#0C1622', '#0F1D27', '#12222B'] },
     light: {
       b1: '#D7E5D3', n1: '#CCDCC8', l1: '#D0E0CB', b2: '#C8DBC3', n2: '#B9CFB4', l2: '#C2D7BC',
       b3: '#BCD2B6', n3: '#AAC4A4', l3: '#B6CEB0', shaft: ['#FFFFFF', 0.45], glowGold: ['#F7DE8C', 0.75], gold: '#EBD9A0',
       ground: '#EBEEE3', groundEdge: '#E2E8D8',
     },
     dark: {
-      b1: '#14232A', n1: '#182A30', l1: '#152629', b2: '#102026', n2: '#173036', l2: '#122427',
-      b3: '#0C1A1F', n3: '#14282C', l3: '#0E1E22', shaft: ['#A8D8CF', 0.07], glowGold: ['#F4D27A', 0.6], gold: '#8C7E4E',
+      b1: '#1A2C33', n1: '#20343A', l1: '#1A2D31', b2: '#15262D', n2: '#1D3238', l2: '#16292D',
+      b3: '#0E1B21', n3: '#16282D', l3: '#0F1E23', shaft: ['#A8D8CF', 0.07], glowGold: ['#F4D27A', 0.6], gold: '#8C7E4E',
       ground: '#111A23', groundEdge: '#13202A',
     },
     make() {
@@ -779,7 +814,8 @@
         }, (ctx, items) => {
           if (!F.C.shaft) return;
           ctx.fillStyle = F.C.shaft;
-          for (const s of items) {
+          for (let q = 0; q < items.length; q++) {
+            const s = items[q];
             ctx.globalAlpha = F.A.shaft * (0.55 + 0.45 * Math.sin(F.t * 0.35 + s.ph));
             ctx.beginPath();
             ctx.moveTo(s.x, F.top - 4);
@@ -850,14 +886,14 @@
     id: 'umi', ja: '海', en: 'The sea', stillT: 9,
     sky: { light: ['#D5EAF3', '#E5F0F2', '#F7F0E2'], dark: ['#0B1226', '#111A33', '#19243F'] },
     light: {
-      sea: '#CDE2EC', seaFar: '#D9EAF0', island: '#CCDAE6', wave: '#BCD5E4', waveIn: '#C8DEEA', waveLine: ['#F5FAFC', 0.8],
+      sea: '#CDE2EC', seaFar: '#D9EAF0', foamNear: ['#EDF5F8', 0.9], island: '#CCDAE6', wave: '#BCD5E4', waveIn: '#C8DEEA', waveLine: ['#F5FAFC', 0.8],
       swell: '#C3DAE7', foam: '#F4F9FB', spray: ['#FFFFFF', 0.8], hull: '#C6D1E1', sail: '#FAF6EC', gull: ['#8E9DB8', 0.7],
       lh: '#F6F4EF', lhBand: '#EEC9BE', lhRoof: '#C3CDDF', glint: ['#FFFFFF', 0.7], ground: '#F1EBDD', groundEdge: '#E9E1CF',
     },
     dark: {
       sea: '#101A31', seaFar: '#141F38', island: '#121A30', wave: '#17223D', waveIn: '#1A2643', waveLine: ['#3A4A72', 0.6],
       swell: '#152039', foam: '#2E3C60', spray: ['#3A4A72', 0.6], hull: '#1A2238', sail: '#2C3656', gull: ['#4A5678', 0.7],
-      lh: '#2B3556', lhBand: '#3E3550', lhRoof: '#1A2240', beam: ['#FFE7A8', 0.12], lamp: ['#FFE3A0', 0.9], glint: ['#E8DFC4', 0.45],
+      lh: '#2B3556', lhBand: '#3E3550', lhRoof: '#1A2240', beam: ['#FFE7A8', 0.35], lamp: ['#FFE3A0', 0.9], glint: ['#E8DFC4', 0.45], foamNear: ['#26334F', 0.9],
       ground: '#141A2C', groundEdge: '#171E33',
     },
     make() {
@@ -877,7 +913,8 @@
         boats: layer(34, 380, 30, [], (P, R, i, items) => {
           if (R() < 0.7) items.push({ x: R() * 380, y: HZ + 6 + R() * 8, s: 0.55 + R() * 0.25, ph: R() * TAU });
         }, (ctx, items) => {
-          for (const b of items) {
+          for (let q = 0; q < items.length; q++) {
+            const b = items[q];
             ctx.save();
             ctx.translate(b.x, b.y + Math.sin(F.t * 1.2 + b.ph) * 0.8);
             ctx.rotate(Math.sin(F.t * 0.9 + b.ph) * 0.05);
@@ -900,12 +937,14 @@
           if (R() < 0.75) bigWave(P, R, 80 + R() * 300, 0.75 + R() * 0.35);
           if (R() < 0.6) bigWave(P, R, R() * 460, 0.4 + R() * 0.2);
         }),
-        near: layer(37, 340, 30, ['wave', 'foam'], (P, R, i, items, tw) => {
+        near: layer(37, 340, 30, ['wave', 'foamNear'], (P, R, i, items, tw) => {
           ridge(P[0], i, tw, 37, 166, 8, 70, 8);
-          for (let x = 0; x < tw; x += 12) {
-            const y = ridgeY(i, tw, x + 6, 37, 166, 8, 70);
-            circ(P[1], x + 6, y + 2.2, 2.6);
-          }
+          // a ribbon of foam along the near swell, in small scallops
+          const y = (x) => ridgeY(i, tw, x, 37, 166, 8, 70);
+          P[1].moveTo(0, y(0) + 0.5);
+          for (let x = 0; x < tw + 1; x += 9) P[1].quadraticCurveTo(x + 4.5, y(x + 4.5) - 2.6, x + 9, y(x + 9) + 0.5);
+          for (let x = Math.ceil((tw + 1) / 9) * 9; x >= 0; x -= 9) P[1].lineTo(x, y(x) + 2.4);
+          P[1].closePath();
         }),
       };
     },
@@ -992,16 +1031,14 @@
       ctx.closePath();
       ctx.fill();
     }
-    if (F.dark && setFill(ctx, 'beam')) {
+    if (F.dark) {
+      // the beam turns: a wedge of light that fades with distance
       const a = F.t * 0.9;
-      const dir = Math.cos(a) > 0 ? 1 : -1;
       const spread = Math.abs(Math.cos(a));
-      ctx.beginPath();
-      ctx.moveTo(0, -43);
-      ctx.lineTo(dir * 160, -43 - 18 * spread);
-      ctx.lineTo(dir * 160, -43 + 18 * spread);
-      ctx.closePath();
-      ctx.fill();
+      glow(ctx, 0, -43, 10, 'lamp', 0.5);
+      if (spread > 0.05 && F.C.beam) {
+        glowWedge(ctx, 0, -43, Math.cos(a) > 0 ? 1 : -1, 150, 16 * spread, 'beam');
+      }
     }
     if (setFill(ctx, 'lh')) {
       ctx.beginPath();
@@ -1068,9 +1105,9 @@
       skyFill(ctx, 'sky');
       if (!f.dark) skyFill(ctx, 'dusk', 0.9 * smooth(0.3, 1, f.pj));
       if (f.dark) drawLayer(ctx, L.stars, f.scroll * 0.02);
-      const hw = Math.min(300, f.W * 0.36) * (0.92 + 0.12 * f.pj);
+      const hw = Math.min(205, f.W * 0.28) * (0.9 + 0.14 * f.pj);
       const fx = f.W * 0.6;
-      const base = 146;
+      const base = 148;
       const summit = base - 0.512 * hw;
       // the sun (or the full moon) comes down onto the summit at the end of the round
       const k = ease(f.pj);
@@ -1140,18 +1177,18 @@
   }
 
   // ----- 夜の街: a city with katakana signs, neon by night, a tower ahead -----
-  const SIGN_WORDS = ['ラーメン', 'カフェ', 'パン', 'ケーキ', 'カラオケ', 'ホテル', 'スーパー', 'カメラ', 'ドーナツ', 'ギョーザ', 'アイス', 'ソーダ', 'ピザ', 'カレー', 'ミルク', 'タクシー', 'ジム', 'ネコ', 'メガネ', 'ピアノ'];
+  const SIGN_WORDS = ['ラーメン', 'カフェ', 'パン', 'ケーキ', 'カラオケ', 'ホテル', 'スーパー', 'カメラ', 'ドーナツ', 'ギョーザ', 'アイス', 'ソーダ', 'ピザ', 'カレー', 'ミルク', 'タクシー', 'ジム', 'パフェ', 'メガネ', 'ピアノ'];
   scene({
     id: 'machi', ja: '夜の街', en: 'Neon city', stillT: 3,
     sky: { light: ['#E3E0F2', '#ECE5F0', '#F8E9DE'], dark: ['#0C0D22', '#131532', '#1F1C3E'] },
     light: {
-      far: '#DAD8EA', farWin: '', mid: '#D0D3E6', side: '#C7CBE0', win: '#E4E8F4', winOff: '#DADEEE', roofThing: '#C6CADF',
+      far: '#DEDCEC', farWin: '', mid: '#D7D9EA', side: '#CDD0E4', win: '#E3E6F2', winOff: '#DDE0EE', roofThing: '#CBCEE2',
       s1: '#F2D6E2', s2: '#D2ECE5', s3: '#F5EAC6', s4: '#D9E1F6', t1: '#C99AB0', t2: '#8FB8AD', t3: '#C4AE73', t4: '#9AA8D0',
       tower: '#F0CDBF', towerW: '#F7F3EE', towerLine: ['#E2B8A8', 1], post: '#C3C8DA', lamp: '#EEF0F6',
       ground: '#EDECF2', groundEdge: '#E3E2EC',
     },
     dark: {
-      far: '#141732', farWin: ['#F3D47E', 0.22], mid: '#10132A', side: '#0C0F23', win: ['#F3D47E', 0.42], winOff: '#161A33', roofThing: '#0E1127',
+      far: '#141732', farWin: ['#F3D47E', 0.2], mid: '#10132A', side: '#0C0F23', win: ['#F3D47E', 0.32], winOff: '#151931', roofThing: '#0E1127',
       s1: '#1A1B36', s2: '#1A1B36', s3: '#1A1B36', s4: '#1A1B36', t1: '#FF9CC8', t2: '#7DE0CF', t3: '#FFD27A', t4: '#A6B6FF',
       tower: '#2D2342', towerW: '#3A2E4E', towerLine: ['#FFC48A', 0.55], towerLit: ['#FFC48A', 0.5], post: '#0D1024', lamp: '#FFE3A8',
       lampGlow: ['#FFD98E', 0.3], ground: '#121428', groundEdge: '#151830',
@@ -1180,7 +1217,7 @@
             P[0].rect(x + w - 6, top + 3, 6, h);
             P[1].rect(x, top, w - 6, h + 2);
             for (let y = top + 8; y < G - 14; y += 11) {
-              for (let wx = x + 5; wx < x + w - 14; wx += 9) P[R() < 0.62 ? 3 : 2].rect(wx, y, 5, 6);
+              for (let wx = x + 5; wx < x + w - 14; wx += 9) P[R() < 0.45 ? 3 : 2].rect(wx, y, 5, 6);
             }
             if (R() < 0.5) {
               rr(P[4], x + 8, top - 9, 12, 9, 2);
@@ -1192,10 +1229,11 @@
             const n = Array.from(word).length;
             if (n <= 4 && R() < 0.65) {
               const sh = n * 10 + 6;
-              const sx = x + w - 3;
+              const sx = x + w - 22;
               const sy = Math.min(top + 10, 102 - sh);
               rr(P[5 + col], sx, sy, 13, sh, 2);
-              items.push({ v: 1, x: sx + 6.5, y: sy + 8, word: Array.from(word), col: col + 1, ph: R() * 50 });
+              // read downwards, the long-vowel mark stands upright
+              items.push({ v: 1, x: sx + 6.5, y: sy + 8, word: Array.from(word.replace(/ー/g, '｜')), col: col + 1, ph: R() * 50 });
             } else {
               const sw = n * 9 + 10;
               const sx = x + Math.max(2, (w - 6 - sw) / 2);
@@ -1207,8 +1245,9 @@
         }, (ctx, items) => {
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.font = '800 8.5px ' + UI;
-          for (const s of items) {
+          ctx.font = FONT_SIGN;
+          for (let q = 0; q < items.length; q++) {
+            const s = items[q];
             const key = TEXT_KEYS[s.col];
             if (!setFill(ctx, key)) continue;
             let a = F.dark ? 0.9 : 0.85;
@@ -1239,7 +1278,7 @@
           items.push({ x: x + 9.5, y: 110 });
         }, (ctx, items) => {
           if (!F.dark) return;
-          for (const it of items) glow(ctx, it.x, it.y, 22, 'lampGlow', 1);
+          for (let q = 0; q < items.length; q++) glow(ctx, items[q].x, items[q].y, 22, 'lampGlow', 1);
         }),
       };
     },
@@ -1259,14 +1298,16 @@
     },
   });
   const TEXT_KEYS = ['', 't1', 't2', 't3', 't4'];
+  const TOWER_H = 128;
+  const towerHalf = (y) => 4 + 26 * Math.pow(y / TOWER_H, 1.6);   // half width at y from the top
   // A lattice broadcast tower with two decks, lit up by night (more of it as the round goes on).
   function tower(ctx, x, base, s) {
     ctx.save();
     ctx.translate(x, base);
     ctx.scale(s, s);
-    const h = 128;
-    const at = (y) => 4 + 26 * Math.pow(y / h, 1.6);   // half width at height y from the top
-    const legs = () => {
+    const h = TOWER_H;
+    const at = towerHalf;
+    if (setFill(ctx, 'tower')) {
       ctx.beginPath();
       ctx.moveTo(-at(h), 0);
       for (let y = h; y >= 0; y -= 16) ctx.lineTo(-at(y), y - h);
@@ -1275,9 +1316,6 @@
       ctx.lineTo(at(h) - 7, 0);
       ctx.quadraticCurveTo(0, -36, -at(h) + 7, 0);
       ctx.closePath();
-    };
-    if (setFill(ctx, 'tower')) {
-      legs();
       ctx.fill();
     }
     // white bands, as the real ones are painted
@@ -1306,63 +1344,106 @@
     ctx.restore();
   }
 
-  // ----- 田んぼ: rice terraces, a scarecrow, a thatched farmhouse -----
+  // ----- 田んぼ: rice terraces stepping down a hillside, a farmhouse, a scarecrow -----
+  const TERR = 5;
+  // The terraces follow one hill, like contour lines: the top edge of band b at world x.
+  const terrY = (b, gx) => 141 + b * 6 - 32 * (1 - b * 0.2) * hills(65, gx, 150);
   scene({
     id: 'tanbo', ja: '田んぼ', en: 'Rice terraces', stillT: 7,
     sky: { light: ['#DBEBF3', '#E9F1F0', '#F6F2E3'], dark: ['#0C1325', '#111A30', '#18223A'] },
     light: {
-      m1: '#D2DCE8', m2: '#C8D8D8', pad1: '#D2E5C3', pad2: '#C8DEB8', pad3: '#D9E9CA', pad4: '#CDE2BC', levee: ['#B8CDA6', 1],
-      sprout: ['#B3CC9F', 0.9], thatch: '#DACFB0', thatchDark: '#CFC3A2', fwall: '#EFEAE0', fwood: '#D8CBB4',
+      m1: '#D3DDE9', m2: '#C9D9D7', pad1: '#D3E6C4', pad2: '#CBE0BA', pad3: '#D9EACB', pad4: '#CFE3BE', riser: '#BED2AC',
+      sprout: ['#AFCB9A', 0.9], thatch: '#DBCFB0', thatchDark: '#CDC09F', fwall: '#EFEAE0', fwood: '#D9CCB5', tree: '#C3D9B5', trunk: '#CDBFAA',
       pole: '#C9BBA0', hat: '#E5D5AC', cloth: '#D1DBEE', cloth2: '#EBD1C7', face: '#F5EEDF', ground: '#EEEDE2', groundEdge: '#E4E6D6',
     },
     dark: {
-      m1: '#151C33', m2: '#121A2E', pad1: '#141D32', pad2: '#121A2E', pad3: '#162036', pad4: '#131B2F', levee: ['#1E2A42', 1],
-      sprout: ['#1E2D3C', 0.9], thatch: '#1A2034', thatchDark: '#151B2D', fwall: '#181E33', fwood: '#141A2D', lit: ['#F0C46B', 0.55],
+      m1: '#151C33', m2: '#121A2E', pad1: '#141D32', pad2: '#121A2E', pad3: '#162036', pad4: '#131B2F', riser: '#1C2740',
+      sprout: ['#1E2D3C', 0.9], thatch: '#1A2034', thatchDark: '#151B2D', fwall: '#181E33', fwood: '#141A2D', lit: ['#F0C46B', 0.5],
+      tree: '#111A2C', trunk: '#141A2C', fruit: '',
       pole: '#1B2033', hat: '#232A40', cloth: '#1E2742', cloth2: '#2A2438', face: '#262C40', ground: '#131A2C', groundEdge: '#151D30',
     },
     seasons: {
-      spring: { light: { pad1: '#DCE8EF', pad2: '#D3E2EA', pad3: '#E2ECF1', pad4: '#D6E5EC', levee: ['#C2D2BA', 1], sprout: ['#B5CDA4', 0.9] } },
-      autumn: { light: { pad1: '#EEDFAF', pad2: '#E6D59F', pad3: '#F1E5BC', pad4: '#EADAA6', levee: ['#D4C08A', 1], sprout: ['#D7BE7C', 0.9] } },
-      winter: { light: { pad1: '#E8ECEE', pad2: '#E1E6EA', pad3: '#EDF0F2', pad4: '#E4E8EC', levee: ['#D2D8DE', 1], sprout: ['#CBD1D6', 0.9] } },
+      spring: { light: { pad1: '#DCE8EF', pad2: '#D4E3EA', pad3: '#E2ECF1', pad4: '#D7E5EC', riser: '#C4D4BC', sprout: ['#B0CB9F', 0.9], tree: '#F0D3DC' } },
+      autumn: { light: { pad1: '#EEDFAF', pad2: '#E7D6A1', pad3: '#F1E5BD', pad4: '#EADAA6', riser: '#D6C28E', sprout: ['#D4BA78', 0.9], tree: '#E8CDA6', fruit: ['#E7A974', 0.8] } },
+      winter: { light: { pad1: '#E8ECEE', pad2: '#E2E7EA', pad3: '#EDF0F2', pad4: '#E4E8EC', riser: '#D3D9DF', sprout: ['#CDD3D8', 0.9], tree: '#E1E6E9' } },
     },
     make() {
+      const roles = [];
+      for (let b = 0; b < TERR; b++) {
+        roles.push(b === TERR - 1 ? 'pad3' : b % 2 ? 'pad2' : 'pad1', 'riser');
+        if (b === 0) roles.push('trunk', 'tree', 'fruit', 'thatch', 'thatchDark', 'fwall', 'fwood', 'lit');
+      }
+      roles.push('sprout');
+      const SP = roles.length - 1;
       return {
         stars: starLayer(61, 9, -60, 100),
         cloud: cloudLayer(62, 440, 24, 64, 44, 92),
-        m1: layer(63, 400, 4, ['m1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 63, 120, 34, 150, 10)),
-        m2: layer(64, 400, 4, ['m2'], (P, R, i, items, tw) => ridge(P[0], i, tw, 64, 130, 18, 110, 10)),
-        terr: layer(65, 320, 4, ['pad1', ['levee', 1.2], 'pad2', ['levee', 1.2], 'pad3', ['levee', 1.2], 'sprout'], (P, R, i, items, tw) => {
-          const bands = [[134, 6], [143, 5], [152, 4]];
-          for (let b = 0; b < 3; b++) {
-            const [base, amp] = bands[b];
-            const seed = 65 + b * 3;
-            ridge(P[b * 2], i, tw, seed, base, amp, 90, 8);
-            P[b * 2 + 1].moveTo(0, ridgeY(i, tw, 0, seed, base, amp, 90));
-            for (let x = 8; x <= tw + 1; x += 8) P[b * 2 + 1].lineTo(x, ridgeY(i, tw, x, seed, base, amp, 90));
-          }
-          for (let x = 3; x < tw; x += 7) {
-            for (const [base, amp, seed] of [[143, 5, 68], [152, 4, 71]]) {
-              const y = ridgeY(i, tw, x, seed, base, amp, 90);
-              for (let r = 3; r < 8; r += 3.5) P[6].rect(x, y + r, 1.2, 1.6);
+        m1: layer(63, 400, 4, ['m1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 63, 120, 52, 120, 8)),
+        m2: layer(64, 360, 8, ['m2'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 64, 134, 20, 90, 8);
+          // a fringe of treetops along the hills
+          for (let x = 3; x < tw; x += 6) circ(P[0], x, ridgeY(i, tw, x, 64, 134, 20, 90) + 1, 3.4 + hash(i * 97 + x, 64) * 2);
+        }),
+        terr: layer(65, 320, 40, roles, (P, R, i, items, tw) => {
+          const x0 = i * tw;
+          let k = 0;
+          for (let b = 0; b < TERR; b++) {
+            const s = P[k++];
+            const r = P[k++];
+            s.moveTo(0, G + 2);
+            for (let x = 0; x <= tw + 1; x += 8) s.lineTo(x, terrY(b, x0 + x));
+            s.lineTo(tw + 1, terrY(b, x0 + tw + 1));
+            s.lineTo(tw + 1, G + 2);
+            s.closePath();
+            // the earth wall of the terrace above, along the top edge
+            r.moveTo(0, terrY(b, x0));
+            for (let x = 8; x <= tw + 1; x += 8) r.lineTo(x, terrY(b, x0 + x));
+            r.lineTo(tw + 1, terrY(b, x0 + tw + 1));
+            for (let x = Math.floor((tw + 1) / 8) * 8; x >= 0; x -= 8) r.lineTo(x, terrY(b, x0 + x) + 2.6);
+            r.closePath();
+            if (b === 0) {
+              // on the top terrace: a thatched farmhouse and a tree or two
+              const [trunk, tree, fruit, thatch, thatchDark, fwall, fwood, lit] = P.slice(k, k + 8);
+              k += 8;
+              if (R() < 0.45) {
+                const hx = 30 + R() * 220;
+                const y = Math.max(terrY(0, x0 + hx), terrY(0, x0 + hx + 44)) + 3;
+                fwall.rect(hx, y - 13, 44, 14);
+                quad(thatch, hx - 7, y - 12, hx + 51, y - 12, hx + 41, y - 32, hx + 3, y - 32);
+                rr(thatchDark, hx + 2, y - 35, 40, 4.5, 2);
+                fwood.rect(hx + 6, y - 10, 9, 11);
+                fwood.rect(hx - 2, y - 2, 48, 2);
+                lit.rect(hx + 24, y - 9, 12, 6);
+              }
+              const nt = R() < 0.6 ? 1 + Math.floor(R() * 2) : 0;
+              for (let t = 0; t < nt; t++) {
+                const tx = R() * tw;
+                const y = terrY(0, x0 + tx) + 3;
+                const h = 16 + R() * 8;
+                trunk.rect(tx - 1.2, y - h * 0.6, 2.4, h * 0.6);
+                circ(tree, tx, y - h * 0.75, h * 0.32);
+                circ(tree, tx - h * 0.25, y - h * 0.58, h * 0.24);
+                circ(tree, tx + h * 0.25, y - h * 0.6, h * 0.25);
+                for (let d = 0; d < 6; d++) circ(fruit, tx + (R() - 0.5) * h * 0.7, y - h * (0.5 + R() * 0.45), 1);
+              }
+            }
+            // rows of rice on the lower terraces
+            if (b >= 2) {
+              for (let x = 2 + (b % 2) * 3; x < tw; x += 6) {
+                const y = terrY(b, x0 + x);
+                const room = (b < TERR - 1 ? terrY(b + 1, x0 + x) : G) - y;
+                for (let rI = 5; rI < room - 2; rI += 3.6) P[SP].rect(x, y + rI, 1.1, 1.8);
+              }
             }
           }
         }),
-        farm: layer(66, 560, 40, ['thatch', 'thatchDark', 'fwall', 'fwood', 'lit'], (P, R) => {
-          if (R() < 0.5) return;
-          const x = 60 + R() * 420;
-          const y = 143;
-          P[2].rect(x, y - 13, 44, 14);
-          quad(P[0], x - 7, y - 12, x + 51, y - 12, x + 40, y - 34, x + 4, y - 34);
-          P[1].rect(x + 4, y - 36, 36, 3);
-          P[3].rect(x + 6, y - 10, 9, 11);
-          P[4].rect(x + 24, y - 9, 12, 6);
-          P[3].rect(x + 24, y - 9, 12, 1);
-        }),
-        near: layer(67, 300, 40, ['pad4', ['levee', 1.2], 'sprout', 'pole', 'cloth', 'cloth2', 'hat', 'face'], (P, R, i, items, tw) => {
-          ridge(P[0], i, tw, 67, 160, 3, 70, 8);
-          P[1].moveTo(0, ridgeY(i, tw, 0, 67, 160, 3, 70));
-          for (let x = 8; x <= tw + 1; x += 8) P[1].lineTo(x, ridgeY(i, tw, x, 67, 160, 3, 70));
-          for (let x = 4; x < tw; x += 8) P[2].rect(x, ridgeY(i, tw, x, 67, 160, 3, 70) + 4, 1.4, 2);
+        near: layer(67, 300, 40, ['pad4', 'riser', 'sprout', 'pole', 'cloth', 'cloth2', 'hat', 'face'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 67, 164, 3, 70, 8);
+          P[1].moveTo(0, ridgeY(i, tw, 0, 67, 164, 3, 70));
+          for (let x = 8; x <= tw + 1; x += 8) P[1].lineTo(x, ridgeY(i, tw, x, 67, 164, 3, 70));
+          for (let x = Math.floor((tw + 1) / 8) * 8; x >= 0; x -= 8) P[1].lineTo(x, ridgeY(i, tw, x, 67, 164, 3, 70) + 2);
+          P[1].closePath();
+          for (let x = 4; x < tw; x += 9) P[2].rect(x, ridgeY(i, tw, x, 67, 164, 3, 70) - 3.5, 1.3, 3.5);
           if (R() < 0.35) scarecrow(P, 40 + R() * 220, G, R);
         }),
       };
@@ -1376,7 +1457,6 @@
       drawLayer(ctx, L.cloud, f.scroll * 0.04 + f.t * 2.2);
       drawLayer(ctx, L.m1, f.scroll * 0.04);
       drawLayer(ctx, L.m2, f.scroll * 0.1);
-      drawLayer(ctx, L.farm, f.scroll * 0.2);
       drawLayer(ctx, L.terr, f.scroll * 0.24);
       drawLayer(ctx, L.near, f.scroll * 0.6);
       ground(ctx, 'groundEdge');
@@ -1400,34 +1480,47 @@
     id: 'yukiguni', ja: '雪国', en: 'Snow country', stillT: 11,
     sky: { light: ['#DCE4F0', '#E7ECF4', '#F1F3F8'], dark: ['#0C1328', '#121A33', '#1A2340'] },
     light: {
-      mSnow: '#E3E9F2', m2: '#D3DCE8', cf: '#CFD9E1', snowTip: '#F4F7FB', thatch: '#D8CCB6', snowRoof: '#F7F9FC',
-      snowShade: '#E3E8F1', gwall: '#E2DCCF', beam: '#CFC4B0', gwin: '#D3DBE7', smoke: ['#FFFFFF', 0.7],
+      mSnow: '#E2E8F1', mRock: '#CDD6E3', m2: '#D5DEEA', cf: '#CFD9E1', snowTip: '#F4F7FB', thatch: '#D6CAB2', snowRoof: '#F8FAFD',
+      snowShade: '#E5EAF2', gwall: '#E4DED2', beam: '#CDC2AE', gwin: '#CDD6E4', smoke: ['#FFFFFF', 0.7],
       cedar: '#C6D3D6', cedarSnow: '#F2F5FA', body: '#F8FAFD', bodyShade: '#E4E9F1', eye: '#8C96B0', ground: '#F0F3F8', groundEdge: '#E7EBF2',
     },
     dark: {
-      mSnow: '#1C2542', m2: '#151D36', cf: '#121A30', snowTip: '#222B49', thatch: '#18203A', snowRoof: '#2A3352',
+      mSnow: '#1F2846', mRock: '#18203A', m2: '#151D36', cf: '#121A30', snowTip: '#222B49', thatch: '#1A2038', snowRoof: '#2A3352',
       snowShade: '#212A47', gwall: '#141B30', beam: '#11172A', gwin: ['#F2C66E', 0.6], smoke: ['#3A4566', 0.5],
       cedar: '#0E1428', cedarSnow: '#222B48', body: '#2E3858', bodyShade: '#252E4C', eye: '#C9CFE6', ground: '#151B2F', groundEdge: '#181F35',
     },
     make() {
       return {
         stars: starLayer(71, 9, -60, 100),
-        m1: layer(72, 420, 4, ['mSnow'], (P, R, i, items, tw) => ridge(P[0], i, tw, 72, 118, 40, 140, 10)),
+        m1: layer(72, 420, 4, ['mSnow', 'mRock'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 72, 122, 52, 150, 8);
+          // dark streaks of rock where the slopes are too steep for snow
+          for (let x = 4; x < tw; x += 8) {
+            const y0 = ridgeY(i, tw, x, 72, 122, 52, 150);
+            const y1 = ridgeY(i, tw, x + 8, 72, 122, 52, 150);
+            if (Math.abs(y1 - y0) > 2.4 && hash(i * 131 + x, 72) < 0.7) {
+              const len = 8 + hash(i * 131 + x, 73) * 14;
+              tri(P[1], x + 2, Math.max(y0, y1) + 4, x + 5, Math.max(y0, y1) + 4 + len, x + 7, Math.max(y0, y1) + 3);
+            }
+          }
+        }),
         m2: layer(73, 360, 4, ['m2'], (P, R, i, items, tw) => ridge(P[0], i, tw, 73, 136, 14, 90, 10)),
         cf: layer(74, 200, 12, ['cf', 'snowTip'], (P, R, i, items, tw) => {
           for (let x = 4; x < tw; x += 7 + R() * 8) cedar(P, x, 146, 0.45 + R() * 0.25);
         }),
-        houses: layer(75, 300, 70, ['gwall', 'thatch', 'beam', 'gwin', 'snowShade', 'snowRoof'], (P, R, i, items, tw) => {
-          let x = 10 + R() * 40;
-          while (x < tw - 60) {
-            const w = 56 + R() * 30;
+        houses: layer(75, 300, 70, ['snowRoof', 'snowShade', 'thatch', 'gwall', 'beam', 'gwin'], (P, R, i, items) => {
+          // one house to a stretch, now and then a small storehouse (蔵) beside it
+          if (R() < 0.8) {
+            const w = 50 + R() * 34;
+            const x = 20 + R() * (250 - w);
             gassho(P, x, w, items, R);
-            x += w + 30 + R() * 60;
-          }
+            if (R() < 0.4) kura(P, x + w + 14, R);
+          } else kura(P, 60 + R() * 160, R);
         }, (ctx, items) => {
           if (!setFill(ctx, 'smoke')) return;
           const a = ctx.globalAlpha;
-          for (const s of items) {
+          for (let q = 0; q < items.length; q++) {
+            const s = items[q];
             for (let k = 0; k < 5; k++) {
               const age = wrap(F.t * 0.12 + k / 5 + s.ph, 1);
               ctx.globalAlpha = a * (1 - age) * Math.min(1, age * 6);
@@ -1456,9 +1549,9 @@
       drawLayer(ctx, L.m2, f.scroll * 0.08);
       drawLayer(ctx, L.cf, f.scroll * 0.16);
       drawLayer(ctx, L.houses, f.scroll * 0.4);
-      // the finishing touch: a snow daruma with one eye painted, like Yaoki
-      if (f.fin > 0) yukidaruma(ctx, f.W * (1.08 - 0.26 * f.fin), 150);
       drawLayer(ctx, L.cedars, f.scroll * 0.85);
+      // the finishing touch: a snow daruma by the road, one eye painted, like Yaoki
+      if (f.fin > 0) yukidaruma(ctx, f.W * (1.1 - 0.24 * f.fin), G, 1.25);
       ground(ctx, 'groundEdge');
       particles(ctx, 'snow', 20);
       hanamaru(ctx, sx, sy, 21, f.fin);
@@ -1474,37 +1567,46 @@
     }
     P[0].rect(x - 1.2 * s, base - h * 0.1, 2.4 * s, h * 0.1 + 1);
   }
-  // A gassho house (合掌造り): a steep thatched roof like hands at prayer, deep in snow.
+  // A gassho house (合掌造り), seen from its gable end: a steep thatched roof deep in snow,
+  // the gable face with rows of small windows, smoke from the hearth.
   function gassho(P, x, w, items, R) {
-    const eave = G - 22;
-    const apex = G - 22 - w * 0.95;
+    const eave = G - 20;
     const cx = x + w / 2;
-    P[0].rect(x + 2, eave - 2, w - 4, 24);
-    for (let k = 0; k < 3; k++) P[3].rect(x + 8 + k * ((w - 22) / 2), eave + 6, 7, 8);
-    // the gable end: the roof as a big triangle, its face set back with rows of windows
-    tri(P[1], x - 8, eave, cx, apex, x + w + 8, eave);
-    tri(P[0], x + 6, eave - 1, cx, apex + 14, x + w - 6, eave - 1);
+    const apex = eave - w * 0.92;
+    // the snow on the roof (with a soft lip along the eaves), the thatch showing under it
+    tri(P[0], x - 10, eave + 1, cx, apex - 5, x + w + 10, eave + 1);
+    quad(P[1], cx, apex - 5, x + w + 10, eave + 1, x + w + 4, eave + 1, cx, apex + 3);
+    rr(P[0], x - 12, eave - 2, w + 24, 6, 3);
+    tri(P[2], x - 2, eave, cx, apex + 4, x + w + 2, eave);
+    // the gable face and the ground floor
+    tri(P[3], x + 5, eave - 1, cx, apex + 12, x + w - 5, eave - 1);
+    P[3].rect(x + 3, eave + 3, w - 6, G - eave - 2);
     for (let r = 0; r < 3; r++) {
-      const y = eave - 12 - r * 15;
-      const half = ((eave - y) / (eave - apex - 14)) * (w / 2 - 6);
-      const n = Math.max(1, Math.floor(((w / 2 - 6) - half) / 9));
-      for (let k = 0; k < n; k++) {
-        const wx = cx - (n * 9) / 2 + k * 9 + 1;
-        P[3].rect(wx, y, 6, 7);
-      }
-      P[2].rect(cx - (w / 2 - 6 - half) + 1, y + 9, (w / 2 - 6 - half) * 2 - 2, 1.5);
+      const y = eave - 12 - r * 13;
+      const half = ((y - apex - 12) / (eave - apex - 13)) * (w / 2 - 5);
+      if (half < 8) break;
+      P[4].rect(cx - half + 1, y + 9, half * 2 - 2, 1.4);
+      const n = Math.max(1, Math.floor((half * 2 - 8) / 9));
+      for (let k = 0; k < n; k++) P[5].rect(cx - (n * 9) / 2 + k * 9 + 1.5, y, 6, 6.5);
     }
-    // snow lies thick along both slopes and on the ridge
-    const sw = 7;
-    quad(P[5], x - 9, eave + 1, cx - 1, apex - 2, cx - 1, apex + sw + 2, x - 1, eave + 1);
-    quad(P[4], cx + 1, apex - 2, x + w + 9, eave + 1, x + w + 1, eave + 1, cx + 1, apex + sw + 2);
-    circ(P[5], cx, apex + 1, 4.5);
-    for (let k = 0; k < 5; k++) circ(P[5], x - 6 + k * ((w + 12) / 4), eave + 1, 3 + R() * 1.6);
-    items.push({ x: cx + 3, y: apex - 4, ph: R() });
+    P[4].rect(x + 3, eave + 3, w - 6, 1.6);
+    for (let k = 0; k < 2; k++) P[5].rect(x + 8 + k * (w - 26), eave + 8, 10, 7);
+    items.push({ x: cx + 2, y: apex - 2, ph: R() });
   }
-  function yukidaruma(ctx, x, base) {
+  // A small white storehouse with a snowy roof.
+  function kura(P, x, R) {
+    const w = 22 + R() * 6;
+    const h = 24;
+    P[3].rect(x, G - h, w, h + 1);
+    P[4].rect(x, G - h * 0.35, w, 1.4);
+    P[5].rect(x + w / 2 - 3, G - h + 7, 6, 6);
+    quad(P[2], x - 5, G - h + 1, x + w + 5, G - h + 1, x + w - 1, G - h - 6, x + 1, G - h - 6);
+    rr(P[0], x - 6, G - h - 9, w + 12, 6, 3);
+  }
+  function yukidaruma(ctx, x, base, s) {
     ctx.save();
     ctx.translate(x, base);
+    ctx.scale(s, s);
     if (setFill(ctx, 'bodyShade')) {
       ctx.beginPath();
       ctx.ellipse(1.5, -9, 14, 11, 0, 0, TAU);
@@ -1539,40 +1641,51 @@
     id: 'uchuu', ja: '宇宙', en: 'Space', stillT: 2.2,
     sky: { light: ['#DFDCF2', '#E8E4F3', '#F1ECF4'], dark: ['#0A0E20', '#0F1430', '#171C3A'] },
     light: {
-      star: ['#B4AEDA', 0.75], star2: ['#E4C98A', 0.7], moon: '#F4EDDB', moonShade: '#E8DEC6', moonGlow: ['#FFFFFF', 0.6],
-      rabbit: '#D7CAAC', mochi: '#FBF8F0', d1: '#F3CDD7', d2: '#F7F2E9', d3: '#D0E5CB', skewer: ['#CFC7E6', 1],
-      ringed: '#DAD3F0', ring: ['#C5BCE6', 1], earth: '#CBDDF2', land: '#D3E7CB', hill: '#E1DDEC', crater: '#D6D1E5',
+      star: ['#A8A1D4', 0.8], star2: ['#E0C27E', 0.75], moon: '#F4EDDB', moonShade: '#E8DEC6', moonGlow: ['#FFFFFF', 0.6],
+      rabbit: '#D7CAAC', mochi: '#FBF8F0', d1: '#F3CBD5', d2: '#F8F3EA', d3: '#CDE3C7', skewer: ['#C9C0E3', 1],
+      ringed: '#D6CEEE', ring: ['#C0B6E4', 1], earth: '#CBDDF2', land: '#D3E7CB', hill: '#E1DDEC', crater: '#D6D1E5',
+      neb1: ['#EED8EC', 0.5], neb2: ['#D6E0F4', 0.55], rocket: '#F7F4EE', fin: '#CFC6EA', porthole: '#C3D5EE', flame: ['#F4C892', 0.9], trail: ['#C9C0E3', 0.9],
       shoot: ['#FFFFFF', 0.9], ground: '#EBE8F2', groundEdge: '#E2DEEC',
     },
     dark: {
       star: ['#E8EBF6', 0.75], star2: ['#F2D9A0', 0.65], moon: '#DCD3B9', moonShade: '#C9BF9F', moonGlow: ['#8C9BD6', 0.25],
       rabbit: '#B8AA88', mochi: '#ECE6D6', d1: '#5A4256', d2: '#4F4E5A', d3: '#3E5246', skewer: ['#3A4064', 1],
       ringed: '#2E2E52', ring: ['#4A4A7A', 1], earth: '#2E4C78', land: '#3E6250', hill: '#161B34', crater: '#121731',
+      neb1: ['#2A1F45', 0.45], neb2: ['#17284A', 0.5], rocket: '#3A4266', fin: '#4E4A7A', porthole: ['#9FB4FF', 0.7], flame: ['#FFC48A', 0.8], trail: ['#4A4F7A', 0.9],
       shoot: ['#E8EBF6', 0.8], ground: '#12162B', groundEdge: '#141931',
     },
     make() {
       return {
-        stars: starLayer(81, 16, -70, 140),
-        planets: layer(82, 560, 60, ['skewer', 'd1', 'd2', 'd3', 'ring', 'ringed'], (P, R) => {
-          if (R() < 0.25) return;
-          const x = 40 + R() * 460;
-          const y = 26 + R() * 64;
+        stars: starLayer(81, 24, -70, 140),
+        nebula: layer(84, 520, 140, ['neb1', 'neb2'], (P, R) => {
+          for (let k = 0; k < 2; k++) {
+            const x = R() * 520;
+            const y = 20 + R() * 80;
+            const c = R() < 0.5 ? 0 : 1;
+            for (let b = 0; b < 4; b++) ell(P[c], x + (R() - 0.5) * 70, y + (R() - 0.5) * 16, 24 + R() * 30, 8 + R() * 8);
+          }
+        }),
+        planets: layer(82, 460, 60, [['skewer', 1.6], 'd1', 'd2', 'd3', ['ring', 2.2], 'ringed', ['ring', 2.2]], (P, R) => {
+          if (R() < 0.1) return;
+          const x = 40 + R() * 380;
+          const y = 22 + R() * 60;
           if (R() < 0.55) {
             // three planets on one orbit, like dango on a stick
-            const r = 6 + R() * 3;
+            const r = 7 + R() * 4;
             const a = -0.5 + R() * 0.3;
             const c = Math.cos(a);
             const s = Math.sin(a);
             line(P[0], x - c * r * 4, y - s * r * 4, x + c * r * 4, y + s * r * 4);
             for (let k = 0; k < 3; k++) circ(P[1 + k], x + c * r * 2 * (k - 1), y + s * r * 2 * (k - 1), r);
           } else {
-            const r = 7 + R() * 5;
-            P[4].moveTo(x + r * 2, y);
-            P[4].ellipse(x, y, r * 2, r * 0.45, -0.25, 0, TAU);
+            const r = 8 + R() * 6;
+            // a ringed planet: the ring behind it, the planet, the near half of the ring
+            P[4].ellipse(x, y, r * 1.9, r * 0.42, -0.25, Math.PI, TAU);
             circ(P[5], x, y, r);
+            P[6].ellipse(x, y, r * 1.9, r * 0.42, -0.25, 0, Math.PI);
           }
         }),
-        hills: layer(83, 300, 4, ['hill', 'crater'], (P, R, i, items, tw) => {
+        hills: layer(83, 300, 16, ['hill', 'crater'], (P, R, i, items, tw) => {
           ridge(P[0], i, tw, 83, 150, 16, 100, 8);
           for (let k = 0; k < 3; k++) {
             const x = R() * tw;
@@ -1584,12 +1697,14 @@
     },
     paint(ctx, f, L) {
       skyFill(ctx, 'sky');
+      drawLayer(ctx, L.nebula, f.scroll * 0.015);
       drawLayer(ctx, L.stars, f.scroll * 0.03);
       shootingStar(ctx);
       drawLayer(ctx, L.planets, f.scroll * 0.06);
+      rocket(ctx);
       const mx = f.W * (0.84 - 0.18 * f.pj);
-      const my = 62 - 4 * f.pj;
-      const mr = 30 + 10 * f.pj;
+      const my = 50 - 4 * f.pj;
+      const mr = 28 + 9 * f.pj;
       moonRabbit(ctx, mx, my, mr);
       // the finishing touch: the Earth rises over the hills
       if (f.fin > 0) {
@@ -1613,6 +1728,71 @@
       hanamaru(ctx, mx, my, mr + 9, f.fin);
     },
   });
+  // Now and then a little rocket crosses the sky, leaving a dotted trail.
+  function rocket(ctx) {
+    const span = F.W + 700;
+    const x = wrap(F.t * 26 - F.scroll * 0.08 + 260, span) - 200;
+    if (x < -40 || x > F.W + 40) return;
+    const y = 74 + Math.sin(x * 0.012) * 16;
+    const ang = Math.atan(Math.cos(x * 0.012) * 16 * 0.012) ;
+    if (F.C.trail) {
+      ctx.save();
+      ctx.strokeStyle = F.C.trail;
+      ctx.globalAlpha = F.A.trail || 1;
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = 'round';
+      ctx.setLineDash(U.dots);
+      ctx.lineDashOffset = -x;
+      ctx.beginPath();
+      for (let k = 0; k <= 12; k++) {
+        const px = x - 14 - k * 8;
+        const py = 74 + Math.sin(px * 0.012) * 16;
+        if (!k) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(ang);
+    const flick = F.still ? 0 : Math.sin(F.t * 30) * 1.2;
+    if (setFill(ctx, 'flame')) {
+      ctx.beginPath();
+      ctx.moveTo(-8, -2.2);
+      ctx.lineTo(-15 - flick, 0);
+      ctx.lineTo(-8, 2.2);
+      ctx.closePath();
+      ctx.fill();
+    }
+    if (setFill(ctx, 'fin')) {
+      ctx.beginPath();
+      ctx.moveTo(-8, -3);
+      ctx.lineTo(-12, -7.5);
+      ctx.lineTo(-3, -3);
+      ctx.moveTo(-8, 3);
+      ctx.lineTo(-12, 7.5);
+      ctx.lineTo(-3, 3);
+      ctx.fill();
+    }
+    if (setFill(ctx, 'rocket')) {
+      ctx.beginPath();
+      ctx.moveTo(-9, -3.6);
+      ctx.lineTo(3, -3.6);
+      ctx.quadraticCurveTo(10, -3.2, 13, 0);
+      ctx.quadraticCurveTo(10, 3.2, 3, 3.6);
+      ctx.lineTo(-9, 3.6);
+      ctx.closePath();
+      ctx.fill();
+    }
+    if (setFill(ctx, 'porthole')) {
+      ctx.beginPath();
+      ctx.arc(2.5, 0, 1.8, 0, TAU);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  }
   function shootingStar(ctx) {
     if (F.still || !F.C.shoot) return;
     const per = 7;
@@ -1698,13 +1878,14 @@
     id: 'uminaka', ja: '海の中', en: 'Under the sea', stillT: 5,
     sky: { light: ['#D1EAF0', '#D9EDEC', '#DFEDE6'], dark: ['#0A1828', '#0C1D2D', '#0F212E'] },
     light: {
-      surface: '#E6F5F6', ray: ['#FFFFFF', 0.32], rock: '#C8DEE0', rock2: '#BFD7D8', kelp: '#BCD9C9', kelp2: '#B0D0BF',
-      c1: '#F0D5D3', c2: '#E3D6EC', c3: '#F1E3C6', f1: '#F4D7BC', f2: '#D2E1F2', f3: '#F1E8C9', jelly: ['#F2DCEB', 0.85],
+      surface: '#E6F5F6', ray: ['#FFFFFF', 0.32], rock: '#BED6D9', rockFar: '#C8DEE1', rock2: '#BDD5D6', kelp: '#B8D6C4', kelp2: '#ADCDBB',
+      c1: '#F0D2CF', c2: '#E1D3EB', c3: '#F0E0C1', f1: '#F2CDB5', f2: '#C8DBF0', f3: '#EFE1B5', fin2: '#FBF6EE', jelly: ['#F2D8EA', 0.85], star5: '#F0CFB8',
       whale: '#C2D8E0', whaleBelly: '#D2E4EA', eye: '#9AAAC0', ground: '#EEEADC', groundEdge: '#E6E1CF',
     },
     dark: {
       surface: '#13293A', ray: ['#7CC3D2', 0.07], rock: '#0D1B28', rock2: '#0B1823', kelp: '#0F2629', kelp2: '#0C2024',
-      c1: '#2A2436', c2: '#22253A', c3: '#2A2A30', f1: '#33405A', f2: '#2A3B55', f3: '#38405A', jelly: ['#A8E6FF', 0.38],
+      rockFar: '#0C1A26', c1: '#2A2436', c2: '#22253A', c3: '#2A2A30', f1: '#2A3C52', f2: '#25384E', f3: '#2E3D50', fin2: '#3A4A60',
+      jelly: ['#A8E6FF', 0.4], jellyGlow: ['#7FD8F0', 0.22], star5: '#2E2A38', fly: ['#9FE8F2', 0.5],
       whale: '#10232F', whaleBelly: '#132A38', eye: '#4A6278', ground: '#111A26', groundEdge: '#131E2B',
     },
     make() {
@@ -1714,7 +1895,8 @@
         }, (ctx, items) => {
           if (!F.C.ray) return;
           ctx.fillStyle = F.C.ray;
-          for (const s of items) {
+          for (let q = 0; q < items.length; q++) {
+            const s = items[q];
             ctx.globalAlpha = F.A.ray * (0.5 + 0.5 * Math.sin(F.t * 0.4 + s.ph));
             ctx.beginPath();
             ctx.moveTo(s.x, F.top - 2);
@@ -1726,7 +1908,23 @@
           }
           ctx.globalAlpha = 1;
         }),
-        rocks: layer(92, 420, 4, ['rock'], (P, R, i, items, tw) => ridge(P[0], i, tw, 92, 150, 30, 110, 8)),
+        rocksFar: layer(97, 460, 4, ['rockFar'], (P, R, i, items, tw) => ridge(P[0], i, tw, 97, 140, 36, 140, 8)),
+        rocks: layer(92, 380, 40, ['rock'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 92, 158, 22, 80, 8);
+          // a tall rock with an arch through it
+          if (R() < 0.45) {
+            const x = 40 + R() * 280;
+            const h = 50 + R() * 30;
+            const p = P[0];
+            p.moveTo(x - 24, G + 2);
+            p.quadraticCurveTo(x - 26, G - h * 0.7, x - 10, G - h);
+            p.quadraticCurveTo(x + 6, G - h - 6, x + 22, G - h * 0.8);
+            p.quadraticCurveTo(x + 34, G - h * 0.4, x + 30, G + 2);
+            p.lineTo(x + 12, G + 2);
+            p.arc(x + 2, G + 2, 10, 0, Math.PI, true);
+            p.closePath();
+          }
+        }),
         jelly: layer(93, 460, 30, [], (P, R, i, items) => {
           if (R() < 0.6) items.push({ x: R() * 460, y: 40 + R() * 50, s: 0.8 + R() * 0.5, ph: R() * TAU });
         }, (ctx, items) => {
@@ -1734,9 +1932,14 @@
           const a = ctx.globalAlpha;
           ctx.strokeStyle = F.C.jelly;
           ctx.lineWidth = 0.9;
-          for (const j of items) {
+          for (let q = 0; q < items.length; q++) {
+            const j = items[q];
             const pulse = Math.sin(F.t * 1.6 + j.ph);
             const y = j.y + Math.sin(F.t * 0.5 + j.ph) * 6;
+            if (F.dark) {
+              glow(ctx, j.x, y, 16 * j.s, 'jellyGlow', 0.8 + 0.2 * pulse);
+              ctx.fillStyle = F.C.jelly;
+            }
             const w = 7 * j.s * (1 + 0.1 * pulse);
             ctx.globalAlpha = a;
             ctx.beginPath();
@@ -1754,43 +1957,53 @@
           ctx.globalAlpha = 1;
         }),
         fish: layer(94, 380, 60, [], (P, R, i, items) => {
-          if (R() < 0.25) return;
+          if (R() < 0.15) return;
           const cx = R() * 380;
           const cy = 40 + R() * 70;
-          const n = 4 + Math.floor(R() * 5);
-          const col = 1 + Math.floor(R() * 3);
-          for (let k = 0; k < n; k++) items.push({ x: cx + (R() - 0.5) * 50, y: cy + (R() - 0.5) * 24, s: 7 + R() * 3, col, ph: R() * TAU });
+          const big = R() < 0.3;
+          const n = big ? 1 : 3 + Math.floor(R() * 4);
+          const col = big ? 1 : 1 + Math.floor(R() * 3);
+          for (let k = 0; k < n; k++) items.push({ x: cx + (R() - 0.5) * 60, y: cy + (R() - 0.5) * 26, s: big ? 22 + R() * 6 : 10 + R() * 4, col, ph: R() * TAU });
         }, (ctx, items) => {
-          for (const fi of items) {
+          for (let q = 0; q < items.length; q++) {
+            const fi = items[q];
             const key = FISH_KEYS[fi.col];
             if (!setFill(ctx, key)) continue;
             ctx.save();
             ctx.translate(fi.x + Math.sin(F.t * 0.8 + fi.ph) * 3, fi.y + Math.sin(F.t * 1.1 + fi.ph) * 2);
             ctx.scale(fi.s, fi.s * (0.92 + 0.08 * Math.sin(F.t * 6 + fi.ph)));
             ctx.fill(U.fish);
+            if (setFill(ctx, 'fin2')) ctx.fill(U.fishBelly);
             ctx.restore();
           }
           ctx.globalAlpha = 1;
         }),
         kelp: layer(95, 170, 30, [], (P, R, i, items) => {
-          const n = 1 + Math.floor(R() * 3);
-          for (let k = 0; k < n; k++) items.push({ x: R() * 170, h: 40 + R() * 60, ph: R() * TAU, key: R() < 0.5 ? 'kelp' : 'kelp2' });
-        }, (ctx, items) => {
-          ctx.lineCap = 'round';
-          ctx.lineWidth = 3.4;
-          for (const k of items) {
-            if (!F.C[k.key]) continue;
-            ctx.strokeStyle = F.C[k.key];
-            const sway = Math.sin(F.t * 0.7 + k.ph) * 8;
-            ctx.beginPath();
-            ctx.moveTo(k.x, G + 1);
-            ctx.bezierCurveTo(k.x + sway * 0.2 - 6, G - k.h * 0.35, k.x + sway * 0.6 + 6, G - k.h * 0.7, k.x + sway, G - k.h);
-            ctx.moveTo(k.x + 3, G + 1);
-            ctx.bezierCurveTo(k.x + 3 + sway * 0.2 + 5, G - k.h * 0.3, k.x + sway * 0.5 - 4, G - k.h * 0.5, k.x + sway * 0.7 + 3, G - k.h * 0.68);
-            ctx.stroke();
+          const n = 1 + Math.floor(R() * 2);
+          for (let k = 0; k < n; k++) {
+            const x = R() * 170;
+            const key = R() < 0.5 ? 'kelp' : 'kelp2';
+            for (let b = 0; b < 3; b++) items.push({ x: x + b * 4 - 4, h: (40 + R() * 60) * (b === 1 ? 1 : 0.7), w: 3 + R() * 2.5, ph: R() * TAU, key });
           }
+        }, (ctx, items) => {
+          // ribbons of kelp that sway, each a long tapering leaf
+          for (let q = 0; q < items.length; q++) {
+            const k = items[q];
+            if (!setFill(ctx, k.key)) continue;
+            const sway = Math.sin(F.t * 0.7 + k.ph) * 9;
+            const x = k.x;
+            const h = k.h;
+            const w = k.w;
+            ctx.beginPath();
+            ctx.moveTo(x - w / 2, G + 1);
+            ctx.bezierCurveTo(x - w - 5 + sway * 0.2, G - h * 0.35, x - w + 5 + sway * 0.6, G - h * 0.7, x + sway, G - h);
+            ctx.bezierCurveTo(x + w + 5 + sway * 0.6, G - h * 0.7, x + w - 5 + sway * 0.2, G - h * 0.35, x + w / 2, G + 1);
+            ctx.closePath();
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
         }),
-        coral: layer(96, 280, 30, ['c1', 'c2', 'c3', 'rock2'], (P, R) => {
+        coral: layer(96, 280, 30, ['c1', 'c2', 'c3', 'rock2', 'star5'], (P, R) => {
           for (let k = 0; k < 2; k++) {
             if (R() < 0.3) continue;
             const x = R() * 280;
@@ -1807,6 +2020,13 @@
               ell(P[c], x + 7, G - 2, 6, 5);
             }
             ell(P[3], x + 14, G, 8, 4);
+          }
+          if (R() < 0.35) {
+            const x = R() * 280;
+            for (let a = 0; a < 5; a++) {
+              const ang = -Math.PI / 2 + (a * TAU) / 5;
+              leaf(P[4], x, G - 5, 5.5, ang, 1.6);
+            }
           }
         }),
       };
@@ -1825,13 +2045,15 @@
       }
       drawLayer(ctx, L.rays, f.scroll * 0.12);
       whale(ctx, f.W * (1.2 - 0.8 * f.pj), 66, 1);
-      drawLayer(ctx, L.rocks, f.scroll * 0.1);
+      drawLayer(ctx, L.rocksFar, f.scroll * 0.06);
       drawLayer(ctx, L.jelly, f.scroll * 0.18);
+      drawLayer(ctx, L.rocks, f.scroll * 0.2);
       drawLayer(ctx, L.fish, f.scroll * 0.3 + f.t * 7);
       drawLayer(ctx, L.kelp, f.scroll * 0.5);
       drawLayer(ctx, L.coral, f.scroll * 0.85);
       ground(ctx, 'groundEdge');
       particles(ctx, 'bubble', 14);
+      if (f.dark) particles(ctx, 'fly', 6);
       // the finishing touch: a ring of bubbles in the shape of a はなまる, floating up
       if (f.fin > 0 && F.C.bubble) {
         const s = 1.4;
@@ -1938,8 +2160,8 @@
           if (!setFill(ctx, 'norenText')) return;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.font = '700 8.5px ' + UI;
-          for (const s of items) ctx.fillText(s.word, s.x, s.y);
+          ctx.font = FONT_STALL;
+          for (let q = 0; q < items.length; q++) ctx.fillText(items[q].word, items[q].x, items[q].y);
           ctx.globalAlpha = 1;
         }),
         lanterns: layer(105, 280, 300, ['pole', ['string', 0.9]], (P, R, i, items, tw) => {
@@ -1961,7 +2183,8 @@
         }, (ctx, items) => {
           const t = F.t;
           const lit = F.dark && F.C.lanternGlow;
-          for (const it of items) {
+          for (let q = 0; q < items.length; q++) {
+            const it = items[q];
             if (lit) glow(ctx, it.x, it.y + 10, 16, 'lanternGlow', 1);
             ctx.save();
             ctx.translate(it.x, it.y);
@@ -2057,57 +2280,60 @@
   const FW_KEYS = ['fw1', 'fw2', 'fw3', 'fw4'];
 
   // ----- 電車: a little train on a viaduct, fields and a level crossing; the station やおき -----
-  const VY = 116;   // the viaduct's deck
+  const VY = 108;   // the viaduct's deck
   scene({
     id: 'densha', ja: '電車', en: 'Train line', stillT: 6,
     sky: { light: ['#DAE8F5', '#E7EFF2', '#F6F0E3'], dark: ['#0C1326', '#121A32', '#1A2340'] },
     light: {
-      m1: '#D3DDE9', deck: '#D2D8E3', pier: '#D9DEE8', hill: '#CDDFD2', hill2: '#C3D8C8', roof: '#C9D2E4', hwall: '#EEEAE2',
-      field: '#DCE8CF', row: ['#C9DAB9', 1], pole: '#C6CCDA', wire: ['#BAC1D1', 1], body: '#F6F3EB', stripe: '#BCD1EC', stripe2: '#EED5A6',
+      m1: '#D2DCE9', deck: '#C6CEDC', pier: '#D0D7E3', hill: '#CDDFD2', hill2: '#C3D8C8', roof: '#C9D2E4', hwall: '#EEEAE2',
+      field: '#DCE8CF', row: ['#CCDCBD', 0.7], pole: '#C6CCDA', wire: ['#BAC1D1', 1], body: '#F6F3EB', stripe: '#BCD1EC', stripe2: '#EED5A6',
       twin: '#D0DAEA', xpost: '#CDD2DE', xboard: '#EBDDAE', xboard2: '#C9CEDA', sign: '#FBFAF6', signLine: '#BCD1EC', signText: '#7D87A6',
       ground: '#EEEDE6', groundEdge: '#E5E4DA',
     },
     dark: {
-      m1: '#151C34', deck: '#1B2238', pier: '#161D33', hill: '#121A2E', hill2: '#10172A', roof: '#10162A', hwall: '#161D32', hlit: ['#F0C46B', 0.5],
+      m1: '#151C34', deck: '#1E263E', pier: '#182036', hill: '#121A2E', hill2: '#10172A', roof: '#10162A', hwall: '#161D32', hlit: ['#F0C46B', 0.5],
       field: '#131B2E', row: ['#18223A', 1], pole: '#0E1327', wire: ['#2A3250', 1], body: '#2A3350', stripe: '#3B4E78', stripe2: '#5A4C3A',
       twin: ['#F6D58A', 0.8], xpost: '#1A2036', xboard: '#4A4430', xboard2: '#232A40', xlamp: ['#FF9C7A', 0.75], xglow: ['#FF9C7A', 0.28],
       sign: '#2A3350', signLine: '#3B4E78', signText: '#C9D0E8', ground: '#141A2D', groundEdge: '#171E33',
     },
     seasons: {
-      autumn: { light: { field: '#EADFB8', row: ['#DCCB98', 1] } },
-      winter: { light: { field: '#E8ECEF', row: ['#D8DDE2', 1] } },
+      autumn: { light: { field: '#EADFB8', row: ['#DDCD9C', 0.7] } },
+      winter: { light: { field: '#E8ECEF', row: ['#D8DDE2', 0.7] } },
     },
     make() {
       return {
         stars: starLayer(121, 9, -60, 100),
         cloud: cloudLayer(122, 460, 26, 70, 46, 96),
-        m1: layer(123, 420, 4, ['m1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 123, 124, 30, 150, 10)),
+        m1: layer(123, 420, 4, ['m1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 123, 120, 54, 110, 8)),
         viaduct: layer(124, 240, 4, ['pier', 'deck'], (P, R) => {
-          P[1].rect(0, VY, 241, 4);
-          P[1].rect(0, VY - 1.2, 241, 0.8);
-          for (let x = 0; x < 240; x += 40) {
+          P[1].rect(0, VY, 241, 4.5);
+          P[1].rect(0, VY - 1.6, 241, 0.9);
+          // a row of arches under the deck
+          for (let x = 0; x < 240; x += 30) {
             P[0].moveTo(x, VY + 4);
-            P[0].lineTo(x + 40.5, VY + 4);
-            P[0].lineTo(x + 40.5, VY + 34);
-            P[0].lineTo(x + 34, VY + 34);
-            P[0].arc(x + 20, VY + 34, 14, 0, Math.PI, true);
-            P[0].lineTo(x, VY + 34);
+            P[0].lineTo(x + 30.5, VY + 4);
+            P[0].lineTo(x + 30.5, VY + 40);
+            P[0].lineTo(x + 26, VY + 40);
+            P[0].lineTo(x + 26, VY + 20);
+            P[0].arc(x + 15, VY + 20, 11, 0, Math.PI, true);
+            P[0].lineTo(x + 4, VY + 40);
+            P[0].lineTo(x, VY + 40);
             P[0].closePath();
           }
         }),
         hills: layer(125, 360, 30, ['hill', 'hill2', 'hwall', 'roof', 'hlit'], (P, R, i, items, tw) => {
-          ridge(P[0], i, tw, 125, 146, 12, 110, 8);
-          ridge(P[1], i, tw, 126, 156, 6, 70, 8);
+          ridge(P[0], i, tw, 125, 150, 12, 110, 8);
+          ridge(P[1], i, tw, 126, 158, 5, 70, 8);
           for (let k = 0; k < 3; k++) {
             if (R() < 0.4) continue;
             const x = R() * (tw - 30);
-            const y = ridgeY(i, tw, x + 10, 125, 146, 12, 110) + 4;
+            const y = ridgeY(i, tw, x + 10, 125, 150, 12, 110) + 4;
             P[2].rect(x, y - 9, 20, 10);
             quad(P[3], x - 3, y - 8, x + 23, y - 8, x + 18, y - 15, x + 2, y - 15);
             P[4].rect(x + 12, y - 6, 4, 3);
           }
         }),
-        fields: layer(127, 320, 320, ['field', 'row', 'pole', 'wire', 'xpost', 'xboard', 'xboard2'], (P, R, i, items, tw) => {
+        fields: layer(127, 320, 320, ['field', ['row', 1], 'pole', ['wire', 0.8], 'xpost', 'xboard', 'xboard2'], (P, R, i, items, tw) => {
           P[0].rect(0, 158, tw + 1, 11);
           for (let x = 2; x < tw; x += 9) line(P[1], x, 160, x - 2.5, 167);
           const px = (j) => 40 + hash(127, j) * 220;
@@ -2137,7 +2363,8 @@
           // by night the crossing lights blink in turn
           if (!F.dark || !F.C.xlamp) return;
           const on = Math.floor(F.t * 1.6) % 2;
-          for (const it of items) {
+          for (let q = 0; q < items.length; q++) {
+            const it = items[q];
             const lx = it.x + (on ? -6 : 6);
             glow(ctx, lx, 138.5, 9, 'xglow', 1);
             rect(ctx, 'xlamp', lx - 2, 136.5, 4, 4);
@@ -2207,9 +2434,9 @@
     if (setFill(ctx, 'signText')) {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = '800 11px ' + UI;
+      ctx.font = FONT_STATION;
       ctx.fillText('やおき', 0, -49);
-      ctx.font = '700 5px ' + UI;
+      ctx.font = FONT_SMALL;
       ctx.fillText('YAOKI', 0, -42);
       ctx.textAlign = 'left';
       ctx.fillText('ななころび', -32, -30);
@@ -2224,7 +2451,7 @@
     sky: { light: ['#DAE7F4', '#E8EFF3', '#F6F0E3'], dark: ['#0C1326', '#121A32', '#1B2340'] },
     light: {
       hill: '#CEDAE2', stone: '#D9D3C7', stoneLine: ['#CBC4B6', 1], cwall: '#F4F2EC', croof: '#B6C1D7', croofEdge: '#A7B3CC', cwin: '#C9D2E2', gold: '#E9D49A',
-      far: '#D6DDEA', wall: '#E9E5DA', wroof: '#BDC7DA', namako: ['#D2D6DF', 1], pine: '#BDCFC5', pine2: '#B1C5BB', trunk: '#CDBFAD',
+      far: '#D6DDEA', wall: '#E8E3D7', wroof: '#C0C9DB', namako: ['#D6D9E1', 0.7], pine: '#BDCFC5', pine2: '#B1C5BB', trunk: '#CDBFAD',
       moat: '#D4E4EB', ripple: ['#F2F7FA', 0.9], k1: '#F4CFB5', k2: '#FBF6EE', ground: '#EEECE5', groundEdge: '#E5E2D9',
     },
     dark: {
@@ -2246,7 +2473,8 @@
           }
         }),
         pines: layer(136, 300, 60, ['trunk', 'pine2', 'pine'], (P, R) => {
-          if (R() < 0.6) pine(P, R, 40 + R() * 220, 142, 0.9 + R() * 0.4);
+          if (R() < 0.75) pine(P, R, 40 + R() * 100, 142, 0.9 + R() * 0.4);
+          if (R() < 0.4) pine(P, R, 170 + R() * 90, 142, 0.7 + R() * 0.3);
         }),
         wall: layer(137, 260, 40, ['wall', 'wroof', ['namako', 0.8], 'moat'], (P, R, i, items, tw) => {
           P[0].rect(0, 141, tw + 1, 15);
@@ -2260,7 +2488,8 @@
           if (R() < 0.7) items.push({ x: R() * tw, y: 160 + R() * 5, k: R() < 0.5 ? 'k1' : 'k2', ph: R() * TAU, s: 6 + R() * 2 });
           if (R() < 0.5) items.push({ x: R() * tw, y: 160 + R() * 5, k: 'k2', ph: R() * TAU, s: 5 + R() * 2 });
         }, (ctx, items) => {
-          for (const k of items) {
+          for (let q = 0; q < items.length; q++) {
+            const k = items[q];
             if (!setFill(ctx, k.k)) continue;
             const dx = Math.sin(F.t * 0.25 + k.ph) * 30;
             const dir = Math.cos(F.t * 0.25 + k.ph) > 0 ? -1 : 1;
@@ -2295,6 +2524,7 @@
       hanamaru(ctx, sx, sy, 21, f.fin);
     },
   });
+  const TIERS = [-28, -26, 56, 18, -21, -48, 42, 14, -14, -66, 28, 12];
   // The castle keep (天守): stone walls with curved sides, white storeys and grey roofs
   // whose eaves turn up at the ends, gold dolphins on the top ridge.
   function castle(ctx, x, base, s) {
@@ -2321,9 +2551,11 @@
       }
       ctx.stroke();
     }
-    const tiers = [[-28, -26, 56, 18], [-21, -48, 42, 14], [-14, -66, 28, 12]];
-    for (let k = 0; k < tiers.length; k++) {
-      const [tx, ty, tw, th] = tiers[k];
+    for (let k = 0; k < 3; k++) {
+      const tx = TIERS[k * 4];
+      const ty = TIERS[k * 4 + 1];
+      const tw = TIERS[k * 4 + 2];
+      const th = TIERS[k * 4 + 3];
       rect(ctx, 'cwall', tx, ty - th, tw, th);
       if (setFill(ctx, 'cwin')) {
         for (let wx = tx + 5; wx < tx + tw - 6; wx += 8) ctx.fillRect(wx, ty - th * 0.62, 4, 4);
@@ -2365,9 +2597,15 @@
       ctx.fill();
     }
     if (setFill(ctx, 'gold')) {
+      // the shachihoko: two little gold fish on the ridge, tails up
       ctx.beginPath();
-      ctx.ellipse(-9, -89, 1.6, 3, 0.4, 0, TAU);
-      ctx.ellipse(9, -89, 1.6, 3, -0.4, 0, TAU);
+      for (let d = -1; d <= 1; d += 2) {
+        ctx.moveTo(d * 10, -86);
+        ctx.quadraticCurveTo(d * 8, -89, d * 9.5, -91.5);
+        ctx.lineTo(d * 11, -90);
+        ctx.quadraticCurveTo(d * 11.5, -88, d * 12, -86);
+        ctx.closePath();
+      }
       ctx.fill();
     }
     ctx.globalAlpha = 1;
@@ -2379,13 +2617,15 @@
   // Course weeks go round the places in this order, each level starting further on, so
   // neighbouring weeks are always somewhere different.
   const ORDER = ['shitamachi', 'umi', 'chikurin', 'machi', 'tanbo', 'uchuu', 'joka', 'uminaka', 'fuji', 'matsuri', 'yukiguni', 'densha'];
-  const LEVEL_START = { N5: 0, N4: 3, N3: 6, N2: 9, N1: 1 };
-  const STAGE = {
+  // lookups on objects without a prototype, so a key such as 'constructor' finds nothing
+  const table = (o) => Object.assign(Object.create(null), o);
+  const LEVEL_START = table({ N5: 0, N4: 3, N3: 6, N2: 9, N1: 1 });
+  const STAGE = table({
     'romaji:basic': 'shitamachi', 'romaji:voiced': 'chikurin', 'romaji:katakana': 'machi', 'romaji:words': 'matsuri', 'romaji:phrases': 'densha',
     'symbol:plain': 'uchuu', 'symbol:shifted': 'uminaka', 'symbol:punct': 'fuji', 'symbol:all': 'umi',
     'keys:home': 'tanbo', 'keys:top': 'yukiguni', 'keys:bottom': 'joka', 'keys:number': 'umi', 'keys:shift': 'chikurin', 'keys:all': 'fuji',
-  };
-  const MODE_DEFAULT = { romaji: 'shitamachi', symbol: 'uchuu', keys: 'tanbo', course: 'shitamachi' };
+  });
+  const MODE_DEFAULT = table({ romaji: 'shitamachi', symbol: 'uchuu', keys: 'tanbo', course: 'shitamachi' });
 
   function forStage(key) {
     const k = typeof key === 'string' ? key : '';
@@ -2407,15 +2647,16 @@
 
   // ---------- drawing a frame ----------
 
-  const BY_ID = {};
+  const BY_ID = Object.create(null);
   for (const d of DEFS) BY_ID[d.id] = d;
 
   // The colours of a scene for a mode and season, with its sky's stops, made once.
   function paletteOf(S, dark, season) {
     const mode = dark ? 'dark' : 'light';
-    S.pals = S.pals || {};
-    const key = mode + season;
-    if (S.pals[key]) return S.pals[key];
+    if (!S.pals) S.pals = [[], []];
+    const si = SEASONS.indexOf(season);
+    const got = S.pals[dark ? 1 : 0][si];
+    if (got) return got;
     const C = {};
     const A = {};
     const put = (src) => {
@@ -2436,15 +2677,20 @@
     put(S.seasons && S.seasons[season] && S.seasons[season][mode]);
     const stops = {};
     for (const k in S.sky) if (k === mode || (k !== 'light' && k !== 'dark' && !dark)) stops[k === mode ? 'sky' : k] = S.sky[k];
-    return (S.pals[key] = { C, A, stops, grad: {}, glow: {} });
+    return (S.pals[dark ? 1 : 0][si] = { C, A, stops, grad: {}, glow: {} });
   }
 
   // Progress, eased: a landmark comes closer smoothly even when the round's progress moves in steps.
   const SM = { id: '', p: 0, t: 0 };
 
+  // The season by the calendar, when the game passes none (worked out once a page visit).
+  let seasonCache = '';
   function seasonNow() {
-    const m = new Date().getMonth();
-    return m >= 2 && m <= 4 ? 'spring' : m >= 5 && m <= 7 ? 'summer' : m >= 8 && m <= 10 ? 'autumn' : 'winter';
+    if (!seasonCache) {
+      const m = new Date().getMonth();
+      seasonCache = m >= 2 && m <= 4 ? 'spring' : m >= 5 && m <= 7 ? 'summer' : m >= 8 && m <= 10 ? 'autumn' : 'winter';
+    }
+    return seasonCache;
   }
   const num = (v, d) => (typeof v === 'number' && isFinite(v) ? v : d);
 
@@ -2455,7 +2701,7 @@
     try {
       if (typeof Path2D !== 'function') throw new Error('no Path2D');
       if (!U.ready) init();
-      const S = BY_ID[o.scene] || BY_ID[DEFAULT];
+      const S = (typeof o.scene === 'string' && BY_ID[o.scene]) || BY_ID[DEFAULT];
       const dy = num(o.ground, G) - G;
       F.W = clamp(num(o.W, 600), 0, 4000);
       F.top = num(o.top, 0) - dy;
@@ -2508,6 +2754,14 @@
     }
   }
 
+  // SCENES: [{ id, ja, en }]. forStage(key): the scene id for a stage key ('romaji:basic',
+  // 'keys:home', 'course:N5u3' …), the same every time. draw(ctx, o) paints the whole
+  // background of a frame, in logical units on a context already scaled, with
+  // o = { scene, W, top, bottom, ground, scroll, progress, t, still, dark, season, pal }:
+  // the visible box x 0..W, y top..bottom; the route at y ground (168); scroll, the distance
+  // travelled this round; progress 0..1 through it; t, seconds; still, reduced motion (one
+  // fixed frame); dark, the night version; season 'spring' | 'summer' | 'autumn' | 'winter';
+  // pal, the page's colour tokens (only pal.stamp, for the はなまる, and pal.ground are read).
   window.TypingScenes = {
     SCENES: DEFS.map((d) => ({ id: d.id, ja: d.ja, en: d.en })),
     forStage,
