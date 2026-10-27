@@ -31,7 +31,9 @@ run "interruptions, no scripts"   NOSOUND=1 timeout 300 bash run-app.sh pause-te
 run "notebook entries"            timeout 720 bash run-app.sh nb-check-n1.js
 run "answer-state sweep"          NOSOUND=1 timeout 1200 bash run-app.sh sweep-n1.js
 run "every screen"                timeout 200 bash run-app.sh screens-app.js
+run "writing with a finger"       timeout 900 bash run-app.sh write-flow-n1.js
 else
+run "writing with a finger"       timeout 900 bash run-app.sh write-flow.js
 run "day flow, sound"              timeout 300 bash run-app.sh flow-test.js
 run "mock, sound"                 timeout 480 bash run-app.sh e2e-mock.js
 run "mock, held back"             HELDBACK=1 timeout 300 bash run-app.sh e2e-mock.js

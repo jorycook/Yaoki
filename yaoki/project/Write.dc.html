@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Writing practice</title>
+<script src="./support.js"></script>
+<script src="./strokes.js"></script>
+<script src="./yk-write.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+@keyframes yk-pop{0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
+</style>
+</helmet>
+<div data-yk-write="1" ref="{{ rootRef }}" style="box-sizing: border-box; width: 100%; max-width: 358px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict">
+
+<sc-if value="{{ isKanji }}" hint-placeholder-val="{{ true }}">
+<div role="list" aria-label="Write it three times" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; flex-shrink: 0">
+<sc-for list="{{ reps }}" as="r" hint-placeholder-count="3">
+<div role="listitem" aria-label="{{ r.aria }}" aria-current="{{ r.cur }}" style="height: 34px; min-width: 0; box-sizing: border-box; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; white-space: nowrap; border: {{ r.border }}; background: {{ r.bg }}; color: {{ r.color }}; font-weight: {{ r.weight }}"><span aria-hidden="true" style="width: 17px; height: 17px; box-sizing: border-box; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; border: {{ r.dotBorder }}; background: {{ r.dotBg }}; color: {{ r.dotColor }}">{{ r.mark }}</span><span lang="ja">{{ r.ja }}</span></div>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isWord }}" hint-placeholder-val="{{ false }}">
+<div role="list" aria-label="{{ cellsAria }}" style="display: flex; flex-wrap: wrap; justify-content: center; flex-shrink: 0; gap: {{ cellGap }}">
+<sc-for list="{{ cells }}" as="x" hint-placeholder-count="2">
+<div role="listitem" aria-label="{{ x.aria }}" style="position: relative; box-sizing: border-box; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: {{ cellPx }}; height: {{ cellPx }}; border: {{ x.border }}; background: {{ x.bg }}; box-shadow: {{ x.shadow }}">
+<sc-if value="{{ x.ink }}" hint-placeholder-val="{{ false }}"><span data-yk-ink="{{ x.c }}" aria-hidden="true" style="display: block; width: {{ inkPx }}; height: {{ inkPx }}"></span></sc-if>
+<sc-if value="{{ x.text }}" hint-placeholder-val="{{ true }}"><span lang="ja" aria-hidden="true" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1; font-size: {{ kanaPx }}; color: {{ x.textColor }}">{{ x.c }}</span></sc-if>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="display: flex; justify-content: center; flex-shrink: 0">
+<div ref="{{ padRef }}" data-yk-pad="1" style="position: relative; box-sizing: border-box; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; width: {{ padPx }}; height: {{ padPx }}; box-shadow: {{ padShadow }}; animation: {{ padAnim }}"></div>
+</div>
+
+<div aria-live="polite" style="min-height: 36px; padding: 0 4px; font-size: 13px; font-weight: 700; line-height: 1.4; text-align: center; flex-shrink: 0; color: {{ msgColor }}">{{ msg }}</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex-shrink: 0">
+<button onClick="{{ play }}" aria-pressed="{{ playing }}" aria-label="Play the stroke order" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; border: 2px solid #1B2440; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; background: {{ playBg }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1B2440" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span lang="ja">書き順</span></button>
+<button onClick="{{ hint }}" aria-disabled="{{ noHint }}" aria-label="Show the next stroke" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ hintBorder }}; background: #FFFFFF; color: {{ hintColor }}; cursor: {{ hintCursor }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg><span lang="ja">ヒント</span></button>
+<button onClick="{{ again }}" aria-disabled="{{ noAgain }}" aria-label="Start this one again" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ againBorder }}; color: {{ againColor }}; cursor: {{ againCursor }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg><span lang="ja">もう一度</span></button>
+</div>
+
+<sc-if value="{{ showStrip }}" hint-placeholder-val="{{ true }}">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 11px; font-weight: 800; color: #5A6382"><span lang="ja">書き順</span>　Stroke order · {{ strokeCount }}{{ stripNote }}</div>
+<div role="img" aria-label="{{ stripAria }}" style="overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; visibility: {{ stripVis }}">
+<div data-yk-strip="{{ stripChar }}" style="display: flex; gap: 4px; width: max-content; min-height: 36px"></div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"task":{"editor":null},"tkey":{"editor":null},"finished":{"editor":null},"size":{"editor":null},"strip":{"editor":null},"$preview":{"width":358,"height":470}}'>
+/* The writing panel: a pad the learner writes one kanji on with a finger, stroke by stroke and in order (yk-write.js).
+   Two kinds of task, given by the screen that shows it (props.task; props.tkey names it, and a new name starts it
+   afresh; props.finished(result) is called once it is done):
+     { kind: 'kanji', c }  a new kanji, written three times: traced over its strokes (the stroke order plays first), then
+                           over very faint strokes, then from memory
+     { kind: 'word', w, cells: [{ c, write, known }] }  a word written one kanji at a time: each kanji the learner has
+                           written before from memory, one not met yet traced (after its stroke order), kana shown as given
+     { kind: 'show', c }   a kanji already written: shown written out, its stroke order played on request
+   props.size is the pad's width in pixels (250 by default); props.strip false leaves out the stroke-order strip.
+   On its own the artboard shows the designed moment: 書, the second time, a little over half its strokes in. */
+const MODES = ['trace', 'faint', 'memory'];
+const REPS = [['なぞる', 'Trace'], ['うすく', 'Faint'], ['見ないで', 'From memory']];
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+const t = this.task();
+this.state = { key: this.key(), rep: t.moment ? 1 : 0, cell: 0, flash: false, finished: false, playing: false, stroke: this.pre(), note: '', tone: '' };
+/* a ref may be called with nothing and then the same element again on a redraw (the canvas does so): only a new
+   element counts, and the pad goes only when the panel does */
+this.padRef = (el) => { if (el) { this.padEl = el; this.sync(); } };
+this.rootRef = (el) => { if (el) { this.rootEl = el; this.paint(); } };
+}
+/* the task, or on its own the designed moment: 書 (or the first of these the app has strokes for) */
+task() {
+const t = this.props.task;
+if (t && (t.c || t.w)) return t;
+const W = window.ykWrite;
+return { kind: 'kanji', c: ['書', '学', '字'].find((c) => W && W.has(c)) || '書', moment: true };
+}
+key() {
+const t = this.task();
+return this.props.tkey || (t.kind + ':' + (t.c || t.w));
+}
+/* a designed moment (on its own, or task.moment): the second time, a little over half the strokes in */
+pre() {
+const t = this.task();
+const n = window.ykWrite && t.kind !== 'word' ? window.ykWrite.count(t.c) : 0;
+return t.moment ? Math.max(1, Math.floor(n * 0.6)) : 0;
+}
+/* the state for this task: when the task has just changed, a fresh one until componentDidUpdate has caught up */
+st() {
+if (this.state.key === this.key()) return this.state;
+return { ...this.state, rep: 0, cell: 0, flash: false, finished: false, playing: false, stroke: 0, note: '', tone: '' };
+}
+/* the kanji of a word that are written, in order */
+targets(t) {
+return (t.cells || []).map((x, j) => ({ ...x, j })).filter((x) => x.write && x.c);
+}
+/* what the pad shows now */
+want() {
+const t = this.task();
+const s = this.st();
+if (t.kind === 'word') {
+const ws = this.targets(t);
+const x = ws[Math.min(s.cell, Math.max(0, ws.length - 1))] || { c: '' };
+return { char: x.c, mode: x.known ? 'memory' : 'trace', played: !x.known, done: 0, key: this.key() + ':' + s.cell };
+}
+if (t.kind === 'show') return { char: t.c, mode: 'show', played: false, done: 0, key: this.key() + ':show' };
+const pre = this.pre();
+return { char: t.c, mode: MODES[s.rep] || 'memory', played: s.rep === 0 && !t.moment, done: pre && s.rep === 1 && s.stroke === pre ? pre : 0, key: this.key() + ':' + s.rep };
+}
+componentDidMount() {
+this.sync();
+this.paint();
+}
+/* the written kanji of a word and the stroke-order strip are small pictures drawn into elements the template leaves
+   empty (yk-write.js draws them, and only again when they change) */
+paint() {
+const W = window.ykWrite;
+const root = this.rootEl;
+if (!W || !root || !root.querySelectorAll) return;
+root.querySelectorAll('[data-yk-ink]').forEach((el) => W.draw(el, el.getAttribute('data-yk-ink'), el.offsetWidth || 38));
+root.querySelectorAll('[data-yk-strip]').forEach((el) => W.strip(el, el.getAttribute('data-yk-strip'), 32));
+}
+componentDidUpdate() {
+const key = this.key();
+if (this.state.key !== key) {
+clearTimeout(this.timer);
+this.setState({ key, rep: 0, cell: 0, flash: false, finished: false, playing: false, stroke: 0, note: '', tone: '' });
+return;
+}
+this.sync();
+this.paint();
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+if (this.pad) this.pad.destroy();
+this.pad = null;
+}
+/* the pad follows the task: made once its element is there, set afresh for each time and each kanji */
+sync() {
+const W = window.ykWrite;
+const el = this.padEl;
+if (!el || !W) return;
+const w = this.want();
+const on = {
+onStroke: (i, r) => this.stroked(i, r),
+onMiss: (i, r) => this.missed(i, r),
+onDone: (r) => this.wrote(r),
+onPlay: (p) => this.setState({ playing: p }),
+};
+if (!this.pad || this.pad.host !== el) {
+if (this.pad) this.pad.destroy();
+this.padKey = w.key;
+this.pad = W.pad(el, { char: w.char, mode: w.mode, played: w.played, done: w.done, ...on });
+return;
+}
+if (this.padKey !== w.key) {
+this.padKey = w.key;
+this.pad.set({ char: w.char, mode: w.mode, played: w.played, done: w.done, restart: true, ...on });
+}
+}
+stroked(i, r) {
+this.setState({ stroke: i + 1, note: r && r.helped ? 'Stroke ' + (i + 1) + ' was written in for you. On to the next.' : '', tone: '' });
+}
+missed(i, r) {
+const n = i + 1;
+const note = r.backwards ? 'Stroke ' + n + ' goes the other way: start from its other end.'
+: r.misses >= 2 ? 'Follow the yellow line for stroke ' + n + ', from the red dot.'
+: 'Not quite. Try stroke ' + n + ' again.';
+this.setState({ note, tone: 'miss' });
+}
+/* the moment a written kanji stays before the next time (shorter in the checks, window.__ykWriteFast) */
+pause() {
+return window.__ykWriteFast ? 60 : 750;
+}
+/* a time (or a kanji of the word) is written: a moment to see it, then the next; after the last, the task is done */
+wrote(r) {
+const t = this.task();
+const s = this.st();
+const clean = r && !r.misses && !r.helped;
+const last = t.kind === 'word' ? s.cell >= this.targets(t).length - 1 : s.rep >= MODES.length - 1;
+clearTimeout(this.timer);
+if (last) {
+this.setState({ flash: true, finished: true, note: '', tone: '' });
+this.timer = setTimeout(() => this.setState({ flash: false }), this.pause());
+if (this.props.finished) this.props.finished({ misses: (r && r.misses) || 0, helped: (r && r.helped) || 0 });
+return;
+}
+this.setState({ flash: true, note: clean ? 'きれい！ Neat.' : 'できた！ Done.', tone: 'good' });
+this.timer = setTimeout(() => {
+const now = this.st();
+if (t.kind === 'word') this.setState({ cell: now.cell + 1, flash: false, stroke: 0, note: '', tone: '' });
+else this.setState({ rep: now.rep + 1, flash: false, stroke: 0, note: '', tone: '' });
+}, this.pause());
+}
+renderVals() {
+const W = window.ykWrite;
+const t = this.task();
+const s = this.st();
+const word = t.kind === 'word';
+const show = t.kind === 'show';
+const ws = word ? this.targets(t) : [];
+const cur = word ? (ws[Math.min(s.cell, Math.max(0, ws.length - 1))] || { c: '' }) : { c: t.c };
+const c = cur.c || '';
+const n = W ? W.count(c) : 0;
+const size = Math.max(180, Math.min(320, +this.props.size || 250));
+const at = Math.min(n, s.stroke + 1);
+/* the line under the pad: what to do now, or what just happened */
+let msg = s.note;
+if (!msg) {
+if (show) msg = s.playing ? '書き順 The stroke order.' : '書きました Written already. Play the stroke order to see it again.';
+else if (s.finished) msg = word ? 'できた！ ' + (t.w || '') + ' is written.' : 'できた！ Written three times.';
+else if (s.playing) msg = '書き順 Watch the order. Touch the pad to start writing.';
+else if (word) msg = (cur.known ? 'Write ' + c + ' from memory' : 'Trace ' + c + ': it is new to you') + ' · stroke ' + at + ' of ' + n;
+else if (s.rep === 0) msg = 'Trace it, starting at the red dot · stroke ' + at + ' of ' + n;
+else if (s.rep === 1) msg = 'Again, over faint lines · stroke ' + at + ' of ' + n;
+else msg = 'Now from memory · stroke ' + at + ' of ' + n;
+}
+const reps = REPS.map((r, k) => {
+const done = k < s.rep || (k === s.rep && (s.finished || s.flash));
+const now = k === s.rep && !done;
+return {
+ja: r[0],
+mark: done ? '✓' : String(k + 1),
+aria: (k + 1) + ': ' + r[1] + (done ? ', done' : now ? ', now' : ''),
+cur: now ? 'step' : 'false',
+border: now ? '2px solid #2F4FD0' : done ? '2px solid #E0F3EF' : '2px solid #DDE1EC',
+bg: now ? '#E8ECFB' : done ? '#E0F3EF' : 'transparent',
+color: now ? '#1B2440' : done ? '#0B7A6B' : '#5A6382',
+weight: now || done ? 800 : 700,
+dotBorder: now ? '2px solid #2F4FD0' : done ? '2px solid #0B7A6B' : '2px solid #C9D0E3',
+dotBg: done ? '#0B7A6B' : '#FFFFFF',
+dotColor: done ? '#FFFFFF' : now ? '#2F4FD0' : '#5A6382',
+};
+});
+/* the word's cells: a kanji written shows its strokes, the one being written is ringed, kana are printed */
+let k = 0;
+const cells = (t.cells || []).map((x) => {
+if (!x.write) return { c: x.c, ink: false, text: true, textColor: '#5A6382', border: '2px solid #DDE1EC', bg: '#F4F5F9', shadow: 'none', aria: x.c + ', given' };
+const idx = k++;
+const written = idx < s.cell || (idx === s.cell && (s.finished || s.flash));
+const now = idx === s.cell && !written;
+return {
+c: x.c,
+ink: written,
+text: false,
+textColor: '#1B2440',
+border: now ? '2.5px solid #2F4FD0' : written ? '2px solid #1B2440' : '2px dashed #C9D0E3',
+bg: now ? '#E8ECFB' : '#FFFFFF',
+shadow: written ? '0 3px 0 #1B2440' : 'none',
+aria: x.c + (written ? ', written' : now ? ', writing now' : ', to write'),
+};
+});
+const tone = s.tone === 'miss' ? '#C7361E' : s.tone === 'good' || s.finished ? '#0B7A6B' : '#1B2440';
+return {
+isKanji: !word && !show,
+isWord: word,
+reps,
+cells,
+cellsAria: (t.w || '') + ', written one kanji at a time',
+/* a word of up to seven characters in cells of 46 px; a longer one in smaller cells, so it keeps to one row */
+cellPx: (cells.length <= 7 ? 46 : 40) + 'px',
+cellGap: (cells.length <= 7 ? 6 : 4) + 'px',
+inkPx: (cells.length <= 7 ? 38 : 32) + 'px',
+kanaPx: (cells.length <= 7 ? 26 : 22) + 'px',
+padPx: size + 'px',
+padShadow: s.flash ? '0 0 0 4px #E0F3EF, 0 4px 0 #1B2440' : '0 4px 0 #1B2440',
+padAnim: s.flash ? 'yk-pop 360ms ease-out' : 'none',
+msg,
+msgColor: tone,
+playing: !!s.playing,
+playBg: s.playing ? '#F2B43A' : '#FFFFFF',
+noHint: show || s.finished || s.flash || s.playing,
+hintBorder: show || s.finished || s.flash || s.playing ? '2px solid #DDE1EC' : '2px solid #1B2440',
+hintColor: show || s.finished || s.flash || s.playing ? '#9AA1B5' : '#1B2440',
+hintCursor: show || s.finished || s.flash || s.playing ? 'default' : 'pointer',
+noAgain: show,
+againBorder: show ? '2px solid #DDE1EC' : '2px solid #1B2440',
+againColor: show ? '#9AA1B5' : '#1B2440',
+againCursor: show ? 'default' : 'pointer',
+showStrip: this.props.strip !== false && n > 0,
+strokeCount: n === 1 ? '1 stroke' : n + ' strokes',
+stripAria: 'The stroke order of ' + c + ', ' + n + (n === 1 ? ' stroke' : ' strokes'),
+stripChar: c,
+/* writing from memory, the strip would give the kanji away: it keeps its place, hidden */
+stripVis: this.want().mode === 'memory' && !s.finished ? 'hidden' : 'visible',
+stripNote: this.want().mode === 'memory' && !s.finished ? ' · hidden for now' : '',
+padRef: this.padRef,
+rootRef: this.rootRef,
+play: () => { if (this.pad) { if (this.state.playing) this.pad.stopPlay(); else this.pad.play(); } },
+hint: () => { if (this.pad && !this.st().finished && !this.st().flash) this.pad.hint(); },
+/* the same time again from its first stroke (once all is written, the last time again, for more practice) */
+again: () => {
+if (!this.pad || this.st().flash || show) return;
+this.pad.restart();
+this.setState({ stroke: 0, note: '', tone: '', playing: false, finished: false });
+},
+};
+}
+}
+</script>
+</body>
+</html>

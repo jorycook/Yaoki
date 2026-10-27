@@ -9,6 +9,8 @@
 <script src="./n1.js"></script>
 <script src="./audio/clips.js"></script>
 <script src="./sound-mock.js"></script>
+<script src="./strokes.js"></script>
+<script src="./yk-write.js"></script>
 </head>
 <body>
 <x-dc>
@@ -48,7 +50,7 @@ class Component extends DCLogic {
 constructor(props) {
 super(props);
 /* one shared memory for the whole flow: which screen is up, the study plan (made on the goal screen; it keeps each day's progress), mistakes made, the outcome of the notebook review, and the last mini mock */
-this.state = { screen: 'Goal', g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null };
+this.state = { screen: 'Goal', g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null, wrote: '', wroteWords: [] };
 }
 renderVals() {
 const s = this.state;
@@ -56,7 +58,7 @@ const at = {};
 ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'].forEach((n) => { at[n] = s.screen === n; });
 return {
 at,
-app: { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan },
+app: { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan, wrote: s.wrote || '', wroteWords: s.wroteWords || [] },
 go: (to) => this.setState({ screen: to }),
 save: (patch) => this.setState(patch),
 miss: (m) => this.setState((st) => ({ mistakes: [{ ...m, at: Date.now() }].concat((st.mistakes || []).filter((x) => x.src !== m.src)) })),

@@ -239,6 +239,144 @@ const strip = (s) => s.replace(/\s+/g, '');
   ok(await page.locator('#aoz-find').isVisible(), 'From Aozora Bunko opens its search');
   await page.click('#aoz-back');
 
+  /* A new edition: a part saved from an earlier edition of its work (same part, other text) is updated in place,
+     from the work page or from a note in the reader, and keeps its place in the library. */
+  const older = (s) => '（旧版）\n' + s;
+  const seeded = async (seed) => {
+    const c = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+    await c.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
+    await c.addInitScript((s) => {
+      if (!localStorage.getItem('yomu.test.seeded')) { localStorage.setItem('yomu.texts', JSON.stringify(s)); localStorage.setItem('yomu.test.seeded', '1'); }
+    }, seed);
+    return c;
+  };
+  const savedTexts = (p) => p.evaluate(() => JSON.parse(localStorage.getItem('yomu.texts') || '[]'));
+  const wk = works.find((w) => w.parts.length > 2 && w.parts.every((p) => p.analysis));
+  if (wk) {
+    step(wk.title + ': parts saved from an earlier edition');
+    const wi = works.indexOf(wk), tx = texts[wk.id];
+    const c3 = await seeded([
+      { id: 'told1', title: wk.parts[0].title, by: wk.by || '', text: older(tx[0].text), created: 3000, seen: [0, 1, 2], n: 99, av: 5, src: wk.parts[0].analysis },
+      { id: 'told2', title: wk.parts[1].title, by: wk.by || '', text: older(tx[1].text), created: 2999, seen: [4], n: 99, av: 5, src: wk.parts[1].analysis },
+      { id: 'tmine', title: '自分の文', by: '', text: '今日は雨です。', created: 100, seen: [], n: 0, av: 0 },
+    ]);
+    const p3 = await newPage(c3, logs);
+    await p3.goto(READER);
+    await p3.waitForSelector('#texts .text-card');
+    await p3.click('#go-ykl');
+    await p3.waitForSelector('#ykl-works .text-card');
+    await p3.locator('#ykl-works .text-card').nth(wi).click();
+    await p3.waitForSelector('#ykl-work [data-part]');
+    const labels = await p3.locator('#ykl-work [data-part]').allInnerTexts();
+    ok(labels[0] === 'Update' && labels[1] === 'Update' && labels.slice(2).every((l) => l === 'Add'), 'the two earlier parts say Update, the others Add (' + labels.join(', ') + ')');
+    const allLabel = await p3.locator('#ykl-work .add-all').innerText();
+    ok(allLabel === 'Add ' + (wk.parts.length - 2) + ' parts, update 2', 'the add-all button: ' + allLabel);
+    const why = (await p3.locator('#ykl-work .revised-parts').innerText()).replace(/\s+/g, ' ');
+    ok(/2 parts in your library are from an earlier edition/.test(why), 'a note says why: ' + why);
+    await p3.screenshot({ path: path.join(out, 'library-update-work.png') });
+
+    step(wk.title + ': updating one part');
+    await p3.locator('#ykl-work [data-part="0"]').click();
+    const said = await toastText(p3);
+    ok(/^Updated .+ to the new text\. Its looked-up list starts over\.$/.test(said), 'it says so: ' + said);
+    await p3.waitForFunction(() => document.querySelector('#ykl-work [data-part="0"]').textContent === 'Read');
+    ok(true, 'the part now says Read');
+    let saved = await savedTexts(p3);
+    const s1 = saved.find((t) => t.id === 'told1');
+    ok(s1 && s1.text === tx[0].text, 'the saved copy has the new text');
+    ok(s1 && s1.created === 3000 && s1.seen.length === 0 && s1.title === wk.parts[0].title, 'in its place, with its looked-up list started over');
+    ok(s1 && s1.src === wk.parts[0].analysis && s1.part === wk.parts[0].file, 'it keeps its analysis file and now also its text file');
+    ok(saved.length === 3 && saved.filter((t) => t.src === wk.parts[0].analysis).length === 1, 'no second copy');
+    const why2 = (await p3.locator('#ykl-work .revised-parts').innerText()).replace(/\s+/g, ' ');
+    ok(/One part in your library is from an earlier edition/.test(why2), 'the note counts what is left: ' + why2);
+
+    step(wk.title + ': adding and updating the rest at once');
+    ok(await p3.locator('#ykl-work .add-all').innerText() === 'Add ' + (wk.parts.length - 2) + ' parts, update 1', 'the add-all button counts both');
+    await p3.locator('#ykl-work .add-all').click();
+    await p3.waitForSelector('#v-lib:not([hidden])');
+    const both = await toastText(p3);
+    ok(both === 'Added ' + (wk.parts.length - 2) + ' parts and updated 1 part of ' + wk.title + '. The updated ones start their looked-up lists over.', 'it says so: ' + both);
+    const list3 = await cards(p3);
+    ok(JSON.stringify(list3) === JSON.stringify(wk.parts.map((p) => p.title).concat(['自分の文', '片目のだるま'])), 'every part once, in reading order, above the reader\'s own text: ' + list3.join('、'));
+    saved = await savedTexts(p3);
+    ok(saved.every((t) => t.id === 'tmine' || tx.some((x) => x.text === t.text)), 'every part holds the new text');
+    ok(saved.find((t) => t.id === 'told2').created === 2999, 'the second earlier part kept its place too');
+
+    step(wk.title + ': an updated part reads at once');
+    const dict3 = [];
+    p3.on('request', (r) => { if (/\/reader\/engine\/(jm-\d|dict\/)/.test(r.url())) dict3.push(r.url()); });
+    await p3.locator('#texts .text-card').nth(1).click();
+    await p3.waitForSelector('#passage .ph', { timeout: 30000 });
+    ok(strip(await shownText(p3)) === strip(tx[1].text), wk.parts[1].title + ': the new text');
+    ok(dict3.length === 0, 'from its own analysis, without the dictionary (' + dict3.length + ' requests)');
+    ok(await p3.locator('#read-update').isHidden(), 'and no note');
+    await p3.close();
+    await c3.close();
+  }
+
+  const w4 = works.find((w) => w.parts[0] && w.parts[0].analysis && w !== wk) || wk;
+  if (w4) {
+    step(w4.title + ': the reader offers a new edition of a saved part');
+    const t4 = texts[w4.id][0];
+    const oldAn = Object.assign({}, t4.analysis, { rev: 'earlier', paras: [[{ x: '（旧版）' }]].concat(t4.analysis.paras) });
+    const c4 = await seeded([{ id: 'tn4', title: w4.parts[0].title, by: w4.by || '', text: older(t4.text), created: 5000, seen: [], n: 0, av: 0, src: w4.parts[0].analysis }]);
+    const p4 = await newPage(c4, logs);
+    const dict4 = [];
+    p4.on('request', (r) => { if (/\/reader\/engine\/(jm-\d|dict\/)/.test(r.url())) dict4.push(r.url()); });
+    const anRoute = '**/reader/library/' + w4.parts[0].analysis;
+    await p4.route(anRoute, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(oldAn) }));
+    await p4.goto(READER);
+    await p4.waitForSelector('#texts .text-card');
+    await p4.locator('#texts .text-card').first().click();
+    await p4.waitForSelector('#passage .ph', { timeout: 30000 });
+    ok(strip(await shownText(p4)) === strip(older(t4.text)), 'a part saved from an earlier edition reads as it was saved');
+    ok(await p4.locator('#read-update').isHidden(), 'while the library has that same edition, there is no note');
+    await p4.locator('#read-back').click();
+    await p4.unroute(anRoute);
+    await p4.locator('#texts .text-card').first().click();
+    await p4.waitForSelector('#read-update:not([hidden])', { timeout: 15000 });
+    const offer = (await p4.locator('#read-update').innerText()).replace(/\s+/g, ' ');
+    ok(/^Revised\. This part has a new edition in the Yaoki Library/.test(offer) && await p4.locator('#read-update-go').isVisible(), 'once the library has a new edition, a note offers it: ' + offer);
+    ok(strip(await shownText(p4)) === strip(older(t4.text)), 'until it is taken, the saved text stays');
+    await p4.screenshot({ path: path.join(out, 'library-update-reader.png') });
+    await p4.click('#read-update-go');
+    const said4 = await toastText(p4);
+    ok(/^Updated to the new text\./.test(said4), 'Update says so: ' + said4);
+    await p4.waitForFunction(() => document.getElementById('read-update').hidden);
+    ok(strip(await shownText(p4)) === strip(t4.text), 'the new text is shown at once, and the note is gone');
+    ok(await p4.locator('#passage .ph').count() === t4.analysis.paras.flat().filter((c) => c.w).length, 'with the phrases of its own analysis');
+    ok(dict4.length === 0, 'without the dictionary (' + dict4.length + ' requests)');
+    const s4 = await savedTexts(p4);
+    ok(s4.length === 1 && s4[0].id === 'tn4' && s4[0].text === t4.text && s4[0].created === 5000 && s4[0].part === w4.parts[0].file, 'the saved copy took the new text in its place');
+    await p4.reload();
+    await p4.waitForSelector('#texts .text-card');
+    await p4.locator('#texts .text-card').first().click();
+    await p4.waitForSelector('#passage .ph', { timeout: 30000 });
+    ok(strip(await shownText(p4)) === strip(t4.text) && await p4.locator('#read-update').isHidden(), 'after a reload it opens on the new text, with no note');
+    await p4.close();
+    await c4.close();
+
+    step(w4.title + ': an earlier copy beside the new one');
+    const c5 = await seeded([
+      { id: 'tw-new', title: w4.parts[0].title, by: w4.by || '', text: t4.text, created: 6001, seen: [], n: 0, av: 0, src: w4.parts[0].analysis },
+      { id: 'tw-old', title: w4.parts[0].title, by: w4.by || '', text: older(t4.text), created: 6000, seen: [], n: 0, av: 0, src: w4.parts[0].analysis },
+    ]);
+    const p5 = await newPage(c5, logs);
+    await p5.route('**/reader/engine/**', (r) => (/jm-\d|dict\//.test(r.request().url()) ? r.abort() : r.continue()));
+    await p5.goto(READER);
+    await p5.waitForSelector('#texts .text-card');
+    await p5.locator('#texts .text-card').nth(1).click();
+    await p5.waitForSelector('#read-update:not([hidden])', { timeout: 15000 });
+    const twin = (await p5.locator('#read-update').innerText()).replace(/\s+/g, ' ');
+    ok(/^Earlier edition\. The new text of this part is already in your library as another copy/.test(twin) && await p5.locator('#read-update-go').isHidden(), 'the note says the new text is already there, with nothing to update: ' + twin);
+    await p5.locator('#read-back').click();
+    await p5.locator('#texts .text-card').first().click();
+    await p5.waitForSelector('#passage .ph', { timeout: 30000 });
+    ok(await p5.locator('#read-update').isHidden(), 'the new copy opens with no note');
+    await p5.close();
+    await c5.close();
+  }
+
   step('when the catalog or a file cannot be fetched');
   const p2 = await newPage(ctx, logs);
   await p2.route('**/reader/library/catalog.json', (r) => r.fulfill({ status: 500, body: 'no' }));

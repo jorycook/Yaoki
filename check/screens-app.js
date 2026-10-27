@@ -23,6 +23,8 @@ let SCREENS = [
   ['Drill', ''],
   ['Exam', ''],
   ['Scene', ''],
+  ['Scene', day1({ ks: 1 }), 'write'],
+  ['Scene', day1({ ks: 1, kw: 1 }), 'question'],
   ['Reading', ''],
   ['Listening', ''],
   ['WeekTest', ''],
@@ -94,6 +96,11 @@ if (LEVEL === 'N1') {
     { src: 'x.n3u01t.8', wrong: N.item('x.n3u01t.8').options[N.item('x.n3u01t.8').answer % 4], at: T - 16000 },
     { src: 'x.k.0.0', wrong: N.item('x.k.0.0').options[N.item('x.k.0.0').answer % 4], at: T - 17000, step: 1, next: N.add(TODAY, 2) },
   ];
+  /* the writing practice: a day's kanji written already (wrote), and its words of two kanji or more too (words), to
+     reach the states past the writing by their buttons */
+  const KANJI = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/;
+  const dayWords = (p, i) => N.view(p, i).wi.map((wi) => N.plain(N.word(wi).w)).filter((w) => [...w].filter((c) => KANJI.test(c)).length >= 2);
+  const wrote = (p, i, words) => '&wrote=' + encodeURIComponent(N.view(p, i).kanji.filter(Boolean).map((k) => k.c).join('')) + (words ? '&words=' + enc(dayWords(p, i)) : '');
   const mockDone = { id: 1, done: true, score: 9, of: 12, at: TODAY, a: { 1: 1, 2: 1, 3: 3, 4: 3, 5: 3, 6: 3, 7: 2, 8: 2, 9: 2, 10: 3, 11: 4, 12: 3 }, used: [520] };
   SCREENS = [
     ['Goal', at(TODAY), 'first'],
@@ -135,10 +142,14 @@ if (LEVEL === 'N1') {
     ['Exam', demo(17), 'demo'],
     ['Exam', at(TODAY) + plan(noGrammar, 2), 'none'],
     ['Scene', demo(17), 'kanji'],
-    ['Scene', demo(17), 'words', ['button:has-text("Next: words")']],
-    ['Scene', demo(17), 'quiz', ['button:has-text("Next: words")', 'button:has-text("Next: the quiz")']],
+    ['Scene', demo(17), 'kanji-sheet', ['[role=list] button >> nth=0']],
+    ['Scene', demo(17) + wrote(DEMO, 17), 'kanji-written'],
+    ['Scene', demo(17) + wrote(DEMO, 17), 'kanji-sheet-written', ['[role=list] button >> nth=0']],
+    ['Scene', demo(17) + wrote(DEMO, 17, true), 'words', ['button:has-text("Next: words")']],
+    ['Scene', demo(17) + wrote(DEMO, 17), 'write-words', ['button:has-text("Next: words")', 'button:has-text("Next: write the words")']],
+    ['Scene', demo(17) + wrote(DEMO, 17, true), 'quiz', ['button:has-text("Next: words")', 'button:has-text("Next: the quiz")']],
     ['Scene', at(TODAY) + plan(wordsOnly, 0), 'words-only'],
-    ['Scene', at(TODAY) + plan(twenty, 0), 'twenty-words', ['button:has-text("Next: words")']],
+    ['Scene', at(TODAY) + plan(twenty, 0) + wrote(twenty, 0, true), 'twenty-words', ['button:has-text("Next: words")']],
     ['Scene', at(TODAY) + plan(fresh60, kanjiDay), 'kanji-day'],
     ['Scene', demo(20), 'none-test-day'],
     ['Reading', demo(17), 'demo'],

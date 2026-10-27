@@ -20,5 +20,13 @@ run "app: N4 day 1 of each unit" DAYS=n4u01d1,n4u02d1,n4u03d1,n4u04d1,n4u05d1,n4
 run "app: N3 day 1 of each unit" DAYS=n3u01d1,n3u02d1,n3u03d1,n3u04d1,n3u05d1,n3u06d1,n3u07d1,n3u08d1,n3u09d1,n3u10d1,n3u11d1,n3u12d1 LEVEL=N3 NOSOUND=1 timeout 3600 bash run-app.sh content-sweep.js
 run "app: N2 every day"      NOSOUND=1 timeout 3000 bash run-app.sh content-sweep.js
 run "app: offline sound by level" timeout 300 node offline-sound.js
+# the writing practice: the stroke matching on every kanji of both apps, the panel and engine the same in both, and the
+# writing done with a finger end to end (N5 week 1 day 1 in the main app, a day of the sample plan in the N1 app)
+run "writing: every kanji"       timeout 600 node write-engine-test.js
+run "writing: shared panel"      bash ../tools/sync-write.sh --check
+run "writing: strokes for every scene kanji" python3 ../tools/make-strokes.py --check
+run "app: writing with a finger" timeout 900 bash run-app.sh write-flow.js
+run "canvas: writing with a finger" timeout 900 bash run.sh write-flow.js
+run "N1 app: writing with a finger" YK_LEVEL=N1 timeout 900 bash run-app.sh write-flow-n1.js
 echo "=== preview"; NODE_PATH=/opt/npm-tools/node_modules node preview-test.js 2>&1 | tail -3
 echo "##### release checks done"

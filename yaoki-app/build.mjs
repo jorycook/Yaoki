@@ -25,11 +25,12 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
    The few lines of the shared files that belong to one app only are marked (see forLevel below). */
 const LEVELS = {
   N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype with N2 sample content.', credits: '',
-    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'],
+    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write'],
     /* run first: the course content, checked and turned into course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
     prepare: '../tools/build-course.mjs',
-    /* loaded after the sound player and before the screens; words: the ones whose text the typefaces must hold */
-    scripts: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js', 'course.js'],
+    /* loaded after the sound player and before the screens; words: the ones whose text the typefaces must hold.
+       strokes.js and yk-write.js are the writing practice (Write, part of Scene): the strokes and the pad */
+    scripts: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js', 'course.js', 'strokes.js', 'yk-write.js'],
     words: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js'],
     /* the clips, loaded after the app; each level's sound by unit (sound-course-n5-u01.js …) is fetched by course.js
        when the unit is in use, and stored by the offline worker when used, not at install (lazy) */
@@ -37,9 +38,10 @@ const LEVELS = {
     unitSound: /^sound-course-n\d-u\d+\.js$/,
     lazy: /^\.\/assets\/sound-course-n\d-u\d+\.js$/ },
   N1: { project: '../yaoki-n1/project', out: 'dist-n1', name: 'Yaoki N1', full: 'Yaoki JLPT N1', tile: '#2F4FD0', about: 'Prototype N1 course, planned to your exam date.', credits: 'Kanji data: KANJIDIC2 and JMdict, by the EDRDG (CC BY-SA 4.0). ',
-    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'],
-    /* the content bank and the plan that lays it out (tools/build-content.mjs makes n1-content.js), and the list of the spoken clips */
-    scripts: ['n1-content.js', 'n1.js', 'audio/clips.js'],
+    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write'],
+    /* the content bank and the plan that lays it out (tools/build-content.mjs makes n1-content.js), and the list of the spoken clips;
+       strokes.js and yk-write.js are the writing practice (Write, part of Scene): the strokes and the pad */
+    scripts: ['n1-content.js', 'n1.js', 'audio/clips.js', 'strokes.js', 'yk-write.js'],
     words: ['n1-content.js', 'n1.js', 'audio/clips.js'],
     optional: ['audio/clips.js'],
     sounds: ['sound-mock.js'],
@@ -137,6 +139,8 @@ function parts(file) {
 /* 0: what the app's scripts are made from (the main app: the course content, checked and turned into course-n2.js,
       course-n5.js, course-n4.js and course-n3.js next to the screens) */
 if (L.prepare) execFileSync('node', [path.join(HERE, L.prepare)], { stdio: 'inherit' });
+/* every kanji the learner is asked to write has its strokes (strokes.js; tools/make-strokes.py makes them) */
+execFileSync('python3', [path.join(HERE, '../tools/make-strokes.py'), '--check'], { stdio: 'inherit' });
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
@@ -216,6 +220,24 @@ write('licenses.txt', [
   'The spoken clips are synthetic placeholders made with Kokoro-82M (Apache-2.0).',
   'The narrator\'s and the man\'s voices (jf_gongitsune, jm_kumo) were built from Koniwa recordings (CC BY 3.0).',
   'Voice list and credits: https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md',
+  '',
+  '== Stroke order (KanjiVG, CC BY-SA 3.0) ==',
+  'The strokes of the kanji in the writing practice come from KanjiVG (https://kanjivg.tagaini.net), Copyright (C) 2009-2024',
+  'Ulrich Apel and the KanjiVG contributors, used under the Creative Commons Attribution-Share Alike 3.0 licence:',
+  'https://creativecommons.org/licenses/by-sa/3.0/. The app keeps the strokes of the kanji it asks for (assets/strokes.js),',
+  'with their numbers rounded; that data is available under the same licence.',
+  '',
+  '== Stroke matching (adapted from Hanzi Writer, MIT) ==',
+  'How a drawn stroke is judged follows Hanzi Writer (https://github.com/chanind/hanzi-writer):',
+  'Copyright (c) 2014 David Chanin. Permission is hereby granted, free of charge, to any person obtaining a copy of this software',
+  'and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation',
+  'the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons',
+  'to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission',
+  'notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT',
+  'WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A',
+  'PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR',
+  'OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE',
+  'OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.',
   '',
   '== Trademarks and content ==',
   'JLPT (Japanese-Language Proficiency Test) is a trademark of the Japan Foundation and Japan Educational Exchanges and Services.',

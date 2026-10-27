@@ -16,7 +16,11 @@ const TODAY = '2026-10-14';
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
   // the page's own clock stands on that day too, so a mistake made now is made on it
-  const { page, logs } = await openBoard(browser, 'App.dc.html?ykdate=' + TODAY, fontsCss, (pg) => pg.clock.install({ time: new Date(TODAY + 'T10:00:00') }));
+  // the writing pads write themselves (window.__ykWriteAuto): writing with a finger has checks of its own (write-flow-n1.js)
+  const { page, logs } = await openBoard(browser, 'App.dc.html?ykdate=' + TODAY, fontsCss, async (pg) => {
+    await pg.addInitScript(() => { window.__ykWriteAuto = true; window.__ykWriteFast = true; });
+    await pg.clock.install({ time: new Date(TODAY + 'T10:00:00') });
+  });
   const startUrl = page.url();
   let fails = 0;
   let pads = 0;
@@ -120,6 +124,8 @@ const TODAY = '2026-10-14';
       star: l.grammar.star.tiles.map((x) => N.plain(x)),
       exam: [0, 1, 2].map((n) => { const q = N.grammarQ(v.gi, 'x' + n); return { answer: q.answer, src: q.src, line: N.plain(q.ja || q.pre) }; }),
       K: v.kanji.length, W: v.words.length, kanji: v.kanji.map((k) => k.c), word: at ? 'w.' + N.lessons[at.li].id + '.' + at.i : '',
+      /* the words of two kanji or more, written one kanji at a time after the words */
+      compounds: v.wi.map((wi) => N.plain(N.word(wi).w)).filter((w) => [...w].filter((c) => /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c)).length >= 2),
       quiz, week, reading: l.reading.answer, readingAsk: N.plain(l.reading.ask), short: (l.reading.short || [])[l.reading.answer % 4],
       listening: t.answer, standIn: 150 * chars + 600 + 1000 * 3, bank,
     };
@@ -235,18 +241,22 @@ const TODAY = '2026-10-14';
   await at('20-today-grammar-done', day.pats[0]);
   ok((await page.locator('a[aria-label^="Grammar:"][aria-label$="Done"]').count()) === 1, 'today: grammar should be done');
 
-  // ---------- kanji and words: the kanji, the words, the quiz with two slips (the first, and the last review question) ----------
+  // ---------- kanji and words: each kanji written three times in its sheet (the pads write themselves here), the words,
+  // the words written one kanji at a time, the quiz with two slips (the first, and the last review question) ----------
   await click('a[aria-label^="Kanji and words:"]', 700);
   await at('21-scene-kanji');
-  ok(await has(day.K + ' kanji') && await has('0 of ' + day.K + ' seen'), 'scene: the kanji count is missing');
+  ok(await has(day.K + ' kanji') && await has('0 of ' + day.K + ' written'), 'scene: the kanji count is missing');
   ok((await page.locator('[role=list] button').count()) === day.K, 'scene: one tile per kanji expected');
+  ok(await has('Write all ' + day.K + ' first') || (day.K === 1 && await has('Write it first')), 'scene: Next should wait until the kanji are written');
   await click('[role=list] button >> nth=0', 500);
   await at('22-scene-kanji-sheet');
   ok((await page.locator('[role=dialog][aria-label="Kanji ' + day.kanji[0] + '"]').count()) === 1, 'scene: the sheet should show the first kanji');
-  await click('[role=dialog] button:has-text("Next kanji")', 400);
-  ok((await page.locator('[role=dialog][aria-label="Kanji ' + day.kanji[1] + '"]').count()) === 1, 'scene: Next kanji should show the second');
-  await click('[role=dialog] button[aria-label="Close"]', 400);
-  ok(await has('2 of ' + day.K + ' seen'), 'scene: two kanji should count as seen');
+  for (let n = 0; n < day.K; n++) {
+    await page.waitForFunction(() => document.body.textContent.includes('Written three times.'), null, { timeout: 8000 });
+    await click(n < day.K - 1 ? '[role=dialog] button:has-text("Next kanji")' : '[role=dialog] button:has-text("Close")', 400);
+    if (n === 0 && day.K > 1) ok((await page.locator('[role=dialog][aria-label="Kanji ' + day.kanji[1] + '"]').count()) === 1, 'scene: Next kanji should show the second');
+  }
+  ok(await has(day.K + ' of ' + day.K + ' written'), 'scene: every kanji should count as written');
   await click('button:has-text("Next: words")', 600);
   await at('23-scene-words');
   ok(await has(day.W === 1 ? '1 word' : day.W + ' words'), 'scene: the word count is missing');
@@ -255,7 +265,14 @@ const TODAY = '2026-10-14';
     await page.waitForTimeout(400);
     ok(near(await played(), clips[day.word]), `scene: the first word (${day.word}, ${clips[day.word]} ms) should have played, got ` + JSON.stringify(await played()));
   }
-  await click('button:has-text("Next: the quiz")', 600);
+  if (day.compounds.length) {
+    await click('button:has-text("Next: write the words")', 600);
+    await at('23b-scene-write-words');
+    for (let n = 0; n < day.compounds.length; n++) {
+      await page.waitForFunction((w) => document.body.textContent.includes(w + ' is written.'), day.compounds[n], { timeout: 8000 });
+      await click(n < day.compounds.length - 1 ? 'button:has-text("Next word")' : 'button:has-text("Next: the quiz")', 400);
+    }
+  } else await click('button:has-text("Next: the quiz")', 600);
   await at('24-scene-quiz');
   ok(await has('1 / ' + day.quiz.length), 'scene: the quiz count should start at 1 / ' + day.quiz.length);
   const lastQ = day.quiz.length - 1;

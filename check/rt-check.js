@@ -12,8 +12,14 @@ const only = process.argv.slice(2);
 const APP = !!process.env.YK_APP;
 const HOST = APP ? '#yk-stage > .sc-host' : '#dc-root .sc-host';
 
-async function openBoard(browser, name, fontsCss, prep) {
-  const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+async function openBoard(browser, name, fontsCss, prep, opts = {}) {
+  /* opts.touch: a page that takes touch input (the writing practice's checks draw strokes with a finger) */
+  let page;
+  if (opts.touch) {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    page = await ctx.newPage();
+    page.on('close', () => ctx.close().catch(() => {}));
+  } else page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const logs = [];
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') logs.push(m.type() + ': ' + m.text().slice(0, 300)); });
   page.on('pageerror', (e) => logs.push('pageerror: ' + String(e).slice(0, 300)));
@@ -94,16 +100,19 @@ async function inspect(page) {
       const txt = (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 26);
       // an element inside a scrolling list may sit below the fold; only its sideways position counts
       let scrolls = false;
+      // a row that scrolls sideways in a box of its own (the stroke-order strip) may run past the frame inside it
+      let scrollsX = false;
       // how far down it can be seen: a scrolling list or a box that hides what overflows it cuts it off at its own edge
       let seen = r.bottom;
       let gone = false;
       for (let p = el.parentElement; p && p !== rootEl; p = p.parentElement) {
         const cs = getComputedStyle(p);
         if (cs.overflowY === 'auto' || cs.overflowY === 'scroll') scrolls = true;
+        if (cs.overflowX === 'auto' || cs.overflowX === 'scroll') scrollsX = true;
         if (cs.overflowY !== 'visible') { const b = p.getBoundingClientRect(); seen = Math.min(seen, b.bottom); if (r.top >= b.bottom - 0.5) gone = true; }
       }
       if (tag !== 'svg') {
-        if (r.right > 390.5 || r.left < -0.5 || (!scrolls && r.bottom > 844.5)) res.issues.push(`OUT ${tag} "${txt}" l=${Math.round(r.left)} r=${Math.round(r.right)} b=${Math.round(r.bottom)}`);
+        if ((!scrollsX && (r.right > 390.5 || r.left < -0.5)) || (!scrolls && r.bottom > 844.5)) res.issues.push(`OUT ${tag} "${txt}" l=${Math.round(r.left)} r=${Math.round(r.right)} b=${Math.round(r.bottom)}`);
         if ((tag === 'button' || tag === 'a') && (r.height < 43.5 || r.width < 43.5)) res.issues.push(`SMALL ${tag} "${txt}" ${Math.round(r.width)}x${Math.round(r.height)}`);
       }
       // what a learner sees: text of its own, a control, an icon or a picture

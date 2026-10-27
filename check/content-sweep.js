@@ -10,15 +10,18 @@ const { openBoard, inspect, site, out } = require('./rt-check.js');
 const NOW = Date.UTC(2026, 9, 12, 15);
 /* LEVEL=N5 sweeps another level's days (N2 by default) */
 const LEVEL = process.env.LEVEL || 'N2';
+/* ONLY=scene sweeps the kanji lessons alone (the scene, the writing and the question), and leaves out the notebook */
+const SCENE = process.env.ONLY === 'scene';
 
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
   let problems = 0;
   let shots = 0;
-  const open = async (screen, extra) => {
+  /* write: the writing pads write themselves at once (window.__ykWriteAuto), as a sweep cannot wait for a finger */
+  const open = async (screen, extra, write) => {
     const q = 'TShell.dc.html?screen=' + screen + '&now=' + NOW + '&level=' + LEVEL + (extra || '');
-    return openBoard(browser, q, fontsCss);
+    return openBoard(browser, q, fontsCss, write ? (p) => p.addInitScript(() => { window.__ykWriteAuto = true; window.__ykWriteFast = true; }) : undefined);
   };
   const check = async (page, logs, label) => {
     /* a state is looked at once it has settled: a sheet that slides up (240 ms) can still be on its way on a busy
@@ -53,6 +56,7 @@ const LEVEL = process.env.LEVEL || 'N2';
 
   for (const { id, day } of days) {
     const cur = '&cur=' + id;
+    if (!SCENE) {
     // teach pages and comparison
     for (const tp of day.grammar.points.length ? [0, 1] : []) {
       const { page, logs } = await open('Teach', cur + '&tp=' + tp);
@@ -105,20 +109,34 @@ const LEVEL = process.env.LEVEL || 'N2';
       await check(page, logs, `${id} exam result ${mode}`);
       await page.close();
     }
-    // scene: every word card, then every option of its check
+    }
+    // scene: every word card; then the writing, every kanji and word of it (written at once); then every option of its check
     {
       const { page, logs } = await open('Scene', cur);
       for (const w of day.scene.words) { await tap(page, `button[aria-pressed]:has-text("${w.word}")`); await check(page, logs, `${id} scene word ${w.id}`); }
       await page.close();
     }
+    {
+      const { page, logs } = await open('Scene', cur + '&done=' + encodeURIComponent(JSON.stringify({ [id]: { ks: 1 } })), true);
+      for (let n = 0; n < 60; n++) {
+        /* each kanji or word writes itself; Next opens once it is written, and the last one leads to the question */
+        await page.waitForFunction(() => [...document.querySelectorAll('button')].some((b) => /^つぎへ/.test(b.textContent.trim())), null, { timeout: 15000 });
+        await check(page, logs, `${id} writing ${n + 1}`);
+        const last = await page.locator('button:has-text("Next: the exam question")').count();
+        await tap(page, 'button:has-text("つぎへ")');
+        if (last) break;
+      }
+      if (!(await page.locator('h1:has-text("本番")').count())) { problems += 1; console.log(`PROBLEMS ${id} writing: the exam question did not follow the writing`); }
+      await page.close();
+    }
     for (let k = 0; k < day.scene.check.options.length; k++) {
-      const { page, logs } = await open('Scene', cur);
+      const { page, logs } = await open('Scene', cur + '&done=' + encodeURIComponent(JSON.stringify({ [id]: { ks: 1, kw: 1 } })));
       await tap(page, `button:has-text("${k + 1} ${day.scene.check.options[k]}")`);
       await check(page, logs, `${id} scene check ${k + 1}`);
       await page.close();
     }
     // reading or listening: every option (listening waits for its clip, or its stand-in time without sound)
-    if (day.skill.kind === 'listening') {
+    if (!SCENE && day.skill.kind === 'listening') {
       for (let k = 0; k < day.skill.item.options.length; k++) {
         const { page, logs } = await open('Listening', cur);
         if (k === 0) await check(page, logs, `${id} listening before`);
@@ -131,7 +149,7 @@ const LEVEL = process.env.LEVEL || 'N2';
         await page.close();
       }
     }
-    if (day.skill.kind === 'reading') {
+    if (!SCENE && day.skill.kind === 'reading') {
       for (let k = 0; k < day.skill.item.options.length; k++) {
         const { page, logs } = await open('Reading', cur);
         await tap(page, `button[aria-pressed] >> nth=${k}`);
@@ -169,7 +187,7 @@ const LEVEL = process.env.LEVEL || 'N2';
   const today = '2026-10-12';
   /* with DAYS set, only those days' items; and the notebook is opened in batches, because the whole list
      no longer fits in one address (the test server refuses request lines over 64 KB) */
-  const mine = only.length ? items.filter((x) => only.some((d) => x.src.startsWith(d + '.'))) : items;
+  const mine = SCENE ? [] : only.length ? items.filter((x) => only.some((d) => x.src.startsWith(d + '.'))) : items;
   const BATCH = 100;
   for (let b = 0; b < mine.length; b += BATCH) {
     const part = mine.slice(b, b + BATCH);

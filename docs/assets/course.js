@@ -25,6 +25,9 @@
   function prefix(lv) { return lv === 'N2' ? '' : lv.toLowerCase(); }
   C.level = function () { return LEVEL; };
   C.setLevel = function (lv) { if (lv && all()[lv]) LEVEL = lv; else if (!lv) LEVEL = 'N2'; return LEVEL; };
+  /* the kanji of the levels under the current one: a learner on this level is taken to write them already, so the
+     writing practice asks only for the level's own (and for none the learner has written in the app before) */
+  C.below = function () { return dataOf(LEVEL).below || ''; };
   /* run fn with another level current, for screens that compare levels (the goal screen) */
   C.withLevel = function (lv, fn) { var was = LEVEL; C.setLevel(lv); try { return fn(); } finally { LEVEL = was; } };
   /* the levels of this app, in course order, and whether any of their days are written */
@@ -235,7 +238,20 @@
      the screens: app (what to show), go (change screen), save (record progress), miss (a wrong answer). */
   C.now = function () { return window.__ykNow || Date.now(); };
   C.fresh = function () {
-    return { screen: 'Goal', started: false, level: null, plans: {}, mocks: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null };
+    return { screen: 'Goal', started: false, level: null, plans: {}, mocks: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null, wrote: '', wroteWords: [] };
+  };
+  /* ---------- writing practice ----------
+     wrote: every kanji the learner has written three times, as one string; wroteWords: every word written out kanji by
+     kanji. Both are kept for all levels at once (a kanji written at N5 is not new at N4), and only ever grow. */
+  C.addWrote = function (had, add) {
+    var out = String(had || '');
+    Array.from(String(add || '')).forEach(function (c) { if (out.indexOf(c) < 0) out += c; });
+    return out;
+  };
+  C.addWords = function (had, add) {
+    var out = Array.isArray(had) ? had.slice() : [];
+    (Array.isArray(add) ? add : [add]).forEach(function (w) { if (typeof w === 'string' && w && out.indexOf(w) < 0) out.push(w); });
+    return out;
   };
   /* the session a screen works on: the one picked on the week path, else the next one due */
   C.current = function (state, status) {
@@ -291,6 +307,8 @@
       /* the notebook shows this level's mistakes; the others wait for a return to their level */
       mistakes: (state.mistakes || []).filter(function (m) { return C.levelOf(m.src) === LEVEL || (LEVEL === 'N2' && /^(mock|listening)/.test(m.src)); }),
       mock: state.mock || null,
+      wrote: state.wrote || '',
+      wroteWords: state.wroteWords || [],
       level: LEVEL,
       levels: C.levels()
     };
@@ -316,7 +334,10 @@
         set(function (st) {
           C.setLevel(st.level || 'N2');
           var out = {};
-          Object.keys(patch).forEach(function (k) { if (k !== 'prog' && k !== 'result') out[k] = patch[k]; });
+          Object.keys(patch).forEach(function (k) { if (k !== 'prog' && k !== 'result' && k !== 'wrote' && k !== 'wroteWords') out[k] = patch[k]; });
+          /* kanji and words written are added to what is kept, never put in its place */
+          if (patch.wrote) out.wrote = C.addWrote(st.wrote, patch.wrote);
+          if (patch.wroteWords) out.wroteWords = C.addWords(st.wroteWords, patch.wroteWords);
           /* the goal screen can set a new level: the old level's plan is kept for a return */
           if (patch.level && patch.level !== (st.level || 'N2')) {
             var plans = Object.assign({}, st.plans || {});

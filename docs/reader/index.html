@@ -165,6 +165,8 @@ body.no-gram .lg { display: none; }
 .seg button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent-ink); }
 .notebox { padding: 10px 14px; border-radius: 16px; background: var(--note); font-size: 12px; line-height: 1.5; }
 .notebox b { font-weight: 800; }
+.revised { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.revised > span { flex: 1 1 220px; min-width: 0; }
 .credits { font-size: 12px; line-height: 1.5; color: var(--muted); }
 .credits p { margin: 0 0 6px; }
 #looked { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
@@ -293,6 +295,7 @@ body.no-gram .lg { display: none; }
       <button class="pill" id="open-hints-b" type="button" aria-label="Hint settings"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.6"/><circle cx="8" cy="17" r="2.6"/></svg><span lang="ja">ヒント</span></button>
     </header>
     <div class="scroll" id="read-scroll">
+      <div class="notebox revised" id="read-update" role="status" hidden><span id="read-update-msg"></span><button class="mini" id="read-update-go" type="button">Update</button></div>
       <div id="passage" lang="ja"></div>
     </div>
     <footer class="foot">
@@ -527,6 +530,7 @@ function initStore() {
         var x = d.data() || {};
         var t = { id: d.id, title: x.title || '', by: x.by || '', text: x.text || '', created: x.created || 0, seen: (x.seen || []).slice(), n: x.n || 0, av: x.av || 0, ov: cleanOv(x.ov) };
         if (srcOk(x.src)) t.src = x.src;
+        if (partOk(x.part)) t.part = x.part;
         return t;
       });
       return true;
@@ -543,6 +547,7 @@ function createText(t) {
     var rec = { title: t.title, by: t.by || '', text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n, av: t.av };
     if (t.ov) rec.ov = t.ov;
     if (t.src) rec.src = t.src;
+    if (t.part) rec.part = t.part;
     return ref.set(rec).then(function () { t.id = ref.id; });
   }
   t.id = 't' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -637,6 +642,7 @@ function exportLibrary() {
     var x = { title: t.title, by: t.by || '', text: t.text, created: t.created, seen: (t.seen || []).slice(), n: t.n || 0, av: t.av || 0 };
     if (t.ov) x.ov = t.ov;
     if (t.src) x.src = t.src;
+    if (t.part) x.part = t.part;
     return x;
   });
   if (!list.length) { toast('There are no texts of yours to save yet.'); return; }
@@ -660,6 +666,7 @@ function cleanEntry(x) {
   var ov = cleanOv(x.ov);
   if (ov) out.ov = ov;
   if (srcOk(x.src)) out.src = x.src;
+  if (partOk(x.part)) out.part = x.part;
   return out;
 }
 /* A text's own glosses and readings, chosen for its context (see engine/analyzer.js): only plain maps of strings are kept. */
@@ -768,7 +775,7 @@ function submitAdd(e) {
 var AZ = window.YomuAozora;
 var PART = 12000;      /* a part of a long work is about this many characters, never more than MAX */
 var PICKS = [92, 637, 628, 43754, 473, 1567, 799, 42, 127, 43015];   /* short works to start with */
-var Z = { cat: null, catP: null, jisP: null, work: null, parts: [], added: [], busy: false, seq: 0 };
+var Z = { cat: null, catP: null, jisP: null, work: null, parts: [], added: [], older: [], busy: false, seq: 0 };
 
 function loadCatalog() {
   if (!Z.catP) {
@@ -838,7 +845,7 @@ function aozSearch() {
 /* a work: w is its catalog entry, or null for a file someone loaded (then info holds what the file says) */
 function openWork(w, info) {
   var seq = ++Z.seq;
-  Z.work = w; Z.parts = []; Z.added = [];
+  Z.work = w; Z.parts = []; Z.added = []; Z.older = [];
   aozPanel('work');
   var box = $('aoz-work');
   box.textContent = '';
@@ -899,14 +906,44 @@ function partTitle(i) {
   return Z.meta.title.slice(0, 60 - tail.length) + tail;
 }
 function existing(text) { return S.texts.filter(function (t) { return t.text === text; })[0] || null; }
+/* a saved copy of the same Yaoki Library part (by its analysis file, or its text file) with other text: an earlier edition */
+function olderEdition(p) {
+  if (!p.src && !p.file) return null;
+  return S.texts.filter(function (t) { return t.text !== p.text && ((p.src && t.src === p.src) || (p.file && t.part === p.file)); })[0] || null;
+}
+/* brings a saved text up to a new edition of its part, in place: it keeps its place in the library and takes the new
+   text and title; its looked-up list starts over, since it points at the old text's phrases, and its analysis is dropped */
+function updateText(t, part, title, by) {
+  var keep = { title: t.title, by: t.by, text: t.text, seen: t.seen, n: t.n, av: t.av, ov: t.ov, src: t.src, part: t.part };
+  t.title = title; t.by = by; t.text = part.text; t.seen = []; t.n = 0; t.av = 0;
+  if (part.ov) t.ov = part.ov; else delete t.ov;
+  if (part.src) t.src = part.src;
+  if (part.file) t.part = part.file;
+  var saved;
+  if (S.mode === 'db') {
+    var rec = { title: t.title, by: t.by || '', text: t.text, seen: [], n: 0, av: 0 };
+    if (t.ov || keep.ov) rec.ov = t.ov || null;
+    if (t.src) rec.src = t.src;
+    if (t.part) rec.part = t.part;
+    saved = S.db.collection('texts').doc(t.id).update(rec);
+  } else saved = saveLocal() ? Promise.resolve() : Promise.reject(new Error('this browser would not store it'));
+  return Promise.resolve(saved).then(function () { return AN.del(t.id); }, function (err) {
+    Object.keys(keep).forEach(function (k) { if (keep[k] === undefined) delete t[k]; else t[k] = keep[k]; });
+    if (S.mode !== 'db') saveLocal();
+    throw err;
+  });
+}
 /* the part list of a work, shared by Aozora Bunko and the Yaoki Library; box is where it is drawn */
 function renderParts(box) {
   Z.box = box;
   var n = Z.parts.length, total = 0;
   Z.parts.forEach(function (p) { total += p.text.length; });
   Z.added = Z.parts.map(function (p) { return existing(p.text); });
+  Z.older = Z.parts.map(function (p, i) { return Z.added[i] ? null : olderEdition(p); });
   var list = el('ul', 'parts');
   box.appendChild(el('div', 'hint', num(total) + ' characters' + (n > 1 ? ', in ' + n + ' parts. Each part is a text of its own in your library, so you can read one at a time.' : '.')));
+  var note = el('div', 'notebox revised-parts'); note.setAttribute('role', 'status'); note.hidden = true;
+  box.appendChild(note);
   if (n > 1) {
     var all = el('button', 'btn add-all', ''); all.type = 'button'; all.id = box.id === 'aoz-work' ? 'aoz-add-all' : 'ykl-add-all';
     box.appendChild(all);
@@ -921,6 +958,15 @@ function renderParts(box) {
     var b = el('button', 'mini'); b.type = 'button'; b.setAttribute('data-part', i);
     b.addEventListener('click', function () {
       if (Z.added[i]) { openReader(Z.added[i]); return; }
+      if (Z.older[i]) {
+        var title = partTitle(i);
+        updateParts([i]).then(function (ok) {
+          if (!ok) return;
+          if (n === 1) openReader(Z.added[i]);
+          toast('Updated ' + title + ' to the new text. Its looked-up list starts over.');
+        });
+        return;
+      }
       addParts([i]).then(function (ok) { if (ok && n === 1) openReader(Z.added[i]); });
     });
     li.appendChild(b);
@@ -928,13 +974,16 @@ function renderParts(box) {
   });
   box.appendChild(list);
   if (all) all.addEventListener('click', function () {
-    var todo = [];
-    Z.added.forEach(function (t, i) { if (!t) todo.push(i); });
-    if (!todo.length) { show('lib'); renderLibrary(); return; }
-    addParts(todo).then(function (ok) {
+    var add = [], upd = [], title = Z.meta.title;
+    Z.added.forEach(function (t, i) { if (!t) (Z.older[i] ? upd : add).push(i); });
+    if (!add.length && !upd.length) { show('lib'); renderLibrary(); return; }
+    var parts = function (k) { return k + (k === 1 ? ' part' : ' parts'); };
+    updateParts(upd).then(function (ok) { return ok ? addParts(add) : false; }).then(function (ok) {
       if (!ok) return;
       show('lib'); renderLibrary();
-      toast('Added ' + todo.length + (todo.length === 1 ? ' part' : ' parts') + ' of ' + Z.meta.title + '. Each one is prepared when you first open it.');
+      toast(!upd.length ? 'Added ' + parts(add.length) + ' of ' + title + '. Each one is prepared when you first open it.'
+        : !add.length ? 'Updated ' + parts(upd.length) + ' of ' + title + ' to the new text. ' + (upd.length === 1 ? 'Its looked-up list starts' : 'Their looked-up lists start') + ' over.'
+        : 'Added ' + parts(add.length) + ' and updated ' + parts(upd.length) + ' of ' + title + '. The updated ones start their looked-up lists over.');
     });
   });
   partButtons();
@@ -943,16 +992,32 @@ function partButtons() {
   var n = Z.parts.length;
   if (!Z.box) return;
   Array.prototype.forEach.call(Z.box.querySelectorAll('[data-part]'), function (b) {
-    var t = Z.added[+b.getAttribute('data-part')];
-    b.textContent = t ? 'Read' : n === 1 ? 'Add and read' : 'Add';
+    var i = +b.getAttribute('data-part'), t = Z.added[i], o = !t && Z.older[i];
+    b.textContent = t ? 'Read' : o ? (n === 1 ? 'Update and read' : 'Update') : n === 1 ? 'Add and read' : 'Add';
     b.className = t ? 'mini done' : 'mini';
     b.disabled = Z.busy;
   });
+  var left = 0, old = 0;
+  Z.added.forEach(function (t, i) { if (!t) { if (Z.older[i]) old++; else left++; } });
   var all = Z.box.querySelector('.add-all');
   if (all) {
-    var left = Z.added.filter(function (t) { return !t; }).length;
-    all.textContent = left === n ? 'Add all ' + n + ' parts' : left ? 'Add the other ' + left + (left === 1 ? ' part' : ' parts') : 'All parts are in your library';
+    all.textContent = !left && !old ? 'All parts are in your library'
+      : !old ? (left === n ? 'Add all ' + n + ' parts' : 'Add the other ' + left + (left === 1 ? ' part' : ' parts'))
+      : !left ? 'Update ' + (old === 1 ? 'the earlier part' : 'the ' + old + ' earlier parts')
+      : 'Add ' + left + (left === 1 ? ' part' : ' parts') + ', update ' + old;
     all.disabled = Z.busy;
+  }
+  /* parts saved from an earlier edition of the work */
+  var note = Z.box.querySelector('.revised-parts');
+  if (note) {
+    note.hidden = !old;
+    note.textContent = '';
+    if (old) {
+      note.appendChild(el('b', null, 'Revised. '));
+      note.appendChild(document.createTextNode(old === 1
+        ? 'One part in your library is from an earlier edition. Update puts the new text in its place; its looked-up list starts over.'
+        : old + ' parts in your library are from an earlier edition. Update puts the new text in their place; their looked-up lists start over.'));
+    }
   }
 }
 /* adds the parts in idx (in order); part 1 gets the newest time so the parts are listed in reading order */
@@ -968,6 +1033,7 @@ function addParts(idx) {
       var t = { title: partTitle(i), by: meta.by.slice(0, 60), text: parts[i].text, created: now + (n - i), seen: [], n: 0, av: 0 };
       if (parts[i].ov) t.ov = parts[i].ov;
       if (parts[i].src) t.src = parts[i].src;
+      if (parts[i].file) t.part = parts[i].file;
       return createText(t).then(function () { S.texts.unshift(t); added[i] = t; });
     });
   }, Promise.resolve()).then(function () { return true; }, function (err) {
@@ -976,6 +1042,28 @@ function addParts(idx) {
   }).then(function (ok) {
     S.texts.sort(function (a, b) { return b.created - a.created; });
     if (S.mode !== 'db') saveLocal();
+    Z.busy = false;
+    if (seq === Z.seq) partButtons();
+    return ok;
+  });
+}
+/* brings the saved copies of the parts in idx, earlier editions, up to the text listed now, each in its place */
+function updateParts(idx) {
+  if (!idx.length) return Promise.resolve(true);
+  if (Z.busy) return Promise.resolve(false);
+  Z.busy = true; partButtons();
+  var parts = Z.parts, added = Z.added, older = Z.older, seq = Z.seq, by = Z.meta.by.slice(0, 60);
+  var titles = idx.map(partTitle);
+  return idx.reduce(function (p, i, j) {
+    return p.then(function () {
+      var t = older[i];
+      if (!t || added[i]) return;
+      return updateText(t, parts[i], titles[j], by).then(function () { added[i] = t; older[i] = null; });
+    });
+  }, Promise.resolve()).then(function () { return true; }, function (err) {
+    toast('Could not save it (' + ((err && err.code) || (err && err.message) || 'unknown') + '). The browser’s storage may be full: delete some texts and try again.');
+    return false;
+  }).then(function (ok) {
     Z.busy = false;
     if (seq === Z.seq) partButtons();
     return ok;
@@ -1045,7 +1133,7 @@ function renderYaokiWorks() {
 }
 function openYaokiWork(w) {
   var seq = ++Z.seq;
-  Z.work = null; Z.parts = []; Z.added = [];
+  Z.work = null; Z.parts = []; Z.added = []; Z.older = [];
   Z.meta = { title: w.title, by: w.by || '' };
   yklPanel('work');
   var box = $('ykl-work');
@@ -1073,7 +1161,7 @@ function openYaokiWork(w) {
     if (seq !== Z.seq) return;
     status.remove();
     Z.parts = got.map(function (pair, i) {
-      var text = pair[0].replace(/^﻿/, '').replace(/\r\n?/g, '\n').replace(/\s+$/, '').slice(0, MAX);
+      var text = partText(pair[0]);
       var pt = w.parts[i].title || '';
       /* the first line, unless it only repeats the part's title (下　追記 opens with 追記) */
       var first = text.split('\n').filter(function (l) { return l.trim() && pt.indexOf(l.trim()) < 0; })[0] || '';
@@ -1083,6 +1171,7 @@ function openYaokiWork(w) {
       /* or with its whole analysis, made for its text in advance: it is fetched when the part is first opened,
          and the part then reads without the dictionary */
       if (srcOk(w.parts[i].analysis)) part.src = w.parts[i].analysis;
+      if (partOk(w.parts[i].file)) part.file = w.parts[i].file;
       return part;
     }).filter(function (p) { return p.text.trim(); });
     if (!Z.parts.length) { box.appendChild(el('div', 'problem', 'There is no text in it to read.')); return; }
@@ -1100,6 +1189,8 @@ function openYaokiWork(w) {
 /* ---------- reader ---------- */
 function openReader(t, an) {
   S.cur = t; S.chunks = []; S.held = -1;
+  hideUpdate();
+  var text0 = t.text;
   if (t.sample) t.seen = LS.get('yomu.sample.seen', []);
   if (!t.seen) t.seen = [];
   $('read-title').textContent = t.title;
@@ -1110,9 +1201,12 @@ function openReader(t, an) {
   updateCount();
   var got = an ? Promise.resolve(an) : t.sample ? Promise.resolve(SAMPLE_AN) : AN.get(t.id);
   got.then(function (a) {
-    if (a && a.pre && t.src) refreshPrebuilt(t, a);
-    if (a && (a.pre || a.v === AV)) return a;
+    if (a && (a.pre || a.v === AV)) {
+      if (t.src) refreshPrebuilt(t, a);
+      return a;
+    }
     if (t.src && srcOk(t.src)) return fetchPrebuilt(t.src).then(function (pa) {
+      if (pa && anText(pa) !== squeeze(t.text)) offerUpdate(t, pa);
       if (!pa || anText(pa) !== squeeze(t.text)) return analyzeText(t, box);
       AN.put(t.id, pa);
       keepSeen(t, pa);
@@ -1120,10 +1214,10 @@ function openReader(t, an) {
     });
     return analyzeText(t, box);
   }).then(function (a) {
-    if (S.cur !== t) return;
+    if (S.cur !== t || t.text !== text0) return;
     renderPassage(a);
   }).catch(function (err) {
-    if (S.cur !== t) return;
+    if (S.cur !== t || t.text !== text0) return;
     box.textContent = '';
     var p = el('div', 'problem', 'This text could not be prepared (' + ((err && err.message) || 'unknown error') + '). Check your connection, go back and open it again.');
     p.style.fontFamily = 'var(--ui)';
@@ -1138,7 +1232,9 @@ function analyzeText(t, box) {
   track.appendChild(bar); wait.appendChild(msg); wait.appendChild(track);
   box.appendChild(wait);
   ENG.onProgress = function (d, tt) { bar.style.width = Math.round(d / tt * 100) + '%'; msg.textContent = progressText(d, tt); };
+  var text0 = t.text;
   return ENG.analyze(t.text, t.ov || null).then(function (fresh) {
+    if (t.text !== text0) return fresh;   /* brought up to a new edition meanwhile: this analysis is of the old text */
     AN.put(t.id, fresh);
     keepSeen(t, fresh);
     return fresh;
@@ -1156,18 +1252,89 @@ function keepSeen(t, fresh) {
   t.n = countPhrases(fresh);
   persistSeen(t);
 }
-/* a part's analysis corrected since this browser saved it (its rev changed): swap it in quietly */
+/* a part's analysis corrected since this browser saved it (its rev changed): swap it in quietly.
+   A part whose text has changed since it was saved (a new edition): offer the new text */
 function refreshPrebuilt(t, a) {
   if (!srcOk(t.src)) return;
   fetchPrebuilt(t.src).then(function (pa) {
-    if (!pa || !pa.rev || pa.rev === a.rev || anText(pa) !== squeeze(t.text)) return;
+    if (!pa) return;
+    if (anText(pa) !== squeeze(t.text)) { offerUpdate(t, pa); return; }
+    if (!a.pre || !pa.rev || pa.rev === a.rev) return;
     AN.put(t.id, pa);
     keepSeen(t, pa);
     if (S.cur === t) renderPassage(pa);
   });
 }
+/* a new edition of a saved part (pa is its new analysis): a note above the text offers it; nothing changes until it is
+   taken. When the new edition is already in the library as another copy, the note says so instead. */
+var UPD = { t: null, pa: null };
+function offerUpdate(t, pa) {
+  if (S.cur !== t) return;
+  var twin = S.texts.some(function (x) { return x !== t && x.src === t.src && squeeze(x.text) === anText(pa); });
+  UPD.t = twin ? null : t; UPD.pa = twin ? null : pa;
+  var msg = $('read-update-msg');
+  msg.textContent = '';
+  msg.appendChild(el('b', null, twin ? 'Earlier edition. ' : 'Revised. '));
+  msg.appendChild(document.createTextNode(twin
+    ? 'The new text of this part is already in your library as another copy, so you can delete this one.'
+    : 'This part has a new edition in the Yaoki Library. Update puts the new text here; its looked-up list starts over.'));
+  $('read-update-go').hidden = twin;
+  $('read-update-go').disabled = false;
+  $('read-update').hidden = false;
+}
+function hideUpdate() { UPD.t = null; UPD.pa = null; $('read-update').hidden = true; }
+/* the catalog entry of a saved part: by its analysis file, or by its text file */
+function yklPart(t) {
+  return loadYaokiCatalog().then(function (cat) {
+    var hit = null;
+    cat.forEach(function (w) {
+      w.parts.forEach(function (p, i) { if (!hit && ((t.src && p.analysis === t.src) || (t.part && p.file === t.part))) hit = { w: w, p: p, i: i }; });
+    });
+    return hit;
+  });
+}
+/* a library part's title as the work page names it (partTitle) */
+function yklTitle(w, i) {
+  if (w.parts[i].title) return w.parts[i].title.slice(0, 60);
+  var n = w.parts.length, tail = n > 1 ? '（' + (i + 1) + '/' + n + '）' : '';
+  return w.title.slice(0, 60 - tail.length) + tail;
+}
+function applyUpdate() {
+  var t = UPD.t, pa = UPD.pa, go = $('read-update-go');
+  if (!t || !pa || S.cur !== t) return;
+  go.disabled = true;
+  yklPart(t).then(function (hit) {
+    if (!hit) throw new Error('it is no longer in the Yaoki Library');
+    var text = fetch('library/' + hit.p.file, { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error('answered ' + r.status);
+      return r.text();
+    });
+    var ov = hit.p.glosses ? fetch('library/' + hit.p.glosses, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }) : Promise.resolve(null);
+    return Promise.all([text, ov]).then(function (got) {
+      var part = { text: partText(got[0]), ov: cleanOv(got[1]), src: t.src, file: partOk(hit.p.file) ? hit.p.file : null };
+      if (squeeze(part.text) !== anText(pa)) throw new Error('its text and its analysis do not match yet');
+      return updateText(t, part, yklTitle(hit.w, hit.i), (hit.w.by || '').slice(0, 60));
+    });
+  }).then(function () {
+    AN.put(t.id, pa);
+    keepSeen(t, pa);
+    if (S.cur !== t) return;
+    hideUpdate();
+    $('read-title').textContent = t.title;
+    renderPassage(pa);
+    $('read-scroll').scrollTop = 0;
+    toast('Updated to the new text. Its looked-up list starts over.');
+  }).catch(function (err) {
+    go.disabled = false;
+    toast('Could not update it (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.');
+  });
+}
 /* a Yaoki Library part's own analysis: library/<work>/<file>.json, in the shape the engine produces, marked pre */
 function srcOk(src) { return typeof src === 'string' && /^[a-z0-9-]+\/[A-Za-z0-9_.-]+\.json$/.test(src); }
+/* a Yaoki Library part's text file (library/<work>/<file>.txt): a saved part keeps it, to know itself in a new edition */
+function partOk(f) { return typeof f === 'string' && /^[a-z0-9-]+\/[A-Za-z0-9_.-]+\.txt$/.test(f); }
+/* a part's text as the reader keeps it: no byte-order mark, \n line ends, no space at the end, at most MAX characters */
+function partText(raw) { return String(raw).replace(/^\ufeff/, '').replace(/\r\n?/g, '\n').replace(/\s+$/, '').slice(0, MAX); }
 function fetchPrebuilt(src) {
   return fetch('library/' + src, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(cleanAn).catch(function () { return null; });
 }
@@ -1428,10 +1595,12 @@ $('aoz-q').addEventListener('input', function () { clearTimeout(aozTimer); aozTi
 $('aoz-modern').addEventListener('change', aozSearch);
 $('aoz-file-btn').addEventListener('click', pickAozoraFile);
 $('aoz-file').addEventListener('change', function () { var f = this.files && this.files[0]; if (f) readAozoraFile(f); });
+$('read-update-go').addEventListener('click', applyUpdate);
 $('read-back').addEventListener('click', function () {
   clearTimeout(seenTimer);
   if (S.cur) persistSeen(S.cur);
   S.cur = null;
+  hideUpdate();
   show('lib'); renderLibrary();
 });
 $('add-form').addEventListener('submit', submitAdd);

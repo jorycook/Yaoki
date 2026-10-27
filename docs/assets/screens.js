@@ -208,12 +208,14 @@ done: { border: '2px solid #E0F3EF', bg: '#E0F3EF', color: '#0B7A6B', weight: 80
 now: { border: '2px solid #2F4FD0', bg: '#2F4FD0', color: '#FFFFFF', weight: 800, tick: false },
 todo: { border: '2px solid #DDE1EC', bg: 'transparent', color: '#5A6382', weight: 700, tick: false },
 };
-const pills = (states) => states.map((st, i) => ({ label: LABELS[i], ...look[st] }));
+/* the kanji and words lesson writes where the grammar lesson drills */
+const KLABELS = ['学習 Learn', '書く Write', '本番 Exam-style'];
+const pills = (states, labels) => states.map((st, i) => ({ label: (labels || LABELS)[i], ...look[st] }));
 /* grammar runs through all three steps: 0 nothing yet, 1 teach pages read, 2 drill done, 3 exam-style done */
 const next = g < 3 ? 1 : k < 1 ? 2 : r < 1 ? 3 : 0;
-const card = (n, done, states) => ({
+const card = (n, done, states, labels) => ({
 done,
-pills: pills(states),
+pills: pills(states, labels),
 border: next === n ? '2px solid #1B2440' : '2px solid #DDE1EC',
 shadow: next === n ? '0 4px 0 #1B2440' : 'none',
 });
@@ -234,7 +236,8 @@ skillIcon: listening ? '聴' : '読',
 skillKind: listening ? '聴解　Listening' : '読解　Reading',
 skillTitle: day.skill ? day.skill.ja + '　' + day.skill.en : '',
 c1: card(1, g >= 3, gStates),
-c2: card(2, k >= 1, k >= 1 ? all : none),
+/* the kanji lesson's own steps: the scene read (ks), everything written (kw), the exam question (k) */
+c2: card(2, k >= 1, k >= 1 ? all : p.kw ? ['done', 'done', 'now'] : p.ks ? ['done', 'now', 'todo'] : none, KLABELS),
 c3: card(3, r >= 1, r >= 1 ? all : none),
 g0: g === 0,
 g1: g === 1,
@@ -664,31 +667,109 @@ return out;
 }
 ;return (typeof Component !== "undefined" && Component) || undefined;
 });
-YK.define("Scene", "<div style=\"width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden\">\n\n<div style=\"display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0\">\n<a href=\"Today.dc.html\" onClick=\"{{ toToday }}\" aria-label=\"Close lesson\" style=\"width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1B2440\" stroke-width=\"2.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></a>\n<div role=\"img\" aria-label=\"{{ progressLabel }}\" style=\"flex-grow: 1; display: grid; gap: 4px; grid-template-columns: {{ barCols }}\">\n<sc-for list=\"{{ bars }}\" as=\"b\" hint-placeholder-count=\"8\">\n<div style=\"height: 10px; border-radius: 5px; background: {{ b.bg }}\"></div>\n</sc-for>\n</div>\n<div style=\"font-size: 12px; font-weight: 800; color: #C7361E\">学習 LEARN</div>\n</div>\n\n<div style=\"flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column\">\n\n<div style=\"margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0\">\n<h1 style=\"margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3\">{{ titleJa }} <span style=\"font-size: 15px; font-weight: 700; color: #5A6382\">{{ titleEn }}</span></h1>\n<div style=\"font-size: 13px; font-weight: 500; color: #5A6382\">{{ intro }} {{ count }} of {{ total }} found.</div>\n</div>\n\n<div lang=\"ja\" style=\"margin-top: 12px; padding: 12px; border-radius: 20px; background: #1B2440; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; flex-shrink: 0\">\n<sc-for list=\"{{ words }}\" as=\"w\" hint-placeholder-count=\"8\">\n<button onClick=\"{{ w.tap }}\" aria-pressed=\"{{ w.on }}\" style=\"position: relative; height: 46px; padding: 0 10px; border-radius: 10px; font-size: 17px; font-weight: 800; white-space: nowrap; background: {{ w.bg }}; color: {{ w.ink }}; border: {{ w.edge }}; outline: {{ w.ring }}; box-shadow: {{ w.glow }}\">{{ w.word }}<sc-if value=\"{{ w.badge }}\" hint-placeholder-val=\"{{ false }}\"><span style=\"position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center\">済</span></sc-if></button>\n</sc-for>\n</div>\n\n<div style=\"margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0\">\n<div style=\"display: flex; align-items: center; gap: 12px\">\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.1; white-space: nowrap; flex-shrink: 0; font-size: {{ d.size }}\">{{ d.word }}</div>\n<div style=\"flex-grow: 1; display: flex; flex-direction: column\">\n<div lang=\"ja\" style=\"font-size: 16px; font-weight: 800\">{{ d.reading }}</div>\n<div style=\"font-size: 13px; font-weight: 500; color: #5A6382\">{{ d.gloss }}</div>\n</div>\n<button aria-label=\"Play the word\" onClick=\"{{ play }}\" style=\"width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1B2440\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 9v6h4l5 4V5L8 9H4z\"/><path d=\"M16.5 9a4 4 0 0 1 0 6\"/></svg></button>\n</div>\n<div style=\"display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px\">\n<sc-for list=\"{{ d.kanji }}\" as=\"k\" hint-placeholder-count=\"2\">\n<div style=\"padding: 8px 10px; border-radius: 12px; background: #F4F5F9; display: flex; align-items: center; gap: 10px\">\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 26px; font-weight: 600; white-space: nowrap; flex-shrink: 0\">{{ k.c }}</div>\n<div style=\"min-width: 0; display: flex; flex-direction: column\"><div lang=\"ja\" style=\"font-size: 12px; font-weight: 800\">{{ k.on }}</div><div style=\"font-size: 12px; font-weight: 500; color: #5A6382\">{{ k.mean }}</div></div>\n</div>\n</sc-for>\n</div>\n</div>\n\n<div style=\"margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0\">\n<sc-if value=\"{{ asking }}\" hint-placeholder-val=\"{{ true }}\">\n<div style=\"font-size: 12px; font-weight: 800\">試験ではこう出る　How the exam asks it · {{ checkType }}</div>\n</sc-if>\n<sc-if value=\"{{ answered }}\" hint-placeholder-val=\"{{ false }}\">\n<div style=\"display: flex; align-items: flex-start; gap: 6px; font-size: 12px; font-weight: 800; line-height: 1.45\">\n<sc-if value=\"{{ right }}\" hint-placeholder-val=\"{{ false }}\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#0B7A6B\" stroke-width=\"4\" role=\"img\" aria-label=\"Correct\" style=\"flex-shrink: 0; margin-top: 2px\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/></svg></sc-if>\n<sc-if value=\"{{ wrong }}\" hint-placeholder-val=\"{{ false }}\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C7361E\" stroke-width=\"4\" stroke-linecap=\"round\" role=\"img\" aria-label=\"Wrong\" style=\"flex-shrink: 0; margin-top: 2px\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></sc-if>\n<div>{{ verdict }}</div>\n</div>\n<div style=\"font-size: 12px; font-weight: 500; line-height: 1.45\">{{ explain }}</div>\n</sc-if>\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600\">{{ checkQ }}</div>\n<sc-if value=\"{{ asking }}\" hint-placeholder-val=\"{{ true }}\">\n<div lang=\"ja\" style=\"display: grid; gap: 6px; grid-template-columns: {{ choiceCols }}\">\n<sc-for list=\"{{ choices }}\" as=\"c\" hint-placeholder-count=\"4\">\n<button onClick=\"{{ c.pick }}\" style=\"height: 44px; padding: 0; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800\">{{ c.label }}</button>\n</sc-for>\n</div>\n</sc-if>\n</div>\n\n</div>\n\n<sc-if value=\"{{ answered }}\" hint-placeholder-val=\"{{ false }}\">\n<a href=\"Today.dc.html\" onClick=\"{{ toDone }}\" style=\"flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: {{ tone }}\">つぎへ　Next</a>\n</sc-if>\n\n</div>", function (DCLogic) {
+YK.define("Scene", "<div style=\"width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden\">\n\n<div style=\"display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0\">\n<a href=\"Today.dc.html\" onClick=\"{{ toToday }}\" aria-label=\"Close lesson\" style=\"width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1B2440\" stroke-width=\"2.6\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></a>\n<div role=\"group\" aria-label=\"{{ barLabel }}\" style=\"flex-grow: 1; min-width: 0; display: grid; gap: 6px; grid-template-columns: {{ barCols }}\">\n<sc-for list=\"{{ bar }}\" as=\"b\" hint-placeholder-count=\"3\"><button onClick=\"{{ b.go }}\" aria-disabled=\"{{ b.off }}\" aria-label=\"{{ b.aria }}\" aria-current=\"{{ b.cur }}\" style=\"height: 44px; min-width: 0; padding: 0; border: 0; background: transparent; display: flex; align-items: center; cursor: {{ b.cursor }}\"><span style=\"display: block; width: 100%; height: 10px; border-radius: 5px; background: {{ b.bg }}\"></span></button></sc-for>\n</div>\n<div style=\"font-size: 12px; font-weight: 800; color: #C7361E; white-space: nowrap; flex-shrink: 0\"><span lang=\"ja\">{{ stepJa }}</span> {{ stepEn }}</div>\n</div>\n\n<sc-if value=\"{{ atScene }}\" hint-placeholder-val=\"{{ true }}\">\n<div style=\"flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column\">\n\n<div style=\"margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0\">\n<h1 style=\"margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3\">{{ titleJa }} <span style=\"font-size: 15px; font-weight: 700; color: #5A6382\">{{ titleEn }}</span></h1>\n<div style=\"font-size: 13px; font-weight: 500; color: #5A6382\">{{ intro }} {{ count }} of {{ total }} found.</div>\n</div>\n\n<div lang=\"ja\" style=\"margin-top: 12px; padding: 12px; border-radius: 20px; background: #1B2440; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 10px; flex-shrink: 0\">\n<sc-for list=\"{{ words }}\" as=\"w\" hint-placeholder-count=\"8\">\n<button onClick=\"{{ w.tap }}\" aria-pressed=\"{{ w.on }}\" style=\"position: relative; height: 46px; padding: 0 10px; border-radius: 10px; font-size: 17px; font-weight: 800; white-space: nowrap; background: {{ w.bg }}; color: {{ w.ink }}; border: {{ w.edge }}; outline: {{ w.ring }}; box-shadow: {{ w.glow }}\">{{ w.word }}<sc-if value=\"{{ w.badge }}\" hint-placeholder-val=\"{{ false }}\"><span style=\"position: absolute; right: -7px; top: -7px; width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7361E; background: #FFFFFF; color: #C7361E; font-size: 9px; font-weight: 800; display: flex; align-items: center; justify-content: center\">済</span></sc-if></button>\n</sc-for>\n</div>\n\n<div style=\"margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0\">\n<div style=\"display: flex; align-items: center; gap: 12px\">\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.1; white-space: nowrap; flex-shrink: 0; font-size: {{ d.size }}\">{{ d.word }}</div>\n<div style=\"flex-grow: 1; display: flex; flex-direction: column\">\n<div lang=\"ja\" style=\"font-size: 16px; font-weight: 800\">{{ d.reading }}</div>\n<div style=\"font-size: 13px; font-weight: 500; color: #5A6382\">{{ d.gloss }}</div>\n</div>\n<button aria-label=\"Play the word\" onClick=\"{{ play }}\" style=\"width: 44px; height: 44px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1B2440\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 9v6h4l5 4V5L8 9H4z\"/><path d=\"M16.5 9a4 4 0 0 1 0 6\"/></svg></button>\n</div>\n<div style=\"display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px\">\n<sc-for list=\"{{ d.kanji }}\" as=\"k\" hint-placeholder-count=\"2\">\n<div style=\"padding: 8px 10px; border-radius: 12px; background: #F4F5F9; display: flex; align-items: center; gap: 10px\">\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 26px; font-weight: 600; white-space: nowrap; flex-shrink: 0\">{{ k.c }}</div>\n<div style=\"min-width: 0; display: flex; flex-direction: column\"><div lang=\"ja\" style=\"font-size: 12px; font-weight: 800\">{{ k.on }}</div><div style=\"font-size: 12px; font-weight: 500; color: #5A6382\">{{ k.mean }}</div></div>\n</div>\n</sc-for>\n</div>\n</div>\n\n<div style=\"margin-top: 12px; padding: 10px 14px; border-radius: 16px; background: #FFF4D6; display: flex; align-items: center; gap: 10px; flex-shrink: 0\">\n<svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1B2440\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" style=\"flex-shrink: 0\"><path d=\"M4 20l4-1 11-11-3-3L5 16z\"/><path d=\"M14 7l3 3\"/></svg>\n<div style=\"font-size: 12.5px; font-weight: 700; line-height: 1.45\">{{ writeLine }}</div>\n</div>\n\n</div>\n<button onClick=\"{{ fromScene }}\" style=\"flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center\"><span lang=\"ja\">つぎへ</span>　{{ fromSceneLabel }}</button>\n</sc-if>\n\n<sc-if value=\"{{ atWrite }}\" hint-placeholder-val=\"{{ false }}\">\n<div style=\"flex-grow: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column\">\n<div style=\"margin-top: 6px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0\">\n<h1 style=\"margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3\"><span lang=\"ja\">書く</span> <span style=\"font-size: 15px; font-weight: 700; color: #5A6382\">{{ wHead }}</span></h1>\n<div role=\"img\" aria-label=\"{{ wCountAria }}\" style=\"padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0\">{{ wCount }}</div>\n</div>\n\n<sc-if value=\"{{ wNone }}\" hint-placeholder-val=\"{{ false }}\">\n<div style=\"margin-top: 12px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0\">\n<div lang=\"ja\" style=\"font-size: 18px; font-weight: 800\">ぜんぶ書きました</div>\n<div style=\"font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382\">You have already written every kanji and word of this scene. On to the exam question.</div>\n</div>\n</sc-if>\n\n<sc-if value=\"{{ wSome }}\" hint-placeholder-val=\"{{ true }}\">\n<div style=\"margin-top: 8px; padding: 10px 12px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px; flex-shrink: 0\">\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1; white-space: nowrap; flex-shrink: 0; font-size: {{ wi.size }}\">{{ wi.big }}</div>\n<div style=\"flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px\">\n<div style=\"font-size: 11px; font-weight: 800; color: #C7361E\"><span lang=\"ja\">{{ wi.kindJa }}</span>　{{ wi.kindEn }}</div>\n<div style=\"font-size: 14px; font-weight: 800; line-height: 1.3\"><span lang=\"ja\">{{ wi.read }}</span><span style=\"margin-left: 10px; font-weight: 500; color: #5A6382\">{{ wi.mean }}</span></div>\n<sc-if value=\"{{ wi.ctx }}\" hint-placeholder-val=\"{{ true }}\"><div style=\"font-size: 12px; font-weight: 500; line-height: 1.35; color: #5A6382\">in <span lang=\"ja\">{{ wi.ctxJa }}</span> {{ wi.ctxEn }}</div></sc-if>\n</div>\n</div>\n<div style=\"margin-top: 10px; flex-shrink: 0\">\n<dc-import name=\"Write\" task=\"{{ wTask }}\" tkey=\"{{ wKey }}\" finished=\"{{ wFinished }}\" size=\"{{ wSize }}\" hint-size=\"358px,480px\"></dc-import>\n</div>\n</sc-if>\n</div>\n<button onClick=\"{{ wNext }}\" aria-disabled=\"{{ wLocked }}\" style=\"flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ wBtn.border }}; background: {{ wBtn.bg }}; color: {{ wBtn.color }}; box-shadow: {{ wBtn.shadow }}; cursor: {{ wBtn.cursor }}\"><span lang=\"ja\">{{ wNextJa }}</span>　{{ wNextEn }}</button>\n</sc-if>\n\n<sc-if value=\"{{ atCheck }}\" hint-placeholder-val=\"{{ false }}\">\n<div style=\"flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column\">\n<div style=\"margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0\">\n<h1 style=\"margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3\"><span lang=\"ja\">本番</span> <span style=\"font-size: 15px; font-weight: 700; color: #5A6382\">Exam-style</span></h1>\n<div style=\"font-size: 13px; font-weight: 500; color: #5A6382\">One question on the words of {{ titleJa }}, the way the exam asks it.</div>\n</div>\n<div style=\"margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0\">\n<sc-if value=\"{{ asking }}\" hint-placeholder-val=\"{{ true }}\">\n<div style=\"font-size: 12px; font-weight: 800\">試験ではこう出る　How the exam asks it · {{ checkType }}</div>\n</sc-if>\n<sc-if value=\"{{ answered }}\" hint-placeholder-val=\"{{ false }}\">\n<div style=\"display: flex; align-items: flex-start; gap: 6px; font-size: 12px; font-weight: 800; line-height: 1.45\">\n<sc-if value=\"{{ right }}\" hint-placeholder-val=\"{{ false }}\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#0B7A6B\" stroke-width=\"4\" role=\"img\" aria-label=\"Correct\" style=\"flex-shrink: 0; margin-top: 2px\"><circle cx=\"12\" cy=\"12\" r=\"8.5\"/></svg></sc-if>\n<sc-if value=\"{{ wrong }}\" hint-placeholder-val=\"{{ false }}\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#C7361E\" stroke-width=\"4\" stroke-linecap=\"round\" role=\"img\" aria-label=\"Wrong\" style=\"flex-shrink: 0; margin-top: 2px\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></sc-if>\n<div>{{ verdict }}</div>\n</div>\n<div style=\"font-size: 12px; font-weight: 500; line-height: 1.45\">{{ explain }}</div>\n</sc-if>\n<div lang=\"ja\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600\">{{ checkQ }}</div>\n<sc-if value=\"{{ asking }}\" hint-placeholder-val=\"{{ true }}\">\n<div lang=\"ja\" style=\"display: grid; gap: 6px; grid-template-columns: {{ choiceCols }}\">\n<sc-for list=\"{{ choices }}\" as=\"c\" hint-placeholder-count=\"4\">\n<button onClick=\"{{ c.pick }}\" style=\"height: 44px; padding: 0; border-radius: 12px; border: 2px solid #1B2440; background: #FFFFFF; font-size: 15px; font-weight: 800\">{{ c.label }}</button>\n</sc-for>\n</div>\n</sc-if>\n</div>\n</div>\n<sc-if value=\"{{ answered }}\" hint-placeholder-val=\"{{ false }}\">\n<a href=\"Today.dc.html\" onClick=\"{{ toDone }}\" style=\"flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: {{ tone }}\">つぎへ　Next</a>\n</sc-if>\n</sc-if>\n\n</div>", function (DCLogic) {
+/* The kanji and words lesson, in three steps:
+     場面 the scene: tap each word to see its reading, meaning and kanji, and hear it;
+     書く writing: each kanji the learner has not written before, three times (traced, over faint lines, from memory,
+          after its stroke order), and each word of two kanji or more, one kanji at a time (Write.dc.html). A kanji goes
+          before the first word that has it, and the word straight after its new kanji. Next stays shut until the
+          kanji or word is written. What was written is kept (save: wrote, wroteWords), so nothing is asked twice;
+     本番 the exam-style question.
+   Progress: ks 1 once the scene is read, kw 1 once everything is written, k 1 when the lesson is done (Today).
+   On its own the artboard shows the designed moment: three words found. props.moment 'write' shows the writing step
+   instead, its first kanji the second time, part-way (SceneWrite.dc.html). */
+const KANJI = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/;
 class Component extends DCLogic {
 constructor(props) {
 super(props);
 const scene = this.scene(props);
 const first = scene.words[0] ? scene.words[0].id : null;
+const app = (props && props.app) || {};
+const p = app.prog || {};
+/* the writing to do, worked out once: what was written before this lesson opened is left out, and so are the kanji
+   of the levels below (C.below) */
+const queue = this.queue(scene, (app.wrote || '') + window.ykCourse.below(), app.wroteWords || []);
+const steps = ['scene', 'write', 'check'];
+/* a lesson part-way through opens where it was left; a finished one from the start */
+const at = props && props.moment === 'write' ? 1 : p.k ? 0 : p.kw ? 2 : p.ks ? 1 : 0;
 /* inside the prototype the first word is open; on its own the artboard shows the designed moment: three words found */
-this.state = props && props.go
-? { found: first ? [first] : [], sel: first, quiz: null, playing: false }
-: { found: scene.words.slice(0, 3).map((w) => w.id), sel: scene.words[2] ? scene.words[2].id : first, quiz: null, playing: false };
+const base = props && props.go
+? { found: first ? [first] : [], sel: first }
+: { found: scene.words.slice(0, 3).map((w) => w.id), sel: scene.words[2] ? scene.words[2].id : first };
+this.state = { ...base, quiz: null, playing: false, steps, step: steps[at], reached: at, queue, qi: 0, qDone: false, mine: '', mineW: [] };
 }
 scene(props) {
 const C = window.ykCourse;
 const app = (props && props.app) || { day: C.day('u03d4') };
 return (app.day && app.day.scene) || { words: [], check: { options: [] } };
 }
+/* each new kanji before the first word that has it, then the word itself when it has two kanji or more */
+queue(scene, wrote, words) {
+const W = window.ykWrite;
+const has = (c) => !!(W && W.has(c));
+const out = [];
+const seen = {};
+scene.words.forEach((w) => {
+const ks = Array.from(w.word || '').filter((c) => KANJI.test(c) && has(c));
+ks.forEach((c) => {
+/* 々 repeats the kanji before it: it is written in its words, never on its own */
+if (c === '々' || wrote.indexOf(c) >= 0 || seen[c]) return;
+seen[c] = true;
+/* the part of the word it is in: the kanji alone (学: ガク, study) or a word of its own (住民: じゅうみん, residents) */
+const part = (w.parts || []).find((x) => x[0] === c) || (w.parts || []).find((x) => String(x[0]).indexOf(c) >= 0) || [c, '', ''];
+out.push({ kind: 'kanji', c, part: part[0], on: part[1] || '', mean: part[2] || '', word: w });
+});
+if (ks.length >= 2 && words.indexOf(w.word) < 0) out.push({ kind: 'word', w: w.word, word: w });
+});
+return out;
+}
 componentWillUnmount() {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+hush() {
 clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 }
 renderVals() {
 const C = window.ykCourse;
+const W = window.ykWrite;
 const s = this.state;
+const app = this.props.app || {};
 const scene = this.scene(this.props);
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const save = (patch) => { if (this.props.save) this.props.save(patch); };
+const steps = s.steps;
+const at = Math.max(0, steps.indexOf(s.step));
+const NAMES = { scene: ['学習', 'LEARN', 'The scene'], write: ['書く', 'WRITE', 'Writing'], check: ['本番', 'EXAM', 'The exam question'] };
+const goStep = (n) => {
+this.hush();
+this.setState({ step: steps[n], reached: Math.max(this.state.reached, n), playing: false });
+};
+const bar = steps.map((k, n) => ({
+bg: n <= at ? '#C7361E' : '#DDE1EC',
+off: n > s.reached,
+cursor: n > s.reached || n === at ? 'default' : 'pointer',
+cur: n === at ? 'step' : 'false',
+aria: NAMES[k][2] + (n > s.reached ? ', not yet open' : ''),
+/* a step already opened can be opened again from the bar */
+go: () => { if (n <= this.state.reached && n !== at) goStep(n); },
+}));
+const base = {
+bar,
+barCols: 'repeat(' + steps.length + ', minmax(0, 1fr))',
+barLabel: 'Step ' + (at + 1) + ' of ' + steps.length,
+stepJa: NAMES[s.step][0],
+stepEn: NAMES[s.step][1],
+atScene: s.step === 'scene',
+atWrite: s.step === 'write',
+atCheck: s.step === 'check',
+titleJa: scene.ja,
+titleEn: scene.en,
+toToday: nav('Today'),
+};
+
+/* ---------- the scene ---------- */
 const words = scene.words.map((w) => {
 const on = s.sel === w.id;
 const found = s.found.includes(w.id);
@@ -702,28 +783,23 @@ edge: found ? '2px solid #6E7BA8' : '2px dashed #6E7BA8',
 ring: on ? '3px solid #F2B43A' : 'none',
 glow: on ? '0 0 0 5px #1B2440' : 'none',
 tap: () => {
-clearTimeout(this.timer);
-if (window.ykSound) window.ykSound.stop();
+this.hush();
 this.setState({ sel: w.id, found: found ? this.state.found : this.state.found.concat(w.id), playing: false });
 },
 };
 });
 const cur = scene.words.find((w) => w.id === s.sel) || scene.words[0] || { word: '', reading: '', gloss: '', parts: [] };
 const len = cur.word.length;
-const it = scene.check || { options: [] };
-const answered = s.quiz !== null;
-const right = answered && s.quiz === it.answer;
-const answer = it.options[it.answer - 1] || '';
-return {
-titleJa: scene.ja,
-titleEn: scene.en,
+const K = s.queue.filter((x) => x.kind === 'kanji').length;
+const WD = s.queue.filter((x) => x.kind === 'word').length;
+const parts = [];
+if (K) parts.push(K === 1 ? '1 new kanji, three times' : K + ' new kanji, three times each');
+if (WD) parts.push(WD === 1 ? '1 word, one kanji at a time' : WD + ' words, one kanji at a time');
+Object.assign(base, {
 intro: scene.intro || 'Tap every word you would have to read.',
 words,
 count: s.found.length,
 total: scene.words.length,
-progressLabel: s.found.length + ' of ' + scene.words.length + ' words found',
-barCols: 'repeat(' + Math.max(1, scene.words.length) + ', minmax(0, 1fr))',
-bars: scene.words.map((_, i) => ({ bg: i < s.found.length ? '#C7361E' : '#DDE1EC' })),
 d: { word: cur.word, reading: cur.reading, gloss: cur.gloss, size: len >= 4 ? '28px' : len === 3 ? '34px' : '40px', kanji: (cur.parts || []).map((p) => ({ c: p[0], on: p[1], mean: p[2] })) },
 playBg: s.playing ? '#F2B43A' : '#E8ECFB',
 /* each word is a short clip: the button stays lit while it is said. If the sound cannot play, it just lights up for a moment */
@@ -735,8 +811,85 @@ const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
 this.setState({ playing: true });
 this.timer = setTimeout(() => this.setState({ playing: false }), sound ? snd.ms(key) + 150 : 1200);
 },
+writeLine: parts.length ? 'Next you write: ' + parts.join(', and ') + '.' : 'You have written every kanji and word here before. Next, the exam question.',
+/* with nothing to write (all of it written before), straight on to the question */
+fromScene: () => { save({ prog: s.queue.length ? { ks: 1 } : { ks: 1, kw: 1 } }); goStep(s.queue.length ? at + 1 : at + 2); },
+fromSceneLabel: s.queue.length ? 'Next: write' : 'Next: the exam question',
+});
+
+/* ---------- writing ---------- */
+const Q = s.queue.length;
+const qi = Math.min(s.qi, Math.max(0, Q - 1));
+const item = s.queue[qi];
+const known = (c) => c === '々' || (app.wrote || '').indexOf(c) >= 0 || s.mine.indexOf(c) >= 0 || C.below().indexOf(c) >= 0;
+const last = qi >= Q - 1;
+const next = s.queue[qi + 1];
+let wTask = null;
+let wi = { big: '', size: '40px', kindJa: '', kindEn: '', read: '', mean: '', ctx: false, ctxJa: '', ctxEn: '' };
+if (item && item.kind === 'kanji') {
+const n = W ? W.count(item.c) : 0;
+wTask = { kind: 'kanji', c: item.c, moment: this.props.moment === 'write' && qi === 0 };
+wi = {
+big: item.c, size: '44px',
+kindJa: '新しい漢字', kindEn: 'New kanji · ' + n + (n === 1 ? ' stroke' : ' strokes'),
+read: item.part === item.c ? item.on : item.part + (item.on ? '（' + item.on + '）' : ''), mean: item.mean,
+ctx: true, ctxJa: item.word.word + '（' + item.word.reading + '）', ctxEn: item.word.gloss,
+};
+} else if (item) {
+const w = item.word;
+wTask = { kind: 'word', w: w.word, cells: Array.from(w.word).map((c) => ({ c, write: KANJI.test(c) && !!(W && W.has(c)), known: known(c) })) };
+const wl = w.word.length;
+wi = {
+big: w.word, size: (wl <= 2 ? 34 : wl === 3 ? 28 : 24) + 'px',
+kindJa: 'ことば', kindEn: 'The word, one kanji at a time',
+read: w.reading, mean: w.gloss, ctx: false, ctxJa: '', ctxEn: '',
+};
+}
+const locked = !!item && !s.qDone;
+const nextName = !item || last ? ['つぎへ', 'Next: the exam question'] : next.kind === 'kanji' ? ['つぎへ', 'Next kanji: ' + next.c] : ['つぎへ', 'Next: the word ' + next.w];
+Object.assign(base, {
+wHead: Q ? (item && item.kind === 'word' ? 'Write the word' : 'Write it three times') : 'All written',
+wCount: Q ? (qi + 1) + ' / ' + Q : '済',
+wCountAria: Q ? 'Writing ' + (qi + 1) + ' of ' + Q : 'All written',
+wNone: !Q,
+wSome: Q > 0,
+wi,
+wTask,
+wKey: item ? (item.kind === 'kanji' ? 'k:' + item.c : 'w:' + item.w) + ':' + qi : 'none',
+wSize: 270,
+/* written: kept at once, so leaving the lesson now loses nothing */
+wFinished: () => {
+if (!item) return;
+if (item.kind === 'kanji') {
+save({ wrote: item.c });
+this.setState({ qDone: true, mine: this.state.mine.indexOf(item.c) >= 0 ? this.state.mine : this.state.mine + item.c });
+} else {
+save({ wroteWords: [item.w] });
+this.setState({ qDone: true, mineW: this.state.mineW.concat(item.w) });
+}
+},
+wLocked: locked,
+wNextJa: locked ? '書いてから' : nextName[0],
+wNextEn: locked ? (item.kind === 'kanji' ? 'Write it three times first' : 'Write the word first') : nextName[1],
+wBtn: locked
+? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none', cursor: 'default' }
+: { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' },
+wNext: () => {
+if (locked) return;
+if (item && !last) { this.setState({ qi: qi + 1, qDone: false }); return; }
+save({ prog: { kw: 1 } });
+goStep(at + 1);
+},
+});
+
+/* ---------- the exam question ---------- */
+const it = scene.check || { options: [] };
+const answered = s.quiz !== null;
+const right = answered && s.quiz === it.answer;
+const answer = it.options[it.answer - 1] || '';
+Object.assign(base, {
 checkType: it.type,
-checkQ: C.plain(it.q),
+checkQ: C.plain(it.q || ''),
 asking: !answered,
 answered,
 right,
@@ -754,12 +907,12 @@ if (k + 1 !== it.answer && this.props.miss) this.props.miss({ src: it.id, wrong:
 this.setState({ quiz: k + 1 });
 },
 })),
-toToday: nav('Today'),
 toDone: (e) => {
-if (this.props.save) this.props.save({ prog: { k: 1 } });
+save({ prog: { k: 1 } });
 nav('Today')(e);
 },
-};
+});
+return base;
 }
 }
 ;return (typeof Component !== "undefined" && Component) || undefined;
@@ -2139,7 +2292,261 @@ replies: it.options.map((o, k) => ({ label: (k + 1) + ' ' + C.plain(o), why: (it
 }
 ;return (typeof Component !== "undefined" && Component) || undefined;
 });
-YK.define("Shell", "<div style=\"width: 390px; height: 844px; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict\">\n<sc-if value=\"{{ at.Goal }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Goal\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Main }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Main\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Today }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Today\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Teach }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Teach\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Compare }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Compare\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Drill }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Drill\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Exam }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Exam\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Scene }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Scene\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Reading }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Reading\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.WeekTest }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"WeekTest\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Notebook }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Notebook\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Review }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Review\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Mock }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Mock\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.MockRun }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"MockRun\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Readiness }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Readiness\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Listening }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Listening\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n\n<sc-if value=\"{{ menuOpen }}\">\n<div style=\"position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out\">\n<button aria-label=\"Close the menu\" onClick=\"{{ closeMenu }}\" style=\"flex-grow: 1; border: 0; padding: 0; background: transparent\"></button>\n<div role=\"dialog\" aria-modal=\"true\" aria-label=\"Menu\" style=\"padding: 18px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out\">\n\n<div style=\"display: flex; align-items: baseline; gap: 8px\">\n<h2 lang=\"ja\" style=\"margin: 0; font-size: 18px; font-weight: 800\">メニュー</h2>\n<div style=\"font-size: 13px; font-weight: 700; color: #5A6382\">Menu</div>\n<div style=\"flex-grow: 1\"></div>\n<div style=\"padding: 2px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 11px; font-weight: 800\">PROTOTYPE</div>\n</div>\n\n<sc-if value=\"{{ asking }}\">\n<div style=\"padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 8px\">\n<div style=\"font-size: 13px; font-weight: 800\"><span lang=\"ja\">レベル</span>　Level · {{ level }}</div>\n<div style=\"display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px\">\n<sc-for list=\"{{ levels }}\" as=\"l\" hint-placeholder-count=\"4\">\n<button aria-pressed=\"{{ l.on }}\" disabled=\"{{ l.off }}\" aria-label=\"{{ l.aria }}\" onClick=\"{{ l.pick }}\" style=\"height: 44px; border-radius: 12px; font-weight: 800; font-size: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; color: {{ l.color }}\">{{ l.label }}<sc-if value=\"{{ l.off }}\" hint-placeholder-val=\"{{ false }}\"><span style=\"font-size: 9px; font-weight: 700\">準備中</span></sc-if></button>\n</sc-for>\n</div>\n<div style=\"font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45\">Each level keeps its own plan and notebook. The course is being written unit by unit; days not written yet are marked 準備中.</div>\n</div>\n\n<div style=\"padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px\">\n<button aria-label=\"Play the test sound\" onClick=\"{{ playTest }}\" style=\"width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ testBg }}\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"#FFFFFF\" aria-hidden=\"true\"><path d=\"M7 4.5v15l13-7.5z\"/></svg></button>\n<div style=\"display: flex; flex-direction: column; gap: 2px\">\n<div style=\"font-size: 13px; font-weight: 800\"><span lang=\"ja\">音量チェック</span>　Sound check</div>\n<div style=\"font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4\">{{ testNote }}</div>\n</div>\n</div>\n\n<div style=\"font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45\">{{ savedNote }} {{ offlineNote }}</div>\n\n<button onClick=\"{{ askReset }}\" style=\"height: 50px; border-radius: 16px; background: #FFFFFF; border: 2px solid #C7361E; color: #C7361E; font-weight: 800; font-size: 15px\"><span lang=\"ja\">最初からやり直す</span>　Start over</button>\n<button onClick=\"{{ closeMenu }}\" style=\"height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px\"><span lang=\"ja\">とじる</span>　Close</button>\n<div style=\"font-size: 10px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.5\">{{ version }}<br>Typefaces: M PLUS Rounded 1c and Klee One (SIL Open Font License). Voices: synthetic, made with Kokoro-82M; two of them were built from Koniwa recordings (CC BY 3.0). JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services; Yaoki is not connected with them. The lessons are original.</div>\n</sc-if>\n\n<sc-if value=\"{{ confirming }}\">\n<div style=\"padding: 14px 16px; border-radius: 16px; background: #FDEBE6; display: flex; flex-direction: column; gap: 4px\">\n<div lang=\"ja\" style=\"font-size: 15px; font-weight: 800; color: #C7361E\">最初からやり直しますか？</div>\n<div style=\"font-size: 13px; font-weight: 500; line-height: 1.5\">Start over? This clears what is saved on this device: your goal, today's lessons, the mistakes you added and the mini mock result.</div>\n</div>\n<button onClick=\"{{ reset }}\" style=\"height: 54px; border-radius: 16px; background: #C7361E; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px\"><span lang=\"ja\">最初からやり直す</span>　Start over</button>\n<button onClick=\"{{ cancelReset }}\" style=\"height: 48px; border: 0; background: transparent; font-size: 15px; font-weight: 800; color: #1B2440\"><span lang=\"ja\">キャンセル</span>　Cancel</button>\n</sc-if>\n\n</div>\n</div>\n</sc-if>\n</div>", function (DCLogic) {
+YK.define("Write", "<div data-yk-write=\"1\" ref=\"{{ rootRef }}\" style=\"box-sizing: border-box; width: 100%; max-width: 358px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict\">\n\n<sc-if value=\"{{ isKanji }}\" hint-placeholder-val=\"{{ true }}\">\n<div role=\"list\" aria-label=\"Write it three times\" style=\"display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; flex-shrink: 0\">\n<sc-for list=\"{{ reps }}\" as=\"r\" hint-placeholder-count=\"3\">\n<div role=\"listitem\" aria-label=\"{{ r.aria }}\" aria-current=\"{{ r.cur }}\" style=\"height: 34px; min-width: 0; box-sizing: border-box; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; white-space: nowrap; border: {{ r.border }}; background: {{ r.bg }}; color: {{ r.color }}; font-weight: {{ r.weight }}\"><span aria-hidden=\"true\" style=\"width: 17px; height: 17px; box-sizing: border-box; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; border: {{ r.dotBorder }}; background: {{ r.dotBg }}; color: {{ r.dotColor }}\">{{ r.mark }}</span><span lang=\"ja\">{{ r.ja }}</span></div>\n</sc-for>\n</div>\n</sc-if>\n\n<sc-if value=\"{{ isWord }}\" hint-placeholder-val=\"{{ false }}\">\n<div role=\"list\" aria-label=\"{{ cellsAria }}\" style=\"display: flex; flex-wrap: wrap; justify-content: center; flex-shrink: 0; gap: {{ cellGap }}\">\n<sc-for list=\"{{ cells }}\" as=\"x\" hint-placeholder-count=\"2\">\n<div role=\"listitem\" aria-label=\"{{ x.aria }}\" style=\"position: relative; box-sizing: border-box; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: {{ cellPx }}; height: {{ cellPx }}; border: {{ x.border }}; background: {{ x.bg }}; box-shadow: {{ x.shadow }}\">\n<sc-if value=\"{{ x.ink }}\" hint-placeholder-val=\"{{ false }}\"><span data-yk-ink=\"{{ x.c }}\" aria-hidden=\"true\" style=\"display: block; width: {{ inkPx }}; height: {{ inkPx }}\"></span></sc-if>\n<sc-if value=\"{{ x.text }}\" hint-placeholder-val=\"{{ true }}\"><span lang=\"ja\" aria-hidden=\"true\" style=\"font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1; font-size: {{ kanaPx }}; color: {{ x.textColor }}\">{{ x.c }}</span></sc-if>\n</div>\n</sc-for>\n</div>\n</sc-if>\n\n<div style=\"display: flex; justify-content: center; flex-shrink: 0\">\n<div ref=\"{{ padRef }}\" data-yk-pad=\"1\" style=\"position: relative; box-sizing: border-box; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; width: {{ padPx }}; height: {{ padPx }}; box-shadow: {{ padShadow }}; animation: {{ padAnim }}\"></div>\n</div>\n\n<div aria-live=\"polite\" style=\"min-height: 36px; padding: 0 4px; font-size: 13px; font-weight: 700; line-height: 1.4; text-align: center; flex-shrink: 0; color: {{ msgColor }}\">{{ msg }}</div>\n\n<div style=\"display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex-shrink: 0\">\n<button onClick=\"{{ play }}\" aria-pressed=\"{{ playing }}\" aria-label=\"Play the stroke order\" style=\"height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; border: 2px solid #1B2440; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; background: {{ playBg }}\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"#1B2440\" aria-hidden=\"true\"><path d=\"M7 4.5v15l12-7.5z\"/></svg><span lang=\"ja\">書き順</span></button>\n<button onClick=\"{{ hint }}\" aria-disabled=\"{{ noHint }}\" aria-label=\"Show the next stroke\" style=\"height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ hintBorder }}; background: #FFFFFF; color: {{ hintColor }}; cursor: {{ hintCursor }}\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/></svg><span lang=\"ja\">ヒント</span></button>\n<button onClick=\"{{ again }}\" aria-disabled=\"{{ noAgain }}\" aria-label=\"Start this one again\" style=\"height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ againBorder }}; color: {{ againColor }}; cursor: {{ againCursor }}\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M4 12a8 8 0 1 0 2.4-5.7\"/><path d=\"M4 4v4.5h4.5\"/></svg><span lang=\"ja\">もう一度</span></button>\n</div>\n\n<sc-if value=\"{{ showStrip }}\" hint-placeholder-val=\"{{ true }}\">\n<div style=\"flex-shrink: 0; display: flex; flex-direction: column; gap: 4px\">\n<div style=\"font-size: 11px; font-weight: 800; color: #5A6382\"><span lang=\"ja\">書き順</span>　Stroke order · {{ strokeCount }}{{ stripNote }}</div>\n<div role=\"img\" aria-label=\"{{ stripAria }}\" style=\"overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; visibility: {{ stripVis }}\">\n<div data-yk-strip=\"{{ stripChar }}\" style=\"display: flex; gap: 4px; width: max-content; min-height: 36px\"></div>\n</div>\n</div>\n</sc-if>\n\n</div>", function (DCLogic) {
+/* The writing panel: a pad the learner writes one kanji on with a finger, stroke by stroke and in order (yk-write.js).
+   Two kinds of task, given by the screen that shows it (props.task; props.tkey names it, and a new name starts it
+   afresh; props.finished(result) is called once it is done):
+     { kind: 'kanji', c }  a new kanji, written three times: traced over its strokes (the stroke order plays first), then
+                           over very faint strokes, then from memory
+     { kind: 'word', w, cells: [{ c, write, known }] }  a word written one kanji at a time: each kanji the learner has
+                           written before from memory, one not met yet traced (after its stroke order), kana shown as given
+     { kind: 'show', c }   a kanji already written: shown written out, its stroke order played on request
+   props.size is the pad's width in pixels (250 by default); props.strip false leaves out the stroke-order strip.
+   On its own the artboard shows the designed moment: 書, the second time, a little over half its strokes in. */
+const MODES = ['trace', 'faint', 'memory'];
+const REPS = [['なぞる', 'Trace'], ['うすく', 'Faint'], ['見ないで', 'From memory']];
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+const t = this.task();
+this.state = { key: this.key(), rep: t.moment ? 1 : 0, cell: 0, flash: false, finished: false, playing: false, stroke: this.pre(), note: '', tone: '' };
+/* a ref may be called with nothing and then the same element again on a redraw (the canvas does so): only a new
+   element counts, and the pad goes only when the panel does */
+this.padRef = (el) => { if (el) { this.padEl = el; this.sync(); } };
+this.rootRef = (el) => { if (el) { this.rootEl = el; this.paint(); } };
+}
+/* the task, or on its own the designed moment: 書 (or the first of these the app has strokes for) */
+task() {
+const t = this.props.task;
+if (t && (t.c || t.w)) return t;
+const W = window.ykWrite;
+return { kind: 'kanji', c: ['書', '学', '字'].find((c) => W && W.has(c)) || '書', moment: true };
+}
+key() {
+const t = this.task();
+return this.props.tkey || (t.kind + ':' + (t.c || t.w));
+}
+/* a designed moment (on its own, or task.moment): the second time, a little over half the strokes in */
+pre() {
+const t = this.task();
+const n = window.ykWrite && t.kind !== 'word' ? window.ykWrite.count(t.c) : 0;
+return t.moment ? Math.max(1, Math.floor(n * 0.6)) : 0;
+}
+/* the state for this task: when the task has just changed, a fresh one until componentDidUpdate has caught up */
+st() {
+if (this.state.key === this.key()) return this.state;
+return { ...this.state, rep: 0, cell: 0, flash: false, finished: false, playing: false, stroke: 0, note: '', tone: '' };
+}
+/* the kanji of a word that are written, in order */
+targets(t) {
+return (t.cells || []).map((x, j) => ({ ...x, j })).filter((x) => x.write && x.c);
+}
+/* what the pad shows now */
+want() {
+const t = this.task();
+const s = this.st();
+if (t.kind === 'word') {
+const ws = this.targets(t);
+const x = ws[Math.min(s.cell, Math.max(0, ws.length - 1))] || { c: '' };
+return { char: x.c, mode: x.known ? 'memory' : 'trace', played: !x.known, done: 0, key: this.key() + ':' + s.cell };
+}
+if (t.kind === 'show') return { char: t.c, mode: 'show', played: false, done: 0, key: this.key() + ':show' };
+const pre = this.pre();
+return { char: t.c, mode: MODES[s.rep] || 'memory', played: s.rep === 0 && !t.moment, done: pre && s.rep === 1 && s.stroke === pre ? pre : 0, key: this.key() + ':' + s.rep };
+}
+componentDidMount() {
+this.sync();
+this.paint();
+}
+/* the written kanji of a word and the stroke-order strip are small pictures drawn into elements the template leaves
+   empty (yk-write.js draws them, and only again when they change) */
+paint() {
+const W = window.ykWrite;
+const root = this.rootEl;
+if (!W || !root || !root.querySelectorAll) return;
+root.querySelectorAll('[data-yk-ink]').forEach((el) => W.draw(el, el.getAttribute('data-yk-ink'), el.offsetWidth || 38));
+root.querySelectorAll('[data-yk-strip]').forEach((el) => W.strip(el, el.getAttribute('data-yk-strip'), 32));
+}
+componentDidUpdate() {
+const key = this.key();
+if (this.state.key !== key) {
+clearTimeout(this.timer);
+this.setState({ key, rep: 0, cell: 0, flash: false, finished: false, playing: false, stroke: 0, note: '', tone: '' });
+return;
+}
+this.sync();
+this.paint();
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+if (this.pad) this.pad.destroy();
+this.pad = null;
+}
+/* the pad follows the task: made once its element is there, set afresh for each time and each kanji */
+sync() {
+const W = window.ykWrite;
+const el = this.padEl;
+if (!el || !W) return;
+const w = this.want();
+const on = {
+onStroke: (i, r) => this.stroked(i, r),
+onMiss: (i, r) => this.missed(i, r),
+onDone: (r) => this.wrote(r),
+onPlay: (p) => this.setState({ playing: p }),
+};
+if (!this.pad || this.pad.host !== el) {
+if (this.pad) this.pad.destroy();
+this.padKey = w.key;
+this.pad = W.pad(el, { char: w.char, mode: w.mode, played: w.played, done: w.done, ...on });
+return;
+}
+if (this.padKey !== w.key) {
+this.padKey = w.key;
+this.pad.set({ char: w.char, mode: w.mode, played: w.played, done: w.done, restart: true, ...on });
+}
+}
+stroked(i, r) {
+this.setState({ stroke: i + 1, note: r && r.helped ? 'Stroke ' + (i + 1) + ' was written in for you. On to the next.' : '', tone: '' });
+}
+missed(i, r) {
+const n = i + 1;
+const note = r.backwards ? 'Stroke ' + n + ' goes the other way: start from its other end.'
+: r.misses >= 2 ? 'Follow the yellow line for stroke ' + n + ', from the red dot.'
+: 'Not quite. Try stroke ' + n + ' again.';
+this.setState({ note, tone: 'miss' });
+}
+/* the moment a written kanji stays before the next time (shorter in the checks, window.__ykWriteFast) */
+pause() {
+return window.__ykWriteFast ? 60 : 750;
+}
+/* a time (or a kanji of the word) is written: a moment to see it, then the next; after the last, the task is done */
+wrote(r) {
+const t = this.task();
+const s = this.st();
+const clean = r && !r.misses && !r.helped;
+const last = t.kind === 'word' ? s.cell >= this.targets(t).length - 1 : s.rep >= MODES.length - 1;
+clearTimeout(this.timer);
+if (last) {
+this.setState({ flash: true, finished: true, note: '', tone: '' });
+this.timer = setTimeout(() => this.setState({ flash: false }), this.pause());
+if (this.props.finished) this.props.finished({ misses: (r && r.misses) || 0, helped: (r && r.helped) || 0 });
+return;
+}
+this.setState({ flash: true, note: clean ? 'きれい！ Neat.' : 'できた！ Done.', tone: 'good' });
+this.timer = setTimeout(() => {
+const now = this.st();
+if (t.kind === 'word') this.setState({ cell: now.cell + 1, flash: false, stroke: 0, note: '', tone: '' });
+else this.setState({ rep: now.rep + 1, flash: false, stroke: 0, note: '', tone: '' });
+}, this.pause());
+}
+renderVals() {
+const W = window.ykWrite;
+const t = this.task();
+const s = this.st();
+const word = t.kind === 'word';
+const show = t.kind === 'show';
+const ws = word ? this.targets(t) : [];
+const cur = word ? (ws[Math.min(s.cell, Math.max(0, ws.length - 1))] || { c: '' }) : { c: t.c };
+const c = cur.c || '';
+const n = W ? W.count(c) : 0;
+const size = Math.max(180, Math.min(320, +this.props.size || 250));
+const at = Math.min(n, s.stroke + 1);
+/* the line under the pad: what to do now, or what just happened */
+let msg = s.note;
+if (!msg) {
+if (show) msg = s.playing ? '書き順 The stroke order.' : '書きました Written already. Play the stroke order to see it again.';
+else if (s.finished) msg = word ? 'できた！ ' + (t.w || '') + ' is written.' : 'できた！ Written three times.';
+else if (s.playing) msg = '書き順 Watch the order. Touch the pad to start writing.';
+else if (word) msg = (cur.known ? 'Write ' + c + ' from memory' : 'Trace ' + c + ': it is new to you') + ' · stroke ' + at + ' of ' + n;
+else if (s.rep === 0) msg = 'Trace it, starting at the red dot · stroke ' + at + ' of ' + n;
+else if (s.rep === 1) msg = 'Again, over faint lines · stroke ' + at + ' of ' + n;
+else msg = 'Now from memory · stroke ' + at + ' of ' + n;
+}
+const reps = REPS.map((r, k) => {
+const done = k < s.rep || (k === s.rep && (s.finished || s.flash));
+const now = k === s.rep && !done;
+return {
+ja: r[0],
+mark: done ? '✓' : String(k + 1),
+aria: (k + 1) + ': ' + r[1] + (done ? ', done' : now ? ', now' : ''),
+cur: now ? 'step' : 'false',
+border: now ? '2px solid #2F4FD0' : done ? '2px solid #E0F3EF' : '2px solid #DDE1EC',
+bg: now ? '#E8ECFB' : done ? '#E0F3EF' : 'transparent',
+color: now ? '#1B2440' : done ? '#0B7A6B' : '#5A6382',
+weight: now || done ? 800 : 700,
+dotBorder: now ? '2px solid #2F4FD0' : done ? '2px solid #0B7A6B' : '2px solid #C9D0E3',
+dotBg: done ? '#0B7A6B' : '#FFFFFF',
+dotColor: done ? '#FFFFFF' : now ? '#2F4FD0' : '#5A6382',
+};
+});
+/* the word's cells: a kanji written shows its strokes, the one being written is ringed, kana are printed */
+let k = 0;
+const cells = (t.cells || []).map((x) => {
+if (!x.write) return { c: x.c, ink: false, text: true, textColor: '#5A6382', border: '2px solid #DDE1EC', bg: '#F4F5F9', shadow: 'none', aria: x.c + ', given' };
+const idx = k++;
+const written = idx < s.cell || (idx === s.cell && (s.finished || s.flash));
+const now = idx === s.cell && !written;
+return {
+c: x.c,
+ink: written,
+text: false,
+textColor: '#1B2440',
+border: now ? '2.5px solid #2F4FD0' : written ? '2px solid #1B2440' : '2px dashed #C9D0E3',
+bg: now ? '#E8ECFB' : '#FFFFFF',
+shadow: written ? '0 3px 0 #1B2440' : 'none',
+aria: x.c + (written ? ', written' : now ? ', writing now' : ', to write'),
+};
+});
+const tone = s.tone === 'miss' ? '#C7361E' : s.tone === 'good' || s.finished ? '#0B7A6B' : '#1B2440';
+return {
+isKanji: !word && !show,
+isWord: word,
+reps,
+cells,
+cellsAria: (t.w || '') + ', written one kanji at a time',
+/* a word of up to seven characters in cells of 46 px; a longer one in smaller cells, so it keeps to one row */
+cellPx: (cells.length <= 7 ? 46 : 40) + 'px',
+cellGap: (cells.length <= 7 ? 6 : 4) + 'px',
+inkPx: (cells.length <= 7 ? 38 : 32) + 'px',
+kanaPx: (cells.length <= 7 ? 26 : 22) + 'px',
+padPx: size + 'px',
+padShadow: s.flash ? '0 0 0 4px #E0F3EF, 0 4px 0 #1B2440' : '0 4px 0 #1B2440',
+padAnim: s.flash ? 'yk-pop 360ms ease-out' : 'none',
+msg,
+msgColor: tone,
+playing: !!s.playing,
+playBg: s.playing ? '#F2B43A' : '#FFFFFF',
+noHint: show || s.finished || s.flash || s.playing,
+hintBorder: show || s.finished || s.flash || s.playing ? '2px solid #DDE1EC' : '2px solid #1B2440',
+hintColor: show || s.finished || s.flash || s.playing ? '#9AA1B5' : '#1B2440',
+hintCursor: show || s.finished || s.flash || s.playing ? 'default' : 'pointer',
+noAgain: show,
+againBorder: show ? '2px solid #DDE1EC' : '2px solid #1B2440',
+againColor: show ? '#9AA1B5' : '#1B2440',
+againCursor: show ? 'default' : 'pointer',
+showStrip: this.props.strip !== false && n > 0,
+strokeCount: n === 1 ? '1 stroke' : n + ' strokes',
+stripAria: 'The stroke order of ' + c + ', ' + n + (n === 1 ? ' stroke' : ' strokes'),
+stripChar: c,
+/* writing from memory, the strip would give the kanji away: it keeps its place, hidden */
+stripVis: this.want().mode === 'memory' && !s.finished ? 'hidden' : 'visible',
+stripNote: this.want().mode === 'memory' && !s.finished ? ' · hidden for now' : '',
+padRef: this.padRef,
+rootRef: this.rootRef,
+play: () => { if (this.pad) { if (this.state.playing) this.pad.stopPlay(); else this.pad.play(); } },
+hint: () => { if (this.pad && !this.st().finished && !this.st().flash) this.pad.hint(); },
+/* the same time again from its first stroke (once all is written, the last time again, for more practice) */
+again: () => {
+if (!this.pad || this.st().flash || show) return;
+this.pad.restart();
+this.setState({ stroke: 0, note: '', tone: '', playing: false, finished: false });
+},
+};
+}
+}
+;return (typeof Component !== "undefined" && Component) || undefined;
+});
+YK.define("Shell", "<div style=\"width: 390px; height: 844px; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict\">\n<sc-if value=\"{{ at.Goal }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Goal\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Main }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Main\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Today }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Today\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Teach }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Teach\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Compare }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Compare\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Drill }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Drill\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Exam }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Exam\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Scene }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Scene\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Reading }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Reading\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.WeekTest }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"WeekTest\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Notebook }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Notebook\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Review }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Review\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Mock }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Mock\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.MockRun }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"MockRun\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Readiness }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Readiness\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n<sc-if value=\"{{ at.Listening }}\"><div style=\"animation: yk-in 220ms ease-out\"><dc-import name=\"Listening\" go=\"{{ go }}\" app=\"{{ app }}\" save=\"{{ save }}\" miss=\"{{ miss }}\" reviewed=\"{{ reviewed }}\" menu=\"{{ openMenu }}\"></dc-import></div></sc-if>\n\n<sc-if value=\"{{ menuOpen }}\">\n<div style=\"position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out\">\n<button aria-label=\"Close the menu\" onClick=\"{{ closeMenu }}\" style=\"flex-grow: 1; border: 0; padding: 0; background: transparent\"></button>\n<div role=\"dialog\" aria-modal=\"true\" aria-label=\"Menu\" style=\"padding: 18px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out\">\n\n<div style=\"display: flex; align-items: baseline; gap: 8px\">\n<h2 lang=\"ja\" style=\"margin: 0; font-size: 18px; font-weight: 800\">メニュー</h2>\n<div style=\"font-size: 13px; font-weight: 700; color: #5A6382\">Menu</div>\n<div style=\"flex-grow: 1\"></div>\n<div style=\"padding: 2px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 11px; font-weight: 800\">PROTOTYPE</div>\n</div>\n\n<sc-if value=\"{{ asking }}\">\n<div style=\"padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 8px\">\n<div style=\"font-size: 13px; font-weight: 800\"><span lang=\"ja\">レベル</span>　Level · {{ level }}</div>\n<div style=\"display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px\">\n<sc-for list=\"{{ levels }}\" as=\"l\" hint-placeholder-count=\"4\">\n<button aria-pressed=\"{{ l.on }}\" disabled=\"{{ l.off }}\" aria-label=\"{{ l.aria }}\" onClick=\"{{ l.pick }}\" style=\"height: 44px; border-radius: 12px; font-weight: 800; font-size: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; color: {{ l.color }}\">{{ l.label }}<sc-if value=\"{{ l.off }}\" hint-placeholder-val=\"{{ false }}\"><span style=\"font-size: 9px; font-weight: 700\">準備中</span></sc-if></button>\n</sc-for>\n</div>\n<div style=\"font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45\">Each level keeps its own plan and notebook. The course is being written unit by unit; days not written yet are marked 準備中.</div>\n</div>\n\n<div style=\"padding: 12px 14px; border-radius: 16px; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px\">\n<button aria-label=\"Play the test sound\" onClick=\"{{ playTest }}\" style=\"width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ testBg }}\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"#FFFFFF\" aria-hidden=\"true\"><path d=\"M7 4.5v15l13-7.5z\"/></svg></button>\n<div style=\"display: flex; flex-direction: column; gap: 2px\">\n<div style=\"font-size: 13px; font-weight: 800\"><span lang=\"ja\">音量チェック</span>　Sound check</div>\n<div style=\"font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4\">{{ testNote }}</div>\n</div>\n</div>\n\n<div style=\"font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45\">{{ savedNote }} {{ offlineNote }}</div>\n\n<button onClick=\"{{ askReset }}\" style=\"height: 50px; border-radius: 16px; background: #FFFFFF; border: 2px solid #C7361E; color: #C7361E; font-weight: 800; font-size: 15px\"><span lang=\"ja\">最初からやり直す</span>　Start over</button>\n<button onClick=\"{{ closeMenu }}\" style=\"height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px\"><span lang=\"ja\">とじる</span>　Close</button>\n<div style=\"font-size: 10px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.5\">{{ version }}<br>Typefaces: M PLUS Rounded 1c and Klee One (SIL Open Font License). Voices: synthetic, made with Kokoro-82M; two of them were built from Koniwa recordings (CC BY 3.0). Stroke order: KanjiVG, by Ulrich Apel (CC BY-SA 3.0). JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services; Yaoki is not connected with them. The lessons are original.</div>\n</sc-if>\n\n<sc-if value=\"{{ confirming }}\">\n<div style=\"padding: 14px 16px; border-radius: 16px; background: #FDEBE6; display: flex; flex-direction: column; gap: 4px\">\n<div lang=\"ja\" style=\"font-size: 15px; font-weight: 800; color: #C7361E\">最初からやり直しますか？</div>\n<div style=\"font-size: 13px; font-weight: 500; line-height: 1.5\">Start over? This clears what is saved on this device: your goal, today's lessons, the mistakes you added and the mini mock result.</div>\n</div>\n<button onClick=\"{{ reset }}\" style=\"height: 54px; border-radius: 16px; background: #C7361E; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px\"><span lang=\"ja\">最初からやり直す</span>　Start over</button>\n<button onClick=\"{{ cancelReset }}\" style=\"height: 48px; border: 0; background: transparent; font-size: 15px; font-weight: 800; color: #1B2440\"><span lang=\"ja\">キャンセル</span>　Cancel</button>\n</sc-if>\n\n</div>\n</div>\n</sc-if>\n</div>", function (DCLogic) {
 class Component extends DCLogic {
 constructor(props) {
 super(props);
