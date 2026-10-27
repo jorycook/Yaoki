@@ -153,7 +153,18 @@ A typing game for a Japanese (JIS) keyboard, in the app's look: cards come along
 
 A spelling is taken when Microsoft IME or Google 日本語入力 would turn it into the kana: so ぢ is `di`, を is `wo`, ん before a vowel, y or n is `nn`, and っ doubles the consonant actually typed next. The hint is always a spelling both accept. One rule is the game's own: ん at the end of a card takes `nn`, as there is no Enter to settle a lone n. Hints come in steps (the kana being typed, then the whole spelling) after a miss or a pause, or always, or never (設定 Settings).
 
-The cards are paced by the player: the game keeps a moving average of the reaction time and the keys a second for each stage and spaces the cards to suit, and the world speed is set once a round from the longest card. Misses are kept per kana (ん and っ on their own) or per key; like the mistake notebook, one leaves the weak-spot list after three clean answers in a row (a card typed with its whole spelling on show, or the untyped rest of a card that fell, does not count), and 苦手を練習 deals a round of weak spots. Settings, paces, bests and weak spots are kept under `yaoki.typing.v1`. The page uses the main app's icons and Google Fonts, as the reader does, and has no offline worker of its own: it needs the network, or the browser's cache.
+The cards are paced by the player: the game keeps a moving average of the reaction time and the keys a second for each stage and spaces the cards to suit, and the world speed is set once a round from the longest card. Misses are kept per kana (ん and っ on their own) or per key; like the mistake notebook, one leaves the weak-spot list after three clean answers in a row (a card typed with its whole spelling on show, or the untyped rest of a card that fell, does not count), and 苦手を練習 deals a round of weak spots.
+
+The game rewards accuracy, getting up again and showing up, never speed:
+
+- **はなまる and 連続:** a card typed with no miss and no hint settles on the route as a 済 inside a teacher's はなまる, and a chip counts clean cards in a row. Yaoki smiles, and at 5, 10, 20 and 40 in a row he hops and cheers (いいね！ すごい！ さすが！ かんぺき！). A fall ends the run quietly. The longest run is kept per stage, on the same terms as the best.
+- **起:** a card that knocked Yaoki over and is typed clean when it comes back is stamped 起.
+- **Weak spots in a normal round:** up to one card in five that holds a weak kana or key has a gold corner, and one typed clean gets a star on the route. The result lists what left the weak list during the round (卒業).
+- **Stamp card:** a day's typing time (pauses and stretches of more than 8 seconds without a key do not count) fills a box on a seven-day stamp card once it reaches the daily goal (3, 5 or 10 minutes). Days off never erase a stamp, and a full card starts a new one.
+- **A stage's はなまる:** たいへんよくできました in a counted round gives a stage, or a course week, a ring, at most one a day. Three rings make its はなまる, and a top round offers the next stage.
+- **Sound effects** are made in the browser by `docs/typing/sfx.js` (Web Audio, no sound files). しずか Quiet, the default, plays a stamp for each card, a drum for a fall and a bounce as Yaoki gets up. ぜんぶ All adds a tick for each right key and a knock for a miss, and なし Off plays nothing. No effect plays over a course word's own clip.
+
+All of these honour reduced motion, and none of them changes the clean count, the pace, the bests or the weak spots. Settings, paces, bests, weak spots, run records, the stamp card and the stage rings are kept under `yaoki.typing.v1`; keys added later (`sfx`, `goal`, `practice`, `stampCard`, `run`, `seal`) are optional, so an older save still loads. The page uses the main app's icons and Google Fonts, as the reader does, and has no offline worker of its own: it needs the network, or the browser's cache.
 
 ## Licences
 
