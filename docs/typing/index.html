@@ -206,7 +206,8 @@ body.playing #app { padding-top: 8px; }
   h1.jp { font-size: 26px; }
   .key { height: 34px; font-size: 12px; border-radius: 8px; }
   .kb-row, .kb { gap: 3px; }
-  .key .sub { font-size: 7px; top: 1px; right: 2px; }
+  .key .sub, .key .sub[lang="ja"] { font-size: 7px; top: 1px; right: 2px; }
+  .key .main[lang="ja"] { font-size: 12px; }
   .key.mod { overflow: hidden; white-space: nowrap; }
   .key.mod .main { font-size: 8px; }
   .stats .row b { width: 84px; font-size: 22px; }
@@ -216,9 +217,11 @@ body.playing #app { padding-top: 8px; }
   .hanko.three div { font-size: 12px; }
 }
 @media (max-width: 420px) {
-  .key .sub { display: none; }
-  .key.next .sub { display: block; color: var(--on-accent); }
-  .key.mod .main { display: none; }
+  .key .sub, .key .sub[lang="ja"] { display: none; }
+  .key.next .sub, .key.next .sub[lang="ja"] { display: block; top: 0; right: 1px; font-size: 9px; color: var(--on-accent); }
+  .key.next .main[lang="ja"] { font-size: 10px; margin-top: 8px; }
+  .key.mod:not([data-code^="Shift"]) .main { display: none; }
+  .key.mod[data-code^="Shift"] .main { font-size: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }

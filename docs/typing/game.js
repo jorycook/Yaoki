@@ -345,6 +345,7 @@
       fall: null,
       endIn: null,
       missed: new Map(),
+      hintModes: new Set(),
       rock: 0,
       target: null,
       spokenAt: -9,
@@ -353,6 +354,7 @@
       maxLen: Math.max(...deck.map((it) => it.len)),
       errors: 0,
     };
+    hush();
     setPhase('play');
     resize();
     if (modeId === 'course' && saved.sound) loadSound(level, unit);
@@ -422,7 +424,7 @@
     if (item.kind !== 'romaji') return 32;
     const n = Array.from(item.text).length;
     const size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
-    const nice = fit(item.text, size, Math.max(160, 0.45 * (view.W - view.yx)) - 28, 14);
+    const nice = fit(item.text, size, Math.max(160, 0.45 * (view.W - view.yx)) - 28, Math.max(14, 10 / view.s));
     return fit(item.text, nice, maxCard() - 28, 8);
   }
   // Small type (readings, the lines under the route): at least about 9 CSS pixels.
@@ -560,6 +562,7 @@
   // Hints in steps: 0 none, 1 the kana being typed (or the key's row and finger),
   // 2 the whole spelling (or the key). Always: 2. Never: 0, except after a fall.
   function raiseHint(c) {
+    r.hintModes.add(saved.hints);
     if (saved.hints === 'always') {
       c.level = 2;
       return;
@@ -590,7 +593,8 @@
     card.entry.falls++;
     const length = Math.min(3, 1.2 + 0.05 * card.item.len);
     const ahead = r.cards.filter((c) => c.state === 'live' && c !== card).length;
-    const at = Math.max(0, Math.min(2 - ahead, r.queue.length));
+    const promised = r.queue.reduce((last, e, i) => (e.falls > 0 ? i : last), -1);
+    const at = Math.max(promised + 1, Math.min(2 - ahead, r.queue.length));
     r.fall = { t: 0, card, length, at, back: ahead + at };
     r.falls++;
     r.p = Math.max(0.5, r.p * 0.8);
@@ -696,9 +700,14 @@
 
   // A card that waits for Yaoki can be passed over with Tab (for a key this keyboard lacks).
   function skipCard(card) {
+    if (card.misses) {
+      if (card.item.kind === 'romaji') for (const i of card.missedAt) markMiss(r.stats, card.item.units[i]);
+      else markMiss(r.stats, statKey(card.item));
+    }
     r.cards = r.cards.filter((c) => c !== card);
     r.skipped++;
     r.target = null;
+    setStatus('', '');
     if (r.cleared + r.skipped >= r.total) r.endIn = 0.8;
     hud();
   }
@@ -706,7 +715,8 @@
   function finishRound() {
     saved.pace[r.key] = { r: Math.round(r.rt * 100) / 100, p: Math.round(r.p * 100) / 100 };
     const kpm = r.active > 0.2 ? Math.round(r.keysRight / (r.active / 60)) : 0;
-    const counts = saved.hints !== 'always' && !r.weakOnly;
+    // A round counts for the best only if hints were never always on during it.
+    const counts = !r.hintModes.has('always') && !r.weakOnly;
     const prev = saved.best[r.key];
     const isBest = counts && kpm > 0 && (!prev || kpm > prev);
     if (isBest) saved.best[r.key] = kpm;
@@ -899,6 +909,7 @@
     document.body.classList.toggle('playing', p === 'play' || p === 'paused');
     if (p === 'menu') {
       r = null;
+      hush();
       renderMenu();
     }
     if (p === 'paused') $('resume').focus();
@@ -924,12 +935,18 @@
   // The screen reader hears each card (word and reading only, at most one every 2 seconds:
   // a card that comes sooner is said when the 2 seconds are up), each fall with its answer,
   // and the result. The Japanese part is marked as Japanese, so it is read in a Japanese voice.
+  let sayTimer = 0;
   function say(jaText, enText) {
     const el = $('sr-prompt');
     el.textContent = '';
-    setTimeout(() => {
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(() => {
       el.innerHTML = (jaText ? ja(jaText) : '') + (enText ? (jaText ? '. ' : '') + esc(enText) : '');
     }, 30);
+  }
+  function hush() {
+    clearTimeout(sayTimer);
+    $('sr-prompt').textContent = '';
   }
   function speakTarget(card) {
     if (r.time - r.spokenAt < 2) {
@@ -995,10 +1012,15 @@
     $('res-keys').innerHTML = r.keysRight + ' <small>/ ' + r.keysTotal + '</small>';
     $('res-falls').textContent = r.falls;
     $('res-falls-en').textContent = !r.falls ? 'falls: Yaoki stayed up all round'
-      : r.skipped ? 'falls; ' + r.skipped + ' skipped with Tab, the others came back and were cleared'
-        : 'falls; each card came back and was cleared';
-    $('res-hints').textContent = saved.hints === 'always' ? '—' : r.hints;
-    $('res-hints-en').textContent = saved.hints === 'always' ? 'hints were on for every card' : saved.hints === 'never' ? 'hints were off' : 'cards where a hint showed';
+      : r.skipped && r.falls > 2 * r.skipped ? 'falls; ' + r.skipped + ' skipped with Tab, the others came back and were cleared'
+        : r.skipped ? 'falls, all on the ' + (r.skipped === 1 ? 'card' : r.skipped + ' cards') + ' skipped with Tab'
+          : 'falls; each card came back and was cleared';
+    const modes = r.hintModes;
+    const onlyAlways = modes.size === 1 && modes.has('always');
+    $('res-hints').textContent = onlyAlways ? '—' : r.hints;
+    $('res-hints-en').textContent = onlyAlways ? 'hints were on for every card'
+      : modes.has('always') ? 'cards where a hint showed; hints were always on for part of the round'
+        : modes.size === 1 && modes.has('never') ? 'hints were off' : 'cards where a hint showed';
 
     // The teacher's stamp, by the share of clean cards, as for the app's week tests.
     const share = r.clean / r.total;
@@ -1810,6 +1832,7 @@
         falls: r ? r.falls : 0,
         falling: !!(r && r.fall),
         back: r && r.fall ? r.fall.back : null,
+        answerShown: r && r.fall ? hintLevel(r.fall.card) >= 2 : null,
         W: view.W,
         cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state })) : [],
         clean: r ? r.clean : 0,

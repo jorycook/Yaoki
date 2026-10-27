@@ -278,6 +278,8 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('1');
   s = await state(page);
   check('with hints off, misses show no hint and no note', s.target.level === 0 && (await page.textContent('#status')) === '', JSON.stringify(s.target));
+  await waitFor(async () => (await state(page)).falling, 20000);
+  check('with hints off, a fall still shows the answer', (await state(page)).answerShown === true);
   await quit(page);
   await setHints(1);
   await page.click('#start');
@@ -336,6 +338,29 @@ async function waitFor(fn, ms = 5000) {
   check('ten clean cards earn たいへんよくできました', /^たいへん/.test(await page.textContent('#res-stamp-text')));
   await page.keyboard.press('Escape');
   await setHints(2);
+
+  // ---- hints turned on for part of a round: it does not count for the best either
+  await setHints(2);
+  await pick(page, 3, 3);
+  await page.click('#start');
+  await target(page);
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#hint-seg button:nth-child(1)');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  await target(page);
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#hint-seg button:nth-child(2)');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  await playOut(page, (c) => page.keyboard.type(c.key, { delay: 20 }));
+  check('a round with hints always on for part of it leaves the best alone', !(await stored(page)).best['symbol:punct']);
+  check('…and its result says hints were on for part of it', /part of the round/.test(await page.textContent('#res-hints-en')));
+  await page.keyboard.press('Escape');
+  check('the menu does not repeat the last round\'s words to a screen reader', (await page.textContent('#sr-prompt')) === '');
+  await pick(page, 3, 1);
 
   // ---- five misses in ten cards: がんばりましょう
   await page.click('#start');
@@ -409,18 +434,25 @@ async function waitFor(fn, ms = 5000) {
   await pick(page, 3, 1);
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
+  const before = (await stored(page)).stats || {};
   const halted = await waitFor(async () => ((await state(page)).target || {}).halted, 90000);
   check('after two falls a card stops and the world waits', halted, JSON.stringify(await state(page)));
   if (halted) {
     await sleep(800);
     check('the waiting card does not knock him over again', !(await state(page)).falling && (await state(page)).target.halted);
     if (shots) await page.screenshot({ path: `${shots}/halted.png` });
+    const waitingKey = (await state(page)).target.key;
+    await page.keyboard.press('1');
     await page.keyboard.press('Tab');
+    check('a skipped card takes its note with it', (await page.textContent('#status')) === '');
     s = await state(page);
     check('Tab skips the waiting card', s.skipped === 1);
     check('the bar counts the skipped card', (await page.getAttribute('#progress', 'aria-label')) === 'Card ' + Math.min(s.cleared + 2, s.total) + ' of ' + s.total);
     await playOut(page, (c) => page.keyboard.type(c.key, { delay: 20 }));
     check('the result says a card was skipped', /skipped/.test(await page.textContent('#res-falls-en')) && /skipped/.test(await page.textContent('#res-line')));
+    const was = before.symbol && before.symbol[waitingKey] ? before.symbol[waitingKey].miss : 0;
+    const now = ((await stored(page)).stats.symbol || {})[waitingKey];
+    check('a skipped card\'s misses are kept: two falls and the miss before Tab', now && now.miss === was + 3, JSON.stringify({ waitingKey, was, now }));
   }
   await page.close();
 
@@ -456,6 +488,31 @@ async function waitFor(fn, ms = 5000) {
   // ---- keyboard labels at narrow widths: the Shift characters stay at 640 px
   page = await open({ viewport: { width: 640, height: 900 } });
   check('640px: the keyboard still shows the Shift characters', await page.evaluate(() => getComputedStyle(document.querySelector('[data-code="Digit2"] .sub')).display !== 'none'));
+  await page.close();
+
+  page = await open({ viewport: { width: 480, height: 900 } });
+  await pick(page, 4, 5);
+  const overlap = await page.evaluate(() => {
+    const el = document.querySelector('[data-code="Digit3"]');
+    const a = el.querySelector('.main').getBoundingClientRect();
+    const b = el.querySelector('.sub').getBoundingClientRect();
+    return Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
+  });
+  check('480px kana input: the small kana does not sit on the main kana', overlap === 0, 'overlap ' + overlap);
+  await page.close();
+  page = await open({ viewport: { width: 375, height: 700 } });
+  await page.click('#open-settings');
+  await page.click('#hint-seg button:nth-child(1)');
+  await page.click('#close-settings');
+  await pick(page, 3, 2);
+  await page.click('#start');
+  const sh = await target(page);
+  await sleep(150);
+  const shiftCode = /^(Digit[1-5]|Key[QWERTASDFGZXCVB])$/.test(sh.code) ? 'ShiftRight' : 'ShiftLeft';
+  check('375px: the lit Shift key keeps its label', await page.evaluate((code) => {
+    const m = document.querySelector('[data-code="' + code + '"] .main');
+    return m.closest('.key').classList.contains('next') && getComputedStyle(m).display !== 'none' && m.textContent === 'Shift';
+  }, shiftCode));
   await page.close();
 
   // ---- small screens and touch: no sideways scroll, the keyboard note, the result

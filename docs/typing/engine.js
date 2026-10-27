@@ -85,7 +85,7 @@
   const DOUBLES = /^[bcdfghjklmpqrstvwxyz]/; // letters っ may double (never n: nn is ん)
   const NN = ['nn', "n'", 'xn'];
   const SMALL_TU = ['xtu', 'ltu', 'xtsu', 'ltsu'];
-  const MAX_OPTS = 300;
+  const MAX_OPTS = 7000;
 
   // A token is one or more kana typed as a unit: `opts` are its spellings, `units` the kana
   // it is made of, and `cuts` gives, for a joined spelling, where each later kana's letters
@@ -146,7 +146,8 @@
         for (const o of next.opts) if (DOUBLES.test(o)) pairs.push([o[0], o]);
         for (const o of next.opts) if (o.startsWith('ch')) pairs.push(['t', o]);
         for (const pre of SMALL_TU) for (const o of next.opts) pairs.push([pre, o]);
-        // A run of っ would multiply the spellings; the first MAX_OPTS (hint first) are plenty.
+        // Each っ multiplies the spellings by about five; up to five っ in a row all are kept,
+        // and beyond that the first MAX_OPTS (hint first) are plenty.
         tokens[0] = joined('っ', pairs.slice(0, MAX_OPTS), next);
       } else {
         // ん: a lone n before k, s, t…, punctuation and the like; nn (or n', xn) before a vowel,
@@ -275,18 +276,22 @@
   }
 
   // The kana a refused key is put on. As unitAt(), except for the two slips that belong to
-  // ん and っ although the letters have moved on: one n too few before な行 (konn + i for こんに),
-  // and one consonant where っ needs two (kit + e for きって).
+  // ん and っ although the letters have moved on to the next kana: one n too few before な行
+  // (konn + i for こんに), and one consonant where っ needs two (kit + e for きって).
   function blame(tokens, typed, key) {
     const i = unitAt(tokens, typed);
     const pos = at(tokens, typed);
     if (i === null || !pos) return i;
     const t = tokens[pos.index];
     const part = typed.slice(pos.start);
-    const first = i - (cutsOf(t, t.opts.find((x) => x.length > part.length && x.startsWith(part)) || t.opts[0])
-      .filter((c) => c <= part.length).length);
-    if (t.units[0] === 'ん' && NA_ROW.test(t.units[1] || '') && part === 'nn' && /^[aiueoy]$/.test(key)) return first;
-    if (t.units[0] === 'っ' && t.units.length > 1 && part.length === 1 && key !== part && DOUBLES.test(part)) return first;
+    const o = t.opts.find((x) => x.length > part.length && x.startsWith(part)) || t.opts[0];
+    const cuts = cutsOf(t, o);
+    const local = cuts.filter((c) => c <= part.length).length;
+    if (local === 0 || part.length !== cuts[local - 1]) return i; // letters already typed for this kana
+    const prev = t.units[local - 1];
+    const letters = o.slice(local > 1 ? cuts[local - 2] : 0, cuts[local - 1]);
+    if (prev === 'ん' && letters === 'nn' && NA_ROW.test(t.units[local]) && /^[aiueoy]$/.test(key)) return i - 1;
+    if (prev === 'っ' && letters.length === 1 && DOUBLES.test(letters) && key !== letters) return i - 1;
     return i;
   }
   const NA_ROW = /^[なにぬねの]/;
@@ -317,9 +322,9 @@
       if (NA_ROW.test(rest[0]) && /^nn[aiueoy]$/.test(tried)) return NOTES.nnn;
       const done = /^(nn|n'|xn)/.exec(tried);
       if (done) return tried.length > done[0].length ? note(rest, tried.slice(done[0].length)) : null;
-      if (/^n[aiueoyn]$/.test(tried) && /^[あいうえおやゆよなにぬねのをぁぃぅぇぉゃゅょ]/.test(rest[0])) {
-        return rest[0] === 'を' && tried === 'no' ? NOTES.wo : NOTES.nn;
-      }
+      // を and the small kana take a lone n (nwo, nxa): only the vowel, y and な rows need nn
+      if (/^n[aiueoyn]$/.test(tried) && /^[あいうえおやゆよなにぬねの]/.test(rest[0])) return NOTES.nn;
+      if (rest[0] === 'を' && tried === 'no') return NOTES.wo;
       if (/^n./.test(tried)) return note(rest, tried.slice(1));
       return null;
     }

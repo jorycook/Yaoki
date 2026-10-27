@@ -107,6 +107,10 @@ test('blame() puts the classic ん and っ slips on ん and っ', () => {
   assert.equal(b('いっしょ', 'is', 'h'), 'っ');
   assert.equal(b('きって', 'kitt', 'a'), 'て');
   assert.equal(b('せんせい', 'senn', 'd'), 'せ');
+  // also when ん or っ sits inside a longer joined token
+  assert.equal(b('ほんっと', 'hont', 'o'), 'っ');
+  assert.equal(b('あっっか', 'akk', 'a'), 'っ');
+  assert.equal(b('あっんな', 'axtunn', 'a'), 'ん');
 });
 
 test('runs of っ stay small, and their hint is one both IMEs take', () => {
@@ -115,7 +119,11 @@ test('runs of っ stay small, and their hint is one both IMEs take', () => {
   const started = Date.now();
   const tokens = T('あ' + 'っ'.repeat(8) + 'か');
   assert.ok(Date.now() - started < 200, 'tokenize took ' + (Date.now() - started) + ' ms');
-  assert.ok(tokens.every((t) => t.opts.length <= 300));
+  assert.ok(tokens.every((t) => t.opts.length <= 7000));
+  // up to five っ in a row, every spelling either IME takes is still accepted
+  for (const [w, typed] of [['あっっっっか', 'axtuxtuxtuxtuka'], ['あっっっっか', 'altultultultuka'], ['あっっっっっか', 'axtukkkkka'], ['あっっっちゃ', 'altucccha'], ['あっっしぇ', 'altsultsushe']]) {
+    assert.equal(typeAll(w, typed), true, `${w} as ${typed}`);
+  }
 });
 
 test('nextChars() lights the right keys around っ and ん', () => {
@@ -160,6 +168,8 @@ test('why() explains the usual learner slips', () => {
   assert.match(E.why(T('こんにちは'), 'konn', 'i'), /konnnichiha/);
   assert.equal(E.why(T('せんせい'), 'sen', 'a'), null);
   assert.equal(E.why(T('でんわ'), 'den', 'a'), null);
+  // ほんを spells honwo: a lone n is right there, so no nn note
+  assert.equal(E.why(T('ほんを'), 'hon', 'a'), null);
 });
 
 test('every built-in prompt types out by its hint', () => {
