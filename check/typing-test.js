@@ -552,25 +552,24 @@ async function waitFor(fn, ms = 5000) {
   check('the round starts its music, quietly at first', ms.includes('start:' + s.song) && ms.includes('level:0') && !!s.song, ms.join(' '));
   check('the round is played in a scene', !!s.scene === !!(await page.evaluate(() => window.TypingScenes)), String(s.scene));
   check('Yaoki says something as the round starts', !!s.yaoki.bubble, JSON.stringify(s.yaoki));
-  const kinds = {};
-  const note = async (t) => {
-    const c = (await state(page)).cards.find((x) => x.state === 'done' && x.text === t && x.trick);
-    if (c) kinds[c.trick] = (kinds[c.trick] || 0) + 1;
-  };
+  // each card is typed once Yaoki is free, so it gets its own trick when it reaches him
+  const free = () => waitFor(async () => {
+    const st = await state(page);
+    return st.phase !== 'play' || (!st.yaoki.trick && !st.cards.some((x) => x.state === 'done' && (x.phase === 'ride' || x.phase === 'trick')));
+  }, 6000);
   // five clean cards: jumps, then a spin for the fifth (a run of five); the run livens the music
   for (let i = 0; i < 5; i++) {
+    await free();
     const c = await target(page);
-    await sleep(250);
     await page.keyboard.type(c.key, { delay: 20 });
-    await note(c.text);
   }
   ms = await musicLog(page);
   check('a clean run of five livens the music, with a fill', ms.includes('level:2') && ms.includes('cue:step'), ms.join(' '));
   // a slip: that card is ducked under
-  let c6 = await target(page);
+  await free();
+  const c6 = await target(page);
   await page.keyboard.press('1');
   await page.keyboard.type(c6.key, { delay: 20 });
-  await note(c6.text);
   check('cleared cards ride on to Yaoki and he gets past each with a trick', await waitFor(async () => {
     const tr = (await state(page)).tricks;
     return tr.jump + tr.spin + tr.duck + tr.smash >= 2;
@@ -588,15 +587,16 @@ async function waitFor(fn, ms = 5000) {
   check('a fall drops the music back', (await musicLog(page)).includes('cue:fall'));
   await waitFor(async () => !(await state(page)).falling, 5000);
   check('…and the groove comes back after it', (await musicLog(page)).slice(-3).some((x) => x === 'level:1'), (await musicLog(page)).slice(-4).join(' '));
-  await playOut(page, async (c) => {
-    await sleep(200);
-    await page.keyboard.type(c.key, { delay: 20 });
-    await note(c.text);
-  }, 120000);
-  check('the tricks suit the cards: jump, spin in a run of five, duck after a slip, smash for a comeback', kinds.jump >= 1 && kinds.spin >= 1 && kinds.duck >= 1 && kinds.smash >= 1, JSON.stringify({ kinds, fell: fallCard.text }));
+  await playOut(page, async () => {
+    await free();
+    const c = (await state(page)).target;
+    if (c) await page.keyboard.type(c.key, { delay: 20 });
+  }, 150000);
+  const done = (await state(page)).tricks;
+  check('he does each trick: jump, spin in a run of five, duck after a slip, smash for a comeback', done.jump >= 1 && done.spin >= 1 && done.duck >= 1 && done.smash >= 1, JSON.stringify({ done, fell: fallCard.text }));
   ms = await musicLog(page);
   check('the last card and the end have their music', ms.includes('cue:last') && ms.includes('cue:end'), ms.slice(-6).join(' '));
-  check('the scene drew all round without failing', !(await state(page)).sceneFailed);
+  check('the scene drew all round without failing', !(await state(page)).sceneFailed && !(await page.evaluate(() => !!(window.TypingScenes && window.TypingScenes.draw.warned))));
   await page.keyboard.press('Escape');
   check('the music stops on the menu', (await musicLog(page)).slice(-1)[0] === 'stop');
   // with the music off, no music

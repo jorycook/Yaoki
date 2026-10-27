@@ -435,6 +435,8 @@
   }
   function hanamaru(ctx, x, y, r, k) {
     if (k <= 0) return;
+    // the scallops reach about 1.3 r from the centre: keep them inside the top of the scene
+    r = Math.max(8, Math.min(r, (y - F.top - 2) / 1.3));
     const s = r / 20;
     ctx.save();
     ctx.translate(x, y);
@@ -667,7 +669,7 @@
       fuji: '#CBD6E9', fujiShade: '#C2CDE3', cap: '#F3F6FB', far: '#D7DEEB', chimney: '#CDD5E5',
       wall: '#EAE4D8', wood: '#DDD1BD', roof: '#C0CADC', roofLine: '#B3BDD1', win: '#D6DFEC', winOff: '#D6DFEC',
       noren: '#C7D2EA', noren2: '#E8D3C9', woodLine: ['#CDBFA8', 0.8], plant: '#C3D5BD', vend: '#D4E0EF', vendLit: '#F2EFE4',
-      pole: '#C0C8D7', wire: '#B4BCCD', ground: '#EEECE5',
+      pole: '#C0C8D7', wire: '#B4BCCD', ground: '#F0EFE9',
     },
     dark: {
       fuji: '#19213B', fujiShade: '#161D35', cap: '#2A3454', far: '#121830', chimney: '#141A32',
@@ -792,7 +794,7 @@
     light: {
       b1: '#D7E5D3', n1: '#CCDCC8', l1: '#D0E0CB', b2: '#C8DBC3', n2: '#B9CFB4', l2: '#C2D7BC',
       b3: '#BCD2B6', n3: '#AAC4A4', l3: '#B6CEB0', shaft: ['#FFFFFF', 0.45], glowGold: ['#F7DE8C', 0.75], gold: '#EBD9A0',
-      ground: '#EBEEE3', groundEdge: '#E2E8D8',
+      ground: '#EDF0E6', groundEdge: '#E2E8D8',
     },
     dark: {
       b1: '#1A2C33', n1: '#20343A', l1: '#1A2D31', b2: '#15262D', n2: '#1D3238', l2: '#16292D',
@@ -888,7 +890,7 @@
     light: {
       sea: '#CDE2EC', seaFar: '#D9EAF0', foamNear: ['#EDF5F8', 0.9], island: '#CCDAE6', wave: '#BCD5E4', waveIn: '#C8DEEA', waveLine: ['#F5FAFC', 0.8],
       swell: '#C3DAE7', foam: '#F4F9FB', spray: ['#FFFFFF', 0.8], hull: '#C6D1E1', sail: '#FAF6EC', gull: ['#8E9DB8', 0.7],
-      lh: '#F6F4EF', lhBand: '#EEC9BE', lhRoof: '#C3CDDF', glint: ['#FFFFFF', 0.7], ground: '#F1EBDD', groundEdge: '#E9E1CF',
+      lh: '#F6F4EF', lhBand: '#EEC9BE', lhRoof: '#C3CDDF', glint: ['#FFFFFF', 0.7], ground: '#F3EEE1', groundEdge: '#E9E1CF',
     },
     dark: {
       sea: '#101A31', seaFar: '#141F38', island: '#121A30', wave: '#17223D', waveIn: '#1A2643', waveLine: ['#3A4A72', 0.6],
@@ -1072,7 +1074,7 @@
     light: {
       fuji: '#C1CDE5', fujiShade: '#B5C2DD', cap: '#F7F8FC', fujiRef: ['#B8C6DE', 0.35], cloud: ['#FFFFFF', 0.65],
       r1: '#CDD8E8', r2: '#C3D3DF', lake: '#D9E6EF', lakeLine: ['#F6F9FB', 0.9], pine: '#BACCC8', pine2: '#B0C4C1', trunk: '#C9BFB3',
-      crane: ['#8F9AB4', 0.7], ray: ['#FFF4D8', 0.8], ground: '#EEEDE5', groundEdge: '#E6E5DA',
+      crane: ['#8F9AB4', 0.7], ray: ['#FFF4D8', 0.8], ground: '#F0EFE7', groundEdge: '#E6E5DA',
     },
     dark: {
       fuji: '#1A223E', fujiShade: '#161D36', cap: '#2D3759', fujiRef: ['#2D3759', 0.3], cloud: ['#1F2846', 0.6],
@@ -1185,7 +1187,7 @@
       far: '#DEDCEC', farWin: '', mid: '#D7D9EA', side: '#CDD0E4', win: '#E3E6F2', winOff: '#DDE0EE', roofThing: '#CBCEE2',
       s1: '#F2D6E2', s2: '#D2ECE5', s3: '#F5EAC6', s4: '#D9E1F6', t1: '#C99AB0', t2: '#8FB8AD', t3: '#C4AE73', t4: '#9AA8D0',
       tower: '#F0CDBF', towerW: '#F7F3EE', towerLine: ['#E2B8A8', 1], post: '#C3C8DA', lamp: '#EEF0F6',
-      ground: '#EDECF2', groundEdge: '#E3E2EC',
+      ground: '#EEEEF3', groundEdge: '#E3E2EC',
     },
     dark: {
       far: '#141732', farWin: ['#F3D47E', 0.2], mid: '#10132A', side: '#0C0F23', win: ['#F3D47E', 0.32], winOff: '#151931', roofThing: '#0E1127',
@@ -1354,7 +1356,7 @@
     light: {
       m1: '#D3DDE9', m2: '#C9D9D7', pad1: '#D3E6C4', pad2: '#CBE0BA', pad3: '#D9EACB', pad4: '#CFE3BE', riser: '#BED2AC',
       sprout: ['#AFCB9A', 0.9], thatch: '#DBCFB0', thatchDark: '#CDC09F', fwall: '#EFEAE0', fwood: '#D9CCB5', tree: '#C3D9B5', trunk: '#CDBFAA',
-      pole: '#C9BBA0', hat: '#E5D5AC', cloth: '#D1DBEE', cloth2: '#EBD1C7', face: '#F5EEDF', ground: '#EEEDE2', groundEdge: '#E4E6D6',
+      pole: '#C9BBA0', hat: '#E5D5AC', cloth: '#D1DBEE', cloth2: '#EBD1C7', face: '#F5EEDF', ground: '#F0EFE5', groundEdge: '#E4E6D6',
     },
     dark: {
       m1: '#151C33', m2: '#121A2E', pad1: '#141D32', pad2: '#121A2E', pad3: '#162036', pad4: '#131B2F', riser: '#1C2740',
@@ -1645,7 +1647,7 @@
       rabbit: '#D7CAAC', mochi: '#FBF8F0', d1: '#F3CBD5', d2: '#F8F3EA', d3: '#CDE3C7', skewer: ['#C9C0E3', 1],
       ringed: '#D6CEEE', ring: ['#C0B6E4', 1], earth: '#CBDDF2', land: '#D3E7CB', hill: '#E1DDEC', crater: '#D6D1E5',
       neb1: ['#EED8EC', 0.5], neb2: ['#D6E0F4', 0.55], rocket: '#F7F4EE', fin: '#CFC6EA', porthole: '#C3D5EE', flame: ['#F4C892', 0.9], trail: ['#C9C0E3', 0.9],
-      shoot: ['#FFFFFF', 0.9], ground: '#EBE8F2', groundEdge: '#E2DEEC',
+      shoot: ['#FFFFFF', 0.9], ground: '#F0EDF5', groundEdge: '#E2DEEC',
     },
     dark: {
       star: ['#E8EBF6', 0.75], star2: ['#F2D9A0', 0.65], moon: '#DCD3B9', moonShade: '#C9BF9F', moonGlow: ['#8C9BD6', 0.25],
@@ -1703,8 +1705,8 @@
       drawLayer(ctx, L.planets, f.scroll * 0.06);
       rocket(ctx);
       const mx = f.W * (0.84 - 0.18 * f.pj);
-      const my = 50 - 4 * f.pj;
-      const mr = 28 + 9 * f.pj;
+      const my = 50 + 6 * f.pj;
+      const mr = 28 + 4 * f.pj;
       moonRabbit(ctx, mx, my, mr);
       // the finishing touch: the Earth rises over the hills
       if (f.fin > 0) {
@@ -1880,7 +1882,7 @@
     light: {
       surface: '#E6F5F6', ray: ['#FFFFFF', 0.32], rock: '#BED6D9', rockFar: '#C8DEE1', rock2: '#BDD5D6', kelp: '#B8D6C4', kelp2: '#ADCDBB',
       c1: '#F0D2CF', c2: '#E1D3EB', c3: '#F0E0C1', f1: '#F2CDB5', f2: '#C8DBF0', f3: '#EFE1B5', fin2: '#FBF6EE', jelly: ['#F2D8EA', 0.85], star5: '#F0CFB8',
-      whale: '#C2D8E0', whaleBelly: '#D2E4EA', eye: '#9AAAC0', ground: '#EEEADC', groundEdge: '#E6E1CF',
+      whale: '#C2D8E0', whaleBelly: '#D2E4EA', eye: '#9AAAC0', ground: '#F2EFE4', groundEdge: '#E6E1CF',
     },
     dark: {
       surface: '#13293A', ray: ['#7CC3D2', 0.07], rock: '#0D1B28', rock2: '#0B1823', kelp: '#0F2629', kelp2: '#0C2024',
@@ -2113,7 +2115,7 @@
     light: {
       far: '#D9D6E8', frame: '#D6CBBA', counter: '#E7DECF', aw1: '#F1D2CC', aw2: '#FAF3EA', aw3: '#D3DDF0', noren: '#E3E8F4',
       norenText: '#9AA3BF', string: ['#BDB7CA', 1], pole: '#CDC4D4', lantern: '#FBEBCB', lanternCap: '#D9C4A2', lanternRib: ['#E6D3AE', 1],
-      fw1: ['#F0B4C4', 0.6], fw2: ['#9FD3DD', 0.6], fw3: ['#F0CF84', 0.65], fw4: ['#BDB1EA', 0.6], ground: '#EEEAE5', groundEdge: '#E5E0DA',
+      fw1: ['#F0B4C4', 0.6], fw2: ['#9FD3DD', 0.6], fw3: ['#F0CF84', 0.65], fw4: ['#BDB1EA', 0.6], ground: '#F1EEE9', groundEdge: '#E5E0DA',
     },
     dark: {
       far: '#13162E', frame: '#1C1F35', counter: '#22253D', aw1: '#3A2A3E', aw2: '#2A2D46', aw3: '#22305A', noren: '#262E50',
@@ -2288,7 +2290,7 @@
       m1: '#D2DCE9', deck: '#C6CEDC', pier: '#D0D7E3', hill: '#CDDFD2', hill2: '#C3D8C8', roof: '#C9D2E4', hwall: '#EEEAE2',
       field: '#DCE8CF', row: ['#CCDCBD', 0.7], pole: '#C6CCDA', wire: ['#BAC1D1', 1], body: '#F6F3EB', stripe: '#BCD1EC', stripe2: '#EED5A6',
       twin: '#D0DAEA', xpost: '#CDD2DE', xboard: '#EBDDAE', xboard2: '#C9CEDA', sign: '#FBFAF6', signLine: '#BCD1EC', signText: '#7D87A6',
-      ground: '#EEEDE6', groundEdge: '#E5E4DA',
+      ground: '#F0EFE8', groundEdge: '#E5E4DA',
     },
     dark: {
       m1: '#151C34', deck: '#1E263E', pier: '#182036', hill: '#121A2E', hill2: '#10172A', roof: '#10162A', hwall: '#161D32', hlit: ['#F0C46B', 0.5],
@@ -2384,8 +2386,8 @@
       train(ctx);
       drawLayer(ctx, L.hills, f.scroll * 0.22);
       // the finishing touch: the station sign of やおき, the stop after ななころび
-      if (f.fin > 0) stationSign(ctx, f.W * (1.12 - 0.3 * f.fin), 148);
       drawLayer(ctx, L.fields, f.scroll * 0.55);
+      if (f.fin > 0) stationSign(ctx, f.W * (1.12 - 0.3 * f.fin), 148);
       ground(ctx, 'groundEdge');
       seasonal(ctx);
       hanamaru(ctx, sx, sy, 21, f.fin);
@@ -2435,9 +2437,9 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = FONT_STATION;
-      ctx.fillText('やおき', 0, -49);
+      ctx.fillText('やおき', 0, -50);
       ctx.font = FONT_SMALL;
-      ctx.fillText('YAOKI', 0, -42);
+      ctx.fillText('YAOKI', 0, -41);
       ctx.textAlign = 'left';
       ctx.fillText('ななころび', -32, -30);
       ctx.globalAlpha = 1;
@@ -2452,7 +2454,7 @@
     light: {
       hill: '#CEDAE2', stone: '#D9D3C7', stoneLine: ['#CBC4B6', 1], cwall: '#F4F2EC', croof: '#B6C1D7', croofEdge: '#A7B3CC', cwin: '#C9D2E2', gold: '#E9D49A',
       far: '#D6DDEA', wall: '#E8E3D7', wroof: '#C0C9DB', namako: ['#D6D9E1', 0.7], pine: '#BDCFC5', pine2: '#B1C5BB', trunk: '#CDBFAD',
-      moat: '#D4E4EB', ripple: ['#F2F7FA', 0.9], k1: '#F4CFB5', k2: '#FBF6EE', ground: '#EEECE5', groundEdge: '#E5E2D9',
+      moat: '#D4E4EB', ripple: ['#F2F7FA', 0.9], k1: '#F4CFB5', k2: '#FBF6EE', ground: '#F0EFE9', groundEdge: '#E5E2D9',
     },
     dark: {
       hill: '#141B32', stone: '#1A2036', stoneLine: ['#232A42', 1], cwall: '#2C3554', croof: '#141A2E', croofEdge: '#1D2440', cwin: ['#F0C46B', 0.55], gold: '#8C7A4C',

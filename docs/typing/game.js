@@ -473,6 +473,7 @@
     hush();
     setPhase('play');
     startMusic();
+    if (document.hidden) setPhase('paused');
     resize();
     if (modeId === 'course' && saved.sound) loadSound(level, unit);
     setStatus('', '');
@@ -675,8 +676,15 @@
     }
     if (target) r.active += dt;
 
-    // the card of a trick in progress is held where it is: the trick moves it
-    for (const c of r.cards) if (c.phase !== 'trick') c.x -= speed * dt;
+    // the card of a trick in progress is held where it is: the trick moves it; a cleared card
+    // whose stamp is still landing waits at the trick line, so its trick starts in front of him
+    const line = view.yx + REACH + TRICK_LEAD;
+    for (const c of r.cards) {
+      if (c.phase === 'trick') continue;
+      const nx = c.x - speed * dt;
+      c.x = c.phase === 'ride' && c.stampT < 0.2 ? Math.max(nx, Math.min(c.x, line)) : nx;
+    }
+    r.speedNow = speed;
     r.scroll += speed * dt;
     r.rock += dt * Math.min(speed, 160) / 40;
 
@@ -727,7 +735,8 @@
         if (!r.started) {
           r.started = true;
           cheer('start', 1.4, { first: true });
-        } else if (r.cleared + r.skipped === r.total - 1) {
+        } else if (r.cleared + r.skipped === r.total - 1 && r.lastFor !== t) {
+          r.lastFor = t;
           cheer('last', 1.4);
           if (r.musicOn) music('cue', 'last');
         }
@@ -945,7 +954,7 @@
     } else if (card.star) {
       cheer('star', 1.2);
     }
-    if (r.runRecordAt && r.bestRun === r.runRecordAt && !r.hintModes.has('always')) cheer('record', 1.4);
+    if (r.runRecordAt && r.bestRun === r.runRecordAt && !r.said.has('record') && !r.hintModes.has('always')) cheer('record', 1.4);
 
     // The stamp's ink, on the corner badge; a clean card's stamp throws a few drops.
     card.inkOn = 'badge';
@@ -1262,9 +1271,9 @@
   }
 
   // ---------- sound effects (sfx.js) ----------
-  // "Quiet" plays a stamp for each card, a drum for a fall and a bounce for getting up; "All"
-  // also ticks for each right romaji key and knocks for a miss. The audio output is only ever
-  // made on a key press or a click.
+  // "Quiet" plays a stamp for each card, a drum for a fall, a bounce for getting up and a sound
+  // for each trick; "All" also ticks for each right romaji key and knocks for a miss. The audio
+  // output is only ever made on a key press or a click.
 
   let sfxReady = false;
   const SFX_ALL_ONLY = new Set(['key', 'miss']);
@@ -2167,8 +2176,9 @@
     r.fxDrawn = 0;
     const target = targetCard();
     for (const c of r.cards) if (c.state === 'done') drawCard(c, false);
-    drawYaoki();
+    // his bubble under him: at the top of a jump he passes in front of it
     drawBubble();
+    drawYaoki();
     drawFx();
     for (const c of r.cards) if (c.state !== 'done') drawCard(c, c === target);
     const under = r.fall ? r.fall.card : target;
@@ -2475,7 +2485,7 @@
     c.phase = 'trick';
     yk.hopT = 0;
     yk.trick = {
-      kind, card: c, t: 0, len: spec.len * (r.finale !== null ? 0.7 : 1),
+      kind, card: c, t: 0, len: trickLength(c, spec),
       // where the card goes as it passes him, and where its node lands behind him
       pass: view.yx - 22 - c.w - c.x,
       nodeOff: view.yx - NODE_BACK - (c.x + c.w / 2),
@@ -2488,6 +2498,18 @@
     yk.fx = { ja: word && word.ja ? word.ja : spec.ja, t: kind === 'smash' ? -spec.hit * spec.len : 0, x: view.yx + at[0], y: at[1], tilt: kind === 'duck' ? 0.1 : -0.14, big: kind === 'smash' };
     if (kind !== 'smash') sfx(kind);
     r.tricks[kind]++;
+  }
+  // As long as the trick's own, or shorter (down to 0.35 s) when the next cleared card will
+  // reach him sooner: so most cards get a trick even when they come close together.
+  function trickLength(c, spec) {
+    let len = spec.len * (r.finale !== null ? 0.7 : 1);
+    const line = view.yx + REACH + TRICK_LEAD;
+    const speed = Math.max(1, r.speedNow || r.speed);
+    for (const o of r.cards) {
+      if (o === c || o.state !== 'done' || o.phase !== 'ride' || o.x < c.x) continue;
+      len = Math.min(len, Math.max(0.35, (o.x - line) / speed - 0.05));
+    }
+    return len;
   }
   function updateTrick(dt) {
     const tr = r.yk.trick;
@@ -2727,7 +2749,7 @@
   function yaokiPose() {
     const still = reducedMotion.matches;
     const yk = r ? r.yk : null;
-    const p = { x: view.yx, lift: 0, rot: 0, sx: 1, sy: 1, lookX: 0, lookY: 0, eyes: 'open', brows: 'normal', mouth: 'normal', blush: false, sweat: false, dizzy: 0 };
+    const p = { x: view.yx, lift: 0, rot: 0, sx: 1, sy: 1, lookX: 0, lookY: 0, eyes: 'open', brows: 'normal', mouth: 'normal', blush: false, sweat: false, dizzy: 0, pivot: 0 };
     if (!r) return p;
     const t = r.time;
 
@@ -2821,7 +2843,10 @@
         p.sx *= 0.94 + 0.06 * k;
         p.lookY = 1;
         p.mouth = 'happy';
-        if (tr.kind === 'spin') p.rot = 2 * Math.PI * smooth(0.05, 0.95, k);
+        if (tr.kind === 'spin') {
+          p.rot = 2 * Math.PI * smooth(0.05, 0.95, k);
+          p.pivot = 29;
+        }
       } else {
         const k = Math.sin(Math.PI * Math.min(1, (u - b) / 0.14));
         p.sy *= 1 - 0.14 * k;
@@ -2889,10 +2914,10 @@
     ctx.save();
     ctx.translate(p.x, GROUND - p.lift);
     // a spin turns about his middle, not his base
-    if (p.lift > 0 && Math.abs(p.rot) > 0.5) {
-      ctx.translate(0, -29);
+    if (p.pivot) {
+      ctx.translate(0, -p.pivot);
       ctx.rotate(p.rot);
-      ctx.translate(0, 29);
+      ctx.translate(0, p.pivot);
     } else {
       ctx.rotate(p.rot);
     }
