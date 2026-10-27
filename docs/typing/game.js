@@ -1422,7 +1422,8 @@
     const next = tier === 0 && counts && !r.course ? nextStage(r.key) : null;
     const btn = $('res-next');
     btn.hidden = !next;
-    if (next) btn.innerHTML = ja('次のステージ') + '　Next: ' + ja(next.ja) + ' ' + esc(next.en);
+    // one span, so a narrow screen wraps it as a line of text, not piece by piece
+    if (next) btn.innerHTML = '<span>' + ja('次のステージ') + '　Next: ' + ja(next.ja) + ' ' + esc(next.en) + '</span>';
   }
   function nextStage(key) {
     const [mode, id] = key.split(':');

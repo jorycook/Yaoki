@@ -1,5 +1,5 @@
 // Plays Yaoki Typing (docs/typing/) in a browser with real key presses.
-// Run: node check/typing-test.js            (SHOTS=<dir> keeps screenshots; takes about 4 minutes)
+// Run: node check/typing-test.js            (SHOTS=<dir> keeps screenshots; takes about 6 minutes)
 'use strict';
 
 const path = require('node:path');
