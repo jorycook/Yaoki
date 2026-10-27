@@ -478,6 +478,13 @@
     const [text, reading] = head.split(':');
     return { text, reading, gloss };
   });
+  // The room a hidden reading is given, in kana, from the kanji shown alone: two and a half for
+  // each kanji (and a half over), one for anything else. Every item's reading fits it.
+  function readingSlots(text) {
+    const chars = Array.from(text);
+    const n = chars.filter((ch) => /[一-鿿々〆ヶ]/.test(ch)).length;
+    return Math.ceil(2.5 * n + 0.5) + chars.length - n;
+  }
   const KANJI_STAGES = [
     {
       id: 'single', ja: '一字', en: 'Single kanji',
@@ -581,7 +588,7 @@
   ];
 
   const api = {
-    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, blame, choices, why, keyFor, fingerFor, rowOf,
+    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, blame, choices, why, keyFor, fingerFor, rowOf, readingSlots,
     SINGLE, COMBO, SYMBOL_KEYS, PUNCT_KEYS, KANA_KEYS, KANA_SHIFT_KEYS,
     KANA_STAGES, KANJI_STAGES, SYMBOL_STAGES, KANA_KEY_STAGES,
   };

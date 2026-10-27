@@ -194,6 +194,7 @@ test('every kanji item has its reading and meaning, and the reading types out by
       assert.ok(!/[\u4e00-\u9fff]/.test(it.reading), `${stage.id}: the reading of ${it.text} is kana`);
       assert.ok(!seen.has(it.text), `${it.text} is not repeated`);
       seen.add(it.text);
+      assert.ok(Array.from(it.reading).length <= E.readingSlots(it.text), `${stage.id}: the reading of ${it.text} fits the room kept for it`);
       const hint = E.spell(T(it.reading));
       assert.equal(typeAll(it.reading, hint), true, `${stage.id}: ${it.text} (${it.reading}) typed as ${hint}`);
     }

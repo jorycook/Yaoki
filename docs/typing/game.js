@@ -569,6 +569,9 @@
     return w > room ? Math.max(least, Math.floor(size * room / w)) : size;
   }
 
+  // The room a long card's text is kept to while its type can stay readable.
+  const niceRoom = () => Math.max(160, 0.45 * (view.W - view.yx)) - 28;
+
   // The prompt's type size: smaller for long prompts (not under 14 while it fits), and never
   // wider than a card may be.
   function promptSize(item) {
@@ -576,7 +579,7 @@
     const n = Array.from(item.text).length;
     const size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
     const least = (/[一-鿿]/.test(item.text) ? 12 : 10) / view.s;
-    const nice = fit(item.text, size, Math.max(160, 0.45 * (view.W - view.yx)) - 28, Math.max(14, least));
+    const nice = fit(item.text, size, niceRoom(), Math.max(14, least));
     return fit(item.text, nice, maxCard() - 28, 8);
   }
   // Small type (readings, the lines under the route): at least about 9 CSS pixels.
@@ -584,9 +587,9 @@
   function readingSize(item, room = maxCard() - 28) {
     return fit(item.reading, Math.min(16, small(12)), room, 8);
   }
-  // A hidden reading's room, in kana: about three for each kanji shown and one for anything
-  // else, so the room (on the card and under the game) tells nothing of the answer.
-  const readingSlots = (item) => Array.from(item.text).reduce((n, ch) => n + (/[一-鿿々〆ヶ]/.test(ch) ? 3 : 1), 0);
+  // A hidden reading's room, in kana, from the kanji shown: so the room (on the card and under
+  // the game) tells nothing of the answer.
+  const readingSlots = (item) => E.readingSlots(item.text);
 
   function cardWidth(item) {
     if (item.kind !== 'romaji') return 70;
@@ -596,7 +599,8 @@
     ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
     if (item.hidden) {
-      w = Math.max(w, readingSlots(item) * Math.min(16, small(12)));
+      // (but no wider than the text, or the room promptSize keeps long cards to, for the pace)
+      w = Math.max(w, Math.min(readingSlots(item) * Math.min(16, small(12)), Math.max(w, niceRoom())));
     } else if (item.reading && item.reading !== item.text) {
       ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
       w = Math.max(w, ctx.measureText(item.reading).width);
@@ -756,6 +760,11 @@
       const fresh = t !== r.target;
       r.target = t;
       t.idle += dt;
+      // a gentle nudge before any hint, once a card (checked before a hint starts the wait again)
+      if (t.idle >= 3.5 && !t.nudged && !t.typed) {
+        t.nudged = true;
+        cheer('idle', 1.6);
+      }
       // the hint first, so the card is said and shown with it (a kanji with its reading)
       raiseHint(t);
       if (fresh) {
@@ -772,11 +781,6 @@
         }
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
-      }
-      // a gentle nudge before any hint, once a card
-      if (t.idle >= 3.5 && !t.nudged && !t.typed) {
-        t.nudged = true;
-        cheer('idle', 1.6);
       }
     } else if (r.target && !r.fall) {
       r.target = null;
@@ -1445,6 +1449,7 @@
       if (r) r.hintModes.add(saved.hints);
       if (was === 'paused' && r) {
         r.spokenAt = -9;
+        r.pendingSpeak = null;
         r.target = null;
         // the music goes on (or starts, if it was turned on during the pause)
         wakeAudio();
@@ -1524,11 +1529,13 @@
       rd.style.minWidth = 'min(' + readingSlots(it) + 'em, 100%)';
       if (readingShown(card)) rd.textContent = it.reading;
       else {
-        // a space keeps the line's height, so a reading on a line of its own does not push it
         rd.textContent = '\u3000';
         rd.setAttribute('aria-hidden', 'true');
       }
       box.appendChild(rd);
+      // and its height: the lines the room needs where the line is narrow, shown or not
+      const room = box.clientWidth;
+      if (room) rd.style.minHeight = Math.ceil(readingSlots(it) * (parseFloat(getComputedStyle(rd).fontSize) || 17) / room) + 'lh';
     }
     if (it.gloss) {
       const en = document.createElement('span');
