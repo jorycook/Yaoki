@@ -5,8 +5,10 @@
  * grows, a taiko "don" when Yaoki falls and a little bounce when he is up again.
  *
  * It keeps its own audio output, apart from the app's player for the word clips (sound.js),
- * and makes it only on a key press or a click, as browsers ask. Every call is safe without
- * audio: it just makes no sound.
+ * and makes it only on a key press or a click, as browsers ask. Like that player, it gives the
+ * output back when the page is hidden (a phone can leave an output silent after a spell in
+ * the background) and the next key press makes a new one. Every call is safe without audio:
+ * it just makes no sound.
  */
 (function () {
   'use strict';
@@ -137,14 +139,34 @@
     },
   };
 
+  // Give the audio output back; unlock() makes a new one.
+  function sleep() {
+    if (!ctx) return;
+    try {
+      const closing = ctx.close();
+      if (closing && closing.catch) closing.catch(() => {});
+    } catch (err) {
+      // already closed
+    }
+    ctx = null;
+    master = null;
+    noiseBuf = null;
+    lastTick = 0;
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') sleep();
+  });
+
   window.TypingSfx = {
     // Wake the output; call it from a key press or a click.
     unlock() {
       context();
     },
+    sleep,
+    // Plays on an output a key press or click has made: never makes one by itself.
     play(name, opts) {
       const fn = SOUNDS[name];
-      const c = fn && context();
+      const c = fn && ctx ? context() : null;
       if (!c || c.state !== 'running') return false;
       const t = c.currentTime + 0.005;
       if (name === 'key') {

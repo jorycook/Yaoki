@@ -106,6 +106,7 @@ async function waitFor(fn, ms = 5000) {
       const s5 = await state(page);
       check('five clean cards in a row light the run chip', s5.run === 5 && (await page.$('#hud-run-chip.step')) !== null, JSON.stringify({ run: s5.run }));
       check('…and Yaoki cheers いいね！ with a smile', s5.yaoki.bubble === 'いいね！' && s5.yaoki.happy, JSON.stringify(s5.yaoki));
+      check('…and the step is said with the next card', await waitFor(async () => /5 clean in a row/.test(await page.textContent('#sr-prompt')), 4000), await page.textContent('#sr-prompt'));
       if (shots) {
         await sleep(120);
         await page.screenshot({ path: `${shots}/run-step.png` });
@@ -514,6 +515,7 @@ async function waitFor(fn, ms = 5000) {
   kt = await target(page);
   await page.keyboard.type(kt.spell.slice(kt.typed.length), { delay: 25 });
   check('all: a tick for each right key', (await sounds(page)).includes('key'));
+  check('a card cleared after a miss ends the clean run', (await state(page)).run === 0);
   await target(page);
   await page.keyboard.press('1');
   await page.keyboard.press('1');
@@ -603,9 +605,53 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('Escape');
   check('…its weak spots and best are kept', /\(1\)/.test(await page.textContent('#start-weak')) && (await stored(page)).best['symbol:plain'] === 55);
   await page.click('#start');
-  await sleep(11000);
+  await sleep(5000);
+  await page.keyboard.press('1');
+  await page.keyboard.down('Shift');
+  // a held key's repeats are not typing
+  for (let i = 0; i < 100; i++) {
+    await page.evaluate(() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Shift', code: 'ShiftLeft', shiftKey: true, repeat: true })));
+    await sleep(100);
+  }
+  await page.keyboard.up('Shift');
   const idle = (await state(page)).practice;
-  check('typing time stops 8 seconds after the last key', idle >= 7 && idle <= 8.6, 'practice ' + idle);
+  check('a key restarts typing time, which stops 8 seconds after the last press (held keys do not count)', idle >= 12.4 && idle <= 13.6, 'practice ' + idle);
+  await quit(page);
+  await page.close();
+
+  // ---- the stamp card's seventh day completes it; a lower goal stamps at once; leaving keeps the time
+  page = await open({}, { 'yaoki.typing.v1': {
+    mode: 'symbol', stage: { symbol: 'plain' }, len: 10, hints: 'stuck', goal: 3, practice: { d: '2026-10-27', s: 179 }, seal: { 'symbol:plain': ['2026-10-27'] },
+    stampCard: { days: ['2026-10-19', '2026-10-20', '2026-10-21', '2026-10-22', '2026-10-23', '2026-10-24'], done: 0, lastDay: '2026-10-24' },
+  } }, [SFX_STUB, CLOCK]);
+  check('the stamp card shows six days', (await page.textContent('#day-count')) === '6 / 7');
+  await page.click('#start');
+  await playOut(page, async (c) => {
+    await sleep(150);
+    await page.keyboard.type(c.key, { delay: 20 });
+  });
+  saved = await stored(page);
+  check('the seventh day completes the card, and a new one starts', saved.stampCard.days.length === 0 && saved.stampCard.done === 1
+    && (await page.textContent('#res-day-count')) === '7 / 7' && /Card complete/.test(await page.textContent('#res-day-line')), JSON.stringify(saved.stampCard));
+  check('…and the screen reader hears it', await waitFor(() => page.evaluate(() => /Stamp card complete/.test(document.getElementById('sr-prompt').textContent)), 1500), await page.textContent('#sr-prompt'));
+  check('one ring a day towards a stage\'s はなまる', saved.seal['symbol:plain'].length === 1 && /Today's ring/.test(await page.textContent('#res-seal-text')), JSON.stringify(saved.seal));
+  await page.keyboard.press('Escape');
+  check('the menu shows the new card and the finished one', (await page.textContent('#day-count')) === '0 / 7' && /完成 1枚/.test(await page.textContent('#day-done')));
+  await page.close();
+  page = await open({}, { 'yaoki.typing.v1': { mode: 'symbol', stage: { symbol: 'plain' }, len: 10, goal: 5, practice: { d: '2026-10-27', s: 200 } } }, [SFX_STUB, CLOCK]);
+  check('the day card adds up: time typed and time left make the goal', /3:20 \/ 5:00/.test(await page.textContent('#day-line')) && /1:40/.test(await page.textContent('#day-hint')));
+  await page.click('#open-settings');
+  await page.click('#goal-seg button:nth-child(1)');
+  await page.click('#close-settings');
+  check('a goal already met today stamps the day at once', (await page.textContent('#day-count')) === '1 / 7');
+  await page.click('#start');
+  for (let i = 0; i < 3; i++) {
+    const c = await target(page);
+    await page.keyboard.type(c.key, { delay: 20 });
+  }
+  const leftAt = (await stored(page)).practice.s;
+  await page.evaluate(() => window.dispatchEvent(new Event('pagehide')));
+  check('a page closed mid-round keeps its typing time', (await stored(page)).practice.s > leftAt);
   await quit(page);
   await page.close();
 
@@ -630,17 +676,18 @@ async function waitFor(fn, ms = 5000) {
     check('the bar counts the skipped card', (await page.getAttribute('#progress', 'aria-label')) === 'Card ' + Math.min(s.cleared + 2, s.total) + ' of ' + s.total);
     // without motion: no ink, no hop
     let inked = 0;
-    let hopped = false;
+    let rm = null;
     await playOut(page, async (c) => {
       await page.keyboard.type(c.key, { delay: 20 });
       for (let i = 0; i < 4; i++) {
-        const now = await state(page);
-        inked = Math.max(inked, now.fx);
-        hopped = hopped || !!(now.yaoki && now.yaoki.hop);
+        rm = await state(page);
+        inked = Math.max(inked, rm.fx);
         await sleep(50);
       }
     });
-    check('with reduced motion, stamps land without ink and Yaoki does not hop', inked === 0 && !hopped, JSON.stringify({ inked, hopped }));
+    // the round asked for a hop (a comeback or a step of the run), and none was drawn
+    check('with reduced motion, stamps land without ink and Yaoki does not hop', inked === 0 && rm && rm.yaoki.liftMax === 0 && (rm.comebacks > 0 || rm.bestRun >= 5),
+      JSON.stringify({ inked, lift: rm && rm.yaoki.liftMax, comebacks: rm && rm.comebacks, bestRun: rm && rm.bestRun }));
     check('the result says a card was skipped', /skipped/.test(await page.textContent('#res-falls-en')) && /skipped/.test(await page.textContent('#res-line')));
     const was = before.symbol && before.symbol[waitingKey] ? before.symbol[waitingKey].miss : 0;
     const now = ((await stored(page)).stats.symbol || {})[waitingKey];
@@ -707,6 +754,22 @@ async function waitFor(fn, ms = 5000) {
   }, shiftCode));
   await page.close();
 
+  // ---- the smallest phones: the HUD, with two-digit counts, still fits at 320 px
+  page = await open({ viewport: { width: 320, height: 568 } });
+  await pick(page, 3, 1);
+  await page.click('#start');
+  await target(page);
+  await page.evaluate(() => {
+    document.getElementById('hud-run').textContent = '40';
+    document.getElementById('hud-falls').textContent = '12';
+    document.getElementById('hud-time').textContent = '12:34';
+  });
+  check('320px: the HUD fits, and the page does not scroll sideways', await page.evaluate(() => {
+    const h = document.querySelector('.hud');
+    return h.scrollWidth <= h.clientWidth && document.documentElement.scrollWidth <= 320;
+  }));
+  await page.close();
+
   // ---- small screens and touch: no sideways scroll, the keyboard note, the result
   page = await open({ viewport: { width: 375, height: 667 }, isMobile: true, hasTouch: true });
   check('375px phone: no sideways scrolling', await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
@@ -724,7 +787,9 @@ async function waitFor(fn, ms = 5000) {
   await waitFor(async () => ((await state(page)).yaoki || {}).bubble === 'よいしょ！', 25000);
   s = await state(page);
   const box = s.yaoki && s.yaoki.box;
-  check('375px phone: Yaoki\'s bubble stays in the scene, above the cards', box && box.x >= 4 && box.x + box.w <= s.W && box.y + box.h <= 120, JSON.stringify({ box, W: s.W }));
+  const cardTop = 168 - 74;
+  const hit = box && s.cards.some((c) => c.state === 'live' && box.x < c.x + c.w && c.x < box.x + box.w && box.y + box.h > cardTop);
+  check('375px phone: Yaoki\'s bubble stays in the scene, clear of the cards', box && !hit && box.x >= 0 && box.x + box.w <= s.W && box.y >= 0, JSON.stringify({ box, W: s.W, cards: s.cards }));
   if (shots) await page.screenshot({ path: `${shots}/phone-fall.png` });
   await playOut(page, (c) => page.keyboard.type(c.key, { delay: 10 }));
   let widest = 0;

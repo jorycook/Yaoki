@@ -55,6 +55,7 @@
   const HAPPY_T = 0.6;         // his smile after a clean card
   const CHEER_T = 1.2;         // a cheer's bubble
   const BUBBLE_POP = 0.15;
+  const VOICE_T = 0.9;          // a course word's clip: no effect sound over it
   const DAY_TILTS = [-9, 6, -4, 8, -7, 5, -10];
 
   // ---------- what is kept between visits ----------
@@ -426,9 +427,10 @@
       dayStamp: 0,
       cardDone: null,
       seal: null,
-      yk: { happyT: 0, hopT: 0, hopH: 6, bubble: null, box: null },
+      yk: { happyT: 0, hopT: 0, hopH: 6, bubble: null, box: null, lift: 0, liftMax: 0 },
       sayNext: '',
       lastMissSfx: -1,
+      voiceUntil: 0,
       fxDrawn: 0,
     };
     markWeakCards();
@@ -859,7 +861,10 @@
 
     // A course word's own voice is its reward: no effect sound plays over it.
     const voice = !!(card.item.clip && saved.sound && window.ykSound && window.ykSound.has(card.item.clip));
-    if (voice) window.ykSound.play(card.item.clip);
+    if (voice) {
+      window.ykSound.play(card.item.clip);
+      r.voiceUntil = r.time + VOICE_T;
+    }
     else {
       sfx('clear', { streak: clean ? r.run : 0 });
       if (card.star) sfx('gold');
@@ -943,6 +948,11 @@
     const p = saved.practice;
     const c = saved.stampCard;
     if (!p || p.d !== localDay() || p.s < saved.goal * 60 || c.lastDay === p.d) return false;
+    // the clock went back to a day already on the card: it keeps its one box
+    if (c.days.includes(p.d)) {
+      c.lastDay = p.d;
+      return false;
+    }
     c.days.push(p.d);
     c.lastDay = p.d;
     if (inRound && r) r.dayStamp = c.days.length;
@@ -1012,7 +1022,8 @@
       setPhase('paused');
       return;
     }
-    r.lastKeyAt = r.time;
+    // a held key's repeats are not typing: only real presses keep the day's time counting
+    if (!e.repeat) r.lastKeyAt = r.time;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.key === 'Tab') {
       e.preventDefault();
@@ -1140,7 +1151,7 @@
   }
   function sfx(name, opts) {
     if (!sfxReady || !window.TypingSfx || saved.sfx === 'off') return;
-    if (SFX_ALL_ONLY.has(name) && saved.sfx !== 'all') return;
+    if (SFX_ALL_ONLY.has(name) && (saved.sfx !== 'all' || (r && r.time < r.voiceUntil))) return;
     try {
       window.TypingSfx.play(name, opts);
     } catch (err) {
@@ -1413,7 +1424,7 @@
       } else if (seal.kind === 'today') {
         text.innerHTML = rings(seal.n) + ja('今日の分は済') + '　Today\'s ring for this ' + what + ' is in (' + seal.n + ' of 3). The next one comes on another day.';
       } else if (seal.kind === 'had') {
-        text.innerHTML = ja('はなまるのステージ') + '　This ' + what + ' already has its ' + ja('はなまる') + '.';
+        text.innerHTML = ja(r.course ? 'はなまるの週' : 'はなまるのステージ') + '　This ' + what + ' already has its ' + ja('はなまる') + '.';
       } else {
         text.innerHTML = 'Rings towards a ' + what + '\'s ' + ja('はなまる') + ' are not given with hints always on, or in weak-spot rounds.';
       }
@@ -1440,7 +1451,9 @@
       void el.offsetWidth;
       el.style.animation = '';
     }
-    sfxLater('result', { tier }, reducedMotion.matches ? 0 : 452);
+    // the thump comes as the hanko touches, and never over the last word's voice
+    const wait = Math.max(0, (r.voiceUntil - r.time) * 1000);
+    sfxLater('result', { tier }, Math.max(reducedMotion.matches ? 0 : 452, wait));
   }
 
   // ---------- the stamp card ----------
@@ -1452,7 +1465,7 @@
     const today = localDay();
     const goal = saved.goal * 60;
     const s = todaySec();
-    const stampedToday = c.lastDay === today;
+    const stampedToday = c.lastDay === today || c.days.includes(today);
     const days = onResult && r && r.cardDone ? r.cardDone : c.days;
     const fresh = onResult && r ? (r.cardDone ? r.cardDone.length : r.dayStamp) : 0;
     const boxes = $(onResult ? 'res-day-boxes' : 'day-boxes');
@@ -1466,30 +1479,37 @@
         b.innerHTML = '<i lang="ja" style="--tilt:' + DAY_TILTS[i] + 'deg">済</i><small>' + shortDay(days[i]) + '</small>';
       } else if (i === days.length && !stampedToday) {
         b.classList.add('open');
-        b.style.setProperty('--fill', Math.min(100, Math.round(100 * s / goal)) + '%');
+        b.style.setProperty('--fill', Math.min(100, Math.floor(100 * s / goal)) + '%');
       }
       boxes.appendChild(b);
     }
-    const left = Math.max(0, Math.ceil(goal - s));
+    // whole seconds typed, and the rest of the goal: the two always add up to the goal
+    const shown = Math.floor(s);
+    const left = Math.max(0, goal - shown);
     const count = days.length + ' / 7';
     if (onResult) {
       $('res-day-count').textContent = count;
       $('res-day-line').innerHTML = r && r.cardDone ? ja('スタンプカード完成！') + '　Card complete: seven days of practice. A new card starts next time.'
         : r && r.dayStamp ? ja('今日の分、済！') + '　Today\'s stamp is in: ' + r.dayStamp + ' of 7.'
           : stampedToday ? ja('今日の分は済') + '　Today\'s stamp was already in. ' + days.length + ' of 7.'
-            : ja('今日') + ' <b>' + fmt(s) + '</b> / ' + fmt(goal) + '　' + fmt(left) + ' more typing for today\'s stamp.';
+            : ja('今日') + ' <b>' + fmt(shown) + '</b> / ' + fmt(goal) + '　' + fmt(left) + ' more typing for today\'s stamp.';
       return;
     }
     $('day-count').textContent = count;
-    $('day-line').innerHTML = '<b>' + fmt(s) + '</b> / ' + fmt(goal) + '　' + ja('今日の練習') + '　Typed today';
+    $('day-line').innerHTML = '<b>' + fmt(shown) + '</b> / ' + fmt(goal) + '　' + ja('今日の練習') + '　Typed today';
     $('day-hint').innerHTML = (stampedToday ? ja('今日の分、済！') + '　Today\'s stamp is in. See you tomorrow.'
       : ja('あと ' + fmt(left) + ' で今日のスタンプ') + '　' + fmt(left) + ' more typing for today\'s stamp.')
       + '<br>' + ja('休んでも消えません') + '　Days off never erase a stamp.';
     const done = $('day-done');
     done.hidden = !c.done;
-    done.textContent = '完成 ' + c.done + '枚';
-    const mins = (sec) => Math.floor(sec / 60) + ' minutes' + (Math.floor(sec % 60) ? ' ' + Math.floor(sec % 60) + ' seconds' : '');
-    $('day-sr').textContent = 'Stamp card: ' + days.length + ' of 7 days stamped. Today: ' + (stampedToday ? 'stamped.' : mins(s) + ' of ' + saved.goal + ' minutes typed.')
+    done.innerHTML = ja('完成 ' + c.done + '枚') + '　' + c.done + (c.done === 1 ? ' card' : ' cards') + ' done';
+    const n = (k, w) => k + ' ' + w + (k === 1 ? '' : 's');
+    const mins = (sec) => {
+      const m = Math.floor(sec / 60);
+      const x = Math.floor(sec % 60);
+      return m && x ? n(m, 'minute') + ' ' + n(x, 'second') : m ? n(m, 'minute') : n(x, 'second');
+    };
+    $('day-sr').textContent = 'Stamp card: ' + days.length + ' of 7 days stamped. Today: ' + (stampedToday ? 'stamped.' : mins(shown) + ' of ' + saved.goal + ' minutes typed.')
       + (c.done ? ' ' + c.done + (c.done === 1 ? ' card' : ' cards') + ' complete.' : '');
   }
 
@@ -1548,16 +1568,21 @@
     ], saved.sfx, (v) => {
       saved.sfx = v;
       save();
-      wakeSfx();
+      if (v === 'off') {
+        if (window.TypingSfx && window.TypingSfx.sleep) window.TypingSfx.sleep();
+      } else {
+        wakeSfx();
+      }
     });
     seg('goal-seg', GOALS.map((n, i) => ({
       value: n, cls: 'tile', html: '<b>' + n + '<small lang="ja">分</small></b><small><span lang="ja">' + ['かるく', 'ふつう', 'しっかり'][i] + '</span>　' + ['Light', 'Regular', 'Solid'][i] + '</small>',
     })), saved.goal, (v) => {
       saved.goal = v;
       // a lower goal can already be met today; a higher one never takes a stamp away
-      stampIfDue(false);
+      stampIfDue(!!r && phase !== 'menu');
       save();
       if (phase === 'menu') renderDayCard(false);
+      else if (phase === 'result') renderDayCard(true);
     });
   }
 
@@ -1594,11 +1619,11 @@
     }
     // the rings towards the stage's はなまる, or the はなまる itself
     if (o.rings) {
-      const top = b.querySelector('.o-top');
+      const meta = b.querySelector('.o-meta');
       if (o.rings >= 3) {
-        top.insertAdjacentHTML('beforeend', HANA_ICON(22, 'hana') + '<span class="sr-only"> · はなまる</span>');
+        meta.insertAdjacentHTML('beforeend', ' ' + HANA_ICON(18, 'hana') + '<span class="sr-only"> · ' + ja('はなまる') + '</span>');
       } else {
-        top.insertAdjacentHTML('beforeend', '<span class="rings" aria-hidden="true">' + [0, 1, 2].map((i) => '<i' + (i < o.rings ? ' class="on"' : '') + '></i>').join('') + '</span><span class="sr-only"> · ' + o.rings + ' of 3 rings towards はなまる</span>');
+        meta.insertAdjacentHTML('beforeend', ' <span class="rings" aria-hidden="true">' + [0, 1, 2].map((i) => '<i' + (i < o.rings ? ' class="on"' : '') + '></i>').join('') + '</span><span class="sr-only"> · ' + o.rings + ' of 3 rings towards ' + ja('はなまる') + '</span>');
       }
     }
     return b;
@@ -2267,6 +2292,10 @@
     // run of five or more lasts (never while he is down)
     const yk = r ? r.yk : null;
     const lift = yk && yk.hopT > 0 && !still && !(r && r.fall) ? yk.hopH * Math.sin(Math.PI * (1 - yk.hopT / HOP_T)) : 0;
+    if (yk) {
+      yk.lift = lift;
+      yk.liftMax = Math.max(yk.liftMax, lift);
+    }
     const happy = isHappy();
 
     ctx.save();
@@ -2336,14 +2365,15 @@
     if (!b) return;
     const still = reducedMotion.matches;
     const yx = view.yx;
+    const jaSize = small(13);
     const enSize = small(9);
     ctx.save();
-    ctx.font = '600 13px ' + JP;
+    ctx.font = '600 ' + jaSize + 'px ' + JP;
     const wJa = ctx.measureText(b.ja).width;
     ctx.font = '800 ' + enSize + 'px ' + UI;
     const wEn = ctx.measureText(b.en).width;
     const w = Math.ceil(Math.max(wJa, wEn)) + 14;
-    const h = 13 + enSize + 13;
+    const h = 8 + jaSize + 2 + enSize + 8;
     const right = yx - 6;
     const x = Math.max(4, right - w);
     const bottom = 104;
@@ -2383,11 +2413,11 @@
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = pal.ink;
-    ctx.font = '600 13px ' + JP;
-    ctx.fillText(b.ja, x + w / 2, y + 12.5);
+    ctx.font = '600 ' + jaSize + 'px ' + JP;
+    ctx.fillText(b.ja, x + w / 2, y + 8 + jaSize / 2);
     ctx.fillStyle = pal.muted;
     ctx.font = '800 ' + enSize + 'px ' + UI;
-    ctx.fillText(b.en, x + w / 2, y + h - 8.5);
+    ctx.fillText(b.en, x + w / 2, y + h - 8 - enSize / 2);
     ctx.restore();
     r.yk.box = { x: Math.round(x), y: Math.round(y), w: Math.round(w), h: Math.round(h) };
   }
@@ -2620,7 +2650,7 @@
         day: { d: localDay(), s: todaySec(), goal: saved.goal, stamped: saved.stampCard.lastDay === localDay() },
         stampCard: { days: saved.stampCard.days.slice(), done: saved.stampCard.done },
         sfx: saved.sfx,
-        yaoki: yk ? { bubble: yk.bubble ? yk.bubble.ja : null, happy: isHappy(), hop: yk.hopT > 0 && !reducedMotion.matches && !r.fall, box: yk.box } : null,
+        yaoki: yk ? { bubble: yk.bubble ? yk.bubble.ja : null, happy: isHappy(), hop: yk.lift > 0, liftMax: yk.liftMax, box: yk.box } : null,
         fx: r ? r.fxDrawn : 0,
         cleared: r ? r.cleared : 0,
         skipped: r ? r.skipped : 0,

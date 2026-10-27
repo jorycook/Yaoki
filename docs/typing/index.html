@@ -184,16 +184,17 @@ body.playing #app { padding-top: 8px; }
 .hanko { position: relative; flex-shrink: 0; width: 124px; height: 124px; border-radius: 50%; border: 4px solid var(--daruma); padding: 5px; transform: rotate(-9deg); display: flex; animation: yk-stamp 550ms ease-out 150ms both; }
 /* the ink ring where the hanko touches, and a stage's はなまる drawn round it */
 .hanko-ink { position: absolute; inset: -8px; border-radius: 50%; border: 3px solid var(--daruma); opacity: 0; pointer-events: none; animation: yk-ring 400ms ease-out 452ms forwards; }
-.hanko.hana { margin-right: 22px; }
+.hanko.hana { margin: 8px 22px 8px 0; }
 .hana-ring { position: absolute; inset: -22.5%; overflow: visible; pointer-events: none; }
 .hana-ring path { fill: none; stroke: var(--stamp); stroke-width: 2.4; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; animation: yk-draw 900ms ease-out 750ms backwards; }
 .seal-line { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 .seal-line p { margin: 0; }
 #res-seal-tag { display: inline-block; animation: yk-stamp 450ms ease-out 750ms both; }
 .rings { display: inline-flex; gap: 3px; vertical-align: -1px; }
-.rings i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--line-strong); }
+.rings i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--muted); }
 .rings i.on { border: 2px solid var(--daruma); background: radial-gradient(var(--stamp) 0 2px, transparent 2.5px); }
-.option .hana { flex-shrink: 0; margin: -3px 0; }
+.option .rings { margin-left: 4px; }
+.option .hana { margin: -4px 0 -4px 2px; vertical-align: middle; }
 .stats .row > span > small.ups { color: var(--ink); }
 .hanko div { flex-grow: 1; border-radius: 50%; border: 2px solid var(--daruma); color: var(--stamp); font-weight: 800; font-size: 17px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center; }
 .hanko.three div { font-size: 15px; }
@@ -222,6 +223,7 @@ body.playing #app { padding-top: 8px; }
 .day-line { margin: 2px 0 0; font-size: 14px; font-weight: 700; }
 .day-line b { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .daycard .tag { align-self: flex-start; }
+.daycard.mini .day-boxes { gap: 10px; }
 .daycard.mini .day-box { width: 24px; height: 24px; border-radius: 7px; }
 .daycard.mini .day-box.stamped i { width: 19px; height: 19px; border-width: 2px; font-size: 10px; }
 
@@ -255,6 +257,9 @@ body.playing #app { padding-top: 8px; }
   .hanko.three div { font-size: 12px; }
 }
 @media (max-width: 420px) {
+  .hud { gap: 6px; }
+  .chip { padding: 0 6px; gap: 4px; }
+  .segs, .track { min-width: 30px; }
   .key .sub, .key .sub[lang="ja"] { display: none; }
   .key.next .sub, .key.next .sub[lang="ja"] { display: block; top: 0; right: 1px; font-size: 9px; color: var(--on-accent); }
   .key.next .main[lang="ja"] { font-size: 10px; margin-top: 8px; }
@@ -299,7 +304,7 @@ body.playing #app { padding-top: 8px; }
         <p class="hint" id="day-hint"></p>
         <p class="sr-only" id="day-sr"></p>
       </div>
-      <span class="tag gold" id="day-done" lang="ja" aria-hidden="true" hidden></span>
+      <span class="tag gold" id="day-done" aria-hidden="true" hidden></span>
     </section>
 
     <section class="block" aria-labelledby="mode-h">
