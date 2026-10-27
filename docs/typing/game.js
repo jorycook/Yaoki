@@ -44,11 +44,13 @@
   const SLACK = 1.15;          // cards come 15% slower than the player's measured speed
   const START = {              // first measures for a stage: reaction (s) and keys a second
     romaji: { r: 1.0, p: 1.6 },
+    kanji: { r: 2.2, p: 1.6 }, // a kanji's reading is recalled before it is typed
     symbol: { r: 1.8, p: 1.6 },
     keys: { r: 2.5, p: 1.6 },
   };
   const STUCK_FIRST = 5;       // seconds before the first key of a card until a "when stuck" hint
   const STUCK_NEXT = 3;        // seconds between keys until the next level of hint
+  const STUCK_KANJI = 3.5;     // a kanji card's reading, when nothing is typed
   const RUN_STEPS = [5, 10, 20, 40];   // clean cards in a row that Yaoki cheers
   const GOALS = [3, 5, 10];    // minutes of typing a day for the day's stamp
   const PRACTICE_IDLE = 8;     // seconds without a key after which typing time stops counting
@@ -193,9 +195,13 @@
       ja: 'かな入力', en: 'Kana input', kind: 'keys', stats: 'keys',
       desc: 'Where each kana sits on a Japanese keyboard, for kana input. Press the key that carries it; the input mode does not matter.',
     },
+    kanji: {
+      ja: '漢字', en: 'Kanji', kind: 'romaji', stats: 'kanji',
+      desc: 'Advanced: single kanji, compound words, four-character idioms and sentences with kanji. Type the reading in romaji. When you are stuck, or after a slip, the reading (furigana) shows first, then its romaji; a card typed without either is clean.',
+    },
   };
-  const MODE_ORDER = ['course', 'romaji', 'symbol', 'keys'];
-  const STAGES = { romaji: E.KANA_STAGES, symbol: E.SYMBOL_STAGES, keys: E.KANA_KEY_STAGES };
+  const MODE_ORDER = ['course', 'romaji', 'symbol', 'keys', 'kanji'];
+  const STAGES = { romaji: E.KANA_STAGES, symbol: E.SYMBOL_STAGES, keys: E.KANA_KEY_STAGES, kanji: E.KANJI_STAGES };
   const LEVELS = ['N5', 'N4', 'N3', 'N2'];
 
   if (saved.mode === 'kana') saved.mode = 'romaji';
@@ -291,11 +297,12 @@
       return unit.words.map((w) => romajiItem(w.text, { reading: w.reading, gloss: w.gloss, clip: w.clip }));
     }
     const stage = currentStage();
-    if (mode === 'romaji') {
+    if (mode === 'romaji' || mode === 'kanji') {
       const out = [];
       for (const it of stage.items) {
         try {
-          out.push(romajiItem(it.text, { gloss: it.gloss }));
+          // a kanji card's reading is the answer: it shows only as a hint
+          out.push(romajiItem(it.text, mode === 'kanji' ? { reading: it.reading, gloss: it.gloss, hidden: true } : { gloss: it.gloss }));
         } catch (err) {
           // a prompt the rules cannot spell is left out rather than stopping the round
         }
@@ -337,11 +344,14 @@
   const jaMarked = (t) => esc(t).replace(/[\u3040-\u30ff\u4e00-\u9fff々〜・「」]+/g, (m) => '<span lang="ja">' + m + '</span>');
 
   // How much of an item is still on the weak list.
+  // Misses are kept per kana for romaji, but per word for kanji: there the miss is not knowing
+  // the reading, not typing it.
+  const perKana = (item) => item.kind === 'romaji' && !item.hidden;
   function statKey(item) {
-    return item.kind === 'symbol' ? item.text : item.text + (item.shift ? '+' : '');
+    return item.kind === 'keys' ? item.text + (item.shift ? '+' : '') : item.text;
   }
   function weakness(item, stats) {
-    if (item.kind === 'romaji') return item.units.reduce((n, u) => n + (stats[u] ? stats[u].miss : 0), 0);
+    if (perKana(item)) return item.units.reduce((n, u) => n + (stats[u] ? stats[u].miss : 0), 0);
     return stats[statKey(item)] ? stats[statKey(item)].miss : 0;
   }
 
@@ -402,7 +412,7 @@
     await fontsFor(deck);
     if (ticket !== startTicket || phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) return;
     const mode = MODES[modeId];
-    const pace = saved.pace[key] && saved.pace[key].p ? saved.pace[key] : START[mode.kind];
+    const pace = saved.pace[key] && saved.pace[key].p ? saved.pace[key] : START[modeId] || START[mode.kind];
     r = {
       kind: mode.kind,
       stats: mode.stats,
@@ -559,20 +569,27 @@
     return w > room ? Math.max(least, Math.floor(size * room / w)) : size;
   }
 
+  // The room a long card's text is kept to while its type can stay readable.
+  const niceRoom = () => Math.max(160, 0.45 * (view.W - view.yx)) - 28;
+
   // The prompt's type size: smaller for long prompts (not under 14 while it fits), and never
   // wider than a card may be.
   function promptSize(item) {
     if (item.kind !== 'romaji') return 32;
     const n = Array.from(item.text).length;
     const size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
-    const nice = fit(item.text, size, Math.max(160, 0.45 * (view.W - view.yx)) - 28, Math.max(14, 10 / view.s));
+    const least = (/[一-鿿]/.test(item.text) ? 12 : 10) / view.s;
+    const nice = fit(item.text, size, niceRoom(), Math.max(14, least));
     return fit(item.text, nice, maxCard() - 28, 8);
   }
   // Small type (readings, the lines under the route): at least about 9 CSS pixels.
   const small = (size) => Math.max(size, 9 / view.s);
-  function readingSize(item) {
-    return fit(item.reading, Math.min(16, small(12)), maxCard() - 28, 8);
+  function readingSize(item, room = maxCard() - 28) {
+    return fit(item.reading, Math.min(16, small(12)), room, 8);
   }
+  // A hidden reading's room, in kana, from the kanji shown: so the room (on the card and under
+  // the game) tells nothing of the answer.
+  const readingSlots = (item) => E.readingSlots(item.text);
 
   function cardWidth(item) {
     if (item.kind !== 'romaji') return 70;
@@ -581,7 +598,12 @@
     ctx.save();
     ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
-    if (item.reading && item.reading !== item.text) {
+    if (item.hidden) {
+      // (but no wider than the text, or the room promptSize keeps long cards to: on a phone the
+      // world is often at its slowest for long sentences, so a wider card would only get less
+      // time; the longest readings there are drawn a little small, and are under the game too)
+      w = Math.max(w, Math.min(readingSlots(item) * Math.min(16, small(12)), Math.max(w, niceRoom())));
+    } else if (item.reading && item.reading !== item.text) {
       ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
       w = Math.max(w, ctx.measureText(item.reading).width);
     }
@@ -711,7 +733,8 @@
         if (!first.halted) {
           first.halted = true;
           first.level = 2;
-          say(first.item.text, 'Take your time: the world waits for this one. Tab skips it.');
+          if (first.item.hidden) showInfo(first);
+          say(first.item.hidden ? first.item.text + '、' + first.item.reading : first.item.text, 'Take your time: the world waits for this one. Tab skips it.');
           cheer('halt', 2);
         }
       } else {
@@ -736,8 +759,17 @@
     const t = targetCard();
     if (t) {
       if (t.shownAt === null) t.shownAt = r.time;
-      if (t !== r.target) {
-        r.target = t;
+      const fresh = t !== r.target;
+      r.target = t;
+      t.idle += dt;
+      // a gentle nudge before any hint, once a card (checked before a hint starts the wait again)
+      if (t.idle >= 3.5 && !t.nudged && !t.typed) {
+        t.nudged = true;
+        cheer('idle', 1.6);
+      }
+      // the hint first, so the card is said and shown with it (a kanji with its reading)
+      raiseHint(t);
+      if (fresh) {
         speakTarget(t);
         showInfo(t);
         // a word from Yaoki as the round starts, and for its last card
@@ -752,13 +784,6 @@
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
       }
-      t.idle += dt;
-      // a gentle nudge before any hint, once a card
-      if (t.idle >= 3.5 && !t.nudged && !t.typed) {
-        t.nudged = true;
-        cheer('idle', 1.6);
-      }
-      raiseHint(t);
     } else if (r.target && !r.fall) {
       r.target = null;
       showInfo(null);
@@ -783,11 +808,14 @@
   function raiseHint(c) {
     r.hintModes.add(saved.hints);
     if (saved.hints === 'always') {
-      c.level = 2;
+      if (c.level < 2) {
+        c.level = 2;
+        if (c.item.hidden && c === r.target) showInfo(c);
+      }
       return;
     }
     if (saved.hints === 'never' || c.level >= 2) return;
-    const limit = c.typed || c.firstKeyAt !== null ? STUCK_NEXT : STUCK_FIRST;
+    const limit = c.typed || c.firstKeyAt !== null ? STUCK_NEXT : c.item.hidden ? STUCK_KANJI : STUCK_FIRST;
     let level = Math.min(2, c.misses);
     if (c.idle >= limit) level = Math.max(level, c.level + 1);
     if (level > c.level) {
@@ -797,8 +825,24 @@
         c.hinted = true;
         r.hints++;
       }
+      // the reading of a kanji card is now shown: under the game too, and said
+      if (c.item.hidden && c === r.target) {
+        showInfo(c);
+        if (!c.readingSaid) {
+          c.readingSaid = true;
+          // a word still waiting to be said goes now, with its reading
+          if (r.pendingSpeak === c) {
+            r.spokenAt = -9;
+            speakTarget(c);
+          } else say(c.item.reading, '');
+        }
+      }
     }
   }
+
+  // A kanji card's reading shows with the first step of a hint, after a fall, and once the
+  // card is done; other cards always show theirs.
+  const readingShown = (c) => !c.item.hidden || c.state !== 'live' || hintLevel(c) >= 1;
 
   function hintLevel(c) {
     if (c.state === 'fallen' || c.halted) return 2;
@@ -858,7 +902,7 @@
   function noteMiss(card, pressed) {
     const it = card.item;
     let key;
-    if (it.kind === 'romaji') {
+    if (perKana(it)) {
       const at = pressed ? E.blame(it.tokens, card.typed, pressed) : E.unitAt(it.tokens, card.typed);
       const i = at === null ? it.units.length - 1 : at;
       card.missedAt.add(i);
@@ -875,7 +919,14 @@
   function applyStats(card) {
     const it = card.item;
     const shown = card.state === 'fallen' || card.halted || card.level >= 2;
-    if (it.kind === 'romaji') {
+    if (it.hidden) {
+      // a kanji's reading: known if typed with no slip and no hint at all
+      if (card.misses || card.state === 'fallen' || card.halted || card.hinted) {
+        markMiss(r.stats, statKey(it));
+        // listed with the round's weak spots, even when only a hint showed it
+        if (!r.missed.has(statKey(it))) r.missed.set(statKey(it), 1);
+      } else if (card.level < 1) markOk(r.stats, statKey(it));
+    } else if (it.kind === 'romaji') {
       let reached = it.units.length;
       if (card.state === 'fallen') {
         const at = E.unitAt(it.tokens, card.typed);
@@ -896,7 +947,7 @@
   function keepMisses() {
     for (const c of r.cards) {
       if (c.state !== 'live' || !c.misses) continue;
-      if (c.item.kind === 'romaji') for (const i of c.missedAt) markMiss(r.stats, c.item.units[i]);
+      if (perKana(c.item)) for (const i of c.missedAt) markMiss(r.stats, c.item.units[i]);
       else markMiss(r.stats, statKey(c.item));
     }
     save();
@@ -1018,7 +1069,7 @@
   // A card that waits for Yaoki can be passed over with Tab (for a key this keyboard lacks).
   function skipCard(card) {
     if (card.misses) {
-      if (card.item.kind === 'romaji') for (const i of card.missedAt) markMiss(r.stats, card.item.units[i]);
+      if (perKana(card.item)) for (const i of card.missedAt) markMiss(r.stats, card.item.units[i]);
       else markMiss(r.stats, statKey(card.item));
     }
     r.cards = r.cards.filter((c) => c !== card);
@@ -1400,6 +1451,7 @@
       if (r) r.hintModes.add(saved.hints);
       if (was === 'paused' && r) {
         r.spokenAt = -9;
+        r.pendingSpeak = null;
         r.target = null;
         // the music goes on (or starts, if it was turned on during the pause)
         wakeAudio();
@@ -1452,7 +1504,10 @@
     // still one line a card: a step of the clean run and a weak-spot card ride along with it
     const en = [r.sayNext, card.entry.weak ? 'Weak spot.' : ''].filter(Boolean).join(' ');
     r.sayNext = '';
-    say(it.reading && it.reading !== it.text ? it.text + '、' + it.reading : it.text, en);
+    // a kanji card's reading is the answer, so it is said only once it shows
+    const reading = it.reading && it.reading !== it.text && readingShown(card);
+    if (reading && it.hidden) card.readingSaid = true;
+    say(reading ? it.text + '、' + it.reading : it.text, en);
   }
 
   // The line under the canvas: the word being typed, its reading and meaning.
@@ -1465,8 +1520,25 @@
     const ja = document.createElement('span');
     ja.lang = 'ja';
     ja.className = 'info-ja';
-    ja.textContent = it.reading && it.reading !== it.text ? it.text + '　' + it.reading : it.text;
+    ja.textContent = it.reading && it.reading !== it.text && !it.hidden ? it.text + '　' + it.reading : it.text;
     box.appendChild(ja);
+    // a kanji card's reading has its room while hidden (by the kanji shown, as on the card),
+    // so the line does not jump when it shows
+    if (it.hidden) {
+      const rd = document.createElement('span');
+      rd.lang = 'ja';
+      rd.className = 'info-ja';
+      rd.style.minWidth = 'min(' + readingSlots(it) + 'em, 100%)';
+      if (readingShown(card)) rd.textContent = it.reading;
+      else {
+        rd.textContent = '\u3000';
+        rd.setAttribute('aria-hidden', 'true');
+      }
+      box.appendChild(rd);
+      // and its height: the lines the room needs where the line is narrow, shown or not
+      const room = box.clientWidth;
+      if (room) rd.style.minHeight = Math.ceil(readingSlots(it) * (parseFloat(getComputedStyle(rd).fontSize) || 17) / room) + 'lh';
+    }
     if (it.gloss) {
       const en = document.createElement('span');
       en.textContent = it.gloss;
@@ -1591,7 +1663,7 @@
     for (const [key, n] of list) {
       const chip = document.createElement('span');
       const label = chipLabel(key);
-      if (/[぀-ヿ]/.test(label)) chip.lang = 'ja';
+      if (/[぀-ヿ一-鿿]/.test(label)) chip.lang = 'ja';
       chip.innerHTML = icon;
       chip.appendChild(document.createTextNode(label + (n > 1 ? ' ×' + n : '')));
       box.appendChild(chip);
@@ -1853,7 +1925,7 @@
       const best = saved.best[key];
       const b = option({
         ja: st.ja, en: st.en,
-        meta: st.items.length + (saved.mode === 'romaji' ? ' prompts' : ' keys') + (best ? ' · ' + ja('自己ベスト') + ' ' + best + ' keys/min' : ''),
+        meta: st.items.length + (MODES[saved.mode].kind === 'romaji' ? ' prompts' : ' keys') + (best ? ' · ' + ja('自己ベスト') + ' ' + best + ' keys/min' : ''),
         on: st === cur,
         rings: sealOf(key),
       });
@@ -2023,7 +2095,8 @@
     if (!card) return out;
     const level = hintLevel(card);
     if (card.item.kind === 'romaji') {
-      if (level < 1) return out;
+      // a kanji card's keys light with the second step of a hint (the first is its reading)
+      if (level < (card.item.hidden ? 2 : 1)) return out;
       for (const ch of E.nextChars(card.item.tokens, card.typed)) {
         const key = E.keyFor(ch);
         if (key) out.push(key);
@@ -2394,11 +2467,25 @@
     ctx.textBaseline = 'middle';
     if (it.kind === 'romaji') {
       const ruby = it.reading && it.reading !== it.text;
-      if (ruby) {
-        ctx.font = '600 ' + readingSize(it) + 'px ' + JP;
+      if (ruby && readingShown(c)) {
+        ctx.font = '600 ' + readingSize(it, it.hidden ? c.w - 20 : undefined) + 'px ' + JP;
         ctx.fillStyle = pal.muted;
         ctx.fillText(it.reading, cx, top + 16);
         fillKana(c, cx, top + 16);
+      } else if (ruby) {
+        // the hidden reading: a dotted line where the furigana will show (its length the same
+        // for every card, so it tells nothing of the answer)
+        ctx.save();
+        const half = Math.min(36, (c.w - 28) / 2);
+        ctx.setLineDash([2, 4]);
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = pal.lineStrong;
+        ctx.beginPath();
+        ctx.moveTo(cx - half, top + 18);
+        ctx.lineTo(cx + half, top + 18);
+        ctx.stroke();
+        ctx.restore();
       }
       ctx.font = '600 ' + promptSize(it) + 'px ' + JP;
       ctx.fillStyle = color;
@@ -3214,7 +3301,8 @@
     if (it.kind === 'romaji') {
       done = c.typed;
       if (level >= 2) text = E.spell(it.tokens, c.typed) || c.typed;
-      else if (level === 1) {
+      // a kanji card's first hint is its reading, on the card: no romaji yet
+      else if (level === 1 && !it.hidden) {
         const open = E.choices(it.tokens, c.typed);
         const pos = E.at(it.tokens, c.typed);
         text = c.typed + (open.length && pos ? open[0].slice(c.typed.length - pos.start) : '');
@@ -3428,6 +3516,8 @@
           text: t.item.text, reading: t.item.reading || null, typed: t.typed,
           spell: t.item.kind === 'romaji' ? E.spell(t.item.tokens, t.typed) : null,
           key: t.item.key || null, code: t.item.code || null, shift: !!t.item.shift, level: hintLevel(t), halted: t.halted,
+          readingShown: !!(t.item.reading && readingShown(t)),
+          romajiShown: t.item.kind === 'romaji' && (hintLevel(t) >= 2 || (hintLevel(t) === 1 && !t.item.hidden)),
           kanaDone: fill ? fill.chars : 0, kanaLen: fill ? t.item.fillLen : 0, weak: !!t.entry.weak,
         } : null,
         run: r ? r.run : 0,

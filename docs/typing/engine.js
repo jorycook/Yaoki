@@ -471,6 +471,106 @@
     },
   ];
 
+  // Kanji: the card shows the word in kanji, and the reading is typed in romaji. Items are
+  // { text, reading, gloss }, written 'text:reading=gloss', separated by |.
+  const kanji = (s) => s.split('|').map((x) => {
+    const [head, gloss] = x.split('=');
+    const [text, reading] = head.split(':');
+    return { text, reading, gloss };
+  });
+  // The room a hidden reading is given, in kana, from the kanji shown alone: two and a half for
+  // each kanji (and a half over), one for anything else. Every item's reading fits it.
+  function readingSlots(text) {
+    const chars = Array.from(text);
+    const n = chars.filter((ch) => /[一-鿿々〆ヶ]/.test(ch)).length;
+    return Math.ceil(2.5 * n + 0.5) + chars.length - n;
+  }
+  const KANJI_STAGES = [
+    {
+      id: 'single', ja: '一字', en: 'Single kanji',
+      items: kanji(
+        '山:やま=mountain|川:かわ=river|木:き=tree|花:はな=flower|雨:あめ=rain|空:そら=sky|海:うみ=sea|' +
+        '森:もり=forest|犬:いぬ=dog|猫:ねこ=cat|鳥:とり=bird|魚:さかな=fish|水:みず=water|火:ひ=fire|' +
+        '手:て=hand|目:め=eye|口:くち=mouth|耳:みみ=ear|足:あし=foot|本:ほん=book|車:くるま=car|' +
+        '道:みち=road|町:まち=town|机:つくえ=desk|店:みせ=shop|駅:えき=station|春:はる=spring|夏:なつ=summer|' +
+        '秋:あき=autumn|冬:ふゆ=winter|朝:あさ=morning|夜:よる=night|右:みぎ=right|左:ひだり=left|' +
+        '上:うえ=above|下:した=below|中:なか=inside|外:そと=outside|北:きた=north|南:みなみ=south|' +
+        '東:ひがし=east|西:にし=west|月:つき=moon|星:ほし=star|雪:ゆき=snow|風:かぜ=wind|石:いし=stone|' +
+        '色:いろ=colour|声:こえ=voice|肉:にく=meat|人:ひと=person|島:しま=island|虫:むし=insect|' +
+        '馬:うま=horse|紙:かみ=paper|箱:はこ=box|歌:うた=song|夢:ゆめ=dream|心:こころ=heart|力:ちから=strength'),
+    },
+    {
+      id: 'jukugo', ja: '熟語', en: 'Compound words',
+      items: kanji(
+        '学校:がっこう=school|先生:せんせい=teacher|学生:がくせい=student|電車:でんしゃ=train|天気:てんき=weather|' +
+        '時間:じかん=time|日本語:にほんご=Japanese|友達:ともだち=friend|自転車:じてんしゃ=bicycle|' +
+        '図書館:としょかん=library|新聞:しんぶん=newspaper|会社:かいしゃ=company|銀行:ぎんこう=bank|' +
+        '病院:びょういん=hospital|映画:えいが=film|音楽:おんがく=music|料理:りょうり=cooking|写真:しゃしん=photo|' +
+        '旅行:りょこう=travel|宿題:しゅくだい=homework|勉強:べんきょう=study|練習:れんしゅう=practice|' +
+        '質問:しつもん=question|電話:でんわ=telephone|今日:きょう=today|毎週:まいしゅう=every week|先週:せんしゅう=last week|' +
+        '毎日:まいにち=every day|午後:ごご=afternoon|半分:はんぶん=half|大人:おとな=adult|子供:こども=child|' +
+        '家族:かぞく=family|兄弟:きょうだい=siblings|動物:どうぶつ=animal|果物:くだもの=fruit|野菜:やさい=vegetables|' +
+        '牛乳:ぎゅうにゅう=milk|仕事:しごと=work|世界:せかい=world|季節:きせつ=season|花火:はなび=fireworks|' +
+        '東京:とうきょう=Tokyo|富士山:ふじさん=Mt Fuji|新幹線:しんかんせん=bullet train|誕生日:たんじょうび=birthday|' +
+        '入口:いりぐち=entrance|出口:でぐち=exit|切符:きっぷ=ticket|地下鉄:ちかてつ=underground railway'),
+    },
+    {
+      id: 'advanced', ja: '上級熟語', en: 'Harder compounds',
+      items: kanji(
+        '経験:けいけん=experience|説明:せつめい=explanation|相談:そうだん=consultation, advice|準備:じゅんび=preparation|' +
+        '約束:やくそく=promise|予約:よやく=booking|連絡:れんらく=getting in touch|留学:りゅうがく=studying abroad|' +
+        '就職:しゅうしょく=finding a job|環境:かんきょう=environment|経済:けいざい=economy|政治:せいじ=politics|' +
+        '技術:ぎじゅつ=technology|情報:じょうほう=information|意見:いけん=opinion|理由:りゆう=reason|努力:どりょく=effort|' +
+        '成功:せいこう=success|失敗:しっぱい=failure|結果:けっか=result|原因:げんいん=cause|影響:えいきょう=influence|' +
+        '関係:かんけい=relationship|状況:じょうきょう=situation|必要:ひつよう=necessary|複雑:ふくざつ=complicated|' +
+        '丁寧:ていねい=polite|真剣:しんけん=serious|緊張:きんちょう=nerves|挑戦:ちょうせん=challenge|' +
+        '到着:とうちゃく=arrival|出発:しゅっぱつ=departure|天気予報:てんきよほう=weather forecast|' +
+        '観光客:かんこうきゃく=tourist|携帯電話:けいたいでんわ=mobile phone|交差点:こうさてん=crossroads|' +
+        '郵便局:ゆうびんきょく=post office|冷蔵庫:れいぞうこ=fridge|洗濯機:せんたくき=washing machine|' +
+        '自動販売機:じどうはんばいき=vending machine'),
+    },
+    {
+      id: 'yoji', ja: '四字熟語', en: 'Four-character idioms',
+      items: kanji(
+        '心機一転:しんきいってん=a fresh start|一期一会:いちごいちえ=a once-in-a-lifetime meeting|' +
+        '十人十色:じゅうにんといろ=to each their own|一石二鳥:いっせきにちょう=two birds with one stone|' +
+        '一生懸命:いっしょうけんめい=with all one\'s might|以心伝心:いしんでんしん=unspoken understanding|' +
+        '三日坊主:みっかぼうず=someone who soon gives up|日進月歩:にっしんげっぽ=rapid, constant progress|' +
+        '起承転結:きしょうてんけつ=intro, development, twist, conclusion|花鳥風月:かちょうふうげつ=the beauties of nature|' +
+        '温故知新:おんこちしん=finding new ideas in the old|臨機応変:りんきおうへん=adapting to the moment|' +
+        '自業自得:じごうじとく=you reap what you sow|異口同音:いくどうおん=with one voice|' +
+        '電光石火:でんこうせっか=as fast as lightning|単刀直入:たんとうちょくにゅう=straight to the point|' +
+        '晴耕雨読:せいこううどく=work in sun, read in rain|大器晩成:たいきばんせい=great talents ripen late|' +
+        '有言実行:ゆうげんじっこう=doing what you say|一日一善:いちにちいちぜん=a good deed a day|' +
+        '半信半疑:はんしんはんぎ=half in doubt|四苦八苦:しくはっく=great hardship|' +
+        '一喜一憂:いっきいちゆう=swinging between joy and worry|適材適所:てきざいてきしょ=the right person in the right place'),
+    },
+    {
+      id: 'sentences', ja: '漢字の文', en: 'Sentences with kanji',
+      items: kanji(
+        '今日は天気がいいです。:きょうはてんきがいいです。=The weather is nice today.|' +
+        '駅はどこですか。:えきはどこですか。=Where is the station?|雨が降っています。:あめがふっています。=It is raining.|' +
+        '日本語を勉強しています。:にほんごをべんきょうしています。=I am studying Japanese.|' +
+        '毎朝六時に起きます。:まいあさろくじにおきます。=I get up at six every morning.|' +
+        '週末に友達と映画を見ました。:しゅうまつにともだちとえいがをみました。=I saw a film with a friend at the weekend.|' +
+        '七転び八起き。:ななころびやおき。=Fall down seven times, get up eight.|' +
+        '電車で学校へ行きます。:でんしゃでがっこうへいきます。=I go to school by train.|' +
+        '桜がきれいに咲いています。:さくらがきれいにさいています。=The cherry blossoms are blooming beautifully.|' +
+        '少し休みましょう。:すこしやすみましょう。=Let\'s rest a little.|今夜は早く寝ます。:こんやははやくねます。=I will go to bed early tonight.|' +
+        'お茶をもう一杯ください。:おちゃをもういっぱいください。=Another cup of tea, please.|' +
+        'この本はとても面白いです。:このほんはとてもおもしろいです。=This book is very interesting.|' +
+        '窓を開けてもいいですか。:まどをあけてもいいですか。=May I open the window?|道に迷いました。:みちにまよいました。=I got lost.|' +
+        '夏休みに海へ行きたいです。:なつやすみにうみへいきたいです。=I want to go to the sea in the summer holidays.|' +
+        '宿題を忘れないでください。:しゅくだいをわすれないでください。=Please don\'t forget your homework.|' +
+        '駅の前で待っています。:えきのまえでまっています。=I am waiting in front of the station.|' +
+        '風邪をひいてしまいました。:かぜをひいてしまいました。=I have caught a cold.|' +
+        '来年、京都へ留学します。:らいねん、きょうとへりゅうがくします。=Next year I will study in Kyoto.|' +
+        '失敗は成功のもと。:しっぱいはせいこうのもと。=Failure is the seed of success.|' +
+        '石の上にも三年。:いしのうえにもさんねん。=Patience wins in the end.|継続は力なり。:けいぞくはちからなり。=Keeping at it is strength.|' +
+        '急がば回れ。:いそがばまわれ。=More haste, less speed.'),
+    },
+  ];
+
   const SYMBOL_STAGES = [
     { id: 'plain', ja: 'シフトなし', en: 'Unshifted keys', items: SYMBOL_KEYS.filter((k) => !k.shift) },
     { id: 'shifted', ja: 'シフト', en: 'Shift keys', items: SYMBOL_KEYS.filter((k) => k.shift) },
@@ -488,9 +588,9 @@
   ];
 
   const api = {
-    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, blame, choices, why, keyFor, fingerFor, rowOf,
+    toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, blame, choices, why, keyFor, fingerFor, rowOf, readingSlots,
     SINGLE, COMBO, SYMBOL_KEYS, PUNCT_KEYS, KANA_KEYS, KANA_SHIFT_KEYS,
-    KANA_STAGES, SYMBOL_STAGES, KANA_KEY_STAGES,
+    KANA_STAGES, KANJI_STAGES, SYMBOL_STAGES, KANA_KEY_STAGES,
   };
 
   root.TypingEngine = api;

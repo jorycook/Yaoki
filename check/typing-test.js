@@ -494,6 +494,73 @@ async function waitFor(fn, ms = 5000) {
   if (shots) await page.screenshot({ path: `${shots}/course-dark.png` });
   await page.close();
 
+  // ---- kanji (advanced): the reading is the answer, shown only as a hint
+  page = await open();
+  await pick(page, 5, 2);
+  check('the kanji mode has its five levels', (await page.$$('#stages .option')).length === 5 && /漢字/.test(await page.textContent('#modes [aria-pressed="true"]')));
+  await page.click('#len-seg button:nth-child(1)');
+  await page.click('#start');
+  let kj = await target(page);
+  await sleep(100);
+  let kinfo = await page.innerText('#info');
+  check('a kanji card shows the word without its reading or romaji', !!kj.reading && !kj.readingShown && !kj.romajiShown && kinfo.includes(kj.text) && !kinfo.includes(kj.reading), JSON.stringify({ kj, kinfo }));
+  check('…and only the word is said', await waitFor(async () => (await page.textContent('#sr-prompt')).includes(kj.text), 2000) && !(await page.textContent('#sr-prompt')).includes(kj.reading), await page.textContent('#sr-prompt'));
+  await page.keyboard.type(kj.spell, { delay: 25 });
+  check('typed from memory, it is clean', (await state(page)).clean === 1);
+  kj = await target(page);
+  const slipped = kj.text;
+  await page.keyboard.press('1');
+  kj = (await state(page)).target;
+  kinfo = await page.innerText('#info');
+  check('a slip shows the reading first, on the card and under the game', kj.readingShown && !kj.romajiShown && kj.level === 1 && kinfo.includes(kj.reading), JSON.stringify({ kj, kinfo }));
+  check('…and the reading is said', await waitFor(async () => (await page.textContent('#sr-prompt')).includes(kj.reading), 1500), await page.textContent('#sr-prompt'));
+  await sleep(120);
+  check('…but not yet the romaji or the keys', (await page.$('#kb .key.next')) === null);
+  await page.keyboard.press('1');
+  check('a second slip shows the romaji, and lights the next key', (await state(page)).target.romajiShown && await waitFor(async () => (await page.$('#kb .key.next')) !== null, 1000));
+  await page.keyboard.type((await state(page)).target.spell, { delay: 25 });
+  kj = await target(page);
+  const stuck = kj.text;
+  await sleep(2500);
+  check('when stuck, the reading is still hidden after 2.5 seconds…', !(await state(page)).target.readingShown);
+  check('…and shows by 3.5 seconds', await waitFor(async () => ((await state(page)).target || {}).readingShown === true, 1400));
+  if (shots) await page.screenshot({ path: `${shots}/kanji.png` });
+  const kround = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
+  const kweak = kround ? await page.textContent('#res-weak') : '';
+  check('the round\'s weak spots list the slipped word, and the one only a hint showed', kweak.includes(slipped) && kweak.includes(stuck), JSON.stringify({ kweak, slipped, stuck }));
+  const kst = (await stored(page)).stats || {};
+  check('…kept as words, not as kana', (kst.kanji || {})[slipped] && kst.kanji[stuck] && !Object.keys(kst.kana || {}).length, JSON.stringify(kst));
+  await page.keyboard.press('Escape');
+  await setHints(1);
+  await pick(page, 5, 1);
+  await page.click('#start');
+  kj = await target(page);
+  await sleep(100);
+  kinfo = await page.innerText('#info');
+  check('with hints always on, the reading and romaji show from the start', kj.readingShown && kj.romajiShown && kinfo.includes(kj.reading), JSON.stringify({ kj, kinfo }));
+  check('…and the reading is said with the word', await waitFor(async () => (await page.textContent('#sr-prompt')).includes(kj.reading), 1500), await page.textContent('#sr-prompt'));
+  await quit(page);
+  // stuck with hints off, then turned on in the pause: the word is said again, with its reading
+  await setHints(3);
+  await page.click('#start');
+  kj = await target(page);
+  await sleep(3800);
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#hint-seg button:nth-child(2)');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  check('a reading shown as the round resumes is said with its word', await waitFor(async () => {
+    const said = await page.textContent('#sr-prompt');
+    return said.includes(kj.text) && said.includes(kj.reading);
+  }, 1500), await page.textContent('#sr-prompt'));
+  await quit(page);
+  await pick(page, 5, 5);
+  await page.click('#start');
+  const kdone = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
+  check('a round of sentences with kanji can be played to the end', kdone && (await state(page)).phase === 'result');
+  await page.close();
+
   // ---- sound effects: quiet by default, all, off; the kana fill; the fall's drum and bounce
   page = await open({}, null, SFX_STUB);
   check('sound effects are quiet by default', (await state(page)).sfx === 'quiet');
