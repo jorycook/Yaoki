@@ -16,6 +16,7 @@
   const AC = window.AudioContext || window.webkitAudioContext;
   let ctx = null;
   let master = null;
+  let bus = null;       // the music's way out (music.js), beside the effects' own
   let noiseBuf = null;
   let lastTick = 0;
 
@@ -31,6 +32,9 @@
         master = ctx.createGain();
         master.gain.value = 0.32;
         master.connect(ctx.destination);
+        bus = ctx.createGain();
+        bus.gain.value = 1;
+        bus.connect(ctx.destination);
       }
       if (ctx.state !== 'running' && ctx.state !== 'closed') {
         const woke = ctx.resume();
@@ -125,6 +129,40 @@
       tone('triangle', YO[5], YO[5], t, 0.1, 0.12);
       tone('triangle', YO[7], YO[7], t + 0.09, 0.16, 0.12);
     },
+    // Yaoki jumps over a cleared card: a springy boing
+    jump(t) {
+      tone('triangle', 260, 620, t, 0.16, 0.12);
+      tone('sine', 520, 1240, t, 0.12, 0.04);
+    },
+    // he spins over one: three bright notes of the yo scale, quickly
+    spin(t) {
+      for (let k = 0; k < 3; k++) tone('triangle', YO[8 + k], YO[8 + k], t + k * 0.05, 0.14, 0.07);
+      hiss(5200, 3, t, 0.16, 0.03);
+    },
+    // he ducks while it sails over: a paper whoosh going by
+    duck(t) {
+      const s = ctx.createBufferSource();
+      const f = ctx.createBiquadFilter();
+      const g = ctx.createGain();
+      s.buffer = noise();
+      f.type = 'bandpass';
+      f.Q.value = 1.4;
+      f.frequency.setValueAtTime(2400, t);
+      f.frequency.exponentialRampToValueAtTime(500, t + 0.3);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.13, t + 0.08);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+      s.connect(f).connect(g).connect(master);
+      s.start(t);
+      s.stop(t + 0.35);
+    },
+    // he smashes through one: a thump and the paper tearing
+    smash(t) {
+      tone('sine', 130, 48, t, 0.22, 0.42);
+      hiss(1600, 0.8, t, 0.2, 0.26);
+      hiss(4200, 1.2, t + 0.02, 0.12, 0.1);
+      hiss(400, 1, t, 0.12, 0.2, 'lowpass');
+    },
     // a card skipped or a power used: a soft paper swish
     swish(t) {
       hiss(1800, 0.7, t, 0.18, 0.12);
@@ -150,6 +188,7 @@
     }
     ctx = null;
     master = null;
+    bus = null;
     noiseBuf = null;
     lastTick = 0;
   }
@@ -163,6 +202,12 @@
       context();
     },
     sleep,
+    // The output for the page's other sounds (the music): its context and a bus to play
+    // into, or null while there is none (made only by unlock(), in a key press or click).
+    audio() {
+      const c = ctx ? context() : null;
+      return c ? { ctx: c, out: bus } : null;
+    },
     // Plays on an output a key press or click has made: never makes one by itself.
     play(name, opts) {
       const fn = SOUNDS[name];

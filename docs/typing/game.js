@@ -18,6 +18,12 @@
  * Between visits, a day's typing time fills a box on a seven-day stamp card that never resets,
  * and たいへんよくできました on three different days gives a stage its はなまる. None of it
  * touches the learning data: the clean count, the pace, the bests and the weak spots.
+ *
+ * Cleared cards ride on to Yaoki, and he gets past each with a trick (a jump, a spin, a duck or
+ * a smash) before it settles behind him. Each round is played in a scene (scenes.js) under the
+ * graph paper, to its own tune (music.js); Yaoki's lines and their little items are in
+ * items.js. Each of those modules is optional: without it the round is plain paper, silent, or
+ * uses the few lines built in here.
  */
 (function () {
   'use strict';
@@ -44,7 +50,6 @@
   const STUCK_FIRST = 5;       // seconds before the first key of a card until a "when stuck" hint
   const STUCK_NEXT = 3;        // seconds between keys until the next level of hint
   const RUN_STEPS = [5, 10, 20, 40];   // clean cards in a row that Yaoki cheers
-  const CHEERS = [['いいね！', 'Nice'], ['すごい！', 'Great'], ['さすが！', 'Brilliant'], ['かんぺき！', 'Spotless']];
   const GOALS = [3, 5, 10];    // minutes of typing a day for the day's stamp
   const PRACTICE_IDLE = 8;     // seconds without a key after which typing time stops counting
   const STAMP_T = 0.32;        // a 済 landing, on the curve of the app's yk-stamp
@@ -57,12 +62,29 @@
   const BUBBLE_POP = 0.15;
   const VOICE_T = 0.9;          // no effect sound this long after a course word's clip starts (or its length, if longer)
   const DAY_TILTS = [-9, 6, -4, 8, -7, 5, -10];
+  // Yaoki's tricks past a cleared card: length (s), the stretch of it in which the card goes by
+  // him (or, for a smash, when he hits it), and the trick's sound word
+  const TRICKS = {
+    jump: { len: 0.8, pass: [0.14, 0.66], ja: 'ぴょん' },
+    spin: { len: 1.0, pass: [0.16, 0.7], ja: 'くるりん' },
+    duck: { len: 0.9, pass: [0.14, 0.72], ja: 'ひょい' },
+    smash: { len: 0.8, hit: 0.3, ja: 'どーん！' },
+  };
+  const TRICK_LEAD = 34;       // a trick starts when a cleared card is this close to Yaoki's front
+  const NODE_BACK = 40;        // where a passed card's node lands, behind him
+  const SETTLE_T = 0.3;        // a card that just settles into its node
+  const HURRY = 2.2;           // how much faster a trick goes when the next card is waiting
+  const NOD_T = 0.12;          // his nod for a right key
+  const BLINK_T = 0.12;
+  const FX_T = 0.6;            // a trick's sound word
+  const TRAIL_T = 0.35;        // the stars a spin leaves
+  const FINALE_MAX = 4;        // at most this long for the cleared cards to parade past him at the end
 
   // ---------- what is kept between visits ----------
 
   const DEFAULTS = {
     mode: null, stage: {}, level: null, unit: {}, hints: 'stuck', len: 20, kb: true, sound: true, best: {}, pace: {}, stats: {},
-    sfx: 'quiet', goal: 5, practice: null, stampCard: { days: [], done: 0, lastDay: null }, run: {}, seal: {},
+    sfx: 'quiet', music: 'on', goal: 5, practice: null, stampCard: { days: [], done: 0, lastDay: null }, run: {}, seal: {},
   };
   let saved = load();
   sanitize();
@@ -70,6 +92,7 @@
   // Keys added after the first version, checked so that any old or odd save still loads.
   function sanitize() {
     if (!['off', 'quiet', 'all'].includes(saved.sfx)) saved.sfx = 'quiet';
+    if (!['off', 'soft', 'on'].includes(saved.music)) saved.music = 'on';
     if (!GOALS.includes(saved.goal)) saved.goal = 5;
     const p = saved.practice;
     if (!p || typeof p !== 'object' || typeof p.d !== 'string' || !(p.s >= 0)) saved.practice = null;
@@ -356,6 +379,8 @@
   let startTicket = 0;
 
   async function startRound(weakOnly) {
+    // always from a click or a key press: the moment to wake the audio for the music
+    wakeAudio();
     const ticket = ++startTicket;
     const items = currentItems();
     if (!items || !items.length) return;
@@ -427,15 +452,29 @@
       dayStamp: 0,
       cardDone: null,
       seal: null,
-      yk: { happyT: 0, hopT: 0, hopH: 6, bubble: null, box: null, lift: 0, liftMax: 0 },
+      yk: { happyT: 0, hopT: 0, hopH: 6, bubble: null, box: null, lift: 0, liftMax: 0, nodT: 0, blinkT: -1, blinkAt: 1.5, fx: null, trail: [], trick: null },
+      tricks: { jump: 0, spin: 0, duck: 0, smash: 0 },
+      scroll: 0,
+      finale: null,
+      // the scene the round is played in, and its song
+      scene: window.TypingScenes && window.TypingScenes.forStage ? safely(() => window.TypingScenes.forStage(key), null) : null,
+      song: null,
+      musicOn: false,
+      started: false,
+      said: new Set(),
+      // a clean run one longer than the stage's record is cheered (rounds that can keep it)
+      runRecordAt: !weakOnly && saved.hints !== 'always' && saved.run[key] ? saved.run[key] + 1 : 0,
       sayNext: '',
       lastMissSfx: -1,
       voiceUntil: 0,
       fxDrawn: 0,
     };
     markWeakCards();
+    r.song = songFor(r.scene);
     hush();
     setPhase('play');
+    startMusic();
+    if (document.hidden) setPhase('paused');
     resize();
     if (modeId === 'course' && saved.sound) loadSound(level, unit);
     setStatus('', '');
@@ -569,15 +608,39 @@
     if (r.time - r.lastKeyAt < PRACTICE_IDLE) r.practice += dt;
     r.time += dt;
     for (const c of r.cards) {
-      if (c.state === 'done') c.stampT += dt;
+      if (c.state === 'done') {
+        c.stampT += dt;
+        if (c.phase === 'settle' && (c.settleT += dt) >= SETTLE_T) c.phase = 'node';
+      }
       if (c.flashT > 0) c.flashT = Math.max(0, c.flashT - dt);
       if (c.popT > 0) c.popT = Math.max(0, c.popT - dt);
     }
     const yk = r.yk;
     yk.happyT = Math.max(0, yk.happyT - dt);
     yk.hopT = Math.max(0, yk.hopT - dt);
+    yk.nodT = Math.max(0, yk.nodT - dt);
     if (yk.bubble && (yk.bubble.t += dt) >= yk.bubble.life) yk.bubble = null;
+    // he blinks every few seconds
+    if (yk.blinkT >= 0) {
+      yk.blinkT += dt;
+      if (yk.blinkT >= BLINK_T) {
+        yk.blinkT = -1;
+        yk.blinkAt = r.time + 2.2 + 2.8 * Math.random();
+      }
+    } else if (r.time >= yk.blinkAt) {
+      yk.blinkT = 0;
+    }
+    if (yk.fx && (yk.fx.t += dt * (yk.trick && yk.trick.rate ? yk.trick.rate : 1)) >= FX_T) yk.fx = null;
+    if (yk.trail.length) {
+      for (const st of yk.trail) st.age += dt;
+      if (yk.trail[0].age >= TRAIL_T) yk.trail = yk.trail.filter((st) => st.age < TRAIL_T);
+    }
+    updateTrick(dt);
 
+    if (r.finale !== null && r.endIn === null) {
+      const riding = r.cards.some((c) => c.state === 'done' && (c.phase === 'ride' || c.phase === 'trick'));
+      if (!riding || r.time - r.finale >= FINALE_MAX) r.endIn = 0.8;
+    }
     if (r.endIn !== null) {
       r.endIn -= dt;
       if (r.endIn <= 0) {
@@ -593,7 +656,7 @@
       if (!r.fall.rose && r.fall.t >= 0.5 * r.fall.length) {
         r.fall.rose = true;
         sfx('up');
-        cheer('よいしょ！', 'Up again', r.fall.length - r.fall.t + 0.5);
+        cheer('rise', r.fall.length - r.fall.t + 0.5, { first: !r.said.has('rise') });
       }
       if (r.fall.t >= r.fall.length) endFall();
       return;
@@ -602,7 +665,7 @@
     const live = r.cards.filter((c) => c.state === 'live');
     const target = targetCard();
     const halted = !!(target && target.halted);
-    const waiting = !target && (live.length > 0 || r.queue.length > 0) && r.endIn === null;
+    const waiting = !target && (live.length > 0 || r.queue.length > 0 || r.finale !== null) && r.endIn === null;
     let speed = halted ? 0 : r.speed;
     if (waiting) {
       if (reducedMotion.matches) {
@@ -614,7 +677,22 @@
     }
     if (target) r.active += dt;
 
-    for (const c of r.cards) c.x -= speed * dt;
+    // The card of a trick in progress is held where it is: the trick moves it. A cleared card
+    // waits at the trick line while its stamp lands, or while he is busy with the card before
+    // it (that trick then hurries), so each card's trick starts in front of him; the cards
+    // behind it keep their distance.
+    const line = view.yx + REACH + TRICK_LEAD;
+    let edge = -Infinity;
+    for (const c of r.cards) {
+      if (c.phase === 'trick') continue;
+      const nx = c.x - speed * dt;
+      const hold = c.phase === 'ride' && (c.stampT < 0.2 || !!yk.trick);
+      c.x = hold ? Math.max(nx, Math.min(c.x, line)) : nx;
+      if (c.state === 'live' || c.phase === 'ride') c.x = Math.max(c.x, edge + 30);
+      if (c.phase === 'ride') edge = c.x + c.w;
+    }
+    r.speedNow = speed;
+    r.scroll += speed * dt;
     r.rock += dt * Math.min(speed, 160) / 40;
 
     // New cards come in from the right, spaced by how long the card before them takes.
@@ -634,9 +712,21 @@
           first.halted = true;
           first.level = 2;
           say(first.item.text, 'Take your time: the world waits for this one. Tab skips it.');
+          cheer('halt', 2);
         }
       } else {
         startFall(first);
+      }
+    }
+
+    // A cleared card that reaches him: he gets past it with a trick (once its stamp is down).
+    // If he is still busy with the one before, that trick hurries and this card waits its turn.
+    if (!r.fall) {
+      for (const c of r.cards) {
+        if (c.state !== 'done' || c.phase !== 'ride' || c.stampT < 0.2 || c.x > view.yx + REACH + TRICK_LEAD) continue;
+        if (reducedMotion.matches) settleCard(c);
+        else if (!yk.trick) startTrick(c);
+        else yk.trick.rate = HURRY;
       }
     }
 
@@ -650,10 +740,24 @@
         r.target = t;
         speakTarget(t);
         showInfo(t);
+        // a word from Yaoki as the round starts, and for its last card
+        if (!r.started) {
+          r.started = true;
+          cheer('start', 1.4, { first: true });
+        } else if (r.cleared + r.skipped === r.total - 1 && r.lastFor !== t) {
+          r.lastFor = t;
+          cheer('last', 1.4);
+          if (r.musicOn && t.entry.falls < 2) music('cue', 'last');
+        }
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
       }
       t.idle += dt;
+      // a gentle nudge before any hint, once a card
+      if (t.idle >= 3.5 && !t.nudged && !t.typed) {
+        t.nudged = true;
+        cheer('idle', 1.6);
+      }
       raiseHint(t);
     } else if (r.target && !r.fall) {
       r.target = null;
@@ -718,9 +822,12 @@
     r.run = 0;
     r.stepChip = false;
     r.fellEntries.add(card.entry);
+    endTrick();
     r.yk.happyT = 0;
     r.yk.hopT = 0;
     r.yk.bubble = null;
+    r.yk.fx = null;
+    if (r.musicOn) music('cue', 'fall');
     sfx('fall');
     noteMiss(card);
     applyStats(card);
@@ -738,6 +845,7 @@
     r.cards = r.cards.filter((c) => c !== card);
     r.queue.splice(Math.min(r.fall.at, r.queue.length), 0, card.entry);
     r.fall = null;
+    if (r.musicOn) music('setLevel', musicLevel());
     const live = r.cards.filter((c) => c.state === 'live');
     if (live.length) {
       const min = view.yx + REACH + r.speed * SLACK * (r.rt + live[0].item.len / r.p);
@@ -840,20 +948,25 @@
     if (card.comeback) r.comebacks++;
     if (card.star) r.weakClean++;
 
-    // Yaoki: a smile for a clean card, a hop and a cheer at a step of the run or a comeback.
+    // Yaoki: a smile for a clean card, a hop and a cheer at a step of the run or a comeback;
+    // and the trick he will get past this card with when it reaches him.
+    card.phase = 'ride';
+    card.trick = card.comeback || card.star || card.halted ? 'smash' : !clean ? 'duck' : r.run >= 5 ? 'spin' : 'jump';
     const yk = r.yk;
     if (clean || card.comeback) yk.happyT = HAPPY_T;
     if (step >= 0) {
       hop(step >= 2 ? 8 : 6);
-      cheer(CHEERS[step][0], CHEERS[step][1], CHEER_T);
+      cheer('step' + step, CHEER_T, { first: !r.said.has('step' + step) });
     } else if (card.comeback) {
       hop(6);
-      cheer('もう大丈夫！', 'Got it now', 1);
+      cheer('comeback', 1);
+    } else if (card.star) {
+      cheer('star', 1.2);
     }
+    if (r.runRecordAt && r.bestRun === r.runRecordAt && !r.said.has('record') && !r.hintModes.has('always')) cheer('record', 1.4);
 
-    // The stamp's ink: on the corner badge, or on the route if the card settles at once there;
-    // a clean card's stamp throws a few drops.
-    card.inkOn = (view.yx + 150 - card.x) / 80 >= 0.5 ? 'node' : 'badge';
+    // The stamp's ink, on the corner badge; a clean card's stamp throws a few drops.
+    card.inkOn = 'badge';
     if (clean) {
       card.ink = [];
       for (let i = 0; i < 6; i++) card.ink.push({ a: Math.random() * Math.PI * 2, d: 8 + 10 * Math.random(), r: 1.2 + 1.2 * Math.random() });
@@ -864,16 +977,42 @@
     if (voice) {
       window.ykSound.play(card.item.clip);
       r.voiceUntil = r.time + Math.max(VOICE_T, (window.ykSound.ms ? window.ykSound.ms(card.item.clip) : 0) / 1000);
-    }
-    else {
+      if (r.musicOn) music('duck', r.voiceUntil - r.time + 0.2);
+    } else {
       sfx('clear', { streak: clean ? r.run : 0 });
       if (card.star) sfx('gold');
       if (step >= 0) sfxLater('streak', { step }, 140);
       else if (card.comeback) sfxLater('up', null, 120);
     }
-    if (r.cleared + r.skipped >= r.total) r.endIn = 0.8;
+    // the music follows the clean run
+    if (r.musicOn) {
+      music('setLevel', musicLevel());
+      if (step >= 0) music('cue', 'step');
+    }
+    if (r.cleared + r.skipped >= r.total) startFinale();
+    roundLines();
     setStatus('', '');
     hud();
+  }
+
+  // The last card is done: the cleared cards still on the route hurry past Yaoki, each with its
+  // trick, then the result (straight away under reduced motion, where nothing hurries).
+  function startFinale() {
+    if (r.finale !== null) return;
+    r.finale = r.time;
+    if (reducedMotion.matches) r.endIn = 0.8;
+  }
+
+  // Yaoki's word halfway through the round, and at its end (by the stamp it will get).
+  function roundLines() {
+    const passed = r.cleared + r.skipped;
+    if (passed >= r.total) {
+      const tier = tierOf(r);
+      cheer(['endGood', 'endOk', 'endTry'][tier], 1.2);
+      if (tier === 0) hop(10);
+    } else if (r.total >= 10 && passed === Math.floor(r.total / 2)) {
+      cheer('half', 1.3);
+    }
   }
 
   // A card that waits for Yaoki can be passed over with Tab (for a key this keyboard lacks).
@@ -887,11 +1026,13 @@
     r.target = null;
     sfx('swish');
     setStatus('', '');
-    if (r.cleared + r.skipped >= r.total) r.endIn = 0.8;
+    if (r.cleared + r.skipped >= r.total) startFinale();
+    roundLines();
     hud();
   }
 
   function finishRound() {
+    if (r.musicOn) music('cue', 'end');
     creditPractice();
     saved.pace[r.key] = { r: Math.round(r.rt * 100) / 100, p: Math.round(r.p * 100) / 100 };
     const kpm = r.active > 0.2 ? Math.round(r.keysRight / (r.active / 60)) : 0;
@@ -976,7 +1117,7 @@
       $('touch-note').hidden = true;
       showKeyboard();
     }
-    wakeSfx();
+    wakeAudio();
     // A held Escape or Enter does nothing more than its first press did.
     if (e.repeat && (e.key === 'Escape' || e.key === 'Enter')) {
       e.preventDefault();
@@ -1110,6 +1251,7 @@
     if (card.firstKeyAt === null) card.firstKeyAt = r.time;
     card.idle = 0;
     r.keysRight++;
+    r.yk.nodT = NOD_T;
     flashKey(code, 'ok');
     // a romaji letter pops under the route and ticks; one-key cards have their stamp instead
     if (card.item.kind === 'romaji') {
@@ -1138,20 +1280,65 @@
   }
 
   // ---------- sound effects (sfx.js) ----------
-  // "Quiet" plays a stamp for each card, a drum for a fall and a bounce for getting up; "All"
-  // also ticks for each right romaji key and knocks for a miss. The audio output is only ever
-  // made on a key press or a click.
+  // "Quiet" plays a stamp for each card, a drum for a fall, a bounce for getting up and a sound
+  // for each trick; "All" also ticks for each right romaji key and knocks for a miss. The audio
+  // output is only ever made on a key press or a click.
 
   let sfxReady = false;
   const SFX_ALL_ONLY = new Set(['key', 'miss']);
-  function wakeSfx() {
-    if (!window.TypingSfx || saved.sfx === 'off') return;
+  const UNDER_VOICE = new Set(['key', 'miss', 'jump', 'duck', 'spin', 'smash']);
+  function wakeAudio() {
+    if (!window.TypingSfx || (saved.sfx === 'off' && saved.music === 'off')) return;
     sfxReady = true;
     window.TypingSfx.unlock();
   }
+  // With effects and music both off, the audio output is given back.
+  function sleepAudio() {
+    if (saved.sfx === 'off' && saved.music === 'off' && window.TypingSfx && window.TypingSfx.sleep) window.TypingSfx.sleep();
+  }
+
+  // ---------- music (music.js) ----------
+  // A song for each scene, made in the browser. It starts with the round, gets livelier as the
+  // clean run grows (5, then 10 in a row), drops back when Yaoki falls, dips while a course word
+  // is spoken, pauses with the round and ends with it.
+
+  const MUSIC_VOL = { off: 0, soft: 0.3, on: 0.6 };
+  // the tune that suits each scene of scenes.js
+  const SCENE_SONG = {
+    shitamachi: 'matsuri', chikurin: 'take', umi: 'umi', fuji: 'yuki', machi: 'yoru', tanbo: 'matsuri',
+    yukiguni: 'yuki', uchuu: 'uchu', uminaka: 'umi', matsuri: 'matsuri', densha: 'yoru', joka: 'take',
+  };
+  function music(fn, ...args) {
+    const m = window.TypingMusic;
+    if (!m || typeof m[fn] !== 'function') return undefined;
+    try {
+      return m[fn](...args);
+    } catch (err) {
+      return undefined;
+    }
+  }
+  const musicLevel = () => (r.run >= 10 ? 3 : r.run >= 5 ? 2 : 1);
+  function songFor(scene) {
+    const m = window.TypingMusic;
+    if (!m || !Array.isArray(m.SONGS) || !m.SONGS.length) return null;
+    const own = SCENE_SONG[scene];
+    if (own && m.SONGS.some((x) => x.id === own)) return own;
+    const scenes = window.TypingScenes && window.TypingScenes.SCENES ? window.TypingScenes.SCENES.map((x) => x.id) : [];
+    const i = Math.max(0, scenes.indexOf(scene));
+    return m.SONGS[i % m.SONGS.length].id;
+  }
+  function startMusic() {
+    if (!r || saved.music === 'off' || !sfxReady) return;
+    music('volume', MUSIC_VOL[saved.music]);
+    if (music('start', r.song) !== false) {
+      r.musicOn = true;
+      music('setLevel', r.cleared ? musicLevel() : 0);
+    }
+  }
   function sfx(name, opts) {
     if (!sfxReady || !window.TypingSfx || saved.sfx === 'off') return;
-    if (SFX_ALL_ONLY.has(name) && (saved.sfx !== 'all' || (r && r.time < r.voiceUntil))) return;
+    if (SFX_ALL_ONLY.has(name) && saved.sfx !== 'all') return;
+    if (UNDER_VOICE.has(name) && r && r.time < r.voiceUntil) return;
     try {
       window.TypingSfx.play(name, opts);
     } catch (err) {
@@ -1200,10 +1387,12 @@
     $('app').inert = p === 'paused' || !$('settings-sheet').hidden;
     document.body.classList.toggle('playing', p === 'play' || p === 'paused');
     if (p === 'menu') {
+      music('stop', 0.3);
       r = null;
       hush();
       renderMenu();
     }
+    if (p === 'paused') music('pause');
     if (p === 'paused') $('resume').focus();
     if (p === 'play') {
       if (document.activeElement && document.activeElement !== document.body) document.activeElement.blur();
@@ -1212,6 +1401,14 @@
       if (was === 'paused' && r) {
         r.spokenAt = -9;
         r.target = null;
+        // the music goes on (or starts, if it was turned on during the pause)
+        wakeAudio();
+        if (r.musicOn && saved.music !== 'off') {
+          music('volume', MUSIC_VOL[saved.music]);
+          music('resume');
+        } else {
+          startMusic();
+        }
       }
     }
     if (p === 'result') $('res-title').focus();
@@ -1568,10 +1765,23 @@
     ], saved.sfx, (v) => {
       saved.sfx = v;
       save();
+      if (v === 'off') sleepAudio();
+      else wakeAudio();
+    });
+    seg('music-seg', [
+      { value: 'off', html: '<span lang="ja">なし</span>　<small>Off</small>' },
+      { value: 'soft', html: '<span lang="ja">小さめ</span>　<small>Soft</small>' },
+      { value: 'on', html: '<span lang="ja">あり</span>　<small>On</small>' },
+    ], saved.music, (v) => {
+      saved.music = v;
+      save();
       if (v === 'off') {
-        if (window.TypingSfx && window.TypingSfx.sleep) window.TypingSfx.sleep();
+        music('stop', 0.2);
+        if (r) r.musicOn = false;
+        sleepAudio();
       } else {
-        wakeSfx();
+        wakeAudio();
+        music('volume', MUSIC_VOL[v]);
       }
     });
     seg('goal-seg', GOALS.map((n, i) => ({
@@ -1873,8 +2083,23 @@
       lineStrong: v('--line-strong'), outline: v('--outline'), hard: v('--hard'), accentInk: v('--accent-ink'),
       good: v('--good'), bad: v('--bad'), badSoft: v('--bad-soft'), stamp: v('--stamp'), daruma: v('--daruma'), grid: v('--grid'),
       gold: v('--gold'), note: v('--note'),
+      dark: lightness(v('--ground')) < 0.5,
     };
   }
+  // 0 (black) to 1 (white), for a #rrggbb colour
+  function lightness(hex) {
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex || '');
+    if (!m) return 1;
+    const n = parseInt(m[1], 16);
+    return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
+  }
+  const safely = (fn, fallback) => {
+    try {
+      return fn();
+    } catch (err) {
+      return fallback;
+    }
+  };
 
   // A teacher's はなまる: n scallops round a ring of radius R, as an SVG path (also a Path2D).
   function hanamaruPath(R, n) {
@@ -1903,6 +2128,20 @@
     mouth: new Path2D('M44 55c4 3 8 3 12 0'),
     gold: new Path2D('M38 74h24M42 82h16'),
   };
+  // his other faces: eyes shut (a blink), dazed after a fall, gritted teeth, a drop of sweat,
+  // and brows: normal, worried (a card is close), up (surprise, joy), firm (a smash)
+  const FACE = {
+    closed: new Path2D('M31 42c4 2 12 2 16 0M53 42c4 2 12 2 16 0'),
+    dizzy: new Path2D('M33 37l10 5-10 5M67 37l-10 5 10 5'),
+    grit: new Path2D('M43 56h14'),
+    sweat: new Path2D('M84 18c3 5 5 8 5 11a5 5 0 0 1-10 0c0-3 2-6 5-11z'),
+    brows: {
+      normal: DARUMA.brows,
+      worried: new Path2D('M28 32c6-2 13-5 19-9M53 23c6 4 13 7 19 9'),
+      up: new Path2D('M28 27c6-6 14-6 19-1M53 26c5-5 13-5 19 1'),
+      firm: new Path2D('M28 25c6 2 13 4 19 7M53 32c6-3 13-5 19-7'),
+    },
+  };
 
   function resize() {
     const wrap = canvas.parentElement;
@@ -1927,7 +2166,7 @@
       for (const c of r.cards) {
         c.w = cardWidth(c.item);
         if (oldSpeed) c.x = view.yx + REACH + (c.x - oldYx - REACH) * (r.speed / oldSpeed);
-        if (c.state !== 'live') continue;
+        if (c.state !== 'live' && c.phase !== 'ride') continue;
         if (prev) c.x = Math.max(c.x, prev.x + prev.w + 30);
         prev = c;
       }
@@ -1940,16 +2179,44 @@
     ctx.fillStyle = pal.ground;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.setTransform(dpr * s, 0, 0, dpr * s, 0, dpr * oy);
+    drawScene(W, oy / s);
     drawPaper(W, oy / s);
     if (!r) return;
     r.fxDrawn = 0;
     const target = targetCard();
     for (const c of r.cards) if (c.state === 'done') drawCard(c, false);
-    drawYaoki();
+    // his bubble under him: at the top of a jump he passes in front of it
     drawBubble();
+    drawYaoki();
+    drawFx();
     for (const c of r.cards) if (c.state !== 'done') drawCard(c, c === target);
     const under = r.fall ? r.fall.card : target;
     if (under) drawUnder(under, W);
+  }
+
+  // The round's scene (scenes.js), like a picture pasted into the notebook under its graph
+  // paper: it moves with the route, follows the round from start to end, and the season.
+  function drawScene(W, pad) {
+    const sc = window.TypingScenes;
+    if (!r || !r.scene || !sc || typeof sc.draw !== 'function' || r.sceneFailed) return;
+    const still = reducedMotion.matches;
+    ctx.save();
+    try {
+      sc.draw(ctx, {
+        scene: r.scene, W, top: -pad, bottom: H + pad, ground: GROUND,
+        scroll: still ? 0 : r.scroll, progress: Math.min(1, (r.cleared + r.skipped) / r.total), t: still ? 0 : r.time,
+        still, dark: pal.dark, season: r.season || (r.season = seasonOf(clock())), pal,
+      });
+    } catch (err) {
+      // a scene that fails is left out for the rest of the round: the paper is enough
+      r.sceneFailed = true;
+      console.warn(err);
+    }
+    ctx.restore();
+  }
+  function seasonOf(t) {
+    const m = new Date(t).getMonth() + 1;
+    return m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
   }
 
   // Graph paper and the route: dotted ahead of Yaoki, traced red behind him (the app's map).
@@ -2002,66 +2269,12 @@
 
   // A card: the one being typed has the ink outline and hard shadow of the app's "next"
   // step; the others are quiet. A cleared card gets a 済 badge (起 for a comeback), stamped
-  // on like a hanko, then settles onto the route as a node like the done days on the app's
-  // map: a clean card's inside a teacher's はなまる, a weak-spot card typed clean with a star.
+  // on like a hanko, rides on to Yaoki and settles behind him as a node like the done days on
+  // the app's map (drawDone).
   function drawCard(c, isTarget) {
-    const still = reducedMotion.matches;
-    const cx = c.x + c.w / 2;
-    const ch = c.comeback ? '起' : '済';
     ctx.save();
     if (c.state === 'done') {
-      let settle = still ? (c.stampT > 0.45 ? 1 : 0) : Math.min(1, Math.max(0, (c.stampT - 0.45) / 0.25));
-      settle = Math.max(settle, Math.min(1, Math.max(0, (view.yx + 150 - c.x) / 80)));
-      const pose = still ? { s: 1, tilt: -10, a: 1 } : stampPose(c.stampT);
-      if (settle < 1) {
-        ctx.save();
-        ctx.globalAlpha = 1 - settle;
-        const sc = 1 - 0.4 * ease(settle);
-        ctx.translate(cx, GROUND);
-        ctx.scale(sc, sc);
-        ctx.translate(-cx, -GROUND);
-        cardBox(c, GROUND - CARD_H, pal.card, pal.line, 2, false);
-        cardText(c, GROUND - CARD_H, pal.muted);
-        ctx.globalAlpha = (1 - settle) * pose.a;
-        stamp(c.x + c.w - 4, GROUND - CARD_H + 4, 12 * pose.s, 2, pose.tilt, ch);
-        ctx.restore();
-      }
-      if (settle > 0) {
-        const k = 0.7 + 0.3 * ease(settle);
-        ctx.globalAlpha = Math.min(1, settle * 1.5);
-        if (c.clean) {
-          ctx.save();
-          ctx.translate(cx, GROUND - 16);
-          ctx.rotate(-9 * Math.PI / 180);
-          ctx.scale(k, k);
-          ctx.lineWidth = 1.8 / k;
-          ctx.lineJoin = 'round';
-          ctx.strokeStyle = pal.stamp;
-          ctx.stroke(HANAMARU);
-          ctx.restore();
-        }
-        if (c.comeback) {
-          ctx.beginPath();
-          ctx.arc(cx, GROUND - 16, 15 * k + 3.5, 0, Math.PI * 2);
-          ctx.lineWidth = 2;
-          ctx.strokeStyle = pal.gold;
-          ctx.stroke();
-        }
-        stamp(cx, GROUND - 16, 15 * k, 2.5, -9, ch);
-        if (c.star) {
-          ctx.save();
-          ctx.translate(cx + 19, GROUND - 4);
-          ctx.scale(0.62 * k, 0.62 * k);
-          ctx.fillStyle = pal.gold;
-          ctx.fill(STAR);
-          ctx.lineWidth = 2.2;
-          ctx.lineJoin = 'round';
-          ctx.strokeStyle = pal.outline;
-          ctx.stroke(STAR);
-          ctx.restore();
-        }
-      }
-      if (!still) drawInk(c, cx, settle);
+      drawDone(c);
       ctx.restore();
       return;
     }
@@ -2265,45 +2478,467 @@
     ctx.restore();
   }
 
-  function drawYaoki() {
+  // ---------- cleared cards: they ride on to Yaoki, and he gets past each with a trick ----------
+  //
+  // A cleared card keeps its place on the route, quiet and stamped, until it reaches Yaoki.
+  // Then he gets past it: he jumps over it (a clean card), spins over it (a clean card in a run
+  // of five or more), ducks while it sails over him (a card typed with a slip or a hint), or
+  // smashes through it (a comeback, a weak-spot card typed clean, a card that waited for him).
+  // It lands behind him as its 済 node, inside a はなまる if it was clean. One trick at a time:
+  // a card that comes while he is busy waits at his feet while that trick hurries. Under
+  // reduced motion there are no tricks: each card simply settles into its node.
+
+  function startTrick(c) {
+    const yk = r.yk;
+    const kind = TRICKS[c.trick] ? c.trick : 'jump';
+    const spec = TRICKS[kind];
+    c.phase = 'trick';
+    yk.hopT = 0;
+    const len = trickLength(c, spec);
+    yk.trick = {
+      kind, card: c, t: 0, len,
+      // where the card goes as it passes him, and where its node lands behind him
+      pass: view.yx - 22 - c.w - c.x,
+      nodeOff: view.yx - NODE_BACK - (c.x + c.w / 2),
+      shards: null, hit: false, tilt: (Math.random() - 0.5) * 0.3,
+    };
+    // its word: beside him at the top of a jump or spin, low beside him for a duck, over the
+    // card for a smash (as he hits it)
+    const at = { jump: [62, 46], spin: [68, 40], duck: [46, 128], smash: [96, 62] }[kind];
+    const word = lineFor(kind, false);
+    yk.fx = { ja: word && word.ja ? word.ja : spec.ja, t: kind === 'smash' ? -spec.hit * len : 0, x: view.yx + at[0], y: at[1], tilt: kind === 'duck' ? 0.1 : -0.14, big: kind === 'smash' };
+    if (kind !== 'smash') sfx(kind);
+    r.tricks[kind]++;
+  }
+  // As long as the trick's own, or shorter (down to 0.35 s) when the next cleared card will
+  // reach him sooner: so most cards get a trick even when they come close together.
+  function trickLength(c, spec) {
+    let len = spec.len * (r.finale !== null ? 0.7 : 1);
+    const line = view.yx + REACH + TRICK_LEAD;
+    // the world dashes only until the next live card is in view, then goes at its pace
+    const live = r.cards.find((x) => x.state === 'live');
+    const dashFor = r.finale !== null || !live ? Infinity : Math.max(0, live.x + live.w - (view.W - 8));
+    const fast = Math.max(1, r.speedNow || r.speed);
+    const cruise = Math.max(1, r.speed);
+    for (const o of r.cards) {
+      if (o === c || o.state !== 'done' || o.phase !== 'ride' || o.x < c.x) continue;
+      const d = o.x - line;
+      const eta = d <= dashFor ? d / fast : dashFor / fast + (d - dashFor) / cruise;
+      len = Math.min(len, Math.max(0.35, eta - 0.05));
+    }
+    return len;
+  }
+  function updateTrick(dt) {
+    const tr = r.yk.trick;
+    if (!tr) return;
+    tr.t += dt * (tr.rate || 1);
+    if (tr.kind === 'smash' && !tr.hit && tr.t >= TRICKS.smash.hit * tr.len) {
+      tr.hit = true;
+      tr.shards = shardsOf(tr.card);
+      sfx('smash');
+    }
+    if (tr.shards) {
+      for (const s of tr.shards) {
+        s.x += s.vx * dt;
+        s.vy += 620 * dt;
+        s.y += s.vy * dt;
+        s.a += s.va * dt;
+      }
+    }
+    if (tr.t >= tr.len) endTrick();
+  }
+  function endTrick() {
+    const tr = r.yk.trick;
+    if (!tr) return;
+    tr.card.x += tr.nodeOff;
+    tr.card.phase = 'node';
+    r.yk.trick = null;
+  }
+  function settleCard(c) {
+    c.phase = reducedMotion.matches ? 'node' : 'settle';
+    c.settleT = 0;
+  }
+  // The card in pieces: a grid of torn scraps that fly off ahead of him and fall.
+  function shardsOf(c) {
+    const cols = Math.max(2, Math.min(8, Math.round(c.w / 40)));
+    const pw = c.w / cols;
+    const ph = CARD_H / 2;
+    const out = [];
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < 2; j++) {
+        const jit = () => (Math.random() - 0.5) * 8;
+        out.push({
+          x: c.x + (i + 0.5) * pw, y: GROUND - CARD_H + (j + 0.5) * ph,
+          pts: [[-pw / 2 + jit(), -ph / 2 + jit()], [pw / 2 + jit(), -ph / 2 + jit()], [pw / 2 + jit(), ph / 2 + jit()], [-pw / 2 + jit(), ph / 2 + jit()]],
+          vx: 40 + 200 * Math.random() * (1 - i / (cols + 2)), vy: -90 - 170 * Math.random() - (1 - j) * 60, a: 0, va: (Math.random() - 0.5) * 14,
+        });
+      }
+    }
+    return out;
+  }
+
+  function drawDone(c) {
     const still = reducedMotion.matches;
-    let angle = 0;
-    if (r && r.fall) {
-      const t = r.fall.t;
+    const cx = c.x + c.w / 2;
+    if (c.phase === 'node') {
+      drawNode(c, cx, GROUND - 16, 1, 1);
+      return;
+    }
+    if (c.phase === 'settle') {
+      const settle = ease(Math.min(1, c.settleT / SETTLE_T));
+      ctx.save();
+      ctx.globalAlpha = 1 - settle;
+      const sc = 1 - 0.4 * settle;
+      ctx.translate(cx, GROUND);
+      ctx.scale(sc, sc);
+      ctx.translate(-cx, -GROUND);
+      rideCard(c, 1);
+      ctx.restore();
+      drawNode(c, cx, GROUND - 16, 0.7 + 0.3 * settle, Math.min(1, settle * 1.5));
+      if (!still) drawInk(c, cx, settle);
+      return;
+    }
+    if (c.phase === 'ride') {
+      rideCard(c, 1);
+      if (!still) drawInk(c, cx, 0);
+      return;
+    }
+    // a trick
+    const tr = r.yk.trick;
+    if (!tr || tr.card !== c) {
+      drawNode(c, cx, GROUND - 16, 1, 1);
+      return;
+    }
+    const u = Math.min(1, tr.t / tr.len);
+    const nodeX = cx + tr.nodeOff;
+    if (tr.kind === 'smash') {
+      const hit = TRICKS.smash.hit;
+      if (u < hit) {
+        rideCard(c, 1);
+        return;
+      }
+      const k = (u - hit) / (1 - hit);
+      // the flash where he hits it
+      if (k < 0.4) {
+        ctx.save();
+        ctx.globalAlpha = 0.6 * (1 - k / 0.4);
+        ctx.beginPath();
+        ctx.arc(c.x, GROUND - CARD_H / 2, 14 + 40 * ease(k / 0.4), 0, Math.PI * 2);
+        ctx.lineWidth = 3 * (1 - k / 0.4) + 0.5;
+        ctx.strokeStyle = pal.gold;
+        ctx.stroke();
+        ctx.restore();
+        r.fxDrawn++;
+      }
+      // the scraps
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, 1 - k * 1.2);
+      ctx.fillStyle = pal.card;
+      ctx.strokeStyle = pal.line;
+      ctx.lineWidth = 1.5;
+      ctx.lineJoin = 'round';
+      for (const s of tr.shards || []) {
+        ctx.save();
+        ctx.translate(s.x, s.y);
+        ctx.rotate(s.a);
+        ctx.beginPath();
+        ctx.moveTo(s.pts[0][0], s.pts[0][1]);
+        for (let i = 1; i < 4; i++) ctx.lineTo(s.pts[i][0], s.pts[i][1]);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+      ctx.restore();
+      // its stamp flies over him and lands behind him as the node
+      const f = ease(Math.min(1, k / 0.75));
+      const bx = c.x + c.w - 4;
+      const by = GROUND - CARD_H + 4;
+      const x = bx + (nodeX - bx) * f;
+      const y = by + (GROUND - 16 - by) * f - 70 * Math.sin(Math.PI * f);
+      drawNode(c, x, y, 0.8 + 0.2 * f, 1, f < 1 ? 6 * f : 0);
+      return;
+    }
+    const [a, b] = TRICKS[tr.kind].pass;
+    let dx = tr.pass * smooth(a, b, u);
+    let dy = 0;
+    let rot = 0;
+    if (u > b) dx -= 26 * (u - b) / (1 - b);
+    if (tr.kind === 'duck') {
+      // it sails up over his head, turning a little like a paper in the wind
+      const up = smooth(0.02, 0.24, u);
+      dy = -58 * up;
+      rot = (-0.1 + tr.tilt) * up;
+    }
+    const fade = 1 - smooth(b, Math.min(1, b + 0.18), u);
+    if (fade > 0) {
+      ctx.save();
+      ctx.translate(cx + dx, GROUND - CARD_H / 2 + dy);
+      ctx.rotate(rot);
+      ctx.translate(-cx, -(GROUND - CARD_H / 2));
+      rideCard(c, fade);
+      ctx.restore();
+      // speed lines behind it as it rushes past
+      if (u > a && u < b) {
+        ctx.save();
+        ctx.globalAlpha = 0.5 * fade;
+        ctx.strokeStyle = pal.lineStrong;
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        const rx = c.x + c.w + dx + 8;
+        for (const ly of [0.25, 0.5, 0.75]) {
+          const yy = GROUND - CARD_H + CARD_H * ly + dy;
+          ctx.moveTo(rx, yy);
+          ctx.lineTo(rx + 16 + 10 * ly, yy);
+        }
+        ctx.stroke();
+        ctx.restore();
+        r.fxDrawn++;
+      }
+    }
+    const land = smooth(b - 0.06, 1, u);
+    if (land > 0) drawNode(c, nodeX, GROUND - 16, 0.7 + 0.3 * land, Math.min(1, land * 1.5));
+  }
+
+  // A cleared card as it rides on: quiet, with its stamp.
+  function rideCard(c, alpha) {
+    const still = reducedMotion.matches;
+    const pose = still ? { s: 1, tilt: -10, a: 1 } : stampPose(c.stampT);
+    ctx.save();
+    ctx.globalAlpha *= alpha;
+    cardBox(c, GROUND - CARD_H, pal.card, pal.line, 2, false);
+    cardText(c, GROUND - CARD_H, pal.muted);
+    ctx.globalAlpha *= pose.a;
+    stamp(c.x + c.w - 4, GROUND - CARD_H + 4, 12 * pose.s, 2, pose.tilt, c.comeback ? '起' : '済');
+    ctx.restore();
+  }
+
+  // A node on the route: 済 (起 for a comeback, with a gold ring), inside a はなまる if the card
+  // was clean, with a star if it held a weak spot.
+  function drawNode(c, x, y, k, alpha, spin = 0) {
+    if (alpha <= 0) return;
+    const ch = c.comeback ? '起' : '済';
+    ctx.save();
+    ctx.globalAlpha *= alpha;
+    if (c.clean) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(-9 * Math.PI / 180 + spin);
+      ctx.scale(k, k);
+      ctx.lineWidth = 1.8 / k;
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = pal.stamp;
+      ctx.stroke(HANAMARU);
+      ctx.restore();
+    }
+    if (c.comeback) {
+      ctx.beginPath();
+      ctx.arc(x, y, 15 * k + 3.5, 0, Math.PI * 2);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = pal.gold;
+      ctx.stroke();
+    }
+    stamp(x, y, 15 * k, 2.5, -9 + spin * 57, ch);
+    if (c.star) {
+      ctx.save();
+      ctx.translate(x + 19, y + 12);
+      ctx.scale(0.62 * k, 0.62 * k);
+      ctx.fillStyle = pal.gold;
+      ctx.fill(STAR);
+      ctx.lineWidth = 2.2;
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = pal.outline;
+      ctx.stroke(STAR);
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  // ---------- Yaoki: his pose, his tricks, his words ----------
+  //
+  // Yaoki is drawn from a pose: where he stands (x, lift), how he leans (rot), his squash and
+  // stretch (sx, sy), where he looks, and his face (eyes, brows, mouth). The pose is built each
+  // frame from what is going on: rocking along the route, breathing and blinking, a nod for each
+  // right key, a worried look when the card being typed is close, a fall and the dizzy stars,
+  // a hop, and a trick as a cleared card passes him. Under reduced motion only the face changes.
+
+  function yaokiPose() {
+    const still = reducedMotion.matches;
+    const yk = r ? r.yk : null;
+    const p = { x: view.yx, lift: 0, rot: 0, sx: 1, sy: 1, lookX: 0, lookY: 0, eyes: 'open', brows: 'normal', mouth: 'normal', blush: false, sweat: false, dizzy: 0, pivot: 0 };
+    if (!r) return p;
+    const t = r.time;
+
+    // the fall: down, then up again with a wobble (the toy rights itself)
+    if (r.fall) {
+      const ft = r.fall.t;
       const L = r.fall.length;
       const down = -1.35;
       const rise = L * 0.5;
-      if (still) angle = t < rise ? down : 0;
-      else if (t < 0.22) angle = down * ease(t / 0.22);
-      else if (t < rise) angle = down;
+      if (still) p.rot = ft < rise ? down : 0;
+      else if (ft < 0.22) p.rot = down * ease(ft / 0.22);
+      else if (ft < rise) p.rot = down;
       else {
-        const u = (t - rise) / (L - rise);
-        angle = down * Math.exp(-4.5 * u) * Math.cos(11 * u);
+        const u = (ft - rise) / (L - rise);
+        p.rot = down * Math.exp(-4.5 * u) * Math.cos(11 * u);
       }
-    } else if (r && !still && phase === 'play') {
-      // a daruma does not walk: he rocks a little as the route moves under him
-      angle = Math.sin(r.rock * Math.PI) * (5 * Math.PI / 180);
+      if (ft >= 0.12 && ft < rise) {
+        p.eyes = 'dizzy';
+        p.mouth = 'o';
+        p.dizzy = still ? 0.5 : ft;
+      } else {
+        p.brows = 'up';
+      }
+      return p;
     }
-    const yx = view.yx;
+
+    // rocking along the route, and breathing
+    if (!still && phase === 'play') {
+      p.rot = Math.sin(r.rock * Math.PI) * (5 * Math.PI / 180);
+      const breath = Math.sin((t * 2 * Math.PI) / 2.2) * 0.022;
+      p.sy *= 1 + breath;
+      p.sx *= 1 - breath * 0.6;
+    }
+    // a little nod for each right key
+    if (!still && yk.nodT > 0) {
+      const k = Math.sin(Math.PI * (1 - yk.nodT / NOD_T));
+      p.sy *= 1 - 0.07 * k;
+      p.sx *= 1 + 0.04 * k;
+    }
+    // a hop (a step of the clean run, a comeback): stretch going up, squash on landing
+    if (!still && yk.hopT > 0) {
+      const u = 1 - yk.hopT / HOP_T;
+      p.lift = yk.hopH * Math.sin(Math.PI * u);
+      const s = u < 0.5 ? 0.08 : -0.1 * Math.sin(Math.PI * (u - 0.5) * 2);
+      p.sy *= 1 + s;
+      p.sx *= 1 - s * 0.6;
+    }
+
+    // the face: looking at the card being typed, worried when it is close, happy in a run
+    const target = targetCard();
+    if (target) {
+      p.lookX = 1;
+      const near = target.halted ? 0 : (target.x - (view.yx + REACH)) / Math.max(1, r.speed);
+      if (near < 1.6 && !target.halted) {
+        p.brows = 'worried';
+        p.sweat = near < 0.9;
+        p.mouth = 'o';
+      }
+    }
+    if (isHappy()) {
+      p.mouth = 'happy';
+      p.blush = true;
+      if (p.brows === 'worried') p.mouth = 'o';
+    }
+    if (!still && yk.blinkT >= 0 && yk.blinkT < BLINK_T) p.eyes = 'closed';
+
+    // a trick past a cleared card
+    const tr = yk.trick;
+    if (tr && !still) trickPose(tr, p);
+    return p;
+  }
+
+  // Each trick, as curves over u = 0..1 of its length.
+  const smooth = (a, b, u) => {
+    const k = Math.min(1, Math.max(0, (u - a) / (b - a)));
+    return k * k * (3 - 2 * k);
+  };
+  function trickPose(tr, p) {
+    const u = Math.min(1, tr.t / tr.len);
+    if (tr.kind === 'jump' || tr.kind === 'spin') {
+      const [a, b] = tr.kind === 'jump' ? [0.14, 0.74] : [0.16, 0.8];
+      const H = tr.kind === 'jump' ? 92 : 102;
+      if (u < a) {
+        const k = Math.sin(Math.PI * u / a);
+        p.sy *= 1 - 0.16 * k;
+        p.sx *= 1 + 0.12 * k;
+      } else if (u < b) {
+        const k = (u - a) / (b - a);
+        p.lift = H * Math.sin(Math.PI * k);
+        p.sy *= 1.08 - 0.08 * k;
+        p.sx *= 0.94 + 0.06 * k;
+        p.lookY = 1;
+        p.mouth = 'happy';
+        if (tr.kind === 'spin') {
+          p.rot = 2 * Math.PI * smooth(0.05, 0.95, k);
+          p.pivot = 29;
+        }
+      } else {
+        const k = Math.sin(Math.PI * Math.min(1, (u - b) / 0.14));
+        p.sy *= 1 - 0.14 * k;
+        p.sx *= 1 + 0.1 * k;
+      }
+      p.brows = 'up';
+    } else if (tr.kind === 'duck') {
+      const k = smooth(0.04, 0.2, u) * (1 - smooth(0.68, 0.84, u));
+      p.sy *= 1 - 0.42 * k;
+      p.sx *= 1 + 0.24 * k;
+      p.lookY = -1;
+      p.lookX = -0.4 * k;
+      p.brows = 'up';
+      p.mouth = 'o';
+    } else if (tr.kind === 'smash') {
+      const hit = TRICKS.smash.hit;
+      if (u < hit - 0.08) {
+        const k = smooth(0, hit - 0.08, u);
+        p.rot = -0.3 * k;
+        p.sx *= 1 - 0.06 * k;
+        p.sy *= 1 + 0.05 * k;
+      } else if (u < hit) {
+        const k = smooth(hit - 0.08, hit, u);
+        p.rot = -0.3 + 0.62 * k;
+        p.x += 30 * k;
+      } else {
+        const k = (u - hit) / (1 - hit);
+        p.x += 30 * (1 - smooth(0, 0.5, k));
+        p.rot = 0.32 * Math.exp(-5 * k) * Math.cos(9 * k);
+        const sq = Math.exp(-7 * k);
+        p.sx *= 1 + 0.16 * sq;
+        p.sy *= 1 - 0.12 * sq;
+      }
+      p.brows = 'firm';
+      p.mouth = u < hit + 0.1 ? 'grit' : 'happy';
+    }
+  }
+
+  function drawYaoki() {
+    const p = yaokiPose();
+    const yk = r ? r.yk : null;
+    if (yk) {
+      yk.lift = p.lift;
+      yk.liftMax = Math.max(yk.liftMax, p.lift);
+    }
+    // the shadow stays on the route and shrinks as he goes up
+    const shade = Math.max(0.35, 1 - p.lift / 140);
     ctx.fillStyle = pal.line;
     ctx.beginPath();
-    ctx.ellipse(yx, GROUND + 2, 22, 4, 0, 0, Math.PI * 2);
+    ctx.ellipse(p.x, GROUND + 2, 22 * shade, 4 * shade, 0, 0, Math.PI * 2);
     ctx.fill();
-
-    // a hop at a step of the clean run or a comeback; a smile after a clean card and while a
-    // run of five or more lasts (never while he is down)
-    const yk = r ? r.yk : null;
-    const lift = yk && yk.hopT > 0 && !still && !(r && r.fall) ? yk.hopH * Math.sin(Math.PI * (1 - yk.hopT / HOP_T)) : 0;
-    if (yk) {
-      yk.lift = lift;
-      yk.liftMax = Math.max(yk.liftMax, lift);
+    // a spin leaves a trail of little stars
+    if (yk && yk.trick && yk.trick.kind === 'spin' && p.lift > 4 && phase === 'play' && yk.trail.length < 16) {
+      const lastSt = yk.trail[yk.trail.length - 1];
+      if (!lastSt || lastSt.age > 0.03) yk.trail.push({ x: p.x + (Math.random() - 0.5) * 16, y: GROUND - p.lift - 30 + (Math.random() - 0.5) * 16, age: 0 });
     }
-    const happy = isHappy();
+    if (yk && yk.trail.length) drawTrail(yk.trail);
+    drawDaruma(p);
+  }
 
+  // Yaoki, from the drawing the app uses (Main.dc.html): one eye painted, in every pose. The
+  // scale about his base gives squash and stretch; the rotation is about his base too, as a
+  // daruma rocks.
+  function drawDaruma(p) {
     ctx.save();
-    ctx.translate(yx, GROUND - lift);
-    ctx.rotate(angle);
-    ctx.scale(YAOKI, YAOKI);
+    ctx.translate(p.x, GROUND - p.lift);
+    // a spin turns about his middle, not his base
+    if (p.pivot) {
+      ctx.translate(0, -p.pivot);
+      ctx.rotate(p.rot);
+      ctx.translate(0, p.pivot);
+    } else {
+      ctx.rotate(p.rot);
+    }
+    ctx.scale(YAOKI * p.sx, YAOKI * p.sy);
     ctx.translate(-50, -94);
     ctx.fillStyle = '#E2452B';
     ctx.fill(DARUMA.body);
@@ -2311,7 +2946,7 @@
     ctx.beginPath();
     ctx.ellipse(50, 42, 27, 23, 0, 0, Math.PI * 2);
     ctx.fill();
-    if (happy) {
+    if (p.blush) {
       ctx.save();
       ctx.globalAlpha = 0.6;
       ctx.fillStyle = '#F59A8A';
@@ -2322,45 +2957,149 @@
       }
       ctx.restore();
     }
-    ctx.lineWidth = 2.5;
-    ctx.strokeStyle = '#1B2440';
-    for (const ex of [39, 61]) {
-      ctx.beginPath();
-      ctx.arc(ex, 42, 8, 0, Math.PI * 2);
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fill();
-      ctx.stroke();
-    }
-    ctx.fillStyle = '#1B2440';
-    ctx.beginPath();
-    ctx.arc(61, 42, 4, 0, Math.PI * 2);
-    ctx.fill();
     ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1B2440';
+    ctx.fillStyle = '#1B2440';
+    if (p.eyes === 'open') {
+      ctx.lineWidth = 2.5;
+      for (const ex of [39, 61]) {
+        ctx.beginPath();
+        ctx.arc(ex, 42, 8, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.stroke();
+      }
+      // only the right eye is painted: its pupil looks where he looks
+      ctx.fillStyle = '#1B2440';
+      ctx.beginPath();
+      ctx.arc(61 + 2.4 * p.lookX, 42 + 2.4 * p.lookY, 4, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (p.eyes === 'closed') {
+      ctx.lineWidth = 2.5;
+      ctx.stroke(FACE.closed);
+    } else {
+      ctx.lineWidth = 2.5;
+      ctx.stroke(FACE.dizzy);
+    }
     ctx.lineWidth = 3;
-    ctx.stroke(DARUMA.brows);
-    ctx.lineWidth = 2.5;
-    ctx.stroke(happy ? HAPPY_MOUTH : DARUMA.mouth);
+    ctx.stroke(FACE.brows[p.brows] || DARUMA.brows);
+    if (p.mouth === 'o') {
+      ctx.beginPath();
+      ctx.ellipse(50, 57, 3.2, 4.2, 0, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.lineWidth = 2.5;
+      ctx.stroke(p.mouth === 'happy' ? HAPPY_MOUTH : p.mouth === 'grit' ? FACE.grit : DARUMA.mouth);
+    }
     ctx.strokeStyle = '#F2B43A';
     ctx.lineWidth = 3.5;
     ctx.stroke(DARUMA.gold);
+    // a drop of sweat when a card is about to reach him
+    if (p.sweat) {
+      ctx.fillStyle = '#9FD3F5';
+      ctx.strokeStyle = '#1B2440';
+      ctx.lineWidth = 2;
+      ctx.fill(FACE.sweat);
+      ctx.stroke(FACE.sweat);
+    }
+    // stars round his head while he is down
+    if (p.dizzy) {
+      for (let i = 0; i < 3; i++) {
+        const a = p.dizzy * 5 + (i * 2 * Math.PI) / 3;
+        ctx.save();
+        ctx.translate(50 + Math.cos(a) * 30, -6 + Math.sin(a) * 9);
+        ctx.scale(0.62, 0.62);
+        ctx.fillStyle = '#F2B43A';
+        ctx.fill(STAR);
+        ctx.lineWidth = 2.6;
+        ctx.strokeStyle = '#1B2440';
+        ctx.stroke(STAR);
+        ctx.restore();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawTrail(trail) {
+    ctx.save();
+    for (const s of trail) {
+      const a = 1 - s.age / TRAIL_T;
+      if (a <= 0) continue;
+      ctx.globalAlpha = a * 0.9;
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.rotate(s.age * 6);
+      ctx.scale(0.45 * a + 0.15, 0.45 * a + 0.15);
+      ctx.fillStyle = pal.gold;
+      ctx.fill(STAR);
+      ctx.lineWidth = 2.4;
+      ctx.strokeStyle = pal.outline;
+      ctx.stroke(STAR);
+      ctx.restore();
+    }
     ctx.restore();
   }
 
   const isHappy = () => !!(r && !r.fall && (r.yk.happyT > 0 || r.run >= 5));
   function hop(h) {
-    if (r.fall) return;
+    if (r.fall || r.yk.trick) return;
     const t = targetCard();
     if (t && t.halted) return;
     r.yk.hopT = HOP_T;
     r.yk.hopH = h;
   }
-  // A word from Yaoki in a bubble (the newest replaces the last).
-  function cheer(jaText, enText, life) {
-    r.yk.bubble = { ja: jaText, en: enText, t: 0, life };
+
+  // A word from Yaoki in a bubble, with a little item beside it. Lines come from items.js
+  // (several for each occasion) or the few built in here; a newer line replaces the one
+  // showing unless that one matters more (a step of the run over a nudge).
+  const OWN_LINES = {
+    start: [{ ja: 'いくよ！', en: "Let's go", item: 'koinobori' }],
+    half: [{ ja: 'はんぶん！', en: 'Halfway', item: 'dango' }],
+    last: [{ ja: 'ラスト！', en: 'Last one', item: 'flag' }],
+    step0: [{ ja: 'いいね！', en: 'Nice', item: 'sakura' }],
+    step1: [{ ja: 'すごい！', en: 'Great', item: 'star' }],
+    step2: [{ ja: 'さすが！', en: 'Brilliant', item: 'fireworks' }],
+    step3: [{ ja: 'かんぺき！', en: 'Spotless', item: 'fuji' }],
+    comeback: [{ ja: 'もう大丈夫！', en: 'Got it now', item: 'onigiri' }],
+    rise: [{ ja: 'よいしょ！', en: 'Up again', item: 'sweat' }],
+    halt: [{ ja: 'ゆっくりでいい', en: 'Take your time', item: 'tea' }],
+    star: [{ ja: 'にがて克服！', en: 'Weak spot down', item: 'star' }],
+    record: [{ ja: '新記録！', en: 'New record', item: 'fan' }],
+    endGood: [{ ja: 'やったね！', en: 'Well done', item: 'fireworks' }],
+    endOk: [{ ja: 'おつかれ！', en: 'Good work', item: 'tea' }],
+    endTry: [{ ja: 'つぎがある！', en: 'Next time', item: 'onigiri' }],
+    idle: [{ ja: 'うーん…', en: 'Hmm…', item: 'dango' }],
+  };
+  const PRIORITY = { step0: 3, step1: 3, step2: 3, step3: 3, record: 3, comeback: 2, rise: 2, halt: 2, star: 2, last: 2, endGood: 3, endOk: 3, endTry: 3, start: 1, half: 1, idle: 0 };
+  const turns = {};             // which line of each occasion comes next
+  function lineFor(occasion, first) {
+    const lib = window.TypingItems && window.TypingItems.LINES && window.TypingItems.LINES[occasion];
+    const list = Array.isArray(lib) && lib.length ? lib : OWN_LINES[occasion] || [];
+    if (!list.length) return null;
+    // the first step of a run or the first rise in a round keeps its first line (いいね！,
+    // よいしょ！); the rest take turns
+    if (first) {
+      if (!turns[occasion]) turns[occasion] = 1;
+      const own = OWN_LINES[occasion] && OWN_LINES[occasion][0];
+      return (own && list.find((x) => x.ja === own.ja)) || list[0];
+    }
+    const k = (turns[occasion] || 0) % list.length;
+    turns[occasion] = (k + 1) % list.length;
+    return list[k] || list[0];
+  }
+  function cheer(occasion, life, opts = {}) {
+    const yk = r.yk;
+    const line = lineFor(occasion, !!opts.first);
+    if (!line) return;
+    const prio = PRIORITY[occasion] || 0;
+    if (yk.bubble && yk.bubble.prio > prio && yk.bubble.t < yk.bubble.life) return;
+    yk.bubble = { ja: line.ja, en: line.en, item: line.item, occasion, prio, t: 0, life };
+    r.said.add(occasion);
   }
 
   // The bubble: left of Yaoki and above his head, clear of the cards (they are all to his
-  // right) and of the route.
+  // right) and of the route; its item sits at its left.
   function drawBubble() {
     const b = r.yk.bubble;
     r.yk.box = null;
@@ -2369,16 +3108,19 @@
     const yx = view.yx;
     const jaSize = small(13);
     const enSize = small(9);
+    const items = window.TypingItems;
+    const icon = b.item && items && items.draw ? Math.round(jaSize + enSize) : 0;
     ctx.save();
     ctx.font = '600 ' + jaSize + 'px ' + JP;
     const wJa = ctx.measureText(b.ja).width;
     ctx.font = '800 ' + enSize + 'px ' + UI;
     const wEn = ctx.measureText(b.en).width;
-    const w = Math.ceil(Math.max(wJa, wEn)) + 14;
+    const w = Math.ceil(Math.max(wJa, wEn)) + 14 + (icon ? icon + 6 : 0);
     const h = 8 + jaSize + 2 + enSize + 8;
     const right = yx - 6;
     const x = Math.max(4, right - w);
-    const bottom = 104;
+    // a wide bubble on a narrow screen reaches past Yaoki: it goes up, clear of the card tops
+    const bottom = x + w > yx + REACH - 6 ? GROUND - CARD_H - 4 : 104;
     const y = bottom - h;
     const tipX = yx - 8;
     const tipY = 114;
@@ -2412,16 +3154,50 @@
     ctx.lineJoin = 'round';
     ctx.strokeStyle = pal.outline;
     ctx.stroke();
+    if (icon) {
+      try {
+        items.draw(ctx, b.item, x + 7 + icon / 2, y + h / 2, icon, pal, still ? 0 : r.time);
+      } catch (err) {
+        // an item that cannot be drawn is left out
+      }
+    }
+    const tx = x + (icon ? icon + 6 : 0) + (w - (icon ? icon + 6 : 0)) / 2;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = pal.ink;
     ctx.font = '600 ' + jaSize + 'px ' + JP;
-    ctx.fillText(b.ja, x + w / 2, y + 8 + jaSize / 2);
+    ctx.fillText(b.ja, tx, y + 8 + jaSize / 2);
     ctx.fillStyle = pal.muted;
     ctx.font = '800 ' + enSize + 'px ' + UI;
-    ctx.fillText(b.en, x + w / 2, y + h - 8 - enSize / 2);
+    ctx.fillText(b.en, tx, y + h - 8 - enSize / 2);
     ctx.restore();
     r.yk.box = { x: Math.round(x), y: Math.round(y), w: Math.round(w), h: Math.round(h) };
+  }
+
+  // A trick's sound word, drawn like a comic's: ぴょん, ひょい, くるりん, どーん！ Above the
+  // cards' tops, near Yaoki, and gone in half a second.
+  function drawFx() {
+    const fx = r.yk.fx;
+    if (!fx || fx.t < 0) return;
+    const u = fx.t / FX_T;
+    if (u >= 1) return;
+    const size = small(fx.big ? 22 : 16);
+    const pop = u < 0.2 ? 0.6 + 0.4 * ease(u / 0.2) : 1;
+    ctx.save();
+    ctx.globalAlpha = u < 0.7 ? 1 : 1 - (u - 0.7) / 0.3;
+    ctx.translate(fx.x, fx.y - 10 * u);
+    ctx.rotate(fx.tilt);
+    ctx.scale(pop, pop);
+    ctx.font = '800 ' + size + 'px ' + UI;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = Math.max(3, size / 5);
+    ctx.strokeStyle = pal.card;
+    ctx.strokeText(fx.ja, 0, 0);
+    ctx.fillStyle = fx.big ? pal.stamp : pal.ink;
+    ctx.fillText(fx.ja, 0, 0);
+    ctx.restore();
   }
 
   // Under the route, for the card being typed: the romaji typed so far (green) and, while a
@@ -2631,7 +3407,7 @@
   });
   document.addEventListener('click', () => {
     if (window.ykSound) window.ykSound.unlock();
-    wakeSfx();
+    wakeAudio();
   });
 
   requestAnimationFrame((now) => {
@@ -2663,7 +3439,12 @@
         day: { d: localDay(), s: todaySec(), goal: saved.goal, stamped: saved.stampCard.lastDay === localDay() },
         stampCard: { days: saved.stampCard.days.slice(), done: saved.stampCard.done },
         sfx: saved.sfx,
-        yaoki: yk ? { bubble: yk.bubble ? yk.bubble.ja : null, happy: isHappy(), hop: yk.lift > 0, liftMax: yk.liftMax, box: yk.box } : null,
+        yaoki: yk ? { bubble: yk.bubble ? yk.bubble.ja : null, item: yk.bubble ? yk.bubble.item : null, happy: isHappy(), hop: yk.lift > 0, liftMax: yk.liftMax, box: yk.box, trick: yk.trick ? yk.trick.kind : null } : null,
+        tricks: r ? Object.assign({}, r.tricks) : null,
+        scene: r ? r.scene : null,
+        sceneFailed: !!(r && r.sceneFailed),
+        song: r ? r.song : null,
+        music: saved.music,
         fx: r ? r.fxDrawn : 0,
         cleared: r ? r.cleared : 0,
         skipped: r ? r.skipped : 0,
@@ -2673,7 +3454,7 @@
         back: r && r.fall ? r.fall.back : null,
         answerShown: r && r.fall ? hintLevel(r.fall.card) >= 2 : null,
         W: view.W,
-        cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state, clean: c.clean, comeback: c.comeback, star: c.star })) : [],
+        cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state, clean: c.clean, comeback: c.comeback, star: c.star, phase: c.phase || null, trick: c.trick || null })) : [],
         clean: r ? r.clean : 0,
         speed: r ? r.speed : 0,
         T: r ? r.T : 0,

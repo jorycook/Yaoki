@@ -73,6 +73,16 @@ async function waitFor(fn, ms = 5000) {
     + ' Object.defineProperty(window, "TypingSfx", { configurable: true, get: function () { return stub; }, set: function () {} }); })();';
   const CLOCK = 'window.__ykNow = new Date(2026, 9, 27, 10, 0, 0).getTime();';
   const sounds = (page) => page.evaluate(() => window.__sfx.map((x) => x[0]));
+  // The music, recorded instead of played.
+  const MUSIC_STUB = 'window.__music = []; (function () { var st = { playing: false, paused: false, song: null, level: 1 };'
+    + ' function rec(a) { window.__music.push(a); }'
+    + ' var stub = { SONGS: [{ id: "one", bpm: 120 }, { id: "two", bpm: 130 }],'
+    + ' start: function (s) { st.playing = true; st.paused = false; st.song = s; st.level = 1; rec(["start", s]); return true; },'
+    + ' stop: function () { st.playing = false; rec(["stop"]); }, pause: function () { st.paused = true; rec(["pause"]); }, resume: function () { st.paused = false; rec(["resume"]); },'
+    + ' setLevel: function (n) { st.level = n; rec(["level", n]); }, duck: function (x) { rec(["duck", x]); }, cue: function (n) { rec(["cue", n]); }, volume: function (v) { rec(["volume", v]); },'
+    + ' state: function () { return st; } };'
+    + ' Object.defineProperty(window, "TypingMusic", { configurable: true, get: function () { return stub; }, set: function () {} }); })();';
+  const musicLog = (page) => page.evaluate(() => window.__music.map((x) => x.join(':')));
   // Types every card as it comes until the round is over (or `ms` passes).
   async function playOut(page, typeFor, ms = 60000) {
     const end = Date.now() + ms;
@@ -467,7 +477,7 @@ async function waitFor(fn, ms = 5000) {
   // ---- course words: the learner's week, the reading and meaning, the word's sound
   page = await open({ colorScheme: 'dark' }, { [appKey]: { started: true, level: 'N4', cur: 'n4u03d2' } }, [() => {
     window.ykSound = { has: () => true, unlock: () => true, play: (clip) => { window.__played = clip; return true; } };
-  }, SFX_STUB]);
+  }, SFX_STUB, MUSIC_STUB]);
   check('the menu opens at the learner\'s course words', (await page.textContent('#modes [aria-pressed="true"]')).includes('語彙'));
   check('the N4 weeks load from ../assets', await waitFor(async () => (await page.$$('#units .option')).length === 10, 10000));
   check('the learner\'s week is picked and marked 今', /第3週/.test(await page.textContent('#units [aria-pressed="true"]')) && /今/.test(await page.textContent('#units [aria-pressed="true"]')));
@@ -480,6 +490,7 @@ async function waitFor(fn, ms = 5000) {
   const played = await page.evaluate(() => window.__played);
   check('a cleared word is spoken with its clip', /^s_n4u3d\d_/.test(played || ''), played);
   check('…and no stamp sound plays over the word', !(await sounds(page)).includes('clear'), (await sounds(page)).join(','));
+  check('…and the music dips while it is spoken', (await musicLog(page)).some((x) => x.startsWith('duck')), (await musicLog(page)).join(' '));
   if (shots) await page.screenshot({ path: `${shots}/course-dark.png` });
   await page.close();
 
@@ -529,6 +540,74 @@ async function waitFor(fn, ms = 5000) {
   await setSfx(2);
   check('a card reaching Yaoki plays the drum', await waitFor(async () => (await state(page)).falling, 25000) && (await sounds(page)).includes('fall'));
   check('…and the bounce as he gets up', await waitFor(async () => (await sounds(page)).includes('up'), 4000));
+  await quit(page);
+  await page.close();
+
+  // ---- Yaoki's tricks past the cleared cards, his words, the scene and the music
+  page = await open({}, { 'yaoki.typing.v1': { mode: 'symbol', stage: { symbol: 'plain' }, len: 20, hints: 'stuck' } }, [SFX_STUB, MUSIC_STUB]);
+  await page.click('#start');
+  await target(page);
+  let ms = await musicLog(page);
+  s = await state(page);
+  check('the round starts its music, quietly at first', ms.includes('start:' + s.song) && ms.includes('level:0') && !!s.song, ms.join(' '));
+  check('the round is played in a scene', !!s.scene === !!(await page.evaluate(() => window.TypingScenes)), String(s.scene));
+  check('Yaoki says something as the round starts', !!s.yaoki.bubble, JSON.stringify(s.yaoki));
+  // each card is typed once Yaoki is free, so it gets its own trick when it reaches him
+  const free = () => waitFor(async () => {
+    const st = await state(page);
+    return st.phase !== 'play' || (!st.yaoki.trick && !st.cards.some((x) => x.state === 'done' && (x.phase === 'ride' || x.phase === 'trick')));
+  }, 6000);
+  // five clean cards: jumps, then a spin for the fifth (a run of five); the run livens the music
+  for (let i = 0; i < 5; i++) {
+    await free();
+    const c = await target(page);
+    await page.keyboard.type(c.key, { delay: 20 });
+  }
+  ms = await musicLog(page);
+  check('a clean run of five livens the music, with a fill', ms.includes('level:2') && ms.includes('cue:step'), ms.join(' '));
+  // a slip: that card is ducked under
+  await free();
+  const c6 = await target(page);
+  await page.keyboard.press('1');
+  await page.keyboard.type(c6.key, { delay: 20 });
+  check('cleared cards ride on to Yaoki and he gets past each with a trick', await waitFor(async () => {
+    const tr = (await state(page)).tricks;
+    return tr.jump + tr.spin + tr.duck + tr.smash >= 2;
+  }, 20000), JSON.stringify((await state(page)).tricks));
+  check('…a passed card lands behind him as its node', (await state(page)).cards.some((x) => x.state === 'done' && x.phase === 'node'));
+  // pause and go on
+  await page.keyboard.press('Escape');
+  ms = await musicLog(page);
+  check('pausing pauses the music', ms[ms.length - 1] === 'pause', ms.join(' '));
+  await page.click('#resume');
+  check('…and going on resumes it', (await musicLog(page)).includes('resume'));
+  // a fall drops the music back; the card comes back and is typed clean: a smash
+  const fallCard = await target(page);
+  await waitFor(async () => (await state(page)).falling, 25000);
+  check('a fall drops the music back', (await musicLog(page)).includes('cue:fall'));
+  await waitFor(async () => !(await state(page)).falling, 5000);
+  check('…and the groove comes back after it', (await musicLog(page)).slice(-3).some((x) => x === 'level:1'), (await musicLog(page)).slice(-4).join(' '));
+  await playOut(page, async () => {
+    await free();
+    const c = (await state(page)).target;
+    if (c) await page.keyboard.type(c.key, { delay: 20 });
+  }, 150000);
+  const done = (await state(page)).tricks;
+  check('he does each trick: jump, spin in a run of five, duck after a slip, smash for a comeback', done.jump >= 1 && done.spin >= 1 && done.duck >= 1 && done.smash >= 1, JSON.stringify({ done, fell: fallCard.text }));
+  ms = await musicLog(page);
+  check('the last card and the end have their music', ms.includes('cue:last') && ms.includes('cue:end'), ms.slice(-6).join(' '));
+  check('the scene drew all round without failing', !(await state(page)).sceneFailed && !(await page.evaluate(() => !!(window.TypingScenes && window.TypingScenes.draw.warned))));
+  await page.keyboard.press('Escape');
+  check('the music stops on the menu', (await musicLog(page)).slice(-1)[0] === 'stop');
+  // with the music off, no music
+  await page.click('#open-settings');
+  await page.click('#music-seg button:nth-child(1)');
+  await page.click('#close-settings');
+  await page.evaluate(() => { window.__music.length = 0; });
+  await page.click('#start');
+  await target(page);
+  check('with the music off, none plays', !(await musicLog(page)).some((x) => x.startsWith('start')), (await musicLog(page)).join(' '));
+  check('…and the setting is kept', (await stored(page)).music === 'off');
   await quit(page);
   await page.close();
 
@@ -694,6 +773,7 @@ async function waitFor(fn, ms = 5000) {
     // the round asked for a hop (a comeback or a step of the run), and none was drawn
     check('with reduced motion, stamps land without ink and Yaoki does not hop', inked === 0 && rm && rm.yaoki.liftMax === 0 && (rm.comebacks > 0 || rm.bestRun >= 5),
       JSON.stringify({ inked, lift: rm && rm.yaoki.liftMax, comebacks: rm && rm.comebacks, bestRun: rm && rm.bestRun }));
+    check('…and does no tricks: cleared cards simply settle', rm && Object.values(rm.tricks).every((n) => n === 0), JSON.stringify(rm && rm.tricks));
     check('the result says a card was skipped', /skipped/.test(await page.textContent('#res-falls-en')) && /skipped/.test(await page.textContent('#res-line')));
     const was = before.symbol && before.symbol[waitingKey] ? before.symbol[waitingKey].miss : 0;
     const now = ((await stored(page)).stats.symbol || {})[waitingKey];
