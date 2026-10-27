@@ -26,6 +26,15 @@ The lessons are data. `tools/build-course.mjs` checks every file here and turns 
 }
 ```
 
+## The scene and the writing
+
+The scene's `words` are also what the learner writes by hand in the lesson's writing step: each kanji in them that is new
+to the learner (not from the levels below, not written before) three times, and each word of two kanji or more one kanji
+at a time. Every kanji of a scene word needs its strokes in `yaoki/project/strokes.js`: the build stops and names the
+kanji when one has none, and `python3 tools/make-strokes.py` adds them (from KanjiVG). A part in `parts` may be a single
+kanji (`["学", "ガク", "study"]`) or a word of its own (`["住民", "じゅうみん", "residents"]`); the writing step shows the
+part a new kanji is in, with its reading and meaning.
+
 ## Items
 
 Every item has a unique `id` (`u03d4.d1` = unit 3, day 4, drill 1), a `kind`, the exam `type` it practises (文の文法1, 語形成, 読解・筆者の考え …) and an optional `label`.

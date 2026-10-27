@@ -48,10 +48,17 @@ DEMO.days.forEach((x, i) => {
   /* the kanji whose sheet holds the most: the longest meaning, and the most readings */
   const most = (f) => v.kanji.reduce((b, k, n) => (f(k) > f(v.kanji[b]) ? n : b), 0);
   const sheets = [...new Set([most((k) => (k.en || []).join(', ').length), most((k) => (k.on || []).join('、').length + (k.kun || []).join('、').length)])];
+  /* the writing: the kanji of those two sheets are written there (by themselves, write: true), the day's others are
+     written already; of its words of two kanji or more, the longest is written in the words' writing step */
+  const KANJI = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/;
+  const wrote = v.kanji.filter((k, n) => !sheets.includes(n)).map((k) => k.c).join('');
+  const compounds = v.wi.map((wi) => N.plain(N.word(wi).w)).filter((w) => [...w].filter((c) => KANJI.test(c)).length >= 2);
+  const longest = compounds.reduce((b, w) => (w.length > b.length ? w : b), '');
   jobs.push({
     name: 'lesson-' + l.id,
-    url: 'TShell.dc.html?screen=Teach&ykdate=' + TODAY + '&plan=' + enc(plan),
+    url: 'TShell.dc.html?screen=Teach&ykdate=' + TODAY + '&plan=' + enc(plan) + '&wrote=' + encodeURIComponent(wrote) + '&words=' + enc(compounds.filter((w) => w !== longest)),
     clock: true,
+    write: true,
     run: async (t) => {
       const g = l.grammar;
       await t.shot('teach-1');
@@ -94,9 +101,10 @@ DEMO.days.forEach((x, i) => {
         for (const n of sheets) {
           await t.click(`[role=list] button >> nth=${n}`);
           await t.shot('kanji-sheet-' + v.kanji[n].c);
+          await t.until('Written three times.', 5000);
           await t.click('[role=dialog] button[aria-label="Close"]');
         }
-        await t.click(v.words.length ? 'button:has-text("Next: words")' : 'button:has-text("Next: the quiz")');
+        await t.click(v.words.length ? 'button:has-text("Next: words")' : longest ? 'button:has-text("Next: write the words")' : 'button:has-text("Next: the quiz")');
       }
       if (v.words.length) {
         t.expect(v.words.length === 20 && (await t.text()).includes('20 words'), 'the words step should show the lesson\'s 20 words');
@@ -105,6 +113,12 @@ DEMO.days.forEach((x, i) => {
         /* the list scrolls: its last word too */
         await t.page.locator('[role=list] button[aria-pressed] >> nth=-1').scrollIntoViewIfNeeded();
         await t.shot('words-end');
+        await t.click(longest ? 'button:has-text("Next: write the words")' : 'button:has-text("Next: the quiz")');
+      }
+      if (longest) {
+        /* the longest word, written one kanji at a time (by itself) */
+        await t.until(longest + ' is written.', 5000);
+        await t.shot('write-word');
         await t.click('button:has-text("Next: the quiz")');
       }
       t.expect(quiz.filter((q) => q.review).length === 2 && quiz.slice(-2).every((q) => q.review), 'the quiz should end with two review questions');
@@ -335,7 +349,11 @@ jobs.push({
   let shots = 0;
   const todo = jobs.filter((j) => !ONLY || ONLY.test(j.name));
   const runJob = async (job) => {
-    const prep = job.clock ? (page) => page.clock.install({ time: new Date(TODAY + 'T10:00:00') }) : undefined;
+    /* write: the writing pads write themselves (window.__ykWriteAuto), as a sweep cannot wait for a finger */
+    const prep = job.clock || job.write ? async (page) => {
+      if (job.write) await page.addInitScript(() => { window.__ykWriteAuto = true; window.__ykWriteFast = true; });
+      if (job.clock) await page.clock.install({ time: new Date(TODAY + 'T10:00:00') });
+    } : undefined;
     const { page, logs } = await openBoard(browser, job.url, fontsCss, prep);
     const lines = [];
     let problems = 0;

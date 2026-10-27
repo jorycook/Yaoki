@@ -10,7 +10,9 @@ const DAY1 = Date.UTC(2026, 9, 12, 15);   // Monday 12 October 2026, noon in Asu
 (async () => {
   const fontsCss = fs.readFileSync(path.join(site, 'fonts.css'), 'utf8');
   const browser = await chromium.launch();
-  const prep = (page) => page.addInitScript((t) => { window.__ykNow = t; }, DAY1);
+  /* the kanji lesson's writing pads write themselves (window.__ykWriteAuto): this flow is about the day as a whole; the
+     writing with a finger has checks of its own (write-flow.js) */
+  const prep = (page) => page.addInitScript((t) => { window.__ykNow = t; window.__ykWriteAuto = true; window.__ykWriteFast = true; }, DAY1);
   // days 1 to 3 of unit 3 already done, so day 4 (the original sample day) is next
   const done = encodeURIComponent(JSON.stringify({ u03d1: { g: 3, k: 1, r: 1 }, u03d2: { g: 3, k: 1, r: 1 }, u03d3: { g: 3, k: 1, r: 1 } }));
   const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Goal&done=' + done, fontsCss, prep);
@@ -108,6 +110,17 @@ const DAY1 = Date.UTC(2026, 9, 12, 15);   // Monday 12 October 2026, noon in Asu
   await at('18-scene', '市役所で');
   for (const w of ['証明書', '再発行', '番号札']) await click(`button:has-text("${w}")`, 200);
   ok(await has('4 of 8 found'), 'scene: count of words found');
+  ok(await has('Next you write:'), 'scene: the writing to come is named');
+  await click('button:has-text("Next: write")', 500);
+  await at('19-scene-write', '書く');
+  /* each kanji or word writes itself here; Next opens once it is written */
+  for (let n = 0; n < 40; n++) {
+    await page.waitForFunction(() => [...document.querySelectorAll('button')].some((b) => /^つぎへ/.test(b.textContent.trim())), null, { timeout: 15000 });
+    const last = await page.locator('button:has-text("Next: the exam question")').count();
+    await click('button:has-text("つぎへ")', 250);
+    if (last) break;
+  }
+  await at('19-scene-question', '本番');
   await click('button:has-text("2 復")', 400);
   await at('19-scene-wrong', '正解は 1 再');
   await click('a:has-text("Next")', 700);

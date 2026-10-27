@@ -256,8 +256,9 @@ row({
 icon: '字', iconBg: '#FDEBE6', iconColor: '#C7361E',
 lj: '文字・語彙', le: 'Kanji and words',
 main: few, font: K ? KLEE : ROUND, size: K ? '18px' : '16px', weight: K ? 600 : 800, spacing: K ? '1px' : 'normal',
-sub: counts.join(' · '),
-href: 'Scene.dc.html', tap: nav('Scene'), aria: 'Kanji and words: ' + counts.join(', '),
+/* the kanji are written by hand there, three times each */
+sub: counts.join(' · ') + (K ? ', written by hand' : ''),
+href: 'Scene.dc.html', tap: nav('Scene'), aria: 'Kanji and words: ' + counts.join(', ') + (K ? ', written by hand' : ''),
 }, 'k', rows.length + 1);
 }
 if (v.reading) {

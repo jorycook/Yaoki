@@ -16,9 +16,10 @@ const LEVEL = process.env.LEVEL || 'N2';
   const browser = await chromium.launch();
   let problems = 0;
   let shots = 0;
-  const open = async (screen, extra) => {
+  /* write: the writing pads write themselves at once (window.__ykWriteAuto), as a sweep cannot wait for a finger */
+  const open = async (screen, extra, write) => {
     const q = 'TShell.dc.html?screen=' + screen + '&now=' + NOW + '&level=' + LEVEL + (extra || '');
-    return openBoard(browser, q, fontsCss);
+    return openBoard(browser, q, fontsCss, write ? (p) => p.addInitScript(() => { window.__ykWriteAuto = true; window.__ykWriteFast = true; }) : undefined);
   };
   const check = async (page, logs, label) => {
     /* a state is looked at once it has settled: a sheet that slides up (240 ms) can still be on its way on a busy
@@ -105,14 +106,27 @@ const LEVEL = process.env.LEVEL || 'N2';
       await check(page, logs, `${id} exam result ${mode}`);
       await page.close();
     }
-    // scene: every word card, then every option of its check
+    // scene: every word card; then the writing, every kanji and word of it (written at once); then every option of its check
     {
       const { page, logs } = await open('Scene', cur);
       for (const w of day.scene.words) { await tap(page, `button[aria-pressed]:has-text("${w.word}")`); await check(page, logs, `${id} scene word ${w.id}`); }
       await page.close();
     }
+    {
+      const { page, logs } = await open('Scene', cur + '&done=' + encodeURIComponent(JSON.stringify({ [id]: { ks: 1 } })), true);
+      for (let n = 0; n < 60; n++) {
+        /* each kanji or word writes itself; Next opens once it is written, and the last one leads to the question */
+        await page.waitForFunction(() => [...document.querySelectorAll('button')].some((b) => /^つぎへ/.test(b.textContent.trim())), null, { timeout: 15000 });
+        await check(page, logs, `${id} writing ${n + 1}`);
+        const last = await page.locator('button:has-text("Next: the exam question")').count();
+        await tap(page, 'button:has-text("つぎへ")');
+        if (last) break;
+      }
+      if (!(await page.locator('h1:has-text("本番")').count())) { problems += 1; console.log(`PROBLEMS ${id} writing: the exam question did not follow the writing`); }
+      await page.close();
+    }
     for (let k = 0; k < day.scene.check.options.length; k++) {
-      const { page, logs } = await open('Scene', cur);
+      const { page, logs } = await open('Scene', cur + '&done=' + encodeURIComponent(JSON.stringify({ [id]: { ks: 1, kw: 1 } })));
       await tap(page, `button:has-text("${k + 1} ${day.scene.check.options[k]}")`);
       await check(page, logs, `${id} scene check ${k + 1}`);
       await page.close();

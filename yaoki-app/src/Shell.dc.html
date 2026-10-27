@@ -80,7 +80,7 @@
 
 <button onClick="{{ askReset }}" style="height: 50px; border-radius: 16px; background: #FFFFFF; border: 2px solid #C7361E; color: #C7361E; font-weight: 800; font-size: 15px"><span lang="ja">最初からやり直す</span>　Start over</button>
 <button onClick="{{ closeMenu }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">とじる</span>　Close</button>
-<div style="font-size: 10px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.5">{{ version }}<br>Typefaces: M PLUS Rounded 1c and Klee One (SIL Open Font License). Voices: synthetic, made with Kokoro-82M; two of them were built from Koniwa recordings (CC BY 3.0). %CREDITS%JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services; Yaoki is not connected with them. The lessons are original.</div>
+<div style="font-size: 10px; font-weight: 500; color: #5A6382; text-align: center; line-height: 1.5">{{ version }}<br>Typefaces: M PLUS Rounded 1c and Klee One (SIL Open Font License). Voices: synthetic, made with Kokoro-82M; two of them were built from Koniwa recordings (CC BY 3.0). Stroke order: KanjiVG, by Ulrich Apel (CC BY-SA 3.0). %CREDITS%JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services; Yaoki is not connected with them. The lessons are original.</div>
 </sc-if>
 
 <sc-if value="{{ confirming }}">
@@ -127,7 +127,7 @@ const at = {};
 SCREENS.forEach((n) => { at[n] = s.screen === n; });
 const closeMenu = () => { clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); this.setState({ menu: false, confirm: false, testing: false }); };
 /* #if N1 */
-const app = { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan };
+const app = { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan, wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
 /* #else */
 const app = window.ykCourse.view(s);
 /* the menu changes level: the level's own plan comes back, or its goal screen the first time */
@@ -173,7 +173,7 @@ clearTimeout(this.timer);
 if (window.ykSound) window.ykSound.stop();
 window.ykApp.forget();
 /* #if N1 */
-this.setState({ screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null, menu: false, confirm: false, testing: false });
+this.setState({ screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null, wrote: '', wroteWords: [], menu: false, confirm: false, testing: false });
 /* #else */
 this.setState({ ...window.ykCourse.fresh(), menu: false, confirm: false, testing: false });
 /* #end */

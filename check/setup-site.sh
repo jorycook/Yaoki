@@ -20,7 +20,7 @@ cp "$RUNTIME" "$SITE/support.js"
 # TShell: the prototype frame with its starting state taken from the URL, for testing mid-flow states
 # For N1 the plan comes from the address too, as in the app's test mode: plan=demo (the sample plan) or the plan itself, day=n opens that day
 if [ -f "$SITE/App.dc.html" ] && [ "$LEVEL" = "N1" ]; then
-  sed "s#this.state = { screen: 'Goal', g: 0, k: 0, r: 0, mistakes: \[\], rev: null, mock: null, plan: null };#const q = new URLSearchParams(location.search); const plan = q.get('plan') === 'demo' ? window.ykN1.demo() : JSON.parse(q.get('plan') || 'null'); if (plan \&\& q.has('day')) plan.open = +q.get('day'); this.state = { screen: q.get('screen') || 'Goal', g: 0, k: 0, r: 0, mistakes: JSON.parse(q.get('m') || '[]'), rev: JSON.parse(q.get('rev') || 'null'), mock: JSON.parse(q.get('mock') || 'null'), plan };#" "$SITE/App.dc.html" > "$SITE/TShell.dc.html"
+  sed "s#this.state = { screen: 'Goal', g: 0, k: 0, r: 0, mistakes: \[\], rev: null, mock: null, plan: null, wrote: '', wroteWords: \[\] };#const q = new URLSearchParams(location.search); const plan = q.get('plan') === 'demo' ? window.ykN1.demo() : JSON.parse(q.get('plan') || 'null'); if (plan \&\& q.has('day')) plan.open = +q.get('day'); this.state = { screen: q.get('screen') || 'Goal', g: 0, k: 0, r: 0, mistakes: JSON.parse(q.get('m') || '[]'), rev: JSON.parse(q.get('rev') || 'null'), mock: JSON.parse(q.get('mock') || 'null'), plan, wrote: q.get('wrote') || '', wroteWords: JSON.parse(q.get('words') || '[]') };#" "$SITE/App.dc.html" > "$SITE/TShell.dc.html"
   grep -c "URLSearchParams" "$SITE/TShell.dc.html" >/dev/null || echo "WARNING: TShell patch did not apply"
 elif [ -f "$SITE/App.dc.html" ]; then
   python3 - "$SITE/App.dc.html" "$SITE/TShell.dc.html" <<'PY'
@@ -31,7 +31,7 @@ a = "this.state = window.ykCourse.fresh();"
 b = ("const q = new URLSearchParams(location.search); const j = (k, d) => { try { return JSON.parse(q.get(k) || 'null') || d; } catch (e) { return d; } }; "
      "if (q.get('now')) window.__ykNow = +q.get('now'); "
      "const screen = q.get('screen') || 'Goal'; "
-     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day' };")
+     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day', wrote: q.get('wrote') || '', wroteWords: j('words', []) };")
 if a not in s: sys.exit('TShell patch did not apply')
 open(dst, 'w', encoding='utf-8').write(s.replace(a, b))
 PY

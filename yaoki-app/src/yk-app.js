@@ -37,6 +37,13 @@
   } catch (e) { canSave = false; }
   var lastSaved = '';
 
+  /* the writing practice's memory: the kanji written three times (one string of them) and the words written out */
+  function wroteOk(x) {
+    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c) && all.indexOf(c) === i; }).join('') : '';
+  }
+  function wordsOk(x) {
+    return Array.isArray(x) ? x.filter(function (w, i, all) { return typeof w === 'string' && w && w.length <= 16 && all.indexOf(w) === i; }) : [];
+  }
   function load() {
     if (!canSave) return null;
     try {
@@ -52,11 +59,11 @@
     return n >= 0 && n <= max && Math.floor(n) === n ? n : 0;
   }
   function start() {
-    var s = { screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null };
+    var s = { screen: 'Goal', started: false, g: 0, k: 0, r: 0, mistakes: [], rev: null, mock: null, plan: null, wrote: '', wroteWords: [] };
     var from = null;
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
-      from = { started: true, g: query.get('g'), k: query.get('k'), r: query.get('r'), mistakes: json('m', []), rev: json('rev', null), mock: json('mock', null), plan: query.get('plan') === 'demo' ? (window.ykN1 ? window.ykN1.demo() : null) : json('plan', null) };
+      from = { started: true, g: query.get('g'), k: query.get('k'), r: query.get('r'), mistakes: json('m', []), rev: json('rev', null), mock: json('mock', null), plan: query.get('plan') === 'demo' ? (window.ykN1 ? window.ykN1.demo() : null) : json('plan', null), wrote: query.get('wrote') || '', wroteWords: json('words', []) };
       /* day=n: open that day of the plan (plan=demo is the canvas's sample plan) */
       if (from.plan && query.has('day')) from.plan.open = +query.get('day');
       s.screen = query.get('screen') || 'Goal';
@@ -74,6 +81,8 @@
       s.rev = from.rev && typeof from.rev === 'object' ? from.rev : null;
       s.mock = from.mock && typeof from.mock === 'object' && from.mock.done ? from.mock : null;
       s.plan = from.plan && typeof from.plan === 'object' && Array.isArray(from.plan.days) ? from.plan : null;
+      s.wrote = wroteOk(from.wrote);
+      s.wroteWords = wordsOk(from.wroteWords);
     }
     if (!window.YK.has(s.screen)) s.screen = s.started ? 'Main' : 'Goal';
     return s;
@@ -81,7 +90,7 @@
   function remember(s) {
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
-    var keep = { started: !!s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    var keep = { started: !!s.started, g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock, wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
     if (s.plan) keep.plan = s.plan;
     var text = JSON.stringify(keep);
     keepCourseSound(s);
@@ -115,7 +124,7 @@
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
       s.screen = query.get('screen') || 'Goal';
-      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day' };
+      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day', wrote: query.get('wrote') || '', wroteWords: json('words', []) };
       if (from.started && !from.plan) from.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit' };
       if (query.get('now')) window.__ykNow = +query.get('now');
     } else {
@@ -147,6 +156,8 @@
       if (typeof from.cur === 'string' && C.session(from.cur)) s.cur = from.cur;
       s.tp = from.tp === 1 ? 1 : 0;
       s.set = from.set === 'test' ? 'test' : 'day';
+      s.wrote = wroteOk(from.wrote);
+      s.wroteWords = wordsOk(from.wroteWords);
       /* version 0.1 kept one sample day as g, k, r and had no plan */
       if (s.started && !s.plan) s.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit', minutes: 30 };
       if (from.g != null && !obj(from.done)) s.done = { u03d4: { g: +from.g || 0, k: +from.k || 0, r: +from.r || 0 } };
@@ -157,7 +168,7 @@
   function remember(s) {
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
-    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock };
+    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock, wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
     var text = JSON.stringify(keep);
     keepLevelSound(s.level);
     if (text === lastSaved) return;

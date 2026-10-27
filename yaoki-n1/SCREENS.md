@@ -73,6 +73,13 @@ Progress is kept per day in `plan.days[i].p`. It only ever goes up. Save it with
 |---|---|---|
 | `g` | 1: teach pages and compare page read · 2: drills and ★ done · 3: exam-style done | Teach, Compare, Drill, Star, Exam |
 | `k` | 1: kanji and words quiz done | Scene |
+
+### Writing
+
+The kanji are written by hand (Write.dc.html, inside Scene). What has been written is kept outside the plan, for the
+whole app: `app.wrote` is a string of the kanji written three times, `app.wroteWords` the words written out one kanji at
+a time. Scene adds to them with `this.props.save({ wrote: app.wrote + c })` and `this.props.save({ wroteWords:
+app.wroteWords.concat(w) })` (the shell keeps both with the progress).
 | `r` | 1: reading done | Reading |
 | `l` | 1: listening done | Listening |
 | `t` | 1: week test done (test day) | WeekTest |
@@ -123,7 +130,7 @@ row (`N.reviewed`).
 | Drill | the 3 drills in turn | Star |
 | Star | the ★ question; saves `g: 2` | Today |
 | Exam | the 3 exam-style questions on a clock; saves `g: 3` | Today |
-| Scene | the day's kanji, then its words, then a quiz (`N.kanjiQuiz` and `N.wordQ`); saves `k: 1` | Today |
+| Scene | the day's kanji, each written three times in its sheet before the next (and before the words); its words; then its words of two kanji or more, written one kanji at a time; then a quiz (`N.kanjiQuiz` and `N.wordQ`); saves `k: 1`, and `wrote` and `wroteWords` as it goes | Today |
 | Reading | the day's reading item; saves `r: 1` | Today |
 | Listening | the day's listening item; saves `l: 1` | Today |
 | WeekTest | `N.testFor(plan, i)`: the week test on a test day, the mixed review on a review day; saves `t` or `v` and the result | Main |

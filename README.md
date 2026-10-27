@@ -10,10 +10,10 @@ Yaoki is a JLPT study app prototype. There are two apps, built from the same she
 | `docs/n1/` | The built N1 app, served at https://jorycook.github.io/Yaoki/n1/. |
 | `docs/reader/` | Yaoki Reader, served at https://jorycook.github.io/Yaoki/reader/. It has no build step: these files are its source. |
 | `docs/typing/` | Yaoki Typing (タイピング), a typing game for a Japanese (JIS) keyboard, served at https://jorycook.github.io/Yaoki/typing/. It has no build step: `engine.js` holds the spelling rules, key tables and prompts, `game.js` the game. |
-| `yaoki/project/` | The design canvas's files for the main app: 27 screens (`*.dc.html`), the course engine (`course.js`), each level's lessons (`course-n5.js` to `course-n2.js`, made from `content/`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`, `sound-course.js`, and one `sound-course-nX-uNN.js` per unit). 16 of the screens make up the app. |
+| `yaoki/project/` | The design canvas's files for the main app: 29 screens (`*.dc.html`), the course engine (`course.js`), each level's lessons (`course-n5.js` to `course-n2.js`, made from `content/`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`, `sound-course.js`, and one `sound-course-nX-uNN.js` per unit), and the writing practice (`Write.dc.html`, `yk-write.js`, `strokes.js`). 16 of the screens make up the app, with the writing panel inside one of them. |
 | `content/` | The main app's lessons as data, one folder per level (see `content/README.md`). |
-| `tools/` | `build-course.mjs` checks the content and writes the `course-*.js` files (the app build runs it), and the scripts that make the course's sound and review sheets. |
-| `yaoki-n1/project/` | The N1 app's 27 screens, its content bank and plan (`n1-content.js`, `n1.js`), the sound player and the clips (`audio/`: 1,493 MP3 files and `clips.js`, their list). 17 of the screens make up the app. They are also the files of an N1 copy of the canvas, "Yaoki JLPT App · N1". |
+| `tools/` | `build-course.mjs` checks the content and writes the `course-*.js` files (the app build runs it), the scripts that make the course's sound and review sheets, and the writing practice's: `make-strokes.py` (the strokes, from KanjiVG) and `sync-write.sh` (the panel and engine copied to the N1 app). |
+| `yaoki-n1/project/` | The N1 app's 29 screens, its content bank and plan (`n1-content.js`, `n1.js`), the sound player and the clips (`audio/`: 1,493 MP3 files and `clips.js`, their list). 17 of the screens make up the app. They are also the files of an N1 copy of the canvas, "Yaoki JLPT App · N1". |
 | `yaoki-n1/content/`, `yaoki-n1/tools/` | The N1 course as data (`FORMAT.md`, `MOCKS.md`) and the scripts that check it and bundle it into `n1-content.js`. `yaoki-n1/SCREENS.md` says how the screens read the plan. |
 | `yaoki-n1/make-sound.py` | Makes the N1 app's spoken clips. |
 | `yaoki-app/` | The app around the screens, shared by both apps: `src/` (runtime, shell, install page, offline worker, page, manifest), `build.mjs`, `fonts.py`. |
@@ -51,6 +51,16 @@ The offline worker (`yaoki-app/src/sw.js`) stores the app itself when it install
 
 Each stored file carries a hash of its content, so a new build keeps the ones that did not change instead of fetching them again.
 
+## Writing practice
+
+Both apps have the learner write kanji by hand, with a finger, in the kanji part of a lesson.
+
+- **Main app (N5 to N2).** The kanji and words lesson (Scene) has three steps: 学習 the scene (each word's reading, meaning and kanji), 書く writing, and 本番 the exam question. In the writing step each kanji of the scene's words that is new to the learner is written three times before the next one comes: traced over its strokes once its stroke order has played (a red dot marks where the next stroke starts), then over very faint strokes, then from memory. Each word of two kanji or more is then written one kanji at a time, from memory. A kanji comes before the first word that has it, and a word straight after its new kanji. Next stays shut until the kanji or word is written. New means not written in the app before and not from the levels below: an N4 learner is taken to write the N5 kanji already (`below` in each course file, from the kanji lists in `tools/build-course.mjs`). Today's card shows the lesson's steps as 学習 Learn, 書く Write and 本番 Exam-style.
+- **N1 app.** Each kanji's sheet in the kanji step has the same pad: the kanji is written three times before Next kanji opens, and the words open once every kanji of the day is written. After the words comes 書く, where each word of two kanji or more is written one kanji at a time: a kanji of the N1 bank not taught yet is traced, one written before or from the levels below is written from memory.
+- **What counts.** A stroke counts when it comes in the right order and goes the right way, close to the stroke, with its shape and roughly its length. The next stroke drawn instead, a stroke drawn backwards or a scribble does not, and the line under the pad says which. After two misses the stroke is shown in yellow from its start; after four it is written in for the learner. The buttons under the pad play the stroke order, show the next stroke and start the current time again. A strip under them shows the stroke order a stroke at a time; it is hidden while the learner writes from memory.
+- **What is kept.** The kanji written three times and the words written out are saved with the progress (`wrote`, `wroteWords`), for all levels at once, so nothing is asked twice. A kanji opened again is shown written out, with its stroke order a tap away.
+- **Where it lives.** The pad and its stroke matching are `yk-write.js`, and the panel around it (the three times, a word's cells, the buttons, the strip) is `Write.dc.html`. Both are the same file in both apps: change them in `yaoki/project/`, then `bash tools/sync-write.sh` copies them to `yaoki-n1/project/` (`--check` says whether the copies match). The strokes are each app's `strokes.js`, made from KanjiVG by `python3 tools/make-strokes.py`, which downloads the KanjiVG release once: the main app's holds every kanji of the scenes' words, the N1 app's the kanji bank and every kanji of its words. The course build and the app build stop when a kanji has no strokes, so new words with a new kanji need `make-strokes.py` run again.
+
 ## Change a screen
 
 Edit the screen file in `yaoki/project/` (or `yaoki-n1/project/` for N1), then build again. The same file runs on the design canvas, so publish it there too to keep the two alike. The main app's lessons are data: change them in `content/` (see `content/README.md`); the N1 course is in `yaoki-n1/content/` (`node yaoki-n1/tools/build-content.mjs` remakes `n1-content.js`). A new build has a new version; phones that have the app fetch it by themselves and switch to it at a quiet moment.
@@ -64,7 +74,12 @@ bash all-app.sh                  # the click-through suites against the app buil
 bash run-app.sh app-test.js      # app-only checks: saved progress, sizes, offline, updates
 node preview-test.js             # the page shown inside Claude
 bash release-checks.sh           # the main app's checks before a release, each with its verdict line
+node write-engine-test.js        # the writing practice's stroke matching, on every kanji of both apps (about two minutes)
+bash run-app.sh write-flow.js    # writing with a finger: N5 week 1 day 1, every kanji and word (bash run.sh: on the canvas)
+YK_LEVEL=N1 bash run-app.sh write-flow-n1.js   # the same for a day of the N1 sample plan (DAY=n for another)
 ```
+
+`write-engine-test.js` draws every stroke of every kanji the apps ask for: as it is, the next stroke in its place, backwards, a scribble, and the whole kanji from memory a little small and off-centre. The two write-flow checks draw with touch input, as a phone sends it, and try a stroke out of order and one backwards on the way. The other click-throughs set `window.__ykWriteAuto`, so the pads write themselves, and `window.__ykWriteFast`, so the animations run twenty times quicker; the app never sets either.
 
 `release-checks.sh` runs the day flow, the level switch, each level's mini mock, the app checks, a content sweep of each level, `offline-sound.js` (which serves `yaoki-app/dist`: build it first) and the preview, and three canvas-side runs, which need the canvas runtime (see below). Whole-level sweeps run a few units at a time: `LEVEL=N4 bash sweep-chunks.sh <logdir> "1 2" "3 4" …`.
 
@@ -168,7 +183,7 @@ All of these honour reduced motion, and none of them changes the clean count, th
 
 ## Licences
 
-Third-party parts are listed in `docs/licenses.txt` (and the same list in `docs/n1/licenses.txt`): Preact (MIT), the typefaces M PLUS Rounded 1c and Klee One (SIL Open Font License 1.1), and the synthetic voices (Kokoro-82M, Apache-2.0; two voices built from Koniwa recordings, CC BY 3.0). The N1 app's list adds the kanji and dictionary data it was made from (KANJIDIC2 and JMdict, EDRDG, CC BY-SA 4.0).
+Third-party parts are listed in `docs/licenses.txt` (and the same list in `docs/n1/licenses.txt`): Preact (MIT), the typefaces M PLUS Rounded 1c and Klee One (SIL Open Font License 1.1), the synthetic voices (Kokoro-82M, Apache-2.0; two voices built from Koniwa recordings, CC BY 3.0), and the writing practice's strokes, from KanjiVG (Ulrich Apel and contributors, CC BY-SA 3.0; the `strokes.js` files are under the same licence), with stroke matching that follows Hanzi Writer's (David Chanin, MIT). The N1 app's list adds the kanji and dictionary data it was made from (KANJIDIC2 and JMdict, EDRDG, CC BY-SA 4.0).
 
 Both lists hold a notice that JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services, that the apps are not connected with them and hold no official test material, and that the lessons, questions, passages and listening scripts were written for the apps; each app's menu says the same in a line under its version. Everything was checked to be original in an IP review (15 Oct 2026): a scan of every sentence of both apps flagged 131 texts (61 example sentences that matched stock examples of published grammar references, 6 real names, 64 instruction lines in the wording of the official papers), and each was replaced with an original sentence of the same grammar and length or a reworded instruction. In the main app this changed sentences in `content/n2` to `content/n5`, and nine N3 clips were made again for them with `tools/remake_clips.py`.
 
