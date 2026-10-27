@@ -2,224 +2,472 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kana Runner · JIS typing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yaoki Typing</title>
+<meta name="description" content="Practise typing Japanese on a Japanese (JIS) keyboard: romaji, your course words, the symbol keys and kana input.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F4F5F9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12172A" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="Yaoki Typing">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
 <style>
-  :root {
-    --ink: #1f2328;
-    --muted: #5b636e;
-    --line: #d7d2c6;
-    --paper: #fbfaf6;
-    --accent: #2d6cdf;
-    --gold: #f5a623;
-    --bad: #c2362f;
-    --good: #1f9d55;
+/* page base, as in Yaoki Reader */
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; padding: 0; }
+[hidden]:not([hidden=until-found i]) { display: none !important; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap">
+<style>
+/* Look: Yaoki stamp-card stationery, with the tokens of Yaoki Reader plus the app's answer colours.
+   The round is drawn on a canvas that reads these same tokens (game.js, palette()). */
+:root {
+  --ground: #F4F5F9; --card: #FFFFFF; --ink: #1B2440; --muted: #5A6382;
+  --line: #DDE1EC; --line-strong: #C9D0E3; --outline: #1B2440; --hard: #1B2440;
+  --accent: #2F4FD0; --accent-ink: #2F4FD0; --accent-soft: #E8ECFB; --on-accent: #FFFFFF;
+  --mark: #FFE9B0; --note: #FFF4D6; --stamp: #C7361E; --scrim: rgba(27, 36, 64, 0.45);
+  --good: #0B7A6B; --good-soft: #E0F3EF; --bad: #C7361E; --bad-soft: #FDEBE6;
+  --gold: #F2B43A; --daruma: #E2452B; --grid: #E6E9F3;
+  --ui: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+  --jp: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
+    --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
+    --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
+    --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
+    --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
+    --grid: #1A2137;
+    color-scheme: dark;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ink: #e8e6e1;
-      --muted: #a4abb5;
-      --line: #3a3f47;
-      --paper: #17191c;
-    }
-  }
-  :root[data-theme="dark"] {
-    --ink: #e8e6e1;
-    --muted: #a4abb5;
-    --line: #3a3f47;
-    --paper: #17191c;
-  }
-  * { box-sizing: border-box; }
-  [hidden] { display: none !important; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', Meiryo, system-ui, sans-serif;
-  }
-  main { max-width: 1000px; margin: 0 auto; padding: 16px; }
-  h1 { font-size: 1.5rem; margin: 4px 0; }
-  h2 { font-size: 1rem; margin: 18px 0 6px; }
-  .lede, .notes { color: var(--muted); line-height: 1.55; }
-  .lede { margin: 0 0 12px; }
-  .notes { font-size: 0.92rem; }
-  .notes li { margin-bottom: 4px; }
+}
+:root[data-theme="dark"] {
+  --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
+  --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
+  --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
+  --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
+  --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
+  --grid: #1A2137;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.45; font-weight: 500; line-break: strict; -webkit-text-size-adjust: 100%; }
+button { font: inherit; color: inherit; cursor: pointer; margin: 0; }
+button:disabled { cursor: default; }
+:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+rt { font-size: 0.45em; font-weight: 400; color: var(--muted); }
 
-  .game {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 960 / 400;
-    border-radius: 14px;
-    overflow: hidden;
-    background: #bfe6ff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  }
-  #stage { display: block; width: 100%; height: 100%; }
-  .overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(251, 250, 246, 0.9);
-  }
-  .panel {
-    width: min(600px, calc(100% - 32px));
-    max-height: calc(100% - 24px);
-    overflow: auto;
-    background: #fff;
-    color: var(--ink);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
-  }
-  .panel h2 { margin-top: 0; font-size: 1.2rem; }
-  .panel p { margin: 6px 0; line-height: 1.5; }
-  .muted { color: var(--muted); font-size: 0.9rem; }
+#app { max-width: 1040px; margin: 0 auto; padding: 0 16px 28px; }
+.bar { display: flex; align-items: center; gap: 8px; min-height: 56px; }
+.brand { flex: 1; min-width: 0; font-size: 20px; font-weight: 800; }
+.brand small { font-size: 13px; font-weight: 700; color: var(--muted); }
+.pill { flex-shrink: 0; height: 40px; padding: 0 14px; border-radius: 20px; background: var(--card); border: 2px solid var(--outline); color: var(--ink); font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
 
-  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 8px; }
-  .tab, .stage, .btn {
-    font: inherit;
-    border: 1px solid var(--line);
-    background: #fff;
-    color: #1f2328;
-    border-radius: 8px;
-    padding: 7px 12px;
-    cursor: pointer;
-  }
-  .tab[aria-selected="true"], .stage.on {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-  .stages { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px; }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-  .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
-  .toggles { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; font-size: 0.95rem; }
-  .results { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 16px; margin: 10px 0; }
-  .results div span { color: var(--muted); font-size: 0.9rem; display: block; }
-  .results div strong { font-size: 1.3rem; }
+/* shared pieces */
+.kicker { font-size: 12px; font-weight: 800; color: var(--accent-ink); }
+.kicker.red { color: var(--stamp); }
+h1 { margin: 2px 0 0; font-size: 26px; font-weight: 800; line-height: 1.25; }
+h1.jp { margin-top: 10px; font-family: var(--jp); font-weight: 600; font-size: 30px; line-height: 1.5; }
+#res-title:focus { outline: none; }
+h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
+.lede { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.hint { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+.card { background: var(--card); border: 2px solid var(--outline); border-radius: 20px; box-shadow: 0 4px 0 var(--hard); padding: 14px 16px 16px; }
+.notebox { margin: 0; padding: 12px 14px; border-radius: 16px; background: var(--note); font-size: 13px; font-weight: 500; line-height: 1.5; }
+.notebox b { font-weight: 800; }
+.notebox ul { margin: 6px 0 0; padding-left: 18px; }
+.pair { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--note); }
+.pair [lang="ja"] { font-size: 20px; font-weight: 800; }
+.pair span:last-child { font-size: 15px; font-weight: 700; }
+.btn { min-height: 54px; padding: 8px 20px; border-radius: 16px; border: 2px solid var(--outline); background: var(--accent); color: var(--on-accent); box-shadow: 0 4px 0 var(--hard); font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--hard); }
+.btn:disabled { background: var(--line); color: var(--muted); border-color: var(--line-strong); box-shadow: none; transform: none; }
+.btn.quiet { background: var(--card); color: var(--ink); }
+.btn.danger { background: var(--card); color: var(--stamp); border-color: var(--stamp); box-shadow: none; }
+.btn kbd { font: inherit; font-size: 12px; font-weight: 700; opacity: 0.8; }
+.linklike { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--accent-ink); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.tag { display: inline-block; padding: 2px 9px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 11px; font-weight: 800; }
+.tag.gold { background: var(--gold); color: #1B2440; border: 2px solid var(--outline); font-size: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
-  #status {
-    min-height: 1.6em;
-    margin: 10px 2px 4px;
-    font-size: 0.98rem;
-    color: var(--ink);
-  }
-  #status.bad { color: var(--bad); font-weight: 600; }
-  #status.warn { color: #9a5b00; font-weight: 600; }
+/* menu */
+#menu { display: flex; flex-direction: column; gap: 18px; padding-top: 4px; }
+.hero { display: flex; gap: 14px; align-items: center; }
+.hero svg { flex-shrink: 0; }
+.block { display: flex; flex-direction: column; gap: 8px; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg button { min-height: 46px; padding: 6px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); font-size: 14px; font-weight: 800; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--outline); color: var(--on-accent); box-shadow: 0 3px 0 var(--hard); }
+.seg button small { font-weight: 700; opacity: 0.85; }
+.seg .tile { display: flex; flex-direction: column; align-items: flex-start; min-width: 104px; padding: 8px 14px; }
+.seg .tile b { font-size: 20px; font-weight: 800; line-height: 1.2; }
+.options { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.option { text-align: left; padding: 10px 14px 12px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); display: flex; flex-direction: column; gap: 2px; min-height: 64px; }
+.option[aria-pressed="true"] { border: 2.5px solid var(--accent-ink); background: var(--accent-soft); }
+.option:disabled { color: var(--muted); background: var(--ground); border-style: dashed; border-color: var(--line-strong); }
+.option .o-top { display: flex; align-items: center; gap: 6px; }
+.option .o-kick { flex: 1; min-width: 0; font-size: 12px; font-weight: 700; color: var(--muted); }
+.option .o-ja { font-size: 16px; font-weight: 800; }
+.option .o-en { font-size: 13px; font-weight: 700; color: var(--muted); }
+.option .o-meta { font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 66px; padding: 10px 14px; border-radius: 16px; background: var(--card); border: 2px solid var(--outline); font-size: 15px; font-weight: 800; cursor: pointer; }
+.switch small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+.switch input { appearance: none; -webkit-appearance: none; flex-shrink: 0; width: 52px; height: 30px; margin: 0; border-radius: 15px; border: 2px solid var(--outline); background: var(--line); position: relative; cursor: pointer; transition: background 150ms; }
+.switch input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--card); border: 2px solid var(--outline); transition: transform 150ms; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(22px); }
 
-  .kb { margin-top: 8px; }
-  .kb-row { display: flex; gap: 5px; margin-bottom: 5px; }
-  .key {
-    position: relative;
-    flex: 1 1 0;
-    min-width: 0;
-    height: 42px;
-    border: 1px solid var(--line);
-    border-radius: 6px;
-    background: #fff;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: 600;
-    user-select: none;
-    transition: background 0.08s;
-  }
-  .key .sub {
-    position: absolute;
-    top: 3px;
-    right: 6px;
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--muted);
-  }
-  .key.next {
-    background: #ffe08a;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.35);
-  }
-  .key.press { background: #cfe3ff; }
-  .kb-note { font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
+/* play */
+#play { display: flex; flex-direction: column; gap: 8px; }
+.hud { display: flex; align-items: center; gap: 8px; min-height: 48px; }
+.icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; margin-left: -10px; }
+.segs { flex: 1; min-width: 60px; display: flex; gap: 4px; }
+.segs i { flex: 1; height: 10px; border-radius: 5px; background: var(--line); transition: background 250ms; }
+.segs.many { gap: 2px; }
+.segs i.done { background: var(--accent); }
+.segs i.skip { background: var(--line-strong); }
+.segs i.now { background: var(--ink); }
+.track { flex: 1; min-width: 60px; height: 12px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.track i { display: block; width: 0%; height: 100%; border-radius: 0 6px 6px 0; background: var(--accent); transition: width 300ms; }
+.chip { flex-shrink: 0; height: 32px; padding: 0 10px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+/* the clean run: a はなまる and the count; gold at 5, 10, 20 and 40 in a row, never red */
+.hm { stroke: var(--stamp); }
+.chip.zero { color: var(--muted); }
+.chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
+.chip.step .hm { stroke: #C7361E; }
+.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 360px), 360px); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
+body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 190px), 400px); }
+body.playing .bar, body.playing .foot-links { display: none; }
+body.playing #app { padding-top: 8px; }
+#stage { display: block; width: 100%; height: 100%; }
+.info { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; min-height: 26px; margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.info .info-ja { font-family: var(--jp); font-size: 17px; font-weight: 600; color: var(--ink); }
+.status { min-height: 22px; margin: 0; font-size: 14px; font-weight: 800; }
+.status.bad { color: var(--bad); }
+.status.warn { color: var(--stamp); }
 
-  @media (max-width: 640px) {
-    main { padding: 10px; }
-    .key { height: 34px; font-size: 12px; }
-    .kb-row { gap: 3px; }
-    .results { grid-template-columns: 1fr 1fr; }
-  }
+/* keyboard: quiet keys; the next key is lit like the app's "today" node */
+.kb { display: flex; flex-direction: column; gap: 5px; user-select: none; -webkit-user-select: none; }
+.kb-row { display: flex; gap: 5px; }
+.key { position: relative; flex: 1 1 0; min-width: 0; height: 40px; border-radius: 10px; border: 2px solid var(--line); background: var(--card); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; transition: background 120ms, border-color 120ms, transform 80ms; }
+.key .sub { position: absolute; top: 2px; right: 6px; font-size: 10px; font-weight: 700; color: var(--muted); }
+.key .main[lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 16px; }
+.key .sub[lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 11px; }
+.key.mod .main { font-size: 11px; font-weight: 700; color: var(--muted); }
+.key.bump::after { content: ''; position: absolute; bottom: 5px; left: 50%; width: 12px; height: 2px; margin-left: -6px; border-radius: 1px; background: var(--muted); }
+.key.next { background: var(--accent); border-color: var(--outline); color: var(--on-accent); box-shadow: 0 3px 0 var(--hard); }
+.key.next .main, .key.next .sub { color: var(--on-accent); }
+.key.next.bump::after { background: var(--on-accent); }
+.key.ok, .key.miss { transform: translateY(2px); box-shadow: none; }
+.key.ok { background: var(--good-soft); border-color: var(--good); color: var(--ink); }
+.key.miss { background: var(--bad-soft); border-color: var(--bad); color: var(--ink); }
+.next-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; min-height: 22px; margin: 2px 0 0; }
+.next-line .kicker { font-variant-numeric: tabular-nums; }
+.next-line span:not(.kicker) { font-size: 13px; font-weight: 700; color: var(--muted); }
+
+/* sheets: settings, pause */
+.scrim { position: fixed; inset: 0; z-index: 20; background: var(--scrim); animation: yk-fade 160ms ease-out; display: flex; align-items: flex-end; justify-content: center; }
+.sheet { width: min(640px, 100%); max-height: 92svh; overflow-y: auto; border-radius: 26px 26px 0 0; border-top: 2px solid var(--outline); background: var(--ground); padding: 18px 16px calc(22px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out; }
+.sheet > h2 { font-size: 18px; color: var(--ink); }
+.sheet > h2 small { font-size: 13px; font-weight: 700; color: var(--muted); }
+.sheet .btn { width: 100%; }
+
+/* result */
+#result { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; max-width: 640px; overflow-x: clip; }
+.result-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.big { display: flex; align-items: baseline; gap: 6px; }
+.big strong { font-size: 56px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.big span { font-size: 20px; font-weight: 700; color: var(--muted); }
+.hanko { position: relative; flex-shrink: 0; width: 124px; height: 124px; border-radius: 50%; border: 4px solid var(--daruma); padding: 5px; transform: rotate(-9deg); display: flex; animation: yk-stamp 550ms ease-out 150ms both; }
+/* the ink ring where the hanko touches, and a stage's はなまる drawn round it */
+.hanko-ink { position: absolute; inset: -8px; border-radius: 50%; border: 3px solid var(--daruma); opacity: 0; pointer-events: none; animation: yk-ring 400ms ease-out 452ms forwards; }
+.hanko.hana { margin: 8px 22px 8px 0; }
+.hana-ring { position: absolute; inset: -22.5%; overflow: visible; pointer-events: none; }
+.hana-ring path { fill: none; stroke: var(--stamp); stroke-width: 2.4; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; animation: yk-draw 900ms ease-out 750ms backwards; }
+.seal-line { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.seal-line p { margin: 0; }
+#res-seal-tag { display: inline-block; animation: yk-stamp 450ms ease-out 750ms both; }
+.rings { display: inline-flex; gap: 3px; vertical-align: -1px; }
+.rings i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.rings i.on { border: 2px solid var(--daruma); background: radial-gradient(var(--stamp) 0 2px, transparent 2.5px); }
+.option .rings { margin-left: 4px; }
+.option .hana { margin: -4px 0 -4px 2px; vertical-align: middle; }
+.stats .row > span > small.ups { color: var(--ink); }
+.hanko div { flex-grow: 1; border-radius: 50%; border: 2px solid var(--daruma); color: var(--stamp); font-weight: 800; font-size: 17px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center; }
+.hanko.three div { font-size: 15px; }
+.stats { padding: 4px 16px; }
+.stats .row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 2px solid var(--line); }
+.stats .row:first-child { border-top: 0; }
+.stats .row b { flex-shrink: 0; width: 104px; text-align: right; font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stats .row b small { font-size: 14px; font-weight: 700; color: var(--muted); }
+.stats .row > span { display: flex; flex-direction: column; font-size: 15px; font-weight: 800; }
+.stats .row > span > small { font-size: 12px; font-weight: 700; color: var(--muted); }
+.stats .row small .tag { margin: 0 4px; vertical-align: 1px; }
+.weak { display: flex; flex-wrap: wrap; gap: 8px; }
+.weak span { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; background: var(--note); font-size: 15px; font-weight: 800; }
+.weak span[lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; }
+
+/* the stamp card: a box for each day the goal was typed, and today's box filling up */
+.daycard { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.day-boxes { display: flex; gap: 6px; padding-bottom: 14px; }
+.day-box { position: relative; flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; border: 2px dashed var(--line-strong); display: flex; align-items: center; justify-content: center; }
+.day-box small { position: absolute; top: 100%; left: 50%; margin-top: 2px; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.day-box.stamped { border-style: solid; border-color: var(--line); }
+.day-box.stamped i { width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%; border: 2.5px solid var(--daruma); background: var(--card); color: var(--stamp); font-style: normal; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(var(--tilt, -9deg)); }
+.day-box.new i { animation: yk-day 500ms ease-out 750ms both; }
+.day-box.open { border: 2px solid var(--outline); background: linear-gradient(to top, var(--gold) var(--fill, 0%), transparent var(--fill, 0%)); }
+.day-text { flex: 1 1 220px; min-width: 0; }
+.day-line { margin: 2px 0 0; font-size: 14px; font-weight: 700; }
+.day-line b { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.daycard .tag { align-self: flex-start; }
+.daycard.mini .day-boxes { gap: 10px; }
+.daycard.mini .day-box { width: 24px; height: 24px; border-radius: 7px; }
+.daycard.mini .day-box.stamped i { width: 19px; height: 19px; border-width: 2px; font-size: 10px; }
+
+.foot-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 18px; }
+
+@keyframes yk-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes yk-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes yk-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes yk-stamp { 0% { opacity: 0; transform: scale(1.8) rotate(-20deg); } 55% { opacity: 1; transform: scale(.92) rotate(-9deg); } 100% { opacity: 1; transform: scale(1) rotate(-9deg); } }
+@keyframes yk-day { 0% { opacity: 0; transform: scale(1.8) rotate(-20deg); } 55% { opacity: 1; transform: scale(.92) rotate(var(--tilt, -9deg)); } 100% { opacity: 1; transform: scale(1) rotate(var(--tilt, -9deg)); } }
+@keyframes yk-ring { from { opacity: .5; transform: scale(.9); } to { opacity: 0; transform: scale(1.35); } }
+@keyframes yk-draw { from { stroke-dashoffset: 1; } }
+.view { animation: yk-in 220ms ease-out; }
+
+@media (max-height: 820px) {
+  .key { height: 32px; font-size: 13px; }
+  .kb, .kb-row { gap: 4px; }
+}
+@media (max-width: 640px) {
+  h1.jp { font-size: 26px; }
+  .key { height: 34px; font-size: 12px; border-radius: 8px; }
+  .kb-row, .kb { gap: 3px; }
+  .key .sub, .key .sub[lang="ja"] { font-size: 7px; top: 1px; right: 2px; }
+  .key .main[lang="ja"] { font-size: 12px; }
+  .key.mod { overflow: hidden; white-space: nowrap; }
+  .key.mod .main { font-size: 8px; }
+  .stats .row b { width: 84px; font-size: 22px; }
+  .big strong { font-size: 44px; }
+  .hanko { width: 104px; height: 104px; }
+  .hanko div { font-size: 14px; }
+  .hanko.three div { font-size: 12px; }
+}
+@media (max-width: 420px) {
+  .hud { gap: 6px; }
+  .chip { padding: 0 6px; gap: 4px; }
+  .segs, .track { min-width: 30px; }
+  .segs.many { gap: 1px; }
+  .key .sub, .key .sub[lang="ja"] { display: none; }
+  .key.next .sub, .key.next .sub[lang="ja"] { display: block; top: 0; right: 1px; font-size: 9px; color: var(--on-accent); }
+  .key.next .main[lang="ja"] { font-size: 10px; margin-top: 8px; }
+  .key.mod:not([data-code^="Shift"]) .main { display: none; }
+  .key.mod[data-code^="Shift"] .main { font-size: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .btn:active, .key.ok, .key.miss { transform: none; }
+}
 </style>
 </head>
 <body>
-<main>
-  <h1>Kana Runner</h1>
-  <p class="lede">Type to run. Boxes come at you from the right, each with a prompt. Type the prompt on your Japanese (JIS) keyboard to jump over it. A box that reaches you costs a heart.</p>
+<div id="app">
+  <header class="bar">
+    <div class="brand"><span lang="ja">タイピング</span> <small>Yaoki Typing</small></div>
+    <button type="button" class="pill" id="open-settings" aria-haspopup="dialog">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
+      <span lang="ja">設定</span>
+    </button>
+  </header>
 
-  <div class="game">
-    <canvas id="stage" width="960" height="400" role="img" aria-label="Side-scrolling game. Type the prompt on each box to jump over it."></canvas>
-
-    <div id="overlay" class="overlay">
-      <section id="menu" class="panel" aria-labelledby="menu-title">
-        <h2 id="menu-title">Choose what to practise</h2>
-        <div id="mode-tabs" class="tabs" role="tablist"></div>
-        <p id="mode-desc" class="muted"></p>
-        <div id="stage-list" class="stages"></div>
-        <div class="toggles">
-          <label><input type="checkbox" id="hints" checked> Show hints above boxes</label>
-          <label><input type="checkbox" id="kb-toggle" checked> Show keyboard</label>
-        </div>
-        <p id="best" class="muted"></p>
-        <div class="actions">
-          <button type="button" id="start" class="btn primary">Start (Enter)</button>
-          <span class="muted">Click here first, or press Enter.</span>
-        </div>
-      </section>
-
-      <section id="paused" class="panel" hidden>
-        <h2>Paused</h2>
-        <p class="muted">Press Esc or Enter to carry on.</p>
-        <div class="actions">
-          <button type="button" id="resume" class="btn primary">Resume</button>
-          <button type="button" id="quit" class="btn">Quit to menu</button>
-        </div>
-      </section>
-
-      <section id="over" class="panel" hidden>
-        <h2>Run over</h2>
-        <div class="results">
-          <div><span>Score</span><strong id="res-score">0</strong></div>
-          <div><span>Boxes cleared</span><strong id="res-cleared">0</strong></div>
-          <div><span>Accuracy</span><strong id="res-acc">0%</strong></div>
-          <div><span>Correct keys per minute</span><strong id="res-kpm">0</strong></div>
-          <div><span>Best combo</span><strong id="res-combo">0</strong></div>
-        </div>
-        <p id="res-note" class="muted"></p>
-        <div class="actions">
-          <button type="button" id="again" class="btn primary">Play again (Enter)</button>
-          <button type="button" id="to-menu" class="btn">Menu (Esc)</button>
-        </div>
-      </section>
+  <!-- the menu -->
+  <section id="menu" class="view" aria-labelledby="menu-title">
+    <div class="hero">
+      <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+      <div>
+        <div class="kicker">タイピング　TYPING · JIS KEYBOARD</div>
+        <h1 id="menu-title" class="jp" lang="ja"><ruby>七転<rt>ななころ</rt></ruby>び<ruby>八起<rt>やお</rt></ruby>き</h1>
+        <p class="lede">Fall down seven times, get up eight (八起き, yaoki). Type what is on each card before it reaches Yaoki. If one gets to him, he falls over, gets up again, and the card comes back later in the round.</p>
+      </div>
     </div>
+
+    <div id="touch-note" class="pair" hidden><span lang="ja">キーボードをつないでください</span><span>This game needs a hardware keyboard.</span></div>
+    <p id="layout-note" class="notebox" hidden></p>
+
+    <section id="day-card" class="card daycard" role="group" aria-labelledby="day-kick">
+      <div class="day-boxes" id="day-boxes" aria-hidden="true"></div>
+      <div class="day-text">
+        <div class="kicker" id="day-kick"><span lang="ja">スタンプカード</span>　STAMP CARD · <span id="day-count">0 / 7</span></div>
+        <p class="day-line" id="day-line" aria-hidden="true"></p>
+        <p class="hint" id="day-hint"></p>
+        <p class="sr-only" id="day-sr"></p>
+      </div>
+      <span class="tag gold" id="day-done" aria-hidden="true" hidden></span>
+    </section>
+
+    <section class="block" aria-labelledby="mode-h">
+      <h2 id="mode-h"><span lang="ja">練習</span>　What to practise</h2>
+      <div id="modes" class="seg" role="group" aria-labelledby="mode-h"></div>
+      <p id="mode-desc" class="hint"></p>
+    </section>
+
+    <section id="course-pick" class="block" aria-labelledby="level-h" hidden>
+      <h2 id="level-h"><span lang="ja">レベル</span>　Level</h2>
+      <div id="levels" class="seg" role="group" aria-labelledby="level-h"></div>
+      <h2 id="unit-h"><span lang="ja">週</span>　Week</h2>
+      <div id="units" class="options" role="group" aria-labelledby="unit-h"></div>
+      <p id="course-note" class="hint"></p>
+    </section>
+
+    <section id="stage-pick" class="block" aria-labelledby="stage-h">
+      <h2 id="stage-h"><span lang="ja">ステージ</span>　Stage</h2>
+      <div id="stages" class="options" role="group" aria-labelledby="stage-h"></div>
+    </section>
+
+    <section class="block" aria-labelledby="len-h">
+      <h2 id="len-h"><span lang="ja">ラウンド</span>　Cards per round</h2>
+      <div id="len-seg" class="seg" role="group" aria-labelledby="len-h"></div>
+    </section>
+
+    <div class="actions">
+      <button type="button" id="start" class="btn"><span lang="ja">はじめる</span>　Start <kbd>Enter</kbd></button>
+      <button type="button" id="start-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+    </div>
+
+    <aside class="notebox" aria-labelledby="before-h">
+      <b id="before-h" lang="ja">はじめる前に</b>　Before you play
+      <ul>
+        <li>Set your computer to a <b>Japanese keyboard layout</b>, so the symbols are where the picture shows them.</li>
+        <li>Switch the input to <b lang="ja">英数</b> (direct input) while you play. What you type is checked the way the Japanese input method would read it: <b>nn</b> for <span lang="ja">ん</span> before a vowel, y or n and at the end, <b>wo</b> for <span lang="ja">を</span>.</li>
+        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last letter of the card you are typing. A card that waits in front of Yaoki can be skipped with <b>Tab</b>.</li>
+        <li>A card typed with no miss and no hint gets a <b lang="ja">はなまる</b> on the route, and <b lang="ja">連続</b> counts them in a row. A card that knocked Yaoki over and is typed clean when it comes back is stamped <b lang="ja">起</b>. A gold corner marks a card with one of your weak spots. <span lang="ja">たいへんよくできました</span> on three different days gives a stage its <span lang="ja">はなまる</span>.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- a round -->
+  <section id="play" class="view" aria-label="Round" hidden>
+    <div class="hud">
+      <button type="button" id="pause" class="icon-btn" aria-label="Pause or quit (Esc)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="progress" class="segs" role="img" aria-label="Card 1 of 20"></div>
+      <span class="chip run zero" id="hud-run-chip" title="連続　Clean cards in a row">
+        <svg width="18" height="18" viewBox="-13 -13 26 26" aria-hidden="true"><path class="hm" d="M0 -9A3.08 3.08 0 0 1 5.79 -6.89A3.08 3.08 0 0 1 8.86 -1.56A3.08 3.08 0 0 1 7.79 4.5A3.08 3.08 0 0 1 3.08 8.46A3.08 3.08 0 0 1 -3.08 8.46A3.08 3.08 0 0 1 -7.79 4.5A3.08 3.08 0 0 1 -8.86 -1.56A3.08 3.08 0 0 1 -5.79 -6.89A3.08 3.08 0 0 1 0 -9Z" fill="none" stroke-width="2" stroke-linejoin="round"/><circle class="hm" r="3.2" fill="none" stroke-width="2"/></svg>
+        <span id="hud-run">0</span><span class="sr-only">clean in a row</span>
+      </span>
+      <span class="chip" title="ころんだ　Falls">
+        <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 54) rotate(-70) scale(.92) translate(-50 -50)"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="4" fill="#1B2440"/></g></svg>
+        <span id="hud-falls">0</span><span class="sr-only">falls</span>
+      </span>
+      <span class="chip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg>
+        <span id="hud-time">0:00</span>
+      </span>
+    </div>
+    <div class="stage-wrap"><canvas id="stage" aria-hidden="true"></canvas></div>
+    <p id="info" class="info"></p>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <div id="kb" class="kb" aria-hidden="true"></div>
+    <p id="next-line" class="next-line" aria-hidden="true"></p>
+  </section>
+
+  <!-- the result of a round -->
+  <section id="result" class="view" aria-labelledby="res-title" hidden>
+    <div>
+      <div class="kicker red" id="res-kicker"><span lang="ja">結果</span>　RESULT</div>
+      <h1 id="res-title" tabindex="-1" lang="ja">ラウンドおわり</h1>
+    </div>
+    <div class="result-top">
+      <div>
+        <div class="hint"><span lang="ja">ノーミス</span>　Clean cards</div>
+        <div class="big"><strong id="res-clean">0</strong><span id="res-clean-total">/ 0</span></div>
+        <p class="hint" id="res-line"></p>
+      </div>
+      <div class="hanko" id="res-stamp" role="img"><div lang="ja" id="res-stamp-text"></div><i class="hanko-ink" id="res-ink" aria-hidden="true"></i><svg id="res-hana" class="hana-ring" viewBox="-84 -84 168 168" aria-hidden="true" hidden><path pathLength="1" d=""/></svg></div>
+    </div>
+    <div class="card stats">
+      <div class="row"><b id="res-keys">0</b><span><span lang="ja">正しく打ったキー</span><small>right keys, of all the keys pressed</small></span></div>
+      <div class="row"><b id="res-run">0</b><span><span lang="ja">連続ノーミス</span><small id="res-run-en">longest run of clean cards in a row</small></span></div>
+      <div class="row"><b id="res-falls">0</b><span><span lang="ja">ころんだ</span><small id="res-falls-en">falls</small><small id="res-ups" class="ups" hidden></small></span></div>
+      <div class="row"><b id="res-hints">0</b><span><span lang="ja">ヒント</span><small id="res-hints-en">hints shown when stuck</small></span></div>
+      <div class="row" id="res-wc-row" hidden><b id="res-wc">0</b><span><span lang="ja">苦手カード</span><small>cards with one of your weak spots (gold corner), typed clean</small></span></div>
+    </div>
+    <p id="res-best" hidden><span class="tag gold" lang="ja">自己ベスト！</span> <span class="hint" id="res-best-text"></span></p>
+    <div id="res-seal" class="seal-line" hidden><p><span id="res-seal-tag" class="tag gold" lang="ja" hidden></span> <span class="hint" id="res-seal-text"></span></p><button type="button" id="res-next" class="btn quiet" hidden></button></div>
+    <section id="res-grad-box" class="block" aria-labelledby="grad-h" hidden>
+      <h2 id="grad-h"><span lang="ja">卒業</span>　Off the weak list</h2>
+      <div id="res-grad" class="weak"></div>
+      <p class="hint" id="res-grad-note"></p>
+    </section>
+    <section id="res-weak-box" class="block" aria-labelledby="weak-h" hidden>
+      <h2 id="weak-h"><span lang="ja">苦手</span>　Weak spots</h2>
+      <div id="res-weak" class="weak"></div>
+      <p class="hint">Saved. They come first in a weak-spot round, and leave the list after three clean answers in a row.</p>
+    </section>
+    <section id="res-day" class="card daycard mini" role="group" aria-labelledby="res-day-kick">
+      <div class="day-boxes" id="res-day-boxes" aria-hidden="true"></div>
+      <div class="day-text">
+        <div class="kicker" id="res-day-kick"><span lang="ja">スタンプカード</span>　STAMP CARD · <span id="res-day-count">0 / 7</span></div>
+        <p class="day-line" id="res-day-line"></p>
+      </div>
+    </section>
+    <div class="actions">
+      <button type="button" id="again" class="btn"><span lang="ja">もう一度</span>　Again <kbd>Enter</kbd></button>
+      <button type="button" id="again-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+      <button type="button" id="close" class="btn quiet"><span lang="ja">とじる</span>　Close <kbd>Esc</kbd></button>
+    </div>
+  </section>
+
+  <footer class="foot-links">
+    <a class="linklike" href="../">Yaoki app</a>
+    <a class="linklike" href="../reader/">Yaoki Reader</a>
+  </footer>
+</div>
+
+<div id="pause-sheet" class="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pause-h">
+    <h2 id="pause-h"><span lang="ja">一時停止</span>　<small>Paused</small></h2>
+    <p class="hint">Nothing moves while this is open. If you quit, the misses so far stay in your weak spots, and the round does not count for your best (<span lang="ja">自己ベスト</span>). Your typing time so far still counts towards today's stamp.</p>
+    <button type="button" id="resume" class="btn"><span lang="ja">つづける</span>　Continue</button>
+    <button type="button" id="pause-settings" class="btn quiet"><span lang="ja">設定</span>　Settings</button>
+    <button type="button" id="quit" class="btn danger"><span lang="ja">中止する</span>　Quit the round</button>
   </div>
+</div>
 
-  <p id="status" role="status" aria-live="polite"></p>
+<div id="settings-sheet" class="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settings-h">
+    <h2 id="settings-h"><span lang="ja">設定</span>　<small>Settings</small></h2>
+    <div class="block">
+      <h2 id="hint-h"><span lang="ja">ヒント</span>　Romaji and key hints</h2>
+      <div id="hint-seg" class="seg" role="group" aria-labelledby="hint-h"></div>
+      <p class="hint">When stuck: the kana being typed shows after a miss, or after 5 seconds before the first key (3 seconds between keys); a second miss, or as long again, shows the whole spelling. A card where a hint showed is not counted clean, so it gets <span lang="ja">済</span> without a <span lang="ja">はなまる</span>.</p>
+    </div>
+    <label class="switch"><span><span lang="ja">キーボード</span><small>Show the keyboard under the game</small></span><input type="checkbox" id="opt-kb" checked></label>
+    <label class="switch"><span><span lang="ja">音</span><small>Say each course word when it is cleared</small></span><input type="checkbox" id="opt-sound" checked></label>
+    <div class="block">
+      <h2 id="sfx-h"><span lang="ja">効果音</span>　Sound effects</h2>
+      <div id="sfx-seg" class="seg" role="group" aria-labelledby="sfx-h"></div>
+      <p class="hint"><span lang="ja">しずか</span> Quiet: a stamp for each card, a drum when Yaoki falls, a bounce when he gets up. <span lang="ja">ぜんぶ</span> All: also a tick for each right key and a knock for a miss. A course word's own voice is never covered.</p>
+    </div>
+    <div class="block">
+      <h2 id="goal-h"><span lang="ja">1日の目標</span>　Daily goal</h2>
+      <div id="goal-seg" class="seg" role="group" aria-labelledby="goal-h"></div>
+      <p class="hint">A day's box on the stamp card is stamped once you have typed this long that day. Only typing counts: not pauses, and not more than 8 seconds without a key.</p>
+    </div>
+    <button type="button" id="close-settings" class="btn"><span lang="ja">とじる</span>　Close</button>
+  </div>
+</div>
 
-  <div id="kb" class="kb" aria-label="Japanese keyboard, JIS layout"></div>
-  <p class="kb-note">The keyboard shows the key to press in yellow. In the kana mode the keys show their kana, with the romaji letter under each.</p>
-
-  <h2>Before you play</h2>
-  <ul class="notes">
-    <li>Set your computer to a <strong>Japanese keyboard layout</strong>, so symbols land where this picture shows them. On Windows that is Settings › Time &amp; language › Language; on a Mac, the Japanese input source.</li>
-    <li>Set your input to <strong>英数 (direct / half-width alphanumeric)</strong> while you play. If keys do nothing, the Japanese input method is catching them.</li>
-    <li>Romaji mode is what you type when you write Japanese: <code>ka</code> gives か, <code>kka</code> gives っか. Every standard spelling is accepted.</li>
-    <li>Keys: <strong>Esc</strong> pauses, <strong>Backspace</strong> erases a wrong letter in romaji mode, <strong>Enter</strong> starts or restarts.</li>
-  </ul>
-</main>
+<!-- what the screen reader hears during a round and at its end; outside the page so it is
+     never hidden or inert while it speaks -->
+<p id="sr-prompt" class="sr-only" aria-live="polite"></p>
 
 <script src="engine.js"></script>
+<script src="sfx.js"></script>
 <script src="game.js"></script>
 </body>
 </html>
