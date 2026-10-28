@@ -625,6 +625,12 @@ const FAKE_VOICE_LOG = `(function () {
   }, 2000) && (await page.$('#hear.playing')) === null, JSON.stringify((await speech(page)).log));
   await say(page, t.reading, { final: true });
   check('…and hears the player', await waitFor(async () => (await state(page)).cleared === 1, 1500));
+  // the microphone tapped while the word is said: the word is cut short, to talk now
+  await target(page);
+  await page.tap('#hear');
+  await waitFor(async () => (await state(page)).voicing && !(await speech(page)).active, 1500);
+  await page.tap('#mic');
+  check('…tapping the microphone while the word is said cuts it short and listens', await waitFor(async () => (await speech(page)).active && !(await state(page)).voicing, 1000));
   await page.context().close();
 
   // ---- the first steps: kana from zero
@@ -660,6 +666,13 @@ const FAKE_VOICE_LOG = `(function () {
   await say(page, 'あ', { final: true });
   check('said back, it is cleared clean: hearing a new kana is no hint', await waitFor(async () => (await state(page)).cleared === 1, 1500) && (await state(page)).clean === 1 && (await state(page)).hints === 0);
   if (shots) await page.screenshot({ path: `${shots}/lesson-round.png` });
+  // a new kana cut off by a pause is said again when the round goes on
+  t = await target(page);
+  await waitFor(async () => (await state(page)).voicing, 3000);
+  await page.tap('#pause');
+  const saidBefore = (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length;
+  await page.tap('#resume');
+  check('a new kana cut off by a pause is said again when the round goes on', await waitFor(async () => (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length === saidBefore + 1, 2500));
   await page.context().close();
   // after the new kana, the round's kana and words are read without their letters, which show when stuck
   page = await open({}, { [STORE]: { mode: 'start', stage: { start: 'h2' }, style: 'climb' } }, [FAKE_VOICE_LOG, SFX_STUB]);
