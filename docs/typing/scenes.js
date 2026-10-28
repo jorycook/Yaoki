@@ -2627,13 +2627,16 @@
     'symbol:plain': 'uchuu', 'symbol:shifted': 'uminaka', 'symbol:punct': 'fuji', 'symbol:all': 'umi',
     'keys:home': 'tanbo', 'keys:top': 'yukiguni', 'keys:bottom': 'joka', 'keys:number': 'umi', 'keys:shift': 'chikurin', 'keys:all': 'fuji',
     'kanji:single': 'fuji', 'kanji:jukugo': 'joka', 'kanji:advanced': 'yukiguni', 'kanji:yoji': 'chikurin', 'kanji:sentences': 'densha',
+    'keys-kanji:single': 'machi', 'keys-kanji:jukugo': 'uminaka', 'keys-kanji:advanced': 'uchuu', 'keys-kanji:yoji': 'shitamachi', 'keys-kanji:sentences': 'matsuri',
   });
-  const MODE_DEFAULT = table({ romaji: 'shitamachi', symbol: 'uchuu', keys: 'tanbo', course: 'shitamachi', kanji: 'fuji' });
+  const MODE_DEFAULT = table({
+    romaji: 'shitamachi', symbol: 'uchuu', keys: 'tanbo', course: 'shitamachi', kanji: 'fuji', 'keys-course': 'tanbo', 'keys-kanji': 'machi',
+  });
 
   function forStage(key) {
     const k = typeof key === 'string' ? key : '';
     if (STAGE[k]) return STAGE[k];
-    const m = /^course:(N\d)u(\d+)$/.exec(k);
+    const m = /^(?:keys-)?course:(N\d)u(\d+)$/.exec(k);
     if (m) {
       const start = LEVEL_START[m[1]] !== undefined ? LEVEL_START[m[1]] : 0;
       return ORDER[(start + Math.max(0, parseInt(m[2], 10) - 1)) % ORDER.length];
@@ -2758,8 +2761,8 @@
   }
 
   // SCENES: [{ id, ja, en }]. forStage(key): the scene id for a stage key ('romaji:basic',
-  // 'keys:home', 'course:N5u3' …), the same every time. draw(ctx, o) paints the whole
-  // background of a frame, in logical units on a context already scaled, with
+  // 'keys:home', 'course:N5u3', 'keys-kanji:yoji' …), the same every time. draw(ctx, o) paints
+  // the whole background of a frame, in logical units on a context already scaled, with
   // o = { scene, W, top, bottom, ground, scroll, progress, t, still, dark, season, pal }:
   // the visible box x 0..W, y top..bottom; the route at y ground (168); scroll, the distance
   // travelled this round; progress 0..1 through it; t, seconds; still, reduced motion (one

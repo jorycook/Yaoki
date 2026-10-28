@@ -106,6 +106,9 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .seg .tile { display: flex; flex-direction: column; align-items: flex-start; min-width: 104px; padding: 8px 14px; }
 .seg .tile b { font-size: 20px; font-weight: 800; line-height: 1.2; }
 .options { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.stage-groups { display: flex; flex-direction: column; gap: 14px; }
+.stage-group { display: flex; flex-direction: column; gap: 6px; }
+.stage-group h3 { margin: 0; font-size: 14px; font-weight: 800; }
 .option { text-align: left; padding: 10px 14px 12px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); display: flex; flex-direction: column; gap: 2px; min-height: 64px; }
 .option[aria-pressed="true"] { border: 2.5px solid var(--accent-ink); background: var(--accent-soft); }
 .option:disabled { color: var(--muted); background: var(--ground); border-style: dashed; border-color: var(--line-strong); }
@@ -243,31 +246,6 @@ body.playing #app { padding-top: 8px; }
   .key { height: 32px; font-size: 13px; }
   .kb, .kb-row { gap: 4px; }
 }
-@media (max-width: 640px) {
-  h1.jp { font-size: 26px; }
-  .key { height: 34px; font-size: 12px; border-radius: 8px; }
-  .kb-row, .kb { gap: 3px; }
-  .key .sub, .key .sub[lang="ja"] { font-size: 7px; top: 1px; right: 2px; }
-  .key .main[lang="ja"] { font-size: 12px; }
-  .key.mod { overflow: hidden; white-space: nowrap; }
-  .key.mod .main { font-size: 8px; }
-  .stats .row b { width: 84px; font-size: 22px; }
-  .big strong { font-size: 44px; }
-  .hanko { width: 104px; height: 104px; }
-  .hanko div { font-size: 14px; }
-  .hanko.three div { font-size: 12px; }
-}
-@media (max-width: 420px) {
-  .hud { gap: 6px; }
-  .chip { padding: 0 6px; gap: 4px; }
-  .segs, .track { min-width: 30px; }
-  .segs.many { gap: 1px; }
-  .key .sub, .key .sub[lang="ja"] { display: none; }
-  .key.next .sub, .key.next .sub[lang="ja"] { display: block; top: 0; right: 1px; font-size: 9px; color: var(--on-accent); }
-  .key.next .main[lang="ja"] { font-size: 10px; margin-top: 8px; }
-  .key.mod:not([data-code^="Shift"]) .main { display: none; }
-  .key.mod[data-code^="Shift"] .main { font-size: 7px; }
-}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .btn:active, .key.ok, .key.miss { transform: none; }
@@ -295,7 +273,7 @@ body.playing #app { padding-top: 8px; }
       </div>
     </div>
 
-    <div id="touch-note" class="pair" hidden><span lang="ja">キーボードをつないでください</span><span>This game needs a hardware keyboard. On a phone or tablet, <a href="../speaking/">Yaoki Speaking</a> has you say the words out loud instead.</span></div>
+    <div id="touch-note" class="pair" hidden><span lang="ja">パソコンとキーボードでどうぞ</span><span>Yaoki Typing is made for a computer with a keyboard, in a window at least 700 pixels wide. On a phone or tablet, <a href="../speaking/">Yaoki Speaking</a> has you say the words out loud instead.</span></div>
     <p id="layout-note" class="notebox" hidden></p>
 
     <section id="day-card" class="card daycard" role="group" aria-labelledby="day-kick">
@@ -310,9 +288,15 @@ body.playing #app { padding-top: 8px; }
     </section>
 
     <section class="block" aria-labelledby="mode-h">
-      <h2 id="mode-h"><span lang="ja">練習</span>　What to practise</h2>
+      <h2 id="mode-h"><span lang="ja">入力方法</span>　Input method</h2>
       <div id="modes" class="seg" role="group" aria-labelledby="mode-h"></div>
       <p id="mode-desc" class="hint"></p>
+    </section>
+
+    <section id="stage-pick" class="block" aria-labelledby="stage-h">
+      <h2 id="stage-h"><span lang="ja">ステージ</span>　Stage</h2>
+      <div id="stages" class="stage-groups"></div>
+      <p id="stage-desc" class="hint"></p>
     </section>
 
     <section id="course-pick" class="block" aria-labelledby="level-h" hidden>
@@ -321,11 +305,6 @@ body.playing #app { padding-top: 8px; }
       <h2 id="unit-h"><span lang="ja">週</span>　Week</h2>
       <div id="units" class="options" role="group" aria-labelledby="unit-h"></div>
       <p id="course-note" class="hint"></p>
-    </section>
-
-    <section id="stage-pick" class="block" aria-labelledby="stage-h">
-      <h2 id="stage-h"><span lang="ja">ステージ</span>　Stage</h2>
-      <div id="stages" class="options" role="group" aria-labelledby="stage-h"></div>
     </section>
 
     <section class="block" aria-labelledby="len-h">
@@ -341,9 +320,9 @@ body.playing #app { padding-top: 8px; }
     <aside class="notebox" aria-labelledby="before-h">
       <b id="before-h" lang="ja">はじめる前に</b>　Before you play
       <ul>
-        <li>Set your computer to a <b>Japanese keyboard layout</b>, so the symbols are where the picture shows them.</li>
-        <li>Switch the input to <b lang="ja">英数</b> (direct input) while you play. What you type is checked the way the Japanese input method would read it: <b>nn</b> for <span lang="ja">ん</span> before a vowel, y or n and at the end, <b>wo</b> for <span lang="ja">を</span>.</li>
-        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last letter of the card you are typing. A card that waits in front of Yaoki can be skipped with <b>Tab</b>.</li>
+        <li>Yaoki Typing is made for a computer with a keyboard. Set it to a <b>Japanese keyboard layout</b>, so the symbols and kana are where the picture shows them.</li>
+        <li>For romaji and symbol keys, switch the input to <b lang="ja">英数</b> (direct input) while you play. Romaji is checked the way the Japanese input method would read it: <b>nn</b> for <span lang="ja">ん</span> before a vowel, y or n and at the end, <b>wo</b> for <span lang="ja">を</span>. For kana input the input mode does not matter: the game goes by the key you press.</li>
+        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last romaji letter of the card you are typing. A card that waits in front of Yaoki can be skipped with <b>Tab</b>.</li>
         <li>A card typed with no miss and no hint gets a <b lang="ja">はなまる</b> on the route, and <b lang="ja">連続</b> counts them in a row. A card that knocked Yaoki over and is typed clean when it comes back is stamped <b lang="ja">起</b>. A gold corner marks a card with one of your weak spots. <span lang="ja">たいへんよくできました</span> on three different days gives a stage its <span lang="ja">はなまる</span>.</li>
         <li>Cleared cards ride on to Yaoki, and he jumps, spins, ducks or smashes his way past them (with reduced motion they simply settle).</li>
       </ul>
