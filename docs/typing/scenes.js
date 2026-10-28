@@ -1091,30 +1091,50 @@
   const HZ = 114;   // the sea's horizon
   scene({
     id: 'umi', ja: '海', en: 'The sea', stillT: 9,
-    sky: { light: ['#D5EAF3', '#E5F0F2', '#F7F0E2'], dark: ['#0B1226', '#111A33', '#19243F'] },
+    // a deep blue sky going warm and bright down to the horizon (y 112 is the fifth stop)
+    sky: {
+      light: ['#1A56CC', '#2F7EE2', '#58A8F0', '#9AD3F6', '#FFEDBE', '#FFD991', '#FFCB78'],
+      dark: ['#02051C', '#070D3A', '#111654', '#231E68', '#462C78', '#5A3478', '#5A3478'],
+    },
     light: {
-      sea: '#CDE2EC', seaFar: '#D9EAF0', foamNear: ['#EDF5F8', 0.9], island: '#CCDAE6', wave: '#BCD5E4', waveIn: '#C8DEEA', waveLine: ['#F5FAFC', 0.8],
-      swell: '#C3DAE7', foam: '#F4F9FB', spray: ['#FFFFFF', 0.8], hull: '#C6D1E1', sail: '#FAF6EC', gull: ['#8E9DB8', 0.7],
-      lh: '#F6F4EF', lhBand: '#EEC9BE', lhRoof: '#C3CDDF', glint: ['#FFFFFF', 0.7], ground: '#F3EEE1', groundEdge: '#E9E1CF',
+      seaTop: '#1B4FB6', sea: '#22B4DA', seaMid: '#1E9BD4', seaDeep: '#1C80CE',
+      island: '#7E90D6', island2: '#B3BDEA', crest: ['#FFFFFF', 0.85],
+      swell: '#1A5EC0', swellRim: ['#8FD4FF', 0.9], wave: '#163C9C', waveIn: '#2A6BD0', waveLine: ['#CFEBFF', 0.9],
+      foam: '#FFFFFF', spray: ['#FFFFFF', 0.9], near: '#122E84', foamNear: ['#FFFFFF', 0.95],
+      hull: '#E2452B', sail: '#FFFFFF', jib: '#FFF1CC', gull: ['#1E2A66', 0.85],
+      cape: '#3D55AC', capeTop: '#2E9A6A', lh: '#FFFFFF', lhShade: ['#2A3A86', 0.2], lhBand: '#E2452B', lhRoof: '#2A3A86', lhGlass: '#9ED8FF',
+      glint: ['#FFFBEA', 0.95], glint2: ['#FFD45E', 0.95], ground: '#FAF4E6', groundEdge: '#EEDFC0',
     },
     dark: {
-      sea: '#101A31', seaFar: '#141F38', island: '#121A30', wave: '#17223D', waveIn: '#1A2643', waveLine: ['#3A4A72', 0.6],
-      swell: '#152039', foam: '#2E3C60', spray: ['#3A4A72', 0.6], hull: '#1A2238', sail: '#2C3656', gull: ['#4A5678', 0.7],
-      lh: '#2B3556', lhBand: '#3E3550', lhRoof: '#1A2240', beam: ['#FFE7A8', 0.35], lamp: ['#FFE3A0', 0.9], glint: ['#E8DFC4', 0.45], foamNear: ['#26334F', 0.9],
-      ground: '#141A2C', groundEdge: '#171E33',
+      seaTop: '#090D38', sea: '#28327F', seaMid: '#1F2A74', seaDeep: '#172268',
+      island: '#25276A', island2: '#3A2F7A', crest: ['#A9B6FF', 0.7],
+      swell: '#0E185A', swellRim: ['#5D74DA', 0.8], wave: '#0A124C', waveIn: '#16247C', waveLine: ['#6F86E8', 0.75],
+      foam: '#C4CDFF', spray: ['#C4CDFF', 0.75], near: '#070B34', foamNear: ['#8B9BEA', 0.9],
+      hull: '#10184A', sail: '#8E9CE0', jib: '#7D8BD2', lantern: ['#FFC45A', 0.95], gull: ['#C9D3FF', 0.7],
+      cape: '#131A50', capeTop: '#172C58', lh: '#C3CBF0', lhShade: ['#0A1040', 0.35], lhBand: '#C2414A', lhRoof: '#232C74', lhGlass: '#FFE08A',
+      beam: ['#FFE7A8', 0.42], lamp: ['#FFD36A', 0.95], glint: ['#FFF4D6', 0.95], glint2: ['#FFD27A', 0.9], ground: '#0F1630', groundEdge: '#18204A',
     },
     make() {
       return {
         stars: starLayer(31, 9, -60, 100),
         cloud: cloudLayer(32, 460, 30, 76, 50, 110),
-        islands: layer(33, 520, 120, ['island'], (P, R) => {
+        // islands on the horizon, and a long, paler coast further off behind them
+        islands: layer(33, 520, 120, ['island2', 'island'], (P, R) => {
+          if (R() < 0.5) {
+            const x = R() * 300;
+            const w = 140 + R() * 120;
+            P[0].moveTo(x, HZ + 1);
+            P[0].quadraticCurveTo(x + w * 0.2, HZ - 9 - R() * 5, x + w * 0.45, HZ - 7);
+            P[0].quadraticCurveTo(x + w * 0.75, HZ - 5 - R() * 4, x + w, HZ + 1);
+            P[0].closePath();
+          }
           if (R() < 0.6) {
             const x = R() * 400;
             const w = 40 + R() * 90;
-            P[0].moveTo(x, HZ + 1);
-            P[0].quadraticCurveTo(x + w * 0.3, HZ - 8 - R() * 8, x + w * 0.55, HZ - 6);
-            P[0].quadraticCurveTo(x + w * 0.8, HZ - 4, x + w, HZ + 1);
-            P[0].closePath();
+            P[1].moveTo(x, HZ + 1);
+            P[1].quadraticCurveTo(x + w * 0.3, HZ - 8 - R() * 8, x + w * 0.55, HZ - 6);
+            P[1].quadraticCurveTo(x + w * 0.8, HZ - 4, x + w, HZ + 1);
+            P[1].closePath();
           }
         }),
         boats: layer(34, 380, 30, [], (P, R, i, items) => {
@@ -1128,23 +1148,38 @@
             ctx.scale(b.s, b.s);
             fillP(ctx, 'hull', U.hull);
             fillP(ctx, 'sail', U.sail);
-            fillP(ctx, 'sail', U.jib);
+            fillP(ctx, 'jib', U.jib);
+            // by night a lantern at the stern, and its light on the water
+            if (F.dark) {
+              glow(ctx, 9, -3, 11, 'lantern', 1);
+              rect(ctx, 'lantern', 8, -4, 2, 2);
+              rect(ctx, 'lantern', 8.5, 4.5, 1, 5);
+            }
             ctx.restore();
           }
         }),
-        crests: layer(35, 300, 20, ['foam'], (P, R) => {
+        // the sea in bands of colour, deeper as they come nearer, each with a gentle swell
+        seaMid: layer(38, 420, 10, ['seaMid'], (P, R, i, items, tw) => ridge(P[0], i, tw, 38, 133, 4, 90, 14)),
+        seaDeep: layer(39, 420, 10, ['seaDeep'], (P, R, i, items, tw) => ridge(P[0], i, tw, 39, 146, 5, 110, 14)),
+        crests: layer(35, 300, 20, ['crest'], (P, R) => {
           for (let k = 0; k < 7; k++) {
             const y = HZ + 8 + R() * 22;
             const w = 4 + (y - HZ) * 0.35 * (0.6 + R());
             ell(P[0], R() * 300, y, w, 0.7);
           }
         }),
-        waves: layer(36, 460, 140, ['swell', 'wave', 'waveIn', ['waveLine', 1.1], 'foam', 'spray'], (P, R, i, items, tw) => {
+        waves: layer(36, 460, 140, ['swell', 'swellRim', 'wave', 'waveIn', ['waveLine', 1.1], 'foam', 'spray'], (P, R, i, items, tw) => {
           ridge(P[0], i, tw, 36, 152, 10, 120, 10);
+          // the swell's back catches the light: a thin band along its top
+          const y = (x) => ridgeY(i, tw, x, 36, 152, 10, 120);
+          P[1].moveTo(0, y(0));
+          for (let x = 10; x <= tw; x += 10) P[1].lineTo(x, y(x));
+          for (let x = tw; x >= 0; x -= 10) P[1].lineTo(x, y(x) + 1.4);
+          P[1].closePath();
           if (R() < 0.75) bigWave(P, R, 80 + R() * 300, 0.75 + R() * 0.35);
           if (R() < 0.6) bigWave(P, R, R() * 460, 0.4 + R() * 0.2);
         }),
-        near: layer(37, 340, 30, ['wave', 'foamNear'], (P, R, i, items, tw) => {
+        near: layer(37, 340, 30, ['near', 'foamNear'], (P, R, i, items, tw) => {
           ridge(P[0], i, tw, 37, 166, 8, 70, 8);
           // a ribbon of foam along the near swell, in small scallops
           const y = (x) => ridgeY(i, tw, x, 37, 166, 8, 70);
@@ -1163,21 +1198,15 @@
       const sy = 38 + 62 * f.pj * f.pj;
       celestial(ctx, sx, sy, 13);
       drawLayer(ctx, L.cloud, f.scroll * 0.04 + f.t * 2);
+      // the sea: a dark line on the horizon, then turquoise going deep blue near
       rect(ctx, 'sea', -1, HZ, f.W + 2, G - HZ + 2);
-      rect(ctx, 'seaFar', -1, HZ, f.W + 2, 7);
+      rect(ctx, 'seaTop', -1, HZ, f.W + 2, 3);
+      drawLayer(ctx, L.seaMid, f.scroll * 0.08);
+      drawLayer(ctx, L.seaDeep, f.scroll * 0.14);
       drawLayer(ctx, L.islands, f.scroll * 0.03);
-      lighthouse(ctx, f.W * (1.1 - 0.4 * f.pj), HZ + 2, 0.85 + 0.4 * f.pj);
-      // the sun's (or moon's) path on the water
-      if (setFill(ctx, 'glint')) {
-        const a = ctx.globalAlpha;
-        for (let k = 0; k < 7; k++) {
-          const y = HZ + 3 + k * 4.2;
-          const w = (5 + k * 2.4) * (0.6 + 0.4 * Math.abs(Math.sin(f.t * 1.4 + k * 1.9)));
-          ctx.globalAlpha = a * (1 - k / 8);
-          ctx.fillRect(sx - w / 2 + Math.sin(f.t + k) * 2, y, w, 1.2);
-        }
-        ctx.globalAlpha = 1;
-      }
+      // the lighthouse comes closer, and stops short of where the sun goes down
+      lighthouse(ctx, f.W * (1.1 - 0.48 * f.pj), HZ + 2, 0.85 + 0.4 * f.pj);
+      umiGlints(ctx, f, sx);
       drawLayer(ctx, L.boats, f.scroll * 0.12);
       drawLayer(ctx, L.crests, f.scroll * 0.22);
       birds(ctx, 'gull', 3, 9, 5, 64, 1, 30);
@@ -1188,13 +1217,28 @@
       hanamaru(ctx, sx, sy, 22, f.fin);
     },
   });
+  // The sun's (or the moon's) road on the water: glints, white and gold by turns, widening
+  // towards us, the road growing longer and brighter as it goes down to the sea.
+  function umiGlints(ctx, f, sx) {
+    const k0 = f.pj;
+    const n = 8 + Math.round(7 * k0);
+    for (let k = 0; k < n; k++) {
+      if (!setFill(ctx, k % 2 ? 'glint2' : 'glint')) continue;
+      const y = HZ + 2.5 + k * 3.2;
+      const w = (7 + k * (2.4 + 1.8 * k0)) * (0.55 + 0.45 * Math.abs(Math.sin(f.t * 1.4 + k * 1.9)));
+      ctx.globalAlpha *= (0.7 + 0.3 * k0) * (1 - k / (n + 1));
+      ctx.fillRect(sx - w / 2 + Math.sin(f.t + k) * 2, y, w, 1.6);
+    }
+    ctx.globalAlpha = 1;
+  }
   // A great wave in Hokusai's manner, curling over to the left, its lip in claws of foam.
+  // P[2..6]: its body, inner band, lines, claws and spray.
   function bigWave(P, R, x, s) {
     const base = 156;
     const h = 40 * s;
     const w = 120 * s;
     const top = base - h;
-    const body = P[1];
+    const body = P[2];
     body.moveTo(x + w * 0.75, base + 6);
     body.quadraticCurveTo(x + w * 0.35, base - h * 0.2, x + w * 0.12, top + h * 0.08);
     body.bezierCurveTo(x + w * 0.02, top - h * 0.12, x - w * 0.24, top - h * 0.1, x - w * 0.3, top + h * 0.32);
@@ -1203,7 +1247,7 @@
     body.quadraticCurveTo(x - w * 0.12, base - 2, x - w * 0.55, base + 6);
     body.closePath();
     // the inner band of the wave
-    const inn = P[2];
+    const inn = P[3];
     inn.moveTo(x + w * 0.5, base + 6);
     inn.quadraticCurveTo(x + w * 0.22, base - h * 0.3, x + w * 0.05, top + h * 0.3);
     inn.quadraticCurveTo(x - w * 0.02, top + h * 0.55, x - w * 0.04, base + 6);
@@ -1211,8 +1255,8 @@
     // lines along the slope
     for (let k = 0; k < 3; k++) {
       const o = 0.18 + k * 0.17;
-      P[3].moveTo(x + w * (0.66 - o * 0.4), base + 2);
-      P[3].quadraticCurveTo(x + w * (0.34 - o * 0.3), base - h * (0.25 + o * 0.2), x + w * (0.1 - o * 0.1), top + h * (0.15 + o * 0.5));
+      P[4].moveTo(x + w * (0.66 - o * 0.4), base + 2);
+      P[4].quadraticCurveTo(x + w * (0.34 - o * 0.3), base - h * (0.25 + o * 0.2), x + w * (0.1 - o * 0.1), top + h * (0.15 + o * 0.5));
     }
     // the claws: scallops along the lip and fingers hanging from it
     const n = 9;
@@ -1221,30 +1265,41 @@
       // along the lip from the crest (right) to the tip (left)
       const px = lerp(x + w * 0.1, x - w * 0.29, u);
       const py = top + h * (0.06 - 0.14 * Math.sin(Math.PI * u) + 0.3 * u * u);
-      circ(P[4], px, py, (2.6 + 1.4 * Math.sin(Math.PI * u)) * s * 1.3);
-      if (u > 0.45) leaf(P[4], px, py + 2, 5 + 6 * u * s, Math.PI * 0.5 + 0.5 - u * 0.6, 1.3);
+      circ(P[5], px, py, (2.6 + 1.4 * Math.sin(Math.PI * u)) * s * 1.3);
+      if (u > 0.45) leaf(P[5], px, py + 2, 5 + 6 * u * s, Math.PI * 0.5 + 0.5 - u * 0.6, 1.3);
     }
-    for (let k = 0; k < 6; k++) circ(P[5], x - w * (0.35 + R() * 0.25), top + h * (0.1 + R() * 0.5), 0.8 + R() * 1.2);
+    for (let k = 0; k < 6; k++) circ(P[6], x - w * (0.35 + R() * 0.25), top + h * (0.1 + R() * 0.5), 0.8 + R() * 1.2);
   }
+  // The lighthouse on its green cape: a white tower in red bands, shaded on one side, and its
+  // lamp room; by night the lamp burns and its beam turns.
   function lighthouse(ctx, x, base, s) {
     ctx.save();
     ctx.translate(x, base);
     ctx.scale(s, s);
-    if (setFill(ctx, 'island')) {
+    if (setFill(ctx, 'cape')) {
       ctx.beginPath();
-      ctx.moveTo(-46, 0);
-      ctx.quadraticCurveTo(-30, -14, -6, -14);
-      ctx.quadraticCurveTo(22, -14, 40, 0);
+      ctx.moveTo(-50, 0);
+      ctx.quadraticCurveTo(-34, -15, -8, -15);
+      ctx.quadraticCurveTo(22, -15, 44, 0);
       ctx.closePath();
+      ctx.fill();
+    }
+    if (setFill(ctx, 'capeTop')) {
+      ctx.beginPath();
+      ctx.moveTo(-38, -8);
+      ctx.quadraticCurveTo(-28, -15, -8, -15);
+      ctx.quadraticCurveTo(16, -15, 32, -6);
+      ctx.quadraticCurveTo(12, -11, -8, -11.5);
+      ctx.quadraticCurveTo(-26, -11.5, -38, -8);
       ctx.fill();
     }
     if (F.dark) {
       // the beam turns: a wedge of light that fades with distance
       const a = F.t * 0.9;
       const spread = Math.abs(Math.cos(a));
-      glow(ctx, 0, -43, 10, 'lamp', 0.5);
+      glow(ctx, 0, -44, 24, 'lamp', 0.6);
       if (spread > 0.05 && F.C.beam) {
-        glowWedge(ctx, 0, -43, Math.cos(a) > 0 ? 1 : -1, 150, 16 * spread, 'beam');
+        glowWedge(ctx, 0, -44, Math.cos(a) > 0 ? 1 : -1, 170, 18 * spread, 'beam');
       }
     }
     if (setFill(ctx, 'lh')) {
@@ -1258,13 +1313,25 @@
     }
     rect(ctx, 'lhBand', -5.4, -24, 10.8, 4.5);
     rect(ctx, 'lhBand', -4.7, -34, 9.4, 4);
-    rect(ctx, 'lh', -3.4, -46, 6.8, 6);
-    if (F.dark) rect(ctx, 'lamp', -2.4, -45, 4.8, 4);
+    // the round tower's shaded side, over the bands too
+    if (setFill(ctx, 'lhShade')) {
+      ctx.beginPath();
+      ctx.moveTo(1.8, -13);
+      ctx.lineTo(1.2, -40);
+      ctx.lineTo(4, -40);
+      ctx.lineTo(6, -13);
+      ctx.closePath();
+      ctx.fill();
+    }
+    // the gallery, the lamp room and its roof
+    rect(ctx, 'lhRoof', -5.8, -41.5, 11.6, 2);
+    rect(ctx, 'lh', -3.6, -48, 7.2, 6.6);
+    rect(ctx, 'lhGlass', -2.4, -47, 4.8, 4.6);
     if (setFill(ctx, 'lhRoof')) {
       ctx.beginPath();
-      ctx.moveTo(-4.6, -46);
-      ctx.lineTo(0, -51);
-      ctx.lineTo(4.6, -46);
+      ctx.moveTo(-4.8, -48);
+      ctx.lineTo(0, -53);
+      ctx.lineTo(4.8, -48);
       ctx.closePath();
       ctx.fill();
     }
@@ -2376,31 +2443,56 @@
   // ----- 海の中: under the sea, kelp, fish and a whale passing over -----
   scene({
     id: 'uminaka', ja: '海の中', en: 'Under the sea', stillT: 5,
-    sky: { light: ['#D1EAF0', '#D9EDEC', '#DFEDE6'], dark: ['#0A1828', '#0C1D2D', '#0F212E'] },
+    // bright turquoise under the surface, going deep blue down to the sea floor
+    sky: {
+      light: ['#3FD0E2', '#1FB0D8', '#178CCB', '#166BBE', '#1A4FA8'],
+      dark: ['#0F3C7C', '#0A2864', '#081A4C', '#071139', '#060B2C'],
+    },
     light: {
-      surface: '#E6F5F6', ray: ['#FFFFFF', 0.32], rock: '#BED6D9', rockFar: '#C8DEE1', rock2: '#BDD5D6', kelp: '#B8D6C4', kelp2: '#ADCDBB',
-      c1: '#F0D2CF', c2: '#E1D3EB', c3: '#F0E0C1', f1: '#F2CDB5', f2: '#C8DBF0', f3: '#EFE1B5', fin2: '#FBF6EE', jelly: ['#F2D8EA', 0.85], star5: '#F0CFB8',
-      whale: '#C2D8E0', whaleBelly: '#D2E4EA', eye: '#9AAAC0', ground: '#F2EFE4', groundEdge: '#E6E1CF',
+      surface: '#A8F2F4', surfaceLine: ['#FFFFFF', 0.9], sun: ['#FFFDE8', 0.6], ray: ['#E8FFFF', 0.42],
+      rockFar: '#4A86D6', rock: '#24519E', rockTop: '#3A74C8', floor: '#132C6E',
+      kelp: '#22A774', kelp2: '#14876A', kelp3: '#86C23A',
+      c1: '#FF5A93', c2: '#8A5CF6', c3: '#FFB833', c4: '#16BFA8', coralHi: ['#FFFFFF', 0.55], star5: '#FF7A3D',
+      f1: '#FFD23F', f2: '#FF8A4C', f3: '#F4F8FF', fin2: '#FFFFFF', jelly: ['#FF9AD5', 0.85],
+      whale: '#1E3C8C', whaleBelly: '#8CC0EA', whaleRim: ['#6FA8EC', 0.9], whaleLine: ['#5C8FD6', 0.9], eye: '#0E1A44',
+      ring: ['#FFFFFF', 0.45], ground: '#FAF4E6', groundEdge: '#EADCBC',
     },
     dark: {
-      surface: '#13293A', ray: ['#7CC3D2', 0.07], rock: '#0D1B28', rock2: '#0B1823', kelp: '#0F2629', kelp2: '#0C2024',
-      rockFar: '#0C1A26', c1: '#2A2436', c2: '#22253A', c3: '#2A2A30', f1: '#2A3C52', f2: '#25384E', f3: '#2E3D50', fin2: '#3A4A60',
-      jelly: ['#A8E6FF', 0.4], jellyGlow: ['#7FD8F0', 0.22], star5: '#2E2A38', fly: ['#9FE8F2', 0.5],
-      whale: '#10232F', whaleBelly: '#132A38', eye: '#4A6278', ground: '#111A26', groundEdge: '#131E2B',
+      surface: '#2C64B0', surfaceLine: ['#9FE4FF', 0.7], sun: ['#9FD8FF', 0.32], ray: ['#7FE6FF', 0.16],
+      rockFar: '#122A68', rock: '#0B1A4A', rockTop: '#18306E', floor: '#060D30',
+      kelp: '#0E4E5E', kelp2: '#0B3B52', kelp3: '#155A50',
+      c1: '#E8409A', c2: '#8A5CF0', c3: '#2FD8C8', c4: '#4F7CFF', coralHi: ['#FFFFFF', 0.5], star5: '#E86A50',
+      g0: ['#FF5AB4', 0.6], g1: ['#A77BFF', 0.6], g2: ['#3FF0DC', 0.6], g3: ['#6F95FF', 0.6],
+      f1: '#3C7CE0', f2: '#4C5FD8', f3: '#5A9CF0', fin2: '#9FF6FF', jelly: ['#C8F6FF', 0.95], jellyGlow: ['#4FE0FF', 0.6], fly: ['#7FFFE6', 1],
+      whale: '#081640', whaleBelly: '#14306E', whaleRim: ['#4A7CE0', 0.95], whaleLine: ['#1E3F86', 0.9], eye: '#3A64B8', wake: ['#8FFFF0', 0.9],
+      ring: ['#7FE8FF', 0.4], ground: '#0B1530', groundEdge: '#132048',
     },
     make() {
       return {
         rays: layer(91, 240, 160, [], (P, R, i, items) => {
           if (R() < 0.8) items.push({ x: R() * 240, w: 10 + R() * 16, ph: R() * TAU });
         }, (ctx, items) => {
-          if (!F.C.ray) return;
-          ctx.fillStyle = F.C.ray;
+          // shafts of light from the surface, fainter where they reach down past the whale
+          if (!setFill(ctx, 'ray')) return;
+          const top = F.top - 2;
+          const k = (UMINAKA_RAY_Y - top) / (G - top);
           for (let q = 0; q < items.length; q++) {
             const s = items[q];
-            ctx.globalAlpha = F.A.ray * (0.5 + 0.5 * Math.sin(F.t * 0.4 + s.ph));
+            const a = F.A.ray * (0.5 + 0.5 * Math.sin(F.t * 0.4 + s.ph));
+            const ml = s.x + 50 * k;
+            const mr = s.x + s.w + (s.w + 50) * k;
+            ctx.globalAlpha = a;
             ctx.beginPath();
-            ctx.moveTo(s.x, F.top - 2);
-            ctx.lineTo(s.x + s.w, F.top - 2);
+            ctx.moveTo(s.x, top);
+            ctx.lineTo(s.x + s.w, top);
+            ctx.lineTo(mr, UMINAKA_RAY_Y);
+            ctx.lineTo(ml, UMINAKA_RAY_Y);
+            ctx.closePath();
+            ctx.fill();
+            ctx.globalAlpha = a * 0.45;
+            ctx.beginPath();
+            ctx.moveTo(ml, UMINAKA_RAY_Y);
+            ctx.lineTo(mr, UMINAKA_RAY_Y);
             ctx.lineTo(s.x + s.w * 2 + 50, G);
             ctx.lineTo(s.x + 50, G);
             ctx.closePath();
@@ -2409,9 +2501,10 @@
           ctx.globalAlpha = 1;
         }),
         rocksFar: layer(97, 460, 4, ['rockFar'], (P, R, i, items, tw) => ridge(P[0], i, tw, 97, 140, 36, 140, 8)),
-        rocks: layer(92, 380, 40, ['rock'], (P, R, i, items, tw) => {
+        rocks: layer(92, 380, 40, ['rock', 'rockTop'], (P, R, i, items, tw) => {
           ridge(P[0], i, tw, 92, 158, 22, 80, 8);
           // a tall rock with an arch through it
+          let arch = null;
           if (R() < 0.45) {
             const x = 40 + R() * 280;
             const h = 50 + R() * 30;
@@ -2423,10 +2516,26 @@
             p.lineTo(x + 12, G + 2);
             p.arc(x + 2, G + 2, 10, 0, Math.PI, true);
             p.closePath();
+            arch = x;
+          }
+          // the light from above on the rocks' tops, but not across the arch standing in front
+          const y = (x) => ridgeY(i, tw, x, 92, 158, 22, 80);
+          const band = (x0, x1) => {
+            if (x1 - x0 < 4) return;
+            const n = Math.max(1, Math.round((x1 - x0) / 8));
+            P[1].moveTo(x0, y(x0));
+            for (let k = 1; k <= n; k++) P[1].lineTo(x0 + ((x1 - x0) * k) / n, y(x0 + ((x1 - x0) * k) / n));
+            for (let k = n; k >= 0; k--) P[1].lineTo(x0 + ((x1 - x0) * k) / n, y(x0 + ((x1 - x0) * k) / n) + 3);
+            P[1].closePath();
+          };
+          if (arch === null) band(0, tw);
+          else {
+            band(0, arch - 28);
+            band(arch + 36, tw);
           }
         }),
         jelly: layer(93, 460, 30, [], (P, R, i, items) => {
-          if (R() < 0.6) items.push({ x: R() * 460, y: 40 + R() * 50, s: 0.8 + R() * 0.5, ph: R() * TAU });
+          if (R() < 0.8) items.push({ x: R() * 460, y: 40 + R() * 50, s: 0.8 + R() * 0.5, ph: R() * TAU });
         }, (ctx, items) => {
           if (!setFill(ctx, 'jelly')) return;
           const a = ctx.globalAlpha;
@@ -2437,7 +2546,7 @@
             const pulse = Math.sin(F.t * 1.6 + j.ph);
             const y = j.y + Math.sin(F.t * 0.5 + j.ph) * 6;
             if (F.dark) {
-              glow(ctx, j.x, y, 16 * j.s, 'jellyGlow', 0.8 + 0.2 * pulse);
+              glow(ctx, j.x, y, 20 * j.s, 'jellyGlow', 0.8 + 0.2 * pulse);
               ctx.fillStyle = F.C.jelly;
             }
             const w = 7 * j.s * (1 + 0.1 * pulse);
@@ -2482,69 +2591,89 @@
           const n = 1 + Math.floor(R() * 2);
           for (let k = 0; k < n; k++) {
             const x = R() * 170;
-            const key = R() < 0.5 ? 'kelp' : 'kelp2';
+            const r = R();
+            const key = r < 0.4 ? 'kelp' : r < 0.8 ? 'kelp2' : 'kelp3';
             for (let b = 0; b < 3; b++) items.push({ x: x + b * 4 - 4, h: (40 + R() * 60) * (b === 1 ? 1 : 0.7), w: 3 + R() * 2.5, ph: R() * TAU, key });
           }
         }, (ctx, items) => {
-          // ribbons of kelp that sway, each a long tapering leaf
-          for (let q = 0; q < items.length; q++) {
-            const k = items[q];
-            if (!setFill(ctx, k.key)) continue;
-            const sway = Math.sin(F.t * 0.7 + k.ph) * 9;
-            const x = k.x;
-            const h = k.h;
-            const w = k.w;
-            ctx.beginPath();
-            ctx.moveTo(x - w / 2, G + 1);
-            ctx.bezierCurveTo(x - w - 5 + sway * 0.2, G - h * 0.35, x - w + 5 + sway * 0.6, G - h * 0.7, x + sway, G - h);
-            ctx.bezierCurveTo(x + w + 5 + sway * 0.6, G - h * 0.7, x + w - 5 + sway * 0.2, G - h * 0.35, x + w / 2, G + 1);
-            ctx.closePath();
-            ctx.fill();
+          // ribbons of kelp that sway, each a long tapering leaf; those of a colour in one shape
+          for (let c = 0; c < UMINAKA_KELP.length; c++) {
+            const key = UMINAKA_KELP[c];
+            let any = false;
+            for (let q = 0; q < items.length; q++) {
+              const k = items[q];
+              if (k.key !== key) continue;
+              if (!any) {
+                if (!setFill(ctx, key)) break;
+                ctx.beginPath();
+                any = true;
+              }
+              const sway = Math.sin(F.t * 0.7 + k.ph) * 9;
+              const x = k.x;
+              const h = k.h;
+              const w = k.w;
+              ctx.moveTo(x - w / 2, G + 1);
+              ctx.bezierCurveTo(x - w - 5 + sway * 0.2, G - h * 0.35, x - w + 5 + sway * 0.6, G - h * 0.7, x + sway, G - h);
+              ctx.bezierCurveTo(x + w + 5 + sway * 0.6, G - h * 0.7, x + w - 5 + sway * 0.2, G - h * 0.35, x + w / 2, G + 1);
+              ctx.closePath();
+            }
+            if (any) ctx.fill();
           }
           ctx.globalAlpha = 1;
         }),
-        coral: layer(96, 280, 30, ['c1', 'c2', 'c3', 'rock2', 'star5'], (P, R) => {
-          for (let k = 0; k < 2; k++) {
+        // the reef: a low bank of dark stones along the floor, coral of four kinds on it, and
+        // now and then a starfish; by night the coral glows
+        coral: layer(96, 540, 40, ['floor', 'c1', 'c2', 'c3', 'c4', 'coralHi', 'star5'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 96, G - 1, 9, 26, 6);
+          for (let k = 0; k < 5; k++) {
             if (R() < 0.3) continue;
-            const x = R() * 280;
-            const c = Math.floor(R() * 3);
-            if (R() < 0.5) {
-              for (let b = 0; b < 5; b++) {
-                const a = -Math.PI / 2 + (b - 2) * 0.38;
-                const len = 8 + R() * 10;
-                rr(P[c], x + Math.cos(a) * len * 0.5 - 1.6, G - 2 + Math.sin(a) * len - 1.6, 3.2, len, 1.6);
-                circ(P[c], x + Math.cos(a) * len * 0.5, G - 2 + Math.sin(a) * len, 2.4);
-              }
-            } else {
-              ell(P[c], x, G - 4, 9, 7);
-              ell(P[c], x + 7, G - 2, 6, 5);
-            }
-            ell(P[3], x + 14, G, 8, 4);
+            const x = ((k + 0.15 + R() * 0.7) * tw) / 5;
+            const kind = Math.floor(R() * 4);
+            uminakaCoral(P, R, x, kind);
+            items.push({ x, y: G - 10, k: UMINAKA_GLOW[kind], ph: R() * TAU });
           }
-          if (R() < 0.35) {
-            const x = R() * 280;
-            for (let a = 0; a < 5; a++) {
-              const ang = -Math.PI / 2 + (a * TAU) / 5;
-              leaf(P[4], x, G - 5, 5.5, ang, 1.6);
+          for (let s = 0; s < 2; s++) {
+            if (R() < 0.5) continue;
+            const x = R() * tw;
+            for (let a = 0; a < 5; a++) leaf(P[6], x, G - 5, 5.5, -Math.PI / 2 + (a * TAU) / 5, 1.6);
+          }
+        }, (ctx, items) => {
+          // by night each clump glows: a halo of its own light, in two flat rings
+          if (!F.dark) return;
+          for (let q = 0; q < items.length; q++) {
+            const it = items[q];
+            if (!setFill(ctx, it.k)) continue;
+            const a = ctx.globalAlpha * (0.75 + 0.25 * Math.sin(F.t * 1.3 + it.ph));
+            for (let k = 0; k < 2; k++) {
+              ctx.globalAlpha = a * (0.24 + 0.08 * k);
+              ctx.beginPath();
+              ctx.arc(it.x, it.y, 18 - k * 7, 0, TAU);
+              ctx.fill();
             }
           }
+          ctx.globalAlpha = 1;
         }),
       };
     },
     paint(ctx, f, L) {
       skyFill(ctx, 'sky');
-      // the surface, far above, rippling
-      if (setFill(ctx, 'surface')) {
-        ctx.beginPath();
-        ctx.moveTo(-2, F.top - 2);
-        for (let x = -2; x <= f.W + 12; x += 12) ctx.lineTo(x, 4 + Math.sin(x * 0.05 + f.t * 0.9) * 2.4 + Math.sin(x * 0.13 - f.t * 0.6) * 1.2);
-        ctx.lineTo(f.W + 12, F.top - 2);
-        ctx.closePath();
-        ctx.fill();
+      // the sun (or the moon) through the surface, in rings of light, and the surface far
+      // above, rippling, its underside catching the light
+      if (setFill(ctx, 'sun')) {
+        const gx = f.W * (0.22 + 0.4 * f.pj);
+        ctx.globalAlpha *= 0.27;
+        for (let k = 0; k < 2; k++) {
+          ctx.beginPath();
+          ctx.arc(gx, -14, 100 - k * 42, 0, TAU);
+          ctx.fill();
+        }
         ctx.globalAlpha = 1;
       }
+      uminakaSurface(ctx, f, 'surface', F.top - 2, 5);
+      uminakaSurface(ctx, f, 'surfaceLine', 5, 6.6);
       drawLayer(ctx, L.rays, f.scroll * 0.12);
-      whale(ctx, f.W * (1.2 - 0.8 * f.pj), 66, 1);
+      // the whale passes over as the round goes on (in the still frame, clear of the finale)
+      whale(ctx, f.W * (f.still ? 0.45 : 1.2 - 0.8 * f.pj), 66, 1.1);
       drawLayer(ctx, L.rocksFar, f.scroll * 0.06);
       drawLayer(ctx, L.jelly, f.scroll * 0.18);
       drawLayer(ctx, L.rocks, f.scroll * 0.2);
@@ -2553,16 +2682,18 @@
       drawLayer(ctx, L.coral, f.scroll * 0.85);
       ground(ctx, 'groundEdge');
       particles(ctx, 'bubble', 14);
-      if (f.dark) particles(ctx, 'fly', 6);
-      // the finishing touch: a ring of bubbles in the shape of a はなまる, floating up
+      if (f.dark) particles(ctx, 'fly', 10);
+      // the finishing touch: a ring of bubbles in the shape of a はなまる, floating up in a glow
       if (f.fin > 0 && F.C.bubble) {
         const s = 1.4;
+        const y = 84 - (f.still ? 0 : 20 * f.fin);
+        glow(ctx, f.W * 0.72, y, 58, 'ring', f.fin);
         ctx.save();
-        ctx.translate(f.W * 0.72, 84 - (f.still ? 0 : 20 * f.fin));
+        ctx.translate(f.W * 0.72, y);
         ctx.scale(s, s);
         ctx.strokeStyle = F.C.bubble;
         ctx.globalAlpha = (F.A.bubble || 0.5) * f.fin;
-        ctx.lineWidth = 2.6 / s;
+        ctx.lineWidth = 3 / s;
         ctx.lineCap = 'round';
         ctx.setLineDash(U.dots);
         ctx.stroke(U.hana);
@@ -2571,13 +2702,112 @@
     },
   });
   const FISH_KEYS = ['', 'f1', 'f2', 'f3'];
+  const UMINAKA_GLOW = ['g0', 'g1', 'g2', 'g3'];
+  const UMINAKA_KELP = ['kelp', 'kelp2', 'kelp3'];
+  const UMINAKA_RAY_Y = 96;   // where the shafts of light grow fainter
+  // The surface seen from below, rippling: the band between depths y0 and y1, both following
+  // the ripple (y0 above the picture: from its top).
+  const uminakaRipple = (x, t) => Math.sin(x * 0.05 + t * 0.9) * 2.4 + Math.sin(x * 0.13 - t * 0.6) * 1.2;
+  function uminakaSurface(ctx, f, key, y0, y1) {
+    if (!setFill(ctx, key)) return;
+    const top = y0 <= F.top - 2;
+    const end = Math.ceil((f.W + 14) / 12) * 12 - 2;
+    ctx.beginPath();
+    ctx.moveTo(-2, top ? y0 : y0 + uminakaRipple(-2, f.t));
+    if (!top) for (let x = 10; x <= end; x += 12) ctx.lineTo(x, y0 + uminakaRipple(x, f.t));
+    else ctx.lineTo(end, y0);
+    for (let x = end; x >= -2; x -= 12) ctx.lineTo(x, y1 + uminakaRipple(x, f.t));
+    ctx.closePath();
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  // A clump of coral standing on the floor at x: branching (0), a sea fan (1), a brain coral (2)
+  // or tube sponges (3), with a stone at its foot. P: the coral layer's roles (P[5], the light
+  // on the fan's ribs, the coral's ridges and the tubes' rims). Shapes go clockwise so where
+  // they overlap they stay filled.
+  function uminakaCoral(P, R, x, kind) {
+    const by = G - 3;
+    if (kind === 0) {
+      const n = 6 + Math.floor(R() * 3);
+      for (let b = 0; b < n; b++) {
+        const a = -Math.PI / 2 + (b - (n - 1) / 2) * 0.27 + (R() - 0.5) * 0.15;
+        const len = 14 + R() * 15;
+        const tx = x + Math.cos(a) * len;
+        const ty = by + Math.sin(a) * len;
+        uminakaBranch(P[1], x, by, tx, ty, 2.5, 1.6);
+        if (R() < 0.7) {
+          const m = 0.45 + R() * 0.2;
+          const mx = x + (tx - x) * m;
+          const my = by + (ty - by) * m;
+          const a2 = a + (R() < 0.5 ? -0.65 : 0.65);
+          const l2 = len * (0.35 + R() * 0.2);
+          uminakaBranch(P[1], mx, my, mx + Math.cos(a2) * l2, my + Math.sin(a2) * l2, 1.6, 1.3);
+        }
+      }
+    } else if (kind === 1) {
+      // a fan, taller than wide, on a short stalk, its ribs and a cross vein in a lighter line
+      const rx = 11 + R() * 6;
+      const ry = 16 + R() * 9;
+      const cy = by - 3;
+      P[2].moveTo(x, by - 1);
+      P[2].ellipse(x, cy, rx, ry, 0, -Math.PI + 0.36, -0.36);
+      P[2].closePath();
+      P[2].rect(x - 1.4, cy, 2.8, 6);
+      for (let k = 0; k < 6; k++) {
+        const a = -Math.PI + 0.5 + (k * (Math.PI - 1)) / 5;
+        uminakaBranch(P[5], x, cy + 1, x + Math.cos(a) * rx * 0.9, cy + Math.sin(a) * ry * 0.9, 0.5, 0.35, false);
+      }
+      uminakaArc(P[5], x, cy, rx * 0.62, ry * 0.62, -Math.PI + 0.45, -0.45, 0.45);
+    } else if (kind === 2) {
+      // a brain coral: a dome or two, with its ridges
+      const rx = 11 + R() * 4;
+      const ry = 8 + R() * 3;
+      ell(P[3], x, G - 4, rx, ry);
+      ell(P[3], x + rx * 0.9, G - 2, rx * 0.55, ry * 0.6);
+      for (const k of [0.68, 0.38]) uminakaArc(P[5], x, G - 4, rx * k, ry * k, Math.PI, TAU, 0.55);
+    } else {
+      const n = 3 + Math.floor(R() * 2);
+      for (let k = 0; k < n; k++) {
+        const h = 10 + R() * 16;
+        const tx = x - 8 + k * 5.4 + (R() - 0.5) * 1.5;
+        rr(P[4], tx, G - 1 - h, 4.8, h + 2, 2.4);
+        uminakaArc(P[5], tx + 2.4, G - h + 0.8, 1.6, 0.8, 0, TAU, 0.45);
+      }
+    }
+    ell(P[0], x + 12, G - 1, 7, 3.5);
+  }
+  // One branch of coral from (x0, y0) to (x1, y1), tapering from w0 to w1 (half widths), with
+  // a round tip unless tip is false (then it is a thin rib, filled rather than stroked).
+  function uminakaBranch(p, x0, y0, x1, y1, w0, w1, tip) {
+    const d = Math.hypot(x1 - x0, y1 - y0) || 1;
+    const nx = -(y1 - y0) / d;
+    const ny = (x1 - x0) / d;
+    p.moveTo(x0 - nx * w0, y0 - ny * w0);
+    p.lineTo(x1 - nx * w1, y1 - ny * w1);
+    p.lineTo(x1 + nx * w1, y1 + ny * w1);
+    p.lineTo(x0 + nx * w0, y0 + ny * w0);
+    p.closePath();
+    if (tip !== false) circ(p, x1, y1, w1 + 0.6);
+  }
+  // A thin band along part of an ellipse (angles a0 to a1, half width w), as a filled shape.
+  function uminakaArc(p, x, y, rx, ry, a0, a1, w) {
+    p.moveTo(x + Math.cos(a0) * (rx + w), y + Math.sin(a0) * (ry + w));
+    p.ellipse(x, y, rx + w, ry + w, 0, a0, a1);
+    p.ellipse(x, y, rx - w, ry - w, 0, a1, a0, true);
+    p.closePath();
+  }
+  // A humpback whale swimming left: its long flipper, a pale grooved belly, the light along its
+  // back, and its tail beating slowly.
   function whale(ctx, x, y, s) {
     if (!setFill(ctx, 'whale')) return;
     const tail = F.still ? 0 : Math.sin(F.t * 0.8) * 4;
+    const flip = F.still ? 0 : Math.sin(F.t * 0.8 + 1.2) * 0.12;
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(s, s);
+    // the flipper, the body and the small dorsal fin, as one shape
     ctx.beginPath();
+    ctx.ellipse(-20 + Math.cos(0.6 + flip) * 14, 9 + Math.sin(0.6 + flip) * 14, 16, 3.4, 0.6 + flip, 0, TAU);
     ctx.moveTo(-58, 0);
     ctx.bezierCurveTo(-56, -20, -10, -24, 26, -10);
     ctx.quadraticCurveTo(44, -4, 58, -6 + tail);
@@ -2586,6 +2816,10 @@
     ctx.lineTo(58, 0 + tail);
     ctx.quadraticCurveTo(40, 8, 20, 12);
     ctx.bezierCurveTo(-10, 18, -52, 16, -58, 0);
+    ctx.closePath();
+    ctx.moveTo(22, -11);
+    ctx.lineTo(31, -16);
+    ctx.lineTo(33, -8);
     ctx.closePath();
     ctx.fill();
     ctx.globalAlpha = 1;
@@ -2596,10 +2830,51 @@
       ctx.quadraticCurveTo(-10, 10, -54, 6);
       ctx.fill();
     }
+    if (F.C.whaleLine) {
+      // the grooves of the belly
+      ctx.strokeStyle = F.C.whaleLine;
+      ctx.globalAlpha = F.A.whaleLine || 1;
+      ctx.lineWidth = 0.9;
+      ctx.beginPath();
+      for (let k = 0; k < 3; k++) {
+        ctx.moveTo(-50 + k * 2, 8 + k * 1.6);
+        ctx.quadraticCurveTo(-24, 12.5 + k * 1.2, 4 - k * 6, 11 + k * 0.8);
+      }
+      ctx.stroke();
+    }
+    if (F.C.whaleRim) {
+      ctx.strokeStyle = F.C.whaleRim;
+      ctx.globalAlpha = F.A.whaleRim || 1;
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-55, -5);
+      ctx.bezierCurveTo(-50, -18, -12, -21.5, 24, -9);
+      ctx.stroke();
+    }
     if (setFill(ctx, 'eye')) {
       ctx.beginPath();
-      ctx.arc(-44, 2, 1.6, 0, TAU);
+      ctx.arc(-44, 2, 1.7, 0, TAU);
       ctx.fill();
+    }
+    // by night the sea's tiny lights wake in its wake, glittering (in two sets, by turns) and
+    // dwindling behind the tail
+    if (F.C.wake) {
+      glow(ctx, 78, tail * 0.5, 22, 'wake', 0.7);
+      ctx.fillStyle = F.C.wake;
+      for (let g = 0; g < 2; g++) {
+        ctx.globalAlpha = (F.A.wake || 1) * (0.45 + 0.55 * Math.abs(Math.sin(F.t * 2.2 + g * 1.6)));
+        ctx.beginPath();
+        for (let k = g; k < 12; k += 2) {
+          const u = k / 12;
+          const dx = 66 + k * 9;
+          const dy = tail * (1 - u) + Math.sin(k * 2.1 + F.t * 0.6) * (3 + 8 * u);
+          const r = 1.6 - u * 1.1;
+          ctx.moveTo(dx + r, dy);
+          ctx.arc(dx, dy, r, 0, TAU);
+        }
+        ctx.fill();
+      }
     }
     ctx.globalAlpha = 1;
     ctx.restore();
