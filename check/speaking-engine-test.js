@@ -340,6 +340,9 @@ test('the first steps: each lesson\'s words are made of kana taught so far, and 
     }
     assert.equal(L.all(sc.id).length, sc.lessons.reduce((n, l) => n + l.kana.length, 0));
   }
+  // ん said on its own is heard with the start of a vowel before it
+  for (const heard of ['うん', 'ううん', 'うーん', 'ウン']) assert.equal(takes('ん', '', heard), true, 'ん ← ' + heard);
+  assert.equal(takes('う', '', 'うん'), false, 'う ← うん');
   // every basic kana of each script is in its lessons
   const base = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん';
   assert.deepEqual(Array.from(base).filter((ch) => !L.all('hiragana').includes(ch)), []);
