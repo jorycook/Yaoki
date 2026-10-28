@@ -167,7 +167,7 @@ The menu picks an **入力方法 input method**, then a **ステージ stage** o
 
 - **ローマ字 Romaji:** cards typed in romaji. Its stages are かな kana, katakana, words and short sentences with Japanese punctuation (from the lists in `engine.js`), 語彙 course words, and the five 漢字 kanji levels.
 - **記号 Symbol keys:** the symbols and Japanese punctuation on their JIS keys, one key a card.
-- **かな入力 Kana input:** cards typed with the kana printed on the keys, by physical key, so the input mode does not matter. Its stages are キー the keys row by row (one kana a card, including the Shift layer), 語彙 course words and the five 漢字 kanji levels. A word is typed key by key: a voiced kana is its kana and then ゛ (or ゜), a small kana or a mark takes Shift, and katakana go on the same keys (`kanaKeys` in `engine.js`). Its hints are the next key's row and finger, then the key itself, lit on the keyboard.
+- **かな入力 Kana input:** cards typed with the kana printed on the keys, by physical key, so the input mode does not matter. Its stages are キー the keys row by row (one kana a card, including the Shift layer), 語彙 course words and the five 漢字 kanji levels. A word is typed key by key: a voiced kana is its kana and then ゛ (or ゜), a small kana, を and 、。・「」 take Shift, and katakana go on the same keys (`kanaKeys` in `engine.js`). Its hints are the next key's row and finger, then the key itself, lit on the keyboard.
 
 The stages that come under both romaji and kana input:
 

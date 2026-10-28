@@ -108,6 +108,7 @@ async function waitFor(fn, ms = 5000) {
   check('brand is タイピング · Yaoki Typing', /タイピング\s*Yaoki Typing/.test(await page.textContent('.brand')));
   check('three input methods in the app\'s words', (await page.$$eval('#modes button', (b) => b.map((x) => x.textContent))).join('|') === 'ローマ字　Romaji|記号　Symbol keys|かな入力　Kana input');
   check('the heading names them input methods', /入力方法\s*Input method/.test(await page.textContent('#mode-h')));
+  check('the Japanese in their description is marked as Japanese', (await page.textContent('#mode-desc [lang="ja"]')) === '英数');
   check('romaji lists kana, course words and kanji as stages', (await page.$$eval('#stages .stage-group h3', (h) => h.map((x) => x.textContent))).join('|') === 'かな　Kana, words and phrases|語彙　Course words|漢字　Kanji (advanced)'
     && (await page.$$('#stages [data-stage^="kanji:"]')).length === 5 && (await page.$$('#stages [data-stage="course"]')).length === 1);
   check('links back to the app with a trailing slash', (await page.$$('a[href="../"]')).length >= 1);
@@ -617,6 +618,9 @@ async function waitFor(fn, ms = 5000) {
   check('a slip shows the reading, not yet the key', kj.readingShown && kj.level === 1 && (await page.innerText('#info')).includes(kj.reading) && (await page.$('#kb .key.next')) === null, JSON.stringify(kj));
   await typeKana(page, wrong(kj.keys[0]));
   check('a second slip lights the key', await waitFor(async () => (await page.$$eval('#kb .key.next', (els) => els.map((e) => e.dataset.code))).includes(kj.keys[0].code), 1000));
+  check('left to fall, its answer is said in a Japanese voice', await waitFor(async () => (await state(page)).falling, 40000)
+    && await waitFor(() => page.evaluate((reading) => [...document.querySelectorAll('#sr-prompt [lang="ja"]')].some((e) => e.textContent === reading), kj.reading), 1500),
+  await page.innerHTML('#sr-prompt'));
   const kkround = await playOut(page, (c) => typeKana(page, c.keys), 120000);
   const kkweak = kkround ? await page.textContent('#res-weak') : '';
   check('the round\'s weak spots list the slipped word', kkweak.includes(kslip), JSON.stringify({ kkweak, kslip }));
@@ -926,6 +930,14 @@ async function waitFor(fn, ms = 5000) {
   check('700px: a round of phrases can be played to the end', done700 && (await state(page)).phase === 'result', JSON.stringify(await state(page)));
   await page.keyboard.press('Escape');
   await pick(page, 1, 'kanji:sentences');
+  // every sentence dealt: the widest still has its time, as the world is at its slowest here
+  await page.click('#len-seg button:nth-child(3)');
+  await page.click('#start');
+  await target(page);
+  const widestTime = (await state(page)).widestTime;
+  check('700px: the widest kanji sentence still has its time once in view', widestTime >= 12, 'seconds ' + widestTime);
+  await quit(page);
+  await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
   done700 = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 150000);
   check('700px: a round of kanji sentences can be played to the end', done700 && (await state(page)).phase === 'result', JSON.stringify(await state(page)));
@@ -958,6 +970,16 @@ async function waitFor(fn, ms = 5000) {
   check('a tablet is told so too, until a key is pressed on a keyboard', await page.isVisible('#touch-note'));
   await page.keyboard.press('a');
   check('…which shows a keyboard is there after all', await page.isHidden('#touch-note'));
+  await page.close();
+  page = await open({}, null, () => {
+    // an older browser: media queries without addEventListener
+    const mm = window.matchMedia.bind(window);
+    window.matchMedia = (q) => {
+      const l = mm(q);
+      return { matches: l.matches, media: l.media, addListener: (f) => l.addListener(f), removeListener: (f) => l.removeListener(f) };
+    };
+  });
+  check('a browser whose media queries lack addEventListener still gets the menu', (await page.$$('#modes button')).length === 3 && (await page.$$('#kb .key')).length > 50);
   await page.close();
   page = await open({ viewport: { width: 600, height: 800 } });
   check('a window narrower than 700 px is told so', await page.isVisible('#touch-note'));

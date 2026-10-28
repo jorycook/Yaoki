@@ -195,7 +195,7 @@
     },
     keys: {
       ja: 'かな入力', en: 'Kana input', modes: ['keys', 'keys-course', 'keys-kanji'],
-      desc: 'Typed with the kana printed on the keys of a Japanese keyboard. Press the key that carries each kana (Shift for a small kana or a mark, ゛ or ゜ after the kana it voices); the input mode does not matter.',
+      desc: 'Typed with the kana printed on the keys of a Japanese keyboard. Press the key that carries each kana (Shift for a small kana, を and 、。・「」; ゛ or ゜ after the kana it voices); the input mode does not matter.',
     },
   };
   const INPUT_ORDER = ['romaji', 'symbol', 'keys'];
@@ -404,7 +404,7 @@
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const ja = (t) => '<span lang="ja">' + esc(t) + '</span>';
   // Mixed text: only its kana and kanji marked as Japanese.
-  const jaMarked = (t) => esc(t).replace(/[\u3040-\u30ff\u4e00-\u9fff々〜・「」]+/g, (m) => '<span lang="ja">' + m + '</span>');
+  const jaMarked = (t) => esc(t).replace(/[\u3001\u3002\u3040-\u30ff\u4e00-\u9fff々〜・「」]+/g, (m) => '<span lang="ja">' + m + '</span>');
 
   // How much of an item is still on the weak list.
   // Misses are kept per kana for romaji and per key for a word in kana input, but per word for
@@ -662,7 +662,10 @@
     ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
     if (item.hidden) {
-      w = Math.max(w, readingSlots(item) * Math.min(16, small(12)));
+      // (but no wider than the text, or the room promptSize keeps long cards to: long sentences
+      // run at the slowest world speed, where a wider card only gets less time to be typed; their
+      // longest readings are drawn a little smaller instead, and show under the game too)
+      w = Math.max(w, Math.min(readingSlots(item) * Math.min(16, small(12)), Math.max(w, niceRoom())));
     } else if (item.reading && item.reading !== item.text) {
       ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
       w = Math.max(w, ctx.measureText(item.reading).width);
@@ -936,7 +939,7 @@
     noteMiss(card);
     applyStats(card);
     const answer = card.item.kind === 'romaji' ? E.spell(card.item.tokens) : card.item.kind === 'kana' ? card.item.reading || card.item.text : keyName(card.item);
-    say(card.item.text, 'Yaoki fell over and got up. It is ' + answer + '. ' + backText(r.fall.back) + '.');
+    say(card.item.text, jaMarked('Yaoki fell over and got up. It is ' + answer + '. ' + backText(r.fall.back) + '.'), true);
     showInfo(card);
     hud();
   }
@@ -1947,7 +1950,7 @@
   // week list), and the start buttons.
   function renderPicks() {
     const input = inputOf(saved.mode);
-    $('mode-desc').textContent = INPUTS[input].desc;
+    $('mode-desc').innerHTML = jaMarked(INPUTS[input].desc);
     const note = $('layout-note');
     note.hidden = !(layout.jis === false && input !== 'romaji');
     note.innerHTML = '<b lang="ja">JIS配列用</b>　This practice follows a Japanese (JIS) keyboard. Your keyboard is set to another layout, so some keys will not be where the picture shows them. A card for a key you do not have waits in front of Yaoki; Tab skips it.';
@@ -1957,7 +1960,7 @@
   // What goes with the stage picked: its description, and the course's level and week list.
   function renderPick() {
     const mode = saved.mode;
-    $('stage-desc').textContent = MODES[mode].desc;
+    $('stage-desc').innerHTML = jaMarked(MODES[mode].desc);
     $('course-pick').hidden = !isCourse(mode);
     if (isCourse(mode)) renderCourse();
     refreshStart();
@@ -2262,7 +2265,8 @@
   function showDeviceNote() {
     $('touch-note').hidden = !(touchOnly.matches && !sawKeyboard) && !narrow.matches;
   }
-  narrow.addEventListener('change', showDeviceNote);
+  if (narrow.addEventListener) narrow.addEventListener('change', showDeviceNote);
+  else if (narrow.addListener) narrow.addListener(showDeviceNote);
 
   function showKeyboard() {
     const show = saved.kb && (!touchOnly.matches || sawKeyboard);
@@ -3686,6 +3690,8 @@
         cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state, clean: c.clean, comeback: c.comeback, star: c.star, phase: c.phase || null, trick: c.trick || null })) : [],
         clean: r ? r.clean : 0,
         speed: r ? r.speed : 0,
+        // the time the round's widest card has once it is fully in view
+        widestTime: r && r.speed ? (view.W - 8 - (view.yx + REACH) - r.widest) / r.speed : 0,
         T: r ? r.T : 0,
       };
     },

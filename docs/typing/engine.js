@@ -388,8 +388,8 @@
   ].map(([code, kana]) => ({ code, kana, shift: true }));
 
   // Kana input: the keys that type a line of kana, one step a key. A voiced kana is its kana
-  // and then ゛ (or ゜); a small kana or a mark takes Shift; katakana go on the same keys as
-  // hiragana. `ends[i]` is the steps typed once character i is in, and `bases[i]` what it shows
+  // and then ゛ (or ゜); a small kana, を and 、。・「」 take Shift; katakana go on the same keys
+  // as hiragana. `ends[i]` is the steps typed once character i is in, and `bases[i]` what it shows
   // half-typed (the kana before its ゛ or ゜). A character kana input cannot type throws.
   const KANA_STEP = {};
   for (const k of KANA_KEYS.concat(KANA_SHIFT_KEYS)) KANA_STEP[k.kana] = k;
