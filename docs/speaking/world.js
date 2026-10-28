@@ -230,8 +230,12 @@
     'kanji:single': 'yama', 'kanji:jukugo': 'mori', 'kanji:advanced': 'danchi', 'kanji:yoji': 'jinja', 'kanji:sentences': 'yama',
     'phrase:greet': 'danchi', 'phrase:phrases': 'mori', 'phrase:twister': 'jinja',
   };
+  // the first steps' lessons go round the places, one after another
+  const LESSON_PLACES = ['jinja', 'mori', 'yama', 'danchi'];
   function forStage(key) {
     if (OWN[key]) return OWN[key];
+    const lesson = /^start:[a-z]+(\d+)$/.exec(String(key || ''));
+    if (lesson) return LESSON_PLACES[(Number(lesson[1]) - 1) % LESSON_PLACES.length];
     let h = 0;
     for (const ch of String(key || '')) h = (Math.imul(h, 31) + ch.codePointAt(0)) | 0;
     return IDS[(h >>> 0) % IDS.length];

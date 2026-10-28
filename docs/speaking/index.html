@@ -184,6 +184,9 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 .side-btn { justify-self: center; display: inline-flex; flex-direction: column; align-items: center; gap: 2px; min-width: 64px; min-height: 56px; padding: 4px 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); font-size: 11px; font-weight: 800; color: var(--ink); }
 .side-btn:disabled { opacity: 0.45; }
 .side-btn.ready { border-color: var(--outline); box-shadow: 0 3px 0 var(--hard); }
+/* the word being said for the player */
+#hear.playing { background: var(--accent); border-color: var(--outline); color: var(--on-accent); box-shadow: 0 3px 0 var(--hard); }
+#hear.playing svg { animation: yk-pulse 0.8s ease-in-out infinite alternate; }
 .mic { position: relative; width: 84px; height: 84px; border-radius: 50%; border: 3px solid var(--outline); background: var(--card); color: var(--ink); box-shadow: 0 4px 0 var(--hard); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; padding: 0; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
 .mic svg { width: 34px; height: 34px; }
 .mic .mic-label { font-size: 10px; font-weight: 800; line-height: 1.1; }
@@ -260,6 +263,38 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 
 .foot-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 18px; }
 
+/* the first steps: a tile for each lesson, as in a kana table, and the chart of the one picked */
+.lessons { display: flex; flex-direction: column; gap: 12px; }
+.lesson-group { display: flex; flex-direction: column; gap: 6px; }
+.lesson-h { margin: 0; font-size: 13px; font-weight: 800; }
+.lesson-h [lang="ja"] { font-size: 15px; }
+.lesson-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 8px; }
+.lesson { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; min-height: 70px; padding: 6px 2px 5px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+.lesson[aria-pressed="true"] { border: 2.5px solid var(--accent-ink); background: var(--accent-soft); box-shadow: 0 3px 0 var(--hard); }
+.lesson .l-kana { font-family: var(--jp); font-size: 26px; font-weight: 600; line-height: 1.1; }
+.lesson .l-ro { font-size: 12px; font-weight: 800; color: var(--muted); }
+.lesson .rings { margin-top: 3px; gap: 2px; }
+.lesson .rings i { width: 8px; height: 8px; border-width: 1.5px; }
+.lesson .rings i.on { background: var(--daruma); }
+.lesson .hana { margin-top: 1px; }
+.chart { display: flex; flex-direction: column; gap: 10px; }
+.chart-kana { display: grid; grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr)); gap: 8px; }
+.kana-tile, .word-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 14px; border: 2px solid var(--outline); background: var(--card); color: var(--ink); box-shadow: 0 3px 0 var(--hard); }
+.kana-tile { min-height: 76px; padding: 4px 2px; }
+.kana-tile b { font-family: var(--jp); font-size: 34px; font-weight: 600; line-height: 1.15; }
+.kana-tile small { font-size: 14px; font-weight: 800; color: var(--accent-ink); }
+.kana-tile:active, .word-tile:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--hard); }
+.kana-tile.playing, .word-tile.playing { background: var(--accent-soft); border-color: var(--accent-ink); }
+.chart-note { margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--note); font-size: 13px; font-weight: 600; line-height: 1.5; }
+.chart-note [lang="ja"] { font-family: var(--jp); font-size: 16px; font-weight: 600; }
+.chart-sub { margin: 2px 0 0; font-size: 12px; font-weight: 800; color: var(--muted); }
+.chart-words { display: flex; flex-wrap: wrap; gap: 8px; }
+.word-tile { align-items: flex-start; min-height: 54px; padding: 4px 12px 6px; }
+.word-tile b { font-family: var(--jp); font-size: 22px; font-weight: 600; line-height: 1.25; }
+.word-tile small { font-size: 12px; font-weight: 700; color: var(--muted); }
+.word-tile small i { font-style: normal; font-weight: 800; color: var(--accent-ink); }
+.chart .hint [lang="ja"] { font-weight: 800; }
+
 @keyframes yk-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 @keyframes yk-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes yk-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -269,6 +304,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 @keyframes yk-draw { from { stroke-dashoffset: 1; } }
 @keyframes yk-listen { 0% { opacity: .7; transform: scale(.92); } 100% { opacity: 0; transform: scale(1.22); } }
 @keyframes yk-turn { 0%, 30% { transform: rotate(90deg); } 60%, 100% { transform: rotate(0deg); } }
+@keyframes yk-pulse { from { transform: scale(1); } to { transform: scale(1.18); } }
 .view { animation: yk-in 220ms ease-out; }
 
 @media (max-width: 400px) {
@@ -340,10 +376,20 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
     <section id="stage-pick" class="block" aria-labelledby="stage-h">
       <h2 id="stage-h"><span lang="ja">ステージ</span>　Stage</h2>
       <div id="stages" class="options" role="group" aria-labelledby="stage-h"></div>
+      <div id="lessons" class="lessons" hidden></div>
       <p id="stage-note" class="hint" hidden></p>
     </section>
 
-    <section class="block" aria-labelledby="len-h">
+    <section id="lesson-chart" class="card chart" aria-labelledby="chart-kick" hidden>
+      <div class="kicker" id="chart-kick"></div>
+      <div id="chart-kana" class="chart-kana" role="group" aria-label="The lesson's kana: tap one to hear it"></div>
+      <p id="chart-note" class="chart-note" hidden></p>
+      <h3 id="chart-words-h" class="chart-sub"><span lang="ja">ことば</span>　Words made of the kana so far</h3>
+      <div id="chart-words" class="chart-words" role="group" aria-labelledby="chart-words-h"></div>
+      <p id="chart-hint" class="hint"></p>
+    </section>
+
+    <section id="len-pick" class="block" aria-labelledby="len-h">
       <h2 id="len-h"><span lang="ja">ラウンド</span>　Cards per round</h2>
       <div id="len-seg" class="seg" role="group" aria-labelledby="len-h"></div>
     </section>
@@ -374,7 +420,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
         <li>The first time, the phone asks to use the microphone: allow it. On an iPhone or iPad, Dictation must be on (Settings › General › Keyboard).</li>
         <li>The big button at the bottom shows when the phone is listening; tap it to stop or start. In Settings you can choose <b>hold to talk</b> instead.</li>
         <li>Under the game you see what the phone heard. If it heard something else, say it again: a word said right the first time, with no hint, gets a <b lang="ja">はなまる</b>, and <b lang="ja">連続</b> counts them in a row.</li>
-        <li><b lang="ja">🔊 きく</b> says the word for you to copy (it counts as a hint). A card that waits for Yaoki can be skipped.</li>
+        <li><b lang="ja">🔊 きく</b> says the word for you to copy (it counts as a hint, but not on a lesson's new kana). The microphone pauses while it plays, and nothing falls. A card that waits for Yaoki can be skipped.</li>
         <li>With a screen reader, choose <b>hold to talk</b> in Settings, so the phone does not hear the screen reader reading the card.</li>
       </ul>
     </aside>
@@ -554,6 +600,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 <script src="places/danchi.js" defer></script>
 <script src="places/jinja.js" defer></script>
 <script src="places/mori.js" defer></script>
+<script src="lessons.js" defer></script>
 <script src="game.js" defer></script>
 </body>
 </html>

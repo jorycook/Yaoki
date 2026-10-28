@@ -46,6 +46,7 @@
   const CLIMB_FOOT = 26;       // Climb: Yaoki stands this far above the dock
   const SLACK = 1.2;           // things come 20% slower than the player's measured pace
   const START = {              // first measures for a stage: reaction (s, the recognition's delay in it) and beats a second
+    start: { r: 4.5, p: 2 },   // a first kana is heard, then said
     course: { r: 2.6, p: 3 },
     kana: { r: 2.4, p: 3 },
     kanji: { r: 3.4, p: 3 },   // a kanji's reading is recalled before it is said
@@ -53,6 +54,9 @@
   };
   const STUCK_FIRST = 6;       // seconds without a word before the first step of a hint
   const STUCK_NEXT = 5;        // and again before the second
+  const RING_T = 0.32;         // s a thing's ring of light lasts, where it broke
+  const VOICE_START = 2500;    // ms the phone's voice is given to start saying a word (the first time, while it wakes, 5000)
+  const TEACH_WAIT = 0.4;      // s a lesson's new kana is in view before it is said
   const RUN_STEPS = [5, 10, 20, 40];
   const GOALS = [3, 5, 10];    // minutes of speaking a day for the day's stamp
   const PRACTICE_IDLE = 8;     // seconds without a word after which speaking time stops counting
@@ -193,25 +197,52 @@
     climb: { ja: 'のぼる', en: 'Climb', desc: 'Say the word on the ledge above, and Yaoki jumps up to it. No hurry.' },
   };
   const MODES = {
+    start: { ja: 'あいうえお', en: 'Learn kana', stats: 'start', desc: 'Never read Japanese? Start here: hiragana and katakana, a row of the kana table at a time. Pick a lesson and tap each kana in its chart to hear it. In the round each new kana is said for you first, with its sound in letters on the card: say it back. Then read the lesson\'s words, and its kana again, without the letters.' },
     course: { ja: '語彙', en: 'Course words', stats: 'course', desc: 'The words of a week of your Yaoki course, with their readings. Say each one; a cleared word is said back to you.' },
     kana: { ja: 'かな', en: 'Kana', stats: 'kana', desc: 'Kana and katakana, words, and pairs of words that differ only by a long sound or a small っ. Say what the card says.' },
     kanji: { ja: '漢字', en: 'Kanji', stats: 'kanji', desc: 'Advanced: say the reading of the kanji. When you are stuck, or after a slip, the reading (furigana) and its romaji show; a card said without them is clean.' },
     phrase: { ja: 'あいさつ・文', en: 'Phrases', stats: 'phrase', desc: 'Greetings, short sentences and tongue twisters (早口言葉), each said in one go.' },
   };
-  const MODE_ORDER = ['course', 'kana', 'kanji', 'phrase'];
+  const MODE_ORDER = ['start', 'course', 'kana', 'kanji', 'phrase'];
   const kanaStage = (id) => E.KANA_STAGES.find((s) => s.id === id);
+  // the first steps: a stage for each lesson of lessons.js, its cards the lesson's kana and words (see lessonDeck)
+  function lessonStages() {
+    const LS = window.SpeakingLessons;
+    if (!LS) return [];
+    // a lesson by its sounds ('a i u e o'), or a long one by its rows' ('ga, za, da rows')
+    const sounds = (l) => {
+      if (l.kana.length <= 5) return l.kana.map(V.hepburn).join(' ');
+      const row = l.kana[0].length > 1 ? 3 : 5;
+      return l.kana.filter((k, i) => i % row === 0).map(V.hepburn).join(', ') + ' rows';
+    };
+    const out = [];
+    for (const sc of LS.SCRIPTS) {
+      sc.lessons.forEach((l, i) => {
+        out.push({
+          id: l.id, script: sc, lesson: l,
+          ja: sc.ja + ' ' + l.n, en: sc.en + ' ' + l.n + ': ' + sounds(l),
+          items: l.kana.map((k) => ({ text: k, teach: 'kana' })).concat(l.words.map((wd) => ({ text: wd.text, gloss: wd.gloss, teach: 'word' }))),
+          review: [].concat(...sc.lessons.slice(0, i).map((x) => x.kana)),
+        });
+      });
+    }
+    return out;
+  }
   const STAGES = {
+    start: lessonStages(),
     kana: [kanaStage('basic'), kanaStage('voiced'), kanaStage('katakana'), kanaStage('words'), V.STAGES.pairs].filter(Boolean),
     kanji: E.KANJI_STAGES,
     phrase: [V.STAGES.greet, kanaStage('phrases'), V.STAGES.twister].filter(Boolean),
   };
   // single sounds are the hardest thing for a phone to hear
-  const SINGLE_SOUNDS = new Set(['kana:basic', 'kana:voiced', 'kana:katakana']);
+  const SINGLE_SOUNDS = new Set(['kana:basic', 'kana:voiced', 'kana:katakana'].concat(STAGES.start.map((st) => 'start:' + st.id)));
   const LEVELS = ['N5', 'N4', 'N3', 'N2'];
 
-  if (!MODES[saved.mode]) saved.mode = place ? 'course' : 'kana';
+  // someone new to the page starts at the first kana, unless the Yaoki app shows they are studying a course
+  if (!MODES[saved.mode] || (saved.mode === 'start' && !STAGES.start.length)) saved.mode = place ? 'course' : STAGES.start.length ? 'start' : 'kana';
   if (!LEVELS.includes(saved.level)) saved.level = place && LEVELS.includes(place.level) ? place.level : 'N5';
   if (!saved.stage.kana) saved.stage.kana = 'words';
+  if (!saved.stage.start) saved.stage.start = 'h1';
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -276,6 +307,8 @@
     const t = V.prepare({ text: src.text, reading, romaji: src.romaji });
     const item = {
       id, mode, text: src.text, reading, gloss: src.gloss || '', clip: src.clip || null,
+      // a first-steps card: its sound in letters shows on the card, and it is said for the player when it comes
+      teach: src.teach || null,
       // a kanji card's reading is the answer: it shows only as a hint
       hidden: mode === 'kanji',
       ruby: V.normalize(reading) !== V.normalize(src.text),
@@ -350,6 +383,23 @@
     return out;
   }
 
+  // A lesson's round: its new kana first, in order, each said for the player and then said back; then, mixed, its
+  // words and its kana again to be read (with a few kana of the lessons before, while there is room for them).
+  function lessonDeck(st, items) {
+    const kana = items.filter((it) => it.teach === 'kana');
+    const words = items.filter((it) => it.teach === 'word');
+    const mix = (list) => list.map((it) => ({ it, k: Math.random() })).sort((a, b) => a.k - b.k).map((x) => x.it);
+    const room = Math.max(5, 20 - kana.length - words.length);
+    const own = mix(kana).slice(0, room);
+    const review = mix(st.review.slice()).slice(0, Math.min(3, room - own.length)).map((k) => makeItem({ text: k, teach: 'kana' }, 'start'));
+    const rest = mix(words.concat(own, review));
+    // never the same card twice in a row, where the new kana end and the mix begins
+    if (rest.length > 1 && kana.length && rest[0] === kana[kana.length - 1]) rest.push(rest.shift());
+    const deck = kana.concat(rest);
+    deck.intro = kana.length;
+    return deck;
+  }
+
   // ---------- the round ----------
 
   let phase = 'menu';           // menu | play | paused | result
@@ -422,7 +472,7 @@
     unlockVoice();
     const items = currentItems();
     if (!items || !items.length || !L.supported) return;
-    let deck = deal(items, saved.len, weakOnly);
+    let deck = saved.mode === 'start' && !weakOnly ? lessonDeck(currentStage(), items) : deal(items, saved.len, weakOnly);
     if (!deck.length && weakOnly) {
       weakOnly = false;
       deck = deal(items, saved.len, false);
@@ -456,7 +506,9 @@
       style, key, weakOnly, name,
       stats: MODES[modeId].stats,
       course: modeId === 'course' ? { level, unit } : null,
-      queue: deck.map((item) => ({ item, falls: 0 })),
+      // a lesson's first cards bring in its new kana (see lessonDeck)
+      queue: deck.map((item, i) => ({ item, falls: 0, intro: i < (deck.intro || 0) })),
+      dealt: deck.map((item) => item.text),
       total: deck.length,
       cleared: 0, skipped: 0, clean: 0, falls: 0, hints: 0,
       time: 0, active: 0, practice: 0, credited: 0, lastVoiceAt: 0,
@@ -474,7 +526,7 @@
       dayStamp: 0, cardDone: null, seal: null,
       yk: { happyT: 0, hopT: 0, hopH: 6, bubble: null, box: null, nodT: 0, blinkT: -1, blinkAt: 1.5, fx: null, trail: [], trick: null, x: 0, lift: 0, liftMax: 0, rollX: 0 },
       tricks: {},
-      shards: [], nodes: [], drops: [],
+      shards: [], nodes: [], drops: [], rings: [],
       place: window.SpeakingWorld && window.SpeakingWorld.forStage ? safely(() => window.SpeakingWorld.forStage(key), null) : null,
       song: null, musicOn: false, started: false, said: new Set(),
       runRecordAt: !weakOnly && saved.hints !== 'always' && saved.run[key] ? saved.run[key] + 1 : 0,
@@ -532,6 +584,7 @@
       fill: 0, misses: 0, idle: 0, level: 0, hinted: false, halted: false, heard: '',
       shownAt: null, firstHeardAt: null, stampT: 0, flashT: 0, clean: false, comeback: false, star: false,
       phase: null, trick: null, n: r.cards.length + r.cleared + r.skipped, rot: 0, vy: 0,
+      teachAt: null, voiced: 0, voicedFirst: 0,
     };
     layoutCard(card);
     r.cards.push(card);
@@ -598,9 +651,15 @@
     const pad = 12;
     const lh = Math.round(size * 1.18);
     const rlh = Math.round(rSize * 1.3);
-    const w = Math.ceil(Math.max(64, main.width, showReading ? rd.width : 0) + pad * 2);
-    const h = Math.ceil(pad + (it.ruby ? rd.lines.length * rlh + 2 : 0) + main.lines.length * lh + pad - 2);
-    c.box = { size, lines: main.lines, rSize, rLines: showReading ? rd.lines : [], rRoom: it.ruby ? rd.lines.length : 0, pad, lh, rlh, shown: showReading };
+    // a lesson's card: its sound in letters under it, from the start on a new kana (else with the first hint, and once
+    // it is done); its room is kept, so the card does not grow when they show
+    const mSize = Math.min(18, Math.max(13, Math.round(size * 0.5)));
+    const mlh = Math.round(mSize * 1.3);
+    const ro = it.teach && it.romaji ? wrap(it.romaji, mSize, room, UI) : { lines: [], width: 0 };
+    const mShown = ro.lines.length > 0 && (!!(c.entry && c.entry.intro) || hintLevel(c) >= 1 || saved.hints === 'always' || c.state !== 'live');
+    const w = Math.ceil(Math.max(64, main.width, showReading ? rd.width : 0, mShown ? ro.width : 0) + pad * 2);
+    const h = Math.ceil(pad + (it.ruby ? rd.lines.length * rlh + 2 : 0) + main.lines.length * lh + ro.lines.length * mlh + pad - 2);
+    c.box = { size, lines: main.lines, rSize, rLines: showReading ? rd.lines : [], rRoom: it.ruby ? rd.lines.length : 0, pad, lh, rlh, shown: showReading, mSize, mlh, mLines: ro.lines, mShown };
     c.w = Math.min(view.W - 12, w);
     c.h = h;
   }
@@ -687,6 +746,8 @@
       d.y += d.vy * dt;
     }
     if (r.drops.length) r.drops = r.drops.filter((d) => d.age < 0.7);
+    for (const g of r.rings) g.age += dt;
+    if (r.rings.length) r.rings = r.rings.filter((g) => g.age < RING_T);
 
     if (r.endIn !== null) {
       r.endIn -= dt;
@@ -708,7 +769,7 @@
       const fresh = t !== r.target;
       r.target = t;
       r.active += dt;
-      if (!r.speaking) t.idle += dt;
+      if (!r.speaking && !r.voicing) t.idle += dt;
       if (t.idle >= 3.5 && !t.nudged && !t.fill) {
         t.nudged = true;
         cheer('idle', 1.6);
@@ -723,6 +784,7 @@
         speakTarget(t);
         showSay(t);
         showHeard(null);
+        if (t.entry.intro && t.teachAt === null) t.teachAt = r.time + TEACH_WAIT;
         if (!r.started) {
           r.started = true;
           cheer('start', 1.4, { first: true });
@@ -733,6 +795,15 @@
         }
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
+      }
+      // a lesson's new kana: said for the player once it is in view, to be said back (it is no hint)
+      if (t.teachAt !== null && r.time >= t.teachAt && !r.voicing && t.state === 'live') {
+        t.teachAt = Infinity;
+        // a phone whose voice has twice said nothing this round is not asked again unless the player taps きく
+        if ((r.voiceFailed >= 2 || !playModel(t, true)) && !r.toldNoVoice) {
+          r.toldNoVoice = true;
+          setStatus(NO_VOICE, 'warn');
+        }
       }
     } else if (r.target && !r.fall) {
       r.target = null;
@@ -783,7 +854,8 @@
     const target = targetCard();
     const halted = !!(target && target.halted);
     const waiting = !target && (live.length > 0 || r.queue.length > 0) && r.finale === null && r.endIn === null;
-    let speed = halted ? 0 : r.speed;
+    // nothing falls while the word is said for the player
+    let speed = halted || (r.voicing && target) ? 0 : r.speed;
     if (waiting) {
       if (reducedMotion.matches) cutFall(live);
       else speed = Math.max(r.speed * 4, 220);
@@ -1156,9 +1228,10 @@
     const a = 0.3;
     const heardAt = card.firstHeardAt === null ? r.time : card.firstHeardAt;
     if (card.shownAt !== null) {
-      const react = Math.max(0.4, Math.min(10, heardAt - card.shownAt));
+      // the time the word was being said for the player is not the player's
+      const react = Math.max(0.4, Math.min(10, heardAt - card.shownAt - (card.voicedFirst || 0)));
       r.rt = r.rt * (1 - a) + react * a;
-      r.sayTimes.push(Math.max(0, r.time - card.shownAt));
+      r.sayTimes.push(Math.max(0, r.time - card.shownAt - (card.voiced || 0)));
     }
     const span = r.time - heardAt;
     if (card.item.beats > 2 && span > 0.25) {
@@ -1301,6 +1374,8 @@
     const limit = c.level === 0 ? STUCK_FIRST : STUCK_NEXT;
     let level = Math.min(2, c.misses);
     if (c.idle >= limit) level = Math.max(level, c.level + 1);
+    // a lesson's new kana shows its sound in letters anyway: its first help is to hear it again
+    if (c.entry.intro && level === 1) level = 2;
     if (level > c.level) {
       c.level = level;
       c.idle = 0;
@@ -1312,7 +1387,7 @@
       if (c === targetCard() || (r.fall && r.fall.card === c)) {
         showSay(c);
         if (level === 1 && c.item.hidden) say(c.item.reading, '');
-        if (level === 2 && !c.modelPlayed) {
+        if (level === 2 && !c.modelPlayed && !(r.voiceFailed >= 2)) {
           c.modelPlayed = true;
           playModel(c);
         }
@@ -1321,14 +1396,17 @@
   }
 
   // ---------- the word said for the player to copy ----------
-  // A course word with its own clip (the app's voice); any other card in the phone's Japanese voice, if it has one.
-  // While it plays, what the phone hears is not the player's.
+  // A course word with its own clip (the app's voice); any other card in the phone's Japanese voice. A phone that is
+  // listening plays sound quietly or not at all (an iPhone through its earpiece), and would hear the voice besides: so
+  // a hands-free listening is paused while the word is said, and goes on by itself after it. Meanwhile nothing falls.
 
   let jaVoice = null;
+  let voicesKnown = false;   // the phone has listed its voices (some list none at first, or never say they have)
   function findVoice() {
     if (!window.speechSynthesis) return;
     try {
       const voices = window.speechSynthesis.getVoices() || [];
+      if (voices.length) voicesKnown = true;
       jaVoice = voices.find((v) => /^ja(-|_|$)/i.test(v.lang) && v.localService) || voices.find((v) => /^ja(-|_|$)/i.test(v.lang)) || null;
     } catch (err) {
       jaVoice = null;
@@ -1336,51 +1414,207 @@
   }
   if (window.speechSynthesis) {
     findVoice();
-    if (window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener('voiceschanged', findVoice);
+    if (window.speechSynthesis.addEventListener) {
+      window.speechSynthesis.addEventListener('voiceschanged', () => {
+        findVoice();
+        if (phase === 'menu' && saved.mode === 'start' && STAGES.start.length) chartHint();
+      });
+    }
   }
-  const canModel = (item) => !!((item.clip && window.ykSound && window.ykSound.has(item.clip)) || (jaVoice && window.SpeechSynthesisUtterance));
+  // a voice for Japanese: one the phone lists, or, while it lists none, the one it gives for ja-JP
+  function canSpeak() {
+    if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) return false;
+    if (!jaVoice) findVoice();
+    return !!jaVoice || !voicesKnown;
+  }
+  const hasClip = (item) => !!(item.clip && window.ykSound && window.ykSound.has(item.clip));
+  const NO_VOICE_CHART = 'This phone has no Japanese voice to say the kana. One can be added in the phone\'s settings: Spoken Content on an iPhone or iPad, Text-to-speech on Android. In the round, each new kana shows its sound in letters.';
+  const NO_VOICE = 'This phone has no Japanese voice to say the word, so its sound in letters shows instead. One can be added in the phone\'s settings: Spoken Content on an iPhone or iPad, Text-to-speech on Android.';
+  const canModel = (item) => hasClip(item) || canSpeak();
 
-  let voiceTurn = 0;   // the word said last: the end of one said before it is not its end
-  function playModel(c) {
-    const it = c.item;
-    let ms = 0;
-    let deaf = 0;        // ms what is heard is kept out from now (more once a voice has started)
-    if (it.clip && window.ykSound && window.ykSound.has(it.clip)) {
-      window.ykSound.unlock();
-      window.ykSound.play(it.clip);
-      ms = Math.max(800, window.ykSound.ms ? window.ykSound.ms(it.clip) : 1200);
-      deaf = ms;
-    } else if (jaVoice && window.SpeechSynthesisUtterance) {
+  // Says `text` in the phone's Japanese voice: on.start(ms) when it really starts (it can start late, with ms its
+  // likely length), and once, on.end(how): 'done', 'cut' (stopped, or a newer voice took over) or 'failed' (it would
+  // not start).
+  let voiceTurn = 0;      // the voice asked for last: the end of one asked for before it is not its end
+  let utterance = null;   // the voice playing, kept, so the browser does not lose it (and its end) halfway
+  let voiceWoke = false;  // the phone's voice has started once: it is awake
+  function speakJa(text, rate, on) {
+    const synth = window.speechSynthesis;
+    const mine = ++voiceTurn;
+    const est = (700 + V.beatsOf(text) * 280) / rate;
+    let started = false;
+    let over = false;
+    let timer = 0;
+    const finish = (how) => {
+      if (over) return;
+      over = true;
+      clearTimeout(timer);
+      if (mine === voiceTurn) utterance = null;
+      on.end(mine === voiceTurn ? how : 'cut');
+    };
+    let u;
+    try {
+      u = new window.SpeechSynthesisUtterance(text);
+      u.lang = 'ja-JP';
+      if (jaVoice) u.voice = jaVoice;
+      u.rate = rate;
+    } catch (err) {
+      setTimeout(() => finish('failed'), 0);
+      return;
+    }
+    u.onstart = () => {
+      if (over || started) return;
+      started = true;
+      voiceWoke = true;
+      clearTimeout(timer);
+      // an end that never comes (it happens): the voice is taken to be over well after it should be
+      timer = setTimeout(() => finish('done'), est * 2 + 1500);
+      if (mine === voiceTurn && on.start) on.start(est);
+    };
+    u.onend = () => finish('done');
+    u.onerror = (e) => {
+      const err = e && e.error;
+      finish(err === 'interrupted' || err === 'canceled' ? 'cut' : started ? 'done' : 'failed');
+    };
+    utterance = u;
+    const go = () => {
+      if (over || mine !== voiceTurn) return;
       try {
-        const u = new window.SpeechSynthesisUtterance(it.reading);
-        const mine = ++voiceTurn;
-        const est = 700 + it.beats * 280;
-        u.lang = 'ja-JP';
-        u.voice = jaVoice;
-        u.rate = 0.85;
-        // kept out of what is heard from when the voice really starts (it can start late) until it ends
-        u.onstart = () => {
-          if (mine === voiceTurn) L.quiet(est);
-        };
-        u.onend = () => {
-          if (mine === voiceTurn) L.loud();
-        };
-        u.onerror = u.onend;
-        window.speechSynthesis.cancel();
-        window.speechSynthesis.speak(u);
-        ms = est;
-        deaf = 600;
+        if (synth.paused) synth.resume();
+        synth.speak(u);
       } catch (err) {
-        ms = 0;
+        finish('failed');
       }
+    };
+    // a voice still going is stopped first: a word asked for in the same moment may be dropped with it
+    if (synth.speaking || synth.pending) {
+      synth.cancel();
+      setTimeout(go, 80);
+    } else {
+      go();
     }
-    if (!ms) return false;
-    L.quiet(deaf);
-    if (r) {
-      r.voiceUntil = r.time + ms / 1000;
-      if (r.musicOn) music('duck', ms / 1000 + 0.3);
+    // a voice that never starts (a phone that will not speak for the page just now)
+    timer = setTimeout(() => {
+      if (started || over) return;
+      try {
+        synth.cancel();
+      } catch (err) {
+        // nothing to stop
+      }
+      finish('failed');
+    }, voiceWoke ? VOICE_START : 2 * VOICE_START);
+  }
+  function stopVoice() {
+    voiceTurn++;
+    utterance = null;
+    try {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    } catch (err) {
+      // nothing to stop
     }
+  }
+
+  // The card's word said for the player to copy; `auto`, by the game (a lesson's new kana), not asked for. False if
+  // there is no way to say it.
+  let modelTurn = 0;      // the word said last: the end of one said before it does not start the listening again
+  let voicePaused = false; // the hands-free listening is paused for the word
+  function playModel(c, auto) {
+    const it = c.item;
+    const clip = hasClip(it);
+    if (!clip && !canSpeak()) return false;
+    const round = r;
+    const mine = ++modelTurn;
+    if (saved.mic === 'free' && (L.state === 'on' || L.state === 'starting')) voicePaused = true;
+    round.voicing = { card: c, from: round.time, auto: !!auto };
+    if (round.musicOn) music('duck', 2.5);
+    voiceUI();
+    const current = () => mine === modelTurn && r === round && phase === 'play';
+    // the word is over: the time it took is not the player's, and the listening goes on
+    const after = (how) => {
+      if (mine !== modelTurn) return;
+      const v = round.voicing;
+      if (v) {
+        const took = Math.max(0, round.time - v.from);
+        c.voiced = (c.voiced || 0) + took;
+        if (c.firstHeardAt === null) c.voicedFirst = (c.voicedFirst || 0) + took;
+      }
+      round.voicing = null;
+      round.voiceUntil = round.time;
+      // a listening that went on through the word (held down) hears the player again once the phone has caught up
+      if (!voicePaused) L.loud();
+      if (how === 'failed') round.voiceFailed = (round.voiceFailed || 0) + 1;
+      if (how === 'failed' && current()) {
+        setStatus('The phone did not say the word. Its sound in letters is on the card' + (it.teach ? '.' : ' and under the game.'), 'warn');
+        if (c.level < 1) {
+          c.level = 1;
+          layoutCard(c);
+          showSay(c);
+        }
+      }
+      if (voicePaused) {
+        voicePaused = false;
+        if (current() && saved.mic === 'free') L.listen(false);
+      }
+      voiceUI();
+    };
+    const play = () => {
+      if (!current()) {
+        if (mine === modelTurn) after('cut');
+        return;
+      }
+      if (clip) {
+        window.ykSound.unlock();
+        const ms = Math.max(800, window.ykSound.ms ? window.ykSound.ms(it.clip) : 1200);
+        if (!window.ykSound.play(it.clip)) {
+          after('failed');
+          return;
+        }
+        if (!voicePaused) L.quiet(ms);
+        round.voiceUntil = round.time + ms / 1000;
+        if (round.musicOn) music('duck', ms / 1000 + 0.3);
+        // its end: as the player says, or its length and a little
+        const t0 = Date.now();
+        const poll = () => {
+          if (mine !== modelTurn) return;
+          const over = window.ykSound.over ? window.ykSound.over() : -1;
+          if (over >= 0 || Date.now() - t0 > ms + 1500) after('done');
+          else setTimeout(poll, 60);
+        };
+        setTimeout(poll, 120);
+        return;
+      }
+      speakJa(it.reading, auto ? 0.8 : 0.85, {
+        start: (est) => {
+          if (mine !== modelTurn) return;
+          if (!voicePaused) L.quiet(est);
+          round.voiceUntil = round.time + est / 1000;
+          if (round.musicOn) music('duck', est / 1000 + 0.3);
+        },
+        end: after,
+      });
+    };
+    // the listening lets go of the microphone first (the voice is said when it has)
+    if (voicePaused && L.state !== 'off') L.stop(play);
+    else play();
     return true;
+  }
+  // The word is no longer said: the round is paused or over (`again`: a lesson's new kana is said again when it goes
+  // on), or the player has tapped the microphone to talk.
+  function stopModel(again) {
+    modelTurn++;
+    voicePaused = false;
+    stopVoice();
+    if (r) {
+      // a lesson's new kana cut off (a pause) is said again when the round goes on
+      if (again && r.voicing && r.voicing.auto && r.voicing.card.state === 'live') r.voicing.card.teachAt = r.time + TEACH_WAIT;
+      r.voicing = null;
+    }
+    voiceUI();
+  }
+  function voiceUI() {
+    const on = !!(r && r.voicing);
+    $('hear').classList.toggle('playing', on);
+    micUI();
   }
 
   // ---------- Falling: what Yaoki does with a thing once it is said ----------
@@ -1448,6 +1682,11 @@
     // with reduced motion it is simply gone
     const n = reducedMotion.matches ? 0 : Math.max(6, Math.min(14, Math.round(c.w / 16)));
     for (let i = 0; i < n; i++) r.shards.push(shard(c, i, n, quiet));
+    // a ring of light where it broke, and gold sparks for one said clean
+    if (n && !quiet) {
+      r.rings.push({ x: c.x, y: c.y + c.h / 2, R: Math.max(c.w, c.h) * 0.62, age: 0 });
+      if (c.clean) burst(c.x, c.y + c.h / 2, 6, pal.gold);
+    }
     if (!quiet) sfx(r.yk.trick && r.yk.trick.kind === 'smash' ? 'smash' : 'clear', { streak: c.clean ? r.run : 0 });
   }
   function shard(c, i, n, quiet) {
@@ -1563,7 +1802,7 @@
     document.body.classList.toggle('playing', p === 'play' || p === 'paused');
     if (p !== 'play') {
       L.stop();
-      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      stopModel(true);
     }
     if (p === 'menu') {
       music('stop', 0.3);
@@ -1612,16 +1851,18 @@
     if (!c) return;
     const it = c.item;
     const level = hintLevel(c);
-    if (level >= 1 || saved.hints === 'always') {
+    const intro = !!(c.entry && c.entry.intro);
+    if (level >= 1 || saved.hints === 'always' || intro) {
       const ro = document.createElement('span');
       ro.className = 'romaji';
       ro.textContent = it.romaji;
       box.appendChild(ro);
     }
-    if (it.gloss) {
+    // a word's meaning; a lesson's new kana, what to do with it
+    if (it.gloss || intro) {
       const en = document.createElement('span');
       en.className = 'gloss';
-      en.textContent = it.gloss;
+      en.textContent = it.gloss || 'A new kana: listen, then say it back.';
       box.appendChild(en);
     }
   }
@@ -1700,6 +1941,7 @@
     on: ['きいています', 'Listening'],
     starting: ['じゅんび中', 'Starting to listen…'],
     off: ['タップして話す', 'Tap the microphone to listen'],
+    voice: ['よく聞いて', 'Listen: the microphone is back on after the word'],
     hold: ['押して話す', 'Hold the microphone down while you speak'],
     tap: ['タップしてください', 'Listening stopped: tap the microphone to go on'],
     blocked: ['マイクが使えません', 'The microphone is blocked for this page. Allow it in the browser\'s settings for this site; on an iPhone or iPad, Dictation must also be on (Settings › General › Keyboard).'],
@@ -1718,7 +1960,8 @@
     if (st === 'on') micWasOn = true;
     else if (st !== 'starting') micWasOn = false;
     const shown = st === 'starting' && micWasOn ? 'on' : st;
-    const key = saved.mic === 'hold' && !held && (shown === 'off' || shown === 'on' || shown === 'starting') ? 'hold' : shown in MIC_TEXT ? shown : 'off';
+    const voicing = !!(r && r.voicing) && phase === 'play';
+    const key = voicing && st === 'off' ? 'voice' : saved.mic === 'hold' && !held && (shown === 'off' || shown === 'on' || shown === 'starting') ? 'hold' : shown in MIC_TEXT ? shown : 'off';
     const t = MIC_TEXT[key];
     btn.classList.toggle('on', listening);
     btn.classList.toggle('speech', !!(r && r.speaking && listening));
@@ -1726,7 +1969,7 @@
     btn.classList.toggle('warn', ['blocked', 'nomic', 'offline', 'error', 'tap'].includes(st));
     btn.setAttribute('aria-pressed', String(listening));
     btn.setAttribute('aria-label', (listening ? 'Listening' : 'Not listening') + '. ' + (saved.mic === 'hold' ? 'Hold to talk.' : listening ? 'Tap to stop listening.' : 'Tap to listen.'));
-    $('mic-label').textContent = listening ? 'きいてる' : saved.mic === 'hold' ? '押して話す' : 'マイク';
+    $('mic-label').textContent = key === 'voice' ? 'きいて' : listening ? 'きいてる' : saved.mic === 'hold' ? '押して話す' : 'マイク';
     const html = ja(t[0]) + '　' + esc(t[1]);
     if (html !== micShown) {
       micShown = html;
@@ -1759,6 +2002,13 @@
   }
   function micTap() {
     if (phase !== 'play' || saved.mic === 'hold') return;
+    // while the word is said for the player, a tap on the microphone cuts it short, to talk now
+    if (r && r.voicing && voicePaused) {
+      stopModel();
+      L.listen(true);
+      micUI();
+      return;
+    }
     if (L.state === 'on' || L.state === 'starting') {
       // the second tap of a double tap on Start lands here, where Start was: it does not stop the listening just begun
       if (performance.now() - roundShownAt < 500) return;
@@ -2127,7 +2377,7 @@
       });
       ways.appendChild(b);
     }
-    seg('modes', MODE_ORDER.map((id) => ({ value: id, html: '<span lang="ja">' + MODES[id].ja + '</span>　<small>' + MODES[id].en + '</small>' })), saved.mode, (id) => {
+    seg('modes', MODE_ORDER.filter((id) => id !== 'start' || STAGES.start.length).map((id) => ({ value: id, html: '<span lang="ja">' + MODES[id].ja + '</span>　<small>' + MODES[id].en + '</small>' })), saved.mode, (id) => {
       saved.mode = id;
       save();
       renderPicks();
@@ -2212,7 +2462,14 @@
     $('mode-desc').textContent = MODES[mode].desc;
     $('course-pick').hidden = mode !== 'course';
     $('stage-pick').hidden = mode === 'course';
+    // a lesson has its own length
+    $('len-pick').hidden = mode === 'start';
+    $('stages').hidden = mode === 'start';
+    $('lessons').hidden = mode !== 'start';
+    $('lesson-chart').hidden = mode !== 'start';
+    $('stage-h').innerHTML = mode === 'start' ? ja('レッスン') + '　Lesson' : ja('ステージ') + '　Stage';
     if (mode === 'course') renderCourse();
+    else if (mode === 'start') renderLessons();
     else renderStages();
     refreshStart();
   }
@@ -2234,15 +2491,13 @@
       tag.innerHTML = o.tag;
       b.querySelector('.o-top').appendChild(tag);
     }
-    if (o.rings) {
-      const meta = b.querySelector('.o-meta');
-      if (o.rings >= 3) {
-        meta.insertAdjacentHTML('beforeend', ' ' + HANA_ICON(18, 'hana') + '<span class="sr-only"> · ' + ja('はなまる') + '</span>');
-      } else {
-        meta.insertAdjacentHTML('beforeend', ' <span class="rings" aria-hidden="true">' + [0, 1, 2].map((i) => '<i' + (i < o.rings ? ' class="on"' : '') + '></i>').join('') + '</span><span class="sr-only"> · ' + o.rings + ' of 3 rings towards ' + ja('はなまる') + '</span>');
-      }
-    }
+    if (o.rings) b.querySelector('.o-meta').insertAdjacentHTML('beforeend', ' ' + ringsHtml(o.rings, 18));
     return b;
+  }
+  // A stage's rings towards its はなまる, or the はなまる itself
+  function ringsHtml(n, size) {
+    if (n >= 3) return HANA_ICON(size, 'hana') + '<span class="sr-only"> · ' + ja('はなまる') + '</span>';
+    return '<span class="rings" aria-hidden="true">' + [0, 1, 2].map((i) => '<i' + (i < n ? ' class="on"' : '') + '></i>').join('') + '</span><span class="sr-only"> · ' + n + ' of 3 rings towards ' + ja('はなまる') + '</span>';
   }
   const sealOf = (key) => (Array.isArray(saved.seal[key]) ? saved.seal[key].length : 0);
   const bestText = (key) => {
@@ -2275,6 +2530,96 @@
     const note = $('stage-note');
     note.hidden = !SINGLE_SOUNDS.has(saved.mode + ':' + currentStage().id);
     note.innerHTML = ja('ひとつの音') + '　A sound on its own is the hardest thing for a phone to hear: say each one clearly, a little drawn out if need be. ' + ja('単語') + ' Words are easier for it.';
+  }
+
+  // The first steps: a tile for each lesson, script by script, as in a kana table; under them, the lesson's chart.
+  function renderLessons() {
+    const box = $('lessons');
+    box.textContent = '';
+    const cur = currentStage();
+    let tiles = null;
+    let script = null;
+    for (const st of STAGES.start) {
+      if (st.script !== script) {
+        script = st.script;
+        const g = document.createElement('div');
+        g.className = 'lesson-group';
+        g.setAttribute('role', 'group');
+        g.setAttribute('aria-labelledby', 'lessons-' + script.id);
+        g.innerHTML = '<h3 class="lesson-h" id="lessons-' + script.id + '">' + ja(script.ja) + '　' + esc(script.en) + '</h3><div class="lesson-tiles"></div>';
+        box.appendChild(g);
+        tiles = g.querySelector('.lesson-tiles');
+      }
+      const l = st.lesson;
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lesson';
+      b.setAttribute('aria-pressed', String(st === cur));
+      const rings = sealOf('start:' + st.id);
+      b.innerHTML = '<span class="sr-only">Lesson ' + l.n + ': </span><span class="l-kana" lang="ja">' + esc(l.kana[0]) + '</span>'
+        + '<span class="l-ro" aria-hidden="true">' + esc(V.hepburn(l.kana[0]) + (l.kana.length > 5 ? '…' : '')) + '</span>'
+        + '<span class="sr-only">' + esc(st.en.replace(/^[^:]*: /, '')) + '</span>' + (rings ? ringsHtml(rings, 14) : '');
+      b.addEventListener('click', () => {
+        saved.stage.start = st.id;
+        save();
+        for (const x of box.querySelectorAll('.lesson')) x.setAttribute('aria-pressed', String(x === b));
+        renderChart();
+        stageNote();
+        refreshStart();
+      });
+      tiles.appendChild(b);
+    }
+    renderChart();
+    stageNote();
+  }
+
+  // The lesson's kana as in the table (rows of five; three for や, わ and the small ゃ ゅ ょ), its note and its words,
+  // each said when tapped.
+  function renderChart() {
+    const st = currentStage();
+    const l = st.lesson;
+    const key = 'start:' + st.id;
+    $('chart-kick').innerHTML = ja(st.ja) + '　' + esc(st.script.en.toUpperCase()) + ' · LESSON ' + l.n + ' OF ' + st.script.lessons.length + bestText(key);
+    const grid = $('chart-kana');
+    grid.textContent = '';
+    grid.style.setProperty('--cols', l.kana.length % 5 === 0 ? 5 : 3);
+    for (const k of l.kana) grid.appendChild(sayTile('kana-tile', k, esc(V.hepburn(k))));
+    $('chart-note').hidden = !l.note;
+    $('chart-note').innerHTML = l.note ? jaMarked(l.note) : '';
+    const words = $('chart-words');
+    words.textContent = '';
+    $('chart-words-h').hidden = !l.words.length;
+    words.hidden = !l.words.length;
+    for (const w of l.words) words.appendChild(sayTile('word-tile', w.text, '<i>' + esc(V.hepburn(w.text)) + '</i> · ' + esc(w.gloss)));
+    chartHint();
+  }
+  function chartHint() {
+    $('chart-hint').innerHTML = canSpeak()
+      ? 'Tap a kana or a word to hear it. In the round, each new kana is said for you first, with its sound in letters on the card: say it back. Then come the words and the kana again, to read without the letters (they show if you are stuck).'
+      : esc(NO_VOICE_CHART);
+  }
+  function sayTile(cls, text, sub) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = cls;
+    b.innerHTML = '<b lang="ja">' + esc(text) + '</b><small>' + sub + '</small>';
+    b.addEventListener('click', () => {
+      if (!canSpeak()) {
+        chartHint();
+        return;
+      }
+      // the microphone test would hear it
+      if (micTest.on) micTestEnd('');
+      for (const x of document.querySelectorAll('#lesson-chart .playing')) x.classList.remove('playing');
+      b.classList.add('playing');
+      speakJa(text, 0.8, {
+        end: (how) => {
+          b.classList.remove('playing');
+          if (how === 'failed') $('chart-hint').textContent = 'The phone did not say it. If it has no Japanese voice, one can be added in its settings: Spoken Content on an iPhone or iPad, Text-to-speech on Android.';
+        },
+      });
+    });
+    return b;
   }
 
   function renderCourse() {
@@ -2591,7 +2936,7 @@
     if (!drawn) plaque(c, c.x - c.w / 2, c.y, isTarget, false);
     if (c.halted && r.style === 'fall') umbrellaUnder(c);
     if (c.entry.weak && c.state === 'live') weakCorner(c.x - c.w / 2, c.y, c.w, c.h);
-    cardText(c, c.x, c.y, drawn ? '#1B2440' : pal.ink, drawn ? '#5A6382' : pal.muted);
+    cardText(c, c.x, c.y, drawn ? '#1B2440' : pal.ink, drawn ? '#5A6382' : pal.muted, drawn ? '#2F4FD0' : pal.accentInk);
     if (c.state === 'done') {
       const pose = reducedMotion.matches ? { s: 1, tilt: -10, a: 1 } : stampPose(c.stampT);
       ctx.globalAlpha *= pose.a;
@@ -2639,13 +2984,24 @@
   function drawShards() {
     const w0 = window.SpeakingWorld;
     ctx.save();
+    for (const g of r.rings) {
+      const u = g.age / RING_T;
+      ctx.globalAlpha = 1 - u;
+      ctx.lineWidth = 1 + 5 * (1 - u);
+      ctx.strokeStyle = pal.gold;
+      ctx.beginPath();
+      ctx.arc(g.x, g.y, g.R * (0.45 + 0.75 * ease(u)), 0, Math.PI * 2);
+      ctx.stroke();
+      r.fxDrawn++;
+    }
     ctx.lineJoin = 'round';
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2;
     for (const s of r.shards) {
       const col = w0 && w0.colors && r.place ? safely(() => w0.colors(r.place, s.n, pal.dark), null) : null;
       ctx.globalAlpha = Math.max(0, 1 - s.age / 1.2);
       ctx.fillStyle = col ? col.fill : pal.card;
-      ctx.strokeStyle = col ? col.line : pal.line;
+      // pieces with the ink edge of the things they were
+      ctx.strokeStyle = pal.outline;
       ctx.save();
       ctx.translate(s.x, s.y);
       ctx.rotate(s.a);
@@ -2723,7 +3079,7 @@
       c.y = py;
       plaque(c, px, py, c === target, true);
       if (c.entry.weak && c.state === 'live') weakCorner(px, py, c.w, c.h);
-      cardText(c, c.x, py, c.state === 'live' ? pal.ink : pal.muted, pal.muted);
+      cardText(c, c.x, py, c.state === 'live' ? pal.ink : pal.muted, pal.muted, pal.accentInk);
       if (c.state === 'done') drawNode(c, px + c.w - 8, py + 6, 0.62, 1);
       else if (c.state === 'skipped') skippedMark(px + c.w - 10, py + 8);
     }
@@ -2734,20 +3090,31 @@
     drawBubble();
   }
 
-  // A sign: the one being said has the ink outline and hard shadow of the app's next step; the others are quiet.
+  // A sign: the one being said has the ink outline and hard shadow of the app's next step, and a gold glow round it;
+  // the others are quieter, lifted off the place by a light shadow.
   function plaque(c, x, y, isTarget, onLedge) {
     const flash = c.flashT > 0 || c.state === 'fallen';
     ctx.save();
-    if (isTarget) {
-      roundRect(x, y + 4, c.w, c.h, 12);
+    if (isTarget && !flash) {
+      ctx.globalAlpha = reducedMotion.matches ? 0.7 : 0.55 + 0.25 * Math.sin(r.time * 4);
+      roundRect(x - 5, y - 5, c.w + 10, c.h + 10, 16);
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = pal.gold;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    }
+    if (isTarget || c.state === 'live') {
+      roundRect(x, y + (isTarget ? 5 : 3), c.w, c.h, 12);
       ctx.fillStyle = pal.hard;
+      if (!isTarget) ctx.globalAlpha = 0.3;
       ctx.fill();
+      ctx.globalAlpha = 1;
     }
     roundRect(x, y, c.w, c.h, 12);
     ctx.fillStyle = flash ? pal.badSoft : pal.card;
     ctx.fill();
-    ctx.lineWidth = flash ? 2.5 : 2;
-    ctx.strokeStyle = flash ? pal.bad : isTarget ? pal.outline : pal.line;
+    ctx.lineWidth = flash ? 2.5 : isTarget ? 3 : 2;
+    ctx.strokeStyle = flash ? pal.bad : isTarget ? pal.outline : pal.lineStrong;
     ctx.stroke();
     if (onLedge && c.state !== 'live') {
       ctx.globalAlpha = 0.25;
@@ -2780,7 +3147,7 @@
 
   // The card's words: the reading above (or the dotted room for a hidden one), the word below; the part already heard
   // is green.
-  function cardText(c, cx, top, color, muted) {
+  function cardText(c, cx, top, color, muted, letters) {
     const b = c.box;
     if (!b) return;
     const it = c.item;
@@ -2820,6 +3187,25 @@
       fillLine(line, cx, y + b.lh / 2 + 1, color, it.ruby ? 0 : filled - at);
       at += Array.from(line).length;
       y += b.lh;
+    }
+    if (b.mLines && b.mLines.length && b.mShown) {
+      ctx.font = '800 ' + b.mSize + 'px ' + UI;
+      ctx.fillStyle = letters || muted;
+      for (const line of b.mLines) {
+        ctx.fillText(line, cx, y + b.mlh / 2);
+        y += b.mlh;
+      }
+    } else if (b.mLines && b.mLines.length) {
+      // letters still hidden: a dotted line where they will show
+      ctx.setLineDash([2, 4]);
+      ctx.lineCap = 'round';
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = pal.lineStrong;
+      ctx.beginPath();
+      ctx.moveTo(cx - 18, y + b.mlh / 2);
+      ctx.lineTo(cx + 18, y + b.mlh / 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
     }
     ctx.restore();
   }
@@ -3127,6 +3513,17 @@
     drawDaruma(p);
   }
 
+  // His lacquer, lit from the top left (in his own 100 units, so made once).
+  let lacquerFill = null;
+  function lacquer() {
+    if (!lacquerFill) {
+      lacquerFill = ctx.createRadialGradient(38, 30, 4, 50, 56, 58);
+      lacquerFill.addColorStop(0, '#FF7A5A');
+      lacquerFill.addColorStop(0.45, '#E2452B');
+      lacquerFill.addColorStop(1, '#A82A18');
+    }
+    return lacquerFill;
+  }
   function drawDaruma(p) {
     ctx.save();
     ctx.translate(p.x, p.base - p.lift);
@@ -3139,12 +3536,36 @@
     }
     ctx.scale(YAOKI * p.sx, YAOKI * p.sy);
     ctx.translate(-50, -94);
-    ctx.fillStyle = '#E2452B';
+    // as a sticker on the page: a hard shadow and an ink outline, so he stands out wherever he is; red lacquer, with
+    // its shine and its shade
+    ctx.save();
+    ctx.translate(3, 4.5);
+    ctx.fillStyle = '#1B2440';
     ctx.fill(DARUMA.body);
+    ctx.restore();
+    ctx.fillStyle = lacquer();
+    ctx.fill(DARUMA.body);
+    ctx.save();
+    ctx.clip(DARUMA.body);
+    ctx.fillStyle = 'rgba(120, 18, 8, 0.22)';
+    ctx.beginPath();
+    ctx.ellipse(80, 70, 22, 36, -0.35, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.32)';
+    ctx.beginPath();
+    ctx.ellipse(27, 30, 6, 13, 0.55, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 3.4;
+    ctx.strokeStyle = '#1B2440';
+    ctx.stroke(DARUMA.body);
     ctx.fillStyle = '#FFF6EA';
     ctx.beginPath();
     ctx.ellipse(50, 42, 27, 23, 0, 0, Math.PI * 2);
     ctx.fill();
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
     if (p.blush) {
       ctx.save();
       ctx.globalAlpha = 0.6;
@@ -3190,6 +3611,9 @@
       ctx.lineWidth = 2.5;
       ctx.stroke(p.mouth === 'happy' ? HAPPY_MOUTH : p.mouth === 'grit' ? FACE.grit : DARUMA.mouth);
     }
+    ctx.strokeStyle = '#1B2440';
+    ctx.lineWidth = 6.5;
+    ctx.stroke(DARUMA.gold);
     ctx.strokeStyle = '#F2B43A';
     ctx.lineWidth = 3.5;
     ctx.stroke(DARUMA.gold);
@@ -3389,10 +3813,12 @@
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.lineJoin = 'round';
-    ctx.lineWidth = Math.max(3, size / 5);
-    ctx.strokeStyle = pal.card;
+    // as a comic's lettering: a thick ink edge round a bright fill
+    ctx.lineWidth = Math.max(4, size / 3);
+    ctx.strokeStyle = '#1B2440';
+    ctx.strokeText(fx.ja, 0, 2);
     ctx.strokeText(fx.ja, 0, 0);
-    ctx.fillStyle = fx.big ? pal.stamp : pal.ink;
+    ctx.fillStyle = fx.big ? '#F2B43A' : '#FFFFFF';
     ctx.fillText(fx.ja, 0, 0);
     ctx.restore();
     r.fxDrawn++;
@@ -3510,10 +3936,13 @@
   });
   $('hear').addEventListener('click', () => {
     wakeAudio();
-    const t = phase === 'play' ? targetCard() : null;
+    unlockVoice();
+    if (phase !== 'play' || !r) return;
+    // the card being said; between two, the one coming next
+    const t = targetCard() || nextUp() || (r.style === 'fall' && !r.fall ? r.cards.find((c) => c.state === 'live') : null);
     if (!t) return;
     if (!canModel(t.item)) {
-      setStatus('There is no Japanese voice on this device to say the word: its romaji shows instead.', 'warn');
+      setStatus(NO_VOICE, 'warn');
       if (t.level < 1) {
         if (!t.hinted) {
           t.hinted = true;
@@ -3525,7 +3954,8 @@
       }
       return;
     }
-    if (!t.hinted) {
+    // a lesson's new kana is there to be heard: hearing it again is no hint
+    if (!t.hinted && !t.entry.intro) {
       t.hinted = true;
       r.hints++;
     }
@@ -3613,7 +4043,10 @@
         target: t ? {
           text: t.item.text, reading: t.item.reading, romaji: t.item.romaji, level: hintLevel(t), halted: t.halted, misses: t.misses,
           fill: t.fill, len: t.item.t.len, readingShown: !!(t.item.ruby && readingShown(t)), weak: !!t.entry.weak, y: Math.round(t.y), h: Math.round(t.h),
+          intro: !!t.entry.intro, lettersShown: !!(t.box && t.box.mShown), hinted: t.hinted,
         } : null,
+        voicing: !!(r && r.voicing),
+        deck: r ? r.dealt.slice() : [],
         run: r ? r.run : 0,
         bestRun: r ? r.bestRun : 0,
         comebacks: r ? r.comebacks : 0,

@@ -312,6 +312,40 @@ test('every course word (N5 to N2) is taken as written and as read, and few take
   assert.ok(clashes.length <= n / 200, 'too many: ' + clashes.join('; '));
 });
 
+test('the first steps: each lesson\'s words are made of kana taught so far, and each kana and word is taken said', () => {
+  const L = require('../docs/speaking/lessons.js');
+  assert.deepEqual(L.SCRIPTS.map((s) => s.id + ':' + s.lessons.length), ['hiragana:13', 'katakana:13']);
+  const seen = new Set();
+  for (const sc of L.SCRIPTS) {
+    // what a lesson may use: its script's kana so far (a small ゃ as itself too), its marks, and ー only once taught
+    const taught = new Set();
+    for (const l of sc.lessons) {
+      assert.ok(l.kana.length > 0 && /^[hk]\d+$/.test(l.id) && !seen.has(l.id), 'lesson ' + l.id);
+      seen.add(l.id);
+      for (const k of l.kana) {
+        for (const ch of k) taught.add(ch);
+        const t = card(k);
+        assert.equal(V.check(t, k).ok, true, `${l.id} ${k} said`);
+        assert.ok(V.hepburn(k) && /^[a-z]+$/.test(V.hepburn(k)), `${l.id} ${k} has its sound in letters: ${V.hepburn(k)}`);
+      }
+      for (const m of l.marks || []) taught.add(m);
+      for (const w of l.words) {
+        const left = Array.from(w.text).filter((ch) => !taught.has(ch));
+        assert.deepEqual(left, [], `${l.id} ${w.text} (${w.gloss}) uses kana not yet taught`);
+        assert.ok(w.gloss, `${l.id} ${w.text} has its meaning`);
+        const t = card(w.text);
+        assert.equal(V.check(t, w.text).ok, true, `${l.id} ${w.text} said`);
+        if (w.kanji) assert.equal(V.check(t, w.kanji).ok, true, `${l.id} ${w.text} heard as ${w.kanji}`);
+      }
+    }
+    assert.equal(L.all(sc.id).length, sc.lessons.reduce((n, l) => n + l.kana.length, 0));
+  }
+  // every basic kana of each script is in its lessons
+  const base = 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん';
+  assert.deepEqual(Array.from(base).filter((ch) => !L.all('hiragana').includes(ch)), []);
+  assert.deepEqual(Array.from(kata(base)).filter((ch) => !L.all('katakana').includes(ch)), []);
+});
+
 test('a check is quick enough for every word the phone hears', () => {
   const t = card('このたけがきにたけたてかけたのはたけたてかけたかったから');
   const heard = 'この竹垣に竹立てかけたのは竹立てかけたかったからですよね本当に';

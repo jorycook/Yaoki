@@ -19,7 +19,7 @@
  * window.SpeakingListen = {
  *   supported, state,                 state: off | starting | on | tap | blocked | nomic | offline | error
  *   mode,                             'free' or 'hold'
- *   listen(fromTap), stop(), hold(down), consume(), quiet(ms), loud(),
+ *   listen(fromTap), stop(then), hold(down), consume(), quiet(ms), loud(),
  *   onheard(texts, final, carried),   texts: what was heard since the last consume(), alternatives first; carried:
  *                                     it is the rest of words that were partly used up (ねこです after ねこ)
  *   onstate(state, code),             code: the browser's error, if any
@@ -35,6 +35,7 @@
   const ECHO = 700;         // ms the phone takes to send back what it heard: the game's own voice is kept out this much longer
   const TWICE = 600;        // a closed result that repeats the one before it this soon is the same words sent twice
   const CARRY = 6000;       // ms the start of a phrase heard before a listening ended is offered with the next words
+  const LET_GO = 400;       // ms a stopped listening is given to let go of the microphone, if the browser never says
 
   let rec = null;           // the browser's recognition of the listening going on
   let session = 0;          // counts the listenings: an event from an old one is ignored
@@ -73,19 +74,32 @@
       return true;
     },
 
-    // Stop listening now; what was being said is dropped.
-    stop() {
+    // Stop listening now; what was being said is dropped. `then`, if given, is called once the browser has let go of
+    // the microphone (or soon, if it never says): a phone plays sound quietly, or not at all, while it listens.
+    stop(then) {
       wanted = false;
       clearTimeout(timer);
       if (rec) {
         const r = rec;
         rec = null;
         session++;
+        if (then) {
+          let done = false;
+          const go = () => {
+            if (done) return;
+            done = true;
+            then();
+          };
+          r.onend = go;
+          setTimeout(go, LET_GO);
+        }
         try {
           r.abort();
         } catch (err) {
           // already ended
         }
+      } else if (then) {
+        setTimeout(then, 0);
       }
       last = null;
       used = null;
