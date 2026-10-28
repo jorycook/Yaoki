@@ -763,6 +763,8 @@
     r.fall = { kind: 'crush', t: 0, card, length: CRUSH_T, at, back: ahead + at, rose: false, y0: card.y };
     r.falls++;
     r.p = Math.max(0.8, r.p * 0.85);
+    // what was being said for it is not said for the next
+    L.consume();
     fallen(card);
     say(card.item.text, 'Yaoki was squashed and got up again. It is ' + card.item.reading + ' (' + card.item.romaji + '). ' + backText(r.fall.back) + '.');
   }
@@ -960,8 +962,11 @@
       return;
     }
     c.fill = res.fill;
-    showHeard(res, final ? 'bad' : '');
-    if (final) {
+    // the start of the card with a pause after it (the phone closed what it had heard so far): the rest is to come,
+    // and is heard together with it
+    const begun = final && res.fill > 0;
+    showHeard(res, final && !begun ? 'bad' : '');
+    if (final && !begun) {
       L.consume();
       miss(c, res);
     } else {
@@ -1221,7 +1226,7 @@
         u.lang = 'ja-JP';
         u.voice = jaVoice;
         u.rate = 0.85;
-        u.onend = () => L.consume();
+        u.onend = () => L.loud();
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(u);
         ms = 700 + it.beats * 280;

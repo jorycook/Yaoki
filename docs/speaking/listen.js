@@ -17,7 +17,7 @@
  * window.SpeakingListen = {
  *   supported, state,                 state: off | starting | on | tap | blocked | nomic | offline | error
  *   mode,                             'free' or 'hold'
- *   listen(fromTap), stop(), hold(down), consume(), quiet(ms),
+ *   listen(fromTap), stop(), hold(down), consume(), quiet(ms), loud(),
  *   onheard(texts, final),            texts: what was heard since the last consume(), alternatives first
  *   onstate(state, code),             code: the browser's error, if any
  *   onspeech(on),                     the player is speaking (or has just stopped)
@@ -38,7 +38,8 @@
   let quickEnds = 0;
   let timer = 0;
   let last = null;          // the results of this listening as last seen: [{ alts, final }]
-  let used = null;          // what of them is used up: { session, index, text }
+  let used = null;          // what of them is used up: { session, index, text, all }
+  let repeats = false;      // this listening's phone repeats, in each new result, all it heard before (some Android phones)
   let quietUntil = 0;
   let quietTimer = 0;
   let speaking = false;
@@ -104,7 +105,8 @@
     consume() {
       if (!last || !last.length) return;
       const tail = last[last.length - 1];
-      used = tail.final ? { session, index: last.length, text: '' } : { session, index: last.length - 1, text: tail.alts[0] || '' };
+      const all = tail.alts[0] || '';
+      used = tail.final ? { session, index: last.length, text: '', all } : { session, index: last.length - 1, text: all, all };
     },
 
     // The game's own voice plays for `ms`: what is heard meanwhile (and a moment after) is not the player.
@@ -113,6 +115,13 @@
       api.consume();
       clearTimeout(quietTimer);
       quietTimer = setTimeout(() => api.consume(), quietUntil - Date.now() + 300);
+    },
+    // The game's voice has finished (sooner than it was given): a moment more, and the player is heard again.
+    loud() {
+      quietUntil = Math.min(quietUntil, Date.now() + 250);
+      api.consume();
+      clearTimeout(quietTimer);
+      quietTimer = setTimeout(() => api.consume(), 300);
     },
   };
 
@@ -183,6 +192,7 @@
     rec = r;
     startedAt = Date.now();
     heardAny = false;
+    repeats = false;
     last = null;
     used = null;
     set('starting');
@@ -202,10 +212,14 @@
     const u = used && used.session === session ? used : null;
     for (let i = u ? u.index : 0; i < list.length; i++) {
       let alts = list[i].alts;
-      if (u && i === u.index && u.text) {
+      // what was used up, at the start of this result: of the result it was in, or (a phone that repeats all it has
+      // heard in each new result) of a later one, when more has been said after it
+      const prefix = !u ? '' : i === u.index && u.text ? u.text
+        : repeats && u.all && alts[0].length > u.all.length && alts[0].startsWith(u.all) ? u.all : '';
+      if (prefix) {
         // only what came after the used part is new; a result written over since (ねこ became 猫…) starts afresh
         // once the browser closes it, so this listening is ended and begun again
-        if (!alts[0].startsWith(u.text)) {
+        if (!alts[0].startsWith(prefix)) {
           if (!list[i].final && rec && api.mode === 'free') {
             try {
               rec.stop();
@@ -215,7 +229,7 @@
           }
           continue;
         }
-        alts = alts.filter((t) => t.startsWith(u.text)).map((t) => t.slice(u.text.length));
+        alts = alts.filter((t) => t.startsWith(prefix)).map((t) => t.slice(prefix.length));
       }
       alts = alts.filter((t) => t.trim());
       if (alts.length) out.push({ alts, final: list[i].final });
@@ -231,6 +245,12 @@
       const alts = [];
       for (let k = 0; k < res.length; k++) if (res[k] && typeof res[k].transcript === 'string') alts.push(res[k].transcript);
       last.push({ alts: alts.length ? alts : [''], final: !!res.isFinal });
+    }
+    // a new result that begins with all of the closed one before it: this phone repeats what it heard
+    for (let k = 1; k < last.length && !repeats; k++) {
+      const a = last[k - 1].alts[0];
+      const b = last[k].alts[0];
+      if (last[k - 1].final && a && b.length > a.length && b.startsWith(a)) repeats = true;
     }
     heardAny = true;
     // the game's own voice: used up as it comes
