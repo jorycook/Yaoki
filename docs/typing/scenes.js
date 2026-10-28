@@ -800,49 +800,105 @@
   }
 
   // ----- 竹林: a bamboo grove, light falling between the stalks -----
+  // Stalks at three depths, pale and cool far off, emerald, then deep green close by, the nearer
+  // ones lit down one side; bands of light (of mist by night) at the foot of the far ones, beams
+  // of sun (of moonlight) slanting between them, bamboo grass and paper lanterns along the path.
+  // In spring shoots come up and in winter snow lies on the leaves: parts of the tiles that only
+  // those seasons give a colour to.
+  const GROVE_FAR = [0, -1, -1, 1, -1, 2, 3, 4];
+  const GROVE_MID = [0, -1, 1, 2, 3, 4, 5, 6];
+  const GROVE_NEAR = [0, 1, 2, 3, 4, 5, 6, 7];
   scene({
     id: 'chikurin', ja: '竹林', en: 'Bamboo grove', stillT: 6,
-    sky: { light: ['#E5EFE3', '#ECF2E8', '#F3F4EA'], dark: ['#0C1622', '#0F1D27', '#12222B'] },
+    sky: { light: ['#0F8F6C', '#3DB883', '#B3E58C', '#FFF3BE'], dark: ['#010D11', '#032429', '#08413F', '#0F5C52'] },
     light: {
-      b1: '#D7E5D3', n1: '#CCDCC8', l1: '#D0E0CB', b2: '#C8DBC3', n2: '#B9CFB4', l2: '#C2D7BC',
-      b3: '#BCD2B6', n3: '#AAC4A4', l3: '#B6CEB0', shaft: ['#FFFFFF', 0.45], glowGold: ['#F7DE8C', 0.75], gold: '#EBD9A0',
-      ground: '#EDF0E6', groundEdge: '#E2E8D8',
+      fStalk: '#A2DCC4', fNode: '#8ACDB3', fLeaf: '#8FD2B3', fLeaf2: '#B4E6CB', mist: ['#FFF5C9', 0.3], shaft: ['#FFE48E', 0.34],
+      mStalk: '#3DAE6B', mLit: '#93E27C', mNode: '#22784A', mRing: '#D3F3B6', mLeaf: '#2E9C5C', mLeaf2: '#5CC46F',
+      sasa: '#2A8F55', sasaLit: '#62C26A',
+      nStalk: '#15774A', nShade: '#0E5C39', nLit: '#86DA6C', nNode: '#0B4C30', nRing: '#BDEBA0', nLeaf: '#12683F', nLeaf2: '#2B8E50',
+      nSasa: '#0F6340', nSasaLit: '#3FA35A', lamp: '#FFF6E2', lampFrame: '#1B2440',
+      glowGold: ['#FFB21C', 0.75], gold: '#FFCF3A', goldCore: '#FFF8D6', spark: ['#F2A51F', 0.95],
+      ground: '#F3F6E4', groundEdge: '#DCEBC4',
     },
     dark: {
-      b1: '#1A2C33', n1: '#20343A', l1: '#1A2D31', b2: '#15262D', n2: '#1D3238', l2: '#16292D',
-      b3: '#0E1B21', n3: '#16282D', l3: '#0F1E23', shaft: ['#A8D8CF', 0.07], glowGold: ['#F4D27A', 0.6], gold: '#8C7E4E',
-      ground: '#111A23', groundEdge: '#13202A',
+      moonGlow: ['#9CF0DA', 0.45],
+      fStalk: '#1E5F5B', fNode: '#184F4C', fLeaf: '#1A5552', fLeaf2: '#246E68', mist: ['#2A8C80', 0.22], shaft: ['#C4FFF1', 0.1],
+      mStalk: '#0C3A3A', mLit: '#3A9A8C', mNode: '#06252A', mRing: '#2B7A70', mLeaf: '#0A3434', mLeaf2: '#10494A',
+      sasa: '#082C2D', sasaLit: '#1D5E58',
+      nStalk: '#052124', nShade: '#03171A', nLit: '#5FD3BF', nNode: '#021416', nRing: '#2A6E66', nLeaf: '#041C1F', nLeaf2: '#0A2D30',
+      nSasa: '#031A1C', nSasaLit: '#145048', lamp: '#FFC45A', lampFrame: '#1E140C', lampGlow: ['#FFB347', 0.55],
+      glowGold: ['#FFCF5A', 0.85], gold: '#FFE07A', goldCore: '#FFF9E0', spark: ['#FFF3C4', 0.95],
+      ground: '#0A1A1C', groundEdge: '#0F2629',
+    },
+    seasons: {
+      // in spring some sprays turn yellow-green (竹の秋, the bamboo's own autumn) and shoots come up
+      spring: {
+        light: { fLeaf2: '#D4ECA2', mLeaf2: '#A9D455', nLeaf2: '#8CBE45', shoot: '#8C5A3A', shootTip: '#C99A62' },
+        dark: { shoot: '#2B1F18', shootTip: '#4C3826' },
+      },
+      autumn: { light: { shaft: ['#FFD27A', 0.36], mist: ['#FFE6B0', 0.32] } },
+      winter: {
+        light: { fSnow: '#FFFFFF', mSnow: '#FFFFFF', nSnow: '#FFFFFF', sasaSnow: '#FFFFFF', mist: ['#F4FAFF', 0.34], shaft: ['#FFF3C4', 0.32] },
+        dark: { fSnow: '#6F9EA3', mSnow: '#B7DEE0', nSnow: '#D3EEEF', sasaSnow: '#B7DEE0' },
+      },
     },
     make() {
-      const grove = (seed, tw, n, w, bk, nk, lk, lean, leafy) => layer(seed, tw, 40, [bk, nk, lk], (P, R) => {
-        for (let k = 0; k < n; k++) {
-          if (R() < 0.15) continue;
-          stalk(P, R, ((k + 0.2 + R() * 0.6) * tw) / n, w * (0.85 + R() * 0.3), (R() - 0.5) * lean, leafy);
-        }
-      });
       return {
         stars: starLayer(21, 6, -60, 60),
-        b1: grove(22, 150, 5, 3.4, 'b1', 'n1', 'l1', 10, 0.9),
-        shafts: layer(23, 260, 160, [], (P, R, i, items) => {
-          items.push({ x: R() * 260, w: 14 + R() * 16, ph: R() * TAU });
+        b1: layer(22, 300, 40, ['fStalk', 'fNode', 'fLeaf', 'fLeaf2', 'fSnow'], (P, R, i, items, tw) => {
+          for (let k = 0; k < 9; k++) {
+            if (R() < 0.12) continue;
+            stalk(P, R, ((k + 0.2 + R() * 0.6) * tw) / 9, 2.8 + R() * 1.6, (R() - 0.5) * 10, 0.35, GROVE_FAR);
+          }
+        }),
+        // the light at the foot of the far stalks, in two bands like sheets of tracing paper
+        mist: layer(26, 400, 4, ['mist', 'mist'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 26, 132, 12, 90, 10);
+          ridge(P[1], i, tw, 27, 152, 8, 70, 10);
+        }),
+        shafts: layer(23, 260, 170, [], (P, R, i, items) => {
+          items.push({ x: R() * 260, w: 8 + R() * 9, ph: R() * TAU });
         }, (ctx, items) => {
-          if (!F.C.shaft) return;
-          ctx.fillStyle = F.C.shaft;
+          if (!setFill(ctx, 'shaft')) return;
+          const a = ctx.globalAlpha;
           for (let q = 0; q < items.length; q++) {
             const s = items[q];
-            ctx.globalAlpha = F.A.shaft * (0.55 + 0.45 * Math.sin(F.t * 0.35 + s.ph));
-            ctx.beginPath();
-            ctx.moveTo(s.x, F.top - 4);
-            ctx.lineTo(s.x + s.w, F.top - 4);
-            ctx.lineTo(s.x + s.w * 2.4 + 70, G);
-            ctx.lineTo(s.x + 70, G);
-            ctx.closePath();
-            ctx.fill();
+            const k = a * (0.6 + 0.4 * Math.sin(F.t * 0.35 + s.ph));
+            // a wide faint beam round a brighter core
+            ctx.globalAlpha = k * 0.5;
+            groveBeam(ctx, s.x, s.w * 2.1);
+            ctx.globalAlpha = k;
+            groveBeam(ctx, s.x, s.w);
           }
           ctx.globalAlpha = 1;
         }),
-        b2: grove(24, 170, 3, 7, 'b2', 'n2', 'l2', 14, 0.7),
-        b3: grove(25, 300, 1, 12, 'b3', 'n3', 'l3', 18, 0.5),
+        b2: layer(24, 336, 40, ['mStalk', 'mLit', 'mNode', 'mRing', 'mLeaf', 'mLeaf2', 'mSnow', 'sasa', 'sasaLit', 'sasaSnow'], (P, R, i, items, tw) => {
+          for (let k = 0; k < 5; k++) {
+            if (R() < 0.12) continue;
+            stalk(P, R, ((k + 0.2 + R() * 0.6) * tw) / 5, 6.4 + R() * 2.4, (R() - 0.5) * 14, 0.6, GROVE_MID);
+          }
+          bambooGrass(P[7], P[8], P[9], i, tw, 24, 157, 6);
+        }),
+        b3: layer(25, 280, 60, ['nStalk', 'nShade', 'nLit', 'nNode', 'nRing', 'nLeaf', 'nLeaf2', 'nSnow', 'shoot', 'shootTip', 'nSasa', 'nSasaLit', 'lamp', 'lampFrame'],
+          (P, R, i, items, tw) => {
+            const x = 30 + R() * (tw - 60);
+            stalk(P, R, x, 14 + R() * 4, (R() - 0.5) * 18, 0.75, GROVE_NEAR);
+            if (R() < 0.4) stalk(P, R, wrap(x + 100 + R() * 80, tw), 9 + R() * 3, (R() - 0.5) * 14, 0.6, GROVE_NEAR);
+            if (R() < 0.8) bambooShoot(P[8], P[9], x + (R() < 0.5 ? -1 : 1) * (14 + R() * 10), 10 + R() * 8);
+            bambooClump(P[10], P[11], R, x);
+            if (R() < 0.7) {
+              const lx = wrap(x + 60 + R() * (tw - 120), tw);
+              bambooAndon(P[12], P[13], lx);
+              items.push({ x: lx, y: G - 21, ph: R() * TAU });
+            }
+          }, (ctx, items) => {
+            // by night the lanterns glow, and flicker a little
+            if (!F.dark) return;
+            for (let q = 0; q < items.length; q++) {
+              const it = items[q];
+              glow(ctx, it.x, it.y, 24, 'lampGlow', 0.85 + 0.15 * Math.sin(F.t * 2.3 + it.ph));
+            }
+          }),
       };
     },
     paint(ctx, f, L) {
@@ -852,46 +908,183 @@
       const sy = 30 - 10 * Math.sin(Math.PI * f.pj);
       celestial(ctx, sx, sy, 12);
       drawLayer(ctx, L.b1, f.scroll * 0.12);
+      drawLayer(ctx, L.mist, f.scroll * 0.2);
       drawLayer(ctx, L.shafts, f.scroll * 0.25);
       drawLayer(ctx, L.b2, f.scroll * 0.42);
-      // the finishing touch: one stalk that glows from inside, as in the tale of Kaguya-hime
-      if (f.fin > 0) {
-        const kx = f.W * (1.06 - 0.24 * f.fin);
-        glow(ctx, kx, 134, 34, 'glowGold', f.fin);
-        rect(ctx, 'b2', kx - 3.6, F.top - 2, 7.2, G - F.top + 3);
-        rect(ctx, 'n2', kx - 4, 102, 8, 1.6);
-        rect(ctx, 'gold', kx - 3.4, 104, 6.8, 40);
-        glow(ctx, kx, 124, 12, 'glowGold', f.fin);
-      }
+      const kx = f.W * (1.06 - 0.24 * f.fin);
+      if (f.fin > 0) kaguyaStalk(ctx, kx, f.fin);
       drawLayer(ctx, L.b3, f.scroll * 0.95);
+      if (f.fin > 0) kaguyaLight(ctx, kx, f.fin, f.still);
       ground(ctx, 'groundEdge');
       seasonal(ctx);
       hanamaru(ctx, sx, sy, 21, f.fin);
     },
   });
-  // A bamboo stalk from the ground up out of the picture, with its rings and sprays of leaves.
-  function stalk(P, R, x, w, lean, leafy) {
+  // A bamboo stalk from the ground up out of the picture: lit down its left side and shaded
+  // down its right, its rings each with the pale bloom under it, and sprays of leaves.
+  // I gives the role of each part: [stalk, shade, lit, ring, bloom, leaf, leaf2, snow], -1 for none.
+  function stalk(P, R, x, w, lean, leafy, I) {
     const top = -100;
     const at = (y) => x + (lean * (G - y)) / (G - top);
-    P[0].moveTo(x - w / 2, G + 1);
-    P[0].lineTo(at(top) - w * 0.42, top);
-    P[0].lineTo(at(top) + w * 0.42, top);
-    P[0].lineTo(x + w / 2, G + 1);
-    P[0].closePath();
+    const strip = (p, a, b) => {
+      p.moveTo(x + w * (a - 0.5), G + 1);
+      p.lineTo(at(top) + w * 0.84 * (a - 0.5), top);
+      p.lineTo(at(top) + w * 0.84 * (b - 0.5), top);
+      p.lineTo(x + w * (b - 0.5), G + 1);
+      p.closePath();
+    };
+    strip(P[I[0]], 0, 1);
+    if (I[1] >= 0) strip(P[I[1]], 0.64, 1);
+    if (I[2] >= 0) strip(P[I[2]], 0.12, 0.34);
     let y = G - 14 - R() * 22;
     while (y > top + 8) {
       const cx = at(y);
-      P[1].rect(cx - w * 0.6, y, w * 1.2, Math.max(1.2, w * 0.18));
-      if (y < 70 && R() < leafy) {
-        const side = R() < 0.5 ? -1 : 1;
-        const n = 3 + Math.floor(R() * 3);
-        for (let k = 0; k < n; k++) {
-          const ang = (side > 0 ? 0.35 : Math.PI - 0.35) + side * (k * 0.32 - 0.2) + (R() - 0.5) * 0.3;
-          leaf(P[2], cx + side * w * 0.4, y + 1, 9 + R() * 7 + w * 0.6, ang, 1.4 + w * 0.12);
+      const ww = w * (1 - (0.16 * (G - y)) / (G - top));
+      const nh = Math.max(1.1, w * 0.13);
+      P[I[3]].rect(cx - ww * 0.58, y, ww * 1.16, nh);
+      if (I[4] >= 0) P[I[4]].rect(cx - ww * 0.5, y + nh, ww, Math.max(0.7, w * 0.07));
+      if (y < 56 && y > -86 && R() < leafy) {
+        const s = R() < 0.5 ? -1 : 1;
+        const len = 6 + w * 1.4 + R() * 5;
+        const ox = cx + s * ww * 0.45;
+        bambooSpray(P[I[R() < 0.4 ? 6 : 5]], R, ox, y + 1, s, 3 + Math.floor(R() * 3), len);
+        if (I[7] >= 0) {
+          // a lump of snow lying on the top of the spray
+          const ex = ox + s * len * 0.3;
+          const ey = y + len * 0.1 - 1.2;
+          const rx = len * 0.26;
+          const rot = s * 0.38;
+          P[I[7]].moveTo(ex + Math.cos(rot) * rx, ey + Math.sin(rot) * rx);
+          P[I[7]].ellipse(ex, ey, rx, 1.5 + w * 0.1, rot, 0, TAU);
         }
       }
       y -= 24 + R() * 14;
     }
+  }
+  // A spray of bamboo leaves from (x, y) to the side s (1 right, -1 left), drooping, cut as one
+  // shape: n narrow pointed leaves joined near the stalk.
+  function bambooSpray(p, R, x, y, s, n, len) {
+    const a0 = s > 0 ? 0.45 : Math.PI - 0.45;
+    p.moveTo(x, y);
+    for (let k = 0; k < n; k++) {
+      const a = a0 + (k - (n - 1) / 2) * 0.32 + (R() - 0.5) * 0.12;
+      const l = len * (0.8 + R() * 0.35);
+      const b = l * 0.4;
+      p.lineTo(x + Math.cos(a - 0.17) * b, y + Math.sin(a - 0.17) * b);
+      p.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l);
+      p.lineTo(x + Math.cos(a + 0.17) * b, y + Math.sin(a + 0.17) * b);
+    }
+    p.closePath();
+  }
+  // Bamboo grass (笹) along the foot of the grove: a band whose top edge is a run of broad leaf
+  // tips, the same where two tiles meet (tw a multiple of 12); some tips catch the light, and in
+  // winter snow lies on some.
+  function bambooGrass(p, lit, snow, i, tw, seed, base, amp) {
+    const x0 = i * tw;
+    p.moveTo(0, G + 2);
+    let x = 0;
+    for (; x <= tw; x += 12) {
+      const y = base - amp * hills(seed, x0 + x, 46);
+      const tip = y - 4 - 6 * hash(seed, x0 + x);
+      const tx = x + 5 + 2 * hash(seed + 2, x0 + x);
+      p.lineTo(x, y + 2);
+      p.lineTo(tx, tip);
+      const h = hash(seed + 1, x0 + x);
+      if (h < 0.2) tri(lit, x + 1.5, y + 1.6, tx, tip, tx + 1.5, y + 1);
+      if (h > 0.6) tri(snow, tx - 2.4, tip + 3.8, tx, tip - 0.4, tx + 2.2, tip + 4);
+    }
+    p.lineTo(x - 6, G + 2);
+    p.closePath();
+  }
+  // A clump of bamboo grass at the foot of a stalk: leaves fanning up and out.
+  function bambooClump(p, lit, R, x) {
+    const n = 6 + Math.floor(R() * 3);
+    for (let k = 0; k < n; k++) {
+      const u = k / (n - 1);
+      const ang = -Math.PI + 0.35 + u * (Math.PI - 0.7) + (R() - 0.5) * 0.2;
+      const len = (13 + R() * 9) * (1 - 0.35 * Math.abs(u - 0.5));
+      leaf(k % 3 === 1 ? lit : p, x + (u - 0.5) * 12, G + 1, len, ang, 2.6);
+    }
+  }
+  // A bamboo shoot (筍) coming up: a cone of brown sheaths.
+  function bambooShoot(p, tip, x, h) {
+    tri(p, x - h * 0.34, G + 1, x + h * 0.04, G - h, x + h * 0.34, G + 1);
+    tri(tip, x - h * 0.3, G - h * 0.12, x - h * 0.02, G - h * 0.78, x + h * 0.08, G - h * 0.2);
+    tri(tip, x + h * 0.02, G + 1, x + h * 0.24, G - h * 0.42, x + h * 0.34, G + 1);
+  }
+  // A paper lantern (行灯) on a short post along the path, lit at night.
+  function bambooAndon(paper, frame, x) {
+    paper.rect(x - 4.6, G - 27.2, 9.2, 12);
+    frame.rect(x - 1.3, G - 14, 2.6, 15);
+    frame.rect(x - 5.2, G - 15.4, 10.4, 1.8);
+    frame.rect(x - 6.2, G - 29.6, 12.4, 2.4);
+    frame.rect(x - 0.45, G - 27.2, 0.9, 12);
+  }
+  // A beam of light slanting down through the grove from x at the top, hw half wide there.
+  function groveBeam(ctx, x, hw) {
+    const y0 = F.top - 4;
+    ctx.beginPath();
+    ctx.moveTo(x - hw, y0);
+    ctx.lineTo(x + hw, y0);
+    ctx.lineTo(x + 84 + hw * 2.2, G);
+    ctx.lineTo(x + 84 - hw * 2.2, G);
+    ctx.closePath();
+    ctx.fill();
+  }
+  // The finishing touch: one stalk that glows from inside, as in the tale of Kaguya-hime, comes
+  // in from the right among the middle stalks (k: how far the finale has come)...
+  function kaguyaStalk(ctx, x, k) {
+    glow(ctx, x, 124, 66, 'glowGold', 0.8 * k);
+    rect(ctx, 'mStalk', x - 3.8, F.top - 2, 7.6, G - F.top + 3);
+    rect(ctx, 'mLit', x - 2.8, F.top - 2, 1.7, G - F.top + 3);
+    rect(ctx, 'mNode', x - 4.4, 98, 8.8, 2.4);
+    rect(ctx, 'mNode', x - 4.4, 148, 8.8, 2.4);
+    if (setFill(ctx, 'gold')) {
+      ctx.globalAlpha *= k;
+      ctx.fillRect(x - 3.8, 100.4, 7.6, 47.6);
+    }
+    if (setFill(ctx, 'goldCore')) {
+      ctx.globalAlpha *= k;
+      ctx.fillRect(x - 1.6, 106, 3.2, 36);
+    }
+    ctx.globalAlpha = 1;
+  }
+  // ...and its light, drawn over the near stalks: thin rays from the glowing joint and sparks
+  // twinkling round it.
+  function kaguyaLight(ctx, x, k, still) {
+    const y = 124;
+    if (setFill(ctx, 'spark')) {
+      ctx.globalAlpha *= k;
+      const turn = still ? 0 : F.t * 0.2;
+      ctx.beginPath();
+      for (let r = 0; r < 4; r++) {
+        const a = turn + (r * Math.PI) / 4;
+        const c = Math.cos(a);
+        const s = Math.sin(a);
+        const len = r % 2 ? 26 : 40;
+        ctx.moveTo(x + c * len, y + s * len);
+        ctx.lineTo(x - s * 1.3, y + c * 1.3);
+        ctx.lineTo(x - c * len, y - s * len);
+        ctx.lineTo(x + s * 1.3, y - c * 1.3);
+        ctx.closePath();
+      }
+      for (let q = 0; q < 6; q++) {
+        const ang = hash(q, 611) * TAU;
+        const d = 16 + 18 * hash(q, 612);
+        const tw = Math.abs(Math.sin(F.t * (1.2 + hash(q, 613)) + q * 2.1));
+        const r = (2.4 + 2.4 * hash(q, 614)) * (0.4 + 0.6 * tw);
+        const px = x + Math.cos(ang) * d;
+        const py = y + Math.sin(ang) * d * 1.4;
+        ctx.moveTo(px, py - r);
+        ctx.quadraticCurveTo(px, py, px + r, py);
+        ctx.quadraticCurveTo(px, py, px, py + r);
+        ctx.quadraticCurveTo(px, py, px - r, py);
+        ctx.quadraticCurveTo(px, py, px, py - r);
+      }
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    glow(ctx, x, y, 22, 'glowGold', k);
   }
 
   // ----- 海: the sea, Hokusai's waves, sails and gulls, a lighthouse ahead -----
@@ -1080,89 +1273,116 @@
   }
 
   // ----- 富士: Mt Fuji over a lake; the sun sets onto its summit (Diamond Fuji) -----
+  // Fuji under a deep blue sky, lit down its west ridge, its snow shaded on the east; wooded
+  // hills at its foot, a village on the far shore, the lake with Fuji upside down in it, and on
+  // this side pines and a tree (a cherry in spring, gold in autumn, bare in winter). As the
+  // round goes on the sky turns to sunset and the sun comes down onto the summit: Fuji darkens
+  // against it, rimmed with gold, and the sun bursts into rays. By night the full moon comes
+  // down onto it (Pearl Fuji) over the village's lit windows.
+  const FUJI_UNIT = {};
   scene({
     id: 'fuji', ja: '富士', en: 'Mt Fuji', stillT: 4,
-    sky: { light: ['#D9E6F4', '#E8EEF4', '#F6F0E6'], dark: ['#0B1127', '#111933', '#1A2341'], dusk: ['#E3DCEE', '#F2E1DE', '#FAE6D2'] },
+    sky: {
+      light: ['#1E4FC4', '#4F8EE6', '#A6D3F6', '#FFF1D2'],
+      dark: ['#030722', '#0B1550', '#22307E', '#4B3C8C'],
+      dusk: ['#3B37A8', '#9558CC', '#FF8CA6', '#FFCF7E'],
+    },
     light: {
-      fuji: '#C1CDE5', fujiShade: '#B5C2DD', cap: '#F7F8FC', fujiRef: ['#B8C6DE', 0.35], cloud: ['#FFFFFF', 0.65],
-      r1: '#CDD8E8', r2: '#C3D3DF', lake: '#D9E6EF', lakeLine: ['#F6F9FB', 0.9], pine: '#BACCC8', pine2: '#B0C4C1', trunk: '#C9BFB3',
-      crane: ['#8F9AB4', 0.7], ray: ['#FFF4D8', 0.8], ground: '#F0EFE7', groundEdge: '#E6E5DA',
+      fuji: '#4C6BD1', fujiShade: '#3651B4', fujiLit: '#8FA8F0', cap: '#FFFFFF', capShade: '#C9D8F6',
+      fujiDusk: ['#2E2A7C', 0.62], fujiGold: ['#FFE590', 0.95], fujiRef: ['#3D5BC4', 0.45], capRef: ['#FFFFFF', 0.55],
+      cloud: ['#FFFFFF', 0.95], cloudShade: ['#B7CBF0', 0.9], r1: '#18695E', r1Lit: '#3E9A7C',
+      wallT: '#F8F4EA', roofT: '#2C3A72', torii: '#E2452B', toriiRef: ['#E2452B', 0.4],
+      lakeHi: '#A4D6F6', lake: '#4C94DF', lakeDuskHi: '#FFC98A', lakeDusk: '#8B66CC', lakeLine: ['#FFFFFF', 0.85], glint: ['#FFF3C6', 0.95],
+      trunk: '#5B3A2A', pineDark: '#0C4A3B', pine: '#176450', pineLit: '#3C9A6C', crown: '#3A9F58', crownLit: '#6CC870',
+      reed: '#13574A', reedLit: '#2E8A62', crane: ['#1B2440', 0.7], ray: ['#FFF7DA', 0.95], diamond: ['#FFF0A8', 0.9],
+      ground: '#F4F5EA', groundEdge: '#DCE6D0',
     },
     dark: {
-      fuji: '#1A223E', fujiShade: '#161D36', cap: '#2D3759', fujiRef: ['#2D3759', 0.3], cloud: ['#1F2846', 0.6],
-      r1: '#141B33', r2: '#11182D', lake: '#131B32', lakeLine: ['#2E3A5E', 0.8], pine: '#0E1528', pine2: '#0C1224', trunk: '#141A2E',
-      crane: ['#4C587C', 0.7], ray: ['#F0E6C8', 0.5], ground: '#141A2D', groundEdge: '#161D33',
+      fuji: '#27377F', fujiShade: '#1B2867', fujiLit: '#3A4E9E', cap: '#DCE6FF', capShade: '#9FB2EC',
+      fujiGold: ['#FFE6A6', 0.85], fujiRef: ['#2B3C8C', 0.5], capRef: ['#C9D6FF', 0.42],
+      cloud: ['#2B3572', 0.85], cloudShade: ['#1A2258', 0.85], r1: '#0F1946', r1Lit: '#22306E',
+      wallT: '#1C2357', roofT: '#0C1234', winGlow: ['#FFB547', 0.28], winT: ['#FFD27A', 1], winRef: ['#FFB547', 0.6],
+      torii: '#6A2A3E', toriiRef: ['#6A2A3E', 0.45],
+      lakeHi: '#28398A', lake: '#0B1343', lakeLine: ['#5869BE', 0.6], glint: ['#FFE6A8', 0.85],
+      trunk: '#080C22', pineDark: '#050820', pine: '#0A1131', pineLit: '#25336E', crown: '#0D1638', crownLit: '#22306A',
+      reed: '#060A22', reedLit: '#18224E', crane: ['#AEBCF2', 0.55], ray: ['#FFF0C8', 0.8], diamond: ['#FFF0C0', 0.55],
+      ground: '#0E1430', groundEdge: '#141C42',
+    },
+    seasons: {
+      spring: { light: { crown: '#F5A3BF', crownLit: '#FFD3E1' }, dark: { crown: '#4E2F62', crownLit: '#7C4F8C' } },
+      autumn: { light: { crown: '#E3A53A', crownLit: '#F7CF63', r1Lit: '#C8963A' }, dark: { crown: '#2A2140', crownLit: '#4A3A50' } },
+      winter: {
+        light: { crown: '', crownLit: '', boughSnow: '#FFFFFF', pineSnow: '#FFFFFF', r1Lit: '#F2F6FF', reedLit: '#E8F0FF' },
+        dark: { crown: '', crownLit: '', boughSnow: '#C3D0F2', pineSnow: '#C3D0F2', r1Lit: '#7E8EC8' },
+      },
     },
     make() {
       return {
-        stars: starLayer(41, 10, -60, 110),
-        streaks: layer(42, 520, 120, ['cloud'], (P, R) => {
+        stars: starLayer(41, 10, -60, 120),
+        streaks: layer(42, 520, 120, ['cloudShade', 'cloud'], (P, R) => {
           for (let k = 0; k < 2; k++) {
             const x = R() * 520;
-            const y = 30 + R() * 60;
-            const w = 60 + R() * 80;
-            ell(P[0], x, y, w / 2, 2.2 + R() * 1.6);
-            ell(P[0], x + w * 0.2, y - 3, w / 3, 1.8);
+            const y = 26 + R() * 56;
+            const w = 60 + R() * 90;
+            const h = 2.6 + R() * 1.8;
+            fujiStreak(P[0], x + 3, y + h * 0.9, w, h);
+            fujiStreak(P[1], x, y, w, h);
+            fujiStreak(P[1], x + w * 0.16, y - h * 1.1, w * 0.62, h * 0.9);
           }
         }),
-        r1: layer(43, 400, 4, ['r1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 43, 146, 20, 160, 10)),
+        r1: layer(43, 400, 4, ['r1', 'r1Lit'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 43, 146, 20, 160, 16);
+          // its sunlit crest, along the same line
+          const y = (x) => ridgeY(i, tw, x, 43, 146, 20, 160);
+          P[1].moveTo(0, y(0));
+          for (let x = 16; x <= tw + 1; x += 16) P[1].lineTo(x, y(x));
+          P[1].lineTo(tw + 1, y(tw + 1));
+          for (let x = Math.floor((tw + 1) / 16) * 16; x >= 0; x -= 16) P[1].lineTo(x, y(x) + 1.8);
+          P[1].closePath();
+        }),
+        town: layer(46, 460, 30, ['wallT', 'roofT', 'winGlow', 'winT', 'winRef', 'toriiRef', 'torii'], (P, R) => {
+          const x = 30 + R() * 300;
+          if (R() < 0.7) fujiTown(P, R, x, 3 + Math.floor(R() * 4));
+          // now and then a torii standing in the water off the shore, and its reflection
+          if (R() < 0.45) fujiTorii(P[6], P[5], x + 90 + R() * 40);
+        }),
         lakeLines: layer(44, 260, 30, ['lakeLine'], (P, R) => {
-          for (let k = 0; k < 6; k++) ell(P[0], R() * 260, 152 + R() * 14, 6 + R() * 14, 0.6);
+          for (let k = 0; k < 6; k++) {
+            const w = 6 + R() * 14;
+            P[0].rect(R() * 260 - w, 152 + R() * 12, w * 2, 1.1);
+          }
         }),
-        shore: layer(45, 520, 60, ['trunk', 'pine2', 'pine'], (P, R) => {
-          if (R() < 0.55) pine(P, R, 60 + R() * 400, G, 0.8 + R() * 0.4);
-          if (R() < 0.3) pine(P, R, 60 + R() * 400, G, 0.6 + R() * 0.3);
-        }),
+        shore: layer(45, 520, 60, ['trunk', 'boughSnow', 'crown', 'crownLit', 'pineDark', 'pine', 'pineLit', 'pineSnow', 'reed', 'reedLit'],
+          (P, R, i, items, tw) => {
+            if (R() < 0.55) fujiTree(P, R, 40 + R() * 440, 0.8 + R() * 0.35);
+            if (R() < 0.6) fujiPine(P, R, 60 + R() * 400, 0.85 + R() * 0.4);
+            if (R() < 0.3) fujiPine(P, R, 60 + R() * 400, 0.6 + R() * 0.3);
+            fujiReeds(P[8], P[9], R, i, tw, 45);
+          }),
       };
     },
     paint(ctx, f, L) {
+      // the still frame of the finale has the sun already on the summit
+      const pj = f.still && f.fin > 0 ? 1 : f.pj;
+      const dusk = f.dark ? 0 : smooth(0.4, 1, pj);
       skyFill(ctx, 'sky');
-      if (!f.dark) skyFill(ctx, 'dusk', 0.9 * smooth(0.3, 1, f.pj));
       if (f.dark) drawLayer(ctx, L.stars, f.scroll * 0.02);
-      const hw = Math.min(205, f.W * 0.28) * (0.9 + 0.14 * f.pj);
+      drawLayer(ctx, L.streaks, f.scroll * 0.03 + f.t * 1.5);
+      if (dusk > 0) skyFill(ctx, 'dusk', 0.9 * dusk);
+      const hw = Math.min(205, f.W * 0.28) * (0.9 + 0.14 * pj);
       const fx = f.W * 0.6;
       const base = 148;
       const summit = base - 0.512 * hw;
       // the sun (or the full moon) comes down onto the summit at the end of the round
-      const k = ease(f.pj);
-      const sx = lerp(f.W * 0.16, fx, k);
-      const sy = lerp(36, summit - 1, f.pj) - 22 * Math.sin(Math.PI * f.pj);
+      const sx = lerp(f.W * 0.16, fx, ease(pj));
+      const sy = lerp(36, summit - 1, pj) - 22 * Math.sin(Math.PI * pj);
       celestial(ctx, sx, sy, 12);
-      drawLayer(ctx, L.streaks, f.scroll * 0.03 + f.t * 1.5);
-      fuji(ctx, fx, base, hw);
-      if (f.fin > 0) {
-        // Diamond Fuji (or Pearl Fuji by night): rays from the summit
-        if (setFill(ctx, 'ray')) {
-          ctx.globalAlpha *= f.fin;
-          const turn = f.still ? 0 : f.t * 0.15;
-          ctx.beginPath();
-          for (let r = 0; r < 4; r++) {
-            const a = turn + (r * Math.PI) / 4;
-            const c = Math.cos(a);
-            const s = Math.sin(a);
-            const len = r % 2 ? 22 : 34;
-            ctx.moveTo(sx + c * len, sy + s * len);
-            ctx.lineTo(sx - s * 1.4, sy + c * 1.4);
-            ctx.lineTo(sx - c * len, sy - s * len);
-            ctx.lineTo(sx + s * 1.4, sy - c * 1.4);
-            ctx.closePath();
-          }
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        }
-      }
+      fujiPeak(ctx, fx, base, hw, dusk, smooth(0.7, 1, pj));
+      if (f.fin > 0) diamondFuji(ctx, f, sx, sy);
       birds(ctx, 'crane', 3, 6, 3, 78, 1.6, 40);
       drawLayer(ctx, L.r1, f.scroll * 0.06);
-      rect(ctx, 'lake', -1, 148, f.W + 2, G - 146);
-      // Fuji upside down in the lake
-      ctx.save();
-      ctx.beginPath();
-      ctx.rect(-1, 148, f.W + 2, G - 148);
-      ctx.clip();
-      ctx.translate(fx, 148);
-      ctx.scale(hw, -hw * 0.5);
-      fillP(ctx, 'fujiRef', U.fuji.body);
-      ctx.restore();
+      fujiLake(ctx, f, fx, hw, sx, dusk);
+      drawLayer(ctx, L.town, f.scroll * 0.07);
       drawLayer(ctx, L.lakeLines, f.scroll * 0.3 + f.t * 1.2);
       drawLayer(ctx, L.shore, f.scroll * 0.9);
       ground(ctx, 'groundEdge');
@@ -1170,6 +1390,272 @@
       hanamaru(ctx, sx, sy, 24, f.fin);
     },
   });
+  // Fuji for its own place: its body lit down the west ridge, the snow cap shaded on its east
+  // side; darkened against the sunset by dusk, and its summit rimmed with light at the end.
+  function fujiPeak(ctx, cx, base, hw, dusk, rim) {
+    if (!FUJI_UNIT.lit) fujiUnitPaths();
+    const cap = F.season === 'winter' ? U.fuji.capWinter : U.fuji.cap;
+    ctx.save();
+    ctx.translate(cx, base);
+    ctx.scale(hw, hw);
+    fillP(ctx, 'fuji', U.fuji.body);
+    fillP(ctx, 'fujiLit', FUJI_UNIT.lit);
+    fillP(ctx, 'fujiShade', U.fuji.shade);
+    fillP(ctx, 'cap', cap);
+    fillP(ctx, 'capShade', F.season === 'winter' ? FUJI_UNIT.capShadeWinter : FUJI_UNIT.capShade);
+    if (dusk > 0 && setFill(ctx, 'fujiDusk')) {
+      ctx.globalAlpha *= dusk;
+      ctx.fill(U.fuji.body);
+      ctx.globalAlpha = 1;
+    }
+    if (rim > 0 && F.C.fujiGold) {
+      ctx.strokeStyle = F.C.fujiGold;
+      ctx.globalAlpha = (F.A.fujiGold || 1) * rim;
+      ctx.lineWidth = 1.8 / hw;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.stroke(FUJI_UNIT.crown);
+      ctx.globalAlpha = 1;
+    }
+    ctx.restore();
+  }
+  // At unit size, like U.fuji: a lit band down the west ridge, the shaded east side of the snow
+  // (kept above the cap's ragged hem: one for the cap, one for winter's longer one), and the
+  // line of the summit and the top of both ridges for the rim of light.
+  function fujiUnitPaths() {
+    const lit = new Path2D();
+    lit.moveTo(-1, 0.02);
+    lit.quadraticCurveTo(-0.42, -0.14, -0.12, -0.5);
+    lit.lineTo(-0.108, -0.49);
+    lit.quadraticCurveTo(-0.412, -0.127, -0.996, 0.035);
+    lit.closePath();
+    const ridgeAt = (s) => [(1 - s) * (1 - s) * -1 + 2 * (1 - s) * s * -0.42 + s * s * -0.12, (1 - s) * (1 - s) * 0.02 + 2 * (1 - s) * s * -0.14 + s * s * -0.5];
+    const crown = new Path2D();
+    let q = ridgeAt(0.72);
+    crown.moveTo(q[0], q[1]);
+    for (let k = 1; k <= 6; k++) {
+      q = ridgeAt(0.72 + (0.28 * k) / 6);
+      crown.lineTo(q[0], q[1]);
+    }
+    crown.lineTo(-0.06, -0.515);
+    crown.lineTo(-0.02, -0.502);
+    crown.lineTo(0.03, -0.516);
+    for (let k = 6; k >= 0; k--) {
+      q = ridgeAt(0.72 + (0.28 * k) / 6);
+      crown.lineTo(-q[0], q[1]);
+    }
+    // the inner edge of U.fuji.shade, from its foot (t 0) to the summit (t 1)
+    const inner = (t) => [(1 - t) * (1 - t) * 0.3 + 2 * (1 - t) * t * 0.12 + t * t * 0.03, (1 - t) * (1 - t) * 0.02 + 2 * (1 - t) * t * -0.2 + t * t * -0.516];
+    const capShade = (sEnd) => {
+      const p = new Path2D();
+      p.moveTo(0.03, -0.516);
+      p.lineTo(0.12, -0.5);
+      for (let k = 1; k <= 6; k++) {
+        const r = ridgeAt(1 - ((1 - sEnd) * k) / 6);
+        p.lineTo(-r[0], r[1]);
+      }
+      const e = ridgeAt(sEnd);
+      let tb = 1;
+      while (tb > 0 && inner(tb - 0.01)[1] < e[1]) tb -= 0.01;
+      const xi = inner(tb)[0];
+      // a ragged lower edge across to the shade's inner edge, then up it
+      for (let k = 1; k <= 4; k++) p.lineTo(-e[0] + ((xi + e[0]) * k) / 5, e[1] + (k % 2 ? 0.012 : -0.004));
+      for (let k = 0; k <= 5; k++) {
+        const r = inner(tb + ((1 - tb) * k) / 5);
+        p.lineTo(r[0], r[1]);
+      }
+      p.closePath();
+      return p;
+    };
+    FUJI_UNIT.lit = lit;
+    FUJI_UNIT.crown = crown;
+    FUJI_UNIT.capShade = capShade(0.74);
+    FUJI_UNIT.capShadeWinter = capShade(0.6);
+  }
+  // A band of cloud cut from paper, long, flat and tapered, centred on (x, y).
+  function fujiStreak(p, x, y, w, h) {
+    const a = w / 2;
+    p.moveTo(x - a, y + h * 0.2);
+    p.lineTo(x - a * 0.8, y - h * 0.7);
+    p.lineTo(x - a * 0.45, y - h);
+    p.lineTo(x + a * 0.5, y - h);
+    p.lineTo(x + a * 0.85, y - h * 0.6);
+    p.lineTo(x + a, y + h * 0.2);
+    p.lineTo(x + a * 0.75, y + h);
+    p.lineTo(x - a * 0.7, y + h);
+    p.closePath();
+  }
+  // Diamond Fuji (Pearl Fuji by night): the sun on the summit bursts into rays.
+  function diamondFuji(ctx, f, sx, sy) {
+    const k = f.fin;
+    glow(ctx, sx, sy, 64 * k, 'diamond', k);
+    if (!setFill(ctx, 'ray')) return;
+    ctx.globalAlpha *= k;
+    const turn = f.still ? 0 : f.t * 0.15;
+    ctx.beginPath();
+    for (let r = 0; r < 6; r++) {
+      const a = turn + (r * Math.PI) / 6;
+      const c = Math.cos(a);
+      const s = Math.sin(a);
+      const len = (r % 3 === 0 ? 52 : r % 3 === 1 ? 26 : 36) * (0.7 + 0.3 * k);
+      const wid = r % 3 === 0 ? 2 : 1.4;
+      ctx.moveTo(sx + c * len, sy + s * len);
+      ctx.lineTo(sx - s * wid, sy + c * wid);
+      ctx.lineTo(sx - c * len, sy - s * len);
+      ctx.lineTo(sx + s * wid, sy - c * wid);
+      ctx.closePath();
+    }
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  // The lake: lighter towards the far shore, the sunset on it as the round ends, Fuji upside
+  // down in it, and the path of light under the sun as it sets (under the moon by night).
+  function fujiLake(ctx, f, fx, hw, sx, dusk) {
+    const top = 148;
+    const K = F.K;
+    // its two gradients (by day and at sunset), made once per palette
+    const grad = (key, hi, lo) => {
+      if (K.grad[key] === undefined) {
+        K.grad[key] = null;
+        if (F.C[hi] && F.C[lo]) {
+          const g = ctx.createLinearGradient(0, top, 0, G);
+          g.addColorStop(0, F.C[hi]);
+          g.addColorStop(1, F.C[lo]);
+          K.grad[key] = g;
+        }
+      }
+      return K.grad[key];
+    };
+    ctx.fillStyle = grad('fujiLake', 'lakeHi', 'lake') || F.C.lake || F.C.ground;
+    ctx.fillRect(-1, top, f.W + 2, G - top + 2);
+    const sunset = dusk > 0 && grad('fujiLakeDusk', 'lakeDuskHi', 'lakeDusk');
+    if (sunset) {
+      ctx.globalAlpha = 0.9 * dusk;
+      ctx.fillStyle = sunset;
+      ctx.fillRect(-1, top, f.W + 2, G - top + 2);
+      ctx.globalAlpha = 1;
+    }
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(-1, top, f.W + 2, G - top);
+    ctx.clip();
+    ctx.translate(fx, top);
+    ctx.scale(hw, -hw * 0.15);
+    fillP(ctx, 'fujiRef', U.fuji.body);
+    fillP(ctx, 'capRef', F.season === 'winter' ? U.fuji.capWinter : U.fuji.cap);
+    ctx.restore();
+    const a = f.dark ? 1 : dusk;
+    if (a > 0 && setFill(ctx, 'glint')) {
+      const a0 = ctx.globalAlpha * a;
+      for (let k = 0; k < 5; k++) {
+        const w = (6 + k * 3.4) * (0.6 + 0.4 * Math.abs(Math.sin(f.t * 1.4 + k * 1.9)));
+        ctx.globalAlpha = a0 * (1 - k / 6);
+        ctx.fillRect(sx - w / 2 + Math.sin(f.t + k) * 1.5, top + 2 + k * 3.6, w, 1.3);
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+  // A village on the far shore: white walls and dark roofs; by night lit windows with a halo,
+  // their light drawn down into the lake.
+  function fujiTown(P, R, x, n) {
+    for (let k = 0; k < n; k++) {
+      const w = 5 + R() * 5;
+      const h = 3.2 + R() * 2.6;
+      P[0].rect(x, 148 - h, w, h + 0.6);
+      tri(P[1], x - 1, 148.3 - h, x + w / 2, 145.6 - h, x + w + 1, 148.3 - h);
+      if (R() < 0.75) {
+        const wx = x + w * (0.25 + R() * 0.4);
+        const wy = 148 - h * 0.72;
+        circ(P[2], wx + 0.8, wy + 0.8, 2.6);
+        P[3].rect(wx, wy, 1.6, 1.6);
+        // its light on the water, broken by ripples
+        const l = 2 + R() * 2;
+        P[4].rect(wx - 0.3, 149.4, 2.2, l);
+        P[4].rect(wx + 0.2, 150.6 + l, 1.2, 1 + R() * 2.4);
+      }
+      x += w + 1.5 + R() * 4;
+    }
+  }
+  // A small torii standing in the lake (its feet in the water at y 151), and its reflection.
+  function fujiTorii(p, ref, x) {
+    p.rect(x - 4.4, 141, 1.2, 10.4);
+    p.rect(x + 3.2, 141, 1.2, 10.4);
+    quad(p, x - 6.6, 139.2, x + 6.6, 139.2, x + 6, 141, x - 6, 141);
+    p.rect(x - 5.2, 143, 10.4, 0.9);
+    ref.rect(x - 4.4, 151.4, 1.2, 5.6);
+    ref.rect(x + 3.2, 151.4, 1.2, 5.6);
+    ref.rect(x - 5.2, 157.4, 10.4, 0.7);
+  }
+  // A pine (matsu) on the shore: a leaning trunk and flat pads of needles, each with its shadow
+  // under it, the light along its top, and in winter snow on it.
+  function fujiPine(P, R, x, s) {
+    const lean = (R() - 0.5) * 16 * s;
+    const h = 48 * s;
+    const t = P[0];
+    t.moveTo(x - 2.6 * s, G + 1);
+    t.quadraticCurveTo(x + lean * 0.2, G - h * 0.5, x + lean, G - h);
+    t.lineTo(x + lean + 2.4 * s, G - h);
+    t.quadraticCurveTo(x + lean * 0.2 + 3 * s, G - h * 0.5, x + 2.6 * s, G + 1);
+    t.closePath();
+    const n = 3 + Math.floor(R() * 2);
+    for (let k = 0; k < n; k++) {
+      const u = k / (n - 1);
+      const cx = x + lean * (0.45 + 0.55 * u) + (k % 2 ? 9 : -9) * s * (1 - u * 0.5);
+      const cy = G - h * (0.45 + 0.55 * u);
+      const a = (13 - 5 * u) * s;
+      const b = 4.8 * s;
+      fujiPoly(P[4], cx + 1.5 * s, cy + 1.2 * s, a * 0.95, b, FUJI_PAD[0]);
+      for (let q = 1; q < 4; q++) fujiPoly(P[4 + q], cx, cy, a, b, FUJI_PAD[q]);
+    }
+  }
+  // A pine's pad of needles cut from paper, at unit size (x across its half width, y down its
+  // height): the shadow under it, the pad, the light along its top, the snow on it.
+  const FUJI_PAD = [
+    [[-0.9, 0.3], [0.95, 0.3], [0.72, 0.95], [-0.6, 0.9]],
+    [[-1, 0.35], [-0.82, -0.32], [-0.45, -0.8], [0, -1], [0.48, -0.84], [0.86, -0.36], [1, 0.35], [0.5, 0.62], [-0.5, 0.6]],
+    [[-0.78, -0.28], [-0.42, -0.76], [0.04, -0.96], [0.36, -0.8], [-0.08, -0.56], [-0.54, -0.1]],
+    [[-0.74, -0.36], [-0.4, -0.86], [0, -1.12], [0.46, -0.92], [0.82, -0.42], [0.3, -0.6], [-0.3, -0.56]],
+  ];
+  function fujiPoly(p, cx, cy, a, b, pts) {
+    p.moveTo(cx + pts[0][0] * a, cy + pts[0][1] * b);
+    for (let k = 1; k < pts.length; k++) p.lineTo(cx + pts[k][0] * a, cy + pts[k][1] * b);
+    p.closePath();
+  }
+  // A broadleaf tree on the shore: a cherry in spring, green in summer, gold in autumn; in
+  // winter only its bare boughs, with snow along them.
+  function fujiTree(P, R, x, s) {
+    const h = 36 * s;
+    quad(P[0], x - 1.9 * s, G + 1, x + 1.9 * s, G + 1, x + 1.1 * s, G - h * 0.62, x - 1.1 * s, G - h * 0.62);
+    for (const d of [-1, 0, 1]) {
+      // a bough from the top of the trunk, and the snow along its upper side
+      const ex = x + d * 12 * s;
+      const ey = G - h * (d ? 0.9 : 1.02);
+      quad(P[0], x - 1.1 * s, G - h * 0.58, x + 1.1 * s, G - h * 0.58, ex + 0.7 * s, ey, ex - 0.7 * s, ey);
+      quad(P[1], x - 1.2 * s + d * 2 * s, G - h * 0.66, ex - 0.9 * s, ey - 1.2 * s, ex + 0.4 * s, ey - 1.6 * s, x + 0.4 * s + d * 2 * s, G - h * 0.7);
+    }
+    for (let k = 0; k < 6; k++) {
+      const a = (k / 6) * TAU + 0.3;
+      circ(P[2], x + Math.cos(a) * 9 * s, G - h * 0.92 + Math.sin(a) * 5.5 * s, (6.8 + R() * 2.6) * s);
+    }
+    circ(P[2], x, G - h * 0.95, 8.5 * s);
+    for (let k = 0; k < 2; k++) circ(P[3], x - 5 * s + k * 7 * s, G - h * (1.05 + k * 0.05), (3.4 + R() * 1.2) * s);
+  }
+  // This side of the lake: a low grassy bank, and clumps of reeds along it, one blade of each
+  // catching the light.
+  function fujiReeds(p, lit, R, i, tw, seed) {
+    ridge(p, i, tw, seed, 166, 3, 40, 20);
+    const n = 8;
+    for (let k = 0; k < n; k++) {
+      const cx = ((k + 0.15 + 0.7 * R()) * tw) / n;
+      const y = ridgeY(i, tw, cx, seed, 166, 3, 40) + 1.5;
+      const tall = 5 + 6 * R();
+      for (let b = 0; b < 3; b++) {
+        const bx = cx + (b - 1) * 2.4;
+        const lean = (b - 1) * 1.6 + (R() - 0.5) * 2;
+        tri(b === 1 ? lit : p, bx - 0.9, y, bx + lean, y - tall * (b === 1 ? 1 : 0.55 + 0.3 * R()), bx + 0.9, y);
+      }
+    }
+  }
   // A pine (matsu): a leaning trunk and flat layers of needles like clouds.
   function pine(P, R, x, base, s) {
     const lean = (R() - 0.5) * 16 * s;
