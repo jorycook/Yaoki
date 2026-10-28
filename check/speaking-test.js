@@ -32,7 +32,8 @@ async function waitFor(fn, ms = 5000) {
 // the listening recognition a result, as a phone's would (replace: the last result, still open, is written over);
 // __speech.emit([{ alts, final }]) hands it a whole list of results instead (as a browser sends them);
 // __speech.end() ends the listening as a browser does after a silence; __speech.refuse = 'not-allowed' refuses the next;
-// __speech.stopDelay: ms from stop() to the end (a phone first sends what it heard).
+// __speech.stopDelay: ms from stop() to the end (a phone first sends what it heard); __speech.startDelay: ms from
+// start() to listening (a phone asking for the microphone).
 const FAKE_SPEECH = `(function () {
   var S = window.__speech = { recs: [], log: [], active: null, refuse: '' };
   function Rec() { this.lang = ''; this.continuous = false; this.interimResults = false; this.maxAlternatives = 1; this.results = []; this.running = false; S.recs.push(this); }
@@ -41,7 +42,7 @@ const FAKE_SPEECH = `(function () {
     if (this.running) throw new Error('InvalidStateError');
     if (S.refuse) { var code = S.refuse; setTimeout(function () { self.onerror && self.onerror({ error: code }); self.onend && self.onend(); }, 5); return; }
     this.running = true; S.active = this; S.log.push('start');
-    setTimeout(function () { if (self.running) { self.onstart && self.onstart(); self.onaudiostart && self.onaudiostart(); } }, 5);
+    setTimeout(function () { if (self.running) { self.onstart && self.onstart(); self.onaudiostart && self.onaudiostart(); } }, S.startDelay || 5);
   };
   Rec.prototype.stop = function () {
     var self = this;
@@ -95,6 +96,23 @@ const MUSIC_STUB = 'window.__music = []; (function () { function rec(a) { window
   + ' setLevel: function (n) { rec("level:" + n); }, duck: function (x) { rec("duck"); }, cue: function (n) { rec("cue:" + n); }, volume: function () {}, state: function () { return {}; } };'
   + ' Object.defineProperty(window, "TypingMusic", { configurable: true, get: function () { return stub; }, set: function () {} }); })();';
 const CLOCK = 'window.__ykNow = new Date(2026, 9, 28, 10, 0, 0).getTime();';
+// The screen wake lock, recorded.
+const WAKE_STUB = `(function () {
+  window.__wake = [];
+  var api = { request: function (type) {
+    var lock = { type: type, released: false, fns: [], addEventListener: function (n, f) { this.fns.push(f); },
+      release: function () { if (!this.released) { this.released = true; window.__wake.push('release'); this.fns.forEach(function (f) { f(); }); } return Promise.resolve(); } };
+    window.__wake.push('request:' + type);
+    return Promise.resolve(lock);
+  } };
+  Object.defineProperty(navigator, 'wakeLock', { configurable: true, get: function () { return api; } });
+})();`;
+// A phone with speech synthesis but no Japanese voice.
+const NO_VOICE = `(function () {
+  var synth = { speaking: false, getVoices: function () { return []; }, cancel: function () {}, speak: function () {}, addEventListener: function () {} };
+  Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: function () { return synth; } });
+  window.SpeechSynthesisUtterance = function (text) { this.text = text; };
+})();`;
 
 (async () => {
   const browser = await chromium.launch();
@@ -313,7 +331,9 @@ const CLOCK = 'window.__ykNow = new Date(2026, 9, 28, 10, 0, 0).getTime();';
   }, 9000) && (await page.textContent('#say-line')).includes(t.romaji));
   await page.tap('#hear');
   await sleep(50);
-  const spoken = await page.evaluate(() => window.__spoken.slice());
+  const spokenAll = await page.evaluate(() => window.__spoken.slice());
+  const spoken = spokenAll.filter((x) => x.text.trim());
+  check('the phone\'s voice is woken, silently, by the tap on Start (an iPhone says nothing for a page until then)', spokenAll.length > 0 && !spokenAll[0].text.trim(), JSON.stringify(spokenAll));
   check('きく says the word in the phone\'s Japanese voice', spoken.length === 1 && spoken[0].text === t.reading && spoken[0].lang === 'ja-JP', JSON.stringify(spoken));
   await say(page, t.reading, { final: true });
   await sleep(100);
@@ -560,10 +580,13 @@ const CLOCK = 'window.__ykNow = new Date(2026, 9, 28, 10, 0, 0).getTime();';
   page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5 } }, ['window.__speechRefuse = true;']);
   await page.evaluate(() => { window.__speech.refuse = 'not-allowed'; });
   await page.tap('#start');
-  check('a microphone the player or the phone refuses is said so, with what to do', await waitFor(async () => /マイクが使えません/.test(await page.textContent('#mic-state')), 3000) && /Dictation/.test(await page.textContent('#mic-state')));
+  check('a microphone the player or the phone refuses: the round waits, and says so, with what to do', await waitFor(async () => (await state(page)).phase === 'paused' && (await page.isVisible('#pause-why')), 3000)
+    && /マイクが使えません/.test(await page.textContent('#pause-why')) && /Dictation/.test(await page.textContent('#pause-why')) && (await state(page)).cards.length === 0);
   await page.evaluate(() => { window.__speech.refuse = ''; });
-  await page.tap('#mic');
-  check('…a tap on the microphone tries again', await waitFor(async () => (await speech(page)).active, 2000));
+  await page.tap('#resume');
+  check('…continuing tries again', await waitFor(async () => (await speech(page)).active && (await state(page)).phase === 'play', 2000));
+  await page.tap('#pause');
+  check('…and an ordinary pause says no such thing', (await page.isVisible('#pause-sheet')) && !(await page.isVisible('#pause-why')));
   await page.context().close();
   page = await open({ noSpeech: true }, null, ['try { delete window.webkitSpeechRecognition; delete window.SpeechRecognition; } catch (e) {} Object.defineProperty(window, "webkitSpeechRecognition", { value: undefined, configurable: true }); Object.defineProperty(window, "SpeechRecognition", { value: undefined, configurable: true });']);
   check('without speech recognition the menu says which browsers have it, and does not start', (await page.isVisible('#no-speech')) && /Safari/.test(await page.textContent('#no-speech')) && (await page.isDisabled('#start')));
@@ -589,6 +612,72 @@ const CLOCK = 'window.__ykNow = new Date(2026, 9, 28, 10, 0, 0).getTime();';
   if (shots) await page.screenshot({ path: `${shots}/course-dark.png` });
   await page.context().close();
 
+  // ---- the phone around the game: the screen kept on, the microphone lost and found, a phone without a Japanese voice
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 10 } }, [WAKE_STUB, SFX_STUB]);
+  await page.evaluate(() => { window.__speech.startDelay = 1500; });
+  await page.tap('#start');
+  check('Falling: nothing falls before the phone listens (it may be asking for the microphone)', await (async () => {
+    await sleep(1000);
+    const x = await state(page);
+    return x.phase === 'play' && x.mic === 'starting' && !x.target && x.cards.every((c) => c.y < 0);
+  })());
+  check('…and things fall once it does', !!(await target(page, 8000)));
+  check('the screen is kept on during a round', (await page.evaluate(() => window.__wake.slice())).join() === 'request:screen');
+  await page.tap('#pause');
+  check('…and let go of in a pause', await waitFor(async () => (await page.evaluate(() => window.__wake.slice())).join() === 'request:screen,release', 1000));
+  await page.tap('#resume');
+  check('…and kept on again when the round goes on', await waitFor(async () => (await page.evaluate(() => window.__wake.slice())).join() === 'request:screen,release,request:screen', 1000));
+  // the browser takes the microphone away mid-round (a call), and will not give it back for now
+  await page.evaluate(() => { window.__speech.startDelay = 5; window.__speech.refuse = 'audio-capture'; window.__speech.end(); });
+  check('the microphone taken mid-round: the round waits, and says why', await waitFor(async () => (await state(page)).phase === 'paused' && /マイクがありません/.test(await page.textContent('#pause-why')), 3000));
+  const fallsThen = (await state(page)).falls;
+  await sleep(1500);
+  check('…nothing lands on Yaoki meanwhile', (await state(page)).falls === fallsThen && (await state(page)).phase === 'paused');
+  await page.evaluate(() => { window.__speech.refuse = ''; });
+  await page.tap('#resume');
+  check('…continuing listens again', await waitFor(async () => (await speech(page)).active && (await state(page)).phase === 'play', 2000));
+  // a card said while the one before is still doing its trick
+  await twoInView(page);
+  t = await target(page);
+  await say(page, 'ちがうことば', { final: true });
+  await sleep(80);
+  await say(page, t.reading, { final: true });
+  await sleep(100);
+  const t2 = await target(page, 3000);
+  if (t2) await say(page, t2.reading, { final: true });
+  check('a card said while the one before it is still doing its trick leaves no thing behind', !!t2 && await waitFor(async () => (await state(page)).cards.every((c) => c.state === 'live'), 3000), JSON.stringify((await state(page)).cards));
+  // the stage drawn again at once when its size changes, and the speed's time budget kept
+  const T0 = (await state(page)).T;
+  check('a change of the stage\'s size never leaves it blank for a frame', await page.evaluate(() => {
+    window.dispatchEvent(new Event('resize'));
+    const cv = document.getElementById('stage');
+    const px = cv.getContext('2d').getImageData(Math.floor(cv.width / 2), Math.floor(cv.height / 2), 1, 1).data;
+    return px[3] === 255;
+  }));
+  await page.evaluate(() => { document.querySelector('.stage-wrap').style.flex = '0 0 260px'; });
+  await sleep(200);
+  check('…and the speed is set once a round: a new size only fits it to the view', (await state(page)).T === T0, JSON.stringify({ T0, T: (await state(page)).T }));
+  await page.context().close();
+  page = await open({}, { [STORE]: { mode: 'kanji', stage: { kanji: 'jukugo' }, style: 'climb', len: 5, hints: 'never' } }, [NO_VOICE, SFX_STUB]);
+  await page.tap('#start');
+  t = await target(page);
+  await page.tap('#hear');
+  await sleep(80);
+  s = await state(page);
+  check('きく on a phone with no Japanese voice shows the reading, and counts as a hint', s.hints === 1 && s.target && s.target.readingShown && /no Japanese voice/.test(await page.textContent('#status')));
+  await say(page, t.reading, { final: true });
+  check('…so the card is cleared, but not clean', await waitFor(async () => (await state(page)).cleared === 1, 1500) && (await state(page)).clean === 0);
+  await page.context().close();
+  // a round started with the phone on its side waits, and its music with it
+  page = await open({ viewport: { width: 844, height: 390 } }, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5 } }, [SFX_STUB, MUSIC_STUB]);
+  await page.tap('#start');
+  check('a round started with the phone on its side waits, and its music does not start', await waitFor(async () => (await state(page)).phase === 'paused', 3000)
+    && !(await page.evaluate(() => window.__music.slice())).some((m) => /^start:/.test(m)), JSON.stringify(await page.evaluate(() => window.__music.slice())));
+  await page.setViewportSize({ width: 390, height: 664 });
+  await page.tap('#resume');
+  check('…upright, and continued, the music starts', await waitFor(async () => (await page.evaluate(() => window.__music.slice())).some((m) => /^start:/.test(m)), 2000));
+  await page.context().close();
+
   // ---- turned on its side, the round waits; reduced motion
   page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5 } });
   await page.tap('#start');
@@ -601,6 +690,13 @@ const CLOCK = 'window.__ykNow = new Date(2026, 9, 28, 10, 0, 0).getTime();';
   page = await open({ reducedMotion: 'reduce' }, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'climb', len: 5 } });
   await page.tap('#start');
   check('with reduced motion a round still plays through', await playOut(page, undefined, 30000) && (await state(page)).phase === 'result');
+  await page.context().close();
+  page = await open({ reducedMotion: 'reduce' }, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5 } });
+  await page.tap('#start');
+  t = await target(page);
+  await say(page, t.reading, { final: true });
+  await sleep(100);
+  check('with reduced motion a thing said is simply gone: no pieces fly', (await state(page)).cleared === 1 && (await state(page)).shards === 0);
   await page.context().close();
 
   // ---- a tablet held upright

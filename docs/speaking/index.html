@@ -153,7 +153,7 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
 .track { flex: 1; min-width: 30px; height: 12px; border-radius: 6px; background: var(--line); overflow: hidden; }
 .track i { display: block; width: 0%; height: 100%; border-radius: 0 6px 6px 0; background: var(--accent); transition: width 300ms; }
 .chip { flex-shrink: 0; height: 32px; padding: 0 8px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; font-variant-numeric: tabular-nums; }
-/* the clean run: a はなまる and the count; gold at 5, 10, 20 and 40 in a row, never red */
+/* the clean run: a はなまる and the count; gold at 5, 10 and 20 in a row, never red */
 .hm { stroke: var(--stamp); }
 .chip.zero { color: var(--muted); }
 .chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
@@ -161,15 +161,15 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
 .stage-wrap { position: relative; flex: 1; min-height: 220px; border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
 #stage { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
 /* what to say, and what the phone heard */
-.say { min-height: 64px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 2px; }
-.say-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin: 0; font-size: 14px; font-weight: 700; color: var(--muted); }
+.say { min-height: 70px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 2px; }
+.say-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin: 0; min-height: 20px; line-height: 20px; font-size: 14px; font-weight: 700; color: var(--muted); }
 .say-line .romaji { font-size: 15px; font-weight: 800; color: var(--accent-ink); letter-spacing: 0.02em; }
 .say-line .gloss { color: var(--muted); }
-.heard { margin: 0; min-height: 24px; font-size: 14px; font-weight: 700; color: var(--muted); overflow-wrap: anywhere; }
+.heard { margin: 0; min-height: 26px; line-height: 26px; font-size: 14px; font-weight: 700; color: var(--muted); overflow-wrap: anywhere; }
 .heard [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
 .heard.bad [lang="ja"] { color: var(--bad); }
 .heard.good [lang="ja"] { color: var(--good); }
-.status { min-height: 20px; margin: 0; font-size: 13px; font-weight: 800; }
+.status { min-height: 20px; line-height: 20px; margin: 0; font-size: 13px; font-weight: 800; }
 .status.bad { color: var(--bad); }
 .status.warn { color: var(--stamp); }
 /* the microphone: big and in reach of a thumb, with the listen and skip buttons beside it */
@@ -369,6 +369,7 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
         <li>The big button at the bottom shows when the phone is listening; tap it to stop or start. In Settings you can choose <b>hold to talk</b> instead.</li>
         <li>Under the game you see what the phone heard. If it heard something else, say it again: a word said right the first time, with no hint, gets a <b lang="ja">はなまる</b>, and <b lang="ja">連続</b> counts them in a row.</li>
         <li><b lang="ja">🔊 きく</b> says the word for you to copy (it counts as a hint). A card that waits for Yaoki can be skipped.</li>
+        <li>With a screen reader, choose <b>hold to talk</b> in Settings, so the phone does not hear the screen reader reading the card.</li>
       </ul>
     </aside>
 
@@ -483,6 +484,7 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
 <div id="pause-sheet" class="scrim" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pause-h">
     <h2 id="pause-h"><span lang="ja">一時停止</span>　<small>Paused</small></h2>
+    <p id="pause-why" class="notebox" hidden></p>
     <p class="hint">Nothing moves and nothing is heard while this is open. If you quit, the misses so far stay in your weak spots, and the round does not count for your best (<span lang="ja">自己ベスト</span>). Your speaking time so far still counts towards today's stamp.</p>
     <button type="button" id="resume" class="btn"><span lang="ja">つづける</span>　Continue</button>
     <button type="button" id="pause-settings" class="btn quiet"><span lang="ja">設定</span>　Settings</button>

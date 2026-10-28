@@ -3,7 +3,7 @@
  *
  * - Falling (ふってくる): things come down on Yaoki, each with a word on it, and saying the word breaks it (or Yaoki
  *   gets out of its way) before it lands on him. One that lands squashes him flat; he pops back up like the toy he is
- *   (七転び八起き) and it comes back later in the round, after about three other cards. One that has squashed him twice
+ *   (七転び八起き) and it comes back later in the round, after two other cards. One that has squashed him twice
  *   stops above him, on his umbrella, with its reading shown, and waits; the skip button passes it over.
  * - Climb (のぼる): ledges above Yaoki, each with a word on its sign; saying the word makes him jump up to it. There is
  *   no hurry. A word heard wrong and he slips back down, and gets up again; after two slips (or 20 seconds on a sign
@@ -17,7 +17,7 @@
  * the one before it needs; the speed is set once a round from the longest card.
  *
  * What it rewards is the same as Yaoki Typing's: saying it right the first time with no hint (a はなまる, and a clean
- * run, 連続, that Yaoki cheers at 5, 10, 20 and 40), getting up again (a card that knocked him over, said clean when it
+ * run, 連続, that Yaoki cheers at 5, 10 and 20), getting up again (a card that knocked him over, said clean when it
  * comes back, is stamped 起), weak spots (a gold corner) and showing up (a seven-day stamp card for a day's speaking
  * time, and three たいへんよくできました on three days for a stage's はなまる). None of it touches the learning data.
  *
@@ -357,9 +357,66 @@
   let startTicket = 0;
   let roundShownAt = -1e9;      // when the round's view came up (performance.now())
 
+  // The screen stays on during a round: a hands-free player may not touch the phone for minutes, and a phone that
+  // locks its screen stops the listening. The browser lets go of it by itself while the page is hidden.
+  let wakeLock = null;
+  let wakeWanted = false;
+  function keepAwake(on) {
+    wakeWanted = on;
+    const api = navigator.wakeLock;
+    if (!api || typeof api.request !== 'function') return;
+    if (on && !wakeLock && !document.hidden) {
+      wakeLock = 'asking';
+      let ask;
+      try {
+        ask = api.request('screen');
+      } catch (err) {
+        wakeLock = null;
+        return;
+      }
+      Promise.resolve(ask).then((lock) => {
+        if (!lock) {
+          wakeLock = null;
+          return;
+        }
+        if (!wakeWanted) {
+          wakeLock = null;
+          lock.release().catch(() => {});
+          return;
+        }
+        wakeLock = lock;
+        lock.addEventListener('release', () => {
+          if (wakeLock === lock) wakeLock = null;
+        });
+      }).catch(() => {
+        wakeLock = null;
+      });
+    } else if (!on && wakeLock && wakeLock !== 'asking') {
+      const lock = wakeLock;
+      wakeLock = null;
+      lock.release().catch(() => {});
+    }
+  }
+
+  // An iPhone or iPad says nothing for a page until it has spoken once in a tap: the first Start does that, silently,
+  // so the word said for the player can come by itself later in the round.
+  let voiceUnlocked = false;
+  function unlockVoice() {
+    if (voiceUnlocked || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
+    voiceUnlocked = true;
+    try {
+      const u = new window.SpeechSynthesisUtterance(' ');
+      u.volume = 0;
+      window.speechSynthesis.speak(u);
+    } catch (err) {
+      // no voice on this device
+    }
+  }
+
   async function startRound(weakOnly) {
     // always from a tap: the moment to wake the audio, and to start listening (a phone asks for the microphone then)
     wakeAudio();
+    unlockVoice();
     const ticket = ++startTicket;
     const items = currentItems();
     if (!items || !items.length || !L.supported) return;
@@ -372,6 +429,7 @@
     // the round takes the microphone test's listening over
     if (micTest.on) micTestEnd('', saved.mic === 'free');
     if (saved.mic === 'free') L.listen(true);
+    keepAwake(true);
     const from = phase;
     const modeId = saved.mode;
     const key = stageKey();
@@ -384,7 +442,10 @@
     // a newer start goes on in this one's place
     if (ticket !== startTicket) return;
     if (phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) {
-      if (phase !== 'play') L.stop();
+      if (phase !== 'play') {
+        L.stop();
+        keepAwake(false);
+      }
       return;
     }
     const pace = saved.pace[key] && saved.pace[key].p ? saved.pace[key] : START[modeId];
@@ -425,8 +486,10 @@
     hush();
     setPhase('play');
     roundShownAt = performance.now();
-    startMusic();
+    // turned on its side, the round is already paused: its music starts when it goes on
+    if (phase === 'play') startMusic();
     if (document.hidden) setPhase('paused');
+    micLost();
     resize();
     if (r.style === 'climb') buildLedges();
     if (modeId === 'course' && saved.sound) loadSound(level, unit);
@@ -629,8 +692,10 @@
         return;
       }
     }
+    // Falling: nothing falls before the phone has first listened (it may still be asking for the microphone)
+    if (!r.micReady) r.micReady = r.style === 'climb' || saved.mic === 'hold' || L.state === 'on';
     if (r.style === 'climb') updateClimb(dt);
-    else updateFall(dt);
+    else if (r.micReady) updateFall(dt);
     if (!r) return;
 
     // The card being said: when it came into view, and how long it has gone without a word.
@@ -682,8 +747,10 @@
   // The round's time budget T: what the longest card needs at the measured pace, with room to spare; the speed
   // follows from it, so the longest card has T from coming into view to reaching Yaoki.
   function setSpeed() {
-    const longest = Math.max(...r.queue.map((e) => need(e.item)), ...r.cards.filter((c) => c.state === 'live').map((c) => need(c.item)), 1);
-    r.T = Math.max(5, Math.min(32, 1.35 * longest));
+    if (!r.T) {
+      const longest = Math.max(...r.queue.map((e) => need(e.item)), ...r.cards.filter((c) => c.state === 'live').map((c) => need(c.item)), 1);
+      r.T = Math.max(5, Math.min(32, 1.35 * longest));
+    }
     r.maxH = Math.max(60, ...r.queue.map((e) => measureH(e.item)), ...r.cards.map((c) => c.h));
     r.speed = Math.max(8, (impactY() - r.maxH - 4) / r.T);
   }
@@ -787,7 +854,7 @@
   }
 
   // A thing lands on Yaoki: he is squashed flat, pops back up, and it is thrown back into the sky, to come round again
-  // after about three other cards (the ones already falling come first, so it can be more); the number is said.
+  // after two other cards (the ones already falling come first, so it can be more); the number is said.
   function startCrush(card) {
     card.state = 'fallen';
     card.entry.falls++;
@@ -811,7 +878,7 @@
     r.stepChip = false;
     r.fellEntries.add(card.entry);
     const yk = r.yk;
-    yk.trick = null;
+    finishTrick();
     yk.happyT = 0;
     yk.hopT = 0;
     yk.bubble = null;
@@ -834,16 +901,18 @@
     if (f.t < 0.14) c.y = f.y0 + (flat - c.h - f.y0) * (still ? 1 : f.t / 0.14);
     else if (f.t < 0.9) c.y = flat - c.h;
     else {
-      // flung back up into the sky as he pops up
+      // flung back up into the sky as he pops up (with reduced motion it stays down until it goes)
       if (!f.rose) {
         f.rose = true;
         c.vy = -620;
         sfx('up');
         cheer('rise', f.length - f.t + 0.6, { first: !r.said.has('rise') });
       }
-      c.vy += 380 * dt;
-      c.y += c.vy * dt;
-      c.rot += dt * 5;
+      if (!still) {
+        c.vy += 380 * dt;
+        c.y += c.vy * dt;
+        c.rot += dt * 5;
+      }
     }
     if (f.t >= f.length) endCrush();
   }
@@ -1206,7 +1275,7 @@
     } else {
       card.state = 'removed';
       r.cards = r.cards.filter((c) => c !== card);
-      for (let i = 0; i < 6; i++) r.shards.push(shard(card, i, 6));
+      if (!reducedMotion.matches) for (let i = 0; i < 6; i++) r.shards.push(shard(card, i, 6));
       if (r.cleared + r.skipped >= r.total) startFinale();
     }
     roundLines();
@@ -1272,10 +1341,12 @@
   function playModel(c) {
     const it = c.item;
     let ms = 0;
+    let deaf = 0;        // ms what is heard is kept out from now (more once a voice has started)
     if (it.clip && window.ykSound && window.ykSound.has(it.clip)) {
       window.ykSound.unlock();
       window.ykSound.play(it.clip);
       ms = Math.max(800, window.ykSound.ms ? window.ykSound.ms(it.clip) : 1200);
+      deaf = ms;
     } else if (jaVoice && window.SpeechSynthesisUtterance) {
       try {
         const u = new window.SpeechSynthesisUtterance(it.reading);
@@ -1294,13 +1365,14 @@
         u.onerror = u.onend;
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(u);
-        ms = est + 800;
+        ms = est;
+        deaf = 600;
       } catch (err) {
         ms = 0;
       }
     }
     if (!ms) return false;
-    L.quiet(ms);
+    L.quiet(deaf);
     if (r) {
       r.voiceUntil = r.time + ms / 1000;
       if (r.musicOn) music('duck', ms / 1000 + 0.3);
@@ -1315,6 +1387,8 @@
 
   function startTrick(c, kind) {
     const yk = r.yk;
+    // the next card said before the last one's trick is over: that one is done at once
+    finishTrick();
     c.phase = 'trick';
     c.trick = kind;
     const still = reducedMotion.matches;
@@ -1352,21 +1426,24 @@
         burst(c.x, groundY() - 2, 6, pal.lineStrong);
       }
     }
-    if (tr.t >= tr.len) {
-      if (!c.gone) {
-        if (tr.kind === 'dodge') shatter(c, true);
-        else c.gone = true;
-      }
-      addNode(c);
-      c.state = 'removed';
-      r.yk.trick = null;
-    }
+    if (tr.t >= tr.len) finishTrick();
+  }
+  // The trick going on is over: its thing is broken (quietly, if it was not yet) and its stamp goes to the ground.
+  function finishTrick() {
+    const tr = r.yk.trick;
+    if (!tr) return;
+    const c = tr.card;
+    if (!c.gone) shatter(c, true);
+    addNode(c);
+    c.state = 'removed';
+    r.yk.trick = null;
   }
 
   // The thing breaks into pieces that fly off and fall; its stamp goes to the ground as a node.
   function shatter(c, quiet) {
     c.gone = true;
-    const n = Math.max(6, Math.min(14, Math.round(c.w / 16)));
+    // with reduced motion it is simply gone
+    const n = reducedMotion.matches ? 0 : Math.max(6, Math.min(14, Math.round(c.w / 16)));
     for (let i = 0; i < n; i++) r.shards.push(shard(c, i, n, quiet));
     if (!quiet) sfx(r.yk.trick && r.yk.trick.kind === 'smash' ? 'smash' : 'clear', { streak: c.clean ? r.run : 0 });
   }
@@ -1473,6 +1550,8 @@
     clearTimers();
     const was = phase;
     phase = p;
+    keepAwake(p === 'play');
+    $('pause-why').hidden = true;
     $('menu').hidden = p !== 'menu';
     $('play').hidden = !(p === 'play' || p === 'paused');
     $('result').hidden = p !== 'result';
@@ -1627,11 +1706,16 @@
     unsupported: ['音声認識なし', 'This browser has no speech recognition.'],
   };
   let held = false;
+  let micWasOn = false;
+  let micShown = '';
   function micUI() {
     const btn = $('mic');
     const st = L.state;
     const listening = st === 'on' || st === 'starting';
-    const key = saved.mic === 'hold' && !held && (st === 'off' || st === 'on' || st === 'starting') ? 'hold' : st in MIC_TEXT ? st : 'off';
+    if (st === 'on') micWasOn = true;
+    else if (st !== 'starting') micWasOn = false;
+    const shown = st === 'starting' && micWasOn ? 'on' : st;
+    const key = saved.mic === 'hold' && !held && (shown === 'off' || shown === 'on' || shown === 'starting') ? 'hold' : shown in MIC_TEXT ? shown : 'off';
     const t = MIC_TEXT[key];
     btn.classList.toggle('on', listening);
     btn.classList.toggle('speech', !!(r && r.speaking && listening));
@@ -1640,7 +1724,11 @@
     btn.setAttribute('aria-pressed', String(listening));
     btn.setAttribute('aria-label', (listening ? 'Listening' : 'Not listening') + '. ' + (saved.mic === 'hold' ? 'Hold to talk.' : listening ? 'Tap to stop listening.' : 'Tap to listen.'));
     $('mic-label').textContent = listening ? 'きいてる' : saved.mic === 'hold' ? '押して話す' : 'マイク';
-    $('mic-state').innerHTML = ja(t[0]) + '　' + esc(t[1]);
+    const html = ja(t[0]) + '　' + esc(t[1]);
+    if (html !== micShown) {
+      micShown = html;
+      $('mic-state').innerHTML = html;
+    }
   }
   function micDown(e) {
     if (phase !== 'play') return;
@@ -2357,6 +2445,8 @@
       if (!r.jump) r.yk.x = r.at < 0 ? view.W / 2 : r.ledges[r.at].x;
       r.camY = camFor(standY());
     }
+    // setting the canvas's size cleared it: drawn again now, so no blank frame is shown before the next one
+    if ((phase === 'play' || phase === 'paused') && (r.style !== 'climb' || r.ledges.length)) safely(draw, null);
   }
 
   function draw() {
@@ -3416,6 +3506,10 @@
     if (!t) return;
     if (!canModel(t.item)) {
       setStatus('There is no Japanese voice on this device to say the word: its romaji shows instead.', 'warn');
+      if (!t.hinted) {
+        t.hinted = true;
+        r.hints++;
+      }
       if (t.level < 1) {
         t.level = 1;
         layoutCard(t);
@@ -3441,7 +3535,18 @@
   L.onstate = (st, code) => {
     if (prevState) prevState(st, code);
     micTestState();
+    micLost();
   };
+  // The phone has stopped listening and cannot go on by itself (a call took the microphone, the connection went, the
+  // microphone was refused): the round waits for the player, rather than going on without them, and says why.
+  function micLost() {
+    const st = L.state;
+    if (phase !== 'play' || !['tap', 'error', 'nomic', 'offline', 'blocked'].includes(st)) return;
+    setPhase('paused');
+    $('pause-why').innerHTML = ja(MIC_TEXT[st][0]) + '　' + esc(MIC_TEXT[st][1]);
+    $('pause-why').hidden = false;
+    say(MIC_TEXT[st][0], MIC_TEXT[st][1]);
+  }
 
   // The settings sheet, from the menu, the result or the pause sheet. While it is open the page behind it is inert.
   let settingsFrom = null;
@@ -3534,6 +3639,7 @@
         jumping: !!(r && r.jump),
         upNext: up ? { text: up.item.text, reading: up.item.reading } : null,
         heardWrong: r ? r.misheard.length : 0,
+        shards: r ? r.shards.length : 0,
       };
     },
   };
