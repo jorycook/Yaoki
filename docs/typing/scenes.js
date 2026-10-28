@@ -2824,33 +2824,57 @@
   // ----- 宇宙: space, where the moon's rabbit pounds mochi and planets look like dango -----
   scene({
     id: 'uchuu', ja: '宇宙', en: 'Space', stillT: 2.2,
-    sky: { light: ['#DFDCF2', '#E8E4F3', '#F1ECF4'], dark: ['#0A0E20', '#0F1430', '#171C3A'] },
+    sky: {
+      light: ['#3442C6', '#5D52DC', '#A46ADF', '#F293C6', '#FFD6A8'],
+      dark: ['#03020D', '#0A0726', '#170E40', '#311A62', '#5A2A84'],
+    },
     light: {
-      star: ['#A8A1D4', 0.8], star2: ['#E0C27E', 0.75], moon: '#F4EDDB', moonShade: '#E8DEC6', moonGlow: ['#FFFFFF', 0.6],
-      rabbit: '#D7CAAC', mochi: '#FBF8F0', d1: '#F3CBD5', d2: '#F8F3EA', d3: '#CDE3C7', skewer: ['#C9C0E3', 1],
-      ringed: '#D6CEEE', ring: ['#C0B6E4', 1], earth: '#CBDDF2', land: '#D3E7CB', hill: '#E1DDEC', crater: '#D6D1E5',
-      neb1: ['#EED8EC', 0.5], neb2: ['#D6E0F4', 0.55], rocket: '#F7F4EE', fin: '#CFC6EA', porthole: '#C3D5EE', flame: ['#F4C892', 0.9], trail: ['#C9C0E3', 0.9],
-      shoot: ['#FFFFFF', 0.9], ground: '#F0EDF5', groundEdge: '#E2DEEC',
+      star: ['#FFFFFF', 0.95], star2: ['#FFE08A', 0.95], dust: ['#FFFFFF', 0.5],
+      moon: '#FFF1C6', moonShade: '#F2D58C', moonEdge: ['#E9B866', 0.45], moonGlow: ['#FFE7B4', 0.8], rabbit: '#DDA552', mochi: '#FFFFFF',
+      neb1: ['#5CD6F5', 0.34], neb2: ['#FF6EC7', 0.36], neb3: ['#8F7DFF', 0.4], nebCore: ['#FFE9F7', 0.6],
+      d1: '#FF7EB0', d2: '#FFF5E2', d3: '#5CC47E', skewer: ['#B98756', 1], ringed: '#F2B43A', band: '#E2802E', ring: ['#FFF1C8', 1],
+      pShade: ['#2A1C7A', 0.3], pRim: ['#FFFFFF', 0.85],
+      rocket: '#FFFFFF', rocketShade: '#C9C6F2', rocketBand: '#2F4FD0', fin: '#E2452B', porthole: '#2F4FD0', portRim: '#9FB8FF',
+      flame: '#FFAA33', flameCore: '#FFF4B8', flameGlow: ['#FFC870', 0.8], trail: ['#FFFFFF', 0.85],
+      shoot: ['#FFFFFF', 0.95], shootGlow: ['#FFFFFF', 0.7],
+      earth: '#2F80EA', land: '#46C46C', earthCloud: ['#FFFFFF', 0.9], earthGlow: ['#8CE8FF', 0.75],
+      ridge: '#9C88EE', hill: '#4A36B6', hillRim: '#A897FF', crater: '#36249A',
+      ground: '#F6F2FC', groundEdge: '#E7DFFA',
     },
     dark: {
-      star: ['#E8EBF6', 0.75], star2: ['#F2D9A0', 0.65], moon: '#DCD3B9', moonShade: '#C9BF9F', moonGlow: ['#8C9BD6', 0.25],
-      rabbit: '#B8AA88', mochi: '#ECE6D6', d1: '#5A4256', d2: '#4F4E5A', d3: '#3E5246', skewer: ['#3A4064', 1],
-      ringed: '#2E2E52', ring: ['#4A4A7A', 1], earth: '#2E4C78', land: '#3E6250', hill: '#161B34', crater: '#121731',
-      neb1: ['#2A1F45', 0.45], neb2: ['#17284A', 0.5], rocket: '#3A4266', fin: '#4E4A7A', porthole: ['#9FB4FF', 0.7], flame: ['#FFC48A', 0.8], trail: ['#4A4F7A', 0.9],
-      shoot: ['#E8EBF6', 0.8], ground: '#12162B', groundEdge: '#141931',
+      star: ['#FFFFFF', 1], star2: ['#FFD58A', 0.95], dust: ['#BFB6FF', 0.75],
+      moon: '#FFF4D6', moonShade: '#EAD6A2', moonEdge: ['#C9A86A', 0.4], moonGlow: ['#B8A4FF', 0.6], rabbit: '#D2B070', mochi: '#FFFFFF',
+      neb1: ['#22B4E6', 0.32], neb2: ['#E43CB4', 0.36], neb3: ['#6B4DFF', 0.4], nebCore: ['#FFD8F4', 0.55],
+      d1: '#FF6FA8', d2: '#F6EEFF', d3: '#4ECB8A', skewer: ['#8A6CA8', 1], ringed: '#F2B43A', band: '#C86A26', ring: ['#9FE8FF', 0.95],
+      pShade: ['#0B0628', 0.5], pRim: ['#FFFFFF', 0.75],
+      rocket: '#F4F5FF', rocketShade: '#A9A6DA', rocketBand: '#4F6BFF', fin: '#FF5A3C', porthole: '#5FD8FF', portRim: '#FFFFFF',
+      flame: '#FFA02E', flameCore: '#FFF4B8', flameGlow: ['#FF9A3C', 0.9], trail: ['#A9B8FF', 0.8],
+      shoot: ['#FFFFFF', 1], shootGlow: ['#9FD8FF', 0.8],
+      earth: '#2F80EA', land: '#46C46C', earthCloud: ['#FFFFFF', 0.85], earthGlow: ['#5FD8FF', 0.85],
+      ridge: '#2E2A80', hill: '#160E3C', hillRim: '#8C76FF', crater: '#0D0830',
+      ground: '#120F2A', groundEdge: '#1C1646',
     },
     make() {
       return {
-        stars: starLayer(81, 24, -70, 140),
-        nebula: layer(84, 520, 140, ['neb1', 'neb2'], (P, R) => {
+        // star dust: a haze of tiny stars behind the bright ones
+        dust: layer(85, 300, 4, ['dust'], (P, R) => {
+          for (let k = 0; k < 32; k++) P[0].rect(R() * 300, -70 + Math.pow(R(), 1.3) * 200, 0.9, 0.9);
+        }),
+        stars: starLayer(81, 26, -70, 140),
+        nebula: layer(84, 520, 200, ['neb1', 'neb3', 'neb2', 'nebCore'], (P, R) => {
           for (let k = 0; k < 2; k++) {
-            const x = R() * 520;
-            const y = 20 + R() * 80;
-            const c = R() < 0.5 ? 0 : 1;
-            for (let b = 0; b < 4; b++) ell(P[c], x + (R() - 0.5) * 70, y + (R() - 0.5) * 16, 24 + R() * 30, 8 + R() * 8);
+            const x = (k + 0.2 + R() * 0.6) * 260;
+            const y = 30 + R() * 50;
+            const a = (R() - 0.5) * 0.7;
+            const len = 170 + R() * 80;
+            const seed = Math.floor(R() * 1e6);
+            // a wisp of glowing gas: a wide haze, a brighter stream inside it, a thin bright core
+            uchuuWisp(P[R() < 0.5 ? 0 : 1], x, y, len, 13 + R() * 7, a, seed);
+            uchuuWisp(P[2], x + (R() - 0.5) * 30, y + (R() - 0.5) * 6, len * (0.5 + R() * 0.15), 6 + R() * 3, a + (R() - 0.5) * 0.2, seed + 1);
+            uchuuWisp(P[3], x + (R() - 0.5) * 30, y + (R() - 0.5) * 4, len * (0.22 + R() * 0.1), 1.8 + R(), a, seed + 2);
           }
         }),
-        planets: layer(82, 460, 60, [['skewer', 1.6], 'd1', 'd2', 'd3', ['ring', 2.2], 'ringed', ['ring', 2.2]], (P, R) => {
+        planets: layer(82, 460, 60, [['skewer', 1.6], 'd1', 'd2', 'd3', ['ring', 2.2], 'ringed', 'band', 'pShade', 'pRim', ['ring', 2.2]], (P, R) => {
           if (R() < 0.1) return;
           const x = 40 + R() * 380;
           const y = 22 + R() * 60;
@@ -2861,27 +2885,51 @@
             const c = Math.cos(a);
             const s = Math.sin(a);
             line(P[0], x - c * r * 4, y - s * r * 4, x + c * r * 4, y + s * r * 4);
-            for (let k = 0; k < 3; k++) circ(P[1 + k], x + c * r * 2 * (k - 1), y + s * r * 2 * (k - 1), r);
+            for (let k = 0; k < 3; k++) {
+              const px = x + c * r * 2 * (k - 1);
+              const py = y + s * r * 2 * (k - 1);
+              circ(P[1 + k], px, py, r);
+              uchuuShade(P[7], px, py, r, 0.4, 0.75);
+              uchuuRim(P[8], px, py, r, 0.75);
+            }
           } else {
             const r = 8 + R() * 6;
-            // a ringed planet: the ring behind it, the planet, the near half of the ring
+            // a ringed planet: the ring behind it, the planet and its bands, the near half of the ring
             P[4].ellipse(x, y, r * 1.9, r * 0.42, -0.25, Math.PI, TAU);
             circ(P[5], x, y, r);
-            P[6].ellipse(x, y, r * 1.9, r * 0.42, -0.25, 0, Math.PI);
+            uchuuBand(P[6], x, y, r, 0.12, 0.38, -0.25);
+            uchuuBand(P[6], x, y, r, -0.56, -0.4, -0.25);
+            uchuuShade(P[7], x, y, r, 0.4, 0.75);
+            uchuuRim(P[8], x, y, r, 0.75);
+            P[9].ellipse(x, y, r * 1.9, r * 0.42, -0.25, 0, Math.PI);
           }
         }),
-        hills: layer(83, 300, 16, ['hill', 'crater'], (P, R, i, items, tw) => {
-          ridge(P[0], i, tw, 83, 150, 16, 100, 8);
-          for (let k = 0; k < 3; k++) {
-            const x = R() * tw;
-            const y = ridgeY(i, tw, x, 83, 150, 16, 100) + 6 + R() * 8;
-            ell(P[1], x, y, 5 + R() * 6, 1.6 + R() * 1.2);
+        // a far ridge, lighter and cooler, then the near hills with their craters, their crest
+        // and the boulders on it catching the light
+        ridge: layer(86, 340, 16, ['ridge'], (P, R, i, items, tw) => ridge(P[0], i, tw, 86, 146, 24, 120, 8)),
+        hills: layer(83, 300, 16, ['hill', 'crater', 'hillRim'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 83, 152, 18, 100, 8);
+          uchuuCrest(P[2], i, tw, 83, 152, 18, 100, 8, 1.8);
+          for (let k = 0; k < 2; k++) {
+            const x = 20 + R() * (tw - 40);
+            const r = 3 + R() * 3.5;
+            const y = ridgeY(i, tw, x, 83, 152, 18, 100) - r * 0.1;
+            circ(P[0], x, y, r);
+            uchuuArc(P[2], x, y, r, 1.6, -2.6, -0.5);
+          }
+          for (let k = 0; k < 4; k++) {
+            const x = 10 + R() * (tw - 20);
+            const rx = 5 + R() * 6;
+            const ry = 1.6 + R() * 1.2;
+            const y = Math.min(G - 5, ridgeY(i, tw, x, 83, 152, 18, 100) + 7 + R() * 9);
+            ell(P[1], x, y, rx, ry);
           }
         }),
       };
     },
     paint(ctx, f, L) {
       skyFill(ctx, 'sky');
+      drawLayer(ctx, L.dust, f.scroll * 0.01);
       drawLayer(ctx, L.nebula, f.scroll * 0.015);
       drawLayer(ctx, L.stars, f.scroll * 0.03);
       shootingStar(ctx);
@@ -2891,46 +2939,144 @@
       const my = 50 + 6 * f.pj;
       const mr = 28 + 4 * f.pj;
       moonRabbit(ctx, mx, my, mr);
-      // the finishing touch: the Earth rises over the hills
-      if (f.fin > 0) {
-        const ex = f.W * 0.6;
-        const ey = 162 - 50 * ease(f.fin);
-        if (setFill(ctx, 'earth')) {
-          ctx.beginPath();
-          ctx.arc(ex, ey, 15, 0, TAU);
-          ctx.fill();
-        }
-        if (setFill(ctx, 'land')) {
-          ctx.beginPath();
-          ctx.ellipse(ex - 5, ey - 4, 6, 4, 0.5, 0, TAU);
-          ctx.ellipse(ex + 6, ey + 5, 4, 5, -0.3, 0, TAU);
-          ctx.fill();
-        }
-        ctx.globalAlpha = 1;
-      }
+      // the finishing touch: the Earth rises from behind the far ridge
+      if (f.fin > 0) uchuuEarth(ctx, f.W * 0.28, 172 - 94 * ease(f.fin), f.fin);
+      drawLayer(ctx, L.ridge, f.scroll * 0.2);
       drawLayer(ctx, L.hills, f.scroll * 0.4);
       ground(ctx, 'groundEdge');
       hanamaru(ctx, mx, my, mr + 9, f.fin);
     },
   });
+  // A wisp of gas len long round (x, y), turned by ang: thickest in the middle and tapering
+  // to points, its two edges rippling, the whole gently bent.
+  function uchuuWisp(p, x, y, len, thick, ang, seed) {
+    const c = Math.cos(ang);
+    const s = Math.sin(ang);
+    const bend = (hash(seed, 3) - 0.5) * 0.16 * len;
+    const N = 22;
+    for (let side = -1; side <= 1; side += 2) {
+      for (let q = 0; q <= N; q++) {
+        const u = side < 0 ? q / N : 1 - q / N;
+        const h = thick * Math.sin(Math.PI * u) * (0.55 + 0.45 * noise(seed + (side > 0 ? 5 : 0), u * 5));
+        const px = (u - 0.5) * len;
+        const py = bend * Math.sin(Math.PI * u) + side * h;
+        if (!q && side < 0) p.moveTo(x + px * c - py * s, y + px * s + py * c);
+        else p.lineTo(x + px * c - py * s, y + px * s + py * c);
+      }
+    }
+    p.closePath();
+  }
+  // Light round something of radius r: flat rings of colour key, each fainter and wider, laid
+  // one over another like tissue paper (cheaper than a gradient, and of a piece with the paper).
+  const UCHUU_HALO = [[3.4, 0.11], [2.4, 0.16], [1.7, 0.26], [1.25, 0.45]];   // [radius, opacity]
+  function uchuuHalo(ctx, x, y, r, key, k) {
+    if (!F.C[key] || k <= 0) return;
+    ctx.fillStyle = F.C[key];
+    const a = (F.A[key] || 1) * k;
+    for (let q = 0; q < UCHUU_HALO.length; q++) {
+      ctx.globalAlpha = a * UCHUU_HALO[q][1];
+      ctx.beginPath();
+      ctx.arc(x, y, r * UCHUU_HALO[q][0], 0, TAU);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  // An ellipse turned by rot, as its own shape in the path.
+  function uchuuEll(p, x, y, rx, ry, rot) {
+    p.moveTo(x + rx * Math.cos(rot), y + rx * Math.sin(rot));
+    p.ellipse(x, y, rx, ry, rot, 0, TAU);
+  }
+  // The shaded side of a round thing: a crescent towards ang, its inner edge at q of the radius.
+  function uchuuShade(p, x, y, r, q, ang) {
+    p.moveTo(x + r * Math.cos(ang - Math.PI / 2), y + r * Math.sin(ang - Math.PI / 2));
+    p.arc(x, y, r, ang - Math.PI / 2, ang + Math.PI / 2, false);
+    p.ellipse(x, y, r * q, r, ang, Math.PI / 2, -Math.PI / 2, true);
+    p.closePath();
+  }
+  // The lit edge on the other side, a thin band just inside the rim.
+  function uchuuRim(p, x, y, r, ang) {
+    uchuuArc(p, x, y, r - 0.4, 1.2, ang + Math.PI - 0.9, ang + Math.PI + 0.9);
+  }
+  // A band th wide along the inside of a circle of radius r, from angle a0 to a1.
+  function uchuuArc(p, x, y, r, th, a0, a1) {
+    p.moveTo(x + r * Math.cos(a0), y + r * Math.sin(a0));
+    p.arc(x, y, r, a0, a1, false);
+    p.arc(x, y, r - th, a1, a0, true);
+    p.closePath();
+  }
+  // A band across a planet between b1 and b2 (in radii from its middle), parallel to tilt.
+  function uchuuBand(p, x, y, r, b1, b2, tilt) {
+    const t1 = Math.asin(b1);
+    const t2 = Math.asin(b2);
+    p.moveTo(x + r * Math.cos(tilt + t1), y + r * Math.sin(tilt + t1));
+    p.arc(x, y, r, tilt + t1, tilt + t2, false);
+    p.lineTo(x + r * Math.cos(tilt + Math.PI - t2), y + r * Math.sin(tilt + Math.PI - t2));
+    p.arc(x, y, r, tilt + Math.PI - t2, tilt + Math.PI - t1, false);
+    p.closePath();
+  }
+  // The lit crest of a ridge (as ridge draws it): a band th deep along its top edge.
+  function uchuuCrest(p, i, tw, seed, base, amp, scale, step, th) {
+    const x0 = i * tw;
+    const y = (x) => base - amp * hills(seed, x0 + x, scale);
+    let x = 0;
+    p.moveTo(0, y(0));
+    for (x = step; x <= tw + 1; x += step) p.lineTo(x, y(x));
+    p.lineTo(tw + 1, y(tw + 1));
+    p.lineTo(tw + 1, y(tw + 1) + th);
+    for (x -= step; x >= 0; x -= step) p.lineTo(x, y(x) + th);
+    p.closePath();
+  }
+  // The Earth, blue and green under its clouds, its sky glowing round it.
+  function uchuuEarth(ctx, x, y, k) {
+    uchuuHalo(ctx, x, y, 16, 'earthGlow', k);
+    if (!setFill(ctx, 'earth')) return;
+    ctx.beginPath();
+    ctx.arc(x, y, 16, 0, TAU);
+    ctx.fill();
+    if (setFill(ctx, 'land')) {
+      ctx.beginPath();
+      uchuuEll(ctx, x - 5, y - 4, 6.5, 4.2, 0.5);
+      uchuuEll(ctx, x + 6, y + 5, 4.2, 5.4, -0.3);
+      uchuuEll(ctx, x + 7, y - 9, 3, 1.8, 0.2);
+      ctx.fill();
+    }
+    if (setFill(ctx, 'earthCloud')) {
+      ctx.beginPath();
+      uchuuEll(ctx, x - 2, y + 9.5, 7, 1.5, -0.15);
+      uchuuEll(ctx, x + 2, y - 2, 6, 1.3, -0.25);
+      uchuuEll(ctx, x - 8, y - 9, 3.5, 1.2, 0.1);
+      ctx.fill();
+    }
+    if (setFill(ctx, 'pShade')) {
+      ctx.beginPath();
+      uchuuShade(ctx, x, y, 16, 0.45, 0.75);
+      ctx.fill();
+    }
+    if (setFill(ctx, 'pRim')) {
+      ctx.beginPath();
+      uchuuRim(ctx, x, y, 16, 0.75);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
   // Now and then a little rocket crosses the sky, leaving a dotted trail.
   function rocket(ctx) {
     const span = F.W + 700;
     const x = wrap(F.t * 26 - F.scroll * 0.08 + 260, span) - 200;
     if (x < -40 || x > F.W + 40) return;
     const y = 74 + Math.sin(x * 0.012) * 16;
-    const ang = Math.atan(Math.cos(x * 0.012) * 16 * 0.012) ;
+    const ang = Math.atan(Math.cos(x * 0.012) * 16 * 0.012);
     if (F.C.trail) {
       ctx.save();
       ctx.strokeStyle = F.C.trail;
       ctx.globalAlpha = F.A.trail || 1;
-      ctx.lineWidth = 1.6;
+      ctx.lineWidth = 1.8;
       ctx.lineCap = 'round';
       ctx.setLineDash(U.dots);
       ctx.lineDashOffset = -x;
       ctx.beginPath();
       for (let k = 0; k <= 12; k++) {
-        const px = x - 14 - k * 8;
+        const px = x - 22 - k * 8;
         const py = 74 + Math.sin(px * 0.012) * 16;
         if (!k) ctx.moveTo(px, py);
         else ctx.lineTo(px, py);
@@ -2941,12 +3087,22 @@
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(ang);
+    ctx.scale(1.25, 1.25);
     const flick = F.still ? 0 : Math.sin(F.t * 30) * 1.2;
+    uchuuHalo(ctx, -12, 0, 3.4 + flick * 0.3, 'flameGlow', 1);
     if (setFill(ctx, 'flame')) {
       ctx.beginPath();
-      ctx.moveTo(-8, -2.2);
-      ctx.lineTo(-15 - flick, 0);
-      ctx.lineTo(-8, 2.2);
+      ctx.moveTo(-8, -2.8);
+      ctx.lineTo(-17 - flick, 0);
+      ctx.lineTo(-8, 2.8);
+      ctx.closePath();
+      ctx.fill();
+    }
+    if (setFill(ctx, 'flameCore')) {
+      ctx.beginPath();
+      ctx.moveTo(-8, -1.4);
+      ctx.lineTo(-12.5 - flick * 0.6, 0);
+      ctx.lineTo(-8, 1.4);
       ctx.closePath();
       ctx.fill();
     }
@@ -2970,38 +3126,72 @@
       ctx.closePath();
       ctx.fill();
     }
+    if (setFill(ctx, 'rocketShade')) {
+      // the underside, in shadow
+      ctx.beginPath();
+      ctx.moveTo(-9, 1.4);
+      ctx.lineTo(4, 1.4);
+      ctx.quadraticCurveTo(9, 1.4, 12.2, 1.2);
+      ctx.quadraticCurveTo(10, 3.2, 3, 3.6);
+      ctx.lineTo(-9, 3.6);
+      ctx.closePath();
+      ctx.fill();
+    }
+    if (setFill(ctx, 'fin')) {
+      // the nose cone
+      ctx.beginPath();
+      ctx.moveTo(9, -2.5);
+      ctx.quadraticCurveTo(11.5, -1.6, 13, 0);
+      ctx.quadraticCurveTo(11.5, 1.6, 9, 2.5);
+      ctx.closePath();
+      ctx.fill();
+    }
+    rect(ctx, 'rocketBand', -6.6, -3.6, 2.2, 7.2);
+    if (setFill(ctx, 'portRim')) {
+      ctx.beginPath();
+      ctx.arc(2.5, 0, 2.5, 0, TAU);
+      ctx.fill();
+    }
     if (setFill(ctx, 'porthole')) {
       ctx.beginPath();
-      ctx.arc(2.5, 0, 1.8, 0, TAU);
+      ctx.arc(2.5, 0, 1.6, 0, TAU);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
     ctx.restore();
   }
+  // Shooting stars (流れ星): two of them by turns, a bright head and a tail that thins away.
   function shootingStar(ctx) {
     if (F.still || !F.C.shoot) return;
-    const per = 7;
-    const k = Math.floor(F.t / per);
-    const age = F.t - k * per;
-    if (age > 0.9 || hash(k, 90) < 0.3) return;
-    const x = F.W * (0.2 + 0.7 * hash(k, 91));
-    const y = 14 + 40 * hash(k, 92);
-    const u = age / 0.9;
-    const hx = x - 70 * u;
-    const hy = y + 30 * u;
-    ctx.strokeStyle = F.C.shoot;
-    ctx.globalAlpha = F.A.shoot * Math.sin(Math.PI * u);
-    ctx.lineWidth = 1.2;
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(hx, hy);
-    ctx.lineTo(hx + 22, hy - 9.5);
-    ctx.stroke();
+    for (let j = 0; j < 2; j++) {
+      const per = 5.5 + j * 2.3;
+      const tt = F.t + j * 3.1;
+      const k = Math.floor(tt / per);
+      const age = tt - k * per;
+      if (age > 1.1 || hash(k + j * 7919, 90) < 0.25) continue;
+      const u = age / 1.1;
+      const fade = Math.sin(Math.PI * u);
+      const hx = F.W * (0.15 + 0.75 * hash(k, 91 + j * 10)) - 90 * u;
+      const hy = 10 + 50 * hash(k, 92 + j * 10) + 38 * u;
+      // it falls down and to the left; the tail points back up and to the right
+      const len = (40 + 30 * hash(k, 93 + j * 10)) * (0.35 + 0.65 * Math.min(1, u * 3));
+      uchuuHalo(ctx, hx, hy, 2.2, 'shootGlow', fade);
+      ctx.fillStyle = F.C.shoot;
+      ctx.globalAlpha = F.A.shoot * fade;
+      ctx.beginPath();
+      ctx.moveTo(hx + 0.92 * len, hy - 0.39 * len);
+      ctx.lineTo(hx + 0.5, hy + 1.2);
+      ctx.lineTo(hx - 0.5, hy - 1.2);
+      ctx.closePath();
+      ctx.moveTo(hx + 1.5, hy);
+      ctx.arc(hx, hy, 1.5, 0, TAU);
+      ctx.fill();
+    }
     ctx.globalAlpha = 1;
   }
   // The moon, and on it the rabbit pounding mochi in its mortar (月のうさぎ).
   function moonRabbit(ctx, x, y, r) {
-    glow(ctx, x, y, r * 2.4, 'moonGlow', 1);
+    uchuuHalo(ctx, x, y, r, 'moonGlow', 1);
     ctx.fillStyle = F.C.moon;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, TAU);
@@ -3009,6 +3199,11 @@
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(r / 40, r / 40);
+    if (setFill(ctx, 'moonEdge')) {
+      ctx.beginPath();
+      uchuuShade(ctx, 0, 0, 40, 0.8, 0.75);
+      ctx.fill();
+    }
     if (setFill(ctx, 'moonShade')) {
       ctx.beginPath();
       ctx.arc(-22, -18, 6, 0, TAU);
@@ -3502,98 +3697,146 @@
   const STALLS = ['わたあめ', 'かき氷', 'たこ焼き', 'やきそば', 'りんごあめ', 'ヨーヨー', 'きんぎょ', 'お面', 'ラムネ', 'チョコバナナ'];
   scene({
     id: 'matsuri', ja: '夏祭り', en: 'Summer festival', stillT: 3.9,
-    sky: { light: ['#DCDAEF', '#EAE2EF', '#FAE7DA'], dark: ['#0C0F25', '#14163A', '#211C3E'] },
+    sky: {
+      light: ['#3B62D8', '#7F86E8', '#E19AD2', '#FFAF80', '#FFD7A0'],
+      dark: ['#040827', '#0B185A', '#182A82', '#2E3392', '#4B3A8E'],
+    },
     light: {
-      far: '#D9D6E8', frame: '#D6CBBA', counter: '#E7DECF', aw1: '#F1D2CC', aw2: '#FAF3EA', aw3: '#D3DDF0', noren: '#E3E8F4',
-      norenText: '#9AA3BF', string: ['#BDB7CA', 1], pole: '#CDC4D4', lantern: '#FBEBCB', lanternCap: '#D9C4A2', lanternRib: ['#E6D3AE', 1],
-      fw1: ['#F0B4C4', 0.6], fw2: ['#9FD3DD', 0.6], fw3: ['#F0CF84', 0.65], fw4: ['#BDB1EA', 0.6], ground: '#F1EEE9', groundEdge: '#E5E0DA',
+      forest: '#AE9FE8', far: '#8C7DD4', farWin: '',
+      inside: '#6A4A86', lit: ['#FFD98A', 0.55], lit2: ['#FFD98A', 0.28], bulb: '#FFF8D8', bulbHalo: ['#FFE29A', 0.55], frame: '#4E302A',
+      awA: '#2F4FD0', awA2: '#8AA2F6', awB: '#0B7A6B', awB2: '#66CFBA', awC: '#D8468D', awC2: '#FFAACF', awD: '#E39A1E', awD2: '#FFE19C',
+      counter: '#F4D29A', counterLine: '#C99458', counterTop: '#7C4A2E', sign: '#FFF8E8', signText: '#1B2440',
+      good1: '#F2B43A', good2: '#1FB5A0', good3: '#FF7FB0', good4: '#FFFFFF',
+      pole: '#4E302A', string: ['#3A2C48', 1],
+      lanRed: '#E8432C', lanOrange: '#FF922E', lanCream: '#FFF3D6', lanHi: ['#FFE6B4', 0.6], lanCap: '#2A2238', lanRib: ['#7A2410', 0.35],
+      halo1: ['#FFD892', 0.36],
+      fw1: ['#FF4F9A', 0.9], fw2: ['#FFFFFF', 0.95], fw3: ['#FFC83A', 0.95], fw4: ['#3FE6D0', 0.9],
+      ground: '#FFF4E2', groundEdge: '#F5E0C0',
     },
     dark: {
-      far: '#13162E', frame: '#1C1F35', counter: '#22253D', aw1: '#3A2A3E', aw2: '#2A2D46', aw3: '#22305A', noren: '#262E50',
-      norenText: '#8E98BC', string: ['#2E3352', 1], pole: '#191C32', lantern: ['#FFDDA6', 0.92], lanternCap: '#6E5A44', lanternRib: ['#E8B978', 0.6],
-      lanternGlow: ['#FFC870', 0.26], counterLit: ['#FFD98E', 0.2],
-      fw1: ['#FF9EC0', 0.75], fw2: ['#8CE3D6', 0.75], fw3: ['#FFD37A', 0.8], fw4: ['#B4A6FF', 0.75], ground: '#151829', groundEdge: '#181B2F',
+      forest: '#121852', far: '#1C2064', farWin: ['#FFC45A', 0.9],
+      inside: '#3A2040', lit: ['#FFB54A', 0.78], lit2: ['#FFA040', 0.4], bulb: '#FFF6D0', bulbHalo: ['#FFC870', 0.7], frame: '#120B24',
+      awA: '#2C44B4', awA2: '#4C66DC', awB: '#0E6A60', awB2: '#1F9585', awC: '#9C2E6C', awC2: '#CC5698', awD: '#A86E14', awD2: '#D69A38',
+      counter: '#30205A', counterLine: '#22173F', counterTop: '#B87848', sign: ['#FFE6B0', 0.95], signText: '#A32A12',
+      good1: '#FFC84A', good2: '#3FE0C8', good3: '#FF86BC', good4: '#FFFFFF',
+      pole: '#0E0A1E', string: ['#06061A', 1],
+      lanRed: '#FF5636', lanOrange: '#FFA33A', lanCream: '#FFF0C6', lanHi: ['#FFF4C8', 0.75], lanCap: '#2A1626', lanRib: ['#8A2A10', 0.4],
+      halo1: ['#FFD27A', 0.32], halo2: ['#FFC060', 0.17],
+      fw1: ['#FF6FB4', 1], fw2: ['#7FF2E0', 1], fw3: ['#FFD86A', 1], fw4: ['#B89CFF', 1],
+      ground: '#130F30', groundEdge: '#1D1748',
     },
     make() {
       return {
-        stars: starLayer(101, 7, -60, 70),
-        far: layer(102, 252, 40, ['far'], (P, R, i) => {
+        stars: starLayer(101, 12, -60, 70),
+        // the shrine's grove (鎮守の森) behind the town: round treetops on a low ridge (cut
+        // off at 146, below which the town's roofs always hide it)
+        forest: layer(106, 300, 4, ['forest'], (P, R, i, items, tw) => {
+          const x0 = i * tw;
+          P[0].moveTo(0, 146);
+          for (let x = 0; x <= tw + 1; x += 4) P[0].lineTo(x, Math.min(146, matsuriCanopy(x0 + x)));
+          P[0].lineTo(tw + 1, Math.min(146, matsuriCanopy(x0 + tw + 1)));
+          P[0].lineTo(tw + 1, 146);
+          P[0].closePath();
+        }),
+        far: layer(102, 252, 40, ['far', 'farWin'], (P, R, i) => {
           for (let k = 0; k < 9; k++) {
             const g = i * 9 + k;
             const h = 14 + hash(102, g) * 16;
             P[0].rect(k * 28, G - h - 12, 28.6, h + 14);
             if (hash(103, g) < 0.6) tri(P[0], k * 28 - 3, G - h - 11.5, k * 28 + 14, G - h - 19, k * 28 + 31, G - h - 11.5);
+            // a window lit here and there
+            if (hash(107, g) < 0.45) P[1].rect(k * 28 + 6 + hash(108, g) * 12, G - h - 6, 4, 3.2);
           }
         }),
-        stalls: layer(104, 230, 20, ['frame', 'counter', 'aw2', 'aw1', 'aw3', 'noren', 'counterLit'], (P, R, i, items) => {
-          const w = 128 + R() * 40;
-          const x = (230 - w) / 2 + (R() - 0.5) * 20;
-          const top = 112;
-          P[0].rect(x + 2, top, 3, G - top);
-          P[0].rect(x + w - 5, top, 3, G - top);
-          P[1].rect(x - 2, G - 24, w + 4, 25);
-          P[0].rect(x - 2, G - 25, w + 4, 2.5);
-          const stripe = R() < 0.6 ? 3 : 4;
-          const n = Math.round(w / 10);
-          for (let k = 0; k < n; k++) {
-            const sx = x - 4 + (k * (w + 8)) / n;
-            const sw = (w + 8) / n;
-            P[k % 2 ? 2 : stripe].moveTo(sx, top - 12);
-            P[k % 2 ? 2 : stripe].lineTo(sx + sw + 0.4, top - 12);
-            P[k % 2 ? 2 : stripe].lineTo(sx + sw + 0.4, top + 1);
-            P[k % 2 ? 2 : stripe].arc(sx + sw / 2, top + 1, sw / 2 + 0.2, 0, Math.PI, false);
-            P[k % 2 ? 2 : stripe].closePath();
-          }
-          const word = STALLS[Math.floor(R() * STALLS.length)];
-          const nw = Math.min(w - 20, Array.from(word).length * 10 + 14);
-          rr(P[5], x + (w - nw) / 2, top + 5, nw, 13, 2);
-          P[6].rect(x + 2, G - 24, w - 4, 6);
-          items.push({ x: x + w / 2, y: top + 11.8, word });
-        }, (ctx, items) => {
-          if (!setFill(ctx, 'norenText')) return;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.font = FONT_STALL;
-          for (let q = 0; q < items.length; q++) ctx.fillText(items[q].word, items[q].x, items[q].y);
-          ctx.globalAlpha = 1;
-        }),
-        lanterns: layer(105, 280, 300, ['pole', ['string', 0.9]], (P, R, i, items, tw) => {
-          const px = (j) => 30 + hash(105, j) * 200;
-          const x = px(i);
-          const nx = tw + px(i + 1);
-          P[0].rect(x - 1.6, 58, 3.2, G - 56);
-          const y0 = 64;
-          const sag = 16;
-          P[1].moveTo(x, y0);
-          P[1].quadraticCurveTo((x + nx) / 2, y0 + sag * 2, nx, y0);
-          const n = Math.max(3, Math.floor((nx - x) / 24));
-          for (let k = 1; k < n; k++) {
-            const u = k / n;
-            const lx = lerp(x, nx, u);
-            const ly = y0 + sag * 4 * u * (1 - u);
-            items.push({ x: lx, y: ly, ph: R() * TAU });
-          }
-        }, (ctx, items) => {
-          const t = F.t;
-          const lit = F.dark && F.C.lanternGlow;
-          for (let q = 0; q < items.length; q++) {
-            const it = items[q];
-            if (lit) glow(ctx, it.x, it.y + 10, 16, 'lanternGlow', 1);
-            ctx.save();
-            ctx.translate(it.x, it.y);
-            ctx.rotate(Math.sin(t * 1.3 + it.ph) * 0.09);
-            fillP(ctx, 'lantern', U.lantern);
-            fillP(ctx, 'lanternCap', U.lanternCap);
-            if (F.C.lanternRib) {
-              ctx.strokeStyle = F.C.lanternRib;
-              ctx.globalAlpha = F.A.lanternRib || 1;
-              ctx.lineWidth = 0.7;
-              ctx.stroke(U.lanternRib);
-              ctx.globalAlpha = 1;
+        stalls: layer(104, 230, 20, ['inside', 'lit2', 'lit', 'awA', 'awA2', 'awB', 'awB2', 'awC', 'awC2', 'awD', 'awD2', 'frame', 'bulbHalo', 'bulb', 'counter', 'counterLine', 'counterTop', 'sign', 'good1', 'good2', 'good3', 'good4'],
+          (P, R, i, items) => {
+            const w = 128 + R() * 40;
+            const x = (230 - w) / 2 + (R() - 0.5) * 20;
+            const top = 112;
+            // inside, in the awning's shade, lit from under it in two steps
+            P[0].rect(x + 2, top, w - 4, G - top - 20);
+            P[1].rect(x + 2, top + 10, w - 4, 10);
+            P[2].rect(x + 2, top, w - 4, 10);
+            // the awning: stripes in one pair of colours, with a scalloped hem
+            const pair = 3 + 2 * Math.floor(R() * 4);
+            const n = Math.round(w / 10);
+            for (let k = 0; k < n; k++) {
+              const sx = x - 4 + (k * (w + 8)) / n;
+              const sw = (w + 8) / n;
+              const p = P[pair + (k % 2)];
+              p.moveTo(sx, top - 12);
+              p.lineTo(sx + sw + 0.4, top - 12);
+              p.lineTo(sx + sw + 0.4, top + 1);
+              p.arc(sx + sw / 2, top + 1, sw / 2 + 0.2, 0, Math.PI, false);
+              p.closePath();
             }
-            ctx.restore();
+            // the posts and the awning's ridge
+            P[11].rect(x + 1.5, top, 3.2, G - top);
+            P[11].rect(x + w - 4.7, top, 3.2, G - top);
+            P[11].rect(x - 5, top - 14.5, w + 10, 3);
+            // two bare bulbs hanging under the awning
+            for (const bx of [x + 11, x + w - 11]) {
+              P[11].rect(bx - 0.4, top + 1, 0.8, 5);
+              circ(P[12], bx, top + 8, 6.5);
+              circ(P[13], bx, top + 8, 2.1);
+            }
+            // the counter, its boards and its top
+            P[14].rect(x - 2, G - 22, w + 4, 23);
+            for (let k = x + 9; k < x + w - 4; k += 11) P[15].rect(k - 0.5, G - 20, 1, 20);
+            P[16].rect(x - 3.5, G - 25, w + 7, 3.4);
+            // things for sale on the counter
+            const ng = 4 + Math.floor(R() * 4);
+            for (let k = 0; k < ng; k++) {
+              const gx = x + 10 + ((k + 0.5) * (w - 20)) / ng + (R() - 0.5) * 4;
+              circ(P[18 + Math.floor(R() * 4)], gx, G - 28, 2.3 + R() * 0.9);
+            }
+            // the sign with the stall's name
+            const word = STALLS[Math.floor(R() * STALLS.length)];
+            const nw = Math.min(w - 20, Array.from(word).length * 10 + 14);
+            rr(P[17], x + (w - nw) / 2, top + 5, nw, 13, 2);
+            items.push({ x: x + w / 2, y: top + 11.8, word });
+          }, (ctx, items) => {
+            if (!setFill(ctx, 'signText')) return;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = FONT_STALL;
+            for (let q = 0; q < items.length; q++) ctx.fillText(items[q].word, items[q].x, items[q].y);
+            ctx.globalAlpha = 1;
+          }),
+        lanterns: layer(105, 280, 16, ['halo2', 'halo1', 'pole', ['string', 0.9]], (P, R, i, items, tw) => {
+          // the poles stand at uneven places along the street; a tile holds its own pole and
+          // the parts of the strings that pass over it, with their lanterns
+          const pole = (j) => j * tw + 30 + hash(105, j) * 200;
+          const x0 = i * tw;
+          P[2].rect(pole(i) - x0 - 1.6, 58, 3.2, G - 56);
+          for (let j = i - 1; j <= i; j++) {
+            const a = pole(j) - x0;
+            const b = pole(j + 1) - x0;
+            const from = Math.max(a, 0);
+            const to = Math.min(b, tw);
+            if (to <= from) continue;
+            // the string sags 16 between its poles
+            const sy = (x) => 64 + (64 * (x - a) * (b - x)) / ((b - a) * (b - a));
+            const end = to < tw ? to : tw + 0.6;
+            P[3].moveTo(from, sy(from));
+            for (let x = from + 8; x < end; x += 8) P[3].lineTo(x, sy(x));
+            P[3].lineTo(end, sy(end));
+            const n = Math.max(3, Math.floor((b - a) / 24));
+            // the lanterns' light, a soft band along them in two steps, round at its ends
+            const e0 = a + (b - a) / n - 13;
+            const e1 = b - (b - a) / n + 13;
+            if (Math.min(e1, tw) > Math.max(e0, 0)) {
+              matsuriBand(P[0], Math.max(e0, 0), Math.min(e1, tw), e0, e1, sy, 13);
+              matsuriBand(P[1], Math.max(e0 + 4, 0), Math.min(e1 - 4, tw), e0 + 4, e1 - 4, sy, 8.5);
+            }
+            for (let k = 1; k < n; k++) {
+              const lx = a + ((b - a) * k) / n;
+              if (lx < 0 || lx >= tw) continue;
+              const ly = sy(lx);
+              items.push({ x: lx, y: ly, ph: hash(j * 31 + k, 106) * TAU, c: MATSURI_LANTERN[(((j * 5 + k) % 4) + 4) % 4], a: 0, cx: lx, cy: ly });
+            }
           }
-        }),
+        }, matsuriLanterns),
       };
     },
     paint(ctx, f, L) {
@@ -3603,6 +3846,7 @@
       const sy = 34;
       if (f.dark) celestial(ctx, sx, sy, 11);
       fireworks(ctx);
+      drawLayer(ctx, L.forest, f.scroll * 0.04);
       drawLayer(ctx, L.far, f.scroll * 0.08);
       drawLayer(ctx, L.stalls, f.scroll * 0.42);
       drawLayer(ctx, L.lanterns, f.scroll * 0.7);
@@ -3611,48 +3855,189 @@
       if (f.dark) hanamaru(ctx, sx, sy, 19, f.fin);
     },
   });
+  // The top of the shrine's grove at x (from the start of the world): round treetops, each
+  // a circle standing on a low ridge, and the ridge between them.
+  function matsuriCanopy(x) {
+    let y = 146 - 26 * hills(106, x, 110);
+    const k0 = Math.floor(x / 13);
+    for (let k = k0 - 1; k <= k0 + 1; k++) {
+      const tx = k * 13 + hash(k, 107) * 6;
+      const r = 7 + hash(k, 108) * 6;
+      const d = x - tx;
+      if (d * d < r * r) y = Math.min(y, 150 - 26 * hills(106, tx, 110) - Math.sqrt(r * r - d * d));
+    }
+    return y;
+  }
+  // A band of light from x0 to x1 along a string of lanterns (sy gives the string's height),
+  // h deep either side of the lanterns' middles; it rounds off at its own ends e0 and e1,
+  // where it is traced in finer steps.
+  function matsuriBand(p, x0, x1, e0, e1, sy, h) {
+    const xs = [];
+    for (let x = x0; x < x1; x += x - e0 < h || e1 - x < h ? 2.5 : 8) xs.push(x);
+    xs.push(x1);
+    const hh = (x) => {
+      const k = Math.min(1, (x - e0) / h, (e1 - x) / h);
+      return k > 0 ? h * Math.sqrt(k * (2 - k)) : 0;
+    };
+    for (let q = 0; q < xs.length; q++) {
+      const x = xs[q];
+      if (q) p.lineTo(x, sy(x) + 9.5 - hh(x));
+      else p.moveTo(x, sy(x) + 9.5 - hh(x));
+    }
+    for (let q = xs.length - 1; q >= 0; q--) p.lineTo(xs[q], sy(xs[q]) + 9.5 + hh(xs[q]));
+    p.closePath();
+  }
+  // The lanterns along a string go red, cream, orange, cream (indices into MATSURI_KEYS).
+  const MATSURI_LANTERN = [0, 2, 1, 2];
+  const MATSURI_KEYS = ['lanRed', 'lanOrange', 'lanCream'];
+  // The lanterns of one stretch of string. Each sways a little on its own; they are drawn
+  // a colour at a time, all of one colour in one path.
+  function matsuriLanterns(ctx, items) {
+    const t = F.t;
+    const C = F.C;
+    for (let q = 0; q < items.length; q++) {
+      const it = items[q];
+      it.a = Math.sin(t * 1.3 + it.ph) * 0.09;
+      it.cx = it.x - Math.sin(it.a) * 9.5;
+      it.cy = it.y + Math.cos(it.a) * 9.5;
+    }
+    for (let kind = 0; kind < 3; kind++) {
+      if (!setFill(ctx, MATSURI_KEYS[kind])) continue;
+      ctx.beginPath();
+      for (let q = 0; q < items.length; q++) {
+        const it = items[q];
+        if (it.c !== kind) continue;
+        matsuriEll(ctx, it.cx, it.cy, 5.6, 7, it.a);
+      }
+      ctx.fill();
+    }
+    // the light inside, brightest down the middle
+    if (setFill(ctx, 'lanHi')) {
+      ctx.beginPath();
+      for (let q = 0; q < items.length; q++) ctx.rect(items[q].cx - 1.7, items[q].cy - 5.2, 3.4, 10.4);
+      ctx.fill();
+    }
+    // the ribs of the paper
+    if (C.lanRib) {
+      ctx.strokeStyle = C.lanRib;
+      ctx.globalAlpha = F.A.lanRib || 1;
+      ctx.lineWidth = 0.6;
+      ctx.beginPath();
+      for (let q = 0; q < items.length; q++) {
+        const it = items[q];
+        const c = Math.cos(it.a);
+        const s = Math.sin(it.a);
+        for (let r = -1; r <= 1; r++) {
+          const dy = r * 4;
+          const hw = r ? 4 : 5;
+          ctx.moveTo(it.cx - hw * c - dy * s, it.cy - hw * s + dy * c);
+          ctx.lineTo(it.cx + hw * c - dy * s, it.cy + hw * s + dy * c);
+        }
+      }
+      ctx.stroke();
+    }
+    // the caps, top and bottom, and the tassel
+    if (setFill(ctx, 'lanCap')) {
+      ctx.beginPath();
+      for (let q = 0; q < items.length; q++) {
+        const it = items[q];
+        const s = Math.sin(it.a);
+        ctx.rect(it.cx + 7.7 * s - 3.2, it.cy - 8.9, 6.4, 2.4);
+        ctx.rect(it.cx - 8.1 * s - 3.2, it.cy + 6.9, 6.4, 2.4);
+        ctx.rect(it.cx - 10.6 * s - 0.5, it.cy + 9.2, 1, 3);
+      }
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  // An ellipse turned by rot, as its own shape in the path.
+  function matsuriEll(p, x, y, rx, ry, rot) {
+    p.moveTo(x + rx * Math.cos(rot), y + rx * Math.sin(rot));
+    p.ellipse(x, y, rx, ry, rot, 0, TAU);
+  }
   // Fireworks (花火): three launchers in turn, more often as the round goes on; at the end
-  // one opens as a はなまる.
+  // one opens as a はなまる. Before each opens, its spark climbs.
   function fireworks(ctx) {
     const W = F.W;
+    const C = F.C;
     const rate = 0.45 + 0.55 * F.fin;
     for (let j = 0; j < 3; j++) {
       const per = 2.9 + j * 0.8;
       const t = F.t + j * 1.3;
       const k = Math.floor(t / per);
       const age = t - k * per;
+      if (age > per - 0.55 && hash(j * 977 + k + 1, 110) <= rate + 0.25) {
+        const key = FW_KEYS[Math.floor(hash(k + 1, 120 + j) * 4)];
+        if (setFill(ctx, key)) {
+          const u = ease((age - per + 0.55) / 0.55);
+          const yy = lerp(150, 22 + 44 * hash(k + 1, 114 + j), u);
+          const xx = W * (0.3 + 0.62 * hash(k + 1, 111 + j));
+          ctx.globalAlpha *= 0.85;
+          ctx.fillRect(xx - 0.8, yy, 1.6, 9 * (1 - u) + 2);
+        }
+      }
       if (age > 1.7 || hash(j * 977 + k, 110) > rate + 0.25) continue;
       const x = W * (0.3 + 0.62 * hash(k, 111 + j));
       const y = 22 + 44 * hash(k, 114 + j);
-      const R = 14 + 16 * hash(k, 117 + j);
+      const R = 16 + 18 * hash(k, 117 + j);
       const key = FW_KEYS[Math.floor(hash(k, 120 + j) * 4)];
       const key2 = FW_KEYS[Math.floor(hash(k, 123 + j) * 4)];
       const grow = ease(age / 0.8);
       const fade = 1 - smooth(0.7, 1.7, age);
       const droop = age * age * 3;
-      if (F.fin > 0.5 && j === 0) {
+      if (!C[key]) continue;
+      const hana = F.fin > 0.5 && j === 0;
+      if (F.dark && !hana) {
+        // the burst lights the sky round it: two flat rings of its colour
+        ctx.fillStyle = C[key];
+        ctx.globalAlpha = (F.A[key] || 1) * 0.07 * fade;
+        ctx.beginPath();
+        ctx.arc(x, y + droop * 0.6, R * (0.3 + 0.8 * grow), 0, TAU);
+        ctx.fill();
+        ctx.globalAlpha = (F.A[key] || 1) * 0.12 * fade;
+        ctx.beginPath();
+        ctx.arc(x, y + droop * 0.5, R * (0.2 + 0.5 * grow), 0, TAU);
+        ctx.fill();
+      }
+      if (hana) {
         // the はなまる firework
+        const s = (R / 20) * Math.max(0.2, grow) * 1.2;
         ctx.save();
         ctx.translate(x, y + droop);
-        ctx.scale((R / 20) * grow * 1.2, (R / 20) * grow * 1.2);
-        ctx.strokeStyle = F.C[key];
+        ctx.scale(s, s);
+        ctx.strokeStyle = C[key];
         ctx.globalAlpha = (F.A[key] || 0.6) * fade;
         ctx.lineCap = 'round';
-        ctx.lineWidth = 2.4 / ((R / 20) * Math.max(0.2, grow) * 1.2);
+        ctx.lineWidth = 3 / s;
         ctx.setLineDash(U.dots);
         ctx.stroke(U.hana);
         ctx.restore();
         continue;
       }
-      if (!setFill(ctx, key)) continue;
-      ctx.globalAlpha *= fade;
+      const a0 = (F.A[key] || 1) * fade;
+      // rays from the heart outwards, each ending in a bright star
+      ctx.strokeStyle = C[key];
+      ctx.globalAlpha = a0 * 0.75;
+      ctx.lineWidth = 1.3;
+      ctx.lineCap = 'round';
       ctx.beginPath();
-      for (let d = 0; d < 16; d++) {
-        const a = (d * TAU) / 16 + k;
+      for (let d = 0; d < 18; d++) {
+        const a = (d * TAU) / 18 + k;
+        const c = Math.cos(a);
+        const s = Math.sin(a);
+        ctx.moveTo(x + c * R * grow * 0.45, y + s * R * grow * 0.45 + droop * 0.4);
+        ctx.lineTo(x + c * R * grow * 0.9, y + s * R * grow * 0.9 + droop * 0.9);
+      }
+      ctx.stroke();
+      ctx.fillStyle = C[key];
+      ctx.globalAlpha = a0;
+      ctx.beginPath();
+      for (let d = 0; d < 18; d++) {
+        const a = (d * TAU) / 18 + k;
         const px = x + Math.cos(a) * R * grow;
         const py = y + Math.sin(a) * R * grow + droop;
-        ctx.moveTo(px + 1.4, py);
-        ctx.arc(px, py, 1.4, 0, TAU);
+        ctx.moveTo(px + 1.9, py);
+        ctx.arc(px, py, 1.9, 0, TAU);
       }
       ctx.fill();
       if (setFill(ctx, key2)) {
@@ -3660,10 +4045,10 @@
         ctx.beginPath();
         for (let d = 0; d < 9; d++) {
           const a = (d * TAU) / 9 + k * 2;
-          const px = x + Math.cos(a) * R * 0.5 * grow;
-          const py = y + Math.sin(a) * R * 0.5 * grow + droop * 0.7;
-          ctx.moveTo(px + 1, py);
-          ctx.arc(px, py, 1, 0, TAU);
+          const px = x + Math.cos(a) * R * 0.42 * grow;
+          const py = y + Math.sin(a) * R * 0.42 * grow + droop * 0.7;
+          ctx.moveTo(px + 1.4, py);
+          ctx.arc(px, py, 1.4, 0, TAU);
         }
         ctx.fill();
       }
