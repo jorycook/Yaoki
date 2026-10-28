@@ -259,6 +259,8 @@ const NO_VOICE = `(function () {
   // a phone that repeats all it has heard in each new result: the used-up part is still used up
   await page.evaluate(() => { window.__speech.cumulative = true; });
   check('a phone that repeats everything it heard in each new result still has each card heard alone', await (async () => {
+    // counted from here: the check before clears no card when the card it is dealt is too short to cut in two
+    const n0 = (await state(page)).cleared;
     const a = await target(page);
     await say(page, a.reading, { final: true });
     await sleep(120);
@@ -266,7 +268,7 @@ const NO_VOICE = `(function () {
     await say(page, b.reading, { final: true });
     await sleep(120);
     const x = await state(page);
-    return x.cleared === 9 && (!x.target || x.target.misses === 0);
+    return x.cleared === n0 + 2 && (!x.target || x.target.misses === 0);
   })(), JSON.stringify((await state(page)).target));
   await page.evaluate(() => { window.__speech.cumulative = false; });
 

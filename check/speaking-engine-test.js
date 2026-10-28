@@ -62,6 +62,35 @@ test('a word that is all that was heard is read only as itself', () => {
   assert.match((V.check(card('きて'), '切手').note || {}).en, /No small っ/, 'a slip inside the word is named');
 });
 
+test('…and so is one with a filler before it, or です or a particle after it', () => {
+  // お婆さん read kanji by kanji makes おばさん; 主食 しゅしょく must not pass for 就職 しゅうしょく
+  for (const [text, reading, heard] of [['おばさん', null, 'お婆さんです'], ['おじさん', null, 'お祖父さんが'], ['就職', 'しゅうしょく', '主食です'],
+    ['関係', 'かんけい', '環境です'], ['関係', 'かんけい', 'えっと環境'], ['危険', 'きけん', '機嫌です'], ['さか', null, '作家です']]) {
+    assert.equal(takes(text, reading, heard), false, text + ' ← ' + heard);
+  }
+  for (const [text, reading, heard] of [['おばあさん', null, 'お婆さんです'], ['かんきょう', null, '環境です'], ['関係', 'かんけい', '関係です'],
+    ['さっか', null, '作家が'], ['おにいさん', null, 'お兄さんが'], ['ねこ', null, 'ねこです'], ['きけん', null, '危険です']]) {
+    assert.equal(takes(text, reading, heard), true, text + ' ← ' + heard);
+  }
+});
+
+test('a single sound drawn out or said twice is taken when the phone writes it as the word it sounds like', () => {
+  for (const [text, heard] of [['きょ', '今日'], ['きゅ', '9'], ['じゅ', '10'], ['み', '耳'], ['ち', '父'], ['は', '母'], ['も', '桃']]) {
+    assert.equal(takes(text, null, heard), true, text + ' ← ' + heard);
+  }
+  for (const [text, heard] of [['か', '火'], ['きゃ', '今日'], ['しょ', '今日']]) assert.equal(takes(text, null, heard), false, text + ' ← ' + heard);
+});
+
+test('a card inside what was heard does not end with its last sound drawn out at the end (サッカー is not さっか)', () => {
+  for (const [text, heard] of [['さっか', 'サッカー'], ['とおり', 'ストーリー'], ['れっしゃ', 'プレッシャー'], ['さかな', 'さかなー']]) {
+    assert.equal(takes(text, null, heard), false, text + ' ← ' + heard);
+  }
+  for (const [text, heard] of [['さっか', '作家'], ['さくら', '桜がきれい'], ['さっか', 'さっかです'], ['コーヒー', 'コーヒーショップ'], ['ちょっと', 'ちょっとお願いします'],
+    ['でんわ', '電話ある'], ['せんせい', '先生いいですか']]) {
+    assert.equal(takes(text, null, heard), true, text + ' ← ' + heard);
+  }
+});
+
 test('digits are read as numbers, with counters as they are said', () => {
   assert.equal(V.numerals('25'), '二十五');
   assert.equal(V.numerals('1000'), '千');

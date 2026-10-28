@@ -29,8 +29,9 @@
  *   ledge(ctx, o)                     a ledge whose top is at (x, y): o = { place, n, x, y, w, side, dark, pal, W }
  *   summit(ctx, o)                    the top of the climb at y: o = { place, W, y, dark, pal, t, reached }
  * }
- * All in the game's logical units, on a context already scaled. No images and no libraries. Each function catches
- * its own errors: a place that cannot be drawn leaves the plain paper.
+ * All in the game's logical units, on a context already scaled. No images and no libraries. back, ledge and summit
+ * put the context back as it was and pass an error on; game.js catches it, and a place that cannot be drawn leaves the
+ * plain paper.
  */
 (function () {
   'use strict';

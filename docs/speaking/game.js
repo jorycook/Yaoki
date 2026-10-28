@@ -18,8 +18,9 @@
  *
  * What it rewards is the same as Yaoki Typing's: saying it right the first time with no hint (a はなまる, and a clean
  * run, 連続, that Yaoki cheers at 5, 10 and 20), getting up again (a card that knocked him over, said clean when it
- * comes back, is stamped 起), weak spots (a gold corner) and showing up (a seven-day stamp card for a day's speaking
- * time, and three たいへんよくできました on three days for a stage's はなまる). None of it touches the learning data.
+ * comes back, is stamped 起; in Climb, a card said right after one slip), weak spots (a gold corner) and showing up (a
+ * seven-day stamp card for a day's speaking time, and three たいへんよくできました on three days for a stage's
+ * はなまる). None of it touches the learning data.
  *
  * The places are drawn by world.js, Yaoki's lines and their items come from Yaoki Typing's items.js, the sound
  * effects and the music from its sfx.js and music.js, and the kana and kanji lists from its engine.js. Each of those
@@ -417,7 +418,6 @@
     // always from a tap: the moment to wake the audio, and to start listening (a phone asks for the microphone then)
     wakeAudio();
     unlockVoice();
-    const ticket = ++startTicket;
     const items = currentItems();
     if (!items || !items.length || !L.supported) return;
     let deck = deal(items, saved.len, weakOnly);
@@ -426,6 +426,7 @@
       deck = deal(items, saved.len, false);
     }
     if (!deck.length) return;
+    const ticket = ++startTicket;
     // the round takes the microphone test's listening over
     if (micTest.on) micTestEnd('', saved.mic === 'free');
     if (saved.mic === 'free') L.listen(true);
@@ -3506,11 +3507,11 @@
     if (!t) return;
     if (!canModel(t.item)) {
       setStatus('There is no Japanese voice on this device to say the word: its romaji shows instead.', 'warn');
-      if (!t.hinted) {
-        t.hinted = true;
-        r.hints++;
-      }
       if (t.level < 1) {
+        if (!t.hinted) {
+          t.hinted = true;
+          r.hints++;
+        }
         t.level = 1;
         layoutCard(t);
         showSay(t);

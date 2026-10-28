@@ -10,8 +10,13 @@
  *
  * Kana are compared by sound, not spelling: を and お, ぢ and じ, づ and ず are one sound each, and a long vowel may
  * be written おう, おお or ー. Everything else counts: a small っ, a long vowel, ゃ for や, a voiced sound. A card of
- * one or two kana must be all that was heard (a single sound may be drawn out or said twice: きー, きき); a longer card
- * may be inside what was heard (ねこです for ねこ), and a long one forgives a sound: one from 10 kana, two from 16.
+ * one or two kana must be all that was heard (a single sound may be drawn out or said twice: きー, きき, or 今日 for
+ * きょー; a card of two may have です or でした after it, or えっと, ええと or あのう before it: ねこです for ねこ); a
+ * longer card may be inside what was heard (桜がきれい for さくら), though not inside a longer word written in kanji
+ * (東京 is not きょう), nor with its last sound drawn out at the end (サッカー is not さっか); a longer word written in
+ * kana can still hold it (ジュース holds じゅう). A long card forgives a sound: one from 10 kana, two from 16. A word
+ * in the table of whole words is read only as itself, alone or with a filler before it or です or a particle after it
+ * (環境です is not かんけい).
  * What was heard is lined up with the card, so a near miss can be named: a small っ left out, a long vowel cut short.
  *
  * No DOM here, so the same file runs in the page and in Node (check/speaking-engine-test.js). readings.js must be
@@ -305,6 +310,16 @@
     if (n > 1) {
       const word = (t.W.get(H[0]) || []).find((w) => w.chars.length === n && w.chars.every((ch, k) => ch === H[k]));
       if (word) return H.map((c, i) => (i ? [] : [Object.assign({ len: n }, as(word.rd))]));
+      // ...and so is one said with a filler before it, or です or a particle after it (環境です is not かんけい either);
+      // looked for only after the word alone, as 些か (いささか) ends in a particle's か
+      const s = H.join('');
+      let a = 0;
+      let b = n;
+      for (const p of BEFORE) if (s.startsWith(p) && n > p.length) { a = p.length; break; }
+      for (const p of TAIL) if (s.endsWith(p) && b - a > p.length) { b -= p.length; break; }
+      const m = b - a;
+      const core = m > 1 && m < n && (t.W.get(H[a]) || []).find((w) => w.chars.length === m && w.chars.every((ch, k) => ch === H[a + k]));
+      if (core) return H.map((c, i) => (i === a ? [Object.assign({ len: m }, as(core.rd))] : i > a && i < b ? [] : [Object.assign({ len: 1 }, as([c]))]));
     }
     const segs = [];
     for (let i = 0; i < n; i++) {
@@ -436,6 +451,14 @@
     // a card found inside what was heard starts and ends at an edge of a run of kanji, or pays a sound for it
     // (三時 is not quite in 三時半, nor 今日 in 東京)
     const edge = (i) => (i === 0 || i === n || !(isKanji(H[i - 1]) && isKanji(H[i])) ? 0 : EDIT);
+    // ...nor does it end where its last sound is drawn out, at the end of what was heard (サッカー is not さっか, nor
+    // ストーリー とおり; ちょっとお願いします still holds ちょっと)
+    const lastVowel = VOWEL[C[m - 1]];
+    const drawn = (i) => {
+      if (i !== n - 1 || !lastVowel) return 0;
+      const c = H[i];
+      return c === VOWEL_KANA[lastVowel] || (lastVowel === 'o' && c === 'う') || (lastVowel === 'e' && c === 'い') ? EDIT : 0;
+    };
     if (inside) for (let i = 0; i <= n; i++) cost[i * W] = edge(i);
     else cost[0] = 0;
     for (let i = 0; i <= n; i++) {
@@ -462,7 +485,7 @@
     let endCost = cost[n * W + m];
     if (inside) {
       for (let i = 0; i < n; i++) {
-        const c = cost[i * W + m] + edge(i);
+        const c = cost[i * W + m] + edge(i) + drawn(i);
         if (c < endCost) {
           endCost = c;
           endI = i;
@@ -497,10 +520,20 @@
   // (きー, きき), and for a card of two kana, えっと… before it or です after it.
   const BEFORE = ['えっと', 'ええと', 'あのう'];
   const AFTER = ['でした', 'です'];
+  // what may come after a word that is not part of it: です and the particles
+  const TAIL = ['でした', 'ですか', 'ですね', 'ですよ', 'です', 'が', 'は', 'を', 'に', 'も', 'の', 'で', 'と', 'へ', 'か', 'ね', 'よ'];
   function views(t, H) {
     const out = [H];
     if (t.C.length > 2) return out;
     const s = H.join('');
+    // a sound said long or twice that the phone wrote as the word it sounds like (今日 for きょー, 9 for きゅー, 耳
+    // for みみ): that word's readings, trimmed below as kana are
+    if (t.beats === 1 && !H.every(isKana)) {
+      const T0 = tables();
+      const word = H.length > 1 && (T0.W.get(H[0]) || []).find((w) => w.chars.length === H.length && w.chars.every((ch, k) => ch === H[k]));
+      const rds = word ? word.rd : H.length === 1 && isKanji(H[0]) ? T0.S.get(H[0]) || [] : [];
+      for (const r of rds) out.push(Array.from(r));
+    }
     if (t.C.length === 2) {
       let a = 0;
       let b = H.length;
