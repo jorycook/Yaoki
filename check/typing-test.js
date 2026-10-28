@@ -59,10 +59,17 @@ async function waitFor(fn, ms = 5000) {
     await waitFor(async () => !!(await state(page)).target, ms);
     return (await state(page)).target;
   };
-  const pick = async (page, mode, stage) => {
-    await page.click(`#modes button:nth-child(${mode})`);
-    if (stage) await page.click(`#stages .option:nth-child(${stage})`);
+  // The input method (1 romaji, 2 symbol keys, 3 kana input), then a stage by its key
+  // ('romaji:basic', 'kanji:yoji', 'keys-course' …).
+  const pick = async (page, input, stage) => {
+    await page.click(`#modes button:nth-child(${input})`);
+    if (stage) await page.click(`#stages [data-stage="${stage}"]`);
   };
+  // Kana input: the keys of a word's card, as key events (the ろ and ¥ keys are not in
+  // Playwright's keyboard); with the input method on, as a kana typist has it.
+  const typeKana = (page, keys) => page.evaluate((list) => {
+    for (const k of list) window.dispatchEvent(new KeyboardEvent('keydown', { code: k.code, key: 'Process', keyCode: 229, shiftKey: k.shift }));
+  }, keys);
   const quit = async (page) => {
     await page.keyboard.press('Escape');
     await page.click('#quit');
@@ -99,12 +106,15 @@ async function waitFor(fn, ms = 5000) {
   let page = await open();
   check('page loads with no script errors', errors.length === 0, errors.join('\n'));
   check('brand is タイピング · Yaoki Typing', /タイピング\s*Yaoki Typing/.test(await page.textContent('.brand')));
-  check('four modes in the app\'s words', (await page.$$eval('#modes button', (b) => b.map((x) => x.textContent))).join('|').includes('かな入力'));
+  check('three input methods in the app\'s words', (await page.$$eval('#modes button', (b) => b.map((x) => x.textContent))).join('|') === 'ローマ字　Romaji|記号　Symbol keys|かな入力　Kana input');
+  check('the heading names them input methods', /入力方法\s*Input method/.test(await page.textContent('#mode-h')));
+  check('romaji lists kana, course words and kanji as stages', (await page.$$eval('#stages .stage-group h3', (h) => h.map((x) => x.textContent))).join('|') === 'かな　Kana, words and phrases|語彙　Course words|漢字　Kanji (advanced)'
+    && (await page.$$('#stages [data-stage^="kanji:"]')).length === 5 && (await page.$$('#stages [data-stage="course"]')).length === 1);
   check('links back to the app with a trailing slash', (await page.$$('a[href="../"]')).length >= 1);
   if (shots) await page.screenshot({ path: `${shots}/menu.png`, fullPage: true });
 
   // ---- romaji: type cards by their hints; misses; Backspace; IME
-  await pick(page, 2, 1);
+  await pick(page, 1, 'romaji:basic');
   await page.click('#start');
   check('start opens the round', (await state(page)).phase === 'play');
   check('the brand bar is out of the way during a round', !(await page.isVisible('.bar')));
@@ -183,7 +193,7 @@ async function waitFor(fn, ms = 5000) {
   check('Quit goes back to the menu, with focus on Start', (await state(page)).phase === 'menu' && await page.evaluate(() => document.activeElement.id === 'start'));
 
   // ---- a card that falls last comes back from the right edge, not in front of Yaoki
-  await pick(page, 3, 1);
+  await pick(page, 2, 'symbol:plain');
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
   for (let i = 0; i < 9; i++) {
@@ -333,7 +343,7 @@ async function waitFor(fn, ms = 5000) {
   };
   await setHints(3);
   check('the hint setting is kept', (await stored(page)).hints === 'never');
-  await pick(page, 2, 1);
+  await pick(page, 1, 'romaji:basic');
   await page.click('#start');
   await target(page);
   await page.keyboard.press('1');
@@ -391,7 +401,7 @@ async function waitFor(fn, ms = 5000) {
 
   // ---- a best does not count with hints always on
   await setHints(1);
-  await pick(page, 3, 2);
+  await pick(page, 2, 'symbol:shifted');
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
   await playOut(page, (c) => page.keyboard.type(c.key, { delay: 20 }));
@@ -404,7 +414,7 @@ async function waitFor(fn, ms = 5000) {
 
   // ---- hints turned on for part of a round: it does not count for the best either
   await setHints(2);
-  await pick(page, 3, 3);
+  await pick(page, 2, 'symbol:punct');
   await page.click('#start');
   await target(page);
   await page.keyboard.press('Escape');
@@ -423,7 +433,7 @@ async function waitFor(fn, ms = 5000) {
   check('…and its result says hints were on for part of it', /part of the round/.test(await page.textContent('#res-hints-en')));
   await page.keyboard.press('Escape');
   check('the menu does not repeat the last round\'s words to a screen reader', (await page.textContent('#sr-prompt')) === '');
-  await pick(page, 3, 1);
+  await pick(page, 2, 'symbol:plain');
 
   // ---- five misses in ten cards: がんばりましょう
   await page.click('#start');
@@ -439,7 +449,7 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('Escape');
 
   // ---- kana input: physical keys, the Shift layer, and an IME in kana mode
-  await pick(page, 4, 1);
+  await pick(page, 3, 'keys:home');
   await page.click('#start');
   for (let i = 0; i < 3; i++) {
     const c = await target(page);
@@ -450,7 +460,7 @@ async function waitFor(fn, ms = 5000) {
   await page.evaluate((code) => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Process', keyCode: 229, code })), kc.code);
   check('a kana card is cleared even with the input method on', (await state(page)).cleared === 4);
   await quit(page);
-  await pick(page, 4, 5);
+  await pick(page, 3, 'keys:shift');
   await page.click('#start');
   const sc = await target(page);
   await page.keyboard.press(sc.code);
@@ -463,7 +473,7 @@ async function waitFor(fn, ms = 5000) {
 
   // ---- the next key and the other hand's Shift are lit (hints always on)
   await setHints(1);
-  await pick(page, 3, 2);
+  await pick(page, 2, 'symbol:shifted');
   await page.click('#start');
   const shifted = await target(page);
   await sleep(100);
@@ -478,7 +488,7 @@ async function waitFor(fn, ms = 5000) {
   page = await open({ colorScheme: 'dark' }, { [appKey]: { started: true, level: 'N4', cur: 'n4u03d2' } }, [() => {
     window.ykSound = { has: () => true, unlock: () => true, play: (clip) => { window.__played = clip; return true; } };
   }, SFX_STUB, MUSIC_STUB]);
-  check('the menu opens at the learner\'s course words', (await page.textContent('#modes [aria-pressed="true"]')).includes('語彙'));
+  check('the menu opens at the learner\'s course words', (await page.textContent('#modes [aria-pressed="true"]')).includes('ローマ字') && (await page.getAttribute('#stages [aria-pressed="true"]', 'data-stage')) === 'course' && await page.isVisible('#course-pick'));
   check('the N4 weeks load from ../assets', await waitFor(async () => (await page.$$('#units .option')).length === 10, 10000));
   check('the learner\'s week is picked and marked 今', /第3週/.test(await page.textContent('#units [aria-pressed="true"]')) && /今/.test(await page.textContent('#units [aria-pressed="true"]')));
   await page.click('#start');
@@ -492,12 +502,40 @@ async function waitFor(fn, ms = 5000) {
   check('…and no stamp sound plays over the word', !(await sounds(page)).includes('clear'), (await sounds(page)).join(','));
   check('…and the music dips while it is spoken', (await musicLog(page)).some((x) => x.startsWith('duck')), (await musicLog(page)).join(' '));
   if (shots) await page.screenshot({ path: `${shots}/course-dark.png` });
+  await quit(page);
+
+  // ---- course words with kana input: the same week, typed key by key
+  await pick(page, 3, 'keys-course');
+  check('kana input lists its keys, course words and kanji as stages', (await page.$$eval('#stages .stage-group h3', (h) => h.map((x) => x.textContent))).join('|') === 'キー　Keys, row by row|語彙　Course words|漢字　Kanji (advanced)');
+  check('…with the same week picked, and the keyboard showing its kana', await page.isVisible('#course-pick') && /第3週/.test(await page.textContent('#units [aria-pressed="true"]'))
+    && (await page.textContent('[data-code="KeyT"] .main')) === 'か');
+  await page.evaluate(() => { window.__played = null; });
+  await page.click('#start');
+  const kw = await target(page);
+  check('a course word in kana input shows its reading and is typed by its keys', !!kw.reading && kw.readingShown && kw.keys.length >= Array.from(kw.reading).length && kw.spell === null, JSON.stringify(kw));
+  const wrong = (k) => [{ code: k.code === 'Digit1' ? 'Digit2' : 'Digit1', shift: false }];
+  await typeKana(page, wrong(kw.keys[0]));
+  await sleep(120);
+  let kt2 = (await state(page)).target;
+  check('a slip shows where the next key is, but does not light it yet', kt2.level === 1 && kt2.typed === '' && (await page.$('#kb .key.next')) === null, JSON.stringify(kt2));
+  await typeKana(page, wrong(kw.keys[0]));
+  check('a second slip lights the key', await waitFor(async () => (await page.$$eval('#kb .key.next', (els) => els.map((e) => e.dataset.code))).includes(kw.keys[0].code), 1000));
+  await typeKana(page, kw.keys.slice(0, 1));
+  kt2 = (await state(page)).target;
+  check('a right key moves on to the next one', kt2.text === kw.text && kt2.keys.length === kw.keys.length - 1 && kt2.typed.length >= 1, JSON.stringify(kt2));
+  await typeKana(page, kt2.keys);
+  check('the whole word typed clears it, and it is spoken', (await state(page)).cleared === 1 && /^s_n4u3d\d_/.test((await page.evaluate(() => window.__played)) || ''));
+  await quit(page);
+  const kst2 = (await stored(page)).stats || {};
+  const firstKey = kw.keys[0].kana + (kw.keys[0].shift ? '+' : '');
+  check('its missed key goes on the kana input weak list', (kst2.keys || {})[firstKey] && kst2.keys[firstKey].miss >= 1, JSON.stringify(kst2));
   await page.close();
 
   // ---- kanji (advanced): the reading is the answer, shown only as a hint
   page = await open();
-  await pick(page, 5, 2);
-  check('the kanji mode has its five levels', (await page.$$('#stages .option')).length === 5 && /漢字/.test(await page.textContent('#modes [aria-pressed="true"]')));
+  await pick(page, 1, 'kanji:jukugo');
+  check('the kanji stages are picked under romaji', /ローマ字/.test(await page.textContent('#modes [aria-pressed="true"]')) && (await page.getAttribute('#stages [aria-pressed="true"]', 'data-stage')) === 'kanji:jukugo'
+    && /romaji/.test(await page.textContent('#stage-desc')));
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
   let kj = await target(page);
@@ -532,7 +570,7 @@ async function waitFor(fn, ms = 5000) {
   check('…kept as words, not as kana', (kst.kanji || {})[slipped] && kst.kanji[stuck] && !Object.keys(kst.kana || {}).length, JSON.stringify(kst));
   await page.keyboard.press('Escape');
   await setHints(1);
-  await pick(page, 5, 1);
+  await pick(page, 1, 'kanji:single');
   await page.click('#start');
   kj = await target(page);
   await sleep(100);
@@ -555,16 +593,45 @@ async function waitFor(fn, ms = 5000) {
     return said.includes(kj.text) && said.includes(kj.reading);
   }, 1500), await page.textContent('#sr-prompt'));
   await quit(page);
-  await pick(page, 5, 5);
+  await pick(page, 1, 'kanji:sentences');
   await page.click('#start');
   const kdone = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
   check('a round of sentences with kanji can be played to the end', kdone && (await state(page)).phase === 'result');
   await page.close();
 
+  // ---- kanji with kana input: the reading typed on the kana keys, hidden until a hint
+  page = await open();
+  await pick(page, 3, 'keys-kanji:jukugo');
+  check('kana input has the kanji stages too', (await page.$$('#stages [data-stage^="keys-kanji:"]')).length === 5 && /kana keys/.test(await page.textContent('#stage-desc')));
+  await page.click('#len-seg button:nth-child(1)');
+  await page.click('#start');
+  kj = await target(page);
+  check('a kanji card in kana input hides its reading too', !!kj.reading && !kj.readingShown && kj.keys.length > 0 && !(await page.innerText('#info')).includes(kj.reading), JSON.stringify(kj));
+  await typeKana(page, kj.keys);
+  check('typed from memory on the kana keys, it is clean', (await state(page)).clean === 1);
+  kj = await target(page);
+  const kslip = kj.text;
+  await typeKana(page, wrong(kj.keys[0]));
+  await sleep(120);
+  kj = (await state(page)).target;
+  check('a slip shows the reading, not yet the key', kj.readingShown && kj.level === 1 && (await page.innerText('#info')).includes(kj.reading) && (await page.$('#kb .key.next')) === null, JSON.stringify(kj));
+  await typeKana(page, wrong(kj.keys[0]));
+  check('a second slip lights the key', await waitFor(async () => (await page.$$eval('#kb .key.next', (els) => els.map((e) => e.dataset.code))).includes(kj.keys[0].code), 1000));
+  const kkround = await playOut(page, (c) => typeKana(page, c.keys), 120000);
+  const kkweak = kkround ? await page.textContent('#res-weak') : '';
+  check('the round\'s weak spots list the slipped word', kkweak.includes(kslip), JSON.stringify({ kkweak, kslip }));
+  check('…kept as the word, on the same list as with romaji', ((await stored(page)).stats.kanji || {})[kslip], JSON.stringify((await stored(page)).stats));
+  await page.keyboard.press('Escape');
+  await pick(page, 3, 'keys-kanji:sentences');
+  await page.click('#start');
+  const kkdone = await playOut(page, (c) => typeKana(page, c.keys), 150000);
+  check('a round of sentences can be played to the end with kana input, 。 and all', kkdone && (await state(page)).phase === 'result');
+  await page.close();
+
   // ---- sound effects: quiet by default, all, off; the kana fill; the fall's drum and bounce
   page = await open({}, null, SFX_STUB);
   check('sound effects are quiet by default', (await state(page)).sfx === 'quiet');
-  await pick(page, 2, 4);
+  await pick(page, 1, 'romaji:words');
   await page.click('#start');
   for (let i = 0; i < 2; i++) {
     const c = await target(page);
@@ -684,7 +751,7 @@ async function waitFor(fn, ms = 5000) {
     practice: { d: '2026-10-27', s: 179 }, seal: { 'symbol:plain': ['2026-10-25', '2026-10-26'] }, stats: { symbol: { '@': { miss: 2, ok: 0 } } },
   } }, [SFX_STUB, CLOCK]);
   check('the menu shows the stamp card with today\'s box open', (await page.textContent('#day-count')) === '0 / 7' && (await page.$('#day-boxes .day-box.open')) !== null);
-  check('the stage shows its two rings towards はなまる', (await page.$$('#stages .option:nth-child(1) .rings i.on')).length === 2);
+  check('the stage shows its two rings towards はなまる', (await page.$$('#stages [data-stage="symbol:plain"] .rings i.on')).length === 2);
   if (shots) await page.screenshot({ path: `${shots}/menu-daycard.png` });
   await page.evaluate(() => document.activeElement && document.activeElement.blur());
   await page.keyboard.press('Enter');
@@ -722,7 +789,7 @@ async function waitFor(fn, ms = 5000) {
   }
   await page.keyboard.press('Escape');
   check('the menu shows the new stamp', (await page.textContent('#day-count')) === '1 / 7');
-  check('…and the stage\'s はなまる', (await page.$('#stages .option:nth-child(1) .hana')) !== null);
+  check('…and the stage\'s はなまる', (await page.$('#stages [data-stage="symbol:plain"] .hana')) !== null);
   await page.click('#start');
   await playOut(page, async (c) => {
     await sleep(150);
@@ -809,7 +876,7 @@ async function waitFor(fn, ms = 5000) {
 
   // ---- every round ends: a card that has knocked Yaoki over twice waits; Tab skips it
   page = await open({ reducedMotion: 'reduce' });
-  await pick(page, 3, 1);
+  await pick(page, 2, 'symbol:plain');
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
   const before = (await stored(page)).stats || {};
@@ -848,16 +915,21 @@ async function waitFor(fn, ms = 5000) {
   }
   await page.close();
 
-  // ---- narrow windows: every card fits, and a round of the longest prompts ends
-  for (const size of [{ width: 640, height: 900 }, { width: 480, height: 800 }]) {
-    page = await open({ viewport: size });
-    await pick(page, 2, 5);
-    await page.click('#len-seg button:nth-child(1)');
-    await page.click('#start');
-    const done = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
-    check(`${size.width}px: a round of phrases can be played to the end`, done && (await state(page)).phase === 'result', JSON.stringify(await state(page)));
-    await page.close();
-  }
+  // ---- the narrowest window the game is made for (700 px): the longest prompts, and kanji
+  // sentences with the room for their furigana, can be played to the end
+  page = await open({ viewport: { width: 700, height: 760 } });
+  check('700px: no notice, and no sideways scrolling on the menu', await page.isHidden('#touch-note') && await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+  await pick(page, 1, 'romaji:phrases');
+  await page.click('#len-seg button:nth-child(1)');
+  await page.click('#start');
+  let done700 = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 120000);
+  check('700px: a round of phrases can be played to the end', done700 && (await state(page)).phase === 'result', JSON.stringify(await state(page)));
+  await page.keyboard.press('Escape');
+  await pick(page, 1, 'kanji:sentences');
+  await page.click('#start');
+  done700 = await playOut(page, (c) => page.keyboard.type(c.spell, { delay: 10 }), 150000);
+  check('700px: a round of kanji sentences can be played to the end', done700 && (await state(page)).phase === 'result', JSON.stringify(await state(page)));
+  await page.close();
 
   // ---- a pick made while the typefaces load does not change the round being started
   page = await browser.newPage({ viewport: { width: 1366, height: 768 } });
@@ -865,51 +937,63 @@ async function waitFor(fn, ms = 5000) {
   await page.route(/fonts\.googleapis\.com/, (r) => r.fulfill({ contentType: 'text/css', body: "@font-face{font-family:'Klee One';font-weight:600;src:url(https://fonts.gstatic.com/never.woff2)}" }));
   await page.route(/fonts\.gstatic\.com/, () => {}); // never answered
   await page.goto(url, { waitUntil: 'domcontentloaded' });
-  await pick(page, 2, 1);
+  await pick(page, 1, 'romaji:basic');
   await page.click('#start');
-  await page.click('#modes button:nth-child(3)');
+  await page.click('#modes button:nth-child(2)');
   await sleep(2000);
-  check('a mode picked during the font wait cancels that start', (await state(page)).phase === 'menu');
+  check('an input method picked during the font wait cancels that start', (await state(page)).phase === 'menu');
   await page.click('#start');
-  await page.click('#stages .option:nth-child(2)');
+  await page.click('#stages [data-stage="symbol:shifted"]');
   await page.click('#start');
   check('a second Start after a pick plays the new pick', await waitFor(async () => (await state(page)).phase === 'play', 4000));
   check('…with the stage picked last', (await state(page)).mode === 'symbol' && /シフト/.test(await page.evaluate(() => document.querySelector('#stages [aria-pressed="true"]').textContent)));
   await page.close();
 
-  // ---- keyboard labels at narrow widths: the Shift characters stay at 640 px
-  page = await open({ viewport: { width: 640, height: 900 } });
-  check('640px: the keyboard still shows the Shift characters', await page.evaluate(() => getComputedStyle(document.querySelector('[data-code="Digit2"] .sub')).display !== 'none'));
+  // ---- a touch screen, or a window too narrow, is told the game is for a computer with a keyboard
+  page = await open({ viewport: { width: 375, height: 667 }, isMobile: true, hasTouch: true });
+  check('a phone is told the game is for a computer with a keyboard', await page.isVisible('#touch-note') && /computer with a keyboard/.test(await page.textContent('#touch-note')));
+  if (shots) await page.screenshot({ path: `${shots}/phone.png`, fullPage: true });
+  await page.close();
+  page = await open({ viewport: { width: 1024, height: 768 }, isMobile: true, hasTouch: true });
+  check('a tablet is told so too, until a key is pressed on a keyboard', await page.isVisible('#touch-note'));
+  await page.keyboard.press('a');
+  check('…which shows a keyboard is there after all', await page.isHidden('#touch-note'));
+  await page.close();
+  page = await open({ viewport: { width: 600, height: 800 } });
+  check('a window narrower than 700 px is told so', await page.isVisible('#touch-note'));
+  await page.setViewportSize({ width: 900, height: 800 });
+  check('…and the note goes once it is wider', await waitFor(() => page.isHidden('#touch-note'), 1000));
   await page.close();
 
-  page = await open({ viewport: { width: 480, height: 900 } });
-  await pick(page, 4, 5);
+  // ---- at 700 px: the HUD fits, the lit Shift key keeps its label, Yaoki's bubble stays in
+  // the scene, and nothing scrolls sideways
+  page = await open({ viewport: { width: 700, height: 700 } });
+  await page.click('#open-settings');
+  await page.click('#hint-seg button:nth-child(1)');
+  await page.click('#close-settings');
+  await pick(page, 2, 'symbol:shifted');
+  await page.click('#start');
+  const sh = await target(page);
+  await sleep(150);
+  const shiftCode = /^(Digit[1-5]|Key[QWERTASDFGZXCVB])$/.test(sh.code) ? 'ShiftRight' : 'ShiftLeft';
+  check('700px: the lit Shift key keeps its label', await page.evaluate((code) => {
+    const m = document.querySelector('[data-code="' + code + '"] .main');
+    return m.closest('.key').classList.contains('next') && getComputedStyle(m).display !== 'none' && m.textContent === 'Shift';
+  }, shiftCode));
+  await quit(page);
+  await page.click('#open-settings');
+  await page.click('#hint-seg button:nth-child(2)');
+  await page.click('#close-settings');
+  await pick(page, 3, 'keys:shift');
   const overlap = await page.evaluate(() => {
     const el = document.querySelector('[data-code="Digit3"]');
     const a = el.querySelector('.main').getBoundingClientRect();
     const b = el.querySelector('.sub').getBoundingClientRect();
     return Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) * Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
   });
-  check('480px kana input: the small kana does not sit on the main kana', overlap === 0, 'overlap ' + overlap);
-  await page.close();
-  page = await open({ viewport: { width: 375, height: 700 } });
-  await page.click('#open-settings');
-  await page.click('#hint-seg button:nth-child(1)');
-  await page.click('#close-settings');
-  await pick(page, 3, 2);
-  await page.click('#start');
-  const sh = await target(page);
-  await sleep(150);
-  const shiftCode = /^(Digit[1-5]|Key[QWERTASDFGZXCVB])$/.test(sh.code) ? 'ShiftRight' : 'ShiftLeft';
-  check('375px: the lit Shift key keeps its label', await page.evaluate((code) => {
-    const m = document.querySelector('[data-code="' + code + '"] .main');
-    return m.closest('.key').classList.contains('next') && getComputedStyle(m).display !== 'none' && m.textContent === 'Shift';
-  }, shiftCode));
-  await page.close();
-
-  // ---- the smallest phones: the HUD, with two-digit counts, still fits at 320 px
-  page = await open({ viewport: { width: 320, height: 568 } });
-  await pick(page, 3, 1);
+  check('700px kana input: the small kana does not sit on the main kana', overlap === 0, 'overlap ' + overlap);
+  await pick(page, 2, 'symbol:plain');
+  await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
   await target(page);
   await page.evaluate(() => {
@@ -917,40 +1001,21 @@ async function waitFor(fn, ms = 5000) {
     document.getElementById('hud-falls').textContent = '12';
     document.getElementById('hud-time').textContent = '12:34';
   });
-  check('320px: the HUD fits, and the page does not scroll sideways', await page.evaluate(() => {
-    const h = document.querySelector('.hud');
-    return h.scrollWidth <= h.clientWidth && document.documentElement.scrollWidth <= 320;
-  }));
-  await page.close();
-
-  // ---- small screens and touch: no sideways scroll, the keyboard note, the result
-  page = await open({ viewport: { width: 375, height: 667 }, isMobile: true, hasTouch: true });
-  check('375px phone: no sideways scrolling', await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
-  check('touch-only devices are told a keyboard is needed', await page.isVisible('#touch-note'));
-  if (shots) {
-    await sleep(400);
-    await page.screenshot({ path: `${shots}/phone.png`, fullPage: true });
-  }
-  await pick(page, 3, 1);
-  await page.click('#len-seg button:nth-child(1)');
-  await page.click('#start');
-  await target(page);
-  check('375px phone: the HUD fits', await page.evaluate(() => { const h = document.querySelector('.hud'); return h.scrollWidth <= h.clientWidth; }));
+  check('700px: the HUD fits, with two-digit counts', await page.evaluate(() => { const h = document.querySelector('.hud'); return h.scrollWidth <= h.clientWidth && document.documentElement.scrollWidth <= window.innerWidth; }));
   // a fall: よいしょ！ in a bubble that stays in the scene, above the cards
   await waitFor(async () => ((await state(page)).yaoki || {}).bubble === 'よいしょ！', 25000);
   s = await state(page);
   const box = s.yaoki && s.yaoki.box;
   const cardTop = 168 - 74;
   const hit = box && s.cards.some((c) => c.state === 'live' && box.x < c.x + c.w && c.x < box.x + box.w && box.y + box.h > cardTop);
-  check('375px phone: Yaoki\'s bubble stays in the scene, clear of the cards', box && !hit && box.x >= 0 && box.x + box.w <= s.W && box.y >= 0, JSON.stringify({ box, W: s.W, cards: s.cards }));
-  if (shots) await page.screenshot({ path: `${shots}/phone-fall.png` });
+  check('700px: Yaoki\'s bubble stays in the scene, clear of the cards', box && !hit && box.x >= 0 && box.x + box.w <= s.W && box.y >= 0, JSON.stringify({ box, W: s.W, cards: s.cards }));
   await playOut(page, (c) => page.keyboard.type(c.key, { delay: 10 }));
   let widest = 0;
   for (let i = 0; i < 15; i++) {
     widest = Math.max(widest, await page.evaluate(() => document.documentElement.scrollWidth));
     await sleep(50);
   }
-  check('375px phone: the result does not scroll sideways while its stamp lands', widest <= 375, 'scrollWidth ' + widest);
+  check('700px: the result does not scroll sideways while its stamp lands', widest <= 700, 'scrollWidth ' + widest);
   await page.close();
 
   check('no page errors in any run', errors.length === 0, errors.join('\n'));

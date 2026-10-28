@@ -9,7 +9,7 @@ Yaoki is a JLPT study app prototype. There are two apps, built from the same she
 | `docs/` | The built main app, served by GitHub Pages at https://jorycook.github.io/Yaoki/. This is all a phone needs. |
 | `docs/n1/` | The built N1 app, served at https://jorycook.github.io/Yaoki/n1/. |
 | `docs/reader/` | Yaoki Reader, served at https://jorycook.github.io/Yaoki/reader/. It has no build step: these files are its source. |
-| `docs/typing/` | Yaoki Typing (タイピング), a typing game for a Japanese (JIS) keyboard, served at https://jorycook.github.io/Yaoki/typing/. It has no build step: `engine.js` holds the spelling rules, key tables and prompts, `game.js` the game. |
+| `docs/typing/` | Yaoki Typing (タイピング), a typing game for a computer with a Japanese (JIS) keyboard, served at https://jorycook.github.io/Yaoki/typing/. It has no build step: `engine.js` holds the spelling rules, key tables and prompts, `game.js` the game. |
 | `yaoki/project/` | The design canvas's files for the main app: 29 screens (`*.dc.html`), the course engine (`course.js`), each level's lessons (`course-n5.js` to `course-n2.js`, made from `content/`), the sound player (`sound.js`) and the clips (`sound-mock.js`, `sound-lessons.js`, `sound-course.js`, and one `sound-course-nX-uNN.js` per unit), and the writing practice (`Write.dc.html`, `yk-write.js`, `strokes.js`). 16 of the screens make up the app, with the writing panel inside one of them. |
 | `content/` | The main app's lessons as data, one folder per level (see `content/README.md`). |
 | `tools/` | `build-course.mjs` checks the content and writes the `course-*.js` files (the app build runs it), the scripts that make the course's sound and review sheets, and the writing practice's: `make-strokes.py` (the strokes, from KanjiVG) and `sync-write.sh` (the panel and engine copied to the N1 app). |
@@ -97,8 +97,8 @@ bash run-reader.sh library-test.js   # Yaoki Library: the catalog and its files,
 For Yaoki Typing (Node for the rules, Playwright for the page):
 
 ```
-node check/typing-engine-test.js     # the spelling rules (taken and refused), the key tables, every built-in prompt and every course word
-node check/typing-test.js            # plays each mode with real key presses, a fall and a waiting card, the result; SHOTS=<dir> keeps screenshots
+node check/typing-engine-test.js     # the spelling rules (taken and refused), the key tables, kana input's keys, every built-in prompt and every course word
+node check/typing-test.js            # plays each input method and stage group with real key presses, a fall and a waiting card, the result; SHOTS=<dir> keeps screenshots
 ```
 
 `NODE_PATH` may point at another Playwright install (the default is `/opt/npm-tools/node_modules`).
@@ -161,17 +161,24 @@ Nothing a reader adds goes into this repository. Only the built-in sample (片�
 
 ## Yaoki Typing
 
-A typing game for a Japanese (JIS) keyboard, in the app's look: cards come along Yaoki's route, and typing a card stamps it 済. A card that reaches Yaoki knocks him over; he gets up again (七転び八起き) and the card comes back later in the round, after about three other cards (the cards already on the route come first; the game says how many). A card that has knocked him over twice waits in front of him instead, and Tab skips it (for a key the keyboard lacks), so every round ends. There are five modes:
+A typing game for a computer with a Japanese (JIS) keyboard, in the app's look: cards come along Yaoki's route, and typing a card stamps it 済. A card that reaches Yaoki knocks him over; he gets up again (七転び八起き) and the card comes back later in the round, after about three other cards (the cards already on the route come first; the game says how many). A card that has knocked him over twice waits in front of him instead, and Tab skips it (for a key the keyboard lacks), so every round ends. It is made for desktop computers: on a touch screen (until a key is pressed), or in a window narrower than 700 pixels, the menu says so, and the page has no phone layout.
 
-- **語彙 Course words:** the words of a week of the main app's course, N5 to N2, read from `docs/assets/course-*.js`. The page starts at the level and week the learner is on in the app, if the app has been used in the same browser (it reads the app's saved state, `yaoki.v1:/Yaoki/`, and never writes it). A cleared word is spoken with the app's own clip, from `docs/assets/sound.js` and the week's sound file. So course words follow the app's content with no step of their own, but they need the app's files beside the page.
-- **ローマ字 Romaji:** kana, katakana, words and short sentences with Japanese punctuation, from the lists in `engine.js`.
-- **記号 Symbol keys:** the symbols and Japanese punctuation on their JIS keys.
-- **かな入力 Kana input:** where each kana sits on the keyboard, by physical key, including the Shift layer.
-- **漢字 Kanji (advanced):** five levels from `KANJI_STAGES` in `engine.js`: 一字 single kanji, 熟語 compound words, 上級熟語 harder compounds (N3–N2), 四字熟語 four-character idioms, and 漢字の文 sentences with kanji, each with an English meaning. A card shows only the kanji, and its reading is typed in romaji. The reading is the answer, so it is hidden: the first step of a hint (after a slip, or after 3.5 seconds stuck) shows it as furigana on the card and under the game, and says it to a screen reader; the second shows its romaji and lights the keys. A card typed without either is clean. With hints always on, both show from the start. A kanji card that was missed, or whose reading a hint showed, goes on the weak-spot list (and the round's result) as the whole word, not per kana. Rounds start at a slower pace, since a reading is recalled before it is typed.
+The menu picks an **入力方法 input method**, then a **ステージ stage** of it:
+
+- **ローマ字 Romaji:** cards typed in romaji. Its stages are かな kana, katakana, words and short sentences with Japanese punctuation (from the lists in `engine.js`), 語彙 course words, and the five 漢字 kanji levels.
+- **記号 Symbol keys:** the symbols and Japanese punctuation on their JIS keys, one key a card.
+- **かな入力 Kana input:** cards typed with the kana printed on the keys, by physical key, so the input mode does not matter. Its stages are キー the keys row by row (one kana a card, including the Shift layer), 語彙 course words and the five 漢字 kanji levels. A word is typed key by key: a voiced kana is its kana and then ゛ (or ゜), a small kana or a mark takes Shift, and katakana go on the same keys (`kanaKeys` in `engine.js`). Its hints are the next key's row and finger, then the key itself, lit on the keyboard.
+
+The stages that come under both romaji and kana input:
+
+- **語彙 Course words:** the words of a week of the main app's course, N5 to N2, read from `docs/assets/course-*.js`; picking it shows the level and week list. The page starts at the level and week the learner is on in the app, if the app has been used in the same browser (it reads the app's saved state, `yaoki.v1:/Yaoki/`, and never writes it). A cleared word is spoken with the app's own clip, from `docs/assets/sound.js` and the week's sound file. So course words follow the app's content with no step of their own, but they need the app's files beside the page.
+- **漢字 Kanji (advanced):** five levels from `KANJI_STAGES` in `engine.js`: 一字 single kanji, 熟語 compound words, 上級熟語 harder compounds (N3–N2), 四字熟語 four-character idioms, and 漢字の文 sentences with kanji, each with an English meaning. A card shows only the kanji, and its reading is typed (in romaji, or on the kana keys). The reading is the answer, so it is hidden: the first step of a hint (after a slip, or after 3.5 seconds stuck) shows it as furigana on the card and under the game, and says it to a screen reader; the second shows its romaji, or its next key, and lights the keys. A card typed without either is clean. With hints always on, both show from the start. A kanji card that was missed, or whose reading a hint showed, goes on the weak-spot list (and the round's result) as the whole word, not per kana or key; the list is the same for both input methods. Rounds start at a slower pace, since a reading is recalled before it is typed.
+
+Each stage keeps its own pace, best, run record and rings, so the same week or kanji level typed with kana input counts apart from romaji (stage keys such as `kanji:yoji` and `keys-kanji:yoji`, `course:N4u3` and `keys-course:N4u3`).
 
 A spelling is taken when Microsoft IME or Google 日本語入力 would turn it into the kana: so ぢ is `di`, を is `wo`, ん before a vowel, y or n is `nn`, and っ doubles the consonant actually typed next. The hint is always a spelling both accept. One rule is the game's own: ん at the end of a card takes `nn`, as there is no Enter to settle a lone n. Hints come in steps (the kana being typed, then the whole spelling) after a miss or a pause, or always, or never (設定 Settings).
 
-The cards are paced by the player: the game keeps a moving average of the reaction time and the keys a second for each stage and spaces the cards to suit, and the world speed is set once a round from the longest card. Misses are kept per kana (ん and っ on their own), per key, or per word for kanji; like the mistake notebook, one leaves the weak-spot list after three clean answers in a row (a card typed with its whole spelling on show, or the untyped rest of a card that fell, does not count), and 苦手を練習 deals a round of weak spots.
+The cards are paced by the player: the game keeps a moving average of the reaction time and the keys a second for each stage and spaces the cards to suit, and the world speed is set once a round from the longest card. Misses are kept per kana (ん and っ on their own) for romaji, per key for symbols and kana input (a course word typed with kana input counts on the keys' list), or per word for kanji; like the mistake notebook, one leaves the weak-spot list after three clean answers in a row (a card typed with its whole spelling on show, or the untyped rest of a card that fell, does not count), and 苦手を練習 deals a round of weak spots.
 
 The game rewards accuracy, getting up again and showing up, never speed:
 
@@ -186,7 +193,7 @@ The game rewards accuracy, getting up again and showing up, never speed:
 - **Scenes:** each stage, and each course week, is played in its own scene from `docs/typing/scenes.js`, drawn under the graph paper. It moves with the route, changes over the round, follows the season of the real date, and turns to night in dark mode.
 - **Music** from `docs/typing/music.js`: a tune for each scene, made in the browser. It gets livelier at a clean run of 5 and of 10, drops back when Yaoki falls, dips while a course word is spoken, pauses with the round and ends with it. 音楽 Music has あり On (the default), 小さめ Soft and なし Off.
 
-All of these honour reduced motion (no tricks, parallax or particles; cleared cards simply settle), and none of them changes the clean count, the pace, the bests or the weak spots. Settings, paces, bests, weak spots, run records, the stamp card and the stage rings are kept under `yaoki.typing.v1`; keys added later (`sfx`, `music`, `goal`, `practice`, `stampCard`, `run`, `seal`) are optional, so an older save still loads. The page uses the main app's icons and Google Fonts, as the reader does, and has no offline worker of its own: it needs the network, or the browser's cache.
+All of these honour reduced motion (no tricks, parallax or particles; cleared cards simply settle), and none of them changes the clean count, the pace, the bests or the weak spots. Settings, paces, bests, weak spots, run records, the stamp card and the stage rings are kept under `yaoki.typing.v1`; keys added later (`sfx`, `music`, `goal`, `practice`, `stampCard`, `run`, `seal`, `last`, the stage picked last with each input method) are optional, so an older save still loads. The page uses the main app's icons and Google Fonts, as the reader does, and has no offline worker of its own: it needs the network, or the browser's cache.
 
 ## Licences
 

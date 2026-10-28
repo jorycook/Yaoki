@@ -387,6 +387,60 @@
     ['Comma', '、'], ['Period', '。'], ['Slash', '・'],
   ].map(([code, kana]) => ({ code, kana, shift: true }));
 
+  // Kana input: the keys that type a line of kana, one step a key. A voiced kana is its kana
+  // and then ゛ (or ゜); a small kana or a mark takes Shift; katakana go on the same keys as
+  // hiragana. `ends[i]` is the steps typed once character i is in, and `bases[i]` what it shows
+  // half-typed (the kana before its ゛ or ゜). A character kana input cannot type throws.
+  const KANA_STEP = {};
+  for (const k of KANA_KEYS.concat(KANA_SHIFT_KEYS)) KANA_STEP[k.kana] = k;
+  const VOICED = 'がぎぐげござじずぜぞだぢづでどばびぶべぼ';
+  const SEMI = 'ぱぴぷぺぽ';
+  function kanaKeys(text) {
+    const steps = [];
+    const ends = [];
+    const bases = [];
+    for (const ch of Array.from(text)) {
+      const c = ch.codePointAt(0);
+      const hira = c >= 0x30a1 && c <= 0x30f4 ? String.fromCodePoint(c - 0x60) : ch;
+      const add = (kana) => {
+        const k = KANA_STEP[kana];
+        if (!k) throw new Error('Kana input cannot type ' + ch + ' (in ' + text + ')');
+        steps.push({ code: k.code, shift: k.shift, kana });
+      };
+      let base = null;
+      if (KANA_STEP[hira]) {
+        add(hira);
+      } else if (hira === 'ゔ') {
+        add('う');
+        add('゛');
+        base = ch === 'ゔ' ? 'う' : 'ウ';
+      } else if (VOICED.includes(hira) || SEMI.includes(hira)) {
+        const back = VOICED.includes(hira) ? 1 : 2;
+        add(String.fromCodePoint(hira.codePointAt(0) - back));
+        add(back === 1 ? '゛' : '゜');
+        base = String.fromCodePoint(c - back);
+      } else {
+        add(ch);
+      }
+      ends.push(steps.length);
+      bases.push(base);
+    }
+    return { steps, ends, bases };
+  }
+  // What kana input shows of `text` once `n` steps of it are typed (as the input method would).
+  function kanaTyped(text, keys, n) {
+    const chars = Array.from(text);
+    let out = '';
+    for (let i = 0; i < chars.length; i++) {
+      if (keys.ends[i] <= n) out += chars[i];
+      else {
+        if (keys.bases[i] && n > (i ? keys.ends[i - 1] : 0)) out += keys.bases[i];
+        break;
+      }
+    }
+    return out;
+  }
+
   // The physical row of each key, for the kana stages.
   function rowOf(code) {
     if (/^Digit|^Minus$|^Equal$|^IntlYen$/.test(code)) return 'number';
@@ -589,6 +643,7 @@
 
   const api = {
     toHiragana, tokenize, units, matchPrefix, isComplete, nextChars, spell, at, unitAt, blame, choices, why, keyFor, fingerFor, rowOf, readingSlots,
+    kanaKeys, kanaTyped,
     SINGLE, COMBO, SYMBOL_KEYS, PUNCT_KEYS, KANA_KEYS, KANA_SHIFT_KEYS,
     KANA_STAGES, KANJI_STAGES, SYMBOL_STAGES, KANA_KEY_STAGES,
   };

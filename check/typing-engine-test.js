@@ -182,6 +182,30 @@ test('every built-in prompt types out by its hint', () => {
   }
 });
 
+test('kana input: each kana on its key, a voiced kana as the kana and then its mark', () => {
+  const keys = (t) => E.kanaKeys(t).steps.map((x) => (x.shift ? '+' : '') + x.code).join(' ');
+  assert.equal(keys('がっこう'), 'KeyT BracketLeft +KeyZ KeyB Digit4');
+  assert.equal(keys('ぱん'), 'KeyF BracketRight KeyY');
+  assert.equal(keys('ワイン'), 'Digit0 KeyE KeyY', 'katakana go on the same keys');
+  assert.equal(keys('コーヒー'), 'KeyB IntlYen KeyV IntlYen');
+  assert.equal(keys('ヴァ'), 'Digit4 BracketLeft +Digit3');
+  assert.equal(keys('きょう。'), 'KeyG +Digit9 Digit4 +Period');
+  assert.equal(keys('「を」、・'), '+BracketRight +Digit0 +Backslash +Comma +Slash');
+  assert.throws(() => E.kanaKeys('来年'), /cannot type 来/);
+  assert.throws(() => E.kanaKeys('a'), /cannot type a/);
+  // the steps are the keys of the kana key stages, so their misses count there
+  const known = new Set(E.KANA_KEYS.concat(E.KANA_SHIFT_KEYS).map((k) => k.code + (k.shift ? '+' : '') + k.kana));
+  for (const x of E.kanaKeys('がっこうへいきます。「ぱーてぃー」').steps) assert.ok(known.has(x.code + (x.shift ? '+' : '') + x.kana), x.kana);
+});
+
+test('kana input shows a half-typed voiced kana as its kana, then the whole', () => {
+  const t = 'がっこう';
+  const k = E.kanaKeys(t);
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map((n) => E.kanaTyped(t, k, n)), ['', 'か', 'が', 'がっ', 'がっこ', 'がっこう']);
+  const v = E.kanaKeys('ヴァ');
+  assert.deepEqual([1, 2, 3].map((n) => E.kanaTyped('ヴァ', v, n)), ['ウ', 'ヴ', 'ヴァ']);
+});
+
 test('every kanji item has its reading and meaning, and the reading types out by its hint', () => {
   const seen = new Set();
   let n = 0;
@@ -195,6 +219,7 @@ test('every kanji item has its reading and meaning, and the reading types out by
       assert.ok(!seen.has(it.text), `${it.text} is not repeated`);
       seen.add(it.text);
       assert.ok(Array.from(it.reading).length <= E.readingSlots(it.text), `${stage.id}: the reading of ${it.text} fits the room kept for it`);
+      assert.ok(E.kanaKeys(it.reading).steps.length, `${stage.id}: ${it.text} (${it.reading}) can be typed with kana input`);
       const hint = E.spell(T(it.reading));
       assert.equal(typeAll(it.reading, hint), true, `${stage.id}: ${it.text} (${it.reading}) typed as ${hint}`);
     }
@@ -202,7 +227,7 @@ test('every kanji item has its reading and meaning, and the reading types out by
   assert.ok(n >= 150, 'kanji items: ' + n);
 });
 
-test('every course word (N5 to N2) types out by its hint', () => {
+test('every course word (N5 to N2) types out by its hint, and with kana input', () => {
   global.window = {};
   let n = 0;
   for (const lv of ['n5', 'n4', 'n3', 'n2']) {
@@ -212,6 +237,7 @@ test('every course word (N5 to N2) types out by its hint', () => {
         for (const w of (d.scene && d.scene.words) || []) {
           const hint = E.spell(T(w.reading));
           assert.equal(typeAll(w.reading, hint), true, `${lv} ${w.word} (${w.reading}) typed as ${hint}`);
+          assert.ok(E.kanaKeys(w.reading).steps.length, `${lv} ${w.word} (${w.reading}) can be typed with kana input`);
           n++;
         }
       }
