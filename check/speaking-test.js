@@ -122,7 +122,7 @@ const SILENT_VOICE = `(function () {
   window.SpeechSynthesisUtterance = function (text) { this.text = text; };
 })();`;
 // The phone's voice, its start and end written in the recognition's log ('voice:<text>', 'voice-end'), and whether
-// the phone was listening as it was asked to speak.
+// the phone was listening as it was asked to speak; each word takes window.__voiceMs (600 ms unless set).
 const FAKE_VOICE_LOG = `(function () {
   window.__spoken = [];
   var synth = { speaking: false, pending: false, getVoices: function () { return [{ lang: 'ja-JP', name: 'Kyoko', localService: true }]; },
@@ -133,7 +133,7 @@ const FAKE_VOICE_LOG = `(function () {
       window.__spoken.push({ text: u.text, lang: u.lang, listening: !!(S.active && S.active.running) });
       if (real) S.log.push('voice:' + u.text);
       setTimeout(function () { u.onstart && u.onstart({}); }, 30);
-      setTimeout(function () { if (real) S.log.push('voice-end'); u.onend && u.onend({}); }, 600);
+      setTimeout(function () { if (real) S.log.push('voice-end'); u.onend && u.onend({}); }, window.__voiceMs || 600);
     },
     addEventListener: function () {} };
   Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: function () { return synth; } });
@@ -423,8 +423,8 @@ const FAKE_VOICE_LOG = `(function () {
   check('Start tapped twice, just after the microphone test heard something: the round starts, listening', await waitFor(async () => (await state(page)).phase === 'play', 4000)
     && await waitFor(async () => (await speech(page)).active && (await state(page)).mic === 'on', 2000));
   t = await target(page);
-  await say(page, t.reading, { final: true });
-  check('…what is said is heard by the round, not by the test', await waitFor(async () => (await state(page)).cleared === 1, 1500));
+  const heardBy = await say(page, t.reading, { final: true });
+  check('…what is said is heard by the round, not by the test', await waitFor(async () => (await state(page)).cleared === 1, 1500), JSON.stringify({ heardBy, t, s: await state(page), heard: await page.textContent('#heard'), log: (await speech(page)).log }).slice(0, 1500));
   await sleep(1600);
   check('…and the test does not stop the listening later', (await speech(page)).active && (await state(page)).mic === 'on');
   // words after the card in the same breath (ねこです), or a 。 the phone puts at the end
@@ -671,13 +671,14 @@ const FAKE_VOICE_LOG = `(function () {
   await say(page, 'あ', { final: true });
   check('said back, it is cleared clean: hearing a new kana is no hint', await waitFor(async () => (await state(page)).cleared === 1, 1500) && (await state(page)).clean === 1 && (await state(page)).hints === 0);
   if (shots) await page.screenshot({ path: `${shots}/lesson-round.png` });
-  // a new kana cut off by a pause is said again when the round goes on
+  // a new kana cut off by a pause is said again when the round goes on (a long word, so the pause comes during it)
+  await page.evaluate(() => { window.__voiceMs = 3000; });
   t = await target(page);
   await waitFor(async () => (await state(page)).voicing, 3000);
   await page.tap('#pause');
   const saidBefore = (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length;
   await page.tap('#resume');
-  check('a new kana cut off by a pause is said again when the round goes on', await waitFor(async () => (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length === saidBefore + 1, 2500));
+  check('a new kana cut off by a pause is said again when the round goes on', await waitFor(async () => (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length === saidBefore + 1, 3000));
   await page.context().close();
   // Climb, on a phone that takes a while to start listening (it may be asking for the microphone)
   page = await open({}, { [STORE]: { mode: 'start', stage: { start: 'h1' }, style: 'climb' } }, [FAKE_VOICE_LOG, SFX_STUB]);

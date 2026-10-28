@@ -153,30 +153,46 @@
     ctx.fillRect(0, top, W, bottom - top);
   }
 
-  // The static parts of a Falling background, kept as a picture at the size they are shown at.
-  const still = { key: '', canvas: null };
+  // Pictures that do not change from frame to frame (the static parts of a background), each drawn once into a canvas
+  // of the screen's own pixels, so showing it is a copy, not a stretch, and kept under its key: a few at a time, the
+  // least recently shown let go first beyond LAYER_PIXELS in all.
+  const LAYER_PIXELS = 12e6;
+  const layers = new Map();   // key → { canvas, px }, the most recently shown last
   function cachedLayer(ctx, key, W, H, paint) {
-    let sc = 1;
+    let sc = 2;
     try {
       const m = ctx.getTransform();
-      sc = Math.max(1, Math.min(4, Math.hypot(m.a, m.b)));
+      sc = Math.max(1, Math.hypot(m.a, m.b));
     } catch (err) {
-      sc = 2;
+      // no transform to read: a sharp enough picture
     }
+    // one picture is at most a third of the pixels kept
+    sc = Math.min(sc, Math.sqrt(LAYER_PIXELS / 3 / Math.max(1, W * H)));
     const k = key + '|' + Math.round(W) + 'x' + Math.round(H) + '@' + sc.toFixed(2);
-    if (still.key !== k || !still.canvas) {
-      const c = still.canvas || document.createElement('canvas');
+    let layer = layers.get(k);
+    if (layer) {
+      layers.delete(k);
+    } else {
+      const c = document.createElement('canvas');
       c.width = Math.max(1, Math.ceil(W * sc));
       c.height = Math.max(1, Math.ceil(H * sc));
       const g = c.getContext('2d');
-      g.setTransform(1, 0, 0, 1, 0, 0);
-      g.clearRect(0, 0, c.width, c.height);
       g.setTransform(sc, 0, 0, sc, 0, 0);
       paint(g);
-      still.key = k;
-      still.canvas = c;
+      layer = { canvas: c, px: c.width * c.height };
+      let total = layer.px;
+      for (const x of layers.values()) total += x.px;
+      for (const [old, x] of layers) {
+        if (total <= LAYER_PIXELS) break;
+        layers.delete(old);
+        total -= x.px;
+        // a phone gives a canvas's memory back sooner once it is empty
+        x.canvas.width = 0;
+        x.canvas.height = 0;
+      }
     }
-    ctx.drawImage(still.canvas, 0, 0, W, H);
+    layers.set(k, layer);
+    ctx.drawImage(layer.canvas, 0, 0, W, H);
   }
 
   const UI = "'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif";
