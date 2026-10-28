@@ -10,10 +10,12 @@
  * finishing touch as the round ends: the teacher's はなまる drawn round the sun or the
  * moon, and in some places more (Diamond Fuji, a snow daruma, the station called やおき).
  *
- * The game draws the graph paper, the route, Yaoki and the cards over it, so everything
- * here is pale and soft, a picture pasted into a notebook: it stays behind white cards and
- * a red daruma, and the band under the route, where the romaji is typed, is a flat tint.
- * With reduced motion a scene is one fixed frame.
+ * The game draws a faint graph paper, the route, Yaoki and the cards over it. The scenes are
+ * bold cut paper: saturated colours, far layers light and cool and near ones deep and rich,
+ * a dramatic sky, and by night bright windows, lanterns and neon that glow. The cards and
+ * Yaoki are inked stickers, so they stand out from it; the band under the route, where the
+ * romaji is typed, stays a flat tint the hint text reads on. With reduced motion a scene is
+ * one fixed frame.
  *
  * window.TypingScenes = { SCENES, forStage(key), draw(ctx, o) } (see the end of the file).
  * No images and no libraries: the world is cut into tiles, each made once from a seed and
