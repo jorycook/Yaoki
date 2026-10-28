@@ -135,7 +135,8 @@
       c.height = Math.max(1, Math.ceil(h * sc));
       c.u = sc;
       const g = c.getContext('2d');
-      g.setTransform(sc, 0, 0, sc, 0, 0);
+      // painted to fill its canvas, whole device pixels: no row half painted, so pictures set one on another leave no seam
+      g.setTransform(w > 0 ? c.width / w : sc, 0, 0, h > 0 ? c.height / h : sc, 0, 0);
       g.lineJoin = 'round';
       g.lineCap = 'round';
       paint(g);

@@ -854,6 +854,18 @@ const FAKE_VOICE_LOG = `(function () {
   check('Falling on a short screen (an iPhone SE in Safari): a card can be said for all its time, from below the bar to Yaoki', took >= 0.9 * T1, JSON.stringify({ took, T: T1 }));
   await page.context().close();
 
+  // Climb begun with the phone on its side, then turned upright: the signs, taller now, still leave room for Yaoki
+  page = await open({ viewport: { width: 844, height: 390 } }, { [STORE]: { mode: 'phrase', stage: { phrase: 'twister' }, style: 'climb', len: 10 } }, [SFX_STUB]);
+  await page.tap('#start');
+  await waitFor(async () => (await state(page)).phase === 'paused', 3000);
+  await page.setViewportSize({ width: 390, height: 664 });
+  await waitFor(async () => !(await page.isVisible('#upright')), 2000);
+  await page.tap('#resume');
+  await waitFor(async () => (await state(page)).phase === 'play', 2000);
+  s = await state(page);
+  check('Climb begun sideways and turned upright: every sign still clears Yaoki on the ledge below it', s.gaps.length === 10 && Math.min(...s.gaps) >= 20, JSON.stringify(s.gaps));
+  await page.context().close();
+
   // ---- turned on its side, the round waits; reduced motion
   page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5 } });
   await page.tap('#start');

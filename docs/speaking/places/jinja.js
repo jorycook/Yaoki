@@ -152,7 +152,8 @@
     c.width = Math.max(1, Math.ceil(w * sc));
     c.height = Math.max(1, Math.ceil(h * sc));
     const g = c.getContext('2d');
-    g.setTransform(sc, 0, 0, sc, 0, 0);
+    // painted to fill its canvas, whole device pixels: no row half painted, so pictures set one on another leave no seam
+    g.setTransform(w > 0 ? c.width / w : sc, 0, 0, h > 0 ? c.height / h : sc, 0, 0);
     g.lineJoin = 'round';
     g.lineCap = 'round';
     paint(g);
@@ -225,18 +226,28 @@
     const n = cols.length - 1;
     const step = H / n;
     const seam = step * 0.24;
+    // each edge on a whole device pixel: two fills meeting inside a pixel leave it part painted, a line of the page
+    let px = (y) => y;
+    try {
+      const m = ctx.getTransform();
+      if (m.d > 0) px = (y) => (Math.round(m.d * y + m.f) - m.f) / m.d;
+    } catch (err) {
+      // drawn as it comes
+    }
+    y1 = px(y1);
     for (let i = 0; i <= n; i++) {
-      const a = i === 0 ? 0 : (i - 0.5) * step + seam / 2;
-      const b = i === n ? H : (i + 0.5) * step - seam / 2;
+      const a = px(i === 0 ? 0 : (i - 0.5) * step + seam / 2);
+      const b = px(i === n ? H : (i + 0.5) * step - seam / 2);
       if (a >= y1) break;
       ctx.fillStyle = cols[i];
       ctx.fillRect(0, a, W, Math.min(b, y1) - a);
       if (i < n && b < y1) {
-        const gr = ctx.createLinearGradient(0, b, 0, b + seam);
+        const e = px((i + 0.5) * step + seam / 2);
+        const gr = ctx.createLinearGradient(0, b, 0, e);
         gr.addColorStop(0, cols[i]);
         gr.addColorStop(1, cols[i + 1]);
         ctx.fillStyle = gr;
-        ctx.fillRect(0, b, W, Math.min(seam, y1 - b));
+        ctx.fillRect(0, b, W, Math.min(e, y1) - b);
       }
     }
   }

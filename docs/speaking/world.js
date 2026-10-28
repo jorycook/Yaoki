@@ -177,7 +177,8 @@
       c.width = Math.max(1, Math.ceil(W * sc));
       c.height = Math.max(1, Math.ceil(H * sc));
       const g = c.getContext('2d');
-      g.setTransform(sc, 0, 0, sc, 0, 0);
+      // painted to fill its canvas, whole device pixels: no row or column at its edge half painted
+      g.setTransform(c.width / Math.max(1e-6, W), 0, 0, c.height / Math.max(1e-6, H), 0, 0);
       paint(g);
       layer = { canvas: c, px: c.width * c.height };
       let total = layer.px;

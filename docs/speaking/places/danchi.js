@@ -136,7 +136,8 @@
     c.width = Math.max(1, Math.ceil(w * sc));
     c.height = Math.max(1, Math.ceil(h * sc));
     const g = c.getContext('2d');
-    g.setTransform(sc, 0, 0, sc, 0, 0);
+    // painted to fill its canvas, whole device pixels: no row half painted, so pictures set one on another leave no seam
+    g.setTransform(w > 0 ? c.width / w : sc, 0, 0, h > 0 ? c.height / h : sc, 0, 0);
     paint(g);
     p = { c, w: c.width / sc, h: c.height / sc, sc, used: frame };
     PICS.set(k, p);
@@ -1197,6 +1198,9 @@
   }
   // the pavement Yaoki stands on, the kerb, and the road below it with its markings
   function street(g, W, ground, H, C, dark) {
+    // under its strips, the road: where two strips meet inside a pixel, it is the road that shows, not the page
+    g.fillStyle = C.street;
+    g.fillRect(0, ground - 8, W, H - ground + 8);
     g.fillStyle = C.walk;
     g.fillRect(0, ground - 8, W, 20);
     g.fillStyle = C.walkLine;
@@ -1333,7 +1337,9 @@
     const xl = FX(G, UX(G, -1) - 3, G.N + 0.24) + 1;
     const xr = FX(G, UX(G, 1) + 3, G.N + 0.24) - 1;
     const rects = [[0, 0, W, yRoof + 1], [0, yRoof, xl, G.ground - 24], [xr, yRoof, W, G.ground - 24]];
-    putRects(ctx, pic(s, 'dc-fsky' + dark, W, H, (g) => paintFallSky(g, G, C, dark)), 0, 0, rects, s);
+    // (both pictures are laid out from the ground, which moves when the dock under it grows: it is in their keys)
+    const at = '|' + Math.round(G.ground);
+    putRects(ctx, pic(s, 'dc-fsky' + dark + at, W, H, (g) => paintFallSky(g, G, C, dark)), 0, 0, rects, s);
     // evening comes on as the round goes on; the sun's disc keeps its light
     if (!dark) dusk(ctx, rects, 30, G.hz, C.dusk, 0.5 * o.progress);
     put(ctx, orbPic(s, G.sr, C, dark), G.sx - G.sr - 2, G.sy - G.sr - 2, s);
@@ -1341,7 +1347,7 @@
     drift(ctx, W, t, [G.roofY - 34, G.sy + G.sr * 0.2], C);
     if (!dark) birds(ctx, W, G.roofY + 40, t, 4, C.line, 3);
     else blinkers(ctx, G, t);
-    put(ctx, pic(s, 'dc-fblocks' + dark + season, W, H, (g) => paintFallBlocks(g, G, C, dark, season)), 0, 0, s);
+    put(ctx, pic(s, 'dc-fblocks' + dark + season + at, W, H, (g) => paintFallBlocks(g, G, C, dark, season)), 0, 0, s);
     // windows lighting up as evening comes (in the dark, a television flickering here and there)
     const k = dark ? 0 : smooth(0.2, 1, o.progress);
     const XL = UX(G, -1);
@@ -1525,7 +1531,9 @@
   function paintNbFloor(g, W, C, dark, v, snow) {
     const [xl, xr] = nbEdges(W);
     const R = rng(61 + v * 7);
-    for (const [a, b] of [[-4, xl], [xr, W + 4]]) {
+    // each block painted a little past its inner edge, where the sky beside it is cut off on a whole pixel: no column
+    // between them half painted (the rectangles it is drawn in keep it to its place)
+    for (const [a, b] of [[-4, xl + 2], [xr - 2, W + 4]]) {
       if (b - a < 2) continue;
       g.fillStyle = C.nb;
       g.fillRect(a, 0, b - a, NF);
@@ -1564,7 +1572,7 @@
   }
   function paintNbRoof(g, W, C, snow) {
     const [xl, xr] = nbEdges(W);
-    for (const [a, b] of [[-4, xl], [xr, W + 4]]) {
+    for (const [a, b] of [[-4, xl + 2], [xr - 2, W + 4]]) {
       if (b - a < 2) continue;
       g.fillStyle = C.nbHi;
       g.fillRect(a, 22, b - a, 8);

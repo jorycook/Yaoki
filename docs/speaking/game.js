@@ -2812,11 +2812,24 @@
       }
     } else if (r.ledges.length) {
       const W0 = window.SpeakingWorld;
+      // the ledges laid out again: where the place puts them across, and as far apart as their signs now need (a sign
+      // is taller on a narrower screen: a round begun with the phone on its side is laid out for a wide one)
+      let y = 0;
       r.ledges.forEach((l, k) => {
         const spot = W0 && W0.layout ? safely(() => W0.layout(r.place, k, view.W), null) : null;
         l.x = spot && isFinite(spot.x) ? spot.x : view.W * (k % 2 ? 0.66 : 0.34);
+        y -= Math.max(STEP, l.card.h + YH + 34);
+        l.y = y;
       });
-      if (!r.jump) r.yk.x = r.at < 0 ? view.W / 2 : r.ledges[r.at].x;
+      r.top = y - Math.max(STEP, YH + 60);
+      if (r.jump) {
+        // a jump on its way: from where he stood, to its ledge (or the top), as they are now
+        r.jump.fromY = standY();
+        r.jump.toX = r.jump.card ? r.jump.card.ledge.x : view.W / 2;
+        r.jump.toY = r.jump.card ? r.jump.card.ledge.y : r.top;
+      } else {
+        r.yk.x = r.at < 0 ? view.W / 2 : r.ledges[r.at].x;
+      }
       r.camY = camFor(standY());
     }
     // setting the canvas's size cleared it: drawn again now, so no blank frame is shown before the next one
@@ -4105,6 +4118,8 @@
         view: { top: view.top, bottom: view.bottom, s: view.s },
         cards: r ? r.cards.map((c) => ({ text: c.item.text, state: c.state, x: Math.round(c.x), y: Math.round(c.y), w: Math.round(c.w), h: Math.round(c.h), clean: c.clean, comeback: c.comeback, star: c.star, trick: c.trick })) : [],
         ledges: r ? r.ledges.length : 0,
+        // Climb: the room between each sign and Yaoki's head standing on the ledge below it
+        gaps: r ? r.ledges.map((l, k) => Math.round((k ? r.ledges[k - 1].y : 0) - YH - (l.y + 12 + l.card.h))) : [],
         atTop: !!(r && r.atTop),
         jumping: !!(r && r.jump),
         upNext: up ? { text: up.item.text, reading: up.item.reading } : null,
