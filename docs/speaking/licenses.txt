@@ -1,0 +1,26 @@
+Yaoki Speaking: third-party licences and credits
+
+== KANJIDIC2 and JMdict (the readings of what is heard) ==
+readings.js, the kanji readings and words the game reads the speech recognition's words with, was made from
+KANJIDIC2 (database version 2026-300) and JMdict, the property of the Electronic Dictionary Research and
+Development Group (EDRDG), used in conformance with the Group's licence: https://www.edrdg.org/edrdg/licence.html
+Their documentation and files: https://www.edrdg.org/wiki/index.php/KANJIDIC_Project and
+https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project (the EDRDG: https://www.edrdg.org/).
+They are offered under the Creative Commons Attribution-ShareAlike 4.0 licence
+(https://creativecommons.org/licenses/by-sa/4.0/). The JMdict words come from the shortened word list of Yaoki
+Reader (../reader/engine/jm-1.txt and jm-2.txt, from the 2020 edition in the jamdict-data 1.5 package). readings.js
+is offered under the same licence. It is made by tools/make-speaking-readings.py in the Yaoki repository.
+
+== Typefaces ==
+Klee One (Copyright 2020 The Klee Project Authors) and M PLUS Rounded 1c (Copyright 2016 The Rounded M+ Project
+Authors) are loaded from Google Fonts, under the SIL Open Font License 1.1 (https://openfontlicense.org).
+
+== The course words and their voice ==
+The course words, and the spoken clips a course word is said back with, are the Yaoki app's: see ../licenses.txt
+(the synthetic voices, Kokoro-82M, Apache-2.0, and two voices built from Koniwa recordings, CC BY 3.0). The same file
+holds the notice that JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services, and
+that the apps are not connected with them.
+
+== Speech ==
+The speech recognition, and the voice that says a word for the player to copy, are the browser's and the device's
+own (the Web Speech API): no third-party code is part of this page for them.

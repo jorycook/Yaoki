@@ -82,6 +82,7 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .pair { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--note); }
 .pair [lang="ja"] { font-size: 20px; font-weight: 800; }
 .pair span:last-child { font-size: 15px; font-weight: 700; }
+.pair a { color: var(--accent-ink); font-weight: 800; }
 .btn { min-height: 54px; padding: 8px 20px; border-radius: 16px; border: 2px solid var(--outline); background: var(--accent); color: var(--on-accent); box-shadow: 0 4px 0 var(--hard); font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--hard); }
 .btn:disabled { background: var(--line); color: var(--muted); border-color: var(--line-strong); box-shadow: none; transform: none; }
@@ -272,7 +273,7 @@ body.playing #app { padding-top: 8px; }
       </div>
     </div>
 
-    <div id="touch-note" class="pair" hidden><span lang="ja">パソコンとキーボードでどうぞ</span><span>Yaoki Typing is made for a computer with a keyboard, in a window at least 700 pixels wide.</span></div>
+    <div id="touch-note" class="pair" hidden><span lang="ja">パソコンとキーボードでどうぞ</span><span>Yaoki Typing is made for a computer with a keyboard, in a window at least 700 pixels wide. On a phone or tablet, <a href="../speaking/">Yaoki Speaking</a> has you say the words out loud instead.</span></div>
     <p id="layout-note" class="notebox" hidden></p>
 
     <section id="day-card" class="card daycard" role="group" aria-labelledby="day-kick">
@@ -404,6 +405,7 @@ body.playing #app { padding-top: 8px; }
 
   <footer class="foot-links">
     <a class="linklike" href="../">Yaoki app</a>
+    <a class="linklike" href="../speaking/">Yaoki Speaking</a>
     <a class="linklike" href="../reader/">Yaoki Reader</a>
   </footer>
 </div>

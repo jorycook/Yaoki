@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yaoki Speaking</title>
+<meta name="description" content="Practise saying Japanese out loud on a phone or tablet: say each word before it lands on Yaoki, or to help him climb.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F4F5F9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12172A" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-title" content="Yaoki Speaking">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<style>
+/* page base, as in Yaoki Typing */
+:root { color-scheme: light; box-sizing: border-box; }
+body { margin: 0; padding: 0; }
+[hidden]:not([hidden=until-found i]) { display: none !important; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap">
+<style>
+/* Look: Yaoki stamp-card stationery, the tokens of Yaoki Typing. The round is drawn on a canvas that reads these
+   same tokens (game.js, palette()). Made for a phone or tablet held upright. */
+:root {
+  --ground: #F4F5F9; --card: #FFFFFF; --ink: #1B2440; --muted: #5A6382;
+  --line: #DDE1EC; --line-strong: #C9D0E3; --outline: #1B2440; --hard: #1B2440;
+  --accent: #2F4FD0; --accent-ink: #2F4FD0; --accent-soft: #E8ECFB; --on-accent: #FFFFFF;
+  --mark: #FFE9B0; --note: #FFF4D6; --stamp: #C7361E; --scrim: rgba(27, 36, 64, 0.45);
+  --good: #0B7A6B; --good-soft: #E0F3EF; --bad: #C7361E; --bad-soft: #FDEBE6;
+  --gold: #F2B43A; --daruma: #E2452B; --grid: #E6E9F3;
+  --ui: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+  --jp: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --top: env(safe-area-inset-top, 0px); --bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
+    --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
+    --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
+    --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
+    --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
+    --grid: #1A2137;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
+  --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
+  --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
+  --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
+  --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
+  --grid: #1A2137;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.45; font-weight: 500; line-break: strict; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+button { font: inherit; color: inherit; cursor: pointer; margin: 0; touch-action: manipulation; }
+button:disabled { cursor: default; }
+:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+rt { font-size: 0.45em; font-weight: 400; color: var(--muted); }
+
+#app { max-width: 640px; margin: 0 auto; padding: var(--top) 16px calc(28px + var(--bottom)); }
+#menu { padding-bottom: 0; }
+.bar { display: flex; align-items: center; gap: 8px; min-height: 56px; }
+.brand { flex: 1; min-width: 0; font-size: 20px; font-weight: 800; }
+.brand small { font-size: 13px; font-weight: 700; color: var(--muted); }
+.pill { flex-shrink: 0; height: 40px; padding: 0 14px; border-radius: 20px; background: var(--card); border: 2px solid var(--outline); color: var(--ink); font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+
+/* shared pieces */
+.kicker { font-size: 12px; font-weight: 800; color: var(--accent-ink); }
+.kicker.red { color: var(--stamp); }
+h1 { margin: 2px 0 0; font-size: 26px; font-weight: 800; line-height: 1.25; }
+h1.jp { margin-top: 10px; font-family: var(--jp); font-weight: 600; font-size: 28px; line-height: 1.5; }
+#res-title:focus { outline: none; }
+h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
+.lede { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.hint { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+.card { background: var(--card); border: 2px solid var(--outline); border-radius: 20px; box-shadow: 0 4px 0 var(--hard); padding: 14px 16px 16px; }
+.notebox { margin: 0; padding: 12px 14px; border-radius: 16px; background: var(--note); font-size: 13px; font-weight: 500; line-height: 1.5; }
+.notebox b { font-weight: 800; }
+.notebox ul { margin: 6px 0 0; padding-left: 18px; }
+.pair { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--note); }
+.pair [lang="ja"] { font-size: 18px; font-weight: 800; }
+.pair span + span { font-size: 14px; font-weight: 700; }
+.pair a { color: var(--accent-ink); font-weight: 800; }
+.btn { min-height: 54px; padding: 8px 20px; border-radius: 16px; border: 2px solid var(--outline); background: var(--accent); color: var(--on-accent); box-shadow: 0 4px 0 var(--hard); font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--hard); }
+.btn:disabled { background: var(--line); color: var(--muted); border-color: var(--line-strong); box-shadow: none; transform: none; }
+.btn.quiet { background: var(--card); color: var(--ink); }
+.btn.danger { background: var(--card); color: var(--stamp); border-color: var(--stamp); box-shadow: none; }
+.linklike { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--accent-ink); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.tag { display: inline-block; padding: 2px 9px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 11px; font-weight: 800; }
+.tag.gold { background: var(--gold); color: #1B2440; border: 2px solid var(--outline); font-size: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.actions .btn { flex: 1 1 auto; }
+/* on the menu the start buttons stay at the bottom of the screen, in reach of a thumb, as the menu scrolls */
+.start-bar { position: sticky; bottom: 0; z-index: 5; margin: 0 -16px; padding: 14px 16px calc(12px + var(--bottom)); background: linear-gradient(to top, var(--ground) 72%, transparent); }
+
+/* menu */
+#menu { display: flex; flex-direction: column; gap: 18px; padding-top: 4px; }
+.hero { display: flex; gap: 14px; align-items: center; }
+.hero svg { flex-shrink: 0; }
+.block { display: flex; flex-direction: column; gap: 8px; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg button { min-height: 46px; padding: 6px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); font-size: 14px; font-weight: 800; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--outline); color: var(--on-accent); box-shadow: 0 3px 0 var(--hard); }
+.seg button small { font-weight: 700; opacity: 0.85; }
+.seg .tile { display: flex; flex-direction: column; align-items: flex-start; min-width: 96px; padding: 8px 14px; }
+.seg .tile b { font-size: 20px; font-weight: 800; line-height: 1.2; }
+.options { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.option { text-align: left; padding: 10px 14px 12px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); display: flex; flex-direction: column; gap: 2px; min-height: 64px; }
+.option[aria-pressed="true"] { border: 2.5px solid var(--accent-ink); background: var(--accent-soft); }
+.option:disabled { color: var(--muted); background: var(--ground); border-style: dashed; border-color: var(--line-strong); }
+.option .o-top { display: flex; align-items: center; gap: 6px; }
+.option .o-kick { flex: 1; min-width: 0; font-size: 12px; font-weight: 700; color: var(--muted); }
+.option .o-ja { font-size: 16px; font-weight: 800; }
+.option .o-en { font-size: 13px; font-weight: 700; color: var(--muted); }
+.option .o-meta { font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+/* the two ways to play, each with its little picture */
+.ways { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.way { text-align: left; padding: 10px 12px 12px; border-radius: 18px; border: 2px solid var(--line); background: var(--card); display: flex; flex-direction: column; gap: 4px; }
+.way[aria-pressed="true"] { border: 2.5px solid var(--accent-ink); background: var(--accent-soft); box-shadow: 0 3px 0 var(--hard); }
+.way svg { width: 100%; height: auto; max-height: 120px; border-radius: 12px; background: var(--ground); }
+.way .w-ja { font-size: 17px; font-weight: 800; }
+.way .w-en { font-size: 12px; font-weight: 700; color: var(--muted); line-height: 1.4; }
+.switch { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 66px; padding: 10px 14px; border-radius: 16px; background: var(--card); border: 2px solid var(--outline); font-size: 15px; font-weight: 800; cursor: pointer; }
+.switch small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+.switch input { appearance: none; -webkit-appearance: none; flex-shrink: 0; width: 52px; height: 30px; margin: 0; border-radius: 15px; border: 2px solid var(--outline); background: var(--line); position: relative; cursor: pointer; transition: background 150ms; }
+.switch input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--card); border: 2px solid var(--outline); transition: transform 150ms; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(22px); }
+/* the microphone check */
+.miccheck { display: flex; align-items: center; gap: 12px; }
+.miccheck .btn { flex-shrink: 0; min-height: 46px; padding: 6px 14px; font-size: 14px; }
+.miccheck p { margin: 0; flex: 1; min-width: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+.miccheck p [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
+
+/* play: the whole screen, upright */
+body.playing { overflow: hidden; overscroll-behavior: none; }
+body.playing .bar, body.playing .foot-links { display: none; }
+body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction: column; padding: calc(6px + var(--top)) 12px calc(8px + var(--bottom)); }
+#play { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.hud { display: flex; align-items: center; gap: 6px; min-height: 44px; }
+.icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; margin-left: -8px; }
+.segs { flex: 1; min-width: 30px; display: flex; gap: 3px; }
+.segs.many { gap: 1px; }
+.segs i { flex: 1; height: 10px; border-radius: 5px; background: var(--line); transition: background 250ms; }
+.segs i.done { background: var(--accent); }
+.segs i.skip { background: var(--line-strong); }
+.segs i.now { background: var(--ink); }
+.track { flex: 1; min-width: 30px; height: 12px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.track i { display: block; width: 0%; height: 100%; border-radius: 0 6px 6px 0; background: var(--accent); transition: width 300ms; }
+.chip { flex-shrink: 0; height: 32px; padding: 0 8px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; font-variant-numeric: tabular-nums; }
+/* the clean run: a はなまる and the count; gold at 5, 10 and 20 in a row, never red */
+.hm { stroke: var(--stamp); }
+.chip.zero { color: var(--muted); }
+.chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
+.chip.step .hm { stroke: #C7361E; }
+.stage-wrap { position: relative; flex: 1; min-height: 220px; border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
+#stage { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+/* what to say, and what the phone heard */
+.say { min-height: 70px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 2px; }
+.say-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin: 0; min-height: 20px; line-height: 20px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.say-line .romaji { font-size: 15px; font-weight: 800; color: var(--accent-ink); letter-spacing: 0.02em; }
+.say-line .gloss { color: var(--muted); }
+.heard { margin: 0; min-height: 26px; line-height: 26px; font-size: 14px; font-weight: 700; color: var(--muted); overflow-wrap: anywhere; }
+.heard [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
+.heard.bad [lang="ja"] { color: var(--bad); }
+.heard.good [lang="ja"] { color: var(--good); }
+.status { min-height: 20px; line-height: 20px; margin: 0; font-size: 13px; font-weight: 800; }
+.status.bad { color: var(--bad); }
+.status.warn { color: var(--stamp); }
+/* the microphone: big and in reach of a thumb, with the listen and skip buttons beside it */
+.micbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; padding-top: 2px; }
+.side-btn { justify-self: center; display: inline-flex; flex-direction: column; align-items: center; gap: 2px; min-width: 64px; min-height: 56px; padding: 4px 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); font-size: 11px; font-weight: 800; color: var(--ink); }
+.side-btn:disabled { opacity: 0.45; }
+.side-btn.ready { border-color: var(--outline); box-shadow: 0 3px 0 var(--hard); }
+.mic { position: relative; width: 84px; height: 84px; border-radius: 50%; border: 3px solid var(--outline); background: var(--card); color: var(--ink); box-shadow: 0 4px 0 var(--hard); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; padding: 0; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: none; }
+.mic svg { width: 34px; height: 34px; }
+.mic .mic-label { font-size: 10px; font-weight: 800; line-height: 1.1; }
+.mic.on { background: var(--accent); color: var(--on-accent); }
+.mic.on::before { content: ''; position: absolute; inset: -9px; border-radius: 50%; border: 3px solid var(--accent); opacity: 0; animation: yk-listen 1.6s ease-out infinite; }
+.mic.speech::before { animation-duration: 0.7s; border-color: var(--gold); }
+.mic.held { transform: translateY(3px); box-shadow: 0 1px 0 var(--hard); }
+.mic.warn { border-color: var(--stamp); color: var(--stamp); }
+.mic-state { text-align: center; margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); min-height: 18px; }
+
+/* sheets: settings, pause */
+.scrim { position: fixed; inset: 0; z-index: 20; background: var(--scrim); animation: yk-fade 160ms ease-out; display: flex; align-items: flex-end; justify-content: center; }
+.sheet { width: min(640px, 100%); max-height: 92svh; overflow-y: auto; border-radius: 26px 26px 0 0; border-top: 2px solid var(--outline); background: var(--ground); padding: 18px 16px calc(22px + var(--bottom)); display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out; }
+.sheet > h2 { font-size: 18px; color: var(--ink); }
+.sheet > h2 small { font-size: 13px; font-weight: 700; color: var(--muted); }
+.sheet .btn { width: 100%; }
+/* turn the phone upright */
+#upright { position: fixed; inset: 0; z-index: 30; background: var(--ground); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; }
+#upright svg { animation: yk-turn 2.4s ease-in-out infinite; }
+
+/* result */
+#result { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; overflow-x: clip; }
+.result-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.big { display: flex; align-items: baseline; gap: 6px; }
+.big strong { font-size: 52px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.big span { font-size: 20px; font-weight: 700; color: var(--muted); }
+.hanko { position: relative; flex-shrink: 0; width: 108px; height: 108px; border-radius: 50%; border: 4px solid var(--daruma); padding: 5px; transform: rotate(-9deg); display: flex; animation: yk-stamp 550ms ease-out 150ms both; }
+.hanko-ink { position: absolute; inset: -8px; border-radius: 50%; border: 3px solid var(--daruma); opacity: 0; pointer-events: none; animation: yk-ring 400ms ease-out 452ms forwards; }
+.hanko.hana { margin: 8px 22px 8px 0; }
+.hana-ring { position: absolute; inset: -22.5%; overflow: visible; pointer-events: none; }
+.hana-ring path { fill: none; stroke: var(--stamp); stroke-width: 2.4; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 0; animation: yk-draw 900ms ease-out 750ms backwards; }
+.hanko div { flex-grow: 1; border-radius: 50%; border: 2px solid var(--daruma); color: var(--stamp); font-weight: 800; font-size: 15px; line-height: 1.35; display: flex; align-items: center; justify-content: center; text-align: center; }
+.hanko.three div { font-size: 13px; }
+.seal-line { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.seal-line p { margin: 0; }
+#res-seal-tag { display: inline-block; animation: yk-stamp 450ms ease-out 750ms both; }
+.rings { display: inline-flex; gap: 3px; vertical-align: -1px; }
+.rings i { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--muted); }
+.rings i.on { border: 2px solid var(--daruma); background: radial-gradient(var(--stamp) 0 2px, transparent 2.5px); }
+.option .rings { margin-left: 4px; }
+.option .hana { margin: -4px 0 -4px 2px; vertical-align: middle; }
+.stats { padding: 4px 16px; }
+.stats .row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 2px solid var(--line); }
+.stats .row:first-child { border-top: 0; }
+.stats .row b { flex-shrink: 0; width: 84px; text-align: right; font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stats .row b small { font-size: 14px; font-weight: 700; color: var(--muted); }
+.stats .row > span { display: flex; flex-direction: column; font-size: 15px; font-weight: 800; }
+.stats .row > span > small { font-size: 12px; font-weight: 700; color: var(--muted); }
+.stats .row > span > small.ups { color: var(--ink); }
+.weak { display: flex; flex-wrap: wrap; gap: 8px; }
+.weak span { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 12px; border-radius: 18px; background: var(--note); font-size: 15px; font-weight: 800; }
+.weak span[lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; }
+.misheard { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.misheard li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding: 8px 12px; border-radius: 14px; background: var(--card); border: 2px solid var(--line); font-size: 13px; font-weight: 700; color: var(--muted); }
+.misheard li [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
+.misheard li .was { color: var(--bad); }
+
+/* the stamp card: a box for each day the goal was spoken, and today's box filling up */
+.daycard { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.day-boxes { display: flex; gap: 6px; padding-bottom: 14px; }
+.day-box { position: relative; flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px; border: 2px dashed var(--line-strong); display: flex; align-items: center; justify-content: center; }
+.day-box small { position: absolute; top: 100%; left: 50%; margin-top: 2px; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.day-box.stamped { border-style: solid; border-color: var(--line); }
+.day-box.stamped i { width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%; border: 2.5px solid var(--daruma); background: var(--card); color: var(--stamp); font-style: normal; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(var(--tilt, -9deg)); }
+.day-box.new i { animation: yk-day 500ms ease-out 750ms both; }
+.day-box.open { border: 2px solid var(--outline); background: linear-gradient(to top, var(--gold) var(--fill, 0%), transparent var(--fill, 0%)); }
+.day-text { flex: 1 1 200px; min-width: 0; }
+.day-line { margin: 2px 0 0; font-size: 14px; font-weight: 700; }
+.day-line b { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.daycard .tag { align-self: flex-start; }
+.daycard.mini .day-boxes { gap: 10px; }
+.daycard.mini .day-box { width: 24px; height: 24px; border-radius: 7px; }
+.daycard.mini .day-box.stamped i { width: 19px; height: 19px; border-width: 2px; font-size: 10px; }
+
+.foot-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 18px; }
+
+@keyframes yk-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes yk-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes yk-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes yk-stamp { 0% { opacity: 0; transform: scale(1.8) rotate(-20deg); } 55% { opacity: 1; transform: scale(.92) rotate(-9deg); } 100% { opacity: 1; transform: scale(1) rotate(-9deg); } }
+@keyframes yk-day { 0% { opacity: 0; transform: scale(1.8) rotate(-20deg); } 55% { opacity: 1; transform: scale(.92) rotate(var(--tilt, -9deg)); } 100% { opacity: 1; transform: scale(1) rotate(var(--tilt, -9deg)); } }
+@keyframes yk-ring { from { opacity: .5; transform: scale(.9); } to { opacity: 0; transform: scale(1.35); } }
+@keyframes yk-draw { from { stroke-dashoffset: 1; } }
+@keyframes yk-listen { 0% { opacity: .7; transform: scale(.92); } 100% { opacity: 0; transform: scale(1.22); } }
+@keyframes yk-turn { 0%, 30% { transform: rotate(90deg); } 60%, 100% { transform: rotate(0deg); } }
+.view { animation: yk-in 220ms ease-out; }
+
+@media (max-width: 400px) {
+  h1.jp { font-size: 24px; }
+  .hud { gap: 4px; }
+  .chip { padding: 0 6px; gap: 3px; font-size: 13px; }
+  .big strong { font-size: 44px; }
+  .hanko { width: 96px; height: 96px; }
+  .hanko div { font-size: 13px; }
+  .hanko.three div { font-size: 11px; }
+  .stats .row b { width: 72px; font-size: 20px; }
+  .mic { width: 76px; height: 76px; }
+}
+@media (max-height: 640px) {
+  .say { min-height: 52px; }
+  .mic { width: 72px; height: 72px; }
+  .mic svg { width: 28px; height: 28px; }
+  .side-btn { min-height: 50px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .btn:active, .mic.held { transform: none; }
+  .mic.on::before { opacity: .5; transform: scale(1.08); }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="bar">
+    <div class="brand"><span lang="ja">スピーキング</span> <small>Yaoki Speaking</small></div>
+    <button type="button" class="pill" id="open-settings" aria-haspopup="dialog">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
+      <span lang="ja">設定</span>
+    </button>
+  </header>
+
+  <!-- the menu -->
+  <section id="menu" class="view" aria-labelledby="menu-title">
+    <div class="hero">
+      <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="50" cy="57" rx="5" ry="6" fill="#1B2440"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+      <div>
+        <div class="kicker">スピーキング　SPEAKING · SAY IT OUT LOUD</div>
+        <h1 id="menu-title" class="jp" lang="ja"><ruby>声<rt>こえ</rt></ruby>に<ruby>出<rt>だ</rt></ruby>して</h1>
+        <p class="lede">Say it out loud. Each card carries a word; say it into your phone or tablet and Yaoki gets past it. If he doesn't, he falls over and gets up again (七転び八起き).</p>
+      </div>
+    </div>
+
+    <div id="no-speech" class="pair" hidden><span lang="ja">このブラウザでは音声認識が使えません</span><span id="no-speech-text">This browser cannot recognise speech.</span></div>
+    <p id="desk-note" class="notebox" hidden><b lang="ja">スマホ・タブレット用</b>　Made for a phone or tablet held upright. It works here too, with a microphone.</p>
+
+    <section class="block" aria-labelledby="way-h">
+      <h2 id="way-h"><span lang="ja">遊び方</span>　How to play</h2>
+      <div id="ways" class="ways" role="group" aria-labelledby="way-h"></div>
+    </section>
+
+    <section class="block" aria-labelledby="mode-h">
+      <h2 id="mode-h"><span lang="ja">練習</span>　What to practise</h2>
+      <div id="modes" class="seg" role="group" aria-labelledby="mode-h"></div>
+      <p id="mode-desc" class="hint"></p>
+    </section>
+
+    <section id="course-pick" class="block" aria-labelledby="level-h" hidden>
+      <h2 id="level-h"><span lang="ja">レベル</span>　Level</h2>
+      <div id="levels" class="seg" role="group" aria-labelledby="level-h"></div>
+      <h2 id="unit-h"><span lang="ja">週</span>　Week</h2>
+      <div id="units" class="options" role="group" aria-labelledby="unit-h"></div>
+      <p id="course-note" class="hint"></p>
+    </section>
+
+    <section id="stage-pick" class="block" aria-labelledby="stage-h">
+      <h2 id="stage-h"><span lang="ja">ステージ</span>　Stage</h2>
+      <div id="stages" class="options" role="group" aria-labelledby="stage-h"></div>
+      <p id="stage-note" class="hint" hidden></p>
+    </section>
+
+    <section class="block" aria-labelledby="len-h">
+      <h2 id="len-h"><span lang="ja">ラウンド</span>　Cards per round</h2>
+      <div id="len-seg" class="seg" role="group" aria-labelledby="len-h"></div>
+    </section>
+
+    <section class="card block" aria-labelledby="mic-kick">
+      <div class="kicker" id="mic-kick"><span lang="ja">マイクのテスト</span>　TRY THE MICROPHONE</div>
+      <div class="miccheck">
+        <button type="button" id="mic-test" class="btn quiet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><span id="mic-test-label"><span lang="ja">テスト</span>　Test</span></button>
+        <p id="mic-test-out" aria-live="polite">Say <span lang="ja">こんにちは</span> to check that your phone hears you.</p>
+      </div>
+    </section>
+
+    <section id="day-card" class="card daycard" role="group" aria-labelledby="day-kick">
+      <div class="day-boxes" id="day-boxes" aria-hidden="true"></div>
+      <div class="day-text">
+        <div class="kicker" id="day-kick"><span lang="ja">スタンプカード</span>　STAMP CARD · <span id="day-count">0 / 7</span></div>
+        <p class="day-line" id="day-line" aria-hidden="true"></p>
+        <p class="hint" id="day-hint"></p>
+        <p class="sr-only" id="day-sr"></p>
+      </div>
+      <span class="tag gold" id="day-done" aria-hidden="true" hidden></span>
+    </section>
+
+    <aside class="notebox" aria-labelledby="before-h">
+      <b id="before-h" lang="ja">はじめる前に</b>　Before you play
+      <ul>
+        <li>Hold the phone upright, somewhere quiet, and say each word clearly at a normal pace. The phone's own speech recognition listens (Apple's on an iPhone or iPad, Google's on Android), so it needs the internet; this page keeps nothing you say.</li>
+        <li>The first time, the phone asks to use the microphone: allow it. On an iPhone or iPad, Dictation must be on (Settings › General › Keyboard).</li>
+        <li>The big button at the bottom shows when the phone is listening; tap it to stop or start. In Settings you can choose <b>hold to talk</b> instead.</li>
+        <li>Under the game you see what the phone heard. If it heard something else, say it again: a word said right the first time, with no hint, gets a <b lang="ja">はなまる</b>, and <b lang="ja">連続</b> counts them in a row.</li>
+        <li><b lang="ja">🔊 きく</b> says the word for you to copy (it counts as a hint). A card that waits for Yaoki can be skipped.</li>
+        <li>With a screen reader, choose <b>hold to talk</b> in Settings, so the phone does not hear the screen reader reading the card.</li>
+      </ul>
+    </aside>
+
+    <div class="actions start-bar">
+      <button type="button" id="start" class="btn"><span lang="ja">はじめる</span>　Start</button>
+      <button type="button" id="start-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+    </div>
+  </section>
+
+  <!-- a round -->
+  <section id="play" class="view" aria-label="Round" hidden>
+    <div class="hud">
+      <button type="button" id="pause" class="icon-btn" aria-label="Pause or quit">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div id="progress" class="segs" role="img" aria-label="Card 1 of 10"></div>
+      <span class="chip run zero" id="hud-run-chip" title="連続　Clean cards in a row">
+        <svg width="18" height="18" viewBox="-13 -13 26 26" aria-hidden="true"><path class="hm" id="hud-hana" d="" fill="none" stroke-width="2" stroke-linejoin="round"/><circle class="hm" r="3.2" fill="none" stroke-width="2"/></svg>
+        <span id="hud-run">0</span><span class="sr-only">clean in a row</span>
+      </span>
+      <span class="chip" title="ころんだ　Falls">
+        <svg width="20" height="20" viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 54) rotate(-70) scale(.92) translate(-50 -50)"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="4" fill="#1B2440"/></g></svg>
+        <span id="hud-falls">0</span><span class="sr-only">falls</span>
+      </span>
+      <span class="chip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M10 2h4"/></svg>
+        <span id="hud-time">0:00</span>
+      </span>
+    </div>
+    <div class="stage-wrap"><canvas id="stage" aria-hidden="true"></canvas></div>
+    <div class="say">
+      <p class="say-line" id="say-line"></p>
+      <p class="heard" id="heard"></p>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </div>
+    <div class="micbar">
+      <button type="button" id="hear" class="side-btn" aria-label="Listen to the word (a hint)">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11"/></svg>
+        <span lang="ja">きく</span>
+      </button>
+      <button type="button" id="mic" class="mic" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        <span class="mic-label" id="mic-label" lang="ja">マイク</span>
+      </button>
+      <button type="button" id="skip" class="side-btn" disabled aria-label="Skip this card">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6l7 6-7 6zM13 6l7 6-7 6z"/></svg>
+        <span lang="ja">スキップ</span>
+      </button>
+    </div>
+    <p class="mic-state" id="mic-state" aria-live="polite"></p>
+  </section>
+
+  <!-- the result of a round -->
+  <section id="result" class="view" aria-labelledby="res-title" hidden>
+    <div>
+      <div class="kicker red" id="res-kicker"><span lang="ja">結果</span>　RESULT</div>
+      <h1 id="res-title" tabindex="-1" lang="ja">ラウンドおわり</h1>
+    </div>
+    <div class="result-top">
+      <div>
+        <div class="hint"><span lang="ja">一回で言えた</span>　Said right first time</div>
+        <div class="big"><strong id="res-clean">0</strong><span id="res-clean-total">/ 0</span></div>
+        <p class="hint" id="res-line"></p>
+      </div>
+      <div class="hanko" id="res-stamp" role="img"><div lang="ja" id="res-stamp-text"></div><i class="hanko-ink" id="res-ink" aria-hidden="true"></i><svg id="res-hana" class="hana-ring" viewBox="-84 -84 168 168" aria-hidden="true" hidden><path pathLength="1" d=""/></svg></div>
+    </div>
+    <div class="card stats">
+      <div class="row"><b id="res-run">0</b><span><span lang="ja">連続ノーミス</span><small id="res-run-en">longest run of clean cards in a row</small></span></div>
+      <div class="row"><b id="res-falls">0</b><span><span lang="ja">ころんだ</span><small id="res-falls-en">falls</small><small id="res-ups" class="ups" hidden></small></span></div>
+      <div class="row"><b id="res-hints">0</b><span><span lang="ja">ヒント</span><small id="res-hints-en">cards where a hint showed</small></span></div>
+      <div class="row"><b id="res-time">0</b><span><span lang="ja">言えるまで</span><small>seconds on average from a card showing to its being said</small></span></div>
+      <div class="row" id="res-wc-row" hidden><b id="res-wc">0</b><span><span lang="ja">苦手カード</span><small>cards with one of your weak spots (gold corner), said clean</small></span></div>
+    </div>
+    <p id="res-best" hidden><span class="tag gold" lang="ja">自己ベスト！</span> <span class="hint" id="res-best-text"></span></p>
+    <div id="res-seal" class="seal-line" hidden><p><span id="res-seal-tag" class="tag gold" lang="ja" hidden></span> <span class="hint" id="res-seal-text"></span></p><button type="button" id="res-next" class="btn quiet" hidden></button></div>
+    <section id="res-heard-box" class="block" aria-labelledby="heard-h" hidden>
+      <h2 id="heard-h"><span lang="ja">聞こえたことば</span>　What the phone heard instead</h2>
+      <ul id="res-heard" class="misheard"></ul>
+    </section>
+    <section id="res-grad-box" class="block" aria-labelledby="grad-h" hidden>
+      <h2 id="grad-h"><span lang="ja">卒業</span>　Off the weak list</h2>
+      <div id="res-grad" class="weak"></div>
+      <p class="hint" id="res-grad-note"></p>
+    </section>
+    <section id="res-weak-box" class="block" aria-labelledby="weak-h" hidden>
+      <h2 id="weak-h"><span lang="ja">苦手</span>　Weak spots</h2>
+      <div id="res-weak" class="weak"></div>
+      <p class="hint">Saved. They come first in a weak-spot round, and leave the list after three clean answers in a row.</p>
+    </section>
+    <section id="res-day" class="card daycard mini" role="group" aria-labelledby="res-day-kick">
+      <div class="day-boxes" id="res-day-boxes" aria-hidden="true"></div>
+      <div class="day-text">
+        <div class="kicker" id="res-day-kick"><span lang="ja">スタンプカード</span>　STAMP CARD · <span id="res-day-count">0 / 7</span></div>
+        <p class="day-line" id="res-day-line"></p>
+      </div>
+    </section>
+    <div class="actions">
+      <button type="button" id="again" class="btn"><span lang="ja">もう一度</span>　Again</button>
+      <button type="button" id="again-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+      <button type="button" id="close" class="btn quiet"><span lang="ja">とじる</span>　Close</button>
+    </div>
+  </section>
+
+  <footer class="foot-links">
+    <a class="linklike" href="../">Yaoki app</a>
+    <a class="linklike" href="../typing/">Yaoki Typing</a>
+    <a class="linklike" href="../reader/">Yaoki Reader</a>
+    <a class="linklike" href="licenses.txt">Licences</a>
+  </footer>
+</div>
+
+<div id="pause-sheet" class="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pause-h">
+    <h2 id="pause-h"><span lang="ja">一時停止</span>　<small>Paused</small></h2>
+    <p id="pause-why" class="notebox" hidden></p>
+    <p class="hint">Nothing moves and nothing is heard while this is open. If you quit, the misses so far stay in your weak spots, and the round does not count for your best (<span lang="ja">自己ベスト</span>). Your speaking time so far still counts towards today's stamp.</p>
+    <button type="button" id="resume" class="btn"><span lang="ja">つづける</span>　Continue</button>
+    <button type="button" id="pause-settings" class="btn quiet"><span lang="ja">設定</span>　Settings</button>
+    <button type="button" id="quit" class="btn danger"><span lang="ja">中止する</span>　Quit the round</button>
+  </div>
+</div>
+
+<div id="settings-sheet" class="scrim" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settings-h">
+    <h2 id="settings-h"><span lang="ja">設定</span>　<small>Settings</small></h2>
+    <div class="block">
+      <h2 id="mic-h"><span lang="ja">マイク</span>　Microphone</h2>
+      <div id="mic-seg" class="seg" role="group" aria-labelledby="mic-h"></div>
+      <p class="hint"><span lang="ja">ずっと聞く</span> Hands-free: the phone listens for the whole round (tap the microphone to stop it for a moment). <span lang="ja">押して話す</span> Hold to talk: it listens only while you hold the microphone down.</p>
+    </div>
+    <div class="block">
+      <h2 id="hint-h"><span lang="ja">ヒント</span>　Readings and romaji</h2>
+      <div id="hint-seg" class="seg" role="group" aria-labelledby="hint-h"></div>
+      <p class="hint">When stuck: after a miss, or 6 seconds without a word, the reading and its romaji show; a second miss, or 5 seconds more, says the word for you. A card where a hint showed is not counted clean, so it gets <span lang="ja">済</span> without a <span lang="ja">はなまる</span>.</p>
+    </div>
+    <label class="switch"><span><span lang="ja">音</span><small>Say each course word back when it is cleared</small></span><input type="checkbox" id="opt-sound" checked></label>
+    <div class="block">
+      <h2 id="sfx-h"><span lang="ja">効果音</span>　Sound effects</h2>
+      <div id="sfx-seg" class="seg" role="group" aria-labelledby="sfx-h"></div>
+      <p class="hint"><span lang="ja">しずか</span> Quiet: a stamp for each card, a drum when Yaoki falls, a bounce when he gets up, and a sound for each of his tricks. <span lang="ja">ぜんぶ</span> All: also a knock when the phone heard another word.</p>
+    </div>
+    <div class="block">
+      <h2 id="music-h"><span lang="ja">音楽</span>　Music</h2>
+      <div id="music-seg" class="seg" role="group" aria-labelledby="music-h"></div>
+      <p class="hint">A tune for each place, made in the browser. It dips while you speak, so the phone hears you; with the sound up loud, <span lang="ja">小さめ</span> Soft or <span lang="ja">なし</span> Off helps it hear you better.</p>
+    </div>
+    <div class="block">
+      <h2 id="goal-h"><span lang="ja">1日の目標</span>　Daily goal</h2>
+      <div id="goal-seg" class="seg" role="group" aria-labelledby="goal-h"></div>
+      <p class="hint">A day's box on the stamp card is stamped once you have played this long that day. Only time speaking counts: not pauses, and not more than 8 seconds without a word.</p>
+    </div>
+    <button type="button" id="close-settings" class="btn"><span lang="ja">とじる</span>　Close</button>
+  </div>
+</div>
+
+<div id="upright" hidden>
+  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.5h2"/></svg>
+  <p class="pair"><span lang="ja">たてにしてください</span><span>Turn your phone upright to play.</span></p>
+</div>
+
+<!-- what the screen reader hears during a round and at its end; outside the page so it is never hidden or inert
+     while it speaks -->
+<p id="sr-prompt" class="sr-only" aria-live="polite"></p>
+
+<script src="../typing/engine.js" defer></script>
+<script src="readings.js" defer></script>
+<script src="voice.js" defer></script>
+<script src="listen.js" defer></script>
+<script src="../typing/sfx.js" defer></script>
+<script src="../typing/music.js" defer></script>
+<script src="../typing/items.js" defer></script>
+<script src="world.js" defer></script>
+<script src="game.js" defer></script>
+</body>
+</html>
