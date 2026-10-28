@@ -4374,45 +4374,117 @@
   // ----- 城下町: a castle town, white walls and pines, koi in the moat, the castle ahead -----
   scene({
     id: 'joka', ja: '城下町', en: 'Castle town', stillT: 8,
-    sky: { light: ['#DAE7F4', '#E8EFF3', '#F6F0E3'], dark: ['#0C1326', '#121A32', '#1B2340'] },
+    sky: {
+      light: ['#2350C6', '#4A88E2', '#9DCBF4', '#EFDCEC', '#FFD9A6'],
+      dark: ['#04081F', '#0E1550', '#24236C', '#47307A', '#5A3782'],
+    },
     light: {
-      hill: '#CEDAE2', stone: '#D9D3C7', stoneLine: ['#CBC4B6', 1], cwall: '#F4F2EC', croof: '#B6C1D7', croofEdge: '#A7B3CC', cwin: '#C9D2E2', gold: '#E9D49A',
-      far: '#D6DDEA', wall: '#E8E3D7', wroof: '#C0C9DB', namako: ['#D6D9E1', 0.7], pine: '#BDCFC5', pine2: '#B1C5BB', trunk: '#CDBFAD',
-      moat: '#D4E4EB', ripple: ['#F2F7FA', 0.9], k1: '#F4CFB5', k2: '#FBF6EE', ground: '#F0EFE9', groundEdge: '#E5E2D9',
+      mount: '#AEB4EE', mountSnow: '', hill: '#62A0B8',
+      stone: '#8E94CC', stoneShade: '#767BB6', stoneLine: ['#6B70AA', 0.75],
+      cwall: '#FFFFFF', cwallShade: '#CBD3F2', cwin: '#36427A',
+      croof: '#33A08C', croofShade: '#1E6F64', croofLit: '#8DE6CC', croofSnow: '', hafu: '#33A08C', gable: '#FFFFFF',
+      gold: '#F2B43A', goldLit: '#FFF0B8', halo: '',
+      far: '#5468BE', farWall: '#E4E7FA', farLit: '#8C9CE6', farSnow: '', farWin: '#3F4E9C',
+      trunk: '#7A4530', pineDark: '#0F4A3A', pine: '#1D7552', pineLit: '#52B270', pineSnow: '',
+      bloomDark: '#2A7A47', bloom: '#3F9E5C', bloomLit: '#74C77E',
+      wroof: '#2C3769', wroofLit: '#7383C8', wroofSnow: '', wall: '#FCF5E6', wallShade: '#E3D4BC', sama: '#2C3769',
+      stoneW: '#A3A1CB', stoneJoint: ['#8380B3', 0.9], moat: '#2A968F', moatEdge: '#9BE5D8',
+      ripple: ['#CFF7F0', 0.85], castleRef: ['#FFFFFF', 0.5],
+      k1: '#F2683A', k2: '#FFFFFF', ground: '#F8F2E6', groundEdge: '#E8DCC6',
     },
     dark: {
-      hill: '#141B32', stone: '#1A2036', stoneLine: ['#232A42', 1], cwall: '#2C3554', croof: '#141A2E', croofEdge: '#1D2440', cwin: ['#F0C46B', 0.55], gold: '#8C7A4C',
-      far: '#121830', wall: '#1A2036', wroof: '#10162A', namako: ['#232A42', 1], pine: '#0F1A26', pine2: '#0D1622', trunk: '#141A2C',
-      moat: '#121A30', ripple: ['#2C3858', 0.8], k1: '#4A3C44', k2: '#3E4258', ground: '#141A2D', groundEdge: '#171E33', castleGlow: ['#7F8CC4', 0.18],
+      mount: '#252A68', mountSnow: '', hill: '#171C50',
+      stone: '#4B4F92', stoneShade: '#3A3D7A', stoneLine: ['#6064A8', 0.8],
+      cwall: '#FFEFD0', cwallShade: '#E0B98A', cwin: '#E8892E',
+      croof: '#1D5A62', croofShade: '#FFD27A', croofLit: '#57C7B4', croofSnow: '', hafu: '#1D5A62', gable: '#FFEFD0',
+      gold: '#FFCB5C', goldLit: '#FFF2C0', halo: ['#FFC870', 0.15],
+      far: '#161B4C', farWall: '#232A66', farLit: '#2A3274', farSnow: '', farWin: ['#FFC45A', 0.95],
+      trunk: '#0A0F2C', pineDark: '#060A24', pine: '#0B1434', pineLit: '#2A4A80', pineSnow: '',
+      bloomDark: '#0A1A2C', bloom: '#10283A', bloomLit: '#24476A',
+      wroof: '#0C1036', wroofLit: '#3A4590', wroofSnow: '', wall: '#2B3274', wallShade: '#1F2560', sama: '#0C1036',
+      stoneW: '#1F2558', stoneJoint: ['#2C3470', 1], moat: '#0D1442', moatEdge: '#3C4AA0',
+      ripple: ['#FFC45A', 0.55], castleRef: ['#FFC870', 0.55],
+      k1: ['#E2603A', 0.7], k2: ['#C9D2F2', 0.6], ground: '#141A34', groundEdge: '#1C2348',
+    },
+    // cherries in blossom in spring, in leaf in summer, gold in autumn and bare in winter, when
+    // snow lies on the roofs, the pines and the peaks
+    seasons: {
+      spring: {
+        light: { hill: '#6CA9A6', bloomDark: '#E487AC', bloom: '#F6A9C6', bloomLit: '#FFD9E6' },
+        dark: { bloomDark: '#7A4A78', bloom: '#B5739E', bloomLit: '#E8A6C8' },
+      },
+      autumn: {
+        light: { hill: '#D2A25E', bloomDark: '#D08A2E', bloom: '#F2B43A', bloomLit: '#FFDC78' },
+        dark: { hill: '#231B4A', bloomDark: '#341F40', bloom: '#4B2D52', bloomLit: '#7B4A6E' },
+      },
+      winter: {
+        light: {
+          mountSnow: '#FFFFFF', hill: '#8FAACC', croofSnow: '#FFFFFF', farSnow: '#FFFFFF', pineSnow: '#FFFFFF', wroofSnow: '#FFFFFF',
+          bloomDark: '#8F86B4', bloom: '#B4A9CE', bloomLit: '#FFFFFF',
+        },
+        dark: {
+          mountSnow: '#AEB8E8', hill: '#1E2460', croofSnow: '#F2F4FF', farSnow: '#9AA6DC', pineSnow: '#9AA6DC', wroofSnow: '#9AA6DC',
+          bloomDark: '#1A1E4E', bloom: '#2A2F66', bloomLit: '#9AA6DC',
+        },
+      },
     },
     make() {
       return {
-        stars: starLayer(131, 9, -60, 100),
+        stars: starLayer(131, 12, -60, 100),
         cloud: cloudLayer(132, 440, 24, 66, 46, 96),
-        hill: layer(133, 420, 4, ['hill'], (P, R, i, items, tw) => ridge(P[0], i, tw, 133, 140, 16, 160, 10)),
-        far: layer(134, 252, 40, ['far'], (P, R, i) => {
-          for (let k = 0; k < 9; k++) {
-            const g = i * 9 + k;
-            const h = 12 + hash(134, g) * 14;
-            P[0].rect(k * 28, G - h - 16, 28.6, h + 18);
-            if (hash(135, g) < 0.7) tri(P[0], k * 28 - 3, G - h - 15.5, k * 28 + 14, G - h - 23, k * 28 + 31, G - h - 15.5);
+        // far mountains (snow on the peaks in winter) and a wooded hill behind the castle; what
+        // would be lower is hidden by the hill and the town, so they stop short
+        mount: layer(139, 400, 4, ['mount', 'mountSnow'], (P, R, i, items, tw) => {
+          jokaRidge(P[0], P[1], i, tw, 139, 124, 42, 110, 6, 127);
+        }),
+        hill: layer(133, 420, 4, ['hill'], (P, R, i, items, tw) => jokaWoods(P[0], R, i, tw, 133, 126, 22, 150, 127.5)),
+        keep: jokaKeep(),
+        // the roofs of the town, a white storehouse here and there, the ridges in the light and
+        // a window lit by night
+        far: layer(134, 504, 40, ['far', 'farWall', 'farLit', 'farSnow', 'farWin'], (P, R, i) => {
+          for (let k = 0; k < 14; k++) {
+            const g = i * 14 + k;
+            const x = k * 36;
+            const y = G - 34 - hash(134, g) * 14;
+            P[0].rect(x, y, 36.6, 132 - y);
+            quad(P[0], x - 2.5, y + 0.5, x + 39, y + 0.5, x + 31.5, y - 8, x + 4.5, y - 8);
+            if (hash(137, g) < 0.22) P[1].rect(x + 1.5, y + 0.5, 33.6, 132 - y);
+            P[2].rect(x + 4.5, y - 8.5, 27, 1.6);
+            quad(P[3], x - 0.5, y - 2.3, x + 37, y - 2.3, x + 31.8, y - 8.7, x + 4.2, y - 8.7);
+            if (hash(136, g) < 0.4) P[4].rect(x + 9, y + 3, 18, 3.2);
           }
         }),
-        pines: layer(136, 300, 60, ['trunk', 'pine2', 'pine'], (P, R) => {
-          if (R() < 0.75) pine(P, R, 40 + R() * 100, 142, 0.9 + R() * 0.4);
-          if (R() < 0.4) pine(P, R, 170 + R() * 90, 142, 0.7 + R() * 0.3);
+        // pines, and now and then a cherry tree, inside the wall
+        pines: layer(136, 300, 50, ['trunk', 'pineDark', 'pine', 'pineLit', 'pineSnow', 'bloomDark', 'bloom', 'bloomLit'], (P, R) => {
+          if (R() < 0.78) jokaPine(P, R, 20 + R() * 80, 142, 1 + R() * 0.45);
+          const c = R();
+          if (c < 0.42) jokaCherry(P, R, 130 + R() * 50, 142, 0.9 + R() * 0.3);
+          else if (c < 0.6) jokaPine(P, R, 130 + R() * 50, 142, 0.75 + R() * 0.3);
+          if (R() < 0.42) jokaPine(P, R, 215 + R() * 70, 142, 0.8 + R() * 0.35);
         }),
-        wall: layer(137, 260, 40, ['wall', 'wroof', ['namako', 0.8], 'moat'], (P, R, i, items, tw) => {
-          P[0].rect(0, 141, tw + 1, 15);
-          quad(P[1], -1, 142, tw + 2, 142, tw + 2, 137, -1, 137);
-          P[1].rect(-1, 135.6, tw + 2, 1.6);
-          for (let x = 0; x < tw; x += 8) {
-            line(P[2], x, 147, x + 8, 155);
-            line(P[2], x + 8, 147, x, 155);
+        // the castle wall's loopholes (狭間: a triangle, a square and a round one in turn), the
+        // stones under it, snow on its roof in winter and koi in the moat (the bands of the
+        // wall, the same all along, are drawn whole)
+        wall: layer(137, 520, 40, ['wroofSnow', 'sama', 'stoneJoint'], (P, R, i, items, tw) => {
+          P[0].moveTo(-1, 131.6);
+          for (let x = -1; x < tw + 1; x += 13) P[0].quadraticCurveTo(x + 6.5, 127.6 - R() * 1.6, x + 13, 131.6);
+          P[0].lineTo(tw + 12, 133);
+          P[0].lineTo(-1, 133);
+          P[0].closePath();
+          for (let k = 0; k < 20; k++) {
+            const x = 13 + k * 26;
+            const kind = wrap(i * 20 + k, 3);
+            if (kind === 0) tri(P[1], x - 2.2, 147.6, x, 144, x + 2.2, 147.6);
+            else if (kind === 1) P[1].rect(x - 1.7, 144.2, 3.4, 3.4);
+            else circ(P[1], x, 145.9, 1.8);
           }
-          P[3].rect(0, 156, tw + 1, 13);
-          if (R() < 0.7) items.push({ x: R() * tw, y: 160 + R() * 5, k: R() < 0.5 ? 'k1' : 'k2', ph: R() * TAU, s: 6 + R() * 2 });
-          if (R() < 0.5) items.push({ x: R() * tw, y: 160 + R() * 5, k: 'k2', ph: R() * TAU, s: 5 + R() * 2 });
+          P[2].rect(-1, 154.3, tw + 2, 0.8);
+          for (let c = 0; c < 2; c++) {
+            for (let x = 2 + R() * 8; x < tw - 3; x += 9 + R() * 8) P[2].rect(x - 0.4, 150.5 + c * 4.2, 0.8, 4.2);
+          }
+          for (let k = 0; k < 3; k++) {
+            if (R() < 0.75) items.push({ x: ((k + R()) * tw) / 3, y: 162 + R() * 4, k: R() < 0.45 ? 'k1' : 'k2', ph: R() * TAU, s: 5 + R() * 3 });
+          }
         }, (ctx, items) => {
           for (let q = 0; q < items.length; q++) {
             const k = items[q];
@@ -4427,115 +4499,329 @@
           }
           ctx.globalAlpha = 1;
         }),
-        ripples: layer(138, 220, 30, ['ripple'], (P, R) => {
-          for (let k = 0; k < 4; k++) ell(P[0], R() * 220, 158 + R() * 9, 4 + R() * 8, 0.6);
+        ripples: layer(138, 440, 30, ['ripple'], (P, R) => {
+          for (let k = 0; k < 8; k++) {
+            const w = 8 + R() * 16;
+            P[0].rect(R() * 440 - w / 2, 160.6 + R() * 6, w, 1.1);
+          }
         }),
       };
     },
     paint(ctx, f, L) {
-      skyFill(ctx, 'sky');
+      jokaSky(ctx);
       if (f.dark) drawLayer(ctx, L.stars, f.scroll * 0.02);
       const sx = f.W * (0.22 + 0.4 * f.pj);
       const sy = 50 - 22 * Math.sin(Math.PI * f.pj);
       celestial(ctx, sx, sy, 12);
       drawLayer(ctx, L.cloud, f.scroll * 0.04 + f.t * 2);
-      castle(ctx, f.W * (0.92 - 0.24 * f.pj), 138, 0.8 + 0.35 * f.pj);
+      drawLayer(ctx, L.mount, f.scroll * 0.025);
       drawLayer(ctx, L.hill, f.scroll * 0.05);
+      const cx = f.W * (0.92 - 0.22 * f.pj);
+      const cs = 0.84 + 0.36 * f.pj;
+      jokaCastle(ctx, L.keep, cx, 134, cs);
       drawLayer(ctx, L.far, f.scroll * 0.2);
       drawLayer(ctx, L.pines, f.scroll * 0.5);
+      // the castle wall: a tiled roof with its ridge in the light, white plaster in the shadow
+      // of the eave, the stone wall and the moat
+      rect(ctx, 'wroof', -1, 131, f.W + 2, 10.6);
+      rect(ctx, 'wroofLit', -1, 131, f.W + 2, 1.2);
+      rect(ctx, 'wall', -1, 141.5, f.W + 2, 9.5);
+      rect(ctx, 'wallShade', -1, 141.5, f.W + 2, 2.4);
+      rect(ctx, 'stoneW', -1, 150.5, f.W + 2, 8.5);
+      rect(ctx, 'moat', -1, 159, f.W + 2, 10);
+      rect(ctx, 'moatEdge', -1, 159, f.W + 2, 1.3);
+      jokaRef(ctx, cx, cs);
       drawLayer(ctx, L.wall, f.scroll * 0.6);
       drawLayer(ctx, L.ripples, f.scroll * 0.6 + f.t * 1.5);
       ground(ctx, 'groundEdge');
       seasonal(ctx);
+      // the finish: the sun (or the moon) catches the gold dolphins on the roof
+      jokaGlint(ctx, cx + 13.4 * cs, 134 - 96 * cs, f.fin);
       hanamaru(ctx, sx, sy, 21, f.fin);
     },
   });
-  const TIERS = [-28, -26, 56, 18, -21, -48, 42, 14, -14, -66, 28, 12];
-  // The castle keep (天守): stone walls with curved sides, white storeys and grey roofs
-  // whose eaves turn up at the ends, gold dolphins on the top ridge.
-  function castle(ctx, x, base, s) {
+  // The sky as skyFill() paints it (the same gradient), but only down to y 127: below that the
+  // roofs of the town, the wall, the moat and the ground cover everything.
+  function jokaSky(ctx) {
+    const P = F.K;
+    let g = P.grad.sky;
+    if (!g) {
+      const stops = P.stops.sky;
+      g = ctx.createLinearGradient(0, 0, 0, G);
+      for (let k = 0; k < stops.length; k++) g.addColorStop(k / (stops.length - 1), stops[k]);
+      P.grad.sky = g;
+    }
+    ctx.fillStyle = g;
+    ctx.fillRect(-1, F.top - 1, F.W + 2, 128 - F.top);
+  }
+  // A ridge of hills like ridge(), closed at y bottom, with snow on what rises above y 104.
+  function jokaRidge(p, snow, i, tw, seed, base, amp, scale, step, bottom) {
+    const x0 = i * tw;
+    const top = [];
+    for (let x = 0; x <= tw + step; x += step) {
+      const xx = Math.min(x, tw + 1);
+      top.push(xx, base - amp * hills(seed, x0 + xx, scale));
+      if (xx > tw) break;
+    }
+    p.moveTo(0, bottom);
+    for (let k = 0; k < top.length; k += 2) p.lineTo(top[k], top[k + 1]);
+    p.lineTo(tw + 1, bottom);
+    p.closePath();
+    snow.moveTo(top[0], top[1]);
+    for (let k = 2; k < top.length; k += 2) snow.lineTo(top[k], top[k + 1]);
+    for (let k = top.length - 2; k >= 0; k -= 2) {
+      const y = top[k + 1];
+      snow.lineTo(top[k], Math.max(y, Math.min(y + 8 + (k % 4 ? 3 : -1), 104)));
+    }
+    snow.closePath();
+  }
+  // A wooded ridge: the line of ridge(), scalloped into round tree tops, closed at y bottom.
+  function jokaWoods(p, R, i, tw, seed, base, amp, scale, bottom) {
+    let x = 0;
+    let y = ridgeY(i, tw, 0, seed, base, amp, scale);
+    p.moveTo(0, bottom);
+    p.lineTo(0, y);
+    while (x < tw + 1) {
+      const nx = Math.min(x + 18 + R() * 12, tw + 1);
+      const ny = ridgeY(i, tw, nx, seed, base, amp, scale);
+      p.quadraticCurveTo((x + nx) / 2, Math.min(y, ny) - (nx - x) * (0.42 + R() * 0.2), nx, ny);
+      x = nx;
+      y = ny;
+    }
+    p.lineTo(tw + 1, bottom);
+    p.closePath();
+  }
+  // The keep (天守) at unit size, standing on y 0: a stone base whose sides sweep out at the
+  // foot, three white storeys under green-copper roofs with upturned eaves, a gable on each
+  // roof and gold dolphins (鯱) on the ridge. One Path2D per colour, made once.
+  const KEEP_ROLES = ['stone', 'stoneShade', 'stoneLine', 'cwall', 'cwallShade', 'cwin',
+    'croof', 'croofShade', 'croofLit', 'croofSnow', 'hafu', 'gable', 'gold', 'goldLit'];
+  function jokaKeep() {
+    const K = { key: KEEP_ROLES, p: [], halo: [] };
+    const at = {};
+    for (const key of KEEP_ROLES) K.p.push((at[key] = new Path2D()));
+    // by night, the glow of the lights it is lit up with: rings of light laid one over another
+    for (const [r, ry] of [[72, 68], [48, 50]]) {
+      const p = new Path2D();
+      ell(p, 0, -50, r, ry);
+      K.halo.push(p);
+    }
+    // the stone base (石垣), its shaded side and its courses of stones
+    const half = (y) => 37 + 13 * Math.pow(1 + y / 24, 2.4);
+    at.stone.moveTo(-half(0), 0);
+    for (let k = 1; k <= 8; k++) at.stone.lineTo(-half((-24 * k) / 8), (-24 * k) / 8);
+    for (let k = 8; k >= 0; k--) at.stone.lineTo(half((-24 * k) / 8), (-24 * k) / 8);
+    at.stone.closePath();
+    at.stoneShade.moveTo(half(0) - 13, 0);
+    for (let k = 1; k <= 8; k++) at.stoneShade.lineTo(half((-24 * k) / 8) - 11, (-24 * k) / 8);
+    for (let k = 8; k >= 0; k--) at.stoneShade.lineTo(half((-24 * k) / 8), (-24 * k) / 8);
+    at.stoneShade.closePath();
+    for (let c = 0; c < 5; c++) {
+      const y0 = -24 + c * 4.8;
+      const h = half(y0) - 2;
+      if (c) at.stoneLine.rect(0.6 - half(y0), y0 - 0.3, half(y0) * 2 - 1.2, 0.6);
+      for (let x = 4 - h + (c % 2) * 4.5; x < h - 2; x += 9) at.stoneLine.rect(x - 0.3, y0, 0.6, 4.8);
+    }
+    // three storeys: half width, foot, top; each with its side and the eave's shadow
+    const T = [[30, -24, -42], [22, -50, -64], [15, -71, -82]];
+    for (const [hw, y0, y1] of T) {
+      at.cwall.rect(-hw, y1, hw * 2, y0 - y1 + 0.5);
+      at.cwallShade.rect(hw * 0.72, y1, hw * 0.28, y0 - y1 + 0.5);
+      at.cwallShade.rect(-hw, y1, hw * 2, 2.6);
+    }
+    for (let x = -26; x <= 22; x += 8) at.cwin.rect(x, -37.5, 4, 5);
+    for (const x of [-18, -11, 7, 14]) at.cwin.rect(x, -60, 4, 4.5);
+    for (const x of [-10, -2, 6]) at.cwin.rect(x, -78.5, 4, 3.6);
+    // the roofs, eaves turned up at the ends; their edge in shadow (lit up by night), the
+    // ridge in the light, and snow on them in winter
+    const roof = (ht, yt, he, ye, up) => {
+      const p = at.croof;
+      p.moveTo(-ht, yt);
+      p.lineTo(ht, yt);
+      p.quadraticCurveTo(he - 6, ye - 2, he + 4, ye - up);
+      p.quadraticCurveTo(he, ye + 0.6, he - 8, ye + 0.6);
+      p.lineTo(8 - he, ye + 0.6);
+      p.quadraticCurveTo(-he, ye + 0.6, -he - 4, ye - up);
+      p.quadraticCurveTo(6 - he, ye - 2, -ht, yt);
+      p.closePath();
+      const s = at.croofShade;
+      s.moveTo(8 - he, ye + 0.6);
+      s.lineTo(he - 8, ye + 0.6);
+      s.quadraticCurveTo(he, ye + 0.6, he + 4, ye - up);
+      s.quadraticCurveTo(he - 1, ye - 2.2, he - 8, ye - 2.2);
+      s.lineTo(8 - he, ye - 2.2);
+      s.quadraticCurveTo(1 - he, ye - 2.2, -he - 4, ye - up);
+      s.quadraticCurveTo(-he, ye + 0.6, 8 - he, ye + 0.6);
+      s.closePath();
+      at.croofLit.rect(-ht, yt - 0.2, ht * 2, 1.3);
+      const w = at.croofSnow;
+      w.moveTo(-ht - 1, yt - 0.6);
+      w.lineTo(ht + 1, yt - 0.6);
+      w.quadraticCurveTo(he - 7, ye - 4.6, he + 2, ye - up - 1.2);
+      w.quadraticCurveTo(he - 8, ye - 2.4, ht * 0.5, yt + 3.6);
+      w.lineTo(-ht * 0.5, yt + 3.6);
+      w.quadraticCurveTo(8 - he, ye - 2.4, -he - 2, ye - up - 1.2);
+      w.quadraticCurveTo(7 - he, ye - 4.6, -ht - 1, yt - 0.6);
+      w.closePath();
+    };
+    roof(22, -50, 38, -41.5, 4.5);
+    roof(15, -71, 29, -63.5, 4);
+    roof(11, -89, 23, -81.5, 4);
+    at.croof.rect(-15, -92, 30, 3.4);
+    at.croofLit.rect(-15, -92.2, 30, 1.1);
+    rr(at.croofSnow, -15.5, -93.6, 31, 2.6, 1.2);
+    // a gable (千鳥破風) on the first roof, a bow-shaped one (唐破風) on the second and the
+    // great gable of the top roof, each with a gold ornament
+    tri(at.hafu, -13, -44.6, 0, -57.5, 13, -44.6);
+    tri(at.gable, -9.4, -45.4, 0, -54.4, 9.4, -45.4);
+    circ(at.gold, 0, -53, 1.1);
+    const bow = (p, w, y, h) => {
+      p.moveTo(-w, y);
+      p.quadraticCurveTo(-w * 0.55, y, -w * 0.38, y - h * 0.55);
+      p.quadraticCurveTo(0, y - h * 1.25, w * 0.38, y - h * 0.55);
+      p.quadraticCurveTo(w * 0.55, y, w, y);
+      p.closePath();
+    };
+    bow(at.hafu, 11, -63, 8);
+    bow(at.gable, 8, -63.6, 5.6);
+    tri(at.hafu, -12.5, -82.4, 0, -93.6, 12.5, -82.4);
+    tri(at.gable, -9, -83.2, 0, -91, 9, -83.2);
+    circ(at.gold, 0, -90, 1);
+    // the dolphins on the ridge, tails up
+    for (const d of [-1, 1]) {
+      at.gold.moveTo(d * 11.8, -92);
+      at.gold.quadraticCurveTo(d * 10.6, -95.6, d * 12.6, -99.4);
+      at.gold.lineTo(d * 14.8, -98.4);
+      at.gold.quadraticCurveTo(d * 14.2, -95.2, d * 15.6, -92);
+      at.gold.closePath();
+      circ(at.goldLit, d * 13.2, -94.5, 0.7);
+    }
+    return K;
+  }
+  function jokaCastle(ctx, K, x, base, s) {
     ctx.save();
     ctx.translate(x, base);
     ctx.scale(s, s);
-    if (F.dark) glow(ctx, 0, -50, 70, 'castleGlow', 1);
-    if (setFill(ctx, 'stone')) {
-      ctx.beginPath();
-      ctx.moveTo(-46, 0);
-      ctx.quadraticCurveTo(-36, -8, -34, -26);
-      ctx.lineTo(34, -26);
-      ctx.quadraticCurveTo(36, -8, 46, 0);
-      ctx.closePath();
-      ctx.fill();
-    }
-    if (F.C.stoneLine) {
-      ctx.strokeStyle = F.C.stoneLine;
-      ctx.lineWidth = 0.6;
-      ctx.beginPath();
-      for (let y = -21; y < 0; y += 5) {
-        ctx.moveTo(-40 - y * 0.25, y);
-        ctx.lineTo(40 + y * 0.25, y);
-      }
-      ctx.stroke();
-    }
-    for (let k = 0; k < 3; k++) {
-      const tx = TIERS[k * 4];
-      const ty = TIERS[k * 4 + 1];
-      const tw = TIERS[k * 4 + 2];
-      const th = TIERS[k * 4 + 3];
-      rect(ctx, 'cwall', tx, ty - th, tw, th);
-      if (setFill(ctx, 'cwin')) {
-        for (let wx = tx + 5; wx < tx + tw - 6; wx += 8) ctx.fillRect(wx, ty - th * 0.62, 4, 4);
-      }
-      // the roof over this storey, eaves turned up
-      if (setFill(ctx, 'croof')) {
-        const rx = tx - 7;
-        const rw = tw + 14;
-        const ry = ty - th;
-        ctx.beginPath();
-        ctx.moveTo(rx - 2, ry - 1);
-        ctx.quadraticCurveTo(rx + 6, ry - 2, rx + 10, ry - 8);
-        ctx.lineTo(rx + rw - 10, ry - 8);
-        ctx.quadraticCurveTo(rx + rw - 6, ry - 2, rx + rw + 2, ry - 1);
-        ctx.lineTo(rx + rw - 4, ry + 1.5);
-        ctx.lineTo(rx + 4, ry + 1.5);
-        ctx.closePath();
-        ctx.fill();
-        if (k < 2) {
-          // a little gable (千鳥破風) on the roof
-          ctx.beginPath();
-          ctx.moveTo(-9, ry - 7);
-          ctx.lineTo(0, ry - 14);
-          ctx.lineTo(9, ry - 7);
-          ctx.closePath();
-          ctx.fill();
-        }
-      }
-      rect(ctx, 'croofEdge', tx - 5, ty - th - 1, tw + 10, 1.4);
-    }
-    // the top roof and its gold shachihoko
-    if (setFill(ctx, 'croof')) {
-      ctx.beginPath();
-      ctx.moveTo(-22, -77);
-      ctx.quadraticCurveTo(-14, -79, -10, -86);
-      ctx.lineTo(10, -86);
-      ctx.quadraticCurveTo(14, -79, 22, -77);
-      ctx.closePath();
-      ctx.fill();
-    }
-    if (setFill(ctx, 'gold')) {
-      // the shachihoko: two little gold fish on the ridge, tails up
-      ctx.beginPath();
-      for (let d = -1; d <= 1; d += 2) {
-        ctx.moveTo(d * 10, -86);
-        ctx.quadraticCurveTo(d * 8, -89, d * 9.5, -91.5);
-        ctx.lineTo(d * 11, -90);
-        ctx.quadraticCurveTo(d * 11.5, -88, d * 12, -86);
-        ctx.closePath();
-      }
-      ctx.fill();
-    }
+    if (setFill(ctx, 'halo')) for (let r = 0; r < K.halo.length; r++) ctx.fill(K.halo[r]);
+    for (let r = 0; r < K.key.length; r++) if (setFill(ctx, K.key[r])) ctx.fill(K.p[r]);
     ctx.globalAlpha = 1;
     ctx.restore();
+  }
+  // The castle's light on the moat below it: streaks that shimmer.
+  function jokaRef(ctx, x, s) {
+    if (!setFill(ctx, 'castleRef')) return;
+    const a = ctx.globalAlpha;
+    for (let k = 0; k < 4; k++) {
+      const w = (38 - k * 8) * s * (0.8 + 0.2 * Math.sin(F.t * 1.3 + k * 2.1));
+      ctx.globalAlpha = a * (1 - k * 0.18);
+      ctx.fillRect(x - w / 2 + Math.sin(F.t * 0.9 + k) * 2, 160.8 + k * 2.2, w, 1);
+    }
+    ctx.globalAlpha = 1;
+  }
+  // A glint on the gold as the round ends: a four-pointed star that turns slowly.
+  function jokaGlint(ctx, x, y, k) {
+    if (k <= 0 || !F.C.goldLit) return;
+    glow(ctx, x, y, 16 * k, 'goldLit', 0.7);
+    const a = F.still ? 0.4 : F.t * 0.6;
+    const c = Math.cos(a) * 9 * k;
+    const s = Math.sin(a) * 9 * k;
+    ctx.fillStyle = F.C.goldLit;
+    ctx.globalAlpha = k;
+    ctx.beginPath();
+    ctx.moveTo(x + c, y + s);
+    ctx.quadraticCurveTo(x, y, x - s, y + c);
+    ctx.quadraticCurveTo(x, y, x - c, y - s);
+    ctx.quadraticCurveTo(x, y, x + s, y - c);
+    ctx.quadraticCurveTo(x, y, x + c, y + s);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  // A pine (matsu) in the castle grounds: a leaning trunk with a branch out to each flat pad
+  // of needles, the pad's shadow under it, the light on its top and, in winter, snow.
+  function jokaPine(P, R, x, base, s) {
+    const lean = (R() - 0.5) * 18 * s;
+    const h = 50 * s;
+    P[0].moveTo(x - 2.8 * s, base + 1);
+    P[0].quadraticCurveTo(x + lean * 0.2, base - h * 0.5, x + lean - s, base - h);
+    P[0].lineTo(x + lean + 1.4 * s, base - h);
+    P[0].quadraticCurveTo(x + lean * 0.2 + 3 * s, base - h * 0.5, x + 2.8 * s, base + 1);
+    P[0].closePath();
+    for (let k = 0; k < 3; k++) {
+      const u = k / 2;
+      const t = 0.42 + 0.58 * u;
+      const tx = x + lean * (0.4 * t * (1 - t) + t * t);
+      const cx = x + lean * (0.45 + 0.55 * u) + (k % 2 ? 10 : -10) * s * (1 - u * 0.5);
+      const cy = base - h * t;
+      const w = (31 - 12 * u) * s;
+      const ph = 4 * s;
+      quad(P[0], tx, cy + 2.5 * s, cx, cy, cx, cy + 1.8 * s, tx, cy + 4.6 * s);
+      jokaShadow(P[1], cx + 0.8 * s, cy, w, ph);
+      jokaPad(P[2], cx, cy, w, ph);
+      jokaRim(P[3], cx, cy, w, ph, 0.3);
+      jokaRim(P[4], cx, cy - 0.4 * s, w, ph, 0.75);
+    }
+  }
+  // A pad of pine needles cut from paper: a long lens with a heap on its top.
+  function jokaPad(p, cx, cy, w, hh) {
+    const l = cx - w / 2;
+    const r = cx + w / 2;
+    p.moveTo(l, cy + hh * 0.2);
+    p.quadraticCurveTo(l + w * 0.08, cy - hh * 0.9, l + w * 0.3, cy - hh * 0.85);
+    p.quadraticCurveTo(l + w * 0.5, cy - hh * 1.9, r - w * 0.25, cy - hh * 0.9);
+    p.quadraticCurveTo(r - w * 0.04, cy - hh * 0.6, r, cy + hh * 0.2);
+    p.quadraticCurveTo(cx, cy + hh * 1.3, l, cy + hh * 0.2);
+    p.closePath();
+  }
+  // The shadow under a pad: the crescent of a pad set a little lower that shows below it.
+  function jokaShadow(p, cx, cy, w, hh) {
+    const l = cx - w / 2;
+    const r = cx + w / 2;
+    p.moveTo(l + w * 0.02, cy + hh * 0.3);
+    p.quadraticCurveTo(cx, cy + hh * 1.3, r - w * 0.02, cy + hh * 0.3);
+    p.lineTo(r + w * 0.01, cy + hh * 0.75);
+    p.quadraticCurveTo(cx, cy + hh * 2.05, l + w * 0.03, cy + hh * 0.75);
+    p.closePath();
+  }
+  // The light on a pad's heap (or the snow on it, thicker): a crescent along its top.
+  function jokaRim(p, cx, cy, w, hh, k) {
+    const l = cx - w / 2;
+    const r = cx + w / 2;
+    p.moveTo(l + w * 0.22, cy - hh * 0.75);
+    p.quadraticCurveTo(l + w * 0.5, cy - hh * 2.05, r - w * 0.27, cy - hh * 0.95);
+    p.quadraticCurveTo(l + w * 0.5, cy - hh * (1.7 - k), l + w * 0.22, cy - hh * 0.75);
+    p.closePath();
+  }
+  // A cherry tree (桜): a short trunk forking into branches under a round crown of blossom
+  // (leaves in summer, gold in autumn, a haze of bare twigs in winter).
+  function jokaCherry(P, R, x, base, s) {
+    const h = 20 * s;
+    const fy = base - h;
+    quad(P[0], x - 3 * s, base + 1, x + 3 * s, base + 1, x + 1.6 * s, fy, x - 1.6 * s, fy);
+    for (const [dx, dy] of [[-16, -12], [-6, -22], [5, -21], [16, -11]]) {
+      quad(P[0], x - 1.6 * s, fy + s, x + 1.6 * s, fy + s, x + (dx + 0.7) * s, fy + dy * s, x + (dx - 0.7) * s, fy + dy * s);
+    }
+    const f = [];
+    for (let k = 0; k < 6; k++) f.push(1.3 + (R() - 0.5) * 0.16);
+    jokaCrown(P[5], x + 1.2 * s, fy - 13 * s, 21 * s, 14 * s, f);
+    jokaCrown(P[6], x, fy - 15.5 * s, 21 * s, 14 * s, f);
+    jokaCrown(P[7], x - 6 * s, fy - 22 * s, 10 * s, 6 * s, f.slice(0, 4));
+  }
+  // A crown of leaves or blossom: bumps round the top and sides of an oval, a curve under it.
+  function jokaCrown(p, cx, cy, rx, ry, f) {
+    const a0 = Math.PI - 0.35;
+    const a1 = TAU + 0.35;
+    const n = f.length;
+    const step = (a1 - a0) / n;
+    const x0 = cx + rx * Math.cos(a0);
+    const y0 = cy + ry * Math.sin(a0);
+    p.moveTo(x0, y0);
+    for (let k = 1; k <= n; k++) {
+      const a = a0 + step * k;
+      const m = a - step / 2;
+      p.quadraticCurveTo(cx + rx * f[k - 1] * Math.cos(m), cy + ry * f[k - 1] * Math.sin(m), cx + rx * Math.cos(a), cy + ry * Math.sin(a));
+    }
+    p.quadraticCurveTo(cx, cy + ry * 1.3, x0, y0);
+    p.closePath();
   }
 
   // ---------- which place for which stage ----------
