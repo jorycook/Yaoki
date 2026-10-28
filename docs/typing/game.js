@@ -34,6 +34,9 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const darkScheme = window.matchMedia('(prefers-color-scheme: dark)');
   const touchOnly = window.matchMedia('(hover: none) and (pointer: coarse)');
+  // The game is for a computer with a keyboard: a touch screen, or a window narrower than
+  // this, is told so on the menu.
+  const narrow = window.matchMedia('(max-width: 699px)');
 
   // The scene, in logical units: 240 high and as wide as its box at that scale.
   const H = 240;
@@ -47,6 +50,8 @@
     kanji: { r: 2.2, p: 1.6 }, // a kanji's reading is recalled before it is typed
     symbol: { r: 1.8, p: 1.6 },
     keys: { r: 2.5, p: 1.6 },
+    kana: { r: 1.8, p: 1.2 },  // a word in kana input: each kana's key is found as it comes
+    'keys-kanji': { r: 2.5, p: 1.2 },
   };
   const STUCK_FIRST = 5;       // seconds before the first key of a card until a "when stuck" hint
   const STUCK_NEXT = 3;        // seconds between keys until the next level of hint
@@ -85,7 +90,7 @@
   // ---------- what is kept between visits ----------
 
   const DEFAULTS = {
-    mode: null, stage: {}, level: null, unit: {}, hints: 'stuck', len: 20, kb: true, sound: true, best: {}, pace: {}, stats: {},
+    mode: null, last: {}, stage: {}, level: null, unit: {}, hints: 'stuck', len: 20, kb: true, sound: true, best: {}, pace: {}, stats: {},
     sfx: 'quiet', music: 'on', goal: 5, practice: null, stampCard: { days: [], done: 0, lastDay: null }, run: {}, seal: {},
   };
   let saved = load();
@@ -106,7 +111,7 @@
       sc.done = Math.max(0, sc.done | 0);
       if (typeof sc.lastDay !== 'string') sc.lastDay = sc.days[sc.days.length - 1] || null;
     }
-    for (const k of ['run', 'seal']) if (!saved[k] || typeof saved[k] !== 'object' || Array.isArray(saved[k])) saved[k] = {};
+    for (const k of ['run', 'seal', 'last']) if (!saved[k] || typeof saved[k] !== 'object' || Array.isArray(saved[k])) saved[k] = {};
   }
 
   // The day, by the local calendar, as the app counts days (window.__ykNow is its test clock).
@@ -176,36 +181,66 @@
   }
   const place = learnerPlace();
 
-  // ---------- modes, stages and course words ----------
+  // ---------- input methods, stages and course words ----------
 
-  const MODES = {
-    course: {
-      ja: '語彙', en: 'Course words', kind: 'romaji', stats: 'kana',
-      desc: 'The words of a week of your Yaoki course. Each card shows the word with its reading; type the reading in romaji. A cleared word is spoken.',
-    },
+  // How the cards are typed. Each input method lists its stages in groups (MODES below).
+  const INPUTS = {
     romaji: {
-      ja: 'ローマ字', en: 'Romaji', kind: 'romaji', stats: 'kana',
-      desc: 'Kana, katakana, words and short sentences, typed in romaji as the Japanese input method reads them.',
+      ja: 'ローマ字', en: 'Romaji', modes: ['romaji', 'course', 'kanji'],
+      desc: 'Typed in romaji, as the Japanese input method reads them. Switch the input to 英数 (direct input) while you play.',
     },
     symbol: {
-      ja: '記号', en: 'Symbol keys', kind: 'symbol', stats: 'symbol',
+      ja: '記号', en: 'Symbol keys', modes: ['symbol'],
       desc: 'Symbols and Japanese punctuation, typed on the key where a Japanese keyboard puts them.',
     },
     keys: {
-      ja: 'かな入力', en: 'Kana input', kind: 'keys', stats: 'keys',
-      desc: 'Where each kana sits on a Japanese keyboard, for kana input. Press the key that carries it; the input mode does not matter.',
-    },
-    kanji: {
-      ja: '漢字', en: 'Kanji', kind: 'romaji', stats: 'kanji',
-      desc: 'Advanced: single kanji, compound words, four-character idioms and sentences with kanji. Type the reading in romaji. When you are stuck, or after a slip, the reading (furigana) shows first, then its romaji; a card typed without either is clean.',
+      ja: 'かな入力', en: 'Kana input', modes: ['keys', 'keys-course', 'keys-kanji'],
+      desc: 'Typed with the kana printed on the keys of a Japanese keyboard. Press the key that carries each kana (Shift for a small kana, を and 、。・「」; ゛ or ゜ after the kana it voices); the input mode does not matter.',
     },
   };
-  const MODE_ORDER = ['course', 'romaji', 'symbol', 'keys', 'kanji'];
-  const STAGES = { romaji: E.KANA_STAGES, symbol: E.SYMBOL_STAGES, keys: E.KANA_KEY_STAGES, kanji: E.KANJI_STAGES };
+  const INPUT_ORDER = ['romaji', 'symbol', 'keys'];
+
+  // What a round deals, under one input method: a group of stages, or the weeks of the course.
+  // `kind` is how a card is typed: 'romaji' letters, one 'symbol' or kana 'keys' key a card,
+  // or the 'kana' keys of a word, one after another.
+  const KANJI_HINT = 'When you are stuck, or after a slip, the reading (furigana) shows first, then ';
+  const MODES = {
+    romaji: {
+      input: 'romaji', ja: 'かな', en: 'Kana, words and phrases', kind: 'romaji', stats: 'kana',
+      desc: 'Kana, katakana, words and short sentences.',
+    },
+    course: {
+      input: 'romaji', ja: '語彙', en: 'Course words', kind: 'romaji', stats: 'kana',
+      desc: 'The words of a week of your Yaoki course. Each card shows the word with its reading; type the reading in romaji. A cleared word is spoken.',
+    },
+    kanji: {
+      input: 'romaji', ja: '漢字', en: 'Kanji (advanced)', kind: 'romaji', stats: 'kanji',
+      desc: 'Single kanji, compound words, four-character idioms and sentences with kanji. A card shows only the kanji: type its reading in romaji. ' + KANJI_HINT + 'its romaji; a card typed without either is clean.',
+    },
+    symbol: {
+      input: 'symbol', ja: '記号', en: 'Symbol keys', kind: 'symbol', stats: 'symbol', desc: '',
+    },
+    keys: {
+      input: 'keys', ja: 'キー', en: 'Keys, row by row', kind: 'keys', stats: 'keys',
+      desc: 'Where each kana sits: one key a card.',
+    },
+    'keys-course': {
+      input: 'keys', ja: '語彙', en: 'Course words', kind: 'kana', stats: 'keys',
+      desc: 'The words of a week of your Yaoki course. Each card shows the word with its reading; type the reading on the kana keys. A cleared word is spoken.',
+    },
+    'keys-kanji': {
+      input: 'keys', ja: '漢字', en: 'Kanji (advanced)', kind: 'kana', stats: 'kanji',
+      desc: 'Single kanji, compound words, four-character idioms and sentences with kanji. A card shows only the kanji: type its reading on the kana keys. ' + KANJI_HINT + 'the key to press; a card typed without either is clean.',
+    },
+  };
+  const STAGES = { romaji: E.KANA_STAGES, symbol: E.SYMBOL_STAGES, keys: E.KANA_KEY_STAGES, kanji: E.KANJI_STAGES, 'keys-kanji': E.KANJI_STAGES };
   const LEVELS = ['N5', 'N4', 'N3', 'N2'];
+  const isCourse = (mode) => mode === 'course' || mode === 'keys-course';
+  const inputOf = (mode) => MODES[mode].input;
 
   if (saved.mode === 'kana') saved.mode = 'romaji';
   if (!MODES[saved.mode]) saved.mode = place ? 'course' : 'romaji';
+  saved.last[inputOf(saved.mode)] = saved.mode;
   if (!LEVELS.includes(saved.level)) saved.level = place && LEVELS.includes(place.level) ? place.level : 'N5';
 
   function loadScript(src) {
@@ -286,23 +321,45 @@
     const tokens = E.tokenize(reading);
     return Object.assign({ kind: 'romaji', id: 'r:' + text + '|' + reading, text, tokens, units: E.units(tokens), len: E.spell(tokens).length }, extra);
   }
+  // A word typed with kana input: its reading's keys, one step each (a Shift step counts two,
+  // as for a kana key card). Its weak spots are those keys, as on the kana key stages.
+  function kanaItem(text, extra) {
+    const reading = extra.reading || text;
+    const keys = E.kanaKeys(reading);
+    return Object.assign({
+      kind: 'kana', id: 'q:' + text + '|' + reading, text, keys, steps: keys.steps,
+      units: keys.steps.map((x) => x.kana + (x.shift ? '+' : '')),
+      len: keys.steps.reduce((n, x) => n + (x.shift ? 2 : 1), 0),
+    }, extra);
+  }
+  // Cards with a word on them (typed letter by letter, or key by key), as against one key.
+  const wordy = (item) => item.kind === 'romaji' || item.kind === 'kana';
 
   // The prompts of the stage (or course week) picked in the menu, or null if not ready.
   function currentItems() {
     const mode = saved.mode;
-    if (mode === 'course') {
+    const make = MODES[mode].kind === 'kana' ? kanaItem : romajiItem;
+    if (isCourse(mode)) {
       const units = courses[saved.level];
       const unit = units && units.find((u) => u.n === saved.unit[saved.level]);
       if (!unit || !unit.words.length) return null;
-      return unit.words.map((w) => romajiItem(w.text, { reading: w.reading, gloss: w.gloss, clip: w.clip }));
+      const out = [];
+      for (const w of unit.words) {
+        try {
+          out.push(make(w.text, { reading: w.reading, gloss: w.gloss, clip: w.clip }));
+        } catch (err) {
+          // a word its input cannot type is left out
+        }
+      }
+      return out.length ? out : null;
     }
     const stage = currentStage();
-    if (mode === 'romaji' || mode === 'kanji') {
+    if (mode === 'romaji' || mode === 'kanji' || mode === 'keys-kanji') {
       const out = [];
       for (const it of stage.items) {
         try {
           // a kanji card's reading is the answer: it shows only as a hint
-          out.push(romajiItem(it.text, mode === 'kanji' ? { reading: it.reading, gloss: it.gloss, hidden: true } : { gloss: it.gloss }));
+          out.push(make(it.text, mode === 'romaji' ? { gloss: it.gloss } : { reading: it.reading, gloss: it.gloss, hidden: true }));
         } catch (err) {
           // a prompt the rules cannot spell is left out rather than stopping the round
         }
@@ -322,31 +379,37 @@
     return list.find((s) => s.id === saved.stage[saved.mode]) || list[0];
   }
 
-  // Where the pick's pace and best are kept: per stage, or per course week.
+  // Where the pick's pace and best are kept: per stage, or per course week (and input method).
   function stageKey() {
-    if (saved.mode === 'course') return 'course:' + saved.level + 'u' + saved.unit[saved.level];
+    if (isCourse(saved.mode)) return saved.mode + ':' + saved.level + 'u' + saved.unit[saved.level];
     return saved.mode + ':' + currentStage().id;
   }
+  // 'ローマ字 · 清音', '漢字 · 一字', 'かな入力 · 漢字 · 一字', 'N5 · 第3週'…
   function stageName() {
-    if (saved.mode === 'course') {
+    const input = inputOf(saved.mode);
+    const parts = [];
+    if (input !== 'romaji' || saved.mode === 'romaji') parts.push(INPUTS[input].ja);
+    if (MODES[saved.mode].stats === 'kanji') parts.push(MODES[saved.mode].ja);
+    const head = parts.length ? ja(parts.join(' · ')) + ' · ' : '';
+    if (isCourse(saved.mode)) {
       const units = courses[saved.level] || [];
       const u = units.find((x) => x.n === saved.unit[saved.level]);
-      return saved.level + ' · ' + ja('第' + saved.unit[saved.level] + '週') + (u ? '　' + esc(u.en) : '');
+      return head + saved.level + ' · ' + ja('第' + saved.unit[saved.level] + '週') + (u ? '　' + esc(u.en) : '');
     }
     const st = currentStage();
-    return ja(MODES[saved.mode].ja + ' · ' + st.ja) + '　' + esc(st.en);
+    return head + ja(st.ja) + '　' + esc(st.en);
   }
 
   // Markup helpers: text made safe for innerHTML, and Japanese marked as Japanese.
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const ja = (t) => '<span lang="ja">' + esc(t) + '</span>';
   // Mixed text: only its kana and kanji marked as Japanese.
-  const jaMarked = (t) => esc(t).replace(/[\u3040-\u30ff\u4e00-\u9fff々〜・「」]+/g, (m) => '<span lang="ja">' + m + '</span>');
+  const jaMarked = (t) => esc(t).replace(/[\u3001\u3002\u3040-\u30ff\u4e00-\u9fff々〜・「」]+/g, (m) => '<span lang="ja">' + m + '</span>');
 
   // How much of an item is still on the weak list.
-  // Misses are kept per kana for romaji, but per word for kanji: there the miss is not knowing
-  // the reading, not typing it.
-  const perKana = (item) => item.kind === 'romaji' && !item.hidden;
+  // Misses are kept per kana for romaji and per key for a word in kana input, but per word for
+  // kanji: there the miss is not knowing the reading, not typing it.
+  const perKana = (item) => wordy(item) && !item.hidden;
   function statKey(item) {
     return item.kind === 'keys' ? item.text + (item.shift ? '+' : '') : item.text;
   }
@@ -419,7 +482,7 @@
       key,
       weakOnly,
       name,
-      course: modeId === 'course' ? { level, unit } : null,
+      course: isCourse(modeId) ? { level, unit } : null,
       queue: deck.map((item) => ({ item, falls: 0 })),
       total: deck.length,
       cleared: 0,
@@ -486,7 +549,7 @@
     startMusic();
     if (document.hidden) setPhase('paused');
     resize();
-    if (modeId === 'course' && saved.sound) loadSound(level, unit);
+    if (isCourse(modeId) && saved.sound) loadSound(level, unit);
     setStatus('', '');
     hud();
   }
@@ -529,7 +592,7 @@
 
   function makeCard(entry, x) {
     const card = {
-      entry, item: entry.item, x, w: cardWidth(entry.item), state: 'live', typed: '',
+      entry, item: entry.item, x, w: cardWidth(entry.item), state: 'live', typed: '', step: 0,
       missedAt: new Set(), misses: 0, idle: 0, level: 0, hinted: false,
       shownAt: null, firstKeyAt: null, stampT: 0, flashT: 0, halted: false,
       clean: false, comeback: false, star: false, popT: 0, ink: null, inkOn: 'badge', fill: null,
@@ -575,7 +638,7 @@
   // The prompt's type size: smaller for long prompts (not under 14 while it fits), and never
   // wider than a card may be.
   function promptSize(item) {
-    if (item.kind !== 'romaji') return 32;
+    if (!wordy(item)) return 32;
     const n = Array.from(item.text).length;
     const size = n <= 4 ? 30 : n <= 8 ? 26 : n <= 14 ? 22 : 19;
     const least = (/[一-鿿]/.test(item.text) ? 12 : 10) / view.s;
@@ -592,16 +655,16 @@
   const readingSlots = (item) => E.readingSlots(item.text);
 
   function cardWidth(item) {
-    if (item.kind !== 'romaji') return 70;
+    if (!wordy(item)) return 70;
     const key = item.id + '@' + Math.round(view.W);
     if (widths.has(key)) return widths.get(key);
     ctx.save();
     ctx.font = '600 ' + promptSize(item) + 'px ' + JP;
     let w = ctx.measureText(item.text).width;
     if (item.hidden) {
-      // (but no wider than the text, or the room promptSize keeps long cards to: on a phone the
-      // world is often at its slowest for long sentences, so a wider card would only get less
-      // time; the longest readings there are drawn a little small, and are under the game too)
+      // (but no wider than the text, or the room promptSize keeps long cards to: long sentences
+      // run at the slowest world speed, where a wider card only gets less time to be typed; their
+      // longest readings are drawn a little smaller instead, and show under the game too)
       w = Math.max(w, Math.min(readingSlots(item) * Math.min(16, small(12)), Math.max(w, niceRoom())));
     } else if (item.reading && item.reading !== item.text) {
       ctx.font = '600 ' + readingSize(item) + 'px ' + JP;
@@ -875,8 +938,8 @@
     sfx('fall');
     noteMiss(card);
     applyStats(card);
-    const answer = card.item.kind === 'romaji' ? E.spell(card.item.tokens) : keyName(card.item);
-    say(card.item.text, 'Yaoki fell over and got up. It is ' + answer + '. ' + backText(r.fall.back) + '.');
+    const answer = card.item.kind === 'romaji' ? E.spell(card.item.tokens) : card.item.kind === 'kana' ? card.item.reading || card.item.text : keyName(card.item);
+    say(card.item.text, jaMarked('Yaoki fell over and got up. It is ' + answer + '. ' + backText(r.fall.back) + '.'), true);
     showInfo(card);
     hud();
   }
@@ -903,8 +966,12 @@
     const it = card.item;
     let key;
     if (perKana(it)) {
-      const at = pressed ? E.blame(it.tokens, card.typed, pressed) : E.unitAt(it.tokens, card.typed);
-      const i = at === null ? it.units.length - 1 : at;
+      let i;
+      if (it.kind === 'kana') i = Math.min(card.step, it.units.length - 1);
+      else {
+        const at = pressed ? E.blame(it.tokens, card.typed, pressed) : E.unitAt(it.tokens, card.typed);
+        i = at === null ? it.units.length - 1 : at;
+      }
       card.missedAt.add(i);
       key = it.units[i];
     } else {
@@ -926,10 +993,10 @@
         // listed with the round's weak spots, even when only a hint showed it
         if (!r.missed.has(statKey(it))) r.missed.set(statKey(it), 1);
       } else if (card.level < 1) markOk(r.stats, statKey(it));
-    } else if (it.kind === 'romaji') {
+    } else if (wordy(it)) {
       let reached = it.units.length;
       if (card.state === 'fallen') {
-        const at = E.unitAt(it.tokens, card.typed);
+        const at = it.kind === 'kana' ? card.step : E.unitAt(it.tokens, card.typed);
         reached = Math.min(at === null ? 0 : at, ...card.missedAt);
       }
       it.units.forEach((u, i) => {
@@ -1165,7 +1232,7 @@
   function onKeyDown(e) {
     if (!sawKeyboard && e.key && e.key.length === 1) {
       sawKeyboard = true;
-      $('touch-note').hidden = true;
+      showDeviceNote();
       showKeyboard();
     }
     wakeAudio();
@@ -1224,7 +1291,8 @@
       return;
     }
 
-    if (r.kind === 'keys') {
+    // kana input goes by the key pressed, whatever the input method makes of it
+    if (r.kind === 'keys' || r.kind === 'kana') {
       if (!KEYDEF[e.code] || /^(Shift|Control|Alt|Meta|CapsLock|Tab|Enter|Backspace|Space|Backquote|NonConvert|Convert|KanaMode)/.test(e.code)) return;
       e.preventDefault();
       if (!e.repeat) pressKana(e);
@@ -1285,17 +1353,25 @@
     clearCard(t);
   }
 
+  // A kana key: the card's key, or the next key of its word.
   function pressKana(e) {
     const t = targetCard();
     if (!t) return;
     r.keysTotal++;
-    if (e.code !== t.item.code || e.shiftKey !== t.item.shift) {
-      const note = e.code === t.item.code && saved.hints !== 'never' ? (t.item.shift ? 'This one needs Shift.' : 'This one is typed without Shift.') : '';
+    const want = t.item.kind === 'kana' ? t.item.steps[t.step] : t.item;
+    if (e.code !== want.code || e.shiftKey !== want.shift) {
+      const note = e.code === want.code && saved.hints !== 'never' ? (want.shift ? 'This one needs Shift.' : 'This one is typed without Shift.') : '';
       miss(t, e.code, note);
       return;
     }
     progress(t, e.code);
-    clearCard(t);
+    if (t.item.kind !== 'kana') {
+      clearCard(t);
+      return;
+    }
+    t.step++;
+    t.typed = E.kanaTyped(t.item.reading || t.item.text, t.item.keys, t.step);
+    if (t.step >= t.item.steps.length) clearCard(t);
   }
 
   function progress(card, code) {
@@ -1304,8 +1380,8 @@
     r.keysRight++;
     r.yk.nodT = NOD_T;
     flashKey(code, 'ok');
-    // a romaji letter pops under the route and ticks; one-key cards have their stamp instead
-    if (card.item.kind === 'romaji') {
+    // a letter or kana of a word pops under the route and ticks; one-key cards have their stamp instead
+    if (wordy(card.item)) {
       card.popT = POP_T;
       sfx('key', { streak: r.run });
     }
@@ -1516,7 +1592,7 @@
     box.textContent = '';
     if (!card) return;
     const it = card.item;
-    if (it.kind !== 'romaji' || (!it.gloss && !it.reading)) return;
+    if (!wordy(it) || (!it.gloss && !it.reading)) return;
     const ja = document.createElement('span');
     ja.lang = 'ja';
     ja.className = 'info-ja';
@@ -1802,8 +1878,10 @@
   }
 
   function renderMenu() {
-    seg('modes', MODE_ORDER.map((id) => ({ value: id, html: '<span lang="ja">' + MODES[id].ja + '</span>　<small>' + MODES[id].en + '</small>' })), saved.mode, (id) => {
-      saved.mode = id;
+    seg('modes', INPUT_ORDER.map((id) => ({ value: id, html: '<span lang="ja">' + INPUTS[id].ja + '</span>　<small>' + INPUTS[id].en + '</small>' })), inputOf(saved.mode), (id) => {
+      // back to what was picked last with that input method
+      const last = saved.last[id];
+      saved.mode = MODES[last] && inputOf(last) === id ? last : INPUTS[id].modes[0];
       save();
       renderPicks();
       setKeyLabels();
@@ -1814,7 +1892,7 @@
       saved.len = v;
       save();
     });
-    $('touch-note').hidden = !touchOnly.matches || sawKeyboard;
+    showDeviceNote();
     renderDayCard(false);
     renderPicks();
   }
@@ -1868,17 +1946,23 @@
     });
   }
 
-  // The stage list, or the level and week list for course words, and the start buttons.
+  // The input method's stages, in groups (course words a group of its own, with its level and
+  // week list), and the start buttons.
   function renderPicks() {
-    const mode = saved.mode;
-    $('mode-desc').textContent = MODES[mode].desc;
-    $('course-pick').hidden = mode !== 'course';
-    $('stage-pick').hidden = mode === 'course';
+    const input = inputOf(saved.mode);
+    $('mode-desc').innerHTML = jaMarked(INPUTS[input].desc);
     const note = $('layout-note');
-    note.hidden = !(layout.jis === false && (mode === 'symbol' || mode === 'keys'));
+    note.hidden = !(layout.jis === false && input !== 'romaji');
     note.innerHTML = '<b lang="ja">JIS配列用</b>　This practice follows a Japanese (JIS) keyboard. Your keyboard is set to another layout, so some keys will not be where the picture shows them. A card for a key you do not have waits in front of Yaoki; Tab skips it.';
-    if (mode === 'course') renderCourse();
-    else renderStages();
+    renderStages();
+    renderPick();
+  }
+  // What goes with the stage picked: its description, and the course's level and week list.
+  function renderPick() {
+    const mode = saved.mode;
+    $('stage-desc').innerHTML = jaMarked(MODES[mode].desc);
+    $('course-pick').hidden = !isCourse(mode);
+    if (isCourse(mode)) renderCourse();
     refreshStart();
   }
 
@@ -1919,24 +2003,58 @@
   function renderStages() {
     const box = $('stages');
     box.textContent = '';
-    const cur = currentStage();
-    for (const st of STAGES[saved.mode]) {
-      const key = saved.mode + ':' + st.id;
-      const best = saved.best[key];
-      const b = option({
-        ja: st.ja, en: st.en,
-        meta: st.items.length + (MODES[saved.mode].kind === 'romaji' ? ' prompts' : ' keys') + (best ? ' · ' + ja('自己ベスト') + ' ' + best + ' keys/min' : ''),
-        on: st === cur,
-        rings: sealOf(key),
-      });
-      b.addEventListener('click', () => {
-        saved.stage[saved.mode] = st.id;
-        save();
-        pickIn(box, b);
-        refreshStart();
-      });
-      box.appendChild(b);
+    const modes = INPUTS[inputOf(saved.mode)].modes;
+    for (const mode of modes) {
+      const group = document.createElement('div');
+      group.className = 'stage-group';
+      group.setAttribute('role', 'group');
+      // a heading for each group, when the input method has more than one
+      if (modes.length > 1) {
+        const h = document.createElement('h3');
+        h.id = 'stages-' + mode;
+        h.innerHTML = ja(MODES[mode].ja) + '　' + esc(MODES[mode].en);
+        group.appendChild(h);
+        group.setAttribute('aria-labelledby', h.id);
+      } else {
+        group.setAttribute('aria-labelledby', 'stage-h');
+      }
+      const grid = document.createElement('div');
+      grid.className = 'options';
+      group.appendChild(grid);
+      box.appendChild(group);
+      if (isCourse(mode)) {
+        grid.appendChild(stageButton(mode, null, {
+          ja: 'コースの単語', en: 'The words of your Yaoki course',
+          meta: 'A week at a time, N5 to N2', on: saved.mode === mode,
+        }));
+        continue;
+      }
+      const cur = saved.mode === mode ? currentStage() : null;
+      for (const st of STAGES[mode]) {
+        const key = mode + ':' + st.id;
+        const best = saved.best[key];
+        grid.appendChild(stageButton(mode, st, {
+          ja: st.ja, en: st.en,
+          meta: st.items.length + (MODES[mode].kind === 'keys' || MODES[mode].kind === 'symbol' ? ' keys' : ' prompts') + (best ? ' · ' + ja('自己ベスト') + ' ' + best + ' keys/min' : ''),
+          on: st === cur,
+          rings: sealOf(key),
+        }));
+      }
     }
+  }
+  // A stage's button (a group's stage, or the course): picking it picks its group too.
+  function stageButton(mode, st, o) {
+    const b = option(o);
+    b.dataset.stage = st ? mode + ':' + st.id : mode;
+    b.addEventListener('click', () => {
+      saved.mode = mode;
+      saved.last[inputOf(mode)] = mode;
+      if (st) saved.stage[mode] = st.id;
+      save();
+      for (const x of $('stages').querySelectorAll('.option')) x.setAttribute('aria-pressed', String(x === b));
+      renderPick();
+    });
+    return b;
   }
 
   function renderCourse() {
@@ -1953,7 +2071,7 @@
     if (!courses[level]) {
       $('course-note').innerHTML = ja('読み込み中') + '　Loading the ' + level + ' words…';
       loadCourse(level).then(() => {
-        if (saved.mode === 'course' && saved.level === level && phase === 'menu') {
+        if (isCourse(saved.mode) && saved.level === level && phase === 'menu') {
           renderCourse();
           refreshStart();
         }
@@ -1970,7 +2088,8 @@
     }
     for (const u of units) {
       const mine = place && place.level === level && place.unit === u.n;
-      const best = saved.best['course:' + level + 'u' + u.n];
+      const key = saved.mode + ':' + level + 'u' + u.n;
+      const best = saved.best[key];
       const b = option({
         kick: ja('第' + u.n + '週') + ' · Week ' + u.n + ' of ' + units.length,
         ja: u.ja,
@@ -1979,7 +2098,7 @@
         on: u.n === saved.unit[level] && u.words.length > 0,
         disabled: !u.words.length,
         tag: mine ? ja('今') + '　NOW' : '',
-        rings: u.words.length ? sealOf('course:' + level + 'u' + u.n) : 0,
+        rings: u.words.length ? sealOf(key) : 0,
       });
       b.addEventListener('click', () => {
         saved.unit[level] = u.n;
@@ -2052,7 +2171,7 @@
   // Kana input shows each key's kana (its Shift kana small); the other modes show the
   // characters typed in direct input (the Shift character small).
   function setKeyLabels() {
-    const kana = saved.mode === 'keys';
+    const kana = inputOf(saved.mode) === 'keys';
     for (const [code, el] of keyEls) {
       const def = KEYDEF[code];
       const main = el.querySelector('.main');
@@ -2101,6 +2220,10 @@
         const key = E.keyFor(ch);
         if (key) out.push(key);
       }
+    } else if (card.item.kind === 'kana') {
+      // a word in kana input: its next key, with the second step (the first tells its row)
+      const next = card.item.steps[card.step];
+      if (next && level >= 2) out.push({ code: next.code, shift: next.shift });
     } else if (level >= 2) {
       out.push({ code: card.item.code, shift: card.item.shift });
     }
@@ -2138,6 +2261,12 @@
       line.appendChild(span);
     }
   }
+
+  function showDeviceNote() {
+    $('touch-note').hidden = !(touchOnly.matches && !sawKeyboard) && !narrow.matches;
+  }
+  if (narrow.addEventListener) narrow.addEventListener('change', showDeviceNote);
+  else if (narrow.addListener) narrow.addListener(showDeviceNote);
 
   function showKeyboard() {
     const show = saved.kb && (!touchOnly.matches || sawKeyboard);
@@ -2465,7 +2594,7 @@
     const cx = c.x + c.w / 2;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    if (it.kind === 'romaji') {
+    if (wordy(it)) {
       const ruby = it.reading && it.reading !== it.text;
       if (ruby && readingShown(c)) {
         ctx.font = '600 ' + readingSize(it, it.hidden ? c.w - 20 : undefined) + 'px ' + JP;
@@ -2524,22 +2653,27 @@
   }
 
   // How many kana of the card's kana line are typed: a kana counts once its letters are all
-  // in (hon for ほんや fills ほ; honn fills ほん). Kept per typed string.
+  // in (hon for ほんや fills ほ; honn fills ほん), or with kana input once its keys are (が
+  // after its ゛). Kept per typed string.
   function kanaFill(c) {
     const it = c.item;
-    if (it.kind !== 'romaji') return null;
+    if (!wordy(it)) return null;
     if (it.fillLen === undefined) {
       const line = it.reading && it.reading !== it.text ? it.reading : it.text;
-      const sum = it.units.reduce((n, u) => n + Array.from(u).length, 0);
+      const sum = it.kind === 'kana' ? it.keys.ends.length : it.units.reduce((n, u) => n + Array.from(u).length, 0);
       it.fillLine = line;
       it.fillLen = Array.from(line).length === sum ? sum : 0;
     }
     if (!it.fillLen) return null;
     if (!c.fill || c.fill.typed !== c.typed) {
-      const at = c.typed ? E.unitAt(it.tokens, c.typed) : 0;
-      const n = at === null ? it.units.length : at;
       let chars = 0;
-      for (let i = 0; i < n; i++) chars += Array.from(it.units[i]).length;
+      if (it.kind === 'kana') {
+        while (chars < it.keys.ends.length && it.keys.ends[chars] <= c.step) chars++;
+      } else {
+        const at = c.typed ? E.unitAt(it.tokens, c.typed) : 0;
+        const n = at === null ? it.units.length : at;
+        for (let i = 0; i < n; i++) chars += Array.from(it.units[i]).length;
+      }
       c.fill = { typed: c.typed, chars, font: null, full: 0, w: 0 };
     }
     return c.fill;
@@ -3307,6 +3441,14 @@
         const pos = E.at(it.tokens, c.typed);
         text = c.typed + (open.length && pos ? open[0].slice(c.typed.length - pos.start) : '');
       } else text = c.typed;
+    } else if (it.kind === 'kana') {
+      // the kana typed so far, and the next key's row and finger, then the key itself (a kanji
+      // card's first hint is its reading, on the card); after a fall, the whole reading
+      done = c.state === 'fallen' ? '' : c.typed;
+      const next = it.steps[c.step];
+      if (c.state === 'fallen') text = it.reading || it.text;
+      else if (next && (level >= 2 || (level === 1 && !it.hidden))) text = done + (done ? '　' : '') + (level >= 2 ? keyName(next) : keyArea(next));
+      else text = done;
     } else if (level >= 2) text = keyName(it);
     else if (level === 1) text = keyArea(it);
     if (!text) return;
@@ -3515,6 +3657,7 @@
         target: t ? {
           text: t.item.text, reading: t.item.reading || null, typed: t.typed,
           spell: t.item.kind === 'romaji' ? E.spell(t.item.tokens, t.typed) : null,
+          keys: t.item.kind === 'kana' ? t.item.steps.slice(t.step).map((x) => ({ code: x.code, shift: x.shift, kana: x.kana })) : null,
           key: t.item.key || null, code: t.item.code || null, shift: !!t.item.shift, level: hintLevel(t), halted: t.halted,
           readingShown: !!(t.item.reading && readingShown(t)),
           romajiShown: t.item.kind === 'romaji' && (hintLevel(t) >= 2 || (hintLevel(t) === 1 && !t.item.hidden)),
@@ -3547,6 +3690,8 @@
         cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state, clean: c.clean, comeback: c.comeback, star: c.star, phase: c.phase || null, trick: c.trick || null })) : [],
         clean: r ? r.clean : 0,
         speed: r ? r.speed : 0,
+        // the time the round's widest card has once it is fully in view
+        widestTime: r && r.speed ? (view.W - 8 - (view.yx + REACH) - r.widest) / r.speed : 0,
         T: r ? r.T : 0,
       };
     },
