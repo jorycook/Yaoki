@@ -1747,66 +1747,109 @@
   const SIGN_WORDS = ['ラーメン', 'カフェ', 'パン', 'ケーキ', 'カラオケ', 'ホテル', 'スーパー', 'カメラ', 'ドーナツ', 'ギョーザ', 'アイス', 'ソーダ', 'ピザ', 'カレー', 'ミルク', 'タクシー', 'ジム', 'パフェ', 'メガネ', 'ピアノ'];
   scene({
     id: 'machi', ja: '夜の街', en: 'Neon city', stillT: 3,
-    sky: { light: ['#E3E0F2', '#ECE5F0', '#F8E9DE'], dark: ['#0C0D22', '#131532', '#1F1C3E'] },
+    // by day a clear blue, pale and warm low down behind the towers; by night deep indigo down
+    // to the magenta glow the city's lights put on the sky
+    sky: { light: ['#2356D2', '#4689EA', '#9CCDF6', '#F7E4EA', '#FFD9C9'], dark: ['#03041A', '#0E0B3E', '#261159', '#4F196E', '#7A2578'] },
     light: {
-      far: '#DEDCEC', farWin: '', mid: '#D7D9EA', side: '#CDD0E4', win: '#E3E6F2', winOff: '#DDE0EE', roofThing: '#CBCEE2',
-      s1: '#F2D6E2', s2: '#D2ECE5', s3: '#F5EAC6', s4: '#D9E1F6', t1: '#C99AB0', t2: '#8FB8AD', t3: '#C4AE73', t4: '#9AA8D0',
-      tower: '#F0CDBF', towerW: '#F7F3EE', towerLine: ['#E2B8A8', 1], post: '#C3C8DA', lamp: '#EEF0F6',
-      ground: '#EEEEF3', groundEdge: '#E3E2EC',
+      haze: '#B9C2EF', far: '#8C9BE0', farWin: ['#BAC6F4', 0.85],
+      fA: '#4659C4', fB: '#1F968F', fC: '#F6EAD6', side: ['#2B2580', 0.3], winT: ['#FFFFFF', 0.3], winD: ['#2F4FD0', 0.36],
+      glint: ['#FFFFFF', 0.75], rim: ['#FFFFFF', 0.6], roofThing: '#2C3876', shop: '#2A3878', shopLit: '#4B60B4',
+      s1: '#EC5A9A', s2: '#12A08A', s3: '#F2B43A', s4: '#2F4FD0', t1: '#FFFFFF', t2: '#FFFFFF', t3: '#1B2440', t4: '#FFFFFF',
+      tower: '#EE5B36', towerShade: ['#6E1A0C', 0.28], towerW: '#FFFFFF', towerLine: ['#8E2A18', 0.55], towerDeck: '#FFFFFF', towerWin: '#7FA2E6',
+      crown: '#2FA56A', crown2: '#63C987', post: '#26316A', lamp: '#F4F7FF', flag: '#EC5A9A',
+      ground: '#F6F2FA', groundEdge: '#DED7F0',
     },
     dark: {
-      far: '#141732', farWin: ['#F3D47E', 0.2], mid: '#10132A', side: '#0C0F23', win: ['#F3D47E', 0.32], winOff: '#151931', roofThing: '#0E1127',
-      s1: '#1A1B36', s2: '#1A1B36', s3: '#1A1B36', s4: '#1A1B36', t1: '#FF9CC8', t2: '#7DE0CF', t3: '#FFD27A', t4: '#A6B6FF',
-      tower: '#2D2342', towerW: '#3A2E4E', towerLine: ['#FFC48A', 0.55], towerLit: ['#FFC48A', 0.5], post: '#0D1024', lamp: '#FFE3A8',
-      lampGlow: ['#FFD98E', 0.3], ground: '#121428', groundEdge: '#151830',
+      haze: '#2B2068', hazeLamp: ['#FF4D5E', 0.95], far: '#1D1850', farWin: ['#FFC86A', 0.75],
+      fA: '#1E1C5C', fB: '#122B52', fC: '#2C1B58', side: ['#03031A', 0.45], winT: ['#8C96FF', 0.12], winD: ['#000014', 0.3],
+      win: ['#FFD27A', 0.95], win2: ['#8FEAFF', 0.85], rim: ['#C08CFF', 0.45], roofThing: '#0B0A2A', shop: '#120E32', shopLit: ['#FFCF7A', 0.85],
+      s1: '#3A1048', s2: '#08334A', s3: '#3A2A0C', s4: '#16195C',
+      e1: ['#FF5FB8', 0.95], e2: ['#3FE8FF', 0.95], e3: ['#FFD24A', 0.95], e4: ['#9EA8FF', 0.95],
+      t1: '#FF8ACB', t2: '#7FF2FF', t3: '#FFE48A', t4: '#BCC4FF',
+      tower: '#FF8638', towerShade: ['#5A1404', 0.3], towerW: '#FFD9A6', towerLine: ['#FFE9BC', 0.75], towerDeck: '#FFF2D6', towerWin: '#FF9A4A',
+      towerLit: ['#FFC48A', 0.8], towerHalo: ['#FF7A3A', 0.13],
+      crown: '#123A4C', crown2: '#1C5060', post: '#08071F', lamp: '#FFF2C8', lampGlow: ['#FFD98E', 0.5], lampCone: ['#FFE3A0', 0.13], flag: '#9A2E74',
+      cloud: ['#30226E', 0.9], cloudShade: ['#7A2C88', 0.85],
+      ground: '#100E2C', groundEdge: '#1C1848',
+    },
+    // the street trees: cherry blossom, green, ginkgo gold, and bare in winter with
+    // illuminations strung on them by night
+    seasons: {
+      spring: { light: { crown: '#F59FC0', crown2: '#FFD2E2' }, dark: { crown: '#6A2E64', crown2: '#8E447E' } },
+      autumn: { light: { crown: '#F2B43A', crown2: '#FFD96E' }, dark: { crown: '#5C4416', crown2: '#7E5E1E' } },
+      winter: {
+        light: { crown: '', crown2: '', branch: '#26316A' },
+        dark: { crown: '', crown2: '', branch: '#08071F', twinkle: ['#C4F1FF', 0.95], twinkleGlow: ['#8FD8FF', 0.16] },
+      },
     },
     make() {
       return {
         stars: starLayer(51, 5, -60, 60),
-        far: layer(52, 300, 10, ['far', 'farWin'], (P, R, i, items, tw) => {
+        // long streaks of cloud, a shaded underside under each (lit magenta by night)
+        cloud: layer(55, 520, 150, ['cloudShade', 'cloud'], (P, R) => {
+          const n = R() < 0.5 ? 1 : 2;
+          for (let k = 0; k < n; k++) {
+            const x = ((k + R() * 0.7) * 520) / n;
+            const y = 12 + R() * 34;
+            const w = 70 + R() * 80;
+            rr(P[0], x + 6, y + 2.2, w, 6.5, 3.2);
+            rr(P[1], x, y, w, 6.5, 3.2);
+            if (R() < 0.7) {
+              const x2 = x + w * (0.25 + R() * 0.3);
+              const w2 = w * (0.4 + R() * 0.3);
+              rr(P[0], x2 + 5, y - 3.3, w2, 5.5, 2.7);
+              rr(P[1], x2, y - 5.2, w2, 5.5, 2.7);
+            }
+          }
+        }),
+        // the farthest towers, pale in the haze; by night a red light blinks on their masts
+        haze: layer(56, 340, 30, ['haze'], (P, R, i, items) => {
+          for (let k = 0; k < 3; k++) {
+            if (R() < 0.25) continue;
+            const x = (k + R() * 0.7) * 113;
+            const w = 14 + R() * 14;
+            const h = 82 + R() * 46;
+            const top = G - h;
+            P[0].rect(x, top, w, h + 2);
+            const kind = R();
+            if (kind < 0.35) tri(P[0], x, top + 0.5, x + w / 2, top - 10, x + w, top + 0.5);
+            else if (kind < 0.7) P[0].rect(x + 3, top - 6, w - 6, 6.5);
+            if (R() < 0.6) {
+              const my = top - (kind < 0.35 ? 10 : kind < 0.7 ? 6 : 0);
+              P[0].rect(x + w / 2 - 0.5, my - 16, 1, 16.5);
+              items.push({ x: x + w / 2, y: my - 16, ph: R() * TAU });
+            }
+          }
+        }, (ctx, items) => {
+          if (!setFill(ctx, 'hazeLamp')) return;
+          const a = ctx.globalAlpha;
+          for (let q = 0; q < items.length; q++) {
+            const it = items[q];
+            ctx.globalAlpha = a * (0.25 + 0.75 * Math.max(0, Math.sin(F.t * 1.7 + it.ph)));
+            ctx.fillRect(it.x - 1.1, it.y - 1.1, 2.2, 2.2);
+          }
+          ctx.globalAlpha = 1;
+        }),
+        far: layer(52, 380, 10, ['far', 'farWin'], (P, R, i, items, tw) => {
           let x = 0;
           while (x < tw) {
             const w = Math.min(18 + R() * 30, tw - x);
-            const h = 50 + R() * 50;
+            const h = 56 + R() * 56;
             P[0].rect(x, G - h, w + 0.6, h + 2);
             if (R() < 0.3) P[0].rect(x + w / 2 - 0.6, G - h - 14, 1.2, 14);
-            for (let y = G - h + 6; y < G - 20; y += 9) for (let wx = x + 4; wx < x + w - 4; wx += 6) if (R() < 0.25) P[1].rect(wx, y, 2, 2.6);
+            for (let y = G - h + 6; y < G - 20; y += 9) {
+              for (let wx = x + 4; wx < x + w - 4; wx += 6) if (R() < 0.18) P[1].rect(wx, y, 2, 2.6);
+            }
             x += w;
           }
         }),
-        mid: layer(53, 260, 30, ['side', 'mid', 'winOff', 'win', 'roofThing', 's1', 's2', 's3', 's4'], (P, R, i, items, tw) => {
+        mid: layer(53, 360, 30, ['fA', 'fB', 'fC', 'side', 'winT', 'winD', 'glint', 'win', 'win2', 'rim', 'roofThing', 'shop', 'shopLit',
+          's1', 's2', 's3', 's4', ['e1', 1], ['e2', 1], ['e3', 1], ['e4', 1]], (P, R, i, items, tw) => {
           let x = 4;
           while (x < tw - 40) {
             let w = 46 + R() * 40;
             if (x + w > tw - 4 || tw - 4 - (x + w) < 40) w = tw - 4 - x;
-            const h = 68 + R() * 46;
-            const top = G - h;
-            P[0].rect(x + w - 6, top + 3, 6, h);
-            P[1].rect(x, top, w - 6, h + 2);
-            for (let y = top + 8; y < G - 14; y += 11) {
-              for (let wx = x + 5; wx < x + w - 14; wx += 9) P[R() < 0.45 ? 3 : 2].rect(wx, y, 5, 6);
-            }
-            if (R() < 0.5) {
-              rr(P[4], x + 8, top - 9, 12, 9, 2);
-              P[4].rect(x + 10, top - 2, 1.4, 3);
-            }
-            // a sign: on the side of the building, read downwards, or on its roof
-            const col = Math.floor(R() * 4);
-            const word = SIGN_WORDS[Math.floor(R() * SIGN_WORDS.length)];
-            const n = Array.from(word).length;
-            if (n <= 4 && R() < 0.65) {
-              const sh = n * 10 + 6;
-              const sx = x + w - 22;
-              const sy = Math.min(top + 10, 102 - sh);
-              rr(P[5 + col], sx, sy, 13, sh, 2);
-              // read downwards, the long-vowel mark stands upright
-              items.push({ v: 1, x: sx + 6.5, y: sy + 8, word: Array.from(word.replace(/ー/g, '｜')), col: col + 1, ph: R() * 50 });
-            } else {
-              const sw = n * 9 + 10;
-              const sx = x + Math.max(2, (w - 6 - sw) / 2);
-              rr(P[5 + col], sx, top - 15, sw, 13, 2);
-              items.push({ v: 0, x: sx + sw / 2, y: top - 8.2, word, col: col + 1, ph: R() * 50 });
-            }
+            machiBuilding(P, R, x, w, G - 46 - R() * 70, items);
             x += w + 2;
           }
         }, (ctx, items) => {
@@ -1817,13 +1860,13 @@
             const s = items[q];
             const key = TEXT_KEYS[s.col];
             if (!setFill(ctx, key)) continue;
-            let a = F.dark ? 0.9 : 0.85;
+            let a = 1;
             // one sign in a while flickers, as old neon does
             if (F.dark && hash(Math.floor(s.ph), Math.floor(F.t * 0.4 + s.ph)) < 0.12) a *= hash(7, Math.floor(F.t * 12)) < 0.5 ? 0.25 : 1;
             if (F.dark) {
               ctx.strokeStyle = F.C[key];
-              ctx.lineWidth = 3.2;
-              ctx.globalAlpha = 0.16 * a;
+              ctx.lineWidth = 3.4;
+              ctx.globalAlpha = 0.3 * a;
               if (s.v) for (let k = 0; k < s.word.length; k++) ctx.strokeText(s.word[k], s.x, s.y + k * 10);
               else ctx.strokeText(s.word, s.x, s.y);
             }
@@ -1833,16 +1876,26 @@
           }
           ctx.globalAlpha = 1;
         }),
-        lamps: layer(54, 380, 30, ['post', 'lamp'], (P, R, i, items) => {
+        lamps: layer(54, 380, 30, ['twinkleGlow', ['branch', 1.1], 'post', 'crown', 'crown2', 'twinkle', 'lampCone', 'lamp', 'flag'], (P, R, i, items) => {
           const x = 40 + R() * 300;
-          P[0].rect(x - 1.2, 112, 2.4, G - 110);
-          P[0].moveTo(x, 113);
-          P[0].quadraticCurveTo(x, 106, x + 8, 106);
-          P[0].lineTo(x + 8, 108);
-          P[0].quadraticCurveTo(x + 2, 108, x + 1.2, 113);
-          P[0].closePath();
-          rr(P[1], x + 5, 106.5, 9, 3, 1.4);
+          P[2].rect(x - 1.2, 112, 2.4, G - 110);
+          P[2].moveTo(x, 113);
+          P[2].quadraticCurveTo(x, 106, x + 8, 106);
+          P[2].lineTo(x + 8, 108);
+          P[2].quadraticCurveTo(x + 2, 108, x + 1.2, 113);
+          P[2].closePath();
+          rr(P[7], x + 5, 106.5, 9, 3, 1.4);
+          // by night its light falls to the pavement (two sheets, the inner one brighter)
+          quad(P[6], x + 5.5, 109.5, x + 13.5, 109.5, x + 26, G, x - 7, G);
+          quad(P[6], x + 7.5, 109.5, x + 11.5, 109.5, x + 17, G, x + 2, G);
+          // the shopping street's banner on the post
+          P[2].rect(x - 8.5, 117, 7.3, 1.3);
+          P[8].rect(x - 8, 118.3, 6, 15);
           items.push({ x: x + 9.5, y: 110 });
+          // a street tree, away from the lamp
+          let tx = x + 140 + R() * 90;
+          if (tx > 372) tx -= 380;
+          machiTree(P, R, tx);
         }, (ctx, items) => {
           if (!F.dark) return;
           for (let q = 0; q < items.length; q++) glow(ctx, items[q].x, items[q].y, 22, 'lampGlow', 1);
@@ -1855,6 +1908,8 @@
       const sx = f.W * (0.18 + 0.3 * f.pj);
       const sy = 30 - 6 * Math.sin(Math.PI * f.pj);
       celestial(ctx, sx, sy, 11);
+      drawLayer(ctx, L.cloud, f.scroll * 0.05 + f.t * 2.2);
+      drawLayer(ctx, L.haze, f.scroll * 0.04);
       drawLayer(ctx, L.far, f.scroll * 0.08);
       tower(ctx, f.W * (1.06 - 0.32 * f.pj), 150, 0.85 + 0.3 * f.pj);
       drawLayer(ctx, L.mid, f.scroll * 0.4);
@@ -1865,49 +1920,193 @@
     },
   });
   const TEXT_KEYS = ['', 't1', 't2', 't3', 't4'];
+  // A building of the city: a face in one of three colours (indigo, teal, cream) with its
+  // shaded side, light along its roof and its sunny side, windows in a grid or in bands (the
+  // sky in a few of them by day, lit by night; smaller and fewer lit at the height of the
+  // cards), things on the roof, a shop at street level under an awning, and a sign whose
+  // tubes glow by night.
+  function machiBuilding(P, R, x, w, top, items) {
+    const h = G - top;
+    const fam = Math.floor(R() * 3);
+    const glass = fam === 2 ? 5 : 4;
+    const fw = w - 6;
+    P[fam].rect(x, top, fw, h + 2);
+    P[fam].rect(x + fw - 0.3, top + 3, 6.3, h - 1);
+    P[3].rect(x + fw, top + 3, 6, h - 1);
+    P[9].rect(x, top, fw, 1.6);
+    P[9].rect(x, top + 1.6, 1.4, h - 1.6);
+    const band = R() < 0.35;
+    const g0 = R() * 50 - 10;
+    for (let y = top + 8; y < G - 22; y += band ? 9 : 11) {
+      const lo = y > 98;
+      const on = lo ? 0.16 : 0.38;
+      if (band) {
+        const bh = lo ? 2.6 : 4;
+        P[glass].rect(x + 4, y, fw - 8, bh);
+        for (let wx = x + 4; wx < x + fw - 9; wx += 10) {
+          const q = R();
+          if (q < on) P[7].rect(wx, y, 9.6, bh);
+          else if (q < on + 0.07) P[8].rect(wx, y, 9.6, bh);
+          const d = wx - x - (y - top) * 0.8 - g0;
+          if (!lo && d > -6 && d < 6) P[6].rect(wx, y, 9.6, bh);
+        }
+      } else {
+        const ww = lo ? 3.6 : 5;
+        const wh = lo ? 4.4 : 6;
+        for (let wx = x + 5; wx < x + fw - 8; wx += 9) {
+          P[glass].rect(wx, y, ww, wh);
+          const q = R();
+          if (q < on) P[7].rect(wx, y, ww, wh);
+          else if (q < on + 0.07) P[8].rect(wx, y, ww, wh);
+          const d = wx - x - (y - top) * 0.8 - g0;
+          if (!lo && d > -7 && d < 6) P[6].rect(wx, y, ww, wh);
+        }
+      }
+    }
+    // a water tank or a cooling unit on the roof
+    if (R() < 0.5) {
+      rr(P[10], x + 8, top - 9, 12, 9, 2);
+      P[10].rect(x + 10, top - 2, 1.4, 3);
+      P[10].rect(x + 17, top - 2, 1.4, 3);
+    } else if (R() < 0.5) P[10].rect(x + fw - 16, top - 4, 9, 4.2);
+    // a shop at street level, under an awning in a sign's colour
+    if (R() < 0.75) {
+      const sy = G - 13;
+      P[11].rect(x + 2, sy, fw - 4, 15);
+      for (let px = x + 5; px < x + fw - 9; px += 8) P[12].rect(px, sy + 3, 6, 12);
+      P[13 + Math.floor(R() * 4)].rect(x + 1, sy - 3, fw - 2, 3.4);
+    }
+    // a sign: on the side of a tall building, read downwards, or on a roof (raised on a frame
+    // over a low one)
+    const col = Math.floor(R() * 4);
+    const word = SIGN_WORDS[Math.floor(R() * SIGN_WORDS.length)];
+    const n = Array.from(word).length;
+    const sh = n * 10 + 6;
+    const vy = Math.min(top + 10, 112 - sh);
+    if (n <= 4 && R() < 0.65 && vy >= top + 2) {
+      const sx = x + w - 22;
+      rr(P[13 + col], sx, vy, 13, sh, 2);
+      rr(P[17 + col], sx + 1.6, vy + 1.6, 9.8, sh - 3.2, 1.5);
+      // read downwards, the long-vowel mark stands upright
+      items.push({ v: 1, x: sx + 6.5, y: vy + 8, word: Array.from(word.replace(/ー/g, '｜')), col: col + 1, ph: R() * 50 });
+    } else {
+      const sw = n * 9 + 10;
+      const sx = x + Math.max(2, (w - 6 - sw) / 2);
+      const lift = top > 100 ? 9 : 0;
+      const ty = top - 15 - lift;
+      P[10].rect(sx + 4, ty + 12, 1.4, 3.5 + lift);
+      P[10].rect(sx + sw - 5.4, ty + 12, 1.4, 3.5 + lift);
+      rr(P[13 + col], sx, ty, sw, 13, 2);
+      rr(P[17 + col], sx + 1.6, ty + 1.6, sw - 3.2, 9.8, 1.5);
+      items.push({ v: 0, x: sx + sw / 2, y: ty + 6.8, word, col: col + 1, ph: R() * 50 });
+    }
+  }
+  // A street tree: its trunk (and in winter its bare branches), a round crown in the
+  // season's colour with light on its upper side, and the lights strung on it in winter,
+  // glowing by night.
+  function machiTree(P, R, x) {
+    circ(P[0], x, 128, 19);
+    line(P[1], x, 146, x - 10, 128);
+    line(P[1], x, 140, x + 10, 124);
+    line(P[1], x - 5, 138, x - 4, 119);
+    line(P[1], x + 4, 134, x + 3, 117);
+    line(P[1], x + 6, 131, x + 14, 129);
+    P[2].rect(x - 1.6, 128, 3.2, G - 126);
+    P[2].rect(x - 5.5, G - 3.5, 11, 4);
+    const s = 0.9 + R() * 0.25;
+    circ(P[3], x - 7 * s, 131, 8.5 * s);
+    circ(P[3], x + 7 * s, 129, 9 * s);
+    circ(P[3], x, 122, 10 * s);
+    circ(P[3], x, 134, 8 * s);
+    circ(P[4], x - 4 * s, 119.5, 5.5 * s);
+    circ(P[4], x - 10 * s, 127, 4 * s);
+    for (let k = 0; k < 16; k++) {
+      const a = R() * TAU;
+      const d = Math.sqrt(R()) * 13;
+      circ(P[5], x + Math.cos(a) * d, 128 + Math.sin(a) * d * 0.85, 0.85);
+    }
+  }
   const TOWER_H = 128;
   const towerHalf = (y) => 4 + 26 * Math.pow(y / TOWER_H, 1.6);   // half width at y from the top
-  // A lattice broadcast tower with two decks, lit up by night (more of it as the round goes on).
+  let towerP = null;
+  // The tower's shapes at unit size, made on its first frame: its body and mast, the shaded
+  // east half, the white bands, the lattice, the two decks and their windows.
+  function towerPaths() {
+    const h = TOWER_H;
+    const at = towerHalf;
+    const body = new Path2D();
+    body.moveTo(-at(h), 0);
+    for (let y = h; y >= 0; y -= 16) body.lineTo(-at(y), y - h);
+    body.lineTo(at(0), -h);
+    for (let y = 0; y <= h; y += 16) body.lineTo(at(y), y - h);
+    body.lineTo(at(h) - 7, 0);
+    body.quadraticCurveTo(0, -36, -at(h) + 7, 0);
+    body.closePath();
+    body.rect(-1, -h - 22, 2, 23);
+    const shade = new Path2D();
+    shade.moveTo(0, -h - 22);
+    shade.lineTo(1, -h - 22);
+    shade.lineTo(1, -h);
+    shade.lineTo(at(0), -h);
+    for (let y = 0; y <= h; y += 16) shade.lineTo(at(y), y - h);
+    shade.lineTo(at(h) - 7, 0);
+    shade.quadraticCurveTo((at(h) - 7) / 2, -18, 0, -18);
+    shade.closePath();
+    const bands = new Path2D();
+    for (let k = 0; k < 4; k++) {
+      const y = h * (0.2 + k * 0.18);
+      bands.rect(-at(y), y - h, at(y) * 2, 6);
+    }
+    bands.rect(-1, -h - 15, 2, 4);
+    const lattice = new Path2D();
+    for (let y = 8; y + 14 <= h - 18; y += 14) {
+      lattice.moveTo(-at(y), y - h);
+      lattice.lineTo(at(y + 14), y + 14 - h);
+      lattice.moveTo(at(y), y - h);
+      lattice.lineTo(-at(y + 14), y + 14 - h);
+    }
+    const d1 = h * 0.55;
+    const d2 = h * 0.25;
+    const deck = new Path2D();
+    deck.rect(-at(d1) - 4, d1 - h - 2, at(d1) * 2 + 8, 9);
+    deck.rect(-at(d2) - 3, d2 - h - 2, at(d2) * 2 + 6, 6);
+    const win = new Path2D();
+    win.rect(-at(d1) - 2.5, d1 - h + 1, at(d1) * 2 + 5, 3);
+    win.rect(-at(d2) - 1.5, d2 - h, at(d2) * 2 + 3, 2);
+    // its glow by night: three sheets, each smaller one adding to the light
+    const halo = [[46, 84], [34, 66], [22, 48]].map(([rx, ry]) => {
+      const p = new Path2D();
+      ell(p, 0, -h * 0.5, rx, ry);
+      return p;
+    });
+    return { body, shade, bands, lattice, deck, win, halo };
+  }
+  // A lattice broadcast tower with two decks; by night it is lit up, its glow growing as the
+  // round goes on, and the light on its mast brightest at the end.
   function tower(ctx, x, base, s) {
+    if (!towerP) towerP = towerPaths();
+    const T = towerP;
     ctx.save();
     ctx.translate(x, base);
     ctx.scale(s, s);
-    const h = TOWER_H;
-    const at = towerHalf;
-    if (setFill(ctx, 'tower')) {
-      ctx.beginPath();
-      ctx.moveTo(-at(h), 0);
-      for (let y = h; y >= 0; y -= 16) ctx.lineTo(-at(y), y - h);
-      ctx.lineTo(at(0), -h);
-      for (let y = 0; y <= h; y += 16) ctx.lineTo(at(y), y - h);
-      ctx.lineTo(at(h) - 7, 0);
-      ctx.quadraticCurveTo(0, -36, -at(h) + 7, 0);
-      ctx.closePath();
-      ctx.fill();
+    if (F.dark && setFill(ctx, 'towerHalo')) {
+      ctx.globalAlpha *= Math.min(1, 0.5 + 0.4 * F.pj + 0.4 * F.fin);
+      for (let k = 0; k < 3; k++) ctx.fill(T.halo[k]);
+      ctx.globalAlpha = 1;
     }
-    // white bands, as the real ones are painted
-    for (let k = 0; k < 4; k++) {
-      const y = h * (0.2 + k * 0.18);
-      rect(ctx, 'towerW', -at(y), y - h, at(y) * 2, 6);
-    }
-    rect(ctx, 'tower', -at(h * 0.55) - 4, h * 0.55 - h - 2, at(h * 0.55) * 2 + 8, 9);
-    rect(ctx, 'tower', -at(h * 0.25) - 3, h * 0.25 - h - 2, at(h * 0.25) * 2 + 6, 6);
-    rect(ctx, 'tower', -1, -h - 22, 2, 23);
+    fillP(ctx, 'tower', T.body);
+    fillP(ctx, 'towerW', T.bands);
     if (F.C.towerLine) {
       ctx.strokeStyle = F.C.towerLine;
       ctx.globalAlpha = F.A.towerLine || 1;
       ctx.lineWidth = 0.7;
-      ctx.beginPath();
-      for (let y = 8; y < h; y += 14) {
-        ctx.moveTo(-at(y), y - h);
-        ctx.lineTo(at(y + 14), y + 14 - h);
-        ctx.moveTo(at(y), y - h);
-        ctx.lineTo(-at(y + 14), y + 14 - h);
-      }
-      ctx.stroke();
+      ctx.stroke(T.lattice);
       ctx.globalAlpha = 1;
     }
-    if (F.dark) glow(ctx, 0, -h - 22, 6 + 6 * F.fin, 'towerLit', 0.6 + F.fin);
+    fillP(ctx, 'towerShade', T.shade);
+    fillP(ctx, 'towerDeck', T.deck);
+    fillP(ctx, 'towerWin', T.win);
+    if (F.dark) glow(ctx, 0, -TOWER_H - 22, 6 + 9 * F.fin, 'towerLit', Math.min(1 / (F.A.towerLit || 1), 0.7 + F.fin));
     ctx.restore();
   }
 
@@ -3058,33 +3257,63 @@
   const VY = 108;   // the viaduct's deck
   scene({
     id: 'densha', ja: '電車', en: 'Train line', stillT: 6,
-    sky: { light: ['#DAE8F5', '#E7EFF2', '#F6F0E3'], dark: ['#0C1326', '#121A32', '#1A2340'] },
+    // a deep blue going gold behind the mountains; by night navy going violet
+    sky: {
+      light: ['#1F54D2', '#3A80E8', '#79BBF3', '#CBE9F7', '#FFE4B5', '#FFC98C', '#FFB877'],
+      dark: ['#02061E', '#081246', '#141C62', '#2C2474', '#4E2E86', '#74388E', '#8A4090'],
+    },
     light: {
-      m1: '#D2DCE9', deck: '#C6CEDC', pier: '#D0D7E3', hill: '#CDDFD2', hill2: '#C3D8C8', roof: '#C9D2E4', hwall: '#EEEAE2',
-      field: '#DCE8CF', row: ['#CCDCBD', 0.7], pole: '#C6CCDA', wire: ['#BAC1D1', 1], body: '#F6F3EB', stripe: '#BCD1EC', stripe2: '#EED5A6',
-      twin: '#D0DAEA', xpost: '#CDD2DE', xboard: '#EBDDAE', xboard2: '#C9CEDA', sign: '#FBFAF6', signLine: '#BCD1EC', signText: '#7D87A6',
-      ground: '#F0EFE8', groundEdge: '#E5E4DA',
+      m0: '#A6B1EB', m1: '#7E8ED8', m1Rim: ['#D2DAFF', 0.9], pier: '#6676C2', deck: '#36448E', deckRim: '#DCE4FF',
+      mast: '#2E3A78', cat: ['#2E3A78', 0.65], sigG: '#3FE0A0', sigR: '#FF5A3C',
+      hill: '#47A86B', tree: '#2A8150', hill2: '#2F8E58', hwall: '#FFF3DC', roof: '#3C4A7C', roof2: '#C2553A', hlit: '#3C4A7C',
+      field: '#7CC66E', row: ['#3F9A52', 0.75], pole: '#2E3866', wire: ['#2E3352', 0.85],
+      xpost: '#1B2440', xboard: '#F2B43A', xedge: ['#1B2440', 0.9], xoff: '#8E2E22',
+      body: '#FFFFFF', troof: '#B9C3E6', stripe: '#2F4FD0', stripe2: '#F2B43A', twin: '#2B3A7C', bogie: '#1B2440', head: '#FFE58A',
+      plat: '#D5DAF0', platFace: '#7D89C6', platLine: '#F2B43A', sign: '#FFFFFF', signLine: '#2F4FD0', signText: '#1B2440', signText2: '#FFFFFF',
+      ground: '#FAF4E6', groundEdge: '#EADCBE',
     },
     dark: {
-      m1: '#151C34', deck: '#1E263E', pier: '#182036', hill: '#121A2E', hill2: '#10172A', roof: '#10162A', hwall: '#161D32', hlit: ['#F0C46B', 0.5],
-      field: '#131B2E', row: ['#18223A', 1], pole: '#0E1327', wire: ['#2A3250', 1], body: '#2A3350', stripe: '#3B4E78', stripe2: '#5A4C3A',
-      twin: ['#F6D58A', 0.8], xpost: '#1A2036', xboard: '#4A4430', xboard2: '#232A40', xlamp: ['#FF9C7A', 0.75], xglow: ['#FF9C7A', 0.28],
-      sign: '#2A3350', signLine: '#3B4E78', signText: '#C9D0E8', ground: '#141A2D', groundEdge: '#171E33',
+      m0: '#1C2060', m1: '#131850', m1Rim: ['#5C66BE', 0.8], mLit: ['#FFCB6A', 0.9], pier: '#1E266A', deck: '#2C3884', deckRim: ['#8E9EFF', 0.7],
+      mast: '#0B1040', cat: ['#3E4A98', 0.85], sigG: '#3FFFB0', sigR: '#FF4D3A',
+      hill: '#141A4C', tree: '#0E1440', hill2: '#0F1541', hwall: '#1E2562', roof: '#0D1236', roof2: '#2A1838', hlit: ['#FFC45A', 0.95],
+      field: '#15204C', row: ['#22306A', 1], pole: '#060924', wire: ['#3A4488', 0.9],
+      xpost: '#0C1034', xboard: '#7A6630', xedge: ['#05081E', 0.9], xoff: '#3A1418', xlamp: ['#FF5A3C', 1], xglow: ['#FF5A3C', 0.5],
+      body: '#3A4794', troof: '#232D6E', stripe: '#7F98FF', stripe2: '#F2B43A', twin: ['#FFE08A', 0.98], trainGlow: ['#FFD27A', 0.1],
+      bogie: '#070A26', head: '#FFF6D6', beam: ['#FFE9B0', 0.16],
+      plat: '#2C3470', platFace: '#1A2050', platLine: '#C89A30', sign: '#FBF8EE', signLine: '#3F5DE6', signText: '#1B2440', signText2: '#FFFFFF',
+      signGlow: ['#FFF0C0', 0.12],
+      ground: '#0F1430', groundEdge: '#1B2152',
     },
+    // the paddies: flooded and mirroring the sky in spring, green in summer, gold at harvest,
+    // under snow in winter (the hills' trees turn in autumn and the hills go dull in winter)
     seasons: {
-      autumn: { light: { field: '#EADFB8', row: ['#DDCD9C', 0.7] } },
-      winter: { light: { field: '#E8ECEF', row: ['#D8DDE2', 0.7] } },
+      spring: { light: { field: '#8ECFF0', row: ['#4FB06A', 0.85] }, dark: { field: '#1C2C68', row: ['#2E447E', 1] } },
+      autumn: { light: { field: '#E9C25E', row: ['#C4902C', 0.8], tree: '#D8742E' }, dark: { field: '#2A2A50', row: ['#3A3660', 1] } },
+      winter: { light: { field: '#DCE6F7', row: ['#B2C1E4', 0.9], hill: '#7FA486', hill2: '#668F72', tree: '#3D6A58' }, dark: { field: '#26306A', row: ['#34407A', 1] } },
     },
     make() {
       return {
         stars: starLayer(121, 9, -60, 100),
         cloud: cloudLayer(122, 460, 26, 70, 46, 96),
-        m1: layer(123, 420, 4, ['m1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 123, 120, 54, 110, 8)),
-        viaduct: layer(124, 240, 4, ['pier', 'deck'], (P, R) => {
-          P[1].rect(0, VY, 241, 4.5);
-          P[1].rect(0, VY - 1.6, 241, 0.9);
+        // the far range, only down to where the near mountains always hide it
+        m0: layer(128, 520, 4, ['m0'], (P, R, i, items, tw) => denshaRidge(P[0], i, tw, 128, 114, 50, 150, 20, 124)),
+        // the near mountains with light along their ridge, and by night the lights of the
+        // towns at their feet (seen through the viaduct's arches)
+        m1: layer(123, 420, 4, ['m1Rim', 'm1', 'mLit'], (P, R, i, items, tw) => {
+          denshaRidge(P[0], i, tw, 123, 120, 54, 110, 8, 152);
+          denshaRidge(P[1], i, tw, 123, 121.6, 54, 110, 8, 152);
+          for (let k = 0; k < 26; k++) {
+            const x = R() * tw;
+            const y = 119 + R() * 20;
+            if (y > ridgeY(i, tw, x, 123, 120, 54, 110) + 4) P[2].rect(x, y, 1.6, 1.6);
+          }
+        }),
+        viaduct: layer(124, 480, 4, ['pier', 'deck', 'deckRim', 'mast', ['cat', 0.7]], (P, R, i, items) => {
+          P[1].rect(0, VY, 481, 6.5);
+          P[1].rect(0, VY - 1.6, 481, 0.9);
+          P[2].rect(0, VY, 481, 0.9);
           // a row of arches under the deck
-          for (let x = 0; x < 240; x += 30) {
+          for (let x = 0; x < 480; x += 30) {
             P[0].moveTo(x, VY + 4);
             P[0].lineTo(x + 30.5, VY + 4);
             P[0].lineTo(x + 30.5, VY + 40);
@@ -3095,56 +3324,107 @@
             P[0].lineTo(x, VY + 40);
             P[0].closePath();
           }
+          // masts and their brackets for the overhead wire, and the wire
+          for (let x = 14; x < 480; x += 60) {
+            P[3].rect(x - 0.7, VY - 26, 1.4, 26);
+            P[3].rect(x - 0.7, VY - 26, 6.5, 1.2);
+            line(P[4], x, VY - 19, x + 5.4, VY - 25);
+          }
+          line(P[4], -1, VY - 22, 481, VY - 22);
+          // a signal now and then
+          for (let k = 0; k < 2; k++) {
+            if (R() < 0.4) continue;
+            const sx = k * 240 + 36 + Math.floor(R() * 3) * 60;
+            P[3].rect(sx - 0.7, VY - 19, 1.4, 19);
+            rr(P[3], sx - 2.7, VY - 28.5, 5.4, 10.5, 1.8);
+            items.push({ x: sx, y: VY - 23.3, s: Math.floor(R() * 1e6) });
+          }
+        }, (ctx, items) => {
+          // green, and now and then red for a while; by night they glow
+          for (let q = 0; q < items.length; q++) {
+            const it = items[q];
+            const red = hash(it.s, Math.floor(F.t / 6)) < 0.3;
+            const key = red ? 'sigR' : 'sigG';
+            const ly = red ? it.y - 2.6 : it.y + 2.6;
+            if (F.dark) glow(ctx, it.x, ly, 9, key, 0.55);
+            rect(ctx, key, it.x - 1.4, ly - 1.4, 2.8, 2.8);
+          }
         }),
-        hills: layer(125, 360, 30, ['hill', 'hill2', 'hwall', 'roof', 'hlit'], (P, R, i, items, tw) => {
+        hills: layer(125, 360, 30, ['hill', 'tree', 'hill2', 'hwall', 'roof', 'roof2', 'hlit'], (P, R, i, items, tw) => {
           ridge(P[0], i, tw, 125, 150, 12, 110, 8);
-          ridge(P[1], i, tw, 126, 158, 5, 70, 8);
+          // trees in clumps along the hill
+          for (let k = 0; k < 6; k++) {
+            const x = R() * tw;
+            if (R() < 0.5) continue;
+            const y = ridgeY(i, tw, x, 125, 150, 12, 110);
+            const r = 3.5 + R() * 3;
+            circ(P[1], x, y - r * 0.55, r);
+            circ(P[1], x + r * 0.95, y - r * 0.25, r * 0.75);
+          }
+          ridge(P[2], i, tw, 126, 158, 5, 70, 8);
           for (let k = 0; k < 3; k++) {
             if (R() < 0.4) continue;
             const x = R() * (tw - 30);
             const y = ridgeY(i, tw, x + 10, 125, 150, 12, 110) + 4;
-            P[2].rect(x, y - 9, 20, 10);
-            quad(P[3], x - 3, y - 8, x + 23, y - 8, x + 18, y - 15, x + 2, y - 15);
-            P[4].rect(x + 12, y - 6, 4, 3);
+            P[3].rect(x, y - 9, 20, 10);
+            quad(P[R() < 0.3 ? 5 : 4], x - 3, y - 8, x + 23, y - 8, x + 18, y - 15, x + 2, y - 15);
+            P[6].rect(x + 4, y - 6.5, 5, 3.5);
+            P[6].rect(x + 12, y - 6.5, 5, 3.5);
           }
         }),
-        fields: layer(127, 320, 320, ['field', ['row', 1], 'pole', ['wire', 0.8], 'xpost', 'xboard', 'xboard2'], (P, R, i, items, tw) => {
-          P[0].rect(0, 158, tw + 1, 11);
-          for (let x = 2; x < tw; x += 9) line(P[1], x, 160, x - 2.5, 167);
-          const px = (j) => 40 + hash(127, j) * 220;
-          const x = px(i);
-          const nx = tw + px(i + 1);
-          P[2].rect(x - 1.6, 84, 3.2, G - 82);
-          P[2].rect(x - 10, 92, 20, 2);
-          for (const dx of [-9, 9]) {
-            P[3].moveTo(x + dx, 93);
-            P[3].quadraticCurveTo((x + nx) / 2 + dx, 93 + 20, nx + dx, 93);
-          }
-          if (R() < 0.3) {
-            // a level crossing (踏切)
-            const cx = x + 60 + R() * 60;
-            P[4].rect(cx - 1.4, 126, 2.8, G - 124);
-            for (const s of [-1, 1]) {
-              P[5].moveTo(cx - 10, 128 + s * 4);
-              P[5].lineTo(cx + 10, 128 - s * 4);
-              P[5].lineTo(cx + 10, 128 - s * 4 + 3);
-              P[5].lineTo(cx - 10, 128 + s * 4 + 3);
-              P[5].closePath();
+        // (the wires reach the next tile's pole, up to 270 past this tile)
+        fields: layer(127, 320, 272, ['field', ['row', 1], 'pole', ['wire', 0.8], 'xpost', 'xboard', ['xedge', 0.7], 'xoff'],
+          (P, R, i, items, tw) => {
+            P[0].rect(0, 158, tw + 1, 11);
+            for (let x = 2; x < tw; x += 9) line(P[1], x, 160, x - 2.5, 167);
+            const px = (j) => 40 + hash(127, j) * 220;
+            const x = px(i);
+            const nx = tw + px(i + 1);
+            P[2].rect(x - 1.6, 84, 3.2, G - 82);
+            P[2].rect(x - 10, 92, 20, 2);
+            P[2].rect(x - 9.6, 89.4, 1.8, 2.8);
+            P[2].rect(x + 7.8, 89.4, 1.8, 2.8);
+            for (const dx of [-9, 9]) {
+              P[3].moveTo(x + dx, 93);
+              P[3].quadraticCurveTo((x + nx) / 2 + dx, 93 + 20, nx + dx, 93);
             }
-            P[6].rect(cx - 9, 136, 18, 5);
-            items.push({ x: cx });
-          }
-        }, (ctx, items) => {
-          // by night the crossing lights blink in turn
-          if (!F.dark || !F.C.xlamp) return;
-          const on = Math.floor(F.t * 1.6) % 2;
-          for (let q = 0; q < items.length; q++) {
-            const it = items[q];
-            const lx = it.x + (on ? -6 : 6);
-            glow(ctx, lx, 138.5, 9, 'xglow', 1);
-            rect(ctx, 'xlamp', lx - 2, 136.5, 4, 4);
-          }
-        }),
+            if (R() < 0.3) {
+              // a level crossing (踏切): a striped post, the crossed boards, two lamps
+              const cx = x + 60 + R() * 60;
+              P[4].rect(cx - 1.4, 126, 2.8, G - 124);
+              for (let y = 145; y < G - 2; y += 7) P[5].rect(cx - 1.4, y, 2.8, 3.5);
+              for (const s of [-1, 1]) {
+                for (const p of [P[5], P[6]]) {
+                  p.moveTo(cx - 10, 128 + s * 4);
+                  p.lineTo(cx + 10, 128 - s * 4);
+                  p.lineTo(cx + 10, 128 - s * 4 + 3);
+                  p.lineTo(cx - 10, 128 + s * 4 + 3);
+                  p.closePath();
+                }
+              }
+              P[4].rect(cx - 6, 137.8, 12, 1.4);
+              circ(P[4], cx - 6, 138.5, 3);
+              circ(P[4], cx + 6, 138.5, 3);
+              circ(P[7], cx - 6, 138.5, 1.9);
+              circ(P[7], cx + 6, 138.5, 1.9);
+              items.push({ x: cx });
+            }
+          }, (ctx, items) => {
+            // by night the crossing lights blink in turn
+            if (!F.dark || !F.C.xlamp) return;
+            const on = Math.floor(F.t * 1.6) % 2;
+            for (let q = 0; q < items.length; q++) {
+              const it = items[q];
+              const lx = it.x + (on ? -6 : 6);
+              glow(ctx, lx, 138.5, 13, 'xglow', 1);
+              if (setFill(ctx, 'xlamp')) {
+                ctx.beginPath();
+                ctx.arc(lx, 138.5, 2.2, 0, TAU);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+              }
+            }
+          }),
       };
     },
     paint(ctx, f, L) {
@@ -3154,67 +3434,134 @@
       const sy = 52 - 24 * Math.sin(Math.PI * f.pj);
       celestial(ctx, sx, sy, 12);
       drawLayer(ctx, L.cloud, f.scroll * 0.04 + f.t * 2.4);
+      drawLayer(ctx, L.m0, f.scroll * 0.02);
       drawLayer(ctx, L.m1, f.scroll * 0.04);
       drawLayer(ctx, L.viaduct, f.scroll * 0.12);
       train(ctx);
       drawLayer(ctx, L.hills, f.scroll * 0.22);
-      // the finishing touch: the station sign of やおき, the stop after ななころび
       drawLayer(ctx, L.fields, f.scroll * 0.55);
+      // the finishing touch: the station やおき, the stop after ななころび
       if (f.fin > 0) stationSign(ctx, f.W * (1.12 - 0.3 * f.fin), 148);
       ground(ctx, 'groundEdge');
       seasonal(ctx);
       hanamaru(ctx, sx, sy, 21, f.fin);
     },
   });
-  // The little train runs along the viaduct now and then, its windows lit by night.
+  // A ridge like ridge(), closed at y bottom instead of at the ground.
+  function denshaRidge(p, i, tw, seed, base, amp, scale, step, bottom) {
+    const x0 = i * tw;
+    p.moveTo(0, bottom);
+    for (let x = 0; x <= tw + 1; x += step) p.lineTo(x, base - amp * hills(seed, x0 + x, scale));
+    p.lineTo(tw + 1, base - amp * hills(seed, x0 + tw + 1, scale));
+    p.lineTo(tw + 1, bottom);
+    p.closePath();
+  }
+  // The shapes of the train and of the light by night, made on their first frame: the three
+  // cars (the front one with its nose) one path per colour, the pantograph up to the wire on
+  // the middle car; two long halos round the train, its headlight's beam (a long faint sheet
+  // and a short brighter one), and the halos round the lit station sign.
+  let denshaP = null;
+  function denshaPaths() {
+    const P = { panto: new Path2D() };
+    for (const k of ['body', 'troof', 'stripe', 'stripe2', 'twin', 'bogie', 'head', 'beam', 'beam2']) P[k] = new Path2D();
+    for (let c = 0; c < 3; c++) {
+      const cx = c * 41;
+      const cw = c === 2 ? 40 : 39.5;
+      if (c === 2) {
+        P.body.moveTo(cx, 0);
+        P.body.lineTo(cx, -12);
+        P.body.lineTo(cx + 33, -12);
+        P.body.quadraticCurveTo(cx + 40, -11, cx + 40, -4);
+        P.body.lineTo(cx + 40, 0);
+        P.body.closePath();
+      } else P.body.rect(cx, -12, 39.5, 12);
+      P.troof.rect(cx + 1, -13.2, c === 2 ? 31 : 37.5, 1.4);
+      P.stripe.rect(cx, -4.5, cw, 2);
+      P.stripe2.rect(cx, -2.5, cw, 1);
+      for (let w = 0; w < 4; w++) P.twin.rect(cx + 3 + w * 8, -10, 5, 4);
+      P.bogie.rect(cx + 4, -0.4, 9, 2);
+      P.bogie.rect(cx + cw - 13, -0.4, 9, 2);
+    }
+    P.head.rect(117.5, -7.5, 2.4, 2.2);
+    P.panto.moveTo(57, -12.5);
+    P.panto.lineTo(64, -17);
+    P.panto.lineTo(59.5, -21);
+    P.panto.moveTo(56.5, -21);
+    P.panto.lineTo(63.5, -21);
+    tri(P.beam, 120, -6.4, 236, -18, 236, 6);
+    tri(P.beam2, 120, -6.4, 176, -12.2, 176, -0.6);
+    const sheet = (x, y, rx, ry) => {
+      const p = new Path2D();
+      ell(p, x, y, rx, ry);
+      return p;
+    };
+    P.halo = sheet(61, -7, 72, 13);
+    P.halo2 = sheet(61, -7, 84, 21);
+    P.sign = sheet(0, -42, 50, 28);
+    P.sign2 = sheet(0, -42, 62, 38);
+    return P;
+  }
+  // The little train runs along the viaduct now and then: white with the line's indigo band,
+  // a pantograph up to the wire; by night its windows are lit and its headlight shines ahead.
   function train(ctx) {
     const span = F.W + 900;
     const x = wrap(F.t * 55 - F.scroll * 0.12 + 300, span) - 300;
-    if (x > F.W + 10 || x < -140) return;
+    if (x > F.W + 10 || x < -240) return;
     const y = VY - 1.5;
-    for (let c = 0; c < 3; c++) {
-      const cx = x + c * 41;
-      if (setFill(ctx, 'body')) {
-        ctx.beginPath();
-        if (c === 2) {
-          ctx.moveTo(cx, y);
-          ctx.lineTo(cx, y - 12);
-          ctx.lineTo(cx + 33, y - 12);
-          ctx.quadraticCurveTo(cx + 40, y - 11, cx + 40, y - 4);
-          ctx.lineTo(cx + 40, y);
-          ctx.closePath();
-        } else ctx.rect(cx, y - 12, 39.5, 12);
-        ctx.fill();
-      }
-      rect(ctx, 'stripe', cx, y - 4.5, c === 2 ? 40 : 39.5, 2);
-      rect(ctx, 'stripe2', cx, y - 2.5, c === 2 ? 40 : 39.5, 1);
-      if (setFill(ctx, 'twin')) {
-        for (let w = 0; w < 4; w++) ctx.fillRect(cx + 3 + w * 8, y - 10, 5, 4);
-        ctx.globalAlpha = 1;
-      }
+    if (!denshaP) denshaP = denshaPaths();
+    const T = denshaP;
+    ctx.translate(x, y);
+    if (F.dark) {
+      fillP(ctx, 'trainGlow', T.halo2);
+      fillP(ctx, 'trainGlow', T.halo);
+      fillP(ctx, 'beam', T.beam);
+      fillP(ctx, 'beam', T.beam2);
     }
-    ctx.globalAlpha = 1;
+    if (F.C.bogie) {
+      ctx.strokeStyle = F.C.bogie;
+      ctx.lineWidth = 0.9;
+      ctx.stroke(T.panto);
+    }
+    fillP(ctx, 'body', T.body);
+    fillP(ctx, 'troof', T.troof);
+    fillP(ctx, 'stripe', T.stripe);
+    fillP(ctx, 'stripe2', T.stripe2);
+    fillP(ctx, 'twin', T.twin);
+    fillP(ctx, 'bogie', T.bogie);
+    fillP(ctx, 'head', T.head);
+    ctx.translate(-x, -y);
   }
+  // The station's name board (駅名標) on a short platform: やおき in large letters, YAOKI, and
+  // the line's band with the stop before it, ななころび; lit from inside by night.
   function stationSign(ctx, x, base) {
     ctx.save();
     ctx.translate(x, base);
-    rect(ctx, 'xpost', -24, -26, 2.4, 26);
-    rect(ctx, 'xpost', 22, -26, 2.4, 26);
-    if (setFill(ctx, 'sign')) {
-      ctx.beginPath();
-      ctx.rect(-34, -56, 68, 32);
-      ctx.fill();
+    rect(ctx, 'platFace', -96, 0, 192, 10);
+    rect(ctx, 'plat', -96, -3.5, 192, 3.5);
+    rect(ctx, 'platLine', -96, -2.6, 192, 1.2);
+    if (F.dark) {
+      if (!denshaP) denshaP = denshaPaths();
+      fillP(ctx, 'signGlow', denshaP.sign2);
+      fillP(ctx, 'signGlow', denshaP.sign);
     }
-    rect(ctx, 'signLine', -34, -38, 68, 3.5);
+    rect(ctx, 'xpost', -24, -26, 2.4, 23);
+    rect(ctx, 'xpost', 22, -26, 2.4, 23);
+    rect(ctx, 'sign', -36, -60, 72, 36);
+    rect(ctx, 'signLine', -36, -35, 72, 6.5);
     if (setFill(ctx, 'signText')) {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = FONT_STATION;
       ctx.fillText('やおき', 0, -50);
       ctx.font = FONT_SMALL;
-      ctx.fillText('YAOKI', 0, -41);
+      ctx.fillText('YAOKI', 0, -40.5);
+      ctx.globalAlpha = 1;
+    }
+    if (setFill(ctx, 'signText2')) {
       ctx.textAlign = 'left';
-      ctx.fillText('ななころび', -32, -30);
+      ctx.textBaseline = 'middle';
+      ctx.font = FONT_SMALL;
+      ctx.fillText('◀ ななころび', -33, -31.6);
       ctx.globalAlpha = 1;
     }
     ctx.restore();
