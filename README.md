@@ -171,7 +171,7 @@ Nothing a reader adds goes into this repository. Only the built-in sample (片�
 
 ## Yaoki Typing
 
-A typing game for a computer with a Japanese (JIS) keyboard, in the app's look: cards come along Yaoki's route, and typing a card stamps it 済. A card that reaches Yaoki knocks him over; he gets up again (七転び八起き) and the card comes back later in the round, after about three other cards (the cards already on the route come first; the game says how many). A card that has knocked him over twice waits in front of him instead, and Tab skips it (for a key the keyboard lacks), so every round ends. It is made for desktop computers: on a touch screen (until a key is pressed), or in a window narrower than 700 pixels, the menu says so, and the page has no phone layout.
+A typing game for a computer with a Japanese (JIS) keyboard, in the app's look: cards come along Yaoki's route, and typing a card stamps it 済. A card that reaches Yaoki knocks him over; he gets up again (七転び八起き) and the card comes back later in the round, after two other cards (more when three or more are already on the route, or another fallen card is due first; fewer at the end of a round; the game says how many). A card that has knocked him over twice waits in front of him instead, and Tab skips it (for a key the keyboard lacks), so every round ends. It is made for desktop computers: on a touch screen (until a key is pressed), or in a window narrower than 700 pixels, the menu says so, and the page has no phone layout.
 
 The menu picks an **入力方法 input method**, then a **ステージ stage** of it:
 

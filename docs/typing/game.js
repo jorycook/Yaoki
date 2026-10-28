@@ -912,8 +912,8 @@
     return c.level;
   }
 
-  // A fallen card goes back into the deck to come round again after about three other cards
-  // (the cards already on the route come first, so it can be more), and the number is said.
+  // A fallen card goes back into the deck to come round again after two other cards (the
+  // cards already on the route come first, so it can be more), and the number is said.
   function startFall(card) {
     card.state = 'fallen';
     card.entry.falls++;
