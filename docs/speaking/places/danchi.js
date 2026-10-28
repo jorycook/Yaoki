@@ -87,6 +87,33 @@
     if (m === mode) return;
     mode = m;
     for (const k of Array.from(PICS.keys())) forget(k);
+    FRESH.length = 0;
+  }
+  // and all of it let go of once nothing of this place has been drawn for a few seconds (a round in another place, the
+  // menu, a hidden page), as in the other places: a phone has only so much memory for canvases
+  let drawnAt = 0;
+  let sweeping = false;
+  function drawn() {
+    drawnAt = Date.now();
+    if (sweeping) return;
+    sweeping = true;
+    const check = () => {
+      if (Date.now() - drawnAt < 5000) {
+        setTimeout(check, 2500);
+        return;
+      }
+      sweeping = false;
+      modeIs('');
+    };
+    setTimeout(check, 2500);
+  }
+  // A new picture is only painted, not yet drawn: the browser draws it the first time it is shown, which for one that
+  // comes into view in the middle of a climb (the roof) is a stutter then. So a pixel of each new picture is shown at
+  // the start of the next frame, under the sky that is drawn over it at once.
+  const FRESH = [];
+  function warmUp(ctx) {
+    for (const p of FRESH) if (p.c.width && p.c.height) ctx.drawImage(p.c, 0, 0, 1, 1, 0, 0, 1 / p.sc, 1 / p.sc);
+    FRESH.length = 0;
   }
   function devScale(ctx) {
     try {
@@ -113,6 +140,7 @@
     paint(g);
     p = { c, w: c.width / sc, h: c.height / sc, sc, used: frame };
     PICS.set(k, p);
+    FRESH.push(p);
     let px = 0;
     for (const v of PICS.values()) px += v.c.width * v.c.height;
     for (const [kk, v] of Array.from(PICS)) {
@@ -909,8 +937,8 @@
       summer: ['#2F8F4E', '#5DBE68', '#1D5E36'],
       autumn: ['#E8862E', '#FFC23E', '#A9461E'],
     }[season] || ['#E8862E', '#FFC23E', '#A9461E'];
-    // at night: deep and cool, the moon on its upper side
-    const tint = dark ? [mix('#1B2A4E', cols[0], 0.18), mix('#4A5FA8', cols[1], 0.16), '#080C24'] : cols;
+    // at night: deeper and cooler, but still the season's colour (not a dark blot), lit by the moon on its upper side
+    const tint = dark ? [mix('#1E2752', cols[0], 0.55), mix('#4A5FA8', cols[1], 0.55), '#080C24'] : cols;
     const R = rng(91);
     const blobs = [];
     for (let i = 0; i < 9; i++) {
@@ -944,15 +972,15 @@
     g.globalAlpha = 0.55;
     g.fill();
     g.globalAlpha = 1;
-    if (!dark) {
-      g.beginPath();
-      for (const [bx, by, br] of blobs) {
-        g.moveTo(bx - br * 0.3 + br * 0.55, by - br * 0.45);
-        g.arc(bx - br * 0.3, by - br * 0.45, br * 0.55, 0, TAU);
-      }
-      g.fillStyle = tint[1];
-      g.fill();
+    // its lit band, to the upper left (smaller by moonlight)
+    g.beginPath();
+    for (const [bx, by, br] of blobs) {
+      const k = dark ? 0.42 : 0.55;
+      g.moveTo(bx - br * 0.3 + br * k, by - br * 0.45);
+      g.arc(bx - br * 0.3, by - br * 0.45, br * k, 0, TAU);
     }
+    g.fillStyle = tint[1];
+    g.fill();
     g.restore();
     if (dark) {
       // at night, a cool rim of moonlight along the crown's upper left
@@ -1298,6 +1326,8 @@
     const season = o.season || 'autumn';
     frame++;
     modeIs('fall' + dark);
+    drawn();
+    warmUp(ctx);
     // the sky, where the block does not hide it: above its roof and in the wedges beside it
     const yRoof = FY(G, G.N + 0.24);
     const xl = FX(G, UX(G, -1) - 3, G.N + 0.24) + 1;
@@ -1748,6 +1778,8 @@
     const season = o.season || 'autumn';
     frame++;
     modeIs('climb' + dark);
+    drawn();
+    warmUp(ctx);
     const cx = W / 2;
     const hw = hwOf(W);
     const hz = H - 172;
@@ -1793,7 +1825,10 @@
       // the top storey is cut at the roof
       put(ctx, p, wx, yb - FLOOR, s, top - (-(k + 1) * FLOOR));
     }
-    if (roofS > -140 && roofS < H) put(ctx, pic(s, 'dc-crown' + dark, TW, 110, (g) => paintCrown(g, W, C)), wx, roofS, s);
+    // (the roof's picture is made, and kept, from the first frame: painted only as it came into view near the top, it
+    // was a stutter there)
+    const crown = pic(s, 'dc-crown' + dark, TW, 110, (g) => paintCrown(g, W, C));
+    if (roofS > -140 && roofS < H) put(ctx, crown, wx, roofS, s);
     // the outline of the wall
     ctx.fillStyle = C.line;
     const yA = Math.max(0, roofS);

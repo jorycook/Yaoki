@@ -26,7 +26,7 @@
  *                                     season, pal }
  *   thing(ctx, o)                     a falling thing round its word's box: o = { place, n, x, y, w, h, target, flash,
  *                                     dark, pal, t }
- *   colors(place, n)                  the fill and line of thing n, for its pieces
+ *   colors(place, n, dark)            the fill and line of thing n, for its pieces
  *   ledge(ctx, o)                     a ledge whose top is at (x, y): o = { place, n, x, y, w, side, dark, pal, W }
  *   summit(ctx, o)                    the top of the climb at y: o = { place, W, y, dark, pal, t, reached }
  *   define(id, place)                 a place file registers its drawing (see places/yama.js)
@@ -297,8 +297,8 @@
       ctx.restore();
     }
   }
-  function colors(place, n) {
-    return placeOf(place).colors(n);
+  function colors(place, n, dark) {
+    return placeOf(place).colors(n, dark);
   }
   function ledge(ctx, o) {
     const p = placeOf(o.place);

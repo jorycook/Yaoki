@@ -25,7 +25,7 @@
  * a flash turns it red. A ledge is a chunky snow-topped slab out of its wall, its top showing above its sign.
  *
  * It is registered with SpeakingWorld.define(id, place), where place = { palette: { light, dark }, layout(n, W),
- * fall(ctx, o, C), climb(ctx, o, C), ledge(ctx, o, C, pal), summit(ctx, o, C, pal), thing(ctx, o, C), colors(n) }
+ * fall(ctx, o, C), climb(ctx, o, C), ledge(ctx, o, C, pal), summit(ctx, o, C, pal), thing(ctx, o, C), colors(n, dark) }
  * (C: the palette of the theme in use; o as world.js says of back, ledge, summit and thing). The helpers it draws with
  * are world.js's (SpeakingWorld.kit), and a few of its own below.
  */
@@ -97,7 +97,34 @@
     if (key === keptScene) return;
     for (const c of KEPT.values()) c.width = c.height = 0;
     KEPT.clear();
+    FRESH.length = 0;
     keptScene = key;
+  }
+  // and all let go of once nothing of this place has been drawn for a few seconds (a round in another place, the menu,
+  // a hidden page), as in the other places: a phone has only so much memory for canvases
+  let drawnAt = 0;
+  let sweeping = false;
+  function drawn() {
+    drawnAt = Date.now();
+    if (sweeping) return;
+    sweeping = true;
+    const check = () => {
+      if (Date.now() - drawnAt < 5000) {
+        setTimeout(check, 2500);
+        return;
+      }
+      sweeping = false;
+      scene('');
+    };
+    setTimeout(check, 2500);
+  }
+  // A new picture is only painted, not yet drawn: the browser draws it the first time it is shown, which for one that
+  // comes into view in the middle of a climb (the summit) is a stutter then. So a pixel of each new picture is shown at
+  // the start of the next frame, under the sky that is drawn over it at once.
+  const FRESH = [];
+  function warmUp(ctx) {
+    for (const c of FRESH) if (c.width && c.height) ctx.drawImage(c, 0, 0, 1, 1, 0, 0, 1 / c.u, 1 / c.u);
+    FRESH.length = 0;
   }
   function kept(key, w, h, sc, paint) {
     let c = KEPT.get(key);
@@ -113,6 +140,7 @@
       g.lineCap = 'round';
       paint(g);
       KEPT.set(key, c);
+      FRESH.push(c);
     }
     return c;
   }
@@ -969,6 +997,8 @@
     const { W, H, gy, hz } = G;
     const sc = scaleOf(ctx);
     scene(['fall', o.dark, o.season, Math.round(W), Math.round(H), Math.round(gy), sc.toFixed(2)].join('|'));
+    drawn();
+    warmUp(ctx);
     put(ctx, kept('back', W, H, sc, (g) => paintFallBack(g, o, C, G)), 0, 0);
     if (o.dark) twinkle(ctx, C, W, hz, o.t, (x) => G.clear(x) - 2, 311);
     // the sun (the moon), climbing a little as the round goes on: a red disc by day, as the morning's
@@ -1216,6 +1246,10 @@
     const y0 = o.y0;
     const sc = scaleOf(ctx);
     scene(['climb', o.dark, o.season, Math.round(W), Math.round(H), sc.toFixed(2)].join('|'));
+    drawn();
+    warmUp(ctx);
+    // the summit's picture, painted with the rest at the start rather than as it comes into view near the top
+    summitPic(C, W, o.season, sc);
     const sTop = o.top - y0;
     const dawn = smooth(-H * 1.4, H * 0.3, sTop);
     const show = smooth(-H * 0.7, H * 0.25, sTop);
@@ -1581,6 +1615,16 @@
     ctx.fill();
   }
 
+  // its picture as tall as what stands on it (the flag's pole, the torii, the crags) and as deep as it is
+  function summitSize(W) {
+    const fh = clamp(W * 0.24, 56, 110);
+    return { fh, S: Math.ceil(Math.max(fh + 9, clamp(W * 0.13, 30, 60) * 1.05 + 6, 46)) };
+  }
+  function summitPic(C, W, season, sc) {
+    const { S } = summitSize(W);
+    return kept('summit', W + 20, S + 100, sc, (g) => paintSummit(g, C, W, S, season));
+  }
+
   function summit(ctx, o, C) {
     const { W, y } = o;
     const t = o.t || 0;
@@ -1599,10 +1643,8 @@
       if (b < 0 || a > ctx.canvas.height) return;
     }
     const sc = scaleOf(ctx);
-    // its picture as tall as what stands on it (the flag's pole, the torii, the crags) and as deep as it is
-    const fh = clamp(W * 0.24, 56, 110);
-    const S = Math.ceil(Math.max(fh + 9, clamp(W * 0.13, 30, 60) * 1.05 + 6, 46));
-    put(ctx, kept('summit', W + 20, S + 100, sc, (g) => paintSummit(g, C, W, S, o.season)), -10, y - S);
+    const { fh, S } = summitSize(W);
+    put(ctx, summitPic(C, W, o.season, sc), -10, y - S);
     // the flag, waving
     const fx = W * 0.76;
     const len = clamp(W * 0.14, 30, 60);
@@ -1847,8 +1889,8 @@
     ctx.restore();
   }
 
-  function colors(n) {
-    const f = STONES[wrap(n, STONES.length)].light;
+  function colors(n, dark) {
+    const f = STONES[wrap(n, STONES.length)][dark ? 'dark' : 'light'];
     return { fill: f[0], line: '#2A1A2E' };
   }
 
