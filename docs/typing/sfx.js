@@ -17,7 +17,13 @@
   let ctx = null;
   let master = null;
   let bus = null;       // the music's way out (music.js), beside the effects' own
-  let limiter = null;   // both go out through it, so effects over the music never clip
+  let limiter = null;   // in the loud mix both go out through it, so together they never clip
+
+  // How loud. A page that says nothing gets the quiet mix: Yaoki Speaking, which listens to the
+  // microphone while its music plays. Yaoki Typing asks for the loud one (mix()): the effects
+  // and the music turned up, through the limiter.
+  const QUIET = { fx: 0.32, music: 1, limit: false };
+  let level = QUIET;
   let noiseBuf = null;
   let lastTick = 0;
 
@@ -30,19 +36,23 @@
     try {
       if (!ctx) {
         ctx = new AC();
-        limiter = ctx.createDynamicsCompressor();
-        limiter.threshold.value = -3;
-        limiter.knee.value = 0;
-        limiter.ratio.value = 20;
-        limiter.attack.value = 0.001;
-        limiter.release.value = 0.1;
-        limiter.connect(ctx.destination);
+        let out = ctx.destination;
+        if (level.limit) {
+          limiter = ctx.createDynamicsCompressor();
+          limiter.threshold.value = -3;
+          limiter.knee.value = 0;
+          limiter.ratio.value = 20;
+          limiter.attack.value = 0.001;
+          limiter.release.value = 0.1;
+          limiter.connect(ctx.destination);
+          out = limiter;
+        }
         master = ctx.createGain();
-        master.gain.value = 1;
-        master.connect(limiter);
+        master.gain.value = level.fx;
+        master.connect(out);
         bus = ctx.createGain();
-        bus.gain.value = 1;
-        bus.connect(limiter);
+        bus.gain.value = level.music;
+        bus.connect(out);
       }
       if (ctx.state !== 'running' && ctx.state !== 'closed') {
         const woke = ctx.resume();
@@ -206,6 +216,19 @@
   });
 
   window.TypingSfx = {
+    // The mix: { fx, music } gains for the effects and the music, and limit, the limiter on
+    // both. Set it before the first unlock(); a change of limiter takes the next output.
+    mix(o) {
+      const num = (v, d) => (typeof v === 'number' && isFinite(v) && v >= 0 ? v : d);
+      const next = { fx: num(o && o.fx, QUIET.fx), music: num(o && o.music, QUIET.music), limit: !!(o && o.limit) };
+      const rewire = !!ctx && next.limit !== level.limit;
+      level = next;
+      if (rewire) sleep();
+      else if (ctx) {
+        master.gain.value = level.fx;
+        bus.gain.value = level.music;
+      }
+    },
     // Wake the output; call it from a key press or a click.
     unlock() {
       context();

@@ -548,6 +548,7 @@
     setPhase('play');
     startMusic();
     if (document.hidden) setPhase('paused');
+    fitInfo(true);
     resize();
     if (isCourse(modeId) && saved.sound) loadSound(level, unit);
     setStatus('', '');
@@ -1413,6 +1414,8 @@
 
   let sfxReady = false;
   const SFX_ALL_ONLY = new Set(['key', 'miss']);
+  // the loud mix: the effects about 11 dB and the music about 12 dB up, through a limiter
+  if (window.TypingSfx && window.TypingSfx.mix) window.TypingSfx.mix({ fx: 1, music: 3.5, limit: true });
   const UNDER_VOICE = new Set(['key', 'miss', 'jump', 'duck', 'spin', 'smash']);
   function wakeAudio() {
     if (!window.TypingSfx || (saved.sfx === 'off' && saved.music === 'off')) return;
@@ -1584,6 +1587,36 @@
     const reading = it.reading && it.reading !== it.text && readingShown(card);
     if (reading && it.hidden) card.readingSaid = true;
     say(reading ? it.text + '、' + it.reading : it.text, en);
+  }
+
+  // The line under the game is as tall all round as the round's longest word, reading and
+  // meaning need (a long kanji sentence takes two rows or three): measured as the round starts
+  // and when the window changes width, so it never jumps from card to card. The game window
+  // gives up the height it takes beyond one row.
+  let infoWidth = 0;
+  function fitInfo(fresh) {
+    const box = $('info');
+    if (!r || $('play').hidden) return;
+    const w = box.clientWidth;
+    if (!w || (w === infoWidth && !fresh)) return;
+    infoWidth = w;
+    const root = document.documentElement.style;
+    box.style.minHeight = '';
+    root.removeProperty('--info-extra');
+    const one = parseFloat(getComputedStyle(box).minHeight) || 0;
+    let most = one;
+    const seen = new Set();
+    for (const e of r.queue.concat(r.cards.map((c) => c.entry))) {
+      if (seen.has(e.item.id)) continue;
+      seen.add(e.item.id);
+      showInfo({ item: e.item, state: 'live', level: 0, halted: false });
+      most = Math.max(most, box.offsetHeight);
+    }
+    showInfo(r.target);
+    if (most > one) {
+      box.style.minHeight = most + 'px';
+      root.setProperty('--info-extra', most - one + 'px');
+    }
   }
 
   // The line under the canvas: the word being typed, its reading and meaning.
@@ -2495,7 +2528,8 @@
     // stands up further, with a heavier outline
     let stroke = pal.outline;
     let width = isTarget ? 3 : 2;
-    const lift = isTarget ? 6 : 3;
+    // (a card that knocked him over fades out flat: a shadow would show through it)
+    const lift = c.state === 'fallen' ? 0 : isTarget ? 6 : 3;
     if (c.state === 'fallen' || c.flashT > 0) {
       stroke = pal.bad;
       width = 3;
@@ -3579,7 +3613,10 @@
   renderSettings();
 
   window.addEventListener('keydown', onKeyDown);
-  window.addEventListener('resize', () => resize());
+  window.addEventListener('resize', () => {
+    fitInfo(false);
+    resize();
+  });
   if (window.ResizeObserver) new ResizeObserver(() => resize()).observe(canvas.parentElement);
   window.addEventListener('blur', () => {
     if (phase === 'play') setPhase('paused');

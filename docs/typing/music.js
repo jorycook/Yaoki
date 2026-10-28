@@ -32,7 +32,7 @@
 
   const LOOKAHEAD = 0.12;   // seconds of notes placed ahead of the audio clock
   const TICK = 25;          // ms between scheduler runs
-  const TRIM = 0.7;         // the bus's level after the compressor (set by measurement)
+  const TRIM = 0.2;         // the bus's level after the compressor (set by measurement)
   const DEFAULT_VOLUME = 0.6;
   const BRIGHT = [0.8, 1, 1.08, 1.32];   // filter brightness by level
   const SHINE = [-3, 0, 0.5, 2.5];       // high-shelf gain (dB) by level

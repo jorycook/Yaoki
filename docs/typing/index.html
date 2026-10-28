@@ -142,8 +142,8 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .chip.zero { color: var(--muted); }
 .chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
 .chip.step .hm { stroke: #C7361E; }
-.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 392px), 360px); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
-body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 202px), 400px); }
+.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 392px - var(--info-extra, 0px)), 360px); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
+body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 202px - var(--info-extra, 0px)), 400px); }
 body.playing .bar, body.playing .foot-links { display: none; }
 body.playing #app { padding-top: 8px; }
 #stage { display: block; width: 100%; height: 100%; }

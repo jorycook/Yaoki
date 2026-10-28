@@ -80,6 +80,7 @@
   const F = {
     W: 600, top: 0, bottom: H, scroll: 0, t: 0, p: 0, pj: 0.5, fin: 0, still: false, dark: false,
     season: 'spring', pal: null, S: null, C: null, A: null, K: null,
+    discX: 0, discY: 0, discR: 0,  // the sun or moon of this frame (celestial()), if drawn yet
   };
 
   // ---------- shapes into a Path2D ----------
@@ -174,6 +175,15 @@
     L.ring[slot] = T;
     return T;
   }
+  // Whether one of a tile's boxes ([x0, x1, y0, y1] in the tile, which starts at x) covers
+  // the sun or moon.
+  function overDisc(boxes, x) {
+    for (let k = 0; k < boxes.length; k++) {
+      const b = boxes[k];
+      if (F.discX + F.discR > x + b[0] && F.discX - F.discR < x + b[1] && F.discY + F.discR > b[2] && F.discY - F.discR < b[3]) return true;
+    }
+    return false;
+  }
   function drawLayer(ctx, L, off) {
     const C = F.C;
     const A = F.A;
@@ -184,6 +194,9 @@
     for (let i = a; i <= b; i++) {
       const T = tileOf(L, i);
       const x = i * tw - off;
+      // the still frame never moves, so a cloud over the sun or moon would hide it all round:
+      // that frame leaves out the tile of clouds that would
+      if (L.clouds && F.still && F.discR && overDisc(T.items, x)) continue;
       ctx.translate(x, 0);
       for (let r = 0; r < n; r++) {
         const key = L.rc[r];
@@ -414,6 +427,9 @@
   // The sun (by day) or the moon (by night), and at the end of the round the teacher's
   // はなまる drawn round it, a stroke at a time.
   function celestial(ctx, x, y, r) {
+    F.discX = x;
+    F.discY = y;
+    F.discR = r * 1.2;
     if (F.dark) {
       glow(ctx, x, y, r * 8, 'moonGlow', 0.35);
       glow(ctx, x, y, r * 3.2, 'moonGlow', 1);
@@ -484,7 +500,7 @@
     });
   }
   function cloudLayer(seed, tw, y0, y1, w0, w1) {
-    return layer(seed, tw, w1 + 10, ['cloudShade', 'cloud'], (P, R) => {
+    const L = layer(seed, tw, w1 + 10, ['cloudShade', 'cloud'], (P, R, i, items) => {
       const n = R() < 0.55 ? 1 : 2;
       for (let k = 0; k < n; k++) {
         const x = ((k + R() * 0.8) * tw) / n;
@@ -494,8 +510,12 @@
         const s = Math.floor(R() * 4294967296);
         cloud(P[0], x, y + Math.max(2, w * 0.05), w, rng(s));
         cloud(P[1], x, y, w, rng(s));
+        // its box, so a still frame can keep it off the sun or moon (drawLayer)
+        items.push([x - 4, x + w + 4, y - w * 0.62, y + w * 0.06 + 3]);
       }
     });
+    L.clouds = true;
+    return L;
   }
   // A flight of birds (gulls or cranes) that crosses the sky on its own.
   function birds(ctx, key, n, speed, period, y, size, seed) {
@@ -1785,8 +1805,9 @@
     make() {
       return {
         stars: starLayer(51, 5, -60, 60),
-        // long streaks of cloud, a shaded underside under each (lit magenta by night)
-        cloud: layer(55, 520, 150, ['cloudShade', 'cloud'], (P, R) => {
+        // long streaks of cloud, a shaded underside under each (lit magenta by night); like
+        // cloudLayer()'s, kept off the sun or moon in a still frame
+        cloud: Object.assign(layer(55, 520, 150, ['cloudShade', 'cloud'], (P, R, i, items) => {
           const n = R() < 0.5 ? 1 : 2;
           for (let k = 0; k < n; k++) {
             const x = ((k + R() * 0.7) * 520) / n;
@@ -1800,8 +1821,9 @@
               rr(P[0], x2 + 5, y - 3.3, w2, 5.5, 2.7);
               rr(P[1], x2, y - 5.2, w2, 5.5, 2.7);
             }
+            items.push([x - 2, x + w + 8, y - 6, y + 9]);
           }
-        }),
+        }), { clouds: true }),
         // the farthest towers, pale in the haze; by night a red light blinks on their masts
         haze: layer(56, 340, 30, ['haze'], (P, R, i, items) => {
           for (let k = 0; k < 3; k++) {
@@ -4437,7 +4459,8 @@
         mount: layer(139, 400, 4, ['mount', 'mountSnow'], (P, R, i, items, tw) => {
           jokaRidge(P[0], P[1], i, tw, 139, 124, 42, 110, 6, 127);
         }),
-        hill: layer(133, 420, 4, ['hill'], (P, R, i, items, tw) => jokaWoods(P[0], R, i, tw, 133, 126, 22, 150, 127.5)),
+        // (the hill reaches down behind the town's roofs, so nothing of the page shows between them)
+        hill: layer(133, 420, 4, ['hill'], (P, R, i, items, tw) => jokaWoods(P[0], R, i, tw, 133, 126, 22, 150, 132.5)),
         keep: jokaKeep(),
         // the roofs of the town, a white storehouse here and there, the ridges in the light and
         // a window lit by night
@@ -4446,9 +4469,11 @@
             const g = i * 14 + k;
             const x = k * 36;
             const y = G - 34 - hash(134, g) * 14;
-            P[0].rect(x, y, 36.6, 132 - y);
-            quad(P[0], x - 2.5, y + 0.5, x + 39, y + 0.5, x + 31.5, y - 8, x + 4.5, y - 8);
-            if (hash(137, g) < 0.22) P[1].rect(x + 1.5, y + 0.5, 33.6, 132 - y);
+            // a roof goes round the same way as its wall, so where they overlap they add up (a
+            // path filled by the nonzero rule leaves a hole where shapes wind against each other)
+            P[0].rect(x, y, 36.6, Math.max(0, 132 - y));
+            quad(P[0], x + 4.5, y - 8, x + 31.5, y - 8, x + 39, y + 0.5, x - 2.5, y + 0.5);
+            if (hash(137, g) < 0.22) P[1].rect(x + 1.5, y + 0.5, 33.6, Math.max(0, 132 - y));
             P[2].rect(x + 4.5, y - 8.5, 27, 1.6);
             quad(P[3], x - 0.5, y - 2.3, x + 37, y - 2.3, x + 31.8, y - 8.7, x + 4.2, y - 8.7);
             if (hash(136, g) < 0.4) P[4].rect(x + 9, y + 3, 18, 3.2);
@@ -4541,7 +4566,7 @@
     },
   });
   // The sky as skyFill() paints it (the same gradient), but only down to y 127: below that the
-  // roofs of the town, the wall, the moat and the ground cover everything.
+  // hill, the roofs of the town, the wall, the moat and the ground cover everything.
   function jokaSky(ctx) {
     const P = F.K;
     let g = P.grad.sky;
@@ -4928,6 +4953,7 @@
       F.pal = o.pal && typeof o.pal === 'object' ? o.pal : null;
       F.scroll = F.still ? 0 : clamp(num(o.scroll, 0), -1e7, 1e7);
       F.t = F.still ? S.stillT : clamp(num(o.t, 0), -1e6, 1e6);
+      F.discR = 0;
       const p = clamp(num(o.progress, 0), 0, 1);
       if (F.still) {
         SM.p = p;
