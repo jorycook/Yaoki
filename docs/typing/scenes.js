@@ -413,6 +413,7 @@
   // はなまる drawn round it, a stroke at a time.
   function celestial(ctx, x, y, r) {
     if (F.dark) {
+      glow(ctx, x, y, r * 8, 'moonGlow', 0.35);
       glow(ctx, x, y, r * 3.2, 'moonGlow', 1);
       ctx.fillStyle = F.C.moon;
       ctx.beginPath();
@@ -426,6 +427,7 @@
       ctx.arc(x + r * 0.15, y - r * 0.42, r * 0.1, 0, TAU);
       ctx.fill();
     } else {
+      glow(ctx, x, y, r * 8, 'sunGlow', 0.4);
       glow(ctx, x, y, r * 3.4, 'sunGlow', 1);
       ctx.fillStyle = F.C.sun;
       ctx.beginPath();
@@ -480,9 +482,17 @@
     });
   }
   function cloudLayer(seed, tw, y0, y1, w0, w1) {
-    return layer(seed, tw, w1 + 10, ['cloud'], (P, R) => {
+    return layer(seed, tw, w1 + 10, ['cloudShade', 'cloud'], (P, R) => {
       const n = R() < 0.55 ? 1 : 2;
-      for (let k = 0; k < n; k++) cloud(P[0], ((k + R() * 0.8) * tw) / n, y0 + R() * (y1 - y0), w0 + R() * (w1 - w0), R);
+      for (let k = 0; k < n; k++) {
+        const x = ((k + R() * 0.8) * tw) / n;
+        const y = y0 + R() * (y1 - y0);
+        const w = w0 + R() * (w1 - w0);
+        // the cloud's shaded underside: the same shape, a little lower
+        const s = Math.floor(R() * 4294967296);
+        cloud(P[0], x, y + Math.max(2, w * 0.05), w, rng(s));
+        cloud(P[1], x, y, w, rng(s));
+      }
     });
   }
   // A flight of birds (gulls or cranes) that crosses the sky on its own.
@@ -645,16 +655,16 @@
   // Colours shared by every scene, under its own.
   const BASE = {
     light: {
-      sun: '#FCE7C9', sunGlow: ['#FFF1D8', 0.9], moon: '#F3EEDF', moonShade: '#E6DEC8', moonGlow: ['#FFFFFF', 0.5],
-      star: ['#B9B4DA', 0.7], star2: ['#E8CF8E', 0.6], cloud: ['#FFFFFF', 0.72],
-      petal: ['#EFAFC4', 0.5], leaf1: ['#E9A97E', 0.48], leaf2: ['#E3BD6E', 0.48], leaf3: ['#DD9886', 0.45],
-      snow: ['#FFFFFF', 0.5], fly: ['#E3EC8C', 0.5], dfly: ['#8FA5C2', 0.45], bubble: ['#FFFFFF', 0.5],
+      sun: '#FFD45E', sunGlow: ['#FFE39A', 0.95], moon: '#FFF6DE', moonShade: '#EADFC0', moonGlow: ['#FFFFFF', 0.6],
+      star: ['#8E86D8', 0.85], star2: ['#F2B43A', 0.85], cloud: ['#FFFFFF', 0.96], cloudShade: ['#C9DBF2', 0.9],
+      petal: ['#F28DB2', 0.9], leaf1: ['#E8692F', 0.9], leaf2: ['#F2B43A', 0.9], leaf3: ['#D8433B', 0.85],
+      snow: ['#FFFFFF', 0.95], fly: ['#D9EE3F', 0.95], dfly: ['#3F66D6', 0.8], bubble: ['#FFFFFF', 0.8],
     },
     dark: {
-      sun: '#E9E1C8', sunGlow: ['#8E9CD0', 0.22], moon: '#E4DCC4', moonShade: '#CFC6AC', moonGlow: ['#8C9BD6', 0.24],
-      star: ['#E8EBF6', 0.72], star2: ['#F2D9A0', 0.6], cloud: ['#222B47', 0.7],
-      petal: ['#D7A0B6', 0.42], leaf1: ['#C9875F', 0.42], leaf2: ['#C7A25A', 0.42], leaf3: ['#B97A6C', 0.4],
-      snow: ['#E8EDF8', 0.45], fly: ['#E9F59A', 0.5], dfly: ['#6E7FA6', 0.4], bubble: ['#8FD1E0', 0.32],
+      sun: '#FFF1C8', sunGlow: ['#9DB2FF', 0.4], moon: '#FFF4D6', moonShade: '#E3D6AE', moonGlow: ['#B4C6FF', 0.5],
+      star: ['#FFFFFF', 0.95], star2: ['#FFD27A', 0.9], cloud: ['#2A3266', 0.9], cloudShade: ['#1D2350', 0.9],
+      petal: ['#F28DB2', 0.75], leaf1: ['#E8692F', 0.75], leaf2: ['#F2B43A', 0.75], leaf3: ['#D8433B', 0.7],
+      snow: ['#F4F7FF', 0.9], fly: ['#EEFF7A', 1], dfly: ['#8FA8FF', 0.75], bubble: ['#9EE6F5', 0.65],
     },
   };
 
@@ -664,18 +674,18 @@
   // ----- 下町: the old town, tiled roofs and noren under power lines, Fuji far away -----
   scene({
     id: 'shitamachi', ja: '下町', en: 'Old town', stillT: 18,
-    sky: { light: ['#D8E5F3', '#E8EEF3', '#F6EFE2'], dark: ['#0D1326', '#131A31', '#1B2340'] },
+    sky: { light: ['#3F8FE0', '#86C1F0', '#FDE3B4'], dark: ['#060A22', '#171C4C', '#3A2862'] },
     light: {
-      fuji: '#CBD6E9', fujiShade: '#C2CDE3', cap: '#F3F6FB', far: '#D7DEEB', chimney: '#CDD5E5',
-      wall: '#EAE4D8', wood: '#DDD1BD', roof: '#C0CADC', roofLine: '#B3BDD1', win: '#D6DFEC', winOff: '#D6DFEC',
-      noren: '#C7D2EA', noren2: '#E8D3C9', woodLine: ['#CDBFA8', 0.8], plant: '#C3D5BD', vend: '#D4E0EF', vendLit: '#F2EFE4',
-      pole: '#C0C8D7', wire: '#B4BCCD', ground: '#F0EFE9',
+      fuji: '#6F86CC', fujiShade: '#5B70B8', cap: '#FFFFFF', far: '#93A6DA', chimney: '#7C90C8',
+      wall: '#F7E6C4', wood: '#A86B42', roof: '#3C4A7C', roofLine: '#28325A', win: '#BBD9F5', winOff: '#8EA7CF',
+      noren: '#2F4FD0', noren2: '#E2452B', woodLine: ['#6E4426', 0.85], plant: '#2E9A5A', vend: '#EAF4FF', vendLit: '#FFFFFF',
+      pole: '#3B4060', wire: '#2E3352', ground: '#F7F0E2',
     },
     dark: {
-      fuji: '#19213B', fujiShade: '#161D35', cap: '#2A3454', far: '#121830', chimney: '#141A32',
-      wall: '#171D33', wood: '#131A2D', roof: '#10162A', roofLine: '#1D2540', win: ['#F0C46B', 0.4], winOff: '#1D2440',
-      noren: '#27325C', noren2: '#3B2C40', woodLine: '#1D2439', plant: '#15233A', vend: '#1D2B47', vendLit: ['#BFE6F2', 0.5],
-      pole: '#0D1226', wire: '#2A3250', ground: '#141A2D', blink: ['#F0C46B', 0.4],
+      fuji: '#2B3672', fujiShade: '#222B60', cap: '#C7D2F7', far: '#1C2354', chimney: '#161C46',
+      wall: '#262D5E', wood: '#1C2148', roof: '#12163C', roofLine: '#2E3780', win: ['#FFC45A', 0.95], winOff: '#202758',
+      noren: '#3F5DE6', noren2: '#E2452B', woodLine: '#2A3166', plant: '#1E4A48', vend: '#2B3C78', vendLit: ['#9FE9FF', 0.95],
+      pole: '#080B22', wire: '#3A4488', ground: '#141A34', blink: ['#FFC45A', 0.95],
     },
     make() {
       return {

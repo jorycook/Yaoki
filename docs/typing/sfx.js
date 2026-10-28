@@ -17,6 +17,7 @@
   let ctx = null;
   let master = null;
   let bus = null;       // the music's way out (music.js), beside the effects' own
+  let limiter = null;   // both go out through it, so effects over the music never clip
   let noiseBuf = null;
   let lastTick = 0;
 
@@ -29,12 +30,19 @@
     try {
       if (!ctx) {
         ctx = new AC();
+        limiter = ctx.createDynamicsCompressor();
+        limiter.threshold.value = -3;
+        limiter.knee.value = 0;
+        limiter.ratio.value = 20;
+        limiter.attack.value = 0.001;
+        limiter.release.value = 0.1;
+        limiter.connect(ctx.destination);
         master = ctx.createGain();
-        master.gain.value = 0.32;
-        master.connect(ctx.destination);
+        master.gain.value = 1;
+        master.connect(limiter);
         bus = ctx.createGain();
         bus.gain.value = 1;
-        bus.connect(ctx.destination);
+        bus.connect(limiter);
       }
       if (ctx.state !== 'running' && ctx.state !== 'closed') {
         const woke = ctx.resume();
@@ -189,6 +197,7 @@
     ctx = null;
     master = null;
     bus = null;
+    limiter = null;
     noiseBuf = null;
     lastTick = 0;
   }

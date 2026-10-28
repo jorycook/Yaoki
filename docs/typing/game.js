@@ -2425,6 +2425,10 @@
   function drawPaper(W, pad) {
     const still = reducedMotion.matches;
     const scroll = r && !still ? r.rock * 40 : 0;
+    // over a scene the paper is a faint grid, so the picture shows through it
+    const scene = !!(r && r.scene && !r.sceneFailed && window.TypingScenes);
+    ctx.save();
+    if (scene) ctx.globalAlpha = 0.32;
     ctx.strokeStyle = pal.grid;
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -2437,6 +2441,7 @@
       ctx.lineTo(W, y + 0.5);
     }
     ctx.stroke();
+    ctx.restore();
 
     const y = GROUND + 2;
     const yx = view.yx;
