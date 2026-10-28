@@ -2326,6 +2326,8 @@
   // Yaoki, from the drawing the app uses (Main.dc.html): one eye painted, in every pose.
   const DARUMA = {
     body: new Path2D('M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z'),
+    // the shine on his lacquer, down his left side, and a glint up by his head
+    shine: new Path2D('M21 30c-5 8-6 19-4 29 1 3 5 2 5-1-1-9 0-18 4-24 2-3-3-7-5-4zM34 14c-3 1-6 3-8 5-2 2 1 5 3 3 2-2 4-3 6-4 3-1 2-5-1-4z'),
     brows: new Path2D('M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0'),
     mouth: new Path2D('M44 55c4 3 8 3 12 0'),
     gold: new Path2D('M38 74h24M42 82h16'),
@@ -2489,17 +2491,17 @@
     if (c.state === 'fallen' && r.fall) alpha = Math.max(0, Math.min(1, (r.fall.length - r.fall.t) / 0.35));
     ctx.globalAlpha = alpha;
     const top = GROUND - CARD_H;
-    let stroke = pal.line;
-    let width = 2;
+    // every live card is a sticker (an ink outline and a hard shadow); the one being typed
+    // stands up further, with a heavier outline
+    let stroke = pal.outline;
+    let width = isTarget ? 3 : 2;
+    const lift = isTarget ? 6 : 3;
     if (c.state === 'fallen' || c.flashT > 0) {
       stroke = pal.bad;
-      width = 2.5;
-      cardBox(c, top, pal.badSoft, stroke, width, isTarget);
-    } else if (isTarget) {
-      stroke = pal.outline;
-      cardBox(c, top, pal.card, stroke, width, true);
+      width = 3;
+      cardBox(c, top, pal.badSoft, stroke, width, lift);
     } else {
-      cardBox(c, top, pal.card, stroke, width, false);
+      cardBox(c, top, pal.card, stroke, width, lift);
     }
     if (c.entry.weak) weakCorner(c, top, stroke, width);
     cardText(c, top, pal.ink);
@@ -2580,9 +2582,10 @@
     ctx.stroke();
   }
 
-  function cardBox(c, top, fill, stroke, width, raised) {
-    if (raised) {
-      roundRect(c.x, top + 4, c.w, CARD_H, 14);
+  // A card's box, with a hard shadow `lift` units deep (none for 0).
+  function cardBox(c, top, fill, stroke, width, lift) {
+    if (lift) {
+      roundRect(c.x, top + lift, c.w, CARD_H, 14);
       ctx.fillStyle = pal.hard;
       ctx.fill();
     }
@@ -2860,7 +2863,7 @@
       ctx.save();
       ctx.globalAlpha = Math.max(0, 1 - k * 1.2);
       ctx.fillStyle = pal.card;
-      ctx.strokeStyle = pal.line;
+      ctx.strokeStyle = pal.outline;
       ctx.lineWidth = 1.5;
       ctx.lineJoin = 'round';
       for (const s of tr.shards || []) {
@@ -2933,7 +2936,7 @@
     const pose = still ? { s: 1, tilt: -10, a: 1 } : stampPose(c.stampT);
     ctx.save();
     ctx.globalAlpha *= alpha;
-    cardBox(c, GROUND - CARD_H, pal.card, pal.line, 2, false);
+    cardBox(c, GROUND - CARD_H, pal.card, pal.lineStrong, 2, 0);
     cardText(c, GROUND - CARD_H, pal.muted);
     ctx.globalAlpha *= pose.a;
     stamp(c.x + c.w - 4, GROUND - CARD_H + 4, 12 * pose.s, 2, pose.tilt, c.comeback ? '起' : '済');
@@ -3137,10 +3140,13 @@
     }
     // the shadow stays on the route and shrinks as he goes up
     const shade = Math.max(0.35, 1 - p.lift / 140);
-    ctx.fillStyle = pal.line;
+    ctx.save();
+    ctx.globalAlpha = pal.dark ? 0.6 : 0.3;
+    ctx.fillStyle = pal.hard;
     ctx.beginPath();
-    ctx.ellipse(p.x, GROUND + 2, 22 * shade, 4 * shade, 0, 0, Math.PI * 2);
+    ctx.ellipse(p.x, GROUND + 2, 22 * shade, 4.5 * shade, 0, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
     // a spin leaves a trail of little stars
     if (yk && yk.trick && yk.trick.kind === 'spin' && p.lift > 4 && phase === 'play' && yk.trail.length < 16) {
       const lastSt = yk.trail[yk.trail.length - 1];
@@ -3148,6 +3154,18 @@
     }
     if (yk && yk.trail.length) drawTrail(yk.trail);
     drawDaruma(p);
+  }
+
+  // His lacquer: one gradient, made once, in his own drawing's units.
+  let lacquer = null;
+  function darumaLacquer() {
+    if (!lacquer) {
+      lacquer = ctx.createRadialGradient(34, 26, 4, 50, 54, 74);
+      lacquer.addColorStop(0, '#FF7A5C');
+      lacquer.addColorStop(0.45, '#E2452B');
+      lacquer.addColorStop(1, '#A82A17');
+    }
+    return lacquer;
   }
 
   // Yaoki, from the drawing the app uses (Main.dc.html): one eye painted, in every pose. The
@@ -3166,8 +3184,18 @@
     }
     ctx.scale(YAOKI * p.sx, YAOKI * p.sy);
     ctx.translate(-50, -94);
-    ctx.fillStyle = '#E2452B';
+    // red lacquer, lit from the upper left, with its shine and an ink outline: a sticker
+    ctx.fillStyle = darumaLacquer();
     ctx.fill(DARUMA.body);
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill(DARUMA.shine);
+    ctx.restore();
+    ctx.lineWidth = 4;
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1B2440';
+    ctx.stroke(DARUMA.body);
     ctx.fillStyle = '#FFF6EA';
     ctx.beginPath();
     ctx.ellipse(50, 42, 27, 23, 0, 0, Math.PI * 2);
@@ -3418,10 +3446,14 @@
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.lineJoin = 'round';
+    // a comic's lettering: an ink edge round a white one, filled in colour
+    ctx.lineWidth = Math.max(5, size / 2.6);
+    ctx.strokeStyle = pal.hard;
+    ctx.strokeText(fx.ja, 0, 0);
     ctx.lineWidth = Math.max(3, size / 5);
     ctx.strokeStyle = pal.card;
     ctx.strokeText(fx.ja, 0, 0);
-    ctx.fillStyle = fx.big ? pal.stamp : pal.ink;
+    ctx.fillStyle = fx.big ? pal.stamp : pal.accentInk;
     ctx.fillText(fx.ja, 0, 0);
     ctx.restore();
   }
