@@ -137,13 +137,18 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .miccheck p { margin: 0; flex: 1; min-width: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
 .miccheck p [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
 
-/* play: the whole screen, upright */
+/* play: the round is drawn on the whole screen, upright, and its controls float over it: the progress at the top, what
+   to say and the microphone in a dock at the foot, in reach of a thumb */
 body.playing { overflow: hidden; overscroll-behavior: none; }
 body.playing .bar, body.playing .foot-links { display: none; }
-body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction: column; padding: calc(6px + var(--top)) 12px calc(8px + var(--bottom)); }
-#play { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
-.hud { display: flex; align-items: center; gap: 6px; min-height: 44px; }
-.icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; margin-left: -8px; }
+body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; }
+#play { position: relative; height: 100%; overflow: hidden; }
+.hud { position: absolute; z-index: 2; top: 0; left: 0; right: 0; max-width: 640px; margin: 0 auto; display: flex; align-items: center; gap: 6px; min-height: 44px; padding: calc(8px + var(--top)) 12px 8px; pointer-events: none; }
+.hud > * { pointer-events: auto; }
+.icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 2px solid var(--outline); border-radius: 50%; background: var(--card); box-shadow: 0 2px 0 var(--hard); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; }
+.hud .segs, .hud .track { align-self: center; }
+.hud .segs { padding: 9px 10px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); box-shadow: 0 2px 6px rgba(27, 36, 64, 0.12); }
+.hud .chip { box-shadow: 0 2px 6px rgba(27, 36, 64, 0.12); }
 .segs { flex: 1; min-width: 30px; display: flex; gap: 3px; }
 .segs.many { gap: 1px; }
 .segs i { flex: 1; height: 10px; border-radius: 5px; background: var(--line); transition: background 250ms; }
@@ -158,18 +163,20 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
 .chip.zero { color: var(--muted); }
 .chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
 .chip.step .hm { stroke: #C7361E; }
-.stage-wrap { position: relative; flex: 1; min-height: 220px; border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
+.stage-wrap { position: absolute; inset: 0; background: var(--ground); overflow: hidden; }
 #stage { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+.dock { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 6px 12px calc(6px + var(--bottom)); background: var(--card); background: color-mix(in srgb, var(--card) 86%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 2px solid var(--outline); border-radius: 24px 24px 0 0; box-shadow: 0 -6px 20px rgba(27, 36, 64, 0.14); }
+.dock > * { max-width: 640px; margin-left: auto; margin-right: auto; }
 /* what to say, and what the phone heard */
-.say { min-height: 70px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 0 2px; }
+.say { display: flex; flex-direction: column; justify-content: center; gap: 0; padding: 0 2px; }
 .say-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin: 0; min-height: 20px; line-height: 20px; font-size: 14px; font-weight: 700; color: var(--muted); }
 .say-line .romaji { font-size: 15px; font-weight: 800; color: var(--accent-ink); letter-spacing: 0.02em; }
 .say-line .gloss { color: var(--muted); }
-.heard { margin: 0; min-height: 26px; line-height: 26px; font-size: 14px; font-weight: 700; color: var(--muted); overflow-wrap: anywhere; }
+.heard { margin: 0; min-height: 24px; line-height: 24px; font-size: 14px; font-weight: 700; color: var(--muted); overflow-wrap: anywhere; }
 .heard [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
 .heard.bad [lang="ja"] { color: var(--bad); }
 .heard.good [lang="ja"] { color: var(--good); }
-.status { min-height: 20px; line-height: 20px; margin: 0; font-size: 13px; font-weight: 800; }
+.status { min-height: 18px; line-height: 18px; margin: 0; font-size: 13px; font-weight: 800; }
 .status.bad { color: var(--bad); }
 .status.warn { color: var(--stamp); }
 /* the microphone: big and in reach of a thumb, with the listen and skip buttons beside it */
@@ -276,7 +283,6 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
   .mic { width: 76px; height: 76px; }
 }
 @media (max-height: 640px) {
-  .say { min-height: 52px; }
   .mic { width: 72px; height: 72px; }
   .mic svg { width: 28px; height: 28px; }
   .side-btn { min-height: 50px; }
@@ -400,6 +406,7 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
       </span>
     </div>
     <div class="stage-wrap"><canvas id="stage" aria-hidden="true"></canvas></div>
+    <div class="dock" id="dock">
     <div class="say">
       <p class="say-line" id="say-line"></p>
       <p class="heard" id="heard"></p>
@@ -420,6 +427,7 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
       </button>
     </div>
     <p class="mic-state" id="mic-state" aria-live="polite"></p>
+    </div>
   </section>
 
   <!-- the result of a round -->
@@ -542,6 +550,10 @@ body.playing #app { height: 100vh; height: 100dvh; display: flex; flex-direction
 <script src="../typing/music.js" defer></script>
 <script src="../typing/items.js" defer></script>
 <script src="world.js" defer></script>
+<script src="places/yama.js" defer></script>
+<script src="places/danchi.js" defer></script>
+<script src="places/jinja.js" defer></script>
+<script src="places/mori.js" defer></script>
 <script src="game.js" defer></script>
 </body>
 </html>

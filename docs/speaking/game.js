@@ -42,7 +42,8 @@
   const VW = 240;              // the world's width in logical units, at its narrowest
   const YAOKI = 0.6;           // Yaoki's size: the app's 100-unit drawing at 60%
   const YH = 56;               // his height, about, in units
-  const GROUND_UP = 34;        // Falling: the ground, this far above the bottom of the view
+  const GROUND_GAP = 12;       // Falling: the ground, this far above the dock at the foot of the screen
+  const CLIMB_FOOT = 26;       // Climb: Yaoki stands this far above the dock
   const SLACK = 1.2;           // things come 20% slower than the player's measured pace
   const START = {              // first measures for a stage: reaction (s, the recognition's delay in it) and beats a second
     course: { r: 2.6, p: 3 },
@@ -353,7 +354,8 @@
 
   let phase = 'menu';           // menu | play | paused | result
   let r = null;                 // the round being played
-  let view = { W: VW, H: 360, s: 1, dpr: 1 };
+  // the world's size in units, and how much of it the controls cover at the top (top) and the foot (bottom)
+  let view = { W: VW, H: 360, s: 1, dpr: 1, top: 0, bottom: 0 };
   let pal = palette();
   let startTicket = 0;
   let roundShownAt = -1e9;      // when the round's view came up (performance.now())
@@ -619,7 +621,7 @@
     }
     if (r.fall) return null;
     const c = r.cards.find((x) => x.state === 'live');
-    return c && (c.halted || c.y >= 4) ? c : null;
+    return c && (c.halted || c.y >= view.top + 4) ? c : null;
   }
 
   // Climb: the card what is heard goes to while Yaoki cannot jump yet (getting up after a slip, or in the air); a word
@@ -742,7 +744,7 @@
 
   // ---------- Falling ----------
 
-  const groundY = () => view.H - GROUND_UP;
+  const groundY = () => view.H - view.bottom - GROUND_GAP;
   const impactY = () => groundY() - YH;
 
   // The round's time budget T: what the longest card needs at the measured pace, with room to spare; the speed
@@ -828,8 +830,8 @@
   function cutFall(live) {
     const next = live[0];
     if (next) {
-      if (next.y < 4) {
-        const shift = 4 - next.y;
+      if (next.y < view.top + 4) {
+        const shift = view.top + 4 - next.y;
         for (const c of live) c.y += shift;
         r.head += shift;
       }
@@ -929,7 +931,7 @@
     const live = r.cards.filter((c) => c.state === 'live');
     if (live.length) {
       const most = impactY() - live[0].h - r.speed * SLACK * need(live[0].item);
-      const shift = live[0].y - Math.max(4, most);
+      const shift = live[0].y - Math.max(view.top + 4, most);
       if (shift > 0) for (const c of live) c.y -= shift;
       r.head = Math.min(r.head, live[live.length - 1].y);
     } else {
@@ -962,12 +964,12 @@
 
   // Where Yaoki stands, and where the camera puts the top of the view so he is in the lower part of it.
   const standY = () => (r.at < 0 ? 0 : r.ledges[r.at].y);
-  const camFor = (y) => y - view.H * 0.8;
+  const camFor = (y) => y - (view.H - view.bottom - CLIMB_FOOT);
 
   function updateClimb(dt) {
     const yk = r.yk;
     // the camera follows him up, gently
-    const want = r.jump ? camFor(Math.min(standY(), r.jump.toY)) : r.finale !== null ? camFor(r.top) + view.H * 0.12 : camFor(standY());
+    const want = r.jump ? camFor(Math.min(standY(), r.jump.toY)) : r.finale !== null ? camFor(r.top) + (view.H - view.top - view.bottom) * 0.12 : camFor(standY());
     r.camY += (want - r.camY) * Math.min(1, dt * (reducedMotion.matches ? 60 : 4));
     if (r.jump) {
       r.jump.t += dt;
@@ -2415,10 +2417,16 @@
     const ch = wrap.clientHeight;
     if (!cw || !ch) return;
     const dpr = Math.min(3, window.devicePixelRatio || 1);
-    // as wide as the box, at least VW units, never so large that a phone shows too little of the world
+    // as wide as the screen, at least VW units, never so large that a phone shows too little of the world
     const s = Math.max(0.8, Math.min(2.2, cw / VW, ch / 320));
     const old = view;
-    view = { W: cw / s, H: ch / s, s, dpr };
+    // the controls over the world: the bar at the top and the dock at the foot
+    const box = wrap.getBoundingClientRect();
+    const hudEl = document.querySelector('#play .hud');
+    const dockEl = $('dock');
+    const top = hudEl && hudEl.offsetHeight ? Math.max(0, hudEl.getBoundingClientRect().bottom - box.top) : 0;
+    const bottom = dockEl && dockEl.offsetHeight ? Math.max(0, box.bottom - dockEl.getBoundingClientRect().top) : 0;
+    view = { W: cw / s, H: ch / s, s, dpr, top: top / s, bottom: Math.min(bottom / s, ch / s * 0.5) };
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
     if (!r) return;
@@ -2426,7 +2434,7 @@
     for (const c of r.cards) layoutCard(c);
     if (r.style === 'fall') {
       // keep each thing the same time away from Yaoki at the new size and speed
-      const oldImpact = old.H - GROUND_UP - YH;
+      const oldImpact = old.H - (old.bottom || 0) - GROUND_GAP - YH;
       const oldSpeed = r.speed;
       setSpeed();
       if (oldSpeed) {
@@ -2459,7 +2467,7 @@
     if (!r) return;
     r.fxDrawn = 0;
     drawBack(W, H);
-    drawPaper(W, H);
+    if (!r.place || r.sceneFailed) drawPaper(W, H);
     if (r.style === 'climb') drawClimb(W, H);
     else drawFall(W, H);
   }
@@ -2487,11 +2495,10 @@
     return m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'autumn' : 'winter';
   }
 
-  // Graph paper over the place; in Climb it moves with the camera.
+  // Graph paper, when there is no place to draw; in Climb it moves with the camera.
   function drawPaper(W, H) {
     const off = r.style === 'climb' ? ((r.camY % 26) + 26) % 26 : 0;
     ctx.save();
-    ctx.globalAlpha = r.place && !r.sceneFailed ? 0.55 : 1;
     ctx.strokeStyle = pal.grid;
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -3312,7 +3319,7 @@
     }
     let x = side < 0 ? p.x - 26 - w : p.x + 26;
     x = Math.max(4, Math.min(view.W - 4 - w, x));
-    const y = Math.max(4, p.y - h - 14);
+    const y = Math.max(view.top + 4, p.y - h - 14);
     const tipX = side < 0 ? Math.min(x + w - 6, p.x - 16) : Math.max(x + 6, p.x + 16);
     const tipY = y + h + 10;
     const pop = still ? 1 : 0.8 + 0.2 * ease(Math.min(1, b.t / BUBBLE_POP));
