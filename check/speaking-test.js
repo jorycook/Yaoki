@@ -30,7 +30,9 @@ async function waitFor(fn, ms = 5000) {
 
 // The browser's speech recognition, played by the test: __speech.say(text or [alternatives], { final, replace }) hands
 // the listening recognition a result, as a phone's would (replace: the last result, still open, is written over);
-// __speech.end() ends the listening as a browser does after a silence; __speech.refuse = 'not-allowed' refuses the next.
+// __speech.emit([{ alts, final }]) hands it a whole list of results instead (as a browser sends them);
+// __speech.end() ends the listening as a browser does after a silence; __speech.refuse = 'not-allowed' refuses the next;
+// __speech.stopDelay: ms from stop() to the end (a phone first sends what it heard).
 const FAKE_SPEECH = `(function () {
   var S = window.__speech = { recs: [], log: [], active: null, refuse: '' };
   function Rec() { this.lang = ''; this.continuous = false; this.interimResults = false; this.maxAlternatives = 1; this.results = []; this.running = false; S.recs.push(this); }
@@ -41,7 +43,14 @@ const FAKE_SPEECH = `(function () {
     this.running = true; S.active = this; S.log.push('start');
     setTimeout(function () { if (self.running) { self.onstart && self.onstart(); self.onaudiostart && self.onaudiostart(); } }, 5);
   };
-  Rec.prototype.stop = function () { S.log.push('stop'); this._end(); };
+  Rec.prototype.stop = function () {
+    var self = this;
+    S.log.push('stop');
+    if (!S.stopDelay) return this._end();
+    if (!this.running || this.stopping) return;
+    this.stopping = true;
+    setTimeout(function () { self.stopping = false; self._end(); }, S.stopDelay);
+  };
   Rec.prototype.abort = function () { S.log.push('abort'); this._end(); };
   Rec.prototype._end = function () { var self = this; if (!this.running) return; this.running = false; if (S.active === this) S.active = null; setTimeout(function () { self.onend && self.onend(); }, 5); };
   function list(results) { return results.map(function (r) { var res = r.alts.map(function (t) { return { transcript: t, confidence: 0.9 }; }); res.isFinal = r.final; return res; }); }
@@ -57,6 +66,14 @@ const FAKE_SPEECH = `(function () {
     rec.onresult && rec.onresult({ results: list(rec.results), resultIndex: rec.results.length - 1 });
     return true;
   };
+  S.emit = function (results) {
+    var rec = S.active;
+    if (!rec || !rec.running) return false;
+    rec.results = results.map(function (r) { return { alts: [].concat(r.alts), final: !!r.final }; });
+    rec.onresult && rec.onresult({ results: list(rec.results), resultIndex: 0 });
+    return true;
+  };
+  S.results = function () { return S.active ? S.active.results.map(function (r) { return { alts: r.alts.slice(), final: r.final }; }) : []; };
   S.end = function () { if (S.active) S.active._end(); };
   window.SpeechRecognition = Rec;
   window.webkitSpeechRecognition = Rec;
@@ -344,6 +361,199 @@ const CLOCK = 'window.__ykNow = new Date(2026, 9, 28, 10, 0, 0).getTime();';
   await say(page, t.reading, { final: false });
   await page.dispatchEvent('#mic', 'pointerup', { pointerId: 1, pointerType: 'touch', isPrimary: true });
   check('…the words said while it was held count, and letting go stops it', await waitFor(async () => (await state(page)).cleared === 1, 1500) && await waitFor(async () => !(await speech(page)).active, 1500));
+  await page.context().close();
+
+  // ---- what real phones send, and quick players: Falling
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 10 } }, [SFX_STUB]);
+  const more = (pg, extra) => pg.evaluate((x) => window.__speech.emit(window.__speech.results().concat(x)), extra);
+  const twoInView = (pg) => waitFor(async () => (await state(pg)).cards.filter((c) => c.state === 'live' && c.y >= 4).length >= 2, 10000);
+  // the microphone test has just heard something as Start is tapped, twice
+  await page.tap('#mic-test');
+  await waitFor(async () => (await speech(page)).active, 2000);
+  await say(page, 'こんにちは', { final: true });
+  await page.evaluate(() => { const b = document.getElementById('start'); b.click(); b.click(); });
+  check('Start tapped twice, just after the microphone test heard something: the round starts, listening', await waitFor(async () => (await state(page)).phase === 'play', 4000)
+    && await waitFor(async () => (await speech(page)).active && (await state(page)).mic === 'on', 2000));
+  t = await target(page);
+  await say(page, t.reading, { final: true });
+  check('…what is said is heard by the round, not by the test', await waitFor(async () => (await state(page)).cleared === 1, 1500));
+  await sleep(1600);
+  check('…and the test does not stop the listening later', (await speech(page)).active && (await state(page)).mic === 'on');
+  // words after the card in the same breath (ねこです), or a 。 the phone puts at the end
+  for (const tail of ['です', '。']) {
+    await twoInView(page);
+    t = await target(page);
+    const n0 = (await state(page)).cleared;
+    await say(page, t.reading, { final: false });
+    await waitFor(async () => (await state(page)).cleared === n0 + 1, 1500);
+    await say(page, t.reading + tail, { final: true, replace: true });
+    await sleep(100);
+    s = await state(page);
+    check(`what is said after a card's word in one breath (${tail}) is no miss on the next card`, s.cleared === n0 + 1 && s.heardWrong === 0 && (!s.target || s.target.misses === 0), JSON.stringify({ cleared: s.cleared, wrong: s.heardWrong, target: s.target }));
+  }
+  // a phone that sends a closed result twice
+  await twoInView(page);
+  t = await target(page);
+  let n1 = (await state(page)).cleared;
+  await more(page, [{ alts: [t.reading], final: true }]);
+  await more(page, [{ alts: [t.reading], final: true }]);
+  await sleep(100);
+  s = await state(page);
+  check('a closed result the phone sends twice is heard once', s.cleared === n1 + 1 && s.heardWrong === 0, JSON.stringify({ cleared: s.cleared, wrong: s.heardWrong }));
+  // a result heard in two parts (a steady part and a changing one, as a computer's Chrome sends them), closed as one
+  await twoInView(page);
+  t = await target(page);
+  n1 = (await state(page)).cleared;
+  check('a word heard in two parts clears the card, and the next word after it is heard', await (async () => {
+    const ch = Array.from(t.reading);
+    const k = Math.ceil(ch.length / 2);
+    const base = await page.evaluate(() => window.__speech.results());
+    const emitWith = (extra) => page.evaluate(([b, x]) => window.__speech.emit(b.concat(x)), [base, extra]);
+    await emitWith([{ alts: [ch.slice(0, k).join('')], final: false }, { alts: [ch.slice(k).join('')], final: false }]);
+    await sleep(60);
+    if ((await state(page)).cleared !== n1 + 1) return false;
+    await emitWith([{ alts: [t.reading], final: true }]);
+    const t2 = await target(page);
+    const recs = (await speech(page)).n;
+    await emitWith([{ alts: [t.reading], final: true }, { alts: [t2.reading], final: false }]);
+    await sleep(80);
+    return (await state(page)).cleared === n1 + 2 && (await speech(page)).n === recs && (await speech(page)).active;
+  })(), JSON.stringify({ cleared: (await state(page)).cleared }));
+  // a word begun before the browser ends the listening (a pause), finished after it begins again
+  t = await target(page);
+  n1 = (await state(page)).cleared;
+  check('a word begun before the browser ended the listening, and finished after, is heard whole', await (async () => {
+    const ch = Array.from(t.reading);
+    const k = Math.ceil(ch.length / 2);
+    const recs = (await speech(page)).n;
+    await say(page, ch.slice(0, k).join(''), { final: true });
+    await sleep(60);
+    await page.evaluate(() => window.__speech.end());
+    if (!(await waitFor(async () => (await speech(page)).n > recs && (await speech(page)).active, 3000))) return false;
+    await say(page, ch.slice(k).join(''), { final: true });
+    await sleep(100);
+    const x = await state(page);
+    return x.cleared === n1 + 1 && x.heardWrong === 0;
+  })(), JSON.stringify((await state(page)).target));
+  // skipped while it is being said: the rest of the word is not heard for the next card
+  await twoInView(page);
+  t = await target(page);
+  await say(page, 'ちがうことば', { final: true });
+  await sleep(80);
+  await say(page, 'べつのことば', { final: true });
+  await sleep(80);
+  const haltedNow = !!((await state(page)).target && (await state(page)).target.halted);
+  await say(page, Array.from(t.reading)[0], { final: false });
+  if (haltedNow) await page.tap('#skip');
+  await sleep(60);
+  await say(page, t.reading, { final: true, replace: true });
+  await sleep(100);
+  s = await state(page);
+  check('a card skipped while it is being said: the rest of its word is no miss on the next', haltedNow && s.skipped === 1 && s.heardWrong === 2 && (!s.target || s.target.misses === 0), JSON.stringify({ haltedNow, skipped: s.skipped, wrong: s.heardWrong }));
+  await playOut(page);
+  check('…and the round plays to its end', await waitFor(async () => (await state(page)).phase === 'result', 8000));
+  await page.context().close();
+
+  // ---- quick players and a phone that does not hear: Climb
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'climb', len: 5, hints: 'never' } }, [SFX_STUB]);
+  await page.dblclick('#start');
+  check('a double click on Start: the second click, on the microphone where Start was, does not stop the listening', await waitFor(async () => (await state(page)).phase === 'play', 4000)
+    && (await sleep(600), (await speech(page)).active && (await state(page)).mic === 'on'), JSON.stringify(await speech(page)));
+  t = await target(page);
+  await say(page, t.reading, { final: true });
+  check('Climb: the next sign said while he is in the air: he jumps for it as he lands', await (async () => {
+    if (!(await waitFor(async () => (await state(page)).jumping, 1000))) return false;
+    const up = (await state(page)).upNext;
+    if (!up) return false;
+    await say(page, up.reading, { final: true });
+    return waitFor(async () => (await state(page)).cleared === 2 && (await state(page)).yaoki.at === 1, 3000);
+  })() && (await state(page)).falls === 0 && (await state(page)).heardWrong === 0, JSON.stringify(await state(page)).slice(0, 400));
+  t = await target(page);
+  await say(page, t.reading, { final: true });
+  check('…a sign begun in the air and finished after he lands is heard whole', await (async () => {
+    if (!(await waitFor(async () => (await state(page)).jumping, 1000))) return false;
+    const up = (await state(page)).upNext;
+    if (!up) return false;
+    await say(page, Array.from(up.reading)[0], { final: false });
+    if (!(await waitFor(async () => !(await state(page)).jumping && (await state(page)).yaoki.at === 2, 2500))) return false;
+    await say(page, up.reading, { final: true, replace: true });
+    return waitFor(async () => (await state(page)).cleared === 4, 2500);
+  })() && (await state(page)).falls === 0 && (await state(page)).heardWrong === 0, JSON.stringify({ cleared: (await state(page)).cleared, falls: (await state(page)).falls }));
+  await waitFor(async () => (await state(page)).yaoki.at === 3, 2500);
+  check('a sign the phone does not hear at all can be skipped after a while', await waitFor(async () => {
+    const x = await state(page);
+    return !!(x.target && x.target.halted) && !(await page.isDisabled('#skip'));
+  }, 26000));
+  if (!(await page.isDisabled('#skip'))) await page.tap('#skip');
+  check('…and he climbs on, to the top', await waitFor(async () => (await state(page)).phase === 'result', 8000));
+  await page.context().close();
+
+  // ---- Climb: skipped while he is getting up from his second slip
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'climb', len: 3, hints: 'never' } }, [SFX_STUB]);
+  await page.tap('#start');
+  t = await target(page);
+  await say(page, 'ちがう', { final: true });
+  await waitFor(async () => !(await state(page)).falling, 3000);
+  await say(page, 'ちがいます', { final: true });
+  await sleep(100);
+  s = await state(page);
+  const slipping = s.falling && s.fallKind === 'slip' && s.target && s.target.halted;
+  if (slipping) await page.tap('#skip');
+  await sleep(50);
+  await say(page, 'まだちがう', { final: true });
+  await sleep(100);
+  s = await state(page);
+  check('Climb: skipped during a slip, he climbs past it at once, and nothing said meanwhile counts on it', slipping && s.skipped === 1 && s.heardWrong === 2
+    && await waitFor(async () => (await state(page)).yaoki.at === 0, 2500), JSON.stringify({ slipping, skipped: s.skipped, wrong: s.heardWrong }));
+  await page.context().close();
+
+  // ---- hold to talk on a phone that takes a moment to finish a listening
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'climb', len: 5, mic: 'hold' } }, [SFX_STUB]);
+  await page.evaluate(() => { window.__speech.stopDelay = 700; });
+  await page.tap('#start');
+  t = await target(page);
+  {
+    const down = () => page.dispatchEvent('#mic', 'pointerdown', { pointerId: 1, pointerType: 'touch', isPrimary: true });
+    const up = () => page.dispatchEvent('#mic', 'pointerup', { pointerId: 1, pointerType: 'touch', isPrimary: true });
+    await down();
+    await waitFor(async () => (await speech(page)).active, 1500);
+    await up();
+    await sleep(150);
+    await down();
+    check('hold to talk: held again while the phone is still finishing, it listens again', await waitFor(async () => (await speech(page)).n === 2 && (await speech(page)).active, 2500), JSON.stringify(await speech(page)));
+    await page.evaluate(() => window.__speech.end());
+    check('…and when the browser ends a listening while it is held, it listens again', await waitFor(async () => (await speech(page)).n === 3 && (await speech(page)).active, 2500));
+    await say(page, t.reading, { final: true });
+    check('…and hears the word', await waitFor(async () => (await state(page)).cleared === 1, 1500));
+    await up();
+  }
+  await page.context().close();
+
+  // ---- the word said for the player, by a voice that starts late; きく tapped twice
+  const FAKE_VOICE_LATE = `(function () {
+    var cur = null;
+    var synth = { speaking: false, getVoices: function () { return [{ lang: 'ja-JP', name: 'Kyoko', localService: true }]; },
+      cancel: function () { var u = cur; cur = null; if (u && !u.done) { u.done = true; setTimeout(function () { u.onend && u.onend(); }, 60); } },
+      speak: function (u) { cur = u;
+        setTimeout(function () { if (!u.done) u.onstart && u.onstart(); }, 700);
+        setTimeout(function () { if (!u.done) { u.done = true; if (cur === u) cur = null; u.onend && u.onend(); } }, 1800); },
+      addEventListener: function () {} };
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: function () { return synth; } });
+    window.SpeechSynthesisUtterance = function (text) { this.text = text; };
+  })();`;
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'climb', len: 5, hints: 'never' } }, [FAKE_VOICE_LATE, SFX_STUB]);
+  await page.tap('#start');
+  t = await target(page);
+  await page.tap('#hear');
+  await sleep(100);
+  await page.tap('#hear');
+  await sleep(1300);
+  await say(page, t.reading, { final: true });
+  await sleep(100);
+  check('the word said for the player by a voice that starts late is not heard as the player (きく tapped twice)', (await state(page)).cleared === 0);
+  await sleep(1800);
+  await say(page, t.reading, { final: true });
+  check('…once it is over, the player is heard', await waitFor(async () => (await state(page)).cleared === 1, 1500));
   await page.context().close();
 
   // ---- the microphone refused, and a browser without speech recognition

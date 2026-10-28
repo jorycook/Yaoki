@@ -11,14 +11,17 @@
  * and the page says whenever it is listening.
  *
  * What has been heard is used up when a card is cleared (consume()), so the next card is matched only against what
- * comes after; and while the game's own voice plays (a hint), what is heard is used up as it comes (quiet()), so the
- * game never hears itself.
+ * comes after; and while the game's own voice plays (a hint), and for a moment after, while the phone sends back what
+ * it heard, what is heard is used up as it comes (quiet()), so the game never hears itself. The start of a phrase that
+ * was not used up when the browser ended a listening (a pause in the middle of a phrase) is offered again joined to the
+ * next words heard, and a closed result a phone sends twice at once is heard once.
  *
  * window.SpeakingListen = {
  *   supported, state,                 state: off | starting | on | tap | blocked | nomic | offline | error
  *   mode,                             'free' or 'hold'
  *   listen(fromTap), stop(), hold(down), consume(), quiet(ms), loud(),
- *   onheard(texts, final),            texts: what was heard since the last consume(), alternatives first
+ *   onheard(texts, final, carried),   texts: what was heard since the last consume(), alternatives first; carried:
+ *                                     it is the rest of words that were partly used up (ねこです after ねこ)
  *   onstate(state, code),             code: the browser's error, if any
  *   onspeech(on),                     the player is speaking (or has just stopped)
  * }
@@ -29,6 +32,9 @@
   const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
   const QUICK_END = 1500;   // a listening that ends sooner than this, with nothing heard, ended at once
   const SPEECH_IDLE = 1300; // ms after the last word heard that the player is taken to have stopped speaking
+  const ECHO = 700;         // ms the phone takes to send back what it heard: the game's own voice is kept out this much longer
+  const TWICE = 600;        // a closed result that repeats the one before it this soon is the same words sent twice
+  const CARRY = 6000;       // ms the start of a phrase heard before a listening ended is offered with the next words
 
   let rec = null;           // the browser's recognition of the listening going on
   let session = 0;          // counts the listenings: an event from an old one is ignored
@@ -38,8 +44,13 @@
   let quickEnds = 0;
   let timer = 0;
   let last = null;          // the results of this listening as last seen: [{ alts, final }]
-  let used = null;          // what of them is used up: { session, index, text, all }
+  let used = null;          // what of them is used up: the results before `index` whole, and `text` of the open ones
+                            // from `index` on; `all`, the newest result's text (for a phone that repeats it)
   let repeats = false;      // this listening's phone repeats, in each new result, all it heard before (some Android phones)
+  let closedAt = [];        // when each result of this listening was first seen closed
+  let twice = new Set();    // the closed results of this listening that are the one before sent again
+  let twinOpen = new Set(); // the open results taken for that while they were open
+  let before = null;        // { text, at }: what the last listening heard and did not use up, when it ended
   let quietUntil = 0;
   let quietTimer = 0;
   let speaking = false;
@@ -78,6 +89,7 @@
       }
       last = null;
       used = null;
+      before = null;
       talk(false);
       if (api.state !== 'blocked' && api.state !== 'nomic' && api.state !== 'unsupported') set('off');
     },
@@ -103,27 +115,35 @@
 
     // What has been heard so far is used up: the next words heard are matched on their own.
     consume() {
+      before = null;
       if (!last || !last.length) return;
-      const tail = last[last.length - 1];
-      const all = tail.alts[0] || '';
-      used = tail.final ? { session, index: last.length, text: '', all } : { session, index: last.length - 1, text: all, all };
+      // the closed results whole; the open ones at the end (a browser may split one into a steady and a changing part)
+      // as far as they go now
+      let open = last.length;
+      while (open > 0 && !last[open - 1].final) open--;
+      const text = last.slice(open).map((x) => x.alts[0] || '').join('');
+      used = { session, index: open, text, all: last[last.length - 1].alts[0] || '' };
     },
 
-    // The game's own voice plays for `ms`: what is heard meanwhile (and a moment after) is not the player.
+    // The game's own voice plays for `ms`: what is heard meanwhile (and while the phone catches up) is not the player.
     quiet(ms) {
-      quietUntil = Math.max(quietUntil, Date.now() + ms);
+      quietUntil = Math.max(quietUntil, Date.now() + ms + ECHO);
       api.consume();
-      clearTimeout(quietTimer);
-      quietTimer = setTimeout(() => api.consume(), quietUntil - Date.now() + 300);
+      hushed();
     },
-    // The game's voice has finished (sooner than it was given): a moment more, and the player is heard again.
+    // The game's voice has finished (sooner than it was given): once the phone has caught up, the player is heard again.
     loud() {
-      quietUntil = Math.min(quietUntil, Date.now() + 250);
+      quietUntil = Math.min(quietUntil, Date.now() + ECHO);
       api.consume();
-      clearTimeout(quietTimer);
-      quietTimer = setTimeout(() => api.consume(), 300);
+      hushed();
     },
   };
+
+  // At the end of the game's voice, what was heard during it is used up once more (a result still open holds it).
+  function hushed() {
+    clearTimeout(quietTimer);
+    quietTimer = setTimeout(() => api.consume(), Math.max(0, quietUntil - Date.now()) + 50);
+  }
 
   function set(state, code) {
     const changed = api.state !== state;
@@ -184,6 +204,9 @@
     r.onend = () => {
       if (mine !== session) return;
       rec = null;
+      // what this listening heard and did not use up (the start of a phrase, and then a pause): offered with the next
+      const left = last ? fresh(last).map((p) => p.alts[0]).join('') : '';
+      if (left) before = { text: (before && Date.now() - before.at < CARRY ? before.text : '') + left, at: Date.now() };
       last = null;
       used = null;
       talk(false);
@@ -193,6 +216,9 @@
     startedAt = Date.now();
     heardAny = false;
     repeats = false;
+    closedAt = [];
+    twice = new Set();
+    twinOpen = new Set();
     last = null;
     used = null;
     set('starting');
@@ -206,35 +232,63 @@
     }
   }
 
-  // The words of this listening that are not used up, newest result last: [{ alts, final }].
+  // The words of this listening that are not used up, newest result last: [{ alts, final, carried }].
   function fresh(list) {
     const out = [];
     const u = used && used.session === session ? used : null;
+    let prefix = u ? u.text : '';
+    let all = u ? u.all : '';
     for (let i = u ? u.index : 0; i < list.length; i++) {
+      if (twice.has(i)) continue;
+      if (!list[i].final && sentTwice(list, i)) {
+        twinOpen.add(i);
+        continue;
+      }
       let alts = list[i].alts;
-      // what was used up, at the start of this result: of the result it was in, or (a phone that repeats all it has
-      // heard in each new result) of a later one, when more has been said after it
-      const prefix = !u ? '' : i === u.index && u.text ? u.text
-        : repeats && u.all && alts[0].length > u.all.length && alts[0].startsWith(u.all) ? u.all : '';
+      const top = alts[0];
+      let carried = false;
       if (prefix) {
-        // only what came after the used part is new; a result written over since (ねこ became 猫…) starts afresh
-        // once the browser closes it, so this listening is ended and begun again
-        if (!alts[0].startsWith(prefix)) {
-          if (!list[i].final && rec && api.mode === 'free') {
+        // what was used up of the results that were open: only what came after it is new
+        if (prefix.startsWith(top)) {
+          prefix = prefix.slice(top.length);
+          continue;
+        }
+        if (!top.startsWith(prefix)) {
+          // written over since (ねこ became 猫…), so what is new in it cannot be told
+          if (list[i].final) {
+            // closed: it is used up whole, and what comes after it is new
+            used = { session, index: i + 1, text: '', all: top };
+            prefix = '';
+            all = top;
+            continue;
+          }
+          // still open: hands-free, this listening is ended and begun again, so the next words come clean
+          if (rec && api.mode === 'free') {
             try {
               rec.stop();
             } catch (err) {
               // already ending
             }
           }
-          continue;
+          break;
         }
         alts = alts.filter((t) => t.startsWith(prefix)).map((t) => t.slice(prefix.length));
+        prefix = '';
+        carried = true;
+      } else if (repeats && all && top.length > all.length && top.startsWith(all)) {
+        // a phone that repeats, in each new result, all it heard before: only what follows the used part is new
+        alts = alts.filter((t) => t.startsWith(all)).map((t) => t.slice(all.length));
       }
       alts = alts.filter((t) => t.trim());
-      if (alts.length) out.push({ alts, final: list[i].final });
+      if (alts.length) out.push({ alts, final: list[i].final, carried });
     }
     return out;
+  }
+
+  // Result i is the closed one before it, sent again at once (some phones send each closed result twice).
+  function sentTwice(list, i) {
+    const a = list[i - 1];
+    return !!(a && a.final && list[i].alts[0] && list[i].alts[0] === a.alts[0] && Date.now() - closedAt[i - 1] < TWICE);
   }
 
   function results(list) {
@@ -245,6 +299,12 @@
       const alts = [];
       for (let k = 0; k < res.length; k++) if (res[k] && typeof res[k].transcript === 'string') alts.push(res[k].transcript);
       last.push({ alts: alts.length ? alts : [''], final: !!res.isFinal });
+    }
+    for (let i = 0; i < last.length; i++) {
+      if (!last[i].final || closedAt[i] !== undefined) continue;
+      closedAt[i] = now;
+      const same = i > 0 && last[i - 1].final && last[i].alts[0] === last[i - 1].alts[0];
+      if (same && closedAt[i - 1] !== undefined && (sentTwice(last, i) || twinOpen.has(i))) twice.add(i);
     }
     // a new result that begins with all of the closed one before it: this phone repeats what it heard
     for (let k = 1; k < last.length && !repeats; k++) {
@@ -263,10 +323,12 @@
     talk(true);
     const newest = parts[parts.length - 1];
     const texts = newest.alts.slice();
-    // a phrase the browser cut in two is matched whole too
-    if (parts.length > 1) texts.push(parts.map((p) => p.alts[0]).join(''));
+    const joined = parts.map((p) => p.alts[0]).join('');
+    // a phrase the browser cut in two is matched whole too, and so is one begun before the last listening ended
+    if (parts.length > 1) texts.push(joined);
+    if (before && now - before.at < CARRY) texts.push(before.text + joined);
     try {
-      if (api.onheard) api.onheard(texts, newest.final);
+      if (api.onheard) api.onheard(texts, newest.final, newest.carried);
     } catch (err) {
       console.error(err);
     }
@@ -288,9 +350,10 @@
     }
   }
 
-  // The browser ended a listening: begin again (hands-free), at once unless it keeps ending at once.
+  // The browser ended a listening: begin again (hands-free, or while the button is held), at once unless it keeps
+  // ending at once.
   function ended() {
-    if (!wanted || api.mode !== 'free') {
+    if (!wanted) {
       if (api.state === 'on' || api.state === 'starting') set('off');
       return;
     }

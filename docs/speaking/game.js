@@ -6,8 +6,9 @@
  *   (七転び八起き) and it comes back later in the round, after about three other cards. One that has squashed him twice
  *   stops above him, on his umbrella, with its reading shown, and waits; the skip button passes it over.
  * - Climb (のぼる): ledges above Yaoki, each with a word on its sign; saying the word makes him jump up to it. There is
- *   no hurry. A word heard wrong and he slips back down, and gets up again; after two slips the sign shows its reading
- *   and the skip button lets him climb past it.
+ *   no hurry. A word heard wrong and he slips back down, and gets up again; after two slips (or 20 seconds on a sign
+ *   the phone does not hear) the sign shows its reading and the skip button lets him climb past it. The next sign said
+ *   while he is still in the air, or getting up, is jumped for as soon as he can.
  *
  * What the phone heard is listened for by listen.js and checked by voice.js, as it is said: the part of the card
  * heard so far turns green, a card is cleared the moment it has been said, and a near miss is named (a small っ, a long
@@ -67,6 +68,7 @@
   const SLIP_T = 1.3;          // Climb: a slip back down, and up again
   const JUMP_T = 0.62;         // Climb: a jump up to the next ledge
   const STEP = 128;            // Climb: the least height from one ledge to the next
+  const SIGN_WAIT = 20;        // Climb: seconds on a sign before it can be skipped anyway (the phone may not hear it)
   const DAY_TILTS = [-9, 6, -4, 8, -7, 5, -10];
   // what Yaoki does once a card is said: by how it was said
   const TRICKS = {
@@ -353,6 +355,7 @@
   let view = { W: VW, H: 360, s: 1, dpr: 1 };
   let pal = palette();
   let startTicket = 0;
+  let roundShownAt = -1e9;      // when the round's view came up (performance.now())
 
   async function startRound(weakOnly) {
     // always from a tap: the moment to wake the audio, and to start listening (a phone asks for the microphone then)
@@ -366,6 +369,8 @@
       deck = deal(items, saved.len, false);
     }
     if (!deck.length) return;
+    // the round takes the microphone test's listening over
+    if (micTest.on) micTestEnd('', saved.mic === 'free');
     if (saved.mic === 'free') L.listen(true);
     const from = phase;
     const modeId = saved.mode;
@@ -376,7 +381,9 @@
     const style = saved.style;
     // the cards are measured in the typeface they are drawn in (a short wait at most); a newer start wins
     await fontsFor(deck);
-    if (ticket !== startTicket || phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) {
+    // a newer start goes on in this one's place
+    if (ticket !== startTicket) return;
+    if (phase !== from || saved.mode !== modeId || stageKey() !== key || !$('settings-sheet').hidden) {
       if (phase !== 'play') L.stop();
       return;
     }
@@ -417,6 +424,7 @@
     r.song = songFor(r.place);
     hush();
     setPhase('play');
+    roundShownAt = performance.now();
     startMusic();
     if (document.hidden) setPhase('paused');
     resize();
@@ -550,6 +558,27 @@
     return c && (c.halted || c.y >= 4) ? c : null;
   }
 
+  // Climb: the card what is heard goes to while Yaoki cannot jump yet (getting up after a slip, or in the air); a word
+  // said right is jumped for as soon as he can (r.pending).
+  function nextUp() {
+    if (!r || r.style !== 'climb' || r.finale !== null) return null;
+    let card = null;
+    if (r.jump) {
+      const ledge = r.jump.card ? r.ledges[r.ledges.indexOf(r.jump.card.ledge) + 1] : null;
+      card = ledge ? ledge.card : null;
+    } else if (r.fall && r.fall.kind === 'slip') {
+      card = r.fall.card;
+    }
+    return card && card.state === 'live' ? card : null;
+  }
+
+  // A card that waits for Yaoki: its reading shows, and the skip button passes it over.
+  function haltCard(card) {
+    card.halted = true;
+    layoutCard(card);
+    showSay(card);
+  }
+
   function update(dt) {
     // speaking time for the day's stamp: it stops 8 seconds after the last word heard
     if (r.time - r.lastVoiceAt < PRACTICE_IDLE) r.practice += dt;
@@ -617,6 +646,11 @@
         cheer('idle', 1.6);
       }
       raiseHint(t);
+      // Climb: a sign that has waited long (a single sound, which a phone may not hear at all) can be passed over too
+      if (r.style === 'climb' && !t.halted && r.time - t.shownAt >= SIGN_WAIT) {
+        haltCard(t);
+        say(t.item.text + (t.item.ruby ? '、' + t.item.reading : ''), 'The skip button passes this one over.');
+      }
       if (fresh) {
         speakTarget(t);
         showSay(t);
@@ -910,7 +944,14 @@
     }
     r.at = r.ledges.indexOf(j.card.ledge);
     if (j.kind === 'super') burst(j.toX, j.toY - 10, 12, pal.gold);
-    if (r.cleared + r.skipped >= r.total) toTop();
+    if (r.cleared + r.skipped >= r.total) {
+      toTop();
+    } else if (r.pending && !r.fall) {
+      // the next sign, said right while he was in the air: up he goes again
+      const p = r.pending;
+      r.pending = null;
+      if (p.state === 'live' && p === targetCard()) clearCard(p);
+    }
   }
   // The last ledge: up onto the top, and the round is over.
   function toTop() {
@@ -922,7 +963,7 @@
 
   // ---------- speech ----------
 
-  L.onheard = (texts, final) => heard(texts, final);
+  L.onheard = (texts, final, carried) => heard(texts, final, carried);
   L.onstate = () => micUI();
   L.onspeech = (on) => {
     if (r) r.speaking = on;
@@ -931,7 +972,7 @@
     micUI();
   };
 
-  function heard(texts, final) {
+  function heard(texts, final, carried) {
     if (micTest.on) {
       micTestHeard(texts, final);
       return;
@@ -942,7 +983,7 @@
       return;
     }
     r.lastVoiceAt = r.time;
-    const c = targetCard() || (r.fall && r.fall.kind === 'slip' ? r.fall.card : null);
+    const c = targetCard() || nextUp();
     if (!c) {
       // nothing to say just now: what was said is used up
       L.consume();
@@ -950,6 +991,11 @@
     }
     const res = V.best(c.item.t, texts);
     if (!res) return;
+    if (res.empty) {
+      // only marks (a 。 the phone added at the end): nothing was said
+      if (final) L.consume();
+      return;
+    }
     if (c.firstHeardAt === null) c.firstHeardAt = r.time;
     c.idle = 0;
     r.yk.nodT = NOD_T;
@@ -957,7 +1003,8 @@
       L.consume();
       c.fill = c.item.t.len;
       showHeard(res, 'good');
-      if (r.fall) r.pending = c;
+      // Climb: said while he is getting up, or in the air, he jumps for it as soon as he can
+      if (r.fall || r.jump) r.pending = c;
       else clearCard(c);
       return;
     }
@@ -965,6 +1012,13 @@
     // the start of the card with a pause after it (the phone closed what it had heard so far): the rest is to come,
     // and is heard together with it
     const begun = final && res.fill > 0;
+    if (final && !begun && (carried || r.jump)) {
+      // the rest of words that cleared the card before (ねこです after ねこ), or words said while Yaoki was in the
+      // air: no answer to this card
+      L.consume();
+      showHeard(null);
+      return;
+    }
     showHeard(res, final && !begun ? 'bad' : '');
     if (final && !begun) {
       L.consume();
@@ -985,11 +1039,7 @@
     const note = saved.hints === 'never' || !res.note ? '' : ja(res.note.ja) + '　' + jaMarked(res.note.en);
     setStatus(note, 'bad', true);
     sfx('miss');
-    if (card.misses >= 2 && !card.halted) {
-      card.halted = true;
-      layoutCard(card);
-      showSay(card);
-    }
+    if (card.misses >= 2 && !card.halted) haltCard(card);
     if (r.style === 'climb' && !r.fall && !r.jump) {
       // he tries for the ledge, bumps his head and slips back down; then up he gets
       r.fall = { kind: 'slip', t: 0, card, length: reducedMotion.matches ? 0.6 : SLIP_T, rose: false };
@@ -1138,6 +1188,8 @@
 
   // A card that waits for Yaoki can be passed over with the skip button.
   function skipCard(card) {
+    // what was being said for it is not said for the next
+    L.consume();
     if (card.misses || card.hinted || card.halted) markMiss(r.stats, card.item.text);
     r.skipped++;
     r.target = null;
@@ -1146,6 +1198,9 @@
     showHeard(null);
     if (r.style === 'climb') {
       card.state = 'skipped';
+      // up at once, if he was still getting up from a slip
+      r.fall = null;
+      r.pending = null;
       jumpTo(card, 'hop');
       if (r.cleared + r.skipped >= r.total) startFinale();
     } else {
@@ -1213,6 +1268,7 @@
   }
   const canModel = (item) => !!((item.clip && window.ykSound && window.ykSound.has(item.clip)) || (jaVoice && window.SpeechSynthesisUtterance));
 
+  let voiceTurn = 0;   // the word said last: the end of one said before it is not its end
   function playModel(c) {
     const it = c.item;
     let ms = 0;
@@ -1223,13 +1279,22 @@
     } else if (jaVoice && window.SpeechSynthesisUtterance) {
       try {
         const u = new window.SpeechSynthesisUtterance(it.reading);
+        const mine = ++voiceTurn;
+        const est = 700 + it.beats * 280;
         u.lang = 'ja-JP';
         u.voice = jaVoice;
         u.rate = 0.85;
-        u.onend = () => L.loud();
+        // kept out of what is heard from when the voice really starts (it can start late) until it ends
+        u.onstart = () => {
+          if (mine === voiceTurn) L.quiet(est);
+        };
+        u.onend = () => {
+          if (mine === voiceTurn) L.loud();
+        };
+        u.onerror = u.onend;
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(u);
-        ms = 700 + it.beats * 280;
+        ms = est + 800;
       } catch (err) {
         ms = 0;
       }
@@ -1603,8 +1668,13 @@
   }
   function micTap() {
     if (phase !== 'play' || saved.mic === 'hold') return;
-    if (L.state === 'on' || L.state === 'starting') L.stop();
-    else L.listen(true);
+    if (L.state === 'on' || L.state === 'starting') {
+      // the second tap of a double tap on Start lands here, where Start was: it does not stop the listening just begun
+      if (performance.now() - roundShownAt < 500) return;
+      L.stop();
+    } else {
+      L.listen(true);
+    }
     micUI();
   }
 
@@ -1635,10 +1705,12 @@
       micTest.timer = setTimeout(() => micTestEnd(null), 1200);
     }
   }
-  function micTestEnd(message) {
+  // keep: a round takes the test's listening over, so what the test heard is only used up
+  function micTestEnd(message, keep) {
     clearTimeout(micTest.timer);
     micTest.on = false;
-    L.stop();
+    if (keep) L.consume();
+    else L.stop();
     L.mode = saved.mic;
     $('mic-test-label').innerHTML = ja('テスト') + '　Test';
     if (message) $('mic-test-out').textContent = message;
@@ -3418,6 +3490,7 @@
   window.ykSpeaking = {
     state() {
       const t = r ? targetCard() : null;
+      const up = r ? nextUp() : null;
       const yk = r ? r.yk : null;
       return {
         phase,
@@ -3458,6 +3531,9 @@
         cards: r ? r.cards.map((c) => ({ text: c.item.text, state: c.state, x: Math.round(c.x), y: Math.round(c.y), w: Math.round(c.w), h: Math.round(c.h), clean: c.clean, comeback: c.comeback, star: c.star, trick: c.trick })) : [],
         ledges: r ? r.ledges.length : 0,
         atTop: !!(r && r.atTop),
+        jumping: !!(r && r.jump),
+        upNext: up ? { text: up.item.text, reading: up.item.reading } : null,
+        heardWrong: r ? r.misheard.length : 0,
       };
     },
   };
