@@ -32,7 +32,7 @@
     { kana: ['ら', 'り', 'る', 'れ', 'ろ'], words: [w('とり', 'bird', '鳥'), w('はる', 'spring', '春'), w('くるま', 'car', '車'), w('そら', 'sky', '空'), w('さくら', 'cherry blossom', '桜')] },
     {
       kana: ['わ', 'を', 'ん'], words: [w('わたし', 'I, me', '私'), w('かわ', 'river', '川'), w('ほん', 'book', '本'), w('みかん', 'mandarin orange'), w('にほん', 'Japan', '日本')],
-      note: 'を sounds just like お; in a sentence it marks what is done to something. ん is a sound of its own, like the n of "sun".',
+      note: 'を sounds just like お; in a sentence it comes after the thing an action is done to: ほんをよむ, read a book. ん is a sound of its own, like the n of "sun".',
     },
     {
       kana: ['が', 'ぎ', 'ぐ', 'げ', 'ご', 'ざ', 'じ', 'ず', 'ぜ', 'ぞ', 'だ', 'ぢ', 'づ', 'で', 'ど'],
@@ -62,7 +62,7 @@
     { kana: ['ナ', 'ニ', 'ヌ', 'ネ', 'ノ'], words: [w('ネクタイ', 'necktie'), w('ノート', 'notebook'), w('テニス', 'tennis'), w('カヌー', 'canoe')] },
     { kana: ['ハ', 'ヒ', 'フ', 'ヘ', 'ホ'], words: [w('コーヒー', 'coffee'), w('ハート', 'heart'), w('ソフト', 'soft')] },
     { kana: ['マ', 'ミ', 'ム', 'メ', 'モ'], words: [w('トマト', 'tomato'), w('メモ', 'memo'), w('ハム', 'ham'), w('ホーム', 'platform')] },
-    { kana: ['ヤ', 'ユ', 'ヨ'], words: [w('タイヤ', 'tyre'), w('ヨーヨー', 'yo-yo'), w('ユニホーム', 'uniform')] },
+    { kana: ['ヤ', 'ユ', 'ヨ'], words: [w('タイヤ', 'tyre'), w('ヨーヨー', 'yo-yo'), w('ユーモア', 'humour')] },
     { kana: ['ラ', 'リ', 'ル', 'レ', 'ロ'], words: [w('カメラ', 'camera'), w('ホテル', 'hotel'), w('トイレ', 'toilet'), w('アメリカ', 'America')] },
     {
       kana: ['ワ', 'ヲ', 'ン'], words: [w('ワイン', 'wine'), w('ラーメン', 'ramen'), w('メロン', 'melon'), w('レモン', 'lemon')],

@@ -643,6 +643,11 @@ const FAKE_VOICE_LOG = `(function () {
   check('…a lesson has its own length: no cards-per-round choice', !(await page.isVisible('#len-pick')) && (await page.isVisible('#lesson-chart')));
   await page.tap('#chart-kana .kana-tile:nth-child(3)');
   check('a kana tapped in the chart is said in the phone\'s Japanese voice', await waitFor(async () => (await page.evaluate(() => window.__spoken.map((x) => x.text))).includes('う'), 1000));
+  await page.tap('#mic-test');
+  await waitFor(async () => (await speech(page)).active, 2000);
+  await page.tap('#chart-kana .kana-tile:nth-child(2)');
+  check('…tapped during the microphone test, it stops the test, and the test\'s line no longer says it listens', await waitFor(async () => !(await speech(page)).active, 1500)
+    && /^Say\s*こんにちは/.test(await page.textContent('#mic-test-out')), await page.textContent('#mic-test-out'));
   await page.tap('#lessons .lesson-group:nth-child(1) .lesson:nth-child(13)');
   check('the last hiragana lesson: きゃ to じょ, three to a row, and a note on the small kana and っ', (await page.$$('#chart-kana .kana-tile')).length === 12
     && await page.evaluate(() => getComputedStyle(document.getElementById('chart-kana')).gridTemplateColumns.split(' ').length === 3) && /small っ/.test(await page.textContent('#chart-note')));
@@ -673,6 +678,20 @@ const FAKE_VOICE_LOG = `(function () {
   const saidBefore = (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length;
   await page.tap('#resume');
   check('a new kana cut off by a pause is said again when the round goes on', await waitFor(async () => (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length === saidBefore + 1, 2500));
+  await page.context().close();
+  // Climb, on a phone that takes a while to start listening (it may be asking for the microphone)
+  page = await open({}, { [STORE]: { mode: 'start', stage: { start: 'h1' }, style: 'climb' } }, [FAKE_VOICE_LOG, SFX_STUB]);
+  await page.evaluate(() => { window.__speech.startDelay = 2000; });
+  await page.tap('#start');
+  t = await target(page);
+  const timesSaid = async () => (await page.evaluate(() => window.__spoken.map((x) => x.text))).filter((x) => x === t.text).length;
+  await sleep(1000);
+  check('Climb: a new kana is not said before the phone listens', (await timesSaid()) === 0 && (await state(page)).mic === 'starting', JSON.stringify((await speech(page)).log));
+  check('…it is said once the phone listens', await waitFor(async () => (await timesSaid()) === 1, 5000));
+  check('…a player stuck on it hears it again, and that is no hint', await waitFor(async () => (await timesSaid()) === 2, 10000) && (await state(page)).hints === 0);
+  await waitFor(async () => !(await state(page)).voicing && (await speech(page)).active, 4000);
+  await say(page, t.reading, { final: true });
+  check('…so said then, it is clean', await waitFor(async () => (await state(page)).cleared === 1, 1500) && (await state(page)).clean === 1);
   await page.context().close();
   // after the new kana, the round's kana and words are read without their letters, which show when stuck
   page = await open({}, { [STORE]: { mode: 'start', stage: { start: 'h2' }, style: 'climb' } }, [FAKE_VOICE_LOG, SFX_STUB]);
@@ -778,7 +797,15 @@ const FAKE_VOICE_LOG = `(function () {
   await page.tap('#hear');
   await sleep(80);
   s = await state(page);
-  check('きく on a phone with no Japanese voice shows the reading, and counts as a hint', s.hints === 1 && s.target && s.target.readingShown && /no Japanese voice/.test(await page.textContent('#status')));
+  check('きく on a phone with no Japanese voice shows the reading, and counts as a hint', s.hints === 1 && s.target && s.target.readingShown && /No Japanese voice/.test(await page.textContent('#status')));
+  check('…the world\'s foot follows the dock as the note in it grows', await waitFor(async () => {
+    const fit = await page.evaluate(() => {
+      const x = window.ykSpeaking.state();
+      const box = document.querySelector('.stage-wrap').getBoundingClientRect();
+      return Math.abs((x.H - x.view.bottom) * x.view.s - (document.getElementById('dock').getBoundingClientRect().top - box.top));
+    });
+    return fit < 3;
+  }, 1500));
   await say(page, t.reading, { final: true });
   check('…so the card is cleared, but not clean', await waitFor(async () => (await state(page)).cleared === 1, 1500) && (await state(page)).clean === 0);
   await page.context().close();
@@ -802,6 +829,28 @@ const FAKE_VOICE_LOG = `(function () {
   await page.setViewportSize({ width: 390, height: 664 });
   await page.tap('#resume');
   check('…upright, and continued, the music starts', await waitFor(async () => (await page.evaluate(() => window.__music.slice())).some((m) => /^start:/.test(m)), 2000));
+  await page.context().close();
+
+  // ---- a word that begins with the card said before it, from a phone that sends each phrase on its own
+  page = await open({}, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'climb', len: 5, hints: 'never' } }, [SFX_STUB]);
+  await page.tap('#start');
+  t = await target(page);
+  await waitFor(async () => (await speech(page)).active, 2000);
+  // as if the card before were the first sound of this one, said and used up; then this card's word, whole
+  const head = Array.from(t.reading)[0];
+  await page.evaluate((x) => window.__speech.emit([{ alts: [x], final: true }]), head);
+  await page.evaluate(() => window.SpeakingListen.consume());
+  await page.evaluate(([x, w]) => window.__speech.emit([{ alts: [x], final: true }, { alts: [w], final: true }]), [head, t.reading]);
+  check('a word that begins with the card said before it (いえ after い) still counts whole', await waitFor(async () => (await state(page)).cleared === 1, 1500) && (await state(page)).heardWrong === 0, JSON.stringify(await state(page)).slice(0, 300));
+  await page.context().close();
+  page = await open({ viewport: { width: 375, height: 548 } }, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5, hints: 'never' } }, [SFX_STUB]);
+  await page.tap('#start');
+  await target(page);
+  const shownAt = Date.now();
+  const T1 = (await state(page)).T;
+  await waitFor(async () => (await state(page)).falls === 1, 40000);
+  const took = (Date.now() - shownAt) / 1000;
+  check('Falling on a short screen (an iPhone SE in Safari): a card can be said for all its time, from below the bar to Yaoki', took >= 0.9 * T1, JSON.stringify({ took, T: T1 }));
   await page.context().close();
 
   // ---- turned on its side, the round waits; reduced motion

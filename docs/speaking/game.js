@@ -55,7 +55,7 @@
   const STUCK_FIRST = 6;       // seconds without a word before the first step of a hint
   const STUCK_NEXT = 5;        // and again before the second
   const RING_T = 0.32;         // s a thing's ring of light lasts, where it broke
-  const VOICE_START = 2500;    // ms the phone's voice is given to start saying a word (the first time, while it wakes, 5000)
+  const VOICE_START = 2500;    // ms the phone's voice is given to start saying a word (the first time in a visit, 5000)
   const TEACH_WAIT = 0.4;      // s a lesson's new kana is in view before it is said
   const RUN_STEPS = [5, 10, 20, 40];
   const GOALS = [3, 5, 10];    // minutes of speaking a day for the day's stamp
@@ -769,7 +769,9 @@
       const fresh = t !== r.target;
       r.target = t;
       r.active += dt;
-      if (!r.speaking && !r.voicing) t.idle += dt;
+      // till the phone has first listened (it may be asking for the microphone), no card is stuck
+      if (!r.listened) r.listened = saved.mic === 'hold' || L.state !== 'starting';
+      if (!r.speaking && !r.voicing && r.listened) t.idle += dt;
       if (t.idle >= 3.5 && !t.nudged && !t.fill) {
         t.nudged = true;
         cheer('idle', 1.6);
@@ -796,13 +798,13 @@
       } else if (r.pendingSpeak === t) {
         speakTarget(t);
       }
-      // a lesson's new kana: said for the player once it is in view, to be said back (it is no hint)
-      if (t.teachAt !== null && r.time >= t.teachAt && !r.voicing && t.state === 'live') {
+      // a lesson's new kana: said for the player once it is in view and the phone listens, to be said back (no hint)
+      if (t.teachAt !== null && r.time >= t.teachAt && !r.voicing && r.listened && t.state === 'live') {
         t.teachAt = Infinity;
         // a phone whose voice has twice said nothing this round is not asked again unless the player taps きく
         if ((r.voiceFailed >= 2 || !playModel(t, true)) && !r.toldNoVoice) {
           r.toldNoVoice = true;
-          setStatus(NO_VOICE, 'warn');
+          setStatus(r.voiceFailed >= 2 ? VOICE_QUIET : NO_VOICE, 'warn');
         }
       }
     } else if (r.target && !r.fall) {
@@ -826,7 +828,8 @@
       r.T = Math.max(5, Math.min(32, 1.35 * longest));
     }
     r.maxH = Math.max(60, ...r.queue.map((e) => measureH(e.item)), ...r.cards.map((c) => c.h));
-    r.speed = Math.max(8, (impactY() - r.maxH - 4) / r.T);
+    // the tallest card's way down in the round's time: from where it can first be said, just below the bar, to Yaoki
+    r.speed = Math.max(8, (impactY() - r.maxH - 4 - view.top) / r.T);
   }
   const heights = new Map();
   function measureH(item) {
@@ -1107,7 +1110,7 @@
 
   // ---------- speech ----------
 
-  L.onheard = (texts, final, carried) => heard(texts, final, carried);
+  L.onheard = (texts, final, carried, whole) => heard(texts, final, carried, whole);
   L.onstate = () => micUI();
   L.onspeech = (on) => {
     if (r) r.speaking = on;
@@ -1116,7 +1119,7 @@
     micUI();
   };
 
-  function heard(texts, final, carried) {
+  function heard(texts, final, carried, whole) {
     if (micTest.on) {
       micTestHeard(texts, final);
       return;
@@ -1133,7 +1136,9 @@
       L.consume();
       return;
     }
-    const res = V.best(c.item.t, texts);
+    let res = V.best(c.item.t, texts);
+    // the start cut off what was heard, as a phone that repeats itself would need: but the whole was the card's word
+    if (whole && !(res && res.ok) && whole.some((w) => sameWord(c.item, w))) res = { ok: true, fill: c.item.t.len, said: null, note: null };
     if (!res) return;
     if (res.empty) {
       // only marks (a 。 the phone added at the end): nothing was said
@@ -1170,6 +1175,12 @@
     } else {
       sfx('heard');
     }
+  }
+
+  // What was heard is the card's word itself, as written or as read (punctuation aside).
+  function sameWord(item, text) {
+    const n = V.normalize(text);
+    return !!n && (n === V.normalize(item.text) || n === V.normalize(item.reading));
   }
 
   // The phone heard another word: the card flashes, the hint steps up, and the slip is named if it is a common one.
@@ -1249,7 +1260,7 @@
     card.clean = clean;
     if (clean) r.clean++;
     // 起: Falling, a card that squashed Yaoki, said this time with no miss and no hint; Climb, said after a slip
-    card.comeback = !clean && (r.style === 'climb' ? card.misses > 0 && !card.halted : card.entry.falls >= 1 && !card.halted && !card.misses && card.level === 0);
+    card.comeback = !clean && (r.style === 'climb' ? card.misses > 0 && !card.halted : card.entry.falls >= 1 && !card.halted && !card.misses && !card.hinted && card.level === 0);
     card.star = !!card.entry.weak && clean && card.level < 1;
     measure(card);
     applyStats(card);
@@ -1379,7 +1390,8 @@
     if (level > c.level) {
       c.level = level;
       c.idle = 0;
-      if (!c.hinted) {
+      // a lesson's new kana said again is part of the lesson, not a hint
+      if (!c.hinted && !c.entry.intro) {
         c.hinted = true;
         r.hints++;
       }
@@ -1429,7 +1441,10 @@
   }
   const hasClip = (item) => !!(item.clip && window.ykSound && window.ykSound.has(item.clip));
   const NO_VOICE_CHART = 'This phone has no Japanese voice to say the kana. One can be added in the phone\'s settings: Spoken Content on an iPhone or iPad, Text-to-speech on Android. In the round, each new kana shows its sound in letters.';
-  const NO_VOICE = 'This phone has no Japanese voice to say the word, so its sound in letters shows instead. One can be added in the phone\'s settings: Spoken Content on an iPhone or iPad, Text-to-speech on Android.';
+  // short, for the line under the game
+  const NO_VOICE = 'No Japanese voice on this phone, so the sound shows in letters.';
+  const VOICE_FAILED = 'The phone did not say the word, so its sound shows in letters.';
+  const VOICE_QUIET = 'The phone is not saying the words, so their sounds show in letters.';
   const canModel = (item) => hasClip(item) || canSpeak();
 
   // Says `text` in the phone's Japanese voice: on.start(ms) when it really starts (it can start late, with ms its
@@ -1437,7 +1452,7 @@
   // not start).
   let voiceTurn = 0;      // the voice asked for last: the end of one asked for before it is not its end
   let utterance = null;   // the voice playing, kept, so the browser does not lose it (and its end) halfway
-  let voiceWoke = false;  // the phone's voice has started once: it is awake
+  let voiceTried = false; // the phone's voice has been asked once this visit (the first time, it may be slow to wake)
   function speakJa(text, rate, on) {
     const synth = window.speechSynthesis;
     const mine = ++voiceTurn;
@@ -1465,7 +1480,6 @@
     u.onstart = () => {
       if (over || started) return;
       started = true;
-      voiceWoke = true;
       clearTimeout(timer);
       // an end that never comes (it happens): the voice is taken to be over well after it should be
       timer = setTimeout(() => finish('done'), est * 2 + 1500);
@@ -1502,7 +1516,8 @@
         // nothing to stop
       }
       finish('failed');
-    }, voiceWoke ? VOICE_START : 2 * VOICE_START);
+    }, voiceTried ? VOICE_START : 2 * VOICE_START);
+    voiceTried = true;
   }
   function stopVoice() {
     voiceTurn++;
@@ -1544,7 +1559,7 @@
       if (!voicePaused) L.loud();
       if (how === 'failed') round.voiceFailed = (round.voiceFailed || 0) + 1;
       if (how === 'failed' && current()) {
-        setStatus('The phone did not say the word. Its sound in letters is on the card' + (it.teach ? '.' : ' and under the game.'), 'warn');
+        setStatus(VOICE_FAILED, 'warn');
         if (c.level < 1) {
           c.level = 1;
           layoutCard(c);
@@ -1961,7 +1976,7 @@
     else if (st !== 'starting') micWasOn = false;
     const shown = st === 'starting' && micWasOn ? 'on' : st;
     const voicing = !!(r && r.voicing) && phase === 'play';
-    const key = voicing && st === 'off' ? 'voice' : saved.mic === 'hold' && !held && (shown === 'off' || shown === 'on' || shown === 'starting') ? 'hold' : shown in MIC_TEXT ? shown : 'off';
+    const key = voicing && voicePaused && st === 'off' ? 'voice' : saved.mic === 'hold' && !held && (shown === 'off' || shown === 'on' || shown === 'starting') ? 'hold' : shown in MIC_TEXT ? shown : 'off';
     const t = MIC_TEXT[key];
     btn.classList.toggle('on', listening);
     btn.classList.toggle('speech', !!(r && r.speaking && listening));
@@ -2020,7 +2035,8 @@
   }
 
   // The microphone check on the menu: a few seconds of listening, and what was heard.
-  const micTest = { on: false, timer: 0 };
+  const micTest = { on: false, timer: 0, heard: false };
+  const MIC_TEST_REST = 'Say ' + ja('こんにちは') + ' to check that your phone hears you.';
   function micTestStart() {
     if (!L.supported) return;
     wakeAudio();
@@ -2029,6 +2045,7 @@
       return;
     }
     micTest.on = true;
+    micTest.heard = false;
     L.mode = 'free';
     L.listen(true);
     $('mic-test-label').innerHTML = ja('ストップ') + '　Stop';
@@ -2039,6 +2056,7 @@
   function micTestHeard(texts, final) {
     const text = (texts[0] || '').trim();
     if (!text) return;
+    micTest.heard = true;
     const r0 = V.best(V.prepare({ text: 'こんにちは' }), texts);
     $('mic-test-out').innerHTML = ja('聞こえた') + '　' + ja('「' + text + '」') + (r0 && r0.ok ? '　' + ja('ばっちり！') + ' The phone hears you well.' : '');
     if (final) {
@@ -2055,6 +2073,7 @@
     L.mode = saved.mic;
     $('mic-test-label').innerHTML = ja('テスト') + '　Test';
     if (message) $('mic-test-out').textContent = message;
+    else if (message === '' && !micTest.heard) $('mic-test-out').innerHTML = MIC_TEST_REST;
   }
   function micTestState() {
     if (!micTest.on) return;
@@ -2762,16 +2781,17 @@
     const ch = wrap.clientHeight;
     if (!cw || !ch) return;
     const dpr = Math.min(3, window.devicePixelRatio || 1);
-    // as wide as the screen, at least VW units, never so large that a phone shows too little of the world
-    const s = Math.max(0.8, Math.min(2.2, cw / VW, ch / 320));
-    const old = view;
     // the controls over the world: the bar at the top and the dock at the foot
     const box = wrap.getBoundingClientRect();
     const hudEl = document.querySelector('#play .hud');
     const dockEl = $('dock');
     const top = hudEl && hudEl.offsetHeight ? Math.max(0, hudEl.getBoundingClientRect().bottom - box.top) : 0;
-    const bottom = dockEl && dockEl.offsetHeight ? Math.max(0, box.bottom - dockEl.getBoundingClientRect().top) : 0;
-    view = { W: cw / s, H: ch / s, s, dpr, top: top / s, bottom: Math.min(bottom / s, ch / s * 0.5) };
+    const bottom = Math.min(ch * 0.5, dockEl && dockEl.offsetHeight ? Math.max(0, box.bottom - dockEl.getBoundingClientRect().top) : 0);
+    // as wide as the screen, at least VW units, with at least 320 between the bar and the dock (the room the cards
+    // come down in), never so large that a phone shows too little of the world
+    const s = Math.max(0.8, Math.min(2.2, cw / VW, Math.max(1, ch - top - bottom) / 320));
+    const old = view;
+    view = { W: cw / s, H: ch / s, s, dpr, top: top / s, bottom: bottom / s };
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
     if (!r) return;
@@ -3871,7 +3891,12 @@
   renderSettings();
 
   window.addEventListener('resize', () => resize());
-  if (window.ResizeObserver) new ResizeObserver(() => resize()).observe(canvas.parentElement);
+  if (window.ResizeObserver) {
+    // the screen, and the dock over the foot of the world (a note in it on two lines takes some of the room)
+    const watch = new ResizeObserver(() => resize());
+    watch.observe(canvas.parentElement);
+    watch.observe($('dock'));
+  }
   if (sideways.addEventListener) sideways.addEventListener('change', upright);
   function creditAway() {
     if (r && (phase === 'play' || phase === 'paused')) {
@@ -3941,24 +3966,27 @@
     // the card being said; between two, the one coming next
     const t = targetCard() || nextUp() || (r.style === 'fall' && !r.fall ? r.cards.find((c) => c.state === 'live') : null);
     if (!t) return;
+    // a lesson's new kana is there to be heard: hearing it again is no hint
+    const hint = () => {
+      if (!t.hinted && !t.entry.intro) {
+        t.hinted = true;
+        r.hints++;
+      }
+    };
     if (!canModel(t.item)) {
       setStatus(NO_VOICE, 'warn');
       if (t.level < 1) {
-        if (!t.hinted) {
-          t.hinted = true;
-          r.hints++;
-        }
+        hint();
         t.level = 1;
         layoutCard(t);
         showSay(t);
       }
       return;
     }
-    // a lesson's new kana is there to be heard: hearing it again is no hint
-    if (!t.hinted && !t.entry.intro) {
-      t.hinted = true;
-      r.hints++;
-    }
+    hint();
+    // heard now, a new kana is not said again by itself when it comes; and the time to be stuck starts again
+    if (t.entry.intro) t.teachAt = Infinity;
+    t.idle = 0;
     playModel(t);
   });
   const mic = $('mic');
@@ -4074,6 +4102,7 @@
         T: r ? r.T : 0,
         W: view.W,
         H: view.H,
+        view: { top: view.top, bottom: view.bottom, s: view.s },
         cards: r ? r.cards.map((c) => ({ text: c.item.text, state: c.state, x: Math.round(c.x), y: Math.round(c.y), w: Math.round(c.w), h: Math.round(c.h), clean: c.clean, comeback: c.comeback, star: c.star, trick: c.trick })) : [],
         ledges: r ? r.ledges.length : 0,
         atTop: !!(r && r.atTop),

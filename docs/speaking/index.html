@@ -176,7 +176,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 .heard [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 17px; color: var(--ink); }
 .heard.bad [lang="ja"] { color: var(--bad); }
 .heard.good [lang="ja"] { color: var(--good); }
-.status { min-height: 18px; line-height: 18px; margin: 0; font-size: 13px; font-weight: 800; }
+.status { min-height: 18px; line-height: 18px; margin: 0; font-size: 13px; font-weight: 800; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
 .status.bad { color: var(--bad); }
 .status.warn { color: var(--stamp); }
 /* the microphone: big and in reach of a thumb, with the listen and skip buttons beside it */
@@ -195,7 +195,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 .mic.speech::before { animation-duration: 0.7s; border-color: var(--gold); }
 .mic.held { transform: translateY(3px); box-shadow: 0 1px 0 var(--hard); }
 .mic.warn { border-color: var(--stamp); color: var(--stamp); }
-.mic-state { text-align: center; margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); min-height: 18px; }
+.mic-state { text-align: center; margin-top: 0; margin-bottom: 0; font-size: 12px; font-weight: 800; color: var(--muted); min-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* sheets: settings, pause */
 .scrim { position: fixed; inset: 0; z-index: 20; background: var(--scrim); animation: yk-fade 160ms ease-out; display: flex; align-items: flex-end; justify-content: center; }
