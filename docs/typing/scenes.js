@@ -2114,104 +2114,227 @@
   const TERR = 5;
   // The terraces follow one hill, like contour lines: the top edge of band b at world x.
   const terrY = (b, gx) => 141 + b * 6 - 32 * (1 - b * 0.2) * hills(65, gx, 150);
+  // Their edges are traced in steps of TS (the hill is smooth enough), every path on the same
+  // points so that they meet exactly.
+  const TS = 16;
+  // The low bund (畦) along the road, in front of the terraces.
+  const bundY = (i, tw, x) => ridgeY(i, tw, x, 67, 164, 3, 70);
   scene({
     id: 'tanbo', ja: '田んぼ', en: 'Rice terraces', stillT: 7,
-    sky: { light: ['#DBEBF3', '#E9F1F0', '#F6F2E3'], dark: ['#0C1325', '#111A30', '#18223A'] },
+    sky: { light: ['#2A7DD8', '#6CB6EE', '#C4E7F5', '#FBF3D2'], dark: ['#040822', '#0B164A', '#1A2A6C', '#30397E'] },
     light: {
-      m1: '#D3DDE9', m2: '#C9D9D7', pad1: '#D3E6C4', pad2: '#CBE0BA', pad3: '#D9EACB', pad4: '#CFE3BE', riser: '#BED2AC',
-      sprout: ['#AFCB9A', 0.9], thatch: '#DBCFB0', thatchDark: '#CDC09F', fwall: '#EFEAE0', fwood: '#D9CCB5', tree: '#C3D9B5', trunk: '#CDBFAA',
-      pole: '#C9BBA0', hat: '#E5D5AC', cloth: '#D1DBEE', cloth2: '#EBD1C7', face: '#F5EEDF', ground: '#F0EFE5', groundEdge: '#E4E6D6',
+      m1: '#AFBFF0', m1b: '#8C9FE2', m2: '#3B8679',
+      t0: '#B4E06B', t1: '#A0D55D', t2: '#8CC952', t3: '#79BD47', t4: '#67B03D',
+      riser: '#539E3C', lip: ['#DDF59A', 0.9], sprout: '', glint: ['#FFFFFF', 0.95],
+      trunk: '#7A4A2A', tree: '#2D8A48', treeLit: '#5CB75F',
+      thatch: '#D7A14B', thatchDark: '#8C5B28', fwall: '#F7E6C4', fwood: '#8A5530', lit: '#5E3B22',
+      bund: '#2E7E30', bundLip: '#93D75F', grass: '#236A29', egret: ['#FFFFFF', 0.95],
+      pole: '#6E4426', cloth: '#2F4FD0', cloth2: '#0B7A6B', patch: '#E2452B', face: '#FFF1D6', hat: '#F2B43A',
+      ground: '#F6F5E4', groundEdge: '#E3E8C6',
     },
     dark: {
-      m1: '#151C33', m2: '#121A2E', pad1: '#141D32', pad2: '#121A2E', pad3: '#162036', pad4: '#131B2F', riser: '#1C2740',
-      sprout: ['#1E2D3C', 0.9], thatch: '#1A2034', thatchDark: '#151B2D', fwall: '#181E33', fwood: '#141A2D', lit: ['#F0C46B', 0.5],
-      tree: '#111A2C', trunk: '#141A2C', fruit: '',
-      pole: '#1B2033', hat: '#232A40', cloth: '#1E2742', cloth2: '#2A2438', face: '#262C40', ground: '#131A2C', groundEdge: '#151D30',
+      m1: '#2B3B82', m1b: '#212F6E', m2: '#111C48',
+      t0: '#22506C', t1: '#1E4962', t2: '#1B4159', t3: '#183A50', t4: '#153247',
+      riser: '#0C1834', lip: ['#72DABD', 0.38], sprout: '', flyGlow: ['#D4FF66', 0.55], farLit: ['#FFC45A', 0.95], farGlow: ['#FFB347', 0.3],
+      trunk: '#0D1534', tree: '#122048', treeLit: '#1E3266', fruit: '',
+      thatch: '#2B2E5E', thatchDark: '#1A1C44', fwall: '#252B5E', fwood: '#161B40', lit: ['#FFC45A', 0.95], litGlow: ['#FFB347', 0.55],
+      bund: '#0A1230', bundLip: '#23407A', grass: '#081028',
+      pole: '#0A1030', cloth: '#27378C', cloth2: '#16475F', patch: '#7A2A3A', face: '#2C3366', hat: '#3B3B72',
+      ground: '#121A33', groundEdge: '#18213E',
     },
     seasons: {
-      spring: { light: { pad1: '#DCE8EF', pad2: '#D4E3EA', pad3: '#E2ECF1', pad4: '#D7E5EC', riser: '#C4D4BC', sprout: ['#B0CB9F', 0.9], tree: '#F0D3DC' } },
-      autumn: { light: { pad1: '#EEDFAF', pad2: '#E7D6A1', pad3: '#F1E5BD', pad4: '#EADAA6', riser: '#D6C28E', sprout: ['#D4BA78', 0.9], tree: '#E8CDA6', fruit: ['#E7A974', 0.8] } },
-      winter: { light: { pad1: '#E8ECEE', pad2: '#E2E7EA', pad3: '#EDF0F2', pad4: '#E4E8EC', riser: '#D3D9DF', sprout: ['#CDD3D8', 0.9], tree: '#E1E6E9' } },
+      // flooded paddies mirroring the sky, rows of young rice, 菜の花 on the bunds
+      spring: {
+        light: {
+          t0: '#BFE6F8', t1: '#A6DAF4', t2: '#8ECEF0', t3: '#78C1EA', t4: '#65B4E2', riser: '#62B048', lip: ['#EFFAD0', 0.9],
+          sprout: ['#3F9E33', 0.75], tree: '#F4A3C5', treeLit: '#FFD4E6', nanohana: '#F8D43A',
+          refl: '#FFFBE8', reflGlow: ['#FFF2B8', 0.8],
+        },
+        dark: {
+          t0: '#2E50A2', t1: '#2A4996', t2: '#26428A', t3: '#223B7E', t4: '#1F3572', riser: '#0E1944', lip: ['#AABDFF', 0.42],
+          sprout: ['#4A7AB0', 0.5], tree: '#5C4488', treeLit: '#8A6AB0', nanohana: '#8E8C4A',
+          refl: '#FFF4D6', reflGlow: ['#C4D2FF', 0.6],
+        },
+      },
+      // golden rice, persimmons, red dragonflies, 彼岸花 and susuki; the harvest moon by night
+      autumn: {
+        light: {
+          t0: '#FBE27E', t1: '#F7D466', t2: '#F1C552', t3: '#EAB542', t4: '#DFA436', riser: '#9EA444', lip: ['#FFF6C4', 0.9], egret: '',
+          glint: '', tree: '#E0782C', treeLit: '#F6AA42', fruit: '#E8452B',
+          dfly: ['#E2452B', 0.85], higan: '#E2452B', susuki: '#FFF6DE', susukiStem: '#B7A266',
+        },
+        dark: {
+          t0: '#40417E', t1: '#3B3B73', t2: '#373669', t3: '#33325F', t4: '#2E2E55', riser: '#141436', lip: ['#E8C66A', 0.62],
+          tree: '#3A2A58', treeLit: '#5A3E70',
+          moon: '#FFE3A0', moonShade: '#EAC77E', moonGlow: ['#FFD27A', 0.45], higan: '#A8344A', susuki: '#C4BFE8', susukiStem: '#4C4A86',
+        },
+      },
+      // the terraces under snow, cold blue in their shadows
+      winter: {
+        light: {
+          t0: '#F8FBFF', t1: '#EFF5FE', t2: '#E7EFFC', t3: '#DFE9F9', t4: '#D7E3F6', riser: '#A9BDE6', lip: ['#FFFFFF', 0.9],
+          sprout: ['#A8977A', 0.3], glint: '', egret: '', tree: '#C5D5F0', treeLit: '#FFFFFF', thatch: '#EAF1FD', thatchDark: '#A8BBE4',
+          m2: '#3D7887', bund: '#DCE6F7', bundLip: '#FFFFFF', grass: '#9BB0D8',
+        },
+        dark: {
+          t0: '#4C5FAA', t1: '#465AA2', t2: '#40549A', t3: '#3A4E91', t4: '#354888', riser: '#1F2964', lip: ['#DCE4FF', 0.5],
+          sprout: ['#2B376E', 0.35], thatch: '#5B6BB2', thatchDark: '#3A478A', tree: '#4C5CA2', treeLit: '#7C8ED6',
+          m2: '#1A2654', bund: '#2B3778', bundLip: '#8090DA', grass: '#1F2966',
+          akari: ['#FFE08A', 0.95], akariGlow: ['#FFC45A', 0.28],
+        },
+      },
     },
     make() {
-      const roles = [];
-      for (let b = 0; b < TERR; b++) {
-        roles.push(b === TERR - 1 ? 'pad3' : b % 2 ? 'pad2' : 'pad1', 'riser');
-        if (b === 0) roles.push('trunk', 'tree', 'fruit', 'thatch', 'thatchDark', 'fwall', 'fwood', 'lit');
-      }
-      roles.push('sprout');
-      const SP = roles.length - 1;
       return {
-        stars: starLayer(61, 9, -60, 100),
+        stars: starLayer(61, 12, -60, 100),
         cloud: cloudLayer(62, 440, 24, 64, 44, 92),
-        m1: layer(63, 400, 4, ['m1'], (P, R, i, items, tw) => ridge(P[0], i, tw, 63, 120, 52, 120, 8)),
-        m2: layer(64, 360, 8, ['m2'], (P, R, i, items, tw) => {
-          ridge(P[0], i, tw, 64, 134, 20, 90, 8);
-          // a fringe of treetops along the hills
-          for (let x = 3; x < tw; x += 6) circ(P[0], x, ridgeY(i, tw, x, 64, 134, 20, 90) + 1, 3.4 + hash(i * 97 + x, 64) * 2);
+        m1: layer(63, 400, 4, ['m1', 'm1b'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 63, 116, 62, 120, 8);
+          // a nearer range, a step deeper
+          ridge(P[1], i, tw, 163, 124, 30, 64, 8);
         }),
-        terr: layer(65, 320, 40, roles, (P, R, i, items, tw) => {
+        m2: layer(64, 360, 8, ['m2', 'farGlow', 'farLit'], (P, R, i, items, tw) => {
+          // the hills with a fringe of treetops along them, in one outline: round tops every
+          // 6 units of the world, each over the hill's own line there
           const x0 = i * tw;
-          let k = 0;
-          for (let b = 0; b < TERR; b++) {
-            const s = P[k++];
-            const r = P[k++];
-            s.moveTo(0, G + 2);
-            for (let x = 0; x <= tw + 1; x += 8) s.lineTo(x, terrY(b, x0 + x));
-            s.lineTo(tw + 1, terrY(b, x0 + tw + 1));
-            s.lineTo(tw + 1, G + 2);
-            s.closePath();
-            // the earth wall of the terrace above, along the top edge
-            r.moveTo(0, terrY(b, x0));
-            for (let x = 8; x <= tw + 1; x += 8) r.lineTo(x, terrY(b, x0 + x));
-            r.lineTo(tw + 1, terrY(b, x0 + tw + 1));
-            for (let x = Math.floor((tw + 1) / 8) * 8; x >= 0; x -= 8) r.lineTo(x, terrY(b, x0 + x) + 2.6);
-            r.closePath();
-            if (b === 0) {
-              // on the top terrace: a thatched farmhouse and a tree or two
-              const [trunk, tree, fruit, thatch, thatchDark, fwall, fwood, lit] = P.slice(k, k + 8);
-              k += 8;
-              if (R() < 0.45) {
-                const hx = 30 + R() * 220;
-                const y = Math.max(terrY(0, x0 + hx), terrY(0, x0 + hx + 44)) + 3;
-                fwall.rect(hx, y - 13, 44, 14);
-                quad(thatch, hx - 7, y - 12, hx + 51, y - 12, hx + 41, y - 32, hx + 3, y - 32);
-                rr(thatchDark, hx + 2, y - 35, 40, 4.5, 2);
-                fwood.rect(hx + 6, y - 10, 9, 11);
-                fwood.rect(hx - 2, y - 2, 48, 2);
-                lit.rect(hx + 24, y - 9, 12, 6);
-              }
-              const nt = R() < 0.6 ? 1 + Math.floor(R() * 2) : 0;
-              for (let t = 0; t < nt; t++) {
-                const tx = R() * tw;
-                const y = terrY(0, x0 + tx) + 3;
-                const h = 16 + R() * 8;
-                trunk.rect(tx - 1.2, y - h * 0.6, 2.4, h * 0.6);
-                circ(tree, tx, y - h * 0.75, h * 0.32);
-                circ(tree, tx - h * 0.25, y - h * 0.58, h * 0.24);
-                circ(tree, tx + h * 0.25, y - h * 0.6, h * 0.25);
-                for (let d = 0; d < 6; d++) circ(fruit, tx + (R() - 0.5) * h * 0.7, y - h * (0.5 + R() * 0.45), 1);
-              }
+          const hill = (x) => ridgeY(i, tw, x, 64, 130, 24, 90);
+          const top = (x) => {
+            let y = hill(x);
+            for (let c = Math.floor((x0 + x - 9) / 6); c <= Math.ceil((x0 + x + 3) / 6); c++) {
+              const cx = c * 6 + 3 - x0;
+              const r = 3.4 + hash(c, 64) * 2;
+              const dx = x - cx;
+              if (dx * dx < r * r) y = Math.min(y, hill(cx) + 1 - Math.sqrt(r * r - dx * dx));
             }
-            // rows of rice on the lower terraces
-            if (b >= 2) {
-              for (let x = 2 + (b % 2) * 3; x < tw; x += 6) {
-                const y = terrY(b, x0 + x);
-                const room = (b < TERR - 1 ? terrY(b + 1, x0 + x) : G) - y;
-                for (let rI = 5; rI < room - 2; rI += 3.6) P[SP].rect(x, y + rI, 1.1, 1.8);
-              }
-            }
+            return y;
+          };
+          P[0].moveTo(0, G + 2);
+          for (let x = 0; x <= tw; x += 1.5) P[0].lineTo(x, top(x));
+          P[0].lineTo(tw + 1, top(tw + 1));
+          P[0].lineTo(tw + 1, G + 2);
+          P[0].closePath();
+          // and under the trees, the windows of farms far off (only lit, and only seen, by night)
+          for (let k = 0; k < 3; k++) {
+            const x = 10 + R() * (tw - 20);
+            const y = ridgeY(i, tw, x, 64, 130, 24, 90) + 7 + R() * 5;
+            P[1].rect(x - 2.2, y - 1.8, 4.4, 3.6);
+            P[2].rect(x - 1, y - 0.7, 2, 1.4);
           }
         }),
-        near: layer(67, 300, 40, ['pad4', 'riser', 'sprout', 'pole', 'cloth', 'cloth2', 'hat', 'face'], (P, R, i, items, tw) => {
-          ridge(P[0], i, tw, 67, 164, 3, 70, 8);
-          P[1].moveTo(0, ridgeY(i, tw, 0, 67, 164, 3, 70));
-          for (let x = 8; x <= tw + 1; x += 8) P[1].lineTo(x, ridgeY(i, tw, x, 67, 164, 3, 70));
-          for (let x = Math.floor((tw + 1) / 8) * 8; x >= 0; x -= 8) P[1].lineTo(x, ridgeY(i, tw, x, 67, 164, 3, 70) + 2);
-          P[1].closePath();
-          for (let x = 4; x < tw; x += 9) P[2].rect(x, ridgeY(i, tw, x, 67, 164, 3, 70) - 3.5, 1.3, 3.5);
-          if (R() < 0.35) scarecrow(P, 40 + R() * 220, G, R);
+        // the top terrace with its farmhouse, then the paddies below it, their walls and bunds
+        terr: layer(65, 320, 40, ['t0', 'riser', 'lip', 'trunk', 'tree', 'treeLit', 'fruit', 'thatch', 'thatchDark', 'fwall', 'fwood', 'lit',
+          't1', 't2', 't3', 't4', 'riser', 'lip', 'sprout', 'akariGlow', 'akari'], (P, R, i, items, tw) => {
+          const x0 = i * tw;
+          // each paddy reaches down to the next one's edge (and no further: nothing is filled
+          // twice); along its top edge, the earth wall of the terrace above and the sunlit bund
+          terrBand(P[0], x0, tw, 0);
+          terrStrip(P[1], x0, tw, 0, 0, 2.6);
+          terrStrip(P[2], x0, tw, 0, -1, 0.1);
+          // on the top terrace: a thatched farmhouse and a tree or two
+          const [trunk, tree, treeLit, fruit, thatch, thatchDark, fwall, fwood, lit] = P.slice(3, 12);
+          if (R() < 0.6) {
+            const hx = 30 + R() * 220;
+            const y = Math.max(terrY(0, x0 + hx), terrY(0, x0 + hx + 44)) + 3;
+            fwall.rect(hx, y - 13, 44, 14);
+            quad(thatch, hx - 7, y - 12, hx + 51, y - 12, hx + 41, y - 32, hx + 3, y - 32);
+            // the courses of the thatch, and its ridge
+            thatchDark.rect(hx - 3.5, y - 19.2, 51, 1.2);
+            thatchDark.rect(hx, y - 26, 44, 1.2);
+            rr(thatchDark, hx + 2, y - 35, 40, 4.5, 2);
+            fwood.rect(hx, y - 12, 44, 2);
+            fwood.rect(hx + 6, y - 10, 9, 11);
+            fwood.rect(hx - 2, y - 2, 48, 2);
+            lit.rect(hx + 24, y - 9, 12, 6);
+            items.push({ h: 1, x: hx + 30, y: y - 6 });
+          }
+          const nt = R() < 0.6 ? 1 + Math.floor(R() * 2) : 0;
+          for (let t = 0; t < nt; t++) {
+            const tx = R() * tw;
+            const y = terrY(0, x0 + tx) + 3;
+            const h = 16 + R() * 8;
+            trunk.rect(tx - 1.2, y - h * 0.6, 2.4, h * 0.6);
+            circ(tree, tx, y - h * 0.75, h * 0.32);
+            circ(tree, tx - h * 0.25, y - h * 0.58, h * 0.24);
+            circ(tree, tx + h * 0.25, y - h * 0.6, h * 0.25);
+            circ(treeLit, tx - h * 0.08, y - h * 0.86, h * 0.17);
+            circ(treeLit, tx - h * 0.33, y - h * 0.64, h * 0.1);
+            for (let d = 0; d < 6; d++) circ(fruit, tx + (R() - 0.5) * h * 0.7, y - h * (0.5 + R() * 0.45), 1.1);
+          }
+          // below it the walls and bunds keep clear of the paddies, so they share two paths
+          // (the lowest paddy's are hidden behind the bund by the road)
+          for (let b = 1; b < TERR; b++) {
+            terrBand(P[11 + b], x0, tw, b);
+            if (b < TERR - 1) {
+              terrStrip(P[16], x0, tw, b, 0, 2.6);
+              terrStrip(P[17], x0, tw, b, -1, 0.1);
+              // little lights along the bund, lit on winter nights (畦のきらめき)
+              for (let x = 3 + (b % 2) * 6; x < tw; x += 12) {
+                const y = terrY(b, x0 + x) - 0.5;
+                P[19].rect(x - 1.6, y - 1.6, 3.2, 3.2);
+                P[20].rect(x - 0.7, y - 0.7, 1.4, 1.4);
+              }
+            }
+            if (b < 2) continue;
+            // the terrace above is cut into fields by little bunds, some fields a shade deeper
+            terrFields(P[11 + b], P[17], R, x0, tw, b - 1);
+            // rows of rice
+            for (let x = 2 + (b % 2) * 3; x < tw; x += 6) {
+              const y = terrY(b, x0 + x);
+              const room = (b < TERR - 1 ? terrY(b + 1, x0 + x) : G) - y;
+              for (let rI = 5; rI < room - 2; rI += 3.6) P[18].rect(x, y + rI, 1.1, 1.8);
+            }
+          }
+          // the sun glinting on the water, here and there
+          for (let g = 0; g < 7; g++) {
+            const gx = R() * tw;
+            const b = 1 + Math.floor(R() * (TERR - 1));
+            const top = terrY(b, x0 + gx) + 3.6;
+            const bot = (b < TERR - 1 ? terrY(b + 1, x0 + gx) : 161) - 2;
+            const y = top + R() * (bot - top);
+            const w = 2.5 + R() * 5;
+            if (bot - top > 1) items.push({ x: gx, y, w, ph: R() * TAU, sp: 1.1 + R() * 1.7 });
+          }
+        }, (ctx, items) => {
+          const C = F.C;
+          for (let q = 0; q < items.length; q++) {
+            const s = items[q];
+            if (s.h) {
+              // the farmhouse's window, warm in the night
+              if (F.dark) glow(ctx, s.x, s.y, 16, 'litGlow', 1);
+            } else if (C.glint) {
+              const k = 0.5 + 0.5 * Math.sin(F.t * s.sp + s.ph);
+              ctx.fillStyle = C.glint;
+              ctx.globalAlpha = (F.A.glint || 1) * (0.1 + 0.9 * k * k * k);
+              ctx.fillRect(s.x, s.y, s.w, 0.9);
+            }
+          }
+          ctx.globalAlpha = 1;
         }),
+        near: layer(67, 300, 40, ['bund', 'bundLip', 'pole', 'cloth', 'cloth2', 'patch', 'face', 'hat', 'grass', 'nanohana', ['higan', 0.9], ['susukiStem', 0.7], 'susuki'],
+          (P, R, i, items, tw) => {
+            ridge(P[0], i, tw, 67, 164, 3, 70, 8);
+            // the sunlit top of the bund
+            P[1].moveTo(0, bundY(i, tw, 0) - 0.3);
+            for (let x = 8; x <= tw + 1; x += 8) P[1].lineTo(x, bundY(i, tw, x) - 0.3);
+            P[1].lineTo(tw + 1, bundY(i, tw, tw + 1) - 0.3);
+            P[1].lineTo(tw + 1, bundY(i, tw, tw + 1) + 1.5);
+            for (let x = Math.floor((tw + 1) / 8) * 8; x >= 0; x -= 8) P[1].lineTo(x, bundY(i, tw, x) + 1.5);
+            P[1].closePath();
+            if (R() < 0.35) scarecrow(P, 40 + R() * 220, G, R);
+            // tufts of grass along the bund, the season's flowers among them
+            for (let x = 2 + R() * 8; x < tw; x += 8 + R() * 9) {
+              const y = bundY(i, tw, x) + 1;
+              const n = 2 + Math.floor(R() * 2);
+              for (let q = 0; q < n; q++) {
+                const len = 4 + R() * 6;
+                const a = -Math.PI / 2 + (q - (n - 1) / 2) * 0.42 + (R() - 0.5) * 0.3;
+                const bx = x + q * 1.8;
+                tri(P[8], bx - 0.7, y, bx + Math.cos(a) * len, y + Math.sin(a) * len, bx + 0.7, y);
+              }
+              const kind = R();
+              if (kind < 0.4) tanboFlower(P, x + 2, y, kind < 0.17 ? 0 : kind < 0.32 ? 1 : 2, R);
+            }
+          }),
       };
     },
     paint(ctx, f, L) {
@@ -2219,89 +2342,288 @@
       if (f.dark) drawLayer(ctx, L.stars, f.scroll * 0.02);
       const sx = f.W * (0.22 + 0.56 * f.pj);
       const sy = 50 - 24 * Math.sin(Math.PI * f.pj);
-      celestial(ctx, sx, sy, 13);
+      // an autumn night has the big harvest moon of お月見
+      const r = f.dark && f.season === 'autumn' ? 16 : 13;
+      celestial(ctx, sx, sy, r);
       drawLayer(ctx, L.cloud, f.scroll * 0.04 + f.t * 2.2);
       drawLayer(ctx, L.m1, f.scroll * 0.04);
       drawLayer(ctx, L.m2, f.scroll * 0.1);
-      drawLayer(ctx, L.terr, f.scroll * 0.24);
+      // white egrets (白鷺) over the paddies in spring and summer
+      birds(ctx, 'egret', 3, 7, 2.6, 70, 1.6, 66);
+      const off = f.scroll * 0.24;
+      drawLayer(ctx, L.terr, off);
+      // 田毎の月: the moon (or the sun) again in every flooded paddy
+      if (f.C.refl) tanboMoons(ctx, sx, off);
       drawLayer(ctx, L.near, f.scroll * 0.6);
       ground(ctx, 'groundEdge');
-      seasonal(ctx);
-      if (!f.dark && f.season === 'autumn') particles(ctx, 'dfly', 3);
-      hanamaru(ctx, sx, sy, 22, f.fin);
+      // a summer night is a firefly night
+      if (f.dark && f.season === 'summer') tanboFireflies(ctx, 18);
+      else seasonal(ctx);
+      if (!f.dark && f.season === 'autumn') particles(ctx, 'dfly', 4);
+      hanamaru(ctx, sx, sy, r + 9, f.fin);
     },
   });
-  // A scarecrow (かかし): a straw hat, a shirt on a cross of poles.
+  // A paddy from its top edge down to the next one's.
+  function terrBand(p, x0, tw, b) {
+    const bot = (x) => (b < TERR - 1 ? terrY(b + 1, x0 + x) + 1 : G + 2);
+    p.moveTo(0, terrY(b, x0));
+    for (let x = TS; x <= tw + 1; x += TS) p.lineTo(x, terrY(b, x0 + x));
+    p.lineTo(tw + 1, terrY(b, x0 + tw + 1));
+    p.lineTo(tw + 1, bot(tw + 1));
+    for (let x = Math.floor((tw + 1) / TS) * TS; x >= 0; x -= TS) p.lineTo(x, bot(x));
+    p.closePath();
+  }
+  // The fields of terrace b: a few little bunds across it, and every so often a field filled
+  // (in fill, the next terrace's colour, a shade deeper). They keep clear of the terrace's
+  // walls, so they may be drawn after them.
+  function terrFields(fill, bund, R, x0, tw, b) {
+    const top = (x) => terrY(b, x0 + x) + 2.6;
+    const bot = (x) => terrY(b + 1, x0 + x) - 0.9;
+    let xa = TS * (1 + Math.floor(R() * 3));
+    while (xa < tw - 3 * TS) {
+      const xb = Math.min(tw - TS, xa + TS * (3 + Math.floor(R() * 5)));
+      if (R() < 0.42) {
+        fill.moveTo(xa, top(xa));
+        for (let x = xa + TS; x <= xb; x += TS) fill.lineTo(x, top(x));
+        fill.lineTo(xb + 1.5, bot(xb + 1.5));
+        for (let x = xb; x > xa; x -= TS) fill.lineTo(x, bot(x));
+        fill.lineTo(xa + 1.5, bot(xa + 1.5));
+        fill.closePath();
+      }
+      quad(bund, xb, top(xb), xb + 1.1, top(xb), xb + 2.6, bot(xb + 2.6), xb + 1.5, bot(xb + 1.5));
+      xa = xb;
+    }
+  }
+  // A strip along the top edge of paddy b, from d0 to d1 below it.
+  function terrStrip(p, x0, tw, b, d0, d1) {
+    p.moveTo(0, terrY(b, x0) + d0);
+    for (let x = TS; x <= tw + 1; x += TS) p.lineTo(x, terrY(b, x0 + x) + d0);
+    p.lineTo(tw + 1, terrY(b, x0 + tw + 1) + d0);
+    p.lineTo(tw + 1, terrY(b, x0 + tw + 1) + d1);
+    for (let x = Math.floor((tw + 1) / TS) * TS; x >= 0; x -= TS) p.lineTo(x, terrY(b, x0 + x) + d1);
+    p.closePath();
+  }
+  // The moon (or the sun) seen in each paddy under it, a little wider the nearer the paddy.
+  function tanboMoons(ctx, sx, off) {
+    const gx = sx + off;
+    for (let b = 0; b < TERR - 1; b++) {
+      const top = terrY(b, gx) + 3.4;
+      const bot = terrY(b + 1, gx) - 1.6;
+      if (bot - top < 2) continue;
+      const y = (top + bot) / 2;
+      glow(ctx, sx, y, 10 + b * 2, 'reflGlow', 0.7);
+      if (setFill(ctx, 'refl')) {
+        ctx.beginPath();
+        ctx.ellipse(sx, y, 4.5 + b, Math.min(1.6, (bot - top) * 0.3), 0, 0, TAU);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+    }
+  }
+  // Fireflies over the paddies on a summer night, each in its own soft light.
+  function tanboFireflies(ctx, n) {
+    const t = F.t;
+    const span = F.W + 80;
+    const par = F.scroll * 0.35;
+    for (let k = 0; k < n; k++) {
+      const a = hash(k, 611);
+      const b = hash(k, 612);
+      const c = hash(k, 613);
+      const x = wrap(a * span - par + Math.sin(t * (0.21 + 0.12 * c) + a * 9) * 34, span) - 40;
+      const y = 102 + b * 60 + Math.sin(t * (0.5 + c * 0.4) + b * 7) * 7;
+      const pulse = Math.pow(0.5 + 0.5 * Math.sin(t * (1.3 + c) + a * 20), 2);
+      glow(ctx, x, y, 5 + 5 * pulse, 'flyGlow', 0.2 + 0.8 * pulse);
+      if (setFill(ctx, 'fly')) {
+        ctx.globalAlpha *= 0.35 + 0.65 * pulse;
+        ctx.beginPath();
+        ctx.arc(x, y, 1.15, 0, TAU);
+        ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  // A scarecrow (かかし): a straw hat (菅笠), a patched shirt on a cross of poles.
   function scarecrow(P, x, base, R) {
-    P[3].rect(x - 1.2, base - 46, 2.4, 47);
-    P[3].rect(x - 16, base - 36, 32, 2.2);
-    quad(P[4 + (R() < 0.5 ? 0 : 1)], x - 12, base - 37, x + 12, base - 37, x + 8, base - 20, x - 8, base - 20);
-    circ(P[7], x, base - 42, 4.6);
-    ell(P[6], x, base - 46, 10, 2.4);
-    ell(P[6], x, base - 48.5, 5, 3);
+    P[2].rect(x - 1.2, base - 46, 2.4, 47);
+    P[2].rect(x - 16, base - 36, 32, 2.2);
+    const shirt = P[R() < 0.5 ? 3 : 4];
+    quad(shirt, x - 12, base - 37, x + 12, base - 37, x + 8, base - 20, x - 8, base - 20);
+    quad(shirt, x - 17, base - 37.6, x - 10, base - 37.6, x - 10.5, base - 30.5, x - 16, base - 30.5);
+    quad(shirt, x + 10, base - 37.6, x + 17, base - 37.6, x + 16, base - 30.5, x + 10.5, base - 30.5);
+    P[5].rect(x + 2.4, base - 30, 3.4, 3.4);
+    circ(P[6], x, base - 42, 4.6);
+    tri(P[7], x - 12.5, base - 44.6, x, base - 53, x + 12.5, base - 44.6);
+  }
+  // The season's flowers by the bund: 菜の花 (kind 0), 彼岸花 (1) or a clump of susuki (2),
+  // each in a colour only its season has. The first two stand on stalks of grass, so in the
+  // other seasons they are grass.
+  function tanboFlower(P, x, y, kind, R) {
+    if (kind === 0) {
+      const h = 7 + R() * 5;
+      P[8].rect(x - 0.4, y - h, 0.8, h);
+      for (let q = 0; q < 5; q++) circ(P[9], x + (R() - 0.5) * 3.4, y - h - R() * 3, 1.1 + R() * 0.5);
+    } else if (kind === 1) {
+      const h = 7 + R() * 4;
+      const cy = y - h;
+      P[8].rect(x - 0.4, cy, 0.8, h);
+      for (let q = 0; q < 6; q++) {
+        const a = -Math.PI / 2 + (q - 2.5) * 0.55;
+        P[10].moveTo(x, cy);
+        P[10].quadraticCurveTo(x + Math.cos(a) * 2.6, cy + Math.sin(a) * 1.4, x + Math.cos(a) * 3.4, cy + Math.sin(a) * 3.4 - 1.4);
+      }
+    } else {
+      const n = 3 + Math.floor(R() * 2);
+      for (let q = 0; q < n; q++) {
+        const h = 14 + R() * 8;
+        const lean = (q - (n - 1) / 2) * 3 + (R() - 0.5) * 2;
+        const tx = x + lean * 1.6;
+        const ty = y - h;
+        P[11].moveTo(x + q * 0.8, y);
+        P[11].quadraticCurveTo(x + lean * 0.4, y - h * 0.6, tx, ty);
+        // the plume hangs over from the tip
+        leaf(P[12], tx, ty, 6 + R() * 2, lean >= 0 ? 0.5 : Math.PI - 0.5, 1.5);
+      }
+    }
   }
 
   // ----- 雪国: a snow country village of steep thatched roofs, smoke from the hearths -----
   scene({
     id: 'yukiguni', ja: '雪国', en: 'Snow country', stillT: 11,
-    sky: { light: ['#DCE4F0', '#E7ECF4', '#F1F3F8'], dark: ['#0C1328', '#121A33', '#1A2340'] },
+    sky: { light: ['#1A56C2', '#3F84DD', '#86B8EE', '#D9E9FA'], dark: ['#03061C', '#0A1242', '#1A2768', '#2C3480'] },
     light: {
-      mSnow: '#E2E8F1', mRock: '#CDD6E3', m2: '#D5DEEA', cf: '#CFD9E1', snowTip: '#F4F7FB', thatch: '#D6CAB2', snowRoof: '#F8FAFD',
-      snowShade: '#E5EAF2', gwall: '#E4DED2', beam: '#CDC2AE', gwin: '#CDD6E4', smoke: ['#FFFFFF', 0.7],
-      cedar: '#C6D3D6', cedarSnow: '#F2F5FA', body: '#F8FAFD', bodyShade: '#E4E9F1', eye: '#8C96B0', ground: '#F0F3F8', groundEdge: '#E7EBF2',
+      mSnow: '#F6F8FF', mShade: '#BAC6F0', mRock: '#9AA7E2', mFoot: '#7487D2', m2: '#EDF2FD', drift: '#D9E3F8',
+      cf: '#33637C', cfSnow: '#DDE8F8', cfShadow: '#BACAF0',
+      shadow: '#BACAF0', snowRoof: '#FFFFFF', snowShade: '#BCCDF1', thatch: '#9C6A38', gwall: '#6B4430', beam: '#3F2717', gwin: '#FFD27A',
+      kuraWall: '#FBF8F0', kuraBase: '#3D4668', kuraRoof: '#34406E', door: '#4A5A9C', ice: '#D2EAFF', smoke: ['#FFFFFF', 0.85],
+      stone: '#9AA2C0', bib: '#E2452B', kasa: '#D9A64C',
+      cedar: '#1C4A40', cedarShade: '#123931', cedarSnow: '#FFFFFF',
+      body: '#FFFFFF', bodyShade: '#C2D1F2', eye: '#1B2440', bucket: '#E2452B',
+      ground: '#F2F6FC', groundEdge: '#DCE6F7',
     },
     dark: {
-      mSnow: '#1F2846', mRock: '#18203A', m2: '#151D36', cf: '#121A30', snowTip: '#222B49', thatch: '#1A2038', snowRoof: '#2A3352',
-      snowShade: '#212A47', gwall: '#141B30', beam: '#11172A', gwin: ['#F2C66E', 0.6], smoke: ['#3A4566', 0.5],
-      cedar: '#0E1428', cedarSnow: '#222B48', body: '#2E3858', bodyShade: '#252E4C', eye: '#C9CFE6', ground: '#151B2F', groundEdge: '#181F35',
+      mSnow: '#7381C8', mShade: '#4A58A2', mRock: '#3E4B94', mFoot: '#222D6C', m2: '#36468E', drift: '#2E3D80',
+      cf: '#0A1236', cfSnow: '#5A6AB4', cfShadow: '#25316E',
+      shadow: '#26316E', snowRoof: '#A2B0EE', snowShade: '#6575BE', thatch: '#3A2C50', gwall: '#221C42', beam: '#14112C', gwin: ['#FFC45A', 0.95],
+      winGlow: ['#FFB347', 0.6], pool: ['#FFB347', 0.6],
+      kuraWall: '#7684CA', kuraBase: '#1E2450', kuraRoof: '#151B42', door: ['#FFB85A', 0.95], ice: '#B9C6FF', smoke: ['#A6B2E6', 0.35],
+      stone: '#4E5A9E', bib: '#B23A4C', kasa: '#7E6A48', spark: ['#FFFFFF', 0.9],
+      cedar: '#060C28', cedarShade: '#040820', cedarSnow: '#8E9EE2',
+      body: '#B4C0F2', bodyShade: '#7383CA', eye: '#1B2440', bucket: '#A8344A',
+      ground: '#121933', groundEdge: '#1A2244',
     },
     make() {
       return {
-        stars: starLayer(71, 9, -60, 100),
-        m1: layer(72, 420, 4, ['mSnow', 'mRock'], (P, R, i, items, tw) => {
-          ridge(P[0], i, tw, 72, 122, 52, 150, 8);
-          // dark streaks of rock where the slopes are too steep for snow
+        stars: starLayer(71, 14, -60, 110),
+        cloud: cloudLayer(77, 520, 16, 50, 50, 100),
+        m1: layer(72, 420, 4, ['mShade', 'mSnow', 'mRock', 'mFoot'], (P, R, i, items, tw) => {
+          const top = (x) => ridgeY(i, tw, x, 72, 124, 62, 150);
+          // the range in shadow, and over it the faces the sun reaches: under the ridge as it
+          // is a little further on, so the slopes going down to the right keep a shadow
+          ridge(P[0], i, tw, 72, 124, 62, 150, 8);
+          P[1].moveTo(0, G + 2);
+          for (let x = 0; x <= tw + 1; x += 8) P[1].lineTo(x, Math.max(top(x), top(x + 34)));
+          P[1].lineTo(tw + 1, Math.max(top(tw + 1), top(tw + 35)));
+          P[1].lineTo(tw + 1, G + 2);
+          P[1].closePath();
+          // streaks of rock in the shadow, where the slopes are too steep for snow
           for (let x = 4; x < tw; x += 8) {
-            const y0 = ridgeY(i, tw, x, 72, 122, 52, 150);
-            const y1 = ridgeY(i, tw, x + 8, 72, 122, 52, 150);
-            if (Math.abs(y1 - y0) > 2.4 && hash(i * 131 + x, 72) < 0.7) {
-              const len = 8 + hash(i * 131 + x, 73) * 14;
-              tri(P[1], x + 2, Math.max(y0, y1) + 4, x + 5, Math.max(y0, y1) + 4 + len, x + 7, Math.max(y0, y1) + 3);
+            const y0 = top(x);
+            const y1 = top(x + 8);
+            if (y1 - y0 > 2.4 && hash(i * 131 + x, 72) < 0.55) {
+              const len = 6 + hash(i * 131 + x, 73) * 12;
+              tri(P[2], x + 2, y1 + 3, x + 4.5, y1 + 3 + len, x + 6.5, y1 + 2);
             }
           }
+          // the wooded foot of the range, under the snow line
+          ridge(P[3], i, tw, 172, 128, 22, 60, 8);
         }),
-        m2: layer(73, 360, 4, ['m2'], (P, R, i, items, tw) => ridge(P[0], i, tw, 73, 136, 14, 90, 10)),
-        cf: layer(74, 200, 12, ['cf', 'snowTip'], (P, R, i, items, tw) => {
-          for (let x = 4; x < tw; x += 7 + R() * 8) cedar(P, x, 146, 0.45 + R() * 0.25);
-        }),
-        houses: layer(75, 300, 70, ['snowRoof', 'snowShade', 'thatch', 'gwall', 'beam', 'gwin'], (P, R, i, items) => {
-          // one house to a stretch, now and then a small storehouse (蔵) beside it
-          if (R() < 0.8) {
-            const w = 50 + R() * 34;
-            const x = 20 + R() * (250 - w);
-            gassho(P, x, w, items, R);
-            if (R() < 0.4) kura(P, x + w + 14, R);
-          } else kura(P, 60 + R() * 160, R);
+        m2: layer(73, 360, 4, ['m2', 'drift'], (P, R, i, items, tw) => {
+          ridge(P[0], i, tw, 73, 142, 6, 90, 10);
+          // long low drifts across the snowfield (inside the tile: they may not hang over)
+          for (let k = 0; k < 3; k++) {
+            const rx = 22 + R() * 30;
+            ell(P[1], rx + R() * (tw - 2 * rx), 153 + R() * 12, rx, 1.3 + R() * 0.6);
+          }
+          for (let k = 0; k < 6; k++) items.push({ x: 3 + R() * (tw - 6), y: 151 + R() * 14, ph: R() * TAU, sp: 0.8 + R() * 1.4 });
         }, (ctx, items) => {
-          if (!setFill(ctx, 'smoke')) return;
+          // by night the snow glitters in the moonlight
+          if (!setFill(ctx, 'spark')) return;
           const a = ctx.globalAlpha;
           for (let q = 0; q < items.length; q++) {
             const s = items[q];
-            for (let k = 0; k < 5; k++) {
-              const age = wrap(F.t * 0.12 + k / 5 + s.ph, 1);
-              ctx.globalAlpha = a * (1 - age) * Math.min(1, age * 6);
-              ctx.beginPath();
-              ctx.arc(s.x + age * 14 + Math.sin(age * 5 + s.ph * 9) * 3, s.y - age * 46, 2.2 + age * 6, 0, TAU);
-              ctx.fill();
-            }
+            const k = Math.sin(F.t * s.sp + s.ph);
+            if (k < 0.1) continue;
+            const r = 0.5 + 1.5 * k;
+            ctx.globalAlpha = a * k;
+            ctx.fillRect(s.x - r, s.y - 0.35, r * 2, 0.7);
+            ctx.fillRect(s.x - 0.35, s.y - r, 0.7, r * 2);
           }
           ctx.globalAlpha = 1;
         }),
-        cedars: layer(76, 360, 30, ['cedar', 'cedarSnow'], (P, R, i, items, tw) => {
+        cf: layer(74, 200, 12, ['cfShadow', 'cf', 'cfSnow'], (P, R, i, items, tw) => {
+          // the wood's blue shadow on the snow in front of it
+          P[0].moveTo(0, 144);
+          P[0].lineTo(tw + 1, 144);
+          for (let x = tw + 1; x >= 0; x -= 10) P[0].lineTo(x, 148 + 2.5 * noise(74, (i * tw + x) / 23));
+          P[0].closePath();
+          for (let x = 4; x < tw; x += 7 + R() * 8) farCedar(P[1], P[2], x, 146, 0.45 + R() * 0.25);
+        }),
+        houses: layer(75, 300, 70, ['shadow', 'snowRoof', 'snowShade', 'thatch', 'gwall', 'kuraWall', 'kuraBase', 'kuraRoof', 'beam', 'gwin', 'door', 'ice',
+          'stone', 'bib', 'kasa', 'snowRoof'], (P, R, i, items) => {
+            // one house to a stretch, and beside it now and then a storehouse (蔵), a snow hut
+            // (かまくら) or the six jizo of the tale
+            if (R() < 0.8) {
+              const w = 50 + R() * 34;
+              const x = 20 + R() * (250 - w);
+              gassho(P, x, w, items, R);
+              const by = R();
+              if (by < 0.36) kura(P, x + w + 14, R);
+              else if (by < 0.54) kamakura(P, x + w + 24, items, R);
+              else if (by < 0.68) kasaJizo(P, x + w + 16, R);
+            } else {
+              const by = R();
+              if (by < 0.4) kura(P, 60 + R() * 160, R);
+              else if (by < 0.7) kamakura(P, 80 + R() * 140, items, R);
+              else kasaJizo(P, 60 + R() * 140, R);
+            }
+          }, (ctx, items) => {
+            if (F.dark) {
+              // windows and doorways that glow, and the warm light they lay on the snow
+              for (let q = 0; q < items.length; q++) {
+                const s = items[q];
+                glow(ctx, s.gx, s.gy, s.gr, 'winGlow', 1);
+                ctx.save();
+                ctx.translate(s.gx, G - 1);
+                ctx.scale(1, 0.34);
+                glow(ctx, 0, 0, s.gr * 1.45, 'pool', 1);
+                ctx.restore();
+              }
+            }
+            if (!setFill(ctx, 'smoke')) return;
+            const a = ctx.globalAlpha;
+            for (let q = 0; q < items.length; q++) {
+              const s = items[q];
+              if (!s.smoke) continue;
+              for (let k = 0; k < 5; k++) {
+                const age = wrap(F.t * 0.12 + k / 5 + s.ph, 1);
+                ctx.globalAlpha = a * (1 - age) * Math.min(1, age * 6);
+                ctx.beginPath();
+                ctx.arc(s.x + age * 14 + Math.sin(age * 5 + s.ph * 9) * 3, s.y - age * 46, 2.2 + age * 6, 0, TAU);
+                ctx.fill();
+              }
+            }
+            ctx.globalAlpha = 1;
+          }),
+        cedars: layer(76, 360, 30, ['shadow', 'cedar', 'cedarShade', 'cedarSnow'], (P, R, i, items, tw) => {
           if (R() < 0.45) return;
           const x = 30 + R() * 280;
           const n = 1 + Math.floor(R() * 3);
-          for (let k = 0; k < n; k++) cedar(P, x + k * 15 + R() * 6, G + 1, 1 + R() * 0.4 - k * 0.15);
+          for (let k = 0; k < n; k++) {
+            const cx = x + k * 15 + R() * 6;
+            const s = 1 + R() * 0.4 - k * 0.15;
+            ell(P[0], cx + 9 * s, G - 0.5, 15 * s, 2.2);
+            cedar(P[1], P[2], P[3], cx, G + 1, s);
+          }
         }),
       };
     },
@@ -2311,6 +2633,8 @@
       const sx = f.W * (0.3 + 0.44 * f.pj);
       const sy = 52 - 16 * Math.sin(Math.PI * f.pj);
       celestial(ctx, sx, sy, 12);
+      // a few clouds by day; the night is clear and full of stars
+      if (!f.dark) drawLayer(ctx, L.cloud, f.scroll * 0.04 + f.t * 2);
       drawLayer(ctx, L.m1, f.scroll * 0.03);
       drawLayer(ctx, L.m2, f.scroll * 0.08);
       drawLayer(ctx, L.cf, f.scroll * 0.16);
@@ -2323,70 +2647,165 @@
       hanamaru(ctx, sx, sy, 21, f.fin);
     },
   });
-  function cedar(P, x, base, s) {
+  // A cedar (杉) in three tiers, the side away from the sun in shade, and snow on each tier:
+  // a cap on its top and a ledge along its lower edge.
+  function cedar(body, shade, snow, x, base, s) {
     const h = 44 * s;
     for (let k = 0; k < 3; k++) {
       const y = base - h * (0.3 + k * 0.25);
       const w = (13 - k * 3.4) * s;
-      tri(P[0], x - w, y + h * 0.26, x, y - h * 0.24, x + w, y + h * 0.26);
-      tri(P[1], x - w * 0.55, y - h * 0.24 + h * 0.5 * 0.45 * 0.55, x, y - h * 0.24, x + w * 0.55, y - h * 0.24 + h * 0.5 * 0.45 * 0.55);
+      const yb = y + h * 0.26;
+      const yt = y - h * 0.24;
+      tri(body, x - w, yb, x, yt, x + w, yb);
+      tri(shade, x + w * 0.08, yb, x + w * 0.1, yt + h * 0.1, x + w, yb);
+      const cy = yt + h * 0.124;
+      tri(snow, x - w * 0.55, cy, x, yt, x + w * 0.55, cy);
+      quad(snow, x - w - 0.6, yb + 0.4, x + w * 0.35, yb + 0.4, x + w * 0.2, yb - 1.8 * s, x - w * 0.78, yb - 2.6 * s);
     }
-    P[0].rect(x - 1.2 * s, base - h * 0.1, 2.4 * s, h * 0.1 + 1);
+    body.rect(x - 1.2 * s, base - h * 0.1, 2.4 * s, h * 0.1 + 1);
+  }
+  // A cedar far off: the same three tiers drawn as one outline, and snow on its tip.
+  function farCedar(body, snow, x, base, s) {
+    const h = 44 * s;
+    const w0 = 13 * s;
+    const w1 = 9.6 * s;
+    const w2 = 6.2 * s;
+    const y0 = base - h * 0.04;
+    const y1 = base - h * 0.29;
+    const y2 = base - h * 0.54;
+    const yt = base - h * 1.04;
+    body.moveTo(x - w0, y0);
+    body.lineTo(x - w0 / 2, y1);
+    body.lineTo(x - w1, y1);
+    body.lineTo(x - w1 / 2, y2);
+    body.lineTo(x - w2, y2);
+    body.lineTo(x, yt);
+    body.lineTo(x + w2, y2);
+    body.lineTo(x + w1 / 2, y2);
+    body.lineTo(x + w1, y1);
+    body.lineTo(x + w0 / 2, y1);
+    body.lineTo(x + w0, y0);
+    body.closePath();
+    tri(snow, x - w2 * 0.55, yt + h * 0.124, x, yt, x + w2 * 0.55, yt + h * 0.124);
   }
   // A gassho house (合掌造り), seen from its gable end: a steep thatched roof deep in snow,
-  // the gable face with rows of small windows, smoke from the hearth.
+  // the gable face with rows of small windows, icicles, smoke from the hearth.
   function gassho(P, x, w, items, R) {
     const eave = G - 20;
     const cx = x + w / 2;
     const apex = eave - w * 0.92;
+    // its cold blue shadow on the snow
+    ell(P[0], cx + w * 0.3, G - 0.5, w * 0.8, 3.4);
     // the snow on the roof (with a soft lip along the eaves), the thatch showing under it
-    tri(P[0], x - 10, eave + 1, cx, apex - 5, x + w + 10, eave + 1);
-    quad(P[1], cx, apex - 5, x + w + 10, eave + 1, x + w + 4, eave + 1, cx, apex + 3);
-    rr(P[0], x - 12, eave - 2, w + 24, 6, 3);
-    tri(P[2], x - 2, eave, cx, apex + 4, x + w + 2, eave);
+    tri(P[1], x - 10, eave + 1, cx, apex - 5, x + w + 10, eave + 1);
+    quad(P[2], cx, apex - 5, x + w + 10, eave + 1, x + w + 4, eave + 1, cx, apex + 3);
+    rr(P[1], x - 12, eave - 2, w + 24, 6, 3);
+    tri(P[3], x - 2, eave, cx, apex + 4, x + w + 2, eave);
     // the gable face and the ground floor
-    tri(P[3], x + 5, eave - 1, cx, apex + 12, x + w - 5, eave - 1);
-    P[3].rect(x + 3, eave + 3, w - 6, G - eave - 2);
+    tri(P[4], x + 5, eave - 1, cx, apex + 12, x + w - 5, eave - 1);
+    P[4].rect(x + 3, eave + 3, w - 6, G - eave - 2);
+    let wy = eave - 12;
     for (let r = 0; r < 3; r++) {
       const y = eave - 12 - r * 13;
       const half = ((y - apex - 12) / (eave - apex - 13)) * (w / 2 - 5);
       if (half < 8) break;
-      P[4].rect(cx - half + 1, y + 9, half * 2 - 2, 1.4);
+      P[8].rect(cx - half + 1, y + 9, half * 2 - 2, 1.4);
       const n = Math.max(1, Math.floor((half * 2 - 8) / 9));
-      for (let k = 0; k < n; k++) P[5].rect(cx - (n * 9) / 2 + k * 9 + 1.5, y, 6, 6.5);
+      for (let k = 0; k < n; k++) P[9].rect(cx - (n * 9) / 2 + k * 9 + 1.5, y, 6, 6.5);
+      wy = y;
     }
-    P[4].rect(x + 3, eave + 3, w - 6, 1.6);
-    for (let k = 0; k < 2; k++) P[5].rect(x + 8 + k * (w - 26), eave + 8, 10, 7);
-    items.push({ x: cx + 2, y: apex - 2, ph: R() });
+    P[8].rect(x + 3, eave + 3, w - 6, 1.6);
+    for (let k = 0; k < 2; k++) P[9].rect(x + 8 + k * (w - 26), eave + 8, 10, 7);
+    // icicles (つらら) under the lip of snow
+    for (let ix = x - 9 + R() * 3; ix < x + w + 8; ix += 3.5 + R() * 4) tri(P[11], ix, eave + 3.4, ix + 0.8, eave + 5.6 + R() * 4.5, ix + 1.6, eave + 3.4);
+    items.push({ smoke: 1, x: cx + 2, y: apex - 2, ph: R(), gx: cx, gy: (eave - 12 + wy) / 2 + 4, gr: w * 0.6 });
   }
-  // A small white storehouse with a snowy roof.
+  // A small white storehouse with a dark base and a snowy roof.
   function kura(P, x, R) {
     const w = 22 + R() * 6;
     const h = 24;
-    P[3].rect(x, G - h, w, h + 1);
-    P[4].rect(x, G - h * 0.35, w, 1.4);
-    P[5].rect(x + w / 2 - 3, G - h + 7, 6, 6);
-    quad(P[2], x - 5, G - h + 1, x + w + 5, G - h + 1, x + w - 1, G - h - 6, x + 1, G - h - 6);
-    rr(P[0], x - 6, G - h - 9, w + 12, 6, 3);
+    ell(P[0], x + w * 0.7, G - 0.5, w * 0.75, 2.8);
+    P[5].rect(x, G - h, w, h + 1);
+    P[6].rect(x, G - h * 0.36, w, h * 0.36 + 1);
+    P[9].rect(x + w / 2 - 3, G - h + 7, 6, 6);
+    quad(P[7], x - 5, G - h + 1, x + w + 5, G - h + 1, x + w - 1, G - h - 6, x + 1, G - h - 6);
+    rr(P[1], x - 6, G - h - 9, w + 12, 6, 3);
+  }
+  // A kamakura (かまくら), the snow hut children make, with a candle inside by night.
+  function kamakura(P, x, items, R) {
+    const w = 14 + R() * 4;
+    const h = 16 + R() * 4;
+    ell(P[0], x + w * 0.7, G - 0.5, w * 1.3, 2.6);
+    P[1].moveTo(x - w, G + 1);
+    P[1].ellipse(x, G + 1, w, h, 0, Math.PI, TAU);
+    P[1].closePath();
+    // the side away from the sun
+    P[2].moveTo(x + w * 0.1, G + 1 - h);
+    P[2].ellipse(x, G + 1, w, h, 0, -Math.PI / 2 + 0.1, 0);
+    P[2].lineTo(x + w * 0.55, G + 1);
+    P[2].quadraticCurveTo(x + w * 0.62, G + 1 - h * 0.62, x + w * 0.1, G + 1 - h);
+    P[2].closePath();
+    // the doorway
+    P[10].moveTo(x - 4.4, G + 1);
+    P[10].lineTo(x - 4.4, G - 5);
+    P[10].arc(x, G - 5, 4.4, Math.PI, TAU);
+    P[10].lineTo(x + 4.4, G + 1);
+    P[10].closePath();
+    items.push({ gx: x, gy: G - 4, gr: 15 });
+  }
+  // かさじぞう: six stone jizo standing in the snow, each with a straw hat and a red bib, as
+  // in the tale of the old man who gave them hats on New Year's Eve.
+  function kasaJizo(P, x, R) {
+    ell(P[0], x + 30, G - 0.4, 34, 2.4);
+    for (let k = 0; k < 6; k++) {
+      const cx = x + k * 9.6;
+      const h = 11 + R() * 2;
+      rr(P[12], cx - 3.4, G - h, 6.8, h + 1, 3.2);
+      circ(P[12], cx, G - h - 2, 2.8);
+      tri(P[13], cx - 3.1, G - h + 2.2, cx + 3.1, G - h + 2.2, cx, G - h + 6.8);
+      tri(P[14], cx - 6.2, G - h - 2.6, cx, G - h - 8.6, cx + 6.2, G - h - 2.6);
+      // snow on the hat
+      tri(P[15], cx - 3.2, G - h - 5.6, cx, G - h - 8.6, cx + 3.2, G - h - 5.6);
+    }
+    // and drifted round their feet
+    rr(P[15], x - 6, G - 3.2, 60, 5, 2.5);
   }
   function yukidaruma(ctx, x, base, s) {
     ctx.save();
     ctx.translate(x, base);
     ctx.scale(s, s);
-    if (setFill(ctx, 'bodyShade')) {
+    if (setFill(ctx, 'shadow')) {
       ctx.beginPath();
-      ctx.ellipse(1.5, -9, 14, 11, 0, 0, TAU);
-      ctx.ellipse(1, -27, 9.5, 9, 0, 0, TAU);
+      ctx.ellipse(8, -0.6, 19, 2.6, 0, 0, TAU);
       ctx.fill();
     }
-    if (setFill(ctx, 'body')) {
+    // the side away from the light, then the lit snow over it
+    if (setFill(ctx, 'bodyShade')) {
       ctx.beginPath();
       ctx.ellipse(0, -10, 13, 10.5, 0, 0, TAU);
       ctx.moveTo(9, -28);
       ctx.ellipse(0, -28, 9, 8.5, 0, 0, TAU);
       ctx.fill();
     }
+    if (setFill(ctx, 'body')) {
+      ctx.beginPath();
+      ctx.ellipse(-1.6, -11.2, 11, 9.2, 0, 0, TAU);
+      ctx.moveTo(6.2, -29);
+      ctx.ellipse(-1.2, -29, 7.4, 7.2, 0, 0, TAU);
+      ctx.fill();
+    }
+    // a red bucket for a hat
+    if (setFill(ctx, 'bucket')) {
+      ctx.beginPath();
+      ctx.moveTo(-6.6, -34.2);
+      ctx.lineTo(6.6, -35.4);
+      ctx.lineTo(5.2, -42.6);
+      ctx.lineTo(-5.4, -41.6);
+      ctx.closePath();
+      ctx.fill();
+    }
     if (F.C.eye) {
+      ctx.globalAlpha = 1;
       ctx.strokeStyle = F.C.eye;
       ctx.fillStyle = F.C.eye;
       ctx.lineWidth = 1;
