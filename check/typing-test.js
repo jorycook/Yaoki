@@ -621,6 +621,10 @@ async function waitFor(fn, ms = 5000) {
   check('left to fall, its answer is said in a Japanese voice', await waitFor(async () => (await state(page)).falling, 40000)
     && await waitFor(() => page.evaluate((reading) => [...document.querySelectorAll('#sr-prompt [lang="ja"]')].some((e) => e.textContent === reading), kj.reading), 1500),
   await page.innerHTML('#sr-prompt'));
+  const infoFall = await page.innerText('#info');
+  await page.setViewportSize({ width: 1100, height: 768 });
+  check('…and the line under the game keeps it through a resize', infoFall.includes(kj.text) && await waitFor(async () => (await page.innerText('#info')) === infoFall, 600), JSON.stringify({ infoFall, now: await page.innerText('#info') }));
+  await page.setViewportSize({ width: 1366, height: 768 });
   const kkround = await playOut(page, (c) => typeKana(page, c.keys), 120000);
   const kkweak = kkround ? await page.textContent('#res-weak') : '';
   check('the round\'s weak spots list the slipped word', kkweak.includes(kslip), JSON.stringify({ kkweak, kslip }));

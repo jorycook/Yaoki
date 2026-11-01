@@ -1606,13 +1606,15 @@
     const one = parseFloat(getComputedStyle(box).minHeight) || 0;
     let most = one;
     const seen = new Set();
+    const shown = r.infoCard;
     for (const e of r.queue.concat(r.cards.map((c) => c.entry))) {
       if (seen.has(e.item.id)) continue;
       seen.add(e.item.id);
       showInfo({ item: e.item, state: 'live', level: 0, halted: false });
       most = Math.max(most, box.offsetHeight);
     }
-    showInfo(r.target);
+    // back to the card it was showing (during a fall, the card that fell), at the new width
+    showInfo(shown);
     if (most > one) {
       box.style.minHeight = most + 'px';
       root.setProperty('--info-extra', most - one + 'px');
@@ -1622,6 +1624,7 @@
   // The line under the canvas: the word being typed, its reading and meaning.
   function showInfo(card) {
     const box = $('info');
+    if (r) r.infoCard = card || null;
     box.textContent = '';
     if (!card) return;
     const it = card.item;

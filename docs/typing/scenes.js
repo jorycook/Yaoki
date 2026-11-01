@@ -175,28 +175,41 @@
     L.ring[slot] = T;
     return T;
   }
-  // Whether one of a tile's boxes ([x0, x1, y0, y1] in the tile, which starts at x) covers
-  // the sun or moon.
+  // Whether one of a tile's boxes ([x0, x1, y0, y1] in the tile, which starts at x) reaches
+  // the sun or moon (a circle).
   function overDisc(boxes, x) {
     for (let k = 0; k < boxes.length; k++) {
       const b = boxes[k];
-      if (F.discX + F.discR > x + b[0] && F.discX - F.discR < x + b[1] && F.discY + F.discR > b[2] && F.discY - F.discR < b[3]) return true;
+      const dx = Math.max(x + b[0] - F.discX, 0, F.discX - x - b[1]);
+      const dy = Math.max(b[2] - F.discY, 0, F.discY - b[3]);
+      if (dx * dx + dy * dy < F.discR * F.discR) return true;
     }
     return false;
+  }
+  // The still frame never moves, so a cloud over the sun or moon would hide it all round: that
+  // frame slides a layer of clouds along (by up to about two hundred units) until none does.
+  function clearOfDisc(L, off) {
+    for (let k = 0; k < 24; k++) {
+      const o = off + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 17;
+      const a = Math.floor((o + F.discX - F.discR - L.m) / L.tw);
+      const b = Math.floor((o + F.discX + F.discR + L.m) / L.tw);
+      let hit = false;
+      for (let i = a; i <= b && !hit; i++) hit = overDisc(tileOf(L, i).items, i * L.tw - o);
+      if (!hit) return o;
+    }
+    return off;
   }
   function drawLayer(ctx, L, off) {
     const C = F.C;
     const A = F.A;
     const tw = L.tw;
     const n = L.rc.length;
+    if (L.clouds && F.still && F.discR) off = clearOfDisc(L, off);
     const a = Math.floor((off - L.m) / tw);
     const b = Math.floor((off + F.W + L.m) / tw);
     for (let i = a; i <= b; i++) {
       const T = tileOf(L, i);
       const x = i * tw - off;
-      // the still frame never moves, so a cloud over the sun or moon would hide it all round:
-      // that frame leaves out the tile of clouds that would
-      if (L.clouds && F.still && F.discR && overDisc(T.items, x)) continue;
       ctx.translate(x, 0);
       for (let r = 0; r < n; r++) {
         const key = L.rc[r];
@@ -429,7 +442,7 @@
   function celestial(ctx, x, y, r) {
     F.discX = x;
     F.discY = y;
-    F.discR = r * 1.2;
+    F.discR = r + 1;
     if (F.dark) {
       glow(ctx, x, y, r * 8, 'moonGlow', 0.35);
       glow(ctx, x, y, r * 3.2, 'moonGlow', 1);
@@ -510,8 +523,9 @@
         const s = Math.floor(R() * 4294967296);
         cloud(P[0], x, y + Math.max(2, w * 0.05), w, rng(s));
         cloud(P[1], x, y, w, rng(s));
-        // its box, so a still frame can keep it off the sun or moon (drawLayer)
-        items.push([x - 4, x + w + 4, y - w * 0.62, y + w * 0.06 + 3]);
+        // its box (the bumps on top can reach a little past either end; the shade hangs a
+        // little lower), so a still frame can keep it off the sun or moon (drawLayer)
+        items.push([x - w * 0.08 - 3, x + w * 1.08 + 3, y - w * 0.56, y + Math.max(2, w * 0.05)]);
       }
     });
     L.clouds = true;
@@ -1815,13 +1829,15 @@
             const w = 70 + R() * 80;
             rr(P[0], x + 6, y + 2.2, w, 6.5, 3.2);
             rr(P[1], x, y, w, 6.5, 3.2);
+            let right = x + w + 6;
             if (R() < 0.7) {
               const x2 = x + w * (0.25 + R() * 0.3);
               const w2 = w * (0.4 + R() * 0.3);
               rr(P[0], x2 + 5, y - 3.3, w2, 5.5, 2.7);
               rr(P[1], x2, y - 5.2, w2, 5.5, 2.7);
+              right = Math.max(right, x2 + w2 + 5);
             }
-            items.push([x - 2, x + w + 8, y - 6, y + 9]);
+            items.push([x, right, y - 5.2, y + 8.7]);
           }
         }), { clouds: true }),
         // the farthest towers, pale in the haze; by night a red light blinks on their masts
