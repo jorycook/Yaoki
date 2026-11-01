@@ -19,9 +19,40 @@
 <link rel="stylesheet" href="./assets/fonts.css">
 <link rel="stylesheet" href="./assets/app.css">
 <link rel="stylesheet" href="./assets/screens.css">
+<link rel="stylesheet" href="./site/site.css">
+<script src="./site/site.js" data-root="%SITE_ROOT%" data-page="%SITE_PAGE%" data-licences="licenses.txt" data-app></script>
 </head>
 <body>
+<!-- In a browser window wide enough for a web page this is a page of the Yaoki website: the site's header, the app in a
+     phone-shaped frame, a few words about it and the other apps, the footer (site.js fills the header, footer and cards;
+     see app.css and yk-app.js, fit()). On a phone, installed, or as the preview inside Claude, only #yk-view is laid out:
+     the design owns the whole screen and none of the rest exists. -->
+<header class="site-bar" data-site-bar></header>
+<main class="site-home">
 <div id="yk-view"><div id="yk-stage"></div></div>
+<aside class="home-aside">
+<div class="kicker"><span lang="ja">やおき</span> · JLPT STUDY</div>
+<!-- #if N1 -->
+<h1>Yaoki N1</h1>
+<p class="lede">The N1 course, planned to your exam date: kanji, grammar, reading and listening, with your mistakes kept in a notebook. Your progress stays in this browser or on your phone; nothing is sent anywhere.</p>
+<!-- #else -->
+<h1>Yaoki</h1>
+<p class="lede">A JLPT study app for N5 to N2, with a reader, a typing game and a speaking game beside it. Your progress stays in this browser or on your phone; nothing is sent anywhere.</p>
+<!-- #end -->
+<section class="card">
+<div class="kicker"><span lang="ja">ホーム画面に追加</span> · ADD IT TO YOUR PHONE</div>
+<ol class="home-steps">
+<li>iPhone or iPad: open this address in Safari, tap Share, then Add to Home Screen.</li>
+<li>Android: open it in Chrome, open the browser menu, then Add to Home screen.</li>
+<li>Open it from its icon once while online. It works offline after that.</li>
+</ol>
+<p class="hint">The app beside this is the real thing: start here and your progress is kept in this browser.</p>
+</section>
+<h2 class="kicker"><span lang="ja">ほかのアプリ</span> · THE OTHER APPS</h2>
+<div class="home-cards" data-site-cards></div>
+</aside>
+</main>
+<footer class="site-foot" data-site-foot></footer>
 <div id="yk-sideways" role="status"><div lang="ja">縦向きでお使いください</div><div>Turn the phone upright</div></div>
 <noscript>Yaoki needs JavaScript to run.</noscript>
 <script src="./assets/build.js"></script>

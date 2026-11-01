@@ -18,6 +18,11 @@
   /* "artifact": the same app shown as a page inside Claude, where nothing can be installed or stored for offline use */
   var HOSTED = window.__ykHost === 'artifact';
   if (HOSTED) root.classList.add('yk-hosted');
+  var standalone = navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+  /* the website: in a browser window of at least 700 by 560 the page is a page of the Yaoki site, with the design in a
+     phone-shaped frame (see index.html and app.css). The same rule is in site/site.js, which applies it before the first
+     paint; from then on fit() owns it. Never when installed, nor as the preview inside Claude */
+  function wantSite() { return !standalone && !HOSTED && window.innerWidth >= 700 && window.innerHeight >= 560; }
   var fluid = false;
   /* saved data is kept per copy of the app: two copies under one web address must not share or delete each other's */
   var HOME = location.pathname.replace(/[^/]*$/, '');
@@ -192,8 +197,12 @@
 
   /* ---------- fit the design to the screen ---------- */
   function fit() {
-    var vw = view.clientWidth;
-    var vh = Math.min(view.clientHeight, window.innerHeight || view.clientHeight);
+    var site = wantSite();
+    root.classList.toggle('yk-site', site);
+    /* on the website #yk-view is a box of the design's shape (app.css); its size is read after the class is set */
+    var box = site ? view.getBoundingClientRect() : null;
+    var vw = site ? box.width : view.clientWidth;
+    var vh = site ? box.height : Math.min(view.clientHeight, window.innerHeight || view.clientHeight);
     if (!vw || !vh) return;
     var s = vw / W;
     var need = H * s;   /* the height the whole design takes at full width */
@@ -202,7 +211,12 @@
     var tx = 0;
     var ty = 0;
     var boxed = false;
-    if (fluid) {
+    if (site) {
+      /* the website: the whole design fills its frame, which has its shape; the Add to Home Screen page scrolls inside it */
+      stage.style.height = H + 'px';
+      sx = sy = s;
+      boxed = true;
+    } else if (fluid) {
       /* the Add to Home Screen page: full width, as tall as the browser leaves */
       sx = sy = Math.min(s, 1.25);
       stage.style.height = Math.round(vh / sx) + 'px';
@@ -234,9 +248,9 @@
       }
     }
     stage.style.transform = 'translate(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px) scale(' + sx.toFixed(5) + ',' + sy.toFixed(5) + ')';
-    root.classList.toggle('yk-boxed', boxed && vw > 520);
+    root.classList.toggle('yk-boxed', boxed && (site || vw > 520));
     /* a phone held sideways: the design is upright only, so say so instead of showing it tiny */
-    var sideways = !fluid && boxed && vw > vh && vh < 560 && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    var sideways = !site && !fluid && boxed && vw > vh && vh < 560 && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     root.classList.toggle('yk-sideways', !!sideways);
   }
   window.addEventListener('resize', fit);
@@ -309,12 +323,11 @@
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (a && !e.defaultPrevented && /\.dc\.html?([?#].*)?$/.test(a.getAttribute('href') || '')) e.preventDefault();
   });
-  /* no pinch zoom, no double-tap zoom: the design already fills the screen */
+  /* no pinch zoom, no double-tap zoom: the design already fills the screen (on the website, the words beside it may still be selected) */
   document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
-  document.addEventListener('dblclick', function (e) { e.preventDefault(); });
+  view.addEventListener('dblclick', function (e) { e.preventDefault(); });
 
   /* ---------- which page to open ---------- */
-  var standalone = navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
   var ua = navigator.userAgent || '';
   var iPad = /iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
   var iPhone = /iPhone|iPod/.test(ua);

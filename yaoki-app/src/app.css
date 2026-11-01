@@ -39,9 +39,9 @@ html.yk-hosted #yk-view { position: fixed; left: 0; right: 0; top: env(safe-area
 html.yk-ready #yk-stage { visibility: visible; }
 #yk-stage > .sc-host { width: 390px; height: 100%; }
 
-/* in a wide window the app sits in the middle like a phone */
-html.yk-boxed, html.yk-boxed body, html.yk-boxed #yk-view { background: #C9D0E3; }
-html.yk-boxed #yk-stage { border-radius: 30px; box-shadow: 0 0 0 3px #1B2440, 0 20px 50px rgba(27, 36, 64, 0.28); }
+/* in a window too wide for a phone and too small for the website (521 to 699 px) the app sits in the middle like a phone */
+html.yk-boxed:not(.yk-site), html.yk-boxed:not(.yk-site) body, html.yk-boxed:not(.yk-site) #yk-view { background: #C9D0E3; }
+html.yk-boxed:not(.yk-site) #yk-stage { border-radius: 30px; box-shadow: 0 0 0 3px #1B2440, 0 20px 50px rgba(27, 36, 64, 0.28); }
 
 /* the same starting point for buttons in every browser; each button's own inline style still wins */
 button {
@@ -70,3 +70,25 @@ html.yk-sideways #yk-sideways {
   background: #F4F5F9; color: #1B2440; font-size: 15px; font-weight: 700;
 }
 html.yk-sideways #yk-sideways [lang="ja"] { font-size: 20px; font-weight: 800; }
+
+/* ---------- the website ----------
+   In a browser window of at least 700 by 560 (yk-app.js, fit(); site.js decides the same before the first paint) the page
+   is a page of the Yaoki website: the site header, the design in a phone-shaped frame, the words beside it and the footer
+   (site/site.css styles those). Anywhere else (a phone, the installed app, the preview inside Claude) the chrome does not
+   exist: it is hidden, and <main> is laid out as if it were not there, so #yk-view is body's child and fills the screen
+   exactly as before. */
+html:not(.yk-site) :is(.site-bar, .site-foot, .home-aside) { display: none; }
+/* <main> has no box of its own, and hands the design nothing of its own either (site.css gives it a font and a colour,
+   which its children would inherit even without a box): the design inherits from body exactly as it always did */
+html:not(.yk-site) .site-home { display: contents; font: inherit; color: inherit; }
+/* the website: a page that scrolls, on the desk colour, in light or dark; the chrome's text can be selected */
+html.yk-site, html.yk-site body { position: static; height: auto; min-height: 100%; overflow: auto; overscroll-behavior: auto; background: var(--desk); color: var(--ink); color-scheme: light dark; -webkit-user-select: text; user-select: text; }
+html.yk-site[data-theme="light"], html.yk-site[data-theme="light"] body { color-scheme: light; }
+html.yk-site[data-theme="dark"], html.yk-site[data-theme="dark"] body { color-scheme: dark; }
+/* the frame: a box of the design's shape, as tall as the window allows, never under 560 px (a short window scrolls) and
+   never over the design's own 844; fit() scales the design to fill it exactly. The design inside stays light in every theme */
+html.yk-site #yk-view { --frame-h: clamp(560px, calc(100vh - 104px), 844px); height: var(--frame-h); width: calc(var(--frame-h) * 390 / 844); flex-shrink: 0; background: none; overflow: visible; color-scheme: light; -webkit-user-select: none; user-select: none;
+  /* what the design inherits on its own page (body's defaults), whatever the page around it is set in */
+  font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; }
+html.yk-site #yk-stage { border-radius: 30px; box-shadow: 0 0 0 3px var(--frame), 0 8px 0 var(--hard); color-scheme: light; }
+html.yk-site #yk-sideways { display: none; }

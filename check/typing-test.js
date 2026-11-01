@@ -106,6 +106,7 @@ async function waitFor(fn, ms = 5000) {
   let page = await open();
   check('page loads with no script errors', errors.length === 0, errors.join('\n'));
   check('brand is タイピング · Yaoki Typing', /タイピング\s*Yaoki Typing/.test(await page.textContent('.brand')));
+  check('the site nav marks Typing', (await page.textContent('.site-nav [aria-current="page"]')) === 'Typing');
   check('three input methods in the app\'s words', (await page.$$eval('#modes button', (b) => b.map((x) => x.textContent))).join('|') === 'ローマ字　Romaji|記号　Symbol keys|かな入力　Kana input');
   check('the heading names them input methods', /入力方法\s*Input method/.test(await page.textContent('#mode-h')));
   check('the Japanese in their description is marked as Japanese', (await page.textContent('#mode-desc [lang="ja"]')) === '英数');
@@ -119,6 +120,7 @@ async function waitFor(fn, ms = 5000) {
   await page.click('#start');
   check('start opens the round', (await state(page)).phase === 'play');
   check('the brand bar is out of the way during a round', !(await page.isVisible('.bar')));
+  check('the site header is out of the way during a round', !(await page.isVisible('.site-bar')));
   for (let i = 0; i < 6; i++) {
     const t = await target(page);
     await page.keyboard.type(t.spell, { delay: 25 });

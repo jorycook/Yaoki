@@ -1,6 +1,6 @@
-# Yaoki: source of the iPhone web app prototype
+# Yaoki: source of the website and the iPhone web app prototype
 
-Yaoki is a JLPT study app prototype. There are two apps, built from the same shell: the main app for N5 to N2 (the N5, N4 and N3 courses drafted in full, N2 with its unit 3 written; the learner picks the level in the app) and the N1 app (the N1 course, planned to the learner's exam date). This folder holds everything needed to rebuild both installable web apps, and Yaoki Reader, a reading page of its own. The design itself lives on the design canvas "Yaoki JLPT App"; the screens here are copies of the canvas's files.
+Yaoki is a JLPT study app prototype, and the website around it. There are two apps, built from the same shell: the main app for N5 to N2 (the N5, N4 and N3 courses drafted in full, N2 with its unit 3 written; the learner picks the level in the app) and the N1 app (the N1 course, planned to the learner's exam date). Beside them are Yaoki Reader, a reading page, Yaoki Typing, a typing game, and Yaoki Speaking, a speaking game. In a browser window the apps, the reader and the typing game are the pages of one website, with one header, one footer and one look (see "The website"); on a phone the two apps are still the installable apps they were. This folder holds everything needed to rebuild all of it. The design itself lives on the design canvas "Yaoki JLPT App"; the screens here are copies of the canvas's files.
 
 ## What is where
 
@@ -8,6 +8,7 @@ Yaoki is a JLPT study app prototype. There are two apps, built from the same she
 |---|---|
 | `docs/` | The built main app, served by GitHub Pages at https://jorycook.github.io/Yaoki/. This is all a phone needs. |
 | `docs/n1/` | The built N1 app, served at https://jorycook.github.io/Yaoki/n1/. |
+| `docs/site/`, `docs/n1/site/` | The website's shared look (`site.css`) and its header and footer (`site.js`), copied from `yaoki-site/` by each app's build. The reader and the typing page load `docs/site/`; never edit these copies by hand. |
 | `docs/reader/` | Yaoki Reader, served at https://jorycook.github.io/Yaoki/reader/. It has no build step: these files are its source. |
 | `docs/typing/` | Yaoki Typing (タイピング), a typing game for a computer with a Japanese (JIS) keyboard, served at https://jorycook.github.io/Yaoki/typing/. It has no build step: `engine.js` holds the spelling rules, key tables and prompts, `game.js` the game. |
 | `docs/speaking/` | Yaoki Speaking (スピーキング), a game of saying words out loud on a phone or tablet held upright, served at https://jorycook.github.io/Yaoki/speaking/. It has no build step: `voice.js` reads what the phone heard, `listen.js` listens, `places/` draws the places (a file each, on the shared kit in `world.js`), `lessons.js` holds the first steps' kana lessons, `game.js` the game; `readings.js`, the readings `voice.js` uses, is made by `tools/make-speaking-readings.py`. It uses Yaoki Typing's lists, sound effects, music and lines. |
@@ -18,6 +19,7 @@ Yaoki is a JLPT study app prototype. There are two apps, built from the same she
 | `yaoki-n1/content/`, `yaoki-n1/tools/` | The N1 course as data (`FORMAT.md`, `MOCKS.md`) and the scripts that check it and bundle it into `n1-content.js`. `yaoki-n1/SCREENS.md` says how the screens read the plan. |
 | `yaoki-n1/make-sound.py` | Makes the N1 app's spoken clips. |
 | `yaoki-app/` | The app around the screens, shared by both apps: `src/` (runtime, shell, install page, offline worker, page, manifest), `build.mjs`, `fonts.py`. |
+| `yaoki-site/` | The website's design system, shared by every page: `site.css` (the colours in light and dark, the typefaces, the buttons, cards, pills, tags and switches, the header, the footer and the home page's layout) and `site.js` (draws the header, the footer and the home page's cards on each page, and keeps the light or dark choice). |
 | `reader-tools/` | Scripts that make the reader's Aozora Bunko files (the catalog of works, the JIS X 0213 table). |
 | `check/` | The tests (Playwright). |
 
@@ -33,7 +35,7 @@ node build.mjs                # the main app: writes dist/ (the app) and dist-pr
 YK_LEVEL=N1 node build.mjs    # the N1 app: writes dist-n1/ and dist-n1-preview/
 ```
 
-`dist/` is what `docs/` is a copy of, and `dist-n1/` what `docs/n1/` is a copy of: after a build, replace the app's files with it and push. Leave `docs/reader/`, `docs/typing/`, `docs/speaking/` and `docs/n1/` alone when replacing the main app in `docs/`. Settings, all optional: `YK_LEVEL` (`N2`, the default, for the main app, or `N1`), `YK_OUT` (output folder, relative to `yaoki-app/`), `YK_APP_VERSION` (default 0.1), `YK_BUILD_DATE` (default today), `YK_PROJECT` and `YK_FONTS` (where the screens and the typefaces are).
+`dist/` is what `docs/` is a copy of, and `dist-n1/` what `docs/n1/` is a copy of: after a build, replace the app's files with it and push (`docs/site/` is part of the main app's files, `docs/n1/site/` of the N1 app's). Leave `docs/reader/`, `docs/typing/`, `docs/speaking/` and `docs/n1/` alone when replacing the main app in `docs/`. Settings, all optional: `YK_LEVEL` (`N2`, the default, for the main app, or `N1`), `YK_OUT` (output folder, relative to `yaoki-app/`), `YK_APP_VERSION` (default 0.1), `YK_BUILD_DATE` (default today), `YK_PROJECT` and `YK_FONTS` (where the screens and the typefaces are).
 
 The two apps share everything in `yaoki-app/src/`. What differs is set in `LEVELS` at the top of `build.mjs`: the screens folder and the screens the app plays, the scripts loaded before the screens (the main app's courses and course engine; N1's content bank, plan and clip list), the clips, which sound is stored when used rather than at install, the name on the Home Screen ("Yaoki" and "Yaoki N1") and the icon colour (gold and indigo). The few lines of the shared files that belong to one app only sit between marks, `<!-- #if N1 -->` … `<!-- #else -->` … `<!-- #end -->` in a page or a template and `/* #if N1 */` … `/* #else */` … `/* #end */` in a script; the build keeps the app's own lines and leaves out the marks. So the main app keeps its level menu, its course engine and its saved state (`course.js`), and the N1 app keeps its own saved state (a plan of days, `n1.js`), the Star screen and a "Change the plan" button in its menu; neither app's build holds a line of the other's.
 
@@ -42,6 +44,16 @@ The two apps share everything in `yaoki-app/src/`. What differs is set in `LEVEL
 Copy the contents of `docs/` (or `yaoki-app/dist/`) to any https address. Every address inside the app is relative, so a sub-folder works. This repository is set up for GitHub Pages: Settings → Pages → Deploy from a branch, `main`, folder `/docs`. The empty `.nojekyll` file tells GitHub to serve the files as they are.
 
 On the iPhone: open the address in Safari, tap Share, then Add to Home Screen, then open Yaoki from its icon once while online. The N1 app is added the same way from its own address (`/Yaoki/n1/`). The two apps keep separate progress and separate offline copies, and either can be on a phone without the other.
+
+## The website
+
+The four pages at https://jorycook.github.io/Yaoki/ (the main app), `/n1/`, `/reader/` and `/typing/` are one website: each has the same header (the daruma, the name, the nav Study · N1 · Reader · Typing with the page it is on marked, and the light or dark control), the same footer (every app, Yaoki Speaking included, the JLPT notice, the licences and, on an app page, the build) and the same look, from `yaoki-site/`. Yaoki Speaking is a game for a phone and keeps its own page as it was; the home page and the footer link to it.
+
+- **The two apps** are a 390 by 844 design. In a browser window of at least 700 by 560 pixels the page is a page of the website: the header, the design in a phone-shaped frame, as tall as the window allows (between 560 and 844 pixels; a shorter window scrolls), a few words about the app with the steps to add it to a phone and the cards of the other apps beside the frame (below it under 1024 pixels wide), and the footer. The design inside the frame is the app itself, with the same saved progress and the same offline copy. The rule is in `yaoki-app/src/yk-app.js` (`wantSite`, applied by `fit()`) and, so that the first paint is already right, in `site.js`. In a window narrower than 700 (but wider than a phone) the design sits in the plain grey frame as before; on a phone, from the Home Screen and as the preview inside Claude, nothing of the website exists on the page: the chrome is not laid out, and the design owns the screen exactly as it did. The app's screens stay light in every theme; the page around them follows the theme.
+- **The reader and the typing page** carry the header and footer at every width (under 700 pixels the header is the brand and the theme control only; the footer carries all the links). The header steps aside while a text is open for reading and during a typing round.
+- **Light or dark.** The control in the header goes Auto → Light → Dark. Auto follows the system and keeps nothing; a choice is kept in `localStorage` under `yaoki.theme` (`light` or `dark`), shared by every page of the site, and announced to the page as the window event `yaoki:theme` (the typing game recolours its canvas on it). Nothing is written until the control is used.
+- **One source.** `yaoki-site/site.css` holds the tokens (the names the reader and the typing page used before, with the same values, so the typing game's canvas reads what it always read) and the shared pieces; `site.js` the header, the footer and the home page's cards. A page declares itself with the script tag: `<script src="../site/site.js" data-root="../" data-page="reader" data-licences="licenses.txt"></script>` (`data-root` the path to the site's root, `data-page` its name in the nav, `data-app` on the two app pages), and holds `<header class="site-bar" data-site-bar></header>` and `<footer class="site-foot" data-site-foot></footer>` where they go. `site.css` sets no rule on `html`, `body`, `button` or `*`, and no `color-scheme`: each page keeps a short base block of its own, and the apps' inline-styled screens are never touched.
+- **A change to `yaoki-site/` needs both app builds and both `docs/` copies**: each app precaches its own copy (`docs/site/`, `docs/n1/site/`), and the main app's offline worker, whose scope holds the whole site, also serves `/Yaoki/site/` to the reader and typing pages on a phone that has the app. A hand edit of `docs/site/` would not reach that phone until the next build. (`check/site/` is an unrelated test fixture, see `check/setup-site.sh`.)
 
 ## Offline sound
 
@@ -93,6 +105,7 @@ cd check
 bash run-reader.sh reader-test.js    # serves docs/ at /Yaoki/ as GitHub Pages does, with the app's offline worker running
 bash run-reader.sh aozora-test.js    # Aozora Bunko: search, fetch, parts, a downloaded zip (the copy of Aozora's files is played by the test)
 bash run-reader.sh library-test.js   # Yaoki Library: the catalog and its files, the button, every work and its parts, a part read in full, a new edition updating saved parts
+bash run-reader.sh site-test.js      # the website: header, nav, footer and the light or dark control on each of the four pages, at a phone's, a tablet's and a laptop's size
 ```
 
 For Yaoki Typing (Node for the rules, Playwright for the page):

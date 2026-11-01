@@ -3648,6 +3648,10 @@
       pal = palette();
     });
   }
+  /* a theme chosen in the site header (site.js) recolours the canvas too */
+  window.addEventListener('yaoki:theme', () => {
+    pal = palette();
+  });
 
   const toMenu = () => {
     setPhase('menu');

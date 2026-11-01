@@ -70,7 +70,9 @@ async function holdFirstPhrase(page, nth) {
   ok(JSON.stringify(await cards(page)) === JSON.stringify(['片目のだるま']), 'library shows only the sample at first');
   ok(await page.locator('#lib-state').innerText().then((t) => /this browser/.test(t)), 'library says texts are kept in this browser');
   ok(!(await page.locator('#export-lib').isVisible()), 'Save a backup is hidden while there is nothing to save');
-  ok(await page.locator('a[href="../"]').count() === 1, 'there is a link back to the app');
+  /* the site header's brand and its nav's Study, and the footer's Study, all point home (count() includes the nav, hidden under 700 px) */
+  ok(await page.locator('a[href="../"]').count() === 3, 'there are links back to the app (header brand, nav and footer)');
+  ok(await page.locator('.site-nav [aria-current="page"]').textContent() === 'Reader', 'the site nav marks Reader as the current page');
 
   step('the sample: hold to reveal');
   await page.locator('#texts .text-card').first().click();
@@ -82,6 +84,7 @@ async function holdFirstPhrase(page, nth) {
   ok(r1.rubyShown === true, 'furigana shows in the text while held');
   ok(r1.hidden, 'letting go hides the card');
   ok((await page.locator('#read-count').innerText()).startsWith('1'), 'the looked-up count is 1');
+  ok(!(await page.locator('.site-bar').isVisible()), 'the site bar is out of the way while reading');
   await page.locator('#read-back').click();
 
   step('adding a text end to end (loads the whole dictionary)');

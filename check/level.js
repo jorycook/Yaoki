@@ -52,13 +52,13 @@ if (LEVEL === 'N1') {
   const d = l.grammar.drills[0];
   const wrong = d.options.filter((o, k) => k + 1 !== d.answer).sort((a, b) => b.length - a.length)[0];
   TEXT = {
-    appName: 'Yaoki N1', tabCount: 'short papers in the real format', weekTheme: N.units[0].ja,
+    appName: 'Yaoki N1', navName: 'N1', tabCount: 'short papers in the real format', weekTheme: N.units[0].ja,
     teachTitle: l.grammar.patterns[0].p, drillWrong: N.plain(wrong), drillLine: N.plain(d.ja).split('（　　）')[0].slice(-5),
     drillSrc: 'g.' + l.id + '.d0', teachClip: 'g.' + l.id + '.0.0',
   };
 } else {
   /* the main app (N5 to N2): a new plan starts on day 1 of its N2 unit 3, 原因・理由 (〜ことから, then 〜につき) */
-  TEXT = { appName: 'Yaoki', tabCount: '101問', weekTheme: '原因・理由', teachTitle: '〜ことから', drillWrong: 'あまり', drillLine: '道がぬれていた', drillSrc: 'u03d1.d1', teachClip: 't_ex1' };
+  TEXT = { appName: 'Yaoki', navName: 'Study', tabCount: '101問', weekTheme: '原因・理由', teachTitle: '〜ことから', drillWrong: 'あまり', drillLine: '道がぬれていた', drillSrc: 'u03d1.d1', teachClip: 't_ex1' };
 }
 
 module.exports = { LEVEL, PROJECT, clips, mockClips, listeningMs, course, ...TEXT };

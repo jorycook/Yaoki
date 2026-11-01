@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="site-page">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,46 +13,20 @@
 <link rel="apple-touch-icon" href="../icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
 <style>
-/* page base, as in Yaoki Reader */
-:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+/* page base (site.css sets no base rules; each page keeps its own) */
+*, *::before, *::after { box-sizing: border-box; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); color-scheme: light; }
 body { margin: 0; padding: 0; }
 [hidden]:not([hidden=until-found i]) { display: none !important; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }
+:root[data-theme="dark"] { color-scheme: dark; }
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap">
+<link rel="stylesheet" href="../site/site.css">
+<script src="../site/site.js" data-root="../" data-page="typing" data-licences="../licenses.txt"></script>
 <style>
-/* Look: Yaoki stamp-card stationery, with the tokens of Yaoki Reader plus the app's answer colours.
-   The round is drawn on a canvas that reads these same tokens (game.js, palette()). */
-:root {
-  --ground: #F4F5F9; --card: #FFFFFF; --ink: #1B2440; --muted: #5A6382;
-  --line: #DDE1EC; --line-strong: #C9D0E3; --outline: #1B2440; --hard: #1B2440;
-  --accent: #2F4FD0; --accent-ink: #2F4FD0; --accent-soft: #E8ECFB; --on-accent: #FFFFFF;
-  --mark: #FFE9B0; --note: #FFF4D6; --stamp: #C7361E; --scrim: rgba(27, 36, 64, 0.45);
-  --good: #0B7A6B; --good-soft: #E0F3EF; --bad: #C7361E; --bad-soft: #FDEBE6;
-  --gold: #F2B43A; --daruma: #E2452B; --grid: #E6E9F3;
-  --ui: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
-  --jp: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
-    --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
-    --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
-    --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
-    --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
-    --grid: #1A2137;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
-  --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
-  --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
-  --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
-  --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
-  --grid: #1A2137;
-  color-scheme: dark;
-}
-*, *::before, *::after { box-sizing: border-box; }
+/* Look: Yaoki stamp-card stationery. The tokens and the shared pieces (.btn .card .pill .tag .kicker .hint .notebox .linklike
+   .icon-btn .bar .brand .seg .switch, the site header and footer) come from ../site/site.css; the round is drawn on a canvas that reads the same tokens (game.js, palette()). */
 body { background: var(--ground); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.45; font-weight: 500; line-break: strict; -webkit-text-size-adjust: 100%; }
 button { font: inherit; color: inherit; cursor: pointer; margin: 0; }
 button:disabled { cursor: default; }
@@ -61,37 +35,17 @@ button:disabled { cursor: default; }
 rt { font-size: 0.45em; font-weight: 400; color: var(--muted); }
 
 #app { max-width: 1040px; margin: 0 auto; padding: 0 16px 28px; }
-.bar { display: flex; align-items: center; gap: 8px; min-height: 56px; }
-.brand { flex: 1; min-width: 0; font-size: 20px; font-weight: 800; }
-.brand small { font-size: 13px; font-weight: 700; color: var(--muted); }
-.pill { flex-shrink: 0; height: 40px; padding: 0 14px; border-radius: 20px; background: var(--card); border: 2px solid var(--outline); color: var(--ink); font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
 
-/* shared pieces */
-.kicker { font-size: 12px; font-weight: 800; color: var(--accent-ink); }
-.kicker.red { color: var(--stamp); }
+/* the page's own pieces */
 h1 { margin: 2px 0 0; font-size: 26px; font-weight: 800; line-height: 1.25; }
 h1.jp { margin-top: 10px; font-family: var(--jp); font-weight: 600; font-size: 30px; line-height: 1.5; }
 #res-title:focus { outline: none; }
 h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .lede { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
-.hint { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
-.card { background: var(--card); border: 2px solid var(--outline); border-radius: 20px; box-shadow: 0 4px 0 var(--hard); padding: 14px 16px 16px; }
-.notebox { margin: 0; padding: 12px 14px; border-radius: 16px; background: var(--note); font-size: 13px; font-weight: 500; line-height: 1.5; }
-.notebox b { font-weight: 800; }
-.notebox ul { margin: 6px 0 0; padding-left: 18px; }
 .pair { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--note); }
 .pair [lang="ja"] { font-size: 20px; font-weight: 800; }
 .pair span:last-child { font-size: 15px; font-weight: 700; }
 .pair a { color: var(--accent-ink); font-weight: 800; }
-.btn { min-height: 54px; padding: 8px 20px; border-radius: 16px; border: 2px solid var(--outline); background: var(--accent); color: var(--on-accent); box-shadow: 0 4px 0 var(--hard); font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--hard); }
-.btn:disabled { background: var(--line); color: var(--muted); border-color: var(--line-strong); box-shadow: none; transform: none; }
-.btn.quiet { background: var(--card); color: var(--ink); }
-.btn.danger { background: var(--card); color: var(--stamp); border-color: var(--stamp); box-shadow: none; }
-.btn kbd { font: inherit; font-size: 12px; font-weight: 700; opacity: 0.8; }
-.linklike { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--accent-ink); font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
-.tag { display: inline-block; padding: 2px 9px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-ink); font-size: 11px; font-weight: 800; }
-.tag.gold { background: var(--gold); color: #1B2440; border: 2px solid var(--outline); font-size: 12px; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
 /* menu */
@@ -99,9 +53,6 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .hero { display: flex; gap: 14px; align-items: center; }
 .hero svg { flex-shrink: 0; }
 .block { display: flex; flex-direction: column; gap: 8px; }
-.seg { display: flex; flex-wrap: wrap; gap: 8px; }
-.seg button { min-height: 46px; padding: 6px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); font-size: 14px; font-weight: 800; }
-.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--outline); color: var(--on-accent); box-shadow: 0 3px 0 var(--hard); }
 .seg button small { font-weight: 700; opacity: 0.85; }
 .seg .tile { display: flex; flex-direction: column; align-items: flex-start; min-width: 104px; padding: 8px 14px; }
 .seg .tile b { font-size: 20px; font-weight: 800; line-height: 1.2; }
@@ -117,17 +68,11 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .option .o-ja { font-size: 16px; font-weight: 800; }
 .option .o-en { font-size: 13px; font-weight: 700; color: var(--muted); }
 .option .o-meta { font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
-.switch { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 66px; padding: 10px 14px; border-radius: 16px; background: var(--card); border: 2px solid var(--outline); font-size: 15px; font-weight: 800; cursor: pointer; }
-.switch small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
-.switch input { appearance: none; -webkit-appearance: none; flex-shrink: 0; width: 52px; height: 30px; margin: 0; border-radius: 15px; border: 2px solid var(--outline); background: var(--line); position: relative; cursor: pointer; transition: background 150ms; }
-.switch input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--card); border: 2px solid var(--outline); transition: transform 150ms; }
-.switch input:checked { background: var(--accent); }
-.switch input:checked::after { transform: translateX(22px); }
 
 /* play */
 #play { display: flex; flex-direction: column; gap: 8px; }
 .hud { display: flex; align-items: center; gap: 8px; min-height: 48px; }
-.icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; margin-left: -10px; }
+.hud .icon-btn { margin-left: -10px; }
 .segs { flex: 1; min-width: 60px; display: flex; gap: 4px; }
 .segs i { flex: 1; height: 10px; border-radius: 5px; background: var(--line); transition: background 250ms; }
 .segs.many { gap: 2px; }
@@ -144,7 +89,7 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .chip.step .hm { stroke: #C7361E; }
 .stage-wrap { position: relative; height: clamp(204px, calc(100svh - 392px - var(--info-extra, 0px)), 360px); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
 body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 202px - var(--info-extra, 0px)), 400px); }
-body.playing .bar, body.playing .foot-links { display: none; }
+body.playing .bar { display: none; }
 body.playing #app { padding-top: 8px; }
 #stage { display: block; width: 100%; height: 100%; }
 .info { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; min-height: 31px; margin: 0; font-size: 17px; font-weight: 700; color: var(--muted); }
@@ -177,7 +122,8 @@ body.playing #app { padding-top: 8px; }
 .sheet { width: min(640px, 100%); max-height: 92svh; overflow-y: auto; border-radius: 26px 26px 0 0; border-top: 2px solid var(--outline); background: var(--ground); padding: 18px 16px calc(22px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out; }
 .sheet > h2 { font-size: 18px; color: var(--ink); }
 .sheet > h2 small { font-size: 13px; font-weight: 700; color: var(--muted); }
-.sheet .btn { width: 100%; }
+/* typing's switch markup is label.switch > span + input: the text takes the room, the knob sits at the right edge */
+label.switch > span { flex: 1; min-width: 0; }
 
 /* result */
 #result { display: flex; flex-direction: column; gap: 16px; padding-top: 8px; max-width: 640px; overflow-x: clip; }
@@ -231,7 +177,6 @@ body.playing #app { padding-top: 8px; }
 .daycard.mini .day-box { width: 24px; height: 24px; border-radius: 7px; }
 .daycard.mini .day-box.stamped i { width: 19px; height: 19px; border-width: 2px; font-size: 10px; }
 
-.foot-links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 18px; }
 
 @keyframes yk-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 @keyframes yk-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -253,6 +198,7 @@ body.playing #app { padding-top: 8px; }
 </style>
 </head>
 <body>
+<header class="site-bar" data-site-bar></header>
 <div id="app">
   <header class="bar">
     <div class="brand"><span lang="ja">タイピング</span> <small>Yaoki Typing</small></div>
@@ -403,12 +349,8 @@ body.playing #app { padding-top: 8px; }
     </div>
   </section>
 
-  <footer class="foot-links">
-    <a class="linklike" href="../">Yaoki app</a>
-    <a class="linklike" href="../speaking/">Yaoki Speaking</a>
-    <a class="linklike" href="../reader/">Yaoki Reader</a>
-  </footer>
 </div>
+<footer class="site-foot" data-site-foot></footer>
 
 <div id="pause-sheet" class="scrim" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="pause-h">
