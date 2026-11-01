@@ -64,13 +64,18 @@ const placed = (page) => page.evaluate(() => {
     if (r.width && r.height && r.top < top) { top = r.top; what = el.tagName.toLowerCase() + ' ' + (el.getAttribute('aria-label') || ''); }
   }
   const cls = document.documentElement.classList;
-  // the website around the design (index.html, site/site.js): shown in a browser window from 700 by 560, otherwise not laid out at all
+  // the website around the design (index.html, site/site.js): in a browser window from 700 by 560 the design is laid out for a desktop,
+  // fluid in a pane beside the app's sidebar; otherwise none of that is laid out at all
   const rect = (el) => el && getComputedStyle(el).display !== 'none' ? ((r) => ({ x: r.x, y: r.y, w: r.width, h: r.height, bottom: r.bottom }))(el.getBoundingClientRect()) : null;
   const view = document.querySelector('#yk-view').getBoundingClientRect();
+  const paneNav = stage.querySelector('nav[aria-label="Main"]');
   return { x: b.x, y: b.y, w: b.width, h: b.height, bottom: b.bottom, navBottom: nav ? nav.getBoundingClientRect().bottom : null, top, what, boxed: cls.contains('yk-boxed'), sideways: cls.contains('yk-sideways'),
-    site: cls.contains('yk-site'), view: { x: view.x, y: view.y, w: view.width, h: view.height }, bar: rect(document.querySelector('.site-bar')), aside: rect(document.querySelector('.home-aside')),
+    desk: cls.contains('yk-desk'), view: { x: view.x, y: view.y, w: view.width, h: view.height }, bar: rect(document.querySelector('.site-bar')), side: rect(document.querySelector('.app-side')), rail: rect(document.querySelector('.app-rail')),
     barDisplay: getComputedStyle(document.querySelector('.site-bar')).display, nav: [...document.querySelectorAll('.site-nav a')].map((a) => a.textContent).join('|'),
     current: (document.querySelector('.site-nav [aria-current="page"]') || {}).textContent || '', cards: document.querySelectorAll('.home-cards .app-card').length,
+    paneNav: paneNav ? getComputedStyle(paneNav).display : null, sideCurrent: (document.querySelector('.app-nav [data-tab][aria-current="page"] span') || {}).textContent || '',
+    sideOff: [...document.querySelectorAll('.app-nav [data-tab][aria-disabled="true"] span')].map((s) => s.textContent).join('|'),
+    rootW: (document.querySelector('#yk-stage [data-yk]') || {}).getBoundingClientRect ? document.querySelector('#yk-stage [data-yk]').getBoundingClientRect().width : null,
     scrollW: document.documentElement.scrollWidth, scrollH: document.documentElement.scrollHeight };
 });
 
@@ -226,7 +231,7 @@ const placed = (page) => page.evaluate(() => {
       const r = await placed(page);
       ok(Math.abs(r.x) < 0.5 && Math.abs(r.y) < 0.5 && Math.abs(r.w - w) < 0.5 && Math.abs(r.h - h) < 0.5, `${name} ${w}x${h}: the design should fill the screen exactly, got ${JSON.stringify(r)}`);
       ok(Math.abs(r.navBottom - h) < 0.6, `${name}: the tab bar should end at the bottom edge, got ${r.navBottom}`);
-      ok(!r.site && r.barDisplay === 'none', `${name}: no website chrome on a phone`);
+      ok(!r.desk && r.barDisplay === 'none', `${name}: no website chrome on a phone`);
       if (w === 402 || w === 440 || w === 375) await page.screenshot({ path: path.join(out, `app-fit-${w}x${h}.png`) });
       await ctx.close();
     }
@@ -246,7 +251,7 @@ const placed = (page) => page.evaluate(() => {
       ok(r.y < 0 && r.y >= -42 * (w / 390) - 0.5, `${name} under a status bar: only the empty top zone may be left out, got y=${r.y}`);
       ok(squeeze > 0.9695 && squeeze < 1.0005, `${name} under a status bar: proportions should stay within 3%, got ${squeeze.toFixed(4)}`);
       ok(r.top >= 0, `${name} under a status bar: nothing a learner sees may be cut off at the top, "${r.what}" is at ${r.top}`);
-      ok(!r.boxed && !r.sideways && !r.site, `${name} under a status bar: no frame, no sideways note, no website chrome`);
+      ok(!r.boxed && !r.sideways && !r.desk, `${name} under a status bar: no frame, no sideways note, no website chrome`);
       if (w === 393 || w === 375 || w === 420) await page.screenshot({ path: path.join(out, `app-strip-${w}x${h}.png`) });
       await ctx.close();
     }
@@ -277,7 +282,7 @@ const placed = (page) => page.evaluate(() => {
       ok(Math.abs(r.bottom - h) < 0.6 && Math.abs(r.navBottom - h) < 0.6 && Math.abs(r.y + 42 * k) < 0.6, `${name}: only the empty top zone may be left out, and the tab bar should end at the bottom edge, got ${JSON.stringify(r)}`);
       ok(r.x >= -0.5 && Math.abs((r.x * 2 + r.w) - w) < 1, `${name}: the design should be centred sideways, got ${JSON.stringify(r)}`);
       ok(r.top >= 0, `${name}: nothing a learner sees may be cut off at the top, "${r.what}" is at ${r.top}`);
-      ok(!r.boxed && !r.sideways && !r.site, `${name}: no frame, no sideways note, no website chrome`);
+      ok(!r.boxed && !r.sideways && !r.desk, `${name}: no frame, no sideways note, no website chrome`);
       if (w === 375 && h === 647) await page.screenshot({ path: path.join(out, `app-fit-${w}x${h}.png`) });
       await page.locator('nav a:has-text("Notebook")').first().tap({ timeout: 4000 });
       await page.waitForTimeout(500);
@@ -285,70 +290,70 @@ const placed = (page) => page.evaluate(() => {
       await ctx.close();
     }
 
-    // wide windows: from 700 by 560 the page is a page of the Yaoki website, with the whole design in a phone-shaped frame
-    // beside (or, under 1024 wide, above) the words about it; a window too wide for a phone but smaller than that keeps the
-    // plain grey frame, the design centred
-    for (const [name, w, h] of [['laptop', 1280, 800], ['wide window', 844, 390], ['tablet upright', 810, 1080], ['narrow laptop window', 640, 800], ['short window', 1024, 600]]) {
-      const site = w >= 700 && h >= 560;
+    // wide windows: from 700 by 560 the page is a page of the Yaoki website and the design is laid out for a desktop: fluid in a
+    // pane under the site header, as wide as a readable column (at most 760 px) and as tall as the window; from 1000 px wide the
+    // app's sidebar replaces the tab bar inside the pane, from 1280 a rail with the words about the app comes beside it. A window
+    // too wide for a phone but smaller than that keeps the plain grey frame with the design centred
+    for (const [name, w, h] of [['laptop', 1280, 800], ['wide window', 844, 390], ['tablet upright', 810, 1080], ['narrow laptop window', 640, 800], ['short window', 1024, 600], ['wide desktop', 1600, 1000]]) {
+      const desk = w >= 700 && h >= 560;
       const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
       const page = await ctx.newPage();
       await page.goto(BASE + '?yktest&screen=Main');
       await ready(page);
       const r = await placed(page);
-      ok(Math.abs(r.w / r.h - 390 / 844) < 0.002, `${name}: proportions should be kept, got ${JSON.stringify(r)}`);
-      ok(r.boxed, `${name}: phone frame expected`);
       ok(!r.sideways, `${name}: no sideways note without a touch screen`);
-      ok(r.scrollW <= w, `${name}: the page should not scroll sideways, got ${r.scrollW}`);
-      if (!site) {
-        ok(!r.site && r.barDisplay === 'none', `${name}: no website chrome in a window this size`);
+      ok(r.scrollW <= w && r.scrollH <= h, `${name}: the page itself should not scroll, got ${r.scrollW}x${r.scrollH}`);
+      if (!desk) {
+        ok(Math.abs(r.w / r.h - 390 / 844) < 0.002, `${name}: proportions should be kept, got ${JSON.stringify(r)}`);
+        ok(r.boxed, `${name}: phone frame expected`);
+        ok(!r.desk && r.barDisplay === 'none', `${name}: no website chrome in a window this size`);
         ok(r.x >= -0.5 && r.y >= -0.5 && r.x + r.w <= w + 0.5 && r.y + r.h <= h + 0.5, `${name}: the design should be inside the window, got ${JSON.stringify(r)}`);
         ok(Math.abs((r.x * 2 + r.w) - w) < 1 && Math.abs((r.y * 2 + r.h) - h) < 1, `${name}: the design should be centred, got ${JSON.stringify(r)}`);
       } else {
-        ok(r.site && r.bar && r.aside, `${name}: the website's header and the words beside the app expected, got ${JSON.stringify(r)}`);
+        ok(r.desk && !r.boxed && r.bar, `${name}: the desktop layout with the site header expected, got ${JSON.stringify(r)}`);
         ok(r.nav === 'Study|N1|Reader|Typing' && r.current === LV.navName, `${name}: the nav should list the four pages and mark this one, got ${r.nav} / ${r.current}`);
-        ok(r.cards === 4, `${name}: the home page should show the four other apps, got ${r.cards}`);
-        ok(Math.abs(r.x - r.view.x) < 1 && Math.abs(r.y - r.view.y) < 1 && Math.abs(r.w - r.view.w) < 1 && Math.abs(r.h - r.view.h) < 1, `${name}: the design should fill its frame exactly, got ${JSON.stringify(r)}`);
-        ok(r.bar && r.bar.bottom <= r.y + 0.5, `${name}: the header should sit above the frame, got ${JSON.stringify(r.bar)} against y=${r.y}`);
-        const want = Math.min(844, Math.max(560, h - 104));
-        ok(Math.abs(r.h - want) < 1, `${name}: the frame should be ${want} px tall (the window less the header, between 560 and 844), got ${r.h}`);
-        if (w >= 1024) ok(r.aside.x >= r.x + r.w - 0.5, `${name}: the words should sit beside the frame, got ${JSON.stringify(r.aside)}`);
-        else {
-          ok(r.aside.y >= r.bottom - 0.5, `${name}: the words should sit below the frame, got ${JSON.stringify(r.aside)}`);
-          ok(Math.abs((r.x * 2 + r.w) - w) < 1, `${name}: the frame should be centred sideways, got ${JSON.stringify(r)}`);
-        }
-        if (h - 104 < 560) ok(r.scrollH > h, `${name}: a short window should scroll rather than shrink the frame below 560 px, got ${r.scrollH}`);
+        ok(Math.abs(r.x - r.view.x) < 1 && Math.abs(r.w - r.view.w) < 1 && Math.abs(r.y - r.view.y) < 1, `${name}: the design should fill its pane, got ${JSON.stringify(r)}`);
+        ok(r.w <= 760.5 && r.w >= Math.min(760, w - (w >= 1280 ? 540 : w >= 1000 ? 240 : 0)) - 1, `${name}: the pane should be as wide as the column allows, at most 760 px, got ${r.w}`);
+        ok(Math.abs(r.rootW - r.w) < 1, `${name}: the screen should be laid out as wide as the pane, not at the phone's 390 px, got ${r.rootW}`);
+        ok(r.bar.bottom <= r.y + 0.5, `${name}: the header should sit above the pane, got ${JSON.stringify(r.bar)} against y=${r.y}`);
+        ok(Math.abs(r.h - Math.max(760, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under 760), got ${r.h}`);
+        if (w >= 1000) {
+          ok(r.side && r.side.x < r.x && r.paneNav === 'none', `${name}: the sidebar should replace the tab bar inside the pane, got side=${JSON.stringify(r.side)} paneNav=${r.paneNav}`);
+          ok(r.sideCurrent === 'Path' && !r.sideOff.includes('Notebook'), `${name}: the sidebar should mark Path and offer the notebook, got "${r.sideCurrent}" / off: ${r.sideOff}`);
+        } else ok(!r.side && r.paneNav === 'grid', `${name}: no sidebar; the tab bar stays inside the pane, got side=${JSON.stringify(r.side)} paneNav=${r.paneNav}`);
+        if (w >= 1280) ok(r.rail && r.rail.x >= r.x + r.w - 0.5 && r.cards === 4, `${name}: the rail with the four other apps should sit beside the pane, got ${JSON.stringify(r.rail)} / ${r.cards} cards`);
+        else ok(!r.rail, `${name}: no rail in a window this wide, got ${JSON.stringify(r.rail)}`);
       }
-      if (name === 'laptop') await page.screenshot({ path: path.join(out, `app-fit-${w}x${h}.png`), fullPage: true });
-      // taps still land where they should when the design is scaled
-      await page.locator('#yk-stage nav a:has-text("Notebook")').first().click({ timeout: 4000 });
+      if (name === 'laptop' || name === 'wide desktop') await page.screenshot({ path: path.join(out, `app-fit-${w}x${h}.png`) });
+      // the notebook opens from the tab bar, or from the sidebar where that stands in for it
+      if (desk && w >= 1000) await page.locator('.app-nav [data-tab="Notebook"]').click({ timeout: 4000 });
+      else await page.locator('#yk-stage nav a:has-text("Notebook")').first().click({ timeout: 4000 });
       await page.waitForTimeout(500);
       ok((await text(page)).includes('間違いノート'), `${name}: a click on the tab bar should work at this size`);
+      if (desk && w >= 1000) {
+        const after = await placed(page);
+        ok(after.sideCurrent === 'Notebook', `${name}: the sidebar should follow the pane, got "${after.sideCurrent}"`);
+        // in a lesson the sidebar waits, as the tab bar does on the phone; the Menu item still opens the app's menu
+        await page.goto(BASE + '?yktest&screen=Drill');
+        await ready(page);
+        const inLesson = await placed(page);
+        ok(inLesson.sideOff.split('|').length === 4 && inLesson.sideCurrent === '', `${name}: in a lesson the sidebar's four places should wait, got off: ${inLesson.sideOff}`);
+        await page.locator('.app-nav [data-app-menu]').click({ timeout: 4000 });
+        await page.waitForTimeout(400);
+        ok((await text(page)).includes('メニュー'), `${name}: the sidebar's Menu should open the app's menu`);
+        const sheet = await page.evaluate(() => { const s = document.querySelector('.yk-sheet'); const r = s.getBoundingClientRect(); const p = document.querySelector('#yk-view').getBoundingClientRect(); return { centred: Math.abs((r.x + r.width / 2) - (p.x + p.width / 2)) < 2 && r.bottom < p.bottom - 20, w: r.width }; });
+        ok(sheet.centred && sheet.w <= 460, `${name}: on a desktop the menu is a dialog in the middle of the pane, got ${JSON.stringify(sheet)}`);
+      }
       // the website gives way to the plain app when the window shrinks to a phone's size
       if (name === 'laptop') {
         await page.setViewportSize({ width: 390, height: 844 });
         await page.waitForTimeout(500);
         const p = await placed(page);
-        ok(!p.site && p.barDisplay === 'none' && Math.abs(p.y) < 0.5 && Math.abs(p.w - 390) < 0.5, `laptop window shrunk to a phone: the design should fill the screen with no chrome, got ${JSON.stringify(p)}`);
+        ok(!p.desk && p.barDisplay === 'none' && Math.abs(p.y) < 0.5 && Math.abs(p.w - 390) < 0.5, `laptop window shrunk to a phone: the design should fill the screen with no chrome, got ${JSON.stringify(p)}`);
       }
       await ctx.close();
     }
 
-    // a phone held sideways gets a note, and the app comes back when it is turned upright
-    {
-      const ctx = await phone(844, 390);
-      const page = await ctx.newPage();
-      await page.goto(BASE + '?yktest&screen=Main');
-      await ready(page);
-      const side = await page.evaluate(() => ({ cls: document.documentElement.classList.contains('yk-sideways'), card: getComputedStyle(document.querySelector('#yk-sideways')).display, text: document.querySelector('#yk-sideways').textContent, view: getComputedStyle(document.querySelector('#yk-view')).visibility }));
-      ok(side.cls && side.card === 'flex' && side.view === 'hidden' && side.text.includes('Turn the phone upright'), 'a phone held sideways should show the note, got ' + JSON.stringify(side));
-      await page.screenshot({ path: path.join(out, 'app-sideways.png') });
-      await page.setViewportSize({ width: 390, height: 844 });
-      await page.waitForTimeout(500);
-      const up = await placed(page);
-      ok(!up.sideways && Math.abs(up.w - 390) < 0.5 && Math.abs(up.h - 844) < 0.5 && Math.abs(up.y) < 0.5, 'turned upright again, the app should fill the screen, got ' + JSON.stringify(up));
-      ok((await page.evaluate(() => getComputedStyle(document.querySelector('#yk-sideways')).display)) === 'none', 'turned upright again, the note should go');
-      await ctx.close();
-    }
     // a phone with Reduce Motion on: the website's own stillness rule must not reach the design's animations, nor its focus ring
     {
       const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true, reducedMotion: 'reduce', colorScheme: 'dark' });

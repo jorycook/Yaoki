@@ -14,30 +14,30 @@
 </style>
 </helmet>
 <div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict">
-<sc-if value="{{ at.Goal }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Goal" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Main }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Today }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Today" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Teach }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Teach" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Compare }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Compare" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Drill }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Drill" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Goal }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Goal" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Main }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Today }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Today" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Teach }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Teach" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Compare }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Compare" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Drill }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Drill" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <!-- #if N1 -->
-<sc-if value="{{ at.Star }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Star" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Star }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Star" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <!-- #end -->
-<sc-if value="{{ at.Exam }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Exam" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Scene }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Scene" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Reading }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Reading" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.WeekTest }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Notebook }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Notebook" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Review }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Review" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Mock }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Mock" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.MockRun }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="MockRun" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Readiness }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Readiness" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Listening }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Listening" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Exam }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Exam" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Scene }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Scene" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Reading }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Reading" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.WeekTest }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Notebook }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Notebook" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Review }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Review" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Mock }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Mock" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.MockRun }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="MockRun" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Readiness }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Readiness" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Listening }}"><div class="yk-screen" style="height: 100%; animation: yk-in 220ms ease-out"><dc-import name="Listening" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 
 <sc-if value="{{ menuOpen }}">
-<div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
-<button aria-label="Close the menu" onClick="{{ closeMenu }}" style="flex-grow: 1; border: 0; padding: 0; background: transparent"></button>
-<div role="dialog" aria-modal="true" aria-label="Menu" style="padding: 18px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out">
+<div class="yk-scrim" style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
+<button class="yk-scrim-close" aria-label="Close the menu" onClick="{{ closeMenu }}" style="flex-grow: 1; border: 0; padding: 0; background: transparent"></button>
+<div class="yk-sheet" role="dialog" aria-modal="true" aria-label="Menu" style="padding: 18px 20px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 240ms ease-out">
 
 <div style="display: flex; align-items: baseline; gap: 8px">
 <h2 lang="ja" style="margin: 0; font-size: 18px; font-weight: 800">メニュー</h2>
@@ -126,6 +126,9 @@ const s = this.state;
 const at = {};
 SCREENS.forEach((n) => { at[n] = s.screen === n; });
 const closeMenu = () => { clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); this.setState({ menu: false, confirm: false, testing: false }); };
+const openMenu = () => this.setState({ menu: true, confirm: false, tested: false });
+/* the desktop's sidebar opens the menu too (yk-app.js) */
+window.ykApp.openMenu = openMenu;
 /* #if N1 */
 const app = { g: s.g, k: s.k, r: s.r, mistakes: s.mistakes, rev: s.rev, mock: s.mock, plan: s.plan, wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
 /* #else */
@@ -161,7 +164,7 @@ save: this.h.save,
 miss: this.h.miss,
 reviewed: this.h.reviewed,
 /* #end */
-openMenu: () => this.setState({ menu: true, confirm: false, tested: false }),
+openMenu,
 closeMenu,
 menuOpen: s.menu,
 asking: !s.confirm,

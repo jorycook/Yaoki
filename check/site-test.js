@@ -47,7 +47,7 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
           themeKey: localStorage.getItem('yaoki.theme'), themeAttr: document.documentElement.getAttribute('data-theme'),
           ground: cs(document.documentElement, '--ground'),
           stageScheme: cs(q('#yk-stage'), 'color-scheme'),
-          ykSite: document.documentElement.classList.contains('yk-site'),
+          ykSite: document.documentElement.classList.contains('yk-desk'),
           scrollW: document.documentElement.scrollWidth, innerW: innerWidth,
           themeBtn: !!q('.site-theme'), licences: (q('.site-legal a') || {}).getAttribute ? q('.site-legal a').getAttribute('href') : null,
         };
@@ -60,7 +60,7 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
       ok(m.themeKey === null, 'no theme is saved before the control is used');
       ok(m.licences && /licenses\.txt$/.test(m.licences), 'the footer links to the licences, got ' + m.licences);
       if (pg.app) {
-        ok(m.ykSite === site, `the app page is laid out as the website only from 700 by 560, got yk-site=${m.ykSite}`);
+        ok(m.ykSite === site, `the app page is laid out as the website only from 700 by 560, got yk-desk=${m.ykSite}`);
         ok(site ? m.barDisplay !== 'none' : m.barDisplay === 'none', 'the chrome is ' + (site ? 'shown' : 'hidden') + ', got display ' + m.barDisplay);
         if (site) ok(m.stageScheme === 'light', 'the design in its frame stays light, got ' + m.stageScheme);
       } else {

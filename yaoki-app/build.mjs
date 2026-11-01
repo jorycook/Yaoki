@@ -120,8 +120,22 @@ const read = (f) => fs.readFileSync(f, 'utf8');
 const write = (rel, data) => { const f = path.join(OUT, rel); fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, data); };
 const copy = (from, rel) => write(rel, fs.readFileSync(from));
 
+/* The screens are drawn at 390 by 844, a phone's size, with that size written on each screen's root (and on the overlays
+   over it). In the app the root is made fluid: on a phone the stage is exactly 390 by 844, so 100% draws the same thing; on the
+   website the stage is the desktop pane (see app.css, yk-desk), as wide as the column and as tall as the window. The empty
+   zones for the phone's status bar (50 px at the top) and home indicator (34 px at the bottom, 30 under the tab bar) become
+   variables the desktop sets to nothing. The root also gets data-yk="<screen>", a hook for a screen's desktop rules. The
+   canvas's files keep their literal sizes: this is done on the way into the build only. */
+function fluid(template, name) {
+  let t = template.replace(/width: 390px; height: (844px|100%)/g, 'width: 100%; height: 100%');
+  t = t.replace(/padding-top: 50px/g, 'padding-top: var(--yk-top, 50px)');
+  t = t.replace(/padding: 50px (\d+px) 34px/g, 'padding: var(--yk-top, 50px) $1 var(--yk-bottom, 34px)');
+  t = t.replace(/padding: 6px 8px 30px/g, 'padding: 6px 8px var(--yk-nav-bottom, 30px)');
+  return t.replace(/<div ([^>]*?)style="width: 100%; height: 100%/, `<div data-yk="${name}" $1style="width: 100%; height: 100%`);
+}
+
 /* one screen file -> its template, the style rules in its <helmet>, and its logic script */
-function parts(file) {
+function parts(file, name) {
   const text = fill(read(file), file);
   const body = text.match(/<x-dc>([\s\S]*?)<\/x-dc>/);
   const logic = text.match(/<script type="text\/x-dc" data-dc-script[^>]*>([\s\S]*?)<\/script>/);
@@ -140,7 +154,7 @@ function parts(file) {
     if (other) throw new Error(file + ': the build does not know what to do with this in the helmet: ' + other.slice(0, 80));
   }
   if (/<\/script/i.test(logic[1])) throw new Error(file + ': logic contains a closing script tag');
-  return { template: body[1].replace(/<helmet>[\s\S]*?<\/helmet>/, '').trim(), rules, logic: logic[1].trim() };
+  return { template: fluid(body[1].replace(/<helmet>[\s\S]*?<\/helmet>/, '').trim(), name), rules, logic: logic[1].trim() };
 }
 
 /* 0: what the app's scripts are made from (the main app: the course content, checked and turned into course-n2.js,
@@ -158,7 +172,7 @@ const defs = [];
 const textSources = [];
 for (const name of [...SCREENS, ...OWN]) {
   const file = path.join(OWN.includes(name) ? SRC : PROJECT, name + '.dc.html');
-  const p = parts(file);
+  const p = parts(file, name);
   p.rules.forEach((r) => rules.add(r));
   textSources.push(OWN.includes(name) ? ownText(file) : file);
   defs.push(`YK.define(${JSON.stringify(name)}, ${JSON.stringify(p.template)}, function (DCLogic) {\n${p.logic}\n;return (typeof Component !== "undefined" && Component) || undefined;\n});`);

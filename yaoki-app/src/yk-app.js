@@ -23,10 +23,10 @@
   var modeQuery = window.matchMedia ? window.matchMedia('(display-mode: standalone)') : null;
   function isStandalone() { return navigator.standalone === true || !!(modeQuery && modeQuery.matches); }
   var standalone = isStandalone();
-  /* the website: in a browser window of at least 700 by 560 the page is a page of the Yaoki site, with the design in a
-     phone-shaped frame (see index.html and app.css). The same rule is in site/site.js, which applies it before the first
-     paint; from then on fit() owns it. Never when installed, nor as the preview inside Claude */
-  function wantSite() { return !isStandalone() && !HOSTED && window.innerWidth >= 700 && window.innerHeight >= 560; }
+  /* the website: in a browser window of at least 700 by 560 the page is a page of the Yaoki site and the design is laid out
+     for a desktop, fluid in a pane beside the app's sidebar (see index.html and app.css). The same rule is in site/site.js,
+     which applies it before the first paint; from then on fit() owns it. Never when installed, nor as the preview inside Claude */
+  function wantDesk() { return !isStandalone() && !HOSTED && window.innerWidth >= 700 && window.innerHeight >= 560; }
   var fluid = false;
   /* saved data is kept per copy of the app: two copies under one web address must not share or delete each other's */
   var HOME = location.pathname.replace(/[^/]*$/, '');
@@ -201,12 +201,21 @@
 
   /* ---------- fit the design to the screen ---------- */
   function fit() {
-    var site = wantSite();
-    root.classList.toggle('yk-site', site);
-    /* on the website #yk-view is a box of the design's shape (app.css); its size is read after the class is set */
-    var box = site ? view.getBoundingClientRect() : null;
-    var vw = site ? box.width : view.clientWidth;
-    var vh = site ? box.height : Math.min(view.clientHeight, window.innerHeight || view.clientHeight);
+    var desk = wantDesk();
+    root.classList.toggle('yk-desk', desk);
+    if (desk) {
+      /* the website: the screens are laid out fluid in the pane (app.css), nothing is scaled */
+      stage.style.transform = 'none';
+      stage.style.width = '100%';
+      stage.style.height = '100%';
+      root.classList.remove('yk-boxed');
+      root.classList.remove('yk-sideways');
+      syncSide();
+      return;
+    }
+    stage.style.width = '';
+    var vw = view.clientWidth;
+    var vh = Math.min(view.clientHeight, window.innerHeight || view.clientHeight);
     if (!vw || !vh) return;
     var s = vw / W;
     var need = H * s;   /* the height the whole design takes at full width */
@@ -215,12 +224,7 @@
     var tx = 0;
     var ty = 0;
     var boxed = false;
-    if (site) {
-      /* the website: the whole design fills its frame, which has its shape; the Add to Home Screen page scrolls inside it */
-      stage.style.height = H + 'px';
-      sx = sy = s;
-      boxed = true;
-    } else if (fluid) {
+    if (fluid) {
       /* the Add to Home Screen page: full width, as tall as the browser leaves */
       sx = sy = Math.min(s, 1.25);
       stage.style.height = Math.round(vh / sx) + 'px';
@@ -252,11 +256,67 @@
       }
     }
     stage.style.transform = 'translate(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px) scale(' + sx.toFixed(5) + ',' + sy.toFixed(5) + ')';
-    root.classList.toggle('yk-boxed', boxed && (site || vw > 520));
+    root.classList.toggle('yk-boxed', boxed && vw > 520);
     /* a phone held sideways: the design is upright only, so say so instead of showing it tiny */
-    var sideways = !site && !fluid && boxed && vw > vh && vh < 560 && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    var sideways = !fluid && boxed && vw > vh && vh < 560 && window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     root.classList.toggle('yk-sideways', !!sideways);
   }
+  /* ---------- the desktop's sidebar ---------- */
+  /* The sidebar (index.html) is a mirror of the tab bar inside the pane: the same four places, with the labels, the one that is
+     current and the ones that are not open yet read off the pane's own tab bar, and a click on a sidebar item clicks the pane's
+     one, so the screens' own handlers run. On a screen without the tab bar (a lesson, a mock, the goal) the items wait, as they do
+     on the phone, and the note under them says how to come back. The Menu item opens the app's menu (Shell.dc.html) */
+  var sideNav = document.querySelector('[data-app-nav]');
+  var sideNote = document.querySelector('[data-app-note]');
+  var sideItems = sideNav ? Array.prototype.slice.call(sideNav.querySelectorAll('[data-tab]')) : [];
+  function paneTab(name) {
+    var tabs = stage.querySelector('nav[aria-label="Main"]');
+    return tabs ? tabs.querySelector('a[href="' + name + '.dc.html"]') : null;
+  }
+  var syncPending = false;
+  function syncSide() {
+    syncPending = false;
+    if (!sideNav || !root.classList.contains('yk-desk')) return;
+    var any = false;
+    sideItems.forEach(function (a) {
+      var src = paneTab(a.getAttribute('data-tab'));
+      var off = !src || src.getAttribute('aria-disabled') === 'true';
+      if (src) {
+        any = true;
+        var label = (src.textContent || '').trim();
+        var span = a.querySelector('span');
+        if (label && span && span.textContent !== label) span.textContent = label;
+      }
+      a.setAttribute('aria-disabled', off ? 'true' : 'false');
+      a.disabled = off;
+      if (src && src.getAttribute('aria-current') === 'page') a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    if (sideNote) sideNote.hidden = any;
+  }
+  function askSync() {
+    if (syncPending) return;
+    syncPending = true;
+    (window.requestAnimationFrame || setTimeout)(syncSide);
+  }
+  if (sideNav) {
+    sideNav.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('[data-tab]') : null;
+      if (!a) return;
+      e.preventDefault();
+      var src = paneTab(a.getAttribute('data-tab'));
+      if (src && src.getAttribute('aria-disabled') !== 'true') src.click();
+    });
+    var menuItem = sideNav.querySelector('[data-app-menu]');
+    if (menuItem) menuItem.addEventListener('click', function () { if (window.ykApp && window.ykApp.openMenu) window.ykApp.openMenu(); });
+    if (window.MutationObserver) new MutationObserver(askSync).observe(stage, { subtree: true, childList: true, attributes: true, attributeFilter: ['aria-current', 'aria-disabled'] });
+  }
+  /* on a desktop, Escape closes the app's menu, as a dialog closes */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || !root.classList.contains('yk-desk')) return;
+    var close = stage.querySelector('.yk-scrim-close');
+    if (close) { e.preventDefault(); close.click(); }
+  });
+
   window.addEventListener('resize', fit);
   if (modeQuery) { if (modeQuery.addEventListener) modeQuery.addEventListener('change', fit); else if (modeQuery.addListener) modeQuery.addListener(fit); }
   window.addEventListener('orientationchange', function () { setTimeout(fit, 60); setTimeout(fit, 400); });

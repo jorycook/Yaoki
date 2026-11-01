@@ -3,7 +3,7 @@
  *   <script src="../site/site.js" data-root="../" data-page="reader" data-licences="licenses.txt"></script>
  * data-root is the path from the page to the site's root folder; data-page names the page in the nav (study, n1,
  * reader, typing); data-licences is the page's own licences file; data-app marks the Study and N1 pages, whose
- * 390 by 844 design is shown in a frame when the window is wide enough for a web page (see yk-app.js, fit()).
+ * design is laid out for a desktop when the window is wide enough for a web page (see yk-app.js, fit()).
  * Before the first paint the script applies the saved theme and, on an app page, decides whether the page is laid
  * out as the website; when the document is ready it fills <header data-site-bar>, <footer data-site-foot> and
  * <div data-site-cards>. The theme is kept under localStorage 'yaoki.theme' ('light' or 'dark'; Auto keeps no key,
@@ -61,13 +61,13 @@
   var first = saved();
   if (first) root.setAttribute('data-theme', first);
 
-  /* an app page in a window wide enough for a web page is laid out as the website: decided here, before the first paint,
-     and from then on by yk-app.js (fit()), with the same rule */
+  /* an app page in a window wide enough for a web page is laid out for a desktop (html.yk-desk): decided here, before the
+     first paint, and from then on by yk-app.js (fit()), with the same rule */
   function wantSite() {
     var standalone = navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
     return !standalone && window.__ykHost !== 'artifact' && window.innerWidth >= 700 && window.innerHeight >= 560;
   }
-  if (IS_APP && wantSite()) root.classList.add('yk-site');
+  if (IS_APP && wantSite()) root.classList.add('yk-desk');
 
   /* ---------- the header, the footer and the home page's cards ---------- */
   function h(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }

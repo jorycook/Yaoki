@@ -23,36 +23,49 @@
 <script src="./site/site.js" data-root="%SITE_ROOT%" data-page="%SITE_PAGE%" data-licences="licenses.txt" data-app></script>
 </head>
 <body>
-<!-- In a browser window wide enough for a web page this is a page of the Yaoki website: the site's header, the app in a
-     phone-shaped frame, a few words about it and the other apps, the footer (site.js fills the header, footer and cards;
-     see app.css and yk-app.js, fit()). On a phone, installed, or as the preview inside Claude, only #yk-view is laid out:
-     the design owns the whole screen and none of the rest exists. -->
+<!-- In a browser window of at least 700 by 560 this page is a page of the Yaoki website, with the app laid out for a desktop: the
+     site's header, then the app shell: a sidebar with the app's own navigation (from 1000 px wide), the app's pane, as wide as a
+     readable column and as tall as the window, and a rail with a few words about the app (from 1280 px). The sidebar mirrors the
+     tab bar inside the pane, which it replaces (yk-app.js, syncSide). On a phone, from the Home Screen and as the preview inside
+     Claude, only #yk-view is laid out: the design owns the whole screen and none of the rest exists (app.css). -->
 <header class="site-bar" data-site-bar></header>
-<main class="site-home">
-<div id="yk-view"><div id="yk-stage"></div></div>
-<aside class="home-aside">
+<div class="app-shell">
+<aside class="app-side" aria-label="%APP_NAME%">
+<div class="app-side-head">
 <div class="kicker"><span lang="ja">やおき</span> · JLPT STUDY</div>
+<b>%APP_NAME%</b>
 <!-- #if N1 -->
-<h1>Yaoki N1</h1>
-<p class="lede">The N1 course, planned to your exam date: kanji, grammar, reading and listening, with your mistakes kept in a notebook. Your progress stays in this browser or on your phone; nothing is sent anywhere.</p>
+<span class="hint">The N1 course, planned to your exam date</span>
 <!-- #else -->
-<h1>Yaoki</h1>
-<p class="lede">A JLPT study app for N5 to N2, with a reader, a typing game and a speaking game beside it. Your progress stays in this browser or on your phone; nothing is sent anywhere.</p>
+<span class="hint">N5 to N2, a level at a time</span>
 <!-- #end -->
+</div>
+<nav class="app-nav" aria-label="In the app" data-app-nav>
+<button type="button" data-tab="Main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg><span>Path</span></button>
+<button type="button" data-tab="Notebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg><span>Notebook</span></button>
+<button type="button" data-tab="Mock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg><span>Mock exam</span></button>
+<button type="button" data-tab="Readiness"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg><span>Readiness</span></button>
+<button type="button" data-app-menu><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
+</nav>
+<p class="hint app-side-note" data-app-note hidden>Close what is open (the arrow at its top) to use these.</p>
+<footer class="site-foot" data-site-foot></footer>
+</aside>
+<main class="app-main"><div id="yk-view"><div id="yk-stage"></div></div></main>
+<aside class="app-rail" aria-label="About Yaoki">
 <section class="card">
-<div class="kicker"><span lang="ja">ホーム画面に追加</span> · ADD IT TO YOUR PHONE</div>
+<div class="kicker"><span lang="ja">ホーム画面に追加</span> · ON YOUR PHONE</div>
 <ol class="home-steps">
 <li>iPhone or iPad: open this address in Safari, tap Share, then Add to Home Screen.</li>
 <li>Android: open it in Chrome, open the browser menu, then Add to Home screen.</li>
 <li>Open it from its icon once while online. It works offline after that.</li>
 </ol>
-<p class="hint">The app beside this is the real thing: start here and your progress is kept in this browser.</p>
+<p class="hint">Here and on the phone the app is the same; each keeps its own progress.</p>
 </section>
-<h2 class="kicker"><span lang="ja">ほかのアプリ</span> · THE OTHER APPS</h2>
+<h2 class="kicker"><span lang="ja">ほかのアプリ</span> · MORE FROM YAOKI</h2>
 <div class="home-cards" data-site-cards></div>
+<p class="hint">Your progress stays in this browser. Nothing is sent anywhere.</p>
 </aside>
-</main>
-<footer class="site-foot" data-site-foot></footer>
+</div>
 <div id="yk-sideways" role="status"><div lang="ja">縦向きでお使いください</div><div>Turn the phone upright</div></div>
 <noscript>Yaoki needs JavaScript to run.</noscript>
 <script src="./assets/build.js"></script>

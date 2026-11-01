@@ -113,8 +113,8 @@
 .site-apps i { font-style: normal; color: var(--line-strong); }
 .site-legal, .site-version { margin: 0; max-width: 72ch; }
 /* the chrome's own focus ring and its stillness under reduced motion: the header, the footer and the words beside the app, never the
-   design itself (#yk-view sits inside <main class="site-home"> too, so .site-home must not be the scope) */
-:is(.site-bar, .site-foot, .home-aside) :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+   design itself (the shell's wrappers hold #yk-view too, so they must not be the scope) */
+:is(.site-bar, .site-foot, .app-side, .app-rail) :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
 @media (max-width: 699px) {
   .site-bar, .site-wrap { min-height: 48px; }
   .site-nav, .site-ja { display: none; }
@@ -122,21 +122,11 @@
 /* a typing round, and the reader's reading view: the page is the game or the text, the chrome steps aside */
 body.playing :is(.site-bar, .site-foot), body.reading .site-bar { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  :is(.site-bar, .site-foot, .home-aside) * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  :is(.site-bar, .site-foot, .app-side, .app-rail) * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
   .knob, .knob i, .switch input, .switch input::after, .app-card { transition: none; }
 }
 
-/* ---------- the home page around the phone frame (the Study and N1 pages; the frame itself is in the app's app.css) ---------- */
-.site-home { box-sizing: border-box; width: 100%; max-width: var(--site-max); margin: 0 auto; padding: 24px 16px 36px; display: grid; gap: 28px; justify-items: center; font: 500 15px/1.45 var(--ui); color: var(--ink); }
-@media (min-width: 1024px) {
-  .site-home { grid-template-columns: minmax(0, 420px) minmax(0, 1fr); align-items: start; justify-items: start; }
-  .site-home #yk-view { position: sticky; top: calc(var(--site-head) + 24px); }
-}
-.home-aside { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 640px; box-sizing: border-box; }
-.home-aside h1 { margin: 0; font-size: 30px; line-height: 1.25; font-weight: 800; }
-.home-aside h2 { margin: 6px 0 0; }
-.home-aside .lede { margin: 0; font-size: 15px; line-height: 1.5; }
-.home-aside .card { display: flex; flex-direction: column; gap: 8px; }
+/* ---------- the pieces of the app pages' shell that other pages share (the shell itself is in the app's app.css) ---------- */
 .home-steps { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; line-height: 1.5; }
 .home-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
 .app-card { display: flex; flex-direction: column; gap: 6px; color: var(--ink); text-decoration: none; }
