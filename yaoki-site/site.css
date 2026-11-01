@@ -25,6 +25,8 @@
   /* typefaces */
   --ui: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
   --jp: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  /* the brand's Japanese face, the chrome's own: a page may point --jp elsewhere for its text (the reader reads in a print face) */
+  --jp-brand: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   /* lines, shadows, corners, spacing */
   --rule: 2px solid var(--outline);
   --shadow: 0 4px 0 var(--hard); --shadow-s: 0 3px 0 var(--hard); --shadow-press: 0 1px 0 var(--hard);
@@ -95,7 +97,7 @@
 .site-brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); text-decoration: none; }
 .site-mark { width: 28px; height: 28px; flex-shrink: 0; }
 .site-word { font-size: 20px; font-weight: 800; line-height: 1; }
-.site-ja { font: 600 13px/1 var(--jp); color: var(--muted); }
+.site-ja { font: 600 13px/1 var(--jp-brand); color: var(--muted); }
 .site-nav { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 4px; }
 .site-nav a { display: inline-flex; align-items: center; height: 36px; padding: 0 12px; border-radius: 18px; border: 2px solid transparent; color: var(--muted); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
 @media (hover: hover) { .site-nav a:hover { border-color: var(--line-strong); color: var(--ink); } }
@@ -110,14 +112,19 @@
 .site-apps a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .site-apps i { font-style: normal; color: var(--line-strong); }
 .site-legal, .site-version { margin: 0; max-width: 72ch; }
-:is(.site-bar, .site-foot, .site-home) :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+/* the chrome's own focus ring and its stillness under reduced motion: the header, the footer and the words beside the app, never the
+   design itself (#yk-view sits inside <main class="site-home"> too, so .site-home must not be the scope) */
+:is(.site-bar, .site-foot, .home-aside) :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
 @media (max-width: 699px) {
   .site-bar, .site-wrap { min-height: 48px; }
   .site-nav, .site-ja { display: none; }
 }
 /* a typing round, and the reader's reading view: the page is the game or the text, the chrome steps aside */
 body.playing :is(.site-bar, .site-foot), body.reading .site-bar { display: none; }
-@media (prefers-reduced-motion: reduce) { :is(.site-bar, .site-foot, .site-home) * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
+@media (prefers-reduced-motion: reduce) {
+  :is(.site-bar, .site-foot, .home-aside) * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .knob, .knob i, .switch input, .switch input::after, .app-card { transition: none; }
+}
 
 /* ---------- the home page around the phone frame (the Study and N1 pages; the frame itself is in the app's app.css) ---------- */
 .site-home { box-sizing: border-box; width: 100%; max-width: var(--site-max); margin: 0 auto; padding: 24px 16px 36px; display: grid; gap: 28px; justify-items: center; font: 500 15px/1.45 var(--ui); color: var(--ink); }
@@ -143,4 +150,4 @@ body.playing :is(.site-bar, .site-foot), body.reading .site-bar { display: none;
 .app-card .tile-paper { background: var(--tile-paper); }
 .app-card .tile-red { background: var(--tile-red); color: #FFFFFF; }
 .app-card .tile-teal { background: var(--tile-teal); color: #FFFFFF; }
-.app-card .tile [lang="ja"] { font-family: var(--jp); font-weight: 600; font-size: 22px; }
+.app-card .tile [lang="ja"] { font-family: var(--jp-brand); font-weight: 600; font-size: 22px; }

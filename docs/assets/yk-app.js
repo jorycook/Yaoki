@@ -18,11 +18,15 @@
   /* "artifact": the same app shown as a page inside Claude, where nothing can be installed or stored for offline use */
   var HOSTED = window.__ykHost === 'artifact';
   if (HOSTED) root.classList.add('yk-hosted');
-  var standalone = navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+  /* installed: opened from the Home Screen, or in the app window a desktop browser gives an installed page. A desktop browser can
+     move the open tab into that window without reloading it, so this is asked each time, and the change is listened for (below) */
+  var modeQuery = window.matchMedia ? window.matchMedia('(display-mode: standalone)') : null;
+  function isStandalone() { return navigator.standalone === true || !!(modeQuery && modeQuery.matches); }
+  var standalone = isStandalone();
   /* the website: in a browser window of at least 700 by 560 the page is a page of the Yaoki site, with the design in a
      phone-shaped frame (see index.html and app.css). The same rule is in site/site.js, which applies it before the first
      paint; from then on fit() owns it. Never when installed, nor as the preview inside Claude */
-  function wantSite() { return !standalone && !HOSTED && window.innerWidth >= 700 && window.innerHeight >= 560; }
+  function wantSite() { return !isStandalone() && !HOSTED && window.innerWidth >= 700 && window.innerHeight >= 560; }
   var fluid = false;
   /* saved data is kept per copy of the app: two copies under one web address must not share or delete each other's */
   var HOME = location.pathname.replace(/[^/]*$/, '');
@@ -191,6 +195,7 @@
     root.classList.toggle('yk-sideways', !!sideways);
   }
   window.addEventListener('resize', fit);
+  if (modeQuery) { if (modeQuery.addEventListener) modeQuery.addEventListener('change', fit); else if (modeQuery.addListener) modeQuery.addListener(fit); }
   window.addEventListener('orientationchange', function () { setTimeout(fit, 60); setTimeout(fit, 400); });
   window.addEventListener('pageshow', fit);
   if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);

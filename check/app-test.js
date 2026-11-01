@@ -349,6 +349,23 @@ const placed = (page) => page.evaluate(() => {
       ok((await page.evaluate(() => getComputedStyle(document.querySelector('#yk-sideways')).display)) === 'none', 'turned upright again, the note should go');
       await ctx.close();
     }
+    // a phone with Reduce Motion on: the website's own stillness rule must not reach the design's animations, nor its focus ring
+    {
+      const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true, reducedMotion: 'reduce', colorScheme: 'dark' });
+      const page = await ctx.newPage();
+      await page.goto(BASE + '?yktest&screen=Main');
+      await ready(page);
+      const m = await page.evaluate(() => {
+        const inner = [...document.querySelectorAll('#yk-stage *')];
+        const animated = inner.filter((e) => /yk-in/.test(e.style.animation || ''));
+        const btn = document.querySelector('#yk-stage nav a, #yk-stage button');
+        btn.focus();
+        return { animated: animated.length, durations: [...new Set(animated.map((e) => getComputedStyle(e).animationDuration))], outline: getComputedStyle(btn).outlineWidth, offset: getComputedStyle(btn).outlineOffset };
+      });
+      ok(m.animated > 0 && m.durations.join() === '0.22s', `with Reduce Motion on, the design keeps its own animations (nothing of the website reaches it), got ${JSON.stringify(m)}`);
+      ok(m.outline !== '3px' || m.offset !== '2px', `with the website's stylesheet loaded, the design keeps its own focus ring, got ${JSON.stringify(m)}`);
+      await ctx.close();
+    }
     note('screen sizes: checked');
   }
 
