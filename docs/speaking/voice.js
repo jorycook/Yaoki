@@ -11,7 +11,7 @@
  * Kana are compared by sound, not spelling: を and お, ぢ and じ, づ and ず are one sound each, and a long vowel may
  * be written おう, おお or ー. Everything else counts: a small っ, a long vowel, ゃ for や, a voiced sound. A card of
  * one or two kana must be all that was heard (a single sound may be drawn out or said twice: きー, きき, or 今日 for
- * きょー; a card of two may have です or でした after it, or えっと, ええと or あのう before it: ねこです for ねこ); a
+ * きょー; ん on its own may come with the start of a vowel: うん; a card of two may have です or でした after it, or えっと, ええと or あのう before it: ねこです for ねこ); a
  * longer card may be inside what was heard (桜がきれい for さくら), though not inside a longer word written in kanji
  * (東京 is not きょう), nor with its last sound drawn out at the end (サッカー is not さっか); a longer word written in
  * kana can still hold it (ジュース holds じゅう). A long card forgives a sound: one from 10 kana, two from 16. A word
@@ -533,6 +533,12 @@
       const word = H.length > 1 && (T0.W.get(H[0]) || []).find((w) => w.chars.length === H.length && w.chars.every((ch, k) => ch === H[k]));
       const rds = word ? word.rd : H.length === 1 && isKanji(H[0]) ? T0.S.get(H[0]) || [] : [];
       for (const r of rds) out.push(Array.from(r));
+    }
+    // ん said on its own, which a phone hears with the start of a vowel before it (うん, ううん, うーん)
+    if (t.C.length === 1 && t.C[0] === 'ん') {
+      let i = 0;
+      while (i < H.length - 1 && H[i] === 'う') i++;
+      if (i && H.slice(i).every((c) => c === 'ん')) out.push(H.slice(i));
     }
     if (t.C.length === 2) {
       let a = 0;
