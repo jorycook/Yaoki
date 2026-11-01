@@ -131,7 +131,11 @@ function fluid(template, name) {
   t = t.replace(/padding-top: 50px/g, 'padding-top: var(--yk-top, 50px)');
   t = t.replace(/padding: 50px (\d+px) 34px/g, 'padding: var(--yk-top, 50px) $1 var(--yk-bottom, 34px)');
   t = t.replace(/padding: 6px 8px 30px/g, 'padding: 6px 8px var(--yk-nav-bottom, 30px)');
-  return t.replace(/<div ([^>]*?)style="width: 100%; height: 100%/, `<div data-yk="${name}" $1style="width: 100%; height: 100%`);
+  /* a footer's own 34 px for the home indicator (the root's was handled above) */
+  t = t.replace(/padding: (\d+px|0) (\d+px) 34px/g, 'padding: $1 $2 var(--yk-bottom, 34px)');
+  /* the status-bar zone written on an inner part (the mock's dark band: padding: 50px 16px 10px) */
+  t = t.replace(/padding: 50px (\d+px) (\d+px)/g, 'padding: var(--yk-top, 50px) $1 $2');
+  return t.replace(/<div ([^>]*?)style="([^"]*?)width: 100%; height: 100%/, `<div data-yk="${name}" $1style="$2width: 100%; height: 100%`);
 }
 
 /* one screen file -> its template, the style rules in its <helmet>, and its logic script */

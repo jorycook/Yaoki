@@ -110,14 +110,27 @@ html.yk-desk .app-side .site-legal { max-width: none; }
 /* the pane: the design, fluid, in a readable column; it keeps its own light look in every theme and inherits body's defaults */
 /* the column scrolls when the window is shorter than the screens need (they are drawn for a tall phone); the page never does */
 html.yk-desk .app-main { min-width: 0; min-height: 0; display: flex; justify-content: center; overflow-y: auto; }
-html.yk-desk #yk-view { width: 100%; max-width: 760px; height: 100%; min-height: 760px; box-sizing: border-box; border-left: 2px solid var(--line); border-right: 2px solid var(--line); background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; }
+html.yk-desk #yk-view { width: 100%; max-width: 760px; height: 100%; min-height: 640px; box-sizing: border-box; border-left: 2px solid var(--line); border-right: 2px solid var(--line); background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; --yk-nav-bottom: 8px; }
 html.yk-desk #yk-stage { width: 100%; height: 100%; }
 html.yk-desk #yk-stage > .sc-host { width: 100%; }
 html.yk-desk #yk-sideways { display: none; }
 /* the week path: its route is drawn 390 px wide at phone coordinates; in the wider pane it sits in the middle, and scrolls if the
    pane is short (the third child of the screen's root is the route's region, see Main.dc.html) */
-html.yk-desk [data-yk="Main"] > div:nth-child(3) { overflow-y: auto; overflow-x: hidden; }
-html.yk-desk [data-yk="Main"] > div:nth-child(3) > * { margin-left: calc(50% - 195px); }
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] { overflow-y: auto; overflow-x: hidden; }
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > * { margin-left: calc(50% - 195px); }
+/* the day labels beside the route may run on: there is room to their right here */
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > div[style*="max-width"] { max-width: 320px !important; }
+/* a button pinned to the bottom follows its content on a desktop: the phone templates push it down with a growing spacer or a
+   growing scroll body, which stop growing here (a body taller than the pane still scrolls: it keeps min-height 0 and overflow auto) */
+html.yk-desk [data-yk] > div[style^="flex-grow: 1"]:not([style*="overflow"]), html.yk-desk [data-yk] > div[style^="flex-grow: 2"]:not([style*="overflow"]) { flex-grow: 0; height: 24px; min-height: 0 !important; }
+html.yk-desk [data-yk] > div[style*="overflow-y: auto"][style*="min-height: 0"] { flex-grow: 0; }
+html.yk-desk [data-yk] > div[style^="flex: 1 1 auto"] { flex: 0 1 auto; }
+/* a full-width button at the foot of a screen is a desktop button's width here, in the middle */
+html.yk-desk [data-yk] > :is(a, button)[style*="height: 54px"] { width: 100%; max-width: 480px; align-self: center; }
+/* the answer sheet that rises from the bottom of the phone's screen is a card under the question here */
+html.yk-desk [data-yk] > div[style*="border-radius: 26px 26px 0 0"] { border-radius: 20px !important; border: 2px solid #1B2440 !important; margin: 12px 16px var(--yk-bottom); max-height: none !important; }
+/* exam-style questions: the four options in two columns, as the drill's are */
+html.yk-desk [data-yk="Exam"] > div[style^="margin-top: 14px; display: flex; flex-direction: column; gap: 10px"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 /* the app's menu, a sheet from the bottom on the phone, is a dialog in the middle of the pane here */
 html.yk-desk .yk-scrim { display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }
 html.yk-desk .yk-scrim-close { position: absolute; inset: 0; }

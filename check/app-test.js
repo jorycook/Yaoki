@@ -67,7 +67,10 @@ const placed = (page) => page.evaluate(() => {
   // the website around the design (index.html, site/site.js): in a browser window from 700 by 560 the design is laid out for a desktop,
   // fluid in a pane beside the app's sidebar; otherwise none of that is laid out at all
   const rect = (el) => el && getComputedStyle(el).display !== 'none' ? ((r) => ({ x: r.x, y: r.y, w: r.width, h: r.height, bottom: r.bottom }))(el.getBoundingClientRect()) : null;
-  const view = document.querySelector('#yk-view').getBoundingClientRect();
+  // the pane's inside (on the desktop it has a border on either side)
+  const viewEl = document.querySelector('#yk-view');
+  const vr = viewEl.getBoundingClientRect();
+  const view = { x: vr.x + viewEl.clientLeft, y: vr.y + viewEl.clientTop, width: viewEl.clientWidth, height: viewEl.clientHeight };
   const paneNav = stage.querySelector('nav[aria-label="Main"]');
   return { x: b.x, y: b.y, w: b.width, h: b.height, bottom: b.bottom, navBottom: nav ? nav.getBoundingClientRect().bottom : null, top, what, boxed: cls.contains('yk-boxed'), sideways: cls.contains('yk-sideways'),
     desk: cls.contains('yk-desk'), view: { x: view.x, y: view.y, w: view.width, h: view.height }, bar: rect(document.querySelector('.site-bar')), side: rect(document.querySelector('.app-side')), rail: rect(document.querySelector('.app-rail')),
@@ -313,10 +316,10 @@ const placed = (page) => page.evaluate(() => {
         ok(r.desk && !r.boxed && r.bar, `${name}: the desktop layout with the site header expected, got ${JSON.stringify(r)}`);
         ok(r.nav === 'Study|N1|Reader|Typing' && r.current === LV.navName, `${name}: the nav should list the four pages and mark this one, got ${r.nav} / ${r.current}`);
         ok(Math.abs(r.x - r.view.x) < 1 && Math.abs(r.w - r.view.w) < 1 && Math.abs(r.y - r.view.y) < 1, `${name}: the design should fill its pane, got ${JSON.stringify(r)}`);
-        ok(r.w <= 760.5 && r.w >= Math.min(760, w - (w >= 1280 ? 540 : w >= 1000 ? 240 : 0)) - 1, `${name}: the pane should be as wide as the column allows, at most 760 px, got ${r.w}`);
+        ok(r.view.w <= 760.5 && r.view.w >= Math.min(760, w - (w >= 1280 ? 540 : w >= 1000 ? 240 : 0)) - 5, `${name}: the pane should be as wide as the column allows, at most 760 px, got ${r.view.w}`);
         ok(Math.abs(r.rootW - r.w) < 1, `${name}: the screen should be laid out as wide as the pane, not at the phone's 390 px, got ${r.rootW}`);
         ok(r.bar.bottom <= r.y + 0.5, `${name}: the header should sit above the pane, got ${JSON.stringify(r.bar)} against y=${r.y}`);
-        ok(Math.abs(r.h - Math.max(760, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under 760), got ${r.h}`);
+        ok(Math.abs(r.h - Math.max(640, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under 640), got ${r.h}`);
         if (w >= 1000) {
           ok(r.side && r.side.x < r.x && r.paneNav === 'none', `${name}: the sidebar should replace the tab bar inside the pane, got side=${JSON.stringify(r.side)} paneNav=${r.paneNav}`);
           ok(r.sideCurrent === 'Path' && !r.sideOff.includes('Notebook'), `${name}: the sidebar should mark Path and offer the notebook, got "${r.sideCurrent}" / off: ${r.sideOff}`);
