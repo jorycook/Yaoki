@@ -19,9 +19,13 @@
  * window.SpeakingListen = {
  *   supported, state,                 state: off | starting | on | tap | blocked | nomic | offline | error
  *   mode,                             'free' or 'hold'
- *   listen(fromTap), stop(), hold(down), consume(), quiet(ms), loud(),
- *   onheard(texts, final, carried),   texts: what was heard since the last consume(), alternatives first; carried:
- *                                     it is the rest of words that were partly used up (ねこです after ねこ)
+ *   listen(fromTap), stop(then), hold(down), consume(), quiet(ms), loud(),
+ *   onheard(texts, final, carried, whole),
+ *                                     texts: what was heard since the last consume(), alternatives first; carried:
+ *                                     it is the rest of words that were partly used up (ねこです after ねこ); whole:
+ *                                     when the phone was taken to repeat all it heard before, and only the new end
+ *                                     of what it sent is in texts, what it sent whole (いえ after い: a phone that
+ *                                     does not repeat sent a new word), to count only as a card's whole word
  *   onstate(state, code),             code: the browser's error, if any
  *   onspeech(on),                     the player is speaking (or has just stopped)
  * }
@@ -35,6 +39,7 @@
   const ECHO = 700;         // ms the phone takes to send back what it heard: the game's own voice is kept out this much longer
   const TWICE = 600;        // a closed result that repeats the one before it this soon is the same words sent twice
   const CARRY = 6000;       // ms the start of a phrase heard before a listening ended is offered with the next words
+  const LET_GO = 400;       // ms a stopped listening is given to let go of the microphone, if the browser never says
 
   let rec = null;           // the browser's recognition of the listening going on
   let session = 0;          // counts the listenings: an event from an old one is ignored
@@ -73,19 +78,32 @@
       return true;
     },
 
-    // Stop listening now; what was being said is dropped.
-    stop() {
+    // Stop listening now; what was being said is dropped. `then`, if given, is called once the browser has let go of
+    // the microphone (or soon, if it never says): a phone plays sound quietly, or not at all, while it listens.
+    stop(then) {
       wanted = false;
       clearTimeout(timer);
       if (rec) {
         const r = rec;
         rec = null;
         session++;
+        if (then) {
+          let done = false;
+          const go = () => {
+            if (done) return;
+            done = true;
+            then();
+          };
+          r.onend = go;
+          setTimeout(go, LET_GO);
+        }
         try {
           r.abort();
         } catch (err) {
           // already ended
         }
+      } else if (then) {
+        setTimeout(then, 0);
       }
       last = null;
       used = null;
@@ -247,6 +265,7 @@
       let alts = list[i].alts;
       const top = alts[0];
       let carried = false;
+      let whole = null;
       if (prefix) {
         // what was used up of the results that were open: only what came after it is new
         if (prefix.startsWith(top)) {
@@ -276,11 +295,13 @@
         prefix = '';
         carried = true;
       } else if (repeats && all && top.length > all.length && top.startsWith(all)) {
-        // a phone that repeats, in each new result, all it heard before: only what follows the used part is new
+        // a phone that repeats, in each new result, all it heard before: only what follows the used part is new. A
+        // phone that does not, sending a word that begins with the one before it (いえ after い), sent it whole
+        whole = alts.slice();
         alts = alts.filter((t) => t.startsWith(all)).map((t) => t.slice(all.length));
       }
       alts = alts.filter((t) => t.trim());
-      if (alts.length) out.push({ alts, final: list[i].final, carried });
+      if (alts.length) out.push({ alts, final: list[i].final, carried, whole });
     }
     return out;
   }
@@ -328,7 +349,7 @@
     if (parts.length > 1) texts.push(joined);
     if (before && now - before.at < CARRY) texts.push(before.text + joined);
     try {
-      if (api.onheard) api.onheard(texts, newest.final, newest.carried);
+      if (api.onheard) api.onheard(texts, newest.final, newest.carried, newest.whole);
     } catch (err) {
       console.error(err);
     }
