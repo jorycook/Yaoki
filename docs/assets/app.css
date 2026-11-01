@@ -38,10 +38,13 @@ html.yk-hosted #yk-view { position: fixed; left: 0; right: 0; top: env(safe-area
 }
 html.yk-ready #yk-stage { visibility: visible; }
 #yk-stage > .sc-host { width: 390px; height: 100%; }
+/* each screen's root is 100% tall (the build makes the screens fluid): the frame the runtime puts round it, inside the shell's
+   wrapper, passes the height on */
+.yk-screen > .sc-host { height: 100%; }
 
 /* in a window too wide for a phone and too small for the website (521 to 699 px) the app sits in the middle like a phone */
-html.yk-boxed:not(.yk-site), html.yk-boxed:not(.yk-site) body, html.yk-boxed:not(.yk-site) #yk-view { background: #C9D0E3; }
-html.yk-boxed:not(.yk-site) #yk-stage { border-radius: 30px; box-shadow: 0 0 0 3px #1B2440, 0 20px 50px rgba(27, 36, 64, 0.28); }
+html.yk-boxed, html.yk-boxed body, html.yk-boxed #yk-view { background: #C9D0E3; }
+html.yk-boxed #yk-stage { border-radius: 30px; box-shadow: 0 0 0 3px #1B2440, 0 20px 50px rgba(27, 36, 64, 0.28); }
 
 /* the same starting point for buttons in every browser; each button's own inline style still wins */
 button {
@@ -71,24 +74,80 @@ html.yk-sideways #yk-sideways {
 }
 html.yk-sideways #yk-sideways [lang="ja"] { font-size: 20px; font-weight: 800; }
 
-/* ---------- the website ----------
-   In a browser window of at least 700 by 560 (yk-app.js, fit(); site.js decides the same before the first paint) the page
-   is a page of the Yaoki website: the site header, the design in a phone-shaped frame, the words beside it and the footer
-   (site/site.css styles those). Anywhere else (a phone, the installed app, the preview inside Claude) the chrome does not
-   exist: it is hidden, and <main> is laid out as if it were not there, so #yk-view is body's child and fills the screen
-   exactly as before. */
-html:not(.yk-site) :is(.site-bar, .site-foot, .home-aside) { display: none; }
-/* <main> has no box of its own, and hands the design nothing of its own either (site.css gives it a font and a colour,
-   which its children would inherit even without a box): the design inherits from body exactly as it always did */
-html:not(.yk-site) .site-home { display: contents; font: inherit; color: inherit; }
-/* the website: a page that scrolls, on the desk colour, in light or dark; the chrome's text can be selected */
-html.yk-site, html.yk-site body { position: static; height: auto; min-height: 100%; overflow: auto; overscroll-behavior: auto; background: var(--desk); color: var(--ink); color-scheme: light dark; -webkit-user-select: text; user-select: text; }
-html.yk-site[data-theme="light"], html.yk-site[data-theme="light"] body { color-scheme: light; }
-html.yk-site[data-theme="dark"], html.yk-site[data-theme="dark"] body { color-scheme: dark; }
-/* the frame: a box of the design's shape, as tall as the window allows, never under 560 px (a short window scrolls) and
-   never over the design's own 844; fit() scales the design to fill it exactly. The design inside stays light in every theme */
-html.yk-site #yk-view { --frame-h: clamp(560px, calc(100vh - 104px), 844px); height: var(--frame-h); width: calc(var(--frame-h) * 390 / 844); flex-shrink: 0; background: none; overflow: visible; color-scheme: light; -webkit-user-select: none; user-select: none;
-  /* what the design inherits on its own page (body's defaults), whatever the page around it is set in */
-  font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; }
-html.yk-site #yk-stage { border-radius: 30px; box-shadow: 0 0 0 3px var(--frame), 0 8px 0 var(--hard); color-scheme: light; }
-html.yk-site #yk-sideways { display: none; }
+/* ---------- the website: the app as a desktop page ----------
+   In a browser window of at least 700 by 560 (yk-app.js, wantDesk; site.js decides the same before the first paint) the page is a
+   page of the Yaoki website and the design is laid out for a desktop: no scaling, the screens fluid in a pane as wide as a readable
+   column and as tall as the window under the header, the phone's empty zones gone, the tab bar inside the pane replaced by the
+   sidebar from 1000 px wide, a rail with the words about the app from 1280. Anywhere else (a phone, the installed app, the
+   preview inside Claude) the shell does not exist: it is hidden, and its wrappers are laid out as if they were not there, so
+   #yk-view is body's child and fills the screen exactly as before. */
+html:not(.yk-desk) :is(.site-bar, .site-foot, .app-side, .app-rail) { display: none; }
+/* the wrappers have no box of their own, and hand the design nothing of their own either (site.css gives them a font and a colour,
+   which their children would inherit even without a box): the design inherits from body exactly as it always did */
+html:not(.yk-desk) :is(.app-shell, .app-main) { display: contents; font: inherit; color: inherit; }
+/* the page: no scroll of its own (the pane scrolls inside), the site's ground in light or dark, the chrome's text selectable */
+html.yk-desk, html.yk-desk body { position: static; height: 100%; overflow: hidden; overscroll-behavior: auto; background: var(--ground); color: var(--ink); color-scheme: light dark; -webkit-user-select: text; user-select: text; }
+html.yk-desk[data-theme="light"], html.yk-desk[data-theme="light"] body { color-scheme: light; }
+html.yk-desk[data-theme="dark"], html.yk-desk[data-theme="dark"] body { color-scheme: dark; }
+html.yk-desk body { display: flex; flex-direction: column; }
+html.yk-desk .site-bar { flex-shrink: 0; position: static; }
+html.yk-desk .app-shell { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr); font: 500 15px/1.45 var(--ui); color: var(--ink); }
+/* the sidebar: the app's own navigation, a mirror of the tab bar in the pane (yk-app.js keeps them alike), and the site's footer */
+html.yk-desk .app-side { display: none; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 20px 14px 16px; border-right: 2px solid var(--line); }
+html.yk-desk .app-side-head { display: flex; flex-direction: column; gap: 2px; padding: 0 14px 8px; }
+html.yk-desk .app-side-head b { font-size: 20px; font-weight: 800; line-height: 1.2; }
+html.yk-desk .app-nav { display: flex; flex-direction: column; gap: 4px; }
+html.yk-desk .app-nav button { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px; border-radius: 14px; border: 2px solid transparent; background: none; color: var(--muted); font: inherit; font-size: 15px; font-weight: 800; text-align: left; text-decoration: none; cursor: pointer; }
+@media (hover: hover) { html.yk-desk .app-nav button:hover { background: var(--card); color: var(--ink); } }
+html.yk-desk .app-nav [data-tab][aria-current="page"] { background: var(--card); color: var(--accent-ink); border-color: var(--outline); box-shadow: 0 3px 0 var(--hard); }
+html.yk-desk .app-nav [data-tab][aria-disabled="true"] { opacity: 0.45; cursor: default; pointer-events: none; }
+html.yk-desk .app-nav svg { width: 22px; height: 22px; flex-shrink: 0; }
+html.yk-desk .app-nav [data-app-menu] { margin-top: 6px; border-top: 2px solid var(--line); border-radius: 0; padding-top: 6px; min-height: 54px; }
+html.yk-desk .app-side-note { padding: 0 14px; }
+html.yk-desk .app-side .site-foot { margin-top: auto; padding: 14px 0 0; border-top: 2px solid var(--line); font-size: 11px; }
+html.yk-desk .app-side .site-wrap { padding: 0 14px; }
+html.yk-desk .app-side .site-legal { max-width: none; }
+/* the pane: the design, fluid, in a readable column; it keeps its own light look in every theme and inherits body's defaults */
+/* the column scrolls when the window is shorter than the screens need (they are drawn for a tall phone); the page never does */
+html.yk-desk .app-main { min-width: 0; min-height: 0; display: flex; justify-content: center; overflow-y: auto; }
+html.yk-desk #yk-view { width: 100%; max-width: 760px; height: 100%; min-height: 640px; box-sizing: border-box; border-left: 2px solid var(--line); border-right: 2px solid var(--line); background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; --yk-nav-bottom: 8px; }
+html.yk-desk #yk-stage { width: 100%; height: 100%; }
+html.yk-desk #yk-stage > .sc-host { width: 100%; }
+html.yk-desk #yk-sideways { display: none; }
+/* the week path: its route is drawn 390 px wide at phone coordinates; in the wider pane it sits in the middle, and scrolls if the
+   pane is short (the third child of the screen's root is the route's region, see Main.dc.html) */
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] { overflow-y: auto; overflow-x: hidden; }
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > * { margin-left: calc(50% - 195px); }
+/* the day labels beside the route may run on: there is room to their right here */
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > div[style*="max-width"] { max-width: 320px !important; }
+/* a button pinned to the bottom follows its content on a desktop: the phone templates push it down with a growing spacer or a
+   growing scroll body, which stop growing here (a body taller than the pane still scrolls: it keeps min-height 0 and overflow auto) */
+/* (the screens' styles are inline, and the browser keeps them in its own spelling: 0px, rgb(); these rules match that spelling and
+   are marked important where the inline style sets the same property) */
+html.yk-desk [data-yk] > div[style^="flex-grow: 1"]:not([style*="overflow"]), html.yk-desk [data-yk] > div[style^="flex-grow: 2"]:not([style*="overflow"]) { flex-grow: 0 !important; height: 24px !important; min-height: 0 !important; }
+html.yk-desk [data-yk] > div[style*="overflow-y: auto"][style*="min-height: 0px"] { flex-grow: 0 !important; }
+html.yk-desk [data-yk] > div[style^="flex: 1 1 auto"] { flex: 0 1 auto !important; }
+/* a full-width button at the foot of a screen is a desktop button's width here, in the middle */
+html.yk-desk [data-yk] > :is(a, button)[style*="height: 54px"] { width: 100%; max-width: 480px; align-self: center; }
+/* the answer sheet that rises from the bottom of the phone's screen is a card under the question here */
+html.yk-desk [data-yk] > div[style*="border-radius: 26px 26px 0px 0px"] { border-radius: 20px !important; border: 2px solid #1B2440 !important; margin: 12px 16px var(--yk-bottom) !important; max-height: none !important; }
+/* exam-style questions: the four options in two columns, as the drill's are */
+html.yk-desk [data-yk="Exam"] > div[style^="margin-top: 14px; display: flex; flex-direction: column; gap: 10px"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* the app's menu, a sheet from the bottom on the phone, is a dialog in the middle of the pane here */
+html.yk-desk .yk-scrim { display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }
+html.yk-desk .yk-scrim-close { position: absolute; inset: 0; }
+html.yk-desk .yk-sheet { position: relative; width: 100%; max-width: 460px; max-height: 100%; overflow-y: auto; box-sizing: border-box; border-radius: 26px !important; border: 2px solid #1B2440 !important; box-shadow: 0 8px 0 #1B2440; padding-bottom: 20px !important; }
+/* the rail: the words about the app and the other apps */
+html.yk-desk .app-rail { display: none; flex-direction: column; gap: 14px; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 20px 16px; border-left: 2px solid var(--line); }
+html.yk-desk .app-rail h2 { margin: 6px 0 0; }
+html.yk-desk .app-rail .card { display: flex; flex-direction: column; gap: 8px; }
+html.yk-desk .app-rail .home-cards { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1000px) {
+  html.yk-desk .app-shell { grid-template-columns: 240px minmax(0, 1fr); }
+  html.yk-desk .app-side { display: flex; }
+  html.yk-desk #yk-stage nav[aria-label="Main"] { display: none !important; }   /* the tab bar is drawn inline; the sidebar takes its place */
+}
+@media (min-width: 1280px) {
+  html.yk-desk .app-shell { grid-template-columns: 240px minmax(0, 1fr) 300px; }
+  html.yk-desk .app-rail { display: flex; }
+}
