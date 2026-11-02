@@ -47,9 +47,10 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
           themeKey: localStorage.getItem('yaoki.theme'), themeAttr: document.documentElement.getAttribute('data-theme'),
           ground: cs(document.documentElement, '--ground'),
           stageScheme: cs(q('#yk-stage'), 'color-scheme'),
-          ykSite: document.documentElement.classList.contains('yk-desk'),
+          ykDesk: document.documentElement.classList.contains('yk-desk'),
           scrollW: document.documentElement.scrollWidth, innerW: innerWidth,
           themeBtn: !!q('.site-theme'), licences: (q('.site-legal a') || {}).getAttribute ? q('.site-legal a').getAttribute('href') : null,
+          licencesShown: !!(q('.site-legal a') && q('.site-legal a').getClientRects().length),
         };
       });
       ok(m.hasBar && m.hasFoot, 'the page has the site header and footer');
@@ -59,10 +60,11 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
       ok(m.scrollW <= m.innerW, 'no sideways scroll, got ' + m.scrollW + ' in ' + m.innerW);
       ok(m.themeKey === null, 'no theme is saved before the control is used');
       ok(m.licences && /licenses\.txt$/.test(m.licences), 'the footer links to the licences, got ' + m.licences);
+      if (site || !pg.app) ok(m.licencesShown, 'the footer, with its licences link, is on the page');
       if (pg.app) {
-        ok(m.ykSite === site, `the app page is laid out as the website only from 700 by 560, got yk-desk=${m.ykSite}`);
+        ok(m.ykDesk === site, `the app page is laid out for a desktop only from 700 by 560, got yk-desk=${m.ykDesk}`);
         ok(site ? m.barDisplay !== 'none' : m.barDisplay === 'none', 'the chrome is ' + (site ? 'shown' : 'hidden') + ', got display ' + m.barDisplay);
-        if (site) ok(m.stageScheme === 'light', 'the design in its frame stays light, got ' + m.stageScheme);
+        if (site) ok(m.stageScheme === 'light', 'the design in its pane stays light, got ' + m.stageScheme);
       } else {
         ok(m.barDisplay !== 'none', 'the header shows on this page at every width');
         ok(/Yaoki (Reader|Typing)/.test(m.brand), 'the page keeps its own brand line, got "' + m.brand.trim() + '"');
@@ -78,7 +80,7 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
         await page.waitForTimeout(400);
         const kept = await page.evaluate(() => ({ attr: document.documentElement.getAttribute('data-theme'), ground: getComputedStyle(document.documentElement).getPropertyValue('--ground').trim(), stage: document.querySelector('#yk-stage') ? getComputedStyle(document.querySelector('#yk-stage')).colorScheme : 'light' }));
         ok(kept.attr === 'dark' && kept.ground.toUpperCase() === '#12172A', 'the dark theme is kept across a reload, got ' + JSON.stringify(kept));
-        if (pg.app) ok(kept.stage === 'light', 'the design in its frame stays light in dark mode, got ' + kept.stage);
+        if (pg.app) ok(kept.stage === 'light', 'the design in its pane stays light in dark mode, got ' + kept.stage);
         await page.click('.site-theme');
         const auto = await page.evaluate(() => ({ attr: document.documentElement.getAttribute('data-theme'), key: localStorage.getItem('yaoki.theme') }));
         ok(auto.attr === null && auto.key === null, 'a third tap goes back to Auto and forgets the choice, got ' + JSON.stringify(auto));

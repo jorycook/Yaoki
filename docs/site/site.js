@@ -19,7 +19,7 @@
   var KEY = 'yaoki.theme';
   var root = document.documentElement;
 
-  /* every app of Yaoki: the nav shows the pages of the website, the footer and the home page's cards show all five */
+  /* every app of Yaoki: the nav shows the pages of the website, the footer all five, the app pages' rail the other four */
   var APPS = [
     { key: 'study', nav: 'Study', name: 'Yaoki', ja: 'やおき', path: '', tile: 'gold', glyph: '', line: 'The study app for JLPT N5 to N2: lessons, drills, writing, mock tests. Installs on a phone.' },
     { key: 'n1', nav: 'N1', name: 'Yaoki N1', ja: 'N1', path: 'n1/', tile: 'indigo', glyph: 'N1', line: 'The N1 course, planned to your exam date. An app of its own, with its own progress.' },
@@ -63,13 +63,13 @@
 
   /* an app page in a window wide enough for a web page is laid out for a desktop (html.yk-desk): decided here, before the
      first paint, and from then on by yk-app.js (fit()), with the same rule */
-  function wantSite() {
+  function wantDesk() {
     var standalone = navigator.standalone === true || !!(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
     return !standalone && window.__ykHost !== 'artifact' && window.innerWidth >= 700 && window.innerHeight >= 560;
   }
-  if (IS_APP && wantSite()) root.classList.add('yk-desk');
+  if (IS_APP && wantDesk()) root.classList.add('yk-desk');
 
-  /* ---------- the header, the footer and the home page's cards ---------- */
+  /* ---------- the header, the footer and the rail's cards ---------- */
   function h(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function href(app) { return ROOT + app.path; }
   function themeButton() {
@@ -130,5 +130,5 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
   else render();
 
-  window.ykSite = { root: ROOT, page: PAGE, apps: APPS, theme: theme, setTheme: setTheme, render: render, wantSite: wantSite };
+  window.ykSite = { root: ROOT, page: PAGE, apps: APPS, theme: theme, setTheme: setTheme, render: render, wantDesk: wantDesk };
 })();

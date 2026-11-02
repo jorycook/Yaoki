@@ -95,12 +95,12 @@ html.yk-desk .app-shell { flex: 1; min-height: 0; display: grid; grid-template-c
 /* the sidebar: the app's own navigation, a mirror of the tab bar in the pane (yk-app.js keeps them alike), and the site's footer */
 html.yk-desk .app-side { display: none; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 20px 14px 16px; border-right: 2px solid var(--line); }
 html.yk-desk .app-side-head { display: flex; flex-direction: column; gap: 2px; padding: 0 14px 8px; }
-html.yk-desk .app-side-head b { font-size: 20px; font-weight: 800; line-height: 1.2; }
+html.yk-desk .app-side-head h1 { margin: 0; font-size: 20px; font-weight: 800; line-height: 1.2; }
 html.yk-desk .app-nav { display: flex; flex-direction: column; gap: 4px; }
 html.yk-desk .app-nav button { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px; border-radius: 14px; border: 2px solid transparent; background: none; color: var(--muted); font: inherit; font-size: 15px; font-weight: 800; text-align: left; text-decoration: none; cursor: pointer; }
 @media (hover: hover) { html.yk-desk .app-nav button:hover { background: var(--card); color: var(--ink); } }
 html.yk-desk .app-nav [data-tab][aria-current="page"] { background: var(--card); color: var(--accent-ink); border-color: var(--outline); box-shadow: 0 3px 0 var(--hard); }
-html.yk-desk .app-nav [data-tab][aria-disabled="true"] { opacity: 0.45; cursor: default; pointer-events: none; }
+html.yk-desk .app-nav [data-tab][aria-disabled="true"], html.yk-desk .app-nav [data-app-menu]:disabled { opacity: 0.45; cursor: default; pointer-events: none; }
 html.yk-desk .app-nav svg { width: 22px; height: 22px; flex-shrink: 0; }
 html.yk-desk .app-nav [data-app-menu] { margin-top: 6px; border-top: 2px solid var(--line); border-radius: 0; padding-top: 6px; min-height: 54px; }
 html.yk-desk .app-side-note { padding: 0 14px; }
@@ -108,15 +108,19 @@ html.yk-desk .app-side .site-foot { margin-top: auto; padding: 14px 0 0; border-
 html.yk-desk .app-side .site-wrap { padding: 0 14px; }
 html.yk-desk .app-side .site-legal { max-width: none; }
 /* the pane: the design, fluid, in a readable column; it keeps its own light look in every theme and inherits body's defaults */
-/* the column scrolls when the window is shorter than the screens need (they are drawn for a tall phone); the page never does */
-html.yk-desk .app-main { min-width: 0; min-height: 0; display: flex; justify-content: center; overflow-y: auto; }
-html.yk-desk #yk-view { width: 100%; max-width: 760px; height: 100%; min-height: 640px; box-sizing: border-box; border-left: 2px solid var(--line); border-right: 2px solid var(--line); background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; --yk-nav-bottom: 8px; }
+/* the column scrolls when the window is shorter than the screens need (they are drawn for a tall phone, 760 px of content: the
+   pane is never shorter than that plus its zones, so a screen is never squeezed); the page itself never scrolls. Under 1000 px,
+   where there is no sidebar, the site's footer sits under the pane (yk-app.js moves it) */
+html.yk-desk .app-main { min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+html.yk-desk .app-main:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: -3px; }
+html.yk-desk .app-main .site-foot { width: 100%; max-width: 760px; box-sizing: border-box; padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px)); border-top: 0; }
+html.yk-desk #yk-view { flex-shrink: 0; width: 100%; max-width: 760px; height: 100%; min-height: 792px; box-sizing: border-box; border-left: 2px solid var(--line); border-right: 2px solid var(--line); background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; --yk-nav-bottom: 8px; }
 html.yk-desk #yk-stage { width: 100%; height: 100%; }
 html.yk-desk #yk-stage > .sc-host { width: 100%; }
 html.yk-desk #yk-sideways { display: none; }
 /* the week path: its route is drawn 390 px wide at phone coordinates; in the wider pane it sits in the middle, and scrolls if the
    pane is short (the third child of the screen's root is the route's region, see Main.dc.html) */
-html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] { overflow-y: auto; overflow-x: hidden; }
+html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] { overflow-y: auto !important; overflow-x: hidden !important; }
 html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > * { margin-left: calc(50% - 195px); }
 /* the day labels beside the route may run on: there is room to their right here */
 html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > div[style*="max-width"] { max-width: 320px !important; }
@@ -124,11 +128,11 @@ html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > div[s
    growing scroll body, which stop growing here (a body taller than the pane still scrolls: it keeps min-height 0 and overflow auto) */
 /* (the screens' styles are inline, and the browser keeps them in its own spelling: 0px, rgb(); these rules match that spelling and
    are marked important where the inline style sets the same property) */
-html.yk-desk [data-yk] > div[style^="flex-grow: 1"]:not([style*="overflow"]), html.yk-desk [data-yk] > div[style^="flex-grow: 2"]:not([style*="overflow"]) { flex-grow: 0 !important; height: 24px !important; min-height: 0 !important; }
+html.yk-desk [data-yk] > div[style="flex-grow: 1;"], html.yk-desk [data-yk] > div[style="flex-grow: 2;"], html.yk-desk [data-yk] > div[style^="flex-grow: 1; min-height: "][style$="px;"]:not([style*="padding"]):not([style*="display"]) { flex-grow: 0 !important; height: 24px !important; min-height: 0 !important; }
 html.yk-desk [data-yk] > div[style*="overflow-y: auto"][style*="min-height: 0px"] { flex-grow: 0 !important; }
 html.yk-desk [data-yk] > div[style^="flex: 1 1 auto"] { flex: 0 1 auto !important; }
 /* a full-width button at the foot of a screen is a desktop button's width here, in the middle */
-html.yk-desk [data-yk] > :is(a, button)[style*="height: 54px"] { width: 100%; max-width: 480px; align-self: center; }
+html.yk-desk [data-yk] > :is(a, button)[style*="height: 54px"] { width: 100%; max-width: 480px; align-self: center; flex-shrink: 0; }
 /* the answer sheet that rises from the bottom of the phone's screen is a card under the question here */
 html.yk-desk [data-yk] > div[style*="border-radius: 26px 26px 0px 0px"] { border-radius: 20px !important; border: 2px solid #1B2440 !important; margin: 12px 16px var(--yk-bottom) !important; max-height: none !important; }
 /* exam-style questions: the four options in two columns, as the drill's are */

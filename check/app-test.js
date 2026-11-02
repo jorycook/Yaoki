@@ -78,7 +78,9 @@ const placed = (page) => page.evaluate(() => {
     current: (document.querySelector('.site-nav [aria-current="page"]') || {}).textContent || '', cards: document.querySelectorAll('.home-cards .app-card').length,
     paneNav: paneNav ? getComputedStyle(paneNav).display : null, sideCurrent: (document.querySelector('.app-nav [data-tab][aria-current="page"] span') || {}).textContent || '',
     sideOff: [...document.querySelectorAll('.app-nav [data-tab][aria-disabled="true"] span')].map((s) => s.textContent).join('|'),
-    rootW: (document.querySelector('#yk-stage [data-yk]') || {}).getBoundingClientRect ? document.querySelector('#yk-stage [data-yk]').getBoundingClientRect().width : null,
+    rootW: document.querySelector('#yk-stage .yk-screen [data-yk]') ? document.querySelector('#yk-stage .yk-screen [data-yk]').getBoundingClientRect().width : null,
+    footShown: !!(document.querySelector('.site-legal a') && document.querySelector('.site-legal a').getClientRects().length),
+    lastBottom: Math.max(...[...document.querySelectorAll('#yk-stage .yk-screen [data-yk] > *')].map((e) => e.getBoundingClientRect().bottom)),
     scrollW: document.documentElement.scrollWidth, scrollH: document.documentElement.scrollHeight };
 });
 
@@ -319,7 +321,9 @@ const placed = (page) => page.evaluate(() => {
         ok(r.view.w <= 760.5 && r.view.w >= Math.min(760, w - (w >= 1280 ? 540 : w >= 1000 ? 240 : 0)) - 5, `${name}: the pane should be as wide as the column allows, at most 760 px, got ${r.view.w}`);
         ok(Math.abs(r.rootW - r.w) < 1, `${name}: the screen should be laid out as wide as the pane, not at the phone's 390 px, got ${r.rootW}`);
         ok(r.bar.bottom <= r.y + 0.5, `${name}: the header should sit above the pane, got ${JSON.stringify(r.bar)} against y=${r.y}`);
-        ok(Math.abs(r.h - Math.max(640, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under 640), got ${r.h}`);
+        ok(Math.abs(r.h - Math.max(792, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under 792, the height the screens were drawn for), got ${r.h}`);
+        ok(r.lastBottom <= r.y + r.h + 0.5, `${name}: the whole screen should fit its pane, got its last part at ${r.lastBottom} against the pane's ${r.y + r.h}`);
+        ok(r.footShown, `${name}: the site's footer should be on the page (in the sidebar, or under the pane without one)`);
         if (w >= 1000) {
           ok(r.side && r.side.x < r.x && r.paneNav === 'none', `${name}: the sidebar should replace the tab bar inside the pane, got side=${JSON.stringify(r.side)} paneNav=${r.paneNav}`);
           ok(r.sideCurrent === 'Path' && !r.sideOff.includes('Notebook'), `${name}: the sidebar should mark Path and offer the notebook, got "${r.sideCurrent}" / off: ${r.sideOff}`);
@@ -346,6 +350,13 @@ const placed = (page) => page.evaluate(() => {
         ok((await text(page)).includes('メニュー'), `${name}: the sidebar's Menu should open the app's menu`);
         const sheet = await page.evaluate(() => { const s = document.querySelector('.yk-sheet'); const r = s.getBoundingClientRect(); const p = document.querySelector('#yk-view').getBoundingClientRect(); return { centred: Math.abs((r.x + r.width / 2) - (p.x + p.width / 2)) < 2 && r.bottom < p.bottom - 20, w: r.width }; });
         ok(sheet.centred && sheet.w <= 460, `${name}: on a desktop the menu is a dialog in the middle of the pane, got ${JSON.stringify(sheet)}`);
+        const focus = await page.evaluate(() => ({ inSheet: !!document.activeElement.closest('.yk-sheet'), inert: !!document.querySelector('.yk-screen[inert]') && !!document.querySelector('.app-side[inert]') }));
+        ok(focus.inSheet && focus.inert, `${name}: the menu dialog should take the focus and make the rest of the page wait, got ${JSON.stringify(focus)}`);
+        await page.keyboard.press('Escape');
+        await page.waitForTimeout(300);
+        ok(!(await text(page)).includes('メニュー'), `${name}: Escape should close the menu on a desktop`);
+        const back = await page.evaluate(() => ({ opener: !!document.activeElement.closest('[data-app-menu]'), inert: !!document.querySelector('[inert]') }));
+        ok(back.opener && !back.inert, `${name}: closing the menu should give the focus back to the Menu item and wake the page, got ${JSON.stringify(back)}`);
       }
       // the website gives way to the plain app when the window shrinks to a phone's size
       if (name === 'laptop') {
@@ -354,6 +365,24 @@ const placed = (page) => page.evaluate(() => {
         const p = await placed(page);
         ok(!p.desk && p.barDisplay === 'none' && Math.abs(p.y) < 0.5 && Math.abs(p.w - 390) < 0.5, `laptop window shrunk to a phone: the design should fill the screen with no chrome, got ${JSON.stringify(p)}`);
       }
+      await ctx.close();
+    }
+
+    // a phone held sideways gets a note, and the app comes back when it is turned upright
+    {
+      const phoneCtx = (w, h) => browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
+      const ctx = await phoneCtx(844, 390);
+      const page = await ctx.newPage();
+      await page.goto(BASE + '?yktest&screen=Main');
+      await ready(page);
+      const side = await page.evaluate(() => ({ cls: document.documentElement.classList.contains('yk-sideways'), card: getComputedStyle(document.querySelector('#yk-sideways')).display, text: document.querySelector('#yk-sideways').textContent, view: getComputedStyle(document.querySelector('#yk-view')).visibility }));
+      ok(side.cls && side.card === 'flex' && side.view === 'hidden' && side.text.includes('Turn the phone upright'), 'a phone held sideways should show the note, got ' + JSON.stringify(side));
+      await page.screenshot({ path: path.join(out, 'app-sideways.png') });
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.waitForTimeout(500);
+      const up = await placed(page);
+      ok(!up.sideways && Math.abs(up.w - 390) < 0.5 && Math.abs(up.h - 844) < 0.5 && Math.abs(up.y) < 0.5, 'turned upright again, the app should fill the screen, got ' + JSON.stringify(up));
+      ok((await page.evaluate(() => getComputedStyle(document.querySelector('#yk-sideways')).display)) === 'none', 'turned upright again, the note should go');
       await ctx.close();
     }
 

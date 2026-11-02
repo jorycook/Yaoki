@@ -1,6 +1,6 @@
 /* Yaoki: the look shared by the whole website.
  * The tokens (colours, typefaces, radii, shadows) and the pieces every page uses: buttons, cards, pills, tags,
- * switches, the site header and footer, and the home page around the phone frame. "Stamp-card stationery":
+ * switches, the site header and footer, and the pieces of the app pages' rail. "Stamp-card stationery":
  * white cards with an ink outline and a hard shadow on a pale ground, M PLUS Rounded 1c for the words and Klee One
  * for Japanese text. The Study and N1 pages, the Reader and Yaoki Typing all load this file (site.js draws the
  * header and footer); Yaoki Speaking keeps its own copy of the tokens.
@@ -18,7 +18,6 @@
   --mark: #FFE9B0; --note: #FFF4D6; --stamp: #C7361E; --scrim: rgba(27, 36, 64, 0.45);
   --good: #0B7A6B; --good-soft: #E0F3EF; --bad: #C7361E; --bad-soft: #FDEBE6;
   --grid: #E6E9F3;
-  --desk: #E6E9F3; --frame: #1B2440;
   /* the brand's own colours, the same in both schemes */
   --gold: #F2B43A; --on-gold: #1B2440; --daruma: #E2452B; --paper: #FFF6EA;
   --tile-gold: #F2B43A; --tile-indigo: #2F4FD0; --tile-paper: #FFF6EA; --tile-red: #E2452B; --tile-teal: #0B7A6B;
@@ -43,7 +42,6 @@
     --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
     --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
     --grid: #1A2137;
-    --desk: #0B0F1C; --frame: #7B86B4;
   }
 }
 :root[data-theme="dark"] {
@@ -53,7 +51,6 @@
   --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
   --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
   --grid: #1A2137;
-  --desk: #0B0F1C; --frame: #7B86B4;
 }
 
 /* ---------- the pieces ---------- */

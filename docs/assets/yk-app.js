@@ -151,6 +151,8 @@
       return;
     }
     stage.style.width = '';
+    if (sheetOpen) { sheetOpen = null; setInert(false); }
+    if (footBox && sideBox && footBox.parentNode !== sideBox) sideBox.appendChild(footBox);
     var vw = view.clientWidth;
     var vh = Math.min(view.clientHeight, window.innerHeight || view.clientHeight);
     if (!vw || !vh) return;
@@ -206,6 +208,14 @@
   var sideNav = document.querySelector('[data-app-nav]');
   var sideNote = document.querySelector('[data-app-note]');
   var sideItems = sideNav ? Array.prototype.slice.call(sideNav.querySelectorAll('[data-tab]')) : [];
+  var menuItem = sideNav ? sideNav.querySelector('[data-app-menu]') : null;
+  var sideBox = document.querySelector('.app-side');
+  var mainBox = document.querySelector('.app-main');
+  var footBox = document.querySelector('.app-side .site-foot');
+  /* what the note under the sidebar's places says on a screen without the tab bar */
+  var NOTES = { Install: 'Choose Continue in the browser, below, to use these.', Goal: 'Set your goal first: these open once the plan is made.' };
+  var NOTE = 'Close what is open (the arrow at its top) to use these.';
+  function screenRoot() { return stage.querySelector('.yk-screen [data-yk]') || stage.querySelector('.sc-host > [data-yk]:not([data-yk="Shell"])'); }
   function paneTab(name) {
     var tabs = stage.querySelector('nav[aria-label="Main"]');
     return tabs ? tabs.querySelector('a[href="' + name + '.dc.html"]') : null;
@@ -228,7 +238,43 @@
       a.disabled = off;
       if (src && src.getAttribute('aria-current') === 'page') a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
-    if (sideNote) sideNote.hidden = any;
+    var root0 = screenRoot();
+    var name = root0 ? root0.getAttribute('data-yk') : '';
+    if (sideNote) { sideNote.hidden = any; sideNote.textContent = NOTES[name] || NOTE; }
+    /* the Menu item works once the app's shell is up (not on the Add to Home Screen page) */
+    if (menuItem) { var canMenu = !!(window.ykApp && window.ykApp.openMenu); menuItem.disabled = !canMenu; menuItem.setAttribute('aria-disabled', canMenu ? 'false' : 'true'); }
+    /* under 1000 px there is no sidebar: the site's footer sits under the pane instead */
+    if (footBox && mainBox && sideBox) {
+      var wide = window.innerWidth >= 1000;
+      if (wide && footBox.parentNode !== sideBox) sideBox.appendChild(footBox);
+      else if (!wide && footBox.parentNode !== mainBox) mainBox.appendChild(footBox);
+    }
+    /* the column can be scrolled from the keyboard when it overflows */
+    if (mainBox) mainBox.tabIndex = mainBox.scrollHeight > mainBox.clientHeight + 1 ? 0 : -1;
+    watchSheet();
+  }
+  /* the app's menu is a dialog here: focus goes into it when it opens, the rest of the page waits (inert) while it is open,
+     and focus goes back to what opened it when it closes */
+  var sheetOpen = null;
+  var opener = null;
+  function setInert(on) {
+    var screen = stage.querySelector('.yk-screen');
+    [screen, sideBox, document.querySelector('.site-bar'), document.querySelector('.app-rail')].forEach(function (el) { if (el) { if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert'); } });
+  }
+  function watchSheet() {
+    var sheet = stage.querySelector('.yk-sheet');
+    if (sheet && sheet !== sheetOpen) {
+      sheetOpen = sheet;
+      opener = document.activeElement && document.activeElement !== document.body ? document.activeElement : null;
+      setInert(true);
+      sheet.tabIndex = -1;
+      try { sheet.focus({ preventScroll: true }); } catch (e) { sheet.focus(); }
+    } else if (!sheet && sheetOpen) {
+      sheetOpen = null;
+      setInert(false);
+      if (opener && document.contains(opener) && !opener.disabled) { try { opener.focus({ preventScroll: true }); } catch (e) {} }
+      opener = null;
+    }
   }
   function askSync() {
     if (syncPending) return;
@@ -243,9 +289,9 @@
       var src = paneTab(a.getAttribute('data-tab'));
       if (src && src.getAttribute('aria-disabled') !== 'true') src.click();
     });
-    var menuItem = sideNav.querySelector('[data-app-menu]');
     if (menuItem) menuItem.addEventListener('click', function () { if (window.ykApp && window.ykApp.openMenu) window.ykApp.openMenu(); });
     if (window.MutationObserver) new MutationObserver(askSync).observe(stage, { subtree: true, childList: true, attributes: true, attributeFilter: ['aria-current', 'aria-disabled'] });
+    window.addEventListener('resize', askSync);
   }
   /* on a desktop, Escape closes the app's menu, as a dialog closes */
   document.addEventListener('keydown', function (e) {
@@ -325,7 +371,7 @@
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (a && !e.defaultPrevented && /\.dc\.html?([?#].*)?$/.test(a.getAttribute('href') || '')) e.preventDefault();
   });
-  /* no pinch zoom, no double-tap zoom: the design already fills the screen (on the website, the words beside it may still be selected) */
+  /* no pinch zoom, no double-tap zoom: the design already fills the screen (on the desktop the page around it may still be selected) */
   document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
   view.addEventListener('dblclick', function (e) { e.preventDefault(); });
 
