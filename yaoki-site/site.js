@@ -21,8 +21,9 @@
 
   /* every app of Yaoki: the nav shows the pages of the website, the footer all five, the app pages' rail the other four */
   var APPS = [
-    { key: 'study', nav: 'Study', name: 'Yaoki', ja: 'やおき', path: '', tile: 'gold', glyph: '', line: 'The study app for JLPT N5 to N2: lessons, drills, writing, mock tests. Installs on a phone.' },
-    { key: 'n1', nav: 'N1', name: 'Yaoki N1', ja: 'N1', path: 'n1/', tile: 'indigo', glyph: 'N1', line: 'The N1 course, planned to your exam date. An app of its own, with its own progress.' },
+    { key: 'home', nav: 'Home', name: 'Yaoki', ja: 'やおき', path: '', tile: 'gold', glyph: '', line: 'Everything in the suite, on one page.' },
+    { key: 'study', nav: 'Study', name: 'Yaoki Study', ja: 'べんきょう', path: 'study/', tile: 'gold', glyph: '', line: 'The courses for JLPT N5 to N2: lessons, drills, writing, week tests, mock exams. Installs on a phone.' },
+    { key: 'n1', nav: null, name: 'The N1 course', ja: 'N1', path: 'n1/', tile: 'indigo', glyph: 'N1', line: 'Planned to your exam date: 48 lessons, the 1,113 N1 kanji, mini mocks. Installs on a phone too.', under: 'study' },
     { key: 'reader', nav: 'Reader', name: 'Yaoki Reader', ja: 'よむ', path: 'reader/', tile: 'paper', glyph: '読', line: 'Read Japanese with the furigana hidden. Touch a phrase to see its reading and meaning.' },
     { key: 'typing', nav: 'Typing', name: 'Yaoki Typing', ja: 'タイピング', path: 'typing/', tile: 'red', glyph: '打', line: 'A typing game for a computer with a Japanese (JIS) keyboard: kana, course words, kanji.' },
     { key: 'speaking', nav: null, name: 'Yaoki Speaking', ja: 'スピーキング', path: 'speaking/', tile: 'teal', glyph: '話', line: 'A game for a phone held upright: say the words out loud. It opens on its own.' }
@@ -83,9 +84,11 @@
       b.title = 'Light or dark: ' + WORDS[now];
     });
   }
+  /* the page the nav marks: the N1 course is one of the Study pages */
+  var current = (APPS.filter(function (a) { return a.key === PAGE; })[0] || {}).under || PAGE;
   function bar() {
     var nav = APPS.filter(function (a) { return a.nav; }).map(function (a) {
-      return '<a href="' + h(href(a)) + '"' + (a.key === PAGE ? ' aria-current="page"' : '') + '>' + h(a.nav) + '</a>';
+      return '<a href="' + h(href(a)) + '"' + (a.key === current ? ' aria-current="page"' : '') + '>' + h(a.nav) + '</a>';
     }).join('');
     return '<div class="site-wrap">' +
       '<a class="site-brand" href="' + h(ROOT) + '" aria-label="Yaoki, home"><svg class="site-mark" viewBox="0 0 100 100" aria-hidden="true">' + DARUMA + '</svg><span class="site-word">Yaoki</span><span class="site-ja" lang="ja" aria-hidden="true">やおき</span></a>' +
@@ -95,7 +98,7 @@
   }
   function foot() {
     var all = APPS.map(function (a) {
-      return '<a href="' + h(href(a)) + '"' + (a.key === PAGE ? ' aria-current="page"' : '') + '>' + h(a.nav || 'Speaking') + '</a>';
+      return '<a href="' + h(href(a)) + '"' + (a.key === PAGE ? ' aria-current="page"' : '') + '>' + h(a.nav || (a.key === 'n1' ? 'N1' : 'Speaking')) + '</a>';
     }).join('<i aria-hidden="true">·</i>');
     var version = window.__ykBuild ? '<p class="site-version">' + h(window.__ykBuild) + '</p>' : '';
     return '<div class="site-wrap">' +
@@ -105,8 +108,8 @@
       '</div>';
   }
   function cards() {
-    return APPS.filter(function (a) { return a.key !== PAGE; }).map(function (a) {
-      var face = a.key === 'study' ? '<svg viewBox="0 0 100 100" aria-hidden="true">' + DARUMA + '</svg>' : /^[A-Za-z0-9]+$/.test(a.glyph) ? h(a.glyph) : '<span lang="ja">' + h(a.glyph) + '</span>';
+    return APPS.filter(function (a) { return a.key !== PAGE && a.key !== 'home'; }).map(function (a) {
+      var face = !a.glyph ? '<svg viewBox="0 0 100 100" aria-hidden="true">' + DARUMA + '</svg>' : /^[A-Za-z0-9]+$/.test(a.glyph) ? h(a.glyph) : '<span lang="ja">' + h(a.glyph) + '</span>';
       return '<a class="card app-card" href="' + h(href(a)) + '"><span class="tile tile-' + a.tile + '" aria-hidden="true">' + face + '</span><b>' + h(a.name) + '</b><span class="hint">' + h(a.line) + '</span></a>';
     }).join('');
   }

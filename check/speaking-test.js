@@ -6,7 +6,8 @@ const path = require('node:path');
 const { chromium, devices } = require('playwright');
 
 const url = 'file://' + path.resolve(__dirname, '..', 'docs', 'speaking', 'index.html');
-const appKey = 'yaoki.v1:' + path.resolve(__dirname, '..', 'docs') + '/';
+// The app's saved state lives under its folder: on this file:// page, docs/study/.
+const appKey = 'yaoki.v1:' + path.resolve(__dirname, '..', 'docs', 'study') + '/';
 const STORE = 'yaoki.speaking.v1';
 const shots = process.env.SHOTS;
 

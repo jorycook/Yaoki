@@ -167,7 +167,7 @@
 
   // The learner's place in the Yaoki app, read from the app's own saved state (same site).
   function learnerPlace() {
-    const root = location.pathname.replace(/typing\/(index\.html)?$/, '');
+    const root = location.pathname.replace(/typing\/(index\.html)?$/, 'study/');
     try {
       const s = JSON.parse(localStorage.getItem('yaoki.v1:' + root));
       if (!s) return null;
@@ -258,7 +258,7 @@
   const courseLoads = {};
   function loadCourse(level) {
     if (!courseLoads[level]) {
-      courseLoads[level] = loadScript('../assets/course-' + level.toLowerCase() + '.js').then(() => {
+      courseLoads[level] = loadScript('../study/assets/course-' + level.toLowerCase() + '.js').then(() => {
         const c = window.__ykCourses && window.__ykCourses[level];
         if (!c || !Array.isArray(c.units)) throw new Error('No course for ' + level);
         courses[level] = c.units.map(unitWords);
@@ -297,7 +297,7 @@
     const files = level === 'N2' ? ['sound-course.js', 'sound-lessons.js'] : ['sound-course-' + lv + '-u' + String(n).padStart(2, '0') + '.js'];
     const need = window.ykSound ? [] : ['sound.js'];
     for (const f of need.concat(files)) {
-      if (!soundLoads[f]) soundLoads[f] = loadScript('../assets/' + f).catch(() => {});
+      if (!soundLoads[f]) soundLoads[f] = loadScript('../study/assets/' + f).catch(() => {});
     }
   }
 
@@ -2112,7 +2112,7 @@
           refreshStart();
         }
       }, () => {
-        if (saved.level === level) $('course-note').textContent = 'The ' + level + ' words could not be loaded. They come from the Yaoki app (../assets/), so open this page from the same site, online or with the app stored for offline use.';
+        if (saved.level === level) $('course-note').textContent = 'The ' + level + ' words could not be loaded. They come from the Yaoki app (../study/assets/), so open this page from the same site, online or with the app stored for offline use.';
       });
       return;
     }

@@ -1,85 +1,168 @@
 <!doctype html>
-<html lang="en" class="yk-own">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Yaoki</title>
-<meta name="description" content="Yaoki, a JLPT study app. Prototype with N2 sample content.">
+<meta name="description" content="Yaoki, a Japanese learning suite for the JLPT: courses from N5 to N1, a reader, a typing game and a speaking game.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#F4F5F9">
-<meta name="color-scheme" content="light">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Yaoki">
-<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
-<link rel="stylesheet" href="./assets/fonts.css">
-<link rel="stylesheet" href="./assets/app.css">
-<link rel="stylesheet" href="./assets/screens.css">
-<link rel="stylesheet" href="./site/site.css">
-<script src="./site/site.js" data-root="./" data-page="study" data-licences="licenses.txt" data-app></script>
+<link rel="apple-touch-icon" href="study/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="study/icons/favicon-32.png">
+<style>
+/* page base, as on the reader and typing pages: the shared look comes from site/site.css */
+:root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; } }
+:root[data-theme="dark"] { color-scheme: dark; }
+body { margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+</style>
+<link rel="stylesheet" href="site/site.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap">
+<script src="site/site.js" data-root="./" data-page="home" data-licences="study/licenses.txt"></script>
+<style>
+/* The home page: the whole suite on one page. One column of sections, each a short heading and a grid of cards; every card
+   is a link to a feature. The first fold is the hero with the two things most visitors came for: to study, or to read. */
+*, *::before, *::after { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.45; font-weight: 500; -webkit-text-size-adjust: 100%; }
+:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+main { width: 100%; max-width: var(--site-max); margin: 0 auto; padding: 0 16px 48px; }
+section { padding-top: 36px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin: 0 0 14px; }
+.sec-head h2 { margin: 0; font-size: 22px; font-weight: 800; line-height: 1.25; }
+.sec-head h2 small { font-size: 14px; font-weight: 700; color: var(--muted); margin-left: 8px; }
+.sec-head p { margin: 0; flex: 1 1 320px; min-width: 0; color: var(--muted); font-size: 14px; font-weight: 700; }
+
+/* the hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: center; padding-top: 40px; }
+@media (min-width: 880px) { .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 36px; padding-top: 56px; } }
+.hero-kicker { font-size: 13px; font-weight: 800; color: var(--accent-ink); letter-spacing: 0.02em; }
+.hero h1 { margin: 6px 0 0; font-size: clamp(34px, 5vw, 52px); line-height: 1.1; font-weight: 800; }
+.hero h1 [lang="ja"] { display: block; font-family: var(--jp-brand); font-weight: 600; font-size: 0.55em; color: var(--muted); margin-top: 6px; }
+.hero .lede { margin: 16px 0 0; font-size: 17px; line-height: 1.55; max-width: 56ch; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.hero .actions .btn { min-width: 220px; }
+.hero-art { display: flex; justify-content: center; }
+.hero-card { position: relative; width: min(100%, 420px); padding: 22px 22px 20px; border-radius: 24px; background: var(--card); border: var(--rule); box-shadow: var(--shadow); display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: center; }
+.hero-card svg { width: 96px; height: 96px; }
+.hero-card b { display: block; font-size: 18px; font-weight: 800; line-height: 1.3; }
+.hero-card b [lang="ja"] { font-family: var(--jp-brand); font-weight: 600; font-size: 20px; }
+.hero-card p { margin: 6px 0 0; font-size: 13px; font-weight: 700; color: var(--muted); line-height: 1.45; }
+.hero-card .tag { position: absolute; top: -12px; right: 18px; transform: rotate(-4deg); }
+
+/* the cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.grid.levels { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.feature { display: flex; flex-direction: column; gap: 8px; padding: 16px 16px 18px; border-radius: 20px; background: var(--card); border: var(--rule); box-shadow: var(--shadow); color: var(--ink); text-decoration: none; min-height: 100%; }
+.feature:active { transform: translateY(2px); box-shadow: var(--shadow-press); }
+@media (hover: hover) { .feature:hover { background: var(--accent-soft); } }
+.feature .tile { box-sizing: border-box; width: 44px; height: 44px; border-radius: 12px; border: var(--rule); display: grid; place-items: center; font: 800 16px/1 var(--ui); color: var(--on-gold); overflow: hidden; }
+.feature .tile [lang="ja"] { font-family: var(--jp-brand); font-weight: 600; font-size: 22px; }
+.feature .tile svg { width: 30px; height: 30px; }
+.feature .tile.gold { background: var(--gold); }
+.feature .tile.indigo { background: var(--tile-indigo); color: #FFFFFF; }
+.feature .tile.paper { background: var(--tile-paper); }
+.feature .tile.red { background: var(--tile-red); color: #FFFFFF; }
+.feature .tile.teal { background: var(--tile-teal); color: #FFFFFF; }
+.feature .tile.note { background: var(--note); }
+.feature b { font-size: 16px; font-weight: 800; line-height: 1.3; }
+.feature b [lang="ja"] { font-weight: 800; margin-right: 6px; }
+.feature .what { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); line-height: 1.45; flex: 1; }
+.feature .meta { margin: 0; font-size: 12px; font-weight: 800; color: var(--accent-ink); }
+.feature.level { align-items: flex-start; }
+.feature.level .lv { font-size: 28px; font-weight: 800; line-height: 1; }
+.feature.level .lv small { font-size: 12px; font-weight: 700; color: var(--muted); margin-left: 6px; }
+.feature.level.soon { border-style: dashed; box-shadow: none; }
+.feature.phone { background: var(--note); }
+
+/* the small print under a section */
+.note { margin: 14px 0 0; font-size: 13px; font-weight: 700; color: var(--muted); line-height: 1.5; }
+.note a { color: var(--accent-ink); }
+
+/* the steps to the phone */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.step { padding: 14px 16px 16px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); display: flex; gap: 12px; align-items: flex-start; }
+.step i { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--ground); font-style: normal; font-size: 15px; font-weight: 800; display: grid; place-items: center; }
+.step b { display: block; font-size: 15px; font-weight: 800; }
+.step span { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; color: var(--muted); line-height: 1.45; }
+@media (prefers-reduced-motion: reduce) { .feature:active { transform: none; } }
+</style>
 </head>
 <body>
-<!-- In a browser window of at least 700 by 560 this page is a page of the Yaoki website, with the app laid out for a desktop: the
-     site's header, then the app shell: a sidebar with the app's own navigation (from 1000 px wide), the app's pane, as wide as a
-     readable column and as tall as the window, and a rail with a few words about the app (from 1280 px). The sidebar mirrors the
-     tab bar inside the pane, which it replaces (yk-app.js, syncSide); under 1000 px the site's footer moves from the sidebar to
-     under the pane. On a phone, from the Home Screen and as the preview inside Claude, only #yk-view is laid out: the design owns
-     the whole screen and none of the rest exists (app.css). -->
 <header class="site-bar" data-site-bar></header>
-<div class="app-shell">
-<aside class="app-side" aria-label="Yaoki">
-<div class="app-side-head">
-<div class="kicker"><span lang="ja">やおき</span> · JLPT STUDY</div>
-<h1>Yaoki</h1>
-<span class="hint">N5 to N2, a level at a time</span>
+<main>
+
+<section class="hero" aria-labelledby="hero-h">
+<div>
+<div class="hero-kicker">やおき · A JAPANESE LEARNING SUITE FOR THE JLPT</div>
+<h1 id="hero-h">Fall down seven times, get up eight.<span lang="ja">七転び八起き</span></h1>
+<p class="lede">Yaoki is a set of small tools for learning Japanese towards the JLPT: courses from N5 to N1 that plan themselves to your exam date, a reader that hides the furigana until you touch a phrase, a typing game for a Japanese keyboard and a speaking game for your phone. Everything runs in the browser, and your progress stays on your own device.</p>
+<div class="actions">
+<a class="btn" href="study/"><span lang="ja">勉強する</span>　Start studying</a>
+<a class="btn quiet" href="reader/"><span lang="ja">読む</span>　Read something</a>
 </div>
-<nav class="app-nav" aria-label="In the app" data-app-nav>
-<button type="button" data-tab="Main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg><span>Path</span></button>
-<button type="button" data-tab="Notebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg><span>Notebook</span></button>
-<button type="button" data-tab="Mock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg><span>Mock exam</span></button>
-<button type="button" data-tab="Readiness"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg><span>Readiness</span></button>
-<button type="button" data-app-menu><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
-</nav>
-<p class="hint app-side-note" data-app-note hidden></p>
-<footer class="site-foot" data-site-foot></footer>
-</aside>
-<main class="app-main" tabindex="-1"><div id="yk-view"><div id="yk-stage"></div></div></main>
-<aside class="app-rail" aria-label="About Yaoki">
-<section class="card">
-<div class="kicker"><span lang="ja">ホーム画面に追加</span> · ON YOUR PHONE</div>
-<ol class="home-steps">
-<li>iPhone or iPad: open this address in Safari, tap Share, then Add to Home Screen.</li>
-<li>Android: open it in Chrome, open the browser menu, then Add to Home screen.</li>
-<li>Open it from its icon once while online. It works offline after that.</li>
-</ol>
-<p class="hint">Here and on the phone the app is the same; each keeps its own progress.</p>
+</div>
+<div class="hero-art" aria-hidden="true">
+<div class="hero-card">
+<span class="tag gold">PROTOTYPE</span>
+<svg viewBox="0 0 100 100"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B" stroke="#1B2440" stroke-width="2.6"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA" stroke="#1B2440" stroke-width="2"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4.2" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<div><b><span lang="ja">だるま</span> Yaoki, a daruma with one eye painted</b><p>Set a goal and he gets one eye. He gets the other when you pass. Knock him over and he gets up again: that is what his name means.</p></div>
+</div>
+</div>
 </section>
-<h2 class="kicker"><span lang="ja">ほかのアプリ</span> · MORE FROM YAOKI</h2>
-<div class="home-cards" data-site-cards></div>
-<p class="hint">Your progress stays in this browser. Nothing is sent anywhere.</p>
-</aside>
+
+<section aria-labelledby="courses-h">
+<div class="sec-head"><h2 id="courses-h"><span lang="ja">コース</span> Courses<small>JLPT N5 to N1</small></h2><p>Each level is a course of units, a week at a time: a grammar lesson, kanji and words with writing practice, reading and listening, a week test, mini mocks in the exam's own format, and a notebook that brings your mistakes back until they stick.</p></div>
+<div class="grid levels">
+<a class="feature level" href="study/?level=N5"><span class="lv">N5<small>8 units</small></span><b>The first steps</b><p class="what">48 study days. Kana and the first kanji, everyday grammar, short readings.</p><p class="meta">Open in Study →</p></a>
+<a class="feature level" href="study/?level=N4"><span class="lv">N4<small>10 units</small></span><b>Daily Japanese</b><p class="what">60 study days. The grammar of everyday conversation, 300 kanji, longer readings.</p><p class="meta">Open in Study →</p></a>
+<a class="feature level" href="study/?level=N3"><span class="lv">N3<small>12 units</small></span><b>The bridge</b><p class="what">72 study days. Natural speech and writing, 650 kanji, reading at a newspaper's pace.</p><p class="meta">Open in Study →</p></a>
+<a class="feature level" href="study/?level=N2"><span class="lv">N2<small>12 units</small></span><b>Working Japanese</b><p class="what">The course is being written unit by unit; unit 3 is ready, the rest is marked 準備中 in the app.</p><p class="meta">Open in Study →</p></a>
+<a class="feature level" href="n1/"><span class="lv">N1<small>8 units</small></span><b>The top level</b><p class="what">48 lessons, the 1,113 N1 kanji and four mini mocks, laid out as a plan of days to your exam date.</p><p class="meta">Open the N1 course →</p></a>
 </div>
-<div id="yk-sideways" role="status"><div lang="ja">縦向きでお使いください</div><div>Turn the phone upright</div></div>
-<noscript>Yaoki needs JavaScript to run.</noscript>
-<script src="./assets/build.js"></script>
-<script src="./assets/preact.min.js"></script>
-<script src="./assets/yk-runtime.js"></script>
-<script src="./assets/sound.js"></script>
-<script src="./assets/course-n2.js"></script>
-<script src="./assets/course-n5.js"></script>
-<script src="./assets/course-n4.js"></script>
-<script src="./assets/course-n3.js"></script>
-<script src="./assets/course.js"></script>
-<script src="./assets/strokes.js"></script>
-<script src="./assets/yk-write.js"></script>
-<script src="./assets/screens.js"></script>
-<script src="./assets/yk-app.js"></script>
-<script async src="./assets/sound-mock.js"></script>
-<script async src="./assets/sound-lessons.js"></script>
-<script async src="./assets/sound-course.js"></script>
+<p class="note">N5 to N2 share one app and one notebook; each level keeps its own plan. The N1 course is its own page, with its own progress, because its material is eight times the size.</p>
+</section>
+
+<section aria-labelledby="study-h">
+<div class="sec-head"><h2 id="study-h"><span lang="ja">学習の道具</span> In the study app</h2><p>The places you come back to every day. These open the app at that place; on your first visit it asks for your goal first.</p></div>
+<div class="grid">
+<a class="feature" href="study/?open=Main"><span class="tile gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg></span><b><span lang="ja">今週の道</span>The week path</b><p class="what">Today's lessons on a route through the week: a grammar lesson, kanji and words, reading or listening, and the week test at the end.</p></a>
+<a class="feature" href="study/?open=Notebook"><span class="tile paper"><svg viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg></span><b><span lang="ja">間違いノート</span>Mistake notebook</b><p class="what">Every mistake comes back with its explanation, a little further apart each time, until three right answers in a row let it go.</p></a>
+<a class="feature" href="study/?open=Mock"><span class="tile indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></span><b><span lang="ja">ミニ模試</span>Mini mock exams</b><p class="what">The real paper cut short: both sections in order, one clock, one break, one result. About fifteen minutes.</p></a>
+<a class="feature" href="study/?open=Readiness"><span class="tile red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><b><span lang="ja">合格判定</span>Readiness</b><p class="what">An estimate of your score from the week tests, section by section, with the line each section has to clear and the next move.</p></a>
+<a class="feature" href="study/"><span class="tile note"><span lang="ja">書</span></span><b><span lang="ja">書く練習</span>Writing practice</b><p class="what">Each new kanji is written by hand three times: traced, then over faint strokes, then from memory. Stroke order is checked as you go.</p></a>
+<a class="feature" href="study/"><span class="tile note"><span lang="ja">聴</span></span><b><span lang="ja">聴解</span>Listening</b><p class="what">Quick-response and longer listening items with spoken clips, drilled with hints and then answered exam-style against the clock.</p></a>
+</div>
+</section>
+
+<section aria-labelledby="read-h">
+<div class="sec-head"><h2 id="read-h"><span lang="ja">読む</span> Reading</h2><p>Yaoki Reader shows Japanese text with the furigana hidden. Touch a phrase, or hold the mouse on it, and its reading, the words' meanings and any grammar pattern appear; let go and they hide again. Nothing is sent anywhere.</p></div>
+<div class="grid">
+<a class="feature" href="reader/"><span class="tile paper"><span lang="ja">読</span></span><b><span lang="ja">よむ</span>Yaoki Reader</b><p class="what">Paste any text, up to 30,000 characters, and read it with the readings and meanings a touch away. Texts you add stay in your browser.</p><p class="meta">Open the reader →</p></a>
+<a class="feature" href="reader/#library"><span class="tile paper"><span lang="ja">文庫</span></span><b><span lang="ja">ヤオキ文庫</span>Yaoki Library</b><p class="what">Original stories written for learners, with their own readings and notes: 始末書 in three parts, and 目川日記, a serial with an edition for each level from N5 to N2.</p><p class="meta">Browse the library →</p></a>
+<a class="feature" href="reader/#aozora"><span class="tile paper"><span lang="ja">青</span></span><b><span lang="ja">青空文庫</span>Aozora Bunko</b><p class="what">Find any of 17,000 works out of copyright by title or author and read it in the reader, a chapter at a time.</p><p class="meta">Search Aozora Bunko →</p></a>
+</div>
+</section>
+
+<section aria-labelledby="play-h">
+<div class="sec-head"><h2 id="play-h"><span lang="ja">遊んで覚える</span> Games</h2><p>Two games on the same cards as the courses, with the same rewards: a はなまる for a clean answer, a stamp for each day you show up, and Yaoki getting up again every time he falls.</p></div>
+<div class="grid">
+<a class="feature" href="typing/"><span class="tile red"><span lang="ja">打</span></span><b><span lang="ja">タイピング</span>Yaoki Typing</b><p class="what">For a computer with a Japanese keyboard. Type the card before it reaches Yaoki: romaji, the symbol keys, kana input, your course's words and five kanji stages.</p><p class="meta">Play on this computer →</p></a>
+<a class="feature phone" href="speaking/"><span class="tile teal"><span lang="ja">話</span></span><b><span lang="ja">スピーキング</span>Yaoki Speaking</b><p class="what">For a phone held upright. Say the word on each card out loud and the phone hears it: kana lessons from zero, your course's words, kanji and phrases.</p><p class="meta">Open on a phone →</p></a>
+</div>
+</section>
+
+<section aria-labelledby="phone-h">
+<div class="sec-head"><h2 id="phone-h"><span lang="ja">ホーム画面に追加</span> On your phone</h2><p>The Study app and the N1 course install on a phone and work offline. Each copy keeps its own progress.</p></div>
+<div class="steps">
+<div class="step"><i>1</i><div><b>iPhone or iPad</b><span>Open <a href="study/">study</a> or <a href="n1/">N1</a> in Safari, tap Share, then Add to Home Screen.</span></div></div>
+<div class="step"><i>2</i><div><b>Android</b><span>Open the same address in Chrome, open the browser menu, then Add to Home screen.</span></div></div>
+<div class="step"><i>3</i><div><b>Then open it once online</b><span>From its icon, while you have a connection. After that it also works offline, and it picks up new builds by itself.</span></div></div>
+</div>
+<p class="note">Everything here is a prototype. The lessons, questions and texts were written for Yaoki; JLPT is a trademark of the Japan Foundation and Japan Educational Exchanges and Services, with which Yaoki is not connected.</p>
+</section>
+
+</main>
+<footer class="site-foot" data-site-foot></footer>
 </body>
 </html>

@@ -1614,5 +1614,14 @@ renderLibrary();
 initStore();
 })();
 </script>
+<script>
+/* a link from the site's home page may name a view: #library (the Yaoki Library), #aozora (Aozora Bunko), #add (add a text) */
+(function () {
+  var views = { '#library': 'go-ykl', '#aozora': 'go-aoz', '#add': 'go-add' };
+  function go() { var id = views[location.hash]; var b = id && document.getElementById(id); if (b) b.click(); }
+  window.addEventListener('hashchange', go);
+  if (document.readyState === 'complete') setTimeout(go, 150); else window.addEventListener('load', function () { setTimeout(go, 150); });
+})();
+</script>
 </body>
 </html>

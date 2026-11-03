@@ -12,6 +12,12 @@
   var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   /* test hooks, on a developer's machine only: the start state comes from the address, and nothing is saved */
   var TEST = LOCAL && query.has('yktest');
+  /* a link from the site's home page may name a place to open (?open=Notebook: the tab bar's places) and a level to study
+     (?level=N4). They are taken once, and the address is cleaned so a reload does not take them again */
+  var wants = { open: /^(Main|Notebook|Mock|Readiness)$/.test(query.get('open') || '') ? query.get('open') : '', level: /^N[2-5]$/.test(query.get('level') || '') ? query.get('level') : '' };
+  if ((wants.open || wants.level) && !TEST && window.history && history.replaceState) {
+    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+  }
   var view = document.getElementById('yk-view');
   var stage = document.getElementById('yk-stage');
   var root = document.documentElement;
@@ -223,6 +229,15 @@
   var syncPending = false;
   function syncSide() {
     syncPending = false;
+    /* the place a link asked for opens as soon as the tab bar offers it (its own guards apply: a place not open yet is left) */
+    if (wants.open) {
+      var tabs = stage.querySelector('nav[aria-label="Main"]');
+      if (tabs) {
+        var want = paneTab(wants.open);
+        wants.open = '';
+        if (want && want.getAttribute('aria-disabled') !== 'true' && want.getAttribute('aria-current') !== 'page') want.click();
+      }
+    }
     if (!sideNav || !root.classList.contains('yk-desk')) return;
     var any = false;
     sideItems.forEach(function (a) {
@@ -404,6 +419,7 @@
     saving: function () { return canSave && !TEST; },
     /* 'yes' once every file of the app is stored on the device, 'no' until then, 'never' where that cannot happen */
     offline: function () { return offline; },
+    wants: wants,
     onScreen: onScreen,
     useBrowser: function () {
       try { sessionStorage.setItem(KEY + '.browser', '1'); } catch (e) {}

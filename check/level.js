@@ -52,7 +52,7 @@ if (LEVEL === 'N1') {
   const d = l.grammar.drills[0];
   const wrong = d.options.filter((o, k) => k + 1 !== d.answer).sort((a, b) => b.length - a.length)[0];
   TEXT = {
-    appName: 'Yaoki N1', navName: 'N1', tabCount: 'short papers in the real format', weekTheme: N.units[0].ja,
+    appName: 'Yaoki N1', navName: 'Study', tabCount: 'short papers in the real format', weekTheme: N.units[0].ja,
     teachTitle: l.grammar.patterns[0].p, drillWrong: N.plain(wrong), drillLine: N.plain(d.ja).split('（　　）')[0].slice(-5),
     drillSrc: 'g.' + l.id + '.d0', teachClip: 'g.' + l.id + '.0.0',
   };

@@ -1,0 +1,140 @@
+/* Yaoki: the look shared by the whole website.
+ * The tokens (colours, typefaces, radii, shadows) and the pieces every page uses: buttons, cards, pills, tags,
+ * switches, the site header and footer, and the pieces of the app pages' rail. "Stamp-card stationery":
+ * white cards with an ink outline and a hard shadow on a pale ground, M PLUS Rounded 1c for the words and Klee One
+ * for Japanese text. The Study and N1 pages, the Reader and Yaoki Typing all load this file (site.js draws the
+ * header and footer); Yaoki Speaking keeps its own copy of the tokens.
+ *
+ * Rules of the file: it sets no `*`, `html`, `body`, `button`, `[hidden]`, `color-scheme` or global `:focus-visible`
+ * rule, so the app pages' 390 by 844 screens (which style themselves inline, in literal colours) are never touched;
+ * each page keeps its own short base block. The dark values keep the names and numbers the pages used before, so
+ * the typing game's canvas (game.js, palette()) reads what it always read. */
+
+:root {
+  /* colours, light */
+  --ground: #F4F5F9; --card: #FFFFFF; --ink: #1B2440; --muted: #5A6382;
+  --line: #DDE1EC; --line-strong: #C9D0E3; --outline: #1B2440; --hard: #1B2440;
+  --accent: #2F4FD0; --accent-ink: #2F4FD0; --accent-soft: #E8ECFB; --on-accent: #FFFFFF;
+  --mark: #FFE9B0; --note: #FFF4D6; --stamp: #C7361E; --scrim: rgba(27, 36, 64, 0.45);
+  --good: #0B7A6B; --good-soft: #E0F3EF; --bad: #C7361E; --bad-soft: #FDEBE6;
+  --grid: #E6E9F3;
+  /* the brand's own colours, the same in both schemes */
+  --gold: #F2B43A; --on-gold: #1B2440; --daruma: #E2452B; --paper: #FFF6EA;
+  --tile-gold: #F2B43A; --tile-indigo: #2F4FD0; --tile-paper: #FFF6EA; --tile-red: #E2452B; --tile-teal: #0B7A6B;
+  /* typefaces */
+  --ui: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Yu Gothic', system-ui, sans-serif;
+  --jp: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  /* the brand's Japanese face, the chrome's own: a page may point --jp elsewhere for its text (the reader reads in a print face) */
+  --jp-brand: 'Klee One', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  /* lines, shadows, corners, spacing */
+  --rule: 2px solid var(--outline);
+  --shadow: 0 4px 0 var(--hard); --shadow-s: 0 3px 0 var(--hard); --shadow-press: 0 1px 0 var(--hard);
+  --r-s: 10px; --r-m: 16px; --r-l: 20px; --r-xl: 26px;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 28px;
+  /* the page: how wide the content runs, how tall the header is */
+  --site-max: 1040px; --site-head: 56px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
+    --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
+    --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
+    --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
+    --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
+    --grid: #1A2137;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #12172A; --card: #1C233B; --ink: #E8EBF6; --muted: #A6AECA;
+  --line: #2C3554; --line-strong: #3B466C; --outline: #7B86B4; --hard: #05070F;
+  --accent: #4560E0; --accent-ink: #A9B8FF; --accent-soft: #262F58; --on-accent: #FFFFFF;
+  --mark: #5E4B10; --note: #37301A; --stamp: #FF8D76; --scrim: rgba(3, 5, 12, 0.6);
+  --good: #4FC7B2; --good-soft: #12342F; --bad: #FF8D76; --bad-soft: #3A1F1A;
+  --grid: #1A2137;
+}
+
+/* ---------- the pieces ---------- */
+.btn { min-height: 54px; padding: 8px 20px; border-radius: var(--r-m); border: var(--rule); background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow); font-family: inherit; font-size: 17px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; cursor: pointer; }
+.btn:active { transform: translateY(3px); box-shadow: var(--shadow-press); }
+.btn.quiet { background: var(--card); color: var(--ink); }
+.btn.danger { background: var(--card); color: var(--stamp); border-color: var(--stamp); box-shadow: none; }
+.btn:disabled, .btn[disabled] { background: var(--line); color: var(--muted); border-color: var(--line-strong); box-shadow: none; transform: none; cursor: default; }
+.btn.wide, .sheet .btn { width: 100%; }
+.btn kbd { font: inherit; font-size: 12px; font-weight: 700; opacity: 0.8; }
+.card { background: var(--card); border: var(--rule); border-radius: var(--r-l); box-shadow: var(--shadow); padding: 14px 16px 16px; }
+.pill { flex-shrink: 0; height: 40px; padding: 0 14px; border-radius: 20px; border: var(--rule); background: var(--card); color: var(--ink); font-family: inherit; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; cursor: pointer; }
+.tag { display: inline-block; padding: 2px 9px; border-radius: var(--r-s); background: var(--accent-soft); color: var(--accent-ink); font-family: var(--ui); font-size: 11px; font-weight: 800; }
+.tag.gold { background: var(--gold); color: var(--on-gold); border: var(--rule); font-size: 12px; }
+.kicker { font-size: 12px; font-weight: 800; color: var(--accent-ink); }
+.kicker.red { color: var(--stamp); }
+.hint { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+.notebox { margin: 0; padding: 12px 14px; border-radius: var(--r-m); background: var(--note); font-size: 13px; font-weight: 500; line-height: 1.5; }
+.notebox b { font-weight: 800; }
+.notebox ul { margin: 6px 0 0; padding-left: 18px; }
+.linklike { display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: none; color: var(--accent-ink); font-family: inherit; font-size: 13px; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.icon-btn.lead { margin-left: -10px; }
+.bar { display: flex; align-items: center; gap: 8px; min-height: 56px; }
+.brand { flex: 1; min-width: 0; font-size: 20px; font-weight: 800; }
+.brand small { font-size: 13px; font-weight: 700; color: var(--muted); }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg button { min-height: 46px; padding: 6px 14px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); color: var(--ink); font-family: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--outline); color: var(--on-accent); box-shadow: var(--shadow-s); }
+.switch { display: flex; align-items: center; gap: 12px; min-height: 66px; padding: 10px 14px; border-radius: var(--r-m); border: var(--rule); background: var(--card); color: var(--ink); font-family: inherit; font-size: 15px; font-weight: 800; text-align: left; cursor: pointer; }
+.switch small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+/* one knob for both markups: the reader's button.switch[aria-checked] > .knob > i, and typing's label.switch > input[type=checkbox] */
+.knob, .switch input { box-sizing: border-box; position: relative; display: block; flex-shrink: 0; width: 52px; height: 30px; margin: 0; padding: 0; border-radius: 15px; border: var(--rule); background: var(--line); appearance: none; -webkit-appearance: none; cursor: pointer; transition: background 150ms; }
+.knob i, .switch input::after { content: ''; box-sizing: border-box; position: absolute; top: 2px; left: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--card); border: var(--rule); transition: transform 150ms; }
+.switch[aria-checked="true"] .knob, .switch input:checked { background: var(--accent); }
+.switch[aria-checked="true"] .knob i, .switch input:checked::after { transform: translateX(22px); }
+
+/* ---------- the site header and footer (drawn by site.js) ---------- */
+.site-bar { position: sticky; top: 0; z-index: 10; box-sizing: border-box; min-height: var(--site-head); background: var(--ground); border-bottom: 2px solid var(--line); font: 500 15px/1.45 var(--ui); color: var(--ink); }
+.site-wrap { box-sizing: border-box; width: 100%; max-width: var(--site-max); margin: 0 auto; padding: 0 16px; min-height: var(--site-head); display: flex; align-items: center; gap: 14px; }
+.site-brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); text-decoration: none; }
+.site-mark { width: 28px; height: 28px; flex-shrink: 0; }
+.site-word { font-size: 20px; font-weight: 800; line-height: 1; }
+.site-ja { font: 600 13px/1 var(--jp-brand); color: var(--muted); }
+.site-nav { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+.site-nav a { display: inline-flex; align-items: center; height: 36px; padding: 0 12px; border-radius: 18px; border: 2px solid transparent; color: var(--muted); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+@media (hover: hover) { .site-nav a:hover { border-color: var(--line-strong); color: var(--ink); } }
+.site-nav a[aria-current="page"] { color: var(--ink); background: var(--card); border-color: var(--outline); box-shadow: 0 2px 0 var(--hard); }
+.site-theme { margin-left: auto; gap: 8px; }
+.site-theme-ic { width: 16px; height: 16px; flex-shrink: 0; }
+.site-foot { box-sizing: border-box; padding: 28px 0 calc(28px + env(safe-area-inset-bottom, 0px)); border-top: 2px solid var(--line); font: 700 12px/1.5 var(--ui); color: var(--muted); }
+.site-foot .site-wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
+.site-foot a { color: var(--accent-ink); }
+.site-apps { display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+.site-apps a { font-weight: 800; text-decoration: none; }
+.site-apps a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.site-apps i { font-style: normal; color: var(--line-strong); }
+.site-legal, .site-version { margin: 0; max-width: 72ch; }
+/* the chrome's own focus ring and its stillness under reduced motion: the header, the footer and the words beside the app, never the
+   design itself (the shell's wrappers hold #yk-view too, so they must not be the scope) */
+:is(.site-bar, .site-foot, .app-side, .app-rail) :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
+@media (max-width: 699px) {
+  .site-bar, .site-wrap { min-height: 48px; }
+  .site-nav, .site-ja { display: none; }
+}
+/* a typing round, and the reader's reading view: the page is the game or the text, the chrome steps aside */
+body.playing :is(.site-bar, .site-foot), body.reading .site-bar { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  :is(.site-bar, .site-foot, .app-side, .app-rail) * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  .knob, .knob i, .switch input, .switch input::after, .app-card { transition: none; }
+}
+
+/* ---------- the pieces of the app pages' shell that other pages share (the shell itself is in the app's app.css) ---------- */
+.home-steps { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; line-height: 1.5; }
+.home-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.app-card { display: flex; flex-direction: column; gap: 6px; color: var(--ink); text-decoration: none; }
+.app-card:active { transform: translateY(2px); box-shadow: var(--shadow-press); }
+.app-card b { font-size: 15px; font-weight: 800; }
+/* the card's tile, scoped to the card: the typing page has .tile buttons of its own */
+.app-card .tile { box-sizing: border-box; width: 44px; height: 44px; border-radius: 12px; border: var(--rule); display: grid; place-items: center; font: 800 18px/1 var(--ui); color: var(--on-gold); overflow: hidden; }
+.app-card .tile svg { width: 30px; height: 30px; }
+.app-card .tile-gold { background: var(--tile-gold); }
+.app-card .tile-indigo { background: var(--tile-indigo); color: #FFFFFF; }
+.app-card .tile-paper { background: var(--tile-paper); }
+.app-card .tile-red { background: var(--tile-red); color: #FFFFFF; }
+.app-card .tile-teal { background: var(--tile-teal); color: #FFFFFF; }
+.app-card .tile [lang="ja"] { font-family: var(--jp-brand); font-weight: 600; font-size: 22px; }

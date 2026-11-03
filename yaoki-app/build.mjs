@@ -26,7 +26,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const LEVELS = {
   N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype with N2 sample content.', credits: '',
     /* the page's place on the website (site/site.js): the path to the site's root, and its name in the nav */
-    site: { root: './', page: 'study' },
+    site: { root: '../', page: 'study' },
     screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write'],
     /* run first: the course content, checked and turned into course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
     prepare: '../tools/build-course.mjs',

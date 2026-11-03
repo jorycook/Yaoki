@@ -48,14 +48,14 @@ async function holdFirstPhrase(page, nth) {
   await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
   const logs = [];
 
-  step('the app first, so its offline worker is in charge of /Yaoki/ before the reader opens');
+  step('the Study app first (it lives beside the reader, at /Yaoki/study/), so its offline worker and saved progress exist before the reader opens');
   const app = await newPage(ctx, logs);
   // on localhost the app only starts its offline worker when the address carries ?sw
-  await app.goto(SITE + '?sw');
+  await app.goto(SITE + 'study/?sw');
   await app.waitForSelector('#yk-stage > *', { timeout: 15000 });
   const controlled = await app.evaluate(() => Promise.race([navigator.serviceWorker.ready.then((r) => !!r.active), new Promise((res) => setTimeout(() => res(false), 10000))]));
   ok(controlled, 'the app\'s offline worker is active');
-  await app.evaluate(() => localStorage.setItem('yaoki.v1:/Yaoki/', '{"marker":"app progress"}'));
+  await app.evaluate(() => localStorage.setItem('yaoki.v1:/Yaoki/study/', '{"marker":"app progress"}'));
   await app.reload();
   await app.waitForSelector('#yk-stage > *', { timeout: 15000 });
   ok(await app.evaluate(() => !!navigator.serviceWorker.controller), 'the app page is controlled by its worker');
@@ -187,9 +187,9 @@ async function holdFirstPhrase(page, nth) {
   }
 
   step('the app is left alone');
-  ok(await page.evaluate(() => localStorage.getItem('yaoki.v1:/Yaoki/')) === '{"marker":"app progress"}', 'the app\'s saved progress is untouched');
+  ok(await page.evaluate(() => localStorage.getItem('yaoki.v1:/Yaoki/study/')) === '{"marker":"app progress"}', 'the app\'s saved progress is untouched');
   const app2 = await newPage(ctx, logs);
-  await app2.goto(SITE);
+  await app2.goto(SITE + 'study/');
   await app2.waitForSelector('#yk-stage > *', { timeout: 15000 });
   ok(true, 'the app still opens');
   await app2.close();

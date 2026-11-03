@@ -2556,6 +2556,9 @@ this.h = window.ykCourse.handlers(() => this.state, (fn) => this.setState(fn));
 }
 componentDidMount() {
 window.ykApp.onScreen(this.state.screen);
+/* a link from the site's home page may name a level (?level=N4): the level's own plan comes back, or its goal screen the first time */
+const w = window.ykApp.wants || {};
+if (w.level && this.state.started && w.level !== window.ykCourse.view(this.state).level && window.ykCourse.levels().some((x) => x.level === w.level && x.ready)) { const lv = w.level; w.level = ''; setTimeout(() => this.h.level(lv), 0); }
 }
 componentDidUpdate() {
 const s = this.state;

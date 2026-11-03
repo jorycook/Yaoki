@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" class="yk-own">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Yaoki</title>
+<meta name="description" content="Yaoki, a JLPT study app. Prototype with N2 sample content.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F4F5F9">
+<meta name="color-scheme" content="light">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Yaoki">
+<meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+<link rel="stylesheet" href="./assets/fonts.css">
+<link rel="stylesheet" href="./assets/app.css">
+<link rel="stylesheet" href="./assets/screens.css">
+<link rel="stylesheet" href="./site/site.css">
+<script src="./site/site.js" data-root="../" data-page="study" data-licences="licenses.txt" data-app></script>
+</head>
+<body>
+<!-- In a browser window of at least 700 by 560 this page is a page of the Yaoki website, with the app laid out for a desktop: the
+     site's header, then the app shell: a sidebar with the app's own navigation (from 1000 px wide), the app's pane, as wide as a
+     readable column and as tall as the window, and a rail with a few words about the app (from 1280 px). The sidebar mirrors the
+     tab bar inside the pane, which it replaces (yk-app.js, syncSide); under 1000 px the site's footer moves from the sidebar to
+     under the pane. On a phone, from the Home Screen and as the preview inside Claude, only #yk-view is laid out: the design owns
+     the whole screen and none of the rest exists (app.css). -->
+<header class="site-bar" data-site-bar></header>
+<div class="app-shell">
+<aside class="app-side" aria-label="Yaoki">
+<div class="app-side-head">
+<div class="kicker"><span lang="ja">やおき</span> · JLPT STUDY</div>
+<h1>Yaoki</h1>
+<span class="hint">N5 to N2, a level at a time</span>
+</div>
+<nav class="app-nav" aria-label="In the app" data-app-nav>
+<button type="button" data-tab="Main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg><span>Path</span></button>
+<button type="button" data-tab="Notebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg><span>Notebook</span></button>
+<button type="button" data-tab="Mock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg><span>Mock exam</span></button>
+<button type="button" data-tab="Readiness"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg><span>Readiness</span></button>
+<button type="button" data-app-menu><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
+</nav>
+<p class="hint app-side-note" data-app-note hidden></p>
+<footer class="site-foot" data-site-foot></footer>
+</aside>
+<main class="app-main" tabindex="-1"><div id="yk-view"><div id="yk-stage"></div></div></main>
+<aside class="app-rail" aria-label="About Yaoki">
+<section class="card">
+<div class="kicker"><span lang="ja">ホーム画面に追加</span> · ON YOUR PHONE</div>
+<ol class="home-steps">
+<li>iPhone or iPad: open this address in Safari, tap Share, then Add to Home Screen.</li>
+<li>Android: open it in Chrome, open the browser menu, then Add to Home screen.</li>
+<li>Open it from its icon once while online. It works offline after that.</li>
+</ol>
+<p class="hint">Here and on the phone the app is the same; each keeps its own progress.</p>
+</section>
+<h2 class="kicker"><span lang="ja">ほかのアプリ</span> · MORE FROM YAOKI</h2>
+<div class="home-cards" data-site-cards></div>
+<p class="hint">Your progress stays in this browser. Nothing is sent anywhere.</p>
+</aside>
+</div>
+<div id="yk-sideways" role="status"><div lang="ja">縦向きでお使いください</div><div>Turn the phone upright</div></div>
+<noscript>Yaoki needs JavaScript to run.</noscript>
+<script src="./assets/build.js"></script>
+<script src="./assets/preact.min.js"></script>
+<script src="./assets/yk-runtime.js"></script>
+<script src="./assets/sound.js"></script>
+<script src="./assets/course-n2.js"></script>
+<script src="./assets/course-n5.js"></script>
+<script src="./assets/course-n4.js"></script>
+<script src="./assets/course-n3.js"></script>
+<script src="./assets/course.js"></script>
+<script src="./assets/strokes.js"></script>
+<script src="./assets/yk-write.js"></script>
+<script src="./assets/screens.js"></script>
+<script src="./assets/yk-app.js"></script>
+<script async src="./assets/sound-mock.js"></script>
+<script async src="./assets/sound-lessons.js"></script>
+<script async src="./assets/sound-course.js"></script>
+</body>
+</html>

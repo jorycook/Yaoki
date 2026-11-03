@@ -316,7 +316,7 @@ const placed = (page) => page.evaluate(() => {
         ok(Math.abs((r.x * 2 + r.w) - w) < 1 && Math.abs((r.y * 2 + r.h) - h) < 1, `${name}: the design should be centred, got ${JSON.stringify(r)}`);
       } else {
         ok(r.desk && !r.boxed && r.bar, `${name}: the desktop layout with the site header expected, got ${JSON.stringify(r)}`);
-        ok(r.nav === 'Study|N1|Reader|Typing' && r.current === LV.navName, `${name}: the nav should list the four pages and mark this one, got ${r.nav} / ${r.current}`);
+        ok(r.nav === 'Home|Study|Reader|Typing' && r.current === LV.navName, `${name}: the nav should list the four pages and mark this one, got ${r.nav} / ${r.current}`);
         ok(Math.abs(r.x - r.view.x) < 1 && Math.abs(r.w - r.view.w) < 1 && Math.abs(r.y - r.view.y) < 1, `${name}: the design should fill its pane, got ${JSON.stringify(r)}`);
         ok(r.view.w <= 760.5 && r.view.w >= Math.min(760, w - (w >= 1280 ? 540 : w >= 1000 ? 240 : 0)) - 5, `${name}: the pane should be as wide as the column allows, at most 760 px, got ${r.view.w}`);
         ok(Math.abs(r.rootW - r.w) < 1, `${name}: the screen should be laid out as wide as the pane, not at the phone's 390 px, got ${r.rootW}`);

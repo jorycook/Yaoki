@@ -6,8 +6,8 @@ const path = require('node:path');
 const { chromium } = require('playwright');
 
 const url = 'file://' + path.resolve(__dirname, '..', 'docs', 'typing', 'index.html');
-// The app's saved state lives under its folder: on this file:// page, docs/.
-const appKey = 'yaoki.v1:' + path.resolve(__dirname, '..', 'docs') + '/';
+// The app's saved state lives under its folder: on this file:// page, docs/study/.
+const appKey = 'yaoki.v1:' + path.resolve(__dirname, '..', 'docs', 'study') + '/';
 const shots = process.env.SHOTS;
 
 let failures = 0;
@@ -492,7 +492,7 @@ async function waitFor(fn, ms = 5000) {
     window.ykSound = { has: () => true, unlock: () => true, play: (clip) => { window.__played = clip; return true; } };
   }, SFX_STUB, MUSIC_STUB]);
   check('the menu opens at the learner\'s course words', (await page.textContent('#modes [aria-pressed="true"]')).includes('ローマ字') && (await page.getAttribute('#stages [aria-pressed="true"]', 'data-stage')) === 'course' && await page.isVisible('#course-pick'));
-  check('the N4 weeks load from ../assets', await waitFor(async () => (await page.$$('#units .option')).length === 10, 10000));
+  check('the N4 weeks load from ../study/assets', await waitFor(async () => (await page.$$('#units .option')).length === 10, 10000));
   check('the learner\'s week is picked and marked 今', /第3週/.test(await page.textContent('#units [aria-pressed="true"]')) && /今/.test(await page.textContent('#units [aria-pressed="true"]')));
   await page.click('#start');
   const w = await target(page);

@@ -13,8 +13,9 @@ const step = (msg) => console.log('-- ' + msg);
 
 /* each page of the website: its address, its name in the nav, and the test state that opens the app pages straight on a screen */
 const PAGES = [
-  { name: 'Study', url: '', query: '?yktest&screen=Main', app: true },
-  { name: 'N1', url: 'n1/', query: '?yktest&screen=Main', app: true },
+  { name: 'Home', url: '', query: '', app: false, home: true },
+  { name: 'Study', url: 'study/', query: '?yktest&screen=Main', app: true },
+  { name: 'Study', url: 'n1/', query: '?yktest&screen=Main', app: true },
   { name: 'Reader', url: 'reader/', query: '', app: false },
   { name: 'Typing', url: 'typing/', query: '', app: false },
 ];
@@ -54,9 +55,9 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
         };
       });
       ok(m.hasBar && m.hasFoot, 'the page has the site header and footer');
-      ok(m.nav === 'Study|N1|Reader|Typing', 'the nav lists the four pages of the website, got ' + m.nav);
+      ok(m.nav === 'Home|Study|Reader|Typing', 'the nav lists the four pages of the website, got ' + m.nav);
       ok(m.current === pg.name, 'the nav marks this page, got "' + m.current + '"');
-      ok(m.footApps === 'Study|N1|Reader|Typing|Speaking', 'the footer lists all five apps, Speaking included, got ' + m.footApps);
+      ok(m.footApps === 'Home|Study|N1|Reader|Typing|Speaking', 'the footer lists every page of the suite, Speaking included, got ' + m.footApps);
       ok(m.scrollW <= m.innerW, 'no sideways scroll, got ' + m.scrollW + ' in ' + m.innerW);
       ok(m.themeKey === null, 'no theme is saved before the control is used');
       ok(m.licences && /licenses\.txt$/.test(m.licences), 'the footer links to the licences, got ' + m.licences);
@@ -67,7 +68,12 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
         if (site) ok(m.stageScheme === 'light', 'the design in its pane stays light, got ' + m.stageScheme);
       } else {
         ok(m.barDisplay !== 'none', 'the header shows on this page at every width');
-        ok(/Yaoki (Reader|Typing)/.test(m.brand), 'the page keeps its own brand line, got "' + m.brand.trim() + '"');
+        if (!pg.home) ok(/Yaoki (Reader|Typing)/.test(m.brand), 'the page keeps its own brand line, got "' + m.brand.trim() + '"');
+        if (pg.home) {
+          const home = await page.evaluate(() => ({ h1: document.querySelectorAll('h1').length, features: [...document.querySelectorAll('a.feature')].map((a) => a.getAttribute('href')) }));
+          ok(home.h1 === 1, 'the home page has one heading, got ' + home.h1);
+          for (const need of ['study/?level=N5', 'study/?level=N2', 'n1/', 'study/?open=Notebook', 'study/?open=Mock', 'study/?open=Readiness', 'reader/', 'reader/#library', 'reader/#aozora', 'typing/', 'speaking/']) ok(home.features.includes(need), 'the home page links to ' + need);
+        }
       }
       if (site || !pg.app) {
         // the theme control: Auto, then Light, then Dark; the choice is saved and kept across a reload

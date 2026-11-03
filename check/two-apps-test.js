@@ -61,21 +61,20 @@ const server = http.createServer((req, res) => {
   };
 
   // the main app (N5 to N2): set the goal, so it opens on the week path from now on
-  const n2 = await open('?sw');
+  const n2 = await open('study/?sw');
   await stored(n2);
   await click(n2, 'button:has-text("Paint the first eye")');
   await click(n2, 'a:has-text("Start")', 800);
   ok((await text(n2)).includes(MAIN_THEME) && (await text(n2)).includes(MAIN_LESSON), 'main app: the week path should show its first N2 lesson, ' + MAIN_THEME + ' and ' + MAIN_LESSON);
 
-  // the N1 app at its own address: a fresh start, not the N2 app's progress. On this first visit the page is held by the
-  // main app's worker (its scope, /Yaoki/, holds /Yaoki/n1/) until the N1 app's own has installed; with the install held
-  // back as on a slow network, the plan is made in that window, and the clips must still be asked of the N1 app's own
-  // worker once it takes over (checked below)
+  // the N1 app at its own address: a fresh start, not the N2 app's progress. The two sit side by side (study/ and n1/), so
+  // on this first visit no other worker holds the page; with the install held back as on a slow network, the plan is made
+  // before the N1 app's own worker is in, and the clips must still be asked of it once it takes over (checked below)
   slowN1 = 2500;
   const n1 = await open('n1/?sw');
   ok((await text(n1)).includes('目標を決めよう') && (await text(n1)).includes('N5〜N2は別のアプリです'), 'N1 app: should open on its own goal screen, got ' + (await text(n1)).slice(0, 80));
   const first = await n1.evaluate(() => { const c = navigator.serviceWorker.controller; return c ? new URL(c.scriptURL).pathname : null; });
-  ok(first === '/Yaoki/sw.js', 'N1 app: on a first visit the main app\'s worker should hold the page until the N1 app\'s own is in, got ' + first);
+  ok(first === null, 'N1 app: on a first visit no other app\'s worker should hold the page, got ' + first);
   await click(n1, 'button:has-text("Paint the first eye")');
   await click(n1, 'a:has-text("Start")', 800);
   ok((await text(n1)).includes(N1_THEME) && (await text(n1)).includes(N1_LESSON), 'N1 app: the week path should show the first N1 unit and lesson, ' + N1_THEME + ' and ' + N1_LESSON);
@@ -86,9 +85,9 @@ const server = http.createServer((req, res) => {
   ok((await text(n1)).includes(N1_LESSON), 'N1 app: after its own worker took over, it should reopen on its week path');
 
   const keys = await n1.evaluate(() => Object.keys(localStorage).sort());
-  ok(JSON.stringify(keys) === JSON.stringify(['yaoki.v1:/Yaoki/', 'yaoki.v1:/Yaoki/n1/']), 'each app should keep its own saved progress, got ' + JSON.stringify(keys));
+  ok(JSON.stringify(keys) === JSON.stringify(['yaoki.v1:/Yaoki/n1/', 'yaoki.v1:/Yaoki/study/']), 'each app should keep its own saved progress, got ' + JSON.stringify(keys));
   const stores = await n1.evaluate(() => caches.keys());
-  ok(stores.length === 2 && stores.some((k) => k.startsWith('yaoki:/Yaoki/:')) && stores.some((k) => k.startsWith('yaoki:/Yaoki/n1/:')), 'each app should keep its own offline copy, got ' + JSON.stringify(stores));
+  ok(stores.length === 2 && stores.some((k) => k.startsWith('yaoki:/Yaoki/study/:')) && stores.some((k) => k.startsWith('yaoki:/Yaoki/n1/:')), 'each app should keep its own offline copy, got ' + JSON.stringify(stores));
   // the N1 course's clips are not part of its install: with a plan made, the N1 app has its own worker store all of
   // them in the background, in its own store only
   const CLIPS = fs.readdirSync(path.join(DOCS, 'n1', 'assets', 'audio')).filter((f) => /\.mp3$/.test(f));
@@ -116,7 +115,7 @@ const server = http.createServer((req, res) => {
   await click(n1, 'button[aria-label^="Level N1"]', 500);
   await click(n1, 'button:has-text("Start over")', 300);
   await click(n1, 'button:has-text("Start over")', 600);
-  const left = await n1.evaluate(() => ({ n2: JSON.parse(localStorage.getItem('yaoki.v1:/Yaoki/') || 'null'), n1: JSON.parse(localStorage.getItem('yaoki.v1:/Yaoki/n1/') || 'null') }));
+  const left = await n1.evaluate(() => ({ n2: JSON.parse(localStorage.getItem('yaoki.v1:/Yaoki/study/') || 'null'), n1: JSON.parse(localStorage.getItem('yaoki.v1:/Yaoki/n1/') || 'null') }));
   ok(left.n2 && left.n2.started === true && (!left.n1 || left.n1.started === false), 'Start over in the N1 app should clear only its own progress, left ' + JSON.stringify(left).slice(0, 200));
 
   ok(logs.length === 0, 'console problems: ' + JSON.stringify(logs.slice(0, 5)));
