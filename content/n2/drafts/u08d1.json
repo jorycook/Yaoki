@@ -8,8 +8,8 @@
     "gloss": "have no choice but to (against your will)",
     "connect": [
      {
-      "pos": "Verb, negative stem",
-      "rule": "ない形から「ない」を取る ＋ {ざるを得ない}"
+      "pos": "Verb, ない form without ない",
+      "rule": "行かない → 行か ＋ {ざるを得ない}"
      },
      {
       "pos": "Irregular verbs (do, come)",
@@ -18,8 +18,8 @@
     ],
     "examples": [
      {
-      "ja": "予算が足りないので、旅行の日数を減らさ{ざるを得ない}。",
-      "en": "The budget is short, so we have no choice but to cut a few days from the trip."
+      "ja": "料理はおいしいが、この量でこの値段は高いと言わ{ざるを得ない}。",
+      "en": "The food is good, but I have to say the price is high for portions this size."
      },
      {
       "ja": "社長に直接頼まれたので、引き受け{ざるを得なかった}。",
@@ -27,9 +27,9 @@
      }
     ],
     "watch": {
-     "note": "する becomes せ before ざるを得ない, as in せず. It never becomes し.",
-     "bad": "人が足りないので、私が説明しざるを得ない。",
-     "good": "人が足りないので、私が説明せざるを得ない。"
+     "note": "する becomes せ before ざるを得ない, as in せずに (met at N3). It never becomes し.",
+     "bad": "開発が遅れているので、新製品の発売を延期しざるを得ない。",
+     "good": "開発が遅れているので、新製品の発売を延期せざるを得ない。"
     }
    },
    {
@@ -42,18 +42,18 @@
       "rule": "辞書形 ＋ {ほかない}"
      },
      {
-      "pos": "Verb, dictionary form (a little stronger)",
+      "pos": "Verb, dictionary form (fuller forms, same meaning)",
       "rule": "辞書形 ＋ {ほかはない}／{よりほかない}"
      }
     ],
     "examples": [
      {
-      "ja": "このウイルスに効く薬はないので、ゆっくり休む{ほかない}。",
-      "en": "No medicine works on this virus, so all you can do is rest."
+      "ja": "この漢字は辞書にも載っていないので、先生に聞く{ほかない}。",
+      "en": "This kanji is not even in the dictionary, so there is nothing for it but to ask the teacher."
      },
      {
-      "ja": "誰も手伝ってくれないなら、自分でやる{ほかない}。",
-      "en": "If nobody will help, there is nothing for it but to do it myself."
+      "ja": "言葉が通じないので、ジェスチャーで伝える{ほかなかった}。",
+      "en": "We had no language in common, so all I could do was get my meaning across with gestures."
      }
     ],
     "watch": {
@@ -64,7 +64,7 @@
    }
   ],
   "compare": {
-   "intro": "All three say there is no other choice: ざるを得ない adds that you do it against your will, ほかない says no other way is left, and しかない says the same in everyday speech.",
+   "intro": "All three say there is no other choice. ざるを得ない adds that you do it against your will, ほかない says no other way is left, and しかない is the everyday way to say it.",
    "forms": [
     {
      "form": "〜ざるを得ない",
@@ -82,10 +82,10 @@
     },
     {
      "form": "〜しかない",
-     "tag": "話しことば · the everyday way",
+     "tag": "ふだんの言い方 · the everyday way",
      "mark": "dot",
-     "ja": "財布を忘れたから、友達にお金を借りる{しかない}。",
-     "en": "I forgot my wallet, so I'll just have to borrow money from a friend."
+     "ja": "冷蔵庫に何もないから、晩ご飯はコンビニで買う{しかない}ね。",
+     "en": "There is nothing in the fridge, so we'll just have to buy dinner at the convenience store."
     }
    ],
    "check": {
@@ -133,31 +133,31 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "エレベーターが",
-    "after": "そうだ。",
+    "before": "エアコンの修理が",
+    "after": "ほかない。",
     "tiles": [
-     "故障中なので",
-     "階段を",
-     "使う",
-     "ほかない"
+     "来週に",
+     "なるので",
+     "扇風機で",
+     "我慢する"
     ],
     "star": 2,
     "bank": [
-     2,
-     0,
      3,
+     0,
+     2,
      1
     ],
-    "hint": "ほかない follows the dictionary form. Which tile can sit right after エレベーターが?",
-    "full": "エレベーターが故障中なので階段を使う{ほかない}そうだ。",
-    "explain": "故障中なので follows エレベーターが and gives the reason. 階段を is the object of 使う, and 使う in the dictionary form sits right before ほかない."
+    "hint": "ほかない follows the dictionary form. Which tiles tell you when the repair will be?",
+    "full": "エアコンの修理が来週になるので扇風機で我慢する{ほかない}。",
+    "explain": "来週に and なるので follow 修理が and give the reason: the repair will not be until next week. 扇風機で says what the speaker makes do with, and 我慢する, in the dictionary form, sits right before ほかない."
    },
    {
     "id": "u08d1.d3",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^終電はもう出てしまった^。今夜は駅前のホテルに泊まる（　　）。",
+    "q": "^家の鍵を会社に置いてきてしまった^ので、取りに戻る（　　）。",
     "options": [
      "ざるを得ない",
      "わけがない",
@@ -166,10 +166,10 @@
     ],
     "answer": 4,
     "why": [
-     "ざるを得ない needs the ない form without ない (泊まらざるを得ない). It cannot follow 泊まる.",
-     "わけがない says \"there is no way\". With the last train gone, the hotel is the obvious choice.",
-     "一方だ is for a change that keeps going, as in 増える一方だ. One night at a hotel is not a change.",
-     "The last train has gone, so no other way is left: dictionary form + ほかない."
+     "ざるを得ない needs the ない form without ない (戻らざるを得ない). It cannot follow 戻る.",
+     "わけがない says \"there is no way\". A key left at the office is a reason to go back for it, not against it.",
+     "一方だ is for a change that keeps going, as in 増える一方だ. One trip back is not a change.",
+     "Without the key the speaker cannot get in, so going back for it is the only way left: dictionary form + ほかない."
     ]
    },
    {
@@ -181,14 +181,14 @@
     "options": [
      "がちだ",
      "ざるを得ない",
-     "かねない",
+     "ようとしない",
      "気味だ"
     ],
     "answer": 2,
     "why": [
      "がちだ is for something that tends to happen often. This is one mistake on one occasion.",
      "The facts leave the speaker no choice, though they would rather not admit it.",
-     "かねない warns of a bad result that might happen. Here the speaker has checked, and admitting is what the facts demand.",
+     "ようとしない says someone refuses to do it. Figures that prove him right are a reason to admit the mistake, not to refuse.",
      "気味だ means \"a little\", as in 風邪気味. You cannot admit a mistake a little."
     ]
    },
@@ -201,15 +201,15 @@
     "options": [
      "ほかなかった",
      "ことはなかった",
-     "どころではなかった",
+     "はずがなかった",
      "わけにはいかなかった"
     ],
     "answer": 1,
     "why": [
      "Every shop was sold out, so ordering online was the only way left.",
      "ことはなかった says there was no need. Sold-out shops make ordering online necessary, not unneeded.",
-     "どころではなかった says something more pressing got in the way. Nothing like that is said here.",
-     "わけにはいかなかった says something stopped the speaker. Sold-out shops are a reason to order online, not against it."
+     "はずがなかった says something could not possibly happen. With every shop sold out, ordering online was the natural step, not an impossible one.",
+     "わけにはいかなかった says a social or moral reason stopped the speaker. None is given, and sold-out shops are a reason to order online, not against it."
     ]
    },
    {
@@ -217,24 +217,24 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "台風で電車が止まったので、",
-    "after": "なった。",
+    "before": "家庭の",
+    "after": "支える制度が必要だ。",
     "tiles": [
-     "今日の",
-     "会議を",
-     "中止せ",
-     "ざるを得なく"
+     "事情で",
+     "仕事を",
+     "辞めざるを得ない",
+     "人を"
     ],
-    "star": 2,
+    "star": 3,
     "bank": [
-     3,
-     1,
+     2,
      0,
-     2
+     3,
+     1
     ],
-    "hint": "ざるを得ない follows the ない form without ない, and する becomes せ. What sits right before ざるを得なく?",
-    "full": "台風で電車が止まったので、今日の会議を中止せ{ざるを得なく}なった。",
-    "explain": "今日の describes 会議, and 会議を is the object of 中止する. する becomes せ before ざるを得ない, and 得なく joins なった."
+    "hint": "A clause ending in ざるを得ない can describe a noun, like any plain form. Which tile goes with 家庭の, and which noun does 辞めざるを得ない describe?",
+    "full": "家庭の事情で仕事を辞め{ざるを得ない}人を支える制度が必要だ。",
+    "explain": "家庭の事情で gives the reason, and 仕事を is the object of 辞める. 辞めざるを得ない then describes 人, and 人を is the object of 支える."
    }
   ],
   "exam": [
@@ -243,15 +243,15 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "会場の工事が間に合わないので、今年の大会は別の場所で（　　）。",
+    "q": "引っ越し先の部屋が狭かったので、大切にしていたピアノを（　　）。",
     "options": [
-     "行うわけがない",
-     "行わざるを得ない",
-     "行う一方だ",
-     "行いがちだ"
+     "売るわけがなかった",
+     "売らざるを得なかった",
+     "売りつつあった",
+     "売ることはなかった"
     ],
     "answer": 2,
-    "explain": "The venue is not ready, so the organisers have no choice but to use another place: 行わざるを得ない. わけがない would deny it, 一方だ is for a change that keeps going, and がちだ is for something that happens often, not this year's one event."
+    "explain": "The new flat was too small, so the speaker had to sell the piano they loved, against their will: 売らざるを得なかった. わけがなかった and ことはなかった say there was no way or no need to sell, which the small flat contradicts, and つつあった is for a change in progress, not a single sale."
    },
    {
     "id": "u08d1.e2",
@@ -266,7 +266,7 @@
      "どころではない"
     ],
     "answer": 1,
-    "explain": "The clinic is full today, so coming back tomorrow is the only way left: dictionary form + ほかない. かねない and ざるを得ない cannot follow the dictionary form 来る (they need きかねない and こざるを得ない), and どころではない says something more pressing gets in the way, which does not follow from ので here."
+    "explain": "The clinic is full today, so coming back tomorrow is the only way left: dictionary form + ほかない. かねない and ざるを得ない cannot follow the dictionary form 来る (they need きかねない and こざるを得ない), and どころではない would say something more pressing leaves no room for coming back, but nothing like that is mentioned."
    },
    {
     "id": "u08d1.e3",
@@ -416,7 +416,7 @@
     "男：それはいい。じゃあ、そこにしよう。",
     "女：ただ、応接室を使うには、総務の承認が必要なんです。それに、プロジェクターがないので、備品の申請もしないと。",
     "男：プロジェクターは承認が下りてからでいいよ。もし承認が下りなかったら、そのときは日にちのことを相談しよう。",
-    "女：わかりました。じゃあ、応接室のほうを先に出してきます。",
+    "女：わかりました。じゃあ、応接室のほうの申請を先に出してきます。",
     "ナレーター：女の人はこのあとまず何をしますか。"
    ],
    "options": [
@@ -436,7 +436,7 @@
    "why": [
     "Only if approval is refused: 承認が下りなかったら、そのときは…相談しよう.",
     "Turned down: the man does not want the group split over two rooms.",
-    "The reception room needs approval first, and she will hand in that request now (応接室のほうを先に).",
+    "The reception room needs approval first, and she will hand in that request now (応接室のほうの申請を先に出してきます).",
     "Later: the man says the projector can wait until approval comes through."
    ]
   },
@@ -445,11 +445,11 @@
    ["M", "木曜日の打ち合わせ、取引先から六人いらっしゃることになったよ。大会議室は取れた？", "木曜日の打ち合わせ、とりひきさきからろくにんいらっしゃることになったよ。だいかいぎしつは取れた？"],
    ["F", "それが、木曜日は一日中、研修で使われていて……。小さい会議室を二つ使うほかないと思うんですが。", "それが、木曜日はいちにちじゅう、研修で使われていて……。小さい会議室をふたつ使うほかないと思うんですが。"],
    ["M", "二つに分かれるのは困るなあ。それなら、取引先に日にちを変えてもらわざるを得ないかな。", "ふたつに分かれるのは困るなあ。それなら、とりひきさきに日にちを変えてもらわざるをえないかな。"],
-   ["F", "あ、待ってください。さっき空き状況を見たら、応接室なら空いていました。八人まで入れます。", "あ、待ってください。さっきあきじょうきょうを見たら、おうせつしつならあいていました。はちにんまで入れます。"],
+   ["F", "あ、待ってください。さっき空き状況を見たら、応接室なら空いていました。八人まで入れます。", "あ、待ってください。さっきあきじょうきょうを見たら、おうせつしつならあいていました。はちにんまではいれます。"],
    ["M", "それはいい。じゃあ、そこにしよう。", null],
    ["F", "ただ、応接室を使うには、総務の承認が必要なんです。それに、プロジェクターがないので、備品の申請もしないと。", "ただ、おうせつしつを使うには、そうむの承認が必要なんです。それに、プロジェクターがないので、びひんの申請もしないと。"],
    ["M", "プロジェクターは承認が下りてからでいいよ。もし承認が下りなかったら、そのときは日にちのことを相談しよう。", "プロジェクターは承認がおりてからでいいよ。もし承認がおりなかったら、そのときは日にちのことを相談しよう。"],
-   ["F", "わかりました。じゃあ、応接室のほうを先に出してきます。", "わかりました。じゃあ、おうせつしつのほうを先に出してきます。"],
+   ["F", "わかりました。じゃあ、応接室のほうの申請を先に出してきます。", "わかりました。じゃあ、おうせつしつのほうの申請をさきに出してきます。"],
    ["N", "女の人はこのあとまず何をしますか。", "女の人はこのあとまずなにをしますか。"]
   ]
  }

@@ -12,7 +12,7 @@
       "rule": "辞書形 ＋ {までもない}"
      },
      {
-      "pos": "Verb, dictionary form, linking to more",
+      "pos": "Verb, dictionary form (linking)",
       "rule": "辞書形 ＋ {までもなく}、…"
      },
      {
@@ -22,8 +22,8 @@
     ],
     "examples": [
      {
-      "ja": "簡単な手続きなので、専門家に頼む{までもない}。",
-      "en": "It's a simple procedure, so it isn't worth asking an expert."
+      "ja": "簡単な手続きなので、人に頼む{までもない}。",
+      "en": "It's a simple procedure, so it isn't worth asking someone else to do it."
      },
      {
       "ja": "地図を見る{までもなく}、その店はすぐに見つかった。",
@@ -31,9 +31,9 @@
      }
     ],
     "watch": {
-     "note": "までもない says the matter is so simple or obvious that the action is not worth doing. When a rule or a fact just makes an action unnecessary, use 必要はない.",
-     "bad": "明日は祝日なので、会社に行くまでもない。",
-     "good": "明日は祝日なので、会社に行く必要はない。"
+     "note": "までもない says the matter is so simple, small or obvious that the action would be more than it needs. When an action is simply not required, by a rule for example, use 必要はない.",
+     "bad": "小学生以下は、入場料を払うまでもありません。",
+     "good": "小学生以下は、入場料を払う必要はありません。"
     }
    },
    {
@@ -56,8 +56,8 @@
       "en": "There's still time, so there's no need to rush like that."
      },
      {
-      "ja": "予約を取り消しても、料金が発生する{ことはありません}。",
-      "en": "Even if you cancel your booking, no charge will be made."
+      "ja": "お客様の個人情報を、ほかの目的に使う{ことはありません}。",
+      "en": "We will never use your personal information for any other purpose."
      }
     ],
     "watch": {
@@ -96,18 +96,18 @@
     "id": "u08d2.c1",
     "kind": "choice",
     "type": "文の文法1",
-    "label": "新しい橋",
-    "q": "この橋はとても丈夫なので、大きな地震が来ても[崩|くず]れる（　　）。",
+    "label": "時計の時間",
+    "q": "この時計は毎日自動で時刻を合わせるので、時間が（　　）。",
     "options": [
-     "までもない",
-     "ことはない",
-     "ないことはない"
+     "ずれるまでもない",
+     "ずれることはない",
+     "ずれないことはない"
     ],
     "answer": 2,
     "why": [
-     "までもない is about an action someone decides is not worth doing. A bridge collapsing is not a choice.",
-     "It never happens: 崩れることはない, \"it will not collapse\".",
-     "ないことはない joins the ない form (崩れないことはない) and would mean \"it could collapse\", the opposite of 丈夫なので."
+     "までもない is about an action someone decides is not worth doing. A clock running fast or slow is not a choice.",
+     "It never happens: ずれることはない, \"the time never drifts\".",
+     "ずれないことはない means \"it can drift\", the opposite of what 毎日自動で時刻を合わせる promises."
     ]
    }
   },
@@ -147,7 +147,7 @@
     "answer": 4,
     "why": [
      "ほかない says there is no choice but to get angry, which clashes with だけなのに (it was only one glass).",
-     "に越したことはない recommends something as the best thing to do. Nobody recommends getting angry.",
+     "に越したことはない says something is the best thing to do, but 何も…じゃないか says the anger is too much.",
      "おそれがある warns of a risk, and 何も does not go with it.",
      "何も…ことはない: there is no reason to get so angry over one glass."
     ]
@@ -162,14 +162,14 @@
      "ものの",
      "までもなく",
      "からといって",
-     "とともに"
+     "ばかりか"
     ],
     "answer": 2,
     "why": [
      "ものの means \"although\". Nobody says anything here, so 言うものの makes no sense.",
      "〜は言うまでもなく、〜も: \"not to mention English, he speaks Chinese and Korean too\".",
-     "からといって gives a reason with an unexpected result. There is no reason here.",
-     "言うとともに would mean \"while saying\", which does not fit a list of languages."
+     "からといって means \"just because\", and nothing here is a reason: 言うからといって makes no sense.",
+     "ばかりか also means \"not only\", but here it would have to follow 話せる (英語が話せるばかりか). 英語は言うばかりか makes no sense."
     ]
    },
    {
@@ -177,7 +177,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "このアプリでは作業内容が^自動で保存される^ので、急に電源が切れてもデータが^消える^（　　）。",
+    "q": "このアプリは、^有料プランに申し込まない限り^、料金がかかる（　　）。",
     "options": [
      "ことはありません",
      "わけにはいきません",
@@ -186,10 +186,10 @@
     ],
     "answer": 1,
     "why": [
-     "Saving is automatic, so the data never disappears: ことはありません in its \"it never happens\" use.",
-     "わけにはいきません is about what a person cannot do. Data disappearing is not something anyone does.",
-     "までもありません is about an action not worth doing. Disappearing is not an action someone chooses.",
-     "ほかありません says the data has no choice but to disappear, the opposite of 自動で保存される."
+     "Without a paid plan, a charge never comes: ことはありません in its \"it never happens\" use.",
+     "わけにはいきません says someone cannot do something for a reason such as duty, a rule or common sense. A charge is not someone deciding anything.",
+     "までもありません says an action is not worth doing. A charge is not an action anyone weighs up.",
+     "ほかありません says there is no other way, so a charge would be certain. ない限り says the opposite: no paid plan, no charge."
     ]
    },
    {
@@ -221,24 +221,24 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "一回失敗した",
+    "before": "雨が少し降った",
     "after": "よ。",
     "tiles": [
      "くらいで",
-     "そんなに",
-     "がっかりする",
+     "試合を",
+     "中止する",
      "ことはない"
     ],
-    "star": 1,
+    "star": 2,
     "bank": [
      3,
      2,
      0,
      1
     ],
-    "hint": "Which tile can follow 失敗した? ことはない needs a verb in the dictionary form before it.",
-    "full": "一回失敗したくらいでそんなにがっかりする{ことはない}よ。",
-    "explain": "くらいで follows 失敗した (\"just because of one failure\"). そんなに goes with がっかりする, and the dictionary form takes ことはない."
+    "hint": "Which tile can follow 降った? ことはない needs a verb in the dictionary form before it.",
+    "full": "雨が少し降ったくらいで試合を中止する{ことはない}よ。",
+    "explain": "くらいで follows 降った (\"just because it rained a little\"). 試合を is what you 中止する, and the dictionary form takes ことはない: there is no need to call off the match."
    }
   ],
   "exam": [
@@ -250,12 +250,12 @@
     "q": "日本の夏が暑いことは（　　）が、今年は特にひどい。",
     "options": [
      "言うわけにはいかない",
-     "言うことはない",
+     "言うほかない",
      "言うに越したことはない",
      "言うまでもない"
     ],
     "answer": 4,
-    "explain": "Everyone knows Japanese summers are hot: 言うまでもない, \"it goes without saying\". 言うわけにはいかない says you must not say it, 言うことはない means there is nothing to complain about, and 言うに越したことはない recommends saying it. None of these leads into 今年は特にひどい."
+    "explain": "Everyone knows Japanese summers are hot: 言うまでもない, \"it goes without saying\", grants that known fact before が adds 今年は特にひどい. 言うわけにはいかない says you cannot say it for some reason, 言うほかない says there is no other way to put it (it needs と: 見事と言うほかない), and 言うに越したことはない says saying it is best. None of these grants a fact everyone knows."
    },
    {
     "id": "u08d2.e2",
@@ -264,13 +264,13 @@
     "label": "Choose the form",
     "q": "彼はどんなに忙しくても、約束の時間に遅れる（　　）。",
     "options": [
-     "がちだ",
+     "までもない",
      "ことはない",
      "どころではない",
      "ほかない"
     ],
     "answer": 2,
-    "explain": "However busy he is, he is never late: ことはない in its \"it never happens\" use. がちだ follows the ます stem (遅れがちだ), not the dictionary form, and would say he is often late. どころではない means there is no room for something, and ほかない says he has no choice but to be late."
+    "explain": "However busy he is, he is never late: ことはない in its \"it never happens\" use. までもない says an action is not worth doing, and being late is not an action anyone weighs up. どころではない (no room for being late) and ほかない (no choice but to be late) make no sense after どんなに忙しくても, which leads to something that holds anyway."
    },
    {
     "id": "u08d2.e3",
@@ -278,12 +278,12 @@
     "type": "文の文法2",
     "label": "Build the sentence",
     "before": "この程度の",
-    "after": "開くまでもない。",
+    "after": "までもない。",
     "tiles": [
      "問題で",
      "全員を",
      "集めて",
-     "会議を"
+     "会議を開く"
     ],
     "star": 2,
     "bank": [
@@ -292,8 +292,8 @@
      2,
      1
     ],
-    "full": "この程度の問題で全員を集めて会議を開く{までもない}。",
-    "explain": "問題で, 全員を, 集めて, 会議を. この程度の describes 問題, 全員を goes with 集めて, and 会議を must sit right before 開く."
+    "full": "この程度の問題で全員を{集めて}会議を開くまでもない。",
+    "explain": "問題で, 全員を, 集めて, 会議を開く. この程度の describes 問題, 全員を is what you 集めて, and the て-form 集めて leads into 会議を開く, which までもない follows."
    }
   ]
  },
@@ -334,7 +334,7 @@
      [
       "付",
       "プ",
-      "give: 交付"
+      "give: 交付 (フ, here プ)"
      ]
     ]
    },
@@ -370,7 +370,7 @@
      [
       "養",
       "ヨウ",
-      "bring up: 栄養"
+      "nourish, support: 栄養"
      ]
     ]
    },
@@ -452,7 +452,7 @@
    "kind": "choice",
    "type": "文脈規定",
    "label": "How the exam asks it",
-   "q": "払いすぎた税金は、手続きをすれば（　　）される。",
+   "q": "払いすぎた税金が（　　）され、銀行の口座に振り込まれた。",
    "options": [
     "還付",
     "提出",
@@ -460,7 +460,7 @@
     "扶養"
    ],
    "answer": 1,
-   "explain": "還付 is money the tax office pays back: 税金が還付される. 提出 is handing in a document, not money; 納税 is paying tax, the opposite direction; 扶養 is supporting family members."
+   "explain": "還付 is money paid back to you: the overpaid tax was refunded into the account. 提出 is handing in documents, not money coming back; 納税 is paying tax, the opposite direction; 扶養 is supporting family members."
   }
  },
  "skill": {
@@ -468,8 +468,8 @@
   "ja": "内容理解（短文）",
   "en": "Short passage",
   "ask": "What does the notice say a worker with high medical costs must do?",
-  "seconds": 80,
-  "passage": "会社にお勤めの方は、会社が年末調整を行うため、多くの場合、ご自身で確定申告をする必要はありません。ただし、一年間に支払った医療費が十万円を超えた場合などは、申告をすれば税金の一部が還付されることがあります。^その場合は、医療費の明細書を作成し、税務署に提出してください^。^領収書は提出しなくてもかまいません^が、五年間は捨てずに保管しておいてください。なお、還付のための申告は五年間受け付けていますので、^三月十五日を過ぎても^、還付が受けられなくなることはありません。",
+  "seconds": 90,
+  "passage": "会社にお勤めの方は、会社が年末調整を行うため、多くの場合、ご自身で確定申告をする必要はありません。ただし、一年間に支払った医療費が十万円を超えた場合などは、申告をすれば税金の一部が還付されることがあります。^その場合は、医療費の明細書を作成し、申告書と一緒に税務署に提出してください^。^領収書は提出しなくてもかまいません^が、五年間は捨てずに保管しておいてください。なお、還付のための申告は五年間受け付けていますので、^通常の申告期限である三月十五日を過ぎても^、還付が受けられなくなることはありません。",
   "strategy": "Find ただし: the exception comes after it, and the next sentences say what to do and what you need not do.",
   "item": {
    "id": "u08d2.r1",
@@ -489,12 +489,12 @@
     "5年間保管してから申告"
    ],
    "answer": 3,
-   "explain": "After ただし the notice names the case of high medical costs, and the next sentence says what to do: make a statement of medical costs and hand it in to the tax office.",
+   "explain": "After ただし the notice names the case of high medical costs, and the next sentence says what to do: make a statement of medical costs and hand it in to the tax office with the return.",
    "why": [
-    "The company already does the 年末調整. The refund comes from filing a return yourself.",
-    "Receipts need not be handed in, and filing after 15 March is still accepted.",
+    "The company does the 年末調整 anyway. The notice says the refund comes from filing a return yourself (申告をすれば).",
+    "Receipts need not be handed in, and a refund return is still accepted after 15 March.",
     "",
-    "The receipts are kept for five years after filing; there is no need to wait before filing."
+    "The receipts must be kept for five years, but nothing says to wait before filing."
    ]
   }
  }

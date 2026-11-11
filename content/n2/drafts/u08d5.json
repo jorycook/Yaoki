@@ -22,8 +22,8 @@
     ],
     "examples": [
      {
-      "ja": "あんなに態度の悪い店には、二度と行く{ものか}。",
-      "en": "I'm never going back to a shop with service that bad!"
+      "ja": "帰国したからといって、せっかく覚えた日本語を忘れる{ものか}。",
+      "en": "Just because I've gone home, I'm not going to forget the Japanese I worked so hard to learn!"
      },
      {
       "ja": "「疲れた？」「これくらいで疲れる{もんか}。まだ走れるよ。」",
@@ -56,7 +56,7 @@
     ],
     "examples": [
      {
-      "ja": "人の前では泣く{まい}と思っていたのに、[涙|なみだ]が止まらなかった。",
+      "ja": "人の前では泣く{まい}と思っていたのに、涙が止まらなかった。",
       "en": "I had told myself I wouldn't cry in front of people, but the tears wouldn't stop."
      },
      {
@@ -65,7 +65,7 @@
      }
     ],
     "watch": {
-     "note": "まい is a negative ending already, like ない. It goes on the dictionary form, never on the ない form. About your own actions it usually means \"I will not\"; about others or things, \"probably not\". It sounds written or formal.",
+     "note": "まい is already negative, like ない, so it never goes on the ない form: 遅れるまい (or 遅れまい), not 遅れないまい. About your own actions it usually means \"I will not\"; about others or things, \"probably not\". It sounds written or formal.",
      "bad": "もう約束の時間には遅れないまいと思った。",
      "good": "もう約束の時間には遅れるまいと思った。"
     }
@@ -76,7 +76,7 @@
    "forms": [
     {
      "form": "〜ものか",
-     "tag": "感情的な強い否定 · no way! (spoken)",
+     "tag": "感情的な強い否定 · no way!, as if …!",
      "mark": "down",
      "ja": "人の話を聞かない部長に、現場の苦労がわかる{ものか}。",
      "en": "As if a boss who never listens could understand how hard it is on the floor!"
@@ -85,7 +85,7 @@
      "form": "〜まい",
      "tag": "否定の意志・推量 · won't / probably not",
      "mark": "down",
-     "ja": "[慎重|しんちょう]な彼のことだから、そんな[初歩的|しょほてき]なミスはする{まい}。",
+     "ja": "慎重な彼のことだから、そんな[初歩的|しょほてき]なミスはする{まい}。",
      "en": "Knowing how careful he is, he's unlikely to make such a basic mistake."
     },
     {
@@ -101,7 +101,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "発表会の前",
-    "q": "練習不足の私が上手に弾ける（　　）ので、発表会への出演は断った。",
+    "q": "発表会なんて無理ですよ。練習不足の私が上手に弾ける（　　）でしょう。",
     "options": [
      "ものか",
      "まい",
@@ -109,9 +109,9 @@
     ],
     "answer": 3,
     "why": [
-     "ものか ends a sentence (or comes before と思う). It cannot go before ので.",
-     "まい is a formal sentence ending too, and it does not join to ので like this.",
-     "A reasoned \"there's no way\". わけがない can go before ので like any plain-form ending."
+     "ものか is already a retort (\"no way!\"), so でしょう cannot come after it.",
+     "まい is already a guess or a resolve, so でしょう cannot come after it.",
+     "わけがない ends in ない like any plain form, so でしょう can follow it: \"How could I play well with so little practice?\""
     ]
    }
   },
@@ -130,10 +130,10 @@
     ],
     "answer": 2,
     "why": [
-     "Sentence-final もの gives a reason (\"because…\"). It cannot answer the question word 誰が.",
+     "Sentence-final もの gives a reason or an excuse (\"because…\"). After 誰が here, the sentence needs ものか.",
      "誰が…ものか: \"Who would work there?\", meaning \"nobody, and certainly not me\".",
      "ものなら means \"if one could\" and needs a second clause. The sentence ends here.",
-     "わけだ draws a conclusion (\"that's why\"). It does not fit a question with 誰が."
+     "わけだ states a conclusion (\"so that's why\"). It cannot round off a question with 誰が."
     ]
    },
    {
@@ -141,7 +141,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "医者に注意されたので、もう甘い物は食べ（　　）と^心に決めた^。",
+    "q": "健康診断の結果が悪かったので、甘い物はもう食べ（　　）と^決心した^。",
     "options": [
      "かねない",
      "がちだ",
@@ -150,10 +150,10 @@
     ],
     "answer": 4,
     "why": [
-     "かねない is a risk of something bad. Nobody decides on a risk with 心に決めた.",
-     "がちだ describes a tendency. A tendency is not something you decide on.",
-     "\"No choice but to eat sweets\" goes against the doctor's warning.",
-     "A decision not to eat: 食べまい. A group 2 verb can take まい on its stem."
+     "かねない is a risk of something bad. Nobody makes up their mind (決心した) to run a risk.",
+     "がちだ describes a tendency. A tendency is not something you make up your mind to do.",
+     "\"No choice but to eat sweets\" goes against the bad check-up result, and it is not a decision.",
+     "A decision not to eat: 食べまい. A group 2 verb can also take まい on its stem."
     ]
    },
    {
@@ -161,12 +161,12 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "何度謝られても、",
-    "after": "と思った。",
+    "before": "一人で店を始めた姉は、",
+    "after": "と笑っていた。",
     "tiles": [
-     "あの人の",
-     "言うことなんか",
-     "信じる",
+     "つまらない",
+     "うわさなんか",
+     "気にする",
      "ものか"
     ],
     "star": 1,
@@ -176,9 +176,9 @@
      3,
      1
     ],
-    "hint": "ものか follows the dictionary form. What is it that the speaker won't believe?",
-    "full": "何度謝られても、あの人の言うことなんか信じる{ものか}と思った。",
-    "explain": "あの人の describes 言うこと, and 言うことなんか is what is not believed. 信じるものか comes last, before と思った."
+    "hint": "ものか follows the dictionary form. What is it that the sister does not care about?",
+    "full": "一人で店を始めた姉は、つまらないうわさなんか気にする{ものか}と笑っていた。",
+    "explain": "つまらない describes うわさ, and うわさなんか is what she does not care about. 気にするものか comes last, before と笑っていた."
    },
    {
     "id": "u08d5.d4",
@@ -195,9 +195,9 @@
     "answer": 1,
     "why": [
      "A guess: such a popular shop probably won't close any time soon.",
-     "\"It will surely close\" goes against 人気のある, and すぐには here calls for a negative.",
+     "\"It will surely close\" does not follow from 人気のある店だから, and すぐには here calls for a negative.",
      "\"It has no choice but to close\" makes no sense for a popular shop.",
-     "A risk of closing goes against 人気のある, and すぐには here calls for a negative."
+     "\"It may well close\" does not follow from 人気のある店だから either, and すぐには here calls for a negative."
     ]
    },
    {
@@ -205,7 +205,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "あの[頑固|がんこ]な父が、^そう簡単に^許してくれる（　　）。",
+    "q": "あの^[頑固|がんこ]な^父が、^そう簡単に^考えを変える（　　）。",
     "options": [
      "ことだし",
      "はずだ",
@@ -214,10 +214,10 @@
     ],
     "answer": 3,
     "why": [
-     "ことだし gives a reason and needs a suggestion or decision after it. The sentence ends here.",
-     "\"He should forgive me easily\" goes against 頑固, and そう簡単に here calls for a negative.",
-     "\"As if my stubborn father would forgive me that easily!\" ものか gives the negative that そう簡単に needs.",
-     "ものだから gives a reason and needs a result after it. A stubborn father is no reason to be forgiven."
+     "ことだし gives one reason for a suggestion or a decision, and there is none here. It also clashes with 頑固.",
+     "\"He should change his mind easily\" goes against 頑固, and そう簡単に here calls for a negative.",
+     "\"As if my stubborn father would change his mind that easily!\" ものか gives the negative that そう簡単に needs.",
+     "ものだから gives a reason or an excuse, but \"because my stubborn father changes his mind so easily\" clashes with 頑固."
     ]
    },
    {
@@ -230,7 +230,7 @@
     "tiles": [
      "どんなに",
      "大変でも",
-     "投げ出す",
+     "途中でやめる",
      "まい"
     ],
     "star": 2,
@@ -241,8 +241,8 @@
      2
     ],
     "hint": "まい follows the dictionary form. どんなに needs a partner ending in でも.",
-    "full": "一度引き受けた仕事は、どんなに大変でも投げ出す{まい}と決めている。",
-    "explain": "どんなに大変でも is \"however hard it is\". The resolve 投げ出すまい follows it and comes right before と決めている."
+    "full": "一度引き受けた仕事は、どんなに大変でも途中でやめる{まい}と決めている。",
+    "explain": "どんなに大変でも is \"however hard it is\". The resolve 途中でやめるまい follows it and comes right before と決めている."
    }
   ],
   "exam": [
@@ -266,7 +266,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "母の悲しそうな顔を見て、もう二度とうそはつく（　　）と思った。",
+    "q": "母の悲しそうな顔を見て、二度とうそはつく（　　）と思った。",
     "options": [
      "ほかない",
      "べきだ",
@@ -274,7 +274,7 @@
      "ようになる"
     ],
     "answer": 3,
-    "explain": "二度と needs a negative, and まい gives one: \"I will never lie again\". ほかない, べきだ and ようになる are all positive, and lying more does not follow from a mother's sad face."
+    "explain": "二度と needs a negative, and まい gives one: \"I will never lie again\". ほかない, べきだ and ようになる are all positive, so they cannot go with 二度と."
    },
    {
     "id": "u08d5.e3",
@@ -356,7 +356,7 @@
      [
       "切",
       "きり",
-      "cut off: all of it"
+      "cut; here, completely"
      ]
     ]
    },
@@ -392,7 +392,7 @@
      [
       "所",
       "ジョ",
-      "place: 休憩所"
+      "place: 案内所"
      ]
     ]
    },
@@ -446,7 +446,7 @@
      [
       "所",
       "ジョ",
-      "place"
+      "place: 案内所"
      ]
     ]
    }
@@ -471,7 +471,7 @@
   "kind": "listening",
   "ja": "概要理解",
   "en": "Gist",
-  "ask": "問題用紙には何も印刷されていません。話の前に質問はありません。まず話を聞いて、それから質問と選択肢を聞いて、1から4の中から最もよいものを一つ選んでください。",
+  "ask": "このパートでは、質問は話のあとで流れます。話を最後まで聞いたあと、質問と四つの答えが流れるので、正しいものを1から4の中から一つ選んでください。",
   "audio": [
    [
     "N",
@@ -481,7 +481,7 @@
    [
     "M",
     "もしもし。あの、先月、妻と温泉旅行に行ったときの話なんですが。",
-    null
+    "もしもし。あの、先月、妻と温泉旅行にいったときの話なんですが。"
    ],
    [
     "M",
@@ -491,32 +491,32 @@
    [
     "M",
     "ところが、行ってみたら、楽しみにしていた露天風呂は工事中で入れませんでした。",
-    "ところが、行ってみたら、楽しみにしていたろてんぶろは工事中で入れませんでした。"
+    "ところが、いってみたら、楽しみにしていたろてんぶろは工事中ではいれませんでした。"
    ],
    [
     "M",
-    "部屋も写真とは違う古い建物で、料理もずいぶん寂しかったんです。",
-    "部屋も写真とは違う古いたてもので、料理もずいぶんさびしかったんです。"
-   ],
-   [
-    "M",
-    "宿の人に聞いたら、「サイトに書いてあります」と言われてしまって。",
-    "やどの人に聞いたら、「サイトに書いてあります」と言われてしまって。"
-   ],
-   [
-    "M",
-    "確かに、説明をちゃんと読まなかった私も悪いんですけどね。せっかくの旅行だったのに、妻にも申し訳なくて。",
+    "部屋も写真とは違って古くて、料理も量が少なくて、がっかりしました。",
     null
    ],
    [
     "M",
-    "あんな思いは二度とするものかと思いましたよ。",
-    "あんな思いはにどとするものかと思いましたよ。"
+    "宿の人に聞いたら、「サイトに書いてあります」と言われました。",
+    "やどの人に聞いたら、「サイトに書いてあります」と言われました。"
    ],
    [
     "M",
-    "これからは、どんなに安くても、写真だけで宿を選ぶまいと思っています。",
-    "これからは、どんなに安くても、写真だけでやどを選ぶまいと思っています。"
+    "確かに、説明をちゃんと読まなかった私が悪いんです。せっかくの旅行だったのに、妻にも申し訳なくて。",
+    null
+   ],
+   [
+    "M",
+    "あの時は、もう旅行なんか行くものかと思いましたよ。",
+    "あのときは、もう旅行なんかいくものかと思いましたよ。"
+   ],
+   [
+    "M",
+    "でも、これからは、値段や写真だけで宿を選ぶまいと思っています。",
+    "でも、これからは、ねだんや写真だけでやどを選ぶまいと思っています。"
    ],
    [
     "N",
@@ -541,7 +541,7 @@
    [
     "N",
     "温泉旅行に安く行く方法",
-    null
+    "温泉旅行に安くいく方法"
    ],
    [
     "N",
@@ -571,7 +571,7 @@
    "q": "男の人は、主に何について話していますか。",
    "script": [
     "ナレーター：ラジオ番組に電話をかけてきた男の人が、旅行について話しています。",
-    "男：もしもし。あの、先月、妻と温泉旅行に行ったときの話なんですが。インターネットで一番安いプランを見つけて、写真もきれいだったので、よく調べずにすぐ予約したんです。ところが、行ってみたら、楽しみにしていた露天風呂は工事中で入れませんでした。部屋も写真とは違う古い建物で、料理もずいぶん寂しかったんです。宿の人に聞いたら、「サイトに書いてあります」と言われてしまって。確かに、説明をちゃんと読まなかった私も悪いんですけどね。せっかくの旅行だったのに、妻にも申し訳なくて。あんな思いは二度とするものかと思いましたよ。これからは、どんなに安くても、写真だけで宿を選ぶまいと思っています。",
+    "男：もしもし。あの、先月、妻と温泉旅行に行ったときの話なんですが。インターネットで一番安いプランを見つけて、写真もきれいだったので、よく調べずにすぐ予約したんです。ところが、行ってみたら、楽しみにしていた露天風呂は工事中で入れませんでした。部屋も写真とは違って古くて、料理も量が少なくて、がっかりしました。宿の人に聞いたら、「サイトに書いてあります」と言われました。確かに、説明をちゃんと読まなかった私が悪いんです。せっかくの旅行だったのに、妻にも申し訳なくて。あの時は、もう旅行なんか行くものかと思いましたよ。でも、これからは、値段や写真だけで宿を選ぶまいと思っています。",
     "ナレーター：男の人は、主に何について話していますか。",
     "ナレーター：1　露天風呂が工事中だった理由",
     "ナレーター：2　温泉旅行に安く行く方法",
@@ -594,9 +594,9 @@
    "answer": 3,
    "why": [
     "The bath was closed for work, but he never says why. It is one detail of what went wrong.",
-    "He did book the cheapest plan, but he gives no tips for travelling cheaply. He ends by saying he won't choose on price and photos alone.",
-    "The whole call is one story: he booked without checking, the stay went wrong, and he says he will never book that way again (二度とするものか, 選ぶまい).",
-    "He mentions what the staff said, but he admits he was to blame too for not reading. That is a detail, not the main point."
+    "He did book the cheapest plan, but he gives no tips for travelling cheaply. He ends by saying he will not choose an inn on price and photos alone.",
+    "The whole call is one story: he booked without checking, the stay went wrong, and he resolves not to choose that way again (選ぶまい).",
+    "He tells what the staff said, but he says the fault was his own (私が悪いんです). He is not angry with them."
    ]
   }
  }

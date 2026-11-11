@@ -3,7 +3,7 @@
   "grammar": {
     "points": [],
     "compare": {
-      "intro": "Ask two questions: what comes before the form (the ない form without ない, the dictionary form, the ます stem, or a plain form or noun), and what the speaker does with it (gives in, says there is no need, makes a sure guess, declines, or refuses with feeling). Together they leave only one of the ten.",
+      "intro": "First ask what comes before the form (the ない form without ない, the dictionary form, the ます stem, or a plain form or noun) and what the speaker does with it (gives in, says it isn't needed, makes a sure guess, says they can't, or says \"never\"). Where two forms still fit, the nuance decides: までもない is \"too obvious to bother\" while ことはない reassures, に相違ない is the written twin of に違いない, and ものか is heated speech while まい is calm and written.",
       "forms": [
         {
           "form": "〜ざるを得ない",
@@ -23,15 +23,15 @@
           "form": "〜までもない",
           "tag": "簡単・当然 · not even worth doing",
           "mark": "dot",
-          "ja": "駅までは歩いて三分なので、タクシーを呼ぶ{までもない}。",
-          "en": "The station is a three-minute walk, so it's not worth calling a taxi."
+          "ja": "近所のコンビニに行くだけだから、着替える{までもない}。",
+          "en": "I'm only going to the convenience store down the street, so it's not worth getting changed."
         },
         {
           "form": "〜ことはない",
           "tag": "不要・安心 · no need to",
           "mark": "dot",
-          "ja": "まだ時間は十分あるから、そんなに急ぐ{ことはない}よ。",
-          "en": "There's still plenty of time, so there's no need to rush like that."
+          "ja": "練習どおりにやればいいんだから、そんなに緊張する{ことはない}よ。",
+          "en": "Just do it the way you practised. There's no need to be so nervous."
         },
         {
           "form": "〜に相違ない",
@@ -44,15 +44,15 @@
           "form": "〜に違いない",
           "tag": "確信・推量 · I'm sure (a guess)",
           "mark": "dot",
-          "ja": "部屋の電気が消えているから、隣の人はもう寝ている{に違いない}。",
-          "en": "The lights are off, so the neighbour must be asleep already."
+          "ja": "駐車場に兄の車がないから、もう出かけた{に違いない}。",
+          "en": "My brother's car isn't in the car park, so he must have gone out already."
         },
         {
           "form": "〜かねる",
           "tag": "できない・丁寧な断り · can't bring myself to",
           "mark": "dot",
           "ja": "どちらの案にもよい点があり、一つに決め{かねて}いる。",
-          "en": "Both plans have good points, and I can't bring myself to choose one."
+          "en": "Both plans have good points, and I can't make up my mind between them."
         },
         {
           "form": "〜わけにはいかない",
@@ -65,15 +65,15 @@
           "form": "〜ものか",
           "tag": "強い否定 · no way, never",
           "mark": "dot",
-          "ja": "あんなに態度の悪い店には、二度と行く{ものか}。",
-          "en": "I'll never go back to that rude shop."
+          "ja": "借りたお金を返さない人に、もう一円だって貸す{ものか}。",
+          "en": "Someone who doesn't pay back what they borrow? I won't lend them one more yen."
         },
         {
           "form": "〜まい",
           "tag": "否定の意志・推量 · won't; surely not",
           "mark": "dot",
-          "ja": "空がこんなに晴れているから、今日は雨は降る{まい}。",
-          "en": "The sky is this clear, so surely it won't rain today."
+          "ja": "これだけ値段が高ければ、そう多くは売れる{まい}。",
+          "en": "At a price this high, it surely won't sell in large numbers."
         }
       ],
       "check": {
@@ -111,7 +111,7 @@
         "answer": 2,
         "why": [
           "ほかない follows the dictionary form (キャンセルするほかない). It cannot follow せ.",
-          "せ is する in its ない form without ない, the join ざるを得ない needs. 残念だが shows it is against the speaker's will.",
+          "Before ざるを得ない, する becomes せ (as in せずに), so only ざるを得ない can follow キャンセルせ. 残念だが shows it is against the speaker's will.",
           "かねる follows the ます stem (キャンセルしかねる), not せ. It would also mean the speaker can't cancel, not that they must.",
           "わけにはいかない follows the dictionary form (キャンセルするわけにはいかない), not せ. It would also mean the speaker can't cancel."
         ]
@@ -121,7 +121,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "この程度の^簡単な^修理なら、専門の業者に頼む（　　）。^自分で十分直せる^。",
+        "q": "新しいコピー機は^ボタンを押すだけ^で使えるので、^わざわざ^使い方を説明する（　　）。",
         "options": [
           "ほかない",
           "に違いない",
@@ -130,10 +130,10 @@
         ],
         "answer": 4,
         "why": [
-          "ほかない says there is no other way. 自分で十分直せる says there is one.",
-          "に違いない is a sure guess about a fact. Here the speaker decides what to do, and the next sentence says no professional is needed.",
-          "ざるを得ない follows the ない form without ない (頼まざるを得ない), not 頼む. It would also mean the speaker is forced to ask.",
-          "The repair is so simple that asking a professional is not even worth it."
+          "ほかない would make explaining the only way left. ボタンを押すだけ says the machine needs no explaining.",
+          "に違いない is a sure guess about a fact. Here the speaker judges that explaining is not needed, as わざわざ shows.",
+          "ざるを得ない cannot follow the dictionary form 説明する; する becomes せ before it (説明せざるを得ない). It would also mean the speaker is forced to explain.",
+          "The machine is so simple that explaining it is not even worth doing."
         ]
       },
       {
@@ -141,7 +141,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "弟が^あんなにうれしそうな顔をしている^のだから、試験に合格した（　　）。",
+        "q": "隣の家から^「おめでとう」という声と拍手^が聞こえる。息子さんが大学に合格した（　　）。",
         "options": [
           "ことはない",
           "まい",
@@ -150,9 +150,9 @@
         ],
         "answer": 3,
         "why": [
-          "After the た form, ことはない means \"has never\". A happy face does not lead to \"he has never passed\".",
-          "まい follows the dictionary form, not the た form, and it says \"won't\" or \"surely not\". A happy face points the other way.",
-          "From what the speaker can see, a happy face, comes a guess the speaker is sure of.",
+          "After the た form, ことはない means \"has never\". Cheers of おめでとう do not lead to \"he has never passed\".",
+          "まい cannot follow the た form 合格した, and it says \"won't\" or \"surely not\". The cheers point the other way.",
+          "From what the speaker can hear, the cheers, comes a guess the speaker is sure of.",
           "かねる follows the ます stem, not the た form, and it is about what someone can't bring themselves to do."
         ]
       },
@@ -161,12 +161,12 @@
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "何度もうそをつかれたので、もう",
+        "before": "テレビの音はうるさいし、こんなに",
         "after": "。",
         "tiles": [
-          "あの人の",
-          "言うことなんか",
-          "信じる",
+          "散らかった部屋で",
+          "勉強に",
+          "集中できる",
           "ものか"
         ],
         "star": 1,
@@ -176,9 +176,9 @@
           3,
           1
         ],
-        "hint": "ものか follows the dictionary form. Whose words does the speaker refuse to believe?",
-        "full": "何度もうそをつかれたので、もうあの人の言うことなんか信じる{ものか}。",
-        "explain": "あの人の goes with 言うこと, なんか makes light of it, and the dictionary form 信じる comes before ものか: \"I'll never believe a word that person says.\""
+        "hint": "ものか follows a verb in the plain present. What does こんなに go with?",
+        "full": "テレビの音はうるさいし、こんなに散らかった部屋で勉強に集中できる{ものか}。",
+        "explain": "こんなに goes with 散らかった, and 散らかった部屋で says where. 勉強に goes with 集中できる, the plain present that comes before ものか: \"How could anyone concentrate on studying in a room this messy?\""
       },
       {
         "id": "u08d6.d5",
@@ -205,7 +205,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "友人の^頼みなので断りたくはないが^、^この条件では^引き受け（　　）。",
+        "q": "友人の頼みなので^力になりたいが^、^この条件では^引き受け（　　）。",
         "options": [
           "ざるを得ない",
           "かねる",
@@ -214,7 +214,7 @@
         ],
         "answer": 2,
         "why": [
-          "引き受けざるを得ない is a correct join, but it means \"I have to accept\". After 断りたくはないが, the speaker is about to say no, not yes.",
+          "引き受けざるを得ない is a correct join, but it means \"I have no choice but to accept\". After 力になりたいが (I'd like to help, but), what follows must be a no, not a yes.",
           "The ます stem plus かねる: on these terms the speaker can't bring themselves to accept, even for a friend.",
           "ほかない follows the dictionary form (引き受けるほかない), not the ます stem.",
           "ことはない follows the dictionary form (引き受けることはない), not the ます stem."
@@ -225,19 +225,19 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "体調が悪かったが、^自分がいないと会議が始まらない^ので、休む（　　）と思い、^無理をして出勤した^。",
+        "q": "量は多かったが、^祖母が一生懸命作ってくれた^料理を残す（　　）ので、^全部食べた^。",
         "options": [
-          "わけがない",
+          "わけではない",
           "ほかない",
           "わけにはいかない",
           "ざるを得ない"
         ],
         "answer": 3,
         "why": [
-          "わけがない (N3) judges that something cannot be true. The speaker is not judging a fact but deciding they must not stay home, as 無理をして shows.",
-          "ほかない would mean staying home was the only way, but the speaker went to work.",
-          "The meeting can't start without the speaker, so for that reason they can't take the day off.",
-          "ざるを得ない follows the ない form without ない (休まざるを得ない), not 休む. It would also mean staying home was forced, but the speaker went in."
+          "わけではない (N3) says \"it's not that…\", a partial denial. \"It's not that I leave it\" gives no reason to eat it all; the speaker means leaving food is out of the question.",
+          "ほかない would mean leaving food was the only way, but the speaker ate it all.",
+          "The speaker's grandmother worked hard to make it, so for that reason the speaker can't leave any.",
+          "ざるを得ない follows the ない form without ない (残さざるを得ない), not 残す. It would also mean leaving food was forced, but the speaker ate it all."
         ]
       },
       {
@@ -245,24 +245,24 @@
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "去年の大会で味わったような",
-        "after": "心に[誓|ちか]った。",
+        "before": "静かな図書館で隣の人のおなかが大きく鳴り、",
+        "after": "笑ってしまった。",
         "tiles": [
-          "悔しい思いは",
-          "二度と",
-          "する",
-          "まいと"
+          "笑う",
+          "まいと",
+          "したが",
+          "つい"
         ],
         "star": 2,
         "bank": [
           3,
-          1,
+          2,
           0,
-          2
+          1
         ],
-        "hint": "まい follows the dictionary form. Which noun does 味わったような describe?",
-        "full": "去年の大会で味わったような悔しい思いは二度とする{まい}と心に[誓|ちか]った。",
-        "explain": "味わったような describes 悔しい思い, 二度と goes with the verb, and the dictionary form する comes before まい: \"never again\"."
+        "hint": "まい follows the dictionary form here. Which word goes with 笑ってしまった?",
+        "full": "静かな図書館で隣の人のおなかが大きく鳴り、笑う{まい}としたがつい笑ってしまった。",
+        "explain": "The dictionary form 笑う comes before まい, and 笑うまいとした is \"I tried not to laugh\". したが turns to what happened, and つい goes with 笑ってしまった: \"but I couldn't help it.\""
       }
     ],
     "exam": [
@@ -271,7 +271,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "専門家の調査の結果、この寺の柱は建てられた当時のもの（　　）と発表された。",
+        "q": "使われている木の種類や削り方を見ると、この寺の柱は建てられた当時のもの（　　）。",
         "options": [
           "かねる",
           "ことはない",
@@ -279,14 +279,14 @@
           "に相違ない"
         ],
         "answer": 4,
-        "explain": "A formal announcement of a firm conclusion, after the noun もの: に相違ない. かねる follows the ます stem, and ことはない and までもない follow the dictionary form of a verb; none of them can follow a noun."
+        "explain": "A firm conclusion in formal writing, after the noun もの: に相違ない. かねる follows the ます stem, and ことはない and までもない follow the dictionary form of a verb; none of them can follow a noun."
       },
       {
         "id": "u08d6.e2",
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "会議の資料は後でメールで送りますから、取りに（　　）よ。",
+        "q": "会議の資料は後でメールで送るから、わざわざ取りに（　　）よ。",
         "options": [
           "来ることはない",
           "来ないことはない",
@@ -294,7 +294,7 @@
           "来ざるを得ない"
         ],
         "answer": 1,
-        "explain": "The papers will come by email, so there is no need to come for them: 来ることはない. 来ないことはない (N3) means \"it's not that you won't come\", a half yes. 来ないわけにはいかない and 来ざるを得ない both say you must come, which the email makes unnecessary."
+        "explain": "The papers will come by email, so there is no need to come for them: 来ることはない. 来ないことはない (N3) is a hesitant yes, \"it's not that I won't come\"; it cannot tell someone not to bother. 来ないわけにはいかない and 来ざるを得ない both say you must come, which the email makes unnecessary."
       },
       {
         "id": "u08d6.e3",
@@ -364,7 +364,7 @@
         "gloss": "relationship (to the head of household)",
         "parts": [
           ["続", "つづき", "continue: 続く"],
-          ["柄", "がら", "pattern, kind"]
+          ["柄", "がら", "pattern, nature"]
         ]
       },
       {
@@ -386,7 +386,7 @@
           ["生", "セイ", "birth"],
           ["年", "ネン", "year"],
           ["月", "ガッ", "month"],
-          ["日", "ピ", "day"]
+          ["日", "ぴ", "day"]
         ]
       },
       {
@@ -432,13 +432,13 @@
     "en": "Finding information",
     "ask": "What does this person need to bring?",
     "seconds": 110,
-    "passage": "みどり区役所　引っ越しの手続きについて\n引っ越しをした日から14日以内に、区民課の窓口で手続きをしてください。\n■区内で引っ越した方\n・本人確認書類（運転免許証など）\n■^ほかの市区町村から引っ越してきた方^\n・本人確認書類\n・前の住所の役所で受け取った転出証明書\n※マイナンバーカードを使って転出の手続きをした方は、転出証明書の代わりに、^そのマイナンバーカード^をお持ちください。\n※転出証明書もマイナンバーカードもお持ちでない場合は、手続きをお受けいたしかねます。\n■ご本人が来られない場合\n・本人確認書類は、^窓口に来る方のもの^をお持ちください。\n・委任状も必要です。ただし、同じ世帯の方が来る場合は、^委任状は必要ありません^。",
+    "passage": "【みどり区役所】引っ越しの手続きについて\n引っ越しをした日から14日以内に、区民課の窓口で手続きをしてください。\n■区内で引っ越した方\n・本人確認書類（運転免許証など）\n■^ほかの市区町村から引っ越してきた方^\n・本人確認書類\n・前の住所の役所で受け取った転出証明書\n※マイナンバーカードを使って転出の手続きをした方は、転出証明書の代わりに、^そのマイナンバーカード^をお持ちください。\n※転出証明書もマイナンバーカードもお持ちでない場合は、手続きをお受けいたしかねます。\n■ご本人が来られない場合\n・本人確認書類は、^窓口に来る方のもの^をお持ちください。\n・委任状も必要です。ただし、同じ世帯の方が来る場合は、^委任状は必要ありません^。",
     "strategy": "First pick out the conditions in the question (where he moved from, how he moved out, who goes), then read the line that applies to each one.",
     "item": {
       "id": "u08d6.r1",
       "kind": "choice",
       "type": "読解・情報検索",
-      "q": "田中さんは先週、ほかの市からみどり区に引っ越してきた。前の市では、マイナンバーカードを使って転出の手続きをした。平日は仕事を休むわけにはいかないので、同じ世帯の母に手続きを頼むことにした。母が区役所に持っていくものはどれか。",
+      "q": "田中さんは先週、ほかの市からみどり区に引っ越してきた。前の市では、マイナンバーカードを使って転出の手続きをした。平日は仕事を休むわけにはいかないので、同じ世帯の母に手続きを頼むことにした。母が区役所に持っていかなければならないものはどれか。",
       "options": [
         "母の本人確認書類と、田中さんのマイナンバーカードと、委任状",
         "母の本人確認書類と、田中さんのマイナンバーカード",
@@ -456,7 +456,7 @@
       "why": [
         "His mother is in the same household, so no 委任状 (letter of authority) is needed.",
         "",
-        "Tanaka moved out with his My Number card, so he has no 転出証明書. The card is brought in its place.",
+        "Tanaka moved out with his My Number card, so the notice says to bring that card in place of the 転出証明書.",
         "The ID must belong to the person who comes, his mother, and the same household needs no 委任状."
       ]
     }
