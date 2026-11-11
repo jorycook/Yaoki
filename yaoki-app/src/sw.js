@@ -104,7 +104,7 @@ self.addEventListener('fetch', (event) => {
 /* the app names the learner's level: store all of that level's sound for offline use, in the background */
 self.addEventListener('message', (event) => {
   const lv = event.data && event.data.keepLevel;
-  if (typeof lv !== 'string' || !/^n\d$/.test(lv)) return;
+  if (typeof lv !== 'string' || !/^(n\d|kana)$/.test(lv)) return;
   /* #if N1 */
   /* the N1 app is one level: its lazy files are the course's clips (assets/audio/*.mp3), asked for once there is a plan */
   const mine = lv === 'n1' ? Object.keys(LAZY) : [];

@@ -28,5 +28,12 @@ run "writing: strokes for every scene kanji" python3 ../tools/make-strokes.py --
 run "app: writing with a finger" timeout 900 bash run-app.sh write-flow.js
 run "canvas: writing with a finger" timeout 900 bash run.sh write-flow.js
 run "N1 app: writing with a finger" YK_LEVEL=N1 timeout 900 bash run-app.sh write-flow-n1.js
+# the kana course (かな): day 1 end to end with a finger, a sentence day, a week test and the way on to N5, in both
+# runtimes; every kana day and week test swept for layout; its clips all packed and said as their romaji
+run "app: kana course"           timeout 900 bash run-app.sh kana-flow.js
+run "canvas: kana course"        timeout 900 bash run.sh kana-flow.js
+run "app: every kana day"        NOSOUND=1 timeout 3000 bash run-app.sh kana-sweep.js
+run "kana: content from its tables" node ../tools/make-kana.mjs --check
+run "kana: clips"                python3 ../tools/kana_clips.py --pack-only
 echo "=== preview"; NODE_PATH=/opt/npm-tools/node_modules node preview-test.js 2>&1 | tail -3
 echo "##### release checks done"

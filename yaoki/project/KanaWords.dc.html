@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kana words</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
+<script src="./course.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="group" aria-label="{{ barLabel }}" style="flex-grow: 1; min-width: 0; display: grid; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr))">
+<sc-for list="{{ bar }}" as="b" hint-placeholder-count="2"><button onClick="{{ b.go }}" aria-disabled="{{ b.off }}" aria-label="{{ b.aria }}" aria-current="{{ b.cur }}" style="height: 44px; min-width: 0; padding: 0; border: 0; background: transparent; display: flex; align-items: center; cursor: {{ b.cursor }}"><span style="display: block; width: 100%; height: 10px; border-radius: 5px; background: {{ b.bg }}"></span></button></sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #0B7A6B; white-space: nowrap; flex-shrink: 0"><span lang="ja">{{ stepJa }}</span> {{ stepEn }}</div>
+</div>
+
+<sc-if value="{{ atRead }}" hint-placeholder-val="{{ true }}">
+<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div style="margin-top: 4px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35"><span lang="ja">{{ headJa }}</span> <span style="font-size: 14px; font-weight: 700; color: #5A6382">{{ headEn }}</span></h1>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ readIntro }} {{ readCount }} of {{ readTotal }} read.</div>
+</div>
+<div role="list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<sc-for list="{{ rows }}" as="w" hint-placeholder-count="8">
+<button role="listitem" onClick="{{ w.tap }}" aria-label="{{ w.aria }}" style="min-height: 60px; padding: 8px 12px; border-radius: 16px; text-align: left; display: flex; align-items: center; gap: 12px; transition: background 150ms; border: {{ w.border }}; background: {{ w.bg }}; box-shadow: {{ w.shadow }}">
+<span lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.3; flex-shrink: 1; min-width: 0; word-break: keep-all; overflow-wrap: anywhere; color: #1B2440; font-size: {{ w.size }}; max-width: {{ w.maxW }}">{{ w.w }}</span>
+<span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-end; text-align: right">
+<sc-if value="{{ w.open }}" hint-placeholder-val="{{ false }}"><span style="font-size: 15px; font-weight: 800; color: #C7361E">{{ w.r }}</span><span style="font-size: 12px; font-weight: 500; color: #5A6382">{{ w.gloss }}</span></sc-if>
+<sc-if value="{{ w.shut }}" hint-placeholder-val="{{ true }}"><span style="font-size: 12px; font-weight: 700; color: #9AA1B5">tap to check</span></sc-if>
+</span>
+</button>
+</sc-for>
+</div>
+</div>
+<button onClick="{{ fromRead }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　Next: practice</button>
+</sc-if>
+
+<sc-if value="{{ atQuiz }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div style="margin-top: 4px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0">
+<div style="font-size: 13px; font-weight: 800; color: #5A6382">{{ q.head }}</div>
+<div role="img" aria-label="{{ q.countAria }}" style="padding: 2px 8px; border-radius: 8px; background: #E0F3EF; color: #0B7A6B; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0">{{ q.count }}</div>
+</div>
+<div style="margin-top: 8px; min-height: 170px; padding: 12px; box-sizing: border-box; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; flex-shrink: 0">
+<sc-if value="{{ q.isRead }}" hint-placeholder-val="{{ true }}"><div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.2; text-align: center; word-break: keep-all; overflow-wrap: anywhere; font-size: {{ q.size }}">{{ q.big }}</div></sc-if>
+<sc-if value="{{ q.isHear }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ q.play }}" aria-label="Play the word again" style="width: 88px; height: 88px; border-radius: 50%; border: 3px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; justify-content: center; transition: background 150ms; background: {{ q.playBg }}"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
+<sc-if value="{{ q.letters }}" hint-placeholder-val="{{ false }}"><div style="font-size: 20px; font-weight: 800; color: #C7361E; text-align: center">{{ q.romaji }}</div></sc-if>
+<sc-if value="{{ q.offerLetters }}" hint-placeholder-val="{{ true }}"><button onClick="{{ q.showLetters }}" style="height: 44px; padding: 0 12px; border: 0; background: transparent; font-size: 12px; font-weight: 700; color: #2F4FD0">No sound? Show it in letters</button></sc-if>
+</sc-if>
+<sc-if value="{{ q.hasGloss }}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; font-weight: 600; color: #5A6382">{{ q.gloss }}</div></sc-if>
+</div>
+<div style="margin-top: 10px; display: grid; gap: 10px 8px; flex-shrink: 0; grid-template-columns: {{ q.cols }}">
+<sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
+<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="min-height: 58px; padding: 6px 10px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}"><span lang="{{ o.lang }}" style="font-weight: {{ o.weight }}; font-family: {{ o.font }}; font-size: {{ o.size }}; line-height: 1.3">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+</sc-for>
+</div>
+<sc-if value="{{ q.explained }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; padding: 12px 14px; border-radius: 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; animation: yk-up 220ms ease-out; background: {{ q.sheetBg }}">
+<div style="font-size: 18px; font-weight: 800">{{ q.verdictJa }} <span style="font-size: 13px; font-weight: 700">{{ q.verdictEn }}</span></div>
+<sc-for list="{{ q.whys }}" as="w" hint-placeholder-count="2">
+<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13px; font-weight: 500; line-height: 1.45">
+<sc-if value="{{ w.ok }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 3px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
+<sc-if value="{{ w.no }}" hint-placeholder-val="{{ false }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your pick" style="flex-shrink: 0; margin-top: 3px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
+<div>{{ w.text }}</div>
+</div>
+</sc-for>
+<sc-if value="{{ q.saved }}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; font-weight: 700">Saved to your mistake notebook. It comes back tomorrow.</div></sc-if>
+</div>
+</sc-if>
+</div>
+<button onClick="{{ quizNext }}" aria-disabled="{{ quizLocked }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ quizBtn.border }}; background: {{ quizBtn.bg }}; color: {{ quizBtn.color }}; box-shadow: {{ quizBtn.shadow }}; cursor: {{ quizBtn.cursor }}"><span lang="ja">{{ quizNextJa }}</span>　{{ quizNextEn }}</button>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"moment":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* The words lesson of a day of the kana course, in two steps:
+     読む read: the day's words (or, on the day of は, を and へ, its sentences), written in kana only. The learner reads
+          each one first, then taps it to hear it and see its sound in letters and its meaning;
+     練習 practice: six questions, answered with a tap and explained at once: a word read (its romaji picked), or a word
+          heard (its spelling picked from spellings that differ by one kana); a miss goes to the notebook.
+   Progress (Today): rs 1 once the words are read, r 1 once practised.
+   On its own the artboard shows the designed moment: the first day's words, three of them checked. */
+const STEPS = ['read', 'quiz'];
+const NAMES = { read: ['読む', 'READ', 'Read the words'], quiz: ['練習', 'PRACTICE', 'Practice'] };
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+const p = ((props && props.app) || {}).prog || {};
+const at = p.r ? 0 : p.rs ? 1 : 0;
+const list = this.words(props).list || [];
+this.state = { step: STEPS[at], reached: p.rs || p.r ? 1 : 0, open: props && props.go ? [] : list.slice(0, 3).map((w) => w.id), i: 0, pick: null, letters: false, playing: '' };
+}
+words(props) {
+const C = window.ykCourse;
+const app = (props && props.app) || {};
+const day = app.day && app.day.kana ? app.day : C.day('kanau01d1');
+return (day && day.words) || { list: [], quiz: [] };
+}
+componentWillUnmount() { this.hush(); }
+hush() {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+say(key, who) {
+clearTimeout(this.timer);
+const snd = window.ykSound;
+const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
+this.setState({ playing: who });
+this.timer = setTimeout(() => this.setState({ playing: '' }), sound ? snd.ms(key) + 150 : 700);
+}
+renderVals() {
+const C = window.ykCourse;
+const s = this.state;
+const words = this.words(this.props);
+const list = words.list || [];
+const quiz = words.quiz || [];
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const save = (patch) => { if (this.props.save) this.props.save(patch); };
+const at = STEPS.indexOf(s.step);
+const goStep = (n) => { this.hush(); this.setState({ step: STEPS[n], reached: Math.max(this.state.reached, n), i: 0, pick: null, letters: false, playing: '' }); };
+const sentences = list.some((w) => /。/.test(w.w));
+const out = {
+bar: STEPS.map((k, n) => ({
+bg: n <= at ? '#0B7A6B' : '#DDE1EC',
+off: n > s.reached,
+cursor: n > s.reached || n === at ? 'default' : 'pointer',
+cur: n === at ? 'step' : 'false',
+aria: NAMES[k][2] + (n > s.reached ? ', not yet open' : ''),
+go: () => { if (n <= this.state.reached && n !== at) goStep(n); },
+})),
+barLabel: 'Step ' + (at + 1) + ' of 2',
+stepJa: NAMES[s.step][0],
+stepEn: NAMES[s.step][1],
+atRead: s.step === 'read',
+atQuiz: s.step === 'quiz',
+headJa: sentences ? 'ぶん' : 'ことば',
+headEn: sentences ? 'Sentences' : 'Words',
+readIntro: sentences ? 'Read each sentence aloud, then tap it to hear it and check.' : 'Read each word aloud first, then tap it to hear it and check.',
+readCount: s.open.length,
+readTotal: list.length,
+toToday: nav('Today'),
+};
+out.rows = list.map((w) => {
+const open = s.open.includes(w.id);
+const lit = s.playing === w.id;
+const len = Array.from(w.w).length;
+return {
+w: w.w,
+r: w.r,
+gloss: w.gloss,
+open,
+shut: !open,
+size: sentences ? '20px' : len <= 4 ? '28px' : len <= 7 ? '23px' : '19px',
+maxW: sentences ? '62%' : '70%',
+border: lit ? '2.5px solid #F2B43A' : open ? '2px solid #1B2440' : '2px dashed #C9D0E3',
+bg: lit ? '#FFF4D6' : '#FFFFFF',
+shadow: open ? '0 3px 0 #1B2440' : 'none',
+aria: open ? w.w + ', ' + w.r + ', ' + w.gloss + '. Play it again' : w.w + '. Tap to hear it and see its reading',
+tap: () => { this.setState({ open: open ? this.state.open : this.state.open.concat(w.id) }); this.say(w.clip, w.id); },
+};
+});
+out.fromRead = () => { save({ prog: { rs: 1 } }); goStep(1); this.sayItem(0); };
+
+/* ---------- practice ---------- */
+const qi = Math.min(s.i, Math.max(0, quiz.length - 1));
+const it = quiz[qi] || { options: [], why: [], q: '', mode: 'read', type: '' };
+const answered = s.pick !== null;
+const hear = it.mode === 'hear';
+const longest = Math.max(0, ...it.options.map((o) => Array.from(o).length));
+const big = it.big || C.plain(it.q);
+const bl = Array.from(big).length;
+const hasSound = !!(window.ykSound && it.clip && window.ykSound.has(it.clip));
+const right = answered && s.pick === it.answer;
+out.q = {
+head: it.type + '　' + (it.label || ''),
+count: (qi + 1) + ' / ' + quiz.length,
+countAria: 'Question ' + (qi + 1) + ' of ' + quiz.length,
+isRead: !hear,
+isHear: hear,
+big,
+size: bl <= 3 ? '68px' : bl <= 5 ? '52px' : bl <= 8 ? '38px' : '26px',
+playBg: s.playing === 'q' ? '#F2B43A' : '#E0F3EF',
+play: () => this.say(it.clip, 'q'),
+romaji: big,
+letters: hear && (s.letters || answered || !hasSound),
+offerLetters: hear && !s.letters && !answered && hasSound,
+showLetters: () => this.setState({ letters: true }),
+hasGloss: !!it.gloss && (answered || !hear),
+gloss: it.gloss || '',
+cols: longest > 9 ? '1fr' : 'repeat(2, minmax(0, 1fr))',
+explained: answered,
+sheetBg: right ? '#E0F3EF' : '#FDEBE6',
+verdictJa: right ? 'せいかい！' : 'おしい！',
+verdictEn: right ? 'Correct' : 'Not quite',
+saved: answered && !right,
+whys: (it.why || []).map((text, k) => ({ text, ok: k + 1 === it.answer, no: k + 1 !== it.answer, k })).filter((w) => w.ok || w.k + 1 === s.pick),
+};
+out.opts = it.options.map((label, k) => {
+const num = k + 1;
+const on = s.pick === num;
+let look = { border: '2px solid #1B2440', bg: '#FFFFFF', shadow: '0 3px 0 #1B2440', color: '#1B2440', weight: 800 };
+if (answered) {
+if (num === it.answer) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3EF', shadow: 'none', color: '#1B2440', weight: 800 };
+else if (on) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440', weight: 800 };
+else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382', weight: 700 };
+}
+const isKana = /[぀-ヿ]/.test(label);
+return {
+label,
+on,
+lang: isKana ? 'ja' : 'en',
+aria: label + (answered && num === it.answer ? ', correct' : answered && on ? ', your answer' : ''),
+font: isKana ? "'Klee One', 'Hiragino Mincho ProN', serif" : "'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif",
+size: isKana ? (longest <= 4 ? '26px' : longest <= 7 ? '21px' : '17px') : longest <= 8 ? '20px' : '16px',
+right: answered && num === it.answer,
+bad: answered && on && num !== it.answer,
+pick: () => {
+if (this.state.pick !== null) return;
+if (num !== it.answer && this.props.miss) this.props.miss({ src: it.id, wrong: label });
+this.setState({ pick: num });
+if (it.clip) this.say(it.clip, 'q');
+},
+...look,
+};
+});
+const lastQ = qi >= quiz.length - 1;
+out.quizLocked = !answered;
+out.quizNextJa = answered ? 'つぎへ' : 'えらんでから';
+out.quizNextEn = answered ? (lastQ ? 'Finish the words' : 'Next') : 'Pick an answer first';
+out.quizBtn = answered
+? { border: '2px solid #1B2440', bg: '#0B7A6B', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' }
+: { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none', cursor: 'default' };
+out.quizNext = (e) => {
+if (this.state.pick === null) return;
+if (!lastQ) { this.hush(); this.setState({ i: qi + 1, pick: null, letters: false, playing: '' }); this.sayItem(qi + 1); return; }
+save({ prog: { rs: 1, r: 1 } });
+nav('Today')(e);
+};
+return out;
+}
+/* a question that is heard plays its word as it comes (from inside the tap that brought it) */
+sayItem(i) {
+const it = (this.words(this.props).quiz || [])[i];
+if (it && it.mode === 'hear') this.say(it.clip, 'q');
+}
+}
+</script>
+</body>
+</html>

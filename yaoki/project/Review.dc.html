@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
 <script src="./course-n5.js"></script>
 <script src="./course-n4.js"></script>
 <script src="./course-n3.js"></script>
@@ -49,7 +50,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </sc-if>
 
-<div lang="ja" style="margin-top: 10px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 2; flex-shrink: 0; font-size: {{ it.size }}"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
+<div lang="ja" style="margin-top: 10px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 2; flex-shrink: 0; font-size: {{ it.size }}"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="border-bottom: {{ g.line }}; border-radius: 4px; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div>
 <div lang="ja" style="margin-top: 12px; display: grid; gap: 10px 8px; flex-shrink: 0; grid-template-columns: {{ cols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
 <button disabled="{{ o.off }}" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="min-height: 54px; padding: 6px 12px; border-radius: 14px; display: flex; align-items: center; gap: 6px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}; font-weight: {{ o.weight }}"><span style="font-size: 12px; color: #5A6382">{{ o.n }}</span><span style="flex-grow: 1">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
@@ -163,7 +164,8 @@ this.setState({ picks: this.state.picks.map((p, j) => (j === this.state.i ? n : 
 });
 let segs;
 if (q.starQ) segs = [{ t: C.plain(q.before) + ' ' + ['＿', '＿', '＿', '＿'].map((b, k) => (k === q.star ? '★' : b)).join(' ') + ' ' + C.plain(q.after), plain: true, line: 'none' }];
-else segs = C.rich(q.q, { hl: false });
+/* a question on one kana of a sentence (ぶん読み, the kana course) keeps that kana marked */
+else segs = C.rich(q.q, { hl: q.type === 'ぶん読み' });
 const context = q.passage || q.script || '';
 const streak = answered ? (correct ? (entry.step || 0) + 1 : 0) : entry.step || 0;
 const target = !answered ? Math.min(entry.step || 0, 2) : correct ? Math.min(streak, 3) : 0;
@@ -192,7 +194,8 @@ tag: q.type,
 tagBg: area.tagBg,
 tagColor: area.tagColor,
 segs,
-size: C.plain(q.q).length > 30 ? '17px' : '20px',
+/* a kana, a word or its sound in letters (the kana course) is shown large */
+size: C.plain(q.q).length <= 2 ? '56px' : C.plain(q.q).length <= 8 && /かな|ことば/.test(q.type) ? '34px' : C.plain(q.q).length > 30 ? '17px' : '20px',
 hasContext: !!context,
 contextHead: q.script ? 'スクリプト　The script (read it this time)' : '本文　The text',
 context,

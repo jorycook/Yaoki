@@ -726,6 +726,11 @@ const FAKE_VOICE_LOG = `(function () {
   check('without speech recognition the menu says which browsers have it, and does not start', (await page.isVisible('#no-speech')) && /Safari/.test(await page.textContent('#no-speech')) && (await page.isDisabled('#start')));
   await page.context().close();
 
+  // ---- a learner of the app's kana course (かな) starts at the first steps, like someone new
+  page = await open({}, { [appKey]: { started: true, level: 'KANA', cur: 'kanau01d2' } }, [SFX_STUB]);
+  check('a learner of the app\'s kana course starts at the first steps, not course words', (await page.textContent('#modes [aria-pressed="true"]')).includes('あいうえお'), await page.textContent('#modes [aria-pressed="true"]'));
+  await page.context().close();
+
   // ---- course words: the learner's week, the reading above the word, the word's own voice after it is said
   page = await open({ colorScheme: 'dark' }, { [appKey]: { started: true, level: 'N5', cur: 'n5u02d1' } }, [() => {
     window.ykSound = { has: () => true, unlock: () => true, ms: () => 900, play: (clip) => { window.__played = clip; return true; } };

@@ -485,6 +485,12 @@ async function waitFor(fn, ms = 5000) {
   await setHints(2);
   await page.close();
 
+  // ---- a learner of the app's kana course (かな) starts with the kana, not with a level's course words
+  page = await open({}, { [appKey]: { started: true, level: 'KANA', cur: 'kanau01d2' } }, [SFX_STUB, MUSIC_STUB]);
+  check('a learner of the app\'s kana course starts at romaji input with the kana, not course words', (await page.textContent('#modes [aria-pressed="true"]')).includes('ローマ字')
+    && (await page.getAttribute('#stages [aria-pressed="true"]', 'data-stage')) !== 'course' && !(await page.isVisible('#course-pick')), await page.getAttribute('#stages [aria-pressed="true"]', 'data-stage'));
+  await page.close();
+
   // ---- course words: the learner's week, the reading and meaning, the word's sound
   page = await open({ colorScheme: 'dark' }, { [appKey]: { started: true, level: 'N4', cur: 'n4u03d2' } }, [() => {
     window.ykSound = { has: () => true, unlock: () => true, play: (clip) => { window.__played = clip; return true; } };

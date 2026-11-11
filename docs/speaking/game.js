@@ -238,8 +238,10 @@
   const SINGLE_SOUNDS = new Set(['kana:basic', 'kana:voiced', 'kana:katakana'].concat(STAGES.start.map((st) => 'start:' + st.id)));
   const LEVELS = ['N5', 'N4', 'N3', 'N2'];
 
-  // someone new to the page starts at the first kana, unless the Yaoki app shows they are studying a course
-  if (!MODES[saved.mode] || (saved.mode === 'start' && !STAGES.start.length)) saved.mode = place ? 'course' : STAGES.start.length ? 'start' : 'kana';
+  // someone new to the page starts at the first kana, unless the Yaoki app shows they are studying a course (the app's
+  // kana course, かな, counts as starting out: its learners start at the kana too)
+  const startingOut = !place || place.level === 'KANA';
+  if (!MODES[saved.mode] || (saved.mode === 'start' && !STAGES.start.length)) saved.mode = !startingOut ? 'course' : STAGES.start.length ? 'start' : 'kana';
   if (!LEVELS.includes(saved.level)) saved.level = place && LEVELS.includes(place.level) ? place.level : 'N5';
   if (!saved.stage.kana) saved.stage.kana = 'words';
   if (!saved.stage.start) saved.stage.start = 'h1';
