@@ -1,0 +1,574 @@
+{
+ "title": "〜さえ〜ば・〜次第で",
+ "grammar": {
+  "points": [
+   {
+    "id": "u04d3.p1",
+    "form": "〜さえ〜ば",
+    "gloss": "as long as …; if only …",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜{さえ} ＋ 〜ば／〜なら"
+     },
+     {
+      "pos": "Verb, polite-form stem",
+      "rule": "〜 ＋ {さえ}すれば"
+     },
+     {
+      "pos": "Verb, te-form",
+      "rule": "〜て ＋ {さえ}いれば"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "パスワード{さえ}わかれば、すぐにログインできるのに。",
+      "en": "If only I knew the password, I could log in right away."
+     },
+     {
+      "ja": "この書類にサインし{さえ}すれば、明日から働けます。",
+      "en": "Just sign this form, and you can start work tomorrow."
+     }
+    ],
+    "watch": {
+     "note": "With a verb, put さえ on the ます stem and add すれば (確認しさえすれば), or put さえ on the object (書類さえ確認すれば). Do not add さえすれば to the dictionary form.",
+     "bad": "書類を確認するさえすれば、問題ありません。",
+     "good": "書類を確認しさえすれば、問題ありません。"
+    }
+   },
+   {
+    "id": "u04d3.p2",
+    "form": "〜次第で",
+    "gloss": "depending on …; … decides it",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ {次第で}"
+     },
+     {
+      "pos": "Noun, end of sentence",
+      "rule": "〜 ＋ {次第だ}／{次第です}"
+     },
+     {
+      "pos": "Noun, \"in some cases\"",
+      "rule": "〜 ＋ {次第では}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "参加者の人数{次第で}、会場を変えるかもしれません。",
+      "en": "Depending on how many people come, we may change the venue."
+     },
+     {
+      "ja": "安い材料でも、料理の仕方{次第で}おいしくなります。",
+      "en": "Even cheap ingredients can taste good, depending on how you cook them."
+     }
+    ],
+    "watch": {
+     "note": "次第で says one thing decides how something turns out. To say that things simply differ from one case to another, use によって.",
+     "bad": "国次第で、あいさつの仕方が違います。",
+     "good": "国によって、あいさつの仕方が違います。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three tie a result to a condition. さえ〜ば says one thing is all it takes, 次第で says one thing decides the outcome, and によって says the result differs from case to case.",
+   "forms": [
+    {
+     "form": "〜さえ〜ば",
+     "tag": "それだけで十分 · as long as",
+     "mark": "dot",
+     "ja": "ネットに{さえ}つながれば、どこでも仕事ができます。",
+     "en": "As long as I can get online, I can work anywhere."
+    },
+    {
+     "form": "〜次第で",
+     "tag": "〜で決まる · depending on",
+     "mark": "dot",
+     "ja": "売り上げ{次第で}、来年の予算が決まります。",
+     "en": "Next year's budget will depend on sales."
+    },
+    {
+     "form": "〜によって",
+     "tag": "それぞれ違う · varies by",
+     "mark": "dot",
+     "ja": "店{によって}、同じ商品でも値段がかなり違います。",
+     "en": "Even the same product varies quite a lot in price from shop to shop."
+    }
+   ],
+   "check": {
+    "id": "u04d3.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "パーティーの前に",
+    "q": "パーティーに出るかどうかは、本人の気分（　　）です。",
+    "options": [
+     "さえあれば",
+     "次第",
+     "によって"
+    ],
+    "answer": 2,
+    "why": [
+     "さえあれば needs a result after it, and \"if only there were a mood\" makes no sense.",
+     "Whether he comes depends on how he feels: noun + 次第です at the end of the sentence.",
+     "によって cannot end a sentence with です. You would need 気分によります."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u04d3.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このソフトは、説明書のとおりに（　　）、^だれでも簡単に使えます^。",
+    "options": [
+     "設定したあげく",
+     "設定しさえすれば",
+     "設定しないことには",
+     "設定するにあたって"
+    ],
+    "answer": 2,
+    "why": [
+     "あげく ends a long struggle, usually with a bad result. Here nothing went wrong.",
+     "Setting it up as the manual says is all it takes, and then anyone can use it easily.",
+     "ないことには needs a negative result after it, such as 使えません.",
+     "にあたって marks a formal occasion (\"when starting to\") and needs what you do at that time after it, not an ability."
+    ]
+   },
+   {
+    "id": "u04d3.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "仕事のやり方は、^本人のやる気^（　　）、すぐに覚えられますよ。",
+    "options": [
+     "だけあって",
+     "に限って",
+     "次第で",
+     "をはじめ"
+    ],
+    "answer": 3,
+    "why": [
+     "だけあって praises a result that lives up to a known fact (プロだけあって). Here the result depends on the person and is not known yet.",
+     "に限って means \"only in this case\" or \"of all times\". It does not say what decides the result.",
+     "How fast you learn depends on how keen you are: noun + 次第で.",
+     "をはじめ starts a list (\"X and others\"). Nothing is listed here."
+    ]
+   },
+   {
+    "id": "u04d3.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^毎日少しずつでも^（　　）、日本語は^必ず上手になります^。",
+    "options": [
+     "続けてさえいれば",
+     "続けない限り",
+     "続けたとたん",
+     "続けている最中に"
+    ],
+    "answer": 1,
+    "why": [
+     "As long as you keep going, even a little a day, you will improve: te-form + さえいれば.",
+     "ない限り means \"unless\". \"Unless you keep going, you will improve\" says the opposite of what is meant.",
+     "たとたん is \"the moment I did\": one past moment and a sudden change. It cannot lead to 必ず上手になります.",
+     "最中に is \"right in the middle of\" an action, usually when something interrupts it. It does not give a condition."
+    ]
+   },
+   {
+    "id": "u04d3.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "検査の結果（　　）、^手術が必要になる場合もあります^。",
+    "options": [
+     "ばかりか",
+     "を機に",
+     "にあたって",
+     "次第では"
+    ],
+    "answer": 4,
+    "why": [
+     "ばかりか is \"not only X but also\": a second thing would have to be added with も.",
+     "を機に is \"taking the chance of\": a new start or a decision follows it. A test result does not give a chance to need surgery.",
+     "にあたって marks the occasion of an important step, and what you do then follows. A result is not such an occasion.",
+     "In some cases, depending on the results: 次第では goes well with 場合もあります."
+    ]
+   },
+   {
+    "id": "u04d3.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "うちの子は、",
+    "after": "いいんです。",
+    "tiles": [
+     "ゲーム",
+     "さえ",
+     "させておけば",
+     "機嫌が"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "hint": "さえ follows the noun it singles out. Which tile goes with いいんです?",
+    "full": "うちの子は、ゲーム{さえ}させておけば機嫌がいいんです。",
+    "explain": "ゲームさえ singles out the one thing needed, and させておけば gives the condition. 機嫌が is the subject of いい, so it comes last."
+   },
+   {
+    "id": "u04d3.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "店の評判は、",
+    "after": "と思います。",
+    "tiles": [
+     "料理の味より",
+     "店員の",
+     "態度",
+     "次第だ"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "次第だ follows a noun directly. Which noun decides the shop's reputation, and what is it compared with?",
+    "full": "店の評判は、料理の味より店員の態度{次第}だと思います。",
+    "explain": "料理の味より sets up the comparison, 店員の describes 態度, and 態度 takes 次第だ directly: the reputation depends on the staff's manner more than on the food."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u04d3.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "雨（　　）、明日の運動会は予定どおり行います。",
+    "options": [
+     "が降らないことには",
+     "が降ったばかりに",
+     "が降り次第",
+     "さえ降らなければ"
+    ],
+    "answer": 4,
+    "explain": "As long as it does not rain, the sports day goes ahead: さえ…なければ. ないことには needs a negative result after it, ばかりに needs a past result the speaker regrets, and 降り次第 means \"as soon as it rains\", which makes no sense here."
+   },
+   {
+    "id": "u04d3.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この部屋は、使い方（　　）会議室にも教室にもなります。",
+    "options": [
+     "をはじめ",
+     "次第で",
+     "にわたって",
+     "に限って"
+    ],
+    "answer": 2,
+    "explain": "How the room is used decides what it becomes: noun + 次第で. をはじめ starts a list, にわたって covers a stretch of time or space, and に限って means \"only in this case\"."
+   },
+   {
+    "id": "u04d3.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "母は、",
+    "after": "それで十分だと言います。",
+    "tiles": [
+     "家族",
+     "さえ",
+     "元気でいて",
+     "くれれば"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "母は、家族さえ{元気でいて}くれればそれで十分だと言います。",
+    "explain": "家族, さえ, 元気でいて, くれれば. さえ follows the noun, and てくれれば closes the condition, so 元気でいて comes right before くれれば."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "レンタカーの受付で",
+  "en": "At a car rental counter",
+  "intro": "Tap every word you would meet on the rental form and at the counter.",
+  "words": [
+   {
+    "id": "licence",
+    "word": "免許証",
+    "reading": "めんきょしょう",
+    "gloss": "driving licence",
+    "parts": [
+     [
+      "免許",
+      "めんきょ",
+      "licence, permission"
+     ],
+     [
+      "証",
+      "ショウ",
+      "proof: 証明"
+     ]
+    ]
+   },
+   {
+    "id": "model",
+    "word": "車種",
+    "reading": "しゃしゅ",
+    "gloss": "type of car",
+    "parts": [
+     [
+      "車",
+      "シャ",
+      "car"
+     ],
+     [
+      "種",
+      "シュ",
+      "kind: 種類"
+     ]
+    ]
+   },
+   {
+    "id": "fuel",
+    "word": "給油",
+    "reading": "きゅうゆ",
+    "gloss": "refuelling",
+    "parts": [
+     [
+      "給",
+      "キュウ",
+      "supply: 給料"
+     ],
+     [
+      "油",
+      "ユ",
+      "oil: 石油"
+     ]
+    ]
+   },
+   {
+    "id": "mileage",
+    "word": "走行距離",
+    "reading": "そうこうきょり",
+    "gloss": "distance driven, mileage",
+    "parts": [
+     [
+      "走行",
+      "そうこう",
+      "running (of a vehicle)"
+     ],
+     [
+      "距離",
+      "きょり",
+      "distance"
+     ]
+    ]
+   },
+   {
+    "id": "scratch",
+    "word": "傷",
+    "reading": "きず",
+    "gloss": "scratch, damage",
+    "parts": [
+     [
+      "傷",
+      "きず",
+      "wound, scratch"
+     ]
+    ]
+   },
+   {
+    "id": "oneway",
+    "word": "乗り捨て",
+    "reading": "のりすて",
+    "gloss": "one-way rental (returned at another shop)",
+    "parts": [
+     [
+      "乗",
+      "の",
+      "ride"
+     ],
+     [
+      "捨",
+      "す",
+      "throw away: 捨てる"
+     ]
+    ]
+   },
+   {
+    "id": "extend",
+    "word": "延長",
+    "reading": "えんちょう",
+    "gloss": "extension",
+    "parts": [
+     [
+      "延",
+      "エン",
+      "extend: 延期"
+     ],
+     [
+      "長",
+      "チョウ",
+      "long"
+     ]
+    ]
+   },
+   {
+    "id": "cover",
+    "word": "補償",
+    "reading": "ほしょう",
+    "gloss": "cover, compensation",
+    "parts": [
+     [
+      "補",
+      "ホ",
+      "make up for: 補足"
+     ],
+     [
+      "償",
+      "ショウ",
+      "pay back"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u04d3.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "予定が変わったので、レンタカーの利用を一日_延長_しました。",
+   "options": [
+    "えんしょう",
+    "えいちょう",
+    "えんちょう",
+    "えんちょ"
+   ],
+   "answer": 3,
+   "explain": "延長 is えんちょう: 延 is エン as in 延期, and 長 is チョウ as in 校長. 長 is not read ショウ, 延 is not エイ, and the long vowel of ちょう is not dropped."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "ポイント理解",
+  "en": "Point comprehension",
+  "ask": "女の人はどうして小さい車を選びましたか。",
+  "strategy": "Read the four choices first. The price comes up first, but wait for what she says after 実は.",
+  "item": {
+   "id": "u04d3.r1",
+   "kind": "choice",
+   "type": "ポイント理解",
+   "q": "女の人はどうして小さい車を選びましたか。",
+   "script": [
+    "ナレーター：レンタカーの受付で、店の人と女の人が話しています。女の人はどうして小さい車を選びましたか。",
+    "男：いらっしゃいませ。ご予約はされていますか。",
+    "女：いえ、していないんです。今日から二日間借りたいんですが。",
+    "男：大丈夫ですよ。免許証さえお持ちでしたら、すぐにご用意できます。料金は、車種と、どちらの店に返されるか次第で変わります。",
+    "女：家族四人で荷物も多いので、大きい車がいいかなと思っていたんですが。",
+    "男：大きい車は一日一万二千円、小さい車は七千円です。ほかの店で乗り捨てる場合は、別に五千円かかります。",
+    "女：返すのはこの店です。値段はそれほど気にしていないんですけど。",
+    "男：では、大きいほうになさいますか。",
+    "女：そうしたいんですが、実は、泊まる旅館の駐車場がとても狭くて、大きい車は止められないって言われたんです。",
+    "男：そうでしたか。それなら、小さいほうが安心ですね。",
+    "女：ええ。荷物は何とか載せられると思うので、小さいほうにします。",
+    "ナレーター：女の人はどうして小さい車を選びましたか。"
+   ],
+   "options": [
+    "料金が安いから",
+    "荷物が少ないから",
+    "ほかの店で車を返すから",
+    "旅館の駐車場が狭いから"
+   ],
+   "printed": true,
+   "short": [
+    "料金が安い",
+    "荷物が少ない",
+    "ほかの店で返す",
+    "駐車場が狭い"
+   ],
+   "answer": 4,
+   "why": [
+    "She says she does not mind the price much (値段はそれほど気にしていない).",
+    "She has a lot of luggage: a family of four, and 荷物も多い.",
+    "She is returning the car to this shop, so the one-way charge does not apply.",
+    "実は gives the reason: the inn's car park is narrow, and a big car cannot park there."
+   ]
+  },
+  "audio": [
+   [
+    "N",
+    "レンタカーの受付で、店の人と女の人が話しています。女の人はどうして小さい車を選びましたか。",
+    null
+   ],
+   [
+    "M",
+    "いらっしゃいませ。ご予約はされていますか。",
+    null
+   ],
+   [
+    "F",
+    "いえ、していないんです。今日から二日間借りたいんですが。",
+    "いえ、していないんです。きょうからふつかかんかりたいんですが。"
+   ],
+   [
+    "M",
+    "大丈夫ですよ。免許証さえお持ちでしたら、すぐにご用意できます。料金は、車種と、どちらの店に返されるか次第で変わります。",
+    "だいじょうぶですよ。めんきょしょうさえおもちでしたら、すぐにごよういできます。りょうきんは、しゃしゅと、どちらのみせにかえされるかしだいでかわります。"
+   ],
+   [
+    "F",
+    "家族四人で荷物も多いので、大きい車がいいかなと思っていたんですが。",
+    "かぞくよにんでにもつもおおいので、おおきいくるまがいいかなとおもっていたんですが。"
+   ],
+   [
+    "M",
+    "大きい車は一日一万二千円、小さい車は七千円です。ほかの店で乗り捨てる場合は、別に五千円かかります。",
+    "おおきいくるまはいちにちいちまんにせんえん、ちいさいくるまはななせんえんです。ほかのみせでのりすてるばあいは、べつにごせんえんかかります。"
+   ],
+   [
+    "F",
+    "返すのはこの店です。値段はそれほど気にしていないんですけど。",
+    null
+   ],
+   [
+    "M",
+    "では、大きいほうになさいますか。",
+    null
+   ],
+   [
+    "F",
+    "そうしたいんですが、実は、泊まる旅館の駐車場がとても狭くて、大きい車は止められないって言われたんです。",
+    null
+   ],
+   [
+    "M",
+    "そうでしたか。それなら、小さいほうが安心ですね。",
+    null
+   ],
+   [
+    "F",
+    "ええ。荷物は何とか載せられると思うので、小さいほうにします。",
+    "ええ。にもつはなんとかのせられるとおもうので、ちいさいほうにします。"
+   ],
+   [
+    "N",
+    "女の人はどうして小さい車を選びましたか。",
+    null
+   ]
+  ]
+ }
+}

@@ -18,6 +18,7 @@ if '--words' in args:
     del args[k:k + 2]
 
 problems = []
+FORMS = []  # the pieces of the unit's ten forms (次第, からでないと, さえ, ば …), for the {…} in a star item's full
 RUBY = re.compile(r'\[([^|\]]*)\|[^\]]*\]')
 
 
@@ -88,7 +89,19 @@ def choice(where, it, n_options=None, why=False, explain=False, readings=True, b
         bad(where, 'q has no （　　） blank and no _underlined_ word')
 
 
-def star(where, it, hint=False, readings=True):
+def like(form, marked):
+    """the marked text is the form, part of it, or the form inflected (よりほかなかった for よりほかない, かねて for かねる)"""
+    if form in marked or marked in form:
+        return True
+    k = 0
+    while k < min(len(form), len(marked)) and form[k] == marked[k]:
+        k += 1
+    return k >= min(3, len(form) - 1) and k >= 2
+
+
+def star(where, it, hint=False, readings=True, brace='form'):
+    """brace: what {…} in full goes round, as in unit 3: the form taught in a drill item, the ★ tile (the answer) in an
+    exam-style or week test item"""
     if it.get('kind') != 'star':
         return bad(where, 'kind must be star')
     for k in ('id', 'type', 'before', 'after', 'tiles', 'star', 'bank', 'full', 'explain'):
@@ -115,6 +128,13 @@ def star(where, it, hint=False, readings=True):
         bad(where, 'full "%s" is not before + tiles + after "%s"' % (plain(it.get('full')), plain(joined)))
     if '{' not in (it.get('full') or ''):
         bad(where, 'full should mark the form with {…}')
+    else:
+        marked = re.findall(r'\{([^}]*)\}', RUBY.sub(r'\1', it.get('full') or ''))
+        if brace == 'star' and len(tiles) == 4 and it.get('star') in (0, 1, 2, 3):
+            if marked != [plain(tiles[it['star']])]:
+                bad(where, 'in an exam-style or test item, full marks the ★ tile, the answer ({%s}), not {%s}' % (plain(tiles[it['star']]), '}{'.join(marked)))
+        elif brace == 'form' and FORMS and not any(any(like(p, m) for p in FORMS) for m in marked):
+            bad(where, 'in a drill item, full marks the form taught, not {%s}' % '}{'.join(marked))
     for k in ('before', 'after', 'full', 'hint', 'explain'):
         markup('%s.%s' % (where, k), it.get(k))
     for k in ('before', 'after', 'full'):
@@ -127,10 +147,20 @@ def star(where, it, hint=False, readings=True):
             no_reading(where + '.tiles', t)
 
 
+def unit_forms(u):
+    out = []
+    for t in u['days']:
+        for f in t.split('・'):
+            f = re.sub(r'（[^）]*）', '', f)
+            out += [x for x in f.split('〜') if x]
+    return out
+
+
 def check_day(path, unit, day, level_dir):
     d = json.load(open(path, encoding='utf-8'))
     syl = json.load(open(os.path.join(level_dir, 'units.json'), encoding='utf-8'))
     u = next(x for x in syl['units'] if x['n'] == unit)
+    FORMS[:] = unit_forms(u)
     pre = '' if syl['level'] == 'N2' else syl['level'].lower()
     base = '%su%02dd%d' % (pre, unit, day)
     want = u['days'][day - 1] if day <= 5 else 'まとめ：似ている文法'
@@ -153,8 +183,8 @@ def check_day(path, unit, day, level_dir):
             for c in p.get('connect') or []:
                 if not c.get('pos') or '{' not in (c.get('rule') or ''):
                     bad(w, 'a connect row needs pos and a rule with the form in {…}')
-                if re.search(r'[぀-ヿ一-鿿]', c.get('pos') or ''):
-                    bad(w, 'pos is plain English (BRIEF.md): "%s"' % c.get('pos'))
+                if not re.search(r'[A-Za-z]{2}', c.get('pos') or ''):
+                    bad(w, 'pos is plain English, such as "Verb, ます form" (BRIEF.md): "%s"' % c.get('pos'))
                 markup(w + '.connect', c.get('rule'))
             if len(p.get('examples') or []) != 2:
                 bad(w, 'two examples')
@@ -235,7 +265,7 @@ def check_day(path, unit, day, level_dir):
             if '^' in (it.get('q') or ''):
                 bad(w, 'no ^…^ clue in an exam-style item')
         else:
-            star(w, it, readings=False)
+            star(w, it, readings=False, brace='star')
     sc = d.get('scene') or {}
     for f in ('ja', 'en', 'intro', 'words', 'check'):
         if not sc.get(f):
@@ -331,6 +361,7 @@ def check_day(path, unit, day, level_dir):
 def check_test(path, unit, level_dir):
     t = json.load(open(path, encoding='utf-8'))
     syl = json.load(open(os.path.join(level_dir, 'units.json'), encoding='utf-8'))
+    FORMS[:] = unit_forms(next(x for x in syl['units'] if x['n'] == unit))
     pre = '' if syl['level'] == 'N2' else syl['level'].lower()
     base = '%su%02dt' % (pre, unit)
     if not isinstance(t, list) or len(t) != 24:
@@ -344,7 +375,7 @@ def check_test(path, unit, level_dir):
         if it.get('type') != plan_types[k]:
             bad(w, 'type should be ' + plan_types[k])
         if 15 <= k <= 17:
-            star(w, it, readings=False)
+            star(w, it, readings=False, brace='star')
         else:
             choice(w, it, 4, explain=True, readings=False, blank=k < 18)
         if k >= 18:

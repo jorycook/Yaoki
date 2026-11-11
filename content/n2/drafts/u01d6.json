@@ -1,0 +1,525 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "Ask two questions. What comes before the form (a ます stem, a te-form, a dictionary or た form, a noun, or a clause with の)? And what comes after it (a plan, a \"not yet\", a formal \"when\", getting ready for a big step, a new start, a sudden change you saw, or the end of a long process, good or bad)?",
+   "forms": [
+    {
+     "form": "〜次第",
+     "tag": "〜たらすぐ（予定） · as soon as (a plan)",
+     "mark": "dot",
+     "ja": "結果が分かり{次第}、メールでお知らせします。",
+     "en": "I'll email you as soon as the results are known."
+    },
+    {
+     "form": "〜てからでないと",
+     "tag": "先にしないと無理 · not until … first",
+     "mark": "dot",
+     "ja": "家族と相談して{からでないと}、お返事できません。",
+     "en": "I can't give you an answer until I've talked it over with my family."
+    },
+    {
+     "form": "〜際（に）",
+     "tag": "とき（硬い） · when (formal)",
+     "mark": "dot",
+     "ja": "パスポートを申請する{際に}、写真が必要です。",
+     "en": "When you apply for a passport, you need a photo."
+    },
+    {
+     "form": "〜に際して",
+     "tag": "特別な機会 · on the occasion of",
+     "mark": "dot",
+     "ja": "結婚{に際して}、両親に感謝の手紙を書いた。",
+     "en": "When I got married, I wrote my parents a letter of thanks."
+    },
+    {
+     "form": "〜にあたって",
+     "tag": "始める前の準備 · as you begin (a big step)",
+     "mark": "dot",
+     "ja": "初めてマラソンに出る{にあたって}、毎朝走ることにした。",
+     "en": "To get ready for my first marathon, I decided to run every morning."
+    },
+    {
+     "form": "〜を機に",
+     "tag": "変化のきっかけ · taking it as the chance",
+     "mark": "dot",
+     "ja": "テレビが壊れたの{を機に}、ニュースはネットで読むようになった。",
+     "en": "When the TV broke, I took the chance to start reading the news online."
+    },
+    {
+     "form": "〜かと思うと",
+     "tag": "すぐに変化（見たこと） · no sooner … than",
+     "mark": "dot",
+     "ja": "空が急に暗くなった{かと思うと}、激しい雨が降り出した。",
+     "en": "No sooner had the sky gone dark than heavy rain began to fall."
+    },
+    {
+     "form": "〜か〜ないかのうちに",
+     "tag": "ほとんど同時 · barely, almost at once",
+     "mark": "dot",
+     "ja": "彼は席に着く{か着かないかのうちに}、パソコンを開いて仕事を始めた。",
+     "en": "He had barely sat down when he opened his laptop and started work."
+    },
+    {
+     "form": "〜末（に）",
+     "tag": "長い過程の結果 · after a long …, in the end",
+     "mark": "dot",
+     "ja": "家族で何度も話し合った{末に}、犬を飼うことに決めた。",
+     "en": "After talking it over many times as a family, we decided to get a dog."
+    },
+    {
+     "form": "〜あげく",
+     "tag": "さんざん〜て悪い結果 · after all that (a bad end)",
+     "mark": "down",
+     "ja": "さんざん待たされた{あげく}、席はないと言われた。",
+     "en": "After a long wait, we were told there were no seats."
+    }
+   ],
+   "check": {
+    "id": "u01d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "職場のうわさ",
+    "q": "彼は上司と何日も言い争った（　　）、とうとう会社を辞めてしまった。",
+    "options": [
+     "次第",
+     "あげく",
+     "かと思うと"
+    ],
+    "answer": 2,
+    "why": [
+     "次第 follows a ます stem, not the た form, and leads to a plan or a request, not to what happened.",
+     "Days of arguing, then a bad end: とうとう…辞めてしまった.",
+     "かと思うと is for a sudden change right after one moment. 何日も and とうとう show a long process."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u01d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^一時間も迷った^（　　）、^結局何も買わずに^店を出た。",
+    "options": [
+     "次第",
+     "を機に",
+     "あげく",
+     "かと思うと"
+    ],
+    "answer": 3,
+    "why": [
+     "次第 follows a ます stem, not the た form, and leads to a plan or a request, not to what happened.",
+     "After a verb, を機に needs の (迷ったのを機に), and it leads to a new start, not a disappointing end.",
+     "An hour of dithering, then a disappointing end: 結局, with nothing bought.",
+     "かと思うと describes a sudden change you watched in someone else. Here the speaker dithered for an hour; nothing was sudden."
+    ]
+   },
+   {
+    "id": "u01d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "パソコンの設定が^終わり^（　　）、^すぐに作業を始めます^。",
+    "options": [
+     "たとたん",
+     "かと思うと",
+     "末に",
+     "次第"
+    ],
+    "answer": 4,
+    "why": [
+     "N3 たとたん follows the た form (終わったとたん) and tells what happened at that moment. It cannot lead to a plan.",
+     "かと思うと follows the た form and describes a change you saw, not your own plan.",
+     "末に follows the た form or a noun + の, and needs a long process before it.",
+     "The ます stem 終わり + 次第, then the speaker's plan: 作業を始めます."
+    ]
+   },
+   {
+    "id": "u01d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "健康診断で医者に^注意されたの^（　　）、^毎朝歩いて会社に通うようになった^。",
+    "options": [
+     "を機に",
+     "際に",
+     "にあたって",
+     "末に"
+    ],
+    "answer": 1,
+    "why": [
+     "A clause + の + を機に: the warning was the chance for a new habit (ようになった).",
+     "際に follows a verb directly (注意された際に), with no の. It marks the time of one event, not the start of a new habit.",
+     "にあたって follows a dictionary form or a noun, with no の, and looks ahead to a big step to get ready for.",
+     "末に follows the た form directly, with no の, and needs a long effort before it. One warning is not one."
+    ]
+   },
+   {
+    "id": "u01d6.d4",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "うちでは、子どもたちは",
+    "after": "行けないことになっている。",
+    "tiles": [
+     "宿題を",
+     "終わらせて",
+     "からでないと",
+     "遊びに"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "からでないと follows the te-form. What has to be finished first?",
+    "full": "うちでは、子どもたちは宿題を終わらせて{からでないと}遊びに行けないことになっている。",
+    "explain": "宿題を goes with 終わらせて, the te-form before からでないと. 遊びに goes with 行けない in the last part."
+   },
+   {
+    "id": "u01d6.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^隣の工事の音が止まった^（　　）、^すぐにまた^響き始めた。",
+    "options": [
+     "末に",
+     "かと思うと",
+     "次第",
+     "あげく"
+    ],
+    "answer": 2,
+    "why": [
+     "末に needs a long effort and its final result. A noise stopping for a moment is neither.",
+     "Something you heard stop, then at once a change: すぐにまた響き始めた.",
+     "次第 follows a ます stem (止まり次第) and leads to a plan or a request, not to what happened.",
+     "あげく needs a long, tiring process before it, and すぐに shows the noise came back at once."
+    ]
+   },
+   {
+    "id": "u01d6.d6",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^長年の研究の^（　　）、^ついに^新しい薬の開発に成功した。",
+    "options": [
+     "末に",
+     "あげく",
+     "かと思うと",
+     "を機に"
+    ],
+    "answer": 1,
+    "why": [
+     "Noun + の + 末に: after years of research, the final result, here a good one (ついに…成功した).",
+     "あげく leads to a bad or disappointing end. Success is not one.",
+     "かと思うと follows a verb in the た form, not a noun + の, and describes a sudden change.",
+     "After a noun, を機に comes directly (研究を機に), not after の, and it leads to a new start, not a final result."
+    ]
+   },
+   {
+    "id": "u01d6.d7",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^新製品の発売^（　　）、記者会見が開かれた。",
+    "options": [
+     "際に",
+     "かと思うと",
+     "に際して",
+     "次第"
+    ],
+    "answer": 3,
+    "why": [
+     "After a noun, 際 needs の: 発売の際に.",
+     "かと思うと follows a verb in the た form, not a noun.",
+     "Noun + に際して: a special, one-time occasion (the launch) and what was done for it.",
+     "次第 can follow an action noun such as 到着, but it leads to a plan or a request. 開かれた reports what happened."
+    ]
+   },
+   {
+    "id": "u01d6.d8",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "授業終了の",
+    "after": "学生たちは教室を飛び出した。",
+    "tiles": [
+     "チャイムが",
+     "鳴るか",
+     "鳴らないか",
+     "のうちに"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "hint": "The verb comes twice: first as it is, then in the negative. What rings?",
+    "full": "授業終了のチャイムが鳴る{か鳴らないかのうちに}学生たちは教室を飛び出した。",
+    "explain": "チャイムが follows 授業終了の. Then the verb twice: 鳴るか, 鳴らないか, のうちに, and the students rush out at almost the same moment."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u01d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "海外に支店を出す（　　）、現地の法律を詳しく調べた。",
+    "options": [
+     "を機に",
+     "かと思うと",
+     "あげく",
+     "にあたって"
+    ],
+    "answer": 4,
+    "explain": "Dictionary form + にあたって: getting ready for a big step. を機に would need の after a verb (出すのを機に) and leads to a change made afterwards, and かと思うと and あげく need the た form."
+   },
+   {
+    "id": "u01d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ホテルをチェックアウトする（　　）、部屋の鍵をフロントにお返しください。",
+    "options": [
+     "次第",
+     "際に",
+     "最中に",
+     "かと思うと"
+    ],
+    "answer": 2,
+    "explain": "A formal \"when\", then a request: dictionary form + 際に. 次第 would need the ます stem (チェックアウトし次第). N3 最中に needs ている or a noun + の, and means \"in the middle of\", which a quick checkout does not have. かと思うと needs the た form and cannot lead to a request."
+   },
+   {
+    "id": "u01d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "母は",
+    "after": "ピアノを習い始めた。",
+    "tiles": [
+     "子どもたちが",
+     "独立した",
+     "の",
+     "を機に"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "母は子どもたちが独立した{の}を機にピアノを習い始めた。",
+    "explain": "子どもたちが, 独立した, の, を機に. After a verb, を機に needs の before it, and the change that followed is ピアノを習い始めた."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "スポーツクラブの入会案内",
+  "en": "A fitness club's membership guide",
+  "intro": "Tap every word you would read in the club's guide before you sign up.",
+  "words": [
+   {
+    "id": "joinfee",
+    "word": "入会金",
+    "reading": "にゅうかいきん",
+    "gloss": "joining fee",
+    "parts": [
+     [
+      "入会",
+      "にゅうかい",
+      "joining"
+     ],
+     [
+      "金",
+      "キン",
+      "money: 料金"
+     ]
+    ]
+   },
+   {
+    "id": "pause",
+    "word": "休会",
+    "reading": "きゅうかい",
+    "gloss": "pausing membership",
+    "parts": [
+     [
+      "休",
+      "キュウ",
+      "rest, pause"
+     ],
+     [
+      "会",
+      "カイ",
+      "club, membership"
+     ]
+    ]
+   },
+   {
+    "id": "locker",
+    "word": "更衣室",
+    "reading": "こういしつ",
+    "gloss": "changing room",
+    "parts": [
+     [
+      "更衣",
+      "こうい",
+      "changing clothes"
+     ],
+     [
+      "室",
+      "シツ",
+      "room: 教室"
+     ]
+    ]
+   },
+   {
+    "id": "equip",
+    "word": "器具",
+    "reading": "きぐ",
+    "gloss": "equipment, machines",
+    "parts": [
+     [
+      "器",
+      "キ",
+      "tool, vessel"
+     ],
+     [
+      "具",
+      "グ",
+      "implement: 道具"
+     ]
+    ]
+   },
+   {
+    "id": "trial",
+    "word": "体験",
+    "reading": "たいけん",
+    "gloss": "trial (session), experience",
+    "parts": [
+     [
+      "体",
+      "タイ",
+      "body"
+     ],
+     [
+      "験",
+      "ケン",
+      "test, try: 試験"
+     ]
+    ]
+   },
+   {
+    "id": "coach",
+    "word": "指導",
+    "reading": "しどう",
+    "gloss": "coaching, instruction",
+    "parts": [
+     [
+      "指",
+      "シ",
+      "point, direct"
+     ],
+     [
+      "導",
+      "ドウ",
+      "guide, lead"
+     ]
+    ]
+   },
+   {
+    "id": "water",
+    "word": "水分",
+    "reading": "すいぶん",
+    "gloss": "water, fluids",
+    "parts": [
+     [
+      "水",
+      "スイ",
+      "water"
+     ],
+     [
+      "分",
+      "ブン",
+      "part, content: 成分"
+     ]
+    ]
+   },
+   {
+    "id": "stamina",
+    "word": "体力",
+    "reading": "たいりょく",
+    "gloss": "stamina, fitness",
+    "parts": [
+     [
+      "体",
+      "タイ",
+      "body"
+     ],
+     [
+      "力",
+      "リョク",
+      "strength"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u01d6.k1",
+   "kind": "choice",
+   "type": "文脈規定",
+   "label": "How the exam asks it",
+   "q": "仕事が忙しくなったので、スポーツクラブを来月から二か月（　　）することにした。",
+   "options": [
+    "休学",
+    "休業",
+    "休会",
+    "休館"
+   ],
+   "answer": 3,
+   "explain": "休会 is pausing your membership of a club: スポーツクラブを休会する. 休学 is time off from school, 休業 is a shop or business closing for a time, and 休館 is a building such as a library or museum being closed."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which plan fits this person's times at the lowest price?",
+  "seconds": 110,
+  "passage": "【さくらスポーツクラブ会員プランのご案内】\n営業時間：平日10時～23時／土曜10時～21時／日曜・祝日10時～19時（木曜定休）\n・フルタイム会員：月9,800円（営業時間内はいつでも利用可）\n・デイタイム会員：月6,500円（平日10時～17時）\n^・ナイト会員：月7,000円（平日18時～23時）^\n・ホリデー会員：月6,000円（土・日・祝日の営業時間内）\n※デイタイム会員とナイト会員は、^月1,500円の追加で日曜日もご利用いただけます^。\n入会金：5,000円（体験レッスン当日にご入会の場合は無料）\n体験レッスン：1回1,000円。各回定員10名で、定員になり次第締め切ります。\n休会：月1,000円で、最長3か月まで休会できます。\nご入会の際は、本人確認書類と、口座番号の分かるものをお持ちください。",
+  "strategy": "Note his conditions first (weekday evenings, Sundays, the lowest price), then find the plan that meets them all, notes included.",
+  "item": {
+   "id": "u01d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "会社員の森さんは、平日の仕事帰り（19時以降）と日曜日にクラブを利用したい。料金はできるだけ安いほうがいい。森さんに合うのはどれか。",
+   "options": [
+    "ホリデー会員",
+    "フルタイム会員",
+    "ナイト会員",
+    "ナイト会員に日曜日の利用を追加する"
+   ],
+   "short": [
+    "ホリデー会員",
+    "フルタイム会員",
+    "ナイト会員",
+    "ナイト会員＋日曜日"
+   ],
+   "answer": 4,
+   "explain": "ナイト会員 covers weekdays from 18:00 for 7,000 yen, and the note under the list says it can add Sundays for 1,500 yen: 8,500 yen in all, less than フルタイム会員 (9,800 yen).",
+   "why": [
+    "ホリデー会員 is for Saturdays, Sundays and holidays only. Mori could not come on weekday evenings.",
+    "フルタイム会員 covers both, but at 9,800 yen it costs more than ナイト会員 with Sundays added (8,500 yen).",
+    "ナイト会員 alone covers weekday evenings but not Sundays.",
+    ""
+   ]
+  }
+ }
+}

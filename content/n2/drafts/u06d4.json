@@ -1,0 +1,501 @@
+{
+ "title": "〜というより・〜どころか",
+ "grammar": {
+  "points": [
+   {
+    "id": "u06d4.p1",
+    "form": "〜というより",
+    "gloss": "rather than … (more like)",
+    "connect": [
+     {
+      "pos": "Noun, na-adjective stem",
+      "rule": "〜 ＋ {というより}"
+     },
+     {
+      "pos": "Verb, i-adjective, plain form",
+      "rule": "普通形 ＋ {というより}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "彼の話し方は、説明している{というより}、怒っているように聞こえた。",
+      "en": "The way he spoke sounded less like explaining than getting angry."
+     },
+     {
+      "ja": "これは料理{というより}、材料を切って並べただけだ。",
+      "en": "This isn't really cooking. It's just ingredients cut up and laid out."
+     }
+    ],
+    "watch": {
+     "note": "というより does not compare two things. It says one thing is better described by B than by A. To say which of two things is cheaper, use より alone.",
+     "bad": "東京というより大阪のほうが物価が安い。",
+     "good": "東京より大阪のほうが物価が安い。"
+    }
+   },
+   {
+    "id": "u06d4.p2",
+    "form": "〜どころか",
+    "gloss": "far from …; let alone …",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ {どころか}"
+     },
+     {
+      "pos": "Na-adjective",
+      "rule": "〜（な） ＋ {どころか}"
+     },
+     {
+      "pos": "Verb, i-adjective, plain form",
+      "rule": "普通形 ＋ {どころか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "ネットで買った服は、安い{どころか}、送料を入れると店より高かった。",
+      "en": "Far from being cheap, the clothes I bought online cost more than in the shop once postage was added."
+     },
+     {
+      "ja": "忙しくて、旅行{どころか}、週末に休むこともできない。",
+      "en": "I'm so busy I can't even rest at weekends, let alone travel."
+     }
+    ],
+    "watch": {
+     "note": "In the \"let alone\" use, the bigger or harder thing goes before どころか, and the smaller, easier thing after it, with も or さえ. ひらがな is easier than 漢字, so it comes second.",
+     "bad": "ひらがなどころか、漢字も書けない。",
+     "good": "漢字どころか、ひらがなも書けない。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three start from A and go on to B. というより swaps A for a better word, どころか says B is the opposite of A or goes even further, and ばかりか adds B on top of A.",
+   "forms": [
+    {
+     "form": "〜というより",
+     "tag": "言い直し · more like",
+     "mark": "dot",
+     "ja": "その映画は、怖い{というより}悲しい話だった。",
+     "en": "The film was less scary than sad."
+    },
+    {
+     "form": "〜どころか",
+     "tag": "正反対 · far from",
+     "mark": "down",
+     "ja": "その映画は怖い{どころか}、笑える場面ばかりだった。",
+     "en": "Far from scary, the film was full of funny scenes."
+    },
+    {
+     "form": "〜ばかりか",
+     "tag": "その上 · not only",
+     "mark": "up",
+     "ja": "その映画は怖い{ばかりか}、話も長くて退屈だった。",
+     "en": "The film was not only scary but long and dull too."
+    }
+   ],
+   "check": {
+    "id": "u06d4.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "ごみ置き場で",
+    "q": "ごみの出し方を注意したら、彼は謝る（　　）、^こちらが悪いと言い出した^。",
+    "options": [
+     "というより",
+     "どころか",
+     "ばかりか"
+    ],
+    "answer": 2,
+    "why": [
+     "というより swaps in a better word for the same act. Blaming me is not a better word for apologising.",
+     "Far from apologising, he did the opposite: 謝るどころか.",
+     "ばかりか adds a second act in the same direction. Blaming me goes against apologising."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u06d4.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このカフェはとても静かで、カフェ（　　）^図書館に近い^。",
+    "options": [
+     "ばかりか",
+     "だけに",
+     "というより",
+     "くらいなら"
+    ],
+    "answer": 3,
+    "why": [
+     "ばかりか adds a second fact, with も after it. Nothing is added here: the sentence finds a better word for the place.",
+     "だけに means \"all the more because\". Being a café is not a reason for being like a library.",
+     "It is a café, but 図書館に近い describes it better: AというよりB.",
+     "くらいなら sets up a choice: rather than do A, I'd do B. Nothing is chosen here."
+    ]
+   },
+   {
+    "id": "u06d4.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "静かな所だと聞いて引っ越したが、静か（　　）、^夜中まで工事の音がうるさい^。",
+    "options": [
+     "どころか",
+     "からには",
+     "ばかりか",
+     "だけに"
+    ],
+    "answer": 1,
+    "why": [
+     "The truth is the opposite of what was expected: 静かどころか, うるさい.",
+     "からには (\"now that…\") needs a decision or duty after it, and after a na-adjective it needs である.",
+     "ばかりか adds B to A in the same direction, and after a na-adjective it needs な. Quiet and noisy cannot both be true.",
+     "だけに gives a reason (\"all the more because\"), and after a na-adjective it needs な."
+    ]
+   },
+   {
+    "id": "u06d4.d3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "祖母の家の犬は、",
+    "after": "一員だ。",
+    "tiles": [
+     "家を",
+     "守る[番犬|ばんけん]",
+     "というより",
+     "家族の"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "Which tile must sit right before 一員だ? The word that is set aside comes before というより.",
+    "full": "祖母の家の犬は、家を守る[番犬|ばんけん]{というより}家族の一員だ。",
+    "explain": "家を is the object of 守る, so 家を守る番犬 (a guard dog) comes first. That is the word set aside, so というより follows it, and 家族の goes right before 一員だ."
+   },
+   {
+    "id": "u06d4.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "足をけがして、^走る^（　　）、^歩くのも大変だ^。",
+    "options": [
+     "というより",
+     "だけに",
+     "さえ",
+     "どころか"
+    ],
+    "answer": 4,
+    "why": [
+     "というより swaps A for a better description. 歩くのも大変だ is not a better word for running; it says even walking is hard.",
+     "だけに gives a cause (\"all the more because\"). Running is not the cause of anything here.",
+     "さえ cannot follow 走る directly (it would be 走ることさえ), and it does not lead on to a second, easier thing.",
+     "Let alone: the harder thing (running) before どころか, the easier one (walking) after it, with も."
+    ]
+   },
+   {
+    "id": "u06d4.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "今朝の電車は、^混んでいる^（　　）、^ほとんど動けないほどだった^。",
+    "options": [
+     "からといって",
+     "というより",
+     "くらいなら",
+     "ものの"
+    ],
+    "answer": 2,
+    "why": [
+     "からといって leads to a denial, such as 〜わけではない. Nothing is denied here.",
+     "\"Crowded\" is too weak a word. ほとんど動けないほど describes it better.",
+     "くらいなら sets up a choice: rather than do A, I'd do B. Nobody chooses a crowded train here.",
+     "ものの means \"although\", but hardly being able to move does not go against being crowded."
+    ]
+   },
+   {
+    "id": "u06d4.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "薬を飲んだのに、",
+    "after": "上がってしまった。",
+    "tiles": [
+     "熱が",
+     "下がる",
+     "どころか",
+     "かえって"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "What was expected comes before どころか. Which word leads into the opposite result?",
+    "full": "薬を飲んだのに、熱が下がる{どころか}かえって上がってしまった。",
+    "explain": "熱が下がる is what was expected, so it goes before どころか. かえって (on the contrary) leads into what really happened: 上がってしまった."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u06d4.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "祖父はスマホ（　　）、携帯電話も使ったことがない。",
+    "options": [
+     "さえ",
+     "というより",
+     "だけあって",
+     "どころか"
+    ],
+    "answer": 4,
+    "explain": "Let alone: the newer thing, スマホ, comes before どころか, and the more basic one after it with も. さえ cannot be followed by a second item with も, というより swaps in a better word, and だけあって praises a result that fits its cause."
+   },
+   {
+    "id": "u06d4.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "今日の風は、涼しい（　　）、冷たいと言ったほうがいい。",
+    "options": [
+     "というより",
+     "ばかりか",
+     "わりに",
+     "からといって"
+    ],
+    "answer": 1,
+    "explain": "〜と言ったほうがいい shows that a better word is being chosen: 涼しいというより冷たい. ばかりか adds a second fact, わりに sets up a contrast, and からといって leads to a denial."
+   },
+   {
+    "id": "u06d4.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "入社したばかりの頃は、会議で",
+    "after": "一つできなかった。",
+    "tiles": [
+     "意見を",
+     "言う",
+     "どころか",
+     "質問"
+    ],
+    "star": 2,
+    "bank": [
+     1,
+     3,
+     0,
+     2
+    ],
+    "full": "入社したばかりの頃は、会議で意見を言う{どころか}質問一つできなかった。",
+    "explain": "意見を, 言う, どころか, 質問. Giving an opinion is the bigger step, so 意見を言う goes before どころか. 質問 goes right before 一つ: not even one question."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "給与明細",
+  "en": "A pay slip",
+  "intro": "Tap every line you would check on your pay slip.",
+  "words": [
+   {
+    "id": "pay",
+    "word": "給与",
+    "reading": "きゅうよ",
+    "gloss": "pay, salary",
+    "parts": [
+     [
+      "給",
+      "キュウ",
+      "pay, supply"
+     ],
+     [
+      "与",
+      "ヨ",
+      "give"
+     ]
+    ]
+   },
+   {
+    "id": "basic",
+    "word": "基本給",
+    "reading": "きほんきゅう",
+    "gloss": "basic pay",
+    "parts": [
+     [
+      "基本",
+      "きほん",
+      "basic"
+     ],
+     [
+      "給",
+      "キュウ",
+      "pay"
+     ]
+    ]
+   },
+   {
+    "id": "allowance",
+    "word": "手当",
+    "reading": "てあて",
+    "gloss": "allowance (extra pay for travel, family and so on)",
+    "parts": [
+     [
+      "手",
+      "て",
+      "hand"
+     ],
+     [
+      "当",
+      "あて",
+      "allot"
+     ]
+    ]
+   },
+   {
+    "id": "overtime",
+    "word": "時間外",
+    "reading": "じかんがい",
+    "gloss": "overtime (outside working hours)",
+    "parts": [
+     [
+      "時間",
+      "じかん",
+      "hours"
+     ],
+     [
+      "外",
+      "ガイ",
+      "outside"
+     ]
+    ]
+   },
+   {
+    "id": "incometax",
+    "word": "所得税",
+    "reading": "しょとくぜい",
+    "gloss": "income tax",
+    "parts": [
+     [
+      "所得",
+      "しょとく",
+      "income"
+     ],
+     [
+      "税",
+      "ゼイ",
+      "tax"
+     ]
+    ]
+   },
+   {
+    "id": "insurance",
+    "word": "雇用保険",
+    "reading": "こようほけん",
+    "gloss": "employment insurance",
+    "parts": [
+     [
+      "雇用",
+      "こよう",
+      "employment"
+     ],
+     [
+      "保険",
+      "ほけん",
+      "insurance"
+     ]
+    ]
+   },
+   {
+    "id": "deduction",
+    "word": "控除",
+    "reading": "こうじょ",
+    "gloss": "deduction",
+    "parts": [
+     [
+      "控",
+      "コウ",
+      "hold back"
+     ],
+     [
+      "除",
+      "ジョ",
+      "remove"
+     ]
+    ]
+   },
+   {
+    "id": "workdays",
+    "word": "出勤",
+    "reading": "しゅっきん",
+    "gloss": "going to work (days worked)",
+    "parts": [
+     [
+      "出",
+      "シュッ",
+      "go out"
+     ],
+     [
+      "勤",
+      "キン",
+      "work, duty"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u06d4.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "毎月の給与から所得税が_控除_される。",
+   "options": [
+    "くうじょ",
+    "こうじょ",
+    "こうじょう",
+    "こじょ"
+   ],
+   "answer": 2,
+   "explain": "控除 is こうじょ: 控 is コウ, and 除 is ジョ as in 削除. くうじょ confuses 控 with 空, こうじょう adds a long vowel 除 never has, and こじょ drops the う of コウ."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（中文）",
+  "en": "Mid-length passage",
+  "ask": "What does the writer say made her work longer?",
+  "seconds": 110,
+  "passage": "在宅勤務が始まったとき、私は通勤がなくなる分、自由な時間が増えると喜んでいた。ところが実際には、自由な時間が増えるどころか、働く時間が前より長くなってしまった。家では仕事の終わりがはっきりしない。夕食の後にメールを確認し、気づけば夜中まで資料を作っていることも多かった。原因は仕事の量というより、^始まりと終わりを区切るものがなかった^ことにあると思う。会社なら、帰りの電車に乗れば仕事は終わる。そこで私は、毎朝家の近くを十五分歩いてから仕事を始め、夕方六時にはパソコンを片付けることにした。たったそれだけのことだが、仕事と生活がはっきり分かれ、夜はゆっくり休めるようになった。在宅勤務で大切なのは、^自分で一日に区切りをつけること^ではないだろうか。",
+  "strategy": "Find the sentence that names the cause (原因は…), and notice what というより sets aside.",
+  "item": {
+   "id": "u06d4.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（中文）",
+   "q": "筆者は、在宅勤務で働く時間が長くなったのはなぜだと考えているか。",
+   "options": [
+    "会社にいたときより、仕事の量が増えたから。",
+    "通勤がなくなって、体を動かさなくなったから。",
+    "仕事の始まりと終わりを区切るものがなかったから。",
+    "夕食の後に、上司からメールが来るようになったから。"
+   ],
+   "short": [
+    "仕事の量が増えた",
+    "体を動かさなくなった",
+    "始まりと終わりの区切りがない",
+    "上司から夜にメール"
+   ],
+   "answer": 3,
+   "explain": "The writer names the cause in 原因は…ことにあると思う. 仕事の量というより sets the amount of work aside: the cause is that nothing marked the start and the end of the working day.",
+   "why": [
+    "Option 1 is what the writer sets aside with 仕事の量というより.",
+    "Option 2 is not in the text. The morning walk is what she changed, not the cause she names.",
+    "",
+    "Option 4 is not in the text. She checked her email after dinner herself; no one is said to send it."
+   ]
+  }
+ }
+}

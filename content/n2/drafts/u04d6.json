@@ -1,0 +1,540 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "Ask two questions: what comes before the form (a plain clause, a ない form, a volitional or potential verb, or a noun), and what comes after it (a question or wish, a judgement, a \"can't\", what normally holds, a bad result, or what changes). Together they leave only one of the ten.",
+   "forms": [
+    {
+     "form": "〜としたら",
+     "tag": "仮定 · supposing",
+     "mark": "dot",
+     "ja": "もし自分の店を持つ{としたら}、小さなカフェを開きたいです。",
+     "en": "If I were to have my own shop, I'd like to open a small café."
+    },
+    {
+     "form": "〜とすれば",
+     "tag": "仮定から判断 · if so, then",
+     "mark": "dot",
+     "ja": "彼がまだ駅にいる{とすれば}、会議には間に合わないだろう。",
+     "en": "If he is still at the station, he probably won't make the meeting."
+    },
+    {
+     "form": "〜ないことには",
+     "tag": "必要条件 · not until, can't",
+     "mark": "dot",
+     "ja": "メニューを見{ないことには}、何を頼むか決められない。",
+     "en": "I can't decide what to order until I see the menu."
+    },
+    {
+     "form": "〜ない限り",
+     "tag": "条件が続く間 · as long as not",
+     "mark": "dot",
+     "ja": "雪が降ら{ない限り}、毎日自転車で通勤しています。",
+     "en": "Unless it snows, I cycle to work every day."
+    },
+    {
+     "form": "〜さえ〜ば",
+     "tag": "それだけで十分 · as long as just",
+     "mark": "dot",
+     "ja": "天気{さえ}よければ、ここから富士山が見えます。",
+     "en": "As long as the weather is good, you can see Mt Fuji from here."
+    },
+    {
+     "form": "〜次第で",
+     "tag": "〜で決まる · depending on",
+     "mark": "dot",
+     "ja": "練習の量{次第で}、結果はいくらでも変わる。",
+     "en": "Depending on how much you practise, the result can change a great deal."
+    },
+    {
+     "form": "〜ものなら",
+     "tag": "難しい願い · if only I could",
+     "mark": "dot",
+     "ja": "時間を止められる{ものなら}、この休みをずっと続けたい。",
+     "en": "If only I could stop time, I would make this holiday last forever."
+    },
+    {
+     "form": "〜ようものなら",
+     "tag": "悪い結果 · if you dare to",
+     "mark": "down",
+     "ja": "締め切りを一日でも過ぎ{ようものなら}、原稿は受け付けてもらえない。",
+     "en": "Miss the deadline by even a day, and your manuscript will not be accepted."
+    },
+    {
+     "form": "〜を抜きにしては",
+     "tag": "欠かせない · leave X out, and you can't",
+     "mark": "dot",
+     "ja": "この町の歴史は、[絹|きぬ]の産業{を抜きにしては}語れない。",
+     "en": "You can't tell this town's history without its silk industry."
+    },
+    {
+     "form": "〜なしには",
+     "tag": "〜がなければ無理 · without",
+     "mark": "dot",
+     "ja": "本人の同意{なしには}、写真を公開することはできません。",
+     "en": "Without the person's consent, photos cannot be made public."
+    }
+   ],
+   "check": {
+    "id": "u04d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "結婚式のスピーチで",
+    "q": "両親の支え（　　）、ここまで来ることはできませんでした。",
+    "options": [
+     "次第で",
+     "なしには",
+     "としたら"
+    ],
+    "answer": 2,
+    "why": [
+     "次第で says what a result changes with. It does not lead to \"could not have\".",
+     "Noun + なしには + a \"can't\": without my parents' support, I could not have come this far.",
+     "としたら needs a clause before it (〜だとしたら) and leads to a question or a wish."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u04d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^一度この目で現場を見^（　　）、^何とも言えません^。",
+    "options": [
+     "ようものなら",
+     "ないことはない",
+     "ないことには",
+     "さえすれば"
+    ],
+    "answer": 3,
+    "why": [
+     "ようものなら leads to a bad result that follows an act. 何とも言えません is not a result of seeing.",
+     "N3 ないことはない (\"it's not that I won't\") ends a statement. It cannot set a condition for the next clause.",
+     "Until I see the site, I can't say: ないことには with a \"can't\" after it.",
+     "さえすれば promises that one thing is enough for a result. 何とも言えません is the opposite of a result."
+    ]
+   },
+   {
+    "id": "u04d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このソファは気に入りましたが、^値段^（　　）、^買うかどうか決めます^。",
+    "options": [
+     "次第で",
+     "なしには",
+     "を抜きにしては",
+     "さえ"
+    ],
+    "answer": 1,
+    "why": [
+     "The price will decide whether I buy it: noun + 次第で.",
+     "なしには needs a \"can't\" after it, as in 許可なしには入れない. 決めます is not one.",
+     "を抜きにしては also needs a \"can't\" after it (〜を抜きにしては語れない), and leaving the price out makes no sense here.",
+     "さえ alone means \"even\". As a condition it needs 〜ば, as in 値段さえ安ければ."
+    ]
+   },
+   {
+    "id": "u04d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "あの店のラーメンに^こしょうを少しでも^（　　）、頑固な主人に^追い出されるそうだ^。",
+    "options": [
+     "入れられるものなら",
+     "入れないことには",
+     "入れない限り",
+     "入れようものなら"
+    ],
+    "answer": 4,
+    "why": [
+     "Potential form + ものなら is a wish for something hard, followed by 〜たい. Being thrown out is not a wish.",
+     "ないことには needs a \"can't\" after it, and it would make not adding pepper the problem.",
+     "ない限り would mean you are thrown out unless you add pepper, the opposite of the story.",
+     "Do it even a little (少しでも) and something bad follows: volitional form + ものなら."
+    ]
+   },
+   {
+    "id": "u04d6.d4",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この店の人気は、",
+    "after": "考えられない。",
+    "tiles": [
+     "店長が",
+     "毎朝焼く",
+     "パンを",
+     "抜きにしては"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "抜きにしては follows a noun with を. What does 店長が毎朝焼く describe?",
+    "full": "この店の人気は、店長が毎朝焼くパン{を抜きにしては}考えられない。",
+    "explain": "店長が毎朝焼く describes パン, and パンを comes right before 抜きにしては. 考えられない is the \"can't\" it needs."
+   },
+   {
+    "id": "u04d6.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^もし^この時計が百年前の物（　　）、かなりの値段が^つくはずだ^。",
+    "options": [
+     "次第で",
+     "だとすれば",
+     "でない限り",
+     "だものなら"
+    ],
+    "answer": 2,
+    "why": [
+     "次第で says what something depends on. With もし and はずだ, the sentence needs a supposition.",
+     "A supposition, then a judgement drawn from it (はずだ): だとすれば.",
+     "でない限り would mean it fetches a good price unless it is a hundred years old, which makes no sense.",
+     "ものなら follows a potential verb and leads to a wish. It does not follow a noun with だ."
+    ]
+   },
+   {
+    "id": "u04d6.d6",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "仕事が忙しくて^無理だが^、（　　）、今すぐにでも国の家族に^会いに行きたい^。",
+    "options": [
+     "行こうものなら",
+     "行かないことには",
+     "行きさえすれば",
+     "行けるものなら"
+    ],
+    "answer": 4,
+    "why": [
+     "Volitional form + ものなら leads to a bad result, not to what you want to do.",
+     "ないことには needs a \"can't\" after it, not a wish.",
+     "さえ〜ば says one thing is enough for a result. 行きさえすれば…会いに行きたい goes round in a circle.",
+     "A wish for something that seems impossible (無理だが): potential form + ものなら, then 〜たい."
+    ]
+   },
+   {
+    "id": "u04d6.d7",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^大きな事故でも^（　　）、この電車は^いつも時間どおりに着きます^。",
+    "options": [
+     "ない限り",
+     "ないことには",
+     "あろうものなら",
+     "あるとすれば"
+    ],
+    "answer": 1,
+    "why": [
+     "Unless something unusual happens, the normal state holds: でもない限り, then what always happens.",
+     "ないことには needs a \"can't\" after it. いつも時間どおりに着きます is a positive statement.",
+     "でもあろうものなら leads to a bad result, such as a long delay. Arriving on time is not one.",
+     "とすれば draws a judgement from a supposition. An accident would not lead to arriving on time."
+    ]
+   },
+   {
+    "id": "u04d6.d8",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あとは",
+    "after": "契約できます。",
+    "tiles": [
+     "社長の",
+     "サイン",
+     "さえ",
+     "もらえば"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     3,
+     0,
+     1
+    ],
+    "hint": "さえ comes right after the one thing that is needed. What does 社長の describe?",
+    "full": "あとは社長のサイン{さえ}もらえば契約できます。",
+    "explain": "社長の describes サイン, and さえ sits right after サイン, the one thing still needed. もらえば completes さえ〜ば."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u04d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "もし一か月休みが取れる（　　）、どこへ行きたいですか。",
+    "options": [
+     "限り",
+     "としては",
+     "ようものなら",
+     "としたら"
+    ],
+    "answer": 4,
+    "explain": "A supposition followed by a question: としたら. 限り after a dictionary form means \"as long as\", which does not fit a dream holiday. としては, met at N3, follows a noun (私としては) and gives a point of view. ようものなら needs the volitional form and a bad result after it."
+   },
+   {
+    "id": "u04d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この地域の発展は、鉄道の開通（　　）ありえなかった。",
+    "options": [
+     "次第で",
+     "としたら",
+     "なしには",
+     "さえあれば"
+    ],
+    "answer": 3,
+    "explain": "Noun + なしには + a \"can't\": without the railway, the growth could not have happened. 次第で says what something depends on, としたら needs a clause before it, and さえあれば would lead to what becomes possible, not to ありえなかった."
+   },
+   {
+    "id": "u04d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "もしこの計画が",
+    "after": "だろう。",
+    "tiles": [
+     "失敗する",
+     "とすれば",
+     "原因は",
+     "準備不足"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "もしこの計画が失敗するとすれば{原因は}準備不足だろう。",
+    "explain": "失敗する, とすれば, 原因は, 準備不足. とすれば follows the plain form 失敗する, and 原因は準備不足だろう is the judgement drawn from it."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "奨学金の募集要項",
+  "en": "A scholarship application guide",
+  "intro": "Tap every word you would need to read in the guide before you apply.",
+  "words": [
+   {
+    "id": "scholar",
+    "word": "奨学金",
+    "reading": "しょうがくきん",
+    "gloss": "scholarship",
+    "parts": [
+     [
+      "奨",
+      "ショウ",
+      "encourage"
+     ],
+     [
+      "学",
+      "ガク",
+      "study"
+     ],
+     [
+      "金",
+      "キン",
+      "money"
+     ]
+    ]
+   },
+   {
+    "id": "guide",
+    "word": "募集要項",
+    "reading": "ぼしゅうようこう",
+    "gloss": "application guidelines",
+    "parts": [
+     [
+      "募",
+      "ボ",
+      "recruit: 募金"
+     ],
+     [
+      "集",
+      "シュウ",
+      "gather"
+     ],
+     [
+      "要",
+      "ヨウ",
+      "main, needed"
+     ],
+     [
+      "項",
+      "コウ",
+      "item, clause"
+     ]
+    ]
+   },
+   {
+    "id": "grant",
+    "word": "給付",
+    "reading": "きゅうふ",
+    "gloss": "grant (not repaid)",
+    "parts": [
+     [
+      "給",
+      "キュウ",
+      "pay, supply: 給料"
+     ],
+     [
+      "付",
+      "フ",
+      "give"
+     ]
+    ]
+   },
+   {
+    "id": "recommend",
+    "word": "推薦",
+    "reading": "すいせん",
+    "gloss": "recommendation",
+    "parts": [
+     [
+      "推",
+      "スイ",
+      "push forward"
+     ],
+     [
+      "薦",
+      "セン",
+      "recommend"
+     ]
+    ]
+   },
+   {
+    "id": "select",
+    "word": "選考",
+    "reading": "せんこう",
+    "gloss": "selection (of applicants)",
+    "parts": [
+     [
+      "選",
+      "セン",
+      "choose"
+     ],
+     [
+      "考",
+      "コウ",
+      "consider"
+     ]
+    ]
+   },
+   {
+    "id": "repay",
+    "word": "返還",
+    "reading": "へんかん",
+    "gloss": "repayment, giving back",
+    "parts": [
+     [
+      "返",
+      "ヘン",
+      "give back"
+     ],
+     [
+      "還",
+      "カン",
+      "return"
+     ]
+    ]
+   },
+   {
+    "id": "grades",
+    "word": "成績",
+    "reading": "せいせき",
+    "gloss": "grades, results",
+    "parts": [
+     [
+      "成",
+      "セイ",
+      "achieve"
+     ],
+     [
+      "績",
+      "セキ",
+      "results"
+     ]
+    ]
+   },
+   {
+    "id": "faculty",
+    "word": "学部",
+    "reading": "がくぶ",
+    "gloss": "faculty (undergraduate)",
+    "parts": [
+     [
+      "学",
+      "ガク",
+      "study"
+     ],
+     [
+      "部",
+      "ブ",
+      "section"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u04d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "ゼミの先生に、就職の_推薦_をお願いした。",
+   "options": [
+    "すいしん",
+    "すいぜん",
+    "すいせん",
+    "しゅいせん"
+   ],
+   "answer": 3,
+   "explain": "推 is スイ, as in 推理, and 薦 is セン: すいせん. すいしん is 推進 (promotion of a plan), and すいぜん and しゅいせん are not readings of this word."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which scholarship fits Lin, and what must Lin do to apply?",
+  "seconds": 110,
+  "passage": "奨学金募集要項（後期）\n本学の学部生を対象に、次の奨学金の申し込みを受け付けます。\nＡ　みどり奨学金（給付・月3万円）\n対象：2年生以上で、前期の成績が平均80点以上の者。^留学生は対象外^。\nＢ　国際交流奨学金（給付・月4万円）\n対象：^1・2年生の留学生^。^担当教員の推薦がない限り^、申し込めません。\nＣ　さくら奨学金（月5万円）\n対象：全学年。成績は問いません。^卒業後に返還が必要です^。\nＤ　未来奨学金（給付・年20万円）\n対象：^3年生以上^の留学生で、成績が特に優秀な者。\n【選考】書類選考の後、面接を行います。面接の結果次第で、金額が変わることがあります。\n【申し込み】11月30日までに、必要な書類を学生課に提出してください。",
+  "strategy": "Note Lin's conditions first (second year, foreign student, no repayment), then find the one scholarship whose lines meet them all.",
+  "item": {
+   "id": "u04d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "経済学部2年生の留学生リンさんは、前期の成績が平均85点だった。返還の必要がない奨学金に申し込みたい。リンさんはどうすればよいか。",
+   "options": [
+    "Ａに、11月30日までに申し込む。",
+    "Ｂに、担当教員の推薦を受けて申し込む。",
+    "Ｃに、成績に関係なく申し込む。",
+    "Ｄに、面接の準備をして申し込む。"
+   ],
+   "short": [
+    "Ａに申し込む",
+    "Ｂに推薦を受けて",
+    "Ｃに申し込む",
+    "Ｄに申し込む"
+   ],
+   "answer": 2,
+   "explain": "Lin is a second-year foreign student and wants money that is not paid back (給付). Only B is a grant open to first- and second-year foreign students, and ない限り says it needs the teacher's recommendation.",
+   "why": [
+    "A is not open to foreign students (留学生は対象外), whatever Lin's grades.",
+    "",
+    "C must be paid back after graduation (返還が必要), and Lin wants a grant.",
+    "D is for third-year students and above. Lin is in the second year."
+   ]
+  }
+ }
+}

@@ -1,0 +1,567 @@
+{
+ "title": "〜次第・〜てからでないと",
+ "grammar": {
+  "points": [
+   {
+    "id": "u01d1.p1",
+    "form": "〜次第",
+    "gloss": "as soon as … (then a plan or request)",
+    "connect": [
+     {
+      "pos": "Verb, ます stem",
+      "rule": "決まります → 決まり ＋ {次第}"
+     },
+     {
+      "pos": "する noun (到着, 決定)",
+      "rule": "到着 ＋ {次第}"
+     },
+     {
+      "pos": "What follows",
+      "rule": "{次第}、〜します／〜してください"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "お部屋の掃除が済み{次第}、ご案内いたします。",
+      "en": "We will show you to your room as soon as it has been cleaned."
+     },
+     {
+      "ja": "駅に到着{次第}、お電話ください。",
+      "en": "Please call me as soon as you arrive at the station."
+     }
+    ],
+    "watch": {
+     "note": "What follows 次第 is a plan or a request: something someone will do. It cannot report something that just happened. For a sudden past event, use たとたん.",
+     "bad": "駅に着き次第、財布がないことに気づいた。",
+     "good": "駅に着いたとたん、財布がないことに気づいた。"
+    }
+   },
+   {
+    "id": "u01d1.p2",
+    "form": "〜てからでないと",
+    "gloss": "not until … first",
+    "connect": [
+     {
+      "pos": "Verb, te-form",
+      "rule": "〜て ＋ {からでないと}"
+     },
+     {
+      "pos": "Verb, te-form (more formal)",
+      "rule": "〜て ＋ {からでなければ}"
+     },
+     {
+      "pos": "What follows",
+      "rule": "{〜てからでないと}、〜できない／〜ない"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "実際に商品を見て{からでないと}、買うかどうか決められません。",
+      "en": "I can't decide whether to buy it until I have seen it for myself."
+     },
+     {
+      "ja": "予約をして{からでないと}、工場の見学はできません。",
+      "en": "You can't tour the factory unless you book first."
+     }
+    ],
+    "watch": {
+     "note": "The second part says what you cannot do (or should not do) yet: できない, ない, だめだ. For a plain \"after\", use てから.",
+     "bad": "報告書を出してからでないと、帰ります。",
+     "good": "報告書を出してからでないと、帰れません。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three join two events in time. What changes is what the second part can say.",
+   "forms": [
+    {
+     "form": "〜次第",
+     "tag": "〜たらすぐ（予定） · as soon as (a plan)",
+     "mark": "dot",
+     "ja": "雨がやみ{次第}、試合を再開します。",
+     "en": "We will restart the match as soon as the rain stops."
+    },
+    {
+     "form": "〜てからでないと",
+     "tag": "先にしないと無理 · not until … first",
+     "mark": "down",
+     "ja": "この薬は、何か食べて{からでないと}飲めません。",
+     "en": "You can't take this medicine until you have eaten something."
+    },
+    {
+     "form": "〜たとたん（に）",
+     "tag": "その瞬間（過去） · the moment it happened",
+     "mark": "dot",
+     "ja": "ドアを開けた{とたん}、猫が飛び出してきた。",
+     "en": "The moment I opened the door, the cat jumped out."
+    }
+   ],
+   "check": {
+    "id": "u01d1.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "帰り道で",
+    "q": "階段を（　　）、乗りたかった電車が出てしまった。",
+    "options": [
+     "上がり次第",
+     "上がったとたん",
+     "上がってからでないと"
+    ],
+    "answer": 2,
+    "why": [
+     "次第 leads to a plan or a request. A train pulling out is something that happened, not a plan.",
+     "Something that happened the very moment I reached the top: た form + とたん.",
+     "てからでないと is followed by something that cannot happen yet. A train that has already left is not that."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u01d1.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "会議が（　　）、^そちらに向かいます^。",
+    "options": [
+     "終わったとたん",
+     "終わって以来",
+     "終わり次第",
+     "終わる最中に"
+    ],
+    "answer": 3,
+    "why": [
+     "たとたん reports something that happened suddenly. It cannot lead to the speaker's own plan, like 向かいます.",
+     "て以来 means \"ever since\" and needs a state that has gone on until now, not a plan.",
+     "As soon as the meeting ends, the speaker will go: ます stem + 次第, then a plan.",
+     "最中に needs something going on for a while (〜ている最中に). 終わる happens at one moment."
+    ]
+   },
+   {
+    "id": "u01d1.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "身分証明書を（　　）、^口座は作れません^。",
+    "options": [
+     "見せてからでないと",
+     "見せたとたん",
+     "見せて以来",
+     "見せている最中に"
+    ],
+    "answer": 1,
+    "why": [
+     "Show your ID first, or you cannot open an account: てからでないと, then a negative.",
+     "たとたん reports a sudden past event. 作れません is a rule, not something that suddenly happened.",
+     "て以来 means \"ever since\", which makes no sense with a rule at the bank.",
+     "最中に puts something in the middle of an action. Here showing the ID has to come first."
+    ]
+   },
+   {
+    "id": "u01d1.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "ご注文の商品は、^[入荷|にゅうか]^（　　）、^発送いたします^。",
+    "options": [
+     "して以来",
+     "の最中に",
+     "したとたん",
+     "次第"
+    ],
+    "answer": 4,
+    "why": [
+     "て以来 means \"ever since\". It cannot lead to a plan like 発送いたします.",
+     "最中に is for something that happens in the middle of an action, often cutting into it. The shop ships after the goods come in, not while they are coming in.",
+     "たとたん reports a sudden past event, not a shop's promise about what it will do.",
+     "A する noun takes 次第 directly: 入荷次第, then the plan."
+    ]
+   },
+   {
+    "id": "u01d1.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the ending",
+    "q": "契約書の内容をよく確認して^からでないと^、（　　）。",
+    "options": [
+     "すぐにサインしましょう",
+     "サインすることはできません",
+     "サインしてもかまいません",
+     "サインしてしまいました"
+    ],
+    "answer": 2,
+    "why": [
+     "てからでないと needs something you cannot do yet after it. This invites the very thing that should wait.",
+     "Not until you have checked it: then a negative, できません.",
+     "Giving permission is the opposite of what てからでないと says.",
+     "しまいました reports that you did sign. てからでないと is followed by what cannot happen yet, not by what already happened."
+    ]
+   },
+   {
+    "id": "u01d1.d5",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "子どもの熱が",
+    "after": "つもりです。",
+    "tiles": [
+     "下がり",
+     "次第",
+     "仕事に",
+     "戻る"
+    ],
+    "star": 1,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "次第 follows the ます stem of the verb that goes with 熱が. What does the speaker plan to go back to?",
+    "full": "子どもの熱が下がり{次第}仕事に戻るつもりです。",
+    "explain": "下がり, the ます stem of 下がる, follows 熱が, and 次第 comes right after it. Then the plan: 仕事に, and 戻る right before つもりです."
+   },
+   {
+    "id": "u01d1.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "この機械は、",
+    "after": "使用できません。",
+    "tiles": [
+     "係の人の",
+     "説明を",
+     "受けて",
+     "からでないと"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "からでないと follows the te-form. Whose explanation is it?",
+    "full": "この機械は、係の人の説明を受けて{からでないと}使用できません。",
+    "explain": "係の人の describes 説明, and 説明を is what you receive (受けて). からでないと follows the te-form, and the negative 使用できません comes after it."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u01d1.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "新しい担当者が（　　）、改めてご挨拶にうかがいます。",
+    "options": [
+     "決まったとたん",
+     "決まり次第",
+     "決まって以来",
+     "決まってからでないと"
+    ],
+    "answer": 2,
+    "explain": "次第 follows the ます stem and leads to a plan: as soon as someone is chosen, we will come to greet you. たとたん reports a sudden past event, て以来 means \"ever since\", and てからでないと is followed by something that cannot happen yet, not by a plan like うかがいます."
+   },
+   {
+    "id": "u01d1.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この料理は、一度（　　）、本当のおいしさは分からない。",
+    "options": [
+     "食べてみたとたん",
+     "食べてみて以来",
+     "食べてみてはじめて",
+     "食べてみてからでないと"
+    ],
+    "answer": 4,
+    "explain": "Not until you have tried it: てからでないと, then a negative (分からない). てはじめて leads to something you come to know for the first time (分かる), so it does not fit 分からない. たとたん reports a sudden past event, and て以来 means \"ever since\", which does not fit a general statement like this."
+   },
+   {
+    "id": "u01d1.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "店長の",
+    "after": "ご連絡いたします。",
+    "tiles": [
+     "手が",
+     "空き",
+     "次第",
+     "折り返し"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "full": "店長の手が空き{次第}折り返しご連絡いたします。",
+    "explain": "手が, 空き, 次第, 折り返し. 手が空く means to be free: 次第 follows its ます stem 空き, and 折り返し (getting back to someone) sits right before ご連絡いたします, the plan that follows."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "倉庫の安全掲示",
+  "en": "Safety signs in a warehouse",
+  "intro": "Tap every word on the signs you would have to read on your first day in the warehouse.",
+  "words": [
+   {
+    "id": "warehouse",
+    "word": "倉庫",
+    "reading": "そうこ",
+    "gloss": "warehouse",
+    "parts": [
+     [
+      "倉",
+      "ソウ",
+      "storehouse"
+     ],
+     [
+      "庫",
+      "コ",
+      "storage: 車庫"
+     ]
+    ]
+   },
+   {
+    "id": "worker",
+    "word": "作業員",
+    "reading": "さぎょういん",
+    "gloss": "worker",
+    "parts": [
+     [
+      "作業",
+      "さぎょう",
+      "work"
+     ],
+     [
+      "員",
+      "イン",
+      "member: 会社員"
+     ]
+    ]
+   },
+   {
+    "id": "aisle",
+    "word": "通路",
+    "reading": "つうろ",
+    "gloss": "aisle, passageway",
+    "parts": [
+     [
+      "通",
+      "ツウ",
+      "pass through: 通行"
+     ],
+     [
+      "路",
+      "ロ",
+      "road: 道路"
+     ]
+    ]
+   },
+   {
+    "id": "wear",
+    "word": "着用",
+    "reading": "ちゃくよう",
+    "gloss": "wearing (required gear)",
+    "parts": [
+     [
+      "着",
+      "チャク",
+      "put on, wear"
+     ],
+     [
+      "用",
+      "ヨウ",
+      "use: 使用"
+     ]
+    ]
+   },
+   {
+    "id": "safety",
+    "word": "安全第一",
+    "reading": "あんぜんだいいち",
+    "gloss": "safety first",
+    "parts": [
+     [
+      "安全",
+      "あんぜん",
+      "safety"
+     ],
+     [
+      "第一",
+      "だいいち",
+      "first, above all"
+     ]
+    ]
+   },
+   {
+    "id": "head",
+    "word": "頭上注意",
+    "reading": "ずじょうちゅうい",
+    "gloss": "mind your head",
+    "parts": [
+     [
+      "頭上",
+      "ずじょう",
+      "overhead"
+     ],
+     [
+      "注意",
+      "ちゅうい",
+      "care"
+     ]
+    ]
+   },
+   {
+    "id": "shipping",
+    "word": "出荷",
+    "reading": "しゅっか",
+    "gloss": "shipping (goods going out)",
+    "parts": [
+     [
+      "出",
+      "シュッ",
+      "out: 出発"
+     ],
+     [
+      "荷",
+      "カ",
+      "goods, load: 入荷"
+     ]
+    ]
+   },
+   {
+    "id": "staff",
+    "word": "関係者",
+    "reading": "かんけいしゃ",
+    "gloss": "authorised staff (関係者以外立入禁止: staff only)",
+    "parts": [
+     [
+      "関係",
+      "かんけい",
+      "connection"
+     ],
+     [
+      "者",
+      "シャ",
+      "person: 担当者"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u01d1.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この通路は天井が低いので、_頭上_に気をつけてください。",
+   "options": [
+    "ずじょう",
+    "ずうじょう",
+    "とうじょう",
+    "ずしょう"
+   ],
+   "answer": 1,
+   "explain": "頭 is ズ here, as in 頭痛, and 上 is ジョウ, as in 屋上. ずうじょう makes ず long, ずしょう has しょう where the word has じょう, and とうじょう reads 頭 as トウ (as in 先頭) and is a different word (搭乗, boarding)."
+  }
+ },
+ "skill": {
+  "kind": "listening",
+  "ja": "課題理解",
+  "en": "Task comprehension",
+  "ask": "男の学生はこのあとまず何をしますか。",
+  "strategy": "The first task you hear is often not the first one done. Listen for 先に, and for what can happen while something else is going on.",
+  "audio": [
+   [
+    "N",
+    "倉庫で、アルバイトを始める男の学生と、担当の女の人が話しています。男の学生はこのあとまず何をしますか。",
+    "そうこで、アルバイトを始める男の学生と、たんとうの女の人が話しています。男の学生はこのあとまずなにをしますか。"
+   ],
+   [
+    "M",
+    "おはようございます。今日からよろしくお願いします。さっそく作業場に入ってもいいですか。",
+    "おはようございます。きょうからよろしくお願いします。さっそくさぎょうばにはいってもいいですか。"
+   ],
+   [
+    "F",
+    "いえ、最初に安全のビデオを見てからでないと、作業場には入れないんです。三十分ぐらいのビデオです。",
+    "いえ、さいしょに安全のビデオを見てからでないと、さぎょうばにははいれないんです。さんじゅっぷんぐらいのビデオです。"
+   ],
+   [
+    "M",
+    "分かりました。それから、入館証はいつもらえますか。",
+    "わかりました。それから、にゅうかんしょうはいつもらえますか。"
+   ],
+   [
+    "F",
+    "書類が全部そろい次第、すぐ作りますよ。書類はもう出してありますか。",
+    "しょるいがぜんぶそろいしだい、すぐ作りますよ。しょるいはもう出してありますか。"
+   ],
+   [
+    "M",
+    "住所の書類は面接のときに出しました。銀行口座の書類はまだなんですが、今日持ってきました。",
+    "じゅうしょのしょるいはめんせつのときに出しました。ぎんこうこうざのしょるいはまだなんですが、きょう持ってきました。"
+   ],
+   [
+    "F",
+    "じゃあ、それを先に事務所に出してきてください。そうすれば、ビデオを見ている間に入館証を作っておけますから。",
+    "じゃあ、それをさきにじむしょに出してきてください。そうすれば、ビデオを見ているあいだににゅうかんしょうを作っておけますから。"
+   ],
+   [
+    "M",
+    "はい。じゃあ、すぐ行ってきます。",
+    null
+   ],
+   [
+    "F",
+    "ヘルメットと手袋は、ビデオが終わってから渡しますね。",
+    "ヘルメットとてぶくろは、ビデオが終わってからわたしますね。"
+   ],
+   [
+    "N",
+    "男の学生はこのあとまず何をしますか。",
+    "男の学生はこのあとまずなにをしますか。"
+   ]
+  ],
+  "item": {
+   "id": "u01d1.r1",
+   "kind": "choice",
+   "type": "課題理解",
+   "q": "男の学生はこのあとまず何をしますか。",
+   "script": [
+    "ナレーター：倉庫で、アルバイトを始める男の学生と、担当の女の人が話しています。男の学生はこのあとまず何をしますか。",
+    "男：おはようございます。今日からよろしくお願いします。さっそく作業場に入ってもいいですか。",
+    "女：いえ、最初に安全のビデオを見てからでないと、作業場には入れないんです。三十分ぐらいのビデオです。",
+    "男：分かりました。それから、入館証はいつもらえますか。",
+    "女：書類が全部そろい次第、すぐ作りますよ。書類はもう出してありますか。",
+    "男：住所の書類は面接のときに出しました。銀行口座の書類はまだなんですが、今日持ってきました。",
+    "女：じゃあ、それを先に事務所に出してきてください。そうすれば、ビデオを見ている間に入館証を作っておけますから。",
+    "男：はい。じゃあ、すぐ行ってきます。",
+    "女：ヘルメットと手袋は、ビデオが終わってから渡しますね。",
+    "ナレーター：男の学生はこのあとまず何をしますか。"
+   ],
+   "options": [
+    "安全のビデオを見る",
+    "作業場で仕事を始める",
+    "事務所に書類を出す",
+    "ヘルメットと手袋を受け取る"
+   ],
+   "printed": true,
+   "short": [
+    "ビデオを見る",
+    "作業場で仕事を始める",
+    "事務所に書類を出す",
+    "ヘルメットと手袋をもらう"
+   ],
+   "answer": 3,
+   "why": [
+    "Second. She says 最初に about the video, but then sends him to the office 先に, so his pass can be made while he watches.",
+    "Not yet: he cannot go onto the floor until he has watched the video (見てからでないと…入れない).",
+    "それを先に事務所に出してきてください: the bank form goes to the office first, and he says he will go now.",
+    "Later: she will hand them over after the video (ビデオが終わってから)."
+   ]
+  }
+ }
+}

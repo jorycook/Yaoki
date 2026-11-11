@@ -1,0 +1,267 @@
+{
+  "title": "〜ほどだ・〜くらいだ（程度）",
+  "grammar": {
+    "points": [
+      {
+        "id": "u06d3.p1",
+        "form": "〜ほどだ",
+        "gloss": "so … that (a high degree)",
+        "connect": [
+          {"pos": "Verb or i-adjective, plain form", "rule": "普通形 ＋ {ほどだ}"},
+          {"pos": "na-adjective", "rule": "〜な ＋ {ほどだ}"},
+          {"pos": "Describing a noun (〜 is the noun)", "rule": "普通形 ＋ {ほどの} ＋ 〜"}
+        ],
+        "examples": [
+          {"ja": "彼の日本語はとても自然で、日本人と間違えられる{ほどだ}。", "en": "His Japanese is so natural that people take him for a native speaker."},
+          {"ja": "医者も驚く{ほどの}速さで、父のけがは治った。", "en": "My father's injury healed so fast that even the doctor was surprised."}
+        ],
+        "watch": {
+          "note": "You met ほど in the middle of a sentence at N3 (泣きたいほど痛い). At the end of a sentence it is ほどだ, but before a noun it becomes ほどの.",
+          "bad": "部屋がいっぱいになるほどだ荷物が届いた。",
+          "good": "部屋がいっぱいになるほどの荷物が届いた。"
+        }
+      },
+      {
+        "id": "u06d3.p2",
+        "form": "〜くらいだ",
+        "gloss": "so … that; about (high or low)",
+        "connect": [
+          {"pos": "Verb or i-adjective, plain form", "rule": "普通形 ＋ {くらいだ}（{ぐらいだ}）"},
+          {"pos": "Noun (a low degree: about all)", "rule": "〜 ＋ {くらいだ}"},
+          {"pos": "Describing a noun (〜 is the noun)", "rule": "普通形 ＋ {くらいの} ＋ 〜"}
+        ],
+        "examples": [
+          {"ja": "このアプリは本当に便利で、もう手放せない{くらいだ}。", "en": "This app is so handy that I can hardly do without it now."},
+          {"ja": "日本に来てまだ一か月で、行ったことがある町は東京{くらいだ}。", "en": "I have only been in Japan a month, and Tokyo is about the only city I have been to."}
+        ],
+        "watch": {
+          "note": "くらいだ can show a low degree too: \"only enough to …\". ほどだ paints a high degree, so it cannot say how little.",
+          "bad": "私の日本語は、まだあいさつができるほどです。",
+          "good": "私の日本語は、まだあいさつができるくらいです。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "ほどだ and くらいだ both show how far a state goes by giving a picture of it; ほど sounds stronger and a little more formal, and only くらい can make something sound small.",
+      "forms": [
+        {"form": "〜ほどだ", "tag": "強い程度 · so … that (strong)", "mark": "up", "ja": "荷物が重くて、腕が痛くなる{ほどだ}。", "en": "The bags are so heavy that my arms ache."},
+        {"form": "〜くらいだ", "tag": "程度 · so … that (everyday)", "mark": "dot", "ja": "あの店は安くて、毎日通いたい{くらいだ}。", "en": "That place is so cheap I would like to go there every day."},
+        {"form": "〜くらい（軽視）", "tag": "小さく言う · just, only (N3)", "mark": "down", "ja": "この{くらい}の傷なら、すぐ治りますよ。", "en": "A little cut like this will heal in no time."}
+      ],
+      "check": {
+        "id": "u06d3.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "グラウンドで",
+        "q": "少し雨が降った（　　）、試合を中止することはないでしょう。",
+        "options": ["ほどで", "あまり", "くらいで"],
+        "answer": 3,
+        "why": [
+          "ほど does not play something down as \"just a little\". It cannot make a little rain sound small.",
+          "あまり is a feeling or effort taken too far (心配のあまり). 少し rain is the opposite of too much.",
+          "くらいで makes the rain sound small: a little rain is no reason to cancel."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "u06d3.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^新しい図書館はとても静かで^、^ページをめくる音が気になる^（　　）。",
+        "options": ["べきだ", "に越したことはない", "ほどだ", "よりほかない"],
+        "answer": 3,
+        "why": [
+          "べきだ says what someone ought to do. Being bothered by a sound is not a duty.",
+          "に越したことはない says something is best. A sound that bothers you is not best.",
+          "So quiet that even turning a page is noticeable: the picture, then ほどだ.",
+          "よりほかない needs an action you are forced into. 気になる just happens; nobody chooses it."
+        ]
+      },
+      {
+        "id": "u06d3.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^この服は軽くて^、^着ているのを忘れる^（　　）。",
+        "options": ["くらいだ", "わけがない", "ことだ", "しかない"],
+        "answer": 1,
+        "why": [
+          "So light that you forget you have it on: the picture, then くらいだ.",
+          "わけがない says something cannot happen. Light clothes make forgetting likely, not impossible.",
+          "ことだ gives advice (早く寝ることだ). Nobody is being told to forget anything.",
+          "しかない means there is no other way. Forgetting is not a step you are forced to take."
+        ]
+      },
+      {
+        "id": "u06d3.d3",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "風邪のせいで、^起き上がれない^（　　）^頭痛^が続いている。",
+        "options": ["あまり", "ばかりに", "だけに", "ほどの"],
+        "answer": 4,
+        "why": [
+          "あまり leads to a result clause (心配のあまり眠れない). It cannot describe a noun like 頭痛.",
+          "ばかりに joins a cause to a bad result clause. It cannot sit before a noun.",
+          "だけに joins two clauses (all the more because). It cannot describe a noun.",
+          "Before a noun, ほどだ becomes ほどの: a headache so bad that I cannot get up."
+        ]
+      },
+      {
+        "id": "u06d3.d4",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "隣の工事の音が大きくて、",
+        "after": "だ。",
+        "tiles": ["窓を", "閉めていても", "聞こえる", "くらい"],
+        "star": 2,
+        "bank": [2, 0, 3, 1],
+        "hint": "くらいだ follows a plain form. What happens even with the windows shut?",
+        "full": "隣の工事の音が大きくて、窓を閉めていても聞こえる{くらい}だ。",
+        "explain": "窓を is the object of 閉めていても. 聞こえる is the plain form that くらい follows, and だ。 closes the sentence: the noise is so loud you hear it with the windows shut."
+      },
+      {
+        "id": "u06d3.d5",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^この本はとても読みやすくて^、^一晩で全部読めてしまった^（　　）。",
+        "options": ["に越したことはない", "くらいだ", "はずがない", "べきだ"],
+        "answer": 2,
+        "why": [
+          "に越したことはない says what would be best. The reading has already happened.",
+          "So easy to read that I finished it in one night: くらいだ can follow a past form.",
+          "はずがない says something cannot be true, but the speaker says it was easy and did read it.",
+          "べきだ says what someone ought to do, and it does not follow a past form like 読めてしまった."
+        ]
+      },
+      {
+        "id": "u06d3.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "あの店のケーキは人気があって、",
+        "after": "だ。",
+        "tiles": ["午前中に", "売り切れて", "しまう", "ほど"],
+        "star": 1,
+        "bank": [3, 1, 0, 2],
+        "hint": "ほどだ follows a plain form. What happens to the cakes, and when?",
+        "full": "あの店のケーキは人気があって、午前中に売り切れてしまう{ほど}だ。",
+        "explain": "午前中に says when. 売り切れて and しまう make one verb, 売り切れてしまう, in the plain form that ほど follows."
+      }
+    ],
+    "exam": [
+      {
+        "id": "u06d3.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "今年の新入社員は優秀で、教える側が驚かされることもある（　　）。",
+        "options": ["よりほかない", "ほどだ", "わけにはいかない", "ことだ"],
+        "answer": 2,
+        "explain": "The new staff are so capable that even their trainers are sometimes surprised: the picture, then ほどだ. よりほかない and わけにはいかない talk about what someone must or cannot do, and ことだ gives advice; none of them fits a fact like 驚かされることもある."
+      },
+      {
+        "id": "u06d3.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "料理は苦手なので、私が作れるのは卵焼き（　　）。",
+        "options": ["ほどだ", "だけあって", "くらいだ", "あまり"],
+        "answer": 3,
+        "explain": "Noun + くらいだ can point low: an omelette is about all I can make. ほどだ paints a high degree, so it cannot say how little. だけあって and あまり join two clauses and cannot end the sentence."
+      },
+      {
+        "id": "u06d3.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "この地方の冬は寒さが厳しく、",
+        "after": "ほどだ。",
+        "tiles": ["湖の", "表面が", "凍って", "しまう"],
+        "star": 1,
+        "bank": [2, 0, 3, 1],
+        "full": "この地方の冬は寒さが厳しく、湖の{表面が}凍ってしまうほどだ。",
+        "explain": "湖の, 表面が, 凍って, しまう. 湖の describes 表面, 表面が is the subject, and 凍ってしまう is the plain form that ほどだ follows."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "居酒屋のメニュー",
+    "en": "An izakaya menu",
+    "intro": "You are booking the year-end party: tap every word on the menu you would need to read.",
+    "words": [
+      {"id": "drinks", "word": "飲み放題", "reading": "のみほうだい", "gloss": "all you can drink", "parts": [["飲", "の", "drink"], ["放題", "ほうだい", "as much as you like"]]},
+      {"id": "buffet", "word": "食べ放題", "reading": "たべほうだい", "gloss": "all you can eat", "parts": [["食", "た", "eat"], ["放題", "ほうだい", "as much as you like"]]},
+      {"id": "party", "word": "宴会", "reading": "えんかい", "gloss": "party, banquet", "parts": [["宴", "エン", "banquet"], ["会", "カイ", "gathering: 会議"]]},
+      {"id": "host", "word": "幹事", "reading": "かんじ", "gloss": "organiser (of a party)", "parts": [["幹", "カン", "trunk, main part: 新幹線"], ["事", "ジ", "matter, task"]]},
+      {"id": "room", "word": "個室", "reading": "こしつ", "gloss": "private room", "parts": [["個", "コ", "individual: 個人"], ["室", "シツ", "room: 教室"]]},
+      {"id": "tax", "word": "税別", "reading": "ぜいべつ", "gloss": "tax not included", "parts": [["税", "ゼイ", "tax: 税金"], ["別", "ベツ", "separate"]]},
+      {"id": "starter", "word": "お通し", "reading": "おとおし", "gloss": "small starter (a cover charge)", "parts": [["通", "とお", "pass through"]]},
+      {"id": "fried", "word": "揚げ物", "reading": "あげもの", "gloss": "fried food", "parts": [["揚", "あ", "fry"], ["物", "もの", "thing"]]}
+    ],
+    "check": {
+      "id": "u06d3.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "今年の忘年会の_幹事_を頼まれた。",
+      "options": ["かんじ", "かんし", "がんじ", "かいじ"],
+      "answer": 1,
+      "explain": "幹事 is かんじ: 幹 is read カン, as in 新幹線, and 事 is read ジ. It sounds just like 漢字. 幹 is not read がん or かい, and 事 is not し here."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "ポイント理解",
+    "en": "Point comprehension",
+    "ask": "女の人はどうしてこの店がいいと言っていますか。",
+    "strategy": "Read the four choices first. The first reason you hear is often not the real one: wait for words like 実は.",
+    "item": {
+      "id": "u06d3.r1",
+      "kind": "choice",
+      "type": "ポイント理解",
+      "q": "女の人はどうしてこの店がいいと言っていますか。",
+      "script": [
+        "ナレーター：会社で、男の人と女の人が忘年会の店について話しています。女の人はどうしてこの店がいいと言っていますか。",
+        "男：忘年会の店、駅前の「さくら」でいいかな。去年も使ったし。",
+        "女：うーん、私はこっちの「たぬき」がいいと思うんだけど。",
+        "男：ああ、料理がおいしいって評判の店だよね。部長も、また行きたいって言ってたくらいだし。",
+        "女：うん、料理もいいんだけど、実は、個室があるからなの。去年の店は隣の席がうるさくて、乾杯のあいさつも聞こえないほどだったでしょう。",
+        "男：ああ、そうだったね。値段はどう？",
+        "女：飲み放題がついて四千円。さくらより五百円高いけど。",
+        "男：まあ、五百円ならいいか。じゃあ、たぬきで予約しよう。",
+        "ナレーター：女の人はどうしてこの店がいいと言っていますか。"
+      ],
+      "options": [
+        "料理がおいしいと評判だから",
+        "部長がまた行きたいと言っているから",
+        "個室があって、静かに話せるから",
+        "さくらより値段が安いから"
+      ],
+      "printed": true,
+      "short": ["料理が評判", "部長が行きたがっている", "個室で静かに話せる", "値段が安い"],
+      "answer": 3,
+      "why": [
+        "The man says the food is well spoken of. She agrees (料理もいい), then says 実は: that is not her reason.",
+        "The man brings up the manager. She never gives this as her reason.",
+        "実は、個室があるからなの: last year it was so noisy they could not even hear the toast.",
+        "This place costs 500 yen more than さくら, not less."
+      ]
+    },
+    "audio": [
+      ["N", "会社で、男の人と女の人が忘年会の店について話しています。女の人はどうしてこの店がいいと言っていますか。", null],
+      ["M", "忘年会の店、駅前の「さくら」でいいかな。去年も使ったし。", "ぼうねんかいのみせ、えきまえの「さくら」でいいかな。きょねんもつかったし。"],
+      ["F", "うーん、私はこっちの「たぬき」がいいと思うんだけど。", "うーん、わたしはこっちの「たぬき」がいいとおもうんだけど。"],
+      ["M", "ああ、料理がおいしいって評判の店だよね。部長も、また行きたいって言ってたくらいだし。", null],
+      ["F", "うん、料理もいいんだけど、実は、個室があるからなの。去年の店は隣の席がうるさくて、乾杯のあいさつも聞こえないほどだったでしょう。", "うん、りょうりもいいんだけど、じつは、こしつがあるからなの。きょねんのみせはとなりのせきがうるさくて、かんぱいのあいさつもきこえないほどだったでしょう。"],
+      ["M", "ああ、そうだったね。値段はどう？", null],
+      ["F", "飲み放題がついて四千円。さくらより五百円高いけど。", "のみほうだいがついてよんせんえん。さくらよりごひゃくえんたかいけど。"],
+      ["M", "まあ、五百円ならいいか。じゃあ、たぬきで予約しよう。", "まあ、ごひゃくえんならいいか。じゃあ、たぬきでよやくしよう。"],
+      ["N", "女の人はどうしてこの店がいいと言っていますか。", null]
+    ]
+  }
+}

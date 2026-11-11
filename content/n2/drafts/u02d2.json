@@ -1,0 +1,506 @@
+{
+ "title": "〜ばかりか・〜はもとより",
+ "grammar": {
+  "points": [
+   {
+    "id": "u02d2.p1",
+    "form": "〜ばかりか",
+    "gloss": "not only … but even",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ {ばかりか}"
+     },
+     {
+      "pos": "Verb, i-adjective (plain form)",
+      "rule": "普通形 ＋ {ばかりか}"
+     },
+     {
+      "pos": "Na-adjective",
+      "rule": "〜な／〜である ＋ {ばかりか}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "台風で電車が止まった{ばかりか}、停電まで起きた。",
+      "en": "The typhoon not only stopped the trains, it even caused a power cut."
+     },
+     {
+      "ja": "新しい部長は英語{ばかりか}、中国語も話せるそうだ。",
+      "en": "Apparently the new manager speaks not only English but Chinese too."
+     }
+    ],
+    "watch": {
+     "note": "ばかりか reports what is the case. It cannot be followed by a request, an order or the speaker's own plan. For those, use だけでなく.",
+     "bad": "野菜ばかりか、果物も食べてください。",
+     "good": "野菜だけでなく、果物も食べてください。"
+    }
+   },
+   {
+    "id": "u02d2.p2",
+    "form": "〜はもとより",
+    "gloss": "not to mention …, and also",
+    "connect": [
+     {
+      "pos": "Noun",
+      "rule": "〜 ＋ {はもとより}"
+     },
+     {
+      "pos": "Verb (plain form)",
+      "rule": "普通形 ＋ の ＋ {はもとより}"
+     }
+    ],
+    "examples": [
+     {
+      "ja": "健康のためには、食事{はもとより}、[睡眠|すいみん]も大切だ。",
+      "en": "For your health, sleep matters too, not to mention what you eat."
+     },
+     {
+      "ja": "この辞書は、学生{はもとより}、翻訳の仕事をする人にも役に立つ。",
+      "en": "This dictionary is useful to students, of course, and to translators as well."
+     }
+    ],
+    "watch": {
+     "note": "Put the obvious case before はもとより and the less expected one after it. A Japanese song being popular with Japanese people is no surprise.",
+     "bad": "この日本の歌は、外国人はもとより、日本人にも人気がある。",
+     "good": "この日本の歌は、日本人はもとより、外国人にも人気がある。"
+    }
+   }
+  ],
+  "compare": {
+   "intro": "All three say \"not only X but also Y\". ばかりか adds surprise, はもとより starts from the obvious case, and だけでなく is the plain one that also fits a request.",
+   "forms": [
+    {
+     "form": "〜ばかりか",
+     "tag": "意外・さらに · not only, even",
+     "mark": "up",
+     "ja": "このスマホは画面が割れた{ばかりか}、電源まで入らなくなった。",
+     "en": "Not only did this phone's screen crack, it won't even turn on now."
+    },
+    {
+     "form": "〜はもとより",
+     "tag": "当然・そのうえ · of course, and also",
+     "mark": "dot",
+     "ja": "この公園は、春の桜{はもとより}、秋の紅葉も美しい。",
+     "en": "This park is beautiful in autumn for its leaves, not to mention its cherry blossoms in spring."
+    },
+    {
+     "form": "〜だけでなく",
+     "tag": "〜も · not just (N3)",
+     "mark": "dot",
+     "ja": "会議の資料は、日本語{だけでなく}、英語でも用意してください。",
+     "en": "Please prepare the meeting papers in English as well as in Japanese."
+    }
+   ],
+   "check": {
+    "id": "u02d2.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "ごみの出し方",
+    "q": "ごみを分ける（　　）、袋の口もしっかり閉めてください。",
+    "options": [
+     "ばかりか",
+     "はもとより",
+     "だけでなく"
+    ],
+    "answer": 3,
+    "why": [
+     "ばかりか cannot be followed by a request like 〜てください.",
+     "はもとより follows a noun. 分ける is a verb, and there is no の before the blank.",
+     "だけでなく adds a second thing and can end in a request."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u02d2.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この薬は効かなかった（　　）、^副作用まで^出てしまった。",
+    "options": [
+     "に限って",
+     "ばかりか",
+     "を機に",
+     "はもとより"
+    ],
+    "answer": 2,
+    "why": [
+     "に限って follows a noun, as in 忙しい日に限って. It cannot follow 効かなかった.",
+     "It did not work, and on top of that there were side effects: まで marks the worse thing, and ばかりか leads up to it.",
+     "を機に follows a noun for an event and starts something new. It cannot follow 効かなかった.",
+     "はもとより follows a noun, or a verb + の. 効かなかった has no の."
+    ]
+   },
+   {
+    "id": "u02d2.d2",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "最近、父は",
+    "after": "走るようにもなった。",
+    "tiles": [
+     "お酒を",
+     "やめた",
+     "ばかりか",
+     "毎朝"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "お酒を needs its verb first. Which tile can follow a plain-form verb to mean \"not only\"?",
+    "full": "最近、父はお酒をやめた{ばかりか}毎朝走るようにもなった。",
+    "explain": "お酒を takes its verb やめた, and ばかりか follows the plain form. 毎朝 says when he runs, so it sits right before 走る."
+   },
+   {
+    "id": "u02d2.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この図書館は、^平日^（　　）、^土日も^夜八時まで開いている。",
+    "options": [
+     "さえ",
+     "に限って",
+     "を機に",
+     "はもとより"
+    ],
+    "answer": 4,
+    "why": [
+     "さえ would make weekdays the surprising case, but opening on weekdays is the ordinary case.",
+     "に限って picks out one case only, so it clashes with 土日も.",
+     "を機に means \"taking the chance of\" an event. A weekday is not an event.",
+     "Weekdays are the obvious case, and the weekend is added with も."
+    ]
+   },
+   {
+    "id": "u02d2.d4",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "このボランティア活動には、^経験者の方^（　　）、初めての方も^ぜひご参加ください^。",
+    "options": [
+     "はもとより",
+     "ばかりか",
+     "に限って",
+     "に際して"
+    ],
+    "answer": 1,
+    "why": [
+     "Experienced people are the obvious case. はもとより follows a noun, and a request can follow it.",
+     "ばかりか cannot be followed by a request like ご参加ください.",
+     "に限って picks out one case only, so it clashes with 初めての方も.",
+     "に際して means \"on the occasion of\". Experienced people are not an occasion."
+    ]
+   },
+   {
+    "id": "u02d2.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "駅前の再開発で、^道が広くなった^（　　）、^大きな病院も^できた。",
+    "options": [
+     "はもとより",
+     "に際して",
+     "ばかりか",
+     "あげく"
+    ],
+    "answer": 3,
+    "why": [
+     "はもとより follows a noun. 道が広くなった is a clause with no の.",
+     "に際して means \"on the occasion of\" and follows a noun or the dictionary form, not a past form.",
+     "A plain-form clause, then one more good change added with も: ばかりか.",
+     "あげく ends in a bad result after a long struggle. Here the news is good."
+    ]
+   },
+   {
+    "id": "u02d2.d6",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "このホテルは、部屋の",
+    "after": "評判がいい。",
+    "tiles": [
+     "広さ",
+     "はもとより",
+     "朝食の",
+     "おいしさも"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "hint": "部屋の needs a noun right after it. Which tile, with its も, comes just before 評判がいい?",
+    "full": "このホテルは、部屋の広さ{はもとより}朝食のおいしさも評判がいい。",
+    "explain": "部屋の takes the noun 広さ, and はもとより follows it. 朝食の describes おいしさ, and おいしさも is the second thing people praise."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u02d2.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "彼はこの一年で資格を二つ取った（　　）、社内の賞ももらった。",
+    "options": [
+     "あげく",
+     "ばかりか",
+     "次第",
+     "はもとより"
+    ],
+    "answer": 2,
+    "explain": "A plain-form clause, then one more thing on top with も: ばかりか. あげく ends in a bad result after a long struggle, but this is good news. 次第 follows the ます stem (取り次第), and はもとより follows a noun, not a verb."
+   },
+   {
+    "id": "u02d2.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "当店では、地元の野菜（　　）、全国から取り寄せた果物も販売しております。",
+    "options": [
+     "に限って",
+     "にあたって",
+     "について",
+     "はもとより"
+    ],
+    "answer": 4,
+    "explain": "Local vegetables are what you expect the shop to sell, and the fruit is added with も: はもとより after a noun. に限って picks out one case only, so it clashes with 果物も. にあたって means \"on the occasion of\" and について means \"about\"; neither adds a second item."
+   },
+   {
+    "id": "u02d2.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "あの店員は注文を",
+    "after": "までした。",
+    "tiles": [
+     "間違えた",
+     "ばかりか",
+     "客の",
+     "せいに"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     3,
+     1,
+     0
+    ],
+    "full": "あの店員は注文を間違えたばかりか{客の}せいにまでした。",
+    "explain": "間違えた, ばかりか, 客の, せいに. 注文を takes the verb, ばかりか follows the plain form, and 客の must sit right before せいに (〜のせいにする)."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "放置自転車のお知らせ",
+  "en": "A notice about abandoned bicycles",
+  "intro": "Tap every word on the notice you would have to understand.",
+  "words": [
+   {
+    "id": "abandon",
+    "word": "放置",
+    "reading": "ほうち",
+    "gloss": "leaving (abandoned)",
+    "parts": [
+     [
+      "放",
+      "ホウ",
+      "let go: 放送"
+     ],
+     [
+      "置",
+      "チ",
+      "put: 位置"
+     ]
+    ]
+   },
+   {
+    "id": "remove",
+    "word": "撤去",
+    "reading": "てっきょ",
+    "gloss": "removal",
+    "parts": [
+     [
+      "撤",
+      "テツ",
+      "withdraw"
+     ],
+     [
+      "去",
+      "キョ",
+      "go away: 過去"
+     ]
+    ]
+   },
+   {
+    "id": "parking",
+    "word": "駐輪場",
+    "reading": "ちゅうりんじょう",
+    "gloss": "bicycle parking",
+    "parts": [
+     [
+      "駐",
+      "チュウ",
+      "stop, park: 駐車"
+     ],
+     [
+      "輪",
+      "リン",
+      "wheel"
+     ],
+     [
+      "場",
+      "ジョウ",
+      "place: 会場"
+     ]
+    ]
+   },
+   {
+    "id": "storage",
+    "word": "保管",
+    "reading": "ほかん",
+    "gloss": "storage, keeping",
+    "parts": [
+     [
+      "保",
+      "ホ",
+      "keep: 保存"
+     ],
+     [
+      "管",
+      "カン",
+      "manage: 管理"
+     ]
+    ]
+   },
+   {
+    "id": "lock",
+    "word": "施錠",
+    "reading": "せじょう",
+    "gloss": "locking",
+    "parts": [
+     [
+      "施",
+      "セ",
+      "carry out (シ in 実施)"
+     ],
+     [
+      "錠",
+      "ジョウ",
+      "lock"
+     ]
+    ]
+   },
+   {
+    "id": "collect",
+    "word": "引き取り",
+    "reading": "ひきとり",
+    "gloss": "collecting (picking up)",
+    "parts": [
+     [
+      "引",
+      "ひ",
+      "pull"
+     ],
+     [
+      "取",
+      "と",
+      "take"
+     ]
+    ]
+   },
+   {
+    "id": "nuisance",
+    "word": "迷惑",
+    "reading": "めいわく",
+    "gloss": "nuisance, trouble",
+    "parts": [
+     [
+      "迷",
+      "メイ",
+      "go astray: 迷う"
+     ],
+     [
+      "惑",
+      "ワク",
+      "be at a loss: 戸惑う"
+     ]
+    ]
+   },
+   {
+    "id": "idcard",
+    "word": "身分証",
+    "reading": "みぶんしょう",
+    "gloss": "ID card",
+    "parts": [
+     [
+      "身分",
+      "みぶん",
+      "identity, status"
+     ],
+     [
+      "証",
+      "ショウ",
+      "proof: 証明"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u02d2.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この建物は、夜九時になると管理人が_施錠_します。",
+   "options": [
+    "せじょう",
+    "しじょう",
+    "せじょ",
+    "しじょ"
+   ],
+   "answer": 1,
+   "explain": "施錠 is せじょう. 施 is usually シ, as in 実施, but it is セ in this word. 錠 is ジョウ, with a long vowel. しじょう is a reading of 市場 (market), and せじょ and しじょ drop the long vowel of 錠."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "内容理解（短文）",
+  "en": "Short passage",
+  "ask": "What does the notice ask residents to do?",
+  "seconds": 80,
+  "passage": "駅前の歩道に自転車を置いたままにする人が増えています。放置自転車は通行の迷惑になるばかりか、お年寄りや目の不自由な方がつまずいてけがをするなど、事故の原因にもなっています。市では、放置された自転車を撤去し、保管所で一か月間保管しています。引き取りの際は、身分証と自転車の鍵をお持ちください。駅の駐輪場は、通勤・通学の方はもとより、買い物の方も二時間まで無料でご利用いただけます。^自転車は必ず駐輪場に止め、施錠をお願いします^。",
+  "strategy": "Skip the background. Find the requests (〜ください, 〜お願いします) and pick the one meant for everyone.",
+  "item": {
+   "id": "u02d2.r1",
+   "kind": "choice",
+   "type": "読解・内容理解（短文）",
+   "q": "このお知らせは、市民に何をするように求めているか。",
+   "options": [
+    "歩道に自転車を止めるときは、必ず鍵をかけること。",
+    "買い物のときは、駐輪場を使わないこと。",
+    "自転車は駐輪場に止めて、鍵をかけること。",
+    "放置自転車を見つけたら、市に知らせること。"
+   ],
+   "short": [
+    "歩道に止めて鍵をかける",
+    "買い物では駐輪場を使わない",
+    "駐輪場に止めて鍵をかける",
+    "放置自転車を市に知らせる"
+   ],
+   "answer": 3,
+   "why": [
+    "Option 1 keeps the bicycle on the pavement, which is the very problem the notice describes.",
+    "Option 2 is the opposite. Shoppers may use the bicycle parking free for two hours.",
+    "",
+    "Option 4 is not in the text. The city removes the bicycles itself."
+   ],
+   "explain": "The request for everyone comes at the end, in the sentence ending お願いします: park at the station's bicycle parking and lock the bicycle."
+  }
+ }
+}
