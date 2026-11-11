@@ -262,11 +262,11 @@
     return all.length ? all[0].id : null;
   };
   /* ---------- sound by unit ----------
-     N2's clips load with the page (sound-course.js). Other levels have one clip file per unit
-     (sound-course-n5-u03.js), fetched next to course.js when a unit is first in use, so the
-     phone never holds every unit's sound at once. */
+     Each level has one clip file per unit (sound-course-n5-u03.js), fetched next to course.js when a
+     unit is first in use, so the phone never holds every unit's sound at once. Unit 0 is the level's
+     mini mock; N2's mini mock clips are in sound-mock.js, which loads with the page. */
   var soundAsked = {};
-  C.soundFile = function (lv, unit) { return lv === 'N2' ? '' : 'sound-course-' + lv.toLowerCase() + '-u' + pad(unit) + '.js'; };
+  C.soundFile = function (lv, unit) { return lv === 'N2' && !unit ? '' : 'sound-course-' + lv.toLowerCase() + '-u' + pad(unit) + '.js'; };
   C.needSound = function (lv, unit) {
     var f = C.soundFile(lv, unit);
     if (!f || soundAsked[f] || typeof document === 'undefined') return;

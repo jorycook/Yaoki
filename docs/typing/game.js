@@ -294,7 +294,8 @@
   const soundLoads = {};
   function loadSound(level, n) {
     const lv = level.toLowerCase();
-    const files = level === 'N2' ? ['sound-course.js', 'sound-lessons.js'] : ['sound-course-' + lv + '-u' + String(n).padStart(2, '0') + '.js'];
+    // N2's unit 3 also says the prototype's own words (sound-lessons.js)
+    const files = ['sound-course-' + lv + '-u' + String(n).padStart(2, '0') + '.js'].concat(level === 'N2' ? ['sound-lessons.js'] : []);
     const need = window.ykSound ? [] : ['sound.js'];
     for (const f of need.concat(files)) {
       if (!soundLoads[f]) soundLoads[f] = loadScript('../assets/' + f).catch(() => {});

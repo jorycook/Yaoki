@@ -32,9 +32,9 @@ const LEVELS = {
        strokes.js and yk-write.js are the writing practice (Write, part of Scene): the strokes and the pad */
     scripts: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js', 'course.js', 'strokes.js', 'yk-write.js'],
     words: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js'],
-    /* the clips, loaded after the app; each level's sound by unit (sound-course-n5-u01.js …) is fetched by course.js
-       when the unit is in use, and stored by the offline worker when used, not at install (lazy) */
-    sounds: ['sound-mock.js', 'sound-lessons.js', 'sound-course.js'],
+    /* the clips, loaded after the app; each level's sound by unit (sound-course-n5-u01.js … sound-course-n2-u12.js) is
+       fetched by course.js when the unit is in use, and stored by the offline worker when used, not at install (lazy) */
+    sounds: ['sound-mock.js', 'sound-lessons.js'],
     unitSound: /^sound-course-n\d-u\d+\.js$/,
     lazy: /^\.\/assets\/sound-course-n\d-u\d+\.js$/ },
   N1: { project: '../yaoki-n1/project', out: 'dist-n1', name: 'Yaoki N1', full: 'Yaoki JLPT N1', tile: '#2F4FD0', about: 'Prototype N1 course, planned to your exam date.', credits: 'Kanji data: KANJIDIC2 and JMdict, by the EDRDG (CC BY-SA 4.0). ',

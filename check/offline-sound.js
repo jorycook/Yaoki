@@ -56,12 +56,13 @@ const PORT = +(process.env.OFFLINE_PORT || 8767);
     } else {
       const units = (urls, lv) => urls.filter((u) => u.includes('sound-course-' + lv + '-u')).length;
       let urls = await list();
-      ok(units(urls, 'n5') + units(urls, 'n4') + units(urls, 'n3') === 0, 'the install should hold no unit sound, got ' + (units(urls, 'n5') + units(urls, 'n4') + units(urls, 'n3')));
+      const all = (urls) => ['n5', 'n4', 'n3', 'n2'].reduce((n, lv) => n + units(urls, lv), 0);
+      ok(all(urls) === 0, 'the install should hold no unit sound, got ' + all(urls));
       await page.evaluate(() => navigator.serviceWorker.controller.postMessage({ keepLevel: 'n5' }));
       const want = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^sound-course-n5-u\d+\.js$/.test(f)).length;
       for (let i = 0; i < 60 && units(urls, 'n5') < want; i++) { await page.waitForTimeout(500); urls = await list(); }
       ok(units(urls, 'n5') === want, `asking for N5 should store all ${want} N5 unit files, got ${units(urls, 'n5')}`);
-      ok(units(urls, 'n4') === 0 && units(urls, 'n3') === 0, 'other levels should stay out of the store');
+      ok(units(urls, 'n4') === 0 && units(urls, 'n3') === 0 && units(urls, 'n2') === 0, 'other levels should stay out of the store');
       /* offline: the server goes away (Playwright's offline switch does not reach a service worker's own fetches) */
       server.kill(); await new Promise((r) => setTimeout(r, 500));
       const got = await page.evaluate(async () => { const a = await fetch('./assets/sound-course-n5-u03.js'); const b = await fetch('./assets/sound-course-n4-u03.js').then((r) => r.ok, () => false); return { a: a.ok && (await a.text()).includes('__ykClips'), b }; });
@@ -72,7 +73,12 @@ const PORT = +(process.env.OFFLINE_PORT || 8767);
       await page.evaluate(() => fetch('./assets/sound-course-n4-u02.js').then((r) => r.text()));
       urls = await list();
       ok(units(urls, 'n4') === 1, 'a unit file used once should be stored, got ' + units(urls, 'n4'));
-      console.log(`stored: n5 ${units(urls, 'n5')}, n4 ${units(urls, 'n4')}, n3 ${units(urls, 'n3')}`);
+      // N2's units too: asking for N2 stores all of them
+      await page.evaluate(() => navigator.serviceWorker.controller.postMessage({ keepLevel: 'n2' }));
+      const want2 = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^sound-course-n2-u\d+\.js$/.test(f)).length;
+      for (let i = 0; i < 60 && units(urls, 'n2') < want2; i++) { await page.waitForTimeout(500); urls = await list(); }
+      ok(want2 > 0 && units(urls, 'n2') === want2, `asking for N2 should store all ${want2} N2 unit files, got ${units(urls, 'n2')}`);
+      console.log(`stored: n5 ${units(urls, 'n5')}, n4 ${units(urls, 'n4')}, n3 ${units(urls, 'n3')}, n2 ${units(urls, 'n2')}`);
     }
   } catch (e) { fails += 1; console.log('  CRASH ' + e.message); }
   await browser.close();

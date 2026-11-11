@@ -178,7 +178,7 @@
   var soundAsked = '';
   function keepLevelSound(level) {
     var lv = String(level || '').toLowerCase();
-    if (!/^n[345]$/.test(lv) || lv === soundAsked) return;
+    if (!/^n[2345]$/.test(lv) || lv === soundAsked) return;
     try {
       var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
       if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }
