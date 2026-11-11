@@ -46,7 +46,7 @@
       "rule": "た形 ＋ {あげく（に）}"
      },
      {
-      "pos": "Noun (an argument, a long wait)",
+      "pos": "Noun (a quarrel, a long argument)",
       "rule": "〜 ＋ の ＋ {あげく（に）}"
      },
      {
@@ -56,8 +56,8 @@
     ],
     "examples": [
      {
-      "ja": "さんざん待たされた{あげく}、結局その日は[診|み]てもらえなかった。",
-      "en": "After being kept waiting for ages, I was not seen by the doctor that day after all."
+      "ja": "弟はさんざん親に心配をかけた{あげく}、結局大学をやめてしまった。",
+      "en": "After causing our parents no end of worry, my brother ended up dropping out of university."
      },
      {
       "ja": "二人は激しい言い合いの{あげく}、とうとう口もきかなくなった。",
@@ -121,7 +121,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^二年かけて^工事を進めた（　　）、^ようやく^新しい駅ビルが完成した。",
+    "q": "^一か月も^探し回った（　　）、^やっと^駅に近くて家賃の安い部屋が見つかった。",
     "options": [
      "とたんに",
      "最中に",
@@ -130,10 +130,10 @@
     ],
     "answer": 3,
     "why": [
-     "とたん is for the very moment something happens. Two years of work is not a moment, and ようやく says it took long.",
+     "とたん is for the very moment something happens. A month of searching is not a moment, and やっと says it took long.",
      "最中に needs 〜ている or a noun + の, and it means \"right in the middle of\", not \"in the end\".",
-     "A long process (two years of work), then the result: the past form + 末に.",
-     "次第 follows the ます stem and means \"as soon as\". It does not follow the past form."
+     "A long search (a whole month), then the result: the past form + 末に.",
+     "次第 meaning \"as soon as\" follows the ます stem (探し回り次第), and it leads to a plan or a request, not to something that has already happened."
     ]
    },
    {
@@ -151,8 +151,8 @@
     "answer": 4,
     "why": [
      "とたん is for one sudden moment. Queuing for hours is a long process, not a moment.",
-     "かと思うと says one thing came right after another, and it describes someone else, not the speaker. 何時間も rules it out too.",
-     "にあたって follows the dictionary form and leads to preparation for something ahead.",
+     "かと思うと is for a quick change you watch happen, not for your own actions. Here the speaker did the queuing, and 何時間も is not quick.",
+     "にあたって follows a noun or the dictionary form, and it is for getting ready for a big occasion, not for how something ended.",
      "Hours of effort, then a disappointing end: the past form + あげく."
     ]
    },
@@ -161,7 +161,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^五時間に及ぶ^手術の（　　）、^父の命は助かった^。",
+    "q": "^五時間を超える^手術の（　　）、^父の命は助かった^。",
     "options": [
      "末に",
      "あげく",
@@ -186,14 +186,14 @@
      "やっと調子がよくなった",
      "結局買い替えることになった",
      "来週また修理に出そう",
-     "とても安く直してもらえた"
+     "もう修理に出さないほうがいい"
     ],
     "answer": 2,
     "why": [
-     "A good end. When a long effort pays off, use 末に, not あげく.",
+     "A good end: the car finally runs well. When a long effort pays off, use 末に, not あげく.",
      "After all those repairs, a disappointing end: they were wasted, and a new car is needed anyway.",
      "あげく is followed by what happened in the end, not by a plan like 〜よう.",
-     "Another good result, which あげく does not lead to."
+     "Advice like 〜ないほうがいい cannot follow あげく either: it tells how things turned out."
     ]
    },
    {
@@ -201,34 +201,34 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "妹は",
-    "after": "留学をあきらめた。",
+    "before": "妹は留学を",
+    "after": "日本に帰ってきた。",
     "tiles": [
-     "悩み",
-     "に",
+     "続ける",
+     "かどうか",
      "悩んだ",
      "末に"
     ],
     "star": 2,
     "bank": [
      3,
+     1,
      0,
-     2,
-     1
+     2
     ],
-    "hint": "悩みに悩む means \"agonise over and over\". Which form of the verb comes before 末に?",
-    "full": "妹は悩みに悩んだ{末に}留学をあきらめた。",
-    "explain": "悩みに悩んだ is one phrase: the noun 悩み, に, then the same verb in the past form. 末に follows it, and the decision comes after."
+    "hint": "末に follows a verb in the past form. What was she unsure about?",
+    "full": "妹は留学を続けるかどうか悩んだ{末に}日本に帰ってきた。",
+    "explain": "続けるかどうか (whether to carry on) is what she agonised over. 悩んだ is in the past form, as 末に needs, and coming home is how it ended."
    },
    {
     "id": "u01d5.d6",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "さんざん道に",
+    "before": "電車を二回も",
     "after": "三十分も遅れてしまった。",
     "tiles": [
-     "迷った",
+     "乗り間違えた",
      "あげく",
      "約束の",
      "時間に"
@@ -240,9 +240,9 @@
      3,
      1
     ],
-    "hint": "道に迷う is one phrase, and あげく follows its past form. What were you late for?",
-    "full": "さんざん道に迷った{あげく}約束の時間に三十分も遅れてしまった。",
-    "explain": "道に迷った is the long trouble, in the past form before あげく. 約束の describes 時間, and 時間に遅れる is \"be late for the time\"."
+    "hint": "乗り間違える is one verb, and あげく follows its past form. What were you late for?",
+    "full": "電車を二回も乗り間違えた{あげく}約束の時間に三十分も遅れてしまった。",
+    "explain": "乗り間違えた is the trouble, in the past form before あげく. 約束の describes 時間, and 時間に遅れる is \"be late for the time\"."
    }
   ],
   "exam": [
@@ -251,7 +251,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "何度も失敗を繰り返した（　　）、ついに新しいロボットが完成した。",
+    "q": "三年間、失敗を繰り返した（　　）、ついに人と会話できるロボットが完成した。",
     "options": [
      "あげく",
      "とたんに",
@@ -259,7 +259,7 @@
      "末に"
     ],
     "answer": 4,
-    "explain": "A long effort, then the result it finally led to: 末に. あげく leads to a bad end, but this one is good. とたんに is for one sudden moment, and 際に only says when something happens; neither fits 何度も…ついに."
+    "explain": "A long effort, then the result it finally led to: 末に. あげく leads to a bad end, but this one is good. とたんに is for one sudden moment, and 際に only says when something happens; neither fits three years of failures that end with ついに."
    },
    {
     "id": "u01d5.e2",
@@ -456,7 +456,7 @@
    "kind": "choice",
    "type": "漢字読み",
    "label": "How the exam asks it",
-   "q": "古いスマートフォンを_下取り_に出すと、新しい機種が安くなります。",
+   "q": "古いスマートフォンを_下取り_に出すと、新しいものが安く買えます。",
    "options": [
     "したとり",
     "しもどり",
@@ -464,7 +464,7 @@
     "げとり"
    ],
    "answer": 3,
-   "explain": "下 is read した as in 下着, and 取り becomes どり after it: したどり. したとり misses the change to ど, しもどり uses the wrong reading of 下, and げとり mixes an on reading with a kun reading."
+   "explain": "下 is read した as in 下着, and 取り becomes どり after it: したどり. したとり misses the change to ど, しもどり uses the wrong kun reading of 下, and げとり mixes an on reading with a kun reading."
   }
  },
  "skill": {
@@ -536,8 +536,8 @@
    ],
    [
     "N",
-    "会社を変えなくても、調べる価値はある",
-    "かいしゃをかえなくても、しらべるかちはある"
+    "会社を変えなくても、一度プランを見直すといい",
+    "かいしゃをかえなくても、いちどプランをみなおすといい"
    ],
    [
     "N",
@@ -561,27 +561,27 @@
     "ナレーター：女の人が一番言いたいことは何ですか。",
     "ナレーター：1　料金の安い会社に変えるべきだ",
     "ナレーター：2　プランを比べるのは時間のむだだ",
-    "ナレーター：3　会社を変えなくても、調べる価値はある",
+    "ナレーター：3　会社を変えなくても、一度プランを見直すといい",
     "ナレーター：4　解約するときは違約金に注意したほうがいい"
    ],
    "options": [
     "料金の安い会社に変えるべきだ",
     "プランを比べるのは時間のむだだ",
-    "会社を変えなくても、調べる価値はある",
+    "会社を変えなくても、一度プランを見直すといい",
     "解約するときは違約金に注意したほうがいい"
    ],
    "printed": false,
    "short": [
     "安い会社に変えるべき",
     "比べるのは時間のむだ",
-    "変えなくても調べる価値がある",
+    "変えなくても見直すといい",
     "違約金に注意"
    ],
    "answer": 3,
    "why": [
     "She compared other companies but stayed with her own, and she does not tell anyone to switch.",
     "The opposite: after ただ she says it was not a waste of time.",
-    "Her last sentence: even without changing company, checking once is worth it. Dropping an unused option cut her bill.",
+    "Her last sentence, in other words: even without changing company, checking your plan once is worth it. Dropping an unused option cut her bill.",
     "違約金 is only one of the things she compared. She gives no warning about it."
    ],
    "explain": "The story (weeks of comparing, then staying put) leads to her point after ただ: the checking itself paid off, so it is worth doing even if you do not switch."

@@ -4,7 +4,7 @@
     "kind": "choice",
     "type": "漢字読み",
     "label": "Kanji reading",
-    "q": "ご注文いただいた商品は、三日以内に倉庫から_出荷_いたします。",
+    "q": "今年は暖かい日が続いたので、みかんの_出荷_がいつもより早く始まった。",
     "options": [
       "しゅうか",
       "しゅっか",
@@ -12,14 +12,14 @@
       "しゅつか"
     ],
     "answer": 2,
-    "explain": "出荷 is しゅっか: 出 is シュツ, which becomes しゅっ before か, and 荷 is カ as in 入荷. しゅうか lengthens the vowel, しゅか drops the small っ, and しゅつか keeps シュツ without the change."
+    "explain": "出荷 is しゅっか: 出 is シュツ, which becomes しゅっ before か, and 荷 is カ as in 入荷. しゅうか lengthens the vowel (it is the reading of 集荷, collecting goods), しゅか drops the small っ, and しゅつか keeps シュツ without the change."
   },
   {
     "id": "u01t.2",
     "kind": "choice",
     "type": "漢字読み",
     "label": "Kanji reading",
-    "q": "東京行きの便は、_搭乗口_が十五番に変更になりました。",
+    "q": "出発の直前に_搭乗口_が変わり、反対側まで走らなければならなかった。",
     "options": [
       "とうじょぐち",
       "とうじょうこう",
@@ -42,7 +42,7 @@
       "脱関"
     ],
     "answer": 1,
-    "explain": "Customs is 税関: 税 \"tax\" and 関 \"barrier\". 説 and 脱 share the right-hand part of 税 but mean \"explain\" and \"remove\", and 間 sounds like 関 and looks like it; 説関, 税間 and 脱関 are not words."
+    "explain": "Customs is 税関: 税 \"tax\" and 関 \"barrier\". 説 shares the right-hand part of 税 but means \"explain\", 間 sounds like 関 and looks like it, and 脱, with the same right-hand part as 税, means \"remove\". 説関, 税間 and 脱関 are not words."
   },
   {
     "id": "u01t.4",
@@ -57,7 +57,7 @@
       "冷凍"
     ],
     "answer": 4,
-    "explain": "Frozen is 冷凍: 冷 \"cold\" and 凍 \"freeze\", both with the ice part 冫. 東 and 棟 sound like 凍 and look like it, and 令 lacks the 冫 of 冷; 冷東, 令凍 and 冷棟 are not words."
+    "explain": "Frozen is 冷凍: 冷 \"cold\" and 凍 \"freeze\", both with the ice part 冫. 冷東 uses 東, which sounds and looks like 凍; 令凍 uses 令, which lacks the 冫 of 冷; and 冷棟 uses 棟, another トウ. None of them is a word."
   },
   {
     "id": "u01t.5",
@@ -79,15 +79,15 @@
     "kind": "choice",
     "type": "語形成",
     "label": "Word formation",
-    "q": "ヨーロッパへの長い便では、機内（　　）が二回出る。",
+    "q": "ヨーロッパまでの十二時間のフライトで、機内（　　）が二回出た。",
     "options": [
       "食",
       "料",
-      "品",
+      "菜",
       "物"
     ],
     "answer": 1,
-    "explain": "The meal served on a plane is 機内食, as in 和食 and 給食. 機内料, 機内品 and 機内物 are not words."
+    "explain": "The meal served on a plane is 機内食, as in 和食 and 給食. 料, 菜 and 物 end other food words (食料, 前菜, 食べ物), but 機内料, 機内菜 and 機内物 are not words."
   },
   {
     "id": "u01t.7",
@@ -109,7 +109,7 @@
     "kind": "choice",
     "type": "文脈規定",
     "label": "Word in context",
-    "q": "スマートフォンを買い替えるとき、古いほうを（　　）に出したら、新しい機種が一万円安くなった。",
+    "q": "新しいカメラを買うので、今のカメラを（　　）に出すか、自分で売るか迷っている。",
     "options": [
       "下見",
       "下書き",
@@ -117,59 +117,59 @@
       "下取り"
     ],
     "answer": 4,
-    "explain": "When a shop takes your old item as part payment, you put it 下取りに出す. 下見 is going to look at a place beforehand, 下書き is a rough draft, and 下調べ is research done in advance; none is handed to a shop for money off."
+    "explain": "When a shop takes your old item as part of the price of a new one, you put it 下取りに出す. 下見 is going to look at a place beforehand, 下書き is a rough draft, and 下調べ is research done in advance; none of them is handed over to a shop."
   },
   {
     "id": "u01t.9",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "部品が入荷し（　　）、すぐに修理に取りかかります。",
+    "q": "姉は大学を卒業し（　　）、祖父の旅館を手伝う予定だ。",
     "options": [
       "次第",
-      "た末に",
-      "たあげく",
-      "てからでないと"
+      "たとたん",
+      "てからでないと",
+      "たあげく"
     ],
     "answer": 1,
-    "explain": "次第 joins the ます stem: as soon as the part arrives, the shop will start the repair. た末に and たあげく report a result reached after a long struggle, not a plan. てからでないと needs a negative after it (修理できません), not a promise to start."
+    "explain": "次第 joins the ます stem: as soon as she graduates, she will start helping at the inn, as planned. たとたん reports something sudden that actually happened, so it cannot lead into a plan like 予定だ. てからでないと needs a \"cannot\" or \"should not\" after it (手伝えない), not a plan. たあげく needs a long, troublesome process before a bad result, and finishing university is not told that way."
   },
   {
     "id": "u01t.10",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "新しい会計システムは、研修を受け（　　）使えないことになっている。",
+    "q": "古いエアコンを外し（　　）、新しいエアコンは取り付けられません。",
     "options": [
       "次第",
-      "たとたん",
+      "てはじめて",
       "てからでないと",
       "た末に"
     ],
     "answer": 3,
-    "explain": "てからでないと says one step must come first, and a negative follows: you cannot use the system until you have had the training. 次第 needs an action that will be taken next, not 使えない. たとたん reports something sudden that happened, and た末に a result reached after a long struggle."
+    "explain": "てからでないと says one step must come first, and a \"cannot\" follows: the new unit cannot go up until the old one is taken down. 次第 leads into the next thing someone will do, not a negative like 取り付けられません. てはじめて leads into something that only then happens or becomes clear, not a negative. た末に needs a long struggle before the result, and taking down an air conditioner is a single step."
   },
   {
     "id": "u01t.11",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "チェックアウトの（　　）、お部屋の鍵をフロントにお返しください。",
+    "q": "商品をご返品の（　　）、必ずレシートをお持ちください。",
     "options": [
       "末に",
       "際は",
-      "あげく",
+      "に際して",
       "とたん"
     ],
     "answer": 2,
-    "explain": "Noun + の + 際は sets the occasion for a polite instruction: when you check out. 末に and あげく need a long process ending in a result, not a request. とたん follows a past verb (〜たとたん), not a noun with の."
+    "explain": "Noun + の + 際は sets the occasion for a polite instruction: when you return an item. 末に needs a long, often hard process before a result, and returning an item is not one. に際して follows a noun directly (返品に際して), never の. とたん follows the た form of a verb (〜たとたん), not a noun with の."
   },
   {
     "id": "u01t.12",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "新しい工場の建設（　　）、近くの住民向けの説明会が開かれた。",
+    "q": "住宅ローンの契約（　　）、収入を証明する書類を何枚も提出した。",
     "options": [
       "の末に",
       "にとって",
@@ -177,14 +177,14 @@
       "に際して"
     ],
     "answer": 4,
-    "explain": "に際して marks a formal occasion: as the factory was to be built, a meeting was held for local people. にとって says from whose point of view, which makes no sense with 建設. の末に and のあげく need a long struggle ending in a result, and the meeting is not the result of the building."
+    "explain": "に際して marks a formal occasion: for the mortgage contract, the writer had to hand in many papers. の末に needs a long struggle that ends in a result, but handing in the papers was part of making the contract, not what came of it. にとって says from whose point of view something is judged, which does not fit a contract. のあげく, like の末に, needs a long process ending in a result, and a bad one."
   },
   {
     "id": "u01t.13",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "創業五十周年（　　）、会社のロゴを新しくした。",
+    "q": "創業百周年（　　）、会社のロゴを新しくした。",
     "options": [
       "を機に",
       "以来",
@@ -192,73 +192,96 @@
       "のたびに"
     ],
     "answer": 1,
-    "explain": "を機に: the anniversary was taken as the chance to make a change. 以来 needs a state that has continued since then, not one action. のあげく needs a long, troublesome process. のたびに means every time, but a fiftieth anniversary comes only once."
+    "explain": "を機に: the hundredth anniversary was taken as the chance for a change, a new logo. 以来 needs a state that has lasted since then (以来、このロゴを使っている), not one action. のあげく needs a long, troublesome process before a bad result. のたびに means every time, but a company has its hundredth anniversary only once."
   },
   {
     "id": "u01t.14",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "空が急に暗くなった（　　）、激しい雨が降り出した。",
+    "q": "テレビに好きな歌手が映った（　　）、娘が台所からテレビの前に飛んできた。",
     "options": [
       "あげく",
-      "末に",
+      "最中に",
       "かと思うと",
-      "おかげで"
+      "を機に"
     ],
     "answer": 3,
-    "explain": "かと思うと: one change was followed at once by another, unexpected one. あげく and 末に need a long process, usually of human effort, before the result. おかげで gives the cause of a good result, and heavy rain is not one here."
+    "explain": "かと思うと: right after the singer appeared, the daughter came running, a sudden change the speaker saw. あげく needs a long, troublesome process before a bad result. 最中に follows a noun with の or a verb in the ている form (映っている最中に), not the た form. を機に follows a noun, or a verb with の (映ったのを機に), and marks a chance someone takes to start something new."
   },
   {
     "id": "u01t.15",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "終業のチャイムが（　　）、田中さんは荷物を持って会社を出ていった。",
+    "q": "信号が青に（　　）、後ろの車にクラクションを鳴らされた。",
     "options": [
-      "鳴り次第",
-      "鳴った末に",
-      "鳴るにあたって",
-      "鳴るか鳴らないかのうちに"
+      "変わった末に",
+      "変わるにあたって",
+      "変わってからでないと",
+      "変わるか変わらないかのうちに"
     ],
     "answer": 4,
-    "explain": "か〜ないかのうちに: Tanaka left almost at the very moment the chime rang, and it can report a past event. 次第 introduces what someone will do next and is not used for a past event like this. 末に needs a long process before the result, and にあたって marks an occasion someone prepares for, not a chime."
+    "explain": "か〜ないかのうちに: the horn sounded at almost the very moment the light turned green. 末に needs a long effort before the result, and にあたって an important occasion someone prepares for; a light changing is neither. てからでないと needs a \"cannot\" or \"should not\" after it, but the horn really sounded."
   },
   {
     "id": "u01t.16",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "父は何度も試作を",
-    "after": "椅子を作り上げた。",
+    "before": "サケは",
+    "after": "川に戻ってくる。",
     "tiles": [
-      "繰り返した",
+      "何千キロもの",
+      "旅の",
       "末に",
-      "ようやく",
-      "納得のいく"
+      "生まれた"
     ],
     "star": 1,
     "bank": [
-      3,
-      1,
+      2,
       0,
-      2
+      3,
+      1
     ],
-    "full": "父は何度も試作を繰り返した{末に}ようやく納得のいく椅子を作り上げた。",
-    "explain": "繰り返した, 末に, ようやく, 納得のいく. 試作を needs its verb 繰り返した, and the た form takes 末に (after a long process). ようやく leads into the result, and 納得のいく describes 椅子, so it comes last."
+    "full": "サケは何千キロもの{旅の}末に生まれた川に戻ってくる。",
+    "explain": "何千キロもの, 旅の, 末に, 生まれた. 何千キロもの describes 旅, and the noun takes の before 末に (after a long, hard journey). 生まれた describes 川, so it comes last."
   },
   {
     "id": "u01t.17",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "病院で二時間も",
-    "after": "五分で終わった。",
+    "before": "昨夜は同僚と",
+    "after": "乗り遅れてしまった。",
     "tiles": [
-      "待たされた",
+      "遅くまで",
+      "飲み続けた",
       "あげく",
-      "診察は",
-      "たった"
+      "終電に"
+    ],
+    "star": 2,
+    "bank": [
+      3,
+      1,
+      0,
+      2
+    ],
+    "full": "昨夜は同僚と遅くまで飲み続けた{あげく}終電に乗り遅れてしまった。",
+    "explain": "遅くまで, 飲み続けた, あげく, 終電に. 遅くまで goes with the verb 飲み続けた, and its た form takes あげく (too much of something, then a bad result). 終電に goes with 乗り遅れてしまった, so it comes last."
+  },
+  {
+    "id": "u01t.18",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "一人暮らしを",
+    "after": "料理の作り方を教わった。",
+    "tiles": [
+      "始める",
+      "にあたって",
+      "母に",
+      "簡単な"
     ],
     "star": 2,
     "bank": [
@@ -267,31 +290,8 @@
       0,
       2
     ],
-    "full": "病院で二時間も待たされたあげく{診察は}たった五分で終わった。",
-    "explain": "待たされた, あげく, 診察は, たった. 二時間も goes with 待たされた, which takes あげく (after a long, unwelcome wait). 診察は is the topic of the disappointing result, and たった must sit right before 五分."
-  },
-  {
-    "id": "u01t.18",
-    "kind": "star",
-    "type": "文の文法2",
-    "label": "Build the sentence",
-    "before": "留学生活を",
-    "after": "いろいろと相談した。",
-    "tiles": [
-      "始める",
-      "にあたって",
-      "大学の",
-      "先輩に"
-    ],
-    "star": 3,
-    "bank": [
-      2,
-      0,
-      3,
-      1
-    ],
-    "full": "留学生活を始めるにあたって大学の{先輩に}いろいろと相談した。",
-    "explain": "始める, にあたって, 大学の, 先輩に. 留学生活を needs 始める, and the dictionary form takes にあたって (when about to start something important). 大学の describes 先輩, and 先輩に, the person asked, comes right before いろいろと相談した."
+    "full": "一人暮らしを始めるにあたって{母に}簡単な料理の作り方を教わった。",
+    "explain": "始める, にあたって, 母に, 簡単な. 一人暮らしを needs its verb 始める, and the dictionary form takes にあたって (before starting something new). 母に is who taught the writer, and 簡単な describes 料理, so it comes last, right before 料理の作り方."
   },
   {
     "id": "u01t.19",
@@ -300,20 +300,20 @@
     "label": "Short passage",
     "q": "午後1時半に新しいソファが届く予定の人は、どうしなければならないか。",
     "options": [
-      "階段を使って運んでもらう",
+      "当日の朝、管理事務所に連絡する",
       "前日までに管理事務所に連絡する",
       "点検していないほうのエレベーターを使う",
-      "午後3時まで配達を待ってもらう"
+      "前日までに家具の店に連絡する"
     ],
     "answer": 2,
-    "passage": "11月20日（木）午前10時から午後3時まで、エレベーター2基の定期点検を行います。点検は1基ずつ行いますので、その間はもう1基をご利用ください。ただし、午後1時から2時までは2基とも停止いたします。この時間に引っ越しや大型家具の搬入をご予定の方は、前日までに管理事務所へご連絡ください。なお、作業が予定より早く終わった場合は、終わり次第、通常の運転に戻します。ご不便をおかけしますが、ご協力をお願いいたします。",
+    "passage": "11月19日（木）午前10時から午後3時まで、エレベーター2基の定期点検を行います。点検は1基ずつ行いますので、その間はもう1基をご利用ください。ただし、午後1時から2時までは2基とも停止いたします。この時間に引っ越しや大きな家具の配達をご予定の方は、前日までに管理事務所へご連絡ください。なお、点検は予定より早く終わることもあります。その場合は、終わり次第、通常の運転に戻します。ご不便をおかけしますが、ご協力をお願いいたします。",
     "short": [
-      "階段で運ぶ",
-      "管理事務所に連絡",
+      "当日の朝に事務所へ",
+      "前日までに事務所へ",
       "もう1基を使う",
-      "3時まで待つ"
+      "前日までに店へ"
     ],
-    "explain": "The notice says both lifts stop from 1 to 2 p.m. (2基とも停止), and anyone with a move or large furniture coming then must contact the office the day before. The other lift is also stopped at that time, and nothing is said about the stairs or waiting until three."
+    "explain": "Both lifts stop from 1 to 2 p.m. (2基とも停止), and anyone with a move or a large delivery then must tell the management office by the day before (前日までに管理事務所へ). The morning of the day is too late, the other lift is stopped too at 1:30, and the notice asks residents to contact the office, not the shop."
   },
   {
     "id": "u01t.20",
@@ -328,7 +328,7 @@
       "点検が終わる午後3時まで待つ"
     ],
     "answer": 1,
-    "passage": "11月20日（木）午前10時から午後3時まで、エレベーター2基の定期点検を行います。点検は1基ずつ行いますので、その間はもう1基をご利用ください。ただし、午後1時から2時までは2基とも停止いたします。この時間に引っ越しや大型家具の搬入をご予定の方は、前日までに管理事務所へご連絡ください。なお、作業が予定より早く終わった場合は、終わり次第、通常の運転に戻します。ご不便をおかけしますが、ご協力をお願いいたします。",
+    "passage": "11月19日（木）午前10時から午後3時まで、エレベーター2基の定期点検を行います。点検は1基ずつ行いますので、その間はもう1基をご利用ください。ただし、午後1時から2時までは2基とも停止いたします。この時間に引っ越しや大きな家具の配達をご予定の方は、前日までに管理事務所へご連絡ください。なお、点検は予定より早く終わることもあります。その場合は、終わり次第、通常の運転に戻します。ご不便をおかけしますが、ご協力をお願いいたします。",
     "short": [
       "もう1基を使う",
       "事務所の許可",
@@ -342,87 +342,87 @@
     "kind": "choice",
     "type": "読解・内容理解",
     "label": "Short passage",
-    "q": "筆者が朝、公園を走るようになったのはなぜか。",
+    "q": "筆者が毎朝、絵を描くようになったのはなぜか。",
     "options": [
-      "医者に体力をつけるように言われたから",
-      "マラソン大会に出るつもりだったから",
-      "友人に一緒に走ろうと誘われたから",
-      "通勤にかかる時間が短くなったから"
+      "医者に何か趣味を持つように勧められたから",
+      "展覧会に絵を出したいと思っていたから",
+      "友人に一緒に描こうと誘われたから",
+      "通勤しなくてよくなり、朝の時間が空いたから"
     ],
     "answer": 4,
-    "passage": "去年、転職を機に、会社の近くへ引っ越した。以前は電車で片道一時間半かかっていたが、今は歩いて十五分だ。通勤の時間が減った分、朝は近所の公園を走ることにした。走り始めたころは、五分もしないうちに息が切れていた。思っていたより体力が落ちていたのだ。それからは毎朝少しずつ距離を延ばし、最近では休みの日に十キロ走れるようになった。友人には「マラソン大会に出てみたら」と言われる。しかし、あと一年は練習を続けてからでないと、とても出る自信はない。",
+    "passage": "去年、会社の方針で、家で仕事をすることになった。それを機に、朝の過ごし方を変えた。以前は電車で片道一時間半かけて通勤していたが、その必要がなくなったのだ。そこで、毎朝三十分、窓から見える景色を絵に描くことにした。描き始めたころは、建物がまっすぐに描けず、何度も消しては描き直していた。思っていたよりずっと難しかったのだ。それでも続けているうちに少しずつ上達し、最近では人にほめられることもある。友人には「市の展覧会に出してみたら」と言われる。しかし、あと一年は練習を続けてからでないと、とても出す自信はない。",
     "short": [
-      "医者に言われた",
-      "大会に出るため",
+      "医者に勧められた",
+      "展覧会に出したい",
       "友人に誘われた",
-      "通勤時間が減った"
+      "通勤がなくなった"
     ],
-    "explain": "通勤の時間が減った分、朝は近所の公園を走ることにした: the time saved on the commute went into running. No doctor is mentioned, the marathon comes up only later from a friend, and the friend did not invite the writer to run."
+    "explain": "以前は…通勤していたが、その必要がなくなったのだ。そこで、毎朝三十分…絵に描くことにした: working from home freed the time spent commuting, and the writer filled it with drawing. No doctor is mentioned, the exhibition comes up only later from a friend, and the friend never asked the writer to draw together."
   },
   {
     "id": "u01t.22",
     "kind": "choice",
     "type": "読解・内容理解",
     "label": "Short passage",
-    "q": "マラソン大会について、筆者はどう考えているか。",
+    "q": "展覧会について、筆者はどう考えているか。",
     "options": [
-      "十キロ走れるので、すぐに出たい",
-      "友人と一緒なら出てもいい",
-      "もっと練習しないと、出る自信がない",
-      "体力が落ちたので、出るのはあきらめた"
+      "ほめられるようになったので、すぐに出したい",
+      "友人と一緒なら出してもいい",
+      "もっと練習しないと、出す自信がない",
+      "絵は難しいので、出すのはあきらめた"
     ],
     "answer": 3,
-    "passage": "去年、転職を機に、会社の近くへ引っ越した。以前は電車で片道一時間半かかっていたが、今は歩いて十五分だ。通勤の時間が減った分、朝は近所の公園を走ることにした。走り始めたころは、五分もしないうちに息が切れていた。思っていたより体力が落ちていたのだ。それからは毎朝少しずつ距離を延ばし、最近では休みの日に十キロ走れるようになった。友人には「マラソン大会に出てみたら」と言われる。しかし、あと一年は練習を続けてからでないと、とても出る自信はない。",
+    "passage": "去年、会社の方針で、家で仕事をすることになった。それを機に、朝の過ごし方を変えた。以前は電車で片道一時間半かけて通勤していたが、その必要がなくなったのだ。そこで、毎朝三十分、窓から見える景色を絵に描くことにした。描き始めたころは、建物がまっすぐに描けず、何度も消しては描き直していた。思っていたよりずっと難しかったのだ。それでも続けているうちに少しずつ上達し、最近では人にほめられることもある。友人には「市の展覧会に出してみたら」と言われる。しかし、あと一年は練習を続けてからでないと、とても出す自信はない。",
     "short": [
-      "すぐに出たい",
+      "すぐに出したい",
       "友人とならいい",
       "もっと練習が必要",
       "あきらめた"
     ],
-    "explain": "あと一年は練習を続けてからでないと、とても出る自信はない: the writer feels unready without another year of practice. The writer does not want to enter yet, says nothing about entering with the friend, and has not given up; the weak stamina was at the start."
+    "explain": "あと一年は練習を続けてからでないと、とても出す自信はない: the writer does not feel ready without another year of practice. The writer does not want to enter yet, says nothing about entering with the friend, and has not given up; drawing was hard only at the start."
   },
   {
     "id": "u01t.23",
     "kind": "choice",
     "type": "読解・内容理解",
     "label": "Short passage",
-    "q": "筆者が夜中の二時まで起きていたのはなぜか。",
+    "q": "筆者のミニトマトが枯れたのはなぜか。",
     "options": [
-      "店で炊飯器を選んでいたから",
-      "いくつもの炊飯器を比べていたから",
-      "炊飯器の感想を書いていたから",
-      "好きなことをしていたから"
+      "水が足りなかったから",
+      "水をやりすぎたから",
+      "日当たりが悪かったから",
+      "農家の人の言うとおりにしなかったから"
     ],
     "answer": 2,
-    "passage": "先日、新しい炊飯器を買おうと思い、インターネットで調べ始めた。値段や機能、使った人の感想を一つずつ比べているうちに、気がつくと夜中の二時になっていた。それから三日間迷ったあげく、結局、店で店員に勧められたものを買った。選べるものが多いのは、本来ありがたいことのはずだ。しかし、情報が多すぎると、かえって決められなくなる。最近は、ある程度調べたら「これで十分」と決めるようにしている。完璧な買い物を目指すより、早く決めて、残った時間を好きなことに使うほうが、ずっと満足できると気づいたからだ。",
+    "passage": "三年前から、ベランダで野菜を育てている。最初の年はミニトマトを植えた。早く大きくなってほしくて、毎朝毎晩たっぷり水をやった。しばらくすると葉が黄色くなってきたので、水が足りないのだと思い、さらに量を増やした。ところが、葉の色はますます悪くなった。毎日さんざん水をやったあげく、結局、夏が来る前に枯らしてしまった。あとで近所の農家の人に聞くと、原因は水のやりすぎだったらしい。トマトは、水を少なめにしたほうが、かえって甘くなるそうだ。それ以来、水は土が乾いてからやるようにしている。大切に思うことと、世話をしすぎることは違うのだと、トマトに教えられた気がする。",
     "short": [
-      "店で選んでいた",
-      "炊飯器を比べていた",
-      "感想を書いていた",
-      "好きなことをしていた"
+      "水が足りなかった",
+      "水のやりすぎ",
+      "日当たりが悪かった",
+      "言うとおりにしなかった"
     ],
-    "explain": "値段や機能、使った人の感想を一つずつ比べているうちに, it was two in the morning: the writer was comparing rice cookers online. The shop came three days later, the writer read other people's reviews rather than writing one, and free time for hobbies is the writer's later aim."
+    "explain": "原因は水のやりすぎだったらしい: the farmer said the plants had too much water. The writer only thought water was short and gave more, sunlight is never mentioned, and the farmer was asked after the plants had died."
   },
   {
     "id": "u01t.24",
     "kind": "choice",
     "type": "読解・内容理解",
     "label": "Short passage",
-    "q": "筆者は買い物についてどう考えているか。",
+    "q": "筆者は、この経験からどんなことを考えたか。",
     "options": [
-      "ある程度調べたら、早く決めたほうがいい",
-      "納得できるまで時間をかけて調べるべきだ",
-      "店員に勧められたものを買うのがいちばんいい",
-      "選べるものは少ないほうがいい"
+      "大切に思っていても、世話をしすぎるのはよくない",
+      "野菜は、世話をすればするほどよく育つ",
+      "野菜作りは、農家の人に習ってから始めるべきだ",
+      "ベランダで野菜を育てるのは難しいので、やめたほうがいい"
     ],
     "answer": 1,
-    "passage": "先日、新しい炊飯器を買おうと思い、インターネットで調べ始めた。値段や機能、使った人の感想を一つずつ比べているうちに、気がつくと夜中の二時になっていた。それから三日間迷ったあげく、結局、店で店員に勧められたものを買った。選べるものが多いのは、本来ありがたいことのはずだ。しかし、情報が多すぎると、かえって決められなくなる。最近は、ある程度調べたら「これで十分」と決めるようにしている。完璧な買い物を目指すより、早く決めて、残った時間を好きなことに使うほうが、ずっと満足できると気づいたからだ。",
+    "passage": "三年前から、ベランダで野菜を育てている。最初の年はミニトマトを植えた。早く大きくなってほしくて、毎朝毎晩たっぷり水をやった。しばらくすると葉が黄色くなってきたので、水が足りないのだと思い、さらに量を増やした。ところが、葉の色はますます悪くなった。毎日さんざん水をやったあげく、結局、夏が来る前に枯らしてしまった。あとで近所の農家の人に聞くと、原因は水のやりすぎだったらしい。トマトは、水を少なめにしたほうが、かえって甘くなるそうだ。それ以来、水は土が乾いてからやるようにしている。大切に思うことと、世話をしすぎることは違うのだと、トマトに教えられた気がする。",
     "short": [
-      "早く決めるほうがいい",
-      "納得するまで調べる",
-      "店員のおすすめがいい",
-      "選択肢は少ないほうがいい"
+      "世話のしすぎはよくない",
+      "世話をするほど育つ",
+      "農家に習ってから始める",
+      "やめたほうがいい"
     ],
-    "explain": "The writer now stops at 「これで十分」 and says deciding quickly leaves more time and more satisfaction. Searching until fully satisfied is what the writer gave up, buying the shop's choice just happened, and the writer calls many choices 本来ありがたい."
+    "explain": "The last sentence says caring about something and doing too much for it are not the same. More water is what killed the plants, the writer never says one must learn from a farmer first, and is still growing vegetables three years on."
   }
 ]

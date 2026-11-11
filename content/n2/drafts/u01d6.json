@@ -3,14 +3,14 @@
  "grammar": {
   "points": [],
   "compare": {
-   "intro": "Ask two questions. What comes before the form (a ます stem, a te-form, a dictionary or た form, a noun, or a clause with の)? And what comes after it (a plan, a \"not yet\", a formal \"when\", getting ready for a big step, a new start, a sudden change you saw, or the end of a long process, good or bad)?",
+   "intro": "Ask two questions. What comes before the form: a ます stem, a te-form, a dictionary or た form, a noun, or a clause with の? And what comes after it: a plan or a request, something that has to wait, what is done on a formal occasion, getting ready for a big step, a new start, a sudden change you saw, or the end of a long process, good or bad?",
    "forms": [
     {
      "form": "〜次第",
      "tag": "〜たらすぐ（予定） · as soon as (a plan)",
      "mark": "dot",
-     "ja": "結果が分かり{次第}、メールでお知らせします。",
-     "en": "I'll email you as soon as the results are known."
+     "ja": "準備ができ{次第}、出発しましょう。",
+     "en": "Let's set off as soon as we're ready."
     },
     {
      "form": "〜てからでないと",
@@ -30,29 +30,29 @@
      "form": "〜に際して",
      "tag": "特別な機会 · on the occasion of",
      "mark": "dot",
-     "ja": "結婚{に際して}、両親に感謝の手紙を書いた。",
-     "en": "When I got married, I wrote my parents a letter of thanks."
+     "ja": "[引退|いんたい]{に際して}、その選手はファンに感謝の言葉を述べた。",
+     "en": "On his retirement, the player thanked his fans."
     },
     {
      "form": "〜にあたって",
      "tag": "始める前の準備 · as you begin (a big step)",
      "mark": "dot",
-     "ja": "初めてマラソンに出る{にあたって}、毎朝走ることにした。",
-     "en": "To get ready for my first marathon, I decided to run every morning."
+     "ja": "就職する{にあたって}、スーツを二着新しく買った。",
+     "en": "Before starting work, I bought two new suits."
     },
     {
      "form": "〜を機に",
      "tag": "変化のきっかけ · taking it as the chance",
      "mark": "dot",
-     "ja": "テレビが壊れたの{を機に}、ニュースはネットで読むようになった。",
-     "en": "When the TV broke, I took the chance to start reading the news online."
+     "ja": "父の定年{を機に}、両親は海の近くの町に移り住んだ。",
+     "en": "When my father retired, my parents took the chance to move to a town by the sea."
     },
     {
      "form": "〜かと思うと",
      "tag": "すぐに変化（見たこと） · no sooner … than",
      "mark": "dot",
-     "ja": "空が急に暗くなった{かと思うと}、激しい雨が降り出した。",
-     "en": "No sooner had the sky gone dark than heavy rain began to fall."
+     "ja": "バスがやっと来た{かと思うと}、満員で止まらずに行ってしまった。",
+     "en": "The bus had only just come when it went straight past, full."
     },
     {
      "form": "〜か〜ないかのうちに",
@@ -65,33 +65,33 @@
      "form": "〜末（に）",
      "tag": "長い過程の結果 · after a long …, in the end",
      "mark": "dot",
-     "ja": "家族で何度も話し合った{末に}、犬を飼うことに決めた。",
-     "en": "After talking it over many times as a family, we decided to get a dog."
+     "ja": "メニューを十分も眺めた{末に}、結局いつものランチを注文した。",
+     "en": "After studying the menu for ten whole minutes, I ordered my usual lunch after all."
     },
     {
      "form": "〜あげく",
      "tag": "さんざん〜て悪い結果 · after all that (a bad end)",
      "mark": "down",
-     "ja": "さんざん待たされた{あげく}、席はないと言われた。",
-     "en": "After a long wait, we were told there were no seats."
+     "ja": "何度も書き直させられた{あげく}、その企画は採用されなかった。",
+     "en": "After I was made to rewrite it again and again, the proposal was turned down."
     }
    ],
    "check": {
     "id": "u01d6.c1",
     "kind": "choice",
     "type": "文の文法1",
-    "label": "職場のうわさ",
-    "q": "彼は上司と何日も言い争った（　　）、とうとう会社を辞めてしまった。",
+    "label": "店で",
+    "q": "店の電気が急に消えた（　　）、奥からケーキを持った店員たちが歌いながら出てきた。",
     "options": [
-     "次第",
      "あげく",
-     "かと思うと"
+     "かと思うと",
+     "末に"
     ],
     "answer": 2,
     "why": [
-     "次第 follows a ます stem, not the た form, and leads to a plan or a request, not to what happened.",
-     "Days of arguing, then a bad end: とうとう…辞めてしまった.",
-     "かと思うと is for a sudden change right after one moment. 何日も and とうとう show a long process."
+     "あげく needs a long, tiring process before it. The lights going out is a single moment.",
+     "The lights had only just gone out when the staff came out singing: a sudden change the speaker saw.",
+     "末に is the end of a long process, as in 話し合いの末に. The lights going out is not one."
     ]
    }
   },
@@ -101,19 +101,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^一時間も迷った^（　　）、^結局何も買わずに^店を出た。",
+    "q": "^何度も^メールで問い合わせた（　　）、^結局^返事は一度ももらえなかった。",
     "options": [
      "次第",
-     "を機に",
+     "かと思うと",
      "あげく",
-     "かと思うと"
+     "を機に"
     ],
     "answer": 3,
     "why": [
-     "次第 follows a ます stem, not the た form, and leads to a plan or a request, not to what happened.",
-     "After a verb, を機に needs の (迷ったのを機に), and it leads to a new start, not a disappointing end.",
-     "An hour of dithering, then a disappointing end: 結局, with nothing bought.",
-     "かと思うと describes a sudden change you watched in someone else. Here the speaker dithered for an hour; nothing was sudden."
+     "次第 (as soon as) follows a ます stem, not the た form, and leads to a plan or a request, not to what happened.",
+     "かと思うと needs one moment and a sudden change right after it. 何度も and 結局 show a long process and how it ended.",
+     "Many emails, then a disappointing end: 結局…もらえなかった.",
+     "After a verb, を機に needs の or こと (問い合わせたのを機に), and it leads to a new start, not a disappointing end."
     ]
    },
    {
@@ -121,19 +121,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "パソコンの設定が^終わり^（　　）、^すぐに作業を始めます^。",
+    "q": "引っ越し先が（　　）、^新しい住所をお知らせします^。",
     "options": [
-     "たとたん",
-     "かと思うと",
-     "末に",
-     "次第"
+     "決まったとたん",
+     "決まったかと思うと",
+     "決まった末に",
+     "決まり次第"
     ],
     "answer": 4,
     "why": [
-     "N3 たとたん follows the た form (終わったとたん) and tells what happened at that moment. It cannot lead to a plan.",
-     "かと思うと follows the た form and describes a change you saw, not your own plan.",
-     "末に follows the た form or a noun + の, and needs a long process before it.",
-     "The ます stem 終わり + 次第, then the speaker's plan: 作業を始めます."
+     "N3 とたん tells what happened, often by surprise, at that very moment. It cannot lead to the speaker's own plan (お知らせします).",
+     "かと思うと reports a quick change the speaker saw happen. It cannot lead to the speaker's own plan either.",
+     "末に needs a long process before it and leads to how that process ended. お知らせします is a promise for later, not an outcome.",
+     "As soon as it is decided, a promise: 決まり次第…お知らせします."
     ]
    },
    {
@@ -141,7 +141,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "健康診断で医者に^注意されたの^（　　）、^毎朝歩いて会社に通うようになった^。",
+    "q": "^体重が五キロも増えたの^（　　）、^夜九時以降は何も食べないことにした^。",
     "options": [
      "を機に",
      "際に",
@@ -150,10 +150,10 @@
     ],
     "answer": 1,
     "why": [
-     "A clause + の + を機に: the warning was the chance for a new habit (ようになった).",
-     "際に follows a verb directly (注意された際に), with no の. It marks the time of one event, not the start of a new habit.",
-     "にあたって follows a dictionary form or a noun, with no の, and looks ahead to a big step to get ready for.",
-     "末に follows the た form directly, with no の, and needs a long effort before it. One warning is not one."
+     "A clause + の + を機に: the weight gain was the push for a new habit (何も食べないことにした).",
+     "際に follows a verb directly (増えた際に), with no の in between, so 増えたの際に is not possible.",
+     "にあたって follows a dictionary form or a noun, with no の, and looks ahead to a big step you get ready for.",
+     "末に follows the た form directly (増えた末に), with no の, and needs a long process before it."
     ]
    },
    {
@@ -161,43 +161,43 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "うちでは、子どもたちは",
-    "after": "行けないことになっている。",
+    "before": "このマンションでは、",
+    "after": "ペットを飼えない。",
     "tiles": [
-     "宿題を",
-     "終わらせて",
-     "からでないと",
-     "遊びに"
+     "管理会社の",
+     "許可を",
+     "もらって",
+     "からでないと"
     ],
-    "star": 1,
+    "star": 2,
     "bank": [
-     2,
      3,
+     1,
      0,
-     1
+     2
     ],
-    "hint": "からでないと follows the te-form. What has to be finished first?",
-    "full": "うちでは、子どもたちは宿題を終わらせて{からでないと}遊びに行けないことになっている。",
-    "explain": "宿題を goes with 終わらせて, the te-form before からでないと. 遊びに goes with 行けない in the last part."
+    "hint": "からでないと follows the te-form. What do you need before you can keep a pet?",
+    "full": "このマンションでは、管理会社の許可をもらって{からでないと}ペットを飼えない。",
+    "explain": "管理会社の goes with 許可を, and もらって, the te-form, comes before からでないと: the permission has to come first."
    },
    {
     "id": "u01d6.d5",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^隣の工事の音が止まった^（　　）、^すぐにまた^響き始めた。",
+    "q": "飛行機が（　　）、何人かの乗客は^もう席を立っていた^。",
     "options": [
-     "末に",
-     "かと思うと",
-     "次第",
-     "あげく"
+     "着陸し次第",
+     "着陸するかしないかのうちに",
+     "着陸した末に",
+     "着陸するにあたって"
     ],
     "answer": 2,
     "why": [
-     "末に needs a long effort and its final result. A noise stopping for a moment is neither.",
-     "Something you heard stop, then at once a change: すぐにまた響き始めた.",
-     "次第 follows a ます stem (止まり次第) and leads to a plan or a request, not to what happened.",
-     "あげく needs a long, tiring process before it, and すぐに shows the noise came back at once."
+     "次第 leads to a plan or a request (着陸し次第、お知らせします). It cannot report what people had already done.",
+     "The plane had barely landed when some passengers were already up: か…ないかのうちに, with もう.",
+     "末に needs a long process before it and leads to how it ended. A landing is one moment.",
+     "にあたって looks ahead to a step and what is done to get ready for it. Passengers already out of their seats are not getting ready."
     ]
    },
    {
@@ -205,7 +205,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^長年の研究の^（　　）、^ついに^新しい薬の開発に成功した。",
+    "q": "^三か月に及ぶ交渉の^（　　）、^ようやく^給料が上がることになった。",
     "options": [
      "末に",
      "あげく",
@@ -214,10 +214,10 @@
     ],
     "answer": 1,
     "why": [
-     "Noun + の + 末に: after years of research, the final result, here a good one (ついに…成功した).",
-     "あげく leads to a bad or disappointing end. Success is not one.",
-     "かと思うと follows a verb in the た form, not a noun + の, and describes a sudden change.",
-     "After a noun, を機に comes directly (研究を機に), not after の, and it leads to a new start, not a final result."
+     "Noun + の + 末に: after three months of talks, the result they had worked for (ようやく…上がることになった).",
+     "あげく suits a long, tiring process that ends badly or in vain. A pay rise after hard talks is a good result.",
+     "かと思うと cannot follow a noun + の, and it is for a sudden change, not the end of months of talks.",
+     "After a noun, を機に comes directly (転職を機に), with no の, and it marks a new start, not the end of a long process."
     ]
    },
    {
@@ -225,19 +225,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^新製品の発売^（　　）、記者会見が開かれた。",
+    "q": "^国際会議の開催^（　　）、市は駅前に^歓迎の看板を立てた^。",
     "options": [
      "際に",
-     "かと思うと",
+     "あげく",
      "に際して",
      "次第"
     ],
     "answer": 3,
     "why": [
-     "After a noun, 際 needs の: 発売の際に.",
-     "かと思うと follows a verb in the た form, not a noun.",
-     "Noun + に際して: a special, one-time occasion (the launch) and what was done for it.",
-     "次第 can follow an action noun such as 到着, but it leads to a plan or a request. 開かれた reports what happened."
+     "After a noun, 際 needs の: 開催の際に.",
+     "After a noun, あげく needs の (口論のあげく), and it is for a long, tiring process that ends badly. A welcome for a conference is not one.",
+     "Noun + に際して: a special, one-time occasion (the conference) and what was done for it.",
+     "次第 can follow an action noun (開催次第), but it means \"as soon as it has happened\" and leads to a plan or a request. The signs were put up for the conference, and 立てた reports a past event."
     ]
    },
    {
@@ -245,13 +245,13 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "授業終了の",
-    "after": "学生たちは教室を飛び出した。",
+    "before": "社長は",
+    "after": "翌日にはもうそれを取り消した。",
     "tiles": [
-     "チャイムが",
-     "鳴るか",
-     "鳴らないか",
-     "のうちに"
+     "新しい",
+     "計画を",
+     "発表した",
+     "かと思うと"
     ],
     "star": 2,
     "bank": [
@@ -260,9 +260,9 @@
      0,
      2
     ],
-    "hint": "The verb comes twice: first as it is, then in the negative. What rings?",
-    "full": "授業終了のチャイムが鳴る{か鳴らないかのうちに}学生たちは教室を飛び出した。",
-    "explain": "チャイムが follows 授業終了の. Then the verb twice: 鳴るか, 鳴らないか, のうちに, and the students rush out at almost the same moment."
+    "hint": "Here かと思うと follows a verb in the た form. What did the president announce?",
+    "full": "社長は新しい計画を発表した{かと思うと}翌日にはもうそれを取り消した。",
+    "explain": "新しい describes 計画, 計画を goes with 発表した, and the た form comes before かと思うと: the plan was dropped the very next day."
    }
   ],
   "exam": [
@@ -271,53 +271,53 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "海外に支店を出す（　　）、現地の法律を詳しく調べた。",
+    "q": "海外に支店を（　　）、現地の法律を詳しく調べた。",
     "options": [
-     "を機に",
-     "かと思うと",
-     "あげく",
-     "にあたって"
+     "出したかと思うと",
+     "出した末に",
+     "出し次第",
+     "出すにあたって"
     ],
     "answer": 4,
-    "explain": "Dictionary form + にあたって: getting ready for a big step. を機に would need の after a verb (出すのを機に) and leads to a change made afterwards, and かと思うと and あげく need the た form."
+    "explain": "Dictionary form + にあたって: getting ready for a big step, here studying the local law before opening a branch abroad. かと思うと is for a sudden change the speaker saw in someone else, 末に needs a long process before it, and 次第 leads to a plan or a request, not to what already happened."
    },
    {
     "id": "u01d6.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "ホテルをチェックアウトする（　　）、部屋の鍵をフロントにお返しください。",
+    "q": "お車でお越しになる（　　）、地下の駐車場をご利用ください。",
     "options": [
      "次第",
-     "際に",
+     "際は",
      "最中に",
      "かと思うと"
     ],
     "answer": 2,
-    "explain": "A formal \"when\", then a request: dictionary form + 際に. 次第 would need the ます stem (チェックアウトし次第). N3 最中に needs ている or a noun + の, and means \"in the middle of\", which a quick checkout does not have. かと思うと needs the た form and cannot lead to a request."
+    "explain": "A formal \"when\", then a request: dictionary form + 際は. 次第 would need the ます stem (お越しになり次第) and means \"as soon as\". N3 最中に needs ている or a noun + の, and means \"in the middle of\" something going on. かと思うと reports a sudden change the speaker saw, so it cannot lead to a request."
    },
    {
     "id": "u01d6.e3",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "母は",
-    "after": "ピアノを習い始めた。",
+    "before": "兄は",
+    "after": "自分で店を始めた。",
     "tiles": [
-     "子どもたちが",
-     "独立した",
-     "の",
-     "を機に"
+     "勤めていた",
+     "会社が",
+     "つぶれた",
+     "のを機に"
     ],
     "star": 2,
     "bank": [
-     3,
-     1,
+     2,
      0,
-     2
+     3,
+     1
     ],
-    "full": "母は子どもたちが独立した{の}を機にピアノを習い始めた。",
-    "explain": "子どもたちが, 独立した, の, を機に. After a verb, を機に needs の before it, and the change that followed is ピアノを習い始めた."
+    "full": "兄は勤めていた会社が{つぶれた}のを機に自分で店を始めた。",
+    "explain": "勤めていた, 会社が, つぶれた, のを機に. 勤めていた describes 会社, and after a verb, を機に needs の: losing that job was his chance to start his own shop."
    }
   ]
  },
@@ -476,7 +476,7 @@
    "kind": "choice",
    "type": "文脈規定",
    "label": "How the exam asks it",
-   "q": "仕事が忙しくなったので、スポーツクラブを来月から二か月（　　）することにした。",
+   "q": "仕事が忙しくて通えないので、スポーツクラブを二か月（　　）することにした。",
    "options": [
     "休学",
     "休業",
@@ -484,7 +484,7 @@
     "休館"
    ],
    "answer": 3,
-   "explain": "休会 is pausing your membership of a club: スポーツクラブを休会する. 休学 is time off from school, 休業 is a shop or business closing for a time, and 休館 is a building such as a library or museum being closed."
+   "explain": "通えない shows the speaker is a member who cannot come for a while, and a member pauses a membership: 休会. 休学 is time off from school. 休業 is a shop or business closing for a time, and 休館 is a building such as a library or museum closing; only the club itself could do those."
   }
  },
  "skill": {
