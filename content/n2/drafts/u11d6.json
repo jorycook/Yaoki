@@ -3,7 +3,7 @@
  "grammar": {
   "points": [],
   "compare": {
-   "intro": "Ask two questions: what comes right before the form (the te-form of a feeling, the ない stem of a verb, a plain form, or a feeling adjective) and where it stands (at the end of the sentence, or before a comma and the fact it is about). The four te-form patterns differ mainly in tone: しょうがない is the most casual, and ならない suits thoughts that come by themselves.",
+   "intro": "Ask what comes right before the form (the te-form of a feeling, the ない stem of a verb, or a plain form) and where it stands: ことに（は） comes first, with the fact it is about after the comma, and the others close the sentence or clause. Then let the meaning decide: ことか cries out, usually with a word such as どんなに; ものだ says what is normal, right or fondly remembered, and ものではない what one should not do; of the four te-form patterns, ならない suits thoughts that come by themselves and しょうがない is the most casual.",
    "forms": [
     {
      "form": "〜てたまらない",
@@ -16,21 +16,21 @@
      "form": "〜てならない",
      "tag": "自然にわく気持ち · can't help feeling",
      "mark": "dot",
-     "ja": "最近、だれかに見られているような気がし{てならない}。",
-     "en": "Lately I can't shake the feeling that someone is watching me."
+     "ja": "話を聞けば聞くほど、彼が何か隠しているように思われ{てならない}。",
+     "en": "The more I hear, the more I can't help feeling that he is hiding something."
     },
     {
      "form": "〜ずにはいられない",
      "tag": "抑えられない行動 · can't stop myself doing",
      "mark": "dot",
-     "ja": "困っている人を見ると、手を貸さ{ずにはいられない}。",
-     "en": "When I see someone in trouble, I can't stop myself lending a hand."
+     "ja": "久しぶりの雪に、子どものように外へ飛び出さ{ずにはいられなかった}。",
+     "en": "It was the first snow in years, and I couldn't stop myself running outside like a child."
     },
     {
      "form": "〜ないではいられない",
      "tag": "同じ意味・やや話しことば · the same, a little more spoken",
      "mark": "dot",
-     "ja": "試合終了直前の逆転ゴールに、叫ば{ないではいられなかった}。",
+     "ja": "試合終了直前の[逆転|ぎゃくてん]ゴールに、叫ば{ないではいられなかった}。",
      "en": "When the winning goal went in just before the end, I couldn't help shouting."
     },
     {
@@ -58,8 +58,8 @@
      "form": "〜ことに（は）",
      "tag": "気持ちを先に · to my joy, surprise …",
      "mark": "dot",
-     "ja": "うれしい{ことに}、来月から給料が上がることになった。",
-     "en": "To my delight, my pay is going up from next month."
+     "ja": "あきれた{ことに}、彼はまた先週と同じ言い訳をした。",
+     "en": "Unbelievably, he gave the very same excuse as last week."
     },
     {
      "form": "〜てしょうがない",
@@ -80,18 +80,18 @@
     "id": "u11d6.c1",
     "kind": "choice",
     "type": "文の文法1",
-    "label": "電車の中で",
-    "q": "電車の中では、大きな声で電話をする（　　）。",
+    "label": "お見舞いで",
+    "q": "入院している人は疲れやすいので、お見舞いに行ったら早めに帰る（　　）。",
     "options": [
      "ものだ",
      "ものではない",
      "ことか"
     ],
-    "answer": 2,
+    "answer": 1,
     "why": [
-     "ものだ would say that people should phone loudly. Good manners say the opposite.",
-     "Dictionary form + ものではない: what common sense says one shouldn't do.",
-     "ことか is an exclamation with a word such as どんなに. There is none, and this is a rule of manners, not a cry."
+     "Dictionary form + ものだ: what common sense says one should do. The reason before it (patients tire easily) calls for a short visit.",
+     "ものではない would say one should not leave early, the opposite of what 疲れやすいので calls for.",
+     "ことか is an exclamation, usually with a word such as どんなに. This is advice, not a cry."
     ]
    }
   },
@@ -101,7 +101,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "今回の事故は、^注意していれば防げた^ように思えて（　　）。",
+    "q": "この町に来るのは初めてなのに、前にも来たことがあるような^気がして^（　　）。",
     "options": [
      "ならない",
      "はならない",
@@ -110,10 +110,10 @@
     ],
     "answer": 1,
     "why": [
-     "A thought that keeps coming back by itself: 思えてならない (I can't help feeling).",
-     "てはならない means \"must not\". The speaker is not forbidding anything; she is saying what she feels.",
-     "て + いられない means \"cannot stay …ing\" (もう待っていられない). That makes no sense with 思える.",
-     "ものだ follows a plain form (思えるものだ), not a te-form."
+     "A feeling that comes by itself and will not go away: 気がしてならない (I can't shake the feeling).",
+     "てはならない means \"must not\". Nothing is being forbidden here: the speaker is describing a feeling.",
+     "て + いられない means \"cannot stay …ing\" (もう待っていられない). 気がしていられない makes no sense.",
+     "ものだ follows a plain form (気がするものだ), not a te-form."
     ]
    },
    {
@@ -121,7 +121,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^好きな作家の新しい本が出ると^、どんなに忙しくても読ま（　　）。",
+    "q": "壁の絵が少しでも曲がっていると、すぐに^直さ^（　　）。",
     "options": [
      "てならない",
      "ものではない",
@@ -130,10 +130,10 @@
     ],
     "answer": 3,
     "why": [
-     "てならない follows a te-form of a feeling (気になってならない), not the stem 読ま.",
-     "ものではない follows a dictionary form (読むものではない) and advises against something. Here the speaker describes her own habit.",
-     "The ない stem 読ま + ずにはいられない: when a new book comes out, she can't stop herself reading it.",
-     "てしょうがない follows a te-form of a feeling (読みたくてしょうがない), not the stem 読ま."
+     "てならない follows a te-form (気になってならない), not the stem 直さ.",
+     "ものではない follows a dictionary form (直すものではない), not the stem 直さ, and it advises against something. Here the speaker describes their own habit.",
+     "The ない stem 直さ + ずにはいられない: when a picture hangs crooked, I can't stop myself straightening it.",
+     "てしょうがない follows a te-form (直したくてしょうがない), not the stem 直さ."
     ]
    },
    {
@@ -141,7 +141,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "留学中は、毎週末の家族からの電話が^どんなに^待ち遠しかった（　　）。",
+    "q": "かぜで寝込んでいたとき、友人が毎日食事を届けてくれて、^どれほど^ありがたかった（　　）。",
     "options": [
      "ことに",
      "ことか",
@@ -151,9 +151,9 @@
     "answer": 2,
     "why": [
      "ことに puts a feeling first and leads into a fact (うれしいことに、…). Here the sentence ends.",
-     "どんなに … ことか: how much I looked forward to those calls!",
-     "ものだ can look back on the past (よく電話したものだ), but an exclamation with どんなに ends in ことか, not ものだ.",
-     "ものではない follows a dictionary form and advises against something. Looking forward to a call is not advice."
+     "どれほど … ことか: how grateful I was!",
+     "ものだ can look back on the past (昔はよく歩いたものだ), but with どれほど the sentence needs ことか: どれほどありがたかったものだ does not work.",
+     "ものではない advises against something or says it can hardly happen. Neither fits thanks for a friend's help."
     ]
    },
    {
@@ -185,18 +185,18 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^若いころは^、休みのたびに友だちと朝まで遊んだ（　　）。",
+    "q": "^子どものころは^、夏になると毎日のように近くの川で泳いだ（　　）。",
     "options": [
      "ことだ",
      "ものではない",
-     "ことか",
+     "ことに",
      "ものだ"
     ],
     "answer": 4,
     "why": [
-     "ことだ (the N3 point) gives advice to someone and follows a dictionary form (早く寝ることだ). It cannot look back on the past.",
-     "ものではない follows a dictionary form and advises against something. The speaker is remembering, not advising.",
-     "ことか needs a word of degree such as どれほど or 何度 (何度朝まで遊んだことか). There is none here.",
+     "ことだ (the N3 point) gives someone advice, after a dictionary or ない form (早く寝ることだ). It cannot look back on the past.",
+     "ものではない advises against something, after a dictionary form. The speaker is remembering, not advising.",
+     "ことに comes first, after a word of feeling, and leads into a fact (驚いたことに、…). Here the sentence ends.",
      "Past form + ものだ: looking back fondly on something you often did."
     ]
    },
@@ -205,7 +205,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^昨日の夜はほとんど寝ていない^から、今日は眠くて（　　）よ。",
+    "q": "この席、窓から日が差すから、^まぶしくて^（　　）よ。",
     "options": [
      "ことか",
      "しょうがない",
@@ -214,10 +214,10 @@
     ],
     "answer": 2,
     "why": [
-     "ことか follows a plain form (どんなに眠いことか), not a te-form.",
-     "The te-form of a feeling or a sensation + しょうがない: so sleepy I can't stand it. It is casual, which fits よ.",
-     "ものではない follows a dictionary form and advises against something.",
-     "ずにはいられない follows the ない stem of a verb (笑わずにはいられない). 眠くて is the te-form of an adjective."
+     "ことか follows a plain form, usually with a word such as どんなに (どんなにまぶしいことか), not a te-form.",
+     "The te-form of a feeling or a sensation + しょうがない: so bright I can't stand it. It is casual, which fits よ.",
+     "ものではない follows a dictionary form, not a te-form, and it advises against something.",
+     "ずにはいられない follows the ない stem of a verb (カーテンを閉めずにはいられない). まぶしくて is the te-form of an adjective."
     ]
    },
    {
@@ -235,9 +235,9 @@
     "answer": 3,
     "why": [
      "ことか ends a sentence as an exclamation. Here a fact follows the comma.",
-     "てならない follows a te-form (不思議でならない) and ends the sentence.",
+     "てならない needs a te-form (不思議でならない) and states the feeling itself. It cannot lead into a fact after a comma.",
      "The feeling comes first, then the fact it is about: 不思議なことに (strangely enough).",
-     "ものではない ends a sentence with advice against something. It cannot lead into a fact."
+     "ものではない advises against something. It cannot lead into a fact after a comma."
     ]
    },
    {
@@ -245,13 +245,13 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "弟があまりに楽しそうに話すので、私もその",
+    "before": "弟が映画の話をあまりに楽しそうにするので、私もその",
     "after": "いられなくなった。",
     "tiles": [
      "映画を",
      "見に",
-     "行か",
-     "ないでは"
+     "行かない",
+     "では"
     ],
     "star": 2,
     "bank": [
@@ -260,9 +260,9 @@
      0,
      2
     ],
-    "hint": "ないではいられない follows the ない stem of a verb. Which tile is a ない stem? What comes right after その?",
-    "full": "弟があまりに楽しそうに話すので、私もその映画を見に行か{ないではいられなくなった}。",
-    "explain": "その goes with 映画を, and 見に行く is \"go to see\". The ない stem 行か comes right before ないでは."
+    "hint": "In ないではいられない, では follows the ない form of a verb. Which tile is a ない form? What comes right after その?",
+    "full": "弟が映画の話をあまりに楽しそうにするので、私もその映画を見に行か{ないではいられなくなった}。",
+    "explain": "その goes with 映画を, and 見に行く is \"go to see\". The ない form 行かない comes right before では, and では before いられなくなった."
    }
   ],
   "exam": [
@@ -279,14 +279,14 @@
      "たまらない"
     ],
     "answer": 4,
-    "explain": "うれしくて is a te-form, and a feeling too strong to bear: てたまらない. ことか follows a plain form and needs a word such as どんなに, ずにはいられない follows the ない stem of a verb, and ものではない follows a dictionary form."
+    "explain": "うれしくて is a te-form, and a feeling too strong to bear: てたまらない. ことか follows a plain form, usually with a word such as どんなに; ずにはいられない follows the ない stem of a verb; and ものではない follows a dictionary form. None of them can follow うれしくて."
    },
    {
     "id": "u11d6.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "一人暮らしを始めたばかりの娘のことが気になって（　　）。",
+    "q": "家を出るときにかぎをかけたかどうかが気になって（　　）。",
     "options": [
      "ほかない",
      "ものだ",
@@ -301,23 +301,23 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "ニュースで被災地の様子を見て、",
+    "before": "ニュースで地震の被害の",
     "after": "いられなかった。",
     "tiles": [
+     "様子を見て",
      "何か",
      "できることはないかと",
-     "思わ",
-     "ずには"
+     "思わずには"
     ],
-    "star": 1,
+    "star": 2,
     "bank": [
      2,
      0,
      3,
      1
     ],
-    "full": "ニュースで被災地の様子を見て、何か{できることはないかと}思わずにはいられなかった。",
-    "explain": "何か, できることはないかと, 思わ, ずには. 何か goes with できることはないか, と quotes the thought, and the ない stem 思わ comes before ずには."
+    "full": "ニュースで地震の被害の様子を見て何か{できることはないかと}思わずにはいられなかった。",
+    "explain": "様子を見て, 何か, できることはないかと, 思わずには. 被害の needs a noun after it, so 様子を見て comes first. 何か goes with できること, と quotes the thought, and 思わずには comes right before いられなかった."
    }
   ]
  },
@@ -484,16 +484,16 @@
     "かんぞう"
    ],
    "answer": 1,
-   "explain": "完 is カン, as in 完成 and 完全, and 走 is ソウ, as in 走行: かんそう. 完 is never がん, and 走 is not read しょう or ぞう in this word."
+   "explain": "完 is カン, as in 完成 and 完全, and 走 is ソウ, as in 競走: かんそう. 完 is never がん, and 走 is not read しょう or ぞう in this word."
   }
  },
  "skill": {
   "kind": "reading",
   "ja": "情報検索",
   "en": "Finding information",
-  "ask": "Which race can this runner enter, and by when must he apply?",
+  "ask": "Which race can this runner enter, and by when must the entry be in?",
   "seconds": 120,
-  "passage": "みなと市民マラソン2027　参加案内\n開催日：2027年3月7日（日）\n【種目】\n①フルマラソン（42.195km）制限時間6時間／18歳以上\n^※過去3年以内にフルマラソンを完走した記録がある方に限ります。^\n②ハーフマラソン（21.0975km）制限時間3時間／18歳以上\n^※大会当日に60歳以上の方は、「シニア部門」でお申し込みください。^\n③10km　制限時間1時間30分／中学生以上\n④ファンラン（3km）制限時間なし／小学生以上\n【申し込み期間】\n一般：11月1日～12月15日\n^シニア部門：11月1日～11月30日^（医師の診断書が必要です）\n【その他】\n・各種目とも、年代別に上位3名を表彰します。\n・コース上には、約5kmごとに給水所があります。\n・初めての方は、ついスタートから速く走りすぎてしまうものです。自分のペースを守りましょう。\n・うれしいことに、昨年は出場者の95％が完走しました。",
+  "passage": "みなと市民マラソン2027　参加案内\n開催日：2027年3月7日（日）\n【種目】\n①フルマラソン（42.195km）制限時間6時間／18歳以上\n^※過去3年以内にフルマラソンを完走した記録がある方に限ります。^\n②ハーフマラソン（21.0975km）制限時間3時間／18歳以上\n^※大会当日に60歳以上の方は、「シニア部門」でのお申し込みとなります。^\n③10km　制限時間1時間30分／中学生以上\n④ファンラン（3km）制限時間なし／小学生以上\n【申し込み期間】\n一般：11月1日～12月15日\n^シニア部門：11月1日～11月30日^（医師の診断書が必要です）\n【その他】\n・各種目とも、年代別に上位3名を表彰します。\n・コース上には、約5kmごとに給水所があります。\n・初めての方は、ついスタートから速く走りすぎてしまうものです。自分のペースを守りましょう。\n・昨年は、出場者の95％が完走しました。",
   "strategy": "Note the runner's conditions first (60 years old, a first race, more than 10 km), then find the race and the deadline that meet them all, reading the ※ notes under each race.",
   "item": {
    "id": "u11d6.r1",
@@ -513,7 +513,7 @@
     "10km・12月15日"
    ],
    "answer": 2,
-   "explain": "Kimura is 60, has never run a race, and wants more than 10 km. The full marathon needs a finish in the past three years, so ② is his race. The note under ② sends anyone 60 or over to the シニア部門, and that line under 申し込み期間 ends on 11月30日.",
+   "explain": "Kimura is 60, has never run a race, and wants more than 10 km. The full marathon needs a finish in the past three years, so ② is the race for Kimura. The note under ② puts anyone 60 or over on race day in the シニア部門, and the シニア部門 line under 申し込み期間 ends on 11月30日.",
    "why": [
     "Option 1 needs a full marathon finished in the past three years. This is Kimura's first race.",
     "",

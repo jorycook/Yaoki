@@ -31,7 +31,7 @@
      }
     ],
     "watch": {
-     "note": "ものだ speaks about people or things in general, or about what everyone should do. For a habit of your own that you keep now, use ことにしている (たものだ is for habits in the past).",
+     "note": "ものだ speaks about people or things in general, or about what anyone should do, not about your own habit now. For that, use 〜ている or 〜ことにしている (たものだ is for habits in the past).",
      "bad": "私は寝る前に必ず日記を書くものだ。",
      "good": "私は寝る前に必ず日記を書くことにしている。"
     }
@@ -56,12 +56,12 @@
     ],
     "examples": [
      {
-      "ja": "人の悪口を、本人のいないところで言う{ものではない}。",
-      "en": "You should not speak ill of people behind their backs."
+      "ja": "疲れているときに、大事なことを決める{ものではない}。",
+      "en": "You should not make big decisions when you are tired."
      },
      {
-      "ja": "一度失った信用は、一日や二日で取り戻せる{ものではない}。",
-      "en": "Trust, once lost, is not something you can win back in a day or two."
+      "ja": "仕事のコツは、マニュアルを読んだだけでつかめる{ものではない}。",
+      "en": "The knack of a job is not something you can pick up just by reading the manual."
      }
     ],
     "watch": {
@@ -78,22 +78,22 @@
      "form": "〜ものだ",
      "tag": "常識・当然 · that's how it is, one should",
      "mark": "dot",
-     "ja": "人の話は、最後まで聞く{ものだ}。",
-     "en": "You should hear people out to the end."
+     "ja": "人に何かしてもらったら、お礼を言う{ものだ}。",
+     "en": "When someone does something for you, you should thank them."
     },
     {
      "form": "〜ものではない",
-     "tag": "常識として禁止 · one should not",
+     "tag": "常識・禁止 · one should not",
      "mark": "down",
-     "ja": "食事中に、スマホばかり見る{ものではない}。",
-     "en": "You should not keep looking at your phone during a meal."
+     "ja": "まだ使える物を捨てる{ものではない}。",
+     "en": "You should not throw away things that can still be used."
     },
     {
      "form": "〜ことだ（忠告）",
      "tag": "個人への助言 · my advice to you",
      "mark": "dot",
-     "ja": "合格したいなら、毎日少しずつでも勉強する{ことだ}。",
-     "en": "If you want to pass, my advice is to study every day, even a little."
+     "ja": "やせたいなら、エレベーターより階段を使う{ことだ}。",
+     "en": "If you want to lose weight, my advice is to take the stairs, not the lift."
     }
    ],
    "check": {
@@ -121,7 +121,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^最近、よく子どものころを思い出す^。年をとると、昔のことが懐かしくなる（　　）。",
+    "q": "^最近、よく子どものころを思い出す^。^年をとると^、昔のことが懐かしくなる（　　）。",
     "options": [
      "ことだ",
      "わけがない",
@@ -141,19 +141,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "人から物を借りたら、^きちんと^返す（　　）。",
+    "q": "同僚に借りたお金は、忘れないうちに^きちんと^返す（　　）。",
     "options": [
      "ものです",
      "ものではありません",
      "ことはありません",
-     "わけではありません"
+     "わけにはいきません"
     ],
     "answer": 1,
     "why": [
-     "A rule everyone should follow: ものです is the polite ものだ.",
-     "ものではありません would say you should not give it back, the opposite of きちんと.",
-     "ことはありません says there is no need to give it back, which clashes with きちんと.",
-     "わけではありません corrects a wrong idea (\"it is not that…\"). Nothing here is being corrected."
+     "A rule everyone should follow: pay back what you borrowed. ものです is the polite ものだ.",
+     "ものではありません would say you should not pay it back, the opposite of きちんと.",
+     "ことはありません says there is no need to pay it back, which clashes with きちんと.",
+     "わけにはいきません says you cannot do it, for some reason. Paying back a debt properly is exactly what you must do."
     ]
    },
    {
@@ -170,7 +170,7 @@
     ],
     "answer": 4,
     "why": [
-     "ものです would make butting in good manners. 横から口を出す is rude.",
+     "ものです would make butting in the proper thing to do, but 横から口を出す is rude.",
      "ことです advises someone to do it, so it would recommend butting in.",
      "に越したことはありません says doing it would be best, again recommending rudeness.",
      "Butting in is bad manners: ものではありません says one should not do it."
@@ -190,10 +190,10 @@
     ],
     "answer": 2,
     "why": [
-     "ものだ is positive, but そう簡単に (that easily) needs a negative ending.",
+     "ものだ would say long habits are easy to change. Here そう簡単に (that easily) leads to the opposite: they are not.",
      "Potential form + ものではない: a habit is not something you can change that easily.",
-     "わけだ draws a conclusion and is positive too, so そう簡単に is left without its negative.",
-     "ことだ gives advice, and nothing here is advice. そう簡単に still needs a negative."
+     "わけだ draws a conclusion from a reason given before, and there is none here. It would also say habits are easy to change.",
+     "ことだ gives a person advice, but 変えられる (can be changed) is not something you can tell anyone to do."
     ]
    },
    {
@@ -201,24 +201,24 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "学生のころは、試験の前になるとよく",
+    "before": "大学生のころは、お金がなくて、よく",
     "after": "だ。",
     "tiles": [
-     "図書館に",
-     "こもって",
-     "勉強した",
+     "安い",
+     "定食屋で",
+     "食べた",
      "もの"
     ],
     "star": 1,
     "bank": [
-     2,
-     0,
+     1,
      3,
-     1
+     2,
+     0
     ],
     "hint": "た form + ものだ looks back on something you often did. Which tile is in the た form?",
-    "full": "学生のころは、試験の前になるとよく図書館にこもって勉強した{もの}だ。",
-    "explain": "図書館に goes with こもって (shut myself in the library), and こもって leads into 勉強した. 勉強した is the た form, so もの and だ follow it to look back on an old habit."
+    "full": "大学生のころは、お金がなくて、よく安い定食屋で食べた{もの}だ。",
+    "explain": "安い describes 定食屋 (a cheap set-meal diner), and 定食屋で says where. 食べた is the た form, so もの and だ follow it to look back on an old habit."
    },
    {
     "id": "u11d3.d6",
@@ -233,7 +233,7 @@
      "のぞき込む",
      "もの"
     ],
-    "star": 2,
+    "star": 1,
     "bank": [
      3,
      1,
@@ -259,22 +259,22 @@
      "わけがない"
     ],
     "answer": 3,
-    "explain": "A rule every working adult should follow: ものだ. ものではない would forbid calling ahead, ことはない says there is no need to, and わけがない says it cannot happen; none of these fits a duty."
+    "explain": "社会人なら (as a working adult) sets up a duty, and ものだ states it: one should call ahead. ものではない would forbid calling ahead, ことはない would say there is no need to, and わけがない would say a working adult would never do it."
    },
    {
     "id": "u11d3.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "人の家を訪ねるときは、約束の時間より早く着きすぎる（　　）。",
+    "q": "たとえ冗談でも、人の見た目のことをあれこれ言う（　　）。",
     "options": [
+     "ものの",
      "ものだ",
-     "ことだ",
-     "べきだ",
+     "ものなら",
      "ものではない"
     ],
     "answer": 4,
-    "explain": "すぎる marks arriving early as too much, which troubles the host: ものではない says it is not done. ものだ, ことだ and べきだ would all recommend arriving too early."
+    "explain": "たとえ冗談でも (even as a joke) leads to a rule against it: ものではない, one should not remark on people's looks. ものの (although) needs a second clause and cannot end the sentence, ものだ would say one should make such remarks, and ものなら (if) also needs a second clause after it."
    },
    {
     "id": "u11d3.e3",
@@ -284,7 +284,7 @@
     "before": "どんなに準備をしても、本番では",
     "after": "だ。",
     "tiles": [
-     "思わぬ",
+     "思いがけない",
      "ミスを",
      "してしまう",
      "もの"
@@ -296,15 +296,15 @@
      3,
      1
     ],
-    "full": "どんなに準備をしても、本番では思わぬ{ミスを}してしまうものだ。",
-    "explain": "思わぬ, ミスを, してしまう, もの. 思わぬ (unexpected) describes ミス, ミスを is the object of してしまう, and もの before だ says this is what always happens."
+    "full": "どんなに準備をしても、本番では思いがけない{ミスを}してしまうものだ。",
+    "explain": "思いがけない, ミスを, してしまう, もの. 思いがけない (unexpected) describes ミス, ミスを is the object of してしまう, and もの before だ says this is what tends to happen."
    }
   ]
  },
  "scene": {
   "ja": "名刺交換",
   "en": "Exchanging business cards",
-  "intro": "Tap every word you would read on the business card.",
+  "intro": "Tap every word you would read or hear when you exchange business cards.",
   "words": [
    {
     "id": "card",
@@ -320,7 +320,7 @@
      [
       "刺",
       "シ",
-      "pierce; card: 名刺"
+      "pierce; name card"
      ]
     ]
    },
@@ -356,7 +356,7 @@
      [
       "業",
       "ギョウ",
-      "business: 工業"
+      "business, industry: 工業"
      ],
      [
       "部",
@@ -469,7 +469,7 @@
     "がかりちょう"
    ],
    "answer": 2,
-   "explain": "係長 is かかりちょう: 係 read かかり + 長 read ちょう. 係 is けい in 関係 but not here, 長 is not なが in a title, and かかり becomes がかり only after another word, as in 案内係."
+   "explain": "係長 is かかりちょう: 係 read かかり + 長 read ちょう. 係 is けい in 関係 but not here, and 長 in a job title such as 社長 or 課長 is ちょう, not なが. 係 sounds がかり only after another word, as in 案内係 (あんないがかり); in 係長 it comes first, so it stays かかり."
   }
  },
  "skill": {
@@ -477,7 +477,7 @@
   "ja": "ポイント理解",
   "en": "Point comprehension",
   "ask": "男の人は、名刺交換のとき何がいけなかったと言われましたか。",
-  "strategy": "Read the four choices first. The things he guesses are not the answer: wait for 実は.",
+  "strategy": "Read the four choices first. Things he only guesses at, and things she says he did well, are not the answer: listen for the point she makes herself.",
   "item": {
    "id": "u11d3.r1",
    "kind": "choice",

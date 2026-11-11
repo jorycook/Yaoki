@@ -27,9 +27,9 @@
           }
         ],
         "watch": {
-          "note": "A feeling is so strong that you act on it, even if you try not to. する becomes せ before ず, as in せず. It never becomes し.",
-          "bad": "合格の知らせを聞いて、すぐに母に報告しずにはいられなかった。",
-          "good": "合格の知らせを聞いて、すぐに母に報告せずにはいられなかった。"
+          "note": "You cannot hold back an action or a feeling, however hard you try. する becomes せ before ず, as in せず. It never becomes し.",
+          "bad": "彼女の仕事の速さには、感心しずにはいられない。",
+          "good": "彼女の仕事の速さには、感心せずにはいられない。"
         }
       },
       {
@@ -38,12 +38,12 @@
         "gloss": "can't help (doing), a little more spoken",
         "connect": [
           {
-            "pos": "Verb, ない form without ない",
-            "rule": "ない形から「ない」を取る ＋ {ないではいられない}"
+            "pos": "Verb, ない form",
+            "rule": "ない形 ＋ {ではいられない}"
           },
           {
             "pos": "Irregular verbs (do, come)",
-            "rule": "する → し{ないではいられない}／来る → [来|こ]{ないではいられない}"
+            "rule": "する → しない{ではいられない}／来る → [来|こ]ない{ではいられない}"
           }
         ],
         "examples": [
@@ -70,8 +70,8 @@
           "form": "〜ずにはいられない",
           "tag": "気持ちが抑えられない · can't help it",
           "mark": "dot",
-          "ja": "彼女の歌声を聞くと、涙を流さ{ずにはいられない}。",
-          "en": "Whenever I hear her sing, I can't help shedding tears."
+          "ja": "スマホが鳴ると、画面を見{ずにはいられない}。",
+          "en": "Whenever my phone buzzes, I can't help looking at the screen."
         },
         {
           "form": "〜ないではいられない",
@@ -102,8 +102,8 @@
         "answer": 1,
         "why": [
           "The typhoon forced the change of plan: circumstances, not a wish, so ざるを得なかった.",
-          "延ばさずにはいられなかった fits the form, but it means a strong urge from inside. Nobody here wanted to stay longer; the typhoon made them.",
-          "ないでは needs ない before it (延ばさないでは), and it has the same \"urge\" meaning as ずには."
+          "延ばさずにはいられなかった fits the form, but it means a strong urge from inside. Nobody here wanted to stay longer; the typhoon made the speaker do it.",
+          "延ばさないではいられなかった fits the form too, but it means the same urge from inside as ずには. A typhoon, not a wish, changed the plan."
         ]
       }
     },
@@ -124,7 +124,7 @@
         "why": [
           "する never becomes し before ず: しず is not a form.",
           "する becomes せ before ず: 指摘せずにはいられない.",
-          "さ is the stem for される and させる, not for ず.",
+          "指摘する uses さ only in 指摘される and 指摘させる. Before ず it takes せ.",
           "ず joins the ない form without ない, never the dictionary form."
         ]
       },
@@ -145,7 +145,7 @@
           "ずには replaces ない; it cannot follow it. The sentence would need 笑わずにはいられなかった.",
           "ないことには means \"unless\", and a clause must follow it. Here the sentence ends.",
           "までもない follows the dictionary form and means \"there is no need\".",
-          "笑わない + ではいられなかった: the joke was so funny he could not hold back a laugh."
+          "笑わない + ではいられなかった: his joke was so funny that the speaker could not hold back a laugh."
         ]
       },
       {
@@ -153,19 +153,19 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "^夕日に染まった海がとても美しくて^、写真を撮ら（　　）。",
+        "q": "^夕日に染まった海がとても美しくて^、写真を^撮ら^（　　）。",
         "options": [
-          "ざるを得なかった",
+          "ずに済んだ",
           "てならなかった",
           "ずにはいられなかった",
-          "ないではいられなかった"
+          "ではいられなかった"
         ],
         "answer": 3,
         "why": [
-          "撮らざるを得なかった fits the form, but it means circumstances forced you. A beautiful view does not force anyone; it makes you want to.",
+          "撮らずに済んだ fits the form, but it says the speaker was spared from taking a photo. A beautiful view makes you want one.",
           "てならない follows the te-form and a feeling, as in 撮りたくてならなかった. 撮ら cannot take it.",
           "The view was so beautiful that the speaker could not resist: 撮ら + ずにはいられなかった.",
-          "ないでは needs ない before it: 撮らないではいられなかった."
+          "ではいられない needs the ない form before it (撮らないではいられなかった). 撮ら alone cannot take it."
         ]
       },
       {
@@ -183,7 +183,7 @@
         "answer": 1,
         "why": [
           "ではいられない follows the ない form: 声をかけないではいられなかった.",
-          "ず goes with には, not では: かけずにはいられなかった.",
+          "In this pattern ず takes には, not では: かけずにはいられなかった.",
           "The dictionary form cannot come before ではいられない.",
           "The te-form cannot come before ではいられない either; it needs the ない form."
         ]
@@ -193,13 +193,13 @@
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "彼がどれほど努力してきたかを",
-        "after": "気持ちになった。",
+        "before": "子どものころから",
+        "after": "ずにはいられない。",
         "tiles": [
-          "知っている",
-          "だけに",
-          "応援せ",
-          "ずにはいられない"
+          "使ってきた",
+          "駅だけに",
+          "なくなると聞いて",
+          "さびしさを感じ"
         ],
         "star": 1,
         "bank": [
@@ -208,9 +208,9 @@
           3,
           1
         ],
-        "hint": "What verb does 努力してきたかを need? Which tile can sit right before ずにはいられない?",
-        "full": "彼がどれほど努力してきたかを知っているだけに応援せ{ずにはいられない}気持ちになった。",
-        "explain": "努力してきたかを takes 知っている, and だけに follows it: all the more because I know. 応援せ is する's form before ず, and ずにはいられない then describes 気持ち."
+        "hint": "What has the speaker used since childhood? Which tile can sit right before ずにはいられない?",
+        "full": "子どものころから使ってきた駅だけになくなると聞いてさびしさを感じ{ずにはいられない}。",
+        "explain": "子どものころから使ってきた describes 駅, and だけに follows it: all the more because it is the station I have used since I was a child. なくなると聞いて gives the news, and さびしさを感じ (感じない without ない) sits right before ずにはいられない."
       },
       {
         "id": "u11d2.d6",
@@ -247,11 +247,11 @@
         "options": [
           "ないことには",
           "ずにはいられない",
-          "ざるを得ない",
+          "なくてもいい",
           "わけにはいかない"
         ],
         "answer": 2,
-        "explain": "The smell makes the speaker want to buy: an urge from inside, so 買わずにはいられない. ないことには means \"unless\" and needs a clause after it. ざるを得ない fits 買わ, but it means circumstances force you, and a nice smell forces no one. わけにはいかない follows the dictionary form or the ない form (買うわけには), not 買わ."
+        "explain": "The smell makes the speaker want to buy: an urge from inside, so 買わずにはいられない. ないことには means \"unless\" and needs a clause after it. なくてもいい says there is no need to buy, which does not follow from a smell that tempts you. わけにはいかない follows the dictionary form or the ない form (買うわけには, 買わないわけには), not 買わ."
       },
       {
         "id": "u11d2.e2",
@@ -323,7 +323,7 @@
         "id": "draw",
         "word": "採血",
         "reading": "さいけつ",
-        "gloss": "taking blood (a sample)",
+        "gloss": "taking blood, drawing blood",
         "parts": [
           ["採", "サイ", "take, collect: 採用"],
           ["血", "ケツ", "blood"]
@@ -345,7 +345,7 @@
         "reading": "ひんけつ",
         "gloss": "anaemia",
         "parts": [
-          ["貧", "ヒン", "poor, lacking: 貧乏"],
+          ["貧", "ヒン", "poor, lacking: 貧しい"],
           ["血", "ケツ", "blood"]
         ]
       },
@@ -402,31 +402,31 @@
     "en": "Short passage",
     "ask": "What does the writer most want readers to understand?",
     "seconds": 80,
-    "passage": "駅前で献血バスを見かけると、私は足を止めずにはいられない。二十年前、母が手術中に大量の輸血を受け、見知らぬ人たちの血液に命を救われたからだ。それ以来、献血を続けている。あのときの恩を思うと、協力しないではいられないのだ。ところで、献血された血液が長く保存できないことは、あまり知られていない。成分によっては、数日しか使えないものもある。^つまり、一度に大勢が協力するより、多くの人が少しずつ、続けて協力することが大切なのだ^。^一度きりで終わらせず、ぜひ定期的に足を運んでほしい^。",
-    "strategy": "The writer's own story comes first. His message to the reader comes after つまり and in the last sentence, which ends in 〜てほしい.",
+    "passage": "駅前で献血バスを見かけると、私は足を止めずにはいられない。二十年前、母が手術中に大量の輸血を受け、名前も知らない人たちの血液に命を救われたからだ。それ以来、献血を続けている。あのとき助けてもらったことを思うと、協力しないではいられないのだ。ところで、献血された血液が長く保存できないことは、あまり知られていない。成分によっては、数日しか使えないものもある。^つまり、血液は一度にたくさん集まるより、少しずつでも毎日集まり続けることが大切なのだ^。^一度きりで終わらせず、ぜひ定期的に足を運んでほしい^。",
+    "strategy": "The writer's own story comes first. The message to the reader comes after つまり and in the last sentence, which ends in 〜てほしい.",
     "item": {
       "id": "u11d2.r1",
       "kind": "choice",
       "type": "読解・内容理解（短文）",
       "q": "筆者が読者に最も伝えたいことは何か。",
       "options": [
-        "輸血を受けた人は、献血で恩を返すべきだ。",
+        "輸血を受けた人は、自分も献血をするべきだ。",
         "血液は数日で使えなくなるので、献血はむだが多い。",
         "一度に大勢が献血すれば、血液は足りるようになる。",
-        "献血は一度で終わらせず、続けて協力することが大切だ。"
+        "献血には、一回だけでなく、くり返し協力してほしい。"
       ],
       "short": [
-        "輸血を受けた人は恩を返すべき",
+        "輸血を受けた人も献血するべき",
         "献血はむだが多い",
         "一度に大勢が献血すれば足りる",
-        "続けて協力することが大切"
+        "くり返し協力してほしい"
       ],
       "answer": 4,
-      "explain": "After つまり the writer draws his point from the fact that blood cannot be kept long: steady help from many people matters more than a lot at once. The last sentence asks readers to come regularly (〜てほしい).",
+      "explain": "After つまり the writer draws the point from the fact that blood cannot be kept long: a steady daily supply matters more than a lot at once. The last sentence asks readers to come regularly (〜てほしい).",
       "why": [
-        "Option 1 turns the writer's own reason into a rule for others. He gives blood out of gratitude, but never says people who had a transfusion must do the same.",
+        "Option 1 turns the writer's own reason into a rule for others. The writer gives blood out of gratitude for the mother's transfusion, but never says that people who had one should give blood too.",
         "Option 2 is not in the text. Some blood can be used for only a few days, but the writer draws a different lesson from that: keep giving.",
-        "Option 3 is the opposite. Because blood cannot be stored, a lot at once is less useful than a steady supply.",
+        "Option 3 is the opposite. Because blood cannot be stored long, a lot at once is less useful than a steady supply.",
         ""
       ]
     }

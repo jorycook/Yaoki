@@ -9,7 +9,7 @@
         "connect": [
           {"pos": "い-adjective (also 〜たい)", "rule": "〜くて／〜たくて ＋ {たまらない}"},
           {"pos": "な-adjective or noun of feeling", "rule": "〜で ＋ {たまらない}"},
-          {"pos": "Verb of feeling, te-form", "rule": "気になって／腹が立って ＋ {たまらない}"}
+          {"pos": "Verb of feeling or sensation, te-form", "rule": "気になって／腹が立って ＋ {たまらない}"}
         ],
         "examples": [
           {"ja": "毎日残業が続いて、休みが欲しく{てたまらない}。", "en": "I've had overtime every day, and I'm desperate for a day off."},
@@ -32,7 +32,7 @@
         ],
         "examples": [
           {"ja": "期待していた新人が会社を辞めてしまい、残念{でならない}。", "en": "The new recruit we had such hopes for has quit, and I can't help feeling it is a great pity."},
-          {"ja": "一人で過ごす休日は、一日がとても長く感じられ{てならない}。", "en": "On days off spent alone, the day can't help feeling very long."}
+          {"ja": "一人で過ごす休日は、一日がとても長く感じられ{てならない}。", "en": "On days off spent alone, I can't help feeling the day is very long."}
         ],
         "watch": {
           "note": "With thinking, ならない takes a verb for a thought that comes by itself: 思える, 思われる or 気がする. 思って cannot join it.",
@@ -42,7 +42,7 @@
       }
     ],
     "compare": {
-      "intro": "All three join a te-form to ない. Two describe a feeling too strong to hold back; the third sets a rule.",
+      "intro": "All three follow a te-form and end in ない. Two describe a feeling the speaker cannot hold back; the third, with は, sets a rule.",
       "forms": [
         {"form": "〜てたまらない", "tag": "がまんできない · can hardly bear it", "mark": "up", "ja": "試験に合格して、うれしく{てたまらない}。", "en": "I passed the exam, and I'm so happy I can hardly contain it."},
         {"form": "〜てならない", "tag": "自然にそう感じる · can't help feeling", "mark": "dot", "ja": "この歌を聞くと、学生時代のことが思い出され{てならない}。", "en": "Whenever I hear this song, my student days keep coming back to me."},
@@ -52,14 +52,14 @@
         "id": "u11d1.c1",
         "kind": "choice",
         "type": "文の文法1",
-        "label": "母のこと",
-        "q": "最近、母が何か隠しているような気がし（　　）。",
-        "options": ["てはならない", "てたまらない", "てならない"],
+        "label": "社内の決まり",
+        "q": "新商品の情報は、発表の日まで社外の人に話し（　　）。",
+        "options": ["てたまらない", "てならない", "てはならない"],
         "answer": 3,
         "why": [
-          "てはならない means \"must not\": a rule. Here the speaker describes a feeling.",
-          "たまらない is for a feeling or sensation that is hard to bear, such as うれしい or 痛い. It is not used after 気がする.",
-          "気がする is a thought that comes by itself, and ならない follows it: \"I can't shake the feeling\"."
+          "たまらない follows a feeling or sensation, such as うれしくて or 痛くて. 話す is an action, and the sentence is a company rule.",
+          "てならない follows a feeling that comes by itself, such as 心配で or 気がして. 話す is an action, and a rule needs は here: 話してはならない.",
+          "A rule about the new product: 話す + てはならない, \"must not tell\" anyone outside the company before the launch."
         ]
       }
     },
@@ -73,10 +73,10 @@
         "options": ["てはならない", "ざるを得ない", "てたまらない", "てもかまわない"],
         "answer": 3,
         "why": [
-          "てはならない means \"must not\". Being hungry is not a rule here.",
-          "ざるを得ない joins a verb's ない form (行かざるを得ない), not すい, and it means \"have no choice but to\", not a feeling.",
+          "てはならない means \"must not\". Nobody can forbid hunger: the sentence says how hungry the speaker is.",
+          "ざるを得ない joins the stem used before ない (行か + ざるを得ない, \"have no choice but to go\"), so it cannot follow すい. Hunger is not a choice either.",
           "No food since the night before, so the hunger is hard to bear: すいて + たまらない.",
-          "てもかまわない means \"it is fine even if\". The ので clause gives a cause of hunger, not permission."
+          "てもかまわない gives permission: \"it is all right even if\". The ので clause explains why the speaker is hungry, not why hunger is allowed."
         ]
       },
       {
@@ -84,13 +84,13 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "^何度説明を聞いても^、この計画には無理があるように（　　）。",
+        "q": "^何度説明を聞いても^、私にはこの計画に無理があるように（　　）。",
         "options": ["思ってならない", "思えてはならない", "思わせてならない", "思えてならない"],
         "answer": 4,
         "why": [
           "ならない takes a thought that comes by itself (思える, 思われる, 気がする), not 思う.",
-          "てはならない means \"must not\". \"It must not seem unreasonable\" does not follow 何度説明を聞いても.",
-          "思わせる means \"make someone think\". Nobody is being made to think anything here.",
+          "てはならない means \"must not\". Nobody can forbid how the plan seems to the speaker: 私には reports a doubt the speaker already has.",
+          "思わせる means \"make someone think\", and ならない does not follow it. Here the speaker is the one who thinks.",
           "However often it is explained, the doubt stays: 思える + てならない."
         ]
       },
@@ -100,12 +100,12 @@
         "type": "文の文法1",
         "label": "Choose the form",
         "q": "弟は来月の修学旅行が楽しみでたまらない（　　）。^毎日カレンダーに印をつけている^。",
-        "options": ["ようだ", "べきだ", "ことはない", "わけがない"],
+        "options": ["ようだ", "べきだ", "おそれがある", "わけがない"],
         "answer": 1,
         "why": [
           "The speaker sees his feeling from outside, in the calendar marks, so ようだ: \"he seems to be\".",
           "べきだ gives a duty or advice. The speaker is reporting a feeling, not telling him what he ought to feel.",
-          "ことはない means \"there is no need to\", which does not fit a feeling the speaker has just seen signs of.",
+          "おそれがある warns that something bad may happen. Looking forward to a trip is not a danger, and the calendar marks show the feeling is already there.",
           "わけがない means \"there is no way\". The calendar marks show the opposite."
         ]
       },
@@ -114,11 +114,11 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "来月の母の^手術のことを考えると^、心配（　　）。",
+        "q": "来週の母の^手術のことを考えると^、心配（　　）。",
         "options": ["ではならない", "でならない", "なばかりに", "なあまり"],
         "answer": 2,
         "why": [
-          "ではならない would make a \"must not\" phrase. The sentence describes the speaker's worry, not a rule.",
+          "With は, ではならない reads as a \"must not\", and 心配ではならない is not a natural phrase. The sentence says how the speaker feels, not what is allowed.",
           "Thinking about the operation, the worry will not go away: 心配 + で + ならない.",
           "ばかりに needs a bad result after it (…ばかりに失敗した). Here the sentence ends.",
           "あまり needs a result after it (…あまり眠れなかった). Here the sentence ends."
@@ -129,14 +129,14 @@
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "ダイエット中なのに、夜になると",
-        "after": "。",
-        "tiles": ["甘い", "物が", "食べたくて", "たまらない"],
+        "before": "ダイエット中なのに、",
+        "after": "たまらない。",
+        "tiles": ["テレビで", "見た", "ケーキが", "食べたくて"],
         "star": 2,
         "bank": [2, 0, 3, 1],
-        "hint": "たくて joins たまらない. What do you want to eat? It comes right before 食べたくて.",
-        "full": "ダイエット中なのに、夜になると甘い物が食べたく{てたまらない}。",
-        "explain": "甘い describes 物, and 物が is what you want to eat, so 甘い物が comes first. 食べたくて then joins たまらない at the end."
+        "hint": "食べたくて joins たまらない at the end. Which cake is it? Whatever describes it comes before ケーキが.",
+        "full": "ダイエット中なのに、テレビで見たケーキが食べたく{てたまらない}。",
+        "explain": "テレビで goes with 見た, and テレビで見た describes ケーキ. ケーキが is what the speaker wants to eat, so it comes right before 食べたくて, which joins たまらない."
       },
       {
         "id": "u11d1.d6",
@@ -160,9 +160,9 @@
         "type": "文の文法1",
         "label": "Choose the form",
         "q": "大好きな作家の新しい小説が明日発売されるので、早く読みたくて（　　）。",
-        "options": ["たまらない", "いられない", "すまない", "ちがいない"],
-        "answer": 1,
-        "explain": "読みたくて + たまらない: so eager to read it that waiting is hard. ちがいない follows a plain form (読みたいにちがいない), and いられない and すまない do not follow 〜たくて."
+        "options": ["ちがいない", "たまらない", "すまない", "ほかない"],
+        "answer": 2,
+        "explain": "読みたくて + たまらない: so eager to read it that waiting is hard. ちがいない needs に after a plain form (読みたいにちがいない), ほかない follows a dictionary form (待つほかない), and すまない after a te-form is an apology (遅れてすまない), which makes no sense here."
       },
       {
         "id": "u11d1.e2",
@@ -172,20 +172,20 @@
         "q": "来月から新しい部署に移ることになったが、うまくやっていけるか（　　）ならない。",
         "options": ["不安な", "不安だ", "不安では", "不安で"],
         "answer": 4,
-        "explain": "A な-adjective joins ならない with で: 不安でならない, \"I can't stop feeling anxious\". 不安な and 不安だ cannot come before ならない, and 不安ではならない would mean \"must not be anxious\", which does not fit a worry about the new job."
+        "explain": "A な-adjective joins ならない with で: 不安でならない, \"I can't stop feeling anxious\". な and だ cannot join ならない, and with は, 不安ではならない reads as a \"must not\", which makes no sense for a worry about the new job."
       },
       {
         "id": "u11d1.e3",
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "母が",
-        "after": "、国に帰りたくてたまらなくなった。",
-        "tiles": ["送って", "くれた", "写真を", "見ていたら"],
+        "before": "約束の時間に遅れてきたのに",
+        "after": "たまらない。",
+        "tiles": ["一言も", "謝らない", "友人に", "腹が立って"],
         "star": 2,
         "bank": [2, 3, 0, 1],
-        "full": "母が送ってくれた{写真を}見ていたら、国に帰りたくてたまらなくなった。",
-        "explain": "送って, くれた, 写真を, 見ていたら. 母が送ってくれた describes 写真, and 写真を is what was being looked at."
+        "full": "約束の時間に遅れてきたのに一言も謝らない{友人に}腹が立ってたまらない。",
+        "explain": "一言も, 謝らない, 友人に, 腹が立って. 一言も goes with the negative 謝らない, and the whole clause describes 友人. 友人に is who the anger is aimed at, and 腹が立って joins たまらない."
       }
     ]
   },
@@ -195,7 +195,7 @@
     "intro": "Tap every word on the clinic's signs and forms that you would have to read.",
     "words": [
       {"id": "dental", "word": "歯科", "reading": "しか", "gloss": "dentistry, dental clinic", "parts": [["歯", "シ", "tooth"], ["科", "カ", "department: 内科"]]},
-      {"id": "cavity", "word": "虫歯", "reading": "むしば", "gloss": "tooth decay, a bad tooth", "parts": [["虫", "むし", "insect, bug"], ["歯", "ば", "tooth"]]},
+      {"id": "cavity", "word": "虫歯", "reading": "むしば", "gloss": "tooth decay, a cavity", "parts": [["虫", "むし", "insect, bug"], ["歯", "ば", "tooth"]]},
       {"id": "gums", "word": "歯ぐき", "reading": "はぐき", "gloss": "gums", "parts": [["歯", "は", "tooth"]]},
       {"id": "filling", "word": "詰め物", "reading": "つめもの", "gloss": "filling", "parts": [["詰", "つ", "pack, fill: 詰める"], ["物", "もの", "thing"]]},
       {"id": "checkup", "word": "定期検診", "reading": "ていきけんしん", "gloss": "regular check-up", "parts": [["定期", "ていき", "regular"], ["検診", "けんしん", "medical check"]]},
@@ -223,8 +223,8 @@
     "audio": [
       ["N", "男の人が歯科医院に電話しています。男の人はこのあとまず何をしますか。", "男の人がしかいいんに電話しています。男の人はこのあとまずなにをしますか。"],
       ["M", "もしもし、そちらに伺うのは初めてなんですが、昨日の夜から奥の歯が痛くてたまらなくて。今日、診ていただけますか。", "もしもし、そちらにうかがうのははじめてなんですが、きのうのよるからおくのはがいたくてたまらなくて。きょう、みていただけますか。"],
-      ["F", "申し訳ありません。土曜日は午後から休診なんです。ただ、急患の方は十二時まで受け付けていますので、それまでにいらしてください。", "申し訳ありません。土曜日はごごからきゅうしんなんです。ただ、きゅうかんのかたはじゅうにじまで受け付けていますので、それまでにいらしてください。"],
-      ["M", "分かりました。痛み止めを飲んでから行ったほうがいいでしょうか。", "分かりました。いたみどめを飲んでから行ったほうがいいでしょうか。"],
+      ["F", "申し訳ありません。土曜日は午後から休診で、午前中もご予約の方でいっぱいなんです。ただ、急患の方は十二時まで受け付けていますので、それまでにいらしてください。", "申し訳ありません。土曜日はごごからきゅうしんで、ごぜんちゅうもごよやくのかたでいっぱいなんです。ただ、きゅうかんのかたはじゅうにじまで受け付けていますので、それまでにいらしてください。"],
+      ["M", "分かりました。痛み止めを飲んでから行ったほうがいいでしょうか。", "分かりました。いたみどめを飲んでからいったほうがいいでしょうか。"],
       ["F", "お薬を飲むと、どこが痛いのか分かりにくくなることがありますので、飲まずにいらしてください。", null],
       ["M", "はい。あ、それから、保険証も要りますよね。", "はい。あ、それから、ほけんしょうもいりますよね。"],
       ["F", "はい、お願いします。それと、初めての方には、お越しになる前に、ホームページから問診票に記入していただいています。", "はい、お願いします。それと、はじめてのかたには、おこしになる前に、ホームページからもんしんひょうにきにゅうしていただいています。"],
@@ -240,7 +240,7 @@
       "script": [
         "ナレーター：男の人が歯科医院に電話しています。男の人はこのあとまず何をしますか。",
         "男：もしもし、そちらに伺うのは初めてなんですが、昨日の夜から奥の歯が痛くてたまらなくて。今日、診ていただけますか。",
-        "女：申し訳ありません。土曜日は午後から休診なんです。ただ、急患の方は十二時まで受け付けていますので、それまでにいらしてください。",
+        "女：申し訳ありません。土曜日は午後から休診で、午前中もご予約の方でいっぱいなんです。ただ、急患の方は十二時まで受け付けていますので、それまでにいらしてください。",
         "男：分かりました。痛み止めを飲んでから行ったほうがいいでしょうか。",
         "女：お薬を飲むと、どこが痛いのか分かりにくくなることがありますので、飲まずにいらしてください。",
         "男：はい。あ、それから、保険証も要りますよね。",

@@ -4,15 +4,15 @@
     "kind": "choice",
     "type": "漢字読み",
     "label": "Kanji reading",
-    "q": "四月から_係長_になり、初めて部下を持つことになった。",
+    "q": "この書類を、二階の_営業部_まで届けてもらえますか。",
     "options": [
-      "けいちょう",
-      "かかりちょ",
-      "かかりちょう",
-      "かかりじょう"
+      "えいきょうぶ",
+      "えいごうぶ",
+      "えいぎょうぶ",
+      "えいぎょぶ"
     ],
     "answer": 3,
-    "explain": "係長 is かかりちょう: 係 takes its kun reading かかり, and 長 is チョウ with a long vowel. けいちょう uses ケイ, the on'yomi of 係 in 関係, かかりちょ shortens the vowel, and かかりじょう adds voicing."
+    "explain": "営業部 is えいぎょうぶ: 営 is エイ, 業 is ギョウ, voiced and long as in 授業, and 部 is ブ. えいきょうぶ drops the voicing, as if it were 影響, えいごうぶ uses ゴウ, a rarer reading of 業, and えいぎょぶ shortens the vowel."
   },
   {
     "id": "u11t.2",
@@ -34,7 +34,7 @@
     "kind": "choice",
     "type": "表記",
     "label": "Kanji spelling",
-    "q": "コースの途中には、_きゅうすいじょ_が五か所用意されています。",
+    "q": "地震のあと水道が使えなくなり、近くの小学校に臨時の_きゅうすいじょ_が設けられた。",
     "options": [
       "級水所",
       "給氷所",
@@ -42,14 +42,14 @@
       "給水所"
     ],
     "answer": 4,
-    "explain": "A water station is 給水所: 給 \"supply\" and 水 \"water\". 級 sounds like 給 and 結 looks like it, and 氷 \"ice\" looks like 水, but 級水所, 給氷所 and 結水所 are not words."
+    "explain": "A water station is 給水所: 給 \"supply\" and 水 \"water\". 級 sounds like 給 but 級水所 is not a word, 氷 \"ice\" looks like 水 but is read ヒョウ, not スイ, and 結 looks like 給 but is read ケツ."
   },
   {
     "id": "u11t.4",
     "kind": "choice",
     "type": "表記",
     "label": "Kanji spelling",
-    "q": "免許証の_ゆうこうきげん_が来月で切れるので、早めに更新に行こうと思う。",
+    "q": "旅行の三日前になって、パスポートの_ゆうこうきげん_が切れているのに気づいた。",
     "options": [
       "有郊期限",
       "有効期限",
@@ -64,7 +64,7 @@
     "kind": "choice",
     "type": "語形成",
     "label": "Word formation",
-    "q": "献血の前に、自分の血液（　　）を確かめておいた。",
+    "q": "手術の前に、血液（　　）の検査を受けた。",
     "options": [
       "型",
       "形",
@@ -72,22 +72,22 @@
       "種"
     ],
     "answer": 1,
-    "explain": "Blood type is 血液型: 型 is a type or pattern, as in 大型. 形 is a shape, and 血液形, 血液式 and 血液種 are not words."
+    "explain": "Blood type is 血液型: 型 is a type, as in A型 or 新型. 形 is a shape, and 血液形, 血液式 and 血液種 are not words."
   },
   {
     "id": "u11t.6",
     "kind": "choice",
     "type": "語形成",
     "label": "Word formation",
-    "q": "免許証をなくしてしまったので、（　　）交付の手続きをした。",
+    "q": "今年の夏は、各地で記録（　　）な暑さが続いた。",
     "options": [
-      "復",
-      "改",
-      "再",
-      "重"
+      "性",
+      "式",
+      "的",
+      "化"
     ],
     "answer": 3,
-    "explain": "再 means \"again\": 再交付 is issuing a lost document again, as in 再発行. 復交付, 改交付 and 重交付 are not words."
+    "explain": "記録的 is a な-adjective, \"record-breaking\": 記録的な暑さ. 性 makes nouns (安全性), 式 names a style (和式), and 化 makes nouns of change (高齢化), so 記録性, 記録式 and 記録化 cannot take な before 暑さ."
   },
   {
     "id": "u11t.7",
@@ -97,12 +97,12 @@
     "q": "電気料金は、毎月二十五日に銀行口座から（　　）される。",
     "options": [
       "預金",
-      "入金",
+      "返金",
       "両替",
       "引き落とし"
     ],
     "answer": 4,
-    "explain": "Money taken from an account to pay a bill is 引き落とし. 預金 and 入金 put money into an account, not out of it (口座から), and 両替 changes money into other coins or another currency."
+    "explain": "Money taken from an account to pay a bill is 引き落とし. 預金 puts money into an account, not out of it (口座から), 返金 is money paid back, as for a cancelled order, and 両替 changes money into other coins or another currency."
   },
   {
     "id": "u11t.8",
@@ -129,10 +129,10 @@
       "勉強してならない",
       "勉強したものだ",
       "勉強することか",
-      "勉強しないではいられない"
+      "勉強したことに"
     ],
     "answer": 2,
-    "explain": "学生のころは looks back on something the speaker often did: 〜たものだ. てならない follows a feeling such as 心配で, not an action like 勉強する. ことか needs a word such as どれほど and a strong feeling. ないではいられない is in the present tense, which does not fit student days, and it describes an urge, not a habit."
+    "explain": "学生のころは looks back on something the speaker often did: 〜たものだ. てならない, \"can't help feeling\", follows a feeling such as 心配で, not an action like 勉強する. ことか needs a word such as どれほど and a strong feeling. ことに puts a feeling first and needs the fact after it, so it cannot end the sentence."
   },
   {
     "id": "u11t.10",
@@ -147,7 +147,7 @@
       "するものではない"
     ],
     "answer": 4,
-    "explain": "Telling 君 what a person should not do, as a rule of good manners: ものではない. するものだ would say that speaking rudely is the right thing to do. せずにはいられない tells of the speaker's own urge, not advice to someone else, and することか needs a word such as どれほど."
+    "explain": "Telling 君 what a person should not do, as a rule of good manners: ものではない. することか needs a word such as どれほど. せずにはいられない describes an urge that cannot be held back, so it cannot tell someone what not to do. するものだ would say that speaking rudely is the right thing to do."
   },
   {
     "id": "u11t.11",
@@ -162,14 +162,14 @@
       "ものではない"
     ],
     "answer": 1,
-    "explain": "どれほど with a strong feeling at the end of the sentence: ことか, \"how long that week felt!\". A question word like どれほど needs か at the end, so ものだ and ものではない do not fit, and ことに needs a clause after it."
+    "explain": "どれほど needs an exclamation at the end, and ことか gives it: \"how long that week felt!\". ものだ does not make that exclamation and leaves どれほど hanging, ことに needs a clause after it, and ものではない says what one should not do or what cannot happen, which cannot answer どれほど either."
   },
   {
     "id": "u11t.12",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "驚いた（　　）、引っ越し先の隣の部屋に高校時代の友人が住んでいた。",
+    "q": "驚いた（　　）、何年も着ていなかったコートのポケットから一万円札が出てきた。",
     "options": [
       "あまり",
       "ことか",
@@ -177,37 +177,37 @@
       "ものの"
     ],
     "answer": 3,
-    "explain": "驚いたことに, \"to my surprise\", gives the feeling first and the surprising fact after it. あまり needs a reaction the surprise caused (such as 声も出なかった), ことか ends a sentence and needs a word such as どれほど, and ものの needs a clause that goes against the first, not the fact that caused it."
+    "explain": "驚いたことに, \"to my surprise\", gives the feeling first and the surprising fact after it. あまり needs a reaction the surprise caused (such as 声も出なかった), but the note was in the pocket before the surprise; ことか ends a sentence and needs a word such as どれほど; and ものの needs a clause that goes against the first, not the fact that caused it."
   },
   {
     "id": "u11t.13",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "留学中の娘から、もう一週間も連絡がなく、（　　）。",
+    "q": "飼っている犬が昨日から何も食べようとせず、（　　）。",
     "options": [
-      "心配したものだ",
       "心配なことに",
+      "心配してはならない",
       "心配するものではない",
       "心配でならない"
     ],
     "answer": 4,
-    "explain": "A worry the speaker cannot stop feeling now: 心配でならない. 心配したものだ looks back on the past, but もう一週間も連絡がない is happening now. 心配なことに needs a clause after it, and 心配するものではない gives advice, which does not follow from the daughter's silence."
+    "explain": "A worry the speaker cannot stop feeling: 心配でならない. 心配なことに puts the feeling first and needs the fact after it, so it cannot end the sentence. 心配してはならない forbids worrying, and 心配するものではない says one should not worry; neither follows from a dog that will not eat, which is a reason to worry."
   },
   {
     "id": "u11t.14",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "困っている人を見ると声をかけ（　　）のが、兄のいいところだ。",
+    "q": "道にごみが落ちていると、（　　）のが、兄のいいところだ。",
     "options": [
-      "ずにはいられない",
-      "ずに済む",
-      "ないことには",
-      "ないことはない"
+      "拾わずにはいられない",
+      "拾わずに済む",
+      "拾わないことには",
+      "拾うものではない"
     ],
     "answer": 1,
-    "explain": "An urge he cannot hold back when he sees someone in trouble: ずにはいられない. ずに済む says he does not have to speak to them, which is no good point. ないことには needs a result after it, such as 〜ない, and ないことはない (\"it is not that he doesn't\") is too weak to praise him."
+    "explain": "He cannot hold back from picking litter up when he sees it: 拾わずにはいられない. 拾わずに済む says he gets away without picking it up, which is no good point. 拾わないことには needs a result after it, such as 〜ない, so のが cannot follow it, and 拾うものではない says one should not pick litter up, which is not praise."
   },
   {
     "id": "u11t.15",
@@ -219,10 +219,10 @@
       "楽しみなことか",
       "楽しみでしょうがない",
       "楽しみにしたものだ",
-      "楽しみにせずにはいられない"
+      "楽しみなあまり"
     ],
     "answer": 2,
-    "explain": "A feeling so strong the speaker cannot hold it in: 楽しみでしょうがない. 楽しみなことか needs a word such as どんなに. 楽しみにしたものだ looks back on the past, but the class starts next week. せずにはいられない would need 料理教室を, not が, and it is used for an action the speaker cannot hold back."
+    "explain": "A feeling so strong the speaker can hardly hold it in: 楽しみでしょうがない. 楽しみなことか needs a word such as どんなに. 楽しみにしたものだ looks back on the past, but the class starts next week. 楽しみなあまり needs the result of the feeling after it (such as 眠れない), so it cannot end the sentence."
   },
   {
     "id": "u11t.16",
@@ -283,14 +283,14 @@
       "疲れて",
       "しかたが"
     ],
-    "star": 2,
+    "star": 1,
     "bank": [
       3,
       0,
       1,
       2
     ],
-    "full": "一日中パソコンの画面を見ていたせいか目が{疲れて}しかたがない。",
+    "full": "一日中パソコンの画面を見ていたせいか{目が}疲れてしかたがない。",
     "explain": "せいか, 目が, 疲れて, しかたが. 見ていた takes せいか (\"perhaps because\"), 目が is the subject of 疲れて, and the て-form comes right before しかたがない: the speaker's eyes are terribly tired."
   },
   {
@@ -335,7 +335,7 @@
       "事務局に連絡",
       "何もしなくてよい"
     ],
-    "explain": "特別な手続きは必要ありません: the fee goes back by itself to the account given when applying. 11月末 is when the money arrives, not a deadline for the runner, and the notice never asks anyone to register an account again or to contact the office."
+    "explain": "特別な手続きは必要ありません: the fee goes back by itself to the account given when applying. 11月末 is the date by which the money will be paid back, not a deadline for the runner, and the notice never asks anyone to register an account again or to contact the office."
   },
   {
     "id": "u11t.21",
@@ -412,7 +412,7 @@
     "options": [
       "厳しすぎて、当時はつらかった",
       "今になってやっと意味が分かった",
-      "パン屋を開こうと決めたきっかけだった",
+      "今の仕事には役に立たない",
       "今もつらいときの支えになっている"
     ],
     "answer": 4,
@@ -420,9 +420,9 @@
     "short": [
       "当時はつらかった",
       "やっと意味が分かった",
-      "開店のきっかけ",
+      "仕事には役立たない",
       "今も支えになっている"
     ],
-    "explain": "どれほど助けられたことか shows strong thanks, and the writer still remembers the words when work is hard. The words helped, so they were not hard to hear, the writer never says they only understand them now, and they were about choosing a school ten years ago, not about opening the shop."
+    "explain": "今でも仕事がつらいときには、あの言葉を思い出して頑張っています: the words still keep the writer going, and どれほど助けられたことか shows strong thanks. They helped, so they were not hard to hear at the time; the writer never says they only understand them now; and far from being no use at work, they are what the writer remembers when work is hard."
   }
 ]
