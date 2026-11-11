@@ -4,15 +4,15 @@
   "kind": "choice",
   "type": "漢字読み",
   "label": "Kanji reading",
-  "q": "今月の給与からは、税金や保険料として三万円が_控除_された。",
+  "q": "この店では、_お通し_の代金として一人三百円がかかる。",
   "options": [
-   "こうじ",
-   "こじょ",
-   "こうじょ",
-   "こうじょう"
+   "おとうし",
+   "おつうし",
+   "おどおし",
+   "おとおし"
   ],
-  "answer": 3,
-  "explain": "控除 is こうじょ: 控 is コウ with a long vowel, and 除 is ジョ as in 削除. こうじ reads 除 as ジ, the reading it has in 掃除. こじょ shortens the vowel of 控, and こうじょう lengthens 除."
+  "answer": 4,
+  "explain": "お通し is おとおし: 通 is read とお, as in 通る (とおる). おとうし writes the long o with う, おつうし uses the on'yomi ツウ (as in 通学), and おどおし adds voicing."
  },
  {
   "id": "u06t.2",
@@ -24,40 +24,40 @@
    "たんこうぼん",
    "たんこうほん",
    "だんこうぼん",
-   "たんごうぼん"
+   "たんぎょうぼん"
   ],
   "answer": 1,
-  "explain": "単行本 is たんこうぼん: 本 is voiced to ボン after 単行, as in 文庫本 (ぶんこぼん). たんこうほん leaves 本 unvoiced, だんこうぼん voices 単, and たんごうぼん voices 行."
+  "explain": "単行本 is たんこうぼん: 行 is コウ as in 旅行, and 本 becomes ボン, as in 文庫本 (ぶんこぼん). たんこうほん leaves 本 unvoiced, だんこうぼん voices 単, and たんぎょうぼん reads 行 as ギョウ, as in 行事."
  },
  {
   "id": "u06t.3",
   "kind": "choice",
   "type": "表記",
   "label": "Kanji spelling",
-  "q": "事故で壊れた車の修理代を、保険会社に_せいきゅう_した。",
+  "q": "今月の_きゅうよ_の計算に間違いがあったので、担当者に確認した。",
   "options": [
-   "清求",
-   "精求",
-   "請救",
-   "請求"
+   "級与",
+   "給予",
+   "級予",
+   "給与"
   ],
   "answer": 4,
-  "explain": "A claim for money is 請求: 請 \"ask for\" and 求 \"seek\". 清 and 精 are also read セイ and look like 請, but 清求 and 精求 are not words. 救 \"rescue\" looks like 求 and is read キュウ, but 請救 is not a word."
+  "explain": "Pay is 給与: 給 \"pay, supply\" as in 給料, and 与 \"give\". 級 is also read キュウ and looks like 給, and 予 is also read ヨ, but 級与, 給予 and 級予 are not words."
  },
  {
   "id": "u06t.4",
   "kind": "choice",
   "type": "表記",
   "label": "Kanji spelling",
-  "q": "このセーターは_そざい_がウールなので、家の洗濯機では洗えない。",
+  "q": "この机は、_そざい_に地元の木を使っている。",
   "options": [
    "素財",
+   "祖材",
    "素材",
-   "索材",
-   "素才"
+   "祖財"
   ],
-  "answer": 2,
-  "explain": "Material is 素材, with 材 \"timber, material\" as in 材料. 財 and 才 are also read ザイ or サイ but mean wealth and talent, and 索 only looks like 素. None of them makes this word."
+  "answer": 3,
+  "explain": "What a thing is made from is its 素材: 素 \"plain\" and 材 \"material\" as in 材料. 財 is also read ザイ (財産) and 祖 is also read ソ (祖父), but 素財, 祖材 and 祖財 are not words."
  },
  {
   "id": "u06t.5",
@@ -72,14 +72,14 @@
    "過"
   ],
   "answer": 1,
-  "explain": "Outside opening hours is 時間外, with 外 \"outside\" as in 予想外. 時間後, 時間超 and 時間過 are not words; \"over time\" is 超過, which does not attach to 時間 this way."
+  "explain": "Outside opening hours is 時間外, with 外 \"outside\" as in 予定外. 後 and 超 join 時間 only after a number (二時間後, 三時間超), and 時間過 is not a word."
  },
  {
   "id": "u06t.6",
   "kind": "choice",
   "type": "語形成",
   "label": "Word formation",
-  "q": "（　　）型の冷蔵庫を運び出すには、作業員が二人以上必要だ。",
+  "q": "このマンションでは、（　　）型の犬を飼うことは禁止されている。",
   "options": [
    "巨",
    "太",
@@ -87,14 +87,14 @@
    "広"
   ],
   "answer": 3,
-  "explain": "A large model is 大型, the pair of 小型 and 中型. 巨 means huge (巨大) but 巨型 is not a word, and 太型 and 広型 are not words either."
+  "explain": "Large in size or scale is 大型, as in 大型の台風; small is 小型. 巨 means huge (巨大), 太 thick and 広 wide, but 巨型, 太型 and 広型 are not words."
  },
  {
   "id": "u06t.7",
   "kind": "choice",
   "type": "文脈規定",
   "label": "Word in context",
-  "q": "旅行の前の晩、スーツケースに服を詰めて（　　）を済ませた。",
+  "q": "引っ越しの前の日に、段ボールに本や食器を詰めて（　　）を済ませた。",
   "options": [
    "手続き",
    "荷造り",
@@ -102,327 +102,327 @@
    "仕上がり"
   ],
   "answer": 2,
-  "explain": "Putting clothes into a suitcase is packing: 荷造り. 手続き is paperwork, 取り寄せ is ordering something in from elsewhere, and 仕上がり is how a finished job turns out. None of them is done by filling a suitcase."
+  "explain": "Filling boxes before a move is packing: 荷造り. 手続き is paperwork, 取り寄せ is ordering something in from elsewhere, and 仕上がり is how a finished job turns out; none of them is done by filling boxes."
  },
  {
   "id": "u06t.8",
   "kind": "choice",
   "type": "文脈規定",
   "label": "Word in context",
-  "q": "忘年会の（　　）を任されたので、店の予約や会費の集め方を考えなければならない。",
+  "q": "車の（　　）を防ぐため、ハンドルにも専用の鍵をかけている。",
   "options": [
-   "司会",
-   "主役",
-   "乾杯",
-   "幹事"
+   "故障",
+   "渋滞",
+   "混雑",
+   "盗難"
   ],
   "answer": 4,
-  "explain": "The person who books the place and collects the money for a party is the 幹事. The 司会 runs the programme on the night, the 主役 is the guest of honour, and a 乾杯 is a toast; none of them books the restaurant."
+  "explain": "A lock on the steering wheel is there to stop the car being stolen: 盗難を防ぐ. A lock does nothing against a breakdown (故障), a traffic jam (渋滞) or crowding (混雑)."
  },
  {
   "id": "u06t.9",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "部屋を借りるなら駅から近い（　　）が、その分家賃も高くなる。",
+  "q": "知らない番号から電話がかかってきたが、用心する（　　）と思い、出なかった。",
   "options": [
+   "ことはない",
+   "どころではない",
    "に越したことはない",
-   "くらいなら",
-   "に反して",
-   "というより"
+   "わけがない"
   ],
-  "answer": 1,
-  "explain": "Being near the station is the ideal, but it has a cost (が、その分…): に越したことはない. くらいなら needs a better choice after it, に反して follows a noun such as 予想, and というより needs a better description after it, not が."
+  "answer": 3,
+  "explain": "An unknown number is a reason for caution, so the speaker did not answer: 用心するに越したことはない (it is best to be careful). ことはない would say there is no need to be careful, どころではない that there is no room for care, and わけがない that the speaker could not possibly be careful; none of them is a reason not to answer."
  },
  {
   "id": "u06t.10",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "満員電車で一時間立っている（　　）、早起きして始発に乗るほうがましだ。",
+  "q": "週末に混んでいる観光地へ行く（　　）、家でのんびり過ごしたほうがいい。",
   "options": [
+   "くらいなら",
    "どころか",
    "というより",
-   "くらいなら",
    "からには"
   ],
-  "answer": 3,
-  "explain": "Standing for an hour is so bad that getting up early is better (〜ほうがましだ): くらいなら. どころか needs the opposite or something far beyond, というより a better name for the same thing, and からには a resolve or duty, not a preference."
+  "answer": 1,
+  "explain": "A crowded tourist spot is what the speaker wants to avoid, and the better choice follows with 〜ほうがいい: くらいなら. どころか sets a fact against what was expected, というより swaps one description for a better one, not one plan for another, and からには would need a duty or a resolve that comes from going."
  },
  {
   "id": "u06t.11",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "最終バスが出てしまい、タクシーも見つからないので、駅まで歩く（　　）。",
+  "q": "駅へ行く道が工事で通れないので、遠回りする（　　）。",
   "options": [
    "どころではない",
    "くらいなら",
-   "に越したことはない",
+   "ほどだ",
    "よりほかない"
   ],
   "answer": 4,
-  "explain": "With no bus and no taxi, walking is the only way left: よりほかない. どころではない says there is no time or room for something, which does not follow from no bus. くらいなら cannot end a sentence. に越したことはない names the best of several choices, but here there is no choice."
+  "explain": "The road is closed, so a detour is the only way: よりほかない. どころではない would say something leaves no room for a detour, but the roadwork is the reason for one. くらいなら needs the better choice after it and cannot end the sentence, and ほどだ pictures how far a state goes, which a detour is not."
  },
  {
   "id": "u06t.12",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "今日は風が強くて、まっすぐ歩けない（　　）。",
+  "q": "久しぶりに会った親戚の子は背がずいぶん伸びていて、最初は別の子かと思った（　　）。",
   "options": [
-   "どころではない",
-   "ほどだ",
-   "に越したことはない",
-   "よりほかない"
+   "くらいなら",
+   "よりほかない",
+   "くらいだ",
+   "に越したことはない"
   ],
-  "answer": 2,
-  "explain": "The wind is so strong that you cannot walk straight: ほどだ shows the degree. どころではない and よりほかない do not follow a negative such as 歩けない, and に越したことはない would call not being able to walk the best thing."
+  "answer": 3,
+  "explain": "The child had grown so much that at first the speaker took them for someone else: くらいだ pictures how far the change went. くらいなら needs a better choice after it and cannot end the sentence. よりほかない needs an action the speaker is forced into, and に越したことはない names what would be best; neither can follow a past form such as 思った, and neither describes a degree."
  },
  {
   "id": "u06t.13",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "駅前にできた店は、本屋（　　）、本が読めるカフェに近い。",
+  "q": "休みの日にカメラを持って出かけるのは、いい写真を撮るため（　　）、外に出るきっかけがほしいからだ。",
   "options": [
    "どころか",
+   "というより",
    "くらいなら",
-   "をはじめ",
-   "というより"
+   "をはじめ"
   ],
-  "answer": 4,
-  "explain": "\"Bookshop\" is not quite the right word, and \"a café where you can read\" is closer (〜に近い): というより. どころか would deny that it is a bookshop at all, くらいなら needs a choice, and をはじめ starts a list of examples."
+  "answer": 2,
+  "explain": "The speaker sets one reason aside for the truer one, and the sentence ends in 〜からだ: というより. どころか would need the opposite of taking good photos, or something stronger, not a second reason. くらいなら needs a choice between two actions, and をはじめ starts a list of examples."
  },
  {
   "id": "u06t.14",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "ダイエットを始めたのに、やせる（　　）、三キロも太ってしまった。",
+  "q": "「急に手伝いを頼んで、迷惑じゃなかった？」「迷惑（　　）、頼ってもらえてうれしかったよ。」",
   "options": [
+   "をはじめ",
    "どころか",
-   "というより",
-   "くらいなら",
-   "ばかりか"
+   "ばかりか",
+   "に反して"
   ],
-  "answer": 1,
-  "explain": "The result is the opposite of losing weight: どころか. というより needs two descriptions of the same thing, くらいなら needs a better choice after it, and ばかりか adds something in the same direction (lost weight and more), not the opposite."
+  "answer": 2,
+  "explain": "Far from being a bother, it was a pleasure: どころか sets the facts against the word in the question. をはじめ starts a list of examples, ばかりか would add something in the same direction (a bother, and worse), and に反して follows a noun such as 予想 or 期待, which 迷惑 is not."
  },
  {
   "id": "u06t.15",
   "kind": "choice",
   "type": "文の文法1",
   "label": "Choose the form",
-  "q": "周りの期待（　　）、兄は父の店を継がずに画家になった。",
+  "q": "学校の期待（　　）、新しい制服は生徒たちにあまり人気がなかった。",
   "options": [
-   "にわたって",
-   "を中心に",
    "に反して",
-   "に加えて"
+   "に加えて",
+   "にわたって",
+   "に限って"
   ],
-  "answer": 3,
-  "explain": "Everyone expected him to take over the shop, and he did the opposite: 期待に反して. にわたって needs a stretch of time or space, を中心に a centre, and に加えて adds something, none of which goes with 期待 here."
+  "answer": 1,
+  "explain": "The school hoped the new uniform would be liked, and it was not: 期待に反して. に加えて would add something to the hope, にわたって needs a stretch of time or place (三日にわたって), and に限って picks out one case, often for something unlucky; none of them sets what happened against a hope."
  },
  {
   "id": "u06t.16",
   "kind": "star",
   "type": "文の文法2",
   "label": "Build the sentence",
-  "before": "明日は大事な試験があるので、今夜は",
-  "after": "ない。",
+  "before": "初めて乗った飛行機は揺れがひどく、",
+  "after": "なかった。",
   "tiles": [
-   "旅行の",
-   "計画を",
-   "立てる",
+   "窓の外の",
+   "景色を",
+   "楽しむ",
    "どころでは"
   ],
   "star": 1,
   "bank": [
-   2,
-   0,
    3,
-   1
+   1,
+   0,
+   2
   ],
-  "full": "明日は大事な試験があるので、今夜は旅行の{計画を}立てるどころではない。",
-  "explain": "旅行の, 計画を, 立てる, どころでは. 旅行の describes 計画, 計画を is the object of 立てる, and the plain verb comes before どころではない: there is no room tonight to plan a trip."
+  "full": "初めて乗った飛行機は揺れがひどく、窓の外の{景色を}楽しむどころではなかった。",
+  "explain": "窓の外の, 景色を, 楽しむ, どころでは. 窓の外の describes 景色, 景色を is the object of 楽しむ, and the dictionary form goes before どころではなかった: the shaking left no room to enjoy the view."
  },
  {
   "id": "u06t.17",
   "kind": "star",
   "type": "文の文法2",
   "label": "Build the sentence",
-  "before": "暑い日に",
-  "after": "ものはない。",
+  "before": "落ち込んでいるとき、友人の",
+  "after": "心強いものはない。",
   "tiles": [
-   "冷えた",
-   "ビール",
-   "ほど",
-   "おいしい"
+   "「大丈夫だよ」",
+   "という",
+   "言葉",
+   "ほど"
   ],
   "star": 2,
   "bank": [
+   2,
    3,
    1,
-   0,
-   2
+   0
   ],
-  "full": "暑い日に冷えたビール{ほど}おいしいものはない。",
-  "explain": "冷えた, ビール, ほど, おいしい. 冷えた describes ビール, the noun takes ほど, and おいしい describes もの in 〜ほど〜ものはない: nothing is as good as a cold beer."
+  "full": "落ち込んでいるとき、友人の「大丈夫だよ」という{言葉}ほど心強いものはない。",
+  "explain": "「大丈夫だよ」, という, 言葉, ほど. The words themselves come first, という joins them to 言葉, and ほど follows the thing that nothing beats, right before 心強いものはない."
  },
  {
   "id": "u06t.18",
   "kind": "star",
   "type": "文の文法2",
   "label": "Build the sentence",
-  "before": "この店のカレーは辛くて、",
-  "after": "くらいだ。",
+  "before": "人気チームの決勝戦には、",
+  "after": "集まった。",
   "tiles": [
-   "一口",
-   "食べた",
-   "だけで",
-   "涙が出る"
+   "球場に",
+   "入りきれない",
+   "ほどの",
+   "ファンが"
   ],
-  "star": 2,
+  "star": 1,
   "bank": [
    1,
    3,
    0,
    2
   ],
-  "full": "この店のカレーは辛くて、一口食べた{だけで}涙が出るくらいだ。",
-  "explain": "一口, 食べた, だけで, 涙が出る. 一口 goes with 食べた, だけで follows the verb, and 涙が出る comes right before くらいだ to show how hot it is."
+  "full": "人気チームの決勝戦には、球場に{入りきれない}ほどのファンが集まった。",
+  "explain": "球場に, 入りきれない, ほどの, ファンが. 球場に goes with 入りきれない, which pictures how many fans came; the plain form takes ほどの before a noun, and ファンが is the subject of 集まった."
  },
  {
   "id": "u06t.19",
   "kind": "choice",
   "type": "読解・内容理解",
   "label": "Short passage",
-  "q": "夏祭りが延期になったのはなぜか。",
+  "q": "夜の営業をやめるのはなぜか。",
   "options": [
-   "会場の公園が使えなくなったから",
-   "暑さが来場者にとって危ないから",
-   "出店の申し込みが少なかったから",
-   "当日は雨が降ると予報されたから"
+   "夜に食堂を使う人が少ないから",
+   "調理をするスタッフが足りないから",
+   "食堂の工事をするから",
+   "お弁当のほうが人気があるから"
   ],
   "answer": 2,
-  "passage": "8月3日に予定しておりました市民夏祭りは、延期することになりました。今年は予想に反して7月末から厳しい暑さが続いており、当日も最高気温が38度を超えると予報されています。会場の中央公園には日陰が少なく、来場者の安全を考えると、延期するよりほかないと判断いたしました。新しい日程は9月14日（日）です。すでに出店を申し込まれた方は、改めて手続きをしていただく必要はありません。ただし、新しい日程で参加できない場合は、8月20日までに事務局にご連絡ください。",
+  "passage": "社員食堂をご利用の皆様へ。調理を担当するスタッフが足りず、これまでどおり昼と夜の両方の営業を続けることが難しくなりました。そのため、12月1日から夜の営業をやめるよりほかないと判断いたしました。昼の営業時間（11時30分から14時）は変わりません。夜も会社で食事をする方のために、お弁当の予約を受け付けます。当日の15時までに、食堂の入口にある用紙にご記入いただければ、18時から受け取ることができます。ご不便をおかけしますが、ご協力をお願いいたします。",
   "short": [
-   "公園が使えない",
-   "暑さが危ない",
-   "出店が少ない",
-   "雨の予報"
+   "夜の利用者が少ない",
+   "スタッフが足りない",
+   "食堂の工事",
+   "弁当のほうが人気"
   ],
-  "explain": "The notice says it is very hot, the park has little shade, and 来場者の安全を考えると、延期するよりほかない. The park can still be used, the number of stalls is not mentioned, and the forecast is for heat, not rain."
+  "explain": "調理を担当するスタッフが足りず、…営業を続けることが難しくなりました gives the reason. Few evening customers are never mentioned, no building work is planned, and the bento only replaces the evening meals."
  },
  {
   "id": "u06t.20",
   "kind": "choice",
   "type": "読解・内容理解",
   "label": "Short passage",
-  "q": "出店を申し込んでいて、9月14日にも参加できる人は、どうすればいいか。",
+  "q": "12月から、夜に会社でお弁当を食べたい人は、どうすればいいか。",
   "options": [
-   "もう一度出店を申し込む",
-   "8月20日までに事務局に連絡する",
-   "8月3日に会場へ行く",
-   "特に何もしなくていい"
+   "14時までに、昼の営業中に店員に伝える",
+   "18時に、食堂の入口で注文する",
+   "15時までに、入口の用紙に記入する",
+   "前の週までに、メールで申し込む"
   ],
-  "answer": 4,
-  "passage": "8月3日に予定しておりました市民夏祭りは、延期することになりました。今年は予想に反して7月末から厳しい暑さが続いており、当日も最高気温が38度を超えると予報されています。会場の中央公園には日陰が少なく、来場者の安全を考えると、延期するよりほかないと判断いたしました。新しい日程は9月14日（日）です。すでに出店を申し込まれた方は、改めて手続きをしていただく必要はありません。ただし、新しい日程で参加できない場合は、8月20日までに事務局にご連絡ください。",
+  "answer": 3,
+  "passage": "社員食堂をご利用の皆様へ。調理を担当するスタッフが足りず、これまでどおり昼と夜の両方の営業を続けることが難しくなりました。そのため、12月1日から夜の営業をやめるよりほかないと判断いたしました。昼の営業時間（11時30分から14時）は変わりません。夜も会社で食事をする方のために、お弁当の予約を受け付けます。当日の15時までに、食堂の入口にある用紙にご記入いただければ、18時から受け取ることができます。ご不便をおかけしますが、ご協力をお願いいたします。",
   "short": [
-   "申し込み直す",
-   "事務局に連絡",
-   "8月3日に行く",
-   "何もしない"
+   "14時までに店員に伝える",
+   "18時に入口で注文",
+   "15時までに用紙に記入",
+   "前の週にメールで申し込む"
   ],
-  "explain": "改めて手続きをしていただく必要はありません: people who have applied need not do anything. Only those who cannot come on the new date must contact the office by 20 August, and 3 August is the old date."
+  "explain": "当日の15時までに、食堂の入口にある用紙にご記入いただければ: fill in the form at the entrance by 3 p.m. on the day. Telling the staff at lunch is not how to order, 6 p.m. is when the bento is collected, and email is never mentioned."
  },
  {
   "id": "u06t.21",
   "kind": "choice",
   "type": "読解・内容理解",
   "label": "Short passage",
-  "q": "筆者が服をすぐに捨てなくなったのはなぜか。",
+  "q": "筆者がごみ拾いを始めたのはなぜか。",
   "options": [
-   "店で安くきれいに直してもらえたから",
-   "新しい服を買うお金がなかったから",
-   "店の人に捨てないように言われたから",
-   "安い服はすぐに傷んでしまうから"
+   "近所の人に手伝いを頼まれたから",
+   "市がボランティアを募集していたから",
+   "近所に知り合いがほしかったから",
+   "川原にごみが多いことに気づいたから"
   ],
-  "answer": 1,
-  "passage": "最近、近所にある洋服のお直しの店によく行く。きっかけは、気に入っていたズボンのすそが破れたことだ。捨てようかと迷ったが、店の人に相談すると、千円ほどできれいに直してくれた。直したところはほとんどわからず、今でもよくはいている。それ以来、服が少し傷んでも、すぐには捨てなくなった。安い服を何枚も買い替えるくらいなら、気に入った服を直しながら長く着たい。私にとって服を直すことは、節約というより、物を大切にするための習慣になっている。",
+  "answer": 4,
+  "passage": "毎月第一日曜日の朝、近所の川原でごみ拾いをしている。始めたのは三年前だ。子どもと散歩をしていたとき、空き缶やお菓子の袋がたくさん落ちているのに気づいたのがきっかけだった。初めは一人で拾っていたが、そのうち通りかかった人が手伝ってくれるようになり、今では毎回二十人ほどが集まる。拾い終わったあとは、みんなでお茶を飲みながらおしゃべりをする。おかげで近所に知り合いがずいぶん増え、第一日曜日が待ち遠しいくらいだ。ごみ拾いは、私にとって近所の人とつながる大切な時間になっている。",
   "short": [
-   "安くきれいに直せた",
-   "お金がなかった",
-   "捨てるなと言われた",
-   "安い服は傷む"
+   "手伝いを頼まれた",
+   "市が募集していた",
+   "知り合いがほしかった",
+   "ごみの多さに気づいた"
   ],
-  "explain": "The shop mended the trousers well for about 1,000 yen, and それ以来 the writer stopped throwing clothes away. Money troubles are not mentioned, the shop did not tell the writer what to do, and cheap clothes wearing out is not the reason given."
+  "explain": "子どもと散歩をしていたとき、空き缶やお菓子の袋がたくさん落ちているのに気づいたのがきっかけだった. Nobody asked the writer to help (passers-by later helped the writer), no call for volunteers is mentioned, and the new friends came later, as a result."
  },
  {
   "id": "u06t.22",
   "kind": "choice",
   "type": "読解・内容理解",
   "label": "Short passage",
-  "q": "筆者は服を直すことをどう考えているか。",
+  "q": "筆者は、ごみ拾いについてどう思っているか。",
   "options": [
-   "お金を節約するためのいい方法だ",
-   "新しい服を買うより面倒だ",
-   "物を大切にするための習慣だ",
-   "店の人と話せるのが楽しい"
+   "近所の人とつながる大切な時間だ",
+   "一人で静かに作業できるのがいい",
+   "ごみが多くて、なかなか終わらない",
+   "子どもにもっと手伝ってほしい"
   ],
-  "answer": 3,
-  "passage": "最近、近所にある洋服のお直しの店によく行く。きっかけは、気に入っていたズボンのすそが破れたことだ。捨てようかと迷ったが、店の人に相談すると、千円ほどできれいに直してくれた。直したところはほとんどわからず、今でもよくはいている。それ以来、服が少し傷んでも、すぐには捨てなくなった。安い服を何枚も買い替えるくらいなら、気に入った服を直しながら長く着たい。私にとって服を直すことは、節約というより、物を大切にするための習慣になっている。",
+  "answer": 1,
+  "passage": "毎月第一日曜日の朝、近所の川原でごみ拾いをしている。始めたのは三年前だ。子どもと散歩をしていたとき、空き缶やお菓子の袋がたくさん落ちているのに気づいたのがきっかけだった。初めは一人で拾っていたが、そのうち通りかかった人が手伝ってくれるようになり、今では毎回二十人ほどが集まる。拾い終わったあとは、みんなでお茶を飲みながらおしゃべりをする。おかげで近所に知り合いがずいぶん増え、第一日曜日が待ち遠しいくらいだ。ごみ拾いは、私にとって近所の人とつながる大切な時間になっている。",
   "short": [
-   "節約の方法",
-   "買うより面倒",
-   "物を大切にする習慣",
-   "店の人と話せる"
+   "人とつながる時間",
+   "一人で静かにできる",
+   "なかなか終わらない",
+   "子どもに手伝ってほしい"
   ],
-  "explain": "節約というより、物を大切にするための習慣: というより says saving money is not the main point; looking after things is. The writer never calls mending a bother and says nothing about enjoying talking to the staff."
+  "explain": "ごみ拾いは、私にとって近所の人とつながる大切な時間になっている. About twenty people now come and the writer enjoys chatting with them, the work is never called endless, and the child comes in only in how it all began."
  },
  {
   "id": "u06t.23",
   "kind": "choice",
   "type": "読解・内容理解",
   "label": "Short passage",
-  "q": "筆者が週末にゆっくり休めないのはなぜか。",
+  "q": "筆者が夫とゆっくり朝ご飯を食べるようになったのはなぜか。",
   "options": [
-   "仕事が忙しいから",
-   "引っ越しの片付けが終わっていないから",
-   "毎週公園を散歩しているから",
-   "田中さんが遊びに来るから"
+   "夫がコーヒーをいれてくれるようになったから",
+   "佐藤さんに朝ご飯の大切さを教わったから",
+   "豆をひく香りで、夫も起きてくるから",
+   "会社に行く時間が遅くなったから"
   ],
-  "answer": 2,
-  "passage": "田中さん、お元気ですか。先月、仕事の都合で札幌に引っ越しました。荷物が多かったので、一か月たった今も部屋には段ボールが残っていて、週末もゆっくり休むどころではありません。それでも、新しい町はとても気に入っています。家の近くに大きな公園があって、朝は鳥の声で目が覚めるほど静かです。東京にいたころは休みの日も家にいることが多かったのですが、今は公園を散歩するのが楽しみになりました。片付けが終わったら、ぜひ遊びに来てください。",
+  "answer": 3,
+  "passage": "佐藤さん、先日はすてきな誕生日プレゼントをありがとうございました。いただいたコーヒーミルで、毎朝豆をひいてコーヒーをいれています。正直に言うと、初めは少し面倒だと思っていました。ところが、豆をひくと部屋中にいい香りが広がって、隣の部屋で寝ている夫まで起きてくるほどです。おかげで、最近は二人でゆっくり朝ご飯を食べるようになりました。以前は忙しくて、朝ご飯を食べずに家を出ることも多かったのですが、今では朝が一日でいちばん好きな時間です。今度うちに来たときは、ぜひ私のいれたコーヒーを飲んでください。",
   "short": [
-   "仕事が忙しい",
-   "片付けが終わらない",
-   "公園を散歩する",
-   "田中さんが来る"
+   "夫がコーヒーをいれる",
+   "佐藤さんに教わった",
+   "香りで夫も起きる",
+   "会社に行く時間が遅い"
   ],
-  "explain": "Boxes are still in the room a month after the move, so 週末もゆっくり休むどころではありません. Work is only why the writer moved, the walks in the park are a pleasure, and Tanaka-san is only invited for later."
+  "explain": "豆をひくと…夫まで起きてくるほどです, and おかげで links this to their breakfasts together. The writer makes the coffee herself, Sato-san sent a present, not advice, and nothing is said about her working hours."
  },
  {
   "id": "u06t.24",
   "kind": "choice",
   "type": "読解・内容理解",
   "label": "Short passage",
-  "q": "筆者は新しい町についてどう思っているか。",
+  "q": "筆者は、今、朝の時間をどう思っているか。",
   "options": [
-   "東京より不便で困っている",
-   "鳥の声で早く起こされて困る",
-   "家で休めずつまらない",
-   "静かでとても気に入っている"
+   "豆をひくのが面倒で困っている",
+   "一日でいちばん好きな時間だ",
+   "忙しくて朝ご飯を食べる時間がない",
+   "一人で静かに過ごしたい"
   ],
-  "answer": 4,
-  "passage": "田中さん、お元気ですか。先月、仕事の都合で札幌に引っ越しました。荷物が多かったので、一か月たった今も部屋には段ボールが残っていて、週末もゆっくり休むどころではありません。それでも、新しい町はとても気に入っています。家の近くに大きな公園があって、朝は鳥の声で目が覚めるほど静かです。東京にいたころは休みの日も家にいることが多かったのですが、今は公園を散歩するのが楽しみになりました。片付けが終わったら、ぜひ遊びに来てください。",
+  "answer": 2,
+  "passage": "佐藤さん、先日はすてきな誕生日プレゼントをありがとうございました。いただいたコーヒーミルで、毎朝豆をひいてコーヒーをいれています。正直に言うと、初めは少し面倒だと思っていました。ところが、豆をひくと部屋中にいい香りが広がって、隣の部屋で寝ている夫まで起きてくるほどです。おかげで、最近は二人でゆっくり朝ご飯を食べるようになりました。以前は忙しくて、朝ご飯を食べずに家を出ることも多かったのですが、今では朝が一日でいちばん好きな時間です。今度うちに来たときは、ぜひ私のいれたコーヒーを飲んでください。",
   "short": [
-   "不便で困る",
-   "鳥がうるさい",
-   "つまらない",
-   "静かで気に入っている"
+   "豆をひくのが面倒",
+   "いちばん好きな時間",
+   "朝ご飯の時間がない",
+   "一人で過ごしたい"
   ],
-  "explain": "新しい町はとても気に入っています, and 鳥の声で目が覚めるほど静か shows how quiet it is, not a complaint about the birds. The writer never compares how convenient the towns are, and now enjoys walks instead of staying home."
+  "explain": "今では朝が一日でいちばん好きな時間です. Grinding the beans was a bother only at first, having no time for breakfast is how things used to be, and the writer now enjoys breakfast with her husband rather than time alone."
  }
 ]

@@ -46,11 +46,11 @@
             "rule": "〜{ほど}〜人{はいない}／〜{ほど}〜もの{はない}"
           },
           {
-            "pos": "Verb, dictionary form, made a noun",
+            "pos": "Verb, plain form, made a noun with こと",
             "rule": "〜こと{ほど}〜こと{はない}"
           },
           {
-            "pos": "Looking back: this much + verb, past form",
+            "pos": "Verb, た form (never before)",
             "rule": "これ{ほど}〜たこと{はない}"
           }
         ],
@@ -65,9 +65,9 @@
           }
         ],
         "watch": {
-          "note": "Met at N3. At N2, the noun before はない must fit what is compared: a person takes 人 and いない, a thing takes もの and ない.",
-          "bad": "母ほど料理が上手なものはいない。",
-          "good": "母ほど料理が上手な人はいない。"
+          "note": "Met at N3. Check the end: a person takes 人はいない, but a thing takes ない (ものはない), not いない.",
+          "bad": "雨の日の満員電車ほど疲れるものはいない。",
+          "good": "雨の日の満員電車ほど疲れるものはない。"
         }
       }
     ],
@@ -101,17 +101,17 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "引っ越しのあとで",
-        "q": "この部屋は、^前に住んでいた部屋^（　　）。",
+        "q": "^今まで住んだ中で^、この部屋（　　）。",
         "options": [
-          "に越したことはない",
+          "は広いに越したことはない",
           "ほど広い部屋はない",
           "ほど広くない"
         ],
-        "answer": 3,
+        "answer": 2,
         "why": [
-          "に越したことはない names what is best in general (部屋は広いに越したことはない). It cannot compare this room with the old one.",
-          "この部屋は is the topic, so the end must say something about this room. ほど広い部屋はない needs no topic: 前の部屋ほど広い部屋はない.",
-          "This room is smaller than the old one: ほど with a negative."
+          "に越したことはない gives advice about what is best in general (部屋は広いに越したことはない). 今まで住んだ中で asks about the rooms you have had, not for advice.",
+          "今まで住んだ中で asks for the best of them all: no room has been as big as this one.",
+          "ほど広くない needs something smaller as its topic (前の部屋は…). 今まで住んだ中で asks for the best of them all."
         ]
       }
     },
@@ -121,7 +121,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "データのバックアップは毎日取る（　　）が、^週に一回でも十分だ^。",
+        "q": "データのバックアップは毎日取る（　　）が、^それが難しければ週に一回でもいい^。",
         "options": [
           "しかない",
           "に違いない",
@@ -130,10 +130,10 @@
         ],
         "answer": 4,
         "why": [
-          "しかない says it is the only way, which clashes with 週に一回でも十分だ.",
-          "に違いない is a guess about a fact. This sentence gives advice, and there is nothing to guess.",
-          "わけがない says something cannot be true. It gives no advice, and the second half does not follow from it.",
-          "Every day is best, but not needed: 〜に越したことはないが、…"
+          "しかない says daily is the only way, yet the second half allows once a week.",
+          "に違いない is a sure guess about a fact. それが難しければ treats daily backups as a goal that may be hard, not as something to guess.",
+          "わけがない says something cannot happen. Then それが難しければ (if that is hard) would make no sense.",
+          "Daily is best, but once a week will do if that is hard: 〜に越したことはないが、…"
         ]
       },
       {
@@ -141,19 +141,19 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the ending",
-        "q": "この町で、^山田さん^ほど地元の歴史に詳しい（　　）。",
+        "q": "この町には、^山田さん^ほど地元の歴史に詳しい（　　）。",
         "options": [
-          "ものはない",
+          "物はない",
           "人はいない",
           "ことはない",
           "人だ"
         ],
         "answer": 2,
         "why": [
-          "山田さん is a person, so the noun is 人, not もの, and a person takes いない.",
-          "A person + 人はいない: nobody knows the local history as well as 山田さん.",
-          "こと cannot stand for a person. 山田さん is compared with other people in the town, so the noun is 人.",
-          "In this pattern ほど needs a negative ending (人はいない). 〜ほど詳しい人だ does not make a sentence here."
+          "物 means an object, but 山田さん is a person, so the end is 人はいない.",
+          "A person + 人はいない: nobody in this town knows the local history as well as 山田さん.",
+          "ことはない is for events and acts (これほどうれしいことはない). 詳しい here describes a person, so the noun is 人.",
+          "この町には calls for いる or いない at the end, and ほど here needs a negative: 人はいない. 〜人だ cannot finish this sentence."
         ]
       },
       {
@@ -171,7 +171,7 @@
         "answer": 3,
         "why": [
           "Arriving late is not the best thing: the second half says lateness is only acceptable.",
-          "This is advice about what is best, so the verb is in the dictionary form, not the past.",
+          "Early is right, but に越したことはない follows the dictionary form (着く), not the past (着いた).",
           "Dictionary form, and the thing that is best: arriving early.",
           "Wrong twice: the past form, and arriving late is not what is best."
         ]
@@ -202,7 +202,7 @@
         "type": "文の文法2",
         "label": "Build the sentence",
         "before": "歯医者には、痛くなる前に",
-        "after": "、なかなか時間が取れない。",
+        "after": "、実際は痛くなるまで行かない人が多い。",
         "tiles": [
           "定期的に",
           "通う",
@@ -217,8 +217,8 @@
           1
         ],
         "hint": "に越したことはない follows a verb in the dictionary form. Which tile comes right before the comma?",
-        "full": "歯医者には、痛くなる前に定期的に通う{に越したことはない}のだが、なかなか時間が取れない。",
-        "explain": "定期的に describes 通う, and 通う in the dictionary form goes before に越したことはない. のだが leads into the problem: なかなか時間が取れない."
+        "full": "歯医者には、痛くなる前に定期的に通う{に越したことはない}のだが、実際は痛くなるまで行かない人が多い。",
+        "explain": "定期的に describes 通う, and 通う in the dictionary form goes before に越したことはない. のだが leads into what people really do: 痛くなるまで行かない."
       },
       {
         "id": "u06d1.d6",
@@ -242,7 +242,7 @@
         ],
         "hint": "ほど comes right after the thing that nothing beats. Which tile must sit right before ものはない?",
         "full": "忙しい毎日の中で、家族と過ごす時間{ほど}大切なものはない。",
-        "explain": "家族と過ごす describes 時間, and ほど follows it. An adjective must come right before ものはない, so 大切な is last."
+        "explain": "家族と過ごす describes 時間, and ほど follows it. 大切な describes もの, so it comes last, right before ものはない."
       }
     ],
     "exam": [
@@ -256,37 +256,37 @@
           "わけではない",
           "に越したことはない",
           "ことはない",
-          "に決まっている"
+          "わけにはいかない"
         ],
         "answer": 2,
-        "explain": "Seven or eight hours is best, but busy times do not allow it: 〜に越したことはないが. ことはない says there is no need, which clashes with そうもいかない. わけではない (it is not that…) makes the second half meaningless, and に決まっている is a sure guess, not advice."
+        "explain": "Seven or eight hours is best, but busy times do not allow it: 〜に越したことはないが. そうもいかない (it cannot be done) needs something good in the first half. わけではない (it is not that…) and ことはない (there is no need) take that away, and わけにはいかない already says you cannot."
       },
       {
         "id": "u06d1.e2",
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "この町に三十年住んでいるが、今年（　　）雪の多い冬はなかった。",
+        "q": "雪国で生まれ育ったが、今年（　　）雪の多い冬はなかった。",
         "options": [
           "ほど",
-          "に限って",
+          "にしては",
           "だけあって",
           "こそ"
         ],
         "answer": 1,
-        "explain": "Noun + ほど + … + はなかった: no winter had as much snow as this year's. に限って (of all times) needs something happening after it, だけあって praises a result that lives up to its cause, and こそ stresses one thing and cannot lead into はなかった."
+        "explain": "Noun + ほど + … + はなかった: no winter has had as much snow as this one. にしては judges something against what you expect of it (三月にしては寒い), だけあって praises a result that lives up to its cause, and こそ stresses one thing. None of them can lead into はなかった."
       },
       {
         "id": "u06d1.e3",
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "体調が悪いときは、",
-        "after": "が、明日の会議は休めない。",
+        "before": "通訳を頼むなら、",
+        "after": "が、今回は予算が限られている。",
         "tiles": [
-          "無理を",
-          "せず",
-          "休む",
+          "経験が",
+          "豊富な",
+          "人",
           "に越したことはない"
         ],
         "star": 2,
@@ -296,8 +296,8 @@
           1,
           0
         ],
-        "full": "体調が悪いときは、無理をせず{休む}に越したことはないが、明日の会議は休めない。",
-        "explain": "無理を, せず, 休む, に越したことはない. せず follows 無理を, and 休む in the dictionary form goes right before に越したことはない."
+        "full": "通訳を頼むなら、経験が豊富な{人}に越したことはないが、今回は予算が限られている。",
+        "explain": "経験が, 豊富な, 人, に越したことはない. 経験が豊富な describes 人, and a noun goes straight before に越したことはない, with no だ or の."
       }
     ]
   },
@@ -481,34 +481,34 @@
       "script": [
         "ナレーター：保険会社の窓口で、女の人と係の男の人が、海外旅行保険について話しています。女の人はこのあとまず何をしますか。",
         "女：来月アメリカに行くので、旅行保険に入りたいんですが。",
-        "男：ありがとうございます。アメリカは治療費がとても高いですから、補償は手厚いに越したことはありません。こちらの申込書にご記入ください。",
+        "男：ありがとうございます。アメリカは治療費がとても高いですから、保険はしっかりしたものに越したことはありません。こちらの申込書にご記入ください。",
         "女：ええ、外国で病気になることほど不安なことはないですからね。あ、でも、クレジットカードにも保険が付いているんです。",
         "男：カードの保険は、治療費の上限が低いことが多いんです。内容を確認されてから選ばれると、保険料を抑えられるかもしれません。",
         "女：そうなんですね。それから、申込書にはパスポートの番号も書くんですよね。今日は持ってきていないんですが。",
         "男：それでしたら、申込書はお持ち帰りいただいて、後でインターネットからお申し込みいただくこともできます。",
-        "女：じゃあ、そうします。でも、カードのことは早く知りたいので、ここでカード会社に電話してもいいですか。",
-        "男：どうぞ。あちらの席をお使いください。",
+        "女：じゃあ、そうします。そうだ、カードの保険の内容は、カード会社のアプリで見られるはずなんです。分からないところがあったらお聞きしたいので、今ここで確認してもいいですか。",
+        "男：もちろんです。どうぞ、あちらの席をお使いください。",
         "ナレーター：女の人はこのあとまず何をしますか。"
       ],
       "options": [
         "申込書に記入する",
-        "カード会社に電話する",
+        "カードの保険の内容を確認する",
         "パスポートの番号を調べる",
         "インターネットで申し込む"
       ],
       "printed": true,
       "short": [
         "申込書に記入する",
-        "カード会社に電話する",
+        "カードの保険を確認する",
         "パスポートの番号を調べる",
         "ネットで申し込む"
       ],
       "answer": 2,
       "why": [
-        "She takes the form home and fills it in later, once she has her passport number.",
-        "ここで…電話してもいいですか: she calls the card company now, at the counter.",
-        "Her passport is at home, so this comes after the call.",
-        "Last: she applies online once the form is filled in."
+        "The man asks her to fill in the form, but she has no passport with her, so she takes it home and will apply online.",
+        "今ここで確認してもいいですか: she checks her card's insurance on its app now, at the counter.",
+        "Her passport is at home, so this has to wait.",
+        "She will apply online later, once she is home with her passport."
       ]
     },
     "audio": [
@@ -520,12 +520,12 @@
       [
         "F",
         "来月アメリカに行くので、旅行保険に入りたいんですが。",
-        null
+        "来月アメリカに行くので、旅行保険にはいりたいんですが。"
       ],
       [
         "M",
-        "ありがとうございます。アメリカは治療費がとても高いですから、補償は手厚いに越したことはありません。こちらの申込書にご記入ください。",
-        "ありがとうございます。アメリカは治療費がとても高いですから、補償はてあついに越したことはありません。こちらの申込書にご記入ください。"
+        "ありがとうございます。アメリカは治療費がとても高いですから、保険はしっかりしたものに越したことはありません。こちらの申込書にご記入ください。",
+        null
       ],
       [
         "F",
@@ -549,12 +549,12 @@
       ],
       [
         "F",
-        "じゃあ、そうします。でも、カードのことは早く知りたいので、ここでカード会社に電話してもいいですか。",
+        "じゃあ、そうします。そうだ、カードの保険の内容は、カード会社のアプリで見られるはずなんです。分からないところがあったらお聞きしたいので、今ここで確認してもいいですか。",
         null
       ],
       [
         "M",
-        "どうぞ。あちらの席をお使いください。",
+        "もちろんです。どうぞ、あちらの席をお使いください。",
         null
       ],
       [

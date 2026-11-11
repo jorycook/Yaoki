@@ -12,8 +12,8 @@
       "rule": "〜 ＋ {どころではない}"
      },
      {
-      "pos": "Verb, dictionary form",
-      "rule": "辞書形 ＋ {どころではない}"
+      "pos": "Verb, dictionary or ている form",
+      "rule": "辞書形／〜ている ＋ {どころではない}"
      },
      {
       "pos": "In casual speech",
@@ -22,8 +22,8 @@
     ],
     "examples": [
      {
-      "ja": "仕事が忙しくて、花見{どころではない}。",
-      "en": "Work is so busy that cherry-blossom viewing is out of the question."
+      "ja": "[花粉症|かふんしょう]がひどくて、花見{どころではない}。",
+      "en": "My hay fever is so bad that cherry-blossom viewing is out of the question."
      },
      {
       "ja": "引っ越しの準備に追われて、ゆっくり寝ている{どころではなかった}。",
@@ -46,7 +46,7 @@
       "rule": "〜 ＋ {に反して}"
      },
      {
-      "pos": "Before a noun (the second 〜)",
+      "pos": "Noun, before another noun",
       "rule": "〜 ＋ {に反する}／{に反した} ＋ 〜"
      },
      {
@@ -56,12 +56,12 @@
     ],
     "examples": [
      {
-      "ja": "[大方|おおかた]の予想{に反して}、新人の選手が優勝した。",
-      "en": "Contrary to most people's predictions, a newcomer won."
+      "ja": "[大方|おおかた]の予想{に反して}、市長選挙では新人の候補が勝った。",
+      "en": "Contrary to most people's predictions, a first-time candidate won the mayoral election."
      },
      {
-      "ja": "親の期待{に反して}、兄は大学をやめて料理人になった。",
-      "en": "Against our parents' hopes, my brother left university and became a cook."
+      "ja": "住民の希望{に反して}、近所の公園は駐車場になった。",
+      "en": "Against the residents' wishes, the local park was turned into a car park."
      }
     ],
     "watch": {
@@ -85,15 +85,15 @@
      "form": "〜に反して",
      "tag": "予想と逆 · contrary to",
      "mark": "dot",
-     "ja": "予想{に反して}、試験は簡単だった。",
-     "en": "Contrary to what I expected, the exam was easy."
+     "ja": "周りの予想{に反して}、弟は一回で運転免許の試験に合格した。",
+     "en": "Contrary to what everyone expected, my brother passed his driving test first time."
     },
     {
      "form": "〜どころか",
-     "tag": "それどころか · far from",
-     "mark": "up",
-     "ja": "雨はやむ{どころか}、ますます強くなった。",
-     "en": "Far from stopping, the rain got even heavier."
+     "tag": "正反対 · far from",
+     "mark": "down",
+     "ja": "近道をしたのに、早く着く{どころか}、かえって遅れてしまった。",
+     "en": "I took a shortcut, but far from arriving early, I ended up late."
     }
    ],
    "check": {
@@ -121,7 +121,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "父の手術が明日なので、^心配で^仕事（　　）。",
+    "q": "^腰を痛めてしまい^、今はゴルフ（　　）。",
     "options": [
      "に限らない",
      "ほどではない",
@@ -130,10 +130,10 @@
     ],
     "answer": 3,
     "why": [
-     "に限らない means \"not only\". \"Too worried, not only work\" makes no sense here.",
-     "ほどではない means \"not as much as\". Nothing is being compared here.",
-     "Too worried to think about work: noun + どころではない.",
-     "次第だ means \"depends on\". The worry does not depend on work."
+     "に限らない means \"is not limited to\". \"Not limited to golf\" does not follow from a bad back.",
+     "ほどではない means \"not as much as\". Nothing is compared with golf here.",
+     "A bad back leaves no room for golf: noun + どころではない.",
+     "次第だ means \"depends on\". Nothing here depends on golf."
     ]
    },
    {
@@ -151,9 +151,9 @@
     "answer": 1,
     "why": [
      "The manager expected otherwise, and the opposite happened: noun + に反して.",
-     "を機に needs an event that starts something new. A prediction is not that event.",
+     "を機に marks an event that starts a change (結婚を機に、たばこをやめた). The manager's guess did not make the bento sell.",
      "にとって gives the person a judgement is made for (私にとって大切だ). A prediction cannot take that role.",
-     "どころか denies the word before it (売れるどころか、一つも売れなかった). The prediction itself is not being denied here."
+     "どころか sets a second thing of the same kind against the first (安いどころか、かえって高かった: both are about the price). A prediction and what sold are not the same kind of thing."
     ]
    },
    {
@@ -170,8 +170,8 @@
     ],
     "answer": 3,
     "why": [
-     "に反して links to a verb or a clause. Right before a noun (終わり方) it becomes に反する or に反した.",
-     "によって cannot sit right before a noun; that would be による, and the fans' hopes did not cause the ending.",
+     "に反して leads on to a verb or a clause (予想に反して、売れなかった). Right before a noun (終わり方) it becomes に反する or に反した.",
+     "によって gives a cause or a means, and the fans' hopes did not cause an ending they disliked. Right before a noun it would also have to be による.",
      "Before a noun, に反して becomes に反する: an ending that went against what the fans hoped for.",
      "にわたる is for a span of time or space (三日にわたる会議). 期待 is not a span."
     ]
@@ -225,12 +225,12 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "今年の夏は、",
-    "after": "、暑い日が続いた。",
+    "before": "息子は、",
+    "after": "、ピアノを十年も続けている。",
     "tiles": [
-     "涼しい",
+     "すぐに飽きる",
      "という",
-     "予報",
+     "予想",
      "に反して"
     ],
     "star": 2,
@@ -241,8 +241,8 @@
      1
     ],
     "hint": "に反して follows a noun. Which noun can という describe?",
-    "full": "今年の夏は、涼しいという予報{に反して}、暑い日が続いた。",
-    "explain": "涼しいという describes 予報, and に反して follows that noun. What really happened (暑い日が続いた) comes after it."
+    "full": "息子は、すぐに飽きるという予想{に反して}、ピアノを十年も続けている。",
+    "explain": "すぐに飽きるという describes 予想, and に反して follows that noun. What really happened (ピアノを十年も続けている) comes after it."
    }
   ],
   "exam": [
@@ -251,15 +251,15 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "今年の桜は、開花予想（　　）、三月の初めに咲いた。",
+    "q": "天気予報（　　）、姉の結婚式の日は朝からよく晴れた。",
     "options": [
      "にわたって",
      "を中心に",
-     "どころか",
+     "をはじめ",
      "に反して"
     ],
     "answer": 4,
-    "explain": "The forecast said one thing and the trees bloomed early: noun + に反して. にわたって needs a span of time or space, を中心に needs a centre, and どころか denies the word before it, which makes no sense with 開花予想."
+    "explain": "The day turned out the opposite of what the forecast said: noun + に反して. にわたって needs a span of time or space, を中心に a centre, and をはじめ the first of a group (社長をはじめ、社員全員). 天気予報 is none of these."
    },
    {
     "id": "u06d5.e2",
@@ -274,7 +274,7 @@
      "に越したことはない"
     ],
     "answer": 2,
-    "explain": "The noise leaves no room for studying: noun + どころではない, often with とても. ほどではない compares degrees, くらいなら needs a second part after it, and に越したことはない says studying is best, which the noise does not lead to."
+    "explain": "The noise leaves no room for studying: noun + どころではない, often with とても. ほどではない compares degrees, and nothing here is compared with studying. くらいなら needs a second part after it (〜くらいなら、〜ほうがいい), and に越したことはない says studying is best, which the noise does not lead to."
    },
    {
     "id": "u06d5.e3",
@@ -572,7 +572,7 @@
    [
     "N",
     "本の紹介の上手な書き方",
-    null
+    "ほんのしょうかいのじょうずなかきかた"
    ]
   ],
   "item": {
@@ -609,7 +609,7 @@
     "",
     "He mentions writing short introductions as one of his ways, but he does not explain how to write them."
    ],
-   "explain": "The whole talk answers one question: why his small shop kept its customers when a big bookshop opened nearby. The introductions he writes and ordering in from one copy are his reasons."
+   "explain": "The whole talk answers one question: why his small shop kept its customers when a big bookshop opened nearby. His short introductions, and ordering in any book even one copy at a time, are the reasons he gives."
   }
  }
 }

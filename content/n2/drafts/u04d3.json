@@ -12,8 +12,8 @@
       "rule": "〜{さえ} ＋ 〜ば／〜なら"
      },
      {
-      "pos": "Verb, polite-form stem",
-      "rule": "〜 ＋ {さえ}すれば"
+      "pos": "Verb, ます stem",
+      "rule": "〜 ＋ {さえ}すれば／{さえ}しなければ"
      },
      {
       "pos": "Verb, te-form",
@@ -65,14 +65,14 @@
      }
     ],
     "watch": {
-     "note": "次第で says one thing decides how something turns out. To say that things simply differ from one case to another, use によって.",
+     "note": "次第で says that X decides the result and X is still open (how hard you try, the weather, the numbers). To say that things simply differ from one country or person to another, use によって.",
      "bad": "国次第で、あいさつの仕方が違います。",
      "good": "国によって、あいさつの仕方が違います。"
     }
    }
   ],
   "compare": {
-   "intro": "All three tie a result to a condition. さえ〜ば says one thing is all it takes, 次第で says one thing decides the outcome, and によって says the result differs from case to case.",
+   "intro": "All three link a result to what it depends on. さえ〜ば says one thing is all it takes, 次第で says X decides how things turn out, and によって says the result differs from case to case.",
    "forms": [
     {
      "form": "〜さえ〜ば",
@@ -101,17 +101,17 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "パーティーの前に",
-    "q": "パーティーに出るかどうかは、本人の気分（　　）です。",
+    "q": "パーティーに出るかどうかは、当日の体調（　　）です。",
     "options": [
      "さえあれば",
      "次第",
-     "によって"
+     "によっては"
     ],
     "answer": 2,
     "why": [
-     "さえあれば needs a result after it, and \"if only there were a mood\" makes no sense.",
-     "Whether he comes depends on how he feels: noun + 次第です at the end of the sentence.",
-     "によって cannot end a sentence with です. You would need 気分によります."
+     "さえあれば is a condition, so a result must follow it (体調さえよければ出ます). It cannot end the sentence before です.",
+     "Whether he goes depends on how he feels on the day: noun + 次第です at the end of the sentence.",
+     "によっては means \"in some cases, depending on\", so what happens in those cases must follow it (体調によっては休みます). Here only です follows."
     ]
    }
   },
@@ -130,7 +130,7 @@
     ],
     "answer": 2,
     "why": [
-     "あげく ends a long struggle, usually with a bad result. Here nothing went wrong.",
+     "あげく follows a long struggle and leads to a result, usually a bad one. Setting it up as the manual says is no struggle, and nothing goes wrong.",
      "Setting it up as the manual says is all it takes, and then anyone can use it easily.",
      "ないことには needs a negative result after it, such as 使えません.",
      "にあたって marks a formal occasion (\"when starting to\") and needs what you do at that time after it, not an ability."
@@ -172,7 +172,7 @@
     "why": [
      "As long as you keep going, even a little a day, you will improve: te-form + さえいれば.",
      "ない限り means \"unless\". \"Unless you keep going, you will improve\" says the opposite of what is meant.",
-     "たとたん is \"the moment I did\": one past moment and a sudden change. It cannot lead to 必ず上手になります.",
+     "たとたん is \"the moment I did\": something sudden happens right then. It cannot lead to a promise about the future like 必ず上手になります.",
      "最中に is \"right in the middle of\" an action, usually when something interrupts it. It does not give a condition."
     ]
    },
@@ -190,8 +190,8 @@
     ],
     "answer": 4,
     "why": [
-     "ばかりか is \"not only X but also\": a second thing would have to be added with も.",
-     "を機に is \"taking the chance of\": a new start or a decision follows it. A test result does not give a chance to need surgery.",
+     "ばかりか adds a second thing to X (\"not only X but also\"). Surgery is not added to the test results; it depends on them.",
+     "を機に is \"taking X as the chance to\": a new start or a decision follows it. Needing surgery is not a step anyone chooses to take.",
      "にあたって marks the occasion of an important step, and what you do then follows. A result is not such an occasion.",
      "In some cases, depending on the results: 次第では goes well with 場合もあります."
     ]
@@ -228,9 +228,9 @@
     "before": "店の評判は、",
     "after": "と思います。",
     "tiles": [
-     "料理の味より",
-     "店員の",
-     "態度",
+     "料理の",
+     "味より",
+     "店員の態度",
      "次第だ"
     ],
     "star": 2,
@@ -242,7 +242,7 @@
     ],
     "hint": "次第だ follows a noun directly. Which noun decides the shop's reputation, and what is it compared with?",
     "full": "店の評判は、料理の味より店員の態度{次第}だと思います。",
-    "explain": "料理の味より sets up the comparison, 店員の describes 態度, and 態度 takes 次第だ directly: the reputation depends on the staff's manner more than on the food."
+    "explain": "料理の describes 味, and 味より sets up the comparison. 店員の態度 takes 次第だ directly: the reputation depends on the staff's manner more than on the food."
    }
   ],
   "exam": [
@@ -251,30 +251,30 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "雨（　　）、明日の運動会は予定どおり行います。",
+    "q": "雨が（　　）、明日の運動会は予定どおり行います。",
     "options": [
-     "が降らないことには",
-     "が降ったばかりに",
-     "が降り次第",
-     "さえ降らなければ"
+     "降りさえしなければ",
+     "降らないことには",
+     "降ったばかりに",
+     "降り次第"
     ],
-    "answer": 4,
-    "explain": "As long as it does not rain, the sports day goes ahead: さえ…なければ. ないことには needs a negative result after it, ばかりに needs a past result the speaker regrets, and 降り次第 means \"as soon as it rains\", which makes no sense here."
+    "answer": 1,
+    "explain": "As long as it does not rain, the sports day goes ahead as planned: ます stem + さえしなければ, the negative of さえすれば. ないことには needs a negative result after it, ばかりに needs a bad result that the cause brought about, and 降り次第 means \"as soon as it rains\", which cannot lead to 予定どおり行います."
    },
    {
     "id": "u04d3.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この部屋は、使い方（　　）会議室にも教室にもなります。",
+    "q": "この部屋は、工夫（　　）会議室にも教室にもなります。",
     "options": [
-     "をはじめ",
-     "次第で",
      "にわたって",
-     "に限って"
+     "次第で",
+     "さえ",
+     "に加えて"
     ],
     "answer": 2,
-    "explain": "How the room is used decides what it becomes: noun + 次第で. をはじめ starts a list, にわたって covers a stretch of time or space, and に限って means \"only in this case\"."
+    "explain": "How cleverly the room is used decides what it becomes: noun + 次第で. にわたって covers a stretch of time or space, さえ alone means \"even\" and needs a ば clause after it (工夫さえすれば), and に加えて adds one thing to another."
    },
    {
     "id": "u04d3.e3",
@@ -475,7 +475,7 @@
    "q": "女の人はどうして小さい車を選びましたか。",
    "script": [
     "ナレーター：レンタカーの受付で、店の人と女の人が話しています。女の人はどうして小さい車を選びましたか。",
-    "男：いらっしゃいませ。ご予約はされていますか。",
+    "男：いらっしゃいませ。ご予約はお済みですか。",
     "女：いえ、していないんです。今日から二日間借りたいんですが。",
     "男：大丈夫ですよ。免許証さえお持ちでしたら、すぐにご用意できます。料金は、車種と、どちらの店に返されるか次第で変わります。",
     "女：家族四人で荷物も多いので、大きい車がいいかなと思っていたんですが。",
@@ -516,7 +516,7 @@
    ],
    [
     "M",
-    "いらっしゃいませ。ご予約はされていますか。",
+    "いらっしゃいませ。ご予約はお済みですか。",
     null
    ],
    [
@@ -552,7 +552,7 @@
    [
     "F",
     "そうしたいんですが、実は、泊まる旅館の駐車場がとても狭くて、大きい車は止められないって言われたんです。",
-    null
+    "そうしたいんですが、じつは、とまるりょかんのちゅうしゃじょうがとてもせまくて、おおきいくるまはとめられないっていわれたんです。"
    ],
    [
     "M",

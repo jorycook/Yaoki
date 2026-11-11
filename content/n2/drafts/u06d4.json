@@ -19,7 +19,7 @@
     "examples": [
      {
       "ja": "彼の話し方は、説明している{というより}、怒っているように聞こえた。",
-      "en": "The way he spoke sounded less like explaining than getting angry."
+      "en": "The way he spoke sounded less like an explanation and more like anger."
      },
      {
       "ja": "これは料理{というより}、材料を切って並べただけだ。",
@@ -27,9 +27,9 @@
      }
     ],
     "watch": {
-     "note": "というより does not compare two things. It says one thing is better described by B than by A. To say which of two things is cheaper, use より alone.",
-     "bad": "東京というより大阪のほうが物価が安い。",
-     "good": "東京より大阪のほうが物価が安い。"
+     "note": "というより does not say which of two things has more of something. It sets one description aside for a better one. To compare two places, use より alone.",
+     "bad": "大阪は東京というより物価が安い。",
+     "good": "大阪は東京より物価が安い。"
     }
    },
    {
@@ -56,12 +56,12 @@
       "en": "Far from being cheap, the clothes I bought online cost more than in the shop once postage was added."
      },
      {
-      "ja": "忙しくて、旅行{どころか}、週末に休むこともできない。",
-      "en": "I'm so busy I can't even rest at weekends, let alone travel."
+      "ja": "私が育った村には、映画館{どころか}、コンビニもなかった。",
+      "en": "The village I grew up in didn't even have a convenience store, let alone a cinema."
      }
     ],
     "watch": {
-     "note": "In the \"let alone\" use, the bigger or harder thing goes before どころか, and the smaller, easier thing after it, with も or さえ. ひらがな is easier than 漢字, so it comes second.",
+     "note": "In the \"let alone\" use, with a negative at the end, the bigger or harder thing goes before どころか, and the smaller, easier thing after it, with も or さえ. ひらがな is easier than 漢字, so it comes second.",
      "bad": "ひらがなどころか、漢字も書けない。",
      "good": "漢字どころか、ひらがなも書けない。"
     }
@@ -107,7 +107,7 @@
     "why": [
      "というより swaps in a better word for the same act. Blaming me is not a better word for apologising.",
      "Far from apologising, he did the opposite: 謝るどころか.",
-     "ばかりか adds a second act in the same direction. Blaming me goes against apologising."
+     "ばかりか adds a second act in the same direction. Blaming me goes against apologising (謝らないばかりか would work)."
     ]
    }
   },
@@ -126,7 +126,7 @@
     ],
     "answer": 3,
     "why": [
-     "ばかりか adds a second fact, with も after it. Nothing is added here: the sentence finds a better word for the place.",
+     "ばかりか adds a second fact on top of the first. Nothing is added here: the sentence finds a better word for the place.",
      "だけに means \"all the more because\". Being a café is not a reason for being like a library.",
      "It is a café, but 図書館に近い describes it better: AというよりB.",
      "くらいなら sets up a choice: rather than do A, I'd do B. Nothing is chosen here."
@@ -142,14 +142,14 @@
      "どころか",
      "からには",
      "ばかりか",
-     "だけに"
+     "だけあって"
     ],
     "answer": 1,
     "why": [
      "The truth is the opposite of what was expected: 静かどころか, うるさい.",
      "からには (\"now that…\") needs a decision or duty after it, and after a na-adjective it needs である.",
      "ばかりか adds B to A in the same direction, and after a na-adjective it needs な. Quiet and noisy cannot both be true.",
-     "だけに gives a reason (\"all the more because\"), and after a na-adjective it needs な."
+     "だけあって (\"as you would expect of…\") needs a result that fits A, and after a na-adjective it needs な. Noise until midnight does not fit a quiet place."
     ]
    },
    {
@@ -221,24 +221,24 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "薬を飲んだのに、",
-    "after": "上がってしまった。",
+    "before": "薬を飲んだのに、熱が",
+    "after": "しまった。",
     "tiles": [
-     "熱が",
      "下がる",
      "どころか",
-     "かえって"
+     "かえって",
+     "上がって"
     ],
-    "star": 2,
+    "star": 1,
     "bank": [
+     2,
      3,
      1,
-     0,
-     2
+     0
     ],
-    "hint": "What was expected comes before どころか. Which word leads into the opposite result?",
+    "hint": "What was expected comes right after 熱が, before どころか. Which word leads into the opposite result?",
     "full": "薬を飲んだのに、熱が下がる{どころか}かえって上がってしまった。",
-    "explain": "熱が下がる is what was expected, so it goes before どころか. かえって (on the contrary) leads into what really happened: 上がってしまった."
+    "explain": "熱が下がる is what was expected, so 下がる comes first and どころか follows it. かえって (on the contrary) leads into what really happened, so it sits right before 上がって."
    }
   ],
   "exam": [
@@ -255,7 +255,7 @@
      "どころか"
     ],
     "answer": 4,
-    "explain": "Let alone: the newer thing, スマホ, comes before どころか, and the more basic one after it with も. さえ cannot be followed by a second item with も, というより swaps in a better word, and だけあって praises a result that fits its cause."
+    "explain": "Let alone: the harder thing for him, スマホ, comes before どころか, and the more basic 携帯電話 after it with も. さえ does not link two things, so スマホさえ and 携帯電話も would have to share one verb (さえ could take the place of も: 携帯電話さえ). というより swaps in a better word, and だけあって praises a result that fits its cause."
    },
    {
     "id": "u06d4.e2",
@@ -469,7 +469,7 @@
   "en": "Mid-length passage",
   "ask": "What does the writer say made her work longer?",
   "seconds": 110,
-  "passage": "在宅勤務が始まったとき、私は通勤がなくなる分、自由な時間が増えると喜んでいた。ところが実際には、自由な時間が増えるどころか、働く時間が前より長くなってしまった。家では仕事の終わりがはっきりしない。夕食の後にメールを確認し、気づけば夜中まで資料を作っていることも多かった。原因は仕事の量というより、^始まりと終わりを区切るものがなかった^ことにあると思う。会社なら、帰りの電車に乗れば仕事は終わる。そこで私は、毎朝家の近くを十五分歩いてから仕事を始め、夕方六時にはパソコンを片付けることにした。たったそれだけのことだが、仕事と生活がはっきり分かれ、夜はゆっくり休めるようになった。在宅勤務で大切なのは、^自分で一日に区切りをつけること^ではないだろうか。",
+  "passage": "在宅勤務が始まったとき、私は通勤がなくなる分、自由な時間が増えると喜んでいた。ところが実際には、自由な時間が増えるどころか、働く時間が前より長くなってしまった。家では仕事の終わりがはっきりしない。夕食の後にメールを確認し、気づけば夜中まで資料を作っていることも多かった。^原因は仕事の量というより、始まりと終わりを区切るものがなかったことにある^と思う。会社なら、帰りの電車に乗れば仕事は終わる。そこで私は、毎朝家の近くを十五分歩いてから仕事を始め、夕方六時にはパソコンを片付けることにした。たったそれだけのことだが、仕事と生活がはっきり分かれ、夜はゆっくり休めるようになった。在宅勤務で大切なのは、^自分で一日に区切りをつけること^ではないだろうか。",
   "strategy": "Find the sentence that names the cause (原因は…), and notice what というより sets aside.",
   "item": {
    "id": "u06d4.r1",
@@ -479,22 +479,22 @@
    "options": [
     "会社にいたときより、仕事の量が増えたから。",
     "通勤がなくなって、体を動かさなくなったから。",
-    "仕事の始まりと終わりを区切るものがなかったから。",
+    "仕事の始まりと終わりがはっきりしなかったから。",
     "夕食の後に、上司からメールが来るようになったから。"
    ],
    "short": [
     "仕事の量が増えた",
     "体を動かさなくなった",
-    "始まりと終わりの区切りがない",
+    "始まりと終わりがはっきりしない",
     "上司から夜にメール"
    ],
    "answer": 3,
-   "explain": "The writer names the cause in 原因は…ことにあると思う. 仕事の量というより sets the amount of work aside: the cause is that nothing marked the start and the end of the working day.",
+   "explain": "The writer names the cause in 原因は…ことにあると思う. 仕事の量というより sets the amount of work aside: the cause is that nothing marked the start and the end of the working day. Her last sentence says the same thing.",
    "why": [
     "Option 1 is what the writer sets aside with 仕事の量というより.",
     "Option 2 is not in the text. The morning walk is what she changed, not the cause she names.",
     "",
-    "Option 4 is not in the text. She checked her email after dinner herself; no one is said to send it."
+    "Option 4 is not in the text. She checked email after dinner, but nothing says her boss began sending it then."
    ]
   }
  }

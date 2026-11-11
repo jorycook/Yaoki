@@ -24,7 +24,7 @@
       {
         "id": "u06d3.p2",
         "form": "〜くらいだ",
-        "gloss": "so … that; about (high or low)",
+        "gloss": "so … that; only about (a low degree)",
         "connect": [
           {"pos": "Verb or i-adjective, plain form", "rule": "普通形 ＋ {くらいだ}（{ぐらいだ}）"},
           {"pos": "Noun (a low degree: about all)", "rule": "〜 ＋ {くらいだ}"},
@@ -35,14 +35,14 @@
           {"ja": "日本に来てまだ一か月で、行ったことがある町は東京{くらいだ}。", "en": "I have only been in Japan a month, and Tokyo is about the only city I have been to."}
         ],
         "watch": {
-          "note": "くらいだ can show a low degree too: \"only enough to …\". ほどだ paints a high degree, so it cannot say how little.",
+          "note": "くらいだ can also play a degree down: \"only enough to …\". ほどだ stresses how far something goes, so it cannot play anything down.",
           "bad": "私の日本語は、まだあいさつができるほどです。",
           "good": "私の日本語は、まだあいさつができるくらいです。"
         }
       }
     ],
     "compare": {
-      "intro": "ほどだ and くらいだ both show how far a state goes by giving a picture of it; ほど sounds stronger and a little more formal, and only くらい can make something sound small.",
+      "intro": "ほどだ and くらいだ both show how far a state goes by giving a picture of it; ほど sounds stronger and a little more formal, and only くらい can play something down.",
       "forms": [
         {"form": "〜ほどだ", "tag": "強い程度 · so … that (strong)", "mark": "up", "ja": "荷物が重くて、腕が痛くなる{ほどだ}。", "en": "The bags are so heavy that my arms ache."},
         {"form": "〜くらいだ", "tag": "程度 · so … that (everyday)", "mark": "dot", "ja": "あの店は安くて、毎日通いたい{くらいだ}。", "en": "That place is so cheap I would like to go there every day."},
@@ -57,8 +57,8 @@
         "options": ["ほどで", "あまり", "くらいで"],
         "answer": 3,
         "why": [
-          "ほど does not play something down as \"just a little\". It cannot make a little rain sound small.",
-          "あまり is a feeling or effort taken too far (心配のあまり). 少し rain is the opposite of too much.",
+          "ほど never plays something down, so ほどで cannot mean \"just because of a little rain\".",
+          "あまり is a feeling or effort taken too far (心配のあまり). A little rain is the opposite of too much.",
           "くらいで makes the rain sound small: a little rain is no reason to cancel."
         ]
       }
@@ -100,13 +100,13 @@
         "type": "文の文法1",
         "label": "Choose the form",
         "q": "風邪のせいで、^起き上がれない^（　　）^頭痛^が続いている。",
-        "options": ["あまり", "ばかりに", "だけに", "ほどの"],
-        "answer": 4,
+        "options": ["あまり", "ほどの", "ばかりに", "ほどだ"],
+        "answer": 2,
         "why": [
-          "あまり leads to a result clause (心配のあまり眠れない). It cannot describe a noun like 頭痛.",
-          "ばかりに joins a cause to a bad result clause. It cannot sit before a noun.",
-          "だけに joins two clauses (all the more because). It cannot describe a noun.",
-          "Before a noun, ほどだ becomes ほどの: a headache so bad that I cannot get up."
+          "あまり follows a feeling or effort taken too far (心配のあまり). 起き上がれない is neither, and it does not cause the headache.",
+          "Before a noun, ほどだ becomes ほどの: a headache so bad that I cannot get up.",
+          "ばかりに would make 起き上がれない the cause of the headache. It is the other way round: the headache keeps me in bed.",
+          "ほどだ ends a sentence, so it cannot go before the noun 頭痛. Before a noun it becomes ほどの."
         ]
       },
       {
@@ -114,28 +114,28 @@
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "隣の工事の音が大きくて、",
+        "before": "あの二人は仲がよくて、",
         "after": "だ。",
-        "tiles": ["窓を", "閉めていても", "聞こえる", "くらい"],
+        "tiles": ["本当の", "姉妹に", "見える", "くらい"],
         "star": 2,
         "bank": [2, 0, 3, 1],
-        "hint": "くらいだ follows a plain form. What happens even with the windows shut?",
-        "full": "隣の工事の音が大きくて、窓を閉めていても聞こえる{くらい}だ。",
-        "explain": "窓を is the object of 閉めていても. 聞こえる is the plain form that くらい follows, and だ。 closes the sentence: the noise is so loud you hear it with the windows shut."
+        "hint": "くらいだ follows a plain form. What do the two look like?",
+        "full": "あの二人は仲がよくて、本当の姉妹に見える{くらい}だ。",
+        "explain": "本当の describes 姉妹, and 姉妹に goes with 見える: they look like real sisters. 見える is the plain form that くらい follows, and だ。 closes the sentence."
       },
       {
         "id": "u06d3.d5",
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "^この本はとても読みやすくて^、^一晩で全部読めてしまった^（　　）。",
-        "options": ["に越したことはない", "くらいだ", "はずがない", "べきだ"],
-        "answer": 2,
+        "q": "^家から会社まで歩いて行ける^（　　）^距離^なので、電車は使っていない。",
+        "options": ["くらいなら", "くらいだ", "ばかりに", "くらいの"],
+        "answer": 4,
         "why": [
-          "に越したことはない says what would be best. The reading has already happened.",
-          "So easy to read that I finished it in one night: くらいだ can follow a past form.",
-          "はずがない says something cannot be true, but the speaker says it was easy and did read it.",
-          "べきだ says what someone ought to do, and it does not follow a past form like 読めてしまった."
+          "くらいなら (rather than) leads into a clause about a better choice. It cannot describe the noun 距離.",
+          "くらいだ ends a sentence. Before a noun like 距離, it becomes くらいの.",
+          "ばかりに links a cause to a bad result. It cannot describe the noun 距離, and nothing here goes wrong.",
+          "Before a noun, くらいだ becomes くらいの: work is close enough to walk to."
         ]
       },
       {
@@ -159,10 +159,10 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "今年の新入社員は優秀で、教える側が驚かされることもある（　　）。",
+        "q": "「今年の新人はどう？」「みんな優秀で、教えている私のほうが驚かされることもある（　　）よ。」",
         "options": ["よりほかない", "ほどだ", "わけにはいかない", "ことだ"],
         "answer": 2,
-        "explain": "The new staff are so capable that even their trainers are sometimes surprised: the picture, then ほどだ. よりほかない and わけにはいかない talk about what someone must or cannot do, and ことだ gives advice; none of them fits a fact like 驚かされることもある."
+        "explain": "They are so capable that even the person teaching them is sometimes surprised: the picture, then ほどだ. よりほかない and わけにはいかない say what someone must or cannot do, and ことだ gives advice; none of them fits a fact like 驚かされることもある."
       },
       {
         "id": "u06d3.e2",
@@ -172,20 +172,20 @@
         "q": "料理は苦手なので、私が作れるのは卵焼き（　　）。",
         "options": ["ほどだ", "だけあって", "くらいだ", "あまり"],
         "answer": 3,
-        "explain": "Noun + くらいだ can point low: an omelette is about all I can make. ほどだ paints a high degree, so it cannot say how little. だけあって and あまり join two clauses and cannot end the sentence."
+        "explain": "Noun + くらいだ can mean about all, playing the amount down: an omelette is about all I can make. ほど never plays things down, so 卵焼きほどだ does not work. だけあって and あまり join two clauses, so neither can end the sentence."
       },
       {
         "id": "u06d3.e3",
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "この地方の冬は寒さが厳しく、",
-        "after": "ほどだ。",
-        "tiles": ["湖の", "表面が", "凍って", "しまう"],
-        "star": 1,
-        "bank": [2, 0, 3, 1],
-        "full": "この地方の冬は寒さが厳しく、湖の{表面が}凍ってしまうほどだ。",
-        "explain": "湖の, 表面が, 凍って, しまう. 湖の describes 表面, 表面が is the subject, and 凍ってしまう is the plain form that ほどだ follows."
+        "before": "この地方の冬は、",
+        "after": "寒さだ。",
+        "tiles": ["湖の", "表面が", "凍る", "ほどの"],
+        "star": 2,
+        "bank": [3, 1, 0, 2],
+        "full": "この地方の冬は、湖の表面が{凍る}ほどの寒さだ。",
+        "explain": "湖の, 表面が, 凍る, ほどの. 湖の describes 表面, 表面が is the subject of 凍る, and ほどの links that picture to the noun 寒さ: winters cold enough to freeze the surface of the lake."
       }
     ]
   },
@@ -208,10 +208,10 @@
       "kind": "choice",
       "type": "漢字読み",
       "label": "How the exam asks it",
-      "q": "今年の忘年会の_幹事_を頼まれた。",
+      "q": "秋の社員旅行の_幹事_を頼まれた。",
       "options": ["かんじ", "かんし", "がんじ", "かいじ"],
       "answer": 1,
-      "explain": "幹事 is かんじ: 幹 is read カン, as in 新幹線, and 事 is read ジ. It sounds just like 漢字. 幹 is not read がん or かい, and 事 is not し here."
+      "explain": "幹事 is かんじ: 幹 is read カン, as in 新幹線, and 事 is read ジ, so it has the same reading as 漢字. 幹 is not read がん or かい, and 事 is not read し."
     }
   },
   "skill": {

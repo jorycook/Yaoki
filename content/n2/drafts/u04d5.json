@@ -5,7 +5,7 @@
    {
     "id": "u04d5.p1",
     "form": "〜を抜きにしては",
-    "gloss": "without X, (can't) …",
+    "gloss": "if X is left out, (can't) …",
     "connect": [
      {
       "pos": "Noun",
@@ -31,7 +31,7 @@
      }
     ],
     "watch": {
-     "note": "を抜きにしては leads to a negative idea: cannot, impossible, unthinkable. To set a topic aside and move on, use は抜きにして, with no ては.",
+     "note": "を抜きにしては leads to a negative idea: cannot, impossible, unthinkable. To leave something out and go ahead (let's …), end with 抜きにして, not 抜きにしては. The usual phrase is 〜は抜きにして.",
      "bad": "難しい話を抜きにしては、乾杯しましょう。",
      "good": "難しい話は抜きにして、乾杯しましょう。"
     }
@@ -56,8 +56,8 @@
     ],
     "examples": [
      {
-      "ja": "地元の人の協力{なしには}、この調査はできませんでした。",
-      "en": "Without the help of local people, this survey could not have been done."
+      "ja": "十分な睡眠{なしには}、疲れは取れません。",
+      "en": "Without enough sleep, you can't shake off tiredness."
      },
      {
       "ja": "相手の話をよく聞くこと{なしには}、よい関係は作れない。",
@@ -65,7 +65,7 @@
      }
     ],
     "watch": {
-     "note": "なしには needs a \"cannot\" after it. To say someone did something without X, drop は: 連絡なしに休んだ.",
+     "note": "なしには needs a negative after it, such as \"cannot\". To say someone did something without X, drop は: 連絡なしに休んだ.",
      "bad": "彼は昨日、連絡なしには会社を休んだ。",
      "good": "彼は昨日、連絡なしに会社を休んだ。"
     }
@@ -78,8 +78,8 @@
      "form": "〜を抜きにしては",
      "tag": "〜を除いたら · leaving X out",
      "mark": "down",
-     "ja": "この店の人気は、店長の[人柄|ひとがら]{を抜きにしては}語れない。",
-     "en": "You can't talk about this shop's popularity without the manager's character."
+     "ja": "この映画の魅力は、美しい音楽{を抜きにしては}語れない。",
+     "en": "You can't talk about this film's appeal and leave out its beautiful music."
     },
     {
      "form": "〜なしには",
@@ -92,16 +92,16 @@
      "form": "〜ないことには",
      "tag": "まず〜しないと · unless … first",
      "mark": "down",
-     "ja": "実物を見{ないことには}、買うかどうか決められない。",
-     "en": "Until I see the real thing, I can't decide whether to buy it."
+     "ja": "お金がたまら{ないことには}、引っ越しはできない。",
+     "en": "Until I've saved up some money, I can't move house."
     }
    ],
    "check": {
     "id": "u04d5.c1",
     "kind": "choice",
     "type": "文の文法1",
-    "label": "Which one joins a verb?",
-    "q": "本人に直接聞いてみ（　　）、本当の理由はわからない。",
+    "label": "かぜの日",
+    "q": "熱が下がら（　　）、会社には行けない。",
     "options": [
      "を抜きにしては",
      "なしには",
@@ -109,9 +109,9 @@
     ],
     "answer": 3,
     "why": [
-     "を抜きにしては follows a noun, as in 人柄を抜きにしては. 聞いてみ is part of a verb.",
-     "なしには follows a noun, or a verb + こと. It cannot join 聞いてみ.",
-     "聞いてみ + ないことには: unless you ask first, you cannot know."
+     "を抜きにしては follows a noun, as in 現場の意見を抜きにしては. 下がら is part of a verb.",
+     "なしには follows a noun, or a verb + こと. It cannot join 下がら.",
+     "下がら + ないことには: until the fever goes down, I cannot go to work."
     ]
    }
   },
@@ -131,9 +131,9 @@
     "answer": 3,
     "why": [
      "次第で says a result depends on X, as in 天気次第で. Tears do not decide anything here.",
-     "に加えて adds one more thing to a list. Nothing else is listed, and it does not lead to \"could not\".",
+     "に加えて adds a second thing of the same kind, as in 雨に加えて風も強い. Nothing is added to 涙 here.",
      "涙 + なしには + 聞けなかった: nobody could listen without crying.",
-     "ないことには needs a ない form before it (見ないことには, 涙が出ないことには). It cannot follow a bare noun."
+     "ないことには follows a ない form, as in 見ないことには. It cannot follow the noun 涙."
     ]
    },
    {
@@ -153,7 +153,7 @@
      "The player the team depends on + を抜きにしては, then \"cannot win\".",
      "を機に needs an event that starts a change, as in 就職を機に. A player is not an event.",
      "にわたって needs a stretch of time or space, as in 三日間にわたって.",
-     "ばかりに cannot follow a noun directly (it would need である), and it explains a result the speaker regrets."
+     "ばかりに cannot follow a noun directly; it would need である. It would also make Tanaka the cause of a bad result."
     ]
    },
    {
@@ -161,8 +161,8 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "この地域の観光は、",
-    "after": "考えられない。",
+    "before": "この村の観光は、",
+    "after": "成り立たない。",
     "tiles": [
      "全国的に",
      "有名な",
@@ -177,27 +177,27 @@
      2
     ],
     "hint": "抜きにしては comes right after a noun with を. What is famous all over the country?",
-    "full": "この地域の観光は、全国的に有名な温泉を{抜きにしては}考えられない。",
-    "explain": "全国的に describes 有名な, and 有名な describes 温泉. 温泉を joins 抜きにしては, and 考えられない follows it."
+    "full": "この村の観光は、全国的に有名な温泉を{抜きにしては}成り立たない。",
+    "explain": "全国的に describes 有名な, and 有名な describes 温泉. 温泉を joins 抜きにしては, and 成り立たない follows it."
    },
    {
     "id": "u04d5.d4",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この仕事は、^お客様との信頼関係^（　　）^成り立たない^。",
+    "q": "営業の仕事は、^お客様との信頼関係^（　　）^うまくいかない^。",
     "options": [
      "をはじめ",
-     "に限って",
+     "に際して",
      "以上は",
      "抜きには"
     ],
     "answer": 4,
     "why": [
-     "をはじめ gives the first of several examples, and more of them should follow.",
-     "に限って means \"only in this case\" or \"of all people\". It does not mean \"without\".",
+     "をはじめ names the main example of a group, and the group follows, as in 社長をはじめ社員全員. No group follows here.",
+     "に際して needs an occasion, as in 契約に際して. A relationship is not an occasion.",
      "以上は cannot follow a noun directly (it would need である), and it leads to a duty or resolve.",
-     "Noun + 抜きには, the short form of を抜きにしては: without trust, this work does not hold together."
+     "Noun + 抜きには, the short form of を抜きにしては: without trust, sales work does not go well."
     ]
    },
    {
@@ -253,51 +253,51 @@
     "label": "Choose the form",
     "q": "しっかりとした準備（　　）、本番でいい結果は出せない。",
     "options": [
-     "次第で",
-     "ないことには",
-     "をはじめ",
-     "なしには"
+     "はもとより",
+     "なしには",
+     "からには",
+     "ものなら"
     ],
-    "answer": 4,
-    "explain": "Noun + なしには + \"cannot\": without good preparation, there is no good result. 次第で says the result changes with X, but 出せない is not a result that changes. ないことには needs a ない form before it (準備をしないことには). をはじめ starts a list of examples."
+    "answer": 2,
+    "explain": "Noun + なしには + \"cannot\": without good preparation, there is no good result. はもとより says X goes without saying and adds a second thing with も (準備はもとより体調管理も大切だ); nothing is added here. からには needs である after a noun (学生であるからには), and ものなら follows a verb (できるものなら), so neither can follow 準備 directly."
    },
    {
     "id": "u04d5.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "社員の健康（　　）、会社の成長はあり得ない。",
+    "q": "社員の健康（　　）、会社の成長は望めない。",
     "options": [
      "を機に",
      "をはじめ",
      "を抜きにしては",
-     "次第で"
+     "を中心に"
     ],
     "answer": 3,
-    "explain": "を抜きにしては, then a negative: a company cannot grow if its staff's health is left out. を機に needs an event that starts a change, and をはじめ starts a list of examples. 次第で says the result changes with X, but あり得ない is not a result that changes."
+    "explain": "を抜きにしては, then a negative (望めない): if the staff's health is left out, the company cannot hope to grow. を機に needs an event that starts a change (就職を機に). をはじめ names the main example of a group (社長をはじめ社員全員), and を中心に names the centre of an activity or an area (駅を中心に). None of them means \"without\"."
    },
    {
     "id": "u04d5.e3",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "今回のイベントの成功は、",
-    "after": "ありえませんでした。",
+    "before": "この新しい薬は、",
+    "after": "完成しなかった。",
     "tiles": [
-     "最後まで",
-     "手伝ってくれた",
-     "仲間",
+     "十年に",
+     "わたる",
+     "研究",
      "なしには"
     ],
     "star": 1,
     "bank": [
+     3,
      2,
      0,
-     3,
      1
     ],
-    "full": "今回のイベントの成功は、最後まで{手伝ってくれた}仲間なしにはありえませんでした。",
-    "explain": "最後まで, 手伝ってくれた, 仲間, なしには. 最後まで手伝ってくれた describes 仲間, and the noun 仲間 comes right before なしには."
+    "full": "この新しい薬は、十年に{わたる}研究なしには完成しなかった。",
+    "explain": "十年に, わたる, 研究, なしには. 十年にわたる describes 研究, and the noun 研究 comes right before なしには."
    }
   ]
  },
@@ -466,12 +466,12 @@
   "kind": "listening",
   "ja": "概要理解",
   "en": "Gist",
-  "ask": "話の前に質問はありません。まず話を聞いてください。それから、質問と選択肢を聞いて、1から4の中から、最もよいものを一つ選んでください。",
+  "ask": "話の前に質問はありません。まず話を聞いてください。それから、質問と選択肢を聞いて、1から4の中から最もよいものを一つ選んでください。",
   "audio": [
    [
     "N",
     "地域の集まりで、介護施設の施設長が話しています。",
-    null
+    "地域の集まりで、介護施設のしせつちょうが話しています。"
    ],
    [
     "M",
@@ -485,8 +485,8 @@
    ],
    [
     "M",
-    "職員は食事やお風呂の世話で手いっぱいで、一人一人とゆっくり話す時間がなかなか取れないんです。",
-    "職員は食事やお風呂の世話でていっぱいで、ひとりひとりとゆっくり話す時間がなかなか取れないんです。"
+    "職員は食事やお風呂の世話に追われて、一人一人とゆっくり話す時間がなかなか取れないんです。",
+    "職員は食事やお風呂の世話に追われて、ひとりひとりとゆっくり話す時間がなかなか取れないんです。"
    ],
    [
     "M",
@@ -495,8 +495,8 @@
    ],
    [
     "M",
-    "入居者の笑顔は、こうした支えなしには生まれません。今のみどりの家は、ボランティアの方々を抜きにしては考えられないんです。",
-    "入居者の笑顔は、こうした支えなしには生まれません。今のみどりのいえは、ボランティアのかたがたを抜きにしては考えられないんです。"
+    "入居者の笑顔は、こうした支えなしには生まれません。今のみどりの家は、ボランティアの方々抜きではやっていけないんです。",
+    "入居者の笑顔は、こうした支えなしには生まれません。今のみどりのいえは、ボランティアのかたがたぬきではやっていけないんです。"
    ],
    [
     "M",
@@ -556,7 +556,7 @@
    "q": "施設長は、主に何について話していますか。",
    "script": [
     "ナレーター：地域の集まりで、介護施設の施設長が話しています。",
-    "男：みなさん、こんにちは。駅前の介護施設「みどりの家」で施設長をしております、山本です。去年、建物を直して、段差をなくしたり、手すりを増やしたりしました。でも、設備がよくなるだけでは、入居者の毎日は楽しくなりません。職員は食事やお風呂の世話で手いっぱいで、一人一人とゆっくり話す時間がなかなか取れないんです。そこで力になってくださっているのが、地域のボランティアの方々です。話し相手になったり、車椅子を押して近くの公園まで散歩に連れて行ったりしてくださいます。入居者の笑顔は、こうした支えなしには生まれません。今のみどりの家は、ボランティアの方々を抜きにしては考えられないんです。少しの時間でもかまいません。ぜひ一度、遊びに来てください。",
+    "男：みなさん、こんにちは。駅前の介護施設「みどりの家」で施設長をしております、山本です。去年、建物を直して、段差をなくしたり、手すりを増やしたりしました。でも、設備がよくなるだけでは、入居者の毎日は楽しくなりません。職員は食事やお風呂の世話に追われて、一人一人とゆっくり話す時間がなかなか取れないんです。そこで力になってくださっているのが、地域のボランティアの方々です。話し相手になったり、車椅子を押して近くの公園まで散歩に連れて行ったりしてくださいます。入居者の笑顔は、こうした支えなしには生まれません。今のみどりの家は、ボランティアの方々抜きではやっていけないんです。少しの時間でもかまいません。ぜひ一度、遊びに来てください。",
     "ナレーター：施設長は、主に何について話していますか。",
     "ナレーター：1　建物を直した理由",
     "ナレーター：2　職員の仕事が忙しい理由",
@@ -580,7 +580,7 @@
    "why": [
     "He mentions the building work only to say that better facilities are not enough. He never says why it was done.",
     "The busy staff are a lead-in. They show why help from outside matters so much.",
-    "From そこで力になってくださっている to 抜きにしては考えられない, the talk is about how much the volunteers matter.",
+    "From そこで力になってくださっている to 抜きではやっていけない, the talk is about how much the volunteers matter.",
     "The walks to the park are one example of what the volunteers do, not the main point."
    ]
   }
