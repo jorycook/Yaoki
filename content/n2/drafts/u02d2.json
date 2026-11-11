@@ -31,7 +31,7 @@
      }
     ],
     "watch": {
-     "note": "ばかりか reports what is the case. It cannot be followed by a request, an order or the speaker's own plan. For those, use だけでなく.",
+     "note": "ばかりか reports what is the case. It cannot be followed by a request, an order or the speaker's own plan. For those, use だけでなく or ばかりでなく.",
      "bad": "野菜ばかりか、果物も食べてください。",
      "good": "野菜だけでなく、果物も食べてください。"
     }
@@ -61,14 +61,14 @@
      }
     ],
     "watch": {
-     "note": "Put the obvious case before はもとより and the less expected one after it. A Japanese song being popular with Japanese people is no surprise.",
-     "bad": "この日本の歌は、外国人はもとより、日本人にも人気がある。",
-     "good": "この日本の歌は、日本人はもとより、外国人にも人気がある。"
+     "note": "Put the obvious case before はもとより and the less expected one after it. If a dish is easy, adults can of course make it. The news is that children can too.",
+     "bad": "この料理は簡単なので、子どもはもとより、大人にも作れる。",
+     "good": "この料理は簡単なので、大人はもとより、子どもにも作れる。"
     }
    }
   ],
   "compare": {
-   "intro": "All three say \"not only X but also Y\". ばかりか adds surprise, はもとより starts from the obvious case, and だけでなく is the plain one that also fits a request.",
+   "intro": "All three say \"not only X but also Y\". ばかりか adds a surprise and only reports facts, はもとより starts from the obvious case, and だけでなく is the plain one that fits anywhere, requests included.",
    "forms": [
     {
      "form": "〜ばかりか",
@@ -82,7 +82,7 @@
      "tag": "当然・そのうえ · of course, and also",
      "mark": "dot",
      "ja": "この公園は、春の桜{はもとより}、秋の紅葉も美しい。",
-     "en": "This park is beautiful in autumn for its leaves, not to mention its cherry blossoms in spring."
+     "en": "This park's cherry blossoms in spring are beautiful, of course, and so are its autumn leaves."
     },
     {
      "form": "〜だけでなく",
@@ -106,7 +106,7 @@
     "answer": 3,
     "why": [
      "ばかりか cannot be followed by a request like 〜てください.",
-     "はもとより follows a noun. 分ける is a verb, and there is no の before the blank.",
+     "はもとより follows a noun, or a verb + の. There is no の after 分ける.",
      "だけでなく adds a second thing and can end in a request."
     ]
    }
@@ -117,7 +117,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この薬は効かなかった（　　）、^副作用まで^出てしまった。",
+    "q": "この薬は^効かなかった^（　　）、^副作用まで^出てしまった。",
     "options": [
      "に限って",
      "ばかりか",
@@ -128,7 +128,7 @@
     "why": [
      "に限って follows a noun, as in 忙しい日に限って. It cannot follow 効かなかった.",
      "It did not work, and on top of that there were side effects: まで marks the worse thing, and ばかりか leads up to it.",
-     "を機に follows a noun for an event and starts something new. It cannot follow 効かなかった.",
+     "を機に follows a noun, or a verb + の, and leads to a new start. 効かなかった has no の, and side effects are not a new start.",
      "はもとより follows a noun, or a verb + の. 効かなかった has no の."
     ]
    },
@@ -161,7 +161,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この図書館は、^平日^（　　）、^土日も^夜八時まで開いている。",
+    "q": "近くの図書館は、^平日^（　　）、^土日も^夜八時まで開いている。",
     "options": [
      "さえ",
      "に限って",
@@ -170,7 +170,7 @@
     ],
     "answer": 4,
     "why": [
-     "さえ would make weekdays the surprising case, but opening on weekdays is the ordinary case.",
+     "さえ only says \"even on weekdays\". It does not join weekdays to a second item, so 土日も is left hanging, and opening on weekdays is not surprising anyway.",
      "に限って picks out one case only, so it clashes with 土日も.",
      "を機に means \"taking the chance of\" an event. A weekday is not an event.",
      "Weekdays are the obvious case, and the weekend is added with も."
@@ -181,7 +181,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "このボランティア活動には、^経験者の方^（　　）、初めての方も^ぜひご参加ください^。",
+    "q": "このボランティア活動には、^経験者の方^（　　）、^初めての方もぜひご参加ください^。",
     "options": [
      "はもとより",
      "ばかりか",
@@ -201,7 +201,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "駅前の再開発で、^道が広くなった^（　　）、^大きな病院も^できた。",
+    "q": "この辺りは再開発で、^道が広くなった^（　　）、^大きな病院も^できた。",
     "options": [
      "はもとより",
      "に際して",
@@ -210,10 +210,10 @@
     ],
     "answer": 3,
     "why": [
-     "はもとより follows a noun. 道が広くなった is a clause with no の.",
+     "はもとより follows a noun, or a clause + の. 道が広くなった has no の.",
      "に際して means \"on the occasion of\" and follows a noun or the dictionary form, not a past form.",
      "A plain-form clause, then one more good change added with も: ばかりか.",
-     "あげく ends in a bad result after a long struggle. Here the news is good."
+     "あげく comes after a long, troubled process and leads to a bad end. A wider road is no struggle, and the hospital is good news added with も."
     ]
    },
    {
@@ -249,13 +249,13 @@
     "label": "Choose the form",
     "q": "彼はこの一年で資格を二つ取った（　　）、社内の賞ももらった。",
     "options": [
-     "あげく",
+     "に限らず",
      "ばかりか",
      "次第",
      "はもとより"
     ],
     "answer": 2,
-    "explain": "A plain-form clause, then one more thing on top with も: ばかりか. あげく ends in a bad result after a long struggle, but this is good news. 次第 follows the ます stem (取り次第), and はもとより follows a noun, not a verb."
+    "explain": "A plain-form clause, then one more thing on top with も: ばかりか. に限らず follows a noun (資格に限らず), not a verb. 次第 meaning \"as soon as\" follows the ます stem (取り次第) and leads to a plan, not a past report. はもとより cannot follow a verb directly; it would need の."
    },
    {
     "id": "u02d2.e2",
@@ -328,13 +328,13 @@
     "parts": [
      [
       "撤",
-      "テツ",
-      "withdraw"
+      "テッ",
+      "withdraw (テツ, here テッ)"
      ],
      [
       "去",
       "キョ",
-      "go away: 過去"
+      "go away, past: 去年"
      ]
     ]
    },
@@ -459,12 +459,12 @@
    "label": "How the exam asks it",
    "q": "この建物は、夜九時になると管理人が_施錠_します。",
    "options": [
-    "せじょう",
     "しじょう",
     "せじょ",
+    "せじょう",
     "しじょ"
    ],
-   "answer": 1,
+   "answer": 3,
    "explain": "施錠 is せじょう. 施 is usually シ, as in 実施, but it is セ in this word. 錠 is ジョウ, with a long vowel. しじょう is a reading of 市場 (market), and せじょ and しじょ drop the long vowel of 錠."
   }
  },
@@ -474,7 +474,7 @@
   "en": "Short passage",
   "ask": "What does the notice ask residents to do?",
   "seconds": 80,
-  "passage": "駅前の歩道に自転車を置いたままにする人が増えています。放置自転車は通行の迷惑になるばかりか、お年寄りや目の不自由な方がつまずいてけがをするなど、事故の原因にもなっています。市では、放置された自転車を撤去し、保管所で一か月間保管しています。引き取りの際は、身分証と自転車の鍵をお持ちください。駅の駐輪場は、通勤・通学の方はもとより、買い物の方も二時間まで無料でご利用いただけます。^自転車は必ず駐輪場に止め、施錠をお願いします^。",
+  "passage": "駅前の歩道に自転車を置いたままにする人が増えています。放置自転車は通行の迷惑になるばかりか、お年寄りや目の不自由な方がつまずいてけがをするなど、事故の原因にもなっています。市では、放置された自転車を撤去し、保管所で一か月間保管しています。引き取りの際は、身分証と自転車の鍵をお持ちください。駅の駐輪場は、通勤・通学はもとより、お買い物にもご利用いただけます。二時間までは無料です。^自転車は必ず駐輪場に止め、施錠をお願いします^。",
   "strategy": "Skip the background. Find the requests (〜ください, 〜お願いします) and pick the one meant for everyone.",
   "item": {
    "id": "u02d2.r1",
@@ -496,7 +496,7 @@
    "answer": 3,
    "why": [
     "Option 1 keeps the bicycle on the pavement, which is the very problem the notice describes.",
-    "Option 2 is the opposite. Shoppers may use the bicycle parking free for two hours.",
+    "Option 2 is the opposite. The bicycle parking may be used for shopping too, and the first two hours are free.",
     "",
     "Option 4 is not in the text. The city removes the bicycles itself."
    ],

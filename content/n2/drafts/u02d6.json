@@ -3,7 +3,7 @@
  "grammar": {
   "points": [],
   "compare": {
-   "intro": "Ask what comes before the form (one day or person, a noun, a clause, a start and an end, a length, or the first example of a group), and what comes after it (bad luck, も or まで, など, or something spreading out from a centre). Together they leave only one of the ten.",
+   "intro": "Ask what comes before the form: a noun or a clause, a single day, time or person, a start and an end, a length, a number of times or an area, the best-known example of a group, or a centre. Then ask what comes after it: bad luck, one more thing with も or まで (in a fact, a request or formal writing), the rest of the group, or what happens mostly around the centre.",
    "forms": [
     {
      "form": "〜に限って",
@@ -35,15 +35,15 @@
     },
     {
      "form": "〜から〜にかけて",
-     "tag": "だいたいの範囲 · from … into …",
+     "tag": "だいたいの範囲 · roughly from … to …",
      "mark": "dot",
-     "ja": "毎年三月から四月{にかけて}、引っ越しをする人が増える。",
-     "en": "Every year, from March into April, more people move house."
+     "ja": "パソコンを長く使うと、肩から背中{にかけて}痛くなる。",
+     "en": "When I use a computer for a long time, it starts to hurt from my shoulders down my back."
     },
     {
      "form": "〜にわたって",
      "tag": "全体に広がる · over the whole span",
-     "mark": "up",
+     "mark": "dot",
      "ja": "話し合いは二時間{にわたって}続いたが、何も決まらなかった。",
      "en": "The discussion went on for two whole hours, but nothing was decided."
     },
@@ -51,26 +51,26 @@
      "form": "〜のみならず",
      "tag": "だけでなく（書き言葉） · not only (formal)",
      "mark": "dot",
-     "ja": "この作家の小説は、国内{のみならず}、海外でも広く読まれている。",
-     "en": "This writer's novels are widely read not only at home but abroad as well."
+     "ja": "この技術は、医療{のみならず}、教育の分野でも使われ始めている。",
+     "en": "This technology is starting to be used not only in medicine but in education as well."
     },
     {
      "form": "〜に加えて",
      "tag": "そのうえ · in addition to",
      "mark": "dot",
-     "ja": "来月から、電気代{に加えて}、ガス代も上がるそうだ。",
-     "en": "From next month, gas is going up too, on top of electricity."
+     "ja": "来月から、牛乳{に加えて}、卵も値上がりするそうだ。",
+     "en": "I hear that from next month eggs are going up in price too, on top of milk."
     },
     {
      "form": "〜をはじめ",
      "tag": "代表例 · starting with, including",
      "mark": "dot",
-     "ja": "この店では、トマト{をはじめ}、地元でとれた野菜を売っている。",
-     "en": "This shop sells vegetables grown locally, starting with tomatoes."
+     "ja": "近所のパン屋は、メロンパン{をはじめ}、どのパンもおいしいと評判だ。",
+     "en": "The bakery near us is known for good bread of every kind, starting with its melon bread."
     },
     {
      "form": "〜を中心に",
-     "tag": "中心から広がる · centred on",
+     "tag": "中心・主に · centred on, mainly",
      "mark": "dot",
      "ja": "大雨の被害は、川沿いの地域{を中心に}広がっている。",
      "en": "The damage from the heavy rain is spreading, centred on the areas along the river."
@@ -81,7 +81,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "ニュースで",
-    "q": "台風の影響で、この地域では四日（　　）停電が続いた。",
+    "q": "市は、新しい図書館の計画について、三回（　　）住民への説明会を開いた。",
     "options": [
      "にかけて",
      "にわたって",
@@ -89,9 +89,9 @@
     ],
     "answer": 2,
     "why": [
-     "にかけて needs a start and an end: 〜から〜にかけて. 四日 is a length.",
-     "A length (四日), and a power cut that lasted over all of it.",
-     "を中心に needs a centre that something spreads around, such as a place or a group. 四日 is a length."
+     "にかけて marks the end of a stretch of time or space, as in 夏から秋にかけて. 三回 is a number of times, not an end.",
+     "にわたって can follow a number of times as well as a length: the city held its briefings over three sessions.",
+     "を中心に names where most of something is, as in 週末を中心に. 三回 is a count, not a centre."
     ]
    }
   },
@@ -101,7 +101,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^せっかく^洗車した日（　　）、^雨が降る^。",
+    "q": "^せっかく^布団を干した日（　　）、^急に雨が降り出す^。",
     "options": [
      "に限って",
      "に限らず",
@@ -110,10 +110,10 @@
     ],
     "answer": 1,
     "why": [
-     "On that very day, of all days, it rains: bad luck, as せっかく shows.",
-     "に限らず would mean \"on any day, not only that one\". せっかく points to bad luck on that very day.",
-     "をはじめ gives the first example of a group, and more examples follow. Nothing is listed here.",
-     "にわたって needs a length or a range, such as 一週間. 洗車した日 is one day, not a span."
+     "On that very day, of all days, the rain comes: bad luck, as せっかく shows.",
+     "に限らず would mean \"not only on that day\". せっかく and the sudden rain point to bad luck on that very day.",
+     "をはじめ names the best-known example of a group, and the rest of the group follows. Nothing is listed here.",
+     "にわたって needs a length, a number of times or an area, such as 一週間 or 全国. 布団を干した日 is one day, not a span."
     ]
    },
    {
@@ -130,7 +130,7 @@
     ],
     "answer": 3,
     "why": [
-     "にかけて needs a start and an end: 〜から〜にかけて.",
+     "にかけて marks the end of a stretch of time or space, as in 駅から港にかけて. Here there is no stretch, only one shop.",
      "に限って singles this shop out, but ほかの店でも says the card reaches past it.",
      "Not limited to this shop: other shops near the station too (でも).",
      "にわたって follows a length or a wide range, such as 全国. One shop is not a span."
@@ -196,8 +196,8 @@
     "why": [
      "ばかりか reports what is the case. It cannot be followed by a request such as 持って行ってください.",
      "The obvious thing first (a passport, of course), then one more thing, and a request is fine after it.",
-     "に限って singles out a moment or a person for bad luck or trust. It does not add one more thing to bring.",
-     "にかけて needs a start and an end: 〜から〜にかけて."
+     "に限って singles one thing out (only this, or this of all times). Here the passport is not singled out: 保険の書類も adds a second thing to bring.",
+     "にかけて marks the end of a stretch of time or space, as in 夏から秋にかけて. A passport is neither a time nor a place."
     ]
    },
    {
@@ -208,16 +208,16 @@
     "q": "この地域は^気候が穏やかである。^（　　）、交通の便もよい。",
     "options": [
      "だけでなく",
-     "ばかりか",
+     "に限らず",
      "のみならず",
      "に加えて"
     ],
     "answer": 3,
     "why": [
-     "だけでなく, met at N3, cannot start a sentence. It would need それだけでなく.",
-     "ばかりか cannot start a sentence either. It would need そればかりか.",
-     "In formal writing, のみならず can start a sentence: \"Not only that, …\".",
-     "に加えて needs a noun before it. At the start of a sentence, use 加えて or それに加えて."
+     "Review from N3: だけでなく follows a word or a clause. In standard Japanese it does not open a sentence; that needs それ: それだけでなく.",
+     "に限らず needs a noun right before it, as in この地域に限らず. It cannot open a sentence.",
+     "In formal writing, のみならず can also open a sentence on its own: \"Not only that, …\".",
+     "に加えて needs a noun (or a clause with の or こと) before it. To open a sentence, use 加えて or それに加えて."
     ]
    },
    {
@@ -225,7 +225,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この地域では、^りんご^（　　）、^ぶどうやももなど^、さまざまな果物が作られている。",
+    "q": "この県では、^りんご^（　　）、^ぶどうやももなど^、さまざまな果物が作られている。",
     "options": [
      "にわたって",
      "にかけて",
@@ -235,7 +235,7 @@
     "answer": 4,
     "why": [
      "にわたって needs a length or a range, such as 十年 or 全国. りんご is neither.",
-     "にかけて needs a start and an end: 〜から〜にかけて.",
+     "にかけて marks the end of a stretch of time or space, as in 夏から秋にかけて. りんご is neither a time nor a place.",
      "に限って singles one thing out, but the sentence goes on to list ぶどう and もも.",
      "The best-known example first, then more of the same kind with など."
     ]
@@ -279,7 +279,7 @@
      "ばかりか"
     ],
     "answer": 2,
-    "explain": "〜から〜にかけて gives a rough stretch of time with a start and an end. をはじめ needs a first example followed by more of its kind, and に加えて and ばかりか need something added after them, which this sentence does not have."
+    "explain": "〜から〜にかけて gives a rough stretch of time, here from June into July. をはじめ needs the best-known example of a group, with the rest of the group after it. に加えて and ばかりか add a second thing to the first, but here 六月から七月 only says when the fireflies can be seen."
    },
    {
     "id": "u02d6.e2",
@@ -288,13 +288,13 @@
     "label": "Choose the form",
     "q": "帰るときは、電気を消す（　　）、窓のかぎもかけてください。",
     "options": [
+     "だけでなく",
      "ばかりか",
      "に加えて",
-     "はもとより",
-     "だけでなく"
+     "はもとより"
     ],
-    "answer": 4,
-    "explain": "A plain verb, then a request: only だけでなく, met at N3, fits both. ばかりか cannot be followed by a request, and に加えて and はもとより need の after a verb (消すのに加えて, 消すのはもとより)."
+    "answer": 1,
+    "explain": "A plain verb, then a request: only だけでなく, met at N3, fits both. ばかりか cannot be followed by a request, and に加えて and はもとより cannot follow a verb directly: they need の (消すのに加えて, 消すのはもとより)."
    },
    {
     "id": "u02d6.e3",
@@ -420,7 +420,7 @@
     "しゅうせん"
    ],
    "answer": 2,
-   "explain": "抽 is チュウ and 選 is セン, as in 選挙: ちゅうせん. ゆうせん is 優先 (priority). 選 does not change to ぜん in this word, and しゅう is not a reading of 抽."
+   "explain": "抽 is チュウ and 選 is セン, as in 選挙: ちゅうせん. ゆうせん is another word, 優先 (priority), and しゅう is not a reading of 抽. 選 does not change to ぜん in this word."
   }
  },
  "skill": {

@@ -22,12 +22,12 @@
         ],
         "examples": [
           {
-            "ja": "日本には、富士山{をはじめ}、美しい山がたくさんある。",
-            "en": "Japan has many beautiful mountains, starting with Mount Fuji."
+            "ja": "最近、牛乳{をはじめ}、身近な食品が次々と値上がりしている。",
+            "en": "Lately, everyday foods, starting with milk, have been going up in price one after another."
           },
           {
-            "ja": "すし{をはじめとする}日本料理は、海外でも人気が高い。",
-            "en": "Japanese food, with sushi at the top of the list, is popular abroad too."
+            "ja": "市役所{をはじめとする}市の施設は、年末年始は休みになる。",
+            "en": "City facilities, starting with City Hall, close over the New Year holidays."
           }
         ],
         "watch": {
@@ -52,8 +52,8 @@
         ],
         "examples": [
           {
-            "ja": "この町は、港{を中心に}発展してきた。",
-            "en": "This town has grown up around its port."
+            "ja": "この町は、大学{を中心に}発展してきた。",
+            "en": "This town has grown up around its university."
           },
           {
             "ja": "日曜日の朝市は、近所のお年寄り{を中心に}にぎわっている。",
@@ -75,7 +75,7 @@
           "tag": "代表例 · starting with (the main example)",
           "mark": "dot",
           "ja": "駅前の本屋では、漫画{をはじめ}、雑誌や写真集なども売っている。",
-          "en": "The bookshop by the station sells manga, and magazines, photo books and more."
+          "en": "The bookshop by the station sells manga first of all, and also magazines, photo books and more."
         },
         {
           "form": "〜を中心に",
@@ -86,8 +86,8 @@
         },
         {
           "form": "〜はもとより",
-          "tag": "もちろん · X of course, Y too",
-          "mark": "up",
+          "tag": "当然・そのうえ · of course, and also",
+          "mark": "dot",
           "ja": "この本屋は、本{はもとより}、文房具も充実している。",
           "en": "This bookshop has a great range of books, of course, and of stationery too."
         }
@@ -105,9 +105,9 @@
         ],
         "answer": 2,
         "why": [
-          "をはじめ names the first of a list, and the rest must follow it (水泳をはじめ、テニスやヨガなど). Here the verb comes straight after.",
-          "Swimming is the main part of the lessons, and ときどきヨガの教室も shows there is a little more.",
-          "はもとより needs \"Y too\" straight after it (水泳はもとよりヨガも). Here the verb comes straight after."
+          "をはじめ needs the rest of the group after it (水泳をはじめ、テニスやヨガなど), but here the verb 教えています comes next and no group follows.",
+          "Swimming is the main lesson, and が…ときどきヨガの教室も adds a small extra: を中心に, \"mainly\".",
+          "はもとより needs an added part after it (水泳はもとより、ヨガも), but here the verb 教えています comes next, and the extra (yoga) only comes after が."
         ]
       }
     },
@@ -160,15 +160,15 @@
         "q": "^主役の俳優^（　　）^出演者^の演技が、どれもすばらしかった。",
         "options": [
           "にかけての",
-          "に対する",
-          "としての",
+          "にわたる",
+          "に際しての",
           "をはじめとする"
         ],
         "answer": 4,
         "why": [
-          "にかけての needs a span (AからBにかけての). An actor is not a span.",
-          "に対する would make the cast something aimed at the lead actor, which makes no sense.",
-          "としての means \"in the role of\". The cast are not acting as the lead actor, and どれも needs several performances.",
+          "にかけての marks the end of a stretch of time or space (東京から横浜にかけての道). An actor is not the end of a stretch.",
+          "にわたる follows a length of time, an area or a number of times (三日間にわたる祭り). An actor is none of these.",
+          "に際しての follows an occasion such as 入学 or 開店 (入学に際しての注意). An actor is not an occasion.",
           "The lead actor is the best-known member of the cast, and をはじめとする joins him to the noun 出演者."
         ]
       },
@@ -186,10 +186,10 @@
         ],
         "answer": 2,
         "why": [
-          "にかけて needs a span with から (AからBにかけて). 駅 alone is one point.",
+          "にかけて marks where a stretch ends (東京から横浜にかけて). A radius needs a centre, not an end point.",
           "The station is the centre point, and the radius spreads out around it.",
           "駅に限って would mean \"only the station\" or \"the station, of all places\". Neither fits a radius around it.",
-          "に加えて adds one more thing of the same kind (駅に加えて病院も). The radius is not added to the station."
+          "に加えて adds a second thing to the first (駅に加えて病院も近い). Nothing is added here: the radius needs a centre."
         ]
       },
       {
@@ -221,13 +221,13 @@
         "kind": "star",
         "type": "文の文法2",
         "label": "Build the sentence",
-        "before": "この会議には、",
+        "before": "このマラソン大会には、",
         "after": "参加した。",
         "tiles": [
           "アジア",
           "を中心とする",
           "二十か国の",
-          "代表が"
+          "選手が"
         ],
         "star": 1,
         "bank": [
@@ -237,8 +237,8 @@
           1
         ],
         "hint": "を中心とする follows the centre and describes a noun after it. Who took part?",
-        "full": "この会議には、アジア{を中心とする}二十か国の代表が参加した。",
-        "explain": "Asia is the centre, so アジアを中心とする describes 二十か国. 二十か国の describes 代表, and 代表が is the subject of 参加した."
+        "full": "このマラソン大会には、アジア{を中心とする}二十か国の選手が参加した。",
+        "explain": "Asia is the centre, so アジアを中心とする describes 二十か国. 二十か国の describes 選手, and 選手が is the subject of 参加した."
       }
     ],
     "exam": [
@@ -247,7 +247,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "この美術館には、ピカソ（　　）、有名な画家の作品が数多く集められている。",
+        "q": "この語学学校では、英語（　　）、十以上の言語が学べる。",
         "options": [
           "をはじめ",
           "に限って",
@@ -255,14 +255,14 @@
           "に際して"
         ],
         "answer": 1,
-        "explain": "Picasso is the best-known example, and the wider group (有名な画家の作品) follows: をはじめ. ピカソに限って would mean \"only Picasso\" or \"Picasso, of all people\", which clashes with 有名な画家の作品. にわたって needs a span of time or space, and に際して an occasion."
+        "explain": "English is named first as the main example, and the wider group (十以上の言語) follows: をはじめ. 英語に限って would mean \"only English\" or \"English, of all languages\", which clashes with 十以上の言語. にわたって follows a length of time, an area or a number of times (三日間, 全国, 五回), and に際して an occasion such as 入学."
       },
       {
         "id": "u02d5.e2",
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "この雑誌は、二十代の女性（　　）よく読まれている。",
+        "q": "明日は、午前中（　　）雨が降るでしょう。",
         "options": [
           "に加えて",
           "を機に",
@@ -270,7 +270,7 @@
           "を中心に"
         ],
         "answer": 4,
-        "explain": "Women in their twenties are the main readers: を中心に. に加えて and ばかりか need a second group after them (〜にも, 〜も). を機に needs an event that starts a change."
+        "explain": "The rain falls mainly in the morning: を中心に. に加えて and ばかりか need something added after them (午前中に加えて夜も), and nothing is added here. を機に needs an event that starts a change, such as 入学 or 結婚."
       },
       {
         "id": "u02d5.e3",
@@ -316,7 +316,7 @@
           [
             "修",
             "シュウ",
-            "master, learn: 修理"
+            "learn, master: 修学旅行"
           ]
         ]
       },
@@ -452,7 +452,7 @@
       "kind": "choice",
       "type": "漢字読み",
       "label": "How the exam asks it",
-      "q": "この研修への参加は、新入社員には_必須_です。",
+      "q": "この仕事には、車の運転免許が_必須_です。",
       "options": [
         "ひつす",
         "ひっしゅ",

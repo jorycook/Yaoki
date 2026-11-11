@@ -17,7 +17,7 @@
      },
      {
       "pos": "Start of a sentence (formal writing)",
-      "rule": "〜。{のみならず}、〜"
+      "rule": "〜。（それ）{のみならず}、〜"
      }
     ],
     "examples": [
@@ -46,8 +46,8 @@
       "rule": "〜 ＋ {に加えて}"
      },
      {
-      "pos": "Verb, adjective (plain form)",
-      "rule": "普通形 ＋ の／こと ＋ {に加えて}"
+      "pos": "Verb, i-adjective (plain form); na-adjective + な; noun + である",
+      "rule": "普通形（な形は〜な、名詞は〜である）＋ の／こと ＋ {に加えて}"
      },
      {
       "pos": "Noun, in formal writing",
@@ -72,7 +72,7 @@
    }
   ],
   "compare": {
-   "intro": "All three add something to X. のみならず widens the scope in formal writing, に加えて puts one more item next to X, and ばかりか adds something more than you would expect.",
+   "intro": "All three add something to X. のみならず widens the scope, in formal writing and speeches. に加えて puts one more item next to X. ばかりか adds something you would not expect, and what follows it cannot be a plan or a request.",
    "forms": [
     {
      "form": "〜のみならず",
@@ -100,8 +100,8 @@
     "id": "u02d4.c1",
     "kind": "choice",
     "type": "文の文法1",
-    "label": "天気のニュース",
-    "q": "今年は記録的な暑さが続いた。（　　）、雨の量も例年の半分ほどだった。",
+    "label": "新社長のあいさつ",
+    "q": "今後は、新しい商品を開発する（　　）、今ある商品の品質も高めていきたいと考えています。",
     "options": [
      "のみならず",
      "に加えて",
@@ -109,9 +109,9 @@
     ],
     "answer": 1,
     "why": [
-     "In formal writing, のみならず can open a sentence on its own, meaning \"not only that\".",
-     "に加えて needs something before it. At the start of a sentence you would need それに加えて.",
-     "ばかりか cannot open a sentence on its own. You would need そればかりか."
+     "A plain-form verb + のみならず, in a formal speech about plans: not only make new products but also raise the quality of the ones we have now.",
+     "After a verb, に加えて needs の or こと first: 開発することに加えて.",
+     "What follows ばかりか cannot be the speaker's own plan, and 高めていきたいと考えています is a plan."
     ]
    }
   },
@@ -130,9 +130,9 @@
     ],
     "answer": 2,
     "why": [
-     "に限って says \"only for\" the neighbours, which clashes with 遠くから来る客にも.",
+     "に限って picks out one group (\"only the neighbours\", or \"the neighbours, of all people\"), which clashes with 遠くから買いに来る客にも.",
      "Not only the neighbours but also customers from far away: のみならず widens the group, and にも picks it up.",
-     "にわたって follows a span of time or space, such as 三日間 or 全国. 近所の人 is a group of people.",
+     "にわたって needs a stretch of time or space to cover, such as 三日間 or 全国. 近所の人 is a group of people.",
      "にとって gives a point of view (\"for the neighbours\"). It cannot join two groups who both like the bread."
     ]
    },
@@ -141,7 +141,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この奨学金では、^学費^（　　）、^毎月の生活費も^支給される。",
+    "q": "この奨学金では、^学費^（　　）、^毎月の生活費も^もらえる。",
     "options": [
      "にわたって",
      "を機に",
@@ -150,7 +150,7 @@
     ],
     "answer": 3,
     "why": [
-     "にわたって needs a span of time or space. 学費 is not a span.",
+     "にわたって needs a stretch of time or space to cover, such as 半年 or 県内. 学費 is not one.",
      "を機に marks an event that starts a change, as in 入学を機に. 学費 is not an event.",
      "One more item is added to the fees: the living costs. Noun + に加えて, then も.",
      "に対して marks a target or a contrast. Nothing here is aimed at the fees or set against them."
@@ -164,14 +164,14 @@
     "q": "旅行シーズンは、^交通費が高いの^（　　）、ホテルの予約もなかなか取れない。",
     "options": [
      "ばかりか",
-     "にわたって",
+     "に対して",
      "のみならず",
      "に加えて"
     ],
     "answer": 4,
     "why": [
      "ばかりか follows the plain form directly (高いばかりか). It does not come after の.",
-     "にわたって needs a span of time or space, such as 一週間, not a clause.",
+     "に対して can follow の, but it sets two facts against each other. Here both facts are problems, and も adds the second to the first.",
      "のみならず follows the plain form directly (高いのみならず). It does not come after の.",
      "The clause is made into a noun with の, and に加えて adds the second problem."
     ]
@@ -191,7 +191,7 @@
     "answer": 1,
     "why": [
      "Noun + である + のみならず: she is respected not only as a researcher but also as a teacher.",
-     "After である, に加えて needs の or こと first: 研究者であるのに加えて.",
+     "After である, に加えて needs こと or の first: 研究者であることに加えて.",
      "にとって follows a noun directly, never である, and it gives a point of view.",
      "に限らず follows a noun directly (研究者に限らず). It does not come after である."
     ]
@@ -225,24 +225,24 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "この料理教室では、料理の",
-    "after": "教えてもらえる。",
+    "before": "このジムに決めたのは、料金が",
+    "after": "開いているからだ。",
     "tiles": [
-     "作り方",
+     "安い",
+     "こと",
      "に加えて",
-     "季節の",
-     "食材の選び方も"
+     "夜遅くまで"
     ],
-    "star": 2,
+    "star": 1,
     "bank": [
      2,
-     0,
      3,
+     0,
      1
     ],
-    "hint": "料理の needs a noun right after it. Which tile describes 食材?",
-    "full": "この料理教室では、料理の作り方{に加えて}季節の食材の選び方も教えてもらえる。",
-    "explain": "料理の作り方 is the first item, and に加えて follows the noun. 季節の describes 食材, so it sits right before 食材の選び方も."
+    "hint": "安い cannot sit right before に加えて. Which tile turns 料金が安い into a noun?",
+    "full": "このジムに決めたのは、料金が安いこと{に加えて}夜遅くまで開いているからだ。",
+    "explain": "こと turns 料金が安い into a noun, so it can take に加えて. 夜遅くまで then goes with 開いている, the second reason."
    }
   ],
   "exam": [
@@ -251,22 +251,22 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この図書館は、平日（　　）、土日も夜八時まで開いている。",
+    "q": "今回の台風では、住宅（　　）、道路や橋にも大きな被害が出た。",
     "options": [
+     "について",
      "に限って",
-     "を機に",
-     "にかけて",
+     "にあたって",
      "のみならず"
     ],
     "answer": 4,
-    "explain": "Not only on weekdays but at weekends too: のみならず, picked up by 土日も. に限って (\"only on weekdays\") clashes with 土日も, を機に needs an event that starts a change, and にかけて marks a stretch of time, as in 夜から朝にかけて; it cannot add 土日 to 平日."
+    "explain": "Not only houses but roads and bridges too: のみならず, picked up by にも. について marks the subject of talk or thought, which 被害が出た is not. に限って (\"only houses\") clashes with 道路や橋にも, and にあたって needs a big step or a start, as in 開店にあたって."
    },
    {
     "id": "u02d4.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "来月から、通常の業務（　　）、新人の指導も担当することになった。",
+    "q": "来月から、今の仕事（　　）、新人の指導も担当することになった。",
     "options": [
      "に際して",
      "に加えて",
@@ -274,7 +274,7 @@
      "に対して"
     ],
     "answer": 2,
-    "explain": "One more job is added to the usual work: noun + に加えて, then も. に際して needs an occasion such as 出発, にわたって needs a span of time or space, and に対して marks a target or a contrast."
+    "explain": "One more job is added to the work I do now: noun + に加えて, then も. に際して needs a special occasion such as 出発, にわたって needs a stretch of time or space, and に対して marks a target or a contrast."
    },
    {
     "id": "u02d4.e3",
@@ -289,14 +289,14 @@
      "のみならず",
      "周りの人の"
     ],
-    "star": 3,
+    "star": 2,
     "bank": [
      3,
      0,
      2,
      1
     ],
-    "full": "たばこは、吸う人のみならず{周りの人の}健康にも悪い影響を与える。",
+    "full": "たばこは、吸う人{のみならず}周りの人の健康にも悪い影響を与える。",
     "explain": "吸う, 人, のみならず, 周りの人の. 吸う describes 人, のみならず follows the noun 人, and 周りの人の must sit right before 健康にも."
    }
   ]
