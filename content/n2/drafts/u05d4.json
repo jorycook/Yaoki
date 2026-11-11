@@ -22,8 +22,8 @@
     ],
     "examples": [
      {
-      "ja": "メールの返事が遅い{からといって}、相手に嫌われているとは限らない。",
-      "en": "Just because someone is slow to answer your email, it doesn't mean they dislike you."
+      "ja": "手作りだ{からといって}、店で買った物よりおいしいわけではない。",
+      "en": "Being homemade doesn't make something taste better than what you buy in a shop."
      },
      {
       "ja": "安い{からといって}、必要のない物まで買ってはいけない。",
@@ -32,8 +32,8 @@
     ],
     "watch": {
      "note": "からといって is not a plain \"because\". The second half denies what people might conclude from the first, so it usually ends in a negative or a criticism, such as わけではない, とは限らない or てはいけない. For a plain reason, use から.",
-     "bad": "熱があるからといって、今日は会社を休みます。",
-     "good": "熱があるから、今日は会社を休みます。"
+     "bad": "今日は雨が降っているからといって、道が混んでいる。",
+     "good": "今日は雨が降っているから、道が混んでいる。"
     }
    },
    {
@@ -50,7 +50,7 @@
       "rule": "〜な ＋ {わけではない}"
      },
      {
-      "pos": "Noun, or a whole statement",
+      "pos": "Noun, or a whole statement (a reason with から too)",
       "rule": "〜という ＋ {わけではない}"
      }
     ],
@@ -60,12 +60,12 @@
       "en": "This app is handy, but not all of its features are free."
      },
      {
-      "ja": "行きたくない{わけではない}が、その日は[先約|せんやく]がある。",
-      "en": "It's not that I don't want to go, but I already have plans that day."
+      "ja": "行きたくない{わけじゃない}んだけど、その日は[先約|せんやく]があって。",
+      "en": "It's not that I don't want to go. I just already have plans that day."
      }
     ],
     "watch": {
-     "note": "You met わけではない at N3. With 必ずしも, いつも or すべて it means \"not necessarily\" or \"not all\". Do not swap in わけがない, a flat \"no way\": 必ずしも never goes with わけがない.",
+     "note": "You met わけではない at N3. With 必ずしも, いつも or すべて it means \"not necessarily\" or \"not all\". Do not swap in わけがない, a flat \"no way\": 必ずしも does not go with わけがない.",
      "bad": "大きな病院が必ずしもいいわけがない。",
      "good": "大きな病院が必ずしもいいわけではない。"
     }
@@ -76,7 +76,7 @@
    "forms": [
     {
      "form": "〜からといって",
-     "tag": "理由の否定 · just because … doesn't mean",
+     "tag": "理由にならない · just because … doesn't mean",
      "mark": "down",
      "ja": "忙しい{からといって}、朝ごはんを抜くのはよくない。",
      "en": "Being busy is no reason to skip breakfast."
@@ -84,7 +84,7 @@
     {
      "form": "〜わけではない",
      "tag": "部分否定 · not necessarily, not that",
-     "mark": "dot",
+     "mark": "down",
      "ja": "日曜日に全部の店が休む{わけではない}。",
      "en": "Not every shop closes on Sundays."
     },
@@ -92,8 +92,8 @@
      "form": "〜わけがない",
      "tag": "強い否定 · there's no way",
      "mark": "down",
-     "ja": "あの正直な人が、うそをつく{わけがない}。",
-     "en": "There's no way someone that honest would lie."
+     "ja": "この古いパソコンで、最新のゲームが動く{わけがない}。",
+     "en": "There's no way the latest games will run on this old computer."
     }
    ],
    "check": {
@@ -101,7 +101,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "試合の前に",
-    "q": "あんなに練習したのだから、彼が初戦で負ける（　　）。",
+    "q": "あんなに練習したのだから、彼が最初の試合で負ける（　　）。",
     "options": [
      "からといって",
      "わけではない",
@@ -110,7 +110,7 @@
     "answer": 3,
     "why": [
      "からといって (\"just because …\") needs a second part after it. It cannot finish this sentence.",
-     "\"It's not that he will lose\" does not follow from all that practice. The speaker is sure, so the sentence needs a flat \"no way\".",
+     "わけではない only corrects an idea (\"it's not that he will lose\"). Here のだから gives strong grounds and the speaker is sure, so the sentence needs a flat \"no way\".",
      "After so much practice, there's no way he will lose: a strong, confident denial."
     ]
    }
@@ -130,10 +130,10 @@
     ],
     "answer": 2,
     "why": [
-     "からには means \"now that\" and leads to a duty or a resolve that comes from the first part. Feeling better does not create a duty not to push yourself.",
+     "からには (\"now that\") leads to what must or will follow from the first part (引き受けたからには、最後までやる). \"Don't push yourself\" does not follow from feeling better; the sentence warns against the opposite conclusion.",
      "からって is the spoken form of からといって. Feeling better is no reason to push yourself: the second half warns against that conclusion.",
-     "おかげで needs a good result after it, not a warning.",
-     "ばかりに gives the cause of a bad result that has happened, not a warning."
+     "おかげで is followed by a result that came about (usually a good one), not by a warning.",
+     "ばかりに gives the cause of something that has already happened (usually something bad), not a warning."
     ]
    },
    {
@@ -141,19 +141,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^別に^怒ってる（　　）よ。^ただ、ちょっと疲れてるだけ^。",
+    "q": "^別に^怒ってる（　　）よ。^ただ、ちょっと考えごとをしてただけ^。",
     "options": [
      "わけだ",
-     "ことはない",
+     "に決まってる",
      "わけじゃない",
      "わけにはいかない"
     ],
     "answer": 3,
     "why": [
-     "わけだ draws a conclusion (\"so that's why I'm angry\"), but 別に needs a negative, and ただ…だけ says the speaker is only tired.",
-     "ことはない gives advice, \"there's no need to\" (怒ることはない), or says something never happens. Neither describes how the speaker feels right now.",
-     "わけじゃない is the spoken form of わけではない. 別に…わけじゃない: \"it's not that I'm angry\", and ただ…だけ gives the real reason.",
-     "わけにはいかない says you cannot do something, as in いつまでも怒っているわけにはいかない. Here the speaker is explaining a feeling, and 別に needs a plain negative."
+     "わけだ draws a conclusion (\"so I am angry\"). Here 別に means \"not really\" and needs a negative after it, and ただ…だけ gives a different reason.",
+     "に決まってる says something is surely true. Here 別に (\"not really\") needs a negative after it, and ただ…だけ says the speaker was only thinking.",
+     "わけじゃない is the spoken form of わけではない. 別に…わけじゃない is \"it's not that I'm angry\", and ただ…だけ gives the real reason.",
+     "わけにはいかない says something cannot be done, as in いつまでも怒っているわけにはいかない. Here the speaker says how they feel, not what they cannot do."
     ]
    },
    {
@@ -161,19 +161,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "一度面接で失敗した（　　）、^自分には向いていないと決めつけることはない^。",
+    "q": "上司に頼まれた（　　）、^何でも引き受ける必要はない^。",
     "options": [
      "からといって",
-     "以上",
-     "ことから",
-     "だけに"
+     "だけに",
+     "くせに",
+     "あげく"
     ],
     "answer": 1,
     "why": [
-     "One failure is no reason to decide you are not suited: ことはない denies that conclusion.",
-     "以上 means \"since\" and leads to what must follow from the first part. A failure does not lead to \"no need to decide\".",
-     "ことから gives the grounds for a judgement or a name. Here the failure is not grounds for anything; the sentence denies a conclusion.",
-     "だけに means \"all the more because\" and leads to a stronger feeling or result, not to advice."
+     "Being asked by your boss is no reason to take on everything: 必要はない denies that conclusion.",
+     "だけに means \"all the more because\": the first part makes what follows stronger (上司に頼まれただけに、断りにくい). It cannot lead to \"no need to accept\".",
+     "くせに blames someone for doing something that does not fit the first part (知っているくせに、教えてくれない). Nobody is blamed here: the second half is advice.",
+     "あげく comes after a long, tiring process and leads to a bad end that happened (さんざん迷ったあげく、やめた). One request is not a long process, and the second half is advice."
     ]
    },
    {
@@ -201,48 +201,48 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "日本に",
-    "after": "正しく使えるわけではない。",
+    "before": "子どもの",
+    "after": "おかげだとは限らない。",
     "tiles": [
-     "長く",
-     "住んでいる",
+     "成績が",
+     "上がった",
      "からといって",
-     "敬語を"
+     "塾の"
     ],
-    "star": 1,
+    "star": 0,
     "bank": [
      2,
-     3,
      0,
+     3,
      1
     ],
-    "hint": "からといって follows a plain form. What do you use correctly?",
-    "full": "日本に長く住んでいる{からといって}敬語を正しく使えるわけではない。",
-    "explain": "長く describes 住んでいる, and からといって follows the plain form 住んでいる. 敬語を is what you use, so it sits right before 正しく使える."
+    "hint": "からといって follows a plain form. Which tile can sit right before おかげ?",
+    "full": "子どもの成績が上がった{からといって}塾のおかげだとは限らない。",
+    "explain": "子どもの takes 成績が, and からといって follows the plain form 上がった. 塾の must sit right before おかげ: the grades went up, but that may not be thanks to the cram school."
    },
    {
     "id": "u05d4.d6",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "このかばんは",
-    "after": "が、とても使いやすい。",
+    "before": "このカフェによく来るのは、",
+    "after": "わけではない。静かで仕事がしやすいからだ。",
     "tiles": [
-     "高い",
-     "ブランド品",
-     "という",
-     "わけではない"
+     "コーヒーが",
+     "おいしい",
+     "から",
+     "という"
     ],
     "star": 2,
     "bank": [
      3,
      1,
-     2,
-     0
+     0,
+     2
     ],
-    "hint": "A noun takes という before わけではない. Which tile can 高い describe?",
-    "full": "このかばんは高いブランド品{というわけではない}が、とても使いやすい。",
-    "explain": "高い describes ブランド品. A noun joins わけではない through という, and が follows the whole phrase."
+    "hint": "The speaker denies a reason, then gives the real one. Build the reason first, then the word that joins it to わけではない.",
+    "full": "このカフェによく来るのは、コーヒーがおいしいから{というわけではない}。静かで仕事がしやすいからだ。",
+    "explain": "コーヒーがおいしいから is the reason the speaker denies, and a reason joins わけではない through という: 〜からというわけではない, \"it is not because …\". The next sentence gives the real reason."
    }
   ],
   "exam": [
@@ -255,11 +255,11 @@
     "options": [
      "だけあって",
      "以上",
-     "ばかりに",
-     "からといって"
+     "からといって",
+     "ばかりに"
     ],
-    "answer": 4,
-    "explain": "からといって: being a star player is no reason to expect to be a good manager, and わけではない denies it. だけあって praises a result that lives up to its cause, 以上 leads to a duty or a firm judgement that follows from the first part, and ばかりに gives the cause of a bad result the speaker regrets."
+    "answer": 3,
+    "explain": "からといって: having been a star player is no reason to expect to be a good manager, and わけではない denies that conclusion. だけあって praises a result that lives up to its cause, and nothing is praised here. 以上 makes the first part firm grounds for what follows, but the second half denies a conclusion. ばかりに blames one cause for a bad thing that happened, and the second half is a general statement, not something that happened."
    },
    {
     "id": "u05d4.e2",
@@ -281,23 +281,23 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "口コミの評価が",
-    "after": "店だとは限らない。",
+    "before": "人口の",
+    "after": "不便だとは限らない。",
     "tiles": [
-     "高い",
+     "少ない",
+     "町だ",
      "からといって",
-     "自分に",
-     "合う"
+     "生活が"
     ],
-    "star": 2,
+    "star": 1,
     "bank": [
      2,
-     0,
      3,
-     1
+     1,
+     0
     ],
-    "full": "口コミの評価が高いからといって{自分に}合う店だとは限らない。",
-    "explain": "高い, からといって, 自分に, 合う. 評価が takes 高い, and からといって follows it. 自分に goes with 合う, and 合う describes 店."
+    "full": "人口の少ない{町だ}からといって生活が不便だとは限らない。",
+    "explain": "少ない, 町だ, からといって, 生活が. 人口の少ない describes 町, and a noun takes だ before からといって. 生活が is the subject of 不便だ."
    }
   ]
  },
@@ -332,8 +332,8 @@
     "parts": [
      [
       "月",
-      "ゲツ",
-      "month"
+      "ゲッ",
+      "month (ゲツ, here ゲッ)"
      ],
      [
       "給",
@@ -387,7 +387,7 @@
      [
       "応",
       "オウ",
-      "respond: 応援"
+      "respond: 応じる"
      ],
      [
       "募",
@@ -456,7 +456,7 @@
    "kind": "choice",
    "type": "漢字読み",
    "label": "How the exam asks it",
-   "q": "この会社では、年に二回_賞与_が支給される。",
+   "q": "この会社では、年に二回_賞与_が出る。",
    "options": [
     "しょうよ",
     "しょうよう",

@@ -16,8 +16,8 @@
       "rule": "語幹 ＋ {げ}（不安 → 不安{げ}）"
      },
      {
-      "pos": "Verb ある, or 〜たい",
-      "rule": "あり ＋ {げ}（意味あり{げ}）／〜た ＋ {げ}（言いた{げ}）"
+      "pos": "Verb ある (as あり), or 〜たい",
+      "rule": "あり ＋ {げ}（意味あり{げ}）／〜たい → 〜た{げ}（言いた{げ}）"
      }
     ],
     "examples": [
@@ -26,12 +26,12 @@
       "en": "The children are playing happily in the park."
      },
      {
-      "ja": "彼は意味あり{げ}な笑みを浮かべて、何も答えなかった。",
-      "en": "He gave a knowing smile and said nothing."
+      "ja": "彼は意味あり{げ}な[笑|え]みを浮かべて、部屋を出ていった。",
+      "en": "He gave a knowing smile and left the room."
      }
     ],
     "watch": {
-     "note": "げ describes how someone looks from the outside, so it is used about other people. To say what you feel yourself, use the adjective itself. The new word works like a な-adjective: 不安げな顔, 楽しげに話す.",
+     "note": "げ describes how someone or something looks from the outside, so it is not used for your own feelings. To say what you feel yourself, use the adjective itself. A げ word works like a な-adjective: 不安げな顔, 楽しげに話す.",
      "bad": "私は今、とても悲しげです。",
      "good": "私は今、とても悲しいです。"
     }
@@ -42,7 +42,7 @@
     "gloss": "as …; together with; at the same time as",
     "connect": [
      {
-      "pos": "Noun",
+      "pos": "Noun (a person, an event or a change)",
       "rule": "〜 ＋ {とともに}"
      },
      {
@@ -68,14 +68,14 @@
    }
   ],
   "compare": {
-   "intro": "げ describes how someone looks. とともに and につれて both link two things that go together, but only とともに can also mark one moment or a person you act with.",
+   "intro": "げ describes how someone or something looks. とともに and につれて both link two things that go together, but only とともに can also mark one moment or a person you act with.",
    "forms": [
     {
      "form": "〜げ",
      "tag": "様子 · looking …",
      "mark": "dot",
      "ja": "母は駅のホームで、寂し{げ}に手を振っていた。",
-     "en": "On the platform, my mother was waving, looking a little sad."
+     "en": "On the platform, my mother was waving, looking lonely."
     },
     {
      "form": "〜とともに",
@@ -105,8 +105,8 @@
     ],
     "answer": 3,
     "why": [
-     "げ joins the stem of an adjective, not a noun like 母.",
-     "につれて needs a change that grows little by little, such as 年をとるにつれて. 母 is a person, not a change.",
+     "げ joins an adjective stem (寂しげ) or あり (意味ありげ), never a noun like 母.",
+     "につれて needs a change that grows little by little, such as 子どもが成長するにつれて. 母 is a person, not a change.",
      "A person + とともに: together with my mother."
     ]
    }
@@ -117,19 +117,19 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "診察を待っている患者たちは、みな^不安^（　　）^な^顔をしていた。",
+    "q": "診察室の前で、患者たちはみな^不安^（　　）^な^表情で順番を待っていた。",
     "options": [
      "っぽい",
-     "がち",
+     "がる",
      "げ",
      "らしい"
     ],
     "answer": 3,
     "why": [
-     "っぽい is an い-adjective, so it goes straight before a noun (不安っぽい顔) and cannot take な.",
-     "がち means something tends to happen often (遅れがち). It does not describe how a face looks.",
+     "っぽい makes an い-adjective (子どもっぽい), so it cannot take な.",
+     "がる makes a verb (子どもが不安がる, to show worry), and a verb cannot take な before a noun.",
      "不安 + げ = looking anxious, and げ takes な before a noun.",
-     "らしい cannot take な either, and 不安らしい would mean \"anxious, I hear\"."
+     "らしい works like an い-adjective, so it cannot take な either. 不安らしい would mean \"seems anxious, I hear\"."
     ]
    },
    {
@@ -193,7 +193,7 @@
      "げ joins ある in its ます stem: あり + げ, not ある + げ.",
      "自信ありげ = looking confident, and it takes な before 様子.",
      "ありがち means \"common, typical\" (ありがちな失敗). It does not describe how someone looks.",
-     "っぽい is an い-adjective and cannot take な; 自信あるっぽい is also too casual for this sentence."
+     "っぽい makes an い-adjective, so it cannot take な, and 自信あるっぽい is casual talk."
     ]
    },
    {
@@ -211,8 +211,8 @@
     "answer": 4,
     "why": [
      "につれて needs a change that grows little by little (日がたつにつれて). A bell is one moment.",
-     "にわたって covers a long span of time or space (一週間にわたって), not one moment.",
-     "に限って means \"of all times\" and comes before a complaint (急いでいる日に限って). Nothing is complained about here.",
+     "にわたって covers a whole span of time or space (一週間にわたって), not one moment.",
+     "に限って picks out one case: an unlucky moment (急いでいる日に限って) or a person you trust (うちの子に限って). Neither fits a bell that rings as the doors close.",
      "At the same moment as the bell: とともに after a noun."
     ]
    },
@@ -255,22 +255,22 @@
      "得意気味に"
     ],
     "answer": 2,
-    "explain": "得意げに = looking proud, and に lets it describe the verb 見せて回った. 得意げな needs a noun after it. がち (a frequent tendency) and 気味 (a slight, unwelcome condition) do not describe how someone looks."
+    "explain": "得意げに = looking proud, and に lets it describe the verb 見せて回った. 得意げな would need a noun after it. 得意がち and 得意気味 are not words: がち is for something that happens too often, and 気味 for a slight, usually unwelcome state. Showing off a toy once is neither."
    },
    {
     "id": "u07d2.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "経済の発展（　　）、都市に住む人の割合が増えていった。",
+    "q": "観光客の増加（　　）、駅前には外国語の案内が目立つようになった。",
     "options": [
      "にわたって",
-     "に際して",
+     "末に",
      "からには",
      "とともに"
     ],
     "answer": 4,
-    "explain": "As the economy grew, the share of city dwellers grew: two changes go together, so とともに. にわたって needs a span of time or space, に際して marks one occasion when someone does something, and からには follows a verb and leads to a resolve."
+    "explain": "As the number of tourists grew, signs in other languages became common: two changes go together, so とともに. にわたって needs a length of time or a range before it (十年にわたって). 末に needs の after a noun (研究の末に) and gives one result at the end of a long effort, not a change that goes along with another. からには needs a plain form, not a bare noun, and leads to a resolve or a duty."
    },
    {
     "id": "u07d2.e3",
@@ -285,15 +285,15 @@
      "過ごす",
      "時間の"
     ],
-    "star": 3,
+    "star": 2,
     "bank": [
      2,
      0,
      3,
      1
     ],
-    "full": "病気をして初めて、家族とともに過ごす{時間の}大切さに気づいた。",
-    "explain": "家族, とともに, 過ごす, 時間の. 家族とともに describes 過ごす, 過ごす describes 時間, and 時間の must sit right before 大切さ."
+    "full": "病気をして初めて、家族とともに{過ごす}時間の大切さに気づいた。",
+    "explain": "家族, とともに, 過ごす, 時間の. 家族とともに goes with 過ごす, 家族とともに過ごす describes 時間, and 時間の sits right before 大切さ."
    }
   ]
  },
@@ -309,9 +309,14 @@
     "gloss": "neighbourhood circular (a board passed from house to house)",
     "parts": [
      [
-      "回覧",
-      "かいらん",
-      "passing round to read"
+      "回",
+      "カイ",
+      "go round: 回転"
+     ],
+     [
+      "覧",
+      "ラン",
+      "look over: 展覧会"
      ],
      [
       "板",
@@ -327,9 +332,14 @@
     "gloss": "residents' association",
     "parts": [
      [
-      "自治",
-      "じち",
-      "self-government"
+      "自",
+      "ジ",
+      "self: 自分"
+     ],
+     [
+      "治",
+      "チ",
+      "govern: 治安"
      ],
      [
       "会",
@@ -378,7 +388,7 @@
     "id": "event",
     "word": "行事",
     "reading": "ぎょうじ",
-    "gloss": "event (held every year)",
+    "gloss": "event (a regular one, such as a festival)",
     "parts": [
      [
       "行",
@@ -452,15 +462,15 @@
    "kind": "choice",
    "type": "漢字読み",
    "label": "How the exam asks it",
-   "q": "内容を確認したら、_押印_して次の家に回してください。",
+   "q": "今月の_行事_の予定をお知らせします。",
    "options": [
-    "おしいん",
-    "こういん",
-    "おういん",
-    "おいん"
+    "こうじ",
+    "ぎょうし",
+    "ぎょうじ",
+    "こうし"
    ],
    "answer": 3,
-   "explain": "押印 is おういん: 押 is オウ here, and 印 is イン as in 印刷. おしいん mixes the kun reading of 押す with イン, and こういん and おいん are not readings of 押印."
+   "explain": "行事 is ぎょうじ: 行 is ギョウ here, as in 行列, and 事 is ジ, as in 食事. こうじ reads 行 as コウ, as in 旅行 (こうじ is another word, 工事), and ぎょうし and こうし read 事 as シ, which is not one of its readings."
   }
  },
  "skill": {
@@ -469,7 +479,7 @@
   "en": "Short passage",
   "ask": "What does the writer most want to say?",
   "seconds": 80,
-  "passage": "今年も八月の最初の土曜日に、夏祭りが行われます。ところが、地域の高齢化とともに、準備や片付けを手伝ってくれる人は年々減っています。昨年は人手が足りず、屋台の数を半分にしました。客の少ない夕方、屋台がどこか寂しげに並んでいた光景を、今もよく覚えています。祭りは、毎年当たり前に開かれるわけではありません。^地域の誰かが支えているからこそ、続いてきたのです^。若い方も、一時間だけでもかまいません。^ぜひ力を貸していただけないでしょうか^。",
+  "passage": "今年も八月の最初の土曜日に、夏祭りが行われます。ところが、地域の高齢化とともに、準備や片付けを手伝ってくれる人は年々減っています。昨年は人手が足りず、屋台の数を半分にしました。客の少ない夕方、屋台がどこか寂しげに並んでいた光景を、今もよく覚えています。祭りは、毎年当たり前に開かれるわけではありません。^地域の誰かが支えているからこそ、続いてきたのです^。若い方も、一時間だけでもかまいませんので、^ぜひ力を貸していただけないでしょうか^。",
   "strategy": "The facts about last year lead up to the point. Read the last three sentences: the reason in 〜からこそ and the request at the end.",
   "item": {
    "id": "u07d2.r1",

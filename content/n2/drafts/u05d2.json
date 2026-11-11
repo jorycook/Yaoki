@@ -13,13 +13,13 @@
           },
           {
             "pos": "Noun, na-adjective",
-            "rule": "〜（である） ＋ {にもかかわらず}"
+            "rule": "〜（である）／〜だった ＋ {にもかかわらず}"
           }
         ],
         "examples": [
           {
-            "ja": "悪天候{にもかかわらず}、マラソン大会には多くの人が参加した。",
-            "en": "Despite the bad weather, many people took part in the marathon."
+            "ja": "彼はまだ初心者である{にもかかわらず}、市のテニス大会で三位に入った。",
+            "en": "Even though he is still a beginner, he came third in the city tennis tournament."
           },
           {
             "ja": "値段が高い{にもかかわらず}、この店のパンは昼前に売り切れる。",
@@ -39,17 +39,17 @@
         "connect": [
           {
             "pos": "Verb, ます stem: although",
-            "rule": "ます形 ＋ {つつ（も）}"
+            "rule": "知ります → 知り ＋ {つつ（も）}"
           },
           {
             "pos": "Verb, ます stem: while (written)",
-            "rule": "ます形 ＋ {つつ}"
+            "rule": "飲みます → 飲み ＋ {つつ}"
           }
         ],
         "examples": [
           {
-            "ja": "体に悪いと知り{つつも}、つい夜中に甘い物を食べてしまう。",
-            "en": "I know it is bad for me, but I end up eating sweets in the middle of the night."
+            "ja": "駐車禁止だと知り{つつも}、少しの間だけならと道の端に車を止めてしまった。",
+            "en": "I knew parking was not allowed, but I left the car at the side of the road, thinking a few minutes would do no harm."
           },
           {
             "ja": "朝はコーヒーを飲み{つつ}、ニュースをチェックするのが習慣だ。",
@@ -64,21 +64,21 @@
       }
     ],
     "compare": {
-      "intro": "All three join two facts that clash. にもかかわらず is formal and states facts, つつも keeps one person doing both, and のに adds the speaker's own feeling.",
+      "intro": "All three join two facts that clash. にもかかわらず is formal and states facts, つつも keeps one person doing both, and のに adds the speaker's own feeling and can even end a sentence.",
       "forms": [
         {
           "form": "〜にもかかわらず",
           "tag": "事実の逆接 · despite (formal)",
           "mark": "dot",
-          "ja": "締め切りを過ぎていた{にもかかわらず}、書類を受け付けてもらえた。",
-          "en": "Even though the deadline had passed, they accepted my papers."
+          "ja": "卒業して二十年たっていた{にもかかわらず}、先生は私の名前を覚えていてくださった。",
+          "en": "Twenty years had passed since I graduated, yet my teacher still remembered my name."
         },
         {
           "form": "〜つつ（も）",
-          "tag": "同じ人の逆接 · although I (do)",
+          "tag": "同じ人の逆接 · although (doing)",
           "mark": "dot",
-          "ja": "兄は「もう食べられない」と言い{つつも}、ケーキをもう一つ取った。",
-          "en": "My brother said he couldn't eat any more, yet he took another piece of cake."
+          "ja": "初めての発表で緊張し{つつも}、最後までしっかり話すことができた。",
+          "en": "I was nervous at my first presentation, but I spoke clearly all the way to the end."
         },
         {
           "form": "〜のに",
@@ -92,8 +92,8 @@
         "id": "u05d2.c1",
         "kind": "choice",
         "type": "文の文法1",
-        "label": "試験に落ちて",
-        "q": "また不合格だった。あれほど準備した（　　）。",
+        "label": "花火大会の中止",
+        "q": "「明日の花火大会、雨で中止になったそうですよ。」「えっ、[浴衣|ゆかた]まで買った（　　）。」",
         "options": [
           "にもかかわらず",
           "つつも",
@@ -101,9 +101,9 @@
         ],
         "answer": 3,
         "why": [
-          "にもかかわらず needs a second part after it. It cannot end a sentence like this.",
-          "つつも follows the ます stem (準備し), not the た form, and it also needs a second part.",
-          "のに can end a sentence to show regret: \"after all that work!\""
+          "The reply stops right after the blank, with no clashing fact to follow. にもかかわらず is not used to end a spoken complaint the way のに is.",
+          "つつも follows the ます stem (買い), not the た form, and the reply has no second part for it to lead to.",
+          "のに can end a sentence to show regret or a complaint: \"and I even bought a yukata!\""
         ]
       }
     },
@@ -113,19 +113,19 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "彼は^何度も注意された^（　　）、^また会議に遅れてきた^。",
+        "q": "^住所を正しく書いて送った^（　　）、^荷物が相手に届かなかった^。",
         "options": [
-          "からには",
+          "ことから",
           "にもかかわらず",
-          "おかげで",
-          "ばかりに"
+          "あげく",
+          "せいで"
         ],
         "answer": 2,
         "why": [
-          "からには needs a resolve or a duty after it. Being late again is neither.",
-          "Warned many times, yet late again: a fact that goes against what you expect.",
-          "おかげで needs a good result after it.",
-          "ばかりに gives the cause of a bad result. Being warned did not make him late."
+          "ことから gives a reason or the grounds for a judgement. A correct address is no reason for a parcel not to arrive.",
+          "The address was right, yet the parcel did not arrive: a fact that goes against what you expect.",
+          "あげく follows a long, tiring process, as in 何時間も話し合ったあげく. Sending a parcel is not one.",
+          "せいで blames a cause for a bad result, but the correct address did not stop the parcel arriving."
         ]
       },
       {
@@ -143,7 +143,7 @@
         "answer": 4,
         "why": [
           "からには needs a resolve or a duty after it, such as 二度としない. Repeating the mistake is the opposite.",
-          "おかげで needs a good result after it, and a repeated mistake is not one.",
+          "おかげで gives the cause of a good result, and a repeated mistake is not one.",
           "ばかりに gives the cause of a bad result. Reflecting does not cause the mistake.",
           "He is sorry each time, yet he does it again: ます stem + つつも, one person doing both."
         ]
@@ -153,7 +153,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "^平日^（　　）、^遊園地は家族連れでにぎわっていた^。",
+        "q": "^早朝^（　　）、隣の家から^工事の大きな音が聞こえてきた^。",
         "options": [
           "にもかかわらず",
           "につき",
@@ -162,10 +162,10 @@
         ],
         "answer": 1,
         "why": [
-          "A noun goes straight before にもかかわらず. A weekday, yet crowds of families: not what you expect.",
-          "につき gives a formal reason, as on a notice (工事中につき). A weekday is no reason for crowds.",
-          "を機に means \"taking the chance of\" a change, as in 入学を機に. A weekday is not such a chance.",
-          "に際して marks a formal occasion, as in 入場に際して. A weekday is not an occasion."
+          "A noun goes straight before にもかかわらず. Early morning, yet loud building work: not what you expect.",
+          "につき gives a formal reason, as on a notice (祝日につき休業). Early morning is no reason for the noise.",
+          "を機に means \"taking the chance of\" a change, as in 入学を機に. Early morning is not such a chance.",
+          "に際して marks a formal occasion, as in 入場に際して. Early morning is not an occasion."
         ]
       },
       {
@@ -243,7 +243,7 @@
         "kind": "choice",
         "type": "文の文法1",
         "label": "Choose the form",
-        "q": "その会社は経営が苦しい（　　）、社員の給料を上げることにした。",
+        "q": "その会社は経営が苦しい（　　）、今年も社員の給料を上げた。",
         "options": [
           "ばかりに",
           "だけあって",
@@ -251,7 +251,7 @@
           "にもかかわらず"
         ],
         "answer": 4,
-        "explain": "Business is hard, yet the company raised pay: a fact against what you expect, so にもかかわらず. ばかりに leads to a regretted result, だけあって to a result that lives up to the cause, and 以上 to what should follow from the first part, which a pay rise does not."
+        "explain": "Business is hard, yet the company raised pay again: a fact that goes against what you expect, so にもかかわらず. ばかりに leads to a regretted result, だけあって to a result that lives up to the cause, and 以上 to a judgement or a duty, not a report of what happened like 上げた."
       },
       {
         "id": "u05d2.e2",
@@ -266,7 +266,7 @@
           "反対したせいで"
         ],
         "answer": 2,
-        "explain": "My mother opposed it in words, yet she helped: one person doing two things that clash, so つつも. 以上 leads to what should follow from the first part, 次第 to an action still to come, and せいで to a bad result."
+        "explain": "My mother opposed it in words, yet she helped: one person doing two things that clash, so つつも. 以上 leads to a judgement or a duty, not a past event like 手伝ってくれた, 次第 to an action still to come, and せいで to a bad result."
       },
       {
         "id": "u05d2.e3",
@@ -401,7 +401,7 @@
     "en": "Short passage",
     "ask": "What finally made the writer go for his follow-up test?",
     "seconds": 80,
-    "passage": "去年の健康診断で、血圧が基準値を超えているので再検査を受けるようにと言われた。しかし、体調は特に悪くなかった。行かなければと思いつつも、仕事の忙しさを理由に後回しにしていた。妻に何度も勧められたにもかかわらず、結局半年も病院に行かなかった。^ところが^今年の春、^同い年の友人が突然倒れて入院した^。彼も以前から血圧が高いと言われていたが、何もしていなかったという。^その話を聞いて^、私はようやく病院に電話をかけた。^自分だけは大丈夫だと、根拠もなく思い込んでいた^のだ。",
+    "passage": "去年の健康診断で、血圧が基準値を超えているので再検査を受けるようにと言われた。しかし、体調は特に悪くなかった。行かなければと思いつつも、仕事の忙しさを理由に後回しにしていた。妻に何度も勧められたにもかかわらず、結局半年も病院に行かなかった。^ところが^今年の春、^同い年の友人が突然倒れて入院した^。彼も以前から血圧が高いと言われていたが、何もしていなかったという。^その話を聞いて^、私はようやく病院に電話をかけた。^自分だけは大丈夫だと、勝手に思い込んでいた^のだ。",
     "strategy": "Find where the story turns (ところが), then read what the writer did right after it and why.",
     "item": {
       "id": "u05d2.r1",
@@ -421,12 +421,12 @@
         "体調が悪くなった"
       ],
       "answer": 3,
-      "explain": "The story turns at ところが: a friend his age, also told his blood pressure was high, collapsed. その話を聞いて, the writer finally called the hospital, seeing that his belief he was safe had no basis.",
+      "explain": "The story turns at ところが: a friend his age, also told his blood pressure was high, collapsed. その話を聞いて, the writer finally called the hospital. He saw that he had only assumed he would be fine (勝手に思い込んでいた).",
       "why": [
         "His wife urged him many times, but he still did not go (にもかかわらず). That is not what changed his mind.",
         "Not in the text. Work is only the excuse he used for putting it off.",
         "",
-        "The opposite. He felt fine (体調は特に悪くなかった), which is why he waited."
+        "Not in the text. He felt fine (体調は特に悪くなかった), and nothing says that changed. His friend's story is what made him call."
       ]
     }
   }

@@ -19,7 +19,7 @@
     "examples": [
      {
       "ja": "少しずつだが、景気は良くなり{つつある}。",
-      "en": "Slowly, but the economy is getting better."
+      "en": "The economy is getting better, if only slowly."
      },
      {
       "ja": "最近は、男性が[育児|いくじ]休暇を取ることも当たり前になり{つつある}。",
@@ -39,7 +39,7 @@
     "connect": [
      {
       "pos": "Verb, dictionary form, for a change (増える, 悪くなる)",
-      "rule": "辞書形 ＋ {一方だ}"
+      "rule": "辞書形 ＋ {一方だ}（悪くなる{一方だ}）"
      },
      {
       "pos": "Describing a noun (the last 〜 is the noun)",
@@ -58,20 +58,20 @@
     ],
     "watch": {
      "note": "一方だ needs a verb of change, and says the change keeps going the same way with no sign of stopping. It often describes something unwelcome. It does not follow an action like 働く.",
-     "bad": "最近、父は毎日働く一方だ。",
-     "good": "最近、父の仕事は増える一方だ。"
+     "bad": "最近、姉は毎日働く一方だ。",
+     "good": "最近、姉の仕事は忙しくなる一方だ。"
     }
    }
   ],
   "compare": {
-   "intro": "All three talk about a change. What differs is whether it is under way, will not stop, or is set against something else.",
+   "intro": "つつある describes a change under way and 一方だ one that keeps going with no sign of stopping, while 一方で only looks similar: it sets one fact against another.",
    "forms": [
     {
      "form": "〜つつある",
      "tag": "変化の途中 · is gradually …ing",
      "mark": "dot",
-     "ja": "海外でも、日本のアニメを見る人が増え{つつある}。",
-     "en": "Overseas too, more and more people are watching Japanese anime."
+     "ja": "春が近づき、山の雪も解け{つつある}。",
+     "en": "Spring is on its way, and the snow on the mountains is melting."
     },
     {
      "form": "〜一方だ",
@@ -84,8 +84,8 @@
      "form": "〜一方（で）",
      "tag": "対比（N3） · while, on the other hand",
      "mark": "dot",
-     "ja": "都会の人口は増える{一方で}、地方では減っている。",
-     "en": "While the population of the cities grows, the countryside's is shrinking."
+     "ja": "売り上げは伸びている{一方で}、利益は減っている。",
+     "en": "While sales are growing, profits are falling."
     }
    ],
    "check": {
@@ -93,7 +93,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "月曜日の朝",
-    "q": "最近、仕事のメールは増える（　　）。",
+    "q": "最近、仕事のメールはたまる（　　）。",
     "options": [
      "つつある",
      "一方で",
@@ -101,9 +101,9 @@
     ],
     "answer": 3,
     "why": [
-     "つつある follows the ます stem (増えつつある), not the dictionary form.",
+     "つつある follows the ます stem (たまりつつある), not the dictionary form.",
      "一方で sets one clause against another, so a second clause must follow. The sentence ends here.",
-     "Dictionary form + 一方だ: the emails just keep increasing."
+     "Dictionary form + 一方だ: the emails just keep piling up."
     ]
    }
   },
@@ -113,7 +113,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "新しい薬のおかげで、この病気は治せる病気に^なり^（　　）。",
+    "q": "かつては夢だった自動運転の車も、現実のものに^なり^（　　）。",
     "options": [
      "次第だ",
      "つつある",
@@ -122,9 +122,9 @@
     ],
     "answer": 2,
     "why": [
-     "After the ます stem, 次第 means \"as soon as\", and a clause must follow it.",
-     "ます stem + つつある: the change is under way now.",
-     "つつも means \"although\" and must lead into another clause.",
+     "なり次第 means \"as soon as they become …\", which makes no sense as the end of this sentence.",
+     "ます stem + つつある: self-driving cars are on their way to becoming real.",
+     "つつも means \"although\" and must lead into another clause. The sentence ends here.",
      "一方だ follows the dictionary form (なる一方だ), not なり."
     ]
    },
@@ -153,31 +153,31 @@
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "海外からの観光客が",
-    "after": "ホテルは予約が取りにくくなっている。",
+    "before": "温泉地では、海外からの",
+    "after": "、旅館の予約が取りにくくなっている。",
     "tiles": [
+     "観光客が",
      "戻り",
      "つつある",
-     "ため",
-     "駅前の"
+     "ため"
     ],
-    "star": 2,
+    "star": 1,
     "bank": [
      2,
      0,
      3,
      1
     ],
-    "hint": "つつある follows the ます stem. Which tile gives the reason, and which one describes the hotels?",
-    "full": "海外からの観光客が戻り{つつある}ため駅前のホテルは予約が取りにくくなっている。",
-    "explain": "戻り is the ます stem before つつある. ため turns that into the reason, and 駅前の must sit right before ホテル."
+    "hint": "つつある follows the ます stem. Which tile turns the change into a reason?",
+    "full": "温泉地では、海外からの観光客が戻り{つつある}ため、旅館の予約が取りにくくなっている。",
+    "explain": "観光客が is who is coming back. 戻り is the ます stem before つつある, and ため after it gives the reason the inns are hard to book."
    },
    {
     "id": "u07d5.d4",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "駅前に大型スーパーができてから、商店街の客は^減る^（　　）。",
+    "q": "ここ数年、夏の暑さは^厳しくなる^（　　）。",
     "options": [
      "一方だ",
      "につれて",
@@ -186,9 +186,9 @@
     ],
     "answer": 1,
     "why": [
-     "Dictionary form + 一方だ: since the supermarket opened, customers have only gone down.",
+     "Dictionary form + 一方だ: the summers just keep getting hotter, year after year.",
      "につれて links two changes, so another clause must follow. The sentence ends here.",
-     "つつある follows the ます stem (減りつつある), not the dictionary form.",
+     "つつある follows the ます stem (厳しくなりつつある), not the dictionary form.",
      "気味だ follows a noun or the ます stem (疲れ気味だ), not the dictionary form."
     ]
    },
@@ -202,14 +202,14 @@
      "つつも",
      "一方で",
      "つつある",
-     "気味だ"
+     "かねない"
     ],
     "answer": 3,
     "why": [
      "つつも means \"although\" and must lead into another clause. The sentence ends here.",
-     "一方で follows a plain form (回復する一方で), not the ます stem, and sets one clause against another.",
+     "一方で would need the dictionary form (回復する一方で) and then a second clause to set against this one.",
      "ます stem + つつある: her recovery is under way and going well.",
-     "気味 is for a slight unwelcome state, as in 風邪気味. A recovery going well is not that."
+     "かねない warns that something bad could happen. A steady recovery is good news."
     ]
    },
    {
@@ -251,7 +251,7 @@
      "つつある"
     ],
     "answer": 4,
-    "explain": "増え is the ます stem, and the change is under way: つつある. 一方だ needs the dictionary form (増える一方だ). がちだ is for something that tends to happen again and again, usually unwelcome, and かねない warns of a bad result; more shoppers saying no to bags is neither."
+    "explain": "増え is the ます stem, and the change is under way: つつある. 一方だ needs the dictionary form (増える一方だ). がちだ says something, usually unwelcome, tends to happen often, and かねない warns of a bad result that could happen; this sentence reports one welcome change already in progress."
    },
    {
     "id": "u07d5.e2",
@@ -263,10 +263,10 @@
      "一方で",
      "一方だ",
      "つつある",
-     "気味だ"
+     "ことだ"
     ],
     "answer": 2,
-    "explain": "Dictionary form + 一方だ: the amount just keeps going up, whatever the doctor says. 一方で needs a second clause after it, and つつある and 気味だ follow the ます stem, not the dictionary form."
+    "explain": "Dictionary form + 一方だ: the amount just keeps going up, whatever the doctor says. 一方で needs a second clause after it, and つつある follows the ます stem (増えつつある). ことだ gives advice (you should …), which makes no sense with 増える here."
    },
    {
     "id": "u07d5.e3",
@@ -296,7 +296,7 @@
  "scene": {
   "ja": "カフェの価格改定のお知らせ",
   "en": "A café's price-rise notice",
-  "intro": "Tap every word on the notice that tells you why the prices are going up.",
+  "intro": "Tap every word on the notice you would read to find out what is going up and why.",
   "words": [
    {
     "id": "raise",
@@ -325,7 +325,7 @@
      [
       "改",
       "カイ",
-      "renew: 改札"
+      "revise: 改正"
      ],
      [
       "定",
@@ -379,7 +379,7 @@
      [
       "物",
       "ブッ",
-      "thing: 動物"
+      "thing (ブツ, here ブッ)"
      ],
      [
       "価",
@@ -438,7 +438,7 @@
      [
       "質",
       "シツ",
-      "quality: 質問"
+      "nature, quality: 性質"
      ]
     ]
    }
@@ -448,7 +448,7 @@
    "kind": "choice",
    "type": "漢字読み",
    "label": "How the exam asks it",
-   "q": "コーヒー豆の値段が_上昇_を続けている。",
+   "q": "コーヒー豆の価格が_上昇_を続けている。",
    "options": [
     "じょうしょう",
     "じょうしょ",
@@ -473,12 +473,12 @@
    "script": [
     "女：下のカフェ、また値上げしたんですって。何でも高くなる一方ですね。",
     "男：じゃあ、ほかに安くなったものもあるんですね。",
-    "男：本当に。これじゃ、気軽にコーヒーも飲めませんね。",
+    "男：本当ですね。これじゃ、気軽にコーヒーも飲めませんね。",
     "男：へえ、あの店が値上げするのは初めてなんですね。"
    ],
    "options": [
     "じゃあ、ほかに安くなったものもあるんですね。",
-    "本当に。これじゃ、気軽にコーヒーも飲めませんね。",
+    "本当ですね。これじゃ、気軽にコーヒーも飲めませんね。",
     "へえ、あの店が値上げするのは初めてなんですね。"
    ],
    "printed": false,
@@ -517,7 +517,7 @@
    ],
    [
     "M",
-    "本当に。これじゃ、気軽にコーヒーも飲めませんね。",
+    "本当ですね。これじゃ、気軽にコーヒーも飲めませんね。",
     null
    ],
    [

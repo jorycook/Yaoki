@@ -65,9 +65,9 @@
      }
     ],
     "watch": {
-     "note": "After a noun or na-adjective, put にせよ straight after it, or use である (past: だった). だ cannot come right before にせよ.",
-     "bad": "相手が社長だにせよ、ルールは守ってもらいます。",
-     "good": "相手が社長であるにせよ、ルールは守ってもらいます。"
+     "note": "After a noun or na-adjective, put にせよ straight after it, or use である (past: だった). Unlike としても (事実だとしても), だ cannot come right before にせよ.",
+     "bad": "うわさが事実だにせよ、本人に確かめるまでは黙っておきましょう。",
+     "good": "うわさが事実であるにせよ、本人に確かめるまでは黙っておきましょう。"
     }
    }
   ],
@@ -121,7 +121,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^手紙^（　　）^メール^にしろ、お礼はできるだけ早く伝えたほうがいい。",
+    "q": "^手紙^（　　）^メールにしろ^、お礼はできるだけ早く伝えたほうがいい。",
     "options": [
      "にしては",
      "にしろ",
@@ -192,8 +192,8 @@
     "why": [
      "The speaker admits the trouble and keeps the plan anyway: plain form + にせよ.",
      "ばかりに needs a bad result the speaker regrets, not a plan.",
-     "あまり means a feeling or effort goes too far and something unwanted happens. A plan does not fit.",
-     "につき follows a noun on notices (工事中につき). It does not follow a verb, and it gives a reason, not a concession."
+     "あまり means a feeling or effort goes too far and something unusual or unwanted happens. A plan made on purpose does not fit.",
+     "につき gives a reason after a noun, as on notices (工事中につき). Here the speaker admits a drawback; there is no reason to give."
     ]
    },
    {
@@ -204,7 +204,7 @@
     "before": "冗談",
     "after": "ある。",
     "tiles": [
-     "にしろ",
+     "にせよ",
      "言って",
      "いいことと",
      "悪いことが"
@@ -216,9 +216,9 @@
      0,
      2
     ],
-    "hint": "Which tile can follow 冗談 directly? The rest is a set phrase: there are things you may say and things you may not.",
-    "full": "冗談{にしろ}言っていいことと悪いことがある。",
-    "explain": "冗談にしろ means \"even as a joke\". Then 言っていいことと悪いことがある: 言って goes before いいことと, and 悪いことが goes before ある."
+    "hint": "にせよ goes right after 冗談: even as a joke. The rest is a set phrase: there are things you may say and things you may not.",
+    "full": "冗談{にせよ}言っていいことと悪いことがある。",
+    "explain": "冗談にせよ means \"even as a joke\". Then 言っていいことと悪いことがある: 言って goes before いいことと, and 悪いことが goes before ある."
    },
    {
     "id": "u05d5.d6",
@@ -229,7 +229,7 @@
     "after": "十分いい部屋だと思う。",
     "tiles": [
      "遠い",
-     "にせよ",
+     "にしろ",
      "この",
      "家賃なら"
     ],
@@ -240,9 +240,9 @@
      1,
      0
     ],
-    "hint": "What is admitted comes first, before にせよ. What makes it a good room comes after.",
-    "full": "駅から少し遠い{にせよ}この家賃なら十分いい部屋だと思う。",
-    "explain": "駅から少し遠い is the drawback the speaker admits, in the plain form before にせよ. この家賃なら goes with 十分いい部屋だ."
+    "hint": "What is admitted comes first, before にしろ. What makes it a good room comes after.",
+    "full": "駅から少し遠い{にしろ}この家賃なら十分いい部屋だと思う。",
+    "explain": "駅から少し遠い is the drawback the speaker admits, in the plain form before にしろ. この家賃なら goes with 十分いい部屋だ."
    }
   ],
   "exam": [
@@ -253,20 +253,20 @@
     "label": "Choose the form",
     "q": "ボランティア（　　）、引き受けた仕事には責任を持つべきだ。",
     "options": [
-     "にせよ",
      "にしては",
-     "につき",
-     "をはじめ"
+     "にせよ",
+     "次第で",
+     "だけあって"
     ],
-    "answer": 1,
-    "explain": "Noun + にせよ: even if it is unpaid volunteer work, you are still responsible for it. にしては means \"for a …\" and needs a surprising result, につき gives a reason (being a volunteer is no reason to be responsible), and をはじめ names the main example of a group."
+    "answer": 2,
+    "explain": "Noun + にせよ: even if it is unpaid volunteer work, you are still responsible for the work you took on. にしては needs a fact that is surprising for a volunteer (ボランティアにしては熱心だ), and an obligation is not one. 次第で says the noun decides how something turns out, but nothing here depends on the volunteer. だけあって praises a result that lives up to the noun, and there is no such result here."
    },
    {
     "id": "u05d5.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "大学院に進むにしろ就職する（　　）、早めに準備を始めなければならない。",
+    "q": "大学院に進むにしろ就職する（　　）、娘が自分で決めたことなら反対はしない。",
     "options": [
      "ものの",
      "としたら",
@@ -274,30 +274,30 @@
      "にしろ"
     ],
     "answer": 4,
-    "explain": "大学院に進むにしろ needs its partner: 〜にしろ〜にしろ, whichever path you take. ものの and あげく state facts that already happened, and としたら would leave the first にしろ without a partner."
+    "explain": "大学院に進むにしろ needs a partner in the same form, 〜にしろ〜にしろ: whichever path she takes. ものの, としたら and あげく would leave the first にしろ without a partner. ものの also needs a fact, and あげく a past verb (〜たあげく), but she has not chosen yet."
    },
    {
     "id": "u05d5.e3",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "いくら",
-    "after": "ふるうことは許されない。",
+    "before": "原因が",
+    "after": "二度と起きないようにしなければならない。",
     "tiles": [
-     "腹が",
-     "立った",
-     "にせよ",
-     "暴力を"
+     "何",
+     "であるにせよ",
+     "同じ",
+     "事故が"
     ],
-    "star": 1,
+    "star": 2,
     "bank": [
-     3,
-     1,
+     2,
      0,
-     2
+     3,
+     1
     ],
-    "full": "いくら腹が{立った}にせよ暴力をふるうことは許されない。",
-    "explain": "腹が, 立った, にせよ, 暴力を. いくら腹が立ったにせよ is \"however angry you were\", and 暴力を goes with ふるう."
+    "full": "原因が何であるにせよ{同じ}事故が二度と起きないようにしなければならない。",
+    "explain": "何, であるにせよ, 同じ, 事故が. 原因が何であるにせよ is \"whatever the cause is\": the question word 何, then である and にせよ. 同じ goes with 事故が: the same accident must never happen again."
    }
   ]
  },
@@ -501,7 +501,7 @@
    [
     "M",
     "どっちの道を通るにしろ、この時間だと渋滞は避けられないでしょうね。",
-    null
+    "どっちの道を通るにしろ、この時間だと渋滞はさけられないでしょうね。"
    ],
    [
     "N",
@@ -531,7 +531,7 @@
    [
     "F",
     "ええ、避けられてよかったですね。",
-    null
+    "ええ、さけられてよかったですね。"
    ]
   ]
  }

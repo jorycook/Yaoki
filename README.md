@@ -1,6 +1,6 @@
 # Yaoki: source of the iPhone web app prototype
 
-Yaoki is a JLPT study app prototype. There are two apps, built from the same shell: the main app for N5 to N2 (the N5, N4 and N3 courses drafted in full, N2 with its unit 3 written; the learner picks the level in the app) and the N1 app (the N1 course, planned to the learner's exam date). This folder holds everything needed to rebuild both installable web apps, and Yaoki Reader, a reading page of its own. The design itself lives on the design canvas "Yaoki JLPT App"; the screens here are copies of the canvas's files.
+Yaoki is a JLPT study app prototype. There are two apps, built from the same shell: the main app for N5 to N2 (the N5, N4, N3 and N2 courses drafted in full; the learner picks the level in the app) and the N1 app (the N1 course, planned to the learner's exam date). This folder holds everything needed to rebuild both installable web apps, and Yaoki Reader, a reading page of its own. The design itself lives on the design canvas "Yaoki JLPT App"; the screens here are copies of the canvas's files.
 
 ## What is where
 

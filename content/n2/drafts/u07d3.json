@@ -16,7 +16,7 @@
       "rule": "〜 ＋ の ＋ {おそれがある}"
      },
      {
-      "pos": "Describing a noun",
+      "pos": "Describing a noun (the last 〜 is the noun)",
       "rule": "辞書形 ＋ {おそれのある} ＋ 〜"
      }
     ],
@@ -26,8 +26,8 @@
       "en": "Heavy snow is possible from tonight until tomorrow morning."
      },
      {
-      "ja": "このままでは、工事が期限までに終わらない{おそれがある}。",
-      "en": "At this rate, there is a risk the work will not be finished by the deadline."
+      "ja": "ウイルスが含まれている{おそれのある}メールは、開かずに消してください。",
+      "en": "Please delete any email that may contain a virus without opening it."
      }
     ],
     "watch": {
@@ -47,7 +47,7 @@
      },
      {
       "pos": "Passive verb, ます stem",
-      "rule": "〜られ／〜され ＋ {かねない}（誤解され{かねない}）"
+      "rule": "受身形の語幹 ＋ {かねない}（言われ{かねない}・誤解され{かねない}）"
      },
      {
       "pos": "Polite form",
@@ -90,8 +90,8 @@
     },
     {
      "form": "〜がちだ",
-     "tag": "よくある · tends to",
-     "mark": "dot",
+     "tag": "よくある傾向 · tends to (often bad)",
+     "mark": "down",
      "ja": "冬は運動不足になり{がちだ}。",
      "en": "In winter we tend not to get enough exercise."
     }
@@ -121,7 +121,7 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "小さな子どもが^けがをする^（　　）^おもちゃ^は、販売が禁止されている。",
+    "q": "小さな子どもが^けがをする^（　　）^おもちゃ^は、買わないようにしている。",
     "options": [
      "がちな",
      "かねない",
@@ -130,7 +130,7 @@
     ],
     "answer": 3,
     "why": [
-     "がち joins a ます stem (けがをしがち), and it says something often happens.",
+     "After a verb, がち joins the ます stem (けがをしがち), and it says something often happens.",
      "かねない joins the ます stem: けがをしかねない. する is the dictionary form.",
      "おそれのある is おそれがある before a noun: toys that may hurt a small child.",
      "どころではない says there is no room for something (忙しくて旅行どころではない). It is not a warning, and it makes no sense before おもちゃ."
@@ -143,16 +143,16 @@
     "label": "Choose the form",
     "q": "^このまま放っておくと^、虫歯がもっと^ひどくなり^（　　）。",
     "options": [
-     "気味だ",
+     "っぽい",
      "次第だ",
-     "っぱなしだ",
+     "べきだ",
      "かねない"
     ],
     "answer": 4,
     "why": [
-     "気味 describes a slight state now (疲れ気味). This sentence warns about what may come.",
+     "っぽい joins only a few ます stems, for a habit someone has (忘れっぽい, 怒りっぽい). It cannot follow なり.",
      "次第 after a ます stem means \"as soon as\" (着き次第), and a clause must follow it.",
-     "っぱなし is for leaving something as it is (つけっぱなし), not for a result that may come.",
+     "べき follows the dictionary form (なるべき), and it says what ought to happen. A tooth getting worse is not something that ought to happen.",
      "If the tooth is left alone, a bad result could follow: ます stem + かねない."
     ]
    },
@@ -185,18 +185,18 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "^このままでは^、締め切りに（　　）。",
+    "q": "^これ以上作業が遅れると^、締め切りに（　　）。",
     "options": [
      "間に合わないかねない",
      "間に合わなくなりかねない",
-     "間に合いかねない",
+     "間に合わなくかねない",
      "間に合わなくなるかねない"
     ],
     "answer": 2,
     "why": [
-     "かねない joins a ます stem, never a ない form.",
+     "間に合わない is the ない form. かねない joins a ます stem, never a ない form.",
      "ない becomes なくなる, and its ます stem なり takes かねない: missing the deadline could well happen.",
-     "The join is right, but かねない is only for a bad result. Making the deadline is good news.",
+     "間に合わなく is the く form, and here it needs なる after it (間に合わなくなる). かねない then joins the ます stem なり.",
      "なくなる is the dictionary form. かねない needs the ます stem なり."
     ]
    },
@@ -216,8 +216,8 @@
     "why": [
      "A bad thing that may happen, given as the reason for a rule: dictionary form + おそれがある.",
      "に越したことはない says something is best (早めに出るに越したことはない). Breaking windows is not.",
-     "どころではない says there is no room for something (忙しくて旅行どころではない). It does not warn of a risk.",
-     "ものなら means \"if it were possible\" and needs its own clause after it, as in 行けるものなら行きたい."
+     "どころではない says there is no room for something (熱があって仕事どころではない). It does not warn of a risk.",
+     "ものなら joins a potential verb such as 行ける, and a wish or a request follows it. 割る is not a potential verb, and ので cannot follow ものなら."
     ]
    },
    {
@@ -251,53 +251,53 @@
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "この薬はよく効くが、まれに副作用が出る（　　）。",
+    "q": "この薬はよく効くが、人によっては副作用が出る（　　）。",
     "options": [
      "かねない",
+     "おそれがある",
      "がちだ",
-     "に越したことはない",
-     "おそれがある"
+     "に越したことはない"
     ],
-    "answer": 4,
-    "explain": "Dictionary form + おそれがある: a rare but bad possibility, in the language of a medicine leaflet. かねない and がち join a ます stem (出かねない, 出がち), and に越したことはない says something is best."
+    "answer": 2,
+    "explain": "Dictionary form + おそれがある: a bad thing that may happen to some people, in the careful language of a medicine leaflet. After a verb, かねない and がち join the ます stem (出かねない, 出がち), and に越したことはない says something is best, which side effects are not."
    },
    {
     "id": "u07d3.e2",
     "kind": "choice",
     "type": "文の文法1",
     "label": "Choose the form",
-    "q": "このまま赤字が続けば、あの会社は（　　）。",
+    "q": "今年も赤字になれば、あの会社は（　　）。",
     "options": [
-     "倒産しがちだ",
-     "倒産するかねない",
-     "倒産しかねない",
-     "倒産しおそれがある"
+     "つぶれがちだ",
+     "つぶれるかねない",
+     "つぶれかねない",
+     "つぶれおそれがある"
     ],
     "answer": 3,
-    "explain": "If the losses go on, bankruptcy could well follow: ます stem + かねない. がち is for something that happens often, and going bankrupt is not something a company does often. かねない cannot follow the dictionary form, and おそれがある needs it: 倒産するおそれがある."
+    "explain": "Another year of losses could well make the company go under: ます stem + かねない (つぶれかねない). がち says something happens often, again and again, but one company going under is a single result. かねない cannot follow the dictionary form つぶれる, and おそれがある needs it: つぶれるおそれがある."
    },
    {
     "id": "u07d3.e3",
     "kind": "star",
     "type": "文の文法2",
     "label": "Build the sentence",
-    "before": "ウイルスに",
-    "after": "開かないでください。",
+    "before": "会議中にあくびばかりしていると、",
+    "after": "よ。",
     "tiles": [
-     "感染している",
-     "おそれの",
-     "ある",
-     "メールは"
+     "やる気が",
+     "ないと",
+     "思われ",
+     "かねない"
     ],
-    "star": 1,
+    "star": 2,
     "bank": [
-     3,
      1,
+     3,
      0,
      2
     ],
-    "full": "ウイルスに感染している{おそれの}あるメールは開かないでください。",
-    "explain": "感染している, おそれの, ある, メールは. おそれのある is おそれがある describing a noun, so it follows the verb and comes right before メール."
+    "full": "会議中にあくびばかりしていると、やる気がないと{思われ}かねないよ。",
+    "explain": "やる気が, ないと, 思われ, かねない. やる気がないと is what people might think of you. 思われ is the ます stem of the passive 思われる, and かねない joins that stem."
    }
   ]
  },
@@ -392,7 +392,7 @@
    "kind": "choice",
    "type": "漢字読み",
    "label": "How the exam asks it",
-   "q": "川の近くに住む方は、引き続き_警戒_してください。",
+   "q": "海の近くに住む方は、引き続き高い波に_警戒_してください。",
    "options": [
     "けいかい",
     "けいがい",
@@ -400,7 +400,7 @@
     "けいかく"
    ],
    "answer": 1,
-   "explain": "警戒 is けいかい: 警 as in 警察, and 戒 is カイ. 戒 does not become がい, 警 is never きょう, and けいかく is 計画."
+   "explain": "警戒 is けいかい: 警 is けい, as in 警察, and 戒 is かい with no change of sound. けいがい and きょうかい are not readings of this word, and けいかく is 計画."
   }
  },
  "skill": {
@@ -417,9 +417,9 @@
    "script": [
     "ナレーター：会社で、男の人と女の人が話しています。女の人はどうして早く帰ることにしましたか。",
     "男：田中さん、今日は早く帰るんですね。台風で電車が止まるおそれがあるって、ニュースで言ってましたもんね。",
-    "女：いえ、私は地下鉄なので、電車はたぶん大丈夫なんです。",
+    "女：いえ、私は地下鉄なので、たぶん大丈夫なんです。",
     "男：そうですか。じゃあ、お子さんのお迎えですか。",
-    "女：いえ、お迎えは今日は夫が行ってくれるので。実は、アパートの前の川が、大雨のたびにあふれそうになるんです。",
+    "女：いえ、今日は夫が迎えに行ってくれるので。実は、アパートの前の川が、大雨のたびにあふれそうになるんです。",
     "男：え、それは心配ですね。",
     "女：うちは一階なので、水が入ってきたら、家具やパソコンがだめになりかねないんです。暗くなる前に、大事なものを高いところに移しておこうと思って。",
     "男：それがいいですね。残りの仕事は、ぼくがやっておきますよ。",
@@ -441,7 +441,7 @@
    ],
    "answer": 3,
    "why": [
-    "The man says this, but she takes the subway and thinks her train will be fine.",
+    "The man says this, but she takes the subway and thinks it will be fine.",
     "The man guesses this, but her husband is picking the child up today.",
     "実は gives the real reason: the river may flood her ground-floor flat, so she wants to move her things up before dark.",
     "She mentions the river only as the danger. She never says she will go and look at it."
@@ -450,9 +450,9 @@
   "audio": [
    ["N", "会社で、男の人と女の人が話しています。女の人はどうして早く帰ることにしましたか。", null],
    ["M", "田中さん、今日は早く帰るんですね。台風で電車が止まるおそれがあるって、ニュースで言ってましたもんね。", "たなかさん、きょうははやくかえるんですね。たいふうででんしゃがとまるおそれがあるって、ニュースでいってましたもんね。"],
-   ["F", "いえ、私は地下鉄なので、電車はたぶん大丈夫なんです。", "いえ、わたしはちかてつなので、でんしゃはたぶんだいじょうぶなんです。"],
+   ["F", "いえ、私は地下鉄なので、たぶん大丈夫なんです。", "いえ、わたしはちかてつなので、たぶんだいじょうぶなんです。"],
    ["M", "そうですか。じゃあ、お子さんのお迎えですか。", null],
-   ["F", "いえ、お迎えは今日は夫が行ってくれるので。実は、アパートの前の川が、大雨のたびにあふれそうになるんです。", "いえ、おむかえはきょうはおっとがいってくれるので。じつは、アパートのまえのかわが、おおあめのたびにあふれそうになるんです。"],
+   ["F", "いえ、今日は夫が迎えに行ってくれるので。実は、アパートの前の川が、大雨のたびにあふれそうになるんです。", "いえ、きょうはおっとがむかえにいってくれるので。じつは、アパートのまえのかわが、おおあめのたびにあふれそうになるんです。"],
    ["M", "え、それは心配ですね。", null],
    ["F", "うちは一階なので、水が入ってきたら、家具やパソコンがだめになりかねないんです。暗くなる前に、大事なものを高いところに移しておこうと思って。", "うちはいっかいなので、みずがはいってきたら、かぐやパソコンがだめになりかねないんです。くらくなるまえに、だいじなものをたかいところにうつしておこうとおもって。"],
    ["M", "それがいいですね。残りの仕事は、ぼくがやっておきますよ。", null],
