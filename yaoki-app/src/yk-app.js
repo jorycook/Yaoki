@@ -133,7 +133,8 @@
     }
     if (from) {
       s.started = !!from.started;
-      var planOk = function (p) { p = obj(p); return p && dateOk(p.start) && dateOk(p.exam) ? { start: p.start, exam: p.exam, pace: p.pace === 'steady' ? 'steady' : 'fit', minutes: p.minutes || 30 } : null; };
+      /* a plan has its start, and its exam date unless it has none (the kana level has no exam: one session a day) */
+      var planOk = function (p) { p = obj(p); return p && dateOk(p.start) && (dateOk(p.exam) || p.exam == null) ? { start: p.start, exam: p.exam || null, pace: p.pace === 'steady' || !p.exam ? 'steady' : 'fit', minutes: p.minutes || 30 } : null; };
       s.plan = planOk(from.plan);
       /* the level the learner is on (saves from before there were several levels are N2), and the plans of the others */
       var levels = {};
@@ -178,7 +179,7 @@
   var soundAsked = '';
   function keepLevelSound(level) {
     var lv = String(level || '').toLowerCase();
-    if (!/^n[345]$/.test(lv) || lv === soundAsked) return;
+    if (!/^(n[345]|kana)$/.test(lv) || lv === soundAsked) return;
     try {
       var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
       if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }

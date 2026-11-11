@@ -5,6 +5,7 @@
 <title>Set the goal</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
 <script src="./course-n5.js"></script>
 <script src="./course-n4.js"></script>
 <script src="./course-n3.js"></script>
@@ -40,7 +41,7 @@ button:disabled{cursor:default}
 <div style="display: flex; flex-direction: column; gap: 4px">
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.25">目標を決めよう</h1>
 <sc-if value="{{ blank }}" hint-placeholder-val="{{ true }}">
-<div style="font-size: 14px; font-weight: 500; color: #5A6382; line-height: 1.45">Set a goal and Yaoki gets one eye. He gets the other when you pass.</div>
+<div style="font-size: 14px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ blankLine }}</div>
 </sc-if>
 <sc-if value="{{ painted }}" hint-placeholder-val="{{ false }}">
 <div style="font-size: 14px; font-weight: 700; color: #C7361E; line-height: 1.45">片目が入りました。 One eye in. One to go.</div>
@@ -50,14 +51,15 @@ button:disabled{cursor:default}
 
 <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 13px; font-weight: 800">レベル　Level</div>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
-<sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
-<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 48px; border-radius: 14px; font-weight: 800; font-size: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ levels }}" as="l" hint-placeholder-count="5">
+<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 48px; padding: 0; border-radius: 14px; font-weight: 800; font-size: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; box-shadow: {{ l.shadow }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
 </sc-for>
 </div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382"><span lang="ja">N1は別のアプリです。</span> N1 has its own app.</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382"><span lang="ja">かな</span> is hiragana and katakana, before N5. <span lang="ja">N1は別のアプリです。</span> N1 has its own app.</div>
 </div>
 
+<sc-if value="{{ withExam }}" hint-placeholder-val="{{ true }}">
 <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 13px; font-weight: 800">試験日　Exam date</div>
 <button aria-haspopup="dialog" onClick="{{ openSheet }}" style="height: 68px; padding: 0 16px; border-radius: 16px; border: 2px solid #1B2440; background: #FFFFFF; display: flex; align-items: center; gap: 12px; text-align: left">
@@ -69,6 +71,7 @@ button:disabled{cursor:default}
 <div style="padding: 6px 10px; border-radius: 10px; background: #FDEBE6; color: #C7361E; font-size: 14px; font-weight: 800">{{ daysLeft }}</div>
 </button>
 </div>
+</sc-if>
 
 <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 13px; font-weight: 800">1日の勉強時間　Daily study time</div>
@@ -146,14 +149,15 @@ const look = (on) => on
 : { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#1B2440' };
 /* this app covers N5 to N2; N1 is a separate app */
 const C = window.ykCourse;
-const written = {};
-C.levels().forEach((x) => { written[x.level] = x.ready; });
-const levels = ['N5', 'N4', 'N3', 'N2'].map((label) => {
-const on = s.level === label;
-const off = !written[label];
+/* かな (the kana course), then N5 to N2 */
+const levels = C.levels().map((x) => {
+const on = s.level === x.level;
+const off = !x.ready;
+const name = C.levelName(x.level);
 const lk = off ? { border: '2px dashed #DDE1EC', bg: '#F4F5F9', shadow: 'none', color: '#9AA1B5' } : look(on);
-return { label, on, off, aria: label + (off ? ', not written yet' : ''), pick: () => { if (!off) this.setState({ level: label }); }, ...lk };
+return { label: name, on, off, aria: (x.level === 'KANA' ? 'Kana, hiragana and katakana' : name) + (off ? ', not written yet' : ''), pick: () => { if (!off) this.setState({ level: x.level }); }, ...lk };
 });
+const kana = s.level === 'KANA';
 const paces = [
 { min: 20, big: '20分', small: 'かるく Light' },
 { min: 30, big: '30分', small: 'ふつう Regular' },
@@ -179,10 +183,15 @@ const fits = [
 const left = C.daysBetween(today, exam);
 return {
 daysLeft: left > 0 ? 'あと' + left + '日' : '',
-planTitle: units + 'ユニット　Your ' + units + '-unit plan',
-short: !fitsOneADay,
+/* the kana course has no exam: it is one session a day, and N5 comes after it */
+withExam: !kana,
+blankLine: kana ? 'Set a goal and Yaoki gets one eye. The kana are your first step to the exam.' : 'Set a goal and Yaoki gets one eye. He gets the other when you pass.',
+planTitle: kana ? units + '週間　Your ' + units + '-week kana course' : units + 'ユニット　Your ' + units + '-unit plan',
+short: !kana && !fitsOneADay,
 fits,
-planNote: fitsOneADay
+planNote: kana
+? 'Each week: 5 days of new kana (meet them, write each one three times, read words made of them), a まとめ day on the kana that look alike, and a week test. One session a day, ' + sessions + ' in all. There is no exam at this level: N5 comes next.'
+: fitsOneADay
 ? 'Each unit: 6 study days, then a timed week test. One session a day, ' + sessions + ' in all, with the last week kept for mock exams.'
 : s.fit === 'fit'
 ? sessions + ' sessions in ' + room + ' days: some days have two. The last week is kept for mock exams.'
@@ -200,7 +209,7 @@ openSheet: () => this.setState({ sheet: true }),
 closeSheet: () => this.setState({ sheet: false }),
 toMain: (e) => {
 const go = this.props.go;
-if (this.props.save) this.props.save({ level: s.level, plan: { start: today, exam, pace: s.fit, minutes: s.pace }, cur: null });
+if (this.props.save) this.props.save({ level: s.level, plan: kana ? { start: today, exam: null, pace: 'steady', minutes: s.pace } : { start: today, exam, pace: s.fit, minutes: s.pace }, cur: null });
 if (go) { e.preventDefault(); go('Main'); }
 },
 };

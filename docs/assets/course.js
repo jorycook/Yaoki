@@ -10,10 +10,13 @@
   var DAYS_PER_UNIT = 7;            /* 5 study days, まとめ, week test */
 
   /* ---------- levels ----------
-     Each level's lessons are their own data file (course-n5.js, course-n2.js …), all loaded side by side.
+     Each level's lessons are their own data file (course-kana.js, course-n5.js, course-n2.js …), all loaded side by side.
      One level is current at a time: the learner's (state.level, N2 for saves made before there were several).
-     Session ids carry the level, except N2's, which keep the names they had before (u03d4, u03t). */
-  var ORDER = ['N5', 'N4', 'N3', 'N2'];
+     Session ids carry the level, except N2's, which keep the names they had before (u03d4, u03t).
+     KANA, shown as かな, is the level before N5: four weeks of hiragana and katakana, read and written. Its days hold
+     kana lessons instead of grammar, a scene and a skill (Kana, KanaWrite and KanaWords play them), and it has no exam:
+     its plan is one session a day, and it has no mini mock and no readiness check. */
+  var ORDER = ['KANA', 'N5', 'N4', 'N3', 'N2'];
   var LEVEL = 'N2';
   function all() {
     var c = window.__ykCourses || {};
@@ -24,6 +27,12 @@
   function data() { return dataOf(LEVEL); }
   function prefix(lv) { return lv === 'N2' ? '' : lv.toLowerCase(); }
   C.level = function () { return LEVEL; };
+  /* the level as the learner sees it: かな for KANA, the others as they are */
+  C.levelName = function (lv) { lv = lv || LEVEL; return lv === 'KANA' ? 'かな' : lv; };
+  C.isKana = function (lv) { return (lv || LEVEL) === 'KANA'; };
+  /* does a study day of any level hold lessons yet (grammar, or a kana day's) */
+  function written(day) { return !!(day && (day.grammar || day.kana)); }
+  C.written = written;
   C.setLevel = function (lv) { if (lv && all()[lv]) LEVEL = lv; else if (!lv) LEVEL = 'N2'; return LEVEL; };
   /* the kanji of the levels under the current one: a learner on this level is taken to write them already, so the
      writing practice asks only for the level's own (and for none the learner has written in the app before) */
@@ -35,12 +44,12 @@
     return ORDER.map(function (lv) {
       var d = all()[lv];
       var ready = 0;
-      if (d) d.units.forEach(function (u) { (u.days || []).forEach(function (x) { if (x && x.grammar) ready++; }); });
+      if (d) d.units.forEach(function (u) { (u.days || []).forEach(function (x) { if (written(x)) ready++; }); });
       return { level: lv, ready: ready > 0, days: ready, units: d ? d.units.length : 0 };
     });
   };
   /* the level a session or item id belongs to */
-  C.levelOf = function (id) { var m = /^n(\d)/.exec(id || ''); return m ? 'N' + m[1] : 'N2'; };
+  C.levelOf = function (id) { if (/^kana/.test(id || '')) return 'KANA'; var m = /^n(\d)/.exec(id || ''); return m ? 'N' + m[1] : 'N2'; };
 
   /* ---------- text markup ----------
      {ばかりに}        highlighted (the pattern being taught)
@@ -112,7 +121,7 @@
     C.units().forEach(function (u) {
       for (var d = 1; d <= 6; d++) {
         var day = (u.days || [])[d - 1] || null;
-        list.push({ id: sid(u.n, d), unit: u.n, day: d, kind: d === 6 ? 'matome' : 'study', ready: !!(day && day.grammar), title: day ? day.title : '' });
+        list.push({ id: sid(u.n, d), unit: u.n, day: d, kind: d === 6 ? 'matome' : 'study', ready: written(day), title: day ? day.title : '' });
       }
       list.push({ id: sid(u.n, 't'), unit: u.n, day: 7, kind: 'test', ready: !!(u.test && u.test.length), title: '週テスト' });
     });
@@ -125,8 +134,13 @@
     for (var i = 0; i < all.length; i++) if (all[i].id === id) return all[i];
     return null;
   };
+  /* a session id's unit and day (u03d4: unit 3, day 4; n5u01t: unit 1, its week test, day 7) */
+  C.parts = function (id) {
+    var m = /^(?:n\d|kana)?u(\d+)(?:d(\d)|(t))$/.exec(id || '');
+    return m ? { unit: +m[1], day: m[3] ? 7 : +m[2] } : null;
+  };
   C.day = function (id) {
-    var m = /^(?:n\d)?u(\d+)d(\d)$/.exec(id || '');
+    var m = /^(?:n\d|kana)?u(\d+)d(\d)$/.exec(id || '');
     if (!m) return null;
     var us = dataOf(C.levelOf(id)).units || [];
     var u = null;
@@ -279,7 +293,7 @@
     el.src = base + f;
     (document.head || document.body || document.documentElement).appendChild(el);
   };
-  function unitOfId(id) { var m = /^(?:n\d)?u(\d+)/.exec(id || ''); return m ? +m[1] : 0; }
+  function unitOfId(id) { var m = /^(?:n\d|kana)?u(\d+)/.exec(id || ''); return m ? +m[1] : 0; }
   C.view = function (state) {
     C.setLevel(state.level || 'N2');
     var status = C.status(state, C.now());
@@ -289,8 +303,8 @@
     var unitN = session ? session.unit : C.units().length ? C.units()[0].n : 1;
     /* this unit's sound, and that of the units the notebook will ask about */
     C.needSound(LEVEL, unitN);
-    /* the level's mini mock sound (unit 0) is small; fetch it with the first unit */
-    C.needSound(LEVEL, 0);
+    /* the level's mini mock sound (unit 0) is small; fetch it with the first unit (the kana level has no mini mock) */
+    if (LEVEL !== 'KANA') C.needSound(LEVEL, 0);
     (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
     return {
       status: status,
@@ -310,6 +324,8 @@
       wrote: state.wrote || '',
       wroteWords: state.wroteWords || [],
       level: LEVEL,
+      levelName: C.levelName(LEVEL),
+      kana: LEVEL === 'KANA',
       levels: C.levels()
     };
   };
@@ -375,9 +391,11 @@
   C.STEPS = STEPS;
   C.DAYS_PER_UNIT = DAYS_PER_UNIT;
 
-  /* the colours of an item's tag, by exam area */
+  /* the colours of an item's tag, by exam area (the kana level's own: かな and ことば) */
   C.area = function (type) {
     var t = type || '';
+    if (/かな/.test(t)) return { key: 'kana', ja: 'かな', en: 'Kana', tagBg: '#FDEBE6', tagColor: '#C7361E' };
+    if (/ことば|ぶん/.test(t)) return { key: 'words', ja: 'ことば', en: 'Words', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
     if (/漢字|表記|語形成|文脈|言い換え|用法|語彙/.test(t)) return { key: 'vocab', ja: '文字・語彙', en: 'Kanji, vocabulary', tagBg: '#FDEBE6', tagColor: '#C7361E' };
     if (/文法/.test(t)) return { key: 'grammar', ja: '文法', en: 'Grammar', tagBg: '#E8ECFB', tagColor: '#2F4FD0' };
     if (/課題|ポイント|概要|即時|発話|聴/.test(t)) return { key: 'listening', ja: '聴解', en: 'Listening', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };

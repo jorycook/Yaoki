@@ -37,6 +37,7 @@ run "N4 mini mock"                timeout 400 bash run.sh n4-mock.js
 run "N3 mini mock"                timeout 400 bash run.sh n3-mock.js
 run "sound decode"                timeout 120 bash run.sh sound-test.js
 run "writing with a finger"       timeout 900 bash run.sh write-flow.js
+run "kana course"                 timeout 900 bash run.sh kana-flow.js
 else
 run "writing with a finger"       timeout 900 bash run.sh write-flow-n1.js
 fi

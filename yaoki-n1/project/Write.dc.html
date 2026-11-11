@@ -68,7 +68,9 @@ button{font:inherit;color:inherit;cursor:pointer}
      { kind: 'kanji', c }  a new kanji, written three times: traced over its strokes (the stroke order plays first), then
                            over very faint strokes, then from memory
      { kind: 'word', w, cells: [{ c, write, known }] }  a word written one kanji at a time: each kanji the learner has
-                           written before from memory, one not met yet traced (after its stroke order), kana shown as given
+                           written before from memory, one not met yet traced (after its stroke order), kana shown as given.
+                           unit: 'kana' writes it a kana at a time (the kana course), and hide: true keeps the characters
+                           out of the line under the pad and the labels, for a word written from what is heard
      { kind: 'show', c }   a kanji already written: shown written out, its stroke order played on request
    props.size is the pad's width in pixels (250 by default); props.strip false leaves out the stroke-order strip.
    On its own the artboard shows the designed moment: 書, the second time, a little over half its strokes in. */
@@ -226,6 +228,7 @@ if (!msg) {
 if (show) msg = s.playing ? '書き順 The stroke order.' : '書きました Written already. Play the stroke order to see it again.';
 else if (s.finished) msg = word ? 'できた！ ' + (t.w || '') + ' is written.' : 'できた！ Written three times.';
 else if (s.playing) msg = '書き順 Watch the order. Touch the pad to start writing.';
+else if (word && t.hide) msg = (t.unit === 'kana' ? 'Kana ' : 'Character ') + (s.cell + 1) + ' of ' + ws.length + ', from memory · stroke ' + at + ' of ' + n;
 else if (word) msg = (cur.known ? 'Write ' + c + ' from memory' : 'Trace ' + c + ': it is new to you') + ' · stroke ' + at + ' of ' + n;
 else if (s.rep === 0) msg = 'Trace it, starting at the red dot · stroke ' + at + ' of ' + n;
 else if (s.rep === 1) msg = 'Again, over faint lines · stroke ' + at + ' of ' + n;
@@ -252,6 +255,7 @@ dotColor: done ? '#FFFFFF' : now ? '#2F4FD0' : '#5A6382',
 let k = 0;
 const cells = (t.cells || []).map((x) => {
 if (!x.write) return { c: x.c, ink: false, text: true, textColor: '#5A6382', border: '2px solid #DDE1EC', bg: '#F4F5F9', shadow: 'none', aria: x.c + ', given' };
+const name = t.hide ? (t.unit === 'kana' ? 'Kana ' : 'Character ') + (k + 1) : x.c;
 const idx = k++;
 const written = idx < s.cell || (idx === s.cell && (s.finished || s.flash));
 const now = idx === s.cell && !written;
@@ -263,7 +267,7 @@ textColor: '#1B2440',
 border: now ? '2.5px solid #2F4FD0' : written ? '2px solid #1B2440' : '2px dashed #C9D0E3',
 bg: now ? '#E8ECFB' : '#FFFFFF',
 shadow: written ? '0 3px 0 #1B2440' : 'none',
-aria: x.c + (written ? ', written' : now ? ', writing now' : ', to write'),
+aria: name + (written ? ', written' : now ? ', writing now' : ', to write'),
 };
 });
 const tone = s.tone === 'miss' ? '#C7361E' : s.tone === 'good' || s.finished ? '#0B7A6B' : '#1B2440';
@@ -272,7 +276,7 @@ isKanji: !word && !show,
 isWord: word,
 reps,
 cells,
-cellsAria: (t.w || '') + ', written one kanji at a time',
+cellsAria: (t.hide ? 'The word' : t.w || '') + ', written one ' + (t.unit === 'kana' ? 'kana' : 'kanji') + ' at a time',
 /* a word of up to seven characters in cells of 46 px; a longer one in smaller cells, so it keeps to one row */
 cellPx: (cells.length <= 7 ? 46 : 40) + 'px',
 cellGap: (cells.length <= 7 ? 6 : 4) + 'px',
@@ -295,7 +299,7 @@ againColor: show ? '#9AA1B5' : '#1B2440',
 againCursor: show ? 'default' : 'pointer',
 showStrip: this.props.strip !== false && n > 0,
 strokeCount: n === 1 ? '1 stroke' : n + ' strokes',
-stripAria: 'The stroke order of ' + c + ', ' + n + (n === 1 ? ' stroke' : ' strokes'),
+stripAria: 'The stroke order of ' + (t.hide ? 'this character' : c) + ', ' + n + (n === 1 ? ' stroke' : ' strokes'),
 stripChar: c,
 /* writing from memory, the strip would give the kanji away: it keeps its place, hidden */
 stripVis: this.want().mode === 'memory' && !s.finished ? 'hidden' : 'visible',

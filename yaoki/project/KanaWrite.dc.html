@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kana writing</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
+<script src="./course.js"></script>
+<script src="./strokes.js"></script>
+<script src="./yk-write.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div role="img" aria-label="{{ countAria }}" style="flex-grow: 1; height: 10px; border-radius: 5px; background: #DDE1EC; overflow: hidden"><div style="height: 10px; border-radius: 0 5px 5px 0; background: #C7361E; transition: width 300ms; width: {{ barW }}"></div></div>
+<div style="font-size: 12px; font-weight: 800; color: #C7361E; white-space: nowrap; flex-shrink: 0"><span lang="ja">書く</span> WRITE</div>
+</div>
+
+<div style="flex-grow: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div style="margin-top: 4px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0">
+<h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.3">{{ head }}</h1>
+<div style="padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0">{{ count }}</div>
+</div>
+
+<sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
+<div lang="ja" style="font-size: 18px; font-weight: 800">ぜんぶ書きました</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">You have already written every kana and word of this day. On to the words.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ some }}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 8px; padding: 10px 12px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px; flex-shrink: 0">
+<sc-if value="{{ wi.isKana }}" hint-placeholder-val="{{ true }}"><div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 46px; font-weight: 600; line-height: 1; flex-shrink: 0">{{ wi.big }}</div></sc-if>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<div style="font-size: 11px; font-weight: 800; color: #C7361E"><span lang="ja">{{ wi.kindJa }}</span>　{{ wi.kindEn }}</div>
+<div style="font-size: 18px; font-weight: 800; line-height: 1.3; color: #1B2440">{{ wi.read }}</div>
+<sc-if value="{{ wi.hasMean }}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; font-weight: 500; line-height: 1.35; color: #5A6382">{{ wi.mean }}</div></sc-if>
+</div>
+<sc-if value="{{ canPlay }}" hint-placeholder-val="{{ true }}"><button onClick="{{ play }}" aria-label="{{ wi.playAria }}" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button></sc-if>
+</div>
+<div style="margin-top: 10px; flex-shrink: 0">
+<dc-import name="Write" task="{{ task }}" tkey="{{ tkey }}" finished="{{ finished }}" size="{{ size }}" hint-size="358px,480px"></dc-import>
+</div>
+</sc-if>
+</div>
+<button onClick="{{ next }}" aria-disabled="{{ locked }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ btn.border }}; background: {{ btn.bg }}; color: {{ btn.color }}; box-shadow: {{ btn.shadow }}; cursor: {{ btn.cursor }}"><span lang="ja">{{ nextJa }}</span>　{{ nextEn }}</button>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"moment":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* The writing lesson of a day of the kana course: each of the day's new kana written three times with a finger, in
+   stroke order (traced once its stroke order has played, over faint lines, then from memory: Write.dc.html), then each
+   of its words written from what is heard, a kana at a time and from memory: the word is said, and its meaning and its
+   sound in letters are shown, but not its kana. Next stays shut until the kana or word is written. What was written is
+   kept at once (save: wrote, wroteWords), so nothing is asked twice, and a day whose kana and words were all written
+   before goes straight on. Progress (Today): kk 1 once the kana are written, k 1 once the words are too.
+   On its own the artboard shows the designed moment: the first kana of the course, あ, the second time, part-way. */
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+const app = (props && props.app) || {};
+this.state = { queue: this.queue(this.day(props).write || { kana: '', words: [] }, app.wrote || '', app.wroteWords || []), qi: 0, qDone: false, playing: false };
+}
+day(props) {
+const C = window.ykCourse;
+const app = (props && props.app) || {};
+return (app.day && app.day.kana ? app.day : C.day('kanau01d1')) || { kana: { cards: [] }, write: { kana: '', words: [] } };
+}
+/* the kana first, three times each, then the words; whatever was written before this lesson opened is left out */
+queue(w, wrote, words) {
+const W = window.ykWrite;
+const out = [];
+Array.from(w.kana || '').forEach((c) => { if (wrote.indexOf(c) < 0 && W && W.has(c) && !out.some((x) => x.c === c)) out.push({ kind: 'kana', c }); });
+(w.words || []).forEach((x) => { if (words.indexOf(x.w) < 0 && Array.from(x.w).every((c) => W && W.has(c))) out.push({ kind: 'word', w: x.w, r: x.r, gloss: x.gloss, clip: x.clip }); });
+return out;
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+if (window.ykSound) window.ykSound.stop();
+}
+say(key) {
+clearTimeout(this.timer);
+const snd = window.ykSound;
+const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
+this.setState({ playing: true });
+this.timer = setTimeout(() => this.setState({ playing: false }), sound ? snd.ms(key) + 150 : 700);
+}
+/* a kana as the day's cards give it: its sound in letters and its clip (small kana and ー have none of their own) */
+said(c) {
+const cards = (this.day(this.props).kana || {}).cards || [];
+for (const card of cards) for (const x of card.kana || []) if (x[0] === c) return { r: x[1], clip: x[2] };
+const SMALL = { 'ぁ': 'a', 'ぃ': 'i', 'ぅ': 'u', 'ぇ': 'e', 'ぉ': 'o', 'っ': 'tsu', 'ゃ': 'ya', 'ゅ': 'yu', 'ょ': 'yo', 'ァ': 'a', 'ィ': 'i', 'ゥ': 'u', 'ェ': 'e', 'ォ': 'o', 'ッ': 'tsu', 'ャ': 'ya', 'ュ': 'yu', 'ョ': 'yo' };
+if (SMALL[c]) return { r: 'small ' + SMALL[c], clip: null, note: 'A small kana: written smaller, low in its square.' };
+if (c === 'ー') return { r: 'the long mark', clip: null, note: 'One line across the middle: it makes the sound before it long.' };
+return { r: '', clip: null };
+}
+renderVals() {
+const W = window.ykWrite;
+const s = this.state;
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
+const save = (patch) => { if (this.props.save) this.props.save(patch); };
+const Q = s.queue.length;
+const qi = Math.min(s.qi, Math.max(0, Q - 1));
+const item = s.queue[qi];
+const last = qi >= Q - 1;
+const nextItem = s.queue[qi + 1];
+let task = null;
+let clip = null;
+let wi = { isKana: false, big: '', kindJa: '', kindEn: '', read: '', mean: '', hasMean: false, playAria: '' };
+if (item && item.kind === 'kana') {
+const n = W ? W.count(item.c) : 0;
+const x = this.said(item.c);
+clip = x.clip;
+/* on its own the artboard shows its designed moment: the first kana the second time, part-way */
+task = { kind: 'kanji', c: item.c, moment: !this.props.go && qi === 0 };
+wi = { isKana: true, big: item.c, kindJa: '新しいかな', kindEn: 'New kana · ' + n + (n === 1 ? ' stroke' : ' strokes'), read: x.r, mean: x.note || '', hasMean: !!x.note, playAria: 'Hear ' + item.c };
+} else if (item) {
+clip = item.clip;
+task = { kind: 'word', w: item.w, hide: true, unit: 'kana', cells: Array.from(item.w).map((c) => ({ c, write: true, known: true })) };
+wi = { isKana: false, big: '', kindJa: 'ききとり', kindEn: 'Write the word you hear', read: item.r, mean: item.gloss + ' · ' + Array.from(item.w).length + ' kana', hasMean: true, playAria: 'Hear the word again' };
+}
+const locked = !!item && !s.qDone;
+const nextName = !item || last ? 'Next: the words' : nextItem.kind === 'kana' ? 'Next kana' : item.kind === 'kana' ? 'Next: words you hear' : 'Next word';
+return {
+head: !Q ? 'All written' : item.kind === 'kana' ? 'Write it three times' : 'Write what you hear',
+count: Q ? (qi + 1) + ' / ' + Q : '済',
+countAria: Q ? 'Writing ' + (qi + 1) + ' of ' + Q : 'All written',
+barW: Math.round(((qi + (s.qDone ? 1 : 0)) / Math.max(1, Q)) * 100) + '%',
+none: !Q,
+some: Q > 0,
+wi,
+task,
+tkey: item ? (item.kind === 'kana' ? 'k:' + item.c : 'w:' + item.w) + ':' + qi : 'none',
+size: 270,
+canPlay: !!clip,
+playBg: s.playing ? '#F2B43A' : '#E8ECFB',
+play: () => { if (clip) this.say(clip); },
+/* written: kept at once, so leaving the lesson now loses nothing */
+finished: () => {
+if (!item) return;
+if (item.kind === 'kana') save({ wrote: item.c });
+else save({ wroteWords: [item.w] });
+if (item.kind === 'kana' && (!nextItem || nextItem.kind !== 'kana')) save({ prog: { kk: 1 } });
+this.setState({ qDone: true });
+},
+locked,
+nextJa: locked ? '書いてから' : 'つぎへ',
+nextEn: locked ? (item.kind === 'kana' ? 'Write it three times first' : 'Write the word first') : nextName,
+btn: locked
+? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none', cursor: 'default' }
+: { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440', cursor: 'pointer' },
+next: (e) => {
+if (locked) return;
+if (item && !last) {
+this.setState({ qi: qi + 1, qDone: false });
+/* a word to write is said as it comes up (inside the tap that brought it) */
+if (nextItem.kind === 'word') this.say(nextItem.clip);
+return;
+}
+save({ prog: { kk: 1, k: 1 } });
+nav('Today')(e);
+},
+toToday: nav('Today'),
+};
+}
+}
+</script>
+</body>
+</html>

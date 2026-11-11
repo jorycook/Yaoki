@@ -6,6 +6,7 @@
 <script src="./support.js"></script>
 <script src="./sound.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
 <script src="./course-n5.js"></script>
 <script src="./course-n4.js"></script>
 <script src="./course-n3.js"></script>
@@ -30,7 +31,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif">
 <sc-if value="{{ at.Goal }}" hint-placeholder-val="{{ true }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Goal" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
-<sc-if value="{{ at.Main }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Main }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" switch-level="{{ switchLevel }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Today }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Today" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Teach }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Teach" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Compare }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Compare" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
@@ -41,14 +42,17 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ at.MockRun }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="MockRun" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Scene }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Scene" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Reading }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Reading" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
-<sc-if value="{{ at.WeekTest }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.WeekTest }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" switch-level="{{ switchLevel }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Notebook }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Notebook" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Readiness }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Readiness" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.Listening }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Listening" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Kana }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Kana" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.KanaWrite }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWrite" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.KanaWords }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWords" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
-const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
+const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Kana', 'KanaWrite', 'KanaWords'];
 class Component extends DCLogic {
 constructor(props) {
 super(props);
@@ -67,6 +71,8 @@ go: this.h.go,
 save: this.h.save,
 miss: this.h.miss,
 reviewed: this.h.reviewed,
+/* the end of the kana course leads on to N5 */
+switchLevel: (lv) => this.h.level(lv),
 };
 }
 }

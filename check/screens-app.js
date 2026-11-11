@@ -34,6 +34,21 @@ let SCREENS = [
   ['MockRun', ''],
   ['Readiness', ''],
 ];
+/* the kana course (かな): its goal, week path and day 1 of week 1 with its three lessons, part-way and done */
+const kana = (p) => '&level=KANA&plan=' + enc({ start: '2026-11-11', exam: null, pace: 'steady' }) + '&cur=kanau01d1' + (p ? '&done=' + enc({ kanau01d1: p }) : '');
+SCREENS.push(
+  ['Goal', '&level=KANA', 'kana'],
+  ['Main', kana(), 'kana'],
+  ['Today', kana({ g: 1 }), 'kana-taught'],
+  ['Today', kana({ g: 3, kk: 1, k: 1, rs: 1, r: 1 }), 'kana-day-done'],
+  ['Kana', kana(), 'learn'],
+  ['Kana', kana({ g: 1 }), 'practice'],
+  ['Kana', kana({ g: 2 }), 'check'],
+  ['KanaWrite', kana(), ''],
+  ['KanaWords', kana(), 'read'],
+  ['KanaWords', kana({ rs: 1 }), 'quiz'],
+  ['Notebook', kana(), 'kana'],
+);
 
 if (LEVEL === 'N1') {
   const { course } = require('./level.js');

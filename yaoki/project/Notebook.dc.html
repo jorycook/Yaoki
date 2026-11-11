@@ -5,6 +5,7 @@
 <title>Mistake notebook</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
 <script src="./course-n5.js"></script>
 <script src="./course-n4.js"></script>
 <script src="./course-n3.js"></script>
@@ -73,7 +74,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="flex-grow: 1; font-size: 11px; font-weight: 700; color: #5A6382">{{ r.due }}</div>
 <div role="img" aria-label="{{ r.pipLabel }}" style="display: flex; gap: 4px"><sc-for list="{{ r.pipList }}" as="p" hint-placeholder-count="3"><div style="width: 10px; height: 10px; box-sizing: border-box; border-radius: 50%; border: {{ p.border }}; background: {{ p.bg }}"></div></sc-for></div>
 </div>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600"><sc-for list="{{ r.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
+<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600"><sc-for list="{{ r.segs }}" as="g" hint-placeholder-count="1"><span style="border-bottom: {{ g.line }}; border-radius: 4px; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-for></div>
 <div lang="ja" style="display: flex; flex-wrap: wrap; align-items: center; gap: 3px 6px; font-size: 13px; font-weight: 800">
 <span style="display: inline-flex; align-items: center; gap: 6px; max-width: 100%"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="You answered" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg><span style="color: #5A6382; min-width: 0">{{ r.wrong }}</span></span>
 <span style="display: inline-flex; align-items: center; gap: 6px; max-width: 100%"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 12h14M13 6l6 6-6 6"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg><span style="min-width: 0">{{ r.right }}</span></span>
@@ -91,7 +92,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <nav aria-label="Main" style="flex-shrink: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
 <a href="Main.dc.html" onClick="{{ toMain }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
 <a href="Notebook.dc.html" onClick="{{ toNotebook }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
-<a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
+<a href="Mock.dc.html" onClick="{{ toMock }}" aria-disabled="{{ mockOff }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: {{ mockInk }}; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ mockLabel }}</a>
 <a href="Readiness.dc.html" onClick="{{ toReadiness }}" aria-disabled="{{ readyOff }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: {{ readyInk }}; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
 </nav>
 
@@ -101,14 +102,15 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 /* a question as the notebook quotes it: the sentence or the question, shortened to one line */
 function quote(C, it) {
 if (it.kind === 'star') return [{ t: '…' + C.plain(it.before).slice(-8) + ' ' + ['＿', '＿', '＿', '＿'].map((b, k) => (k === it.star ? '★' : b)).join(' ') + ' ' + C.plain(it.after).slice(0, 10), line: 'none' }];
-const segs = C.rich(it.q, { ruby: false, hl: false });
+/* a question on one kana of a sentence (ぶん読み, the kana course) keeps that kana marked */
+const segs = C.rich(it.q, { ruby: false, hl: it.type === 'ぶん読み' });
 const out = [];
 let room = 21;
 for (const g of segs) {
 if (room <= 0) break;
 const t = g.t.length > room ? g.t.slice(0, room) + '…' : g.t;
 room -= g.t.length;
-out.push({ t, line: g.line });
+out.push({ t, line: g.line, bg: g.bg, pad: g.pad });
 }
 return out;
 }
@@ -168,7 +170,11 @@ cleared: cleared.length > 0,
 clearedLine: 'Cleared today: ' + cleared.length + (cleared.length === 1 ? ' item' : ' items') + ' left the notebook.',
 toMain: nav('Main'),
 toNotebook: nav('Notebook'),
-toMock: nav('Mock'),
+/* the kana course has no mock exam (N5 has the first) */
+toMock: app.level === 'KANA' ? (e) => e.preventDefault() : nav('Mock'),
+mockOff: app.level === 'KANA',
+mockInk: app.level === 'KANA' ? '#B9BFD0' : '#5A6382',
+mockLabel: app.level === 'KANA' ? '模試 N5から' : 'Mock exam',
 /* the readiness check exists for N2 only so far */
 readyOff: (app.level || 'N2') !== 'N2',
 readyInk: (app.level || 'N2') !== 'N2' ? '#B9BFD0' : '#5A6382',

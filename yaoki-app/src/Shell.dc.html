@@ -15,7 +15,7 @@
 </helmet>
 <div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict">
 <sc-if value="{{ at.Goal }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Goal" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.Main }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Main }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Main" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}" switch-level="{{ switchLevel }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Today }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Today" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Teach }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Teach" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Compare }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Compare" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
@@ -26,13 +26,18 @@
 <sc-if value="{{ at.Exam }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Exam" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Scene }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Scene" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Reading }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Reading" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
-<sc-if value="{{ at.WeekTest }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.WeekTest }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="WeekTest" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}" switch-level="{{ switchLevel }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Notebook }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Notebook" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Review }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Review" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Mock }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Mock" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.MockRun }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="MockRun" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Readiness }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Readiness" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.Listening }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Listening" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" reviewed="{{ reviewed }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<!-- #if !N1 -->
+<sc-if value="{{ at.Kana }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Kana" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.KanaWrite }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWrite" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.KanaWords }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWords" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<!-- #end -->
 
 <sc-if value="{{ menuOpen }}">
 <div style="position: absolute; left: 0; top: 0; width: 390px; height: 844px; display: flex; flex-direction: column; background: rgba(27, 36, 64, 0.5); animation: yk-fade 160ms ease-out">
@@ -58,13 +63,13 @@
 </sc-if>
 <!-- #else -->
 <div style="padding: 12px 14px; border-radius: 16px; background: #F4F5F9; display: flex; flex-direction: column; gap: 8px">
-<div style="font-size: 13px; font-weight: 800"><span lang="ja">レベル</span>　Level · {{ level }}</div>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
-<sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
-<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 44px; border-radius: 12px; font-weight: 800; font-size: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
+<div style="font-size: 13px; font-weight: 800"><span lang="ja">レベル</span>　Level · <span lang="ja">{{ level }}</span></div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{ levels }}" as="l" hint-placeholder-count="5">
+<button aria-pressed="{{ l.on }}" disabled="{{ l.off }}" aria-label="{{ l.aria }}" onClick="{{ l.pick }}" style="height: 44px; padding: 0; border-radius: 12px; font-weight: 800; font-size: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ l.border }}; background: {{ l.bg }}; color: {{ l.color }}">{{ l.label }}<sc-if value="{{ l.off }}" hint-placeholder-val="{{ false }}"><span style="font-size: 9px; font-weight: 700">準備中</span></sc-if></button>
 </sc-for>
 </div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">Each level keeps its own plan and notebook. The course is being written unit by unit; days not written yet are marked 準備中.</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45"><span lang="ja">かな</span> is the kana course before N5. Each level keeps its own plan and notebook. The course is being written unit by unit; days not written yet are marked 準備中.</div>
 </div>
 <!-- #end -->
 
@@ -135,7 +140,7 @@ const levels = app.levels.map((x) => {
 const on = x.level === app.level;
 const off = !x.ready;
 return {
-label: x.level, on, off, aria: x.level + (off ? ', not written yet' : on ? ', current level' : ''),
+label: window.ykCourse.levelName(x.level), on, off, aria: (x.level === 'KANA' ? 'Kana, hiragana and katakana' : x.level) + (off ? ', not written yet' : on ? ', current level' : ''),
 border: on ? '2px solid #1B2440' : off ? '2px dashed #DDE1EC' : '2px solid #DDE1EC',
 bg: on ? '#2F4FD0' : '#FFFFFF', color: on ? '#FFFFFF' : off ? '#9AA1B5' : '#1B2440',
 pick: () => { if (off) return; closeMenu(); this.h.level(x.level); },
@@ -154,8 +159,10 @@ miss: (m) => this.setState((st) => ({ mistakes: [{ ...m, at: Date.now() }].conca
 planned: !!s.plan,
 changeGoal: () => { closeMenu(); this.setState({ screen: 'Goal' }); },
 /* #else */
-level: app.level,
+level: window.ykCourse.levelName(app.level),
 levels,
+/* the end of the kana course leads on to N5: the same level change as the menu's */
+switchLevel: (lv) => this.h.level(lv),
 go: this.h.go,
 save: this.h.save,
 miss: this.h.miss,
@@ -197,7 +204,7 @@ version: window.ykApp.version,
 /* #if N1 */
 const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
 /* #else */
-const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
+const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Kana', 'KanaWrite', 'KanaWords'];
 /* #end */
 </script>
 </body>

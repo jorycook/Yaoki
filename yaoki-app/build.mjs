@@ -3,7 +3,7 @@
 //        YK_LEVEL=N1 node build.mjs              (the N1 app, from ../yaoki-n1/project, into dist-n1/)
 //
 // What it does:
-//   1. takes the screens the prototype plays (16 for the main app, 17 for N1: see LEVELS), plus the app's own shell and install page (src/*.dc.html),
+//   1. takes the screens the prototype plays (20 for the main app, 18 for N1: see LEVELS), plus the app's own shell and install page (src/*.dc.html),
 //      and turns each into one YK.define(...) call in assets/screens.js (template text + logic class);
 //   2. gathers the small style rules the screens declare into assets/screens.css;
 //   3. cuts the two typefaces down to the characters used (fonts.py) and draws the icons;
@@ -19,24 +19,24 @@ import { fileURLToPath } from 'node:url';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 /* one app per set of screens, each with its own screens, name, icon colour and scripts; the shell around the screens
-   (src/) is shared. N2 is the main app, for N5 to N2: the learner picks the level in the app, and each level's course is
-   data (course-n5.js … course-n2.js, made from content/ by tools/build-course.mjs). N1 is an app of its own, with its
+   (src/) is shared. N2 is the main app, for かな (the kana course) and N5 to N2: the learner picks the level in the app, and
+   each level's course is data (course-kana.js, course-n5.js … course-n2.js, made from content/ by tools/build-course.mjs). N1 is an app of its own, with its
    course bank and plan (n1-content.js, n1.js) and its spoken clips as files (audio/).
    The few lines of the shared files that belong to one app only are marked (see forLevel below). */
 const LEVELS = {
   N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype with N2 sample content.', credits: '',
-    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write'],
-    /* run first: the course content, checked and turned into course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
+    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write', 'Kana', 'KanaWrite', 'KanaWords'],
+    /* run first: the course content, checked and turned into course-kana.js, course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
     prepare: '../tools/build-course.mjs',
     /* loaded after the sound player and before the screens; words: the ones whose text the typefaces must hold.
        strokes.js and yk-write.js are the writing practice (Write, part of Scene): the strokes and the pad */
-    scripts: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js', 'course.js', 'strokes.js', 'yk-write.js'],
-    words: ['course-n2.js', 'course-n5.js', 'course-n4.js', 'course-n3.js'],
-    /* the clips, loaded after the app; each level's sound by unit (sound-course-n5-u01.js …) is fetched by course.js
+    scripts: ['course-n2.js', 'course-kana.js', 'course-n5.js', 'course-n4.js', 'course-n3.js', 'course.js', 'strokes.js', 'yk-write.js'],
+    words: ['course-n2.js', 'course-kana.js', 'course-n5.js', 'course-n4.js', 'course-n3.js'],
+    /* the clips, loaded after the app; each level's sound by unit (sound-course-kana-u01.js, sound-course-n5-u01.js …) is fetched by course.js
        when the unit is in use, and stored by the offline worker when used, not at install (lazy) */
     sounds: ['sound-mock.js', 'sound-lessons.js', 'sound-course.js'],
-    unitSound: /^sound-course-n\d-u\d+\.js$/,
-    lazy: /^\.\/assets\/sound-course-n\d-u\d+\.js$/ },
+    unitSound: /^sound-course-(?:n\d|kana)-u\d+\.js$/,
+    lazy: /^\.\/assets\/sound-course-(?:n\d|kana)-u\d+\.js$/ },
   N1: { project: '../yaoki-n1/project', out: 'dist-n1', name: 'Yaoki N1', full: 'Yaoki JLPT N1', tile: '#2F4FD0', about: 'Prototype N1 course, planned to your exam date.', credits: 'Kanji data: KANJIDIC2 and JMdict, by the EDRDG (CC BY-SA 4.0). ',
     screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write'],
     /* the content bank and the plan that lays it out (tools/build-content.mjs makes n1-content.js), and the list of the spoken clips;
