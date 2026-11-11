@@ -72,14 +72,14 @@
    }
   ],
   "compare": {
-   "intro": "に応じて changes something to match a factor, に沿って follows a line or a plan without leaving it, and N3 によって only says that things differ from case to case.",
+   "intro": "に応じて sets or changes something to match a factor, に沿って follows a line or a plan without leaving it, and によって, in its N3 sense \"depending on\", just says that things differ from case to case.",
    "forms": [
     {
      "form": "〜に応じて",
      "tag": "合わせて変える · to suit",
      "mark": "dot",
-     "ja": "注文の量{に応じて}、配達料が安くなります。",
-     "en": "The delivery charge goes down according to how much you order."
+     "ja": "その日の天気{に応じて}、着る服を選んでいます。",
+     "en": "I choose what to wear to suit the weather each day."
     },
     {
      "form": "〜に沿って",
@@ -92,8 +92,8 @@
      "form": "〜によって",
      "tag": "違い · differs by",
      "mark": "dot",
-     "ja": "地域{によって}、ごみの出し方が異なる。",
-     "en": "How you put out rubbish differs from area to area."
+     "ja": "店{によって}、閉店時間が違う。",
+     "en": "Closing times differ from shop to shop."
     }
    ],
    "check": {
@@ -109,9 +109,9 @@
     ],
     "answer": 2,
     "why": [
-     "に応じて needs something that varies, like a number of people or a budget. A road does not vary.",
+     "に応じて matches something to a factor such as a number of people or a budget. A road is not a factor you adjust to; you walk along it.",
      "Walking along a road: 道に沿って.",
-     "によって says that things differ by case, or names a means. It cannot mean \"along\"."
+     "によって says that things differ by case, or gives a cause or a means. None of these is walking along a road."
     ]
    }
   },
@@ -143,14 +143,14 @@
     "label": "Choose the form",
     "q": "^ご希望^（　　）お部屋をご用意できず、申し訳ございません。",
     "options": [
-     "をめぐる",
+     "に関わる",
      "にわたる",
      "に限った",
      "に沿った"
     ],
     "answer": 4,
     "why": [
-     "をめぐる names a topic people argue over, as in 予算をめぐる議論. A guest's wishes are not argued over here.",
+     "に関わる means \"affecting\" or \"involved in\", as in 命に関わる病気. Neither fits a room and a guest's wishes.",
      "にわたる follows a stretch of time or space, as in 三日間にわたる会議. 希望 is not a stretch.",
      "に限った limits something to one group or case, as in 会員に限ったサービス. \"A room limited to your wishes\" makes no sense.",
      "A room that matches the guest's wishes: 希望に沿った, the usual phrase for meeting someone's wishes."
@@ -166,14 +166,14 @@
      "に反した",
      "をめぐる",
      "に沿った",
-     "に応じた"
+     "に際しての"
     ],
     "answer": 3,
     "why": [
      "に反した means going against something. To prevent accidents you follow the steps, not break them.",
      "をめぐる names a topic people argue over, as in 予算をめぐる議論. Nobody is arguing over the steps.",
      "Working through the steps in order, without leaving them: 手順に沿った操作.",
-     "に応じた adjusts to something that varies, like a number of people or how you feel. The steps are a fixed order to follow, not a factor to adjust to."
+     "に際しての marks a formal occasion, as in 入社に際しての手続き. The steps in a manual are not an occasion."
     ]
    },
    {
@@ -192,7 +192,7 @@
     "why": [
      "The bonus goes up or down with sales: 売り上げに応じて.",
      "に沿って follows a line or a plan. Sales are a figure that changes, not something to follow.",
-     "に限って singles out one case (その日に限って) or one group (会員に限って). Here sales are neither.",
+     "に限って singles out one case (その日に限って) or limits something to one group (会員に限って). Neither fits a bonus that changes with sales.",
      "にわたって follows a stretch of time or space, such as 十年. Sales are not a stretch."
     ]
    },
@@ -274,7 +274,7 @@
      "をはじめ"
     ],
     "answer": 2,
-    "explain": "The ceremony followed the printed programme step by step: プログラムに沿って. につれて needs a change on both sides, に際して follows an occasion such as 出発, and をはじめ names the first of several examples."
+    "explain": "The ceremony followed the programme handed out beforehand, step by step: プログラムに沿って. につれて needs a change on both sides, に際して follows an occasion such as 出発, and をはじめ names the first of several examples."
    },
    {
     "id": "u09d2.e3",
@@ -284,7 +284,7 @@
     "before": "電気料金は、",
     "after": "いただきます。",
     "tiles": [
-     "使った",
+     "使用した",
      "量に",
      "応じて",
      "お支払い"
@@ -296,15 +296,15 @@
      1,
      0
     ],
-    "full": "電気料金は、使った{量に}応じてお支払いいただきます。",
-    "explain": "使った, 量に, 応じて, お支払い. 使った describes 量, 量に goes with 応じて, and お支払い joins いただきます at the end."
+    "full": "電気料金は、使用した{量に}応じてお支払いいただきます。",
+    "explain": "使用した, 量に, 応じて, お支払い. 使用した describes 量, 量に goes with 応じて, and お支払い joins いただきます at the end."
    }
   ]
  },
  "scene": {
   "ja": "料理教室の案内",
   "en": "A cooking school's course guide",
-  "intro": "Tap every word on the guide that tells you what you will pay, bring or do.",
+  "intro": "Tap every word on the guide you would want to understand before you join a course.",
   "words": [
    {
     "id": "course",
@@ -410,7 +410,7 @@
      [
       "丁",
       "チョウ",
-      "a cook (old use)"
+      "a working man (old use)"
      ]
     ]
    },
@@ -491,7 +491,7 @@
    "explain": "After なお the notice turns to missed lessons: apply at reception by the day before the class you want to join.",
    "why": [
     "",
-    "Option 2 is ruled out by the text. A call on the day is too late, because the ingredients cannot be prepared in time.",
+    "Option 2 is ruled out by the text. Contact on the day itself is too late, because the ingredients cannot be prepared in time.",
     "Option 3 is wrong on two points. The make-up must be in the same month, and in another class.",
     "Option 4 is the opposite. The school says it cannot return the ingredients fee."
    ]
