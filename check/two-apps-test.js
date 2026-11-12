@@ -10,9 +10,8 @@ const { chromium } = require('playwright');
 const N1 = require('./level.js').course();
 const N1_THEME = N1.units[0].ja;
 const N1_LESSON = N1.lessons[0].grammar.patterns[0].p;
-// the main app (N5 to N2): a new plan starts on day 1 of its N2 unit 3, 原因・理由, with 〜ことから
-const MAIN_THEME = '原因・理由';
-const MAIN_LESSON = '〜ことから';
+// the main app (N5 to N2): a new plan starts on day 1 of its first N2 unit (level.js reads it from content/n2)
+const { weekTheme: MAIN_THEME, teachTitle: MAIN_LESSON } = require('./level.js').mainText();
 
 const DOCS = path.resolve(process.env.YK_DOCS || path.join(__dirname, '..', 'docs'));
 const PORT = +(process.env.TWO_APPS_PORT || 8767);

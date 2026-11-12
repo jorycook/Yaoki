@@ -9,9 +9,9 @@ const { openBoard, inspect, out } = require('./rt-check.js');
 
 const LEVEL = process.env.YK_LEVEL || 'N2';
 const enc = (o) => encodeURIComponent(JSON.stringify(o));
-// the main app: each screen in the state a learner meets it in on day 1 of a new plan (u03d1), plus the later states
+// the main app: each screen in the state a learner meets it in on day 1 of a new plan (u01d1), plus the later states
 // the click-throughs pass quickly (content-sweep.js takes every day of the course through its states)
-const day1 = (p) => '&done=' + enc({ u03d1: p });
+const day1 = (p) => '&done=' + enc({ u01d1: p });
 let SCREENS = [
   ['Goal', ''],
   ['Main', ''],

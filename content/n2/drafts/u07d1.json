@@ -1,0 +1,449 @@
+{
+  "title": "〜がちだ・〜気味だ",
+  "grammar": {
+    "points": [
+      {
+        "id": "u07d1.p1",
+        "form": "〜がちだ",
+        "gloss": "tend to, often (usually unwanted)",
+        "connect": [
+          {"pos": "Verb, ます stem", "rule": "忘れます → 忘れ ＋ {がちだ}"},
+          {"pos": "Noun (a few, such as 病気 and 留守)", "rule": "〜 ＋ {がちだ}"},
+          {"pos": "Describing a noun (the last 〜 is the noun)", "rule": "忘れ ＋ {がちな} ＋ 〜"}
+        ],
+        "examples": [
+          {
+            "ja": "人は、自分に都合のいい情報ばかり集め{がちだ}。",
+            "en": "People tend to collect only the information that suits them."
+          },
+          {
+            "ja": "祖母は最近病気{がち}で、外出することが減った。",
+            "en": "My grandmother has often been ill lately, and she goes out less."
+          }
+        ],
+        "watch": {
+          "note": "がち joins the ます stem (食べ), not the dictionary form. It is for something that happens too often, usually something unwanted.",
+          "bad": "疲れていると、つい甘い物を食べるがちだ。",
+          "good": "疲れていると、つい甘い物を食べがちだ。"
+        }
+      },
+      {
+        "id": "u07d1.p2",
+        "form": "〜気味だ",
+        "gloss": "a touch of, slightly (a bad sign)",
+        "connect": [
+          {"pos": "Noun", "rule": "〜 ＋ {気味だ}"},
+          {"pos": "Verb, ます stem", "rule": "疲れます → 疲れ ＋ {気味だ}"},
+          {"pos": "Describing a noun (the last 〜 is the noun)", "rule": "〜 ＋ {気味の} ＋ 〜"}
+        ],
+        "examples": [
+          {
+            "ja": "朝から少し風邪{[気味|ぎみ]}なので、今日は早めに寝ます。",
+            "en": "I've felt a cold coming on since this morning, so I'll go to bed early tonight."
+          },
+          {
+            "ja": "最近、仕事が忙しくて疲れ{気味}です。",
+            "en": "Work has been busy lately, and I'm a bit worn out."
+          }
+        ],
+        "watch": {
+          "note": "気味 means only a touch of a state, so it clashes with a word for a strong state like ひどい. For a strong state, leave 気味 out.",
+          "bad": "ひどい風邪気味で、三日も会社を休んだ。",
+          "good": "ひどい風邪で、三日も会社を休んだ。"
+        }
+      }
+    ],
+    "compare": {
+      "intro": "All three can describe a tendency: がち says how often, 気味 says how much (only a little), and っぽい says what someone is like by nature.",
+      "forms": [
+        {
+          "form": "〜がちだ",
+          "tag": "回数が多い · happens often",
+          "mark": "down",
+          "ja": "雨の日は、バスが遅れ{がちだ}。",
+          "en": "On rainy days, the bus is often late."
+        },
+        {
+          "form": "〜気味だ",
+          "tag": "少しその状態 · a touch of, slightly",
+          "mark": "down",
+          "ja": "今日はバスが少し遅れ{気味}だ。",
+          "en": "Today the bus is running a little late."
+        },
+        {
+          "form": "〜っぽい",
+          "tag": "〜しやすい性質 · prone to, by nature (N3)",
+          "mark": "down",
+          "ja": "父は最近、忘れ{っぽく}なった。",
+          "en": "My father has become forgetful lately."
+        }
+      ],
+      "check": {
+        "id": "u07d1.c1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "隣の部屋",
+        "q": "隣の部屋の人は出張が多くて、留守（　　）だ。",
+        "options": [
+          "がち",
+          "っぽい",
+          "気味"
+        ],
+        "answer": 1,
+        "why": [
+          "出張が多くて says the neighbour is often away. 留守 is one of the few nouns that take がち.",
+          "留守っぽい would mean nobody seems to be in right now, and っぽい is an i-adjective, so it cannot take だ.",
+          "気味 is a little of a state, as in 風邪気味. Being away from home does not come in \"a little\", so 留守気味 is not said."
+        ]
+      }
+    },
+    "drill": [
+      {
+        "id": "u07d1.d1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "子どものころは^体が弱くて^、学校を休み（　　）でした。",
+        "options": [
+          "やすい",
+          "っぽい",
+          "がち",
+          "ばかり"
+        ],
+        "answer": 3,
+        "why": [
+          "休みやすい is an i-adjective, so its past is 休みやすかった, not 休みやすいでした.",
+          "休みっぽい could only mean \"looks like a day off\", which cannot take 学校を, and the past of っぽい is っぽかった, not っぽいでした.",
+          "A weak body, so absent again and again: ます stem 休み + がち.",
+          "With 学校を, 休み is a verb here, and ばかり does not join a ます stem. \"Always absent\" would be 休んでばかりいました."
+        ]
+      },
+      {
+        "id": "u07d1.d2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "^今日は^少し寝不足（　　）で、電車の中で何度もあくびが出た。",
+        "options": [
+          "気味",
+          "がち",
+          "っぽい",
+          "次第"
+        ],
+        "answer": 1,
+        "why": [
+          "A slight state on one day: noun + 気味, with 少し.",
+          "がち says something happens often. 今日は points to one day, so it does not fit. 何度も goes with あくびが出た, not with 寝不足.",
+          "寝不足っぽい is possible in speech, but っぽい is an i-adjective: its te form is っぽくて, not っぽいで.",
+          "After a noun, 次第 means \"depending on\". Nothing here depends on a lack of sleep."
+        ]
+      },
+      {
+        "id": "u07d1.d3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "これは",
+        "after": "なので、気をつけてください。",
+        "tiles": [
+          "初心者が",
+          "やり",
+          "がちな",
+          "ミス"
+        ],
+        "star": 1,
+        "bank": [
+          2,
+          0,
+          3,
+          1
+        ],
+        "hint": "がち joins a ます stem, and がちな describes the noun right after it.",
+        "full": "これは初心者がやり{がち}なミスなので、気をつけてください。",
+        "explain": "初心者が is the subject of やり, and the ます stem やり comes before がちな. がちな then describes ミス, which sits right before なので."
+      },
+      {
+        "id": "u07d1.d4",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "兄は^よく^約束の時間を（　　）なので、前の日に連絡するようにしている。",
+        "options": [
+          "忘れるがち",
+          "忘れっぽい",
+          "忘れたがち",
+          "忘れがち"
+        ],
+        "answer": 4,
+        "why": [
+          "がち joins the ます stem: 忘れがち, not the dictionary form.",
+          "忘れっぽい (forgetful) is an i-adjective. It cannot take an object like 約束の時間を, and it would take ので, not なので.",
+          "がち does not follow the た form.",
+          "よく says it happens often: ます stem 忘れ + がち, which keeps the object 約束の時間を."
+        ]
+      },
+      {
+        "id": "u07d1.d5",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "初めての発表で、彼は^少し^（　　）だったが、最後まではっきり話せた。",
+        "options": [
+          "緊張の気味",
+          "緊張気味",
+          "緊張する気味",
+          "緊張な気味"
+        ],
+        "answer": 2,
+        "why": [
+          "気味 joins the noun directly, with no の: 緊張気味.",
+          "Noun + 気味 directly: a slight state during one talk, as 少し says.",
+          "気味 does not follow the dictionary form. With a verb it takes the ます stem, as in 疲れ気味.",
+          "緊張 is a noun, not a na-adjective, so な cannot join it."
+        ]
+      },
+      {
+        "id": "u07d1.d6",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "店員さんにすすめられて、",
+        "after": "フードを買った。",
+        "tiles": [
+          "太り",
+          "気味の",
+          "犬の",
+          "ための"
+        ],
+        "star": 1,
+        "bank": [
+          3,
+          1,
+          0,
+          2
+        ],
+        "hint": "気味の describes a noun. Which tile does it describe, and what is the food for?",
+        "full": "店員さんにすすめられて、太り{気味}の犬のためのフードを買った。",
+        "explain": "The ます stem 太り comes before 気味の, and 気味の describes 犬. 犬のための then describes フード: food for a slightly overweight dog."
+      }
+    ],
+    "exam": [
+      {
+        "id": "u07d1.e1",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "面倒な仕事は、誰でもつい後回しにし（　　）。",
+        "options": [
+          "気味だ",
+          "がちだ",
+          "かけだ",
+          "っぽい"
+        ],
+        "answer": 2,
+        "explain": "誰でも and つい describe what people tend to do, so ます stem + がちだ. 気味だ notes a little of a state in someone, like 疲れ気味, not a habit everyone shares; かけ is for something half-done, and 後回しにしかけ is not said; and 後回しにしっぽい is not a word."
+      },
+      {
+        "id": "u07d1.e2",
+        "kind": "choice",
+        "type": "文の文法1",
+        "label": "Choose the form",
+        "q": "締め切りが近いせいか、チームの皆が少し焦り（　　）だ。",
+        "options": [
+          "っぽい",
+          "かけ",
+          "気味",
+          "ばかり"
+        ],
+        "answer": 3,
+        "explain": "A slight state showing now: ます stem 焦り + 気味. っぽい is an i-adjective and cannot take だ, 焦りかけ is not said, and 焦りばかり would mean \"nothing but impatience\", which does not fit 皆が少し."
+      },
+      {
+        "id": "u07d1.e3",
+        "kind": "star",
+        "type": "文の文法2",
+        "label": "Build the sentence",
+        "before": "冬は",
+        "after": "がちだ。",
+        "tiles": [
+          "日が",
+          "短く",
+          "家に",
+          "こもり"
+        ],
+        "star": 2,
+        "bank": [
+          2,
+          3,
+          0,
+          1
+        ],
+        "full": "冬は日が短く{家に}こもりがちだ。",
+        "explain": "日が, 短く, 家に, こもり. 日が短く gives the reason. がちだ needs the ます stem こもり right before it, and 家に goes with こもり."
+      }
+    ]
+  },
+  "scene": {
+    "ja": "ドラッグストアで",
+    "en": "At a pharmacy",
+    "intro": "Tap every word on the shelves and the medicine box that you would have to read.",
+    "words": [
+      {
+        "id": "coldmed",
+        "word": "風邪薬",
+        "reading": "かぜぐすり",
+        "gloss": "cold medicine",
+        "parts": [
+          ["風邪", "かぜ", "a cold"],
+          ["薬", "ぐすり", "medicine: 目薬"]
+        ]
+      },
+      {
+        "id": "side",
+        "word": "副作用",
+        "reading": "ふくさよう",
+        "gloss": "side effect",
+        "parts": [
+          ["副", "フク", "secondary: 副社長"],
+          ["作用", "さよう", "effect, action"]
+        ]
+      },
+      {
+        "id": "usage",
+        "word": "用法",
+        "reading": "ようほう",
+        "gloss": "directions (how to take it)",
+        "parts": [
+          ["用", "ヨウ", "use: 使用"],
+          ["法", "ホウ", "way: 方法"]
+        ]
+      },
+      {
+        "id": "dose",
+        "word": "用量",
+        "reading": "ようりょう",
+        "gloss": "dose (how much to take)",
+        "parts": [
+          ["用", "ヨウ", "use: 使用"],
+          ["量", "リョウ", "amount: 大量"]
+        ]
+      },
+      {
+        "id": "taking",
+        "word": "服用",
+        "reading": "ふくよう",
+        "gloss": "taking (medicine)",
+        "parts": [
+          ["服", "フク", "take (medicine)"],
+          ["用", "ヨウ", "use: 使用"]
+        ]
+      },
+      {
+        "id": "symptom",
+        "word": "症状",
+        "reading": "しょうじょう",
+        "gloss": "symptom",
+        "parts": [
+          ["症", "ショウ", "illness: 花粉症"],
+          ["状", "ジョウ", "state: 状態"]
+        ]
+      },
+      {
+        "id": "adult",
+        "word": "成人",
+        "reading": "せいじん",
+        "gloss": "adult",
+        "parts": [
+          ["成", "セイ", "grow: 成長"],
+          ["人", "ジン", "person"]
+        ]
+      },
+      {
+        "id": "runny",
+        "word": "鼻水",
+        "reading": "はなみず",
+        "gloss": "runny nose",
+        "parts": [
+          ["鼻", "はな", "nose"],
+          ["水", "みず", "water"]
+        ]
+      }
+    ],
+    "check": {
+      "id": "u07d1.k1",
+      "kind": "choice",
+      "type": "漢字読み",
+      "label": "How the exam asks it",
+      "q": "薬を飲んでも_症状_がよくならない場合は、医師に相談してください。",
+      "options": [
+        "しょうぞう",
+        "しょじょう",
+        "しょうじょ",
+        "しょうじょう"
+      ],
+      "answer": 4,
+      "explain": "症 is しょう and 状 is じょう here, as in 状態. しょうぞう is 肖像 (a portrait), しょじょう is 書状 (a letter), and しょうじょ is 少女 (a girl)."
+    }
+  },
+  "skill": {
+    "kind": "listening",
+    "ja": "課題理解",
+    "en": "Task comprehension",
+    "ask": "女の人はこのあとまず何をしますか。",
+    "strategy": "Read the four choices first. Cross out what is already done, and listen for その前に: it moves a task to the front.",
+    "item": {
+      "id": "u07d1.r1",
+      "kind": "choice",
+      "type": "課題理解",
+      "q": "女の人はこのあとまず何をしますか。",
+      "script": [
+        "ナレーター：ドラッグストアで、女の人と店の人が話しています。女の人はこのあとまず何をしますか。",
+        "女：すみません、昨日から少し風邪気味で、のどが痛いんです。何かいい薬はありますか。",
+        "男：熱はありますか。高いようでしたら、先に病院に行かれたほうがいいんですが。",
+        "女：いいえ、今朝測りましたけど、熱はありませんでした。",
+        "男：それでしたら、こちらの風邪薬がいいと思います。ただ、眠くなることがあるので、車の運転はしないでくださいね。",
+        "女：今日は運転しないので、大丈夫です。じゃあ、これをお願いします。",
+        "男：あ、その前に、今ほかに飲んでいるお薬はありますか。",
+        "女：ええ、胃の薬を毎日。食事が不規則になりがちなもので。でも、薬の名前は覚えていなくて……。",
+        "男：一緒に飲んでも大丈夫か確かめたいので、お薬手帳があれば見せていただけますか。",
+        "女：家に置いてきてしまって。近くなので、すぐ取ってきます。",
+        "男：はい、お待ちしています。お会計は、そのあとにしましょう。",
+        "ナレーター：女の人はこのあとまず何をしますか。"
+      ],
+      "options": [
+        "家にお薬手帳を取りに行く",
+        "熱を測る",
+        "病院に行く",
+        "風邪薬を買う"
+      ],
+      "printed": true,
+      "short": [
+        "お薬手帳を取りに行く",
+        "熱を測る",
+        "病院に行く",
+        "風邪薬を買う"
+      ],
+      "answer": 1,
+      "why": [
+        "He wants to check her stomach medicine first, and the notebook is at home: すぐ取ってきます.",
+        "Already done: she took her temperature this morning (今朝測りました).",
+        "Only if she had a high fever. She has no fever, so he suggests a cold medicine instead.",
+        "Later: she asks for it, but he says その前に, and she will pay after she comes back."
+      ]
+    },
+    "audio": [
+      ["N", "ドラッグストアで、女の人と店の人が話しています。女の人はこのあとまず何をしますか。", "ドラッグストアで、女の人とみせのひとが話しています。女の人はこのあとまずなにをしますか。"],
+      ["F", "すみません、昨日から少し風邪気味で、のどが痛いんです。何かいい薬はありますか。", "すみません、きのうから少しかぜぎみで、のどが痛いんです。なにかいいくすりはありますか。"],
+      ["M", "熱はありますか。高いようでしたら、先に病院に行かれたほうがいいんですが。", null],
+      ["F", "いいえ、今朝測りましたけど、熱はありませんでした。", "いいえ、けさはかりましたけど、ねつはありませんでした。"],
+      ["M", "それでしたら、こちらの風邪薬がいいと思います。ただ、眠くなることがあるので、車の運転はしないでくださいね。", "それでしたら、こちらのかぜぐすりがいいと思います。ただ、眠くなることがあるので、車の運転はしないでくださいね。"],
+      ["F", "今日は運転しないので、大丈夫です。じゃあ、これをお願いします。", null],
+      ["M", "あ、その前に、今ほかに飲んでいるお薬はありますか。", "あ、そのまえに、いまほかに飲んでいるおくすりはありますか。"],
+      ["F", "ええ、胃の薬を毎日。食事が不規則になりがちなもので。でも、薬の名前は覚えていなくて……。", "ええ、いのくすりをまいにち。食事がふきそくになりがちなもので。でも、くすりの名前は覚えていなくて……。"],
+      ["M", "一緒に飲んでも大丈夫か確かめたいので、お薬手帳があれば見せていただけますか。", "一緒に飲んでも大丈夫かたしかめたいので、おくすりてちょうがあれば見せていただけますか。"],
+      ["F", "家に置いてきてしまって。近くなので、すぐ取ってきます。", "いえに置いてきてしまって。近くなので、すぐ取ってきます。"],
+      ["M", "はい、お待ちしています。お会計は、そのあとにしましょう。", null],
+      ["N", "女の人はこのあとまず何をしますか。", "女の人はこのあとまずなにをしますか。"]
+    ]
+  }
+}

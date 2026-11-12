@@ -13,9 +13,17 @@ const DAY1 = Date.UTC(2026, 9, 12, 15);   // Monday 12 October 2026, noon in Asu
   /* the kanji lesson's writing pads write themselves (window.__ykWriteAuto): this flow is about the day as a whole; the
      writing with a finger has checks of its own (write-flow.js) */
   const prep = (page) => page.addInitScript((t) => { window.__ykNow = t; window.__ykWriteAuto = true; window.__ykWriteFast = true; }, DAY1);
-  // days 1 to 3 of unit 3 already done, so day 4 (the original sample day) is next
-  const done = encodeURIComponent(JSON.stringify({ u03d1: { g: 3, k: 1, r: 1 }, u03d2: { g: 3, k: 1, r: 1 }, u03d3: { g: 3, k: 1, r: 1 } }));
-  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Goal&done=' + done, fontsCss, prep);
+  // units 1 and 2 (their days and week tests) and days 1 to 3 of unit 3 already done, so day 4 of unit 3 (the
+  // original sample day) is next
+  const finished = { u03d1: { g: 3, k: 1, r: 1 }, u03d2: { g: 3, k: 1, r: 1 }, u03d3: { g: 3, k: 1, r: 1 } };
+  const results = {};
+  for (const u of ['01', '02']) {
+    for (let d = 1; d <= 6; d++) finished['u' + u + 'd' + d] = { g: 3, k: 1, r: 1 };
+    results['u' + u + 't'] = { id: 'u' + u + 't', score: 20, of: 24, used: 1200, areas: {}, at: DAY1 - 86400000 };
+  }
+  const done = encodeURIComponent(JSON.stringify(finished));
+  const tests = encodeURIComponent(JSON.stringify(results));
+  const { page, logs } = await openBoard(browser, 'TShell.dc.html?screen=Goal&done=' + done + '&tests=' + tests, fontsCss, prep);
   let fails = 0;
   const ok = (cond, msg) => { if (!cond) { fails += 1; console.log('  FAIL: ' + msg); } };
   const tile = async (t) => { await page.locator('button').filter({ hasText: new RegExp('^\\s*' + t + '\\s*$') }).first().click({ timeout: 5000 }); await page.waitForTimeout(150); };

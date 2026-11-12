@@ -41,7 +41,7 @@ function course(today) {
 }
 
 /* words the shared checks look for. weekTheme: the week path's banner once a goal is set on the first screen;
-   teachTitle: the first teach page's heading; drillWrong, drillLine: a wrong option of the first drill, and the words
+   teachTitle: the first teach page's heading (teachNext: the main app's second); drillWrong, drillLine: a wrong option of the first drill, and the words
    before its blank, which its notebook line always shows (it keeps the blank in view); drillSrc: the notebook's name
    for that drill; teachClip: the first teach page example's clip; tabCount: words only the mock tab shows */
 let TEXT;
@@ -57,8 +57,25 @@ if (LEVEL === 'N1') {
     drillSrc: 'g.' + l.id + '.d0', teachClip: 'g.' + l.id + '.0.0',
   };
 } else {
-  /* the main app (N5 to N2): a new plan starts on day 1 of its N2 unit 3, 原因・理由 (〜ことから, then 〜につき) */
-  TEXT = { appName: 'Yaoki', tabCount: '101問', weekTheme: '原因・理由', teachTitle: '〜ことから', drillWrong: 'あまり', drillLine: '道がぬれていた', drillSrc: 'u03d1.d1', teachClip: 't_ex1' };
+  TEXT = mainText();
 }
 
-module.exports = { LEVEL, PROJECT, clips, mockClips, listeningMs, course, ...TEXT };
+/* the main app (かな, N5 to N2): a new plan starts on day 1 of the first written N2 unit (unit 1, 時・時点, since every
+   unit was written in November 2026), so the words are read from content/n2. teachClip is unit 3 day 4's first example,
+   kept in sound-lessons.js, which is always installed */
+function mainText() {
+  const root = path.join(__dirname, '..', 'content', 'n2');
+  const file = (n) => path.join(root, 'u' + String(n).padStart(2, '0') + '.json');
+  const first = JSON.parse(fs.readFileSync(path.join(root, 'units.json'), 'utf8')).units.find((u) => fs.existsSync(file(u.n)));
+  const day = JSON.parse(fs.readFileSync(file(first.n), 'utf8')).days['1'];
+  const d = day.grammar.drill[0];
+  if (d.kind !== 'choice') throw new Error('level.js: the first drill item of ' + d.id + ' is not a choice item');
+  const plain = (s) => String(s).replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1').replace(/[{}_^]/g, '');
+  const wrong = d.options.filter((o, k) => k + 1 !== d.answer).map(plain).sort((a, b) => b.length - a.length)[0];
+  return {
+    appName: 'Yaoki', tabCount: '101問', weekTheme: first.ja, teachTitle: day.grammar.points[0].form, teachNext: day.grammar.points[1].form,
+    drillWrong: wrong, drillLine: plain(d.q).split('（　　）')[0].slice(-5), drillSrc: d.id, teachClip: 't_ex1',
+  };
+}
+
+module.exports = { LEVEL, PROJECT, clips, mockClips, listeningMs, course, mainText, ...TEXT };

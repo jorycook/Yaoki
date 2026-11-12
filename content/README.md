@@ -78,7 +78,13 @@ picked), the thing shown large (`big`) and their clip; their types are かな読
 
 ## Before content goes to the reviewer
 
-1. `node tools/build-course.mjs` passes.
-2. `bash check/run-app.sh content-sweep.js` passes: every answer of every written day shown on screen, with nothing cut off.
-3. A blind check: a checker that has not seen the answers solves every item; any disagreement or second defensible answer is fixed or flagged.
-4. The unit's review sheet is generated and sent (see `claude/course-plan.md` in the project).
+1. Each drafted N2 day or week test passes `python3 tools/check-day.py content/n2/drafts/u01d1.json` (the shape, ids, counts, markup and star items; `--words PLAN.json` also checks the scene's words against a plan) before it joins its unit.
+2. `node tools/build-course.mjs` passes.
+3. `bash check/run-app.sh content-sweep.js` passes: every answer of every written day shown on screen, with nothing cut off.
+4. A blind check: a checker that has not seen the answers solves every item; any disagreement or second defensible answer is fixed or flagged.
+5. The unit's review sheet is generated and sent (see `claude/course-plan.md` in the project).
+6. The unit's clips are made: `python3 tools/course_sound.py n2 1` (the teach examples, the scene words and the listening lessons, in `yaoki/project/sound-course-n2-u01.js`; `--check heard.json` has a recogniser write down what it hears, and a clip it hears differently is flagged for the reviewer to listen to). Run it again after a change: each clip keeps a hash of what it says, so a clip whose text changed is made again; `--redo KEY` remakes one clip by its name.
+
+## How N2 units 1, 2 and 4 to 12 were written (November 2026)
+
+`n2/drafts/PLAN.json` set each day's scene, its eight words (none already in the course) and its reading or listening lesson. Each day and each week test was written by one writer to `n2/drafts/BRIEF.md` (with `BRIEF-MATOME.md` for day 6 and `BRIEF-TEST.md` for the test) and examined by a second, who fixed what failed and flagged what was a judgement call. The seven parts were then joined into `uNN.json`, the right answers spread over 1 to 4 (each day's drill items and each test section on different positions) and the star items' tile orders varied, and the unit was blind solved by a solver who saw no answers: in all eleven units the solver's answers agreed with every key, and a settler rewrote the five items where the solver thought a second answer possible and the other doubts it noted (repeated scenarios, keys copied from a passage). What every step found and changed is in `n2/drafts/uNN-notes.md`; what the native reviewer should look at is in `n2/review/uNN-flags.json` and the unit's review sheet, including the clips a speech recogniser heard differently.
