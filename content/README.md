@@ -78,12 +78,12 @@ picked), the thing shown large (`big`) and their clip; their types are かな読
 
 ## Before content goes to the reviewer
 
-1. Each drafted day or week test passes `python3 tools/check-day.py content/n2/drafts/u01d1.json` (the shape, ids, counts, markup and star items; `--words PLAN.json` also checks the scene's words against a plan) before it joins its unit.
+1. Each drafted N2 day or week test passes `python3 tools/check-day.py content/n2/drafts/u01d1.json` (the shape, ids, counts, markup and star items; `--words PLAN.json` also checks the scene's words against a plan) before it joins its unit.
 2. `node tools/build-course.mjs` passes.
 3. `bash check/run-app.sh content-sweep.js` passes: every answer of every written day shown on screen, with nothing cut off.
 4. A blind check: a checker that has not seen the answers solves every item; any disagreement or second defensible answer is fixed or flagged.
 5. The unit's review sheet is generated and sent (see `claude/course-plan.md` in the project).
-6. The unit's clips are made: `python3 tools/course_sound.py n2 1` (the teach examples, the scene words and the listening lessons, in `yaoki/project/sound-course-n2-u01.js`; `--check heard.json` has a recogniser write down what it hears, and a clip it hears differently is flagged for the reviewer to listen to).
+6. The unit's clips are made: `python3 tools/course_sound.py n2 1` (the teach examples, the scene words and the listening lessons, in `yaoki/project/sound-course-n2-u01.js`; `--check heard.json` has a recogniser write down what it hears, and a clip it hears differently is flagged for the reviewer to listen to). Run it again after a change: each clip keeps a hash of what it says, so a clip whose text changed is made again; `--redo KEY` remakes one clip by its name.
 
 ## How N2 units 1, 2 and 4 to 12 were written (November 2026)
 

@@ -301,11 +301,14 @@
     var session = null;
     status.plan.forEach(function (p) { if (p.id === sid) session = p; });
     var unitN = session ? session.unit : C.units().length ? C.units()[0].n : 1;
-    /* this unit's sound, and that of the units the notebook will ask about */
-    C.needSound(LEVEL, unitN);
-    /* the level's mini mock sound (unit 0) is small; fetch it with the first unit (the kana level has no mini mock) */
-    if (LEVEL !== 'KANA') C.needSound(LEVEL, 0);
-    (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
+    /* this unit's sound, and that of the units the notebook will ask about; nothing before the learner has started
+       or chosen a level (the goal screen shows N2 by default, and its sound is fetched only once it is chosen) */
+    if (state.started || state.level) {
+      C.needSound(LEVEL, unitN);
+      /* the level's mini mock sound (unit 0) is small; fetch it with the first unit (the kana level has no mini mock) */
+      if (LEVEL !== 'KANA') C.needSound(LEVEL, 0);
+      (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
+    }
     return {
       status: status,
       plan: state.plan,

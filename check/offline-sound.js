@@ -78,8 +78,13 @@ const PORT = +(process.env.OFFLINE_PORT || 8767);
       const wantKana = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^sound-course-kana-u\d+\.js$/.test(f)).length;
       for (let i = 0; i < 60 && units(urls, 'kana') < wantKana; i++) { await page.waitForTimeout(500); urls = await list(); }
       ok(wantKana === 4 && units(urls, 'kana') === wantKana, `asking for the kana course should store its ${wantKana} unit files, got ${units(urls, 'kana')}`);
-      // N2's units too: asking for N2 stores all of them
-      await page.evaluate(() => navigator.serviceWorker.controller.postMessage({ keepLevel: 'n2' }));
+      // N2's units too, asked for by the app itself once the learner's level is N2 (yk-app.js asks on the first change
+      // of state after a save, so the test opens the saved N2 state and moves to another screen)
+      await page.evaluate(() => localStorage.setItem('yaoki.v1:' + new URL('./', location.href).pathname, JSON.stringify({ v: 2, started: true, level: 'N2', plan: { start: '2026-11-11', exam: '2026-12-06', pace: 'fit', minutes: 30 }, done: {}, tests: {}, mistakes: [] })));
+      await page.reload();
+      await page.waitForFunction(() => navigator.serviceWorker && navigator.serviceWorker.controller, null, { timeout: 30000 });
+      await page.waitForTimeout(1000);
+      await page.locator('nav a:has-text("Notebook")').first().click({ timeout: 10000 });
       const want2 = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => /^sound-course-n2-u\d+\.js$/.test(f)).length;
       for (let i = 0; i < 60 && units(urls, 'n2') < want2; i++) { await page.waitForTimeout(500); urls = await list(); }
       ok(want2 > 0 && units(urls, 'n2') === want2, `asking for N2 should store all ${want2} N2 unit files, got ${units(urls, 'n2')}`);

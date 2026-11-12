@@ -1,8 +1,9 @@
-"""Check a drafted day or week test of the main course before it joins its unit: the shape the app needs, the ids,
-the counts, the markup, the star items, and the rules of the briefs a script can check. What it cannot check (one
-right answer, natural Japanese, true reasons) is still the drafter's and the reviewer's job.
+"""Check a drafted day or week test of the N2 course before it joins its unit: the shape the app needs, the ids, the
+counts, the markup, the star items, and the rules of the N2 briefs (content/n2/drafts/BRIEF*.md) a script can check.
+What it cannot check (one right answer, natural Japanese, true reasons) is still the drafter's and the reviewer's job.
 usage: python3 tools/check-day.py content/n2/drafts/u01d1.json [more files] [--words PLAN.json]
-       (a day is uNNdD.json, a week test uNN-test.json; the level is the folder's: content/n2/drafts -> N2.
+       (a day is uNNdD.json, a week test uNN-test.json, in content/n2/drafts. The other levels' briefs differ (their
+        tests, their kanji lists), so their drafts are not checked here.
         --words: a plan {units: {N: {days: {D: {scene: {words: [{word, reading}]}}}}}} whose words the scene must use)
 Prints each problem and exits 1 if there are any."""
 import json
@@ -63,9 +64,12 @@ def choice(where, it, n_options=None, why=False, explain=False, readings=True, b
     if it.get('kind') != 'choice':
         return bad(where, 'kind must be choice')
     for k in ('id', 'type', 'q', 'options', 'answer'):
-        if k not in it:
+        if not it.get(k):
             bad(where, 'no ' + k)
     opts = it.get('options') or []
+    if not isinstance(opts, list):
+        bad(where, 'options must be a list')
+        opts = []
     if n_options and len(opts) != n_options:
         bad(where, '%d options, not %d' % (len(opts), n_options))
     if not (isinstance(it.get('answer'), int) and 1 <= it['answer'] <= len(opts)):
@@ -82,7 +86,8 @@ def choice(where, it, n_options=None, why=False, explain=False, readings=True, b
         bad(where, 'short must have one entry per option')
     for k, v in [('q', it.get('q'))] + [('options[%d]' % i, o) for i, o in enumerate(opts)] + [('explain', it.get('explain'))]:
         markup('%s.%s' % (where, k), v)
-        spaces('%s.%s' % (where, k), v)
+        if k != 'explain':  # the explanation is English, with Japanese in it
+            spaces('%s.%s' % (where, k), v)
         if not readings and k != 'explain':
             no_reading('%s.%s' % (where, k), v)
     if blank and not re.search(r'（　　）|_[^_]+_', it.get('q') or ''):
@@ -105,9 +110,12 @@ def star(where, it, hint=False, readings=True, brace='form'):
     if it.get('kind') != 'star':
         return bad(where, 'kind must be star')
     for k in ('id', 'type', 'before', 'after', 'tiles', 'star', 'bank', 'full', 'explain'):
-        if k not in it:
+        if k not in it or (k in ('id', 'type', 'tiles', 'bank', 'full', 'explain') and not it[k]):
             bad(where, 'no ' + k)
     tiles = it.get('tiles') or []
+    if not isinstance(tiles, list):
+        bad(where, 'tiles must be a list')
+        tiles = []
     if len(tiles) != 4 or len(set(tiles)) != 4:
         bad(where, 'a star item has four different tiles, in the right order')
     if it.get('star') not in (0, 1, 2, 3):
@@ -264,8 +272,12 @@ def check_day(path, unit, day, level_dir):
             choice(w, it, 4, explain=True, readings=False)
             if '^' in (it.get('q') or ''):
                 bad(w, 'no ^…^ clue in an exam-style item')
+            if it.get('type') != '文の文法1':
+                bad(w, 'type 文の文法1')
         else:
             star(w, it, readings=False, brace='star')
+            if it.get('type') != '文の文法2':
+                bad(w, 'type 文の文法2')
     sc = d.get('scene') or {}
     for f in ('ja', 'en', 'intro', 'words', 'check'):
         if not sc.get(f):
@@ -293,16 +305,18 @@ def check_day(path, unit, day, level_dir):
             bad(where, 'the parts must cover the word\'s kanji in order: %s vs %s' % (''.join(kan), inparts))
         if 'clip' in w:
             bad(where, 'no clip (the build names it)')
-    if plan:
-        want_words = plan['units'][str(unit)]['days'][str(day)]['scene']['words']
+    planned = ((((plan or {}).get('units') or {}).get(str(unit)) or {}).get('days') or {}).get(str(day))
+    if plan and not planned:
+        print('  (%s: the plan has no words for this day: its scene is not checked against it)' % base)
+    if planned:
         got = [(w.get('word'), w.get('reading')) for w in words]
-        exp = [(w['word'], w['reading']) for w in want_words]
+        exp = [(w['word'], w['reading']) for w in planned['scene']['words']]
         if sorted(got) != sorted(exp):
             bad(base + '.scene', 'the words must be the planned ones: missing %s, extra %s' % (sorted(set(exp) - set(got)), sorted(set(got) - set(exp))))
     k1 = sc.get('check') or {}
     if k1.get('id') != base + '.k1':
         bad(base + '.k1', 'id should be %s.k1' % base)
-    choice(base + '.k1', k1, 4, explain=True, readings=False)
+    choice(base + '.k1', k1, 4, explain=True, readings=False, blank=k1.get('type') != '用法')
     if k1.get('type') not in ('漢字読み', '表記', '語形成', '文脈規定', '言い換え類義', '用法'):
         bad(base + '.k1', 'type must be an N2 vocabulary format: %s' % k1.get('type'))
     sk = d.get('skill') or {}
@@ -382,7 +396,7 @@ def check_test(path, unit, level_dir):
             if not it.get('passage') or len(it.get('short') or []) != 4:
                 bad(w, 'a passage item carries its passage and short')
             n = len(plain(it.get('passage')))
-            if not 180 <= n <= 300:
+            if not 200 <= n <= 300:
                 bad(w, 'the passage has %d characters, not 200 to 300' % n)
     for a, b in ((18, 19), (20, 21), (22, 23)):
         if t[a].get('passage') != t[b].get('passage'):
@@ -402,9 +416,11 @@ for path in args:
         elif mt:
             pos = check_test(path, int(mt.group(1)), level_dir)
         else:
-            print('%s: not a day (uNNdD.json) or a week test (uNN-test.json)' % path)
-            continue
-    except (ValueError, KeyError, TypeError, StopIteration) as e:
+            bad(name, 'not a day (uNNdD.json) or a week test (uNN-test.json)')
+            pos = []
+        if os.path.basename(level_dir) != 'n2':
+            bad(name, 'check-day.py checks N2 drafts (content/n2/drafts) only')
+    except Exception as e:  # a value of the wrong kind anywhere: the file's problem, and the other files are still checked
         bad(name, 'could not be read: %r' % e)
         pos = []
     spread = ' '.join('%d:%d' % (n, pos.count(n)) for n in (1, 2, 3, 4))

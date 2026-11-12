@@ -4,28 +4,41 @@ which course.js fetches when the unit is in use (and the offline copy stores onc
 usage: python3 tools/course_sound.py n2 1 2 4 …          (from the repository root, after node tools/build-course.mjs)
        python3 tools/course_sound.py n2 1 --check heard.json   (and have a recogniser write down what it hears in each
                                                  new clip, with how closely its kana match what was meant (1 = all))
-       python3 tools/course_sound.py n2 1 --redo x_u01d1_p1_1 s_u1d1_fee     (make these again; --redo all: the whole unit)
+       python3 tools/course_sound.py n2 1 --redo x_u01d1_p1_1 s_u1d1_warehouse   (make these again; --redo all: the whole unit)
+Levels n5 to n2 (the kana course has its own clips: tools/kana_clips.py).
 
 What it says: every teach example (x_…), scene word (s_…) and listening lesson (l_…) that the unit's days name in
-yaoki/project/course-<level>.js. An example is said from its text, with the reading of any word that has one
-([漢字|かんじ]), or from its `say`; a scene word from its reading (or its `say`); a listening lesson line by line from
-its audio ([speaker, text, respelling or null]), from the respelling when there is one, with a pause between the lines
-and a longer one before each numbered choice. Said alone, a short word or a number comes out unclear, so a scene word,
-and a number said before another speaker's reply, is said after a lead-in (それは、) and cut out of it; a number the
-narrator says before his own choice is said with it, as one sentence. A clip the unit's file already holds is kept
-unless named in --redo; clips the course no longer names are dropped.
+yaoki/project/course-<level>.js.
+- The readings come from the OpenJTalk dictionary (pyopenjtalk), spelled in the voice model's own phonemes with
+  misaki's kana table. Kokoro's own Japanese front end (misaki's cutlet path) reads many words wrongly: it reads
+  一辺 as いちへん and 何を as なんを, and in hiragana it splits a small ゃ ゅ ょ from its kana (しゅうしょく as
+  し-う-しょく) and reads は as ha, so the respellings meant to help made things worse.
+- A scene word is said from its kanji when the dictionary reads them as the course does, else from its reading in
+  katakana (a word alone in hiragana is read as if its first は or へ were a particle), or from its `say`.
+- An example is said from its text, a word with a reading ([漢字|かんじ]) the same way, or from its `say`.
+- A listening lesson is said line by line from its audio ([speaker, text, respelling or null]), from the respelling when
+  there is one, with a pause between the lines and a longer one before each numbered choice.
+- Said alone, a short word or a number comes out unclear, so a scene word, and a number said before another speaker's
+  reply, is said after a lead-in (それは、) and cut out of it at the pause before the word (the quietest point just
+  before where the voice model says the word begins); a number the narrator says before his own choice is said with
+  it, as one sentence.
+Each clip keeps a short hash of what it says (h): a clip whose text changed is made again; one the unit's file already
+holds with the same hash is kept, and one with no hash (made before) is kept unless named in --redo. Clips the course no
+longer names are dropped.
 
-Needs Python 3.10 to 3.12 with kokoro 0.9.4, misaki[ja] and numpy, the UniDic dictionary (python3 -m unidic download)
-and ffmpeg on the path; --check also needs faster-whisper (its "small" model is fetched from Hugging Face on first
-use). Voices, speed and encoding are those of the course's other clips (yaoki-n1/make-sound.py): the narrator
-jf_gongitsune, the man jm_kumo and the woman jf_alpha (Kokoro-82M, Apache-2.0); MP3, 24 kHz mono, 32 kbit/s, with
-each clip's length in milliseconds, which the screens use to keep time with it."""
+Needs Python 3.10 to 3.12 with kokoro 0.9.4, misaki[ja] (and its pyopenjtalk) and numpy, the UniDic dictionary
+(python3 -m unidic download) and ffmpeg on the path; --check also needs faster-whisper (its "small" model is fetched from
+Hugging Face on first use). Voices, speed and encoding are those of the course's other clips (yaoki-n1/make-sound.py):
+the narrator jf_gongitsune, the man jm_kumo and the woman jf_alpha (Kokoro-82M, Apache-2.0); MP3, 24 kHz mono,
+32 kbit/s, with each clip's length in milliseconds, which the screens use to keep time with it."""
 import argparse
 import base64
+import hashlib
 import json
 import os
 import re
 import subprocess
+import sys
 import tempfile
 
 import numpy as np
@@ -33,30 +46,76 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT = os.path.join(ROOT, 'yaoki', 'project')
 SR = 24000
+FRAME = 600  # samples per step of the voice model's predicted durations
 NARR, MAN, WOMAN = 'jf_gongitsune', 'jm_kumo', 'jf_alpha'
 VOICE = {'N': NARR, 'M': MAN, 'F': WOMAN}
 NUM = {'1': 'いち', '2': 'に', '3': 'さん', '4': 'よん'}
 PAUSE = {'、': ',', '。': '.', '？': '?', '！': '!'}
 LEAD = 'それは、'
+METHOD = 'v3'  # part of each clip's hash: a change in how clips are made makes them all again
 HEAD = ('/* Yaoki course sound: the teach examples, scene words and listening lessons of the written days. Synthetic '
         'voices, MP3 as base64. Generated by tools/course_sound.py. Played by sound.js. */')
 
 ap = argparse.ArgumentParser()
-ap.add_argument('level')
+ap.add_argument('level', choices=['n5', 'n4', 'n3', 'n2'])
 ap.add_argument('units', nargs='+', type=int)
 ap.add_argument('--redo', nargs='*', default=[])
 ap.add_argument('--check', metavar='REPORT.json', help='write what a recogniser hears in each new clip to this file')
 ap.add_argument('--out', default=PROJECT, help='the folder the unit files are written to (default yaoki/project)')
 args = ap.parse_args()
-lv = args.level.lower()
+lv = args.level
 
+import jaconv  # noqa: E402
+import pyopenjtalk  # noqa: E402
 from kokoro import KPipeline  # noqa: E402  (slow to load: after the arguments are read)
 pipe = KPipeline(lang_code='j', repo_id='hexgrad/Kokoro-82M')
+KANA = pipe.g2p.cutlet  # misaki's table from kana to the voice model's phonemes
+
+
+def g2p(text):
+    """the voice model's phonemes for a text without punctuation: each word's reading from the OpenJTalk dictionary
+    (numbers, counters, particles and small kana read right), spelled kana by kana with misaki's table"""
+    words = []
+    for w in pyopenjtalk.run_frontend(text):
+        hira = jaconv.kata2hira(w['pron'].replace('’', ''))
+        if not hira or w['mora_size'] == 0:
+            continue
+        words.append(''.join(KANA._get_single_mapping(hira[i - 1] if i else None, k, hira[i + 1] if i + 1 < len(hira) else None)
+                             for i, k in enumerate(hira)))
+    ps = re.sub(r'\s+', ' ', ' '.join(words).strip())
+    return re.sub(r'(?<![!",.:;?»—…”]) (?=ʔ)|(?<=ʔ) (?!["«“])', '', ps)
+
+
+def katakana(s):
+    return ''.join(chr(ord(c) + 0x60) if 'ぁ' <= c <= 'ゖ' else c for c in s)
+
+
+def sounds(k):
+    """a katakana reading as it sounds: long vowels as ー, ヅ as ズ, ヂ as ジ"""
+    k = re.sub(r'[^ァ-ヴー]', '', k).replace('ヅ', 'ズ').replace('ヂ', 'ジ')
+    k = re.sub(r'([アカサタナハマヤラワガザダバパャ])ア|([イキシチニヒミリギジヂビピィ])イ|([ウクスツヌフムユルグズヅブプュ])ウ|'
+               r'([エケセテネヘメレゲゼデベペ])[イエ]|([オコソトノホモヨロゴゾドボポョ])[ウオ]',
+               lambda m: next(g for g in m.groups() if g) + 'ー', k)
+    return k
+
+
+def reads_as(text, reading):
+    """True when the dictionary reads text (kanji) as reading (kana) sounds"""
+    return sounds(pyopenjtalk.g2p(text, kana=True)) == sounds(katakana(reading))
+
+
+def word_text(word, reading):
+    """what the voice is given for a word whose reading is known: the word, if its kanji are read as the course reads
+    them, else the reading in katakana with its long vowels marked (the front end reads katakana as it is written)"""
+    if reads_as(word, reading):
+        return word
+    return pyopenjtalk.g2p(katakana(reading), kana=True)
 
 
 def spoken(s):
-    """what the voice is given for a text with markup: the reading instead of its kanji, and no {} _ ^"""
-    return re.sub(r'[{}_^]', '', re.sub(r'\[([^|\]]*)\|([^\]]*)\]', r'\2', s or ''))
+    """what the voice is given for a text with markup: a word with a reading as word_text says, and no {} _ ^"""
+    s = re.sub(r'\[([^|\]]*)\|([^\]]*)\]', lambda m: word_text(m.group(1), m.group(2)), s or '')
+    return re.sub(r'[{}_^]', '', s)
 
 
 def phonemes(sentence):
@@ -64,17 +123,21 @@ def phonemes(sentence):
     out = ''
     for piece, mark in re.findall(r'([^、。？！]*)([、。？！]?)', sentence):
         if piece.strip():
-            out += pipe.g2p(piece)[0].strip()
+            out += g2p(piece).strip()
         if mark:
             out = out.rstrip() + PAUSE[mark] + ' '
     return out.strip()
 
 
+def clean(text):
+    return text.replace('……', '、').replace('…', '、').replace('「', '').replace('」', '、').replace('『', '').replace('』', '')
+
+
 def speak(text, voice, speed=1.0):
     pack = pipe.load_voice(voice)
-    text = text.replace('……', '、').replace('…', '、').replace('「', '').replace('」', '、').replace('『', '').replace('』', '')
-    pieces = [s for s in re.findall(r'[^。？！]+[。？！]?', text) if s.strip(' 、')]
-    return trim(np.concatenate([KPipeline.infer(pipe.model, phonemes(s.strip(' 、')), pack, speed).audio.numpy() for s in pieces]))
+    pieces = [phonemes(s.strip(' 、')) for s in re.findall(r'[^。？！]+[。？！]?', clean(text)) if s.strip(' 、')]
+    # a piece with no sounds (a lone 」) would come out as a burst of noise
+    return trim(np.concatenate([KPipeline.infer(pipe.model, p, pack, speed).audio.numpy() for p in pieces if p.strip(' ,.?!')]))
 
 
 def trim(audio):
@@ -84,19 +147,23 @@ def trim(audio):
 
 
 def after_lead(text, voice):
-    """a short word or a number, said as the second phrase of それは、… and cut out at the pause after the lead-in"""
-    a = KPipeline.infer(pipe.model, phonemes(LEAD + text), pipe.load_voice(voice), 1.0).audio.numpy()
+    """a short word or a number, said as the second phrase of それは、… and cut out of it at the pause before it"""
+    lead = phonemes(LEAD) + ' '
+    out = KPipeline.infer(pipe.model, lead + phonemes(clean(text)), pipe.load_voice(voice), 1.0)
+    audio = out.audio.numpy()
+    # where the model's durations put the word's start (the start token, then one step per phoneme character of the
+    # lead): the sound runs up to about 0.1 s ahead of it, so the cut is the end of the quietest stretch in the 0.25 s
+    # before it, never after it (a っ or a stop inside the word is quiet too)
+    guess = int(np.asarray(out.pred_dur)[:1 + len(lead)].sum()) * FRAME // int(0.01 * SR)
     fr = int(0.01 * SR)
-    loud = np.abs(a[:len(a) // fr * fr]).reshape(-1, fr).max(axis=1) > 0.01
-    first, run = int(np.argmax(loud)), 0
-    for i in range(first, len(loud)):
-        if not loud[i]:
-            run += 1
-        elif run >= 4 and i - run > first + 35:
-            return trim(a[i * fr - int(0.02 * SR):])
-        else:
-            run = 0
-    return speak(text, voice)  # no pause found: said on its own
+    env = np.abs(audio[:len(audio) // fr * fr]).reshape(-1, fr).max(axis=1)
+    lo, hi = max(0, guess - 25), max(1, min(len(env), guess + 1))
+    floor = env[lo:hi].min()
+    cut = max(i for i in range(lo, hi) if env[i] <= floor + 0.005) * fr
+    word = trim(audio[cut:])
+    alone = speak(text, voice)
+    # a cut that left much less than the word said alone has gone wrong: say it alone
+    return word if len(word) > 0.7 * len(alone) else alone
 
 
 def silence(sec):
@@ -112,18 +179,23 @@ def clip(parts):
     return np.concatenate(out).astype(np.float32)
 
 
+def line_text(text, say):
+    """a listening line: its respelling if it has one (written where a voice could misread), else its text"""
+    return (say or spoken(text)).strip()
+
+
 def listening(audio):
     """a listening lesson's lines as parts: a pause between lines, a longer one around the narrator and before each
     numbered choice; a number and the narrator's own choice after it are one sentence"""
     parts, prev, i = [], None, 0
     while i < len(audio):
         who, text, say = audio[i]
-        line = (say or spoken(text)).strip()
+        line = line_text(text, say)
         num = who == 'N' and line in NUM
         alone = False
         if num and i + 1 < len(audio) and audio[i + 1][0] == 'N':
             nxt = audio[i + 1]
-            said = (NARR, NUM[line] + '、' + (nxt[2] or spoken(nxt[1])).strip())
+            said = (NARR, NUM[line] + '、' + line_text(nxt[1], nxt[2]))
             i += 1
         elif num:
             said, alone = (NARR, NUM[line] + '。', True), True
@@ -160,13 +232,17 @@ def jobs_of(unit):
         for w in d['scene']['words']:
             if not re.match(r's_(n\d)?u\d', w['clip']):
                 continue
-            said = (w.get('say') or w['reading']) + '。'
+            said = (w.get('say') or word_text(w['word'], w['reading'])) + '。'
             out.append((w['clip'], [(NARR, said, True)], said))
         sk = d['skill']
         if sk['kind'] == 'listening':
             parts = listening(sk['audio'])
             out.append((sk['item']['clip'], parts, '／'.join(p[1] for p in parts if not isinstance(p, (int, float)))))
     return out
+
+
+def sig(parts):
+    return hashlib.sha1(json.dumps([METHOD, parts], ensure_ascii=False).encode('utf-8')).hexdigest()[:10]
 
 
 def mp3(audio):
@@ -179,10 +255,11 @@ def mp3(audio):
 
 
 def held(path):
+    """the clips a unit file holds: key -> (ms, base64, hash or '')"""
     if not os.path.exists(path):
         return {}
     s = open(path, encoding='utf-8').read()
-    return {k: (int(ms), b) for k, ms, b in re.findall(r"c\['([^']+)'\] = \{ ms: (\d+), b: '([^']*)' \};", s)}
+    return {k: (int(ms), b, h) for k, ms, b, h in re.findall(r"c\['([^']+)'\] = \{ ms: (\d+), b: '([^']*)'(?:, h: '([0-9a-f]*)')? \};", s)}
 
 
 recogniser = None
@@ -202,33 +279,37 @@ def heard(data):
 
 
 def match(said, got):
-    """how closely two texts read the same, from 0 to 1, compared in katakana"""
+    """how closely two texts read the same, from 0 to 1, compared as they sound in katakana"""
     import difflib
-    import pyopenjtalk
-    def kana(t):
-        k = re.sub(r'[^ァ-ヴー]', '', pyopenjtalk.g2p(re.sub(r'[／。、？！「」]', ' ', t), kana=True))
-        # a long vowel is written ー or as a vowel (ケーヤク, ケイヤク): the same sound
-        return re.sub(r'([エケセテネヘメレゲゼデベペ])イ|([オコソトノホモヨロゴゾドボポョ])ウ', lambda m: (m.group(1) or m.group(2)) + 'ー', k)
+    kana = lambda t: sounds(pyopenjtalk.g2p(re.sub(r'[／。、？！「」]', ' ', t), kana=True))
     a, b = kana(said), kana(got)
-    return round(difflib.SequenceMatcher(None, a, b).ratio(), 2) if a and b else 0.0
+    return round(difflib.SequenceMatcher(None, a, b, autojunk=False).ratio(), 2) if a and b else 0.0
 
 
 units = course_units()
 report = json.load(open(args.check, encoding='utf-8')) if args.check and os.path.exists(args.check) else {}
+named = set()
 for n in args.units:
     if n not in units:
         print('no unit %d in course-%s.js' % (n, lv))
         continue
     path = os.path.join(args.out, 'sound-course-%s-u%02d.js' % (lv, n))
     have = held(path)
-    keep, made = {}, 0
-    for key, parts, said in jobs_of(units[n]):
-        if key in have and key not in args.redo and 'all' not in args.redo:
+    jobs = jobs_of(units[n])
+    named |= {k for k, _, _ in jobs}
+    if not jobs:
+        print('unit %d has no written days: %s left as it is' % (n, os.path.relpath(path, ROOT)))
+        continue
+    keep, made, old = {}, 0, 0
+    for key, parts, said in jobs:
+        h = sig(parts)
+        if key in have and key not in args.redo and 'all' not in args.redo and have[key][2] in (h, ''):
             keep[key] = have[key]
+            old += not have[key][2]
             continue
         audio = clip(parts)
         data = mp3(audio)
-        keep[key] = (int(round(len(audio) / SR * 100)) * 10, base64.b64encode(data).decode('ascii'))
+        keep[key] = (int(round(len(audio) / SR * 100)) * 10, base64.b64encode(data).decode('ascii'), h)
         made += 1
         line = '%-22s %6.2fs  %s' % (key, keep[key][0] / 1000, said[:60])
         if args.check:
@@ -236,10 +317,16 @@ for n in args.units:
             report[key] = {'said': said, 'heard': got, 'match': match(said, got)}
             line += '\n%-22s heard  %s  (%.2f)' % ('', got[:60], report[key]['match'])
         print(line, flush=True)
-    body = '\n'.join("c['%s'] = { ms: %d, b: '%s' };" % (k, ms, b) for k, (ms, b) in sorted(keep.items()))
+    body = '\n'.join("c['%s'] = { ms: %d, b: '%s'%s };" % (k, ms, b, ", h: '%s'" % h if h else '') for k, (ms, b, h) in sorted(keep.items()))
     open(path, 'w', encoding='utf-8').write('%s\n(function () {\nvar c = window.__ykClips = window.__ykClips || {};\n%s\n})();\n' % (HEAD, body))
-    print('%s: %d clips (%d made now, %d dropped), %d KB' % (os.path.relpath(path, ROOT), len(keep), made,
-          len(set(have) - set(keep)), os.path.getsize(path) // 1024), flush=True)
+    print('%s: %d clips (%d made now, %d dropped%s), %d KB' % (os.path.relpath(path, ROOT), len(keep), made,
+          len(set(have) - set(keep)), ', %d kept from before without a hash: --redo to remake' % old if old else '',
+          os.path.getsize(path) // 1024), flush=True)
+    if args.check:
+        # after each unit, so an interrupted run keeps what was heard
+        json.dump(report, open(args.check, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+unknown = sorted(set(args.redo) - named - {'all'})
+if unknown:
+    print('not named by these units, so not made: %s' % ', '.join(unknown), file=sys.stderr)
 if args.check:
-    json.dump(report, open(args.check, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('what the recogniser heard:', args.check)
