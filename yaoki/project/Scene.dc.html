@@ -283,7 +283,7 @@ play: () => {
 clearTimeout(this.timer);
 const snd = window.ykSound;
 const key = cur.clip;
-const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
+const sound = !!(key && snd && (snd.tap ? snd.tap(key) : snd.has(key) && snd.unlock() && snd.play(key)));
 this.setState({ playing: true });
 this.timer = setTimeout(() => this.setState({ playing: false }), sound ? snd.ms(key) + 150 : 1200);
 },

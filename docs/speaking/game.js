@@ -188,7 +188,35 @@
       return null;
     }
   }
-  const place = learnerPlace();
+  // The place can also come in the address, as the Yaoki app's extras (おまけ) open this page:
+  // ?from=app&level=N5&unit=3, or for the kana course ?from=app&level=KANA&kana=さ (the kana of the learner's day).
+  // Safari keeps its storage apart from an app on the Home Screen, so the address is what carries the place there.
+  const asked = (() => {
+    try {
+      const q = new URLSearchParams(location.search);
+      const level = (q.get('level') || '').toUpperCase();
+      return {
+        fromApp: q.get('from') === 'app',
+        level: /^(KANA|N[2-5])$/.test(level) ? level : null,
+        unit: Number(q.get('unit')) || null,
+        kana: (q.get('kana') || '').slice(0, 2),
+      };
+    } catch (err) {
+      return { fromApp: false, level: null, unit: null, kana: '' };
+    }
+  })();
+  // added to the Home Screen (as the Yaoki app is): no browser bar, so no way back but the page's own
+  const standalone = (() => {
+    try {
+      return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+    } catch (err) {
+      return false;
+    }
+  })();
+  const place = asked.level ? { level: asked.level, unit: asked.level === 'KANA' ? null : asked.unit } : learnerPlace();
+  // where the same place opens in Safari, for an iPhone that will not let a Home Screen app recognise speech
+  const safariAddress = location.origin + location.pathname.replace(/index\.html$/, '')
+    + (place ? '?level=' + place.level + (place.level === 'KANA' ? (asked.kana ? '&kana=' + encodeURIComponent(asked.kana) : '') : place.unit ? '&unit=' + place.unit : '') : '');
 
   // ---------- ways to play, modes, stages and course words ----------
 
@@ -245,6 +273,26 @@
   if (!LEVELS.includes(saved.level)) saved.level = place && LEVELS.includes(place.level) ? place.level : 'N5';
   if (!saved.stage.kana) saved.stage.kana = 'words';
   if (!saved.stage.start) saved.stage.start = 'h1';
+  // the first-steps lesson that teaches a kana (or a mark), for a learner of the app's kana course
+  function lessonFor(k) {
+    if (!k) return null;
+    const all = STAGES.start;
+    const hit = all.find((st) => st.lesson.kana.includes(k)) || all.find((st) => (st.lesson.marks || []).includes(k))
+      || all.find((st) => st.lesson.kana.includes(k[0]));
+    return hit ? hit.id : null;
+  }
+  // opened at a place given in the address: the week's course words, or the lesson of the day's kana
+  if (asked.level && place) {
+    if (place.level === 'KANA') {
+      saved.mode = STAGES.start.length ? 'start' : 'kana';
+      const st = lessonFor(asked.kana);
+      if (st) saved.stage.start = st;
+    } else if (LEVELS.includes(place.level)) {
+      saved.mode = 'course';
+      saved.level = place.level;
+      if (place.unit) saved.unit[place.level] = place.unit;
+    }
+  }
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -1114,7 +1162,12 @@
   // ---------- speech ----------
 
   L.onheard = (texts, final, carried, whole) => heard(texts, final, carried, whole);
-  L.onstate = () => micUI();
+  // An iPhone may refuse speech recognition to an app on the Home Screen (service-not-allowed): then the way on is Safari
+  let homeNoSpeech = standalone && !L.supported;
+  L.onstate = (st, code) => {
+    if (standalone && code === 'service-not-allowed') homeNoSpeech = true;
+    micUI();
+  };
   L.onspeech = (on) => {
     if (r) r.speaking = on;
     // the music dips while the player speaks, so the phone hears them
@@ -1968,6 +2021,9 @@
     error: ['エラー', 'Speech recognition stopped: tap the microphone to try again.'],
     unsupported: ['音声認識なし', 'This browser has no speech recognition.'],
   };
+  const HOME_TEXT = ['ホーム画面では使えません', 'This iPhone does not let an app on the Home Screen recognise speech. Open Yaoki Speaking in Safari: ' + safariAddress];
+  // what the microphone line says for a state: on a Home Screen app that may not listen, the way to Safari
+  const micText = (st) => (homeNoSpeech && (st === 'blocked' || st === 'tap' || st === 'unsupported') ? HOME_TEXT : MIC_TEXT[st] || MIC_TEXT.off);
   let held = false;
   let micWasOn = false;
   let micShown = '';
@@ -1980,7 +2036,7 @@
     const shown = st === 'starting' && micWasOn ? 'on' : st;
     const voicing = !!(r && r.voicing) && phase === 'play';
     const key = voicing && voicePaused && st === 'off' ? 'voice' : saved.mic === 'hold' && !held && (shown === 'off' || shown === 'on' || shown === 'starting') ? 'hold' : shown in MIC_TEXT ? shown : 'off';
-    const t = MIC_TEXT[key];
+    const t = micText(key);
     btn.classList.toggle('on', listening);
     btn.classList.toggle('speech', !!(r && r.speaking && listening));
     btn.classList.toggle('held', held);
@@ -2081,7 +2137,7 @@
   function micTestState() {
     if (!micTest.on) return;
     const st = L.state;
-    if (['blocked', 'nomic', 'offline', 'error', 'tap'].includes(st)) micTestEnd(MIC_TEXT[st][1]);
+    if (['blocked', 'nomic', 'offline', 'error', 'tap'].includes(st)) micTestEnd(micText(st)[1]);
   }
 
   // ---------- the result ----------
@@ -2410,14 +2466,48 @@
       saved.len = v;
       save();
     });
-    const no = $('no-speech');
-    no.hidden = L.supported;
-    $('no-speech-text').innerHTML = 'This browser cannot recognise speech. Open the page in <b>Safari</b> on an iPhone or iPad, or in <b>Chrome</b> on an Android phone or tablet.';
+    showNoSpeech();
     $('desk-note').hidden = touchOnly.matches || !L.supported;
     $('mic-test').disabled = !L.supported;
     renderDayCard(false);
     renderPicks();
   }
+
+  // The menu's note when this page cannot listen: which browsers can, or, in an app on the Home Screen, the address
+  // to open in Safari (with a button to copy it)
+  function showNoSpeech() {
+    const no = $('no-speech');
+    no.hidden = L.supported && !homeNoSpeech;
+    const copy = $('copy-address');
+    if (homeNoSpeech) {
+      $('no-speech-text').innerHTML = 'This iPhone does not let an app on the Home Screen recognise speech. Open Yaoki Speaking in <b>Safari</b> instead: <span class="address">' + esc(safariAddress) + '</span>';
+      copy.hidden = false;
+    } else {
+      $('no-speech-text').innerHTML = 'This browser cannot recognise speech. Open the page in <b>Safari</b> on an iPhone or iPad, or in <b>Chrome</b> on an Android phone or tablet.';
+      copy.hidden = true;
+    }
+  }
+  $('copy-address').addEventListener('click', () => {
+    const done = () => { $('copy-address').textContent = 'Copied'; };
+    const select = () => {
+      const el = document.querySelector('#no-speech .address');
+      if (!el) return;
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    };
+    try {
+      const p = navigator.clipboard && navigator.clipboard.writeText(safariAddress);
+      if (p && p.then) p.then(done, select);
+      else select();
+    } catch (err) {
+      select();
+    }
+  });
+  // the way back to the app, where there is no browser bar to go back with
+  if (asked.fromApp || standalone) $('to-app').hidden = false;
 
   function renderSettings() {
     seg('mic-seg', [
@@ -4025,9 +4115,10 @@
     const st = L.state;
     if (phase !== 'play' || !['tap', 'error', 'nomic', 'offline', 'blocked'].includes(st)) return;
     setPhase('paused');
-    $('pause-why').innerHTML = ja(MIC_TEXT[st][0]) + '　' + esc(MIC_TEXT[st][1]);
+    $('pause-why').innerHTML = ja(micText(st)[0]) + '　' + esc(micText(st)[1]);
     $('pause-why').hidden = false;
-    say(MIC_TEXT[st][0], MIC_TEXT[st][1]);
+    say(micText(st)[0], micText(st)[1]);
+    if (homeNoSpeech) showNoSpeech();
   }
 
   // The settings sheet, from the menu, the result or the pause sheet. While it is open the page behind it is inert.

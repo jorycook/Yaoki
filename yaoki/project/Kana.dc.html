@@ -171,7 +171,7 @@ if (window.ykSound) window.ykSound.stop();
 say(key, who) {
 clearTimeout(this.timer);
 const snd = window.ykSound;
-const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
+const sound = !!(key && snd && (snd.tap ? snd.tap(key) : snd.has(key) && snd.unlock() && snd.play(key)));
 this.setState({ playing: who });
 this.timer = setTimeout(() => this.setState({ playing: '' }), sound ? snd.ms(key) + 150 : 700);
 return sound;
@@ -247,14 +247,15 @@ const len = Array.from(k[0]).length;
 return {
 k: k[0],
 r: k[1] || '—',
-aria: k[0] + (k[1] ? ', ' + k[1] : '') + (k[2] ? '. Play it' : ''),
+aria: k[0] + (k[1] ? ', ' + k[1] : '') + (k[2] ? '. Play it' : card.words[0] ? '. Play a word with it' : ''),
 size: many === 1 ? (len <= 1 ? '112px' : len === 2 ? '84px' : '64px') : many <= 2 ? '72px' : many <= 3 ? (len > 1 ? '44px' : '60px') : '40px',
 rSize: many === 1 ? '26px' : many <= 3 ? '18px' : '15px',
 w: many === 1 ? 'auto' : 'calc((100% - ' + 8 * (Math.min(many, 5) - 1) + 'px) / ' + Math.min(many, 5) + ')',
 border: lit ? '2.5px solid #F2B43A' : '2px solid transparent',
 bg: lit ? '#FFF4D6' : many === 1 ? 'transparent' : '#F4F5F9',
 anim: lit ? 'yk-pop 360ms ease-out' : 'none',
-play: () => { if (k[2]) this.say(k[2], who); },
+/* a kana with no sound of its own (a small っ, the long mark ー) plays the card's first word, where it is heard */
+play: () => { if (k[2]) this.say(k[2], who); else if (card.words[0]) this.say(card.words[0].clip, 'w' + ci + ':0'); },
 };
 }),
 words: card.words.map((w, j) => {

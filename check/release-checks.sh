@@ -33,6 +33,9 @@ run "N1 app: writing with a finger" YK_LEVEL=N1 timeout 900 bash run-app.sh writ
 run "app: kana course"           timeout 900 bash run-app.sh kana-flow.js
 run "canvas: kana course"        timeout 900 bash run.sh kana-flow.js
 run "app: every kana day"        NOSOUND=1 timeout 3000 bash run-app.sh kana-sweep.js
+run "app: every kana sound"      timeout 3000 bash run-app.sh kana-sound.js
+# the extras (おまけ): Yaoki Speaking and Yaoki Reader opened from the app, with the place, the way back, and offline
+run "app: extras"                timeout 600 bash run-app.sh extras-test.js
 run "kana: content from its tables" node ../tools/make-kana.mjs --check
 run "kana: clips"                python3 ../tools/kana_clips.py --pack-only
 echo "=== preview"; NODE_PATH=/opt/npm-tools/node_modules node preview-test.js 2>&1 | tail -3

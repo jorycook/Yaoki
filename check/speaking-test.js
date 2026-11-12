@@ -146,7 +146,7 @@ const FAKE_VOICE_LOG = `(function () {
 
   // A phone, optionally with saved state put in place before the game reads it, and with speech.
   async function open(opts = {}, store = null, init = []) {
-    const ctx = await browser.newContext(Object.assign({}, devices['iPhone 13'], { hasTouch: true }, opts));
+    const ctx = await browser.newContext(Object.assign({}, devices['iPhone 13'], { hasTouch: true }, Object.fromEntries(Object.entries(opts).filter(([k]) => k !== 'query'))));
     const page = await ctx.newPage();
     page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
     page.on('console', (m) => {
@@ -163,7 +163,7 @@ const FAKE_VOICE_LOG = `(function () {
     }
     for (const script of [].concat(init)) await page.addInitScript(script);
     await page.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
-    await page.goto(url);
+    await page.goto(url + (opts.query || ''));
     await sleep(250);
     return page;
   }
@@ -197,7 +197,8 @@ const FAKE_VOICE_LOG = `(function () {
   check('brand is スピーキング · Yaoki Speaking', /スピーキング\s*Yaoki Speaking/.test(await page.textContent('.brand')));
   check('two ways to play: ふってくる Falling and のぼる Climb', (await page.$$eval('#ways .way', (b) => b.map((x) => x.textContent))).join('|').includes('のぼる'));
   check('five things to practise, the first steps first', (await page.$$('#modes button')).length === 5 && (await page.textContent('#modes button:nth-child(1)')).includes('あいうえお'));
-  check('links back to the app, Yaoki Typing and the reader', (await page.$$('a[href="../"], a[href="../typing/"], a[href="../reader/"]')).length === 3);
+  check('links back to the app, Yaoki Typing and the reader', (await page.$$('.foot-links a[href="../"], .foot-links a[href="../typing/"], .foot-links a[href="../reader/"]')).length === 3);
+  check('…and, opened on its own in a browser, no Yaoki button at the top', !(await page.isVisible('#to-app')));
   check('no browser note when speech recognition is there', !(await page.isVisible('#no-speech')));
   check('the start button stays in reach at the bottom of the screen', await page.evaluate(() => {
     const b = document.getElementById('start').getBoundingClientRect();
@@ -724,6 +725,30 @@ const FAKE_VOICE_LOG = `(function () {
   await page.context().close();
   page = await open({ noSpeech: true }, null, ['try { delete window.webkitSpeechRecognition; delete window.SpeechRecognition; } catch (e) {} Object.defineProperty(window, "webkitSpeechRecognition", { value: undefined, configurable: true }); Object.defineProperty(window, "SpeechRecognition", { value: undefined, configurable: true });']);
   check('without speech recognition the menu says which browsers have it, and does not start', (await page.isVisible('#no-speech')) && /Safari/.test(await page.textContent('#no-speech')) && (await page.isDisabled('#start')));
+  await page.context().close();
+
+  // ---- opened from the app's extras (おまけ): at the learner's place, given in the address, with a way back
+  page = await open({ query: '?from=app&level=N4&unit=3' }, null, [SFX_STUB]);
+  check('opened from the app: a Yaoki button at the top leads back to the app', (await page.isVisible('#to-app')) && (await page.getAttribute('#to-app', 'href')) === '../');
+  check('…at the course words of the week the app gave, N4 week 3', (await page.textContent('#modes [aria-pressed="true"]')).includes('語彙')
+    && await waitFor(async () => /第3週/.test((await page.textContent('#units [aria-pressed="true"]').catch(() => '')) || ''), 10000));
+  await page.context().close();
+  page = await open({ query: '?from=app&level=KANA&kana=' + encodeURIComponent('さ') }, { [STORE]: { mode: 'phrase' } }, [SFX_STUB]);
+  check('a kana learner from the app opens at the first steps, at the lesson of the day\'s kana (さ), whatever was played last', (await page.textContent('#modes [aria-pressed="true"]')).includes('あいうえお')
+    && (await page.textContent('#lessons [aria-pressed="true"] .l-kana')) === 'さ');
+  await page.context().close();
+  // an iPhone that will not let an app on the Home Screen recognise speech: the way on is Safari, at the same place
+  page = await open({ query: '?from=app&level=N5&unit=2' }, { [STORE]: { mode: 'kana', stage: { kana: 'words' }, style: 'fall', len: 5 } },
+    [SFX_STUB, 'Object.defineProperty(navigator, "standalone", { value: true, configurable: true });']);
+  await page.evaluate(() => { window.__speech.refuse = 'service-not-allowed'; });
+  await page.tap('#start');
+  check('in a Home Screen app that may not listen, the round waits and says to open the game in Safari, at the same week',
+    await waitFor(async () => (await state(page)).phase === 'paused' && (await page.isVisible('#pause-why')), 3000)
+    && /Home Screen/.test(await page.textContent('#pause-why')) && /Safari/.test(await page.textContent('#pause-why')) && /speaking\/\?level=N5&unit=2/.test(await page.textContent('#pause-why')),
+    await page.textContent('#pause-why').catch(() => ''));
+  await page.tap('#quit');
+  check('…and the menu then shows the address, with a button to copy it', await waitFor(async () => (await page.isVisible('#no-speech')) && (await page.isVisible('#copy-address')), 2000)
+    && /Safari/.test(await page.textContent('#no-speech')));
   await page.context().close();
 
   // ---- a learner of the app's kana course (かな) starts at the first steps, like someone new

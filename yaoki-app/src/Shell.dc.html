@@ -37,6 +37,7 @@
 <sc-if value="{{ at.Kana }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Kana" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.KanaWrite }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWrite" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <sc-if value="{{ at.KanaWords }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWords" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
+<sc-if value="{{ at.Extras }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Extras" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" menu="{{ openMenu }}"></dc-import></div></sc-if>
 <!-- #end -->
 
 <sc-if value="{{ menuOpen }}">
@@ -204,7 +205,7 @@ version: window.ykApp.version,
 /* #if N1 */
 const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening'];
 /* #else */
-const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Kana', 'KanaWrite', 'KanaWords'];
+const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Kana', 'KanaWrite', 'KanaWords', 'Extras'];
 /* #end */
 </script>
 </body>

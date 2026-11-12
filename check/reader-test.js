@@ -70,7 +70,16 @@ async function holdFirstPhrase(page, nth) {
   ok(JSON.stringify(await cards(page)) === JSON.stringify(['片目のだるま']), 'library shows only the sample at first');
   ok(await page.locator('#lib-state').innerText().then((t) => /this browser/.test(t)), 'library says texts are kept in this browser');
   ok(!(await page.locator('#export-lib').isVisible()), 'Save a backup is hidden while there is nothing to save');
-  ok(await page.locator('a[href="../"]').count() === 1, 'there is a link back to the app');
+  ok(await page.locator('.foot-links a[href="../"]').count() === 1, 'there is a link back to the app');
+  ok(!(await page.locator('#to-app').isVisible()), 'opened on its own, there is no Yaoki button at the top');
+  {
+    /* opened from the app's extras (おまけ): a Yaoki button at the top leads back, as an app on the Home Screen has no browser bar */
+    const fromApp = await newPage(ctx, logs);
+    await fromApp.goto(READER + '?from=app');
+    await fromApp.waitForSelector('#texts .text-card');
+    ok(await fromApp.locator('#to-app').isVisible() && (await fromApp.getAttribute('#to-app', 'href')) === '../', 'opened from the app, a Yaoki button at the top leads back to it');
+    await fromApp.close();
+  }
 
   step('the sample: hold to reveal');
   await page.locator('#texts .text-card').first().click();

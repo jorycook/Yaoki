@@ -82,6 +82,7 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .notebox b { font-weight: 800; }
 .notebox ul { margin: 6px 0 0; padding-left: 18px; }
 .pair { display: flex; flex-direction: column; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--note); }
+.pair .address { font-weight: 800; overflow-wrap: anywhere; -webkit-user-select: all; user-select: all; }
 .pair [lang="ja"] { font-size: 18px; font-weight: 800; }
 .pair span + span { font-size: 14px; font-weight: 700; }
 .pair a { color: var(--accent-ink); font-weight: 800; }
@@ -333,6 +334,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
 <body>
 <div id="app">
   <header class="bar">
+    <a class="pill" id="to-app" href="../" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Yaoki</a>
     <div class="brand"><span lang="ja">スピーキング</span> <small>Yaoki Speaking</small></div>
     <button type="button" class="pill" id="open-settings" aria-haspopup="dialog">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.2"/><circle cx="10" cy="17" r="2.2"/></svg>
@@ -351,7 +353,7 @@ body.playing #app { max-width: none; height: 100vh; height: 100dvh; padding: 0; 
       </div>
     </div>
 
-    <div id="no-speech" class="pair" hidden><span lang="ja">このブラウザでは音声認識が使えません</span><span id="no-speech-text">This browser cannot recognise speech.</span></div>
+    <div id="no-speech" class="pair" hidden><span lang="ja">このブラウザでは音声認識が使えません</span><span id="no-speech-text">This browser cannot recognise speech.</span><button type="button" class="pill" id="copy-address" hidden style="align-self: flex-start; margin-top: 8px">Copy the address</button></div>
     <p id="desk-note" class="notebox" hidden><b lang="ja">スマホ・タブレット用</b>　Made for a phone or tablet held upright. It works here too, with a microphone.</p>
 
     <section class="block" aria-labelledby="way-h">
