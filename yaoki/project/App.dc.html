@@ -49,10 +49,11 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ at.Kana }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Kana" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.KanaWrite }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWrite" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
 <sc-if value="{{ at.KanaWords }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="KanaWords" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
+<sc-if value="{{ at.Extras }}" hint-placeholder-val="{{ false }}"><div style="animation: yk-in 220ms ease-out"><dc-import name="Extras" go="{{ go }}" app="{{ app }}" save="{{ save }}" miss="{{ miss }}" hint-size="390px,844px"></dc-import></div></sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
-const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Kana', 'KanaWrite', 'KanaWords'];
+const SCREENS = ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Kana', 'KanaWrite', 'KanaWords', 'Extras'];
 class Component extends DCLogic {
 constructor(props) {
 super(props);

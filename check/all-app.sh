@@ -36,6 +36,8 @@ else
 run "writing with a finger"       timeout 900 bash run-app.sh write-flow.js
 run "kana course"                 timeout 900 bash run-app.sh kana-flow.js
 run "every kana day"              NOSOUND=1 timeout 3000 bash run-app.sh kana-sweep.js
+run "every kana sound"            timeout 3000 bash run-app.sh kana-sound.js
+run "extras"                      timeout 600 bash run-app.sh extras-test.js
 run "day flow, sound"              timeout 300 bash run-app.sh flow-test.js
 run "mock, sound"                 timeout 480 bash run-app.sh e2e-mock.js
 run "mock, held back"             HELDBACK=1 timeout 300 bash run-app.sh e2e-mock.js

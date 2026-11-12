@@ -19,6 +19,7 @@
   var mark = null;      /* the clip play() last started: whose turn it was, the audio clock's reading at the clip's own zero, and when it ended by itself */
   var probe = null;     /* where the audio clock stood when it was last looked at closely: wall clock and audio clock */
   var moved = false;    /* this output's clock has been seen to advance: sound is really coming out */
+  var quietSince = 0;   /* when the last clip ended (wall clock), for tap(): after a quiet spell an iPhone's output wakes slowly */
 
   function seen() {
     if (ctx && ctx.state === 'running') { ran = true; worked = true; }
@@ -132,14 +133,16 @@
     ready: function (keys) {
       for (var i = 0; i < keys.length; i++) if (this.has(keys[i])) decode(keys[i]).catch(function () {});
     },
-    /* start a clip, stopping whatever was playing; "from" skips that many milliseconds into it; false means it cannot be played */
-    play: function (key, from) {
+    /* start a clip, stopping whatever was playing; "from" skips that many milliseconds into it; "lead" starts it that
+       many seconds late; false means it cannot be played */
+    play: function (key, from, lead) {
       var mine = ++turn;
       this.halt();
       if (!this.has(key)) return false;
       /* the clock is looked at afresh from here: it may have idled while nothing was playing */
       probe = null;
       var skip = from > 0 ? from / 1000 : 0;
+      var late = lead > 0 ? lead : 0;
       decode(key).then(function (buffer) {
         if (mine !== turn || !ctx) return;
         var node = ctx.createBufferSource();
@@ -149,15 +152,37 @@
         node.onended = function () {
           if (current === node) current = null;
           started.ended = Date.now();
+          quietSince = Date.now();
         };
         current = node;
         var into = Math.min(skip, Math.max(0, (buffer.duration || 0) - 0.05));
-        if (into > 0) node.start(0, into);
-        else node.start();
-        started.audio = ctx.currentTime - into;
+        var when = late > 0 ? ctx.currentTime + late : 0;
+        if (into > 0) node.start(when, into);
+        else node.start(when);
+        started.audio = (when || ctx.currentTime) - into;
         probe = { wall: Date.now(), audio: ctx.currentTime };
+        quietSince = 0;
         seen();
       }).catch(function () {});
+      return true;
+    },
+    /* play a clip because of a tap, on a screen where every sound comes from one (a kana, a word, a sentence read out):
+       a clip that did not come out does not silence the next one. An output that could not decode a clip, or went
+       quiet, is replaced inside the tap; after a quiet spell, or with an output just woken, the clip starts a moment
+       late, as an iPhone can lose the start of a sound while its output wakes (a kana's clip is half a second, all
+       of it needed); and when the sound is not seen to come out, the next tap makes a new output */
+    tap: function (key) {
+      if (!AC || !clips[key]) return false;
+      if (failed) stale = true;
+      renew();
+      var wake = !ctx || ctx.state !== 'running' || (quietSince && Date.now() - quietSince > 3000);
+      if (!context()) return false;
+      if (!this.play(key, 0, wake ? 0.15 : 0)) return false;
+      var mine = turn;
+      var self = this;
+      /* the clock looked at twice: once as the clip starts, and again after the 700 ms on() allows a frozen one */
+      setTimeout(function () { if (mine === turn && ctx) self.on(); }, 200);
+      setTimeout(function () { if (mine === turn && ctx) self.on(); }, 950);
       return true;
     },
     halt: function () {

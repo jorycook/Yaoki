@@ -201,6 +201,7 @@ body.no-gram .lg { display: none; }
 
   <section class="view" id="v-lib">
     <header class="bar">
+      <a class="pill" id="to-app" href="../" hidden style="text-decoration: none; color: inherit"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>Yaoki</a>
       <div class="brand"><span lang="ja">よむ</span> <small>Yaoki Reader</small></div>
       <button class="pill" id="open-hints-a" type="button" aria-label="Hint settings"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.6"/><circle cx="8" cy="17" r="2.6"/></svg><span lang="ja">ヒント</span></button>
     </header>
@@ -365,6 +366,14 @@ body.no-gram .lg { display: none; }
 <script>
 (function () {
 'use strict';
+
+/* opened from the Yaoki app's extras (?from=app), or added to the Home Screen: a way back to the app, where there is no
+   browser bar to go back with */
+try {
+  var toApp = document.getElementById('to-app');
+  var standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  if (toApp && (new URLSearchParams(location.search).get('from') === 'app' || standalone)) toApp.hidden = false;
+} catch (e) { /* an old browser: the link at the foot of the library still goes back */ }
 
 var AV = 5;            /* analysis version the engine produces (engine/analyzer.js, VERSION) */
 var MAX = 30000;       /* characters per text */

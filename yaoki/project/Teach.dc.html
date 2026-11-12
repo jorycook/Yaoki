@@ -125,7 +125,7 @@ if (snd) snd.stop();
 this.setState({ playing: -1 });
 return;
 }
-const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
+const sound = !!(key && snd && (snd.tap ? snd.tap(key) : snd.has(key) && snd.unlock() && snd.play(key)));
 if (!sound && snd) snd.stop();
 this.setState({ playing: n });
 this.timer = setTimeout(() => this.setState({ playing: -1 }), sound ? snd.ms(key) : 600 + C.plain(text).length * 120);

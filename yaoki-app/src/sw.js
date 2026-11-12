@@ -68,6 +68,19 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+function offlinePage() {
+  const html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">'
+    + '<meta name="theme-color" content="#F4F5F9"><title>Offline</title><style>'
+    + 'body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F4F5F9;color:#1B2440;'
+    + 'font:500 16px/1.5 -apple-system,BlinkMacSystemFont,"Hiragino Maru Gothic ProN",sans-serif;padding:24px;box-sizing:border-box}'
+    + 'main{max-width:340px;display:flex;flex-direction:column;gap:14px}h1{margin:0;font-size:24px;font-weight:800}p{margin:0;color:#5A6382}'
+    + 'a{display:flex;align-items:center;justify-content:center;height:50px;border-radius:14px;background:#2F4FD0;color:#fff;font-weight:800;'
+    + 'text-decoration:none;border:2px solid #1B2440;box-shadow:0 3px 0 #1B2440}</style></head><body><main>'
+    + '<h1><span lang="ja">オフライン</span> Offline</h1>'
+    + '<p>This page needs a connection: it is not part of the app stored on this phone.</p>'
+    + '<a href="' + HOME + '"><span lang="ja">もどる</span>&#12288;Back to Yaoki</a></main></body></html>';
+  return new Response(html, { status: 503, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } });
+}
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
@@ -93,6 +106,9 @@ self.addEventListener('fetch', (event) => {
             const page = await cache.match('./index.html', { ignoreSearch: true });
             if (page) return page;
           }
+          /* another page of the site opened from the app (Yaoki Speaking, Yaoki Reader) with no connection: a page that
+             says so and leads back, rather than the browser's error, from which an app on the Home Screen has no way back */
+          if (path.startsWith(HOME)) return fetch(request).catch(() => offlinePage());
         }
         return fetch(request);
       })

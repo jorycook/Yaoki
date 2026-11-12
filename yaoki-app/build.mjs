@@ -24,8 +24,8 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
    course bank and plan (n1-content.js, n1.js) and its spoken clips as files (audio/).
    The few lines of the shared files that belong to one app only are marked (see forLevel below). */
 const LEVELS = {
-  N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype with N2 sample content.', credits: '',
-    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write', 'Kana', 'KanaWrite', 'KanaWords'],
+  N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype: the kana, then N5 to N2, planned to your exam date.', credits: '',
+    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write', 'Kana', 'KanaWrite', 'KanaWords', 'Extras'],
     /* run first: the course content, checked and turned into course-kana.js, course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
     prepare: '../tools/build-course.mjs',
     /* loaded after the sound player and before the screens; words: the ones whose text the typefaces must hold.

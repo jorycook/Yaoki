@@ -48,6 +48,9 @@ SCREENS.push(
   ['KanaWords', kana(), 'read'],
   ['KanaWords', kana({ rs: 1 }), 'quiz'],
   ['Notebook', kana(), 'kana'],
+  /* the extras (おまけ): Yaoki Speaking and Yaoki Reader beside the course, for an N2 learner and a kana learner */
+  ['Extras', ''],
+  ['Extras', kana(), 'kana'],
 );
 
 if (LEVEL === 'N1') {

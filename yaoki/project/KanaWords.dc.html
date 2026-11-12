@@ -122,7 +122,7 @@ if (window.ykSound) window.ykSound.stop();
 say(key, who) {
 clearTimeout(this.timer);
 const snd = window.ykSound;
-const sound = !!(key && snd && snd.has(key) && snd.unlock() && snd.play(key));
+const sound = !!(key && snd && (snd.tap ? snd.tap(key) : snd.has(key) && snd.unlock() && snd.play(key)));
 this.setState({ playing: who });
 this.timer = setTimeout(() => this.setState({ playing: '' }), sound ? snd.ms(key) + 150 : 700);
 }
