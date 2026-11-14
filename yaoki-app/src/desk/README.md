@@ -49,13 +49,22 @@ screen's file serves both apps (the Study app and the N1 course): their template
 
 ## Checks
 
-Quick rebuild (a few seconds), into a folder a full build made once (`cp -a dist dist-desk-mine` the first time):
+Quick rebuild (a few seconds), into a folder a full build made once (`cp -a dist dist-desk` the first time):
 
 ```
-cd yaoki-app && YK_QUICK=1 YK_OUT=dist-desk-mine node build.mjs
-YK_LEVEL=N1 YK_QUICK=1 YK_OUT=dist-n1-desk-mine node build.mjs
+cd yaoki-app && YK_QUICK=1 YK_OUT=dist-desk node build.mjs
+YK_LEVEL=N1 YK_QUICK=1 YK_OUT=dist-n1-desk node build.mjs
 ```
 
-The kit in `/home/user/deskkit` (outside the repository) screenshots a screen at landscape sizes in every known state, and proves the
-phone's rendering unchanged against the builds made before the website existed (`dist-baseline`, `dist-n1-baseline`). A full build
-must never be published from a quick one.
+Then, from `check/` (with `NODE_PATH` reaching Playwright, as for the other checks):
+
+- `node desk-shots.js --dist ../yaoki-app/dist-desk --port 8930 --screen Drill --level N2 --sizes 1366x657,1920x1080 --out out/desk`
+  screenshots the screen in every state `screen-states.js` lists (the same states `screens-app.js` opens), and prints what it can
+  measure: page errors, parts sticking out of the pane, the page scrolling sideways. `--steps` adds states reached by interaction,
+  e.g. `'[{"click":"[data-k=choice]"},{"key":"Enter"},{"shot":"checked"}]'`. Look at the screenshots at 1366x657 (a laptop with
+  its browser: a pane about 600 px tall), 1920x1080, 2560x1440, 1120x700 (the narrowest landscape pane) and 1024x768 (the single
+  column).
+- `node desk-phone.js --a <an earlier build> --b ../yaoki-app/dist-desk --screens Drill --level N2 --out out/phone` proves the
+  phone's rendering of every state unchanged, byte for byte, at rest (animations off in both builds), at 390x844, 375x812 and
+  640x800 in light and dark; `--steps` for interaction states. It must print `all N identical`. Keep a build of the last release (or
+  of `main`) as the earlier build. A full build must never be published from a quick one.

@@ -296,10 +296,10 @@ const placed = (page) => page.evaluate(() => {
     }
 
     // wide windows: from 700 by 560 the page is a page of the Yaoki website and the design is laid out for a desktop: fluid in a
-    // pane under the site header, as wide as a readable column (at most 760 px) and as tall as the window; from 1000 px wide the
-    // app's sidebar replaces the tab bar inside the pane, from 1280 a rail with the words about the app comes beside it. A window
-    // too wide for a phone but smaller than that keeps the plain grey frame with the design centred
-    for (const [name, w, h] of [['laptop', 1280, 800], ['wide window', 844, 390], ['tablet upright', 810, 1080], ['narrow laptop window', 640, 800], ['short window', 1024, 600], ['wide desktop', 1600, 1000]]) {
+    // pane under the site header, as wide and as tall as the window leaves; from 1000 px wide the app's sidebar replaces the tab
+    // bar inside the pane, and from a pane of 880 px each screen has its landscape layout. A window too wide for a phone but
+    // smaller than that keeps the plain grey frame with the design centred
+    for (const [name, w, h] of [['laptop', 1280, 800], ['wide window', 844, 390], ['tablet upright', 810, 1080], ['narrow laptop window', 640, 800], ['short window', 1024, 600], ['wide desktop', 1600, 1000], ['laptop with a browser', 1366, 657], ['full HD', 1920, 1080]]) {
       const desk = w >= 700 && h >= 560;
       const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
       const page = await ctx.newPage();
@@ -318,18 +318,23 @@ const placed = (page) => page.evaluate(() => {
         ok(r.desk && !r.boxed && r.bar, `${name}: the desktop layout with the site header expected, got ${JSON.stringify(r)}`);
         ok(r.nav === 'Home|Study|Reader|Typing' && r.current === LV.navName, `${name}: the nav should list the four pages and mark this one, got ${r.nav} / ${r.current}`);
         ok(Math.abs(r.x - r.view.x) < 1 && Math.abs(r.w - r.view.w) < 1 && Math.abs(r.y - r.view.y) < 1, `${name}: the design should fill its pane, got ${JSON.stringify(r)}`);
-        ok(r.view.w <= 760.5 && r.view.w >= Math.min(760, w - (w >= 1280 ? 540 : w >= 1000 ? 240 : 0)) - 5, `${name}: the pane should be as wide as the column allows, at most 760 px, got ${r.view.w}`);
-        ok(Math.abs(r.rootW - r.w) < 1, `${name}: the screen should be laid out as wide as the pane, not at the phone's 390 px, got ${r.rootW}`);
+        // the pane takes all the width the sidebar leaves; from a pane of 880 px the screen has its landscape layout, at most 1240 px
+        // wide in the middle of it (src/desk/_base.css)
+        const paneW = w - (w >= 1000 ? 240 : 0);
+        ok(Math.abs(r.view.w - paneW) < 2, `${name}: the pane should take the width beside the sidebar, ${paneW} px, got ${r.view.w}`);
+        const rootWant = paneW >= 880 ? Math.min(paneW, 1240) : paneW;
+        ok(Math.abs(r.rootW - rootWant) < 2, `${name}: the screen should be laid out ${rootWant} px wide, not at the phone's 390 px, got ${r.rootW}`);
         ok(r.bar.bottom <= r.y + 0.5, `${name}: the header should sit above the pane, got ${JSON.stringify(r.bar)} against y=${r.y}`);
-        ok(Math.abs(r.h - Math.max(792, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under 792, the height the screens were drawn for), got ${r.h}`);
+        // a landscape layout fits the window down to a pane of 560 px; the single column keeps the 792 px it was drawn for
+        const floor = w >= 1120 ? 560 : 792;
+        ok(Math.abs(r.h - Math.max(floor, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under ${floor}), got ${r.h}`);
         ok(r.lastBottom <= r.y + r.h + 0.5, `${name}: the whole screen should fit its pane, got its last part at ${r.lastBottom} against the pane's ${r.y + r.h}`);
         ok(r.footShown, `${name}: the site's footer should be on the page (in the sidebar, or under the pane without one)`);
         if (w >= 1000) {
           ok(r.side && r.side.x < r.x && r.paneNav === 'none', `${name}: the sidebar should replace the tab bar inside the pane, got side=${JSON.stringify(r.side)} paneNav=${r.paneNav}`);
           ok(r.sideCurrent === 'Path' && !r.sideOff.includes('Notebook'), `${name}: the sidebar should mark Path and offer the notebook, got "${r.sideCurrent}" / off: ${r.sideOff}`);
         } else ok(!r.side && r.paneNav === 'grid', `${name}: no sidebar; the tab bar stays inside the pane, got side=${JSON.stringify(r.side)} paneNav=${r.paneNav}`);
-        if (w >= 1280) ok(r.rail && r.rail.x >= r.x + r.w - 0.5 && r.cards === 4, `${name}: the rail with the four other apps should sit beside the pane, got ${JSON.stringify(r.rail)} / ${r.cards} cards`);
-        else ok(!r.rail, `${name}: no rail in a window this wide, got ${JSON.stringify(r.rail)}`);
+        ok(!r.rail && r.cards === 0, `${name}: the app page has no rail of cards: the pane takes the width, got ${JSON.stringify(r.rail)} / ${r.cards} cards`);
       }
       if (name === 'laptop' || name === 'wide desktop') await page.screenshot({ path: path.join(out, `app-fit-${w}x${h}.png`) });
       // the notebook opens from the tab bar, or from the sidebar where that stands in for it
