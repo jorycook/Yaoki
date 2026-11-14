@@ -337,7 +337,7 @@
   var opener = null;
   function setInert(on) {
     var screen = stage.querySelector('.yk-screen');
-    [screen, sideBox, document.querySelector('.site-bar'), document.querySelector('.app-rail')].forEach(function (el) { if (el) { if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert'); } });
+    [screen, sideBox, document.querySelector('.site-bar')].forEach(function (el) { if (el) { if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert'); } });
   }
   function watchSheet() {
     var sheet = stage.querySelector('.yk-sheet');
@@ -376,6 +376,41 @@
     if (e.key !== 'Escape' || !root.classList.contains('yk-desk')) return;
     var close = stage.querySelector('.yk-scrim-close');
     if (close) { e.preventDefault(); close.click(); }
+  });
+
+  /* ---------- the keyboard on a desktop ---------- */
+  /* The screens mark what the keyboard may do (src/desk/README.md): data-k="choice" on each answer, in order, which the keys 1 to 9
+     pick; data-k="go" on the main action (Check, Next, Start), which Enter takes; data-k="play" on a sound to play, which Space
+     plays. Only on the desktop layout, never with a modifier key, never while typing in a field, and not while the menu dialog is
+     open. Enter on a focused control does what that control does, except on an answer just picked, where it goes on. */
+  function usable(el) {
+    if (!el || el.disabled || el.getAttribute('aria-disabled') === 'true') return false;
+    var r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden';
+  }
+  function marked(k) { return Array.prototype.filter.call(stage.querySelectorAll('[data-k="' + k + '"]'), usable); }
+  document.addEventListener('keydown', function (e) {
+    if (!root.classList.contains('yk-desk') || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.repeat) return;
+    if (stage.querySelector('.yk-sheet')) return;
+    var t = e.target;
+    if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+    /* focus on the page itself, the pane or something in it that is not a control counts as no focus */
+    var idle = !t || t === document.body || t === document.documentElement || t === mainBox || !(t.matches && t.matches('button, a[href], [tabindex], summary, [role="button"]'));
+    var onChoice = !!(t && t.getAttribute && t.getAttribute('data-k') === 'choice');
+    if (/^[1-9]$/.test(e.key) && !e.shiftKey) {
+      var c = marked('choice')[+e.key - 1];
+      if (c) { e.preventDefault(); c.click(); try { c.focus({ preventScroll: true }); } catch (x) {} }
+      return;
+    }
+    if (e.key === 'Enter' && (idle || onChoice)) {
+      var go = marked('go');
+      if (go.length) { e.preventDefault(); go[go.length - 1].click(); }
+      return;
+    }
+    if (e.key === ' ' && idle) {
+      var play = marked('play')[0];
+      if (play) { e.preventDefault(); play.click(); }
+    }
   });
 
   window.addEventListener('resize', fit);

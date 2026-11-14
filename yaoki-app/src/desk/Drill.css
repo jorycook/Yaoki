@@ -1,0 +1,31 @@
+/* Drill (both apps): the exercise on the left, like a paper (the head, the sentence, its options, Check under them), and the coach
+   on the right: before checking, a panel that says what will appear there; after, the verdict, the reason for every option and
+   Next. Hooks: bar, main, act, side, gap (N1's spacer); data-k on the options, Check and Next. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Drill"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 1fr);
+    /* the exercise as tall as its content, Check right under it, the rest of the height left empty (or, for a long exercise,
+       the exercise scrolls and Check stays in view) */
+    grid-template-rows: auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "main side" "act side" ". side";
+    column-gap: 28px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Drill"] > [data-d="bar"] { grid-area: bar; padding: 0 !important; margin-bottom: 12px; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] { grid-area: main; align-self: stretch; min-height: 0; overflow-y: auto; padding: 4px 4px 12px !important; gap: 12px !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="Drill"] > [data-d="act"] { grid-area: act; padding: 8px 4px 0 !important; align-items: flex-start; }
+  html.yk-desk [data-yk="Drill"] > [data-d="act"] > button { min-width: 260px; padding: 0 28px; display: inline-flex; align-items: center; justify-content: center; }
+  /* the sentence and its options a little larger: there is room */
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] > div[lang="ja"][style*="border-radius: 18px"] { font-size: 21px !important; padding: 14px 18px !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] button[data-k="choice"] { min-height: 56px !important; font-size: 17px !important; }
+  /* the coach: the answer sheet of the phone is a panel beside the exercise, as tall as its content, scrolling if it must */
+  html.yk-desk [data-yk="Drill"] > [data-d="side"] { grid-area: 2 / 2 / -1 / 3; align-self: start; max-height: 100% !important; overflow-y: auto; margin: 0; padding: 18px 20px 20px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; animation: yk-in 220ms ease-out !important; }
+  /* before checking, the panel says what will appear in it */
+  html.yk-desk [data-yk="Drill"]:not(:has(> [data-d="side"]))::after {
+    content: '解説　Why each option\A \A Choose an answer and check it. The verdict and the reason for every option appear here, and each mistake goes to your notebook.';
+    white-space: pre-line; grid-area: 2 / 2 / -1 / 3; align-self: start; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+}
+@keyframes yk-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

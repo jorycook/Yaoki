@@ -1,0 +1,23 @@
+/* The single column on a desktop: a pane narrower than 880 px (a window from 700 to about 1120 px wide) shows the phone's design,
+   fluid, in one column. These rules keep it tidy there; each screen's landscape layout (its own file here) takes over from 880 px.
+   The screens' styles are inline, and the browser keeps them in its own spelling (0px, rgb()): these rules match that spelling,
+   and are marked important where the inline style sets the same property. */
+@container yk (max-width: 879.98px) {
+  /* the week path: its route is drawn 390 px wide at phone coordinates; in the wider pane it sits in the middle, and scrolls if
+     the pane is short */
+  html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] { overflow-y: auto !important; overflow-x: hidden !important; }
+  html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > * { margin-left: calc(50% - 195px); }
+  /* the day labels beside the route may run on: there is room to their right here */
+  html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > div[style*="max-width"] { max-width: 320px !important; }
+  /* a button pinned to the bottom follows its content: the phone templates push it down with a growing spacer or a growing scroll
+     body, which stop growing here (a body taller than the pane still scrolls: it keeps min-height 0 and overflow auto) */
+  html.yk-desk [data-yk] > div[style="flex-grow: 1;"], html.yk-desk [data-yk] > div[style="flex-grow: 2;"], html.yk-desk [data-yk] > div[style^="flex-grow: 1; min-height: "][style$="px;"]:not([style*="padding"]):not([style*="display"]) { flex-grow: 0 !important; height: 24px !important; min-height: 0 !important; }
+  html.yk-desk [data-yk] > div[style*="overflow-y: auto"][style*="min-height: 0px"] { flex-grow: 0 !important; }
+  html.yk-desk [data-yk] > div[style^="flex: 1 1 auto"] { flex: 0 1 auto !important; }
+  /* a full-width button at the foot of a screen is a desktop button's width here, in the middle */
+  html.yk-desk [data-yk] > :is(a, button)[style*="height: 54px"] { width: 100%; max-width: 480px; align-self: center; flex-shrink: 0; }
+  /* the answer sheet that rises from the bottom of the phone's screen is a card under the question here */
+  html.yk-desk [data-yk] > div[style*="border-radius: 26px 26px 0px 0px"] { border-radius: 20px !important; border: 2px solid #1B2440 !important; margin: 12px 16px var(--yk-bottom) !important; max-height: none !important; }
+  /* exam-style questions: the four options in two columns, as the drill's are */
+  html.yk-desk [data-yk="Exam"] > div[style^="margin-top: 14px; display: flex; flex-direction: column; gap: 10px"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

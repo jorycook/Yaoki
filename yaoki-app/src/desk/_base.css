@@ -1,0 +1,21 @@
+/* The screens on a desktop: the rules every landscape layout shares. A screen's own layout is in its own file here (Drill.css …),
+   written as html.yk-desk rules inside @container yk (min-width: 880px): the pane (#yk-view) is a size container, so a layout
+   follows the pane's width, sidebar or not. The phone never sees any of it (html.yk-desk is never set there). README.md here
+   lists the hooks the screens carry for these rules (data-d for regions, data-k for the keyboard). */
+
+/* the keyboard: what has the focus shows on a desktop (the phone's design draws no focus ring) */
+html.yk-desk #yk-stage :focus-visible { outline: 3px solid #2F4FD0; outline-offset: 2px; }
+
+@container yk (min-width: 880px) {
+  /* a screen sits in the middle of a wide pane, at most 1240 px wide */
+  html.yk-desk .yk-screen > .sc-host > [data-yk] { max-width: 1240px; margin-inline: auto; }
+}
+
+/* where there is a pointer that hovers and a keyboard: controls answer the pointer, and the main action shows its key */
+@media (hover: hover) and (pointer: fine) {
+  html.yk-desk #yk-stage :is(button, a[href]):not(:disabled):not([aria-disabled="true"]):hover { filter: brightness(0.96); }
+  @container yk (min-width: 880px) {
+    html.yk-desk #yk-stage [data-k="go"]::after { content: 'Enter'; flex-shrink: 0; margin-left: 12px; padding: 1px 7px; border: 1.5px solid currentColor; border-radius: 7px; font: 800 11px/1.5 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; letter-spacing: 0.02em; opacity: 0.75; }
+    html.yk-desk #yk-stage [data-k="go"]:disabled::after { opacity: 0.4; }
+  }
+}
