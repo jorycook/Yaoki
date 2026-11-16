@@ -14,7 +14,7 @@
   var TEST = LOCAL && query.has('yktest');
   /* a link from the site's home page may name a place to open (?open=Notebook: the tab bar's places) and a level to study
      (?level=N4). They are taken once, and the address is cleaned so a reload does not take them again */
-  var wants = { open: /^(Main|Notebook|Mock|Readiness)$/.test(query.get('open') || '') ? query.get('open') : '', level: /^N[2-5]$/.test(query.get('level') || '') ? query.get('level') : '' };
+  var wants = { open: /^(Main|Notebook|Mock|Readiness|Extras)$/.test(query.get('open') || '') ? query.get('open') : '', level: /^(N[2-5]|KANA)$/.test(query.get('level') || '') ? query.get('level') : '' };
   if ((wants.open || wants.level) && !TEST && window.history && history.replaceState) {
     try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
   }
