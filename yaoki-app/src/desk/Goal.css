@@ -56,3 +56,20 @@
   html.yk-desk [data-yk="Goal"] > [data-d="sheet"] > [role="dialog"] > div[aria-hidden="true"] { display: none; }
   html.yk-desk [data-yk="Goal"] > [data-d="sheet"] > [role="dialog"] > * { flex-shrink: 0; }
 }
+/* a window shorter than a laptop's (640 px or less: a pane of about 560 px): the composition a little tighter (Yaoki at the
+   phone's size, the rows closer), so that the tallest form, a plan too short for one session a day with its two choices, still
+   fits with its action in view */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Goal"] { padding-top: 14px !important; padding-bottom: 16px !important; }
+    html.yk-desk [data-yk="Goal"] > [data-d="head"] > svg { width: 104px; height: 104px; }
+    html.yk-desk [data-yk="Goal"] > [data-d="level"],
+    html.yk-desk [data-yk="Goal"] > [data-d="pace"] { margin-top: 20px !important; }
+    html.yk-desk [data-yk="Goal"] > [data-d="date"],
+    html.yk-desk [data-yk="Goal"] > [data-d="plan"] { margin-top: 16px !important; }
+    html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) > [data-d="date"],
+    html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) > [data-d="plan"] { margin-top: 20px !important; }
+    html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) > [data-d="pace"] { margin-top: 16px !important; }
+    html.yk-desk [data-yk="Goal"] > [data-d="act"] { margin-top: 12px; }
+  }
+}

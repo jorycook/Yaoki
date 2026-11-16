@@ -61,6 +61,8 @@ module.exports = function screenStates(LEVEL) {
     /* entries: [screen, address, name, taps before the look] */
     const at = (d) => '&ykdate=' + d;
     const plan = (p, open) => { const q = JSON.parse(JSON.stringify(p)); if (open != null) q.open = open; return '&plan=' + enc(q); };
+    /* a copy of a plan with one of its days changed */
+    const tweak = (p, day, f) => { const q = JSON.parse(JSON.stringify(p)); f(q.days[day]); return q; };
     const demo = (day) => '&plan=demo&day=' + day + at(TODAY);
     const DEMO = N.demo();
     /* the sample plan with every day done; a plan made today for each session; one re-planned after three missed days */
@@ -148,6 +150,12 @@ module.exports = function screenStates(LEVEL) {
       ['Today', at(TODAY) + plan(fresh60, RD.mid), 'bank-' + RD.mid],
       ['Today', at(TODAY) + plan(fresh60, RD.info), 'bank-' + RD.info],
       ['Today', at(TODAY) + plan(fresh60, RD.pair), 'bank-' + RD.pair],
+      /* days the list above does not reach: one part and nothing to lead (the kanji day without its reading and listening), the
+         grammar done and a row next, a done review day with mistakes due (two ways on), and the course's longest title */
+      ['Today', at(TODAY) + plan(tweak(fresh60, kanjiDay, (x) => { x.r = -1; x.l = -1; }), kanjiDay), 'one-part'],
+      ['Today', at(TODAY) + plan(tweak(fresh60, 1, (x) => { x.p = { g: 3 }; }), 1), 'grammar-done'],
+      ['Today', at('2026-11-20') + plan(tweak(DEMO, 57, (x) => { x.p = { v: 1 }; }), 57) + '&m=' + enc(marks), 'review-done-due'],
+      ['Today', at(TODAY) + plan(tweak(fresh60, 1, (x) => { x.g = 19; }), 1), 'long-title'],
       ['Teach', demo(17), 'demo'],
       ['Teach', demo(17), 'page-3', ['button:has-text("Next")', 'button:has-text("Next")']],
       ['Teach', at(TODAY) + plan(noGrammar, 2), 'none'],

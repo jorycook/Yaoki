@@ -100,6 +100,17 @@
   html.yk-desk [data-yk="Reading"] > [data-d="none"] { grid-area: 3 / 1 / 4 / -1; justify-self: start; width: min(100%, 560px); box-sizing: border-box; margin: 0 !important; }
   html.yk-desk [data-yk="Reading"]:has(> [data-d="none"]) > [data-d="act"] { grid-area: 4 / 1 / 5 / -1; margin-top: 16px; }
 }
+/* while the Study app's passage or reasons box has more under it, a small chevron at its foot says so, also when the box is cut
+   between two lines (where the browser can follow the box's scroll; elsewhere the fade alone) */
+@container yk (min-width: 880px) {
+  @supports (animation-timeline: scroll()) {
+    html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::after,
+    html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"]::after {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%235A6382' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center bottom -14px / 14px 9px no-repeat, linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px);
+      animation: yk-rd-more linear both; animation-timeline: scroll(nearest block); animation-range: calc(100% - 12px) 100%;
+    }
+  }
+}
 /* a narrow landscape pane (880 to 999 px): the two columns share the width evenly, so that the question and the options wrap
    less (the passage, about 20 characters a line, scrolls when longer) */
 @container yk (min-width: 880px) and (max-width: 999.98px) {
@@ -130,3 +141,4 @@
   }
 }
 @keyframes yk-rd-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes yk-rd-more { from { background-position: center bottom 2px, 0 0; } to { background-position: center bottom -14px, 0 0; } }

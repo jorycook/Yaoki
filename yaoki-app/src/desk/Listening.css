@@ -4,7 +4,8 @@
    it can be read while the clip plays again; it scrolls if long), and the verdict, the reason for each choice and Next come
    under the options in a panel. Before that, the place of the script says what will appear in it. The two columns flow on
    their own: the script keeps its place under the player, however long the options are. A card that scrolls (the script, the
-   reasons) fades at its foot; N1's four options run on in lines, as many to a line as fit. A short window (720 px or less)
+   reasons) fades at its foot, with a small chevron while there is more under it; N1's four options run on in lines, as many
+   to a line as fit. A short window (720 px or less)
    tightens the screen. Where there is a keyboard, the play button shows its key, Space, beside it. N1's day without
    listening: its note and Back to today at the top.
    Hooks: bar, body (Study: the phone's scrolling column, laid open here), head, player, opts, wait, gap (N1), side (the
@@ -132,6 +133,17 @@
     html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { margin: 10px 20px 14px; }
   }
 }
+/* while a card has more under it, a small chevron at its foot says so, also when the card is cut between two lines (where the
+   browser can follow the card's scroll; elsewhere the fade alone) */
+@container yk (min-width: 880px) {
+  @supports (animation-timeline: scroll()) {
+    html.yk-desk [data-yk="Listening"] [data-d="script"]::after,
+    html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"])::after {
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%235A6382' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center bottom -14px / 14px 9px no-repeat, linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px);
+      animation: yk-ls-more linear both; animation-timeline: scroll(nearest block); animation-range: calc(100% - 12px) 100%;
+    }
+  }
+}
 /* where there is a keyboard: the play button shows its key beside it, as the main action shows Enter (_base.css) */
 @media (hover: hover) and (pointer: fine) {
   @container yk (min-width: 880px) {
@@ -144,3 +156,4 @@
   }
 }
 @keyframes yk-ls-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes yk-ls-more { from { background-position: center bottom 2px, 0 0; } to { background-position: center bottom -14px, 0 0; } }
