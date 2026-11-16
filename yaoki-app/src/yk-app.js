@@ -54,7 +54,8 @@
 
   /* the writing practice's memory: the kanji written three times (one string of them) and the words written out */
   function wroteOk(x) {
-    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c) && all.indexOf(c) === i; }).join('') : '';
+    /* kanji (with 々) and, for the kana course, kana (with ー): what the learner has written, so nothing is asked twice */
+    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return /[\u3041-\u3096\u30a1-\u30fa\u30fc\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c) && all.indexOf(c) === i; }).join('') : '';
   }
   function wordsOk(x) {
     return Array.isArray(x) ? x.filter(function (w, i, all) { return typeof w === 'string' && w && w.length <= 16 && all.indexOf(w) === i; }) : [];
@@ -457,7 +458,12 @@
     }
     if (e.key === 'Enter' && (idle || onChoice)) {
       var go = marked('go');
-      if (go.length) { e.preventDefault(); go[go.length - 1].click(); }
+      if (go.length) {
+        e.preventDefault();
+        /* the answer gives up the focus as the screen goes on: the next question may reuse its button, and Space would press it */
+        if (onChoice && t.blur) t.blur();
+        go[go.length - 1].click();
+      }
       return;
     }
     if (e.key === ' ' && idle) {
