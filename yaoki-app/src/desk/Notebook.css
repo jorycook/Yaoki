@@ -13,7 +13,7 @@
 @container yk (min-width: 880px) {
   html.yk-desk [data-yk="Notebook"] {
     display: grid !important;
-    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
     /* the title; the list (in the Study app under its heading), which takes the height left; the tab bar (a window under
        1000 px wide only) */
     grid-template-rows: auto minmax(0, 1fr) auto;
@@ -47,20 +47,22 @@
   /* the cards: one a row, two side by side when the column has room for both (the Study app's list scrolls itself, N1's holds
      what scrolls); the padding keeps the focus ring in view */
   html.yk-desk [data-yk="Notebook"] :is([data-d="head"] ~ [data-d="list"], [data-d="scroll"]) {
-    display: grid !important; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); align-content: start; gap: 10px !important;
+    display: grid !important; grid-template-columns: repeat(auto-fill, minmax(min(100%, 390px), 1fr)); align-content: start; gap: 10px !important;
     padding: 6px 6px 20px !important;
   }
   html.yk-desk [data-yk="Notebook"] [data-d="scroll"] { margin: -6px -6px 0; }
   html.yk-desk [data-yk="Notebook"] :is([data-d="cleared"], [data-d="none"], [data-d="note"]) { grid-column: 1 / -1; }
-  /* the question a little larger: it is what is studied */
-  html.yk-desk [data-yk="Notebook"] [data-d="row"] > div[lang="ja"][style*="Klee One"] { font-size: 16px !important; }
+  /* the question a little larger: it is what is studied (N1 cuts its line to the card: the taller line keeps the underline of the
+     word asked about inside it) */
+  html.yk-desk [data-yk="Notebook"] [data-d="row"] > div[lang="ja"][style*="Klee One"] { font-size: 16px !important; line-height: 1.7 !important; }
   html.yk-desk [data-yk="Notebook"] [data-d="done"] > div[lang="ja"][style*="Klee One"] { font-size: 15px !important; }
 
   /* nothing in the notebook: the list's place, as tall as the left column, says what will appear in it. N1's empty state has no
      list (the panel is the screen's own); the Study app's list is there, empty, under its heading */
   html.yk-desk [data-yk="Notebook"]:has(> [data-d="side"] > [data-d="empty"]) { grid-template-rows: auto auto minmax(0, 1fr) auto; }
-  html.yk-desk [data-yk="Notebook"]:has(> [data-d="head"] ~ [data-d="list"]:not(:has(> *))) { grid-template-rows: auto 24px auto minmax(0, 1fr) auto; }
-  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *)) { align-content: stretch; padding-bottom: 6px !important; }
+  /* (:has cannot hold :has: the root has the heading, and no list with something in it) */
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="head"]):not(:has(> [data-d="list"] > *)) { grid-template-rows: auto 24px auto minmax(0, 1fr) auto; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *)) { align-content: stretch; padding-bottom: 0 !important; }
   html.yk-desk [data-yk="Notebook"]:has(> [data-d="side"] > [data-d="empty"])::after,
   html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *))::before {
     content: 'ノート　Your mistakes\A \A Each question you get wrong is listed here: the question, your answer and the right one, the day it comes back, and how many times in a row you have got it right since.';

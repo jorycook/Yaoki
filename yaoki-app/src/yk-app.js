@@ -412,6 +412,8 @@
     if (e.key !== 'Escape' || !root.classList.contains('yk-desk')) return;
     var close = stage.querySelector('.yk-scrim-close');
     if (!close) { var dlg = openDialog(); close = dlg && dialogClose(dlg); }
+    /* else a panel the screen docks beside its content (not a modal dialog) that marks its close: data-k="close" */
+    if (!close && !openDialog()) close = marked('close')[0] || null;
     if (close) { e.preventDefault(); close.click(); }
   });
   /* Tab stays in an open dialog of a screen */
