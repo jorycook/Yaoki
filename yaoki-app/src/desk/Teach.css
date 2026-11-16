@@ -45,21 +45,23 @@
   html.yk-desk [data-yk="Teach"] [data-d="head"] > div:has(> h1) + div, html.yk-desk [data-yk="Teach"] [data-d="head"] > h1 + div > div:last-child {
     order: -1; margin-bottom: 4px; padding: 0 !important;
   }
-  /* as large as keeps about ten characters on a line (a longer form wraps, its lines balanced; it may wrap between any two kana,
-     as Japanese does: keeping words whole, word-break: keep-all, would leave a lone 〜 on the first line of forms such as
-     〜なければなりません, whose only other break is after it) */
-  html.yk-desk [data-yk="Teach"] [data-d="head"] h1 { font-size: clamp(34px, 10.5cqi, 46px) !important; line-height: 1.22 !important; text-wrap: balance; }
+  /* as large as keeps eleven characters on a line, so that every form of one word (〜なければなりません, 〜ていただけませんか) and
+     every N1 form fits on one; a longer form wraps, its lines balanced, only between its parts (after a ・ or a ／, before a （),
+     never inside a word (keep-all), unless a part is longer than a line */
+  html.yk-desk [data-yk="Teach"] [data-d="head"] h1 {
+    font-size: clamp(28px, 9cqi, 46px) !important; line-height: 1.22 !important; text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere;
+  }
   html.yk-desk [data-yk="Teach"] [data-d="head"] > div > h1 + div, html.yk-desk [data-yk="Teach"] [data-d="head"] > h1 + div > div:first-child {
     font-size: 17px !important; line-height: 1.4 !important; padding-top: 2px !important;
   }
   /* how it connects: a card a little roomier; a short label (動・い形) beside its rule as on the phone, a long one (an English
      explanation, as in the first levels) on its own line over it rather than squeezed into the phone's narrow label, its lines
-     set from the left (a short label stays in the middle of its pill) */
+     set from the left (a short label stays in the middle of its pill), a Japanese word in it (言われる) never split */
   html.yk-desk [data-yk="Teach"] [data-d="conn"] { padding: 14px 12px 16px 14px !important; gap: 10px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) { flex-wrap: wrap; row-gap: 5px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:first-child {
-    flex: 0 1 auto !important; width: auto !important; min-width: 66px; max-width: 100%; box-sizing: border-box; padding: 4px 6px !important;
-    display: flex; justify-content: center; text-align: start !important; text-wrap: balance;
+    flex: 0 1 auto !important; width: auto !important; min-width: 66px; max-width: 100%; box-sizing: border-box; padding: 4px 9px !important;
+    display: flex; justify-content: center; text-align: start !important; text-wrap: pretty; word-break: keep-all; overflow-wrap: anywhere;
   }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:last-child { flex: 1 1 200px; min-width: 0; }
 
@@ -80,7 +82,7 @@
   }
 
   /* N1's day without a lesson: its note at a readable measure, and Back to today right under it */
-  html.yk-desk [data-yk="Teach"] > [data-d="empty"] { margin-top: 4px !important; max-width: min(100%, 600px); box-sizing: border-box; }
+  html.yk-desk [data-yk="Teach"] > [data-d="empty"] { margin-top: 4px !important; width: min(100%, 600px); box-sizing: border-box; padding: 18px 20px !important; }
   html.yk-desk [data-yk="Teach"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Teach"]:has(> [data-d="empty"]) > [data-d="act"] { align-self: flex-start; margin-top: 18px; }
 }
@@ -93,15 +95,15 @@
   html.yk-desk [data-yk="Teach"] [data-d="watch"] > div:nth-child(2) { font-size: 14px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="watch"] div[lang="ja"] { font-size: 16px !important; }
 }
-/* a short pane (a small window, a pane under about 580 px): the spacing a little tighter (the bar stays where it is on every
-   screen) and the form a little smaller, so that more of each column shows */
-@media (max-height: 640px) {
+/* a short pane (a laptop's window, 1366 by 657 and the like: a pane of about 620 px or less): the spacing a little tighter (the
+   bar stays where it is on every screen) and the form a little smaller, so that more of each column shows */
+@media (max-height: 680px) {
   @container yk (min-width: 880px) {
     html.yk-desk [data-yk="Teach"] { padding-bottom: 14px !important; }
     html.yk-desk [data-yk="Teach"] > [data-d="bar"] { margin-bottom: 6px; }
     html.yk-desk [data-yk="Teach"] [data-d="main"] { gap: 12px; }
     html.yk-desk [data-yk="Teach"] [data-d="side"] { gap: 10px; }
-    html.yk-desk [data-yk="Teach"] [data-d="head"] h1 { font-size: clamp(30px, 9cqi, 40px) !important; }
+    html.yk-desk [data-yk="Teach"] [data-d="head"] h1 { font-size: clamp(28px, 9cqi, 40px) !important; }
     html.yk-desk [data-yk="Teach"] [data-d="conn"] { padding: 12px 12px 13px 14px !important; gap: 8px !important; }
     html.yk-desk [data-yk="Teach"] [data-d="exs"] { padding: 12px 16px 13px !important; gap: 10px !important; }
     html.yk-desk [data-yk="Teach"] [data-d="watch"] { padding: 12px 16px 13px !important; gap: 4px !important; }

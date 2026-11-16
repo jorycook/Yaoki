@@ -1,6 +1,6 @@
 /* Compare (both apps): the look-alike patterns side by side, as a table compares them. The title on one line across the top
    (its label, then どれを使う？); under it one column for each pattern (its form over its tag, its example and translation),
-   cards of one height in a row (a unit's review with many patterns: rows of three or four); under the cards the note that sums
+   cards of one height in a row (a unit's review with ten patterns: rows of three to five); under the cards the note that sums
    up the difference, at a readable measure. Those scroll in their own box when they are taller than the pane (a unit's review: a
    long note, or ten patterns), so that the cards always show first, and the check and Start the drill always stay in view; the
    box's foot fades out while there is more below. Under the box the quick check as a band: its label (or, once answered, the
@@ -46,12 +46,12 @@
     grid-column: 1 / -1; grid-row: 3; margin-top: 8px !important; max-width: 68ch; font-size: 14px !important; line-height: 1.5 !important;
   }
 
-  /* the patterns, one column each, in a row (a review's many patterns in rows of three or four) */
+  /* the patterns, one column each, in a row (a review's ten patterns in rows of three to five, as many as the pane holds) */
   html.yk-desk [data-yk="Compare"] [data-d="cards"] {
     grid-column: 1 / -1; grid-row: 2; margin-top: 10px !important;
     display: grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 14px;
   }
-  html.yk-desk [data-yk="Compare"] [data-d="cards"]:has(> :nth-child(5)) { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  html.yk-desk [data-yk="Compare"] [data-d="cards"]:has(> :nth-child(5)) { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
   html.yk-desk [data-yk="Compare"] [data-d="card"] { margin: 0 !important; padding: 10px 16px 12px !important; gap: 5px !important; }
   /* the form over its tag, so that every column starts the same way */
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div:first-child { flex-direction: column; align-items: flex-start !important; gap: 4px !important; }
@@ -86,7 +86,7 @@
   html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) > [data-d="act"] { grid-row: 4; justify-self: start; align-self: start; margin-top: 12px !important; }
 
   /* N1's day without a lesson: its note at a readable measure, and Back to today right under it */
-  html.yk-desk [data-yk="Compare"] > [data-d="empty"] { margin-top: 4px !important; max-width: min(100%, 600px); box-sizing: border-box; }
+  html.yk-desk [data-yk="Compare"] > [data-d="empty"] { margin-top: 4px !important; width: min(100%, 600px); box-sizing: border-box; padding: 18px 20px !important; }
   html.yk-desk [data-yk="Compare"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Compare"]:has(> [data-d="empty"]) > [data-d="act"] { align-self: flex-start; margin-top: 18px !important; }
 }
@@ -96,12 +96,14 @@
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { font-size: 13px !important; }
   html.yk-desk [data-yk="Compare"] [data-d="q"] { font-size: 18px !important; }
 }
-/* a short pane (a small window, a pane under about 580 px): the spacing a little tighter (the bar stays where it is on every
-   screen), so that more of the cards and the note shows */
-@media (max-height: 640px) {
+/* a short pane (a laptop's window, 1366 by 657 and the like: a pane of about 620 px or less): the spacing a little tighter (the
+   bar stays where it is on every screen), so that more of the cards and the note shows */
+@media (max-height: 680px) {
   @container yk (min-width: 880px) {
     html.yk-desk [data-yk="Compare"] { padding-bottom: 12px !important; }
     html.yk-desk [data-yk="Compare"] > [data-d="bar"] { margin-bottom: 4px; }
+    html.yk-desk [data-yk="Compare"] [data-d="cards"] { margin-top: 8px !important; }
+    html.yk-desk [data-yk="Compare"] [data-d="head"] > div:last-child { margin-top: 6px !important; }
     html.yk-desk [data-yk="Compare"] [data-d="card"] { padding: 8px 14px 10px !important; gap: 4px !important; }
     html.yk-desk [data-yk="Compare"] [data-d="card"] > div[lang="ja"] { line-height: 1.6 !important; }
     html.yk-desk [data-yk="Compare"] [data-d="check"] { padding: 9px 18px 10px !important; }
