@@ -1,8 +1,8 @@
 /* Readiness (both apps), as a dashboard under the title. The Study app: the score card on the left (the estimated total, its bar
-   with the pass mark, the verdict) and the scoring sections on the right, the two cards the same height; under the sections the
-   next move with its Drill button, under the score card the note on how the estimate is made. N1: the card of days to the exam
-   (the pace, the plan's shape) on the left with the progress bars of the five parts under it; on the right the review of the
-   earlier levels, the week tests and mini mocks, and the next move under them (the Notebook and Mock exam buttons). On a
+   with the pass mark, the verdict) and the scoring sections on the right, the two cards the same height; under both the next
+   move, a band with its Drill button at the right, and under it the note on how the estimate is made. N1: the card of days to
+   the exam (the pace, the plan's shape) on the left with the progress bars of the five parts under it; on the right the review
+   of the earlier levels, the week tests and mini mocks, and the next move under them (the Notebook and Mock exam buttons). On a
    laptop's pane (about 600 px tall) all of it is in view; a shorter window scrolls it.
    Hooks: bar, card (the score card, or N1's days card), sections (the scoring sections, or N1's progress), next (the next move:
    the Study app's card, N1's two buttons), note (the Study app's note), gap (the Study app's spacer), body (N1's scrolling body),
@@ -12,8 +12,8 @@
   html.yk-desk [data-yk="Readiness"]:not(:has(> [data-d="body"])) {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
-    grid-template-areas: "bar bar" "card sections" "note next" ". ." "nav nav";
+    grid-template-rows: auto auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas: "bar bar" "card sections" "next next" "note note" ". ." "nav nav";
     column-gap: 24px;
     padding: 20px 28px 24px !important;
     overflow-y: auto !important;
@@ -21,9 +21,10 @@
   html.yk-desk [data-yk="Readiness"] > [data-d="bar"] { grid-area: bar; padding: 0 !important; margin-bottom: 12px; }
   html.yk-desk [data-yk="Readiness"] > [data-d="card"] { grid-area: card; margin: 0 !important; justify-content: space-between; }
   html.yk-desk [data-yk="Readiness"] > [data-d="sections"] { grid-area: sections; margin: 0 !important; justify-content: space-between; }
-  html.yk-desk [data-yk="Readiness"] > [data-d="next"] { grid-area: next; align-self: start; margin: 16px 0 0 !important; }
-  html.yk-desk [data-yk="Readiness"] > [data-d="next"] > a[data-k="go"] { min-width: 200px; padding: 0 22px !important; }
-  html.yk-desk [data-yk="Readiness"] > [data-d="note"] { grid-area: note; align-self: start; margin: 14px 4px 0 !important; }
+  /* the next move: a band under both cards, its words on the left and Drill, a desktop button, on the right */
+  html.yk-desk [data-yk="Readiness"] > [data-d="next"] { grid-area: next; margin: 18px 0 0 !important; padding: 14px 16px 14px 20px !important; column-gap: 24px !important; }
+  html.yk-desk [data-yk="Readiness"] > [data-d="next"] > a[data-k="go"] { min-width: 188px; padding: 0 24px !important; }   /* 240 px with its padding and border */
+  html.yk-desk [data-yk="Readiness"] > [data-d="note"] { grid-area: note; max-width: 640px; margin: 12px 4px 0 !important; }
   html.yk-desk [data-yk="Readiness"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Readiness"]:not(:has(> [data-d="body"])) > nav { grid-area: nav; margin: 16px -28px -24px; }
 

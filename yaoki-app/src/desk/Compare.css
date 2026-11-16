@@ -42,6 +42,8 @@
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { line-height: 1.45 !important; }
   html.yk-desk [data-yk="Compare"] [data-d="card"] rt { font-size: 10px; }
   html.yk-desk [data-yk="Compare"] :is([data-d="head"], [data-d="card"], [data-d="check"]) div { text-wrap: pretty; }
+  /* the note and the verdict are English with Japanese words in them: a word such as ことから is not split over two lines */
+  html.yk-desk [data-yk="Compare"] :is([data-d="head"] > div:last-child, [data-d="check"] > div:first-child) { word-break: keep-all; overflow-wrap: anywhere; }
 
   /* the quick check: the label (or the verdict) and the sentence on the left, the options beside them */
   html.yk-desk [data-yk="Compare"] [data-d="check"] {

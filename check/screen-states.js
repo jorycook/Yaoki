@@ -27,7 +27,14 @@ module.exports = function screenStates(LEVEL) {
     ['Scene', day1({ ks: 1 }), 'write'],
     ['Scene', day1({ ks: 1, kw: 1 }), 'question'],
     ['Reading', ''],
+    /* real reading days: N2 week 3's reading, and N3's longest passage with a five-line question */
+    ['Reading', '&cur=u03d4', 'u03d4'],
+    ['Reading', '&level=N3&cur=n3u03d6', 'n3u03d6'],
     ['Listening', ''],
+    /* real listening days: printed choices (N2), the gist (N3) and N5's utterances (発話表現) */
+    ['Listening', '&cur=u03d3', 'u03d3'],
+    ['Listening', '&level=N3&cur=n3u01d5', 'n3u01d5'],
+    ['Listening', '&level=N5&cur=n5u01d1', 'n5u01d1'],
     ['WeekTest', ''],
     /* the week test's results: a score with a weak spot, and every answer right */
     ['WeekTest', '&cur=u03t&tests=' + enc({ u03t: { id: 'u03t', score: 17, of: 24, used: 1120, areas: { vocab: { right: 7, of: 8 }, grammar: { right: 4, of: 10 }, reading: { right: 6, of: 6 } } } }), 'result'],

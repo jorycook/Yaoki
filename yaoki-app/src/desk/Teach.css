@@ -56,7 +56,8 @@
   html.yk-desk [data-yk="Teach"] :is([data-d="exs"], [data-d="watch"]) div { text-wrap: pretty; }
   html.yk-desk [data-yk="Teach"] [data-d="exs"] rt { font-size: 10px; }
   html.yk-desk [data-yk="Teach"] [data-d="watch"] { padding: 14px 18px 16px !important; gap: 6px !important; }
-  html.yk-desk [data-yk="Teach"] [data-d="watch"] > div:nth-child(2) { max-width: 70ch; }
+  /* its note is English with Japanese words in it: a word such as から is not split over two lines (N1's note does this already) */
+  html.yk-desk [data-yk="Teach"] [data-d="watch"] > div:nth-child(2) { max-width: 70ch; word-break: keep-all; overflow-wrap: anywhere; }
 
   /* Next right under the examples, a desktop button's width (N1: Back beside it) */
   html.yk-desk [data-yk="Teach"]:has(> [data-d="body"]) > [data-d="act"] { grid-area: act; justify-self: start; align-self: start; max-width: 100%; margin-top: 16px !important; }
