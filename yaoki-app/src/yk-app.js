@@ -435,21 +435,27 @@
   /* The screens mark what the keyboard may do (src/desk/README.md): data-k="choice" on each answer, in order, which the keys 1 to 9
      pick; data-k="go" on the main action (Check, Next, Start), which Enter takes; data-k="play" on a sound to play, which Space
      plays. Only on the desktop layout, never with a modifier key, never while typing in a field, and not while the menu dialog is
-     open; while a screen's dialog is open, in that dialog only. Enter on a focused control does what that control does, except on
-     an answer just picked, where it goes on. */
+     open; while a screen's dialog is open, in that dialog only. Enter on a control reached with the keyboard does what that control
+     does; on an answer just picked, or on a control a click left the focus on, it goes on (the main action's key). */
   function usable(el) {
     if (!el || el.disabled || el.getAttribute('aria-disabled') === 'true') return false;
     var r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden';
   }
   function marked(k) { return Array.prototype.filter.call((openDialog() || stage).querySelectorAll('[data-k="' + k + '"]'), usable); }
+  /* the control a mouse or a finger last pressed: it keeps the focus after the click, but was not chosen with the keyboard (Tab
+     clears it) */
+  var clicked = null;
+  document.addEventListener('pointerdown', function (e) { clicked = e.target && e.target.closest ? e.target.closest('button, a[href], [tabindex], summary, [role="button"]') : null; }, true);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Tab') clicked = null; }, true);
   document.addEventListener('keydown', function (e) {
     if (!root.classList.contains('yk-desk') || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.repeat) return;
     if (stage.querySelector('.yk-sheet')) return;
     var t = e.target;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-    /* focus on the page itself, the pane or something in it that is not a control counts as no focus */
-    var idle = !t || t === document.body || t === document.documentElement || t === mainBox || t === dlgOpen || !(t.matches && t.matches('button, a[href], [tabindex], summary, [role="button"]'));
+    /* focus on the page itself, the pane or something in it that is not a control counts as no focus; so does a control the mouse
+       left the focus on (a click focuses a button, but the learner did not choose it with the keyboard: Enter is the main action's) */
+    var idle = !t || t === document.body || t === document.documentElement || t === mainBox || t === dlgOpen || t === clicked || !(t.matches && t.matches('button, a[href], [tabindex], summary, [role="button"]'));
     var onChoice = !!(t && t.getAttribute && t.getAttribute('data-k') === 'choice');
     if (/^[1-9]$/.test(e.key) && !e.shiftKey) {
       var c = marked('choice')[+e.key - 1];
