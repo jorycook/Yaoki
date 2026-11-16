@@ -5,6 +5,7 @@
 <title>Today's spread</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
 <script src="./course-n5.js"></script>
 <script src="./course-n4.js"></script>
 <script src="./course-n3.js"></script>
@@ -33,12 +34,12 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">今日の見開き　TODAY'S SPREAD</div>
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.25">{{ title }}</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Learn the page, drill it with hints, then answer exam-style with the clock on.</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ lede }}</div>
 </div>
 
 <div style="position: relative; margin-top: 16px; padding: 14px; border-radius: 20px; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; border: {{ c1.border }}; box-shadow: {{ c1.shadow }}">
-<a href="Teach.dc.html" onClick="{{ toTeach }}" aria-label="Grammar: open the teach page" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
-<div style="width: 46px; height: 46px; border-radius: 14px; background: #E8ECFB; color: #2F4FD0; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">文</div>
+<a href="{{ c1Href }}" onClick="{{ toTeach }}" aria-label="{{ c1Aria }}" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
+<div style="width: 46px; height: 46px; border-radius: 14px; background: #E8ECFB; color: #2F4FD0; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">{{ c1Icon }}</div>
 <div style="flex-grow: 1; display: flex; flex-direction: column">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ grammarLine }}</div>
 <div style="font-size: 16px; font-weight: 800">{{ title }}</div>
@@ -53,21 +54,21 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-for>
 </div>
 <sc-if value="{{ g0 }}" hint-placeholder-val="{{ false }}">
-<a href="Teach.dc.html" onClick="{{ toTeach }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">はじめる　Start with the teach page</a>
+<a href="{{ c1Href }}" onClick="{{ toTeach }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">{{ g0Label }}</a>
 </sc-if>
 <sc-if value="{{ g1 }}" hint-placeholder-val="{{ true }}">
-<a href="Drill.dc.html" onClick="{{ toDrill }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">つづける　Continue the drill</a>
+<a href="{{ g1Href }}" onClick="{{ toDrill }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">{{ g1Label }}</a>
 </sc-if>
 <sc-if value="{{ g2 }}" hint-placeholder-val="{{ false }}">
-<a href="Exam.dc.html" onClick="{{ toExam }}" style="height: 48px; border-radius: 14px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 3px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">本番へ　Start exam-style</a>
+<a href="{{ g2Href }}" onClick="{{ toExam }}" style="height: 48px; border-radius: 14px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 3px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">{{ g2Label }}</a>
 </sc-if>
 </div>
 
-<a href="Scene.dc.html" onClick="{{ toScene }}" style="position: relative; margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #1B2440; display: flex; flex-direction: column; gap: 12px; border: {{ c2.border }}; box-shadow: {{ c2.shadow }}">
+<a href="{{ c2Href }}" onClick="{{ toScene }}" style="position: relative; margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #1B2440; display: flex; flex-direction: column; gap: 12px; border: {{ c2.border }}; box-shadow: {{ c2.shadow }}">
 <div style="display: flex; align-items: center; gap: 12px">
-<div style="width: 46px; height: 46px; border-radius: 14px; background: #FDEBE6; color: #C7361E; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">字</div>
+<div style="width: 46px; height: 46px; border-radius: 14px; background: #FDEBE6; color: #C7361E; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">{{ c2Icon }}</div>
 <div style="flex-grow: 1; display: flex; flex-direction: column">
-<div style="font-size: 12px; font-weight: 700; color: #5A6382">文字・語彙　Kanji and words · {{ wordCount }} words</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ c2Line }}</div>
 <div style="font-size: 16px; font-weight: 800">{{ sceneTitle }}</div>
 </div>
 <sc-if value="{{ c2.done }}" hint-placeholder-val="{{ false }}">
@@ -81,7 +82,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </a>
 
-<a href="Reading.dc.html" onClick="{{ toSkill }}" style="position: relative; margin-top: 12px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #1B2440; display: flex; flex-direction: column; gap: 12px; border: {{ c3.border }}; box-shadow: {{ c3.shadow }}">
+<a href="{{ c3Href }}" onClick="{{ toSkill }}" style="position: relative; margin-top: 12px; padding: 14px; border-radius: 20px; background: #FFFFFF; color: #1B2440; display: flex; flex-direction: column; gap: 12px; border: {{ c3.border }}; box-shadow: {{ c3.shadow }}">
 <div style="display: flex; align-items: center; gap: 12px">
 <div style="width: 46px; height: 46px; border-radius: 14px; background: #FFF4D6; color: #1B2440; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">{{ skillIcon }}</div>
 <div style="flex-grow: 1; display: flex; flex-direction: column">
@@ -130,7 +131,8 @@ const p = app.prog || {};
 const g = p.g || 0;
 const k = p.k || 0;
 const r = p.r || 0;
-const m = /^u(\d+)d(\d)$/.exec(app.sid || '') || [0, 3, 4];
+/* the week and the day, from the session id (u03d4, n5u01d2, kanau02d3) */
+const at = C.parts(app.sid) || { unit: 3, day: 4 };
 const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); go(to); } };
 const LABELS = ['学習 Learn', '練習 Drill', '本番 Exam-style'];
 const look = {
@@ -155,12 +157,69 @@ const gStates = g >= 3 ? all : g === 2 ? ['done', 'done', 'now'] : g === 1 ? ['d
 const allDone = next === 0;
 const listening = day.skill && day.skill.kind === 'listening';
 const scene = day.scene || { words: [] };
+/* a day of the kana course: its three lessons are the new kana (Kana), writing them (KanaWrite) and reading words (KanaWords) */
+const kana = day.kana || null;
+if (kana) {
+const cards = kana.cards || [];
+const w = day.write || { kana: '', words: [] };
+const wk = Array.from(w.kana || '').length;
+const ww = (w.words || []).length;
+const words = (day.words && day.words.list) || [];
+const sentences = words.some((x) => /。/.test(x.w));
+const first = cards.find((c) => (c.kana || []).length);
+const PILL1 = ['学習 Learn', '練習 Practice', '本番 Check'];
+const c2States = wk ? (k >= 1 ? ['done', 'done'] : p.kk ? ['done', 'now'] : ['now', 'todo']) : [k >= 1 ? 'done' : 'now'];
+const c2Labels = wk ? ['かな ×3', 'ことば Words'] : ['ことば Words'];
 return {
-dayLabel: '第' + (+m[1]) + '週 · ' + (+m[2]) + '日目',
-dayN: +m[2],
+dayLabel: '第' + at.unit + '週 · ' + at.day + '日目',
+dayN: at.day,
 title: day.title,
+lede: at.day === 6 ? 'Sort out the kana that look alike, write words you hear, then read words made of the kana so far.'
+  : sentences ? 'See how は, を and へ are read in a sentence, write words you hear, then read sentences.'
+  : wk ? 'Meet the new kana and hear them, write each one three times, then read words made of them.'
+  : 'Go through the day’s cards, write words you hear, then read words made of the kana so far.',
+c1Icon: first ? Array.from(first.kana[0][0])[0] : kana.script === 'katakana' ? 'ア' : 'あ',
+c1Aria: 'Kana: open the lesson',
+grammarLine: 'かな　' + (at.day === 6 ? 'Kana that look alike · ' + cards.length + ' sets'
+  : (wk ? 'New kana' : sentences ? 'は, を and へ in sentences' : kana.script === 'katakana' ? 'Katakana words' : 'Reading words') + ' · ' + cards.length + (cards.length === 1 ? ' card' : ' cards')),
+c1: card(1, g >= 3, g >= 3 ? all : g === 2 ? ['done', 'done', 'now'] : g === 1 ? ['done', 'now', 'todo'] : ['now', 'todo', 'todo'], PILL1),
+g0: g === 0, g1: g === 1, g2: g === 2,
+g0Label: 'はじめる　' + (at.day === 6 ? 'Start with the look-alikes' : wk ? 'Start with the new kana' : 'Start with the day’s cards'), g1Label: 'つづける　Continue the practice', g2Label: '本番へ　Start the check',
+c1Href: 'Kana.dc.html', g1Href: 'Kana.dc.html', g2Href: 'Kana.dc.html',
+c2Icon: '書',
+c2Line: '書く　Write · ' + (wk ? wk + ' kana, ' : '') + ww + (ww === 1 ? ' word' : ' words'),
+sceneTitle: wk ? 'Each new kana three times, then words you hear' : 'Words you hear, a kana at a time',
+c2: card(2, k >= 1, c2States, c2Labels),
+c2Href: 'KanaWrite.dc.html',
+skillIcon: '読',
+skillKind: (sentences ? 'ぶん　Sentences · ' : 'ことば　Words · ') + words.length,
+skillTitle: sentences ? 'Read sentences with は, を and へ' : 'Read words made of the kana so far',
+c3: card(3, r >= 1, r >= 1 ? ['done', 'done'] : p.rs ? ['done', 'now'] : ['now', 'todo'], ['読む Read', '練習 Practice']),
+c3Href: 'KanaWords.dc.html',
+allDone,
+open: !allDone,
+toMain: nav('Main'),
+toTeach: nav('Kana'),
+toDrill: nav('Kana'),
+toExam: nav('Kana'),
+toScene: nav('KanaWrite'),
+toSkill: nav('KanaWords'),
+};
+}
+return {
+dayLabel: '第' + at.unit + '週 · ' + at.day + '日目',
+dayN: at.day,
+title: day.title,
+lede: 'Learn the page, drill it with hints, then answer exam-style with the clock on.',
+c1Icon: '文',
+c1Aria: 'Grammar: open the teach page',
+g0Label: 'はじめる　Start with the teach page', g1Label: 'つづける　Continue the drill', g2Label: '本番へ　Start exam-style',
+c1Href: 'Teach.dc.html', g1Href: 'Drill.dc.html', g2Href: 'Exam.dc.html',
+c2Icon: '字',
+c2Line: '文字・語彙　Kanji and words · ' + (scene.words || []).length + ' words',
+c2Href: 'Scene.dc.html',
+c3Href: listening ? 'Listening.dc.html' : 'Reading.dc.html',
 grammarLine: day.grammar && day.grammar.points && day.grammar.points.length ? '文法　Grammar · ' + day.grammar.points.length + ' patterns' : '文法　Grammar · the week side by side',
-wordCount: (scene.words || []).length,
 sceneTitle: (scene.ja || '') + '　' + (scene.en || ''),
 skillIcon: listening ? '聴' : '読',
 skillKind: listening ? '聴解　Listening' : '読解　Reading',

@@ -105,11 +105,12 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="margin: 12px 16px 0; font-size: 11px; font-weight: 500; color: #5A6382; line-height: 1.5">Estimated from your week tests. The real exam reports scaled scores, so read this as a guide, not a promise.</div>
 
 <div style="flex-grow: 1"></div>
-<nav aria-label="Main" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
+<nav aria-label="Main" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
 <a href="Main.dc.html" onClick="{{ toMain }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg>Path</a>
 <a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>Notebook</a>
 <a href="Mock.dc.html" onClick="{{ toMock }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>Mock exam</a>
 <a href="Readiness.dc.html" onClick="{{ toReadiness }}" aria-current="page" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #2F4FD0; font-size: 11px; font-weight: 800"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>Readiness</a>
+<a href="Extras.dc.html" onClick="{{ toExtras }}" style="height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: #5A6382; font-size: 11px; font-weight: 700"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3l1.6 4.6L16 9l-4.4 1.4L10 15l-1.6-4.6L4 9l4.4-1.4z"/><path d="M18 13l.9 2.3L21 16l-2.1.7L18 19l-.9-2.3L15 16l2.1-.7z"/></svg>Extras</a>
 </nav>
 
 </div>
@@ -121,6 +122,7 @@ const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefaul
 return {
 toMain: nav('Main'),
 toNotebook: nav('Notebook'),
+toExtras: nav('Extras'),
 toMock: nav('Mock'),
 toReadiness: nav('Readiness'),
 toListening: nav('Listening'),

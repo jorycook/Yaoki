@@ -5,6 +5,7 @@
 <title>Week test result</title>
 <script src="./support.js"></script>
 <script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
 <script src="./course-n5.js"></script>
 <script src="./course-n4.js"></script>
 <script src="./course-n3.js"></script>
@@ -98,7 +99,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
 /* the teacher's stamp: 80% and up, 60% and up, and below that */
 const STAMPS = [[0.8, ['たいへん', 'よく', 'できました'], '15px', 'Stamp: excellent'], [0.6, ['よく', 'できました'], '17px', 'Stamp: well done'], [0, ['がんばり', 'ましょう'], '17px', 'Stamp: keep at it']];
-const AREAS = [['vocab', '文字・語彙', 'Kanji, vocabulary'], ['grammar', '文法', 'Grammar'], ['reading', '読解', 'Reading'], ['listening', '聴解', 'Listening']];
+const AREAS = [['vocab', '文字・語彙', 'Kanji, vocabulary'], ['grammar', '文法', 'Grammar'], ['reading', '読解', 'Reading'], ['listening', '聴解', 'Listening'], ['kana', 'かな', 'Kana'], ['words', 'ことば', 'Words']];
 class Component extends DCLogic {
 renderVals() {
 const C = window.ykCourse;

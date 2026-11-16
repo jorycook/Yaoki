@@ -239,7 +239,8 @@
   const inputOf = (mode) => MODES[mode].input;
 
   if (saved.mode === 'kana') saved.mode = 'romaji';
-  if (!MODES[saved.mode]) saved.mode = place ? 'course' : 'romaji';
+  // a learner of the app's kana course (かな) starts with the kana, not the course words of a level
+  if (!MODES[saved.mode]) saved.mode = place && place.level !== 'KANA' ? 'course' : 'romaji';
   saved.last[inputOf(saved.mode)] = saved.mode;
   if (!LEVELS.includes(saved.level)) saved.level = place && LEVELS.includes(place.level) ? place.level : 'N5';
 

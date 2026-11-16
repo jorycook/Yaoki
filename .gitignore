@@ -6,3 +6,5 @@ check/site/
 artifact-files
 check/*.log
 __pycache__/
+# npm writes these on install; the repository keeps only package.json (the tools are pinned there)
+package-lock.json

@@ -4,8 +4,8 @@
 usage: python3 tools/make-strokes.py [--kanjivg DIR] [--check]
 
 Writes, for each app, the strokes of every kanji the learner writes in it, in stroke order:
-  yaoki/project/strokes.js     the main app (N5 to N2): every kanji of the words of the kanji-and-words scenes
-                               (content/n*/u*.json)
+  yaoki/project/strokes.js     the main app (かな to N2): every kanji of the words of the kanji-and-words scenes
+                               (content/n*/u*.json), and every kana the kana course has the learner write (content/kana)
   yaoki-n1/project/strokes.js  the N1 app: the kanji bank and every kanji of the words (yaoki-n1/project/n1-content.js)
 Each file sets window.__ykStrokes = { kanji: "stroke|stroke|…" }, a stroke being SVG path data in KanjiVG's
 109 × 109 box, numbers rounded to one decimal place. yk-write.js reads it.
@@ -41,9 +41,28 @@ def is_kanji(c):
     return 0x4E00 <= o <= 0x9FFF or 0x3400 <= o <= 0x4DBF or 0xF900 <= o <= 0xFAFF or c == '々'
 
 
+def is_kana(c):
+    """a hiragana or katakana the kana course has the learner write (small kana and the long mark ー too)"""
+    o = ord(c)
+    return 0x3041 <= o <= 0x3096 or 0x30A1 <= o <= 0x30FA or c == 'ー'
+
+
 def main_app_kanji():
-    """every kanji of every scene word of the main app's levels, as the content files hold them"""
+    """every kanji of every scene word of the main app's levels, as the content files hold them, and every kana the
+    kana course writes (its kana written three times and its words written from what is heard)"""
     out = set()
+    kana = os.path.join(ROOT, 'content', 'kana')
+    if os.path.isdir(kana):
+        for name in sorted(os.listdir(kana)):
+            if not re.fullmatch(r'u\d\d\.json', name):
+                continue
+            with open(os.path.join(kana, name), encoding='utf-8') as f:
+                unit = json.load(f)
+            for day in (unit.get('days') or {}).values():
+                w = (day or {}).get('write') or {}
+                out.update(c for c in w.get('kana', '') if is_kana(c))
+                for x in w.get('words') or []:
+                    out.update(c for c in x.get('w', '') if is_kana(c))
     for lv in sorted(os.listdir(os.path.join(ROOT, 'content'))):
         folder = os.path.join(ROOT, 'content', lv)
         if not (os.path.isdir(folder) and re.fullmatch(r'n\d', lv)):
@@ -185,10 +204,10 @@ def main(argv):
             missing = sorted(c for c in need if c not in have)
             if missing:
                 bad += 1
-                print('STROKES FAIL: the %s has no strokes for %d kanji: %s. Run: python3 tools/make-strokes.py'
+                print('STROKES FAIL: the %s has no strokes for %d kanji and kana: %s. Run: python3 tools/make-strokes.py'
                       % (label, len(missing), ''.join(missing[:40]) + (' …' if len(missing) > 40 else '')))
         if not bad:
-            print('STROKES PASS: every kanji the two apps ask the learner to write has its strokes')
+            print('STROKES PASS: every kanji and kana the two apps ask the learner to write has its strokes')
         return 1 if bad else 0
     folder = kanjivg_dir(given)
     for label, path, need in jobs:
@@ -203,7 +222,7 @@ def main(argv):
         if missing:
             sys.exit('make-strokes: KanjiVG has no strokes for ' + ''.join(missing))
         size = write(path, data)
-        print('make-strokes: %s: %d kanji, %d strokes, %.0f KB -> %s' % (label, len(data), sum(len(v) for v in data.values()), size / 1024, os.path.relpath(path, ROOT)))
+        print('make-strokes: %s: %d kanji and kana, %d strokes, %.0f KB -> %s' % (label, len(data), sum(len(v) for v in data.values()), size / 1024, os.path.relpath(path, ROOT)))
     return 0
 
 

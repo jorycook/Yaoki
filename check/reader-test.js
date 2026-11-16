@@ -73,6 +73,15 @@ async function holdFirstPhrase(page, nth) {
   /* the site header's brand and its nav's Study, and the footer's Study, all point home (count() includes the nav, hidden under 700 px) */
   ok(await page.locator('a[href="../"]').count() === 3, 'there are links back to the app (header brand, nav and footer)');
   ok(await page.locator('.site-nav [aria-current="page"]').textContent() === 'Reader', 'the site nav marks Reader as the current page');
+  ok(!(await page.locator('#to-app').isVisible()), 'opened on its own, there is no Yaoki button at the top');
+  {
+    /* opened from the app's extras (おまけ): a Yaoki button at the top leads back, as an app on the Home Screen has no browser bar */
+    const fromApp = await newPage(ctx, logs);
+    await fromApp.goto(READER + '?from=app');
+    await fromApp.waitForSelector('#texts .text-card');
+    ok(await fromApp.locator('#to-app').isVisible() && (await fromApp.getAttribute('#to-app', 'href')) === '../study/', 'opened from the app, a Yaoki button at the top leads back to it');
+    await fromApp.close();
+  }
 
   step('the sample: hold to reveal');
   await page.locator('#texts .text-card').first().click();
