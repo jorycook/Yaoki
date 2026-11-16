@@ -43,10 +43,10 @@
   }
   /* how it connects: a card a little roomier; a short label (動・い形) beside its rule as on the phone, a long one (an English
      explanation, as in the first levels) on its own line over it rather than squeezed into the phone's narrow label */
-  html.yk-desk [data-yk="Teach"] [data-d="conn"] { padding: 14px 16px 16px !important; gap: 10px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="conn"] { padding: 14px 12px 16px 14px !important; gap: 10px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) { flex-wrap: wrap; row-gap: 5px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:first-child {
-    flex: 0 1 auto !important; width: auto !important; min-width: 72px; max-width: 100%; box-sizing: border-box; padding: 4px 10px !important; text-wrap: balance;
+    flex: 0 1 auto !important; width: auto !important; min-width: 66px; max-width: 100%; box-sizing: border-box; padding: 4px 6px !important; text-wrap: balance;
   }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:last-child { flex: 1 1 200px; min-width: 0; }
 
@@ -70,9 +70,9 @@
   html.yk-desk [data-yk="Teach"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Teach"]:has(> [data-d="empty"]) > [data-d="act"] { align-self: flex-start; margin-top: 18px; }
 }
-/* a wider pane: the Japanese a step larger again, the translation and the note too */
+/* a wider pane: the examples' Japanese a step larger again, the translation and the note too (the rules of how it connects keep
+   the phone's size, which N1 fits to the width of a line for each lesson) */
 @container yk (min-width: 1060px) {
-  html.yk-desk [data-yk="Teach"] [data-d="conn"] > div > div:last-child { font-size: 17px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="exs"] div[lang="ja"] { font-size: 18px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="exs"] div[lang="ja"] + div { font-size: 13px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="watch"] > div:nth-child(2) { font-size: 14px !important; }

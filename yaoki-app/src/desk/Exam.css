@@ -1,0 +1,72 @@
+/* Exam (both apps): the exam-style step, and in the Study app the week test too, as an exam booklet like the mock and the N1 week
+   test. The bar carries a larger clock; the exam's conditions are one dark line; the question's kind runs across the top. Then the
+   sentence on the left and the four options stacked on the right, with Next (Finish) right under them. A reading question of the
+   week test has its passage on the left, scrolling in its column, and the question over the options on the right. Nothing answers
+   back until the end, so there is no feedback panel. The end of the run is a dashboard: the score, the time, the notebook line and
+   Next on the left; the answers and their reasons on the right, scrolling in their column. N1's day without a lesson: the note and
+   Back to today at the top.
+   Hooks: bar > clock, band, kind, passage (Study), main (the sentence), opts, gap, act; score, list (> fade, N1), saved; none (N1).
+   data-k: choice on the options; go on Next / Finish, on the result's Next and on Back to today. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Exam"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.9fr);
+    /* the sentence beside its options, Next right under the options, the rest of the height left empty */
+    grid-template-rows: auto auto auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "band band" "kind kind" "main opts" ". act" ". .";
+    column-gap: 36px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Exam"] > [data-d="bar"] { grid-area: bar; }
+  /* the clock is what an exam watches: as large as the mock's */
+  html.yk-desk [data-yk="Exam"] [data-d="clock"] { height: 40px !important; padding: 0 16px !important; gap: 8px !important; border-radius: 20px !important; font-size: 20px !important; font-variant-numeric: tabular-nums; }
+  html.yk-desk [data-yk="Exam"] [data-d="clock"] > svg { width: 18px; height: 18px; }
+  /* the conditions in one line: the title, then what it means */
+  html.yk-desk [data-yk="Exam"] > [data-d="band"] { grid-area: band; margin-top: 10px !important; padding: 9px 18px !important; flex-direction: row !important; align-items: baseline; gap: 16px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="band"] > div:first-child { font-size: 13px !important; flex-shrink: 0; }
+  html.yk-desk [data-yk="Exam"] > [data-d="band"] > div:last-child { font-size: 12.5px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="kind"] { grid-area: kind; margin: 20px 0 12px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="gap"] { display: none !important; }
+
+  /* the sentence, a little larger: it is what is studied */
+  html.yk-desk [data-yk="Exam"] > [data-d="main"] { grid-area: main; align-self: start; margin: 0 !important; padding: 18px 22px !important; font-size: 21px !important; line-height: 2 !important; }
+  /* the options stacked beside it, with a desktop's height */
+  html.yk-desk [data-yk="Exam"] > [data-d="opts"] { grid-area: opts; min-height: 0; margin: 0 !important; gap: 12px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="opts"] > [data-k="choice"] { flex-shrink: 0; height: auto !important; min-height: 56px; padding: 8px 18px !important; gap: 14px !important; font-size: 17px !important; line-height: 1.45; }
+  html.yk-desk [data-yk="Exam"] > [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
+  /* Next (Finish) right under the options, a desktop button's width */
+  html.yk-desk [data-yk="Exam"] > [data-d="act"] { grid-area: act; justify-self: end; min-width: 260px; margin-top: 18px !important; padding: 0 28px !important; box-sizing: border-box; display: inline-flex !important; align-items: center; justify-content: center; }
+
+  /* ---------- a reading question (the Study app's week test): the passage on the left, the question over the options on the right */
+  html.yk-desk [data-yk="Exam"]:has(> [data-d="passage"]) {
+    grid-template-rows: auto auto auto auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "band band" "kind kind" "passage main" "passage opts" "passage act" "passage .";
+  }
+  html.yk-desk [data-yk="Exam"] > [data-d="passage"] { grid-area: passage; align-self: start; max-height: 100% !important; box-sizing: border-box; margin: 0 !important; padding: 18px 24px 20px !important; font-size: 18px !important; line-height: 1.9 !important; }
+  html.yk-desk [data-yk="Exam"]:has(> [data-d="passage"]) > [data-d="main"] { margin-bottom: 14px !important; font-size: 18px !important; padding: 14px 18px !important; line-height: 1.8 !important; }
+
+  /* ---------- the end of the run: the score and Next on the left, the answers and their reasons on the right */
+  html.yk-desk [data-yk="Exam"]:has(> [data-d="score"]) {
+    grid-template-columns: minmax(340px, 0.8fr) minmax(0, 1.2fr);
+    grid-template-rows: auto auto auto auto auto 1fr;
+    grid-template-areas: "bar bar" "band band" "score list" "saved list" "act list" ". list";
+  }
+  html.yk-desk [data-yk="Exam"] > [data-d="score"] { grid-area: score; margin: 22px 0 0 !important; padding: 18px 20px !important; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="Exam"] > [data-d="score"] > div:first-child > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="score"] h1 { font-size: 56px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="score"] h1 + div { font-size: 22px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="score"] > div:last-child { font-size: 13px !important; white-space: nowrap; }
+  html.yk-desk [data-yk="Exam"] > [data-d="saved"] { grid-area: saved; margin: 18px 0 0 !important; font-size: 13px !important; line-height: 1.45; }
+  html.yk-desk [data-yk="Exam"]:has(> [data-d="score"]) > [data-d="act"] { grid-area: act; justify-self: stretch; margin-top: 18px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="list"] { grid-area: list; align-self: start; min-height: 0; max-height: 100% !important; box-sizing: border-box; margin: 22px 0 0 !important; padding: 0 4px 8px !important; gap: 10px !important; }
+  /* N1: the list is a box with its scrolling cards and the fade that says there is more */
+  html.yk-desk [data-yk="Exam"] > [data-d="list"] > div[style*="overflow-y: auto"] { padding: 0 4px 16px !important; gap: 10px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="list"] div[style*="border-radius: 16px"] { padding: 12px 16px !important; gap: 6px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="list"] div[lang="ja"][style*="Klee One"] { font-size: 17px !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="list"] div[style*="font-size: 12px; font-weight: 500"] { font-size: 13.5px !important; line-height: 1.5 !important; }
+
+  /* ---------- N1, a day without a grammar lesson: the note and Back to today at the top */
+  html.yk-desk [data-yk="Exam"]:has(> [data-d="none"]) { grid-template-rows: auto auto auto auto 1fr; grid-template-areas: "bar bar" "band band" "none none" "act act" ". ."; }
+  html.yk-desk [data-yk="Exam"] > [data-d="none"] { grid-area: none; justify-self: start; width: min(100%, 600px); box-sizing: border-box; margin: 20px 0 0 !important; padding: 18px 20px !important; }
+  html.yk-desk [data-yk="Exam"]:has(> [data-d="none"]) > [data-d="act"] { justify-self: start; margin-top: 18px !important; }
+}

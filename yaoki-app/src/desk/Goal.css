@@ -1,0 +1,58 @@
+/* Goal, setting the goal (both apps). The phone stacks the form under Yaoki. Here the screen is one composition in the middle of
+   the pane's height (a little above it): the bar (back, the Study app's steps), Yaoki and the title across the top, and under
+   them the form in two columns that line up row by row: the level over the exam date on the left; the daily time over the plan
+   card on the right, with the main action (Paint the first eye, then Start) at the foot of the right column, a desktop button
+   at its right edge. N1's re-plan has no level: what can change (the exam date over the daily time) is on the left, what it
+   gives (the plan card) and Update the plan on the right. The date sheet, which rises from the bottom of the phone, is a dialog
+   in the middle of the pane (a click outside it closes it, as the phone's backdrop does).
+   Hooks: bar, head (Yaoki and the title), level, date, pace, plan, act (the main action), gap (the phone's spacer), sheet (the
+   date sheet's backdrop). data-k="go" on the main action and on the sheet's Confirm, data-k="choice" on the sheet's dates,
+   data-k="close" on its backdrop. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Goal"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    /* a flexible space, the composition, a larger flexible space: it sits a little above the middle */
+    grid-template-rows: minmax(0, 1fr) auto auto auto auto auto minmax(0, 1.5fr);
+    grid-template-areas: ". ." "bar bar" "head head" "level pace" "date plan" "date act" ". .";
+    column-gap: 32px;
+    padding: 20px 28px 24px !important;
+    /* static: the date sheet then covers the whole pane, not only the screen's own box */
+    position: static !important;
+    overflow-y: auto !important;
+  }
+  /* a form a little narrower than the other screens' 1240 px: the plan card's lines stay within about 70 characters */
+  html.yk-desk #yk-stage .yk-screen > .sc-host > [data-yk="Goal"] { max-width: 1120px; }
+  /* N1's re-plan has no level: the exam date over the daily time on the left, the plan card and its action on the right */
+  html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) {
+    grid-template-areas: ". ." "bar bar" "head head" "date plan" "pace plan" "pace act" ". .";
+  }
+  html.yk-desk [data-yk="Goal"] > [data-d="bar"] { grid-area: bar; margin-bottom: 4px; }
+  html.yk-desk [data-yk="Goal"] > [data-d="head"] { grid-area: head; margin: 0 !important; gap: 20px !important; }
+  /* Yaoki and the title a size larger: the eye painted here is the screen's moment */
+  html.yk-desk [data-yk="Goal"] > [data-d="head"] > svg { width: 124px; height: 124px; }
+  html.yk-desk [data-yk="Goal"] > [data-d="head"] h1 { font-size: 30px !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="head"] h1 ~ div { font-size: 15px !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="level"] { grid-area: level; margin: 28px 0 0 !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="pace"] { grid-area: pace; align-self: start; margin: 28px 0 0 !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="date"] { grid-area: date; align-self: start; margin: 22px 0 0 !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="plan"] { grid-area: plan; align-self: start; margin: 22px 0 0 !important; }
+  html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) > [data-d="date"],
+  html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) > [data-d="plan"] { margin-top: 28px !important; }
+  html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) > [data-d="pace"] { margin-top: 22px !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="gap"] { display: none !important; }
+  /* the plan card's lines a size larger: the card is wider than the phone's */
+  html.yk-desk [data-yk="Goal"] > [data-d="plan"] > div[style*="line-height"][style*="font-size: 12px"] { font-size: 13px !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="plan"] > div[style*="line-height"][style*="font-size: 13px"] { font-size: 14px !important; }
+  /* N1's one level is a button the width of a daily-time button, not a bar across the column */
+  html.yk-desk [data-yk="Goal"] > [data-d="level"] > div:has(> button:only-child) { grid-template-columns: minmax(0, calc((100% - 16px) / 3)) !important; }
+  /* the main action at the foot of the right column, a desktop button at its right edge */
+  html.yk-desk [data-yk="Goal"] > [data-d="act"] { grid-area: act; align-self: start; justify-self: end; margin-top: 18px; min-width: 300px; padding: 0 28px !important; display: inline-flex !important; align-items: center; justify-content: center; box-sizing: border-box; }
+
+  /* the date sheet: a dialog in the middle of the pane */
+  html.yk-desk [data-yk="Goal"] > [data-d="sheet"] { z-index: 5; display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }
+  html.yk-desk [data-yk="Goal"] > [data-d="sheet"] > button[data-k="close"] { position: absolute; inset: 0; }
+  html.yk-desk [data-yk="Goal"] > [data-d="sheet"] > [role="dialog"] { position: relative; width: 100%; max-width: 520px; max-height: 100%; overflow-y: auto; box-sizing: border-box; border-radius: 26px !important; border: 2px solid #1B2440 !important; box-shadow: 0 8px 0 #1B2440; padding: 22px 24px 24px !important; gap: 14px !important; }
+  html.yk-desk [data-yk="Goal"] > [data-d="sheet"] > [role="dialog"] > div[aria-hidden="true"] { display: none; }
+  html.yk-desk [data-yk="Goal"] > [data-d="sheet"] > [role="dialog"] > * { flex-shrink: 0; }
+}

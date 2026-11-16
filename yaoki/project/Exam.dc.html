@@ -23,43 +23,43 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Leave the exam-style step" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div role="img" aria-label="{{ dotsLabel }}" style="flex-grow: 1; display: grid; gap: {{ dotGap }}; grid-template-columns: {{ dotCols }}">
 <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
 <div style="height: 10px; border-radius: 5px; background: {{ d.bg }}"></div>
 </sc-for>
 </div>
-<div style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; font-size: 13px; font-weight: 800; border: 2px solid {{ clockEdge }}; color: {{ clockInk }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }}</div>
+<div data-d="clock" style="display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 10px; border-radius: 16px; background: #FFFFFF; font-size: 13px; font-weight: 800; border: 2px solid {{ clockEdge }}; color: {{ clockInk }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>{{ clock }}</div>
 </div>
 
-<div style="margin-top: 6px; padding: 8px 12px; border-radius: 12px; background: #1B2440; color: #FFFFFF; display: flex; flex-direction: column; gap: 1px">
+<div data-d="band" style="margin-top: 6px; padding: 8px 12px; border-radius: 12px; background: #1B2440; color: #FFFFFF; display: flex; flex-direction: column; gap: 1px">
 <div style="font-size: 12px; font-weight: 800">{{ bandTitle }}</div>
 <div style="font-size: 11px; font-weight: 500; color: #DDE1EC">{{ bandNote }}</div>
 </div>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 16px; font-size: 12px; font-weight: 800; color: #5A6382">{{ q.kind }}</div>
-<sc-if value="{{ q.hasPassage }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="margin-top: 8px; max-height: 260px; overflow-y: auto; flex-shrink: 0; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.85; white-space: pre-line">{{ q.passageText }}</div></sc-if>
-<div lang="ja" style="margin-top: 8px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if><sc-if value="{{ g.star }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if></sc-for></div>
-<div lang="ja" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
+<div data-d="kind" style="margin-top: 16px; font-size: 12px; font-weight: 800; color: #5A6382">{{ q.kind }}</div>
+<sc-if value="{{ q.hasPassage }}" hint-placeholder-val="{{ false }}"><div data-d="passage" lang="ja" style="margin-top: 8px; max-height: 260px; overflow-y: auto; flex-shrink: 0; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.85; white-space: pre-line">{{ q.passageText }}</div></sc-if>
+<div data-d="main" lang="ja" style="margin-top: 8px; padding: 14px 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 18px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom"></span></sc-if><sc-if value="{{ g.star }}" hint-placeholder-val="{{ false }}"><span style="display: inline-block; width: 40px; height: 22px; margin: 0 3px; border-bottom: 2px solid #1B2440; vertical-align: text-bottom; text-align: center; line-height: 22px; font-size: 15px">★</span></sc-if></sc-for></div>
+<div data-d="opts" lang="ja" style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
-<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 50px; padding: 0 14px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="font-size: 12px; font-weight: 800; color: {{ o.numColor }}">{{ o.n }}</span><span>{{ o.label }}</span></button>
+<button data-k="choice" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 50px; padding: 0 14px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 16px; text-align: left; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; font-weight: {{ o.weight }}; transform: {{ o.press }}"><span style="font-size: 12px; font-weight: 800; color: {{ o.numColor }}">{{ o.n }}</span><span>{{ o.label }}</span></button>
 </sc-for>
 </div>
-<div style="flex-grow: 1"></div>
-<button disabled="{{ noPick }}" onClick="{{ next }}" style="height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">{{ nextLabel }}</button>
+<div data-d="gap" style="flex-grow: 1"></div>
+<button data-d="act" data-k="go" disabled="{{ noPick }}" onClick="{{ next }}" style="height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">{{ nextLabel }}</button>
 </sc-if>
 
 <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 12px; display: flex; align-items: flex-end; gap: 12px">
+<div data-d="score" style="margin-top: 12px; display: flex; align-items: flex-end; gap: 12px">
 <div style="flex-grow: 1; display: flex; flex-direction: column">
 <div style="font-size: 12px; font-weight: 700; color: {{ doneInk }}">{{ doneLabel }}</div>
 <div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 44px; font-weight: 800; line-height: 1.1">{{ score }}</h1><div style="font-size: 18px; font-weight: 700; color: #5A6382">{{ total }}</div></div>
 </div>
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; text-align: right; line-height: 1.5; padding-bottom: 6px">{{ used }} of {{ totalLabel }}</div>
 </div>
-<div style="margin-top: 10px; flex-grow: 1; min-height: 0; overflow-y: auto; margin-left: -16px; margin-right: -16px; padding: 0 16px 8px; display: flex; flex-direction: column; gap: 8px">
+<div data-d="list" style="margin-top: 10px; flex-grow: 1; min-height: 0; overflow-y: auto; margin-left: -16px; margin-right: -16px; padding: 0 16px 8px; display: flex; flex-direction: column; gap: 8px">
 <sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
 <div style="flex-shrink: 0; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 4px">
 <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800">
@@ -74,13 +74,13 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-for>
 </div>
 <sc-if value="{{ anyWrong }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700">
+<div data-d="saved" style="margin-top: 10px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
 {{ savedLine }}
 </div>
 </sc-if>
 
-<a href="Today.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">つぎへ　Next</a>
+<a data-d="act" data-k="go" href="Today.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">つぎへ　Next</a>
 </sc-if>
 
 </div>

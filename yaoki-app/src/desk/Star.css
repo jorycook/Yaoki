@@ -1,0 +1,70 @@
+/* Star (N1): the star sentence, the drill's last question. The title and its instruction run across the top. The sentence with its
+   four slots (the star's in yellow) and Yaoki's hint sit on the left, like the paper. The bank of tiles sits on the right with
+   Check right under it. On a desktop each tile shows the key that places it (1 to 4); a tile already placed keeps its number on
+   its empty place, so a key always means the same tile. Once checked, the bank gives way to the answer sheet, as the drill's
+   coach: the verdict, the right order with the star's tile marked, why, the notebook line and Back to today. The sentence keeps
+   its slots marked right or wrong beside it. A day without a grammar lesson: the note and Back to today at the top.
+   Hooks: bar, head, main (a display: contents wrapper of the sentence and the hint on the phone, the left column's box here),
+   sentence (> slot), hint, gap, bank (> tiles), act, side, none. data-k: choice on the tiles (and on a placed tile's empty place);
+   go on Check, on Back to today in the sheet and on Back to today when there is no lesson. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Star"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) minmax(340px, 1fr);
+    /* the sentence beside the tiles, Check right under the tiles, the rest of the height left empty */
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "bar bar" "head head" "main bank" "main act" ". .";
+    column-gap: 36px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Star"] > [data-d="bar"] { grid-area: bar; }
+  html.yk-desk [data-yk="Star"] > [data-d="head"] { grid-area: head; margin: 10px 0 18px !important; gap: 4px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="head"] > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="head"] > h1 { font-size: 26px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="head"] > div:last-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="gap"] { display: none !important; }
+
+  /* the paper: the sentence a little larger (it is what is studied), its slots with room, and Yaoki's hint under it */
+  html.yk-desk [data-yk="Star"] > [data-d="main"] { grid-area: main; display: flex !important; flex-direction: column; gap: 16px; min-width: 0; }
+  html.yk-desk [data-yk="Star"] [data-d="sentence"] { margin: 0 !important; padding: 18px 20px !important; gap: 12px 10px !important; font-size: 20px !important; line-height: 1.6; }
+  html.yk-desk [data-yk="Star"] [data-d="sentence"] > div[role="img"] { width: 84px !important; height: 54px !important; }
+  html.yk-desk [data-yk="Star"] [data-d="sentence"] > [data-d="slot"] { height: 54px !important; min-width: 56px !important; padding: 0 12px !important; font-size: 18px !important; }
+  html.yk-desk [data-yk="Star"] [data-d="hint"] { margin: 0 !important; }
+  html.yk-desk [data-yk="Star"] [data-d="hint"] > button { min-height: 54px !important; }
+  html.yk-desk [data-yk="Star"] [data-d="hint"] > button > span { font-size: 14px !important; }
+  html.yk-desk [data-yk="Star"] [data-d="hint"] > div div:last-child { font-size: 14px !important; line-height: 1.5 !important; }
+
+  /* the tiles, and Check right under them */
+  html.yk-desk [data-yk="Star"] > [data-d="bank"] { grid-area: bank; align-self: start; gap: 12px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="bank"] > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="Star"] [data-d="tiles"] { gap: 12px !important; counter-reset: yk-tile; }
+  html.yk-desk [data-yk="Star"] [data-d="tiles"] > [data-k="choice"] { counter-increment: yk-tile; position: relative; height: 62px !important; }
+  html.yk-desk [data-yk="Star"] [data-d="tiles"] > button[data-k="choice"] { font-size: 20px !important; padding: 0 30px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="act"] { grid-area: act; justify-self: stretch; margin-top: 20px !important; display: flex !important; align-items: center; justify-content: center; }
+
+  /* ---------- checked: the answer sheet as the coach beside the sentence */
+  html.yk-desk [data-yk="Star"]:has(> [data-d="side"]) { grid-template-rows: auto auto auto 1fr; grid-template-areas: "bar bar" "head head" "main side" ". side"; }
+  html.yk-desk [data-yk="Star"] > [data-d="side"] {
+    grid-area: side; align-self: start; max-height: 100%; box-sizing: border-box; overflow-y: auto; margin: 0 !important;
+    padding: 18px 20px 20px !important; gap: 10px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
+    animation: yk-in 220ms ease-out !important;
+  }
+  html.yk-desk [data-yk="Star"] > [data-d="side"] div[lang="ja"][style*="font-size: 16px"] { font-size: 19px !important; }
+  html.yk-desk [data-yk="Star"] > [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { font-size: 14px !important; line-height: 1.5 !important; }
+
+  /* ---------- a day without a grammar lesson: the note and Back to today at the top */
+  html.yk-desk [data-yk="Star"]:has(> [data-d="none"]) { grid-template-rows: auto auto auto 1fr; grid-template-areas: "bar bar" "none none" "act act" ". ."; }
+  html.yk-desk [data-yk="Star"] > [data-d="none"] { grid-area: none; justify-self: start; width: min(100%, 600px); box-sizing: border-box; margin: 14px 0 0 !important; padding: 18px 20px !important; }
+  html.yk-desk [data-yk="Star"]:has(> [data-d="none"]) > [data-d="act"] { justify-self: start; min-width: 260px; margin-top: 18px !important; padding: 0 28px !important; box-sizing: border-box; display: flex !important; align-items: center; justify-content: center; }
+}
+/* where there is a pointer that hovers and a keyboard: each tile shows the key that places it */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Star"] [data-d="tiles"] > [data-k="choice"]::before {
+      content: counter(yk-tile); position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font: 800 12px/1 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #5A6382;
+    }
+    /* a placed tile's empty place keeps its number, faded */
+    html.yk-desk [data-yk="Star"] [data-d="tiles"] > div[data-k="choice"]::before { color: #C9D0E3; }
+  }
+}

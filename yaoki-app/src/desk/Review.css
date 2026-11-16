@@ -1,0 +1,112 @@
+/* Review (both apps): the notebook's review of mistakes, laid out as the drill is: the paper on the left, the coach on the right.
+   The paper: the item's tag, its place and its streak; the question (a word, a sentence, a passage, two texts, a recording) and its
+   options; under them, where the item stands on its spacing (1 day, 3 days, 7 days, cleared) and Check / Next. A long paper scrolls
+   in its column. That column is the phone's own scrolling body, so the N1 course still brings each new item back to its top.
+   The coach: before the answer, a dashed panel saying what will appear there. Once answered (Study) or checked (N1), the panel with
+   the verdict, why the answer is right (and why the pick was not), the script where there is one, and what was chosen last time.
+   On the phone that panel sits in the body under the options. Here it is lifted out beside the paper (positioned on the screen),
+   so it stays in view while a long passage scrolls, and it scrolls itself when it is longer than the pane.
+   The end: the stamp and its line beside the counts, with Back to the notebook right under them. N1's day with nothing due:
+   Yaoki and its line, with Back to the notebook right under them.
+   Hooks: bar; meta (N1: above the paper; Study: in it); paper (N1: the phone's box around the body and its fade, display: contents
+   here); main (the scrolling body) holding ask, rubric, word, usage, q, reading, lead, passage, pair, question, listen, opts, wait
+   (N1), context (Study) and side (the panel); fade (N1); track; act; head, stats and gap at the end. data-k: choice on the options;
+   go on Check, Next, Finish and Back to the notebook; play on the recording's play button. */
+@container yk (min-width: 880px) {
+  /* ---------- the session */
+  html.yk-desk [data-yk="Review"]:has([data-d="track"]) {
+    /* the coach's column; the line it starts on (the padding, the bar and its margin); the spacing at its head, of a fixed height
+       (two lines of steps, two of the note), and the panel's top under it */
+    --rv-pad: 28px; --rv-side: 0.42; --rv-top: 76px; --rv-track: 86px; --rv-panel: calc(var(--rv-top) + var(--rv-track) + 14px);
+    position: relative;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) calc(var(--rv-side) * 100%);
+    /* the paper as tall as its content (or the pane, then it scrolls), Check / Next right under it */
+    grid-template-rows: auto auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "meta coach" "main coach" "act coach" ". coach";
+    column-gap: 32px;
+    padding: 20px var(--rv-pad) 24px !important;
+  }
+  html.yk-desk [data-yk="Review"] > [data-d="bar"] { grid-area: bar; margin-bottom: 12px; }
+  html.yk-desk [data-yk="Review"] > [data-d="meta"] { grid-area: meta; margin: 0 0 10px !important; }
+  html.yk-desk [data-yk="Review"] > [data-d="paper"] { display: contents !important; }
+  /* the paper: room inside the scrolling box for the options' shadows and the focus ring */
+  html.yk-desk [data-yk="Review"] [data-d="main"] {
+    grid-area: main; align-self: start; min-height: 0; max-height: 100%; box-sizing: border-box; position: static !important;
+    margin: -4px -6px 0 !important; padding: 4px 6px 0 !important;
+  }
+  /* a fade at the foot of the paper says there is more (the phone's fade is drawn for its own box) */
+  html.yk-desk [data-yk="Review"] [data-d="main"]::after { content: ''; flex-shrink: 0; position: sticky; bottom: 0; height: 14px; margin-top: 2px; background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9); pointer-events: none; }
+  html.yk-desk [data-yk="Review"] [data-d="fade"] { display: none !important; }
+  html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="meta"] { margin: 0 0 4px !important; }
+
+  /* the question a little larger: it is what is studied */
+  html.yk-desk [data-yk="Review"] [data-d="ask"] { font-size: 14px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="rubric"] { font-size: 13px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="q"] { padding: 16px 20px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="q"][style*="font-size: 20px"], html.yk-desk [data-yk="Review"] [data-d="q"][style*="font-size: 19px"] { font-size: 22px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="q"][style*="font-size: 17px"] { font-size: 19px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="word"] { padding: 22px 16px 16px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="word"] > div[lang="ja"] { font-size: 48px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="usage"] > div { font-size: 30px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="reading"] { font-size: 17px !important; padding: 14px 18px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="passage"] { font-size: 16.5px !important; padding: 14px 18px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="pair"] > div > div:last-child { font-size: 15.5px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="question"] { font-size: 16px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="context"] { padding: 12px 18px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="context"] > div[lang="ja"] { font-size: 16px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="opts"] > [data-k="choice"][style*="font-size: 15px"] { font-size: 16px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="opts"] > [data-k="choice"][style*="font-size: 16px"] { font-size: 17px !important; }
+
+  /* Check / Next right under the paper, a desktop button's width */
+  html.yk-desk [data-yk="Review"]:has([data-d="track"]) > [data-d="act"] { grid-area: act; justify-self: start; min-width: 260px; margin-top: 14px !important; padding: 0 28px !important; box-sizing: border-box; display: inline-flex !important; align-items: center; justify-content: center; }
+
+  /* the coach: at its head where the item stands on its spacing, and where it goes */
+  html.yk-desk [data-yk="Review"] > [data-d="track"] { grid-area: coach; align-self: start; margin: 0 !important; }
+  html.yk-desk [data-yk="Review"] > [data-d="track"] > div:first-child > div { padding: 6px 0 !important; font-size: 12px !important; }
+  html.yk-desk [data-yk="Review"] > [data-d="track"] > div:nth-child(2) { height: 34px; min-height: 0 !important; overflow: hidden; }
+  /* before the answer, the coach says what will appear under it */
+  html.yk-desk [data-yk="Review"] > [data-d="track"]::after {
+    content: '解説　Why\A \A Choose an answer. The verdict, the right answer and why it is right appear here, with what you chose last time.';
+    white-space: pre-line; margin-top: 8px; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+  html.yk-desk [data-yk="Review"]:has([data-d="paper"]) > [data-d="track"]::after {
+    content: '解説　Why\A \A Choose an answer and check it. The verdict, the right answer and why it is right appear here, with what you chose last time.';
+  }
+  html.yk-desk [data-yk="Review"]:has([data-d="side"]) > [data-d="track"]::after { content: none; }
+  /* then the panel, lifted out of the paper: as tall as its content, scrolling when longer than the pane */
+  html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"] {
+    position: absolute !important; top: var(--rv-panel); right: var(--rv-pad); width: calc((100% - 2 * var(--rv-pad)) * var(--rv-side));
+    max-height: calc(100% - var(--rv-panel) - 24px); box-sizing: border-box; overflow-y: auto; margin: 0 !important;
+    padding: 18px 20px 20px !important; border-radius: 20px !important; gap: 8px !important; animation: yk-in 220ms ease-out !important;
+  }
+  /* Study: the panel is a card of the coach, as the drill's */
+  html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"]:not([data-rv-panel]) { border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="Review"] [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { font-size: 14px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child > div[style*="font-size: 17px"] { font-size: 19px !important; }
+
+  /* ---------- the end: the stamp and its line beside the counts, Back to the notebook right under them */
+  html.yk-desk [data-yk="Review"]:has([data-d="stats"]) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px) 56px minmax(0, 460px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto 2fr;
+    grid-template-areas: "bar bar bar bar bar" ". . . . ." ". head . stats ." ". head . act ." ". . . . .";
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Review"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Review"] > [data-d="head"] { grid-area: head; align-self: center; }
+  html.yk-desk [data-yk="Review"] > [data-d="head"] > h1 { font-size: 30px !important; }
+  html.yk-desk [data-yk="Review"] > [data-d="head"] > h1 + div { font-size: 15px !important; }
+  html.yk-desk [data-yk="Review"] > [data-d="stats"] { grid-area: stats; margin: 0 !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="Review"]:has([data-d="stats"]) > [data-d="act"] { grid-area: act; margin-top: 20px !important; }
+
+  /* ---------- N1, nothing due: Yaoki and its line, Back to the notebook right under them */
+  html.yk-desk [data-yk="Review"]:has(> [data-d="head"]):not(:has([data-d="stats"])) {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto 2fr;
+    grid-template-areas: "bar" "." "head" "act" ".";
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Review"]:has(> [data-d="head"]):not(:has([data-d="stats"])) > [data-d="act"] { grid-area: act; justify-self: center; min-width: 320px; margin-top: 26px !important; padding: 0 28px !important; }
+}

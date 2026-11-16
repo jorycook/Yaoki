@@ -1,0 +1,54 @@
+/* Mock, the mock-exam tab (both apps). The phone stacks the papers under the title. Here the title and the line that says what
+   the mocks are run across the top, and under them two columns: on the left the schedule of the papers, on the right the card
+   of the one to take now, with its Start (or, once it is taken, its last result, Result and Again). The Study app: on the left
+   the full papers (N2's mock 1 with its two sections and their times, and mock 2), or, for a level that has none yet, a panel
+   that says what will appear there; on the right the mini mock. N1: on the left the other mini mocks, one row each (a click
+   opens one), on the right the one that is open. Nothing scrolls on a laptop's pane (about 600 px tall).
+   Hooks: bar, lede, card (the mock to take: its Start, or its result and Again), list (the Study app's full papers; display:
+   contents on the phone), body (N1's list of mocks), row (an N1 mock that is not open), none (N1 without mocks), gap (the
+   phone's spacer). data-k="go" on Start, or on Again once the mock is taken. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Mock"] {
+    display: grid !important;
+    /* two equal columns; on a narrow pane the card keeps 440 px (Result and Again side by side, Again with its key) */
+    grid-template-columns: minmax(0, 1fr) minmax(440px, 1fr);
+    column-gap: 28px;
+    padding: 20px 28px 24px !important;
+    overflow-y: auto !important;
+  }
+  html.yk-desk [data-yk="Mock"] > [data-d="bar"] { grid-area: bar; padding: 0 !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="lede"] { grid-area: lede; margin: 2px 0 0 !important; max-width: 720px; font-size: 14px !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Mock"] > nav { grid-area: nav; margin: 16px -28px -24px; }
+
+  /* ---------- the Study app: the full papers on the left, the mini mock on the right */
+  html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])) {
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas: "bar bar" "lede lede" "list card" ". ." "nav nav";
+  }
+  html.yk-desk [data-yk="Mock"] > [data-d="card"] { grid-area: card; align-self: start; margin: 18px 0 0 !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="list"] { grid-area: list; align-self: start; display: flex !important; flex-direction: column; gap: 14px; margin-top: 18px; min-width: 0; }
+  html.yk-desk [data-yk="Mock"] > [data-d="list"] > * { margin: 0 !important; }
+  /* a level with no full papers yet: their place says what will appear in it */
+  html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="list"]))::after {
+    content: '本番の模試　Full papers\A \A Full papers at real length come later for this level. They will be listed here, each with its sections, its time and the week it opens in your plan.';
+    white-space: pre-line; grid-area: list; align-self: start; margin-top: 18px; padding: 16px 20px 18px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* ---------- N1: the mocks not open on the left, one row each; the open one on the right, as tall as it needs */
+  html.yk-desk [data-yk="Mock"]:has(> [data-d="body"]) {
+    grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+    grid-template-areas: "bar bar" "lede lede" "body body" ". ." "nav nav";
+  }
+  html.yk-desk [data-yk="Mock"] > [data-d="body"] {
+    grid-area: body; align-self: start;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(440px, 1fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    column-gap: 28px; row-gap: 12px !important;
+    margin-top: 18px !important; padding: 0 !important; overflow: visible !important;
+  }
+  html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="row"] { grid-column: 1; align-self: start; }
+  html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="card"] { grid-column: 2; grid-row: 1 / -1; align-self: start; }
+  html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="none"] { grid-column: 1 / -1; max-width: 640px; }
+}

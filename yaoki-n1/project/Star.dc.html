@@ -24,23 +24,24 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div role="img" aria-label="{{ barAria }}" style="flex-grow: 1; height: 12px; border-radius: 6px; background: #DDE1EC; overflow: hidden"><div style="height: 12px; border-radius: 0 6px 6px 0; background: #2F4FD0; transition: width 240ms; width: {{ barW }}"></div></div>
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0; white-space: nowrap; flex-shrink: 0"><span lang="ja">練習</span> DRILL</div>
 </div>
 
 <sc-if value="{{ has }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<div data-d="head" style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">文の文法2</span>　Build the sentence</div>
 <h1 lang="ja" style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">★に入るのはどれ？</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382">Put the four tiles in order. Your answer is the tile on the star.</div>
 </div>
 
-<div lang="ja" style="margin-top: 14px; padding: 14px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600; flex-shrink: 0">
+<div data-d="main" style="display: contents">
+<div data-d="sentence" lang="ja" style="margin-top: 14px; padding: 14px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600; flex-shrink: 0">
 <div style="white-space: nowrap"><sc-for list="{{ pre }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <sc-for list="{{ slots }}" as="s" hint-placeholder-count="4">
-<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" aria-disabled="{{ s.off }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; font-size: 16px; font-weight: 600; white-space: nowrap; border: {{ s.border }}; box-shadow: {{ s.shadow }}; background: {{ s.bg }}; cursor: {{ s.cursor }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button data-d="slot" onClick="{{ s.remove }}" aria-label="{{ s.aria }}" aria-disabled="{{ s.off }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; font-size: 16px; font-weight: 600; white-space: nowrap; border: {{ s.border }}; box-shadow: {{ s.shadow }}; background: {{ s.bg }}; cursor: {{ s.cursor }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
 <sc-if value="{{ s.emptyStar }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="Empty star slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #1B2440; background: #FFF4D6; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></div></sc-if>
 <sc-if value="{{ s.emptyPlain }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="Empty slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #C9D0E3; background: #F4F5F9"></div></sc-if>
 </sc-for>
@@ -48,7 +49,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 14px; display: flex; align-items: flex-end; gap: 10px; flex-shrink: 0">
+<div data-d="hint" style="margin-top: 14px; display: flex; align-items: flex-end; gap: 10px; flex-shrink: 0">
 <svg viewBox="0 0 100 100" width="48" height="48" role="img" aria-label="Yaoki" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 <sc-if value="{{ !hintOpen }}" hint-placeholder-val="{{ false }}"><button onClick="{{ showHint }}" aria-expanded="false" style="flex-grow: 1; min-height: 50px; padding: 8px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; display: flex; align-items: center; gap: 8px; text-align: left"><span style="flex-grow: 1; font-size: 13px; font-weight: 800"><span lang="ja" style="color: #C7361E">ヒント</span>　Show a hint</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 9l6 6 6-6"/></svg></button></sc-if>
 <sc-if value="{{ hintOpen }}" hint-placeholder-val="{{ true }}"><div aria-live="polite" style="flex-grow: 1; min-width: 0; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
@@ -57,24 +58,25 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div></sc-if>
 </div>
 </sc-if>
+</div>
 
-<div style="flex-grow: 1; min-height: 8px"></div>
+<div data-d="gap" style="flex-grow: 1; min-height: 8px"></div>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div data-d="bank" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382"><span lang="ja">タイル</span>　Tiles</div>
-<div lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
+<div data-d="tiles" lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
 <sc-for list="{{ bank }}" as="b" hint-placeholder-count="4">
-<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" style="height: 54px; min-width: 0; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600; white-space: nowrap"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
-<sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
+<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button data-k="choice" onClick="{{ b.place }}" style="height: 54px; min-width: 0; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600; white-space: nowrap"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="2"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div data-k="choice" aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
 </sc-for>
 </div>
 </div>
-<button disabled="{{ notFull }}" onClick="{{ check }}" style="margin-top: 20px; height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}"><span lang="ja">こたえる</span>　Check</button>
+<button data-d="act" data-k="go" disabled="{{ notFull }}" onClick="{{ check }}" style="margin-top: 20px; height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}"><span lang="ja">こたえる</span>　Check</button>
 </sc-if>
 
 <sc-if value="{{ checked }}" hint-placeholder-val="{{ false }}">
-<div style="margin: 0 -16px -34px; min-height: 0; padding: 14px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<div data-d="side" style="margin: 0 -16px -34px; min-height: 0; padding: 14px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
 <div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
 <sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true" style="flex-shrink: 0"><circle cx="12" cy="12" r="9"/></svg></sc-if>
@@ -92,18 +94,18 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 Saved to your mistake notebook. Back tomorrow.
 </div>
 </sc-if>
-<a href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; flex-shrink: 0; box-sizing: border-box; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}"><span lang="ja">おわり</span>　Back to today</a>
+<a data-k="go" href="Today.dc.html" onClick="{{ toDone }}" style="height: 54px; flex-shrink: 0; box-sizing: border-box; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}"><span lang="ja">おわり</span>　Back to today</a>
 </div>
 </sc-if>
 </sc-if>
 
 <sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div data-d="none" style="margin-top: 16px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
 <div lang="ja" style="font-size: 18px; font-weight: 800">文法の練習はありません</div>
 <div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">This day has no grammar lesson, and no day before it has one either. Go back to today's plan to see what it holds.</div>
 </div>
-<div style="flex-grow: 1"></div>
-<a href="Today.dc.html" onClick="{{ toToday }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">もどる</span>　Back to today</a>
+<div data-d="gap" style="flex-grow: 1"></div>
+<a data-d="act" data-k="go" href="Today.dc.html" onClick="{{ toToday }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center"><span lang="ja">もどる</span>　Back to today</a>
 </sc-if>
 
 </div>
