@@ -23,7 +23,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div role="group" aria-label="{{ barLabel }}" style="flex-grow: 1; min-width: 0; display: grid; gap: 6px; grid-template-columns: repeat(3, minmax(0, 1fr))">
 <sc-for list="{{ bar }}" as="b" hint-placeholder-count="3"><button onClick="{{ b.go }}" aria-disabled="{{ b.off }}" aria-label="{{ b.aria }}" aria-current="{{ b.cur }}" style="height: 44px; min-width: 0; padding: 0; border: 0; background: transparent; display: flex; align-items: center; cursor: {{ b.cursor }}"><span style="display: block; width: 100%; height: 10px; border-radius: 5px; background: {{ b.bg }}"></span></button></sc-for>
@@ -32,33 +32,36 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 
 <sc-if value="{{ atLearn }}" hint-placeholder-val="{{ true }}">
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
-<div style="margin-top: 4px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<div data-d="learn" style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div data-d="head" style="margin-top: 4px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
 <h1 lang="ja" style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">{{ title }}</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ intro }}</div>
 </div>
 
-<div role="list" aria-label="{{ tilesAria }}" style="margin-top: 10px; display: grid; gap: 6px; flex-shrink: 0; grid-template-columns: {{ tileCols }}">
+<div data-d="tiles" role="list" aria-label="{{ tilesAria }}" style="margin-top: 10px; display: grid; gap: 6px; flex-shrink: 0; grid-template-columns: {{ tileCols }}">
 <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="10">
 <button role="listitem" onClick="{{ t.open }}" aria-current="{{ t.cur }}" aria-label="{{ t.aria }}" lang="ja" style="position: relative; height: 44px; min-width: 0; padding: 0 4px; border-radius: 12px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; white-space: nowrap; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: {{ t.size }}; border: {{ t.border }}; background: {{ t.bg }}; color: {{ t.ink }}">{{ t.label }}<sc-if value="{{ t.badge }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="position: absolute; right: 2px; top: 2px; width: 13px; height: 13px; border-radius: 50%; background: #0B7A6B; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 8px; font-weight: 800; display: flex; align-items: center; justify-content: center">✓</span></sc-if></button>
 </sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 14px; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div data-d="card" style="margin-top: 12px; padding: 14px; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
 <sc-if value="{{ card.hasKana }}" hint-placeholder-val="{{ true }}">
+<div data-d="kana" style="display: contents">
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px">
 <sc-for list="{{ card.kana }}" as="k" hint-placeholder-count="1">
-<button onClick="{{ k.play }}" aria-label="{{ k.aria }}" style="min-width: 0; padding: 8px 6px 6px; border-radius: 18px; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: background 150ms; border: {{ k.border }}; background: {{ k.bg }}; width: {{ k.w }}; animation: {{ k.anim }}">
+<button data-k="play" onClick="{{ k.play }}" aria-label="{{ k.aria }}" style="min-width: 0; padding: 8px 6px 6px; border-radius: 18px; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: background 150ms; border: {{ k.border }}; background: {{ k.bg }}; width: {{ k.w }}; animation: {{ k.anim }}">
 <span lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.05; color: #1B2440; font-size: {{ k.size }}">{{ k.k }}</span>
 <span style="font-weight: 800; color: #C7361E; font-size: {{ k.rSize }}">{{ k.r }}</span>
 </button>
 </sc-for>
 </div>
 <div style="text-align: center; font-size: 12px; font-weight: 700; color: #5A6382">{{ card.tapLine }}</div>
+</div>
 </sc-if>
 <sc-if value="{{ card.hasNote }}" hint-placeholder-val="{{ false }}">
-<div style="padding: 10px 12px; border-radius: 14px; background: #FFF4D6; font-size: 13px; font-weight: 600; line-height: 1.5">{{ card.note }}</div>
+<div data-d="note" style="padding: 10px 12px; border-radius: 14px; background: #FFF4D6; font-size: 13px; font-weight: 600; line-height: 1.5">{{ card.note }}</div>
 </sc-if>
+<div data-d="words" style="display: contents">
 <sc-for list="{{ card.words }}" as="w" hint-placeholder-count="1">
 <button onClick="{{ w.play }}" aria-label="{{ w.aria }}" style="padding: 8px 12px; border-radius: 14px; border: 2px solid #DDE1EC; text-align: left; display: flex; align-items: center; gap: 12px; transition: background 150ms; background: {{ w.bg }}">
 <span lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.2; flex-shrink: 0; font-size: {{ w.size }}">{{ w.w }}</span>
@@ -68,16 +71,17 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </sc-for>
 </div>
 </div>
-<button onClick="{{ learnNext }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　{{ learnNextLabel }}</button>
+</div>
+<button data-d="act" data-k="go" onClick="{{ learnNext }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center"><span lang="ja">つぎへ</span>　{{ learnNextLabel }}</button>
 </sc-if>
 
 <sc-if value="{{ atQuiz }}" hint-placeholder-val="{{ false }}">
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
-<div style="margin-top: 4px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0">
+<div data-d="quiz" style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div data-d="head" style="margin-top: 4px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0">
 <div style="font-size: 13px; font-weight: 800; color: #5A6382">{{ q.head }}</div>
 <div role="img" aria-label="{{ q.countAria }}" style="padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0">{{ q.count }}</div>
 </div>
-<div style="margin-top: 8px; min-height: 186px; padding: 12px; box-sizing: border-box; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; flex-shrink: 0">
+<div data-d="q" style="margin-top: 8px; min-height: 186px; padding: 12px; box-sizing: border-box; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; flex-shrink: 0">
 <sc-if value="{{ q.isRead }}" hint-placeholder-val="{{ true }}">
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-weight: 600; line-height: 1.15; text-align: center; word-break: keep-all; overflow-wrap: anywhere; font-size: {{ q.size }}">{{ q.big }}</div>
 </sc-if>
@@ -85,19 +89,19 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 26px; font-weight: 600; line-height: 1.6; text-align: center; word-break: keep-all; overflow-wrap: anywhere"><sc-for list="{{ q.segs }}" as="g" hint-placeholder-count="3"><span style="border-radius: 6px; background: {{ g.bg }}; padding: {{ g.pad }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
 </sc-if>
 <sc-if value="{{ q.isHear }}" hint-placeholder-val="{{ false }}">
-<button onClick="{{ q.play }}" aria-label="Play the sound again" style="width: 96px; height: 96px; border-radius: 50%; border: 3px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; justify-content: center; transition: background 150ms; background: {{ q.playBg }}"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
+<button data-k="play" onClick="{{ q.play }}" aria-label="Play the sound again" style="width: 96px; height: 96px; border-radius: 50%; border: 3px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; justify-content: center; transition: background 150ms; background: {{ q.playBg }}"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/><path d="M19 6.5a7.5 7.5 0 0 1 0 11"/></svg></button>
 <sc-if value="{{ q.letters }}" hint-placeholder-val="{{ false }}"><div style="font-size: 22px; font-weight: 800; color: #C7361E">{{ q.romaji }}</div></sc-if>
 <sc-if value="{{ q.offerLetters }}" hint-placeholder-val="{{ true }}"><button onClick="{{ q.showLetters }}" style="height: 44px; padding: 0 12px; border: 0; background: transparent; font-size: 12px; font-weight: 700; color: #2F4FD0">No sound? Show it in letters</button></sc-if>
 </sc-if>
 <sc-if value="{{ q.hasGloss }}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; font-weight: 600; color: #5A6382">{{ q.gloss }}</div></sc-if>
 </div>
-<div style="margin-top: 10px; display: grid; gap: 10px 8px; flex-shrink: 0; grid-template-columns: {{ q.cols }}">
+<div data-d="opts" style="margin-top: 10px; display: grid; gap: 10px 8px; flex-shrink: 0; grid-template-columns: {{ q.cols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="4">
-<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="min-height: 58px; padding: 6px 10px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}"><span lang="{{ o.lang }}" style="font-weight: {{ o.weight }}; font-family: {{ o.font }}; font-size: {{ o.size }}; line-height: 1.25">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+<button data-k="choice" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="min-height: 58px; padding: 6px 10px; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; text-align: center; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}"><span lang="{{ o.lang }}" style="font-weight: {{ o.weight }}; font-family: {{ o.font }}; font-size: {{ o.size }}; line-height: 1.25">{{ o.label }}</span><sc-if value="{{ o.right }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ o.bad }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
 <sc-if value="{{ q.explained }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 10px; padding: 12px 14px; border-radius: 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; animation: yk-up 220ms ease-out; background: {{ q.sheetBg }}">
+<div data-d="side" style="margin-top: 10px; padding: 12px 14px; border-radius: 16px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; animation: yk-up 220ms ease-out; background: {{ q.sheetBg }}">
 <div style="font-size: 18px; font-weight: 800">{{ q.verdictJa }} <span style="font-size: 13px; font-weight: 700">{{ q.verdictEn }}</span></div>
 <sc-for list="{{ q.whys }}" as="w" hint-placeholder-count="2">
 <div style="display: flex; align-items: flex-start; gap: 8px; font-size: 13px; font-weight: 500; line-height: 1.45">
@@ -109,18 +113,18 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <sc-if value="{{ q.saved }}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; font-weight: 700">Saved to your mistake notebook. It comes back tomorrow.</div></sc-if>
 </div>
 </sc-if>
-<sc-if value="{{ q.waiting }}" hint-placeholder-val="{{ false }}"><div style="margin-top: 10px; font-size: 12px; font-weight: 600; color: #5A6382; text-align: center; flex-shrink: 0">{{ q.waitLine }}</div></sc-if>
+<sc-if value="{{ q.waiting }}" hint-placeholder-val="{{ false }}"><div data-d="wait" style="margin-top: 10px; font-size: 12px; font-weight: 600; color: #5A6382; text-align: center; flex-shrink: 0">{{ q.waitLine }}</div></sc-if>
 </div>
-<button onClick="{{ quizNext }}" aria-disabled="{{ quizLocked }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ quizBtn.border }}; background: {{ quizBtn.bg }}; color: {{ quizBtn.color }}; box-shadow: {{ quizBtn.shadow }}; cursor: {{ quizBtn.cursor }}"><span lang="ja">{{ quizNextJa }}</span>　{{ quizNextEn }}</button>
+<button data-d="act" data-k="go" onClick="{{ quizNext }}" aria-disabled="{{ quizLocked }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ quizBtn.border }}; background: {{ quizBtn.bg }}; color: {{ quizBtn.color }}; box-shadow: {{ quizBtn.shadow }}; cursor: {{ quizBtn.cursor }}"><span lang="ja">{{ quizNextJa }}</span>　{{ quizNextEn }}</button>
 </sc-if>
 
 <sc-if value="{{ atResult }}" hint-placeholder-val="{{ false }}">
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
-<div style="margin-top: 4px; display: flex; align-items: center; gap: 14px; flex-shrink: 0">
+<div data-d="result" style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div data-d="score" style="margin-top: 4px; display: flex; align-items: center; gap: 14px; flex-shrink: 0">
 <div style="display: flex; align-items: baseline; gap: 6px"><div style="font-size: 44px; font-weight: 800; line-height: 1.1">{{ res.score }}</div><div style="font-size: 18px; font-weight: 700; color: #5A6382">/ {{ res.of }}</div></div>
 <div style="display: flex; flex-direction: column"><div lang="ja" style="font-size: 18px; font-weight: 800">本番 おわり</div><div style="font-size: 13px; font-weight: 500; color: #5A6382">{{ res.line }}</div></div>
 </div>
-<div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<div data-d="list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <sc-for list="{{ res.rows }}" as="r" hint-placeholder-count="5">
 <div style="padding: 10px 12px; border-radius: 14px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
 <sc-if value="{{ r.ok }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
@@ -130,9 +134,9 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </sc-for>
 </div>
-<sc-if value="{{ res.anyWrong }}" hint-placeholder-val="{{ false }}"><div style="margin-top: 10px; font-size: 12px; font-weight: 700; flex-shrink: 0">{{ res.saved }}</div></sc-if>
+<sc-if value="{{ res.anyWrong }}" hint-placeholder-val="{{ false }}"><div data-d="note" style="margin-top: 10px; font-size: 12px; font-weight: 700; flex-shrink: 0">{{ res.saved }}</div></sc-if>
 </div>
-<a href="Today.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: #0B7A6B"><span lang="ja">つぎへ</span>　Next</a>
+<a data-d="act" data-k="go" href="Today.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; background: #0B7A6B"><span lang="ja">つぎへ</span>　Next</a>
 </sc-if>
 
 </div>

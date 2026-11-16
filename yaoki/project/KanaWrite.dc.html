@@ -23,41 +23,41 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div role="img" aria-label="{{ countAria }}" style="flex-grow: 1; height: 10px; border-radius: 5px; background: #DDE1EC; overflow: hidden"><div style="height: 10px; border-radius: 0 5px 5px 0; background: #C7361E; transition: width 300ms; width: {{ barW }}"></div></div>
 <div style="font-size: 12px; font-weight: 800; color: #C7361E; white-space: nowrap; flex-shrink: 0"><span lang="ja">書く</span> WRITE</div>
 </div>
 
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
-<div style="margin-top: 4px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0">
+<div data-d="main" style="flex-grow: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; margin: 0 -16px; padding: 0 16px 8px; display: flex; flex-direction: column">
+<div data-d="head" style="margin-top: 4px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-shrink: 0">
 <h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.3">{{ head }}</h1>
 <div style="padding: 2px 8px; border-radius: 8px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800; white-space: nowrap; flex-shrink: 0">{{ count }}</div>
 </div>
 
 <sc-if value="{{ none }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 12px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
+<div data-d="none" style="margin-top: 12px; padding: 16px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
 <div lang="ja" style="font-size: 18px; font-weight: 800">ぜんぶ書きました</div>
 <div style="font-size: 13px; font-weight: 500; line-height: 1.45; color: #5A6382">You have already written every kana and word of this day. On to the words.</div>
 </div>
 </sc-if>
 
 <sc-if value="{{ some }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 8px; padding: 10px 12px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px; flex-shrink: 0">
-<sc-if value="{{ wi.isKana }}" hint-placeholder-val="{{ true }}"><div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 46px; font-weight: 600; line-height: 1; flex-shrink: 0">{{ wi.big }}</div></sc-if>
-<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<div data-d="card" style="margin-top: 8px; padding: 10px 12px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px; flex-shrink: 0">
+<sc-if value="{{ wi.isKana }}" hint-placeholder-val="{{ true }}"><div data-d="big" lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 46px; font-weight: 600; line-height: 1; flex-shrink: 0">{{ wi.big }}</div></sc-if>
+<div data-d="info" style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
 <div style="font-size: 11px; font-weight: 800; color: #C7361E"><span lang="ja">{{ wi.kindJa }}</span>　{{ wi.kindEn }}</div>
 <div style="font-size: 18px; font-weight: 800; line-height: 1.3; color: #1B2440">{{ wi.read }}</div>
 <sc-if value="{{ wi.hasMean }}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; font-weight: 500; line-height: 1.35; color: #5A6382">{{ wi.mean }}</div></sc-if>
 </div>
-<sc-if value="{{ canPlay }}" hint-placeholder-val="{{ true }}"><button onClick="{{ play }}" aria-label="{{ wi.playAria }}" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button></sc-if>
+<sc-if value="{{ canPlay }}" hint-placeholder-val="{{ true }}"><button data-k="play" onClick="{{ play }}" aria-label="{{ wi.playAria }}" style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9a4 4 0 0 1 0 6"/></svg></button></sc-if>
 </div>
-<div style="margin-top: 10px; flex-shrink: 0">
+<div data-d="write" style="margin-top: 10px; flex-shrink: 0">
 <dc-import name="Write" task="{{ task }}" tkey="{{ tkey }}" finished="{{ finished }}" size="{{ size }}" hint-size="358px,480px"></dc-import>
 </div>
 </sc-if>
 </div>
-<button onClick="{{ next }}" aria-disabled="{{ locked }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ btn.border }}; background: {{ btn.bg }}; color: {{ btn.color }}; box-shadow: {{ btn.shadow }}; cursor: {{ btn.cursor }}"><span lang="ja">{{ nextJa }}</span>　{{ nextEn }}</button>
+<button data-d="act" data-k="go" onClick="{{ next }}" aria-disabled="{{ locked }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; font-size: 17px; font-weight: 800; display: flex; align-items: center; justify-content: center; border: {{ btn.border }}; background: {{ btn.bg }}; color: {{ btn.color }}; box-shadow: {{ btn.shadow }}; cursor: {{ btn.cursor }}"><span lang="ja">{{ nextJa }}</span>　{{ nextEn }}</button>
 
 </div>
 </x-dc>

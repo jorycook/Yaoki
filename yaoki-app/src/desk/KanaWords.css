@@ -1,0 +1,161 @@
+/* KanaWords, the words lesson of a day of the kana course (Study app).
+   Read: the day's words (or sentences) as a sheet of cards across the width, three a row (sentences two a row), under the title;
+   Next under them. Every day's words fit a laptop's pane without scrolling.
+   Practice: as the drill does, the word on the left, large (to read, or to hear), as tall as what is beside it; on the right its
+   options, always two a row (a long sentence breaks at its space), then the verdict and the reasons (before an answer, a dashed
+   panel says what will appear there), and Next under them. Every question fits a laptop's pane without scrolling.
+   Each step's body is a grid on the screen's two columns (the practice's a subgrid), so a long body scrolls inside itself and Next
+   stays in view. The narrowest panes set the cards a little lower; a tall window shows it a size larger, a very tall one larger
+   again. Hooks: bar; read (head, list), quiz (head, q, opts, side); act on each step's Next; data-k="choice" on the options,
+   "play" on the word heard, "go" on Next. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="KanaWords"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+    grid-template-rows: auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "body body" ". act" ". .";
+    column-gap: 32px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="KanaWords"] > [data-d="bar"] { grid-area: bar; margin-bottom: 12px; }
+  html.yk-desk [data-yk="KanaWords"] > :is([data-d="read"], [data-d="quiz"]) { grid-area: body; margin: 0 !important; padding: 4px 4px 10px !important; }
+  html.yk-desk [data-yk="KanaWords"] > [data-d="act"] { grid-area: act; justify-self: start; min-width: 280px; padding: 0 28px; margin-top: 8px !important; }
+
+  /* ---------- read ---------- */
+  html.yk-desk [data-yk="KanaWords"]:has(> [data-d="read"]) > [data-d="act"] { grid-column: 1; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] { margin: 0 !important; gap: 4px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > h1 { font-size: 25px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > h1 > span:last-child { font-size: 15px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > div { font-size: 14px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"] {
+    display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 14px !important; margin-top: 16px !important;
+  }
+  /* sentences (the day of は, を and へ) two a row */
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"]:has(span[style*="max-width: 62%"]) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button { min-height: 72px !important; padding: 10px 16px !important; border-radius: 18px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 28px"] { font-size: 32px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 23px"] { font-size: 27px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 19px"] { font-size: 22px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 20px"] { font-size: 22px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span:not([lang]) > span[style*="font-size: 15px"] { font-size: 16px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span:not([lang]) > span[style*="font-size: 12px"] { font-size: 13px !important; }
+
+  /* ---------- practice ---------- */
+  html.yk-desk [data-yk="KanaWords"] > [data-d="quiz"] {
+    display: grid !important; grid-template-columns: subgrid; grid-template-rows: auto auto auto minmax(0, 1fr); align-content: start;
+  }
+  html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="head"] { grid-column: 1 / -1; grid-row: 1; margin: 0 0 10px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="head"] > div:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="head"] > div:last-child { font-size: 13px !important; padding: 3px 10px !important; }
+  /* the word: as tall as the options and what follows them (so Next sits right under them), and never shorter than this */
+  html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="q"] {
+    grid-column: 1; grid-row: 2 / -1; align-self: stretch; margin: 0 !important; min-height: 160px !important;
+    padding: 20px !important; gap: 12px !important; border-radius: 26px !important; container-type: inline-size;
+  }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 68px"] { font-size: min(104px, 30cqw) !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 52px"] { font-size: min(80px, 17cqw) !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 38px"] { font-size: min(56px, 11cqw) !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 26px"] { font-size: min(36px, 7cqw) !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button[data-k="play"] { width: 116px !important; height: 116px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button[data-k="play"] > svg { width: 48px; height: 48px; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div:not([lang]) { font-size: 14px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div:not([lang])[style*="font-size: 20px"] { font-size: 26px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button:not([data-k]) { font-size: 13px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="opts"] { grid-column: 2; grid-row: 2; margin: 0 !important; gap: 12px !important; }
+  /* the options the phone stacks in one column (one of them longer than nine characters) stay two a row: there is room for them */
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"][style*="grid-template-columns: 1fr"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button { min-height: 72px !important; border-radius: 18px !important; }
+  /* a sentence too long for one line breaks at its space (the word and its particle, then the verb) */
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[lang="ja"] { word-break: keep-all; overflow-wrap: anywhere; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 26px"] { font-size: 30px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 21px"] { font-size: 24px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 20px"] { font-size: 22px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 17px"] { font-size: 19px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 16px"] { font-size: 18px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="side"] {
+    grid-column: 2; grid-row: 3; margin: 16px 0 0 !important; padding: 16px 18px !important; gap: 8px !important; border-radius: 20px !important;
+  }
+  html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:first-child { font-size: 20px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:first-child > span { font-size: 14px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:not(:first-child) { font-size: 14px !important; }
+  /* before an answer, the verdict's place says what will appear there */
+  html.yk-desk [data-yk="KanaWords"] > [data-d="quiz"]:not(:has(> [data-d="side"]))::after {
+    content: '解説　Why\A Pick an answer: whether it is right, and why, appears here at once. A miss goes to your notebook.';
+    white-space: pre-line; grid-column: 2; grid-row: 3; align-self: start; margin-top: 16px; padding: 16px 18px; border-radius: 20px;
+    border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* the narrowest landscape panes: the cards a little lower, so twelve words still fit */
+  @container yk (max-width: 1039.98px) {
+    html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"] { gap: 10px 12px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button { min-height: 64px !important; padding: 8px 14px !important; }
+    /* a spelling of five to seven kana at the phone's size, so it keeps to one line beside its mark */
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 21px"] { font-size: 21px !important; }
+    /* the options a little lower and the reasons at the phone's size, so the longest reasons still fit beside the word */
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button { min-height: 64px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="side"] { padding: 14px 16px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:not(:first-child) { font-size: 13px !important; }
+  }
+
+  /* a tall window: the word and the options a size larger */
+  @media (min-height: 860px) {
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button { min-height: 84px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="q"] { min-height: 200px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 68px"] { font-size: min(136px, 30cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 52px"] { font-size: min(104px, 18cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 38px"] { font-size: min(72px, 11.5cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button[data-k="play"] { width: 150px !important; height: 150px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button[data-k="play"] > svg { width: 62px; height: 62px; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div:not([lang])[style*="font-size: 20px"] { font-size: 32px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button { min-height: 96px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 26px"] { font-size: 36px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 21px"] { font-size: 28px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 20px"] { font-size: 27px !important; }
+  }
+  /* a very tall window (a large monitor): a size larger again */
+  @media (min-height: 1200px) {
+    html.yk-desk [data-yk="KanaWords"] > [data-d="act"] { height: 60px !important; min-width: 320px; font-size: 18px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > h1 { font-size: 30px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > h1 > span:last-child { font-size: 18px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > div { font-size: 16px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"] { gap: 16px 18px !important; margin-top: 20px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button { min-height: 104px !important; padding: 12px 22px !important; border-radius: 22px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 28px"] { font-size: 42px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 23px"] { font-size: 34px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 19px"] { font-size: 27px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 20px"] { font-size: 28px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span:not([lang]) > span[style*="font-size: 15px"] { font-size: 19px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span:not([lang]) > span[style*="font-size: 12px"] { font-size: 15px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="head"] > div:first-child { font-size: 16px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="head"] > div:last-child { font-size: 15px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="q"] { min-height: 240px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 68px"] { font-size: min(170px, 30cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 52px"] { font-size: min(128px, 18cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 38px"] { font-size: min(88px, 11.5cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div[lang="ja"][style*="font-size: 26px"] { font-size: min(48px, 7cqw) !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button[data-k="play"] { width: 184px !important; height: 184px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button[data-k="play"] > svg { width: 76px; height: 76px; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div:not([lang]) { font-size: 17px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > div:not([lang])[style*="font-size: 20px"] { font-size: 38px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="q"] > button:not([data-k]) { font-size: 15px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button { min-height: 124px !important; border-radius: 22px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 26px"] { font-size: 44px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 21px"] { font-size: 34px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 20px"] { font-size: 32px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 17px"] { font-size: 26px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > span[style*="font-size: 16px"] { font-size: 24px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="opts"] > button > svg { width: 24px; height: 24px; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="quiz"] > [data-d="side"] { padding: 20px 22px !important; gap: 10px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:first-child { font-size: 25px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:first-child > span { font-size: 17px !important; }
+    html.yk-desk [data-yk="KanaWords"] [data-d="side"] > div:not(:first-child) { font-size: 17px !important; }
+    html.yk-desk [data-yk="KanaWords"] > [data-d="quiz"]:not(:has(> [data-d="side"]))::after { font-size: 17px; padding: 20px 22px; }
+  }
+}
+
+/* the keys: Next, waiting for an answer, shows its key faded (as _base.css does for a disabled one) */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="KanaWords"] [data-k="go"][aria-disabled="true"]::after { opacity: 0.4; }
+  }
+}

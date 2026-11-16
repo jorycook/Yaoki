@@ -23,14 +23,14 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px; flex-shrink: 0">
+<div data-d="head" style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px; flex-shrink: 0">
 <h1 style="margin: 0; flex-grow: 1; font-size: 22px; font-weight: 800"><span lang="ja">おまけ</span> <span style="font-size: 14px; font-weight: 700; color: #5A6382">Extras</span></h1>
 </div>
 
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 14px">
-<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Practice beside the course, whenever you like. Nothing here counts toward your stamps.</div>
+<div data-d="main" style="flex-grow: 1; min-height: 0; overflow-y: auto; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+<div data-d="intro" style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Practice beside the course, whenever you like. Nothing here counts toward your stamps.</div>
 
-<section aria-labelledby="xs-speak" style="padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
+<section data-d="card" aria-labelledby="xs-speak" style="padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; align-items: center; gap: 12px">
 <div aria-hidden="true" style="width: 46px; height: 46px; border-radius: 14px; background: #FDEBE6; color: #C7361E; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
@@ -41,7 +41,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 13px; font-weight: 500; line-height: 1.5">{{ speakBody }}</div>
 <div style="align-self: flex-start; padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ speakAt }}</div>
 <sc-if value="{{ online }}" hint-placeholder-val="{{ true }}">
-<a href="{{ speakHref }}" target="{{ target }}" rel="noopener" aria-label="{{ speakAria }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center"><span lang="ja">話す</span>　Open Yaoki Speaking</a>
+<a data-k="go" href="{{ speakHref }}" target="{{ target }}" rel="noopener" aria-label="{{ speakAria }}" style="height: 48px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center"><span lang="ja">話す</span>　Open Yaoki Speaking</a>
 </sc-if>
 <sc-if value="{{ offline }}" hint-placeholder-val="{{ false }}">
 <div role="status" style="height: 48px; border-radius: 14px; background: #DDE1EC; border: 2px solid #C9D0E3; color: #5A6382; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center"><span lang="ja">オフライン</span>　Needs a connection</div>
@@ -49,7 +49,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5">It needs the microphone and a connection.</div>
 </section>
 
-<section aria-labelledby="xs-read" style="padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
+<section data-d="card" aria-labelledby="xs-read" style="padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; align-items: center; gap: 12px">
 <div aria-hidden="true" style="width: 46px; height: 46px; border-radius: 14px; background: #FFF4D6; color: #1B2440; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5C5.5 4 9 4 12 6c3-2 6.5-2 9-.5V19c-2.5-1.5-6-1.5-9 .5-3-2-6.5-2-9-.5z"/><path d="M12 6v13.5"/></svg></div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
@@ -67,7 +67,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ readNote }}</div>
 </section>
 
-<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ footNote }}</div>
+<div data-d="foot" style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ footNote }}</div>
 </div>
 
 <nav aria-label="Main" style="flex-shrink: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 8px 30px; background: #FFFFFF; border-top: 2px solid #DDE1EC">
