@@ -1,0 +1,75 @@
+/* Notebook, the mistake notebook (both apps). The phone stacks the summary, the schedule and the list under the title. Here the
+   title runs across the top and the notebook opens as summary and list: on the left a column as wide as the phone's card, with
+   what is due today and its Review button (the Study app's schedule chips under it; N1's area filters under it, a list of rows
+   with their counts); on the right the mistakes, which scroll in their own column, one card a row, two side by side once the
+   column has room for both. The title, the summary and the Review button never scroll away. With nothing in the notebook (N1's
+   empty state, or the Study app's empty list) the right column is a dashed panel as tall as the left one, saying what will
+   appear there.
+   Hooks: bar, side (the left column; display: contents on the phone), sum (the summary card), empty (N1's card for an empty
+   notebook), act (N1's way on from it), sched (the Study app's schedule), tabs (N1's area filters), head (the Study app's list
+   heading), list (the list: in N1 the box that holds scroll and fade), row (a mistake), cleared (the cleared card or toggle),
+   done (N1's cleared rows), none (N1's empty filter), note (N1's line under the list), gap (N1's spacer). data-k="go" on
+   Review (only there while something is due) and on N1's Today's study. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Notebook"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    /* the title; the list (in the Study app under its heading), which takes the height left; the tab bar (a window under
+       1000 px wide only) */
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    column-gap: 28px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="head"]) { grid-template-rows: auto 24px minmax(0, 1fr) auto; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="bar"] { grid-column: 1 / -1; grid-row: 1; padding: 0 !important; margin-bottom: 12px; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Notebook"] > nav { grid-column: 1 / -1; grid-row: -2; margin: 16px -28px -24px; }
+
+  /* the left column: the summary, the Review button in it, and under it the schedule or the area filters; it scrolls only on a
+     window too short for it (its padding keeps the cards' shadows and the focus ring in view) */
+  html.yk-desk [data-yk="Notebook"] > [data-d="side"] {
+    grid-column: 1; grid-row: 2; align-self: start; max-height: calc(100% + 12px); min-height: 0; overflow-y: auto;
+    display: flex !important; flex-direction: column; gap: 18px; padding: 6px; margin: -6px;
+  }
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="head"]) > [data-d="side"] { grid-row: 2 / 4; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="side"] > * { margin: 0 !important; flex-shrink: 0; }
+
+  /* N1: the area filters, a list of rows (the name, then the count) under the summary */
+  html.yk-desk [data-yk="Notebook"] [data-d="tabs"] { display: flex !important; flex-direction: column; gap: 6px !important; }
+  html.yk-desk [data-yk="Notebook"] [data-d="tabs"] > button { height: 42px !important; flex-direction: row !important; justify-content: space-between !important; padding: 0 16px !important; }
+  html.yk-desk [data-yk="Notebook"] [data-d="tabs"] > button > span:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="Notebook"] [data-d="tabs"] > button > span:last-child { font-size: 15px !important; }
+
+  /* the right column: the Study app's heading over the list; N1's list from the top */
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] { grid-column: 2; grid-row: 2; align-self: start; margin: 0 !important; line-height: 20px; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="list"] { grid-column: 2; grid-row: 2; margin: 0 !important; min-height: 0; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"] { grid-row: 3; margin: 0 -6px !important; }
+  /* the cards: one a row, two side by side when the column has room for both (the Study app's list scrolls itself, N1's holds
+     what scrolls); the padding keeps the focus ring in view */
+  html.yk-desk [data-yk="Notebook"] :is([data-d="head"] ~ [data-d="list"], [data-d="scroll"]) {
+    display: grid !important; grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr)); align-content: start; gap: 10px !important;
+    padding: 6px 6px 20px !important;
+  }
+  html.yk-desk [data-yk="Notebook"] [data-d="scroll"] { margin: -6px -6px 0; }
+  html.yk-desk [data-yk="Notebook"] :is([data-d="cleared"], [data-d="none"], [data-d="note"]) { grid-column: 1 / -1; }
+  /* the question a little larger: it is what is studied */
+  html.yk-desk [data-yk="Notebook"] [data-d="row"] > div[lang="ja"][style*="Klee One"] { font-size: 16px !important; }
+  html.yk-desk [data-yk="Notebook"] [data-d="done"] > div[lang="ja"][style*="Klee One"] { font-size: 15px !important; }
+
+  /* nothing in the notebook: the list's place, as tall as the left column, says what will appear in it. N1's empty state has no
+     list (the panel is the screen's own); the Study app's list is there, empty, under its heading */
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="side"] > [data-d="empty"]) { grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="head"] ~ [data-d="list"]:not(:has(> *))) { grid-template-rows: auto 24px auto minmax(0, 1fr) auto; }
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *)) { align-content: stretch; padding-bottom: 6px !important; }
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="side"] > [data-d="empty"])::after,
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *))::before {
+    content: 'ノート　Your mistakes\A \A Each question you get wrong is listed here: the question, your answer and the right one, the day it comes back, and how many times in a row you have got it right since.';
+    white-space: pre-line; display: grid; place-content: center; text-align: center; box-sizing: border-box;
+    padding: 24px max(24px, calc(50% - 220px)); border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+  html.yk-desk [data-yk="Notebook"]:has(> [data-d="side"] > [data-d="empty"])::after { grid-column: 2; grid-row: 2; align-self: stretch; }
+  /* the Study app's list has its heading over it already */
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *))::before {
+    content: 'Each question you get wrong is listed here: the question, your answer and the right one, the day it comes back, and how many times in a row you have got it right since.';
+  }
+}

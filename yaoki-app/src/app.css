@@ -126,6 +126,8 @@ html.yk-desk #yk-sideways { display: none; }
 html.yk-desk .yk-scrim { display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }
 html.yk-desk .yk-scrim-close { position: absolute; inset: 0; }
 html.yk-desk .yk-sheet { position: relative; width: 100%; max-width: 460px; max-height: 100%; overflow-y: auto; box-sizing: border-box; border-radius: 26px !important; border: 2px solid #1B2440 !important; box-shadow: 0 8px 0 #1B2440; padding-bottom: 20px !important; }
+/* a short pane scrolls the menu rather than squeezing its buttons (the sheet is a flex column on the phone) */
+html.yk-desk .yk-sheet > * { flex-shrink: 0; }
 @media (min-width: 1000px) {
   html.yk-desk .app-shell { grid-template-columns: 240px minmax(0, 1fr); }
   html.yk-desk .app-side { display: flex; }
