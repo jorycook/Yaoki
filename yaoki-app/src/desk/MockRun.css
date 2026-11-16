@@ -86,8 +86,9 @@
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="top"], [data-d="main"], [data-d="side"]) { display: flex !important; flex-direction: column; min-width: 0; }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="top"] { grid-column: 1 / -1; grid-row: 1; margin-bottom: 14px; }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="main"] { grid-column: 1; grid-row: 2; }
-  /* the answers stay in view while a long passage scrolls by */
-  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="side"] { grid-column: 2; grid-row: 2; position: sticky; top: 0; }
+  /* the answers end at the foot of the spread, right above Previous / Next: beside a passage taller than they are, they come
+     after it, as in a printed booklet, and while a passage longer than the pane scrolls by they stay in view there */
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="side"] { grid-column: 2; grid-row: 2; align-self: end; position: sticky; bottom: var(--mr-cue); }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="main"], [data-d="side"]) > :first-child { margin-top: 0 !important; }
   /* the fade at the foot of a passage the pane cuts. It sits in its own row under the spread, unseen, and sticks to the bottom
      of the spread while there is more to scroll */
@@ -108,7 +109,7 @@
   }
   /* the label and the instruction */
   html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="mondai"] > div { font-size: 13px !important; }
-  html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="rubric"] { margin-top: 4px !important; font-size: 15px !important; }
+  html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="rubric"] { margin-top: 4px !important; font-size: 15px !important; text-wrap: pretty; }
   /* what is studied, a little larger */
   html.yk-desk [data-yk="MockRun"] [data-d="sentence"] { padding: 18px 22px !important; border-radius: 20px !important; font-size: 23px !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] [data-d="sentence"] > span:first-child { width: 28px !important; height: 28px !important; line-height: 28px !important; font-size: 13px !important; margin-right: 10px !important; vertical-align: 4px !important; }
@@ -129,7 +130,8 @@
   /* a window under 720 px tall (a laptop with its browser): the paper a little tighter, so that the longest question, its four
      options and Flag fit beside the passage */
   @media (max-height: 720px) {
-    html.yk-desk [data-yk="MockRun"] > [data-d="paper"] { padding-bottom: 14px !important; }
+    html.yk-desk #yk-stage .yk-screen > .sc-host > [data-yk="MockRun"] { --mr-cue: 16px; }
+    html.yk-desk [data-yk="MockRun"] > [data-d="paper"] { padding-bottom: 12px !important; }
     html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="top"] { margin-bottom: 10px; }
     html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="rubric"] { margin-top: 2px !important; font-size: 14px !important; line-height: 1.45 !important; }
     html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="passage"] { padding: 12px 18px !important; font-size: 16px !important; line-height: 1.7 !important; }

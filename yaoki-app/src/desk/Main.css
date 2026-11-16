@@ -1,11 +1,12 @@
 /* Main, the week path (both apps). The phone stacks the pills, the week card and a zigzag route drawn at phone coordinates. Here the
-   pills stay a row on top, the week card is one band (its title, the stamp card, Yaoki and N1's week arrows side by side), N1's
-   behind-plan strip runs under it, and the route is a panel across the width: the week's days left to right on one line, each
-   label under its node, and the day's card (Start) in the label row, in the place of the labels it stands for (the logic leaves
-   out today's label, and on the Study app the labels its card would cover on the phone). The card is as wide as its button's words
-   and key need. N1's open-early sheet is a dialog in the middle of the pane. Hooks: bar, week, head, slots, late (N1), route, node /
+   pills stay a row on top, the week card is one band (its title, then Yaoki and N1's week arrows; the stamp card is left to screen
+   readers, since the route repeats it), N1's behind-plan strip runs under it, and the route is a panel across the width: the week's
+   days left to right on one line, each label under its node, and the day's card (Start) in the label row, in the place of the
+   labels it stands for (the logic leaves out today's label, and on the Study app the labels its card would cover on the phone). The
+   card is as wide as its button's words and key need, at least. N1's open-early sheet is a dialog in the middle of the pane. On a
+   tall window the route stops growing once the week has paper around it. Hooks: bar, week, head, slots, late (N1), route, node /
    node-done / node-now / node-skip (each day's node, by state), label, card, ask (N1); data-k="go" on Start (and N1's other card
-   actions, the sheet's Open, and the Study app's week test node, which Enter takes when the week test is what comes next). */
+   actions, the sheet's Open, and the Study app's week test node, which Enter takes when the card has no Start). */
 @container yk (min-width: 880px) {
   /* static here: N1's open-early overlay then covers the whole pane, not only the screen's 1240 px */
   html.yk-desk [data-yk="Main"] { position: static !important; padding: 20px 28px 24px !important; }
@@ -19,10 +20,9 @@
   }
   html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] { display: contents !important; }
   html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > div { order: 1; }
-  /* the stamp card has as many slots as the week has days (the last week of N1's plan is shorter: its empty slots go) */
-  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="slots"] { order: 2; grid-template-columns: none !important; grid-auto-flow: column; grid-auto-columns: clamp(38px, 4cqw, 48px); gap: 8px !important; }
-  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="slots"] > div { height: clamp(38px, 4cqw, 48px) !important; }
-  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="slots"] > div:empty { display: none !important; }
+  /* the stamp card: here the route under the band is itself a row of the week's days, stamps and all, so the card is not drawn a
+     second time (it stays in the page for screen readers, whose one-line summary of the week it is) */
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="slots"] { position: absolute !important; width: 1px !important; height: 1px !important; margin: -1px; overflow: hidden !important; clip-path: inset(50%); white-space: nowrap; }
   html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > :is(svg, button) { order: 3; }
   /* N1's week arrows sit close to Yaoki, as they do on the phone */
   html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > button:first-of-type { margin-right: -20px; }
@@ -87,8 +87,8 @@
   html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(5 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(5 of [data-d^="node"]) + [data-d="label"] { grid-column: 9 / span 2; }
   html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(6 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(6 of [data-d^="node"]) + [data-d="label"] { grid-column: 11 / span 2; }
   html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(7 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(7 of [data-d^="node"]) + [data-d="label"] { grid-column: 13 / span 2; }
-  /* the Study app's week test node takes Enter when nothing else does (the card's Start comes later and wins whenever there is
-     one): its key shows above it only when the week test is what comes next */
+  /* the Study app's week test node takes Enter when the card has no Start (Start comes later in the page, and the last go wins):
+     the week test next, or passed (its results). Its key shows above it only when the week test is what comes next */
   html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"] > [data-d="node"][data-k="go"]::after { content: none; }
   html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"]:not(:has(> [data-d="card"] [data-k="go"])) > [data-d="node"][data-k="go"][aria-label="Day 7, week test"]::after {
     content: 'Enter'; position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); margin: 0; background: #FFFFFF;
@@ -116,7 +116,7 @@
   /* the title: balanced lines, at least a dozen characters wide (N1 cuts its title at the lines it counted for the phone's
      narrower box: here the title may take what it needs) */
   html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:nth-child(2) { min-width: 232px; font-size: 18px !important; line-height: 1.35 !important; -webkit-line-clamp: 4 !important; text-wrap: balance; }
-  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 48px !important; margin-top: 10px !important; padding-inline: 14px !important; font-size: 16px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 48px !important; margin-top: 10px !important; padding-inline: 14px !important; white-space: nowrap; font-size: 16px !important; }
 
   /* N1: the open-early sheet is a dialog in the middle of the pane (a click outside it cancels, as the phone's backdrop does) */
   html.yk-desk [data-yk="Main"] > [data-d="ask"] { z-index: 5; display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }

@@ -216,21 +216,23 @@ label.switch > span { flex: 1; min-width: 0; }
    the window: the scene, the line under it and the keyboard are sized to the window's height (in a wide window, beside the
    keyboard, a panel holds the key to press next and the note on a slip). The result in two columns: the verdict (the score
    and the hanko, a best, a ring) with what to do next, in view, beside the details (the stats, the weak spots, the stamp
-   card). Settings and pause are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's header
-   and footer line up with it. Below 900 px everything is the single column it always was. */
+   card). Settings and pause are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's footer
+   lines up with it; the header is the site's own (from 1000 px it spans the window, see site.css). Below 900 px everything is
+   the single column it always was. */
 @keyframes yk-pop { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
 @media (min-width: 900px) {
-  :root { --site-max: 1288px; --side-w: clamp(320px, 30vw, 392px); }
-  .site-wrap { padding-inline: 24px; }
+  :root { --page-max: 1288px; --side-w: clamp(320px, 30vw, 392px); }
+  .site-foot .site-wrap { max-width: var(--page-max); padding-inline: 24px; }
   /* the page fills the window, so a short view (a result) keeps the footer at the bottom */
   body { display: flex; flex-direction: column; min-height: 100svh; }
-  #app { flex: 1 0 auto; width: 100%; max-width: var(--site-max); padding: 0 24px 40px; }
+  #app { flex: 1 0 auto; width: 100%; max-width: var(--page-max); padding: 0 24px 40px; }
 
   /* the menu */
   #menu { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); column-gap: 32px; align-items: start; padding-top: 4px; }
   .menu-main, .menu-side { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
   .menu-side { position: sticky; top: calc(var(--site-head) + 16px); }
-  .lede { max-width: 66ch; }
+  /* running text keeps a readable measure in the wide column */
+  .lede, #mode-desc, #stage-desc, #course-note { max-width: 66ch; }
   /* the stages: each group a list of wide choices (the name, then what it holds and its best on one line). The kana (or the
      keys) with the course under them on the left, so a course's level and weeks come up right under its choice; the kanji on
      the right. Down the columns, the order is the order of the keyboard's Tab. */
@@ -294,20 +296,43 @@ label.switch > span { flex: 1; min-width: 0; }
 
   /* the result */
   #result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 40px; align-items: start; max-width: none; padding-top: 8px; }
-  .res-main, .res-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-  .res-main { position: sticky; top: calc(var(--site-head) + 16px); }
-  /* Again, as wide as the two beside each other under it (one above the other in a narrow column) */
-  .res-main .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 540px; }
+  .res-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  /* the verdict, in view as the details scroll: the count, then a best and a ring under it, beside the hanko; under them the
+     next stage (after a top round) and the actions, so all of it fits a laptop's window */
+  .res-main { position: sticky; top: calc(var(--site-head) + 16px); min-width: 0; container: verdict / inline-size; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 36px; align-content: start; }
+  .res-main .result-top, #res-seal { display: contents; }
+  .res-main > *, #res-seal > * { grid-column: 1 / -1; }
+  #res-best { order: 0; margin: 10px 0 0; }
+  .result-top > div:first-child, #res-best, #res-seal > p { grid-column: 1; }
+  .result-top > div:first-child { margin-top: 14px; }
+  #res-seal > p { margin-top: 10px; }
+  #res-stamp { grid-column: 2; grid-row: 2 / span 3; align-self: center; margin: 14px 0 0; }
+  /* room for the はなまる drawn round the hanko */
+  #res-stamp.hana { margin: 30px 24px 12px 0; }
+  #res-next { margin-top: 18px; }
+  /* Again across the column, Weak spots and Close side by side under it (one above the other in a narrow column) */
+  .res-main > .actions { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  .res-main:has(#res-seal:not([hidden]) > #res-next:not([hidden])) > .actions { margin-top: 10px; }
   .res-main .actions .btn { padding-inline: 16px; white-space: nowrap; }
   #again { grid-column: 1 / -1; }
+  /* a verdict column too narrow for text beside the hanko (a window under about 1090 px): the best and the ring under it */
+  @container verdict (max-width: 459px) {
+    #res-stamp { grid-row: 2; }
+    #res-best, #res-seal > p { grid-column: 1 / -1; }
+  }
 
   /* settings and pause: dialogs in the middle of the window */
   .scrim { align-items: center; padding: 24px; }
   .sheet { border-radius: var(--r-xl); border: var(--rule); box-shadow: 0 6px 0 var(--hard); max-height: calc(100svh - 48px); padding: 22px 26px 24px; animation: yk-pop 200ms ease-out; }
-  #settings-sheet .sheet { width: min(980px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; align-items: start; }
-  #settings-sheet .sheet > h2, #close-settings { grid-column: 1 / -1; }
+  /* settings: what shows and what is said while you play | the game's sound effects and music; under them the day's goal,
+     with Close beside it. The columns come out about as tall as each other, and the dialog fits a laptop's window. */
+  #settings-sheet .sheet { width: min(980px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "head head" "play sound" "goal close"; gap: 18px 32px; align-items: start; }
+  #settings-sheet .sheet > h2 { grid-area: head; }
   .set-col { display: flex; flex-direction: column; gap: 14px; }
-  #close-settings { justify-self: end; width: auto; min-width: 240px; }
+  .set-play { grid-area: play; }
+  .set-sound { grid-area: sound; }
+  .set-goal { grid-area: goal; }
+  #close-settings { grid-area: close; align-self: end; justify-self: end; width: auto; min-width: 240px; }
   #pause-sheet .sheet { width: min(600px, 100%); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   #pause-sheet .btn { white-space: nowrap; padding-inline: 14px; }
   #pause-sheet .sheet > :not(#pause-settings, #quit) { grid-column: 1 / -1; }
@@ -322,19 +347,24 @@ label.switch > span { flex: 1; min-width: 0; }
     --kbw: calc(var(--rw) - var(--side) - 24px);
     --rest: calc(26px + 48px + 3 * var(--gap) + var(--info-h) + var(--kbh));
     grid-template-columns: minmax(0, 1fr) var(--side);
-    grid-template-areas: "hud hud" "stage stage" "info info" "kb coach";
+    grid-template-areas: "hud hud" "stage stage" "info coach" "kb coach";
   }
-  .coach { grid-area: coach; display: flex; flex-direction: column; gap: 10px; height: var(--kbh); overflow-y: auto; padding: 14px 18px; border-radius: var(--r-l); border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow-s); }
-  /* before a hint, the panel says what will show there */
+  /* the panel is as tall as the line about the card and the keyboard together, whatever it holds (contain: what it holds
+     never makes those rows taller); the next key and the note stay one under the other, and a long note scrolls down,
+     never sideways */
+  .coach { grid-area: coach; contain: size; display: flex; flex-direction: column; gap: 10px; overflow: hidden auto; padding: 14px 18px; border-radius: var(--r-l); border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow-s); }
+  /* with no hint showing, a quiet panel; at the start of a round (until its first card is done) it says what will show there */
   body:not(.no-kb) .coach:has(> #next-line:empty):has(> #status:empty) { border: 2px dashed var(--line-strong); background: none; box-shadow: none; }
   body:not(.no-kb) .coach:has(> #next-line:empty):has(> #status:empty)::before {
-    content: 'ヒント　Hints\A When a hint shows (設定 Settings says when), the key to press lights up on the keyboard and this names the finger that presses it. A note on a slip shows here too.';
-    white-space: pre-line; color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.55;
+    content: 'ヒント　Hints'; white-space: pre-line; color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.55;
   }
-  .coach > #next-line { order: 0; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 0; }
-  .coach > #next-line .kicker { font-size: 18px; }
-  .coach > #next-line span:not(.kicker) { font-size: 17px; }
-  .coach > #status { order: 1; min-height: 0; font-size: 16px; line-height: 1.45; }
+  body:not(.no-kb) #play:has(#progress[aria-label^="Card 1 of"]) .coach:has(> #next-line:empty):has(> #status:empty)::before {
+    content: 'ヒント　Hints\A When a hint shows (設定 Settings says when), the key to press lights up on the keyboard and this names the finger that presses it. A note on a slip shows here too.';
+  }
+  .coach > #next-line { order: 0; flex: none; flex-flow: column nowrap; align-items: flex-start; gap: 2px; min-height: 0; }
+  .coach > #next-line .kicker { font-size: 17px; }
+  .coach > #next-line span:not(.kicker) { font-size: 16px; line-height: 1.4; }
+  .coach > #status { order: 1; flex: none; min-height: 0; font-size: 15px; line-height: 1.4; }
 }
 </style>
 </head>
@@ -518,8 +548,9 @@ label.switch > span { flex: 1; min-width: 0; }
 <div id="settings-sheet" class="scrim" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settings-h">
     <h2 id="settings-h"><span lang="ja">設定</span>　<small>Settings</small></h2>
-    <!-- on a desktop, two columns: the hints and what shows, then the sound and the day's goal -->
-    <div class="set-col">
+    <!-- on a desktop, two columns (what shows and what is said while you play | the sound effects and the music), then the
+         day's goal beside Close; in the single column these wrappers step aside -->
+    <div class="set-col set-play">
     <div class="block">
       <h2 id="hint-h"><span lang="ja">ヒント</span>　Romaji and key hints</h2>
       <div id="hint-seg" class="seg" role="group" aria-labelledby="hint-h"></div>
@@ -528,7 +559,7 @@ label.switch > span { flex: 1; min-width: 0; }
     <label class="switch"><span><span lang="ja">キーボード</span><small>Show the keyboard under the game</small></span><input type="checkbox" id="opt-kb" checked></label>
     <label class="switch"><span><span lang="ja">音</span><small>Say each course word when it is cleared</small></span><input type="checkbox" id="opt-sound" checked></label>
     </div>
-    <div class="set-col">
+    <div class="set-col set-sound">
     <div class="block">
       <h2 id="sfx-h"><span lang="ja">効果音</span>　Sound effects</h2>
       <div id="sfx-seg" class="seg" role="group" aria-labelledby="sfx-h"></div>
@@ -539,11 +570,11 @@ label.switch > span { flex: 1; min-width: 0; }
       <div id="music-seg" class="seg" role="group" aria-labelledby="music-h"></div>
       <p class="hint">A tune for each scene, made in the browser. It gets livelier as your clean run grows, drops back when Yaoki falls, and dips while a course word is spoken.</p>
     </div>
-    <div class="block">
+    </div>
+    <div class="block set-goal">
       <h2 id="goal-h"><span lang="ja">1日の目標</span>　Daily goal</h2>
       <div id="goal-seg" class="seg" role="group" aria-labelledby="goal-h"></div>
       <p class="hint">A day's box on the stamp card is stamped once you have typed this long that day. Only typing counts: not pauses, and not more than 8 seconds without a key.</p>
-    </div>
     </div>
     <button type="button" id="close-settings" class="btn"><span lang="ja">とじる</span>　Close</button>
   </div>

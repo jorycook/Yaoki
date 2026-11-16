@@ -121,7 +121,8 @@
 @media (min-width: 1000px) {
   .site-bar .site-wrap { max-width: none; padding: 0 28px; }
 }
-/* a typing round, and the reader's reading view: the page is the game or the text, the chrome steps aside */
+/* a typing round, and the reader's reading view under 1000 px: the page is the game or the text, the chrome steps aside (from
+   1000 px the reader keeps the header, as its text sits beside the library and the lens) */
 body.playing :is(.site-bar, .site-foot), body.reading .site-bar { display: none; }
 @media (prefers-reduced-motion: reduce) {
   :is(.site-bar, .site-foot, .app-side, .app-rail) * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
