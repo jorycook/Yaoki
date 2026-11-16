@@ -31,8 +31,9 @@
     grid-row: 2; min-height: 0; overflow-y: auto; box-sizing: border-box; padding-bottom: 12px;
     display: grid !important; grid-template-columns: auto minmax(0, 1fr); align-content: start; column-gap: 14px;
     -webkit-mask-image: linear-gradient(#000000 calc(100% - var(--yk-cmp-fade)), transparent); mask-image: linear-gradient(#000000 calc(100% - var(--yk-cmp-fade)), transparent);
-    /* where the browser ties an animation to scrolling: a longer fade while the box can scroll, back to its padding at the end */
-    animation: yk-cmp-more auto linear both; animation-timeline: scroll(self);
+    /* where the browser ties an animation to scrolling: a longer fade while there is more, as long as what is left to scroll,
+       back to its padding at the end */
+    animation: yk-cmp-more auto linear both; animation-timeline: scroll(self); animation-range: calc(100% - 32px) 100%;
   }
   html.yk-desk [data-yk="Compare"] [data-d="head"] { display: contents !important; }
   html.yk-desk [data-yk="Compare"] [data-d="head"] > *, html.yk-desk [data-yk="Compare"] [data-d="cards"] { margin: 0 !important; }

@@ -17,21 +17,24 @@
      empty (a column taller than the pane scrolls in itself). On a narrower pane the left column gives the examples more room. */
   html.yk-desk [data-yk="Teach"]:has(> [data-d="body"]) {
     display: grid !important;
-    grid-template-columns: minmax(300px, 0.7fr) minmax(0, 1.3fr);
+    grid-template-columns: minmax(320px, 0.7fr) minmax(0, 1.3fr);
     grid-template-rows: auto minmax(0, max-content) auto 1fr;
     grid-template-areas: "bar bar" "main side" "main act" "main .";
     column-gap: 28px;
   }
   html.yk-desk [data-yk="Teach"] > [data-d="body"] { display: contents !important; }
   /* each column scrolls in itself when it must, and its foot fades out while it does (in its padding, where nothing is, when it
-     does not; where the browser ties an animation to scrolling, a longer fade while there is more, back to the padding at the end) */
+     does not; where the browser ties an animation to scrolling, a longer fade while there is more, as long as what is left to
+     scroll, back to the padding at the end) */
   html.yk-desk [data-yk="Teach"] :is([data-d="main"], [data-d="side"]) {
     min-height: 0; overflow-y: auto; box-sizing: border-box; padding-bottom: 14px;
     -webkit-mask-image: linear-gradient(#000000 calc(100% - var(--yk-tch-fade)), transparent); mask-image: linear-gradient(#000000 calc(100% - var(--yk-tch-fade)), transparent);
-    animation: yk-tch-more auto linear both; animation-timeline: scroll(self);
+    animation: yk-tch-more auto linear both; animation-timeline: scroll(self); animation-range: calc(100% - 26px) 100%;
   }
+  /* the left column's fading foot lies in the page's bottom padding, so that the column has the room it had without it */
   html.yk-desk [data-yk="Teach"] [data-d="main"] {
-    grid-area: main; align-self: start; max-height: 100%; container-type: inline-size; display: flex !important; flex-direction: column; gap: 18px;
+    grid-area: main; align-self: start; max-height: calc(100% + 14px); margin-bottom: -14px; container-type: inline-size;
+    display: flex !important; flex-direction: column; gap: 18px;
   }
   html.yk-desk [data-yk="Teach"] [data-d="side"] { grid-area: side; display: flex !important; flex-direction: column; gap: 14px; }
   html.yk-desk [data-yk="Teach"] :is([data-d="main"], [data-d="side"]) > * { margin: 0 !important; }
@@ -55,7 +58,7 @@
   html.yk-desk [data-yk="Teach"] [data-d="conn"] { padding: 14px 12px 16px 14px !important; gap: 10px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) { flex-wrap: wrap; row-gap: 5px !important; }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:first-child {
-    flex: 0 1 auto !important; width: auto !important; min-width: 66px; max-width: 100%; box-sizing: border-box; padding: 4px 8px !important;
+    flex: 0 1 auto !important; width: auto !important; min-width: 66px; max-width: 100%; box-sizing: border-box; padding: 4px 6px !important;
     display: flex; justify-content: center; text-align: start !important; text-wrap: balance;
   }
   html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:last-child { flex: 1 1 200px; min-width: 0; }

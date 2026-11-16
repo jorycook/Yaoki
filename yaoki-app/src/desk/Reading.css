@@ -4,9 +4,10 @@
    fading out, and Check stays in view. Once checked, the paper takes the left column: the passage with its signposts lit, which
    gives way down to a few lines (and scrolls), with the question under it (in the Study app with its two marked options; N1
    lists every option in the panel); the verdict, the reasons and Next take the right column in a panel, as the Drill's coach
-   does. A scrolled passage or reasons box fades at its edges. A short window (720 px or less) tightens the paper, a very
-   short one (640 px or less) brings the question and its options to the phone's sizes, and a narrow pane (880 to 999 px)
-   shares its width evenly between the two columns. N1's day without a reading: its note and Back to today at the top.
+   does. A scrolled passage or reasons box fades at its edges, the Study app's with a small chevron at its foot while there is
+   more under it. A short window (720 px or less) tightens the paper, a very short one (640 px or less) brings the question
+   and its options to the phone's sizes, and a narrow pane (880 to 999 px) shares its width evenly between the two columns.
+   N1's day without a reading: its note and Back to today at the top.
    Hooks: bar, head, body (the phone's column of passage and question: Study's scrolling column, a display: contents wrapper in
    N1) and paper (N1), laid open at rest, body the left column once checked; passage, q (a display: contents wrapper of ask, opts
    and tip on the phone, a box here), ask, opts, tip (Study), act, side, why (Study), gap and fade (N1), none (N1). data-k:
@@ -104,9 +105,11 @@
    between two lines (where the browser can follow the box's scroll; elsewhere the fade alone) */
 @container yk (min-width: 880px) {
   @supports (animation-timeline: scroll()) {
+    html.yk-desk [data-yk="Reading"] { --yk-rd-more: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%235A6382' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+    html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::after { background: var(--yk-rd-more) center bottom -14px / 14px 9px no-repeat, linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 18px); }
+    html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"]::after { background: var(--yk-rd-more) center bottom -14px / 14px 9px no-repeat, linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px); }
     html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::after,
     html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"]::after {
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%235A6382' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center bottom -14px / 14px 9px no-repeat, linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px);
       animation: yk-rd-more linear both; animation-timeline: scroll(nearest block); animation-range: calc(100% - 12px) 100%;
     }
   }
