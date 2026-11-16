@@ -72,7 +72,7 @@ const SIZES = [[390, 844], [810, 1080], [1280, 800]];
         if (pg.home) {
           const home = await page.evaluate(() => ({ h1: document.querySelectorAll('h1').length, features: [...document.querySelectorAll('a.feature')].map((a) => a.getAttribute('href')) }));
           ok(home.h1 === 1, 'the home page has one heading, got ' + home.h1);
-          for (const need of ['study/?level=N5', 'study/?level=N2', 'n1/', 'study/?open=Notebook', 'study/?open=Mock', 'study/?open=Readiness', 'reader/', 'reader/#library', 'reader/#aozora', 'typing/', 'speaking/']) ok(home.features.includes(need), 'the home page links to ' + need);
+          for (const need of ['study/?level=KANA', 'study/?level=N5', 'study/?level=N2', 'n1/', 'study/?open=Notebook', 'study/?open=Mock', 'study/?open=Readiness', 'reader/', 'reader/#library', 'reader/#aozora', 'typing/', 'speaking/']) ok(home.features.includes(need), 'the home page links to ' + need);
         }
       }
       if (site || !pg.app) {

@@ -1,6 +1,8 @@
 /* Write, the writing panel (yaoki/project/Write.dc.html, copied to the N1 app by tools/sync-write.sh), on a wide pane: the pad
    as large as the screen holding it allows (its --pad, from Scene.css: the pad maps the pointer through its box, so any size
    writes true), the three times, the word's cells, the buttons and the stroke order a little larger, for a mouse or a pen.
+   The stroke order wraps onto rows on a screen 640 px tall or more, else scrolls sideways with its right edge fading; while it
+   is hidden (written from memory) its pictures' places show as empty dashed tiles.
    Scene.css places the parts (in writing, the pad on the left and the rest on the right; in the N1 kanji panel, the pad, what
    to do now and the buttons on the panel's right, the three times beside its Close).
    Hooks: reps, cells, pad, msg, tools, strip; data-k="play" on the stroke order's button. */
@@ -27,11 +29,21 @@
   html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] { gap: 6px !important; }
   html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] > div { width: 46px !important; height: 46px !important; border-radius: 10px !important; }
   html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] svg { width: 40px; height: 40px; }
+  /* written from memory, the stroke order stays hidden until the kanji is written: its pictures' places show as empty dashed
+     tiles (the row keeps its room, so that Next does not move when they appear) */
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] > [style*="visibility: hidden"] [data-yk-strip] > div { visibility: visible; border-style: dashed !important; background: transparent !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] > [style*="visibility: hidden"] [data-yk-strip] svg { visibility: hidden; }
 }
 /* a screen tall enough (Scene.css makes the screen a size container, ykscene): the stroke order on as many rows as it needs,
    rather than scrolling sideways */
 @container yk (min-width: 880px) {
   @container ykscene (min-height: 640px) {
     html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] { width: auto !important; flex-wrap: wrap; }
+  }
+  /* a shorter one: the stroke order scrolls sideways, its right edge fading (as the phone's lists fade) where more follow; the
+     room after the last picture lets it scroll clear of the fade */
+  @container ykscene (max-height: 639.98px) {
+    html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] > [role="img"] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent); }
+    html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] { padding-right: 36px; }
   }
 }

@@ -1,20 +1,24 @@
 /* WeekTest (both apps), the week test at a desk. The bar (close or quit, the heading or the progress and the clock) spans the top.
-   - intro as a dashboard in the middle of the pane's height: on the left the title and what the test is, N1's rules under it;
-     on the right the by-area card (N1: the sections and the time allowed), N1's last result (when there is one) and Start
-     right under it.
-   - the run (N1; Study's run is the Exam screen) as a paper: the type and the exam's instruction across the top, the word as a
-     card or the sentence on the left, the options on the right with Next under them; the clock larger in the bar.
+   - intro as a dashboard under its bar (a little air above it, the rest of a tall pane left empty under it, as the run and the
+     results are): on the left the title and what the test is, N1's rules under it; on the right the by-area card (N1: the
+     sections and the time allowed), N1's last result (when there is one) and Start right under it, as wide as the card it
+     starts (the card and Start read as one block).
+   - the run (N1; Study's run is the Exam screen) as a paper: the type and the exam's instruction across the top, the question
+     on the left as a card as tall as the options (the word, or the sentence in the middle of its card), the options on the
+     right with Next under them; the clock larger in the bar.
    - the quit question (N1) as a dialog in the middle of the pane, over a scrim that covers the whole pane (the screen spans
      the pane; its content keeps the 1184 px measure); the scrim and Continue as before.
    - results as a summary beside the list: the score and its stamp, the stamp card and the areas on the left; on the right
-     what went into the notebook (Study: the line, Review mistakes and the way on; N1: every mistake with its answer and
-     reason, scrolling in its own column, and the way on under the summary).
+     what went into the notebook (Study: the line, Review mistakes and the way on, or with no mistakes a note saying so and
+     the way on as the main button; N1: every mistake with its answer and reason, scrolling in its own column, and the way on
+     under the summary). The actions have a desktop button's width, as Next and Back have.
    - Study's "not written yet" and N1's "no questions": the note with its action under it.
    Hooks: bar (N1's run: bar > prog); intro: head, plan, rules, last, gap, act; run: type, rubric, word or sentence, opts, gap,
    act; quit (close, dialog); results: sum (score, card, areas), Study: saved, gap, act, onward; N1: body > scroll > sum, list
    (saved, row), all; fade; act; note, gap, act. The wrappers sum and list are display: contents on the phone; body and scroll
    are display: contents here, so that the summary, the list and the action are cells of the screen's own grid.
-   data-k: go on Start, Next or Finish, Review mistakes, the way on (N1), Back and Continue; choice on every option. */
+   data-k: go on Start, Next or Finish, Review mistakes, the way on (N1), Back and Continue; choice on every option; "on" on
+   Study's way on, the main action only when there is no Review mistakes (a fallback for Enter, once yk-app.js knows it). */
 @container yk (min-width: 880px) {
   /* the screen spans the pane, so that the quit question's scrim covers all of it; --wt-x keeps the content to the 1184 px of
      the other screens, in the middle */
@@ -28,12 +32,13 @@
   /* every main action shows its key (_base.css) beside its label */
   html.yk-desk [data-yk="WeekTest"] [data-k="go"] { display: flex !important; align-items: center; justify-content: center; box-sizing: border-box; }
 
-  /* ---------- intro: a dashboard in the middle of the pane's height. Rows: the bar, a spacer, the title beside the card, the
-     rules (N1) going on beside the rest of the card, the last result (N1) and Start under the card, a spacer. The rules and
-     Study's title reach into the last spacer, so that they never stretch the rows that Start sits in */
+  /* ---------- intro: a dashboard under its bar. Rows: the bar, a spacer (some air, never more than 64 px, so that on a big
+     monitor the dashboard stays by its bar and does not jump when the test starts), the title beside the card, the rules (N1)
+     going on beside the rest of the card, the last result (N1) and Start under the card, the rest of the height. The rules
+     reach into the last row, so that they never stretch the rows that Start sits in */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="plan"]) {
     grid-template-columns: minmax(0, 1.15fr) minmax(380px, 1fr);
-    grid-template-rows: auto minmax(0, 1fr) auto auto auto auto minmax(0, 1.5fr);
+    grid-template-rows: auto minmax(0, clamp(16px, 6vh, 64px)) auto auto auto auto 1fr;
     column-gap: 56px;
   }
   html.yk-desk [data-yk="WeekTest"] > [data-d="head"] { grid-column: 1; grid-row: 3; margin: 0 !important; }
@@ -76,6 +81,9 @@
     grid-template-rows: auto auto auto auto auto 1fr;
     column-gap: 40px;
   }
+  /* a sentence is what is studied there, and its options are a few characters each (a form, a word, a tile): the paper takes
+     more of the width, so that the sentence keeps to two lines or fewer */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sentence"]) { grid-template-columns: minmax(0, 1.45fr) minmax(340px, 1fr); }
   /* the bar: the section and the count over the progress, the clock larger */
   html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [data-d="prog"] { gap: 7px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [data-d="prog"] > div:first-child { font-size: 14px !important; }
@@ -86,21 +94,23 @@
   /* the type and the exam's instruction across the top */
   html.yk-desk [data-yk="WeekTest"] > [data-d="type"] { grid-column: 1 / -1; grid-row: 2; margin-top: 18px !important; gap: 10px !important; font-size: 13px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="rubric"] { grid-column: 1 / -1; grid-row: 3; margin-top: 4px !important; font-size: 15px !important; }
-  /* the word as a card as tall as the options beside it; the sentence as large as a page's */
-  html.yk-desk [data-yk="WeekTest"] > :is([data-d="word"], [data-d="sentence"]) { grid-column: 1; grid-row: 4; margin-top: 16px !important; border-radius: 20px !important; }
-  html.yk-desk [data-yk="WeekTest"] > [data-d="word"] { align-self: stretch; align-items: center; padding: 24px !important; }
+  /* the question as a card as tall as the options beside it: the word larger, or the sentence as large as a page's, in the
+     middle of its card (align-content centres the lines without making a flex box of the sentence's own spans) */
+  html.yk-desk [data-yk="WeekTest"] > :is([data-d="word"], [data-d="sentence"]) { grid-column: 1; grid-row: 4; align-self: stretch; margin-top: 16px !important; border-radius: 20px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="word"] { align-items: center; padding: 24px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="word"] > div { zoom: 1.6; }
-  html.yk-desk [data-yk="WeekTest"] > [data-d="sentence"] { padding: 18px 22px !important; font-size: 23px !important; text-wrap: pretty; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="sentence"] { align-content: center; padding: 18px 24px !important; font-size: 23px !important; word-break: auto-phrase; text-wrap: pretty; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="sentence"] > span > span[role="img"] { width: 52px !important; height: 28px !important; line-height: 28px !important; font-size: 18px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] { grid-column: 2; grid-row: 4; margin-top: 16px !important; gap: 10px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] { min-height: 56px !important; padding: 6px 16px !important; gap: 12px !important; font-size: 17px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
   /* Next right under the options, a desktop button's width, at the end of the column */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) > [data-d="act"] { grid-column: 2; grid-row: 5; justify-self: end; min-width: 280px; margin-top: 18px; padding: 0 28px; }
-  /* on the narrowest landscape panes (a window of 1120 to 1240 px) the sentence keeps a little more of the width, and the
+  /* on the narrowest landscape panes (a window of 1120 to 1240 px) the question keeps a little more of the width, and the
      intro's title is a little smaller */
   @container yk (max-width: 999.98px) {
     html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) { grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr); column-gap: 32px; }
+    html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sentence"]) { grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); }
     html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 { font-size: 30px !important; }
   }
 
@@ -116,7 +126,9 @@
 
   /* ---------- results: the summary on the left, beside what went into the notebook */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]), html.yk-desk [data-yk="WeekTest"]:has(> [data-d="body"]) { column-gap: 48px; padding-bottom: 18px !important; }
-  html.yk-desk [data-yk="WeekTest"] [data-d="sum"] { grid-column: 1; align-self: stretch; display: flex !important; flex-direction: column; gap: 12px; min-height: 0; overflow-y: auto; margin-top: 10px; padding: 0 2px 6px; }
+  /* the summary scrolls only on a pane too short for it; never sideways (the stamp's turned box reaches past its edge), so
+     that a summary that fits is not a scroller the Tab key stops on */
+  html.yk-desk [data-yk="WeekTest"] [data-d="sum"] { grid-column: 1; align-self: stretch; display: flex !important; flex-direction: column; gap: 12px; min-height: 0; overflow-x: hidden; overflow-y: auto; margin-top: 10px; padding: 0 2px 6px; }
   html.yk-desk [data-yk="WeekTest"] [data-d="sum"] > * { margin: 0 !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="score"] h1 { font-size: 66px !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="score"] h1 + div { font-size: 24px !important; }
@@ -133,8 +145,16 @@
   html.yk-desk [data-yk="WeekTest"] > [data-d="sum"] { grid-row: 2 / -1; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="saved"] { grid-column: 2; grid-row: 2; margin: 10px 0 0 !important; padding: 14px 16px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="saved"] > div { font-size: 14px !important; }
+  /* Review mistakes a desktop button (the whole column only on the narrowest panes), the way on (a text link) right under it
+     and as wide, so that it sits under the button's middle */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]) > :is([data-d="act"], [data-d="onward"]) { justify-self: start; box-sizing: border-box; width: min(100%, 400px); padding: 0 12px; }
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]) > [data-d="act"] { grid-column: 2; grid-row: 3; margin-top: 16px; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="onward"] { grid-column: 2; grid-row: 4; margin-top: 8px !important; }
+  /* no mistakes: the way on is the main button, in Review mistakes' place, as wide as its words (and at least 280 px) */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]):not(:has(> [data-d="act"])) > [data-d="onward"] {
+    grid-row: 3; width: auto; min-width: 280px; max-width: 100%; padding: 0 28px; height: 54px !important; margin-top: 16px !important;
+    border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF !important; font-size: 17px !important;
+  }
   /* no mistakes: the column says so */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]):not(:has(> [data-d="saved"]))::before {
     content: '全問正解　Every answer right. Nothing new for your notebook.'; grid-column: 2; grid-row: 2; margin-top: 10px; padding: 14px 16px 14px 52px;
@@ -160,10 +180,14 @@
   html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="all"] { grid-column: 2; grid-row: 2; margin: 10px 0 0 !important; padding: 14px 16px !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="all"] > div { font-size: 14px !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="body"] > [data-d="fade"] { grid-column: 2; grid-row: 2 / -1; top: auto !important; height: 20px !important; }
-  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="body"]) > [data-d="act"] { grid-column: 1; grid-row: 3; margin-top: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="body"]) > [data-d="act"] { grid-column: 1; grid-row: 3; justify-self: start; min-width: 280px; margin-top: 14px !important; padding: 0 28px; }
 
   /* ---------- not written yet (Study), no questions (N1): the note, its action under it */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="note"]) { grid-template-rows: auto auto auto 1fr; }
-  html.yk-desk [data-yk="WeekTest"] > [data-d="note"] { grid-row: 2; max-width: 640px; margin-top: 24px !important; padding: 18px 20px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="note"] { grid-row: 2; max-width: 560px; margin-top: 24px !important; padding: 18px 22px !important; }
+  /* its words at a desktop's reading size, in lines of a readable length (Study's note is one line of its own) */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="note"]:not(:has(> div)) { font-size: 15px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="note"] > div:first-child { font-size: 20px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="note"] > div:last-child { font-size: 15px !important; line-height: 1.55 !important; text-wrap: pretty; }
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="note"]) > [data-d="act"] { grid-row: 3; justify-self: start; min-width: 280px; margin-top: 18px; padding: 0 28px; }
 }

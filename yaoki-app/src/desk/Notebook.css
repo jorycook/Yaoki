@@ -1,15 +1,16 @@
 /* Notebook, the mistake notebook (both apps). The phone stacks the summary, the schedule and the list under the title. Here the
    title runs across the top and the notebook opens as summary and list: on the left a column as wide as the phone's card, with
    what is due today and its Review button (the Study app's schedule chips under it; N1's area filters under it, a list of rows
-   with their counts); on the right the mistakes, which scroll in their own column, one card a row, two side by side once the
-   column has room for both. The title, the summary and the Review button never scroll away. With nothing in the notebook (N1's
-   empty state, or the Study app's empty list) the right column is a dashed panel as tall as the left one, saying what will
-   appear there.
+   with their counts); on the right the mistakes, which scroll in their own column, two cards side by side from a laptop's pane
+   (one a row on a narrower one), each question on one line. The title, the summary and the Review button never scroll away.
+   With nothing in the notebook (N1's empty state, or the Study app's empty list) the right column is a dashed panel as tall as
+   the left one, saying what will appear there; so is N1's line for an area filter with nothing in it.
    Hooks: bar, side (the left column; display: contents on the phone), sum (the summary card), empty (N1's card for an empty
    notebook), act (N1's way on from it), sched (the Study app's schedule), tabs (N1's area filters), head (the Study app's list
-   heading), list (the list: in N1 the box that holds scroll and fade), row (a mistake), cleared (the cleared card or toggle),
-   done (N1's cleared rows), none (N1's empty filter), note (N1's line under the list), gap (N1's spacer). data-k="go" on
-   Review (only there while something is due) and on N1's Today's study. */
+   heading), list (the list: in N1 the box that holds scroll and fade), scroll and fade (N1's), row (a mistake), q (its
+   question line, and a cleared row's), cleared (the cleared card or toggle), done (N1's cleared rows), none (N1's empty
+   filter), note (N1's line under the list), gap (N1's spacer). data-k="go" on Review (only there while something is due) and
+   on N1's Today's study. */
 @container yk (min-width: 880px) {
   html.yk-desk [data-yk="Notebook"] {
     display: grid !important;
@@ -44,18 +45,29 @@
   html.yk-desk [data-yk="Notebook"] > [data-d="head"] { grid-column: 2; grid-row: 2; align-self: start; margin: 0 !important; line-height: 20px; }
   html.yk-desk [data-yk="Notebook"] > [data-d="list"] { grid-column: 2; grid-row: 2; margin: 0 !important; min-height: 0; }
   html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"] { grid-row: 3; margin: 0 -6px !important; }
-  /* the cards: one a row, two side by side when the column has room for both (the Study app's list scrolls itself, N1's holds
-     what scrolls); the padding keeps the focus ring in view */
+  /* the cards: two side by side once the column has room for two about as wide as the phone's (a laptop's pane: a window from
+     about 1340 px), else one a row (the Study app's list scrolls itself, N1's holds what scrolls); the padding keeps the focus
+     ring in view */
   html.yk-desk [data-yk="Notebook"] :is([data-d="head"] ~ [data-d="list"], [data-d="scroll"]) {
-    display: grid !important; grid-template-columns: repeat(auto-fill, minmax(min(100%, 390px), 1fr)); align-content: start; gap: 10px !important;
+    display: grid !important; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); align-content: start; gap: 10px !important;
     padding: 6px 6px 20px !important;
   }
   html.yk-desk [data-yk="Notebook"] [data-d="scroll"] { margin: -6px -6px 0; }
   html.yk-desk [data-yk="Notebook"] :is([data-d="cleared"], [data-d="none"], [data-d="note"]) { grid-column: 1 / -1; }
-  /* the question a little larger: it is what is studied (N1 cuts its line to the card: the taller line keeps the underline of the
-     word asked about inside it) */
-  html.yk-desk [data-yk="Notebook"] [data-d="row"] > div[lang="ja"][style*="Klee One"] { font-size: 16px !important; line-height: 1.7 !important; }
-  html.yk-desk [data-yk="Notebook"] [data-d="done"] > div[lang="ja"][style*="Klee One"] { font-size: 15px !important; }
+  /* the question on one line, as large as its card lets the line fit that the app cuts to the phone's card (about 21
+     characters): the phone's 15 px in a card of about the phone's width, up to 16 px in a wider one; a longer line ends in …
+     (each card is a container, for its width). The taller line keeps the underline of the word asked about inside it. A cleared
+     row's line, 14 px on the phone, goes up to 15 px the same way */
+  html.yk-desk [data-yk="Notebook"] :is([data-d="row"], [data-d="done"]) { container: yk-nb-card / inline-size; }
+  html.yk-desk [data-yk="Notebook"] [data-d="row"] > [data-d="q"] { font-size: clamp(15px, 100cqi / 22, 16px) !important; line-height: 1.7 !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  html.yk-desk [data-yk="Notebook"] [data-d="done"] > [data-d="q"] { font-size: clamp(14px, 100cqi / 23.4, 15px) !important; }
+
+  /* N1, an area with nothing in it (a filter picked): its line in a dashed panel that fills the column down to the foot of the
+     filters, as the empty notebook's panel does (the list as tall as the left column, unless it holds more) */
+  html.yk-desk [data-yk="Notebook"]:has([data-d="none"]) { grid-template-rows: auto minmax(0, auto) minmax(0, 1fr) auto; }
+  html.yk-desk [data-yk="Notebook"] [data-d="scroll"]:has(> [data-d="none"]) { grid-template-rows: 1fr; padding-bottom: 0 !important; }
+  html.yk-desk [data-yk="Notebook"] [data-d="list"]:has([data-d="none"]) > [data-d="fade"] { display: none; }
+  html.yk-desk [data-yk="Notebook"] [data-d="none"] { display: grid; place-content: center; text-align: center; min-height: 120px; padding: 24px !important; border-radius: 20px !important; font-size: 14px !important; line-height: 1.55 !important; }
 
   /* nothing in the notebook: the list's place, as tall as the left column, says what will appear in it. N1's empty state has no
      list (the panel is the screen's own); the Study app's list is there, empty, under its heading */
@@ -70,8 +82,17 @@
     padding: 24px max(24px, calc(50% - 220px)); border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
   }
   html.yk-desk [data-yk="Notebook"]:has(> [data-d="side"] > [data-d="empty"])::after { grid-column: 2; grid-row: 2; align-self: stretch; }
-  /* the Study app's list has its heading over it already */
+  /* the Study app's list has its heading over it already; the panel spans the list's columns */
   html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"]:not(:has(> *))::before {
     content: 'Each question you get wrong is listed here: the question, your answer and the right one, the day it comes back, and how many times in a row you have got it right since.';
+    grid-column: 1 / -1;
+  }
+
+  /* a short window with the tab bar at the pane's foot (880 to 999 px wide, no sidebar): N1's filters a little tighter, so the
+     left column fits it */
+  @media (max-width: 999.98px) and (max-height: 680px) {
+    html.yk-desk [data-yk="Notebook"] > [data-d="side"] { gap: 12px; }
+    html.yk-desk [data-yk="Notebook"] [data-d="tabs"] { gap: 4px !important; }
+    html.yk-desk [data-yk="Notebook"] [data-d="tabs"] > button { height: 34px !important; }
   }
 }

@@ -1,12 +1,15 @@
 /* Readiness (both apps), as a dashboard under the title. The Study app: the score card on the left (the estimated total, its bar
-   with the pass mark, the verdict) and the scoring sections on the right, the two cards the same height; under both the next
-   move, a band with its Drill button at the right, and under it the note on how the estimate is made. N1: the card of days to
-   the exam (the pace, the plan's shape) on the left with the progress bars of the five parts under it; on the right the review
-   of the earlier levels, the week tests and mini mocks, and the next move under them (the Notebook and Mock exam buttons). On a
-   laptop's pane (about 600 px tall) all of it is in view; a shorter window scrolls it.
+   with the pass mark, the verdict) and the scoring sections on the right, the two cards the same height; the next move, its
+   words with the Drill button beside them, right under the sections it is about (the listening bar), and the note on how the
+   estimate is made under the score card (on a pane under 1000 px the next move is a band under both cards, the note under
+   it). N1: the card of days to the exam (the pace, the plan's shape) on the left with the progress bars of the five parts under
+   it; on the right the review of the earlier levels, the week tests and mini mocks, and the next move under them (the Notebook
+   and Mock exam buttons). On a laptop's pane (about 600 px tall) all of it is in view; on a shorter one N1's body scrolls, and
+   its next move stays in view at the foot of it.
    Hooks: bar, card (the score card, or N1's days card), sections (the scoring sections, or N1's progress), next (the next move:
    the Study app's card, N1's two buttons), note (the Study app's note), gap (the Study app's spacer), body (N1's scrolling body),
-   side (N1's right column: display: contents on the phone), review and tests (N1's cards). data-k="go" on Drill. */
+   side (N1's right column: display: contents on the phone), review and tests (N1's cards). data-k="go" on Drill, and on N1's
+   Notebook button (the first of its two next moves, the one it fills in while mistakes are due). */
 @container yk (min-width: 880px) {
   /* ---------- the Study app: the cards are the screen's own children */
   html.yk-desk [data-yk="Readiness"]:not(:has(> [data-d="body"])) {
@@ -27,6 +30,20 @@
   html.yk-desk [data-yk="Readiness"] > [data-d="note"] { grid-area: note; max-width: 640px; margin: 12px 4px 0 !important; }
   html.yk-desk [data-yk="Readiness"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Readiness"]:not(:has(> [data-d="body"])) > nav { grid-area: nav; margin: 16px -28px -24px; }
+  /* a pane of 1000 px or more: the next move under the sections, Drill beside its words; the note under the score card */
+  @container yk (min-width: 1000px) {
+    html.yk-desk [data-yk="Readiness"]:not(:has(> [data-d="body"])) {
+      grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+      grid-template-areas: "bar bar" "card sections" "note next" ". ." "nav nav";
+    }
+    html.yk-desk [data-yk="Readiness"] > [data-d="next"] { margin-top: 16px !important; padding: 14px 16px 14px 18px !important; column-gap: 16px !important; }
+    html.yk-desk [data-yk="Readiness"] > [data-d="next"] > a[data-k="go"] { min-width: 148px; }   /* 200 px: its words keep to one line */
+    html.yk-desk [data-yk="Readiness"] > [data-d="note"] { align-self: start; max-width: 480px; margin: 18px 4px 0 !important; }
+  }
+  @container yk (min-width: 1100px) {
+    html.yk-desk [data-yk="Readiness"] > [data-d="next"] { column-gap: 24px !important; }
+    html.yk-desk [data-yk="Readiness"] > [data-d="next"] > a[data-k="go"] { min-width: 188px; }
+  }
 
   /* ---------- N1: the bar over a scrolling body, the body a dashboard of two columns */
   html.yk-desk [data-yk="Readiness"]:has(> [data-d="body"]) { padding: 20px 22px 0 !important; }
@@ -43,4 +60,16 @@
   html.yk-desk [data-yk="Readiness"] > [data-d="body"] > [data-d="card"] { grid-area: card; }
   html.yk-desk [data-yk="Readiness"] > [data-d="body"] > [data-d="sections"] { grid-area: sections; align-self: start; }
   html.yk-desk [data-yk="Readiness"] > [data-d="body"] > [data-d="side"] { grid-area: side; display: flex !important; flex-direction: column; gap: 16px; }
+  /* the next move stays in view: on a pane too short for the right column it sticks to the foot of the scrolling body (in the
+     body's bottom padding), over the pane's colour, and the cards above scroll under it (its padding, which the margins cancel,
+     keeps the buttons' shadows and a little of the colour around them) */
+  html.yk-desk [data-yk="Readiness"] > [data-d="body"] [data-d="next"] { position: sticky; bottom: -24px; z-index: 1; margin: -10px -6px -6px; padding: 10px 6px 6px; background: #F4F5F9; }
+  /* its two buttons share the width, but Notebook, the one Enter takes, is never narrower than its words and its key */
+  html.yk-desk [data-yk="Readiness"] > [data-d="body"] [data-d="next"] { grid-template-columns: minmax(max-content, 1fr) minmax(0, 1fr) !important; }
+
+  /* a short window with the tab bar at the pane's foot (880 to 999 px wide, no sidebar): N1's cards a little closer together */
+  @media (max-width: 999.98px) and (max-height: 680px) {
+    html.yk-desk [data-yk="Readiness"] > [data-d="body"] { row-gap: 10px !important; }
+    html.yk-desk [data-yk="Readiness"] > [data-d="body"] > [data-d="side"] { gap: 10px; }
+  }
 }

@@ -23,6 +23,8 @@ module.exports = function screenStates(LEVEL) {
     ['Compare', ''],
     ['Drill', ''],
     ['Exam', ''],
+    /* the week test, which the Exam screen runs */
+    ['Exam', '&set=test&cur=u03t', 'week-test'],
     ['Scene', ''],
     ['Scene', day1({ ks: 1 }), 'write'],
     ['Scene', day1({ ks: 1, kw: 1 }), 'question'],
@@ -41,6 +43,8 @@ module.exports = function screenStates(LEVEL) {
     ['WeekTest', '&cur=u03t&tests=' + enc({ u03t: { id: 'u03t', score: 24, of: 24, used: 905, areas: { vocab: { right: 8, of: 8 }, grammar: { right: 10, of: 10 }, reading: { right: 6, of: 6 } } } }), 'perfect'],
     ['Notebook', ''],
     ['Review', ''],
+    /* a review session with mistakes due: from a mock, the drills, the week test and the reading */
+    ['Review', '&m=' + enc([{"src": "mock1", "wrong": "やしなって", "step": 1, "due": "2025-11-01"}, {"src": "u03d4.d1", "wrong": "あまり", "step": 0, "due": "2025-11-01"}, {"src": "u03d1.d5", "wrong": "3", "step": 2, "due": "2025-11-01"}, {"src": "u03t.19", "wrong": "本を整理するため", "step": 0, "due": "2025-10-31"}, {"src": "u03d5.r1", "wrong": "レジュメを作る", "step": 1, "due": "2025-11-01"}, {"src": "mock5", "wrong": "駅に着いたら、とっくに連絡してください。", "step": 0, "due": "2025-11-01"}, {"src": "u03d1.r1", "wrong": "工事はいつ始まるんですか。", "step": 0, "due": "2025-11-01"}, {"src": "mock9", "wrong": "在宅勤務で、働く時間が長くなった。", "step": 2, "due": "2025-11-01"}]), 'due'],
     ['Mock', ''],
     ['MockRun', ''],
     /* the N3, N4 and N5 mini mocks, whose reading questions are the longest */

@@ -22,7 +22,7 @@
   /* every app of Yaoki: the nav shows the pages of the website, the footer all five, the app pages' rail the other four */
   var APPS = [
     { key: 'home', nav: 'Home', name: 'Yaoki', ja: 'やおき', path: '', tile: 'gold', glyph: '', line: 'Everything in the suite, on one page.' },
-    { key: 'study', nav: 'Study', name: 'Yaoki Study', ja: 'べんきょう', path: 'study/', tile: 'gold', glyph: '', line: 'The courses for JLPT N5 to N2: lessons, drills, writing, week tests, mock exams. Installs on a phone.' },
+    { key: 'study', nav: 'Study', name: 'Yaoki Study', ja: 'べんきょう', path: 'study/', tile: 'gold', glyph: '', line: 'The kana, then the courses for JLPT N5 to N2: lessons, drills, writing, week tests, mock exams. Installs on a phone.' },
     { key: 'n1', nav: null, name: 'The N1 course', ja: 'N1', path: 'n1/', tile: 'indigo', glyph: 'N1', line: 'Planned to your exam date: 48 lessons, the 1,113 N1 kanji, mini mocks. Installs on a phone too.', under: 'study' },
     { key: 'reader', nav: 'Reader', name: 'Yaoki Reader', ja: 'よむ', path: 'reader/', tile: 'paper', glyph: '読', line: 'Read Japanese with the furigana hidden. Touch a phrase to see its reading and meaning.' },
     { key: 'typing', nav: 'Typing', name: 'Yaoki Typing', ja: 'タイピング', path: 'typing/', tile: 'red', glyph: '打', line: 'A typing game for a computer with a Japanese (JIS) keyboard: kana, course words, kanji.' },

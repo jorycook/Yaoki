@@ -4,13 +4,15 @@
      kanji, the sound), on the right, with what comes next and Next under it.
    - writing (Study 書く, N1 書く the words): the pad on the left, as large as the height allows; on the right the heading,
      the kanji or word being written, the three times or the word's cells, what to do now, the pad's buttons, the stroke
-     order and Next (Write.css sizes the panel's parts).
+     order and Next (Write.css sizes the panel's parts). On a pane under 960 px, where the width holds the pad to about
+     320 px, the pad's buttons go under it.
    - Study 本番, the exam question, as Drill: the yellow paper with its options on the left; on the right a panel that says
      what will appear there, then the verdict and the explanation, Next under it.
-   - N1 漢字: the title, the grid of kanji and Next on the left; on the right the kanji chosen (the phone's sheet) as a
-     panel: its readings and words with the panel's Next under them on its left; the three times beside Close, the pad,
-     what to do now and its buttons on its right (Back is the grid itself here). Before a kanji is chosen the panel says
-     what will appear there. On a pane under 1060 px, while a kanji is open the grid is a strip of kanji beside it.
+   - N1 漢字: the title, the grid of kanji (five to a row from 13 kanji, six from 21) and Next on the left; on the right the
+     kanji chosen (the phone's sheet) as a panel: its readings and words with the panel's Next under them on its left; the
+     three times beside Close, the pad, what to do now and its buttons on its right (Back is the grid itself here, and the
+     step's Next waits until the panel closes). Before a kanji is chosen the panel says what will appear there. On a pane
+     under 1060 px, while a kanji is open the grid is a strip of kanji beside it.
    - N1 語彙: the words as cards in two columns that scroll, Next under them. N1 確認, the quiz, as Drill: the question and
      its options on the left, Check under them, the answer sheet beside them. The score beside the misses. A day with
      nothing to learn: its note and Back.
@@ -50,9 +52,10 @@
   html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="head"] h1 > span[style] { display: block; margin-top: 2px; line-height: 1.35; }
   html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="grid"] {
     grid-area: grid; align-self: start; margin: 0 !important; padding: 16px !important;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 16px 12px !important;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)) !important; gap: 16px 12px !important;
   }
-  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="grid"] > button { height: 58px !important; font-size: 21px !important; }
+  /* a word of seven kana (お疲れ様でした, 147 px at 21 px) keeps inside its button at three to a row */
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="grid"] > button { height: 58px !important; padding: 0 4px !important; font-size: 21px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] { grid-area: card; align-self: start; margin: 0 !important; padding: 18px 20px 20px !important; gap: 16px !important; }
   /* the word on a line of its own, large, the sound beside it; its reading and meaning under it */
   html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child {
@@ -136,7 +139,9 @@
   /* the paper: its yellow drawn behind its label, question and options */
   html.yk-desk [data-yk="Scene"] > [data-d="check"]::before { content: ''; grid-column: 1; grid-row: 2 / 5; border-radius: 18px; background: #FFF4D6; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="label"] { grid-column: 1; grid-row: 2; padding: 16px 20px 0; font-size: 13px !important; }
-  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="q"] { grid-column: 1; grid-row: 3; padding: 18px 20px; font-size: 22px !important; line-height: 1.6; }
+  /* the question at 22 px, a little smaller on the narrowest panes; a long one breaks between its phrases (at its spaces and
+     after 、), never in a word or before a lone す。 */
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="q"] { grid-column: 1; grid-row: 3; padding: 18px 20px; font-size: clamp(19px, 2.4cqw, 22px) !important; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; text-wrap: pretty; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="label"] ~ [data-d="q"] { padding-top: 10px; padding-bottom: 14px; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] { grid-column: 1; grid-row: 4; padding: 0 20px 20px; gap: 10px !important; }
   /* the options as large as the paper's width lets a reading of nine kana keep to one line, two to a row */
@@ -146,6 +151,8 @@
     grid-column: 2; grid-row: 2 / -1; align-self: start; display: flex !important; flex-direction: column; gap: 10px;
     padding: 18px 20px 20px; border-radius: 20px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; background: #FDEBE6;
     animation: yk-scene-in 220ms ease-out;
+    /* a Japanese word (the answer's reading, よじじゅうごふん) breaks at the spaces around it, not inside it */
+    word-break: keep-all; overflow-wrap: anywhere;
   }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"]:has(svg[aria-label="Correct"]) { background: #E0F3EF; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:first-child { font-size: 16px !important; gap: 10px !important; }
@@ -159,8 +166,9 @@
 
   /* ---------- N1 漢字: the grid of kanji on the left, the kanji chosen on the right ---------- */
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) {
-    /* the pad: as tall as the panel can be under the bar, and leaving the panel's facts a column of 290 px */
-    --pad: clamp(220px, min(100cqh - 262px, 65.5cqw - 380px), 360px);
+    /* the pad: as tall as the panel can be under the bar, and leaving the panel's facts a column of 290 px (about 395 px on a
+       pane of 1240 px and more) */
+    --pad: clamp(220px, min(100cqh - 262px, 65.5cqw - 380px), 400px);
     grid-template-columns: minmax(352px, 1fr) minmax(0, 1.9fr);
     grid-template-rows: auto auto minmax(0, max-content) auto 1fr;
     grid-template-areas: "bar bar" "head side" "grid side" "act side" ". side";
@@ -169,7 +177,15 @@
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] { grid-area: grid; margin: 0 !important; padding: 12px !important; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)) !important; gap: 10px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] button { height: auto !important; aspect-ratio: 1 / 1; }
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] button > span[lang] { font-size: 34px !important; }
+  /* a day of 13 kanji or more (a fresh plan holds up to 13; one made again after missed days, up to about 20): five to a row,
+     so that the grid keeps to three or four whole rows on a laptop's pane; from 21, six to a row */
+  html.yk-desk [data-yk="Scene"] > [data-d="grid"]:has(> :nth-child(13)) { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="grid"]:has(> :nth-child(21)) { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; gap: 8px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="grid"]:has(> :nth-child(21)) button > span[lang] { font-size: 28px !important; }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) > [data-d="act"] { justify-self: stretch; min-width: 0; padding: 0 12px !important; font-size: 16px !important; white-space: nowrap; }
+  /* while a kanji is open, the panel's Next is the one action (Enter's): the step's Next comes back when the panel closes, as on
+     the phone, where the sheet covers it */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="act"] { display: none !important; }
   /* the phone's sheet: a panel in the right column, the grid left free beside it */
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] { grid-area: side; align-self: start; position: static !important; display: block !important; min-width: 0; }
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] > [data-d="scrim"] { display: none !important; }
@@ -187,8 +203,11 @@
   html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-yk-write] { display: contents !important; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"] > div { grid-area: label; align-self: center; font-size: 13px !important; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"] > button { grid-area: reps; justify-self: end; align-self: center; margin-right: -8px !important; }
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="reps"] { grid-area: reps; align-self: center; margin-right: 48px; }
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="reps"] > div { font-size: 12px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="reps"] { grid-area: reps; align-self: center; margin-right: 44px; }
+  /* the three times as wide as their words (見ないで, the longest, gets the most), at the phone's 12 px: this rule outranks
+     Write.css's 13 px for every writing panel */
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-yk-write] [data-d="reps"] { grid-template-columns: repeat(3, auto) !important; gap: 6px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-yk-write] [data-d="reps"] > div { font-size: 12px !important; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="pad"] { grid-area: pad; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="msg"] { grid-area: msg; width: 0; min-width: 100%; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="tools"] { grid-area: tools; }
@@ -206,6 +225,8 @@
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):not(:has(> [data-d="sheet"]))::after {
     content: '漢字　The kanji\A \A Choose a kanji on the left: its readings, the words that use it and a pad to write it three times open here.';
     white-space: pre-line; grid-area: side; align-self: start; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+    /* the box as wide as the panel it stands for, its text at a readable measure */
+    padding-right: max(20px, 100% - 540px);
   }
 
   /* ---------- N1 語彙: the words as cards in two columns, Next under them ---------- */
@@ -266,16 +287,18 @@
    is a strip of kanji (the title over it, the intro and Next back once the panel is closed) and the panel takes the rest */
 @container yk (min-width: 880px) and (max-width: 1060px) {
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) {
-    --pad: clamp(220px, min(100cqh - 262px, 100cqw - 604px), 360px);
+    --pad: clamp(220px, min(100cqh - 262px, 100cqw - 604px), 400px);
     grid-template-columns: auto minmax(0, 1fr); column-gap: 24px;
   }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"] { grid-template-columns: repeat(3, 56px) !important; }
-  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="head"] > div,
-  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="act"] { display: none !important; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="head"] > div { display: none !important; }
 }
 @container yk (min-width: 880px) and (max-width: 960px) {
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) { --pad: clamp(220px, min(100cqh - 262px, 100cqw - 538px), 360px); }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"] { grid-template-columns: repeat(2, 56px) !important; }
+  /* writing, where the width holds the pad to about 320 px: its buttons go under it (they act on it), so that the two columns
+     are of a height */
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="tools"] { grid-area: pad; align-self: start; box-sizing: border-box; width: var(--pad); margin-top: calc(var(--pad) + 16px); }
 }
 /* the panels come in without moving where motion is turned down */
 @media (prefers-reduced-motion: reduce) {
