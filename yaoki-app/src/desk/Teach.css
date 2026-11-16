@@ -1,0 +1,77 @@
+/* Teach (both apps): a grammar pattern's page, laid open. On the left the pattern itself, large, under its level and theme and
+   over its meaning, and how it connects under it; on the right the examples with their sound buttons and the watch-out box, and
+   right under them Next (N1: Back beside it), a desktop button's width at the foot of that column, not at the foot of the window.
+   Each column scrolls on its own if it must, and the right one keeps Next in view. N1's day without a lesson: its note and Back
+   to today at the top. Hooks: bar; body (the phone's scrolling column, laid open here); main (head and conn: the pattern and how
+   it connects) and side (exs and watch: the examples and the watch-out), each a display: contents wrapper on the phone; act
+   (Study's Next, N1's row of Back and Next); N1's empty, gap and act for a day without a lesson. data-k="go" on Next and on
+   N1's Back to today. The examples' sound buttons carry no data-k="play": two examples of equal rank, neither the page's one
+   sound. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Teach"] { padding: 20px 28px 24px !important; }
+  html.yk-desk [data-yk="Teach"] > [data-d="bar"] { grid-area: bar; margin-bottom: 12px; }
+
+  /* the page laid open: the pattern on the left, the examples on the right with Next right under them, the rest of the height
+     empty (a column taller than the pane scrolls in itself) */
+  html.yk-desk [data-yk="Teach"]:has(> [data-d="body"]) {
+    display: grid !important;
+    grid-template-columns: minmax(360px, 0.75fr) minmax(0, 1.25fr);
+    grid-template-rows: auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "main side" "main act" "main .";
+    column-gap: 28px;
+  }
+  html.yk-desk [data-yk="Teach"] > [data-d="body"] { display: contents !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="main"] {
+    grid-area: main; align-self: start; max-height: 100%; min-height: 0; overflow-y: auto; box-sizing: border-box; container-type: inline-size;
+    display: flex !important; flex-direction: column; gap: 18px; padding-bottom: 4px;
+  }
+  html.yk-desk [data-yk="Teach"] [data-d="side"] {
+    grid-area: side; min-height: 0; overflow-y: auto; box-sizing: border-box; display: flex !important; flex-direction: column; gap: 14px;
+  }
+  html.yk-desk [data-yk="Teach"] :is([data-d="main"], [data-d="side"]) > * { margin: 0 !important; }
+
+  /* the pattern: its level and theme over it, the form large, its meaning under it */
+  html.yk-desk [data-yk="Teach"] [data-d="head"] { flex-direction: column !important; align-items: flex-start !important; gap: 2px !important; padding-top: 2px; }
+  html.yk-desk [data-yk="Teach"] [data-d="head"] > div:has(> h1), html.yk-desk [data-yk="Teach"] [data-d="head"] > h1 + div { display: contents !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="head"] > div:last-child:not(:has(> h1)), html.yk-desk [data-yk="Teach"] [data-d="head"] > h1 + div > div:last-child {
+    order: -1; margin-bottom: 4px; padding: 0 !important;
+  }
+  /* as large as keeps about ten characters on a line (a longer form wraps, its lines balanced) */
+  html.yk-desk [data-yk="Teach"] [data-d="head"] h1 { font-size: clamp(34px, 10.5cqi, 46px) !important; line-height: 1.22 !important; text-wrap: balance; }
+  html.yk-desk [data-yk="Teach"] [data-d="head"] h1 + div { font-size: 17px !important; line-height: 1.4 !important; padding-top: 2px !important; }
+  /* how it connects: a card a little roomier; a short label (動・い形) beside its rule as on the phone, a long one (an English
+     explanation, as in the first levels) on its own line over it rather than squeezed into the phone's narrow label */
+  html.yk-desk [data-yk="Teach"] [data-d="conn"] { padding: 14px 16px 16px !important; gap: 10px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) { flex-wrap: wrap; row-gap: 5px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:first-child {
+    flex: 0 1 auto !important; width: auto !important; min-width: 72px; max-width: 100%; box-sizing: border-box; padding: 4px 10px !important; text-wrap: balance;
+  }
+  html.yk-desk [data-yk="Teach"] [data-d="conn"] > div:not(:first-child) > div:last-child { flex: 1 1 200px; min-width: 0; }
+
+  /* the examples, their Japanese a little larger, and the watch-out */
+  html.yk-desk [data-yk="Teach"] [data-d="exs"] { padding: 14px 18px 16px !important; gap: 14px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="exs"] div[lang="ja"] { font-size: 17px !important; line-height: 1.65 !important; }
+  html.yk-desk [data-yk="Teach"] :is([data-d="exs"], [data-d="watch"]) div { text-wrap: pretty; }
+  html.yk-desk [data-yk="Teach"] [data-d="exs"] rt { font-size: 10px; }
+  html.yk-desk [data-yk="Teach"] [data-d="watch"] { padding: 14px 18px 16px !important; gap: 6px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="watch"] > div:nth-child(2) { max-width: 70ch; }
+
+  /* Next right under the examples, a desktop button's width (N1: Back beside it) */
+  html.yk-desk [data-yk="Teach"]:has(> [data-d="body"]) > [data-d="act"] { grid-area: act; justify-self: start; align-self: start; max-width: 100%; margin-top: 16px !important; }
+  html.yk-desk [data-yk="Teach"] > a[data-d="act"], html.yk-desk [data-yk="Teach"] > [data-d="act"] > [data-k="go"] {
+    flex: 0 1 auto !important; min-width: 280px !important; padding: 0 28px !important; box-sizing: border-box;
+  }
+
+  /* N1's day without a lesson: its note, and Back to today right under it */
+  html.yk-desk [data-yk="Teach"] > [data-d="empty"] { margin-top: 4px !important; max-width: 760px; box-sizing: border-box; }
+  html.yk-desk [data-yk="Teach"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Teach"]:has(> [data-d="empty"]) > [data-d="act"] { align-self: flex-start; margin-top: 18px; }
+}
+/* a wider pane: the Japanese a step larger again, the translation and the note too */
+@container yk (min-width: 1060px) {
+  html.yk-desk [data-yk="Teach"] [data-d="conn"] > div > div:last-child { font-size: 17px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="exs"] div[lang="ja"] { font-size: 18px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="exs"] div[lang="ja"] + div { font-size: 13px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="watch"] > div:nth-child(2) { font-size: 14px !important; }
+  html.yk-desk [data-yk="Teach"] [data-d="watch"] div[lang="ja"] { font-size: 16px !important; }
+}

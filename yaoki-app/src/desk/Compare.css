@@ -1,0 +1,72 @@
+/* Compare (both apps): the look-alike patterns side by side. The title with its note beside it (at a readable measure) across the
+   top; under it one column for each pattern (its form, its tag, its example and translation): cards of one height in a row, as a
+   table compares them. Under the row the quick check as a band: its label (or, once answered, the verdict and the reason) and its
+   sentence on the left, its three options beside them; Start the drill right under the band, a desktop button's width. The title
+   and the patterns scroll in their own box when they are taller than the pane (a unit's review: a long note, or ten patterns in
+   rows), so that the check and Start the drill always stay in view. N1's day without a lesson: its note and Back to today at the
+   top. Hooks: bar, body (the phone's scrolling column, laid open here), main (head and cards: a display: contents wrapper on the
+   phone), head, cards (a display: contents wrapper of the cards on the phone), card, check, q (the check's sentence), opts, act;
+   N1's empty, gap and act for a day without a lesson. data-k: choice on the three options (the keys 1 to 3 answer), go on Start
+   the drill and on N1's Back to today. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Compare"] { padding: 20px 28px 24px !important; }
+  html.yk-desk [data-yk="Compare"] > [data-d="bar"] { flex-shrink: 0; margin-bottom: 14px; }
+
+  /* the page: the title and the patterns as tall as they are (or scrolling), the check and Start the drill right under them, the
+     rest of the height empty */
+  html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) {
+    display: grid !important; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, max-content) auto auto 1fr;
+  }
+  html.yk-desk [data-yk="Compare"] > [data-d="body"] { display: contents !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="main"] { grid-row: 2; min-height: 0; overflow-y: auto; display: flex !important; flex-direction: column; gap: 16px; }
+  html.yk-desk [data-yk="Compare"] [data-d="main"] > * { margin: 0 !important; flex-shrink: 0; }
+
+  /* the title, and its note beside it */
+  html.yk-desk [data-yk="Compare"] [data-d="head"] {
+    display: grid !important; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 40px; row-gap: 0 !important;
+  }
+  html.yk-desk [data-yk="Compare"] [data-d="head"] > :not(:last-child) { grid-column: 1; align-self: start; }
+  html.yk-desk [data-yk="Compare"] [data-d="head"] h1 { font-size: 30px !important; line-height: 1.25 !important; white-space: nowrap; }
+  html.yk-desk [data-yk="Compare"] [data-d="head"] > div:last-child {
+    grid-column: 2; grid-row: 1 / span 2; align-self: end; max-width: 68ch; padding-bottom: 3px; font-size: 14px !important; line-height: 1.5 !important;
+  }
+
+  /* the patterns, one column each, in a row (a review's many patterns in rows of three or four) */
+  html.yk-desk [data-yk="Compare"] [data-d="cards"] { display: grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 14px; }
+  html.yk-desk [data-yk="Compare"] [data-d="cards"]:has(> :nth-child(5)) { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] { margin: 0 !important; padding: 12px 16px 14px !important; gap: 6px !important; }
+  /* the form over its tag, so that every column starts the same way */
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:first-child { flex-direction: column; align-items: flex-start !important; gap: 5px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:first-child > div:first-child { font-size: 22px !important; line-height: 1.25 !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div[lang="ja"] { margin-top: 2px; font-size: 16px !important; line-height: 1.7 !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { line-height: 1.45 !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] rt { font-size: 10px; }
+  html.yk-desk [data-yk="Compare"] :is([data-d="head"], [data-d="card"], [data-d="check"]) div { text-wrap: pretty; }
+
+  /* the quick check: the label (or the verdict) and the sentence on the left, the options beside them */
+  html.yk-desk [data-yk="Compare"] [data-d="check"] {
+    grid-row: 3; margin: 16px 0 0 !important; padding: 14px 18px !important;
+    display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(300px, 0.62fr); align-items: center; column-gap: 20px; row-gap: 6px !important;
+  }
+  html.yk-desk [data-yk="Compare"] [data-d="check"] > :not([data-d="opts"]) { grid-column: 1; }
+  html.yk-desk [data-yk="Compare"] [data-d="check"] > [data-d="opts"] { grid-column: 2; grid-row: 1 / span 2; gap: 10px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="check"] > div:first-child { font-size: 13px !important; max-width: 75ch; }
+  html.yk-desk [data-yk="Compare"] [data-d="q"] { font-size: 16px !important; line-height: 1.7 !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="opts"] > [data-k="choice"] { height: 52px !important; font-size: 16px !important; }
+
+  /* Start the drill, right under the check, a desktop button's width */
+  html.yk-desk [data-yk="Compare"] > [data-d="act"] { min-width: 280px; padding: 0 28px; box-sizing: border-box; }
+  html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) > [data-d="act"] { grid-row: 4; justify-self: start; align-self: start; margin-top: 16px !important; }
+
+  /* N1's day without a lesson: its note, and Back to today right under it */
+  html.yk-desk [data-yk="Compare"] > [data-d="empty"] { margin-top: 4px !important; max-width: 760px; box-sizing: border-box; }
+  html.yk-desk [data-yk="Compare"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Compare"]:has(> [data-d="empty"]) > [data-d="act"] { align-self: flex-start; margin-top: 18px !important; }
+}
+/* a wider pane: the Japanese a step larger again, the translations too */
+@container yk (min-width: 1060px) {
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div[lang="ja"] { font-size: 17px !important; line-height: 1.7 !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="check"] { column-gap: 28px; }
+  html.yk-desk [data-yk="Compare"] [data-d="q"] { font-size: 18px !important; }
+}

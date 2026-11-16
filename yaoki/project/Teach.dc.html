@@ -26,7 +26,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px" role="img" aria-label="{{ pageLabel }}">
 <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3"><div style="height: 10px; border-radius: 5px; background: {{ d.bg }}"></div></sc-for>
@@ -34,9 +34,10 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">学習 LEARN</div>
 </div>
 
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 12px; display: flex; flex-direction: column">
+<div data-d="body" style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 12px; display: flex; flex-direction: column">
 
-<div style="margin-top: 6px; display: flex; align-items: flex-end; gap: 12px; flex-shrink: 0">
+<div data-d="main" style="display: contents">
+<div data-d="head" style="margin-top: 6px; display: flex; align-items: flex-end; gap: 12px; flex-shrink: 0">
 <div style="flex-grow: 1; display: flex; flex-direction: column">
 <h1 style="margin: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 34px; font-weight: 600; line-height: 1.3">{{ pt.form }}</h1>
 <div style="font-size: 15px; font-weight: 700; color: #5A6382">{{ pt.gloss }}</div>
@@ -47,7 +48,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </div>
 
-<div style="margin-top: 14px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<div data-d="conn" style="margin-top: 14px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">接続　How it connects</div>
 <sc-for list="{{ connect }}" as="c" hint-placeholder-count="3">
 <div style="display: flex; align-items: center; gap: 10px">
@@ -56,8 +57,10 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </sc-for>
 </div>
+</div>
 
-<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div data-d="side" style="display: contents">
+<div data-d="exs" style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">例文　Examples</div>
 <sc-for list="{{ examples }}" as="x" hint-placeholder-count="2">
 <div style="display: flex; align-items: flex-start; gap: 10px">
@@ -70,7 +73,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </sc-for>
 </div>
 
-<div style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
+<div data-d="watch" style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800">注意　Watch out</div>
 <div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ pt.watch.note }}</div>
 <div style="display: flex; align-items: center; gap: 8px">
@@ -82,10 +85,11 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600">{{ pt.watch.good }}</div>
 </div>
 </div>
+</div>
 
 </div>
 
-<a href="Compare.dc.html" onClick="{{ next }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">{{ nextLabel }}</a>
+<a data-d="act" data-k="go" href="Compare.dc.html" onClick="{{ next }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">{{ nextLabel }}</a>
 
 </div>
 </x-dc>

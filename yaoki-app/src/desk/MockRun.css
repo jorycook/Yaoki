@@ -7,7 +7,7 @@
    - the paper as an exam booklet: the label and instruction across the top, the sentence, word or passage on the left, the
      question, the options, Flag and Previous / Next on the right. A passage longer than the pane scrolls the spread (the
      Study app starts each question at its top), the question, its options and Flag stay in view beside it, and a fade at
-     the foot of the passage says there is more. A window under 720 px tall sets the paper a little tighter.
+     the foot of the passage says there is more. A window up to 780 px tall sets the paper a little tighter.
    - listening: the player and the audio's progress on the left, the options (or the spoken numbers) on the right.
    - result as a dashboard (the score and the sections beside what it means and the answers); the answers as tabs over a grid
      of cards, a card with its script open across both columns (the answer and its reasons beside the script).
@@ -127,9 +127,9 @@
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] { gap: 8px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] > [data-k="choice"] { min-height: 52px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="flag"] { margin-top: 8px !important; }
-  /* a window under 720 px tall (a laptop with its browser): the paper a little tighter, so that the longest question, its four
-     options and Flag fit beside the passage */
-  @media (max-height: 720px) {
+  /* a window up to 780 px tall (a laptop with its browser): the paper a little tighter, so that the longest passage and the
+     longest question, its four options and Flag fit without scrolling */
+  @media (max-height: 780px) {
     html.yk-desk #yk-stage .yk-screen > .sc-host > [data-yk="MockRun"] { --mr-cue: 16px; }
     html.yk-desk [data-yk="MockRun"] > [data-d="paper"] { padding-bottom: 12px !important; }
     html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="top"] { margin-bottom: 10px; }

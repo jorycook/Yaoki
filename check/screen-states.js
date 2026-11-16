@@ -29,10 +29,17 @@ module.exports = function screenStates(LEVEL) {
     ['Reading', ''],
     ['Listening', ''],
     ['WeekTest', ''],
+    /* the week test's results: a score with a weak spot, and every answer right */
+    ['WeekTest', '&cur=u03t&tests=' + enc({ u03t: { id: 'u03t', score: 17, of: 24, used: 1120, areas: { vocab: { right: 7, of: 8 }, grammar: { right: 4, of: 10 }, reading: { right: 6, of: 6 } } } }), 'result'],
+    ['WeekTest', '&cur=u03t&tests=' + enc({ u03t: { id: 'u03t', score: 24, of: 24, used: 905, areas: { vocab: { right: 8, of: 8 }, grammar: { right: 10, of: 10 }, reading: { right: 6, of: 6 } } } }), 'perfect'],
     ['Notebook', ''],
     ['Review', ''],
     ['Mock', ''],
     ['MockRun', ''],
+    /* the N3, N4 and N5 mini mocks, whose reading questions are the longest */
+    ['MockRun', '&level=N3', 'n3'],
+    ['MockRun', '&level=N4', 'n4'],
+    ['MockRun', '&level=N5', 'n5'],
     ['Readiness', ''],
   ];
 

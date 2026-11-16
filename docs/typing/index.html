@@ -179,8 +179,8 @@ label.switch > span { flex: 1; min-width: 0; }
 
 /* the desktop layout's columns (below) keep their pieces together in the markup; in the single column (a window under
    900 px) these wrappers step aside and `order` puts each piece back where the column has always had it */
-.menu-main, .menu-side, .coach, .res-main, .res-side, .set-col { display: contents; }
-.menu-main > *, .menu-side > * { order: 2; }
+.menu-main, .menu-side, .side-go, .coach, .res-main, .res-side, .set-col { display: contents; }
+.menu-main > *, .menu-side > *, .side-go > * { order: 2; }
 .hero, #touch-note, #layout-note { order: 0; }
 #day-card { order: 1; }
 .menu-main > aside.notebox { order: 3; }
@@ -212,11 +212,12 @@ label.switch > span { flex: 1; min-width: 0; }
 
 /* ---------- a landscape desktop: a window 900 px wide or more ----------
    The menu in two columns: what to play on the left (the input method, its stages, a course's weeks, then the notes before
-   playing), and on the right, in view as the page scrolls, the day's stamp card, the round's length and Start. A round fills
-   the window: the scene, the line under it and the keyboard are sized to the window's height (in a wide window, beside the
-   keyboard, a panel holds the key to press next and the note on a slip). The result in two columns: the verdict (the score
-   and the hanko, a best, a ring) with what to do next, in view, beside the details (the stats, the weak spots, the stamp
-   card). Settings and pause are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's footer
+   playing), and on the right the day's stamp card, the round's length and Start, in view as the page scrolls (in a short
+   window, the round's length and Start). A round fills the window: the scene, the line under it and the keyboard are sized
+   to the window's height (in a wide window, beside the keyboard, a panel holds the key to press next and the note on a slip;
+   in a very large one the round grows to 2000 px). The result in two columns: the verdict (the score and the hanko, a best,
+   a ring) with what to do next, in view, beside the details (the stats, the weak spots, the stamp card). Settings (in two
+   columns) and pause are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's footer
    lines up with it; the header is the site's own (from 1000 px it spans the window, see site.css). Below 900 px everything is
    the single column it always was. */
 @keyframes yk-pop { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
@@ -229,8 +230,14 @@ label.switch > span { flex: 1; min-width: 0; }
 
   /* the menu */
   #menu { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); column-gap: 32px; align-items: start; padding-top: 4px; }
-  .menu-main, .menu-side { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .menu-main, .menu-side, .side-go { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  /* the right column stays in view as the page scrolls. In a short window it could not all stay (at the end of the page it
+     would slide under the header): there the round's length and Start stay, and the stamp card scrolls with the page. */
   .menu-side { position: sticky; top: calc(var(--site-head) + 16px); }
+  @media (max-height: 799px) {
+    .menu-side { position: static; align-self: stretch; }
+    .side-go { position: sticky; top: calc(var(--site-head) + 16px); }
+  }
   /* running text keeps a readable measure in the wide column */
   .lede, #mode-desc, #stage-desc, #course-note { max-width: 66ch; }
   /* the stages: each group a list of wide choices (the name, then what it holds and its best on one line). The kana (or the
@@ -252,7 +259,9 @@ label.switch > span { flex: 1; min-width: 0; }
   .menu-main > aside.notebox ul { columns: 2; column-gap: 36px; margin-top: 8px; }
   .menu-main > aside.notebox li { break-inside: avoid; margin-bottom: 6px; }
   #units { grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); }
-  .menu-side .seg .tile { flex: 1 1 0; min-width: 0; }
+  /* the three lengths alike at any column width: the count, then the name, Japanese over English */
+  .menu-side .seg .tile { flex: 1 1 0; min-width: 0; text-align: left; }
+  .menu-side .seg .tile > small { width: min-content; word-break: keep-all; }
   .menu-side .actions { flex-direction: column; align-items: stretch; }
 
   /* a round: the game fills the window, each part sized to the window's height. Under the scene, the line about the card,
@@ -310,8 +319,9 @@ label.switch > span { flex: 1; min-width: 0; }
   /* room for the はなまる drawn round the hanko */
   #res-stamp.hana { margin: 30px 24px 12px 0; }
   #res-next { margin-top: 18px; }
-  /* Again across the column, Weak spots and Close side by side under it (one above the other in a narrow column) */
-  .res-main > .actions { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+  /* Again across the column, Weak spots and Close side by side under it (one above the other in a column under 490 px,
+     where their labels would not fit side by side) */
+  .res-main > .actions { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
   .res-main:has(#res-seal:not([hidden]) > #res-next:not([hidden])) > .actions { margin-top: 10px; }
   .res-main .actions .btn { padding-inline: 16px; white-space: nowrap; }
   #again { grid-column: 1 / -1; }
@@ -365,6 +375,26 @@ label.switch > span { flex: 1; min-width: 0; }
   .coach > #next-line .kicker { font-size: 17px; }
   .coach > #next-line span:not(.kicker) { font-size: 16px; line-height: 1.4; }
   .coach > #status { order: 1; flex: none; min-height: 0; font-size: 15px; line-height: 1.4; }
+}
+/* a very large window: the round grows on, up to 2000 px wide, with a taller scene, larger keys and larger lines (the scene's
+   world grows with it, game.js resize(), so the route keeps its length and the cards their time on it) */
+@media (min-width: 2000px) {
+  #play {
+    --rw: min(100cqw, 2000px);
+    --kh: clamp(28px, min(4.4svh + 4px, (var(--kbw) - 14 * var(--kg)) / 15.6 * 0.92), 62px);
+    --info-h: 42px;
+  }
+  #play > .stage-wrap { height: clamp(200px, calc(100svh - var(--rest) - var(--info-extra, 0px)), 600px); }
+  #info { font-size: 20px; }
+  #info .info-ja { font-size: 27px; }
+  .key { font-size: clamp(13px, calc(var(--kh) * 0.4), 22px); }
+  .key .sub { font-size: clamp(10px, calc(var(--kh) * 0.27), 15px); }
+  .key .main[lang="ja"] { font-size: clamp(15px, calc(var(--kh) * 0.44), 26px); }
+  .key .sub[lang="ja"] { font-size: clamp(11px, calc(var(--kh) * 0.3), 17px); }
+  .key.mod .main { font-size: clamp(11px, calc(var(--kh) * 0.29), 16px); }
+  .coach > #next-line .kicker { font-size: 20px; }
+  .coach > #next-line span:not(.kicker) { font-size: 18px; }
+  .coach > #status { font-size: 17px; }
 }
 </style>
 </head>
@@ -437,6 +467,8 @@ label.switch > span { flex: 1; min-width: 0; }
       <span class="tag gold" id="day-done" aria-hidden="true" hidden></span>
     </section>
 
+    <!-- the round's length and Start: on a desktop with a short window, these stay in view on their own -->
+    <div class="side-go">
     <section class="block" aria-labelledby="len-h">
       <h2 id="len-h"><span lang="ja">ラウンド</span>　Cards per round</h2>
       <div id="len-seg" class="seg" role="group" aria-labelledby="len-h"></div>
@@ -445,6 +477,7 @@ label.switch > span { flex: 1; min-width: 0; }
     <div class="actions">
       <button type="button" id="start" class="btn"><span lang="ja">はじめる</span>　Start <kbd>Enter</kbd></button>
       <button type="button" id="start-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+    </div>
     </div>
 
    </div>

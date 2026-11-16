@@ -1,10 +1,11 @@
 /* WeekTest (both apps), the week test at a desk. The bar (close or quit, the heading or the progress and the clock) spans the top.
-   - intro as a dashboard: the title and what the test is on the left, beside the by-area card (N1: the sections and the time
-     allowed); under them the rules (N1) beside the last result (N1, when there is one) and Start. The whole sits in the middle
-     of the pane's height.
-   - the run (N1) as a paper: the type and the exam's instruction across the top, the word or the sentence on the left like a
-     card, the options on the right with Next under them; the clock larger in the bar.
-   - the quit question (N1) as a dialog in the middle of the pane; its scrim and Continue as before.
+   - intro as a dashboard in the middle of the pane's height: on the left the title and what the test is, N1's rules under it;
+     on the right the by-area card (N1: the sections and the time allowed), N1's last result (when there is one) and Start
+     right under it.
+   - the run (N1; Study's run is the Exam screen) as a paper: the type and the exam's instruction across the top, the word as a
+     card or the sentence on the left, the options on the right with Next under them; the clock larger in the bar.
+   - the quit question (N1) as a dialog in the middle of the pane, over a scrim that covers the whole pane (the screen spans
+     the pane; its content keeps the 1184 px measure); the scrim and Continue as before.
    - results as a summary beside the list: the score and its stamp, the stamp card and the areas on the left; on the right
      what went into the notebook (Study: the line, Review mistakes and the way on; N1: every mistake with its answer and
      reason, scrolling in its own column, and the way on under the summary).
@@ -47,7 +48,8 @@
   html.yk-desk [data-yk="WeekTest"] > [data-d="head"] > svg { order: -1; width: 80px; height: 80px; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="head"] { gap: 20px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="head"] div:has(+ h1) { font-size: 13px !important; }
-  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 { font-size: 34px !important; white-space: normal !important; text-wrap: balance; }
+  /* the title breaks between its Japanese and its English, or between words, never inside a Japanese word (場所・ある・い / る) */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 { font-size: 34px !important; white-space: normal !important; word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 + div { margin-top: 4px; max-width: 34em; font-size: 15px !important; }
   /* the by-area card (Study) */
   html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:not(:has(> div > div[lang])) { padding: 18px 22px !important; gap: 12px !important; }
@@ -95,9 +97,11 @@
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
   /* Next right under the options, a desktop button's width, at the end of the column */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) > [data-d="act"] { grid-column: 2; grid-row: 5; justify-self: end; min-width: 280px; margin-top: 18px; padding: 0 28px; }
-  /* on the narrowest landscape panes (a window of 1120 to 1240 px) the sentence keeps a little more of the width */
+  /* on the narrowest landscape panes (a window of 1120 to 1240 px) the sentence keeps a little more of the width, and the
+     intro's title is a little smaller */
   @container yk (max-width: 999.98px) {
     html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) { grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr); column-gap: 32px; }
+    html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 { font-size: 30px !important; }
   }
 
   /* ---------- the quit question: a dialog in the middle of the pane; the scrim still closes it */

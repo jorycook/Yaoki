@@ -2391,8 +2391,9 @@
     const ch = wrap.clientHeight;
     if (!cw || !ch) return;
     const dpr = window.devicePixelRatio || 1;
-    // Scaled by the height, but never so large that the route gets too short to type on.
-    const s = Math.max(0.5, Math.min(1.6, ch / H, cw / 520));
+    // Scaled by the height, but never so large that the route gets too short to type on: at most 1.6, or in a scene wider
+    // than 1600 px (a very large window), as large as keeps the route 1000 wide.
+    const s = Math.max(0.5, Math.min(Math.max(1.6, cw / 1000), ch / H, cw / 520));
     const W = cw / s;
     const oldYx = view.yx;
     view = { W, s, oy: (ch - H * s) / 2, dpr, yx: Math.max(100, W - 1000) };

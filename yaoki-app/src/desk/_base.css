@@ -1,5 +1,5 @@
 /* The screens on a desktop: the rules every landscape layout shares. A screen's own layout is in its own file here (Drill.css …),
-   written as html.yk-desk rules inside @container yk (min-width: 880px): the pane (#yk-view) is a size container, so a layout
+   written as html.yk-desk rules inside @container yk (min-width: 880px): the pane (#yk-view) is an inline-size container (its width can be queried, not its height), so a layout
    follows the pane's width, sidebar or not. The phone never sees any of it (html.yk-desk is never set there). README.md here
    lists the hooks the screens carry for these rules (data-d for regions, data-k for the keyboard). */
 
@@ -18,6 +18,6 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
   html.yk-desk #yk-stage :is(button, a[href]):not(:disabled):not([aria-disabled="true"]):hover { filter: brightness(0.96); }
   @container yk (min-width: 880px) {
     html.yk-desk #yk-stage [data-k="go"]::after { content: 'Enter'; flex-shrink: 0; margin-left: 12px; padding: 1px 7px; border: 1.5px solid currentColor; border-radius: 7px; font: 800 11px/1.5 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; letter-spacing: 0.02em; opacity: 0.75; }
-    html.yk-desk #yk-stage [data-k="go"]:disabled::after { opacity: 0.4; }
+    html.yk-desk #yk-stage [data-k="go"]:is(:disabled, [aria-disabled="true"])::after { opacity: 0.4; }
   }
 }

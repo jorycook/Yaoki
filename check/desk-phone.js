@@ -33,6 +33,8 @@ const sa = serve(A, PA), sb = serve(B, PB);
       for (const [port, tag] of [[PA, 'a'], [PB, 'b']]) {
         const ctx = await browser.newContext({ viewport: { width: w, height: h }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1, hasTouch: w < 600, isMobile: w < 600 });
         await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
+        /* the writing pad plays its stroke order with a script, not CSS: its quick mode (yk-write.js) lets it finish before the shot */
+        await ctx.addInitScript(() => { window.__ykWriteFast = true; });
         const page = await ctx.newPage();
         await page.goto(`http://127.0.0.1:${port}/?yktest&screen=${screen}&now=1761955200000${st.q}`);
         await page.waitForSelector('#yk-stage > .sc-host', { timeout: 15000 });

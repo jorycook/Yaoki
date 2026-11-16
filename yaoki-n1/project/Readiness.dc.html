@@ -22,7 +22,7 @@ a:hover{color:#1B2440}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px; flex-shrink: 0">
 <h1 style="margin: 0; flex-grow: 1; min-width: 0; font-size: 22px; font-weight: 800; white-space: nowrap"><span lang="ja">合格判定</span> <span style="font-size: 14px; font-weight: 700; color: #5A6382">Readiness · N1</span></h1>
 <div role="img" aria-label="{{ examLabel }}" style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC; flex-shrink: 0">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
@@ -30,9 +30,9 @@ a:hover{color:#1B2440}
 </div>
 </div>
 
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; padding: 8px 16px 14px; display: flex; flex-direction: column; gap: 10px">
+<div data-d="body" style="flex-grow: 1; min-height: 0; overflow-y: auto; padding: 8px 16px 14px; display: flex; flex-direction: column; gap: 10px">
 
-<div style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div data-d="card" style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; align-items: center; gap: 12px">
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382"><span lang="ja">{{ headJa }}</span>　{{ headEn }}</div>
@@ -56,7 +56,7 @@ a:hover{color:#1B2440}
 </div>
 </div>
 
-<div style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 8px">
+<div data-d="sections" style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div style="flex-grow: 1; font-size: 14px; font-weight: 800; white-space: nowrap"><span lang="ja">進み具合</span>　Progress</div>
 <div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap">done / in your plan</div>
@@ -103,7 +103,8 @@ a:hover{color:#1B2440}
 </sc-if>
 </div>
 
-<div role="img" aria-label="{{ rvAria }}" style="flex-shrink: 0; padding: 10px 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div data-d="side" style="display: contents">
+<div data-d="review" role="img" aria-label="{{ rvAria }}" style="flex-shrink: 0; padding: 10px 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div style="flex-grow: 1; min-width: 0; font-size: 14px; font-weight: 800; white-space: nowrap"><span lang="ja">復習</span>　Review of N2 to N4</div>
 <div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ rvCount }}</div>
@@ -115,7 +116,7 @@ a:hover{color:#1B2440}
 </sc-if>
 </div>
 
-<div style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
+<div data-d="tests" style="flex-shrink: 0; padding: 10px 16px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; flex-direction: column; gap: 6px">
 <div style="display: flex; align-items: baseline; gap: 8px">
 <div style="flex-grow: 1; font-size: 14px; font-weight: 800; white-space: nowrap"><span lang="ja">週テスト</span>　Week tests</div>
 <div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ testsCount }}</div>
@@ -152,7 +153,7 @@ a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.4">{{ mocksLine }}</div>
 </div>
 
-<div style="flex-shrink: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<div data-d="next" style="flex-shrink: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
 <a href="Notebook.dc.html" onClick="{{ toNotebook }}" aria-label="{{ nbLabel }}" style="height: 50px; box-sizing: border-box; padding: 0 12px; border-radius: 14px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; display: flex; align-items: center; gap: 10px; min-width: 0; background: {{ nbBg }}; color: {{ nbInk }}">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
@@ -167,6 +168,7 @@ a:hover{color:#1B2440}
 <div style="font-size: 11px; font-weight: 700; color: #5A6382; white-space: nowrap">{{ mockLine }}</div>
 </div>
 </a>
+</div>
 </div>
 
 </div>

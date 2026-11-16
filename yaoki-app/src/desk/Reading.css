@@ -11,7 +11,7 @@
     display: grid !important;
     grid-template-columns: minmax(0, 1.2fr) minmax(360px, 1fr);
     /* the question as tall as its content (or scrolling), Check right under it, the rest of the height left empty; once
-       checked the panel takes the rows from under the question to the bottom */
+       checked the panel takes Check's row (see below) */
     grid-template-rows: auto auto minmax(0, max-content) auto minmax(0, 1fr);
     grid-template-areas: "bar bar" "head head" "passage q" "passage act" "passage .";
     column-gap: 32px;
@@ -56,8 +56,8 @@
     display: inline-flex !important; align-items: center; justify-content: center;
   }
 
-  /* ---------- once checked: the verdict, the reasons and Next in a panel under the question. The question keeps at most a
-     third of the height (it scrolls beyond that), so that the panel and its Next always have room */
+  /* ---------- once checked: the verdict, the reasons and Next in a panel under the question. The question keeps at most about
+     a third of the height (it scrolls beyond that), so that the panel and its Next always have room */
   html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) { grid-template-rows: auto auto fit-content(36%) minmax(0, max-content) minmax(0, 1fr); }
   html.yk-desk [data-yk="Reading"] > [data-d="side"] {
     grid-area: 4 / 2 / 5 / 3; align-self: start; min-height: 0; max-height: calc(100% - 14px) !important; box-sizing: border-box;

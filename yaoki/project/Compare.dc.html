@@ -23,7 +23,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px; flex-shrink: 0">
 <a href="Today.dc.html" onClick="{{ toToday }}" aria-label="Close lesson" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px" role="img" aria-label="Teach page 3 of 3">
 <div style="height: 10px; border-radius: 5px; background: #2F4FD0"></div>
@@ -33,16 +33,18 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">学習 LEARN</div>
 </div>
 
-<div style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 12px; display: flex; flex-direction: column">
+<div data-d="body" style="flex-grow: 1; min-height: 0; overflow-y: auto; margin: 0 -16px; padding: 0 16px 12px; display: flex; flex-direction: column">
 
-<div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
+<div data-d="main" style="display: contents">
+<div data-d="head" style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #C7361E">似ている文法　COMPARE</div>
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">どれを使う？</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ intro }}</div>
 </div>
 
+<div data-d="cards" style="display: contents">
 <sc-for list="{{ forms }}" as="f" hint-placeholder-count="3">
-<div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<div data-d="card" style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div style="display: flex; align-items: center; gap: 8px">
 <div style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600">{{ f.form }}</div>
 <div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; font-size: 12px; font-weight: 800; background: {{ f.tagBg }}"><sc-if value="{{ f.down }}" hint-placeholder-val="{{ true }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></sc-if><sc-if value="{{ f.up }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></sc-if><sc-if value="{{ f.dot }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2F4FD0" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg></sc-if>{{ f.tag }}</div>
@@ -51,8 +53,10 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 500; color: #5A6382">{{ f.en }}</div>
 </div>
 </sc-for>
+</div>
+</div>
 
-<div style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #E8ECFB; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<div data-d="check" style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #E8ECFB; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">確認　QUICK CHECK{{ checkLabel }}</div>
 </sc-if>
@@ -63,17 +67,17 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div>{{ note }}</div>
 </div>
 </sc-if>
-<div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
-<div style="display: grid; gap: 8px; grid-template-columns: {{ cols }}">
+<div data-d="q" lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
+<div data-d="opts" style="display: grid; gap: 8px; grid-template-columns: {{ cols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
-<button onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 46px; padding: 0; border-radius: 14px; font-size: 14px; font-weight: 800; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}">{{ o.label }}</button>
+<button data-k="choice" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 46px; padding: 0; border-radius: 14px; font-size: 14px; font-weight: 800; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}">{{ o.label }}</button>
 </sc-for>
 </div>
 </div>
 
 </div>
 
-<a href="Drill.dc.html" onClick="{{ toDrill }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">練習へ　Start the drill</a>
+<a data-d="act" data-k="go" href="Drill.dc.html" onClick="{{ toDrill }}" style="flex-shrink: 0; margin-top: 10px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">練習へ　Start the drill</a>
 
 </div>
 </x-dc>

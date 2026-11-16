@@ -8,8 +8,9 @@
    - Study 本番, the exam question, as Drill: the yellow paper with its options on the left; on the right a panel that says
      what will appear there, then the verdict and the explanation, Next under it.
    - N1 漢字: the title, the grid of kanji and Next on the left; on the right the kanji chosen (the phone's sheet) as a
-     panel: its readings and words, Back and Next on its left, the pad and its buttons on its right; before a kanji is
-     chosen the panel says what will appear there.
+     panel: its readings and words with the panel's Next under them on its left; the three times beside Close, the pad,
+     what to do now and its buttons on its right (Back is the grid itself here). Before a kanji is chosen the panel says
+     what will appear there. On a pane under 1060 px, while a kanji is open the grid is a strip of kanji beside it.
    - N1 語彙: the words as cards in two columns that scroll, Next under them. N1 確認, the quiz, as Drill: the question and
      its options on the left, Check under them, the answer sheet beside them. The score beside the misses. A day with
      nothing to learn: its note and Back.
@@ -101,10 +102,15 @@
   html.yk-desk [data-yk="Scene"] > [data-d="write"] ~ [data-d="act"] { padding: 0 22px !important; }
   /* the card of what is written: larger */
   html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] { padding: 14px 18px !important; gap: 16px !important; }
-  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang] { font-size: 52px !important; }
+  /* its kanji or word larger by the size the phone gives it for its length (a long word keeps the phone's size, so that its
+     reading and meaning keep their room beside it) */
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang][style*="font-size: 44px"] { font-size: 58px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang][style*="font-size: 34px"] { font-size: 48px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang][style*="font-size: 30px"] { font-size: 40px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang][style*="font-size: 28px"] { font-size: 38px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang][style*="font-size: 26px"] { font-size: 32px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:first-child { font-size: 12px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:nth-child(2) { font-size: 16px !important; }
-  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:nth-child(n+2) :is(span[style], div) { font-size: inherit; }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:nth-child(3) { font-size: 14px !important; }
   /* nothing left to write (Study): the note and Next, in one column */
   html.yk-desk [data-yk="Scene"]:has(> [data-d="write"] > [data-d="done"]) {
@@ -116,7 +122,7 @@
 
   /* ---------- Study 本番, the exam question: the paper on the left, the verdict beside it ---------- */
   html.yk-desk [data-yk="Scene"]:has(> [data-d="check"]) {
-    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 1fr);
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.85fr);
     grid-template-rows: auto minmax(0, max-content) auto 1fr;
     grid-template-areas: "bar bar" "body body" ". act" ". .";
   }
@@ -133,7 +139,8 @@
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="q"] { grid-column: 1; grid-row: 3; padding: 18px 20px; font-size: 22px !important; line-height: 1.6; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="label"] ~ [data-d="q"] { padding-top: 10px; padding-bottom: 14px; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] { grid-column: 1; grid-row: 4; padding: 0 20px 20px; gap: 10px !important; }
-  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] > button { height: auto !important; min-height: 54px; padding: 6px 14px !important; font-size: 17px !important; }
+  /* the options as large as the paper's width lets a reading of nine kana keep to one line, two to a row */
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] > button { height: auto !important; min-height: 54px; padding: 6px 10px !important; font-size: clamp(15px, 1.6cqw, 17px) !important; }
   /* the verdict and the explanation: a panel beside the paper, Next under it */
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] {
     grid-column: 2; grid-row: 2 / -1; align-self: start; display: flex !important; flex-direction: column; gap: 10px;
@@ -154,7 +161,7 @@
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) {
     /* the pad: as tall as the panel can be under the bar, and leaving the panel's facts a column of 290 px */
     --pad: clamp(220px, min(100cqh - 262px, 65.5cqw - 380px), 360px);
-    grid-template-columns: minmax(340px, 1fr) minmax(0, 1.9fr);
+    grid-template-columns: minmax(352px, 1fr) minmax(0, 1.9fr);
     grid-template-rows: auto auto minmax(0, max-content) auto 1fr;
     grid-template-areas: "bar bar" "head side" "grid side" "act side" ". side";
   }
@@ -162,7 +169,7 @@
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] { grid-area: grid; margin: 0 !important; padding: 12px !important; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)) !important; gap: 10px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] button { height: auto !important; aspect-ratio: 1 / 1; }
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] button > span[lang] { font-size: 34px !important; }
-  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) > [data-d="act"] { justify-self: stretch; min-width: 0; padding: 0 16px !important; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) > [data-d="act"] { justify-self: stretch; min-width: 0; padding: 0 12px !important; font-size: 16px !important; white-space: nowrap; }
   /* the phone's sheet: a panel in the right column, the grid left free beside it */
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] { grid-area: side; align-self: start; position: static !important; display: block !important; min-width: 0; }
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] > [data-d="scrim"] { display: none !important; }
@@ -269,5 +276,11 @@
 @container yk (min-width: 880px) and (max-width: 960px) {
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) { --pad: clamp(220px, min(100cqh - 262px, 100cqw - 538px), 360px); }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"] { grid-template-columns: repeat(2, 56px) !important; }
+}
+/* the panels come in without moving where motion is turned down */
+@media (prefers-reduced-motion: reduce) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Scene"] :is([data-d="panel"], [data-d="side"]) { animation: none !important; }
+  }
 }
 @keyframes yk-scene-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

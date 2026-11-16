@@ -456,7 +456,12 @@
     }
     if (e.key === 'Enter' && (idle || onChoice)) {
       var go = marked('go');
-      if (go.length) { e.preventDefault(); go[go.length - 1].click(); }
+      if (go.length) {
+        e.preventDefault();
+        /* the answer gives up the focus as the screen goes on: the next question may reuse its button, and Space would press it */
+        if (onChoice && t.blur) t.blur();
+        go[go.length - 1].click();
+      }
       return;
     }
     if (e.key === ' ' && idle) {

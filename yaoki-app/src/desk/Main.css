@@ -90,16 +90,19 @@
   /* the Study app's week test node takes Enter when the card has no Start (Start comes later in the page, and the last go wins):
      the week test next, or passed (its results). Its key shows above it only when the week test is what comes next */
   html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"] > [data-d="node"][data-k="go"]::after { content: none; }
-  html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"]:not(:has(> [data-d="card"] [data-k="go"])) > [data-d="node"][data-k="go"][aria-label="Day 7, week test"]::after {
-    content: 'Enter'; position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); margin: 0; background: #FFFFFF;
+  @media (hover: hover) and (pointer: fine) {
+    html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"]:not(:has(> [data-d="card"] [data-k="go"])) > [data-d="node"][data-k="go"][aria-label="Day 7, week test"]::after {
+      content: 'Enter'; position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); margin: 0; background: #FFFFFF;
+    }
   }
 
   /* the day's card goes where the labels it stands for are missing (grid placement finds that gap in the label row): one day's
      place, or two or three on the Study app, whose card leaves out the labels it would cover on the phone. It is never narrower
-     than its button's words and key (min-content: the button does not wrap), nor than its title's floor below */
+     than its button's words and key (min-content: the button does not wrap), nor than its title's floor below, and its side
+     margins keep it off the labels beside it */
   html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] {
     position: relative !important; left: auto !important; top: auto !important; width: min(100% - 12px, 400px) !important; min-width: min-content; z-index: 1;
-    grid-row: 3; grid-column: auto / span 2; align-self: start; justify-self: center; box-sizing: border-box; margin: 14px 0 0; padding: 14px 16px 16px !important; gap: 4px !important;
+    grid-row: 3; grid-column: auto / span 2; align-self: start; justify-self: center; box-sizing: border-box; margin: 14px 6px 0; padding: 14px 16px 16px !important; gap: 4px !important;
     box-shadow: 0 4px 0 #1B2440;
   }
   html.yk-desk [data-yk="Main"] > [data-d="route"]:is(:has(> [data-d^="node"] + [data-d^="node"] + :is([data-d^="node"], [data-d="card"])), :has(> [data-d^="node"] + [data-d^="node"]:last-child)) > [data-d="card"] { grid-column: auto / span 4; }
@@ -152,7 +155,7 @@
     html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 56px !important; font-size: 18px !important; }
   }
   /* the narrower landscape panes, up to 1100 px (after the tall ones, so a narrow tall window keeps these): a little less padding
-     and a smaller label, so the day labels keep six characters a line or more beside the card */
+     and a smaller label, so the day labels keep five characters a line or more beside the card */
   @container yk (max-width: 1099.98px) {
     html.yk-desk [data-yk="Main"] { padding: 18px 20px 20px !important; }
     html.yk-desk [data-yk="Main"] > [data-d="route"] { padding: 16px 8px; }
