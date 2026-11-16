@@ -102,4 +102,15 @@
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="act"] { margin-top: 16px; min-width: 260px; padding: 0 28px; box-sizing: border-box; }
 }
+/* where there is a keyboard: the play button shows its key beside it, as the main action shows Enter (_base.css) */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Listening"] [data-d="player"] [data-k="play"] { position: relative; margin-right: 52px; }
+    html.yk-desk [data-yk="Listening"] [data-d="player"] [data-k="play"]::after {
+      content: 'Space'; position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); padding: 1px 7px;
+      border: 1.5px solid #1B2440; border-radius: 7px; color: #1B2440; font: 800 11px/1.5 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif;
+      letter-spacing: 0.02em; white-space: nowrap; opacity: 0.75; pointer-events: none;
+    }
+  }
+}
 @keyframes yk-ls-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

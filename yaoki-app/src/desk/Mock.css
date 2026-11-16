@@ -31,7 +31,7 @@
   html.yk-desk [data-yk="Mock"] > [data-d="list"] > * { margin: 0 !important; }
   /* a level with no full papers yet: their place says what will appear in it */
   html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="list"]))::after {
-    content: '本番の模試　Full papers\A \A Full papers at real length come later for this level. They will be listed here, each with its sections, its time and the week it opens in your plan.';
+    content: '本番の模試　Full papers\A \A Each full paper will be listed here, with its sections and its time.';
     white-space: pre-line; grid-area: list; align-self: start; margin-top: 18px; padding: 16px 20px 18px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
   }
 
@@ -45,7 +45,8 @@
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) minmax(440px, 1fr);
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    column-gap: 28px; row-gap: 12px !important;
+    /* the phone's gap (10 px, inline) gives way: the list and the card are two columns, 28 px apart as in the Study app */
+    column-gap: 28px !important; row-gap: 12px !important;
     margin-top: 18px !important; padding: 0 !important; overflow: visible !important;
   }
   html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="row"] { grid-column: 1; align-self: start; }

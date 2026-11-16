@@ -1,12 +1,13 @@
-/* Today, the day's spread (both apps). The phone stacks the day's lessons under the title. Here the back row and the title band run
-   across the top, the day's label read from the left beside the back arrow, and the lessons open like a two-page spread, two columns
-   of equal height: on the left page the first lesson (grammar, or N1's week test or mixed review) with its steps listed down the card
-   and its start button at the card's foot (once it is done, as tall as its checklist); on the right page the day's other lessons (the
-   Study app's cards with their step pills, N1's rows), stacked and sharing the page's height (a lone row keeps its own). The stamp
-   note sits under the spread. A day of one lesson shows it as one band as wide as its content, at least the left page's width when
-   it is a row: N1's week test with its start right after its words, or a lone row with its arrow beside its words. Two or three rows
-   with no lead card (an N1 day of kanji, reading and listening) stand side by side as tiles of a card's width. A day with nothing on
-   it (N1) shows its dashed card on the left page and the way on as the right page. Nothing scrolls on a laptop's pane (about 600 px
+/* Today, the day's spread (both apps). The phone stacks the day's lessons under the title. Here the back row (the day's label read
+   from the left, beside the back arrow) and the title band run across the top, and the lessons open like a two-page spread, two
+   columns of equal height: on the left page the first lesson (grammar, or N1's week test or mixed review) with its steps listed down
+   the card and its start button at the card's foot; on the right page the day's other lessons (the Study app's cards with their step
+   pills, N1's rows), stacked and sharing the page's height (a lone row keeps its own). The page with the next lesson is the wider
+   one: the left page until the first lesson is done, then the right page, while the done card ends at its checklist. The stamp note
+   sits under the spread. A day of one lesson shows it as one band, at least as wide as the left page and as wide as its content
+   needs: N1's week test with its start right after its words, or a lone row with its arrow beside its words. Two or three rows with
+   no lead card (an N1 day of kanji, reading and listening) stand side by side as tiles of a card's width. A day with nothing on it
+   (N1) shows its dashed card on the left page and the way on as the right page. Nothing scrolls on a laptop's pane (about 600 px
    tall).
    Hooks: bar, head, cards (the two pages; display: contents on the phone), card (a lesson card: its top, steps and start), rows
    (the right page; display: contents on the phone), row and mark (N1's compact rows and their arrow or stamp), empty (N1's day
@@ -25,7 +26,7 @@
   /* the title is the day's Japanese: a little larger, on one line where the phone needs two */
   html.yk-desk [data-yk="Today"] > [data-d="head"] > h1 { font-size: 30px !important; }
 
-  /* the spread: the lead card on the left page, a little wider, the other lessons on the right page */
+  /* the spread: the lead card on the left page, a little wider while it is the next lesson, the other lessons on the right page */
   html.yk-desk [data-yk="Today"] > [data-d="cards"] {
     display: grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: 20px; margin-top: 18px; flex-shrink: 0;
   }
@@ -46,10 +47,11 @@
   html.yk-desk [data-yk="Today"] > [data-d="cards"] > [data-d="card"] > [data-d="start"] { margin-top: auto; padding: 0 12px; }
   html.yk-desk [data-yk="Today"] [data-d="start"] > span[lang="ja"] { white-space: nowrap; }
 
-  /* a lone card (N1's week test, done or not): one band as wide as its content, the start right after its words, a desktop
-     button's width */
+  /* a lone card (N1's week test, done or not): one band, at least as wide as the left page and as wide as its content, the start
+     right after its words, a desktop button's width */
   html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="rows"] > *)) > [data-d="card"] {
-    display: grid !important; grid-template-columns: auto auto; column-gap: 40px !important; align-items: center; box-sizing: border-box; width: fit-content; max-width: 100%;
+    display: grid !important; grid-template-columns: auto auto; column-gap: 40px !important; align-items: center; box-sizing: border-box; width: fit-content;
+    min-width: calc((100% - 20px) * 1.1 / 2.1); max-width: 100%;
   }
   html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="rows"] > *)) > [data-d="card"] > :not([data-d="start"]) { grid-column: 1; }
   html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="rows"] > *)) > [data-d="card"] > [data-d="start"] { grid-column: 2; grid-row: 1 / span 2; margin: 0; min-width: 300px; padding: 0 28px; }

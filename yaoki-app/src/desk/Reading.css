@@ -1,23 +1,25 @@
-/* Reading (both apps): a reading paper. The passage on the left, like the page of the paper, scrolling in its own column, its
-   Japanese at 18 px and about 30 characters a line; the question, its options, the strategy note (Study) and Check on the
-   right, Check right under the options. Once checked, the verdict, the reasons and Next come in a panel under the question,
-   while the passage stays whole beside them with its signposts lit. A question too long for the pane scrolls in its column,
-   and Check (or the panel and its Next) stays in view. N1's day without a reading: its note and Back to today at the top.
-   Hooks: bar, head, body (Study) and paper (N1), the phone's column of passage and question, laid open here; passage, q (a
-   display: contents wrapper of ask, opts and tip on the phone, the right column's box here), ask, opts, tip (Study), act,
-   side, gap and fade (N1), none (N1). data-k: choice on the options, go on Check, Next and Back to today. */
+/* Reading (both apps): a reading paper. At rest the passage is on the left, like the page of the paper, its Japanese at 18 px and
+   about 30 characters a line, as tall as its text (it scrolls in its column when longer); the question, its options, the
+   strategy note (Study) and Check are on the right, Check right under them. The question's box scrolls if it must, its foot
+   fading out, and Check stays in view. Once checked, the paper takes the left column: the passage with its signposts lit, which
+   gives way down to a few lines (and scrolls), with the question and its two marked options under it; the verdict, the reasons
+   and Next take the right column in a panel, as the Drill's coach does. A scrolled passage or reasons box fades at its edges.
+   A short window (720 px or less) tightens the paper. N1's day without a reading: its note and Back to today at the top.
+   Hooks: bar, head, body (the phone's column of passage and question: Study's scrolling column, a display: contents wrapper in
+   N1) and paper (N1), laid open at rest, body the left column once checked; passage, q (a display: contents wrapper of ask, opts
+   and tip on the phone, a box here), ask, opts, tip (Study), act, side, why (Study), gap and fade (N1), none (N1). data-k:
+   choice on the options, go on Check, Next and Back to today. */
 @container yk (min-width: 880px) {
   html.yk-desk [data-yk="Reading"] {
     display: grid !important;
     grid-template-columns: minmax(0, 1.2fr) minmax(360px, 1fr);
-    /* the question as tall as its content (or scrolling), Check right under it, the rest of the height left empty; once
-       checked the panel takes Check's row (see below) */
+    /* the question as tall as its content (or scrolling), Check right under it, the rest of the height left empty */
     grid-template-rows: auto auto minmax(0, max-content) auto minmax(0, 1fr);
     grid-template-areas: "bar bar" "head head" "passage q" "passage act" "passage .";
     column-gap: 32px;
     padding: 20px 28px 24px !important;
   }
-  html.yk-desk [data-yk="Reading"] > :is([data-d="body"], [data-d="paper"]) { display: contents !important; }
+  html.yk-desk [data-yk="Reading"] :is([data-d="body"], [data-d="paper"]) { display: contents !important; }
   html.yk-desk [data-yk="Reading"] [data-d="bar"] { grid-area: bar; margin-bottom: 12px; }
   html.yk-desk [data-yk="Reading"] [data-d="head"] { grid-area: head; margin: 0 0 14px !important; }
   html.yk-desk [data-yk="Reading"] [data-d="head"] > div { font-size: 13px !important; }
@@ -27,21 +29,34 @@
   html.yk-desk [data-yk="Reading"] [data-d="passage"] {
     grid-area: passage; align-self: start; min-height: 0; max-height: 100% !important; margin: 0 !important; box-sizing: border-box;
   }
-  /* Study: the passage is one box */
-  html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang] { overflow-y: auto; padding: 18px 24px 20px !important; font-size: 18px !important; line-height: 1.9 !important; }
-  /* N1: a box with its scrolling text and the fade that says there is more */
+  /* Study: the passage is one box. While it scrolls, its edges fade: a veil held at the top and at the foot of the box, which
+     are its top and bottom spacing when the text is at rest there (a sticky box stops at the scroller's padding, so the box
+     has none at the top and bottom) */
+  html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang] { overflow-y: auto; padding: 0 24px !important; font-size: 18px !important; line-height: 1.9 !important; }
+  html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::before,
+  html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::after { content: ''; display: block; position: sticky; z-index: 1; margin: 0 -24px; pointer-events: none; }
+  html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::before { top: 0; height: 18px; background: linear-gradient(#FFFFFF 2px, rgba(255, 255, 255, 0)); }
+  html.yk-desk [data-yk="Reading"] div[data-d="passage"][lang]::after { bottom: 0; height: 20px; background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 18px); }
+  /* N1: a box with its scrolling text and the fade at its foot that says there is more; its top fades too, for a passage
+     scrolled (the screen scrolls it to the first signpost once checked) */
   html.yk-desk [data-yk="Reading"] [data-d="passage"] > [data-yk-passage] { padding: 18px 24px 22px !important; }
+  html.yk-desk [data-yk="Reading"] div[data-d="passage"]:not([lang])::before {
+    content: ''; position: absolute; z-index: 1; left: 2px; right: 2px; top: 2px; height: 16px; border-radius: 18px 18px 0 0;
+    background: linear-gradient(#FFFFFF, rgba(255, 255, 255, 0)); pointer-events: none;
+  }
   html.yk-desk [data-yk="Reading"] [data-yk-passage] div[style*="font-size: 16px"] { font-size: 18px !important; line-height: 1.9 !important; }
   /* a notice's lines (info) */
   html.yk-desk [data-yk="Reading"] [data-yk-passage] div[style*="font-size: 15px"] { font-size: 17px !important; line-height: 1.7 !important; }
   html.yk-desk [data-yk="Reading"] [data-yk-passage] div[style*="font-size: 13px"] { font-size: 14px !important; }
   html.yk-desk [data-yk="Reading"] [data-d="passage"] rt { font-size: 10px; }
 
-  /* ---------- the question and its options, in the right column */
+  /* ---------- the question and its options, in the right column. The box scrolls when they are taller than the column, and
+     its foot fades out (in its padding, where nothing is, when it does not scroll) */
   html.yk-desk [data-yk="Reading"] [data-d="q"] {
     grid-area: q; display: flex !important; flex-direction: column; min-height: 0; overflow-y: auto;
-    /* room for the options' shadows and the focus ring inside the scrolling box */
-    margin: -4px -6px 0; padding: 4px 6px 10px;
+    /* room for the options' shadows and the focus ring inside the scrolling box, and under them for the fade */
+    margin: -4px -6px 0; padding: 4px 6px 22px;
+    -webkit-mask-image: linear-gradient(#000000 calc(100% - 18px), transparent); mask-image: linear-gradient(#000000 calc(100% - 18px), transparent);
   }
   html.yk-desk [data-yk="Reading"] [data-d="ask"] { margin: 0 !important; font-size: 18px !important; line-height: 1.5 !important; }
   html.yk-desk [data-yk="Reading"] [data-d="opts"] { margin-top: 14px !important; gap: 10px !important; }
@@ -52,21 +67,48 @@
 
   /* Check, right under the options, a desktop button's width */
   html.yk-desk [data-yk="Reading"] > [data-d="act"] {
-    grid-area: act; justify-self: start; min-width: 260px; margin-top: 12px; padding: 0 28px !important; box-sizing: border-box;
+    grid-area: act; justify-self: start; min-width: 260px; margin-top: 2px; padding: 0 28px !important; box-sizing: border-box;
     display: inline-flex !important; align-items: center; justify-content: center;
   }
 
-  /* ---------- once checked: the verdict, the reasons and Next in a panel under the question. The question keeps at most about
-     a third of the height (it scrolls beyond that), so that the panel and its Next always have room */
-  html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) { grid-template-rows: auto auto fit-content(36%) minmax(0, max-content) minmax(0, 1fr); }
-  html.yk-desk [data-yk="Reading"] > [data-d="side"] {
-    grid-area: 4 / 2 / 5 / 3; align-self: start; min-height: 0; max-height: calc(100% - 14px) !important; box-sizing: border-box;
-    margin: 14px 0 0 !important; padding: 16px 18px 18px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
+  /* ---------- once checked: the paper takes the left column, the passage with its signposts lit and, under it, the question
+     with its two marked options; the verdict, the reasons and Next take the right column, in a panel */
+  html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) { grid-template-rows: auto auto minmax(0, 1fr); grid-template-areas: "bar bar" "head head" "body side"; }
+  html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) [data-d="body"] {
+    grid-area: body; display: flex !important; flex-direction: column; min-height: 0 !important; overflow: visible !important; margin: 0 !important; padding: 0 !important;
   }
-  html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"] { min-height: 0 !important; }
+  /* the passage gives way, down to a few lines, and scrolls; the question and its marks keep their height (beyond what the
+     column leaves them, they scroll) */
+  html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) [data-d="passage"] { flex: 0 1 auto; align-self: stretch; min-height: 150px; max-height: none !important; }
+  html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) [data-d="q"] { flex: 0 0 auto; max-height: calc(100% - 156px); margin-top: 6px; animation: yk-rd-in 240ms ease-out; }
+  html.yk-desk [data-yk="Reading"] > [data-d="side"] {
+    grid-area: side; align-self: start; min-height: 0; max-height: calc(100% - 4px) !important; box-sizing: border-box;
+    margin: 0 !important; padding: 16px 18px 18px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
+  }
   html.yk-desk [data-yk="Reading"] > [data-d="side"] div[style*="font-size: 13px"] { font-size: 14px !important; }
+  /* Study's reasons: while there is more to scroll to, the foot of the box fades (N1's box has a fade of its own): a veil held
+     at the foot, the box's bottom spacing when the text is at its end */
+  html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"] { padding-bottom: 0 !important; }
+  html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"]::after {
+    content: ''; position: sticky; bottom: 0; flex-shrink: 0; height: 16px; margin: -6px -14px 0; pointer-events: none;
+    background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px);
+  }
 
   /* ---------- N1, a day without a reading: the note and Back to today at the top */
   html.yk-desk [data-yk="Reading"] > [data-d="none"] { grid-area: 3 / 1 / 4 / -1; justify-self: start; width: min(100%, 560px); box-sizing: border-box; margin: 0 !important; }
   html.yk-desk [data-yk="Reading"]:has(> [data-d="none"]) > [data-d="act"] { grid-area: 4 / 1 / 5 / -1; margin-top: 16px; }
 }
+/* a short window (a laptop's, 720 px or less): the paper a little tighter, so that the question, its options and the strategy
+   note fit beside the passage */
+@media (max-height: 720px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Reading"] { padding-top: 16px !important; padding-bottom: 18px !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="bar"] { margin-bottom: 6px; }
+    html.yk-desk [data-yk="Reading"] [data-d="head"] { margin-bottom: 10px !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="ask"] { font-size: 17px !important; line-height: 1.45 !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="opts"] { margin-top: 10px !important; gap: 8px !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="opts"] > [data-k="choice"] { min-height: 46px !important; padding: 6px 14px !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="tip"] { margin-top: 10px !important; padding: 8px 14px !important; }
+  }
+}
+@keyframes yk-rd-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
