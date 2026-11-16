@@ -22,7 +22,8 @@ body { margin: 0; padding: 0; }
 <script src="site/site.js" data-root="./" data-page="home" data-licences="study/licenses.txt"></script>
 <style>
 /* The home page: the whole suite on one page. One column of sections, each a short heading and a grid of cards; every card
-   is a link to a feature. The first fold is the hero with the two things most visitors came for: to study, or to read. */
+   is a link to a feature. The first fold is the hero with the two things most visitors came for: to study, or to read. A desktop
+   window lays the same sections out side by side (the last part of this block). */
 *, *::before, *::after { box-sizing: border-box; }
 body { background: var(--ground); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.45; font-weight: 500; -webkit-text-size-adjust: 100%; }
 :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; }
@@ -86,12 +87,84 @@ section { padding-top: 36px; }
 .step b { display: block; font-size: 15px; font-weight: 800; }
 .step span { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; color: var(--muted); line-height: 1.45; }
 @media (prefers-reduced-motion: reduce) { .feature:active { transform: none; } }
+
+/* ---------- a desktop window, from 1000 px wide ----------
+   The column above is the phone's and the tablet's. A landscape monitor gets a wider page (up to 1600 px of content, the footer
+   lined up with it; the header spans the window, as on every page) that puts side by side what belongs together: the study
+   tools in three columns of wide cards, reading beside the games under their two headings, the steps to the phone in a row; and
+   from 1200 px, where they fit side by side, the pitch beside the courses, so a laptop's first screen (1366 by 657) shows both,
+   the courses' note in the sixth cell of their grid. The page is a third shorter: under three screens of a laptop instead of
+   four, under two of a 1080 monitor. The wrappers this needs (.fold, .pair) are plain boxes under 1000 px, so the column draws
+   exactly what it drew before. */
+@media (min-width: 1000px) {
+  :root { --home-max: 1600px; --home-pad: 28px; --site-max: calc(var(--home-max) + 2 * var(--home-pad)); }
+  main { padding: 0 var(--home-pad) 56px; }
+  .site-foot .site-wrap { padding: 0 var(--home-pad); }
+  section { padding-top: 44px; }
+  #phone { scroll-margin-top: calc(var(--site-head) + 8px); }
+  .sec-head p { flex-basis: 360px; max-width: 78ch; }
+  .note { max-width: 110ch; }
+  /* a Japanese word inside English text stays whole (はなまる, 準備中), and no line ends on a lone word or arrow */
+  .sec-head p, .feature .what { word-break: keep-all; }
+  .sec-head p, .feature .what, .feature .meta, .step span, .note, .hero .lede { text-wrap: pretty; }
+
+  /* the hero over the courses (a narrower window): a heading on two lines, the two actions on one */
+  .hero { padding-top: 32px; }
+  .hero h1 { font-size: 46px; text-wrap: balance; }
+  .hero .actions .btn { flex: none; padding: 8px 16px; font-size: 16px; white-space: nowrap; }
+  .grid.levels { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+  /* the study tools: three columns of wide cards, the tile beside the words */
+  .tools .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tools .feature { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 14px; row-gap: 6px; align-content: start; }
+  .tools .feature .tile { grid-row: span 2; }
+
+  /* reading beside the games: one row of five cards under their two headings */
+  .pair { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); grid-template-rows: auto auto; column-gap: 40px; }
+  .pair > section { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+  .pair .sec-head { flex-direction: column; align-items: flex-start; }
+  .pair .sec-head p { flex-basis: auto; }
+  .read .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .play .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* the steps to the phone, in a row */
+  .install .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  /* a tile with two kanji keeps them on one line; a kanji on a note-coloured tile takes the ink of the scheme (dark ink on the dark
+     scheme's note colour could not be read) */
+  .feature .tile.two [lang="ja"] { font-size: 17px; white-space: nowrap; }
+  .feature .tile.note { color: var(--ink); }
+}
+/* the first screen: the pitch on the left (wide enough for its two actions on one line), the courses on the right, both columns
+   ending on one line: the daruma's card at the foot of the pitch, the course cards sharing what height is left */
+@media (min-width: 1200px) {
+  .fold { display: grid; grid-template-columns: minmax(500px, 5fr) minmax(0, 7fr); column-gap: clamp(36px, 3.6vw, 64px); padding-top: 32px; }
+  .fold > section { padding-top: 0; }
+  .hero { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; gap: 22px; padding-top: 0; }
+  .hero h1 { font-size: clamp(34px, 3.3vw, 56px); }
+  .hero .lede { margin-top: 14px; font-size: 16px; }
+  .hero .actions { margin-top: 20px; }
+  .hero-art { align-self: end; justify-content: flex-start; }
+  .hero-card { width: 100%; max-width: 520px; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; padding: 16px 18px; }
+  .hero-card svg { width: 64px; height: 64px; }
+  .hero-card b { font-size: 16px; }
+  .hero-card b [lang="ja"] { font-size: 18px; }
+  .courses { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto 1fr 1fr; gap: 14px; }
+  .courses .sec-head { grid-column: 1 / -1; margin: 0 0 2px; }
+  .courses .sec-head p { flex-basis: 100%; }
+  .courses .grid.levels { display: contents; }
+  .courses .note { margin: 0; padding: 14px 16px; border-radius: 20px; border: 2px dashed var(--line-strong); }
+}
+@media (min-width: 1440px) {
+  .hero .actions .btn { padding: 8px 18px; font-size: 17px; }
+}
 </style>
 </head>
 <body>
 <header class="site-bar" data-site-bar></header>
 <main>
 
+<div class="fold">
 <section class="hero" aria-labelledby="hero-h">
 <div>
 <div class="hero-kicker">やおき · A JAPANESE LEARNING SUITE FOR THE JLPT</div>
@@ -111,7 +184,7 @@ section { padding-top: 36px; }
 </div>
 </section>
 
-<section aria-labelledby="courses-h">
+<section class="courses" aria-labelledby="courses-h">
 <div class="sec-head"><h2 id="courses-h"><span lang="ja">コース</span> Courses<small>JLPT N5 to N1</small></h2><p>Each level is a course of units, a week at a time: a grammar lesson, kanji and words with writing practice, reading and listening, a week test, mini mocks in the exam's own format, and a notebook that brings your mistakes back until they stick.</p></div>
 <div class="grid levels">
 <a class="feature level" href="study/?level=N5"><span class="lv">N5<small>8 units</small></span><b>The first steps</b><p class="what">48 study days. Kana and the first kanji, everyday grammar, short readings.</p><p class="meta">Open in Study →</p></a>
@@ -122,8 +195,9 @@ section { padding-top: 36px; }
 </div>
 <p class="note">N5 to N2 share one app and one notebook; each level keeps its own plan. The N1 course is its own page, with its own progress, because its material is eight times the size.</p>
 </section>
+</div>
 
-<section aria-labelledby="study-h">
+<section class="tools" aria-labelledby="study-h">
 <div class="sec-head"><h2 id="study-h"><span lang="ja">学習の道具</span> In the study app</h2><p>The places you come back to every day. These open the app at that place; on your first visit it asks for your goal first.</p></div>
 <div class="grid">
 <a class="feature" href="study/?open=Main"><span class="tile gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="2.5"/><path d="M8.5 19h9a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15.5"/><circle cx="18" cy="5" r="2.5"/></svg></span><b><span lang="ja">今週の道</span>The week path</b><p class="what">Today's lessons on a route through the week: a grammar lesson, kanji and words, reading or listening, and the week test at the end.</p></a>
@@ -135,24 +209,26 @@ section { padding-top: 36px; }
 </div>
 </section>
 
-<section aria-labelledby="read-h">
+<div class="pair">
+<section class="read" aria-labelledby="read-h">
 <div class="sec-head"><h2 id="read-h"><span lang="ja">読む</span> Reading</h2><p>Yaoki Reader shows Japanese text with the furigana hidden. Touch a phrase, or hold the mouse on it, and its reading, the words' meanings and any grammar pattern appear; let go and they hide again. Nothing is sent anywhere.</p></div>
 <div class="grid">
 <a class="feature" href="reader/"><span class="tile paper"><span lang="ja">読</span></span><b><span lang="ja">よむ</span>Yaoki Reader</b><p class="what">Paste any text, up to 30,000 characters, and read it with the readings and meanings a touch away. Texts you add stay in your browser.</p><p class="meta">Open the reader →</p></a>
-<a class="feature" href="reader/#library"><span class="tile paper"><span lang="ja">文庫</span></span><b><span lang="ja">ヤオキ文庫</span>Yaoki Library</b><p class="what">Original stories written for learners, with their own readings and notes: 始末書 in three parts, and 目川日記, a serial with an edition for each level from N5 to N2.</p><p class="meta">Browse the library →</p></a>
+<a class="feature" href="reader/#library"><span class="tile paper two"><span lang="ja">文庫</span></span><b><span lang="ja">ヤオキ文庫</span>Yaoki Library</b><p class="what">Original stories written for learners, with their own readings and notes: 始末書 in three parts, and 目川日記, a serial with an edition for each level from N5 to N2.</p><p class="meta">Browse the library →</p></a>
 <a class="feature" href="reader/#aozora"><span class="tile paper"><span lang="ja">青</span></span><b><span lang="ja">青空文庫</span>Aozora Bunko</b><p class="what">Find any of 17,000 works out of copyright by title or author and read it in the reader, a chapter at a time.</p><p class="meta">Search Aozora Bunko →</p></a>
 </div>
 </section>
 
-<section aria-labelledby="play-h">
+<section class="play" aria-labelledby="play-h">
 <div class="sec-head"><h2 id="play-h"><span lang="ja">遊んで覚える</span> Games</h2><p>Two games on the same cards as the courses, with the same rewards: a はなまる for a clean answer, a stamp for each day you show up, and Yaoki getting up again every time he falls.</p></div>
 <div class="grid">
 <a class="feature" href="typing/"><span class="tile red"><span lang="ja">打</span></span><b><span lang="ja">タイピング</span>Yaoki Typing</b><p class="what">For a computer with a Japanese keyboard. Type the card before it reaches Yaoki: romaji, the symbol keys, kana input, your course's words and five kanji stages.</p><p class="meta">Play on this computer →</p></a>
 <a class="feature phone" href="speaking/"><span class="tile teal"><span lang="ja">話</span></span><b><span lang="ja">スピーキング</span>Yaoki Speaking</b><p class="what">For a phone held upright. Say the word on each card out loud and the phone hears it: kana lessons from zero, your course's words, kanji and phrases.</p><p class="meta">Open on a phone →</p></a>
 </div>
 </section>
+</div>
 
-<section aria-labelledby="phone-h">
+<section id="phone" class="install" aria-labelledby="phone-h">
 <div class="sec-head"><h2 id="phone-h"><span lang="ja">ホーム画面に追加</span> On your phone</h2><p>The Study app and the N1 course install on a phone and work offline. Each copy keeps its own progress.</p></div>
 <div class="steps">
 <div class="step"><i>1</i><div><b>iPhone or iPad</b><span>Open <a href="study/">study</a> or <a href="n1/">N1</a> in Safari, tap Share, then Add to Home Screen.</span></div></div>

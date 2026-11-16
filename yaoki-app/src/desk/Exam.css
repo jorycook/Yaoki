@@ -30,8 +30,9 @@
 
   /* the sentence, a little larger: it is what is studied */
   html.yk-desk [data-yk="Exam"] > [data-d="main"] { grid-area: main; align-self: start; margin: 0 !important; padding: 18px 22px !important; font-size: 21px !important; line-height: 2 !important; }
-  /* the options stacked beside it, with a desktop's height */
-  html.yk-desk [data-yk="Exam"] > [data-d="opts"] { grid-area: opts; min-height: 0; margin: 0 !important; gap: 12px !important; }
+  /* the options stacked beside it, with a desktop's height (a tall set scrolls in its box and Next stays in view; the padding
+     keeps the buttons' shadows and the focus ring inside it) */
+  html.yk-desk [data-yk="Exam"] > [data-d="opts"] { grid-area: opts; min-height: 0; overflow-y: auto; margin: -6px -8px 0 !important; padding: 6px 8px 8px; gap: 12px !important; }
   html.yk-desk [data-yk="Exam"] > [data-d="opts"] > [data-k="choice"] { flex-shrink: 0; height: auto !important; min-height: 56px; padding: 8px 18px !important; gap: 14px !important; font-size: 17px !important; line-height: 1.45; }
   html.yk-desk [data-yk="Exam"] > [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
   /* Next (Finish) right under the options, a desktop button's width */

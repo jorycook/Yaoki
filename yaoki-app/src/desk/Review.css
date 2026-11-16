@@ -1,11 +1,13 @@
 /* Review (both apps): the notebook's review of mistakes, laid out as the drill is: the paper on the left, the coach on the right.
-   The paper: the item's tag, its place and its streak; the question (a word, a sentence, a passage, two texts, a recording) and its
-   options; under them, where the item stands on its spacing (1 day, 3 days, 7 days, cleared) and Check / Next. A long paper scrolls
-   in its column. That column is the phone's own scrolling body, so the N1 course still brings each new item back to its top.
-   The coach: before the answer, a dashed panel saying what will appear there. Once answered (Study) or checked (N1), the panel with
-   the verdict, why the answer is right (and why the pick was not), the script where there is one, and what was chosen last time.
-   On the phone that panel sits in the body under the options. Here it is lifted out beside the paper (positioned on the screen),
-   so it stays in view while a long passage scrolls, and it scrolls itself when it is longer than the pane.
+   The paper: the item's tag, its place and its streak; the question (a word, a sentence, a star sentence, a passage, two texts, a
+   notice, a recording), a little larger, and its options; Check / Next right under them. A long paper scrolls in its column, with a
+   fade at its foot. That column is the phone's own scrolling body, so the N1 course still brings each new item back to its top.
+   The coach: at its head, where the item stands on its spacing (1 day, 3 days, 7 days, cleared) and where it goes next. Under it,
+   before the answer, a dashed panel saying what will appear there; once answered (Study) or checked (N1), the panel with the
+   verdict, why the answer is right (and why the pick was not), the script where there is one, and what was chosen last time.
+   On the phone that panel sits in the body under the options. Here it is lifted out beside the paper (positioned on the screen,
+   under the spacing, whose height is fixed), so it stays in view while a long passage scrolls, and it scrolls itself when it is
+   longer than the pane.
    The end: the stamp and its line beside the counts, with Back to the notebook right under them. N1's day with nothing due:
    Yaoki and its line, with Back to the notebook right under them.
    Hooks: bar; meta (N1: above the paper; Study: in it); paper (N1: the phone's box around the body and its fade, display: contents
@@ -83,6 +85,8 @@
   /* Study: the panel is a card of the coach, as the drill's */
   html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"]:not([data-rv-panel]) { border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; }
   html.yk-desk [data-yk="Review"] [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { font-size: 14px !important; }
+  /* the verdict, and the right answer after it, or under it when a long answer leaves no room on its line */
+  html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child { flex-wrap: wrap; row-gap: 4px; }
   html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child > div[style*="font-size: 17px"] { font-size: 19px !important; }
 
   /* ---------- the end: the stamp and its line beside the counts, Back to the notebook right under them */

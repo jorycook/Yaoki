@@ -158,6 +158,8 @@ module.exports = function screenStates(LEVEL) {
       ['Exam', at(TODAY) + plan(noGrammar, 2), 'none'],
       ['Scene', demo(17), 'kanji'],
       ['Scene', demo(17), 'kanji-sheet', ['[role=list] button >> nth=0']],
+      /* a day of thirteen kanji (14 of the sample plan's 48 kanji days), whose grid is a row longer */
+      ['Scene', demo(3), 'kanji13'],
       ['Scene', demo(17) + wrote(DEMO, 17), 'kanji-written'],
       ['Scene', demo(17) + wrote(DEMO, 17), 'kanji-sheet-written', ['[role=list] button >> nth=0']],
       ['Scene', demo(17) + wrote(DEMO, 17, true), 'words', ['button:has-text("Next: words")']],

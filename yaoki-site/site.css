@@ -117,9 +117,14 @@
   .site-nav, .site-ja { display: none; }
 }
 /* on a desktop the header spans the window, as the pages under it do: the apps' and the reader's sidebars start at the window's
-   edge, so the brand lines up with them rather than with a centred column (the footer keeps each page's own width) */
+   edge, so the brand lines up with them rather than with a centred column, and it stays put from page to page (the footer keeps
+   each page's own width). There is room for a nav a mouse reads and hits at a glance: larger links a little apart, the page it
+   marks stamped as the apps' sidebar stamps its screen */
 @media (min-width: 1000px) {
-  .site-bar .site-wrap { max-width: none; padding: 0 28px; }
+  .site-bar .site-wrap { max-width: none; padding: 0 28px; gap: 18px; }
+  .site-nav { gap: 6px; }
+  .site-nav a { height: 38px; padding: 0 14px; font-size: 14px; }
+  .site-nav a[aria-current="page"] { box-shadow: 0 3px 0 var(--hard); }
 }
 /* a typing round, and the reader's reading view under 1000 px: the page is the game or the text, the chrome steps aside (from
    1000 px the reader keeps the header, as its text sits beside the library and the lens) */
