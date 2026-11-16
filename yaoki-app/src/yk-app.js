@@ -354,6 +354,42 @@
       if (opener && document.contains(opener) && !opener.disabled) { try { opener.focus({ preventScroll: true }); } catch (e) {} }
       opener = null;
     }
+    watchDialog();
+  }
+  /* a screen's own dialogs ([role="dialog"][aria-modal="true"]: the mock's answer sheet, a quit or open-early question) are
+     dialogs here too: focus goes into one when it opens and stays in it (Tab cycles inside), the keys act in it only, Escape
+     closes it through its close control (data-k="close" or data-d="close", else a button named Close), and focus goes back when
+     it closes */
+  var dlgOpen = null;
+  var dlgOpener = null;
+  function openDialog() {
+    var all = stage.querySelectorAll('.yk-screen [role="dialog"][aria-modal="true"]');
+    for (var i = all.length - 1; i >= 0; i--) if (usable(all[i])) return all[i];
+    return null;
+  }
+  function dialogClose(dlg) {
+    var box = dlg.parentNode || dlg;
+    var c = box.querySelectorAll('[data-k="close"], [data-d="close"]');
+    for (var i = 0; i < c.length; i++) if (usable(c[i])) return c[i];
+    c = box.querySelectorAll('button[aria-label^="Close"]');
+    for (var j = 0; j < c.length; j++) if (usable(c[j])) return c[j];
+    return null;
+  }
+  function focusables(dlg) {
+    return Array.prototype.filter.call(dlg.querySelectorAll('button, a[href], input, select, textarea, summary, [tabindex]:not([tabindex="-1"])'), usable);
+  }
+  function watchDialog() {
+    var dlg = openDialog();
+    if (dlg && dlg !== dlgOpen) {
+      if (!dlgOpen) dlgOpener = document.activeElement && document.activeElement !== document.body ? document.activeElement : null;
+      dlgOpen = dlg;
+      if (!dlg.hasAttribute('tabindex')) dlg.tabIndex = -1;
+      if (!dlg.contains(document.activeElement)) { try { dlg.focus({ preventScroll: true }); } catch (e) { dlg.focus(); } }
+    } else if (!dlg && dlgOpen) {
+      dlgOpen = null;
+      if (dlgOpener && document.contains(dlgOpener) && !dlgOpener.disabled && usable(dlgOpener)) { try { dlgOpener.focus({ preventScroll: true }); } catch (e) {} }
+      dlgOpener = null;
+    }
   }
   function askSync() {
     if (syncPending) return;
@@ -376,27 +412,43 @@
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape' || !root.classList.contains('yk-desk')) return;
     var close = stage.querySelector('.yk-scrim-close');
+    if (!close) { var dlg = openDialog(); close = dlg && dialogClose(dlg); }
     if (close) { e.preventDefault(); close.click(); }
+  });
+  /* Tab stays in an open dialog of a screen */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab' || !root.classList.contains('yk-desk') || stage.querySelector('.yk-sheet')) return;
+    var dlg = openDialog();
+    if (!dlg) return;
+    var f = focusables(dlg);
+    if (!f.length) { e.preventDefault(); return; }
+    var at = f.indexOf(document.activeElement);
+    if (e.shiftKey ? at <= 0 : at === f.length - 1 || at < 0) {
+      e.preventDefault();
+      var to = e.shiftKey ? f[f.length - 1] : f[0];
+      try { to.focus({ preventScroll: true }); } catch (x) { to.focus(); }
+    }
   });
 
   /* ---------- the keyboard on a desktop ---------- */
   /* The screens mark what the keyboard may do (src/desk/README.md): data-k="choice" on each answer, in order, which the keys 1 to 9
      pick; data-k="go" on the main action (Check, Next, Start), which Enter takes; data-k="play" on a sound to play, which Space
      plays. Only on the desktop layout, never with a modifier key, never while typing in a field, and not while the menu dialog is
-     open. Enter on a focused control does what that control does, except on an answer just picked, where it goes on. */
+     open; while a screen's dialog is open, in that dialog only. Enter on a focused control does what that control does, except on
+     an answer just picked, where it goes on. */
   function usable(el) {
     if (!el || el.disabled || el.getAttribute('aria-disabled') === 'true') return false;
     var r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden';
   }
-  function marked(k) { return Array.prototype.filter.call(stage.querySelectorAll('[data-k="' + k + '"]'), usable); }
+  function marked(k) { return Array.prototype.filter.call((openDialog() || stage).querySelectorAll('[data-k="' + k + '"]'), usable); }
   document.addEventListener('keydown', function (e) {
     if (!root.classList.contains('yk-desk') || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.repeat) return;
     if (stage.querySelector('.yk-sheet')) return;
     var t = e.target;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
     /* focus on the page itself, the pane or something in it that is not a control counts as no focus */
-    var idle = !t || t === document.body || t === document.documentElement || t === mainBox || !(t.matches && t.matches('button, a[href], [tabindex], summary, [role="button"]'));
+    var idle = !t || t === document.body || t === document.documentElement || t === mainBox || t === dlgOpen || !(t.matches && t.matches('button, a[href], [tabindex], summary, [role="button"]'));
     var onChoice = !!(t && t.getAttribute && t.getAttribute('data-k') === 'choice');
     if (/^[1-9]$/.test(e.key) && !e.shiftKey) {
       var c = marked('choice')[+e.key - 1];
