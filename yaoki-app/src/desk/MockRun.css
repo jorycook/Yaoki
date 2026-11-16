@@ -8,14 +8,15 @@
    - listening: the player and the audio's progress on the left, the options (or the spoken numbers) on the right.
    - result as a dashboard (the score and the sections beside what it means and the answers); the answers as tabs over a grid
      of cards.
-   - the answer sheet, the quit and the paused sheets as dialogs in the middle of the pane; the answer sheet is wide: the
-     bubbles on the left, what submitting means and Back / Submit on the right.
+   - the answer sheet, the quit and the paused sheets as dialogs in the middle of the pane; the answer sheet as a mark sheet:
+     the bubbles in columns of five, and under them what submitting means beside Back and Submit.
    Hooks: bar (title, tally); intro (head, plan > sec, brk, rules, act > gap, note); paper (page > top, main, side; gap; act)
    with mondai, rubric, sentence, usage, lead, passage, pair, ask, opts, flag; break (late, rest, side > next, check, gap,
    note); listen (top, player, side > opts, nums, spoken; gap, foot, note); result (main > score, secs; side > note, saved,
-   gap, leave); answers (tabs, list > row); none (N1: note, gap); the overlays sheet, paused and quit (close, dialog > grip,
-   head, rows, note, act). data-k: choice on every option, go on Start, Next, Submit, Continue, Start section 2 and Answers
-   and reasons, play on the sound check. */
+   gap, leave); answers (tabs, list > row > verdict, ask, full, why, script); none (N1: note, gap); the overlays sheet,
+   paused and quit (close, dialog > grip, head, rows, note, act). The wrappers top, main, side and act are display: contents
+   on the phone. data-k: choice on every option, go on Start, Next, Submit, Continue, Start section 2 and Answers and
+   reasons, play on the sound check. */
 @container yk (min-width: 880px) {
   /* the band spans the pane (the screen is not held to 1240 px); --mr-x keeps the content under it in the middle */
   html.yk-desk .yk-screen > .sc-host > [data-yk="MockRun"] { max-width: none; --mr-x: max(28px, calc((100% - 1184px) / 2)); }
@@ -79,6 +80,11 @@
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="main"], [data-d="side"]) > :first-child { margin-top: 0 !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="gap"] { display: none; }
   html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="act"] { grid-column: 2; grid-row: 2; margin-top: 12px; grid-template-columns: minmax(max-content, 1.1fr) minmax(max-content, 1.6fr) !important; }
+  /* on the narrowest landscape panes (a window of 1120 to 1260 px) Previous and "Answer sheet" with its key keep to their column */
+  @container yk (max-width: 999.98px) {
+    html.yk-desk [data-yk="MockRun"] > [data-d="paper"] { grid-template-columns: minmax(0, 1fr) minmax(424px, 1fr); column-gap: 30px; }
+    html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="act"] > button { padding: 0 10px !important; font-size: 14px !important; }
+  }
   /* the label and the instruction */
   html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="mondai"] > div { font-size: 13px !important; }
   html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="rubric"] { margin-top: 4px !important; font-size: 15px !important; }
@@ -94,8 +100,8 @@
   html.yk-desk [data-yk="MockRun"] [data-d="pair"] > div > div:first-child { width: 26px !important; height: 26px !important; font-size: 13px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="pair"] > div > div:last-child { font-size: 16px !important; line-height: 1.75 !important; }
   /* the question and its options */
-  html.yk-desk [data-yk="MockRun"] [data-d="ask"] { margin-bottom: 4px; }
-  html.yk-desk [data-yk="MockRun"] [data-d="ask"] > div:last-child { font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] { margin-bottom: 4px; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] > div:last-child { font-size: 17px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] { gap: 8px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] > [data-k="choice"] { min-height: 52px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="flag"] { margin-top: 8px !important; }

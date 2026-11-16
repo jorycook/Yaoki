@@ -27,22 +27,22 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px">
+<div data-d="bar" style="display: flex; align-items: center; gap: 10px; height: 44px; padding: 0 16px">
 <a href="Readiness.dc.html" onClick="{{ toReadiness }}" aria-label="Close drill" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1"></div>
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ badge }}</div>
 </div>
 
-<div style="flex: 1 1 auto; min-height: 120px; overflow-y: auto; padding-bottom: 12px">
-<div style="padding: 6px 16px 0; display: flex; flex-direction: column; gap: 2px">
+<div data-d="body" style="flex: 1 1 auto; min-height: 120px; overflow-y: auto; padding-bottom: 12px">
+<div data-d="head" style="padding: 6px 16px 0; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">{{ kicker }}</div>
 <h1 style="margin: 0; font-size: 20px; font-weight: 800; line-height: 1.35">{{ ask }}</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382">{{ note }}</div>
 </div>
 
-<div style="margin: 12px 16px 0; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 12px">
+<div data-d="player" style="margin: 12px 16px 0; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 12px">
 <div style="display: flex; align-items: center; gap: 14px">
-<button aria-label="Play audio" onClick="{{ playNormal }}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
+<button data-k="play" aria-label="Play audio" onClick="{{ playNormal }}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; padding: 0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 150ms; background: {{ playBg }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="{{ playInk }}" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg></button>
 <div aria-hidden="true" style="flex-grow: 1; height: 40px; display: flex; align-items: center; justify-content: space-between">
 <sc-for list="{{ bars }}" as="b" hint-placeholder-count="22">
 <div style="width: 4px; border-radius: 2px; height: {{ b.h }}; background: {{ b.bg }}"></div>
@@ -56,19 +56,19 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="margin: 12px 16px 0; display: grid; gap: 10px; grid-template-columns: {{ cols }}">
+<div data-d="opts" style="margin: 12px 16px 0; display: grid; gap: 10px; grid-template-columns: {{ cols }}">
 <sc-for list="{{ answers }}" as="a" hint-placeholder-count="3">
-<button disabled="{{ a.off }}" aria-pressed="{{ a.on }}" onClick="{{ a.pick }}" style="min-height: 58px; padding: 6px 12px; border-radius: 16px; display: flex; align-items: center; gap: 8px; border: {{ a.border }}; background: {{ a.bg }}; box-shadow: {{ a.shadow }}; color: {{ a.color }}; font-weight: {{ a.weight }}; font-size: {{ a.size }}; justify-content: {{ a.justify }}; text-align: left">{{ a.n }}<sc-if value="{{ a.printed }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="flex-grow: 1; font-size: 15px">{{ a.label }}</span></sc-if><sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ a.bad }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
+<button data-k="choice" disabled="{{ a.off }}" aria-pressed="{{ a.on }}" onClick="{{ a.pick }}" style="min-height: 58px; padding: 6px 12px; border-radius: 16px; display: flex; align-items: center; gap: 8px; border: {{ a.border }}; background: {{ a.bg }}; box-shadow: {{ a.shadow }}; color: {{ a.color }}; font-weight: {{ a.weight }}; font-size: {{ a.size }}; justify-content: {{ a.justify }}; text-align: left">{{ a.n }}<sc-if value="{{ a.printed }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="flex-grow: 1; font-size: 15px">{{ a.label }}</span></sc-if><sc-if value="{{ a.right }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Correct answer"><circle cx="12" cy="12" r="8.5"/></svg></sc-if><sc-if value="{{ a.bad }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Your answer, wrong"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if></button>
 </sc-for>
 </div>
 <sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
-<div style="margin: 10px 16px 0; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center">まず聞いてください　{{ waitNote }}</div>
+<div data-d="wait" style="margin: 10px 16px 0; font-size: 12px; font-weight: 700; color: #5A6382; text-align: center">まず聞いてください　{{ waitNote }}</div>
 </sc-if>
 
 </div>
 <sc-if value="{{ answered }}" hint-placeholder-val="{{ true }}">
-<div style="flex-shrink: 0; box-sizing: border-box; max-height: 540px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
-<div style="display: flex; align-items: center; gap: 10px">
+<div data-d="side" style="flex-shrink: 0; box-sizing: border-box; max-height: 540px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
+<div data-d="verdict" style="display: flex; align-items: center; gap: 10px">
 <sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
 <div style="flex-grow: 1; font-size: 20px; font-weight: 800">{{ verdictJa }} <span style="font-size: 14px; font-weight: 700">{{ verdictEn }}</span></div>
@@ -76,9 +76,12 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; background: #FFFFFF; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3"/></svg>ノートに保存</div></sc-if>
 </div>
 
-<div style="flex: 0 1 auto; min-height: 60px; overflow-y: auto; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<div data-d="why" style="flex: 0 1 auto; min-height: 60px; overflow-y: auto; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
+<div data-d="script" style="display: contents">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382; order: {{ scriptOrder }}">スクリプト　Script</div>
 <sc-for list="{{ script }}" as="l" hint-placeholder-count="1"><div lang="ja" style="order: {{ scriptOrder }}; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.9">{{ l.t }}</div></sc-for>
+</div>
+<div data-d="replies" style="display: contents">
 <sc-for list="{{ replies }}" as="r" hint-placeholder-count="3">
 <div style="order: 1; display: flex; align-items: flex-start; gap: 8px">
 <sc-if value="{{ r.ok }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 4px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
@@ -87,8 +90,9 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </sc-for>
 </div>
+</div>
 
-<a href="Readiness.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
+<a data-k="go" href="Readiness.dc.html" onClick="{{ toDone }}" style="flex-shrink: 0; height: 54px; border-radius: 16px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center; background: {{ tone }}">つぎへ　Next</a>
 </div>
 </sc-if>
 

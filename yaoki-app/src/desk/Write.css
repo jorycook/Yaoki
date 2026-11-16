@@ -1,0 +1,26 @@
+/* Write, the writing panel (yaoki/project/Write.dc.html, copied to the N1 app by tools/sync-write.sh), on a wide pane: the pad
+   as large as the screen holding it allows (its --pad, from Scene.css: the pad maps the pointer through its box, so any size
+   writes true), the three times, the word's cells, the buttons and the stroke order a little larger, for a mouse or a pen.
+   Scene.css places the parts (the pad on the left, the rest on the right; in the N1 kanji panel, the panel as one column).
+   Hooks: reps, cells, pad, msg, tools, strip; data-k="play" on the stroke order's button. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Scene"] [data-yk-pad] { width: var(--pad, 270px) !important; height: var(--pad, 270px) !important; border-radius: 24px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="reps"] { gap: 8px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="reps"] > div { height: 40px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="cells"] > div { width: 56px !important; height: 56px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="cells"] > div > span[data-yk-ink] { width: 46px !important; height: 46px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="cells"] > div > span[lang] { font-size: 30px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="msg"] { min-height: 40px !important; font-size: 14px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="tools"] { gap: 10px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="tools"] > button { height: 48px !important; font-size: 14px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] { gap: 6px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] > div:first-child { font-size: 12px !important; }
+  /* the stroke order's pictures, 32 px in the phone's strip, larger here */
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] { gap: 6px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] > div { width: 46px !important; height: 46px !important; border-radius: 10px !important; }
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] svg { width: 40px; height: 40px; }
+}
+/* a pane tall enough: the stroke order on as many rows as it needs, rather than scrolling sideways */
+@container ykscene (min-height: 640px) {
+  html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] { width: auto !important; flex-wrap: wrap; }
+}

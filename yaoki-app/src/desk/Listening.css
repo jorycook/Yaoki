@@ -1,0 +1,100 @@
+/* Listening (both apps): the sound on the left, the answer on the right. The question and its note head the screen; under them
+   the player (play, the waveform and the parts of the audio, replay) on the left and the options on the right: the numbers as
+   large tiles, or the printed choices. Once answered, the script of the clip comes under the player in a card of its own (so
+   it can be read while the clip plays again; it scrolls if long), and the verdict, the reason for each choice and Next come
+   under the options in a panel. Before that, the place of the script says what will appear in it. The two columns flow on
+   their own: the script keeps its place under the player, however long the options are. N1's day without listening: its note
+   and Back to today at the top.
+   Hooks: bar, body (Study: the phone's scrolling column, laid open here), head, player, opts, wait, gap (N1), side (the
+   phone's answer sheet, laid open here) > verdict, why (Study) or box > why (N1), laid open > script, replies, reason (N1's
+   bank items): display: contents wrappers on the phone, boxes here; fade (N1); none > note, gap, act (N1). data-k: play on
+   the play button, choice on the answers, go on Next and Back to today. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Listening"] {
+    /* the player's height on a desktop: the script's place starts this far under the player's top */
+    --ls-player: 168px;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
+    /* the right column in rows (the options, the note to listen first or the verdict, the reasons, Next), the left column one
+       area over all of them, so that each column flows on its own */
+    grid-template-rows: auto auto auto auto minmax(0, max-content) minmax(0, max-content) auto minmax(0, 1fr);
+    grid-template-areas: "bar bar" "head head" "left opts" "left verdict" "left replies" "left reason" "left next" "left .";
+    column-gap: 32px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Listening"] [data-d="bar"] { grid-area: bar; padding: 0 !important; margin-bottom: 12px; }
+  html.yk-desk [data-yk="Listening"] > [data-d="body"] { display: contents !important; }
+  html.yk-desk [data-yk="Listening"] > [data-d="gap"] { display: none !important; }
+
+  /* ---------- the question */
+  html.yk-desk [data-yk="Listening"] [data-d="head"] { grid-area: head; padding: 0 !important; margin-bottom: 16px; gap: 3px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="head"] > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="head"] > h1 { font-size: 23px !important; line-height: 1.4 !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="head"] > div:last-child { font-size: 14px !important; }
+
+  /* ---------- the player, at the top of the left column */
+  html.yk-desk [data-yk="Listening"] [data-d="player"] {
+    grid-area: left; align-self: start; position: relative; box-sizing: border-box; min-height: var(--ls-player);
+    margin: 0 !important; padding: 18px 20px !important; gap: 16px !important; justify-content: space-between;
+  }
+  html.yk-desk [data-yk="Listening"] [data-d="player"] [data-k="play"] { width: 64px !important; height: 64px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="player"] [data-k="play"] > svg { width: 26px; height: 26px; }
+  /* before answering, the place of the script says what will appear in it */
+  html.yk-desk [data-yk="Listening"]:not(:has([data-d="side"])) [data-d="player"]::after {
+    content: 'スクリプト　Script\A Once you answer, what is said appears here, to read as you play it again; the verdict and the reason for each choice appear beside it.';
+    white-space: pre-line; position: absolute; top: calc(100% + 16px); left: 0; right: 0;
+    padding: 16px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 13px; font-weight: 700; line-height: 1.6;
+  }
+
+  /* ---------- the options: the numbers as large tiles, or the printed choices */
+  html.yk-desk [data-yk="Listening"] [data-d="opts"] { grid-area: opts; margin: 0 !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="opts"] > [data-k="choice"]:not(:has(> span)) { height: 76px !important; min-height: 76px !important; font-size: 28px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="opts"] > [data-k="choice"]:has(> span) { min-height: 56px !important; padding: 8px 16px !important; gap: 12px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="opts"] > [data-k="choice"] > span[lang] { font-size: 17px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="wait"] { grid-area: verdict; margin: 14px 0 0 !important; font-size: 13px !important; }
+
+  /* ---------- once answered: the phone's sheet is laid open, its parts placed in the two columns */
+  html.yk-desk [data-yk="Listening"] [data-d="side"],
+  html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="box"],
+  html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="why"] { display: contents !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="fade"] { display: none !important; }
+
+  /* the script, under the player: a card of its own, scrolling if long */
+  html.yk-desk [data-yk="Listening"] [data-d="script"] {
+    grid-area: left; align-self: start; display: flex !important; flex-direction: column; gap: 8px; box-sizing: border-box; min-height: 0;
+    margin-top: calc(var(--ls-player) + 16px); max-height: calc(100% - var(--ls-player) - 16px); overflow-y: auto;
+    padding: 16px 20px 18px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; animation: yk-ls-in 240ms ease-out;
+  }
+  html.yk-desk [data-yk="Listening"] [data-d="script"] > div { margin-top: 0 !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="script"] div[lang="ja"][style*="font-size: 16px"] { font-size: 18px !important; line-height: 1.85 !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="script"] div[lang="ja"][style*="font-size: 14px"] { font-size: 16px !important; line-height: 1.75 !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="script"] > div > div[lang="ja"]:first-child { margin-top: 4px !important; }
+
+  /* the panel under the options: the verdict, the reasons (each a white card in it) and Next. The panel itself is drawn
+     behind them, in the rows they take, in the sheet's colours */
+  html.yk-desk [data-yk="Listening"]:has([data-d="side"])::before {
+    content: ''; grid-area: 4 / 2 / 8 / 3; margin-top: 16px; border-radius: 20px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440;
+    background: #E0F3EF; animation: yk-ls-in 240ms ease-out;
+  }
+  html.yk-desk [data-yk="Listening"]:has([data-d="verdict"] svg[stroke="#C7361E"])::before { background: #FDEBE6; }
+  html.yk-desk [data-yk="Listening"] [data-d="verdict"] { grid-area: verdict; margin: 32px 20px 0; animation: yk-ls-in 240ms ease-out; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"]) {
+    display: flex !important; flex-direction: column; gap: 8px; box-sizing: border-box; min-height: 0; overflow-y: auto;
+    margin: 12px 20px 0; padding: 12px 16px 14px; border-radius: 16px; background: #FFFFFF; animation: yk-ls-in 240ms ease-out;
+  }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="replies"] { grid-area: replies; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="reason"] { grid-area: reason; margin-top: 10px; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"]) > div { margin-top: 0 !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"]) div[style*="font-size: 13px"] { font-size: 14px !important; }
+  /* the replies of a quick response (and the Study app's choices) come without a heading of their own on the phone: the
+     script's heads the sheet there */
+  html.yk-desk [data-yk="Listening"] [data-d="script"] + [data-d="replies"]::before { content: '解説　Why each choice'; font-size: 12px; font-weight: 800; color: #5A6382; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { grid-area: next; margin: 16px 20px 20px; animation: yk-ls-in 240ms ease-out; }
+
+  /* ---------- N1, a day without listening: the note and Back to today at the top */
+  html.yk-desk [data-yk="Listening"] > [data-d="none"] { grid-area: 2 / 1 / 4 / -1; flex-grow: 0 !important; padding: 0 !important; align-items: flex-start; }
+  html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="note"] { margin-top: 0 !important; width: min(100%, 560px); box-sizing: border-box; }
+  html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="act"] { margin-top: 16px; min-width: 260px; padding: 0 28px; box-sizing: border-box; }
+}
+@keyframes yk-ls-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

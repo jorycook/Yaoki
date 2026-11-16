@@ -116,6 +116,11 @@
   .site-bar, .site-wrap { min-height: 48px; }
   .site-nav, .site-ja { display: none; }
 }
+/* on a desktop the header spans the window, as the pages under it do: the apps' and the reader's sidebars start at the window's
+   edge, so the brand lines up with them rather than with a centred column (the footer keeps each page's own width) */
+@media (min-width: 1000px) {
+  .site-bar .site-wrap { max-width: none; padding: 0 28px; }
+}
 /* a typing round, and the reader's reading view: the page is the game or the text, the chrome steps aside */
 body.playing :is(.site-bar, .site-foot), body.reading .site-bar { display: none; }
 @media (prefers-reduced-motion: reduce) {

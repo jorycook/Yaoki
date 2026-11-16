@@ -29,7 +29,7 @@ img { max-width: 100%; }
    views of that column; the reader text scrolls inside it and the reveal card floats just above the finger.
    Look: Yaoki stamp-card stationery. The tokens, buttons, pills, tags, switches, the header and the footer come
    from ../site/site.css; what is here is the reader's own, plus the few local overrides it needs on the shared pieces. */
-/* the site's header and footer line up with the reader's column (a desktop window keeps the site's own width, see the end) */
+/* the site's header and footer line up with the reader's column (on a desktop window the header spans it, from site.css; see the end) */
 @media not all and (min-width: 1000px) { :root { --site-max: 640px; } }
 :root {
   /* Japanese text is set in a print (明朝) face by default, the forms used in books and documents.
@@ -58,7 +58,7 @@ button { cursor: pointer; }
 .tc-top .tag, .bar .pill { flex-shrink: 0; }
 /* the desktop's own pieces (laid out at the end of this sheet). On a phone the wrappers have no box, so what they hold is laid out
    exactly as before, and the rest is not drawn. */
-.lib-go, .add-aside, .read-side, .lens-slot { display: contents; }
+.lib-go, .add-aside, .read-side, .lens-slot, .work-err { display: contents; }
 .lib-h, .desk-home, .lens-rest, .side-looked { display: none; }
 
 /* library */
@@ -179,25 +179,28 @@ body.no-gram .lg { display: none; }
 /* ---------- the desktop: a landscape reading app ----------
    From a window 1000 px wide the page is laid out for a monitor that is wider than it is tall. The library is a sidebar on the left,
    as the Study app's navigation is: Add a text and the two libraries at its top (they stay in view), the texts under them (the one
-   being read is marked), then the backups, the credits and the site's footer. What it opens fills the pane beside it, at most
-   1240 px wide: with no text open, a page on how the reader works; a text on a paper at a book's measure, with a panel beside it
-   where the lens is pinned (at rest a dashed note says what will appear there) and the looked-up list under it; the add form with
-   its note beside it; Aozora Bunko and the Yaoki Library with the search, or the work's summary and its Add all, on the left and the
-   works or the parts in a column of their own that scrolls. Under 1200 px the sidebar steps aside while a text is read. The hint
-   settings and the credits are dialogs in the middle of the window, and the site's header stays. The script follows the same rule
-   (DESK): it keeps the sidebar shown, pins the lens and fills the looked-up list. Under 1000 px nothing here applies: the page is
-   the phone's single column, exactly as before. */
+   being read is marked), then the backups, the credits and the site's footer. What it opens fills the pane beside it, its content
+   at most 1232 px wide (more on a big monitor, from 1600 px, where the text is set larger too): with no text open, a page on how
+   the reader works; a text on a paper at a book's measure, with a panel beside it where the lens is pinned (at rest a dashed note
+   says what will appear there) and the looked-up list under it; the add form with its note beside it; Aozora Bunko and the Yaoki
+   Library with the search, or the work's summary and its Add all, on the left and the works or the parts in a column of their own
+   that scrolls. Under 1200 px the sidebar steps aside while a text is read. The hint settings and the credits are dialogs in the
+   middle of the window, a note (the toast) shows at the bottom left, clear of the lists, and the site's header stays: it spans the
+   window with a 28 px gutter (site.css), which the sidebar and the pane keep too, so their edges line up with it. The script
+   follows the same rule (DESK): it keeps the sidebar shown, pins the lens, fills the looked-up list and puts the focus in a text
+   it opens. Under 1000 px nothing here applies: the page is the phone's single column, exactly as before. */
 @media (min-width: 1000px) {
-  :root { --lib-w: clamp(280px, 22vw, 320px); --side-w: clamp(300px, 24vw, 380px); --sum-w: clamp(280px, 25vw, 340px); --measure: calc(40 * (var(--read) + 2px)); }
+  :root { --pad: 28px; --pane-max: 1288px; --lib-w: clamp(288px, 22vw, 328px); --side-w: clamp(300px, 24vw, 380px); --sum-w: clamp(260px, 25vw, 340px); --read-up: 2px; --measure: calc(40 * (var(--read) + var(--read-up))); }
   body.reading .site-bar { display: block; }
   #app { max-width: none; display: grid; grid-template-columns: var(--lib-w) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
-  #app > .view, #app > .desk-home { grid-area: 1 / 2; min-width: 0; width: 100%; max-width: 1288px; justify-self: center; box-sizing: border-box; }
+  #app > .view { grid-area: 1 / 2; min-width: 0; width: 100%; max-width: var(--pane-max); justify-self: center; box-sizing: border-box; }
   #app .btn { width: auto; }
+  #app .scroll, .side-looked, :is(#aoz-results, #ykl-works, .parts), .sheet { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
 
   /* the sidebar: the library */
   #app > #v-lib { grid-area: 1 / 1; max-width: none; border-right: 2px solid var(--line); }
-  #v-lib > .bar { padding: 4px 16px 0 20px; }
-  #v-lib > .scroll { padding: 0 16px 0 20px; gap: 10px; }
+  #v-lib > .bar { padding: 4px 16px 0 var(--pad); }
+  #v-lib > .scroll { padding: 0 16px 0 var(--pad); gap: 10px; }
   #v-lib > .scroll > .hint:first-child { display: none; }   /* the pane says it, beside the sidebar */
   body[data-view="read"] #open-hints-a { visibility: hidden; }   /* the text's own bar has it, next to the panel it acts on */
   .lib-go { position: sticky; top: 0; z-index: 2; display: flex; flex-direction: column; gap: 4px; padding: 6px 0 12px; background: var(--ground); border-bottom: 2px solid var(--line); }
@@ -215,9 +218,12 @@ body.no-gram .lg { display: none; }
   .lib-h small { font-size: 12px; font-weight: 700; color: var(--muted); }
   #texts { gap: 8px; }
   #texts li { gap: 2px; }
+  #texts .text-card { scroll-margin: 190px 0 12px; }   /* scrolled into view clear of the actions that stay at the sidebar's top */
   #texts .text-card { padding: 9px 12px 10px; border-radius: 14px; box-shadow: 0 2px 0 var(--hard); gap: 2px; }
   #texts .text-card:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--hard); }
-  #texts .tc-title { font-size: 16px; white-space: normal; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
+  /* a title takes up to two lines, broken at its spaces, never inside a word (目川日記 N5-3 / 大山だるま); a title with no space
+     where it must break breaks where it runs out of room */
+  #texts .tc-title { font-size: 16px; white-space: normal; word-break: keep-all; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
   #texts .tc-prev, #texts .tc-by { font-size: 12px; }
   #texts .tc-meta { font-size: 11px; }
   #texts .text-card[aria-current="true"] { background: var(--accent-soft); border-color: var(--accent-ink); box-shadow: 0 2px 0 var(--accent-ink); }
@@ -226,12 +232,14 @@ body.no-gram .lg { display: none; }
   #texts .confirm { padding: 10px 12px; border-radius: 14px; gap: 8px; font-size: 13px; }
   #texts .confirm span { flex-basis: 100%; }
   #lib-state { font-size: 12px; }
-  #v-lib .scroll > .site-foot { margin: auto -16px 0 -20px; padding: 14px 0 16px; font-size: 11px; }
-  #v-lib .site-foot .site-wrap { padding: 0 16px 0 20px; }
+  #v-lib .backup .mini { padding: 0 9px; }
+  #v-lib .scroll > .site-foot { margin: auto -16px 0 calc(-1 * var(--pad)); padding: 14px 0 16px; font-size: 11px; }
+  #v-lib .site-foot .site-wrap { padding: 0 16px 0 var(--pad); }
   #v-lib .site-legal { max-width: none; }
 
-  /* the pane while no text is open */
-  body[data-view="lib"] .desk-home { display: flex; flex-direction: column; gap: 10px; align-self: center; max-width: 960px; margin: 24px 0; padding: 30px 34px 34px; border-radius: 26px; border: 2px dashed var(--line-strong); }
+  /* the pane while no text is open: a panel in its middle, with the views' gutters at least */
+  #app > .desk-home { grid-area: 1 / 2; align-self: center; justify-self: center; box-sizing: border-box; width: calc(100% - 2 * var(--pad)); max-width: 960px; margin: 24px var(--pad); }
+  body[data-view="lib"] #app > .desk-home { display: flex; flex-direction: column; gap: 10px; padding: 30px 34px 34px; border-radius: 26px; border: 2px dashed var(--line-strong); }
   #home-h { margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3; text-wrap: balance; }
   .home-lede { margin: 0; max-width: 62ch; font-size: 15px; font-weight: 700; color: var(--muted); }
   .home-how { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; counter-reset: how; }
@@ -242,17 +250,17 @@ body.no-gram .lg { display: none; }
   .home-how p { margin: 6px 0 0; font-size: 13px; font-weight: 500; line-height: 1.55; }
 
   /* the views in the pane */
-  #app > .view:not(#v-lib) > .bar { min-height: 64px; padding-inline: 24px; }
-  #app > .view:not(#v-lib) > .scroll { padding: 4px 24px 24px; }
+  #app > .view:not(#v-lib) > .bar { min-height: 64px; padding-inline: var(--pad); }
+  #app > .view:not(#v-lib) > .scroll { padding: 4px var(--pad) 24px; }
   #v-add .brand, #v-aoz .brand, #v-ykl .brand { font-size: 20px !important; }
   .bar-title { font-size: 20px; }
 
   /* reading: the text on a paper, the panel beside it */
-  #v-read { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); grid-template-rows: auto minmax(0, 1fr); column-gap: 24px; padding: 0 24px 22px; }
-  #app > #v-read > .bar { grid-column: 1 / -1; padding-inline: 0; }
-  #v-read > #read-scroll { grid-area: 2 / 1; padding: 20px 40px 36px; border-radius: 20px; border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow); }
+  #v-read { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); grid-template-rows: auto minmax(0, 1fr); column-gap: 24px; padding: 0 var(--pad) 22px; }
+  #app > .view#v-read > .bar { grid-column: 1 / -1; padding-inline: 0; }   /* flush: its ヒント ends where the panel and the header do */
+  #v-read > #read-scroll { grid-area: 2 / 1; align-self: start; max-height: 100%; box-sizing: border-box; padding: 20px 40px 36px; border-radius: 20px; border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow); }
   #read-scroll > * { width: 100%; max-width: var(--measure); margin-inline: auto; box-sizing: border-box; }
-  #passage { font-size: calc(var(--read) + 2px); }
+  #passage { font-size: calc(var(--read) + var(--read-up)); }
   @media (hover: hover) { .ph:not(.seen):not(.on):hover { border-bottom-color: var(--line-strong); } }
   .read-side { grid-area: 2 / 2; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
   .lens-slot { display: grid; flex-shrink: 0; min-height: 176px; }
@@ -265,19 +273,24 @@ body.no-gram .lg { display: none; }
   .lj { font-size: 30px; line-height: 54px; }
   .lj .rt { font-size: 13px; margin-bottom: -4px; }
   .le { min-height: 17px; max-width: 220px; font-size: 13px; line-height: 17px; }
-  .lg, .ln { padding: 7px 12px; border-radius: 12px; }
-  .lg span { font-size: 17px; }
+  /* a note in the panel, narrower than a phone's floating card: its tag, then the pattern, with what it means on a line of its own
+     under it (a long pattern such as 〜に〜があります／います would leave the meaning a column one word wide). No id in these
+     selectors: the hint settings' body.no-gram and body.no-mean must still hide them. */
+  .lg, .ln { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; column-gap: 10px; row-gap: 2px; padding: 7px 12px 8px; border-radius: 12px; }
+  .lg em { grid-column: 2; }
+  .lg span { font-size: 17px; word-break: keep-all; overflow-wrap: anywhere; }   /* 〜ている / （している最中） */
   .lg em, .ln em { font-size: 13px; line-height: 18px; }
   .read-side .foot { padding: 0 2px; border-top: 0; }
   .read-side .foot-label { font-size: 14px; }
   #open-list { display: none; }
   .side-looked { display: flex; flex-direction: column; flex: 1; min-height: 0; margin-top: -6px; overflow-y: auto; border-top: 2px solid var(--line); }
   #looked-side .w { font-size: 19px; }
-  .side-looked .empty { margin-top: 12px; }
+  .side-looked .empty { padding: 12px 2px; border: 0; }
   #clear-side { align-self: flex-start; }
 
   /* adding a text: the form, its note beside it */
-  #add-form { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); grid-template-rows: auto minmax(200px, 1fr) repeat(3, auto); column-gap: 24px; row-gap: 14px; }
+  /* the text box fills a laptop's pane, and stops at 560 px on a big monitor, so Read it stays right under it */
+  #add-form { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); grid-template-rows: auto minmax(200px, 560px) repeat(3, auto); align-content: start; column-gap: 24px; row-gap: 14px; }
   #add-form > * { grid-column: 1; }
   #add-form .f-text { min-height: 0; }
   #add-form textarea { flex: 1; min-height: 0; resize: none; font-size: 18px; }
@@ -290,18 +303,22 @@ body.no-gram .lg { display: none; }
   :is(#aoz-find, #aoz-work, #ykl-list, #ykl-work):not([hidden]) { display: grid !important; flex: 1 1 0; min-height: 0; overflow-y: auto; grid-template-columns: var(--sum-w) minmax(0, 1fr); grid-template-rows: repeat(10, auto) minmax(0, 1fr); column-gap: 28px; row-gap: 12px; }
   :is(#aoz-find, #aoz-work, #ykl-list, #ykl-work) > * { grid-column: 1; min-width: 0; }
   :is(#aoz-results, #ykl-works, #aoz-work > .parts, #ykl-work > .parts) { grid-column: 2; grid-row: 1 / -1; min-height: 0; overflow-y: auto; }
-  #aoz-results, #ykl-works { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); align-content: start; gap: 12px; padding: 2px 6px 10px 2px; }
+  #aoz-results, #ykl-works { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); align-content: start; gap: 12px; padding: 2px 6px 10px 2px; }
   :is(#aoz-results, #ykl-works) li { align-items: stretch; }
   #aoz-results > .li-h { grid-column: 1 / -1; }
   #aoz-results .sub-h { margin: 0; }
-  #ykl-works { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-  :is(#aoz-results, #ykl-works) .tc-title { white-space: normal; }
+  #ykl-works { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  :is(#aoz-results, #ykl-works) .tc-title { white-space: normal; word-break: keep-all; overflow-wrap: anywhere; }   /* 岡本一平著並画 / 『探訪画趣』序 */
   .parts { padding-right: 6px; border-top: 2px solid var(--line); }
   .parts li { padding: 12px 2px; }
   .parts .ps { font-size: 15px; }
   .parts .mini { min-width: 88px; }
-  .work-h { font-size: 26px; }
+  .work-h { font-size: clamp(22px, 1.9vw, 28px); word-break: keep-all; overflow-wrap: anywhere; }
   .add-all { width: 100%; }
+  /* a work that could not be fetched: what happened and what to do, where its parts would be */
+  :is(#aoz-work, #ykl-work) > :is(.work-err, .problem) { grid-column: 2; grid-row: 1 / -1; align-self: start; }
+  .work-err { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .work-err .btn { min-width: 240px; }
 
   /* the sheets are dialogs in the middle of the window */
   .sheet { top: 50%; bottom: auto; transform: translate(-50%, -50%); width: min(560px, calc(100% - 48px)); max-height: calc(100% - 48px); padding: 24px 28px 26px; border-radius: 26px; border: 2px solid var(--outline); box-shadow: 0 8px 0 var(--hard); gap: 12px; }
@@ -318,13 +335,26 @@ body.no-gram .lg { display: none; }
   #sheet-credits { width: min(900px, calc(100% - 48px)); }
   .credits { columns: 2 300px; column-gap: 32px; font-size: 13px; }
   .credits p { break-inside: avoid; }
-  #toast { bottom: 28px; }
+  /* a note shows at the bottom left, as a desktop's do: over the foot of the sidebar and the summary column, never over the works or
+     the parts a note is often about (Add all), so it is never wider than those two columns */
+  #toast { left: var(--pad); bottom: 20px; transform: none; max-width: calc(var(--lib-w) + var(--sum-w)); box-sizing: border-box; }
 }
-/* a narrower desktop: the text and its panel take the whole window while a text is read */
+/* a narrower desktop: the text and its panel take the whole window while a text is read, and the Yaoki Library's short intro sits
+   over its works, which then have the pane's width for two columns */
 @media (min-width: 1000px) and (max-width: 1199.98px) {
   body[data-view="read"] #app { grid-template-columns: minmax(0, 1fr); }
   body[data-view="read"] #v-lib { display: none; }
   body[data-view="read"] #app > #v-read { grid-column: 1; }
+  #ykl-list:not([hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
+  #ykl-list > #ykl-works { grid-column: 1; grid-row: auto; }
+  #ykl-list > .hint { max-width: 74ch; }
+}
+/* a big monitor: the pane grows, and so do the text and the panel beside it (the measure stays at 40 characters or fewer) */
+@media (min-width: 1600px) {
+  :root { --pane-max: 1440px; --side-w: clamp(380px, 22vw, 440px); --read-up: 4px; }
+}
+@media (min-width: 2200px) {
+  :root { --pane-max: 1600px; --read-up: 6px; }
 }
 </style>
 </head>
@@ -443,13 +473,15 @@ body.no-gram .lg { display: none; }
       <div class="bar-title" id="read-title" lang="ja"></div>
       <button class="pill" id="open-hints-b" type="button" aria-label="Hint settings"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.6"/><circle cx="8" cy="17" r="2.6"/></svg><span lang="ja">ヒント</span></button>
     </header>
-    <div class="scroll" id="read-scroll">
+    <!-- a desktop gives this the focus when a text opens (tabindex -1: never a Tab stop of its own), so the next Tab is the first
+         phrase and Space or Page Down scroll the text -->
+    <div class="scroll" id="read-scroll" tabindex="-1" role="region" aria-labelledby="read-title">
       <div class="notebox revised" id="read-update" role="status" hidden><span id="read-update-msg"></span><button class="mini" id="read-update-go" type="button">Update</button></div>
       <div id="passage" lang="ja"></div>
     </div>
     <!-- On a phone this has no box: the lens floats over the text (it is fixed) and the footer closes the column. On a desktop it is
          the panel beside the text: the lens pinned at its top, the looked-up list under it. -->
-    <aside class="read-side" aria-label="Reading and meaning">
+    <div class="read-side">
       <div class="lens-slot">
         <div id="lens" hidden aria-live="polite"></div>
         <div class="lens-rest"><b><span lang="ja">読みと意味</span>　Reading and meaning</b><span>Hold a phrase in the text: its reading, the meaning of each word and any grammar pattern show here. Let go and they hide again.</span></div>
@@ -464,7 +496,7 @@ body.no-gram .lg { display: none; }
         <div class="empty" id="looked-side-empty">Nothing yet. The main word of each phrase you hold is listed here, the latest first.</div>
         <button class="linklike" type="button" id="clear-side">Clear this list</button>
       </div>
-    </aside>
+    </div>
   </section>
 
 </div>
@@ -750,11 +782,13 @@ function show(view) {
   document.body.classList.toggle('reading', view === 'read');
   document.body.setAttribute('data-view', view);
   if (DESK.matches) {
-    /* the sidebar marks where the pane is */
+    /* the sidebar marks where the pane is, and keeps the open text's card in view */
     [['go-add', 'add'], ['go-aoz', 'aoz'], ['go-ykl', 'ykl']].forEach(function (p) {
       if (p[1] === view) $(p[0]).setAttribute('aria-current', 'page'); else $(p[0]).removeAttribute('aria-current');
     });
     renderLibrary();
+    var open = view === 'read' && document.querySelector('#texts [aria-current="true"]');
+    if (open && open.scrollIntoView) open.scrollIntoView({ block: 'nearest' });
   }
   release();
 }
@@ -789,6 +823,7 @@ function renderLibrary() {
       li.appendChild(box);
     } else {
       var card = el('button', 'text-card'); card.type = 'button';
+      card.title = t.title;   /* the whole title, where a card shortens it */
       var top = el('span', 'tc-top');
       var title = el('span', 'tc-title', t.title); title.lang = 'ja';
       top.appendChild(title);
@@ -1071,12 +1106,15 @@ function openWork(w, info) {
   }).catch(function (err) {
     if (seq !== Z.seq) return;
     status.remove();
-    if (!w) { box.appendChild(el('div', 'problem', 'That file could not be read (' + ((err && err.message) || 'unknown error') + ').')); return; }
-    box.appendChild(el('div', 'problem', err && err.missing
+    /* what happened and what to do, together (a desktop shows them where the parts would be; a phone lays them out as before) */
+    var fail = el('div', 'work-err');
+    box.appendChild(fail);
+    if (!w) { fail.appendChild(el('div', 'problem', 'That file could not be read (' + ((err && err.message) || 'unknown error') + ').')); return; }
+    fail.appendChild(el('div', 'problem', err && err.missing
       ? 'This work could not be fetched here: it was added to Aozora Bunko, or corrected, after the copy this page reads from was made.'
       : 'The text could not be fetched (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.'));
     var p = el('p', 'hint', 'You can still add it from Aozora Bunko’s own file:'); p.style.margin = '0';
-    box.appendChild(p);
+    fail.appendChild(p);
     var ol = el('ol', 'steps');
     var s1 = el('li'), dl = el('a', 'linklike', 'Download the work’s zip file'); dl.href = AZ.zipUrl(w); dl.target = '_blank'; dl.rel = 'noopener';
     s1.appendChild(dl); s1.appendChild(document.createTextNode(' from Aozora Bunko.'));
@@ -1084,11 +1122,11 @@ function openWork(w, info) {
     ld.addEventListener('click', pickAozoraFile);
     s2.appendChild(ld); s2.appendChild(document.createTextNode('. It is read on your device; you do not need to unzip it.'));
     ol.appendChild(s1); ol.appendChild(s2);
-    box.appendChild(ol);
+    fail.appendChild(ol);
     if (!err || !err.missing) {
       var again = el('button', 'btn quiet', 'Try again'); again.type = 'button';
       again.addEventListener('click', function () { openWork(w); });
-      box.appendChild(again);
+      fail.appendChild(again);
     }
   });
 }
@@ -1172,7 +1210,9 @@ function renderParts(box) {
     var parts = function (k) { return k + (k === 1 ? ' part' : ' parts'); };
     updateParts(upd).then(function (ok) { return ok ? addParts(add) : false; }).then(function (ok) {
       if (!ok) return;
-      show('lib'); renderLibrary();
+      /* a phone goes to the library to show them; a desktop shows the library beside the work, whose parts now say Read */
+      if (!DESK.matches) show('lib');
+      renderLibrary();
       toast(!upd.length ? 'Added ' + parts(add.length) + ' of ' + title + '. Each one is prepared when you first open it.'
         : !add.length ? 'Updated ' + parts(upd.length) + ' of ' + title + ' to the new text. ' + (upd.length === 1 ? 'Its looked-up list starts' : 'Their looked-up lists start') + ' over.'
         : 'Added ' + parts(add.length) + ' and updated ' + parts(upd.length) + ' of ' + title + '. The updated ones start their looked-up lists over.');
@@ -1373,10 +1413,12 @@ function openYaokiWork(w) {
   }).catch(function (err) {
     if (seq !== Z.seq) return;
     status.remove();
-    box.appendChild(el('div', 'problem', 'The text could not be fetched (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.'));
+    var fail = el('div', 'work-err');
+    fail.appendChild(el('div', 'problem', 'The text could not be fetched (' + ((err && err.message) || 'unknown error') + '). Check your connection and try again.'));
     var again = el('button', 'btn quiet', 'Try again'); again.type = 'button';
     again.addEventListener('click', function () { openYaokiWork(w); });
-    box.appendChild(again);
+    fail.appendChild(again);
+    box.appendChild(fail);
   });
 }
 
@@ -1394,6 +1436,9 @@ function openReader(t, an) {
   box.textContent = '';
   show('read');
   $('read-scroll').scrollTop = 0;
+  /* a desktop puts the focus in the text: the sidebar's cards were drawn again (show), so a card opened with the keyboard is gone,
+     and the next Tab would have walked the rest of the sidebar before reaching the first phrase */
+  if (DESK.matches) $('read-scroll').focus({ preventScroll: true });
   updateCount();
   var got = an ? Promise.resolve(an) : t.sample ? Promise.resolve(SAMPLE_AN) : AN.get(t.id);
   got.then(function (a) {

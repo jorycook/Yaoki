@@ -20,7 +20,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <div data-yk-write="1" ref="{{ rootRef }}" style="box-sizing: border-box; width: 100%; max-width: 358px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict">
 
 <sc-if value="{{ isKanji }}" hint-placeholder-val="{{ true }}">
-<div role="list" aria-label="Write it three times" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; flex-shrink: 0">
+<div data-d="reps" role="list" aria-label="Write it three times" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; flex-shrink: 0">
 <sc-for list="{{ reps }}" as="r" hint-placeholder-count="3">
 <div role="listitem" aria-label="{{ r.aria }}" aria-current="{{ r.cur }}" style="height: 34px; min-width: 0; box-sizing: border-box; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; white-space: nowrap; border: {{ r.border }}; background: {{ r.bg }}; color: {{ r.color }}; font-weight: {{ r.weight }}"><span aria-hidden="true" style="width: 17px; height: 17px; box-sizing: border-box; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; border: {{ r.dotBorder }}; background: {{ r.dotBg }}; color: {{ r.dotColor }}">{{ r.mark }}</span><span lang="ja">{{ r.ja }}</span></div>
 </sc-for>
@@ -28,7 +28,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 </sc-if>
 
 <sc-if value="{{ isWord }}" hint-placeholder-val="{{ false }}">
-<div role="list" aria-label="{{ cellsAria }}" style="display: flex; flex-wrap: wrap; justify-content: center; flex-shrink: 0; gap: {{ cellGap }}">
+<div data-d="cells" role="list" aria-label="{{ cellsAria }}" style="display: flex; flex-wrap: wrap; justify-content: center; flex-shrink: 0; gap: {{ cellGap }}">
 <sc-for list="{{ cells }}" as="x" hint-placeholder-count="2">
 <div role="listitem" aria-label="{{ x.aria }}" style="position: relative; box-sizing: border-box; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: {{ cellPx }}; height: {{ cellPx }}; border: {{ x.border }}; background: {{ x.bg }}; box-shadow: {{ x.shadow }}">
 <sc-if value="{{ x.ink }}" hint-placeholder-val="{{ false }}"><span data-yk-ink="{{ x.c }}" aria-hidden="true" style="display: block; width: {{ inkPx }}; height: {{ inkPx }}"></span></sc-if>
@@ -38,20 +38,20 @@ button{font:inherit;color:inherit;cursor:pointer}
 </div>
 </sc-if>
 
-<div style="display: flex; justify-content: center; flex-shrink: 0">
+<div data-d="pad" style="display: flex; justify-content: center; flex-shrink: 0">
 <div ref="{{ padRef }}" data-yk-pad="1" style="position: relative; box-sizing: border-box; border-radius: 22px; background: #FFFFFF; border: 2px solid #1B2440; overflow: hidden; touch-action: none; -webkit-user-select: none; user-select: none; width: {{ padPx }}; height: {{ padPx }}; box-shadow: {{ padShadow }}; animation: {{ padAnim }}"></div>
 </div>
 
-<div aria-live="polite" style="min-height: 36px; padding: 0 4px; font-size: 13px; font-weight: 700; line-height: 1.4; text-align: center; flex-shrink: 0; color: {{ msgColor }}">{{ msg }}</div>
+<div data-d="msg" aria-live="polite" style="min-height: 36px; padding: 0 4px; font-size: 13px; font-weight: 700; line-height: 1.4; text-align: center; flex-shrink: 0; color: {{ msgColor }}">{{ msg }}</div>
 
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex-shrink: 0">
-<button onClick="{{ play }}" aria-pressed="{{ playing }}" aria-label="Play the stroke order" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; border: 2px solid #1B2440; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; background: {{ playBg }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1B2440" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span lang="ja">書き順</span></button>
+<div data-d="tools" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex-shrink: 0">
+<button data-k="play" onClick="{{ play }}" aria-pressed="{{ playing }}" aria-label="Play the stroke order" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; border: 2px solid #1B2440; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; background: {{ playBg }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1B2440" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span lang="ja">書き順</span></button>
 <button onClick="{{ hint }}" aria-disabled="{{ noHint }}" aria-label="Show the next stroke" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ hintBorder }}; background: #FFFFFF; color: {{ hintColor }}; cursor: {{ hintCursor }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg><span lang="ja">ヒント</span></button>
 <button onClick="{{ again }}" aria-disabled="{{ noAgain }}" aria-label="Start this one again" style="height: 44px; min-width: 0; padding: 0 6px; border-radius: 12px; background: #FFFFFF; font-size: 13px; font-weight: 800; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ againBorder }}; color: {{ againColor }}; cursor: {{ againCursor }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg><span lang="ja">もう一度</span></button>
 </div>
 
 <sc-if value="{{ showStrip }}" hint-placeholder-val="{{ true }}">
-<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
+<div data-d="strip" style="flex-shrink: 0; display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 11px; font-weight: 800; color: #5A6382"><span lang="ja">書き順</span>　Stroke order · {{ strokeCount }}{{ stripNote }}</div>
 <div role="img" aria-label="{{ stripAria }}" style="overflow-x: auto; overflow-y: hidden; padding-bottom: 2px; visibility: {{ stripVis }}">
 <div data-yk-strip="{{ stripChar }}" style="display: flex; gap: 4px; width: max-content; min-height: 36px"></div>

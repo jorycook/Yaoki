@@ -128,13 +128,21 @@
     html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:nth-child(n+3) { font-size: 14px !important; line-height: 20px !important; }
     html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 56px !important; font-size: 18px !important; }
   }
-  /* the narrowest landscape panes (after the tall ones, so a narrow tall window keeps these): a little less padding, so the day
-     labels keep six characters a line beside a wide card */
-  @container yk (max-width: 999.98px) {
+  /* the narrower landscape panes, up to 1100 px (after the tall ones, so a narrow tall window keeps these): a little less padding
+     and a smaller label, so the day labels keep six to eight characters a line beside a wide card */
+  @container yk (max-width: 1099.98px) {
     html.yk-desk [data-yk="Main"] { padding: 18px 20px 20px !important; }
     html.yk-desk [data-yk="Main"] > [data-d="route"] { padding: 16px 8px; }
     html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] { padding: 12px 4px 0; }
     html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(2) { font-size: 14px !important; line-height: 20px !important; }
     html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] { min-width: 250px; }
+  }
+  /* a window shorter than a laptop's (under 640 px): the bands a little tighter, so the day's card still fits without scrolling */
+  @media (max-height: 640px) {
+    html.yk-desk [data-yk="Main"] { padding-top: 14px !important; padding-bottom: 14px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="week"] { margin-top: 10px !important; padding-top: 12px !important; padding-bottom: 12px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="late"] { margin-top: 10px !important; height: 34px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="late"] > button { height: 34px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] { margin-top: 12px; padding-top: 12px; padding-bottom: 12px; }
   }
 }

@@ -5,6 +5,8 @@
 
 /* the keyboard: what has the focus shows on a desktop (the phone's design draws no focus ring) */
 html.yk-desk #yk-stage :focus-visible { outline: 3px solid #2F4FD0; outline-offset: 2px; }
+/* a dialog given the focus as it opens (yk-app.js) is announced, not outlined: the ring belongs to the controls inside it */
+html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visible { outline: none; }
 
 @container yk (min-width: 880px) {
   /* a screen sits in the middle of a wide pane, at most 1240 px wide */

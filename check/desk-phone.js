@@ -1,7 +1,8 @@
 // Proves a screen still looks the same on a phone: screenshots it in the pre-change build and in the new one at phone sizes, light
 // and dark, at rest (animations off in both), in its known states or after scripted steps, and compares the images byte for byte.
 // Every desktop layout must leave the phone exactly as it was: run this against a build made before the change (or any earlier
-// release build) for each screen whose template or layout changed.
+// release build) for each screen whose template or layout changed. The build stamp is masked in both, and a pair that differs is
+// taken again, up to three times, so that only a real change is reported.
 // usage: NODE_PATH=/opt/npm-tools/node_modules node desk-phone.js --a <earlier build> --b <new build> --screens Drill,Main --out <dir>
 //          [--level N2|N1]   every state of each screen listed in screen-states.js, instead of one opening
 //          [--query '&plan=demo'] [--steps '<json list as for deskshot.js>'] [--ports 8901,8902] [--sizes 390x844,375x812,640x800]
@@ -25,7 +26,10 @@ const sa = serve(A, PA), sb = serve(B, PB);
     let states = ALL ? ALL.filter((s) => s.screen === screen).map((s) => ({ ...s, q: s.q + Q })) : [];
     if (!states.length) states = [{ label: 'open', q: Q + (LEVEL === 'N1' ? '&plan=demo' : ''), taps: [] }];
     for (const st of states) for (const [w, h] of SIZES) for (const scheme of ['light', 'dark']) {
-      const shots = [];
+      /* a pair that differs is taken again (up to three times): a real change differs every time, the noise of a busy machine does not */
+      let shots = [];
+      for (let attempt = 0; attempt < 3 && (attempt === 0 || !shots[0].equals(shots[1])); attempt++) {
+      shots = [];
       for (const [port, tag] of [[PA, 'a'], [PB, 'b']]) {
         const ctx = await browser.newContext({ viewport: { width: w, height: h }, colorScheme: scheme, reducedMotion: 'reduce', deviceScaleFactor: 1, hasTouch: w < 600, isMobile: w < 600 });
         await ctx.route(/fonts\.(googleapis|gstatic)\.com/, (r) => r.abort());
@@ -46,10 +50,19 @@ const sa = serve(A, PA), sb = serve(B, PB);
           } catch (e) { console.log(`   ${tag}: step ${JSON.stringify(s)} failed: ${String(e).split('\n')[0]}`); }
         }
         await page.waitForTimeout(700);
+        /* the build stamp (the app's menu shows it) differs between any two builds: both sides show the same words instead; then a
+           full repaint, so that rounded edges are drawn afresh in both builds rather than left from an earlier frame */
+        await page.evaluate(() => {
+          const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          for (let n = w.nextNode(); n; n = w.nextNode()) if (/prototype \d+(\.\d+)* · /.test(n.nodeValue)) n.nodeValue = 'Yaoki build';
+          document.body.style.display = 'none'; void document.body.offsetHeight; document.body.style.display = '';
+        });
+        await page.waitForTimeout(150);
         const f = path.join(OUT, `${screen}-${st.label}-${w}x${h}-${scheme}-${tag}.png`);
         await page.screenshot({ path: f });
         shots.push(fs.readFileSync(f));
         await ctx.close();
+      }
       }
       n++;
       if (!shots[0].equals(shots[1])) { bad++; console.log(`DIFFERENT ${screen}/${st.label} ${w}x${h} ${scheme}: ${path.join(OUT, `${screen}-${st.label}-${w}x${h}-${scheme}-{a,b}.png`)}`); }

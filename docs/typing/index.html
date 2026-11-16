@@ -211,17 +211,20 @@ label.switch > span { flex: 1; min-width: 0; }
 }
 
 /* ---------- a landscape desktop: a window 900 px wide or more ----------
-   The menu in two columns: what to play on the left (the input method, its stages, a course's weeks), and on the right, in
-   view as the page scrolls, the day's stamp card, the round's length, Start and the notes before playing. A round fills the
-   window: the scene, the line under it and the keyboard are sized to the window's height, and beside the keyboard a panel
-   holds the key to press next and the note on a slip. The result in two columns: the verdict (the score and the hanko, a
-   best, a ring) with what to do next, beside the details (the stats, the weak spots, the stamp card). Settings and pause
-   are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's header and footer line up. */
+   The menu in two columns: what to play on the left (the input method, its stages, a course's weeks, then the notes before
+   playing), and on the right, in view as the page scrolls, the day's stamp card, the round's length and Start. A round fills
+   the window: the scene, the line under it and the keyboard are sized to the window's height (in a wide window, beside the
+   keyboard, a panel holds the key to press next and the note on a slip). The result in two columns: the verdict (the score
+   and the hanko, a best, a ring) with what to do next, in view, beside the details (the stats, the weak spots, the stamp
+   card). Settings and pause are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's header
+   and footer line up with it. Below 900 px everything is the single column it always was. */
 @keyframes yk-pop { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
 @media (min-width: 900px) {
   :root { --site-max: 1288px; --side-w: clamp(320px, 30vw, 392px); }
   .site-wrap { padding-inline: 24px; }
-  #app { max-width: var(--site-max); padding: 0 24px 40px; }
+  /* the page fills the window, so a short view (a result) keeps the footer at the bottom */
+  body { display: flex; flex-direction: column; min-height: 100svh; }
+  #app { flex: 1 0 auto; width: 100%; max-width: var(--site-max); padding: 0 24px 40px; }
 
   /* the menu */
   #menu { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); column-gap: 32px; align-items: start; padding-top: 4px; }
@@ -250,56 +253,51 @@ label.switch > span { flex: 1; min-width: 0; }
   .menu-side .seg .tile { flex: 1 1 0; min-width: 0; }
   .menu-side .actions { flex-direction: column; align-items: stretch; }
 
-  /* a round */
+  /* a round: the game fills the window, each part sized to the window's height. Under the scene, the line about the card,
+     the note on a slip, the keyboard and the key to press next, as in the single column; in a wide window (below) the note
+     and the next key move to a panel beside the keyboard. */
   body.playing #app { max-width: none; min-height: 100svh; padding: 0 24px; display: flex; flex-direction: column; justify-content: center; container-type: inline-size; }
   #play {
     --rw: min(100cqw, 1600px);
-    --side: clamp(250px, calc(var(--rw) * 0.26), 400px);
+    --kbw: var(--rw);
     --kg: 5px;
     /* a key as tall as the window allows, never taller than it is wide */
-    --kh: clamp(28px, min(4.4svh + 4px, (var(--rw) - var(--side) - 24px - 14 * var(--kg)) / 15.6 * 0.92), 50px);
+    --kh: clamp(28px, min(4.4svh + 4px, (var(--kbw) - 14 * var(--kg)) / 15.6 * 0.92), 50px);
     --kbh: calc(5 * var(--kh) + 4 * var(--kg));
     --gap: 10px;
     --info-h: 36px;
+    --line-h: 26px;
+    /* the height the scene leaves to the rest: the padding, the bar, the gaps, the lines and the keyboard */
+    --rest: calc(26px + 48px + 5 * var(--gap) + var(--info-h) + 2 * var(--line-h) + var(--kbh));
     width: var(--rw); margin: 0 auto; padding: 12px 0 14px;
-    display: grid; grid-template-columns: minmax(0, 1fr) var(--side);
-    grid-template-areas: "hud hud" "stage stage" "info info" "kb coach";
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "hud" "stage" "info" "status" "kb" "next";
     gap: var(--gap) 24px;
   }
   #play > .hud { grid-area: hud; }
-  #play > .stage-wrap { grid-area: stage; height: clamp(200px, calc(100svh - 26px - 48px - 3 * var(--gap) - var(--info-h) - var(--kbh) - var(--info-extra, 0px)), 480px); }
+  #play > .stage-wrap { grid-area: stage; height: clamp(200px, calc(100svh - var(--rest) - var(--info-extra, 0px)), 480px); }
   #info { grid-area: info; min-height: var(--info-h); font-size: 18px; }
   #info .info-ja { font-size: 23px; }
+  #status { grid-area: status; min-height: var(--line-h); }
   #kb { grid-area: kb; align-self: start; }
+  #next-line { grid-area: next; min-height: var(--line-h); margin: 0; }
   .kb, .kb-row { gap: var(--kg); }
   .key { height: var(--kh); border-radius: calc(var(--kh) * 0.27); font-size: clamp(13px, calc(var(--kh) * 0.4), 18px); }
-  .key .sub { font-size: clamp(10px, calc(var(--kh) * 0.27), 13px); }
+  .key .sub { top: 1px; right: 4px; font-size: clamp(10px, calc(var(--kh) * 0.27), 13px); }
   .key .main[lang="ja"] { font-size: clamp(15px, calc(var(--kh) * 0.44), 21px); }
   .key .sub[lang="ja"] { font-size: clamp(11px, calc(var(--kh) * 0.3), 14px); }
   .key.mod .main { font-size: clamp(11px, calc(var(--kh) * 0.29), 14px); }
-  /* the panel beside the keyboard: before a hint, it says what will show there */
-  .coach { grid-area: coach; display: flex; flex-direction: column; gap: 10px; height: var(--kbh); overflow-y: auto; padding: 14px 18px; border-radius: var(--r-l); border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow-s); }
-  .coach:has(> #next-line:empty):has(> #status:empty) { border: 2px dashed var(--line-strong); background: none; box-shadow: none; }
-  .coach:has(> #next-line:empty):has(> #status:empty)::before {
-    content: 'ヒント　Hints\A After a slip, or when you are stuck, the key to press lights up on the keyboard, and this says which finger presses it.';
-    white-space: pre-line; color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.55;
-  }
-  .coach > #next-line { order: 0; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 0; margin: 0; }
-  .coach > #next-line .kicker { font-size: 18px; }
-  .coach > #next-line span:not(.kicker) { font-size: 17px; }
-  .coach > #status { order: 1; min-height: 0; font-size: 16px; line-height: 1.45; }
-  /* with the keyboard hidden, the note is a line under the game */
-  body.no-kb #play { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hud" "stage" "info" "status"; }
+  /* with the keyboard hidden: the scene, the line about the card and the note */
+  body.no-kb #play { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hud" "stage" "info" "status"; --rest: calc(26px + 48px + 3 * var(--gap) + var(--info-h) + var(--line-h)); }
   body.no-kb .coach { display: contents; }
-  body.no-kb #status { grid-area: status; }
-  body.no-kb #play > .stage-wrap { height: clamp(200px, calc(100svh - 26px - 48px - 3 * var(--gap) - var(--info-h) - 26px - var(--info-extra, 0px)), 480px); }
+  body.no-kb #status { min-height: var(--line-h); font-size: 17px; }
 
   /* the result */
   #result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 40px; align-items: start; max-width: none; padding-top: 8px; }
   .res-main, .res-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
   .res-main { position: sticky; top: calc(var(--site-head) + 16px); }
-  /* Again, as wide as the two beside each other under it */
-  .res-main .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 540px; }
+  /* Again, as wide as the two beside each other under it (one above the other in a narrow column) */
+  .res-main .actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); max-width: 540px; }
   .res-main .actions .btn { padding-inline: 16px; white-space: nowrap; }
   #again { grid-column: 1 / -1; }
 
@@ -313,6 +311,30 @@ label.switch > span { flex: 1; min-width: 0; }
   #pause-sheet .sheet { width: min(600px, 100%); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   #pause-sheet .btn { white-space: nowrap; padding-inline: 14px; }
   #pause-sheet .sheet > :not(#pause-settings, #quit) { grid-column: 1 / -1; }
+  /* the key that answers each dialog, shown as Start and the result's buttons show theirs */
+  #resume::after, #close-settings::after { content: 'Esc'; font-size: 12px; font-weight: 700; opacity: 0.8; }
+}
+/* a round in a wide window: beside the keyboard, a panel with the key to press next and the note on a slip (a key stays at
+   least about 53 px wide, so a kana key's small kana keeps clear of its kana) */
+@media (min-width: 1240px) {
+  #play {
+    --side: clamp(250px, calc(var(--rw) * 0.23), 380px);
+    --kbw: calc(var(--rw) - var(--side) - 24px);
+    --rest: calc(26px + 48px + 3 * var(--gap) + var(--info-h) + var(--kbh));
+    grid-template-columns: minmax(0, 1fr) var(--side);
+    grid-template-areas: "hud hud" "stage stage" "info info" "kb coach";
+  }
+  .coach { grid-area: coach; display: flex; flex-direction: column; gap: 10px; height: var(--kbh); overflow-y: auto; padding: 14px 18px; border-radius: var(--r-l); border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow-s); }
+  /* before a hint, the panel says what will show there */
+  body:not(.no-kb) .coach:has(> #next-line:empty):has(> #status:empty) { border: 2px dashed var(--line-strong); background: none; box-shadow: none; }
+  body:not(.no-kb) .coach:has(> #next-line:empty):has(> #status:empty)::before {
+    content: 'ヒント　Hints\A When a hint shows (設定 Settings says when), the key to press lights up on the keyboard and this names the finger that presses it. A note on a slip shows here too.';
+    white-space: pre-line; color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.55;
+  }
+  .coach > #next-line { order: 0; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 0; }
+  .coach > #next-line .kicker { font-size: 18px; }
+  .coach > #next-line span:not(.kicker) { font-size: 17px; }
+  .coach > #status { order: 1; min-height: 0; font-size: 16px; line-height: 1.45; }
 }
 </style>
 </head>

@@ -21,7 +21,10 @@ screen's file serves both apps (the Study app and the N1 course): their template
     add names of its own (`route`, `card`, `list`, …); keep them short, and use the same name for the same region in both apps.
   - `data-k` for the keyboard (handled in `yk-app.js`, desktop only): `data-k="choice"` on each answer, in order (the keys 1 to 9
     pick them), `data-k="go"` on the main action, Check, Next or Start (Enter; `_base.css` shows the key on it), `data-k="play"` on a
-    sound to play (Space).
+    sound to play (Space), `data-k="close"` on what closes a screen's dialog (its scrim, a Close or Cancel button: Escape).
+  - A screen's own dialog (`role="dialog" aria-modal="true"`: an answer sheet, a quit or open-early question) is a dialog on a
+    desktop: focus goes into it when it opens, Tab stays in it, the keys look for `data-k` in it only, Escape takes its
+    `data-k="close"` (or `data-d="close"`, or a button whose name starts with Close), and focus goes back to what opened it.
 - **Grouping without changing the phone.** When a layout needs a box around regions that are siblings on the phone, wrap them in
   `<div data-d="…" style="display: contents">`: a box with `display: contents` is not laid out, so the phone draws exactly what it
   drew before. The layout then gives the wrapper a real `display` (marked `!important`, since it overrides the inline style).

@@ -1,0 +1,59 @@
+/* Today, the day's spread (both apps). The phone stacks the day's lessons under the title. Here the title band runs across the top
+   and the lessons open like a two-page spread, two columns of equal height: on the left page the first lesson (grammar, or N1's week
+   test or mixed review) with its steps listed down the card and its start button at the card's foot; on the right page the day's
+   other lessons (the Study app's cards with their step pills, N1's rows), stacked and sharing the page's height. The stamp note sits
+   under the spread. A lone card (N1's week test) is one band, its start at the right; rows with no lead card (an N1 day of kanji,
+   reading and listening) stand side by side. Nothing scrolls on a laptop's pane (about 600 px tall).
+   Hooks: bar, head, cards (the two pages; display: contents on the phone), card (a lesson card: its top, steps and start), rows
+   (the right page; display: contents on the phone), row and mark (N1's compact rows and their arrow or stamp), empty (N1's day
+   with nothing on it), gap (the phone's spacer), note (the stamp note, or the stamp once the day is done), act (N1's way on from an
+   empty day). data-k="go" on the lead card's start (it is only there while it is the next step), on Back once the day is done and
+   on N1's way on from an empty day: never two at once. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Today"] { padding: 20px 28px 24px !important; overflow-y: auto !important; }
+  html.yk-desk [data-yk="Today"] > :is([data-d="bar"], [data-d="head"]) { flex-shrink: 0; }
+  /* the title is the day's Japanese: a little larger, on one line where the phone needs two */
+  html.yk-desk [data-yk="Today"] > [data-d="head"] > h1 { font-size: 30px !important; }
+
+  /* the spread: the lead card on the left page, a little wider, the other lessons on the right page */
+  html.yk-desk [data-yk="Today"] > [data-d="cards"] {
+    display: grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); column-gap: 20px; margin-top: 18px; flex-shrink: 0;
+  }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:has(> [data-d="card"]):has(> [data-d="rows"] > *) { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"] > * { margin: 0 !important; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"] > [data-d="card"] { padding: 16px !important; }
+  /* its steps down the card, a checklist: the labels in line whether or not a step has its tick (13 px and a 5 px gap) */
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:has(> [data-d="rows"] > *) > [data-d="card"] > [data-d="steps"] { flex-direction: column; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:has(> [data-d="rows"] > *) > [data-d="card"] > [data-d="steps"] > div { flex: 0 0 auto !important; justify-content: flex-start !important; padding: 0 14px !important; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:has(> [data-d="rows"] > *) > [data-d="card"] > [data-d="steps"] > div:not(:has(> svg)) { padding-left: 32px !important; }
+  /* a done card's stamp sits in its top right corner: its words keep clear of it */
+  html.yk-desk [data-yk="Today"] [data-d="top"]:has(> [role="img"]) > div:nth-child(2) { padding-right: 36px; }
+  /* its start at the card's foot, on one line */
+  html.yk-desk [data-yk="Today"] > [data-d="cards"] > [data-d="card"] > [data-d="start"] { margin-top: auto; padding: 0 12px; }
+  html.yk-desk [data-yk="Today"] [data-d="start"] > span[lang="ja"] { white-space: nowrap; }
+
+  /* a lone card (N1's week test, done or not): one band, the start at its right, a desktop button's width */
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="rows"] > *)) > [data-d="card"] { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; column-gap: 28px !important; align-items: center; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="rows"] > *)) > [data-d="card"] > :not([data-d="start"]) { grid-column: 1; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="rows"] > *)) > [data-d="card"] > [data-d="start"] { grid-column: 2; grid-row: 1 / span 2; margin: 0; min-width: 300px; padding: 0 28px; }
+
+  /* the right page: the other lessons share its height (N1's rows keep their content in the middle of theirs) */
+  html.yk-desk [data-yk="Today"] [data-d="rows"] { display: flex !important; flex-direction: column; gap: 12px; }
+  html.yk-desk [data-yk="Today"] [data-d="rows"]:not(:has(> *)) { display: none !important; }
+  html.yk-desk [data-yk="Today"] [data-d="rows"] > * { margin: 0 !important; flex: 1 0 auto; }
+  /* the day's kanji, written by hand there, a little larger on the right page */
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:has(> [data-d="card"]) [data-d="row"] div[lang="ja"][style*="Klee One"] { font-size: 22px !important; line-height: 28px !important; }
+  /* N1's rows with no lead card beside them (a day of kanji, reading and listening): side by side, each one's icon over its words
+     and its arrow or stamp in the corner, so that the words have the card's width */
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="card"])) > [data-d="rows"] { flex-direction: row; gap: 16px; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="card"])) > [data-d="rows"] > [data-d="row"] {
+    flex: 1 1 0; min-width: 0; position: relative; flex-direction: column; align-items: stretch !important; gap: 10px !important; padding: 14px 16px !important;
+  }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="card"])) > [data-d="rows"] > [data-d="row"] > div:first-child { align-self: flex-start; }
+  html.yk-desk [data-yk="Today"] > [data-d="cards"]:not(:has(> [data-d="card"])) > [data-d="rows"] > [data-d="row"] > [data-d="mark"] { position: absolute; top: 14px; right: 14px; }
+
+  /* the stamp note (or the stamp, or N1's way on from an empty day) right under the spread, as wide as its words */
+  html.yk-desk [data-yk="Today"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Today"] > :is([data-d="note"], [data-d="act"]) { margin-top: 18px; align-self: flex-start; }
+  html.yk-desk [data-yk="Today"] > [data-d="act"] > a[data-k="go"] { min-width: 300px; padding: 0 28px; }
+}

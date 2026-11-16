@@ -24,7 +24,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; height: 44px; flex-shrink: 0">
+<div data-d="bar" style="display: flex; align-items: center; height: 44px; flex-shrink: 0">
 <a href="Main.dc.html" onClick="{{ toMain }}" aria-label="Back to the week path" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></a>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; align-items: center">
 <div lang="ja" style="font-size: 15px; font-weight: 800; line-height: 20px; white-space: nowrap">第{{ v.wk }}週 · {{ v.dow }}日目</div>
@@ -33,7 +33,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="width: 36px; flex-shrink: 0"></div>
 </div>
 
-<div style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<div data-d="head" style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <sc-if value="{{ !early }}" hint-placeholder-val="{{ true }}">
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0; line-height: 17px"><span lang="ja">今日の見開き</span>　TODAY'S SPREAD</div>
 </sc-if>
@@ -46,9 +46,10 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 </div>
 
+<div data-d="cards" style="display: contents">
 <sc-if value="{{ big }}" hint-placeholder-val="{{ true }}">
-<div style="position: relative; margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; border: {{ big.border }}; box-shadow: {{ big.shadow }}">
-<a href="{{ big.href }}" onClick="{{ big.tap }}" aria-label="{{ big.aria }}" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
+<div data-d="card" style="position: relative; margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; border: {{ big.border }}; box-shadow: {{ big.shadow }}">
+<a data-d="top" href="{{ big.href }}" onClick="{{ big.tap }}" aria-label="{{ big.aria }}" style="display: flex; align-items: center; gap: 12px; color: #1B2440">
 <div lang="ja" style="width: 46px; height: 46px; border-radius: 14px; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: {{ big.iconBg }}; color: {{ big.iconColor }}" aria-hidden="true">{{ big.icon }}</div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; padding-right: {{ big.padR }}">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px"><span lang="ja">{{ big.lj }}</span>　{{ big.le }}</div>
@@ -62,20 +63,21 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 </a>
 <sc-if value="{{ big.hasPills }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; gap: 6px">
+<div data-d="steps" style="display: flex; gap: 6px">
 <sc-for list="{{ big.pills }}" as="p" hint-placeholder-count="3">
 <div style="height: 32px; box-sizing: border-box; border-radius: 10px; font-size: 12px; flex: 1 1 auto; padding: 0 6px; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 5px; border: {{ p.border }}; background: {{ p.bg }}; color: {{ p.color }}; font-weight: {{ p.weight }}"><sc-if value="{{ p.tick }}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if><span lang="ja">{{ p.ja }}</span> {{ p.en }}</div>
 </sc-for>
 </div>
 </sc-if>
 <sc-if value="{{ big.btn }}" hint-placeholder-val="{{ true }}">
-<a href="{{ big.btn.href }}" onClick="{{ big.btn.tap }}" style="height: 48px; border-radius: 14px; border: 2px solid #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap; background: {{ big.btn.bg }}; box-shadow: {{ big.btn.shadow }}"><span lang="ja">{{ big.btn.ja }}</span>　{{ big.btn.en }}</a>
+<a data-d="start" data-k="go" href="{{ big.btn.href }}" onClick="{{ big.btn.tap }}" style="height: 48px; border-radius: 14px; border: 2px solid #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap; background: {{ big.btn.bg }}; box-shadow: {{ big.btn.shadow }}"><span lang="ja">{{ big.btn.ja }}</span>　{{ big.btn.en }}</a>
 </sc-if>
 </div>
 </sc-if>
 
+<div data-d="rows" style="display: contents">
 <sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
-<a href="{{ r.href }}" onClick="{{ r.tap }}" aria-label="{{ r.aria }}" style="margin-top: 10px; padding: 10px 12px; border-radius: 18px; background: #FFFFFF; color: #1B2440; display: flex; align-items: center; gap: 12px; flex-shrink: 0; border: {{ r.border }}; box-shadow: {{ r.shadow }}">
+<a data-d="row" href="{{ r.href }}" onClick="{{ r.tap }}" aria-label="{{ r.aria }}" style="margin-top: 10px; padding: 10px 12px; border-radius: 18px; background: #FFFFFF; color: #1B2440; display: flex; align-items: center; gap: 12px; flex-shrink: 0; border: {{ r.border }}; box-shadow: {{ r.shadow }}">
 <div lang="ja" aria-hidden="true" style="width: 40px; height: 40px; border-radius: 12px; font-size: 19px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: {{ r.iconBg }}; color: {{ r.iconColor }}">{{ r.icon }}</div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382; line-height: 17px"><span lang="ja">{{ r.lj }}</span>　{{ r.le }}</div>
@@ -85,45 +87,47 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 </div>
 <sc-if value="{{ r.done }}" hint-placeholder-val="{{ false }}">
-<div lang="ja" aria-hidden="true" style="width: 32px; height: 32px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: {{ r.rot }}">済</div>
+<div data-d="mark" lang="ja" aria-hidden="true" style="width: 32px; height: 32px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transform: {{ r.rot }}">済</div>
 </sc-if>
 <sc-if value="{{ r.next }}" hint-placeholder-val="{{ false }}">
-<div aria-hidden="true" style="width: 32px; height: 32px; box-sizing: border-box; border-radius: 50%; background: #2F4FD0; border: 2px solid #1B2440; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
+<div data-d="mark" aria-hidden="true" style="width: 32px; height: 32px; box-sizing: border-box; border-radius: 50%; background: #2F4FD0; border: 2px solid #1B2440; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
 </sc-if>
 <sc-if value="{{ r.idle }}" hint-placeholder-val="{{ true }}">
-<div aria-hidden="true" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
+<div data-d="mark" aria-hidden="true" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></div>
 </sc-if>
 </a>
 </sc-for>
+</div>
 
 <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px dashed #C9D0E3; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
+<div data-d="empty" style="margin-top: 14px; padding: 14px; border-radius: 20px; background: #FFFFFF; border: 2px dashed #C9D0E3; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div lang="ja" style="font-size: 16px; font-weight: 800">この日の学習はありません</div>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">Nothing is left on this day. When the plan was made again, its parts moved to later days.</div>
 </div>
 </sc-if>
+</div>
 
-<div style="flex-grow: 1; min-height: 10px"></div>
+<div data-d="gap" style="flex-grow: 1; min-height: 10px"></div>
 <sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
-<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #FDEBE6; flex-shrink: 0">
+<div data-d="note" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #FDEBE6; flex-shrink: 0">
 <div lang="ja" style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 50%; border: 2.5px dashed #C7361E; color: #C7361E; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0" aria-hidden="true">済</div>
 <div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ footNote }}</div>
 </div>
 </sc-if>
 <sc-if value="{{ onward }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div data-d="act" style="display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
 <div style="font-size: 13px; font-weight: 700; line-height: 1.45; color: #5A6382">{{ onward.note }}</div>
-<a href="{{ onward.href }}" onClick="{{ onward.tap }}" style="height: 54px; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap"><span lang="ja">{{ onward.ja }}</span>　{{ onward.en }}</a>
+<a data-k="go" href="{{ onward.href }}" onClick="{{ onward.tap }}" style="height: 54px; box-sizing: border-box; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; white-space: nowrap"><span lang="ja">{{ onward.ja }}</span>　{{ onward.en }}</a>
 </div>
 </sc-if>
 <sc-if value="{{ allDone }}" hint-placeholder-val="{{ false }}">
-<div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; flex-shrink: 0">
+<div data-d="note" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; flex-shrink: 0">
 <div lang="ja" style="width: 50px; height: 50px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; color: #C7361E; font-size: 21px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: yk-stamp 500ms ease-out both" aria-hidden="true">済</div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column">
 <div lang="ja" style="font-size: 16px; font-weight: 800">{{ v.dow }}日目 完了！</div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382">Day {{ v.dow }} is stamped on your card.</div>
 </div>
-<a href="Main.dc.html" onClick="{{ toMain }}" style="height: 46px; padding: 0 14px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0"><span lang="ja">もどる</span>　Back</a>
+<a data-k="go" href="Main.dc.html" onClick="{{ toMain }}" style="height: 46px; padding: 0 14px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 14px; display: flex; align-items: center; white-space: nowrap; flex-shrink: 0"><span lang="ja">もどる</span>　Back</a>
 </div>
 </sc-if>
 

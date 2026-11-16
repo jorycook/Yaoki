@@ -1,0 +1,235 @@
+/* Scene, the kanji and words lesson (both apps), as master and detail on a wide pane. The screen is a size container
+   (ykscene) so that the writing pad can be as large as the pane's height allows.
+   - Study, 場面 the scene: the title and the grid of words on the left; the word chosen, in detail (its reading, meaning,
+     kanji, the sound), on the right, with what comes next and Next under it.
+   - writing (Study 書く, N1 書く the words): the pad on the left, as large as the height allows; on the right the heading,
+     the kanji or word being written, the three times or the word's cells, what to do now, the pad's buttons, the stroke
+     order and Next (Write.css sizes the panel's parts).
+   - Study 本番, the exam question, as Drill: the yellow paper with its options on the left; on the right a panel that says
+     what will appear there, then the verdict and the explanation, Next under it.
+   - N1 漢字: the title, the grid of kanji and Next on the left; on the right the kanji chosen (the phone's sheet) as a
+     panel: its readings and words, Back and Next on its left, the pad and its buttons on its right; before a kanji is
+     chosen the panel says what will appear there.
+   - N1 語彙: the words as cards in two columns that scroll, Next under them. N1 確認, the quiz, as Drill: the question and
+     its options on the left, Check under them, the answer sheet beside them. The score beside the misses. A day with
+     nothing to learn: its note and Back.
+   Hooks: bar; Study scene (head, grid, card, note), write (head, card, done, writer), check (head, paper > label, side, q,
+   opts), act; N1 head, grid, list, write (head, card, writer), main, side, score, missed, card, gap, act, and the sheet
+   (scrim, panel > top, info, writer, nav). In the Write panel: reps, cells, pad, msg, tools, strip. The Study paper's side
+   is display: contents on the phone. data-k: choice on the options, go on every Next, Check and Done, play on the word's
+   sound and the stroke order, close on the sheet's Close. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="Scene"] {
+    container: ykscene / size;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "bar" ".";
+    column-gap: 32px;
+    padding: 20px 28px 24px !important;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="bar"] { grid-area: bar; margin-bottom: 14px; }
+  html.yk-desk [data-yk="Scene"] > [data-d="gap"] { display: none !important; }
+  /* the main action: a desktop button, under what it acts on */
+  html.yk-desk [data-yk="Scene"] [data-d="act"] { grid-area: act; justify-self: start; align-self: start; box-sizing: border-box; min-width: 280px; padding: 0 28px !important; margin: 18px 0 0 !important; }
+  /* the titles a little larger */
+  html.yk-desk [data-yk="Scene"] [data-d="head"] h1 { font-size: 30px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="head"] h1 > span[style] { font-size: 16px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="head"] > div { font-size: 14px !important; }
+
+  /* ---------- Study 場面: the words on the left, the one chosen on the right ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="scene"]) {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+    grid-template-rows: auto auto auto auto auto 1fr;
+    grid-template-areas: "bar bar" "head card" "grid card" "grid note" "grid act" "grid .";
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] { display: contents !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="head"] { grid-area: head; margin: 0 0 14px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="grid"] {
+    grid-area: grid; align-self: start; margin: 0 !important; padding: 16px !important;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 16px 12px !important;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="grid"] > button { height: 58px !important; font-size: 21px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] { grid-area: card; align-self: start; margin: 0 !important; padding: 18px 20px 20px !important; gap: 16px !important; }
+  /* the word on a line of its own, large, the sound beside it; its reading and meaning under it */
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child {
+    display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "word play" "text text"; row-gap: 8px; align-items: center;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div[lang] { grid-area: word; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div[lang][style*="font-size: 40px"] { font-size: 72px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div[lang][style*="font-size: 34px"] { font-size: 60px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div[lang][style*="font-size: 28px"] { font-size: 46px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div:not([lang]) { grid-area: text; gap: 2px; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div:not([lang]) > div:first-child { font-size: 20px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > div:not([lang]) > div:last-child { font-size: 15px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:first-child > button { grid-area: play; width: 52px !important; height: 52px !important; }
+  /* the word's kanji, as many to a row as fit */
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:last-child { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important; gap: 10px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:last-child > div { padding: 10px 12px !important; gap: 12px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:last-child > div > div[lang] { font-size: 34px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:last-child > div > div:last-child > div:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="card"] > div:last-child > div > div:last-child > div:last-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="note"] { grid-area: note; margin: 16px 0 0 !important; padding: 12px 16px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="scene"] > [data-d="note"] > div { font-size: 14px !important; }
+
+  /* ---------- writing (Study 書く, N1 書く the words): the pad on the left, the rest on the right ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) {
+    --pad: clamp(260px, min(100cqh - 62px, 100cqw - 400px), 540px);
+    grid-template-columns: auto minmax(340px, 1fr);
+    grid-template-rows: auto repeat(7, auto) 1fr;
+    grid-template-areas: "bar bar" "pad head" "pad card" "pad reps" "pad msg" "pad tools" "pad strip" "pad act" "pad .";
+    column-gap: 36px;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"],
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="writer"],
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="writer"] > .sc-host,
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-yk-write] { display: contents !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="head"] { grid-area: head; margin: 0 !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] { grid-area: card; margin: 12px 0 0 !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="pad"] { grid-area: pad; align-self: start; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] :is([data-d="reps"], [data-d="cells"]) { grid-area: reps; margin-top: 16px; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="cells"] { justify-content: flex-start !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="msg"] { grid-area: msg; margin-top: 14px; padding: 0 !important; text-align: left !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="tools"] { grid-area: tools; margin-top: 4px; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="strip"] { grid-area: strip; margin-top: 16px; min-width: 0; }
+  /* the card of what is written: larger */
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] { padding: 14px 18px !important; gap: 16px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang] { font-size: 52px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:first-child { font-size: 12px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:nth-child(2) { font-size: 16px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:nth-child(n+2) :is(span[style], div) { font-size: inherit; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div:last-child > div:nth-child(3) { font-size: 14px !important; }
+  /* nothing left to write (Study): the note and Next, in one column */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="write"] > [data-d="done"]) {
+    grid-template-columns: minmax(0, 680px) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "bar bar" "head ." "done ." "act ." ". .";
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="done"] { grid-area: done; margin: 14px 0 0 !important; }
+
+  /* ---------- Study 本番, the exam question: the paper on the left, the verdict beside it ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="check"]) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 1fr);
+    grid-template-rows: auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "body body" ". act" ". .";
+  }
+  /* the body shares the screen's two columns: the title across, then the paper and the panel beside it */
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] {
+    grid-area: body; display: grid !important; grid-template-columns: subgrid; grid-template-rows: auto auto auto auto 1fr;
+    margin: 0 !important; padding: 0 0 6px !important; overflow: visible !important;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] > [data-d="head"] { grid-column: 1 / -1; grid-row: 1; margin: 0 0 16px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] > [data-d="paper"] { display: contents !important; }
+  /* the paper: its yellow drawn behind its label, question and options */
+  html.yk-desk [data-yk="Scene"] > [data-d="check"]::before { content: ''; grid-column: 1; grid-row: 2 / 5; border-radius: 18px; background: #FFF4D6; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="label"] { grid-column: 1; grid-row: 2; padding: 16px 20px 0; font-size: 13px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="q"] { grid-column: 1; grid-row: 3; padding: 18px 20px; font-size: 22px !important; line-height: 1.6; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="label"] ~ [data-d="q"] { padding-top: 10px; padding-bottom: 14px; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] { grid-column: 1; grid-row: 4; padding: 0 20px 20px; gap: 10px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] > button { height: auto !important; min-height: 54px; padding: 6px 14px !important; font-size: 17px !important; }
+  /* the verdict and the explanation: a panel beside the paper, Next under it */
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] {
+    grid-column: 2; grid-row: 2 / -1; align-self: start; display: flex !important; flex-direction: column; gap: 10px;
+    padding: 18px 20px 20px; border-radius: 20px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; background: #FDEBE6;
+    animation: yk-scene-in 220ms ease-out;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"]:has(svg[aria-label="Correct"]) { background: #E0F3EF; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:first-child { font-size: 16px !important; gap: 10px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:first-child > svg { width: 22px; height: 22px; margin-top: 1px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:last-child { padding: 12px 14px; border-radius: 14px; background: #FFFFFF; font-size: 14px !important; line-height: 1.6 !important; }
+  /* before the answer, the panel says what will appear in it */
+  html.yk-desk [data-yk="Scene"] > [data-d="check"]:not(:has([data-d="side"]))::after {
+    content: '解説　Why\A \A Choose an answer: the verdict and its explanation appear here, and a wrong answer goes to your notebook.';
+    white-space: pre-line; grid-column: 2; grid-row: 2 / -1; align-self: start; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* ---------- N1 漢字: the grid of kanji on the left, the kanji chosen on the right ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) {
+    --pad: clamp(220px, min(100cqh - 290px, 100cqw - 590px), 420px);
+    grid-template-columns: minmax(230px, 0.6fr) minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "head side" "grid side" "act side" ". side";
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="head"] { grid-area: head; margin: 0 0 14px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="grid"] { grid-area: grid; margin: 0 !important; padding: 12px !important; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)) !important; gap: 10px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="grid"] button { height: auto !important; aspect-ratio: 1 / 1; }
+  html.yk-desk [data-yk="Scene"] > [data-d="grid"] button > span[lang] { font-size: 34px !important; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) > [data-d="act"] { justify-self: stretch; min-width: 0; }
+  /* the phone's sheet: a panel in the right column, the grid left free beside it */
+  html.yk-desk [data-yk="Scene"] > [data-d="sheet"] { grid-area: side; align-self: start; position: static !important; display: block !important; min-width: 0; }
+  html.yk-desk [data-yk="Scene"] > [data-d="sheet"] > [data-d="scrim"] { display: none !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="sheet"] > [data-d="panel"] {
+    display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "top top" "info writer" "nav writer"; column-gap: 26px; row-gap: 8px;
+    max-height: none !important; padding: 8px 20px 18px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
+    animation: yk-scene-in 220ms ease-out !important;
+  }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"] { grid-area: top; height: 32px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] { grid-area: info; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="writer"] { grid-area: writer; padding: 0 !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="nav"] { grid-area: nav; align-self: end; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="writer"] [data-yk-write] { width: max(var(--pad), 300px) !important; max-width: none !important; }
+  /* the kanji's facts larger: there is room */
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] > div:first-child > div:first-child > div[lang] { font-size: 64px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] > div:first-child > div:first-child > div:last-child > div:first-child { font-size: 17px !important; }
+  /* before a kanji is chosen, the panel says what will appear there */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):not(:has(> [data-d="sheet"]))::after {
+    content: '漢字　The kanji\A \A Choose a kanji on the left: its readings, the words that use it and a pad to write it three times open here.';
+    white-space: pre-line; grid-area: side; align-self: start; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* ---------- N1 語彙: the words as cards in two columns, Next under them ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="list"]) {
+    grid-template-rows: auto auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar" "head" "list" "act" ".";
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="list"] { grid-area: list; margin: 0 !important; min-height: 0; }
+  html.yk-desk [data-yk="Scene"] > [data-d="list"] > [role="list"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 14px 16px !important; padding: 2px 2px 28px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="list"] > [role="list"] > [role="listitem"] { padding: 14px 16px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="list"] > [role="list"] > [role="listitem"] > div:last-child > div:first-child { font-size: 18px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="list"] > [role="list"] > [role="listitem"] > div:last-child > div:last-child { font-size: 13px !important; }
+
+  /* ---------- N1 確認, the quiz: as Drill ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="main"]) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(340px, 1fr);
+    grid-template-rows: auto minmax(0, max-content) auto 1fr;
+    grid-template-areas: "bar bar" "main side" "act side" ". side";
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="main"] { grid-area: main; min-height: 0; }
+  html.yk-desk [data-yk="Scene"] > [data-d="main"] > [data-sc-quiz] { padding: 0 4px 12px !important; gap: 12px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="main"] > [data-sc-quiz] > div[style*="padding: 22px 14px"] { padding: 30px 18px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="main"] > [data-sc-quiz] > div[style*="padding: 22px 14px"] > div[lang] { font-size: 46px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="main"] > [data-sc-quiz] > div[lang][style*="line-height: 1.9"] { font-size: 21px !important; padding: 12px 18px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="main"] button[data-k="choice"] { min-height: 56px !important; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="main"]) > [data-d="act"] { margin-top: 8px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="side"] {
+    grid-area: 2 / 2 / -1 / 3; align-self: start; max-height: 100%; overflow-y: auto; box-sizing: border-box; margin: 0 !important;
+    padding: 18px 20px 20px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; gap: 10px !important;
+    animation: yk-scene-in 220ms ease-out !important;
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="side"] [data-sc-why] { max-height: none !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="side"] [data-sc-why] > div:last-child { font-size: 14px !important; line-height: 1.6 !important; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="main"]):not(:has(> [data-d="side"]))::after {
+    content: '解説　Why\A \A Choose an answer and check it. The verdict and the explanation appear here, and each mistake goes to your notebook.';
+    white-space: pre-line; grid-area: 2 / 2 / -1 / 3; align-self: start; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* ---------- N1, the quiz done: the score on the left, the misses beside it ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="score"]) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "bar bar" "head head" "score missed" "act missed" ". missed";
+  }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="score"]):not(:has(> [data-d="missed"])) { grid-template-columns: minmax(0, 560px) minmax(0, 1fr); }
+  html.yk-desk [data-yk="Scene"] > [data-d="score"] { grid-area: score; align-self: start; margin: 0 !important; padding: 22px !important; }
+  html.yk-desk [data-yk="Scene"] > [data-d="missed"] { grid-area: missed; align-self: start; max-height: 100%; margin: 0 !important; }
+
+  /* ---------- N1, a day with nothing to learn ---------- */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="card"]) {
+    grid-template-columns: minmax(0, 680px) minmax(0, 1fr);
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-areas: "bar bar" "card ." "act ." ". .";
+  }
+  html.yk-desk [data-yk="Scene"] > [data-d="card"] { grid-area: card; margin: 0 !important; }
+}
+@keyframes yk-scene-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

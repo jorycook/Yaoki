@@ -1,0 +1,162 @@
+/* WeekTest (both apps), the week test at a desk. The bar (close or quit, the heading or the progress and the clock) spans the top.
+   - intro as a dashboard: the title and what the test is on the left, beside the by-area card (N1: the sections and the time
+     allowed); under them the rules (N1) beside the last result (N1, when there is one) and Start. The whole sits in the middle
+     of the pane's height.
+   - the run (N1) as a paper: the type and the exam's instruction across the top, the word or the sentence on the left like a
+     card, the options on the right with Next under them; the clock larger in the bar.
+   - the quit question (N1) as a dialog in the middle of the pane; its scrim and Continue as before.
+   - results as a summary beside the list: the score and its stamp, the stamp card and the areas on the left; on the right
+     what went into the notebook (Study: the line, Review mistakes and the way on; N1: every mistake with its answer and
+     reason, scrolling in its own column, and the way on under the summary).
+   - Study's "not written yet" and N1's "no questions": the note with its action under it.
+   Hooks: bar (N1's run: bar > prog); intro: head, plan, rules, last, gap, act; run: type, rubric, word or sentence, opts, gap,
+   act; quit (close, dialog); results: sum (score, card, areas), Study: saved, gap, act, onward; N1: body > scroll > sum, list
+   (saved, row), all; fade; act; note, gap, act. The wrappers sum and list are display: contents on the phone; body and scroll
+   are display: contents here, so that the summary, the list and the action are cells of the screen's own grid.
+   data-k: go on Start, Next or Finish, Review mistakes, the way on (N1), Back and Continue; choice on every option. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="WeekTest"] { display: grid !important; grid-template-columns: minmax(0, 1fr); align-items: start; padding: 20px 28px 24px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] { grid-column: 1 / -1; grid-row: 1; }
+  /* the heading beside the close button, as a page's title (its spacer on the right goes) */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > a + div { margin-left: 6px; text-align: left !important; font-size: 16px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > a + div + div:empty { display: none; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="gap"] { display: none; }
+  /* every main action shows its key (_base.css) beside its label */
+  html.yk-desk [data-yk="WeekTest"] [data-k="go"] { display: flex !important; align-items: center; justify-content: center; box-sizing: border-box; }
+
+  /* ---------- intro: a dashboard in the middle of the pane's height. Rows: the bar, a spacer, the title beside the card, the
+     rules (N1) going on beside the rest of the card, the last result (N1) and Start under the card, a spacer. The rules and
+     Study's title reach into the last spacer, so that they never stretch the rows that Start sits in */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="plan"]) {
+    grid-template-columns: minmax(0, 1.15fr) minmax(380px, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto auto auto minmax(0, 1.5fr);
+    column-gap: 56px;
+  }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] { grid-column: 1; grid-row: 3; margin: 0 !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"] { grid-column: 2; grid-row: 3 / 5; margin: 0 !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="rules"] { grid-column: 1; grid-row: 4 / -1; margin: 26px 0 0 !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="last"] { grid-column: 2; grid-row: 5; margin: 22px 0 0 !important; padding: 12px 14px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="plan"]) > [data-d="act"] { grid-column: 2; grid-row: 6; margin-top: 22px; }
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="plan"]) > [data-d="last"] + [data-d="act"] { margin-top: 14px; }
+  /* Study: no rules; the title in the middle of the height of the card and Start */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="plan"]):not(:has(> [data-d="rules"])) > [data-d="head"] { grid-row: 3 / 7; align-self: center; }
+  /* the title, larger; N1's daruma before it */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] > svg { order: -1; width: 80px; height: 80px; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] { gap: 20px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] div:has(+ h1) { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 { font-size: 34px !important; white-space: normal !important; text-wrap: balance; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="head"] h1 + div { margin-top: 4px; max-width: 34em; font-size: 15px !important; }
+  /* the by-area card (Study) */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:not(:has(> div > div[lang])) { padding: 18px 22px !important; gap: 12px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:not(:has(> div > div[lang])) > div:first-child { font-size: 15px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:not(:has(> div > div[lang])) > div + div > div:first-child { font-size: 15px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:not(:has(> div > div[lang])) > div + div > div:last-child { font-size: 17px !important; }
+  /* the sections and the time allowed (N1) */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) { padding: 4px 22px !important; border-radius: 20px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) > div { padding: 12px 0 !important; gap: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) > div > div:first-child { width: 32px !important; height: 32px !important; border-radius: 10px !important; font-size: 15px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) > div > div:first-child > svg { width: 19px; height: 19px; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) > div > div:nth-child(2) > div:first-child { font-size: 16px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) > div > div:nth-child(2) > div:last-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="plan"]:has(> div > div[lang]) > div > div:last-child { font-size: 17px !important; }
+  /* the rules (N1) */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="rules"] { gap: 11px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="rules"] > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="rules"] > div + div > div:first-child { width: 48px !important; font-size: 15px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="rules"] > div + div > div:last-child { max-width: 34em; font-size: 15px !important; line-height: 1.5 !important; }
+
+  /* ---------- the run (N1): a paper, the question on the left, the options and Next on the right */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) {
+    grid-template-columns: minmax(0, 1.08fr) minmax(400px, 1fr);
+    grid-template-rows: auto auto auto auto auto 1fr;
+    column-gap: 40px;
+  }
+  /* the bar: the section and the count over the progress, the clock larger */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [data-d="prog"] { gap: 7px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [data-d="prog"] > div:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [data-d="prog"] > [role="progressbar"], html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [data-d="prog"] > [role="progressbar"] > div { height: 10px !important; border-radius: 5px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [role="timer"] { height: 40px !important; padding: 0 16px !important; gap: 7px !important; border-radius: 20px !important; font-size: 19px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > [role="timer"] > svg { width: 18px; height: 18px; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="bar"]:has(> [data-d="prog"]) { gap: 14px !important; }
+  /* the type and the exam's instruction across the top */
+  html.yk-desk [data-yk="WeekTest"] > [data-d="type"] { grid-column: 1 / -1; grid-row: 2; margin-top: 18px !important; gap: 10px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="rubric"] { grid-column: 1 / -1; grid-row: 3; margin-top: 4px !important; font-size: 15px !important; }
+  /* the word as a card as tall as the options beside it; the sentence as large as a page's */
+  html.yk-desk [data-yk="WeekTest"] > :is([data-d="word"], [data-d="sentence"]) { grid-column: 1; grid-row: 4; margin-top: 16px !important; border-radius: 20px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="word"] { align-self: stretch; align-items: center; padding: 24px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="word"] > div { zoom: 1.6; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="sentence"] { padding: 18px 22px !important; font-size: 23px !important; text-wrap: pretty; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="sentence"] > span > span[role="img"] { width: 52px !important; height: 28px !important; line-height: 28px !important; font-size: 18px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] { grid-column: 2; grid-row: 4; margin-top: 16px !important; gap: 10px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] { min-height: 56px !important; padding: 6px 16px !important; gap: 12px !important; font-size: 17px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
+  /* Next right under the options, a desktop button's width, at the end of the column */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) > [data-d="act"] { grid-column: 2; grid-row: 5; justify-self: end; min-width: 280px; margin-top: 18px; padding: 0 28px; }
+  /* on the narrowest landscape panes (a window of 1120 to 1240 px) the sentence keeps a little more of the width */
+  @container yk (max-width: 999.98px) {
+    html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) { grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr); column-gap: 32px; }
+  }
+
+  /* ---------- the quit question: a dialog in the middle of the pane; the scrim still closes it. While it is open the screen
+     is not the scrim's frame, so that the scrim covers the whole pane, not only the screen's 1240 px in the middle of it */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="quit"]) { position: static !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] { display: grid !important; place-content: center; place-items: center; padding: 24px; box-sizing: border-box; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] > [data-d="close"] { position: absolute; inset: 0; width: 100%; height: 100%; cursor: default; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] > [data-d="dialog"] {
+    position: relative; width: 470px; max-width: 100%; max-height: 100%; box-sizing: border-box; overflow-y: auto;
+    padding: 24px 26px 22px !important; border: 2px solid #1B2440 !important; border-radius: 24px !important; box-shadow: 0 8px 0 #1B2440;
+  }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] > [data-d="dialog"] > h2 { font-size: 21px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] > [data-d="dialog"] > h2 + div { font-size: 14px !important; }
+
+  /* ---------- results: the summary on the left, beside what went into the notebook */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]), html.yk-desk [data-yk="WeekTest"]:has(> [data-d="body"]) { column-gap: 48px; padding-bottom: 18px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="sum"] { grid-column: 1; align-self: stretch; display: flex !important; flex-direction: column; gap: 12px; min-height: 0; overflow-y: auto; margin-top: 10px; padding: 0 2px 6px; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="sum"] > * { margin: 0 !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="score"] h1 { font-size: 66px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="score"] h1 + div { font-size: 24px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="score"] > div:first-child > div:first-child, html.yk-desk [data-yk="WeekTest"] [data-d="score"] > div:first-child > div:last-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="card"] { padding: 10px 16px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="card"] > div:last-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="areas"] { padding: 14px 20px 16px !important; gap: 10px !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="areas"] > div:first-child { font-size: 15px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="areas"] > [role="img"] > div:first-child > div:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="areas"] > [role="img"] > div:first-child > div:last-child { font-size: 15px !important; }
+
+  /* Study: the line about the notebook, Review mistakes and the way on, beside the summary */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]) { grid-template-columns: minmax(380px, 1fr) minmax(340px, 0.9fr); grid-template-rows: auto auto auto auto 1fr; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="sum"] { grid-row: 2 / -1; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="saved"] { grid-column: 2; grid-row: 2; margin: 10px 0 0 !important; padding: 14px 16px !important; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="saved"] > div { font-size: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]) > [data-d="act"] { grid-column: 2; grid-row: 3; margin-top: 16px; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="onward"] { grid-column: 2; grid-row: 4; margin-top: 8px !important; }
+  /* no mistakes: the column says so */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]):not(:has(> [data-d="saved"]))::before {
+    content: '全問正解　Every answer right. Nothing new for your notebook.'; grid-column: 2; grid-row: 2; margin-top: 10px; padding: 14px 16px 14px 52px;
+    border-radius: 16px; border: 2px solid #DDE1EC; background: #FFFFFF no-repeat 16px center / 24px 24px url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B7A6B' stroke-width='3.5'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3C/svg%3E");
+    font-size: 14px; font-weight: 700; line-height: 1.45;
+  }
+
+  /* N1: every mistake with its answer and its reason, in a column that scrolls; the way on under the summary */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="body"]) { grid-template-columns: minmax(380px, 1fr) minmax(0, 1fr); grid-template-rows: auto minmax(0, max-content) auto 1fr; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="body"], html.yk-desk [data-yk="WeekTest"] > [data-d="body"] > [data-d="scroll"] { display: contents !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="sum"] { grid-row: 2; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="list"] { grid-column: 2; grid-row: 2 / -1; align-self: stretch; display: flex !important; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; margin-top: 10px; padding: 0 2px 22px; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="list"] > * { margin: 0 !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="list"] > [data-d="saved"] { padding: 2px 0 4px; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="list"] > [data-d="saved"] > div { font-size: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] { padding: 12px 18px 14px !important; gap: 5px !important; border-radius: 18px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div[lang]:not(:first-child):not(:last-child) { font-size: 17px !important; line-height: 1.65 !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div[style*="color"] { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div:last-child { font-size: 14px !important; line-height: 1.5 !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="all"] { grid-column: 2; grid-row: 2; margin: 10px 0 0 !important; padding: 14px 16px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="all"] > div { font-size: 14px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="body"] > [data-d="fade"] { grid-column: 2; grid-row: 2 / -1; top: auto !important; height: 20px !important; }
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="body"]) > [data-d="act"] { grid-column: 1; grid-row: 3; margin-top: 14px !important; }
+
+  /* ---------- not written yet (Study), no questions (N1): the note, its action under it */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="note"]) { grid-template-rows: auto auto auto 1fr; }
+  html.yk-desk [data-yk="WeekTest"] > [data-d="note"] { grid-row: 2; max-width: 640px; margin-top: 24px !important; padding: 18px 20px !important; }
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="note"]) > [data-d="act"] { grid-row: 3; justify-self: start; min-width: 280px; margin-top: 18px; padding: 0 28px; }
+}

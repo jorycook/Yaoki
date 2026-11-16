@@ -24,35 +24,36 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; height: 44px">
+<div data-d="bar" style="display: flex; align-items: center; height: 44px">
 <a href="Main.dc.html" onClick="{{ toMain }}" aria-label="Close" style="width: 44px; height: 44px; margin-left: -10px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1; text-align: center; font-size: 15px; font-weight: 800">{{ heading }}</div>
 <div style="width: 34px"></div>
 </div>
 
 <sc-if value="{{ intro }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 10px; display: flex; flex-direction: column; gap: 4px">
+<div data-d="head" style="margin-top: 10px; display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 12px; font-weight: 800; color: #C7361E">週テスト　WEEK TEST</div>
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">{{ unitJa }}</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ count }} questions in the exam's own formats, on one 20-minute clock. No hints and no furigana; answers and reasons at the end. Every mistake goes into your notebook.</div>
 </div>
-<div style="margin-top: 14px; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px">
+<div data-d="plan" style="margin-top: 14px; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 14px; font-weight: 800">分野別　By area</div>
 <sc-for list="{{ plan }}" as="a" hint-placeholder-count="3">
 <div style="display: flex; align-items: baseline; gap: 6px"><div style="flex-grow: 1; font-size: 13px; font-weight: 700">{{ a.ja }} <span style="font-weight: 500; color: #5A6382">{{ a.en }}</span></div><div style="font-size: 14px; font-weight: 800">{{ a.of }}問</div></div>
 </sc-for>
 </div>
-<div style="flex-grow: 1"></div>
-<a href="Exam.dc.html" onClick="{{ start }}" style="height: 54px; border-radius: 16px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 4px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">はじめる　Start the test</a>
+<div data-d="gap" style="flex-grow: 1"></div>
+<a data-d="act" data-k="go" href="Exam.dc.html" onClick="{{ start }}" style="height: 54px; border-radius: 16px; background: #1B2440; border: 2px solid #1B2440; box-shadow: 0 4px 0 #2F4FD0; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">はじめる　Start the test</a>
 </sc-if>
 
 <sc-if value="{{ notReady }}" hint-placeholder-val="{{ false }}">
-<div style="margin-top: 20px; padding: 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 14px; font-weight: 700; line-height: 1.5">準備中　This week test is not written yet.</div>
-<div style="flex-grow: 1"></div>
+<div data-d="note" style="margin-top: 20px; padding: 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #DDE1EC; font-size: 14px; font-weight: 700; line-height: 1.5">準備中　This week test is not written yet.</div>
+<div data-d="gap" style="flex-grow: 1"></div>
 </sc-if>
 
 <sc-if value="{{ result }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 6px; display: flex; align-items: center; gap: 12px">
+<div data-d="sum" style="display: contents">
+<div data-d="score" style="margin-top: 6px; display: flex; align-items: center; gap: 12px">
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">正解数　Correct answers</div>
 <div style="display: flex; align-items: baseline; gap: 6px"><h1 style="margin: 0; font-size: 56px; font-weight: 800; line-height: 1.05">{{ r.score }}</h1><div style="font-size: 20px; font-weight: 700; color: #5A6382">/ {{ r.of }}</div></div>
@@ -63,12 +64,12 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="margin-top: 14px; padding: 10px 14px; border-radius: 16px; background: #FDEBE6; display: flex; align-items: center; gap: 10px">
+<div data-d="card" style="margin-top: 14px; padding: 10px 14px; border-radius: 16px; background: #FDEBE6; display: flex; align-items: center; gap: 10px">
 <div aria-hidden="true" style="width: 30px; height: 30px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #C7361E; color: #C7361E; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; transform: rotate(-8deg); flex-shrink: 0">済</div>
 <div style="font-size: 13px; font-weight: 800">{{ r.cardLine }}</div>
 </div>
 
-<div style="margin-top: 12px; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 11px">
+<div data-d="areas" style="margin-top: 12px; padding: 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 11px">
 <div style="font-size: 14px; font-weight: 800">分野別　By area</div>
 <sc-for list="{{ r.areas }}" as="a" hint-placeholder-count="4">
 <div role="img" aria-label="{{ a.aria }}" style="display: flex; flex-direction: column; gap: 5px">
@@ -78,19 +79,20 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </sc-for>
 </div>
+</div>
 
 <sc-if value="{{ r.anyWrong }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
+<div data-d="saved" style="margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #DDE1EC; display: flex; align-items: center; gap: 12px">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6z"/><path d="M6 3v18M3 7h3M3 12h3M3 17h3M10 8h5"/></svg>
 <div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ r.wrongLine }}</div>
 </div>
 </sc-if>
 
-<div style="flex-grow: 1"></div>
+<div data-d="gap" style="flex-grow: 1"></div>
 <sc-if value="{{ r.anyWrong }}" hint-placeholder-val="{{ true }}">
-<a href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">間違いを見る　Review mistakes</a>
+<a data-d="act" data-k="go" href="Notebook.dc.html" onClick="{{ toNotebook }}" style="height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; display: flex; align-items: center; justify-content: center">間違いを見る　Review mistakes</a>
 </sc-if>
-<a href="Main.dc.html" onClick="{{ toMain }}" style="margin-top: 8px; height: 44px; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ r.onward }}</a>
+<a data-d="onward" href="Main.dc.html" onClick="{{ toMain }}" style="margin-top: 8px; height: 44px; color: #1B2440; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ r.onward }}</a>
 </sc-if>
 
 </div>
