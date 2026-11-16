@@ -2,9 +2,11 @@
    about 30 characters a line, as tall as its text (it scrolls in its column when longer); the question, its options, the
    strategy note (Study) and Check are on the right, Check right under them. The question's box scrolls if it must, its foot
    fading out, and Check stays in view. Once checked, the paper takes the left column: the passage with its signposts lit, which
-   gives way down to a few lines (and scrolls), with the question and its two marked options under it; the verdict, the reasons
-   and Next take the right column in a panel, as the Drill's coach does. A scrolled passage or reasons box fades at its edges.
-   A short window (720 px or less) tightens the paper. N1's day without a reading: its note and Back to today at the top.
+   gives way down to a few lines (and scrolls), with the question under it (in the Study app with its two marked options; N1
+   lists every option in the panel); the verdict, the reasons and Next take the right column in a panel, as the Drill's coach
+   does. A scrolled passage or reasons box fades at its edges. A short window (720 px or less) tightens the paper, a very
+   short one (640 px or less) brings the question and its options to the phone's sizes, and a narrow pane (880 to 999 px)
+   shares its width evenly between the two columns. N1's day without a reading: its note and Back to today at the top.
    Hooks: bar, head, body (the phone's column of passage and question: Study's scrolling column, a display: contents wrapper in
    N1) and paper (N1), laid open at rest, body the left column once checked; passage, q (a display: contents wrapper of ask, opts
    and tip on the phone, a box here), ask, opts, tip (Study), act, side, why (Study), gap and fade (N1), none (N1). data-k:
@@ -98,6 +100,11 @@
   html.yk-desk [data-yk="Reading"] > [data-d="none"] { grid-area: 3 / 1 / 4 / -1; justify-self: start; width: min(100%, 560px); box-sizing: border-box; margin: 0 !important; }
   html.yk-desk [data-yk="Reading"]:has(> [data-d="none"]) > [data-d="act"] { grid-area: 4 / 1 / 5 / -1; margin-top: 16px; }
 }
+/* a narrow landscape pane (880 to 999 px): the two columns share the width evenly, so that the question and the options wrap
+   less (the passage, about 20 characters a line, scrolls when longer) */
+@container yk (min-width: 880px) and (max-width: 999.98px) {
+  html.yk-desk [data-yk="Reading"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+}
 /* a short window (a laptop's, 720 px or less): the paper a little tighter, so that the question, its options and the strategy
    note fit beside the passage */
 @media (max-height: 720px) {
@@ -109,6 +116,17 @@
     html.yk-desk [data-yk="Reading"] [data-d="opts"] { margin-top: 10px !important; gap: 8px !important; }
     html.yk-desk [data-yk="Reading"] [data-d="opts"] > [data-k="choice"] { min-height: 46px !important; padding: 6px 14px !important; }
     html.yk-desk [data-yk="Reading"] [data-d="tip"] { margin-top: 10px !important; padding: 8px 14px !important; }
+  }
+}
+/* a very short window (640 px or less, a pane of about 580 px): the question, the options and the strategy note at the
+   phone's sizes, in a desktop's spacing */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Reading"] [data-d="ask"] { font-size: 16px !important; line-height: 1.4 !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="opts"] { margin-top: 8px !important; gap: 6px !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="opts"] > [data-k="choice"] { min-height: 42px !important; padding: 4px 12px !important; font-size: 15px !important; line-height: 1.4 !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="tip"] { margin-top: 8px !important; padding: 6px 12px !important; }
+    html.yk-desk [data-yk="Reading"] [data-d="tip"] > div:last-child { font-size: 13px !important; }
   }
 }
 @keyframes yk-rd-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

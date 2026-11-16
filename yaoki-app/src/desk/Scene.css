@@ -4,15 +4,16 @@
      kanji, the sound), on the right, with what comes next and Next under it.
    - writing (Study 書く, N1 書く the words): the pad on the left, as large as the height allows; on the right the heading,
      the kanji or word being written, the three times or the word's cells, what to do now, the pad's buttons, the stroke
-     order and Next (Write.css sizes the panel's parts). On a pane under 960 px, where the width holds the pad to about
-     320 px, the pad's buttons go under it.
+     order and Next (Write.css sizes the panel's parts). On a pane under 960 px, where the width holds the pad down, the
+     pad's buttons go under it and the pad takes the width they leave (about 380 px).
    - Study 本番, the exam question, as Drill: the yellow paper with its options on the left; on the right a panel that says
      what will appear there, then the verdict and the explanation, Next under it.
    - N1 漢字: the title, the grid of kanji (five to a row from 13 kanji, six from 21) and Next on the left; on the right the
      kanji chosen (the phone's sheet) as a panel: its readings and words with the panel's Next under them on its left; the
      three times beside Close, the pad, what to do now and its buttons on its right (Back is the grid itself here, and the
      step's Next waits until the panel closes). Before a kanji is chosen the panel says what will appear there. On a pane
-     under 1060 px, while a kanji is open the grid is a strip of kanji beside it.
+     under 1060 px, and in a window 760 px tall or more (where the panel's pad can then grow to 560 px), while a kanji is
+     open the grid is a strip of kanji beside it.
    - N1 語彙: the words as cards in two columns that scroll, Next under them. N1 確認, the quiz, as Drill: the question and
      its options on the left, Check under them, the answer sheet beside them. The score beside the misses. A day with
      nothing to learn: its note and Back.
@@ -305,6 +306,28 @@
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(25)) { --r: 9; }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(19)) button > span[lang] { font-size: 24px !important; }
 }
+/* a window 760 px tall or more, with a wider pane: there the panel's width, not the height, holds its pad down (about 395 px
+   beside the grid), so while a kanji is open the grid is the same strip of kanji as on a narrow pane, and the panel's pad
+   grows to as much as the height allows, up to 560 px (as the writing step's) */
+@media (min-height: 760px) {
+  @container yk (min-width: 1060.02px) {
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) {
+      --pad: clamp(220px, min(100cqh - 262px, 100cqw - 604px), 560px);
+      grid-template-columns: auto minmax(0, 1fr); column-gap: 24px;
+    }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="head"] > div { display: none !important; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"] {
+      --c: 3; --r: 4; --g: 10px; --t: 56px;
+      grid-template-columns: repeat(var(--c), min(var(--t), (100cqh - 140px - (var(--r) - 1) * var(--g)) / var(--r))) !important; gap: var(--g) !important;
+    }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(13)) { --r: 5; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(16)) { --r: 6; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(19)) { --r: 7; --g: 6px; --t: 44px; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(22)) { --r: 8; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(25)) { --r: 9; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(19)) button > span[lang] { font-size: 24px !important; }
+  }
+}
 @container yk (min-width: 880px) and (max-width: 960px) {
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) { --pad: clamp(220px, min(100cqh - 262px, 100cqw - 538px), 360px); }
   /* the strip two to a row; from 15 kanji three, of 40 px at most (the strip 10 px wider, the pad as much smaller) */
@@ -317,9 +340,14 @@
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(22)) { --r: 8; }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(25)) { --r: 9; }
   html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"]:has(> :nth-child(15)) button > span[lang] { font-size: 22px !important; }
-  /* writing, where the width holds the pad to about 320 px: its buttons go under it (they act on it), so that the two columns
-     are of a height */
+  /* writing, where the width holds the pad down: its buttons go under it (they act on it), so that the right column needs
+     only about 410 px (the card, an eight-cell word, the stroke order, Next) and the pad takes the rest of the width, as
+     the height under the bar and the buttons allows (about 380 px on the narrowest pane) */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) { --pad: clamp(260px, min(100cqh - 130px, 100cqw - 446px), 540px); }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="tools"] { grid-area: pad; align-self: start; box-sizing: border-box; width: var(--pad); margin-top: calc(var(--pad) + 16px); }
+  /* Next at 16 px, as the kanji step's, so that its longest labels (書いてから Write it three times first, つぎへ Next: the
+     word お疲れ様でした) keep to one line in that column */
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] ~ [data-d="act"] { padding: 0 16px !important; font-size: 16px !important; }
 }
 /* the panels come in without moving where motion is turned down */
 @media (prefers-reduced-motion: reduce) {

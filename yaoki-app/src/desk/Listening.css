@@ -3,8 +3,10 @@
    large tiles, or the printed choices. Once answered, the script of the clip comes under the player in a card of its own (so
    it can be read while the clip plays again; it scrolls if long), and the verdict, the reason for each choice and Next come
    under the options in a panel. Before that, the place of the script says what will appear in it. The two columns flow on
-   their own: the script keeps its place under the player, however long the options are. N1's day without listening: its note
-   and Back to today at the top.
+   their own: the script keeps its place under the player, however long the options are. A card that scrolls (the script, the
+   reasons) fades at its foot; N1's four options run on in lines, as many to a line as fit. A short window (720 px or less)
+   tightens the screen. Where there is a keyboard, the play button shows its key, Space, beside it. N1's day without
+   listening: its note and Back to today at the top.
    Hooks: bar, body (Study: the phone's scrolling column, laid open here), head, player, opts, wait, gap (N1), side (the
    phone's answer sheet, laid open here) > verdict, why (Study) or box > why (N1), laid open > script, replies, reason (N1's
    bank items): display: contents wrappers on the phone, boxes here; fade (N1); none > note, gap, act (N1). data-k: play on
@@ -68,7 +70,7 @@
   html.yk-desk [data-yk="Listening"] [data-d="script"] {
     grid-area: left; align-self: start; display: flex !important; flex-direction: column; gap: 8px; box-sizing: border-box; min-height: 0;
     margin-top: calc(var(--ls-player) + 16px); max-height: calc(100% - var(--ls-player) - 16px); overflow-y: auto;
-    padding: 16px 20px 18px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; animation: yk-ls-in 240ms ease-out;
+    padding: 16px 20px 0; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; animation: yk-ls-in 240ms ease-out;
   }
   html.yk-desk [data-yk="Listening"] [data-d="script"] > div { margin-top: 0 !important; }
   html.yk-desk [data-yk="Listening"] [data-d="script"] div[lang="ja"][style*="font-size: 16px"] { font-size: 18px !important; line-height: 1.85 !important; }
@@ -85,7 +87,7 @@
   html.yk-desk [data-yk="Listening"] [data-d="verdict"] { grid-area: verdict; margin: 28px 20px 0; animation: yk-ls-in 240ms ease-out; }
   html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"]) {
     display: flex !important; flex-direction: column; gap: 8px; box-sizing: border-box; min-height: 0; overflow-y: auto;
-    margin: 12px 20px 0; padding: 12px 16px 14px; border-radius: 16px; background: #FFFFFF; animation: yk-ls-in 240ms ease-out;
+    margin: 12px 20px 0; padding: 12px 16px 0; border-radius: 16px; background: #FFFFFF; animation: yk-ls-in 240ms ease-out;
   }
   html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="replies"] { grid-area: replies; }
   html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="reason"] { grid-area: reason; margin-top: 10px; }
@@ -94,6 +96,21 @@
   /* the replies of a quick response (and the Study app's choices) come without a heading of their own on the phone: the
      script's heads the sheet there */
   html.yk-desk [data-yk="Listening"] [data-d="script"] + [data-d="replies"]::before { content: '解説　Why each choice'; font-size: 12px; font-weight: 800; color: #5A6382; }
+  /* a card that scrolls says so: while there is more under it, its foot fades. The veil is held at the card's foot, and is
+     the card's bottom spacing when the text is at its end (a held box stops at the scroller's padding, so the card has none
+     at the bottom); it comes after the card's lines, whatever their order */
+  html.yk-desk [data-yk="Listening"] [data-d="script"]::after,
+  html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"])::after {
+    content: ''; order: 99; flex-shrink: 0; position: sticky; bottom: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px);
+  }
+  html.yk-desk [data-yk="Listening"] [data-d="script"]::after { height: 18px; margin: -8px -20px 0; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"])::after { height: 14px; margin: -8px -16px 0; }
+  /* N1's longer items: the four options are short marks, so they run on in lines, as many to a line as fit, under their
+     heading; the card stays short and leaves the reason its room */
+  html.yk-desk [data-yk="Listening"] [data-d="why"] > [data-d="replies"]:first-child { flex-flow: row wrap; align-content: flex-start; gap: 6px 20px; }
+  html.yk-desk [data-yk="Listening"] [data-d="why"] > [data-d="replies"]:first-child > div:first-child { flex-basis: 100%; }
+  html.yk-desk [data-yk="Listening"] [data-d="why"] > [data-d="replies"]:first-child::after { flex-basis: calc(100% + 32px); margin-top: -6px; }
   html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { grid-area: next; margin: 12px 20px 16px; animation: yk-ls-in 240ms ease-out; }
 
   /* ---------- N1, a day without listening: the note and Back to today at the top */
@@ -101,6 +118,19 @@
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="note"] { margin-top: 0 !important; width: min(100%, 560px); box-sizing: border-box; }
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="act"] { margin-top: 16px; min-width: 260px; padding: 0 28px; box-sizing: border-box; }
+}
+/* a short window (a laptop's, 720 px or less): the screen a little tighter, and the marks and the panel lower once answered, so
+   that the reasons have the room */
+@media (max-height: 720px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Listening"] { padding-top: 16px !important; padding-bottom: 18px !important; }
+    html.yk-desk [data-yk="Listening"] [data-d="bar"] { margin-bottom: 6px; }
+    html.yk-desk [data-yk="Listening"] [data-d="head"] { margin-bottom: 10px; }
+    html.yk-desk [data-yk="Listening"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"] { height: 48px !important; min-height: 48px !important; font-size: 22px !important; }
+    html.yk-desk [data-yk="Listening"]:has([data-d="side"])::before { margin-top: 12px; }
+    html.yk-desk [data-yk="Listening"] [data-d="verdict"] { margin-top: 22px; }
+    html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { margin: 10px 20px 14px; }
+  }
 }
 /* where there is a keyboard: the play button shows its key beside it, as the main action shows Enter (_base.css) */
 @media (hover: hover) and (pointer: fine) {

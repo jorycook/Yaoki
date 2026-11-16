@@ -1,67 +1,91 @@
-/* Compare (both apps): the look-alike patterns side by side. The title with its note beside it (at a readable measure) across the
-   top; under it one column for each pattern (its form, its tag, its example and translation): cards of one height in a row, as a
-   table compares them. Under the row the quick check as a band: its label (or, once answered, the verdict and the reason) and its
-   sentence on the left, its three options beside them; Start the drill right under the band, a desktop button's width. The title
-   and the patterns scroll in their own box when they are taller than the pane (a unit's review: a long note, or ten patterns in
-   rows), so that the check and Start the drill always stay in view. N1's day without a lesson: its note and Back to today at the
-   top. Hooks: bar, body (the phone's scrolling column, laid open here), main (head and cards: a display: contents wrapper on the
-   phone), head, cards (a display: contents wrapper of the cards on the phone), card, check, q (the check's sentence), opts, act;
-   N1's empty, gap and act for a day without a lesson. data-k: choice on the three options (the keys 1 to 3 answer), go on Start
-   the drill and on N1's Back to today. */
+/* Compare (both apps): the look-alike patterns side by side, as a table compares them. The title on one line across the top
+   (its label, then どれを使う？); under it one column for each pattern (its form over its tag, its example and translation),
+   cards of one height in a row (a unit's review with many patterns: rows of three or four); under the cards the note that sums
+   up the difference, at a readable measure. Those scroll in their own box when they are taller than the pane (a unit's review: a
+   long note, or ten patterns), so that the cards always show first, and the check and Start the drill always stay in view; the
+   box's foot fades out while there is more below. Under the box the quick check as a band: its label (or, once answered, the
+   verdict and the reason) over its sentence on the left, the three options beside them, or across the band under them when they
+   are too long to sit beside (sentence-length options); each option grows with its text and shows the key that picks it. Start
+   the drill right under the band, a desktop button's width. N1's day without a lesson: its note and Back to today at the top.
+   Hooks: bar, body (the phone's scrolling column, laid open here), main (head and cards: a display: contents wrapper on the
+   phone), head (laid open here: its label and title on one line, its note after the cards), cards (a display: contents wrapper
+   of the cards on the phone), card, check, ask (the label or verdict and the sentence: a display: contents wrapper on the phone),
+   q (the sentence), opts, act; N1's empty, gap and act for a day without a lesson. data-k: choice on the three options (the keys
+   1 to 3 answer), go on Start the drill and on N1's Back to today. */
+@property --yk-cmp-fade { syntax: '<length>'; inherits: false; initial-value: 12px; }
+@keyframes yk-cmp-more { from { --yk-cmp-fade: 44px; } to { --yk-cmp-fade: 12px; } }
 @container yk (min-width: 880px) {
-  html.yk-desk [data-yk="Compare"] { padding: 20px 28px 24px !important; }
-  html.yk-desk [data-yk="Compare"] > [data-d="bar"] { flex-shrink: 0; margin-bottom: 14px; }
+  /* the bar where the other screens have it; less room under it and at the foot (under Start the drill there is nothing) */
+  html.yk-desk [data-yk="Compare"] { padding: 20px 28px 16px !important; }
+  html.yk-desk [data-yk="Compare"] > [data-d="bar"] { flex-shrink: 0; margin-bottom: 8px; }
 
-  /* the page: the title and the patterns as tall as they are (or scrolling), the check and Start the drill right under them, the
-     rest of the height empty */
+  /* the page: the title, the patterns and the note as tall as they are (or scrolling), the check and Start the drill right
+     under them, the rest of the height empty */
   html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) {
     display: grid !important; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, max-content) auto auto 1fr;
   }
   html.yk-desk [data-yk="Compare"] > [data-d="body"] { display: contents !important; }
-  html.yk-desk [data-yk="Compare"] [data-d="main"] { grid-row: 2; min-height: 0; overflow-y: auto; display: flex !important; flex-direction: column; gap: 16px; }
-  html.yk-desk [data-yk="Compare"] [data-d="main"] > * { margin: 0 !important; flex-shrink: 0; }
-
-  /* the title, and its note beside it */
-  html.yk-desk [data-yk="Compare"] [data-d="head"] {
-    display: grid !important; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 40px; row-gap: 0 !important;
+  /* the box of the title, the cards and the note: it scrolls when taller than the pane, and its foot fades out while it does
+     (in its padding, where nothing is, when it does not) */
+  html.yk-desk [data-yk="Compare"] [data-d="main"] {
+    grid-row: 2; min-height: 0; overflow-y: auto; box-sizing: border-box; padding-bottom: 12px;
+    display: grid !important; grid-template-columns: auto minmax(0, 1fr); align-content: start; column-gap: 14px;
+    -webkit-mask-image: linear-gradient(#000000 calc(100% - var(--yk-cmp-fade)), transparent); mask-image: linear-gradient(#000000 calc(100% - var(--yk-cmp-fade)), transparent);
+    /* where the browser ties an animation to scrolling: a longer fade while the box can scroll, back to its padding at the end */
+    animation: yk-cmp-more auto linear both; animation-timeline: scroll(self);
   }
-  html.yk-desk [data-yk="Compare"] [data-d="head"] > :not(:last-child) { grid-column: 1; align-self: start; }
-  html.yk-desk [data-yk="Compare"] [data-d="head"] h1 { font-size: 30px !important; line-height: 1.25 !important; white-space: nowrap; }
+  html.yk-desk [data-yk="Compare"] [data-d="head"] { display: contents !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="head"] > *, html.yk-desk [data-yk="Compare"] [data-d="cards"] { margin: 0 !important; }
+
+  /* the title on one line: its label, then どれを使う？ */
+  html.yk-desk [data-yk="Compare"] [data-d="head"] > div:first-child { grid-column: 1; grid-row: 1; align-self: baseline; }
+  html.yk-desk [data-yk="Compare"] [data-d="head"] h1 { grid-column: 2; grid-row: 1; align-self: baseline; font-size: 26px !important; line-height: 1.2 !important; }
+  /* the note after the cards: what tells them apart, once they have been seen side by side */
   html.yk-desk [data-yk="Compare"] [data-d="head"] > div:last-child {
-    grid-column: 2; grid-row: 1 / span 2; align-self: end; max-width: 68ch; padding-bottom: 3px; font-size: 14px !important; line-height: 1.5 !important;
+    grid-column: 1 / -1; grid-row: 3; margin-top: 8px !important; max-width: 68ch; font-size: 14px !important; line-height: 1.5 !important;
   }
 
   /* the patterns, one column each, in a row (a review's many patterns in rows of three or four) */
-  html.yk-desk [data-yk="Compare"] [data-d="cards"] { display: grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 14px; }
+  html.yk-desk [data-yk="Compare"] [data-d="cards"] {
+    grid-column: 1 / -1; grid-row: 2; margin-top: 10px !important;
+    display: grid !important; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 14px;
+  }
   html.yk-desk [data-yk="Compare"] [data-d="cards"]:has(> :nth-child(5)) { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
-  html.yk-desk [data-yk="Compare"] [data-d="card"] { margin: 0 !important; padding: 12px 16px 14px !important; gap: 6px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] { margin: 0 !important; padding: 10px 16px 12px !important; gap: 5px !important; }
   /* the form over its tag, so that every column starts the same way */
-  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:first-child { flex-direction: column; align-items: flex-start !important; gap: 5px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:first-child { flex-direction: column; align-items: flex-start !important; gap: 4px !important; }
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div:first-child > div:first-child { font-size: 22px !important; line-height: 1.25 !important; }
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div[lang="ja"] { margin-top: 2px; font-size: 16px !important; line-height: 1.7 !important; }
-  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { line-height: 1.45 !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { line-height: 1.4 !important; }
   html.yk-desk [data-yk="Compare"] [data-d="card"] rt { font-size: 10px; }
   html.yk-desk [data-yk="Compare"] :is([data-d="head"], [data-d="card"], [data-d="check"]) div { text-wrap: pretty; }
   /* the note and the verdict are English with Japanese words in them: a word such as ことから is not split over two lines */
-  html.yk-desk [data-yk="Compare"] :is([data-d="head"] > div:last-child, [data-d="check"] > div:first-child) { word-break: keep-all; overflow-wrap: anywhere; }
+  html.yk-desk [data-yk="Compare"] :is([data-d="head"] > div:last-child, [data-d="ask"] > div:not([data-d="q"])) { word-break: keep-all; overflow-wrap: anywhere; }
 
-  /* the quick check: the label (or the verdict) and the sentence on the left, the options beside them */
+  /* the quick check as a band: the label (or the verdict) over the sentence on the left, the options beside them when they fit,
+     and across the band under the sentence when they do not (the options' own width decides: a row of short options sits beside,
+     sentence-length options take their own row, as in the single column) */
   html.yk-desk [data-yk="Compare"] [data-d="check"] {
-    grid-row: 3; margin: 16px 0 0 !important; padding: 14px 18px !important;
-    display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(300px, 0.62fr); align-items: center; column-gap: 20px; row-gap: 6px !important;
+    grid-row: 3; margin: 2px 0 0 !important; padding: 11px 18px 12px !important;
+    display: flex !important; flex-flow: row wrap !important; align-items: center; gap: 10px 28px !important;
   }
-  html.yk-desk [data-yk="Compare"] [data-d="check"] > :not([data-d="opts"]) { grid-column: 1; }
-  html.yk-desk [data-yk="Compare"] [data-d="check"] > [data-d="opts"] { grid-column: 2; grid-row: 1 / span 2; gap: 10px !important; }
-  html.yk-desk [data-yk="Compare"] [data-d="check"] > div:first-child { font-size: 13px !important; max-width: 75ch; }
+  html.yk-desk [data-yk="Compare"] [data-d="ask"] { flex: 100 1 340px; min-width: 0; display: flex !important; flex-direction: column; gap: 4px; }
+  html.yk-desk [data-yk="Compare"] [data-d="ask"] > div:not([data-d="q"]) { font-size: 13px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="ask"] > div:not([data-d="q"]) > div:last-child { max-width: 75ch; }
   html.yk-desk [data-yk="Compare"] [data-d="q"] { font-size: 16px !important; line-height: 1.7 !important; }
-  html.yk-desk [data-yk="Compare"] [data-d="opts"] > [data-k="choice"] { height: 52px !important; font-size: 16px !important; }
+  html.yk-desk [data-yk="Compare"] [data-d="opts"] { flex: 1 1 auto; min-width: min(100%, 380px); gap: 10px !important; counter-reset: yk-opt; }
+  /* an option grows with its text (a sentence wraps, balanced), and has room at its left for its key */
+  html.yk-desk [data-yk="Compare"] [data-d="opts"] > [data-k="choice"] {
+    position: relative; box-sizing: border-box; height: auto !important; min-height: 50px; padding: 6px 14px 6px 26px !important;
+    font-size: 16px !important; line-height: 1.35; white-space: normal !important; text-wrap: balance; counter-increment: yk-opt;
+  }
 
   /* Start the drill, right under the check, a desktop button's width */
   html.yk-desk [data-yk="Compare"] > [data-d="act"] { min-width: 280px; padding: 0 28px; box-sizing: border-box; }
-  html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) > [data-d="act"] { grid-row: 4; justify-self: start; align-self: start; margin-top: 16px !important; }
+  html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) > [data-d="act"] { grid-row: 4; justify-self: start; align-self: start; margin-top: 12px !important; }
 
-  /* N1's day without a lesson: its note, and Back to today right under it */
-  html.yk-desk [data-yk="Compare"] > [data-d="empty"] { margin-top: 4px !important; max-width: 760px; box-sizing: border-box; }
+  /* N1's day without a lesson: its note at a readable measure, and Back to today right under it */
+  html.yk-desk [data-yk="Compare"] > [data-d="empty"] { margin-top: 4px !important; max-width: min(100%, 600px); box-sizing: border-box; }
   html.yk-desk [data-yk="Compare"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Compare"]:has(> [data-d="empty"]) > [data-d="act"] { align-self: flex-start; margin-top: 18px !important; }
 }
@@ -69,6 +93,27 @@
 @container yk (min-width: 1060px) {
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div[lang="ja"] { font-size: 17px !important; line-height: 1.7 !important; }
   html.yk-desk [data-yk="Compare"] [data-d="card"] > div:last-child { font-size: 13px !important; }
-  html.yk-desk [data-yk="Compare"] [data-d="check"] { column-gap: 28px; }
   html.yk-desk [data-yk="Compare"] [data-d="q"] { font-size: 18px !important; }
+}
+/* a short pane (a small window, a pane under about 580 px): the spacing a little tighter (the bar stays where it is on every
+   screen), so that more of the cards and the note shows */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Compare"] { padding-bottom: 12px !important; }
+    html.yk-desk [data-yk="Compare"] > [data-d="bar"] { margin-bottom: 4px; }
+    html.yk-desk [data-yk="Compare"] [data-d="card"] { padding: 8px 14px 10px !important; gap: 4px !important; }
+    html.yk-desk [data-yk="Compare"] [data-d="card"] > div[lang="ja"] { line-height: 1.6 !important; }
+    html.yk-desk [data-yk="Compare"] [data-d="check"] { padding: 9px 18px 10px !important; }
+    html.yk-desk [data-yk="Compare"] [data-d="opts"] > [data-k="choice"] { min-height: 46px; }
+    html.yk-desk [data-yk="Compare"]:has(> [data-d="body"]) > [data-d="act"] { margin-top: 10px !important; }
+  }
+}
+/* where there is a pointer that hovers and a keyboard: each option shows the key that picks it */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Compare"] [data-d="opts"] > [data-k="choice"]::before {
+      content: counter(yk-opt); position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      font: 800 12px/1 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #5A6382;
+    }
+  }
 }

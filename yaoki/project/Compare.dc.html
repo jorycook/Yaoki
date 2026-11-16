@@ -57,6 +57,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 
 <div data-d="check" style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #E8ECFB; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
+<div data-d="ask" style="display: contents">
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">確認　QUICK CHECK{{ checkLabel }}</div>
 </sc-if>
@@ -68,6 +69,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 </sc-if>
 <div data-d="q" lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
+</div>
 <div data-d="opts" style="display: grid; gap: 8px; grid-template-columns: {{ cols }}">
 <sc-for list="{{ opts }}" as="o" hint-placeholder-count="3">
 <button data-k="choice" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="height: 46px; padding: 0; border-radius: 14px; font-size: 14px; font-weight: 800; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.color }}">{{ o.label }}</button>
