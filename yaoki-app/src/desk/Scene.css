@@ -33,7 +33,7 @@
   /* the main action: a desktop button, under what it acts on */
   html.yk-desk [data-yk="Scene"] [data-d="act"] { grid-area: act; justify-self: start; align-self: start; box-sizing: border-box; min-width: 280px; padding: 0 28px !important; margin: 18px 0 0 !important; }
   /* the titles a little larger */
-  html.yk-desk [data-yk="Scene"] [data-d="head"] h1 { font-size: 30px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="head"] h1 { font-size: 30px !important; line-height: 1.25 !important; }
   html.yk-desk [data-yk="Scene"] [data-d="head"] h1 > span[style] { font-size: 16px !important; }
   html.yk-desk [data-yk="Scene"] [data-d="head"] > div { font-size: 14px !important; }
 
@@ -74,7 +74,7 @@
 
   /* ---------- writing (Study 書く, N1 書く the words): the pad on the left, the rest on the right ---------- */
   html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) {
-    --pad: clamp(260px, min(100cqh - 62px, 100cqw - 400px), 540px);
+    --pad: clamp(260px, min(100cqh - 62px, 100cqw - 500px), 540px);
     grid-template-columns: auto minmax(340px, 1fr);
     grid-template-rows: auto repeat(7, auto) 1fr;
     grid-template-areas: "bar bar" "pad head" "pad card" "pad reps" "pad msg" "pad tools" "pad strip" "pad act" "pad .";
@@ -92,6 +92,7 @@
   html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="msg"] { grid-area: msg; margin-top: 14px; padding: 0 !important; text-align: left !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="tools"] { grid-area: tools; margin-top: 4px; }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] [data-d="strip"] { grid-area: strip; margin-top: 16px; min-width: 0; }
+  html.yk-desk [data-yk="Scene"] > [data-d="write"] ~ [data-d="act"] { padding: 0 22px !important; }
   /* the card of what is written: larger */
   html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] { padding: 14px 18px !important; gap: 16px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] > div[lang] { font-size: 52px !important; }
@@ -145,8 +146,9 @@
 
   /* ---------- N1 漢字: the grid of kanji on the left, the kanji chosen on the right ---------- */
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) {
-    --pad: clamp(220px, min(100cqh - 290px, 100cqw - 590px), 420px);
-    grid-template-columns: minmax(230px, 0.6fr) minmax(0, 1fr);
+    /* the pad: as tall as the panel can be under the bar, and leaving the panel's facts a column of 290 px */
+    --pad: clamp(220px, min(100cqh - 262px, 65.5cqw - 380px), 360px);
+    grid-template-columns: minmax(340px, 1fr) minmax(0, 1.9fr);
     grid-template-rows: auto auto minmax(0, max-content) auto 1fr;
     grid-template-areas: "bar bar" "head side" "grid side" "act side" ". side";
   }
@@ -154,23 +156,38 @@
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] { grid-area: grid; margin: 0 !important; padding: 12px !important; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)) !important; gap: 10px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] button { height: auto !important; aspect-ratio: 1 / 1; }
   html.yk-desk [data-yk="Scene"] > [data-d="grid"] button > span[lang] { font-size: 34px !important; }
-  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) > [data-d="act"] { justify-self: stretch; min-width: 0; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]) > [data-d="act"] { justify-self: stretch; min-width: 0; padding: 0 16px !important; }
   /* the phone's sheet: a panel in the right column, the grid left free beside it */
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] { grid-area: side; align-self: start; position: static !important; display: block !important; min-width: 0; }
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] > [data-d="scrim"] { display: none !important; }
+  /* the panel: the facts on the left with Next under them; the three times beside Close, the pad, what to do now and its
+     buttons on the right (the top row, the panel and its parts are display: contents here, so that they share one grid) */
   html.yk-desk [data-yk="Scene"] > [data-d="sheet"] > [data-d="panel"] {
-    display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto minmax(0, 1fr) auto;
-    grid-template-areas: "top top" "info writer" "nav writer"; column-gap: 26px; row-gap: 8px;
-    max-height: none !important; padding: 8px 20px 18px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
+    display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto auto;
+    grid-template-areas: "label reps" "info pad" "info msg" "nav tools"; column-gap: 26px; row-gap: 10px;
+    max-height: none !important; padding: 10px 20px 18px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
     animation: yk-scene-in 220ms ease-out !important;
   }
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"] { grid-area: top; height: 32px !important; }
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] { grid-area: info; }
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="writer"] { grid-area: writer; padding: 0 !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"],
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="writer"],
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="writer"] > .sc-host,
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-yk-write] { display: contents !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"] > div { grid-area: label; align-self: center; font-size: 13px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="top"] > button { grid-area: reps; justify-self: end; align-self: center; margin-right: -8px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="reps"] { grid-area: reps; align-self: center; margin-right: 48px; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="reps"] > div { font-size: 12px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="pad"] { grid-area: pad; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="msg"] { grid-area: msg; width: 0; min-width: 100%; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] [data-d="tools"] { grid-area: tools; }
+  /* the facts take the height the pad gives them (they scroll if they must) */
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] { grid-area: info; contain: size; min-height: 0; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="nav"] { grid-area: nav; align-self: end; }
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="writer"] [data-yk-write] { width: max(var(--pad), 300px) !important; max-width: none !important; }
+  /* Back is the grid beside the panel here: the panel keeps Next, as wide as the facts */
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="nav"] > button:not([data-k]) { display: none !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="nav"] > button[data-k="go"] { padding: 0 14px !important; font-size: 16px !important; }
   /* the kanji's facts larger: there is room */
-  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] > div:first-child > div:first-child > div[lang] { font-size: 64px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] > div:first-child { gap: 10px !important; }
+  html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] > div:first-child > div:first-child > div[lang] { font-size: 60px !important; }
   html.yk-desk [data-yk="Scene"] [data-d="panel"] > [data-d="info"] > div:first-child > div:first-child > div:last-child > div:first-child { font-size: 17px !important; }
   /* before a kanji is chosen, the panel says what will appear there */
   html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):not(:has(> [data-d="sheet"]))::after {
@@ -231,5 +248,20 @@
     grid-template-areas: "bar bar" "card ." "act ." ". .";
   }
   html.yk-desk [data-yk="Scene"] > [data-d="card"] { grid-area: card; margin: 0 !important; }
+}
+/* a pane too narrow for the grid and the panel side by side (a window under about 1300 px): while a kanji is open, the grid
+   is a strip of kanji (the title over it, the intro and Next back once the panel is closed) and the panel takes the rest */
+@container yk (min-width: 880px) and (max-width: 1060px) {
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) {
+    --pad: clamp(220px, min(100cqh - 262px, 100cqw - 604px), 360px);
+    grid-template-columns: auto minmax(0, 1fr); column-gap: 24px;
+  }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"] { grid-template-columns: repeat(3, 56px) !important; }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="head"] > div,
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="act"] { display: none !important; }
+}
+@container yk (min-width: 880px) and (max-width: 960px) {
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="grid"]):has(> [data-d="sheet"]) { --pad: clamp(220px, min(100cqh - 262px, 100cqw - 538px), 360px); }
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="sheet"]) > [data-d="grid"] { grid-template-columns: repeat(2, 56px) !important; }
 }
 @keyframes yk-scene-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

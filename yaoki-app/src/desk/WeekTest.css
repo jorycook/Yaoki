@@ -15,7 +15,10 @@
    are display: contents here, so that the summary, the list and the action are cells of the screen's own grid.
    data-k: go on Start, Next or Finish, Review mistakes, the way on (N1), Back and Continue; choice on every option. */
 @container yk (min-width: 880px) {
-  html.yk-desk [data-yk="WeekTest"] { display: grid !important; grid-template-columns: minmax(0, 1fr); align-items: start; padding: 20px 28px 24px !important; }
+  /* the screen spans the pane, so that the quit question's scrim covers all of it; --wt-x keeps the content to the 1184 px of
+     the other screens, in the middle */
+  html.yk-desk .yk-screen > .sc-host > [data-yk="WeekTest"] { max-width: none; --wt-x: max(28px, calc((100% - 1184px) / 2)); }
+  html.yk-desk [data-yk="WeekTest"] { display: grid !important; grid-template-columns: minmax(0, 1fr); align-items: start; padding: 20px var(--wt-x) 24px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] { grid-column: 1 / -1; grid-row: 1; }
   /* the heading beside the close button, as a page's title (its spacer on the right goes) */
   html.yk-desk [data-yk="WeekTest"] > [data-d="bar"] > a + div { margin-left: 6px; text-align: left !important; font-size: 16px !important; }
@@ -97,9 +100,7 @@
     html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) { grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr); column-gap: 32px; }
   }
 
-  /* ---------- the quit question: a dialog in the middle of the pane; the scrim still closes it. While it is open the screen
-     is not the scrim's frame, so that the scrim covers the whole pane, not only the screen's 1240 px in the middle of it */
-  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="quit"]) { position: static !important; }
+  /* ---------- the quit question: a dialog in the middle of the pane; the scrim still closes it */
   html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] { display: grid !important; place-content: center; place-items: center; padding: 24px; box-sizing: border-box; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] > [data-d="close"] { position: absolute; inset: 0; width: 100%; height: 100%; cursor: default; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="quit"] > [data-d="dialog"] {
@@ -146,9 +147,11 @@
   html.yk-desk [data-yk="WeekTest"] [data-d="list"] > [data-d="saved"] { padding: 2px 0 4px; }
   html.yk-desk [data-yk="WeekTest"] [data-d="list"] > [data-d="saved"] > div { font-size: 14px !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="row"] { padding: 12px 18px 14px !important; gap: 5px !important; border-radius: 18px !important; }
+  /* a row: the number and type (with a short answer beside them), a long answer on its own line, the question with its right
+     answer marked (a little larger), the reason */
   html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div:first-child { font-size: 13px !important; }
-  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div[lang]:not(:first-child):not(:last-child) { font-size: 17px !important; line-height: 1.65 !important; }
-  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div[style*="color"] { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div:nth-child(2):nth-last-child(3) { font-size: 13px !important; }
+  html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div:nth-last-child(2) { font-size: 17px !important; line-height: 1.65 !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="row"] > div:last-child { font-size: 14px !important; line-height: 1.5 !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="all"] { grid-column: 2; grid-row: 2; margin: 10px 0 0 !important; padding: 14px 16px !important; }
   html.yk-desk [data-yk="WeekTest"] [data-d="scroll"] > [data-d="all"] > div { font-size: 14px !important; }

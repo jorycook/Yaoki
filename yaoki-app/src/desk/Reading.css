@@ -43,7 +43,7 @@
     /* room for the options' shadows and the focus ring inside the scrolling box */
     margin: -4px -6px 0; padding: 4px 6px 10px;
   }
-  html.yk-desk [data-yk="Reading"] [data-d="ask"] { margin: 0 !important; font-size: 19px !important; line-height: 1.55 !important; }
+  html.yk-desk [data-yk="Reading"] [data-d="ask"] { margin: 0 !important; font-size: 18px !important; line-height: 1.5 !important; }
   html.yk-desk [data-yk="Reading"] [data-d="opts"] { margin-top: 14px !important; gap: 10px !important; }
   html.yk-desk [data-yk="Reading"] [data-d="opts"] > [data-k="choice"] { height: auto !important; min-height: 52px !important; padding: 8px 16px !important; gap: 12px !important; font-size: 16px !important; line-height: 1.45 !important; }
   html.yk-desk [data-yk="Reading"] [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
@@ -56,9 +56,11 @@
     display: inline-flex !important; align-items: center; justify-content: center;
   }
 
-  /* ---------- once checked: the verdict, the reasons and Next in a panel under the question */
+  /* ---------- once checked: the verdict, the reasons and Next in a panel under the question. The question keeps at most a
+     third of the height (it scrolls beyond that), so that the panel and its Next always have room */
+  html.yk-desk [data-yk="Reading"]:has(> [data-d="side"]) { grid-template-rows: auto auto fit-content(36%) minmax(0, max-content) minmax(0, 1fr); }
   html.yk-desk [data-yk="Reading"] > [data-d="side"] {
-    grid-area: 4 / 2 / -1 / 3; align-self: start; min-height: 0; max-height: calc(100% - 14px) !important; box-sizing: border-box;
+    grid-area: 4 / 2 / 5 / 3; align-self: start; min-height: 0; max-height: calc(100% - 14px) !important; box-sizing: border-box;
     margin: 14px 0 0 !important; padding: 16px 18px 18px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440;
   }
   html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"] { min-height: 0 !important; }

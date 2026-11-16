@@ -308,7 +308,10 @@ body.no-gram .lg { display: none; }
   #aoz-results > .li-h { grid-column: 1 / -1; }
   #aoz-results .sub-h { margin: 0; }
   #ykl-works { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-  :is(#aoz-results, #ykl-works) .tc-title { white-space: normal; word-break: keep-all; overflow-wrap: anywhere; }   /* 岡本一平著並画 / 『探訪画趣』序 */
+  :is(#aoz-results, #ykl-works) .tc-title { white-space: normal; }
+  /* the Yaoki Library's titles have spaces, so they break between words (目川日記 / 冬、一つ目の市); Aozora's mostly have none, and
+     keep-all would leave a run such as 『吾輩は猫である』 to be cut wherever it overflows, even before its 』 */
+  #ykl-works .tc-title { word-break: keep-all; overflow-wrap: anywhere; }
   .parts { padding-right: 6px; border-top: 2px solid var(--line); }
   .parts li { padding: 12px 2px; }
   .parts .ps { font-size: 15px; }
@@ -347,7 +350,7 @@ body.no-gram .lg { display: none; }
   body[data-view="read"] #app > #v-read { grid-column: 1; }
   #ykl-list:not([hidden]) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
   #ykl-list > #ykl-works { grid-column: 1; grid-row: auto; }
-  #ykl-list > .hint { max-width: 74ch; }
+  #ykl-list > .hint { max-width: 62ch; }
 }
 /* a big monitor: the pane grows, and so do the text and the panel beside it (the measure stays at 40 characters or fewer) */
 @media (min-width: 1600px) {

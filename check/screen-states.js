@@ -14,6 +14,11 @@ module.exports = function screenStates(LEVEL) {
     ['Main', day1({ g: 3, k: 1, r: 1 }), 'day-done'],
     ['Today', day1({ g: 1 }), 'taught'],
     ['Today', day1({ g: 3, k: 1, r: 1 }), 'day-done'],
+    /* the day's spread part way: grammar taught but its exam-style questions next; grammar done and the kanji next; and the
+       whole of day 1 done, stamped, opened as the current day (cur=u03d1, as marking it done would move on to day 2) */
+    ['Today', day1({ g: 2 }) + '&cur=u03d1', 'exam-next'],
+    ['Today', day1({ g: 3, ks: 1 }) + '&cur=u03d1', 'kanji-next'],
+    ['Today', day1({ g: 3, k: 1, r: 1 }) + '&cur=u03d1', 'all-done'],
     ['Teach', ''],
     ['Compare', ''],
     ['Drill', ''],

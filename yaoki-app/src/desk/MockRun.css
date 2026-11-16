@@ -1,13 +1,16 @@
 /* MockRun (both apps), the mini mock as an exam at a desk. The dark band spans the pane (the clock, the section and the answer
-   sheet's tally in it); everything under it keeps the 1184 px measure of the other screens, in the middle.
+   sheet's tally in it); everything under it keeps the 1184 px measure of the other screens, in the middle, and every view of
+   the run starts on the same line under the band (--mr-top), at the top of the pane.
    - intro and break as dashboards: the run as a timeline card across the top (section 1, the break, section 2), the rules
      beside the earphones note and Start; at the break the clock on the left, the next section, the sound check and Start on
      the right.
    - the paper as an exam booklet: the label and instruction across the top, the sentence, word or passage on the left, the
-     question, the options, Flag and Previous / Next on the right. The spread scrolls as one if a pane is too short for it.
+     question, the options, Flag and Previous / Next on the right. A passage longer than the pane scrolls the spread (the
+     Study app starts each question at its top), the question, its options and Flag stay in view beside it, and a fade at
+     the foot of the passage says there is more. A window under 720 px tall sets the paper a little tighter.
    - listening: the player and the audio's progress on the left, the options (or the spoken numbers) on the right.
    - result as a dashboard (the score and the sections beside what it means and the answers); the answers as tabs over a grid
-     of cards.
+     of cards, a card with its script open across both columns (the answer and its reasons beside the script).
    - the answer sheet, the quit and the paused sheets as dialogs in the middle of the pane; the answer sheet as a mark sheet:
      the bubbles in columns of five, and under them what submitting means beside Back and Submit.
    Hooks: bar (title, tally); intro (head, plan > sec, brk, rules, act > gap, note); paper (page > top, main, side; gap; act)
@@ -18,8 +21,11 @@
    on the phone. data-k: choice on every option, go on Start, Next, Submit, Continue, Start section 2 and Answers and
    reasons, play on the sound check. */
 @container yk (min-width: 880px) {
-  /* the band spans the pane (the screen is not held to 1240 px); --mr-x keeps the content under it in the middle */
-  html.yk-desk .yk-screen > .sc-host > [data-yk="MockRun"] { max-width: none; --mr-x: max(28px, calc((100% - 1184px) / 2)); }
+  /* the band spans the pane: the screen is not held to _base.css's 1240 px (#yk-stage makes this win whatever the order of the
+     files). --mr-x keeps the content under the band in the middle; --mr-top is the line every view starts on */
+  html.yk-desk #yk-stage .yk-screen > .sc-host > [data-yk="MockRun"] {
+    max-width: none; --mr-x: max(28px, calc((100% - 1184px) / 2)); --mr-top: clamp(16px, 3vh, 40px); --mr-cue: 20px;
+  }
 
   /* ---------- the dark band: the status-bar zone is padding (var(--yk-top) on the phone's build), the clock and tally larger */
   html.yk-desk [data-yk="MockRun"] > [data-d="bar"] { padding: 10px var(--mr-x) !important; gap: 12px !important; }
@@ -38,18 +44,20 @@
   /* ---------- intro: a dashboard */
   html.yk-desk [data-yk="MockRun"] > [data-d="intro"] {
     display: grid !important; grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr);
-    grid-template-areas: "head head" "plan plan" "rules act"; align-content: start; align-content: safe center; align-items: start;
-    column-gap: 48px; row-gap: 26px; padding: 30px var(--mr-x) calc(24px + 8vh) !important; overflow-y: auto;
+    grid-template-areas: "head head" "plan plan" "rules act"; align-content: start; align-items: start;
+    column-gap: 48px; row-gap: 26px; padding: var(--mr-top) var(--mr-x) 24px !important; overflow-y: auto;
   }
   html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] { grid-area: head; gap: 18px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] > svg { order: -1; width: 76px; height: 76px; }
   html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] h1 { font-size: 30px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] h1 + div { font-size: 15px !important; }
-  /* the run as a timeline: section 1, the break, section 2 */
+  /* the run as a timeline: section 1, the break, section 2. Section 1 has the long name, so it has the larger share, and its
+     name breaks at a ・ or a bracket, not inside a word */
   html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="plan"] { grid-area: plan; margin: 0 !important; flex-direction: row !important; align-items: center; gap: 22px; padding: 14px 24px !important; border-radius: 20px !important; box-shadow: 0 4px 0 #1B2440; }
   html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] { flex: 1 1 0; min-width: 0; padding: 4px 0 !important; gap: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"]:first-child { flex-grow: 1.7; }
   html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:first-child { width: 32px !important; height: 32px !important; border-radius: 10px !important; font-size: 15px !important; }
-  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:nth-child(2) > div:first-child { font-size: 16px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:nth-child(2) > div:first-child { font-size: 16px !important; word-break: keep-all; }
   html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:nth-child(2) > div:last-child { font-size: 13px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:last-child > div:first-child { font-size: 16px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:last-child > div:last-child { font-size: 12px !important; }
@@ -67,23 +75,36 @@
   html.yk-desk [data-yk="MockRun"] > [data-d="paper"] {
     display: grid !important; grid-template-columns: minmax(0, 1.08fr) minmax(410px, 1fr);
     /* the spread as tall as its content (or the pane, then it scrolls), Previous / Next right under it */
-    grid-template-rows: minmax(0, max-content) auto 1fr; column-gap: 36px; padding: 18px var(--mr-x) 18px !important;
+    grid-template-rows: minmax(0, max-content) auto 1fr; column-gap: 36px; padding: var(--mr-top) var(--mr-x) 18px !important;
   }
+  /* the spread: the label and instruction across, then the question's material beside its answers, then a row of room for
+     the fade (--mr-cue) */
   html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="page"] {
-    grid-column: 1 / -1; grid-row: 1; min-height: 0; margin: 0 !important; padding: 0 2px 6px !important;
-    display: grid !important; grid-template-columns: subgrid; grid-template-rows: auto auto; align-items: start;
+    grid-column: 1 / -1; grid-row: 1; min-height: 0; margin: 0 !important; padding: 0 2px !important;
+    display: grid !important; grid-template-columns: subgrid; grid-template-rows: auto auto var(--mr-cue); align-items: start;
   }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="top"], [data-d="main"], [data-d="side"]) { display: flex !important; flex-direction: column; min-width: 0; }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="top"] { grid-column: 1 / -1; grid-row: 1; margin-bottom: 14px; }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="main"] { grid-column: 1; grid-row: 2; }
-  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="side"] { grid-column: 2; grid-row: 2; }
+  /* the answers stay in view while a long passage scrolls by */
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="side"] { grid-column: 2; grid-row: 2; position: sticky; top: 0; }
   html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="main"], [data-d="side"]) > :first-child { margin-top: 0 !important; }
+  /* the fade at the foot of a passage the pane cuts. It sits in its own row under the spread, unseen, and sticks to the bottom
+     of the spread while there is more to scroll */
+  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="page"]::after {
+    content: ''; grid-column: 1; grid-row: 1 / -1; align-self: end; height: var(--mr-cue); position: sticky; bottom: 0; pointer-events: none;
+    background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9 85%);
+  }
   html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="gap"] { display: none; }
-  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="act"] { grid-column: 2; grid-row: 2; margin-top: 12px; grid-template-columns: minmax(max-content, 1.1fr) minmax(max-content, 1.6fr) !important; }
-  /* on the narrowest landscape panes (a window of 1120 to 1260 px) Previous and "Answer sheet" with its key keep to their column */
+  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="act"] { grid-column: 2; grid-row: 2; margin-top: 2px; grid-template-columns: minmax(max-content, 1.1fr) minmax(max-content, 1.6fr) !important; }
+  /* on the narrowest landscape panes (a window of 1120 to 1260 px) Previous and "Answer sheet" with its key keep to their
+     column, and the passages are set a little smaller, so that the two columns stay about as tall as each other */
   @container yk (max-width: 999.98px) {
     html.yk-desk [data-yk="MockRun"] > [data-d="paper"] { grid-template-columns: minmax(0, 1fr) minmax(424px, 1fr); column-gap: 30px; }
     html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="act"] > button { padding: 0 10px !important; font-size: 14px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="passage"] { padding: 14px 18px !important; font-size: 16px !important; line-height: 1.75 !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="pair"] > div { padding: 10px 14px 11px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="pair"] > div > div:last-child { font-size: 15px !important; line-height: 1.65 !important; }
   }
   /* the label and the instruction */
   html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="mondai"] > div { font-size: 13px !important; }
@@ -101,15 +122,32 @@
   html.yk-desk [data-yk="MockRun"] [data-d="pair"] > div > div:last-child { font-size: 16px !important; line-height: 1.75 !important; }
   /* the question and its options */
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] { margin-bottom: 4px; }
-  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] > div:last-child { font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] > div:last-child { font-size: 17px !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] { gap: 8px !important; }
-  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] > [data-k="choice"] { min-height: 52px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] > [data-k="choice"] { min-height: 52px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="flag"] { margin-top: 8px !important; }
+  /* a window under 720 px tall (a laptop with its browser): the paper a little tighter, so that the longest question, its four
+     options and Flag fit beside the passage */
+  @media (max-height: 720px) {
+    html.yk-desk [data-yk="MockRun"] > [data-d="paper"] { padding-bottom: 14px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="top"] { margin-bottom: 10px; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="rubric"] { margin-top: 2px !important; font-size: 14px !important; line-height: 1.45 !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="passage"] { padding: 12px 18px !important; font-size: 16px !important; line-height: 1.7 !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="pair"] { gap: 10px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="pair"] > div { padding: 10px 14px 11px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="pair"] > div > div:last-child { font-size: 15px !important; line-height: 1.65 !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] { margin-bottom: 0; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="ask"] > div:last-child { font-size: 16px !important; line-height: 1.5 !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] { margin-top: 10px !important; gap: 6px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] > [data-k="choice"] { min-height: 46px !important; padding: 4px 14px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="flag"] { margin-top: 4px !important; }
+    html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="flag"] > button { height: 40px !important; }
+  }
 
   /* ---------- the break: the clock on the left, what comes next and Start on the right */
   html.yk-desk [data-yk="MockRun"] > [data-d="break"] {
     display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); grid-template-rows: auto auto;
-    align-content: start; align-content: safe center; column-gap: 40px; padding: 28px var(--mr-x) calc(24px + 8vh) !important; overflow-y: auto;
+    align-content: start; column-gap: 40px; padding: var(--mr-top) var(--mr-x) 24px !important; overflow-y: auto;
   }
   html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="late"] { grid-column: 1 / -1; grid-row: 1; margin-bottom: 20px; padding: 10px 14px !important; font-size: 13px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="rest"] { grid-column: 1; grid-row: 2; margin: 0 !important; justify-content: center; padding: 26px 24px 30px; border-radius: 24px; background: #FFFFFF; border: 2px solid #DDE1EC; }
@@ -127,7 +165,7 @@
   /* ---------- listening: the player on the left, the options on the right */
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] {
     display: grid !important; grid-template-columns: minmax(0, 1.08fr) minmax(360px, 1fr); grid-template-rows: auto auto auto auto 1fr;
-    column-gap: 36px; padding: 20px var(--mr-x) 20px !important; overflow-y: auto;
+    column-gap: 36px; padding: var(--mr-top) var(--mr-x) 20px !important; overflow-y: auto;
   }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="top"] { grid-column: 1 / -1; grid-row: 1; display: flex !important; flex-direction: column; margin-bottom: 16px; }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="player"] { grid-column: 1; grid-row: 2; margin: 0 !important; padding: 16px 18px !important; gap: 14px !important; border-radius: 20px !important; }
@@ -135,7 +173,7 @@
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="side"] { grid-column: 2; grid-row: 2 / span 3; align-self: start; display: flex !important; flex-direction: column; }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="side"] > :first-child { margin-top: 0 !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="opts"] { gap: 10px !important; }
-  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="opts"] > [data-k="choice"] { min-height: 54px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="opts"] > [data-k="choice"] { min-height: 54px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="nums"] > [data-k="choice"] { height: 76px !important; font-size: 28px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="spoken"] { margin-top: 14px !important; font-size: 13px !important; text-wrap: balance; }
   html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="gap"] { display: none; }
@@ -145,8 +183,8 @@
 
   /* ---------- result: the score and the sections beside what they mean and what comes next */
   html.yk-desk [data-yk="MockRun"] > [data-d="result"] {
-    display: grid !important; grid-template-columns: minmax(0, 1.15fr) minmax(340px, 1fr); align-content: start; align-content: safe center; align-items: start;
-    column-gap: 44px; padding: 28px var(--mr-x) calc(24px + 8vh) !important; overflow-y: auto;
+    display: grid !important; grid-template-columns: minmax(0, 1.15fr) minmax(340px, 1fr); align-content: start; align-items: start;
+    column-gap: 44px; padding: var(--mr-top) var(--mr-x) 24px !important; overflow-y: auto;
   }
   html.yk-desk [data-yk="MockRun"] > [data-d="result"] > :is([data-d="main"], [data-d="side"]) { display: flex !important; flex-direction: column; min-width: 0; }
   html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="main"] { gap: 18px; }
@@ -168,7 +206,7 @@
   html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] > [data-k="go"] { margin-top: 6px; }
 
   /* ---------- answers: the areas as tabs over a grid of cards that scrolls */
-  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] { padding: 18px var(--mr-x) 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] { padding: var(--mr-top) var(--mr-x) 0 !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] { gap: 10px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] > button { height: 54px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] > button > span:first-child { font-size: 14px !important; }
@@ -179,14 +217,22 @@
   }
   html.yk-desk [data-yk="MockRun"] [data-d="list"] > [data-d="row"] { padding: 12px 18px 14px !important; gap: 4px !important; border-radius: 18px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="verdict"] { font-size: 13px !important; }
-  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="ask"] { font-size: 15px !important; }
-  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="full"] { font-size: 17px !important; line-height: 1.6 !important; }
-  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="why"] { font-size: 14px !important; line-height: 1.5 !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="ask"] { font-size: 15px !important; text-wrap: pretty; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="full"] { font-size: 17px !important; line-height: 1.6 !important; text-wrap: pretty; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="why"] { font-size: 14px !important; line-height: 1.5 !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] [data-d="row"] > button { font-size: 13px !important; }
   html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="script"] { padding: 10px 12px !important; font-size: 15px !important; }
+  /* a card with its script open goes across both columns: the answer and its reasons on the left, the script beside them */
+  html.yk-desk [data-yk="MockRun"] [data-d="list"] > [data-d="row"]:has(> [data-d="script"]) {
+    grid-column: 1 / -1; display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: repeat(5, auto) minmax(0, 1fr); column-gap: 28px !important; align-items: start;
+  }
+  html.yk-desk [data-yk="MockRun"] [data-d="list"] > [data-d="row"]:has(> [data-d="script"]) > :not([data-d="script"]) { grid-column: 1; }
+  html.yk-desk [data-yk="MockRun"] [data-d="list"] > [data-d="row"]:has(> [data-d="script"]) > button { justify-self: start; }
+  html.yk-desk [data-yk="MockRun"] [data-d="list"] > [data-d="row"]:has(> [data-d="script"]) > [data-d="script"] { grid-column: 2; grid-row: 1 / -1; margin-top: 0 !important; }
 
   /* ---------- N1 without a mock: the note with Back under it */
-  html.yk-desk [data-yk="MockRun"] > [data-d="none"] { padding: 30px var(--mr-x) 24px !important; align-items: flex-start; gap: 16px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="none"] { padding: var(--mr-top) var(--mr-x) 24px !important; align-items: flex-start; gap: 16px; }
   html.yk-desk [data-yk="MockRun"] > [data-d="none"] > [data-d="note"] { max-width: 640px; font-size: 15px !important; }
   html.yk-desk [data-yk="MockRun"] > [data-d="none"] > [data-d="gap"] { display: none; }
   html.yk-desk [data-yk="MockRun"] > [data-d="none"] > [data-k="go"] { min-width: 260px; padding: 0 28px; box-sizing: border-box; }

@@ -12,8 +12,8 @@ screen's file serves both apps (the Study app and the N1 course): their template
 ## How a layout is written
 
 - **Only on a wide pane.** Every rule sits inside `@container yk (min-width: 880px) { … }` and starts with `html.yk-desk`. The pane
-  (`#yk-view`) is a size container named `yk`, so a layout follows the pane's width whether the sidebar is there or not: a window of
-  1120 px or more. A narrower pane keeps the phone's single column (`_single.css`).
+  (`#yk-view`) is a container named `yk` (`container: yk / inline-size`: its width can be queried, not its height), so a layout
+  follows the pane's width whether the sidebar is there or not: a window of 1120 px or more. For the height, use `vh` or `svh`. A narrower pane keeps the phone's single column (`_single.css`).
 - **Hooks, not inline styles.** The screens' styles are inline, so a layout targets hooks added to the templates:
   - `data-d="<region>"` on the elements the layout places. The common names are `bar` (the top row: close or back, progress,
     label), `head` (the title block), `main` (what the learner reads or answers), `side` (what comes beside it: feedback,

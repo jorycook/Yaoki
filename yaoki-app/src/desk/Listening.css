@@ -27,7 +27,7 @@
   html.yk-desk [data-yk="Listening"] > [data-d="gap"] { display: none !important; }
 
   /* ---------- the question */
-  html.yk-desk [data-yk="Listening"] [data-d="head"] { grid-area: head; padding: 0 !important; margin-bottom: 16px; gap: 3px !important; }
+  html.yk-desk [data-yk="Listening"] [data-d="head"] { grid-area: head; padding: 0 !important; margin-bottom: 14px; gap: 3px !important; }
   html.yk-desk [data-yk="Listening"] [data-d="head"] > div:first-child { font-size: 13px !important; }
   html.yk-desk [data-yk="Listening"] [data-d="head"] > h1 { font-size: 23px !important; line-height: 1.4 !important; }
   html.yk-desk [data-yk="Listening"] [data-d="head"] > div:last-child { font-size: 14px !important; }
@@ -48,9 +48,14 @@
 
   /* ---------- the options: the numbers as large tiles, or the printed choices */
   html.yk-desk [data-yk="Listening"] [data-d="opts"] { grid-area: opts; margin: 0 !important; }
-  html.yk-desk [data-yk="Listening"] [data-d="opts"] > [data-k="choice"]:not(:has(> span)) { height: 76px !important; min-height: 76px !important; font-size: 28px !important; }
-  html.yk-desk [data-yk="Listening"] [data-d="opts"] > [data-k="choice"]:has(> span) { min-height: 56px !important; padding: 8px 16px !important; gap: 12px !important; }
+  html.yk-desk [data-yk="Listening"]:not(:has([data-d="side"])) [data-d="opts"] > [data-k="choice"]:not(:has(> span[lang])) { height: 76px !important; min-height: 76px !important; font-size: 28px !important; }
+  html.yk-desk [data-yk="Listening"]:not(:has([data-d="side"])) [data-d="opts"] > [data-k="choice"]:has(> span[lang]) { min-height: 56px !important; padding: 8px 16px !important; gap: 12px !important; }
   html.yk-desk [data-yk="Listening"] [data-d="opts"] > [data-k="choice"] > span[lang] { font-size: 17px !important; }
+  /* once answered the options are marks: the tiles lower, and the Study app's printed choices become numbered tiles too, as
+     N1's do (their words are in the panel, each with its reason) */
+  html.yk-desk [data-yk="Listening"]:has([data-d="side"]) [data-d="opts"] { display: grid !important; grid-auto-flow: column; grid-template-columns: none !important; grid-auto-columns: minmax(0, 1fr); gap: 10px !important; }
+  html.yk-desk [data-yk="Listening"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"] { height: 56px !important; min-height: 56px !important; padding: 0 10px !important; justify-content: center !important; font-size: 24px !important; }
+  html.yk-desk [data-yk="Listening"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"] > span[lang] { display: none !important; }
   html.yk-desk [data-yk="Listening"] [data-d="wait"] { grid-area: verdict; margin: 14px 0 0 !important; font-size: 13px !important; }
 
   /* ---------- once answered: the phone's sheet is laid open, its parts placed in the two columns */
@@ -77,7 +82,7 @@
     background: #E0F3EF; animation: yk-ls-in 240ms ease-out;
   }
   html.yk-desk [data-yk="Listening"]:has([data-d="verdict"] svg[stroke="#C7361E"])::before { background: #FDEBE6; }
-  html.yk-desk [data-yk="Listening"] [data-d="verdict"] { grid-area: verdict; margin: 32px 20px 0; animation: yk-ls-in 240ms ease-out; }
+  html.yk-desk [data-yk="Listening"] [data-d="verdict"] { grid-area: verdict; margin: 28px 20px 0; animation: yk-ls-in 240ms ease-out; }
   html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"]) {
     display: flex !important; flex-direction: column; gap: 8px; box-sizing: border-box; min-height: 0; overflow-y: auto;
     margin: 12px 20px 0; padding: 12px 16px 14px; border-radius: 16px; background: #FFFFFF; animation: yk-ls-in 240ms ease-out;
@@ -89,7 +94,7 @@
   /* the replies of a quick response (and the Study app's choices) come without a heading of their own on the phone: the
      script's heads the sheet there */
   html.yk-desk [data-yk="Listening"] [data-d="script"] + [data-d="replies"]::before { content: '解説　Why each choice'; font-size: 12px; font-weight: 800; color: #5A6382; }
-  html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { grid-area: next; margin: 16px 20px 20px; animation: yk-ls-in 240ms ease-out; }
+  html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { grid-area: next; margin: 12px 20px 16px; animation: yk-ls-in 240ms ease-out; }
 
   /* ---------- N1, a day without listening: the note and Back to today at the top */
   html.yk-desk [data-yk="Listening"] > [data-d="none"] { grid-area: 2 / 1 / 4 / -1; flex-grow: 0 !important; padding: 0 !important; align-items: flex-start; }
