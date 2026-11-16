@@ -177,6 +177,20 @@ label.switch > span { flex: 1; min-width: 0; }
 .daycard.mini .day-box { width: 24px; height: 24px; border-radius: 7px; }
 .daycard.mini .day-box.stamped i { width: 19px; height: 19px; border-width: 2px; font-size: 10px; }
 
+/* the desktop layout's columns (below) keep their pieces together in the markup; in the single column (a window under
+   900 px) these wrappers step aside and `order` puts each piece back where the column has always had it */
+.menu-main, .menu-side, .coach, .res-main, .res-side, .set-col { display: contents; }
+.menu-main > *, .menu-side > * { order: 2; }
+.hero, #touch-note, #layout-note { order: 0; }
+#day-card { order: 1; }
+.menu-main > aside.notebox { order: 3; }
+#status { order: 1; }
+#kb { order: 2; }
+#next-line { order: 3; }
+.res-side > .stats { order: 1; }
+#res-best, #res-seal { order: 2; }
+#res-grad-box, #res-weak-box, #res-day { order: 3; }
+.res-main > .actions { order: 4; }
 
 @keyframes yk-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 @keyframes yk-fade { from { opacity: 0; } to { opacity: 1; } }
@@ -195,6 +209,111 @@ label.switch > span { flex: 1; min-width: 0; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .btn:active, .key.ok, .key.miss { transform: none; }
 }
+
+/* ---------- a landscape desktop: a window 900 px wide or more ----------
+   The menu in two columns: what to play on the left (the input method, its stages, a course's weeks), and on the right, in
+   view as the page scrolls, the day's stamp card, the round's length, Start and the notes before playing. A round fills the
+   window: the scene, the line under it and the keyboard are sized to the window's height, and beside the keyboard a panel
+   holds the key to press next and the note on a slip. The result in two columns: the verdict (the score and the hanko, a
+   best, a ring) with what to do next, beside the details (the stats, the weak spots, the stamp card). Settings and pause
+   are dialogs in the middle of the window. The page is at most 1240 px wide, and the site's header and footer line up. */
+@keyframes yk-pop { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (min-width: 900px) {
+  :root { --site-max: 1288px; --side-w: clamp(320px, 30vw, 392px); }
+  .site-wrap { padding-inline: 24px; }
+  #app { max-width: var(--site-max); padding: 0 24px 40px; }
+
+  /* the menu */
+  #menu { display: grid; grid-template-columns: minmax(0, 1fr) var(--side-w); column-gap: 32px; align-items: start; padding-top: 4px; }
+  .menu-main, .menu-side { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .menu-side { position: sticky; top: calc(var(--site-head) + 16px); }
+  .lede { max-width: 66ch; }
+  /* the stages: each group a list of wide choices (the name, then what it holds and its best on one line). The kana (or the
+     keys) with the course under them on the left, so a course's level and weeks come up right under its choice; the kanji on
+     the right. Down the columns, the order is the order of the keyboard's Tab. */
+  .stage-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto 1fr; gap: 16px 20px; align-items: start; }
+  .stage-group:nth-child(1):not(:only-child) { grid-area: 1 / 1; }
+  .stage-group:nth-child(2) { grid-area: 2 / 1; }
+  .stage-group:nth-child(3) { grid-area: 1 / 2 / span 2; }
+  .stage-groups:has(> .stage-group:only-child) { grid-template-rows: auto; }
+  .stage-group:only-child { grid-column: 1 / -1; }
+  .stage-groups .options { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .stage-group:only-child .options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stage-groups .option { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 1px 10px; min-height: 0; padding: 9px 14px 10px; }
+  .stage-groups .option .o-top { display: none; }
+  .stage-groups .option .o-meta { grid-column: 1 / -1; }
+  /* the notes before playing, under the choices: two columns of a readable measure */
+  .menu-main > aside.notebox { padding: 14px 18px 16px; }
+  .menu-main > aside.notebox ul { columns: 2; column-gap: 36px; margin-top: 8px; }
+  .menu-main > aside.notebox li { break-inside: avoid; margin-bottom: 6px; }
+  #units { grid-template-columns: repeat(auto-fill, minmax(176px, 1fr)); }
+  .menu-side .seg .tile { flex: 1 1 0; min-width: 0; }
+  .menu-side .actions { flex-direction: column; align-items: stretch; }
+
+  /* a round */
+  body.playing #app { max-width: none; min-height: 100svh; padding: 0 24px; display: flex; flex-direction: column; justify-content: center; container-type: inline-size; }
+  #play {
+    --rw: min(100cqw, 1600px);
+    --side: clamp(250px, calc(var(--rw) * 0.26), 400px);
+    --kg: 5px;
+    /* a key as tall as the window allows, never taller than it is wide */
+    --kh: clamp(28px, min(4.4svh + 4px, (var(--rw) - var(--side) - 24px - 14 * var(--kg)) / 15.6 * 0.92), 50px);
+    --kbh: calc(5 * var(--kh) + 4 * var(--kg));
+    --gap: 10px;
+    --info-h: 36px;
+    width: var(--rw); margin: 0 auto; padding: 12px 0 14px;
+    display: grid; grid-template-columns: minmax(0, 1fr) var(--side);
+    grid-template-areas: "hud hud" "stage stage" "info info" "kb coach";
+    gap: var(--gap) 24px;
+  }
+  #play > .hud { grid-area: hud; }
+  #play > .stage-wrap { grid-area: stage; height: clamp(200px, calc(100svh - 26px - 48px - 3 * var(--gap) - var(--info-h) - var(--kbh) - var(--info-extra, 0px)), 480px); }
+  #info { grid-area: info; min-height: var(--info-h); font-size: 18px; }
+  #info .info-ja { font-size: 23px; }
+  #kb { grid-area: kb; align-self: start; }
+  .kb, .kb-row { gap: var(--kg); }
+  .key { height: var(--kh); border-radius: calc(var(--kh) * 0.27); font-size: clamp(13px, calc(var(--kh) * 0.4), 18px); }
+  .key .sub { font-size: clamp(10px, calc(var(--kh) * 0.27), 13px); }
+  .key .main[lang="ja"] { font-size: clamp(15px, calc(var(--kh) * 0.44), 21px); }
+  .key .sub[lang="ja"] { font-size: clamp(11px, calc(var(--kh) * 0.3), 14px); }
+  .key.mod .main { font-size: clamp(11px, calc(var(--kh) * 0.29), 14px); }
+  /* the panel beside the keyboard: before a hint, it says what will show there */
+  .coach { grid-area: coach; display: flex; flex-direction: column; gap: 10px; height: var(--kbh); overflow-y: auto; padding: 14px 18px; border-radius: var(--r-l); border: 2px solid var(--outline); background: var(--card); box-shadow: var(--shadow-s); }
+  .coach:has(> #next-line:empty):has(> #status:empty) { border: 2px dashed var(--line-strong); background: none; box-shadow: none; }
+  .coach:has(> #next-line:empty):has(> #status:empty)::before {
+    content: 'ヒント　Hints\A After a slip, or when you are stuck, the key to press lights up on the keyboard, and this says which finger presses it.';
+    white-space: pre-line; color: var(--muted); font-size: 13px; font-weight: 700; line-height: 1.55;
+  }
+  .coach > #next-line { order: 0; flex-direction: column; align-items: flex-start; gap: 4px; min-height: 0; margin: 0; }
+  .coach > #next-line .kicker { font-size: 18px; }
+  .coach > #next-line span:not(.kicker) { font-size: 17px; }
+  .coach > #status { order: 1; min-height: 0; font-size: 16px; line-height: 1.45; }
+  /* with the keyboard hidden, the note is a line under the game */
+  body.no-kb #play { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hud" "stage" "info" "status"; }
+  body.no-kb .coach { display: contents; }
+  body.no-kb #status { grid-area: status; }
+  body.no-kb #play > .stage-wrap { height: clamp(200px, calc(100svh - 26px - 48px - 3 * var(--gap) - var(--info-h) - 26px - var(--info-extra, 0px)), 480px); }
+
+  /* the result */
+  #result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 40px; align-items: start; max-width: none; padding-top: 8px; }
+  .res-main, .res-side { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .res-main { position: sticky; top: calc(var(--site-head) + 16px); }
+  /* Again, as wide as the two beside each other under it */
+  .res-main .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 540px; }
+  .res-main .actions .btn { padding-inline: 16px; white-space: nowrap; }
+  #again { grid-column: 1 / -1; }
+
+  /* settings and pause: dialogs in the middle of the window */
+  .scrim { align-items: center; padding: 24px; }
+  .sheet { border-radius: var(--r-xl); border: var(--rule); box-shadow: 0 6px 0 var(--hard); max-height: calc(100svh - 48px); padding: 22px 26px 24px; animation: yk-pop 200ms ease-out; }
+  #settings-sheet .sheet { width: min(980px, 100%); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; align-items: start; }
+  #settings-sheet .sheet > h2, #close-settings { grid-column: 1 / -1; }
+  .set-col { display: flex; flex-direction: column; gap: 14px; }
+  #close-settings { justify-self: end; width: auto; min-width: 240px; }
+  #pause-sheet .sheet { width: min(600px, 100%); display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  #pause-sheet .btn { white-space: nowrap; padding-inline: 14px; }
+  #pause-sheet .sheet > :not(#pause-settings, #quit) { grid-column: 1 / -1; }
+}
 </style>
 </head>
 <body>
@@ -208,8 +327,9 @@ label.switch > span { flex: 1; min-width: 0; }
     </button>
   </header>
 
-  <!-- the menu -->
+  <!-- the menu: on a desktop, what to play (menu-main) beside the day's stamp card, the round's length and Start (menu-side) -->
   <section id="menu" class="view" aria-labelledby="menu-title">
+   <div class="menu-main">
     <div class="hero">
       <svg viewBox="0 0 100 100" width="64" height="64" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
       <div>
@@ -221,17 +341,6 @@ label.switch > span { flex: 1; min-width: 0; }
 
     <div id="touch-note" class="pair" hidden><span lang="ja">パソコンとキーボードでどうぞ</span><span>Yaoki Typing is made for a computer with a keyboard, in a window at least 700 pixels wide. On a phone or tablet, <a href="../speaking/">Yaoki Speaking</a> has you say the words out loud instead.</span></div>
     <p id="layout-note" class="notebox" hidden></p>
-
-    <section id="day-card" class="card daycard" role="group" aria-labelledby="day-kick">
-      <div class="day-boxes" id="day-boxes" aria-hidden="true"></div>
-      <div class="day-text">
-        <div class="kicker" id="day-kick"><span lang="ja">スタンプカード</span>　STAMP CARD · <span id="day-count">0 / 7</span></div>
-        <p class="day-line" id="day-line" aria-hidden="true"></p>
-        <p class="hint" id="day-hint"></p>
-        <p class="sr-only" id="day-sr"></p>
-      </div>
-      <span class="tag gold" id="day-done" aria-hidden="true" hidden></span>
-    </section>
 
     <section class="block" aria-labelledby="mode-h">
       <h2 id="mode-h"><span lang="ja">入力方法</span>　Input method</h2>
@@ -252,6 +361,29 @@ label.switch > span { flex: 1; min-width: 0; }
       <div id="units" class="options" role="group" aria-labelledby="unit-h"></div>
       <p id="course-note" class="hint"></p>
     </section>
+    <aside class="notebox" aria-labelledby="before-h">
+      <b id="before-h" lang="ja">はじめる前に</b>　Before you play
+      <ul>
+        <li>Yaoki Typing is made for a computer with a keyboard. Set it to a <b>Japanese keyboard layout</b>, so the symbols and kana are where the picture shows them.</li>
+        <li>For romaji and symbol keys, switch the input to <b lang="ja">英数</b> (direct input) while you play. Romaji is checked the way the Japanese input method would read it: <b>nn</b> for <span lang="ja">ん</span> before a vowel, y or n and at the end, <b>wo</b> for <span lang="ja">を</span>. For kana input the input mode does not matter: the game goes by the key you press.</li>
+        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last romaji letter of the card you are typing. A card that waits in front of Yaoki can be skipped with <b>Tab</b>.</li>
+        <li>A card typed with no miss and no hint gets a <b lang="ja">はなまる</b> on the route, and <b lang="ja">連続</b> counts them in a row. A card that knocked Yaoki over and is typed clean when it comes back is stamped <b lang="ja">起</b>. A gold corner marks a card with one of your weak spots. <span lang="ja">たいへんよくできました</span> on three different days gives a stage its <span lang="ja">はなまる</span>.</li>
+        <li>Cleared cards ride on to Yaoki, and he jumps, spins, ducks or smashes his way past them (with reduced motion they simply settle).</li>
+      </ul>
+    </aside>
+   </div>
+
+   <div class="menu-side">
+    <section id="day-card" class="card daycard" role="group" aria-labelledby="day-kick">
+      <div class="day-boxes" id="day-boxes" aria-hidden="true"></div>
+      <div class="day-text">
+        <div class="kicker" id="day-kick"><span lang="ja">スタンプカード</span>　STAMP CARD · <span id="day-count">0 / 7</span></div>
+        <p class="day-line" id="day-line" aria-hidden="true"></p>
+        <p class="hint" id="day-hint"></p>
+        <p class="sr-only" id="day-sr"></p>
+      </div>
+      <span class="tag gold" id="day-done" aria-hidden="true" hidden></span>
+    </section>
 
     <section class="block" aria-labelledby="len-h">
       <h2 id="len-h"><span lang="ja">ラウンド</span>　Cards per round</h2>
@@ -263,16 +395,7 @@ label.switch > span { flex: 1; min-width: 0; }
       <button type="button" id="start-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
     </div>
 
-    <aside class="notebox" aria-labelledby="before-h">
-      <b id="before-h" lang="ja">はじめる前に</b>　Before you play
-      <ul>
-        <li>Yaoki Typing is made for a computer with a keyboard. Set it to a <b>Japanese keyboard layout</b>, so the symbols and kana are where the picture shows them.</li>
-        <li>For romaji and symbol keys, switch the input to <b lang="ja">英数</b> (direct input) while you play. Romaji is checked the way the Japanese input method would read it: <b>nn</b> for <span lang="ja">ん</span> before a vowel, y or n and at the end, <b>wo</b> for <span lang="ja">を</span>. For kana input the input mode does not matter: the game goes by the key you press.</li>
-        <li><b>Esc</b> pauses. <b>Backspace</b> takes back the last romaji letter of the card you are typing. A card that waits in front of Yaoki can be skipped with <b>Tab</b>.</li>
-        <li>A card typed with no miss and no hint gets a <b lang="ja">はなまる</b> on the route, and <b lang="ja">連続</b> counts them in a row. A card that knocked Yaoki over and is typed clean when it comes back is stamped <b lang="ja">起</b>. A gold corner marks a card with one of your weak spots. <span lang="ja">たいへんよくできました</span> on three different days gives a stage its <span lang="ja">はなまる</span>.</li>
-        <li>Cleared cards ride on to Yaoki, and he jumps, spins, ducks or smashes his way past them (with reduced motion they simply settle).</li>
-      </ul>
-    </aside>
+   </div>
   </section>
 
   <!-- a round -->
@@ -297,13 +420,18 @@ label.switch > span { flex: 1; min-width: 0; }
     </div>
     <div class="stage-wrap"><canvas id="stage" aria-hidden="true"></canvas></div>
     <p id="info" class="info"></p>
-    <p id="status" class="status" role="status" aria-live="polite"></p>
     <div id="kb" class="kb" aria-hidden="true"></div>
-    <p id="next-line" class="next-line" aria-hidden="true"></p>
+    <!-- on a desktop, a panel beside the keyboard: the key to press next and the note on a slip -->
+    <div class="coach">
+      <p id="next-line" class="next-line" aria-hidden="true"></p>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </div>
   </section>
 
   <!-- the result of a round -->
   <section id="result" class="view" aria-labelledby="res-title" hidden>
+   <!-- on a desktop, the round's verdict and what to do next (res-main) beside its details (res-side) -->
+   <div class="res-main">
     <div>
       <div class="kicker red" id="res-kicker"><span lang="ja">結果</span>　RESULT</div>
       <h1 id="res-title" tabindex="-1" lang="ja">ラウンドおわり</h1>
@@ -316,6 +444,15 @@ label.switch > span { flex: 1; min-width: 0; }
       </div>
       <div class="hanko" id="res-stamp" role="img"><div lang="ja" id="res-stamp-text"></div><i class="hanko-ink" id="res-ink" aria-hidden="true"></i><svg id="res-hana" class="hana-ring" viewBox="-84 -84 168 168" aria-hidden="true" hidden><path pathLength="1" d=""/></svg></div>
     </div>
+    <p id="res-best" hidden><span class="tag gold" lang="ja">自己ベスト！</span> <span class="hint" id="res-best-text"></span></p>
+    <div id="res-seal" class="seal-line" hidden><p><span id="res-seal-tag" class="tag gold" lang="ja" hidden></span> <span class="hint" id="res-seal-text"></span></p><button type="button" id="res-next" class="btn quiet" hidden></button></div>
+    <div class="actions">
+      <button type="button" id="again" class="btn"><span lang="ja">もう一度</span>　Again <kbd>Enter</kbd></button>
+      <button type="button" id="again-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
+      <button type="button" id="close" class="btn quiet"><span lang="ja">とじる</span>　Close <kbd>Esc</kbd></button>
+    </div>
+   </div>
+   <div class="res-side">
     <div class="card stats">
       <div class="row"><b id="res-keys">0</b><span><span lang="ja">正しく打ったキー</span><small>right keys, of all the keys pressed</small></span></div>
       <div class="row"><b id="res-run">0</b><span><span lang="ja">連続ノーミス</span><small id="res-run-en">longest run of clean cards in a row</small></span></div>
@@ -323,8 +460,6 @@ label.switch > span { flex: 1; min-width: 0; }
       <div class="row"><b id="res-hints">0</b><span><span lang="ja">ヒント</span><small id="res-hints-en">hints shown when stuck</small></span></div>
       <div class="row" id="res-wc-row" hidden><b id="res-wc">0</b><span><span lang="ja">苦手カード</span><small>cards with one of your weak spots (gold corner), typed clean</small></span></div>
     </div>
-    <p id="res-best" hidden><span class="tag gold" lang="ja">自己ベスト！</span> <span class="hint" id="res-best-text"></span></p>
-    <div id="res-seal" class="seal-line" hidden><p><span id="res-seal-tag" class="tag gold" lang="ja" hidden></span> <span class="hint" id="res-seal-text"></span></p><button type="button" id="res-next" class="btn quiet" hidden></button></div>
     <section id="res-grad-box" class="block" aria-labelledby="grad-h" hidden>
       <h2 id="grad-h"><span lang="ja">卒業</span>　Off the weak list</h2>
       <div id="res-grad" class="weak"></div>
@@ -342,11 +477,7 @@ label.switch > span { flex: 1; min-width: 0; }
         <p class="day-line" id="res-day-line"></p>
       </div>
     </section>
-    <div class="actions">
-      <button type="button" id="again" class="btn"><span lang="ja">もう一度</span>　Again <kbd>Enter</kbd></button>
-      <button type="button" id="again-weak" class="btn quiet" hidden><span lang="ja">苦手を練習</span>　Weak spots</button>
-      <button type="button" id="close" class="btn quiet"><span lang="ja">とじる</span>　Close <kbd>Esc</kbd></button>
-    </div>
+   </div>
   </section>
 
 </div>
@@ -365,6 +496,8 @@ label.switch > span { flex: 1; min-width: 0; }
 <div id="settings-sheet" class="scrim" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settings-h">
     <h2 id="settings-h"><span lang="ja">設定</span>　<small>Settings</small></h2>
+    <!-- on a desktop, two columns: the hints and what shows, then the sound and the day's goal -->
+    <div class="set-col">
     <div class="block">
       <h2 id="hint-h"><span lang="ja">ヒント</span>　Romaji and key hints</h2>
       <div id="hint-seg" class="seg" role="group" aria-labelledby="hint-h"></div>
@@ -372,6 +505,8 @@ label.switch > span { flex: 1; min-width: 0; }
     </div>
     <label class="switch"><span><span lang="ja">キーボード</span><small>Show the keyboard under the game</small></span><input type="checkbox" id="opt-kb" checked></label>
     <label class="switch"><span><span lang="ja">音</span><small>Say each course word when it is cleared</small></span><input type="checkbox" id="opt-sound" checked></label>
+    </div>
+    <div class="set-col">
     <div class="block">
       <h2 id="sfx-h"><span lang="ja">効果音</span>　Sound effects</h2>
       <div id="sfx-seg" class="seg" role="group" aria-labelledby="sfx-h"></div>
@@ -386,6 +521,7 @@ label.switch > span { flex: 1; min-width: 0; }
       <h2 id="goal-h"><span lang="ja">1日の目標</span>　Daily goal</h2>
       <div id="goal-seg" class="seg" role="group" aria-labelledby="goal-h"></div>
       <p class="hint">A day's box on the stamp card is stamped once you have typed this long that day. Only typing counts: not pauses, and not more than 8 seconds without a key.</p>
+    </div>
     </div>
     <button type="button" id="close-settings" class="btn"><span lang="ja">とじる</span>　Close</button>
   </div>

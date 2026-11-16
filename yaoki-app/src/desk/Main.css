@@ -1,0 +1,140 @@
+/* Main, the week path (both apps). The phone stacks the pills, the week card and a zigzag route drawn at phone coordinates. Here the
+   pills stay a row on top, the week card is one band (its title, the stamp card, Yaoki and N1's week arrows side by side), N1's
+   behind-plan strip runs under it, and the route is a panel across the width: the week's days left to right on one line, each
+   label under its node, and the day's card (Start) in the label row, in the place of the labels it stands for (the logic leaves
+   out today's label, and on the Study app the labels its card would cover on the phone). N1's open-early sheet is a dialog in the
+   middle of the pane. Hooks: bar, week, head, slots, late (N1), route, node / node-done / node-now / node-skip (each day's node,
+   by state), label, card, ask (N1); data-k="go" on Start (and N1's other card actions, and the sheet's Open). */
+@container yk (min-width: 880px) {
+  /* static here: N1's open-early overlay then covers the whole pane, not only the screen's 1240 px */
+  html.yk-desk [data-yk="Main"] { position: static !important; padding: 20px 28px 24px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="bar"] { padding: 0 !important; flex-shrink: 0; }
+
+  /* the week card: one band */
+  html.yk-desk [data-yk="Main"] > [data-d="week"] {
+    margin: 14px 0 0 !important; padding: 16px 22px !important; flex-shrink: 0;
+    display: grid !important; grid-auto-flow: column; grid-template-columns: minmax(0, 1fr); grid-auto-columns: auto;
+    align-items: center; column-gap: 28px !important;
+  }
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] { display: contents !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > div { order: 1; }
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="slots"] { order: 2; grid-template-columns: repeat(7, clamp(38px, 4cqw, 48px)) !important; gap: 8px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="slots"] > div { height: clamp(38px, 4cqw, 48px) !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > :is(svg, button) { order: 3; }
+  /* N1's week arrows sit close to Yaoki, as they do on the phone */
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > button:first-of-type { margin-right: -20px; }
+  html.yk-desk [data-yk="Main"] > [data-d="week"] > [data-d="head"] > button:last-of-type { margin-left: -20px; }
+
+  /* N1: the behind-plan strip */
+  html.yk-desk [data-yk="Main"] > [data-d="late"] { margin: 14px 0 0 !important; height: 38px !important; padding-left: 16px !important; border-radius: 14px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="late"] > div { font-size: 14px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="late"] > button { height: 38px !important; margin: 0 !important; padding: 0 14px !important; font-size: 14px !important; }
+
+  /* the route: a panel of the phone's grid paper, the days in columns. Each day takes two half-columns, so its node sits on the
+     line between them; the dotted path and the red trail are drawn on those lines, from the first node to the last (or to the last
+     day done). The rows above and below the days share what height is left, two to three, so the week sits a little above the
+     middle of the panel. */
+  html.yk-desk [data-yk="Main"] > [data-d="route"] {
+    margin-top: 18px; flex: 1 1 auto; min-height: 0; overflow-x: hidden !important; overflow-y: auto !important; isolation: isolate;
+    box-sizing: border-box; border: 2px solid #DDE1EC; border-radius: 24px; padding: 18px 20px;
+    display: grid !important; grid-template-columns: repeat(14, 1fr); grid-template-rows: minmax(0, 2fr) auto auto minmax(0, 3fr);
+    --red: -2; --red-show: block;
+  }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:not(:has(> :nth-child(7 of [data-d^="node"]))) { grid-template-columns: repeat(12, 1fr); }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:not(:has(> :nth-child(6 of [data-d^="node"]))) { grid-template-columns: repeat(10, 1fr); }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:not(:has(> :nth-child(5 of [data-d^="node"]))) { grid-template-columns: repeat(8, 1fr); }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:not(:has(> :nth-child(4 of [data-d^="node"]))) { grid-template-columns: repeat(6, 1fr); }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:not(:has(> :nth-child(3 of [data-d^="node"]))) { grid-template-columns: repeat(4, 1fr); }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > svg { display: none !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]::before, html.yk-desk [data-yk="Main"] > [data-d="route"]::after {
+    content: ''; position: absolute; z-index: 0; grid-row: 2 / 3; grid-column: 2 / -2; left: 0; right: 0; top: calc(50% - 3px); height: 6px;
+  }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]::before { background: radial-gradient(circle, #C9D0E3 2.6px, transparent 3.2px) left center / 14px 6px repeat-x; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]::after { grid-column: 2 / var(--red); display: var(--red-show); border-radius: 3px; background: #E2452B; }
+  /* the red trail runs from the first day to the last one done (or with nothing planned) before the first day still to do (a
+     node whose name says done counts as done: N1's highlighted day once finished, a week test passed) */
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :nth-child(7 of [data-d^="node"]):not([data-d="node-done"], [data-d="node-skip"], [aria-label*=", done"])) { --red: 12; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :nth-child(6 of [data-d^="node"]):not([data-d="node-done"], [data-d="node-skip"], [aria-label*=", done"])) { --red: 10; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :nth-child(5 of [data-d^="node"]):not([data-d="node-done"], [data-d="node-skip"], [aria-label*=", done"])) { --red: 8; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :nth-child(4 of [data-d^="node"]):not([data-d="node-done"], [data-d="node-skip"], [aria-label*=", done"])) { --red: 6; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :nth-child(3 of [data-d^="node"]):not([data-d="node-done"], [data-d="node-skip"], [aria-label*=", done"])) { --red: 4; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :nth-child(-n+2 of [data-d^="node"]):not([data-d="node-done"], [data-d="node-skip"], [aria-label*=", done"])) { --red-show: none; }
+
+  /* each day: its node on the path, its label under it */
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d^="node"] { position: relative !important; left: auto !important; top: auto !important; z-index: 1; grid-row: 2; justify-self: center; align-self: center; margin: 4px 0; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] {
+    position: relative !important; left: auto !important; top: auto !important; width: auto !important; max-width: none !important; min-width: 0;
+    grid-row: 3; align-self: start; box-sizing: border-box; padding: 12px 8px 0; align-items: center; text-align: center;
+  }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:first-child { font-size: 12px !important; line-height: 17px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(2) { font-size: 15px !important; line-height: 21px !important; -webkit-line-clamp: 3 !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(1 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(1 of [data-d^="node"]) + [data-d="label"] { grid-column: 1 / span 2; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(2 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(2 of [data-d^="node"]) + [data-d="label"] { grid-column: 3 / span 2; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(3 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(3 of [data-d^="node"]) + [data-d="label"] { grid-column: 5 / span 2; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(4 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(4 of [data-d^="node"]) + [data-d="label"] { grid-column: 7 / span 2; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(5 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(5 of [data-d^="node"]) + [data-d="label"] { grid-column: 9 / span 2; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(6 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(6 of [data-d^="node"]) + [data-d="label"] { grid-column: 11 / span 2; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(7 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(7 of [data-d^="node"]) + [data-d="label"] { grid-column: 13 / span 2; }
+
+  /* the day's card goes where the labels it stands for are missing (grid placement finds that gap in the label row): one day's
+     place, or two or three on the Study app, whose card leaves out the labels it would cover on the phone */
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] {
+    position: relative !important; left: auto !important; top: auto !important; width: min(100% - 12px, 400px) !important; min-width: 270px; z-index: 1;
+    grid-row: 3; grid-column: auto / span 2; align-self: start; justify-self: center; box-sizing: border-box; margin: 14px 0 0; padding: 14px 16px 16px !important; gap: 4px !important;
+    box-shadow: 0 4px 0 #1B2440;
+  }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:is(:has(> [data-d^="node"] + [data-d^="node"] + :is([data-d^="node"], [data-d="card"])), :has(> [data-d^="node"] + [data-d^="node"]:last-child)) > [data-d="card"] { grid-column: auto / span 4; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:is(:has(> [data-d^="node"] + [data-d^="node"] + [data-d^="node"] + :is([data-d^="node"], [data-d="card"])), :has(> [data-d^="node"] + [data-d^="node"] + [data-d^="node"]:last-child)) > [data-d="card"] { grid-column: auto / span 6; }
+  /* a notch points at today's node: the middle of the card, or the first or second quarter of a card two days wide */
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> [data-d="node-now"]) > [data-d="card"]::before {
+    content: ''; position: absolute; top: -9px; left: calc(var(--at, 50%) - 8px); width: 13px; height: 13px; border-top-left-radius: 3px;
+    background: #FFFFFF; border-left: 2px solid #1B2440; border-top: 2px solid #1B2440; transform: rotate(45deg);
+  }
+  /* (a node without its label is followed straight by the next node, or by the card: the gap starts at today when what comes
+     before today is not a node, and ends at today when today is followed by a node with its label, or by the card) */
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:has(> :not([data-d^="node"]) + [data-d="node-now"] + [data-d^="node"] + :is([data-d^="node"], [data-d="card"])) > [data-d="card"] { --at: 25%; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"]:is(:has(> :not([data-d^="node"]) + [data-d^="node"] + [data-d="node-now"] + [data-d^="node"] + [data-d="label"]), :has(> :not([data-d^="node"]) + [data-d^="node"] + [data-d="node-now"] + [data-d="card"])) > [data-d="card"] { --at: 75%; }
+  /* (N1 cuts its title at the lines it counted for the phone's narrower box: here the title may take what it needs) */
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:nth-child(2) { font-size: 18px !important; line-height: 1.35 !important; -webkit-line-clamp: 4 !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 48px !important; margin-top: 10px !important; font-size: 16px !important; }
+
+  /* N1: the open-early sheet is a dialog in the middle of the pane (a click outside it cancels, as the phone's backdrop does) */
+  html.yk-desk [data-yk="Main"] > [data-d="ask"] { z-index: 5; display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }
+  html.yk-desk [data-yk="Main"] > [data-d="ask"] > button[aria-label="Close"] { position: absolute; inset: 0; }
+  html.yk-desk [data-yk="Main"] > [data-d="ask"] > [role="dialog"] { position: relative; width: 100%; max-width: 480px; max-height: 100%; overflow-y: auto; box-sizing: border-box; border-radius: 26px !important; border: 2px solid #1B2440 !important; box-shadow: 0 8px 0 #1B2440; padding: 22px 24px 24px !important; gap: 14px !important; }
+  html.yk-desk [data-yk="Main"] > [data-d="ask"] > [role="dialog"] > div[aria-hidden="true"] { display: none; }
+
+  /* a tall window: the week a size larger (and larger again in a very tall one) */
+  @media (min-height: 860px) {
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d^="node"] { zoom: 1.25; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] { padding-top: 14px; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:first-child { font-size: 13px !important; line-height: 18px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(2) { font-size: 16px !important; line-height: 23px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(3) { font-size: 12px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] { min-width: 300px; margin-top: 18px; padding: 16px 18px 18px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:first-child { font-size: 12px !important; line-height: 17px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:nth-child(2) { font-size: 20px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 52px !important; font-size: 17px !important; }
+  }
+  @media (min-height: 1200px) {
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d^="node"] { zoom: 1.5; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] { padding-top: 18px; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:first-child { font-size: 14px !important; line-height: 20px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(2) { font-size: 18px !important; line-height: 26px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(3) { font-size: 13px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] { min-width: 340px; margin-top: 22px; padding: 18px 20px 20px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:first-child { font-size: 13px !important; line-height: 19px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:nth-child(2) { font-size: 23px !important; line-height: 1.35 !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > div:nth-child(n+3) { font-size: 14px !important; line-height: 20px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] > :is(a, button) { height: 56px !important; font-size: 18px !important; }
+  }
+  /* the narrowest landscape panes (after the tall ones, so a narrow tall window keeps these): a little less padding, so the day
+     labels keep six characters a line beside a wide card */
+  @container yk (max-width: 999.98px) {
+    html.yk-desk [data-yk="Main"] { padding: 18px 20px 20px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] { padding: 16px 8px; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] { padding: 12px 4px 0; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="label"] > div:nth-child(2) { font-size: 14px !important; line-height: 20px !important; }
+    html.yk-desk [data-yk="Main"] > [data-d="route"] > [data-d="card"] { min-width: 250px; }
+  }
+}

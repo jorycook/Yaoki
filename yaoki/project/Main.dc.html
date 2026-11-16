@@ -24,7 +24,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding-top: 50px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px">
+<div data-d="bar" style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px">
 <button aria-label="{{ levelAria }}" onClick="{{ openMenu }}" style="height: 44px; padding: 0 16px; border-radius: 22px; border: 2px solid #1B2440; background: #FFFFFF; font-weight: 800; font-size: 16px">{{ levelLabel }}</button>
 <div style="flex-grow: 1"></div>
 <div style="display: flex; align-items: center; gap: 6px; height: 44px; padding: 0 12px; border-radius: 22px; background: #FFFFFF; border: 2px solid #DDE1EC">
@@ -37,8 +37,8 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="margin: 12px 16px 8px; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 12px">
-<div style="display: flex; align-items: center; gap: 12px">
+<div data-d="week" style="margin: 12px 16px 8px; padding: 14px 16px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 12px">
+<div data-d="head" style="display: flex; align-items: center; gap: 12px">
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ weekLabel }}</div>
 <div style="font-size: 26px; font-weight: 800; line-height: 1.2">{{ unitJa }}</div>
@@ -46,7 +46,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 <svg viewBox="0 0 100 100" width="60" height="60" role="img" aria-label="Yaoki, a daruma with one eye painted"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 </div>
-<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px" role="img" aria-label="{{ cardLabel }}">
+<div data-d="slots" style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px" role="img" aria-label="{{ cardLabel }}">
 <sc-for list="{{ slots }}" as="c" hint-placeholder-count="7">
 <sc-if value="{{ c.stamped }}" hint-placeholder-val="{{ false }}"><div style="height: 40px; border-radius: 50%; border: 2.5px solid #E2452B; color: #C7361E; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center; transform: rotate({{ c.tilt }})">済</div></sc-if>
 <sc-if value="{{ c.now }}" hint-placeholder-val="{{ false }}"><div style="height: 40px; border-radius: 50%; border: 2.5px dashed #2F4FD0; background: #E8ECFB; color: #2F4FD0; font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center">{{ c.label }}</div></sc-if>
@@ -56,15 +56,15 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 
-<div style="position: relative; flex-grow: 1; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
+<div data-d="route" style="position: relative; flex-grow: 1; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
 <svg width="390" height="478" viewBox="0 0 390 478" fill="none" aria-hidden="true" style="position: absolute; left: 0; top: 0"><polyline points="64,34 104,98 132,162 104,250 64,326 110,386 180,438" stroke="#C9D0E3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 13"/><polyline points="{{ redPath }}" stroke="#E2452B" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
 
 <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="7">
-<sc-if value="{{ n.isDone }}" hint-placeholder-val="{{ false }}"><a href="Today.dc.html" onClick="{{ n.open }}" aria-label="{{ n.aria }}" style="position: absolute; width: 52px; height: 52px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}; transform: rotate({{ n.tilt }})">済</a></sc-if>
-<sc-if value="{{ n.isToday }}" hint-placeholder-val="{{ false }}"><a href="Today.dc.html" onClick="{{ n.open }}" aria-label="{{ n.aria }}" style="position: absolute; width: 68px; height: 68px; box-sizing: border-box; border-radius: 50%; border: 3px solid #1B2440; background: #2F4FD0; box-shadow: 0 5px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 26px; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}">{{ n.label }}</a></sc-if>
-<sc-if value="{{ n.isLocked }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="{{ n.aria }}" style="position: absolute; width: 52px; height: 52px; box-sizing: border-box; border-radius: 50%; border: 3px solid #C9D0E3; background: #E6E9F3; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></sc-if>
-<sc-if value="{{ n.isTest }}" hint-placeholder-val="{{ false }}"><a href="WeekTest.dc.html" onClick="{{ n.open }}" aria-label="{{ n.aria }}" style="position: absolute; width: 60px; height: 60px; box-sizing: border-box; border-radius: 18px; border: 3px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}; background: {{ n.bg }}">{{ n.mark }}</a></sc-if>
-<sc-if value="{{ n.showLabel }}" hint-placeholder-val="{{ true }}"><div style="position: absolute; display: flex; flex-direction: column; left: {{ n.lx }}; top: {{ n.ly }}; max-width: {{ n.lw }}">
+<sc-if value="{{ n.isDone }}" hint-placeholder-val="{{ false }}"><a data-d="node-done" href="Today.dc.html" onClick="{{ n.open }}" aria-label="{{ n.aria }}" style="position: absolute; width: 52px; height: 52px; box-sizing: border-box; border-radius: 50%; border: 3px solid #E2452B; background: #FFFFFF; color: #C7361E; font-weight: 800; font-size: 20px; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}; transform: rotate({{ n.tilt }})">済</a></sc-if>
+<sc-if value="{{ n.isToday }}" hint-placeholder-val="{{ false }}"><a data-d="node-now" href="Today.dc.html" onClick="{{ n.open }}" aria-label="{{ n.aria }}" style="position: absolute; width: 68px; height: 68px; box-sizing: border-box; border-radius: 50%; border: 3px solid #1B2440; background: #2F4FD0; box-shadow: 0 5px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 26px; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}">{{ n.label }}</a></sc-if>
+<sc-if value="{{ n.isLocked }}" hint-placeholder-val="{{ false }}"><div data-d="node" role="img" aria-label="{{ n.aria }}" style="position: absolute; width: 52px; height: 52px; box-sizing: border-box; border-radius: 50%; border: 3px solid #C9D0E3; background: #E6E9F3; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5A6382" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div></sc-if>
+<sc-if value="{{ n.isTest }}" hint-placeholder-val="{{ false }}"><a data-d="node" href="WeekTest.dc.html" onClick="{{ n.open }}" aria-label="{{ n.aria }}" style="position: absolute; width: 60px; height: 60px; box-sizing: border-box; border-radius: 18px; border: 3px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #1B2440; font-weight: 800; font-size: 22px; display: flex; align-items: center; justify-content: center; left: {{ n.x }}; top: {{ n.y }}; background: {{ n.bg }}">{{ n.mark }}</a></sc-if>
+<sc-if value="{{ n.showLabel }}" hint-placeholder-val="{{ true }}"><div data-d="label" style="position: absolute; display: flex; flex-direction: column; left: {{ n.lx }}; top: {{ n.ly }}; max-width: {{ n.lw }}">
 <div style="font-size: 11px; font-weight: 700; color: #5A6382">{{ n.dayLabel }}</div>
 <div style="font-size: 14px; font-weight: {{ n.weight }}; color: {{ n.ink }}">{{ n.title }}</div>
 <sc-if value="{{ n.hasNote }}" hint-placeholder-val="{{ false }}"><div style="font-size: 11px; font-weight: 500; color: #5A6382">{{ n.note }}</div></sc-if>
@@ -72,14 +72,14 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-for>
 
 <sc-if value="{{ card.open }}" hint-placeholder-val="{{ true }}">
-<div style="position: absolute; left: 150px; width: 224px; box-sizing: border-box; padding: 12px 14px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; top: {{ card.top }}">
+<div data-d="card" style="position: absolute; left: 150px; width: 224px; box-sizing: border-box; padding: 12px 14px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; top: {{ card.top }}">
 <div style="font-size: 11px; font-weight: 800; color: #2F4FD0; white-space: nowrap">{{ card.kicker }}</div>
 <div style="font-size: 16px; font-weight: 800">{{ card.title }}</div>
-<a href="Today.dc.html" onClick="{{ card.go }}" style="margin-top: 6px; height: 44px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ card.button }}</a>
+<a data-k="go" href="Today.dc.html" onClick="{{ card.go }}" style="margin-top: 6px; height: 44px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center">{{ card.button }}</a>
 </div>
 </sc-if>
 <sc-if value="{{ card.allDone }}" hint-placeholder-val="{{ false }}">
-<div style="position: absolute; left: 150px; width: 224px; box-sizing: border-box; padding: 12px 14px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; top: {{ card.top }}">
+<div data-d="card" style="position: absolute; left: 150px; width: 224px; box-sizing: border-box; padding: 12px 14px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; top: {{ card.top }}">
 <div style="font-size: 11px; font-weight: 800; color: #C7361E; white-space: nowrap">{{ card.kicker }}</div>
 <div style="font-size: 16px; font-weight: 800">{{ card.title }}</div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ card.note }}</div>

@@ -1543,7 +1543,9 @@
       }
     }
     if (p === 'result') $('res-title').focus();
-    lastKeysSig = '';
+    // Under the pause sheet the keys lit for a hint stay as they were (a paused frame lights none, and '' is its
+    // signature); any other phase draws them afresh, so a new round never starts with the last round's hint.
+    lastKeysSig = p === 'paused' ? '' : null;
   }
 
   // The line under the game; `html` when the text is markup (with its Japanese marked).

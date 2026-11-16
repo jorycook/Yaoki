@@ -1,0 +1,218 @@
+/* MockRun (both apps), the mini mock as an exam at a desk. The dark band spans the pane (the clock, the section and the answer
+   sheet's tally in it); everything under it keeps the 1184 px measure of the other screens, in the middle.
+   - intro and break as dashboards: the run as a timeline card across the top (section 1, the break, section 2), the rules
+     beside the earphones note and Start; at the break the clock on the left, the next section, the sound check and Start on
+     the right.
+   - the paper as an exam booklet: the label and instruction across the top, the sentence, word or passage on the left, the
+     question, the options, Flag and Previous / Next on the right. The spread scrolls as one if a pane is too short for it.
+   - listening: the player and the audio's progress on the left, the options (or the spoken numbers) on the right.
+   - result as a dashboard (the score and the sections beside what it means and the answers); the answers as tabs over a grid
+     of cards.
+   - the answer sheet, the quit and the paused sheets as dialogs in the middle of the pane; the answer sheet is wide: the
+     bubbles on the left, what submitting means and Back / Submit on the right.
+   Hooks: bar (title, tally); intro (head, plan > sec, brk, rules, act > gap, note); paper (page > top, main, side; gap; act)
+   with mondai, rubric, sentence, usage, lead, passage, pair, ask, opts, flag; break (late, rest, side > next, check, gap,
+   note); listen (top, player, side > opts, nums, spoken; gap, foot, note); result (main > score, secs; side > note, saved,
+   gap, leave); answers (tabs, list > row); none (N1: note, gap); the overlays sheet, paused and quit (close, dialog > grip,
+   head, rows, note, act). data-k: choice on every option, go on Start, Next, Submit, Continue, Start section 2 and Answers
+   and reasons, play on the sound check. */
+@container yk (min-width: 880px) {
+  /* the band spans the pane (the screen is not held to 1240 px); --mr-x keeps the content under it in the middle */
+  html.yk-desk .yk-screen > .sc-host > [data-yk="MockRun"] { max-width: none; --mr-x: max(28px, calc((100% - 1184px) / 2)); }
+
+  /* ---------- the dark band: the status-bar zone is padding (var(--yk-top) on the phone's build), the clock and tally larger */
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] { padding: 10px var(--mr-x) !important; gap: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [data-d="title"] { gap: 1px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [data-d="title"] > div:first-child { font-size: 18px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [data-d="title"] > div:last-child { font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [role="timer"] { height: 40px !important; padding: 0 16px !important; border-radius: 20px !important; font-size: 20px !important; }
+  /* the tally says what it opens */
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [data-d="tally"] { padding: 0 14px !important; gap: 8px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [data-d="tally"] > svg { order: -1; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="bar"] > [data-d="tally"]::before { content: '解答用紙　Answer sheet'; padding-right: 10px; margin-right: 2px; border-right: 2px solid #5A6382; line-height: 18px; }
+
+  /* every main action shows its key (_base.css) beside its label */
+  html.yk-desk [data-yk="MockRun"] [data-k="go"] { display: flex !important; align-items: center; justify-content: center; }
+
+  /* ---------- intro: a dashboard */
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] {
+    display: grid !important; grid-template-columns: minmax(0, 1.2fr) minmax(320px, 1fr);
+    grid-template-areas: "head head" "plan plan" "rules act"; align-content: start; align-content: safe center; align-items: start;
+    column-gap: 48px; row-gap: 26px; padding: 30px var(--mr-x) calc(24px + 8vh) !important; overflow-y: auto;
+  }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] { grid-area: head; gap: 18px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] > svg { order: -1; width: 76px; height: 76px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] h1 { font-size: 30px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="head"] h1 + div { font-size: 15px !important; }
+  /* the run as a timeline: section 1, the break, section 2 */
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="plan"] { grid-area: plan; margin: 0 !important; flex-direction: row !important; align-items: center; gap: 22px; padding: 14px 24px !important; border-radius: 20px !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] { flex: 1 1 0; min-width: 0; padding: 4px 0 !important; gap: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:first-child { width: 32px !important; height: 32px !important; border-radius: 10px !important; font-size: 15px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:nth-child(2) > div:first-child { font-size: 16px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:nth-child(2) > div:last-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:last-child > div:first-child { font-size: 16px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="sec"] > div:last-child > div:last-child { font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="plan"] > [data-d="brk"] { flex: 0 1 168px; min-width: 124px; font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="rules"] { grid-area: rules; margin: 0 !important; gap: 11px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="rules"] > div:first-child { font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="rules"] > div + div > div:first-child { width: 40px !important; font-size: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="rules"] > div + div > div:last-child { font-size: 15px !important; line-height: 1.5 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="act"] { grid-area: act; display: flex !important; flex-direction: column; gap: 14px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="act"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="act"] > [data-d="note"] { padding: 12px 14px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="intro"] > [data-d="act"] > [data-k="go"] { margin: 0 !important; }
+
+  /* ---------- the paper: an exam booklet, the question on the left, the answers on the right */
+  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] {
+    display: grid !important; grid-template-columns: minmax(0, 1.08fr) minmax(410px, 1fr);
+    /* the spread as tall as its content (or the pane, then it scrolls), Previous / Next right under it */
+    grid-template-rows: minmax(0, max-content) auto 1fr; column-gap: 36px; padding: 18px var(--mr-x) 18px !important;
+  }
+  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="page"] {
+    grid-column: 1 / -1; grid-row: 1; min-height: 0; margin: 0 !important; padding: 0 2px 6px !important;
+    display: grid !important; grid-template-columns: subgrid; grid-template-rows: auto auto; align-items: start;
+  }
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="top"], [data-d="main"], [data-d="side"]) { display: flex !important; flex-direction: column; min-width: 0; }
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="top"] { grid-column: 1 / -1; grid-row: 1; margin-bottom: 14px; }
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="main"] { grid-column: 1; grid-row: 2; }
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > [data-d="side"] { grid-column: 2; grid-row: 2; }
+  html.yk-desk [data-yk="MockRun"] [data-d="page"] > :is([data-d="main"], [data-d="side"]) > :first-child { margin-top: 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="paper"] > [data-d="act"] { grid-column: 2; grid-row: 2; margin-top: 12px; grid-template-columns: minmax(max-content, 1.1fr) minmax(max-content, 1.6fr) !important; }
+  /* the label and the instruction */
+  html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="mondai"] > div { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="rubric"] { margin-top: 4px !important; font-size: 15px !important; }
+  /* what is studied, a little larger */
+  html.yk-desk [data-yk="MockRun"] [data-d="sentence"] { padding: 18px 22px !important; border-radius: 20px !important; font-size: 23px !important; text-wrap: pretty; }
+  html.yk-desk [data-yk="MockRun"] [data-d="sentence"] > span:first-child { width: 28px !important; height: 28px !important; line-height: 28px !important; font-size: 13px !important; margin-right: 10px !important; vertical-align: 4px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="usage"] { padding: 16px 22px !important; gap: 14px !important; border-radius: 20px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="usage"] > div:last-child { font-size: 32px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="lead"] { font-size: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="passage"] { padding: 16px 20px !important; border-radius: 18px !important; font-size: 17px !important; line-height: 1.85 !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="pair"] { gap: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="pair"] > div { padding: 12px 16px 13px !important; gap: 12px !important; border-radius: 18px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="pair"] > div > div:first-child { width: 26px !important; height: 26px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="pair"] > div > div:last-child { font-size: 16px !important; line-height: 1.75 !important; }
+  /* the question and its options */
+  html.yk-desk [data-yk="MockRun"] [data-d="ask"] { margin-bottom: 4px; }
+  html.yk-desk [data-yk="MockRun"] [data-d="ask"] > div:last-child { font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] { gap: 8px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="opts"] > [data-k="choice"] { min-height: 52px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="paper"] [data-d="flag"] { margin-top: 8px !important; }
+
+  /* ---------- the break: the clock on the left, what comes next and Start on the right */
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] {
+    display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr); grid-template-rows: auto auto;
+    align-content: start; align-content: safe center; column-gap: 40px; padding: 28px var(--mr-x) calc(24px + 8vh) !important; overflow-y: auto;
+  }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="late"] { grid-column: 1 / -1; grid-row: 1; margin-bottom: 20px; padding: 10px 14px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="rest"] { grid-column: 1; grid-row: 2; margin: 0 !important; justify-content: center; padding: 26px 24px 30px; border-radius: 24px; background: #FFFFFF; border: 2px solid #DDE1EC; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="rest"] > svg { width: 84px; height: 84px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="rest"] > div:nth-child(2) { margin-top: 12px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="rest"] > [role="timer"] { font-size: 80px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="rest"] > div:last-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="side"] { grid-column: 2; grid-row: 2; display: flex !important; flex-direction: column; gap: 14px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="side"] > :is([data-d="next"], [data-d="check"], [data-k="go"]) { margin: 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="side"] > [data-d="next"] { padding: 14px 18px 16px !important; gap: 10px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="side"] > [data-d="check"] { padding: 14px 18px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="side"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="break"] > [data-d="side"] > [data-d="note"] { margin-top: auto; text-align: left !important; font-size: 13px !important; }
+
+  /* ---------- listening: the player on the left, the options on the right */
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] {
+    display: grid !important; grid-template-columns: minmax(0, 1.08fr) minmax(360px, 1fr); grid-template-rows: auto auto auto auto 1fr;
+    column-gap: 36px; padding: 20px var(--mr-x) 20px !important; overflow-y: auto;
+  }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="top"] { grid-column: 1 / -1; grid-row: 1; display: flex !important; flex-direction: column; margin-bottom: 16px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="player"] { grid-column: 1; grid-row: 2; margin: 0 !important; padding: 16px 18px !important; gap: 14px !important; border-radius: 20px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="player"] > [role="img"] > div { height: 30px !important; font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="side"] { grid-column: 2; grid-row: 2 / span 3; align-self: start; display: flex !important; flex-direction: column; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="side"] > :first-child { margin-top: 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="opts"] { gap: 10px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="opts"] > [data-k="choice"] { min-height: 54px !important; padding: 6px 14px !important; gap: 12px !important; font-size: 17px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="nums"] > [data-k="choice"] { height: 76px !important; font-size: 28px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] [data-d="spoken"] { margin-top: 14px !important; font-size: 13px !important; text-wrap: balance; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="foot"] { grid-column: 1; grid-row: 3; margin-top: 14px; padding: 12px 16px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="foot"] > div:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="listen"] > [data-d="note"] { grid-column: 1; grid-row: 4; margin-top: 10px !important; text-align: left !important; font-size: 12px !important; }
+
+  /* ---------- result: the score and the sections beside what they mean and what comes next */
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] {
+    display: grid !important; grid-template-columns: minmax(0, 1.15fr) minmax(340px, 1fr); align-content: start; align-content: safe center; align-items: start;
+    column-gap: 44px; padding: 28px var(--mr-x) calc(24px + 8vh) !important; overflow-y: auto;
+  }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > :is([data-d="main"], [data-d="side"]) { display: flex !important; flex-direction: column; min-width: 0; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="main"] { gap: 18px; }
+  html.yk-desk [data-yk="MockRun"] [data-d="score"] > svg { width: 76px; height: 76px; }
+  html.yk-desk [data-yk="MockRun"] [data-d="score"] h1 { font-size: 64px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="score"] h1 + div { font-size: 22px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="score"] > div > div:first-child { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="secs"] { margin: 0 !important; padding: 4px 20px !important; border-radius: 20px !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="MockRun"] [data-d="secs"] > div { padding: 14px 0 !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="secs"] > div > div:nth-child(2) > div:first-child { font-size: 15px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="secs"] > div > div:nth-child(2) svg { width: 17px; height: 17px; }
+  html.yk-desk [data-yk="MockRun"] [data-d="secs"] > div > div:last-child > div:first-child { font-size: 19px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="secs"] > div > div:last-child > div:last-child { font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] { gap: 14px; padding-top: 6px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] > :is([data-d="note"], [data-d="saved"], [data-d="leave"]) { margin: 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] > [data-d="note"] { padding: 12px 14px !important; font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] > [data-d="saved"] { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="result"] > [data-d="side"] > [data-k="go"] { margin-top: 6px; }
+
+  /* ---------- answers: the areas as tabs over a grid of cards that scrolls */
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] { padding: 18px var(--mr-x) 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] { gap: 10px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] > button { height: 54px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] > button > span:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="tabs"] > button > span:last-child { font-size: 12px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="answers"] > [data-d="list"] {
+    margin-top: 14px !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; align-items: start;
+    gap: 14px !important; padding: 2px 2px 24px;
+  }
+  html.yk-desk [data-yk="MockRun"] [data-d="list"] > [data-d="row"] { padding: 12px 18px 14px !important; gap: 4px !important; border-radius: 18px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="verdict"] { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="ask"] { font-size: 15px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="full"] { font-size: 17px !important; line-height: 1.6 !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="why"] { font-size: 14px !important; line-height: 1.5 !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > button { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] [data-d="row"] > [data-d="script"] { padding: 10px 12px !important; font-size: 15px !important; }
+
+  /* ---------- N1 without a mock: the note with Back under it */
+  html.yk-desk [data-yk="MockRun"] > [data-d="none"] { padding: 30px var(--mr-x) 24px !important; align-items: flex-start; gap: 16px; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="none"] > [data-d="note"] { max-width: 640px; font-size: 15px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="none"] > [data-d="gap"] { display: none; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="none"] > [data-k="go"] { min-width: 260px; padding: 0 28px; box-sizing: border-box; }
+
+  /* ---------- the sheets that rise on the phone are dialogs in the middle of the pane; the scrim closes them, as before */
+  html.yk-desk [data-yk="MockRun"] > :is([data-d="sheet"], [data-d="paused"], [data-d="quit"]) { display: grid !important; place-content: center !important; place-items: center; padding: 24px; box-sizing: border-box; }
+  html.yk-desk [data-yk="MockRun"] > :is([data-d="sheet"], [data-d="quit"]) > [data-d="close"] { position: absolute; inset: 0; width: 100%; height: 100%; cursor: default; }
+  html.yk-desk [data-yk="MockRun"] > :is([data-d="sheet"], [data-d="paused"], [data-d="quit"]) > [data-d="dialog"] {
+    position: relative; width: 100%; max-width: 470px; max-height: 100%; box-sizing: border-box; overflow-y: auto;
+    padding: 24px 26px 22px !important; border: 2px solid #1B2440 !important; border-radius: 24px !important; box-shadow: 0 8px 0 #1B2440;
+  }
+  html.yk-desk [data-yk="MockRun"] > :is([data-d="paused"], [data-d="quit"]) > [data-d="dialog"] > h2 { font-size: 21px !important; }
+  html.yk-desk [data-yk="MockRun"] > :is([data-d="paused"], [data-d="quit"]) > [data-d="dialog"] > h2 + div { font-size: 14px !important; }
+  /* the answer sheet: a mark sheet, the bubbles in columns of five (1 to 5, 6 to 10 …), and under them what submitting means
+     beside Back and Submit */
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] > [data-d="dialog"] {
+    width: 820px; max-width: 100%; display: grid !important; grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 16px;
+  }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="grip"] { display: none !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="head"] { grid-column: 1 / -1; grid-row: 1; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="head"] > h2 { font-size: 22px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="head"] > div { font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="rows"] {
+    grid-column: 1 / -1; grid-row: 2; min-height: 0; overflow-y: auto !important;
+    display: grid !important; grid-auto-flow: column; grid-template-rows: repeat(5, auto); grid-auto-columns: minmax(0, 1fr);
+  }
+  /* each column starts with a row of its own (no rule over it), and the columns after the first are ruled off on the left */
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="rows"] > button:nth-child(5n+1) { border-top: 0 !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="rows"] > button:nth-child(n+6) { box-shadow: inset 2px 0 0 #EEF0F6; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="rows"] > button { padding: 0 14px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="note"] { grid-column: 1; grid-row: 3; align-self: center; font-size: 13px !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="act"] { grid-column: 2; grid-row: 3; align-self: center; grid-template-columns: auto auto !important; }
+  html.yk-desk [data-yk="MockRun"] > [data-d="sheet"] [data-d="act"] > button { padding: 0 22px !important; white-space: nowrap; }
+}
