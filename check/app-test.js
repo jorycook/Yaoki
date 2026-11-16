@@ -349,7 +349,9 @@ const placed = (page) => page.evaluate(() => {
         await page.goto(BASE + '?yktest&screen=Drill');
         await ready(page);
         const inLesson = await placed(page);
-        ok(inLesson.sideOff.split('|').length === 4 && inLesson.sideCurrent === '', `${name}: in a lesson the sidebar's four places should wait, got off: ${inLesson.sideOff}`);
+        /* the tab bar's places: Path, Notebook, Mock exam, Readiness, and in the main app Extras */
+        const places = LV.LEVEL === 'N1' ? 4 : 5;
+        ok(inLesson.sideOff.split('|').length === places && inLesson.sideCurrent === '', `${name}: in a lesson the sidebar's ${places} places should wait, got off: ${inLesson.sideOff}`);
         await page.locator('.app-nav [data-app-menu]').click({ timeout: 4000 });
         await page.waitForTimeout(400);
         ok((await text(page)).includes('メニュー'), `${name}: the sidebar's Menu should open the app's menu`);
