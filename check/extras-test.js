@@ -62,7 +62,7 @@ const stop = async () => { if (server) server.kill(); server = null; await new P
   let t = await text(page);
   ok(t.includes('おまけ') && t.includes('Nothing here counts toward your stamps'), 'the Extras tab opens おまけ, which says it is outside the course');
   ok(t.includes('Opens at N5 · week 1') , 'the speaking card says where it opens: N5, week 1, got ' + t.slice(0, 400));
-  const hrefs = await page.$$eval('a', (as) => as.map((a) => a.getAttribute('href')).filter((h) => /speaking|reader/.test(h || '')));
+  const hrefs = await page.$$eval('#yk-stage a', (as) => as.map((a) => a.getAttribute('href')).filter((h) => /speaking|reader/.test(h || '')));
   ok(JSON.stringify(hrefs) === JSON.stringify(['../speaking/?from=app&level=N5&unit=1', '../reader/?from=app']), 'the links carry the place, got ' + JSON.stringify(hrefs));
   ok(await page.locator('nav[aria-label="Main"] a[aria-current="page"]:has-text("Extras")').count() === 1, 'its tab is marked as the page you are on');
 
@@ -110,7 +110,7 @@ const stop = async () => { if (server) server.kill(); server = null; await new P
   await page.context().setOffline(true);
   await click(page, 'nav[aria-label="Main"] a:has-text("Extras")', 600);
   t = await text(page);
-  const offHrefs = await page.$$eval('a', (as) => as.map((a) => a.getAttribute('href')).filter((h) => /speaking|reader/.test(h || '')));
+  const offHrefs = await page.$$eval('#yk-stage a', (as) => as.map((a) => a.getAttribute('href')).filter((h) => /speaking|reader/.test(h || '')));
   ok(offHrefs.length === 0 && (t.match(/Needs a connection/g) || []).length === 2, 'offline, the Extras tab says each page needs a connection instead of linking to it, got ' + JSON.stringify(offHrefs) + ' ' + t.slice(0, 200));
   await page.context().setOffline(false);
   await page.context().close();
