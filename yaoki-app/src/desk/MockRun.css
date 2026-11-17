@@ -109,7 +109,9 @@
   }
   /* the label and the instruction */
   html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="mondai"] > div { font-size: 13px !important; }
-  html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="rubric"] { margin-top: 4px !important; font-size: 15px !important; text-wrap: pretty; }
+  /* the instruction at a readable measure (about 46 characters a line), in lines of even length that break between phrases,
+     never before a lone さい。 */
+  html.yk-desk [data-yk="MockRun"] :is([data-d="paper"], [data-d="listen"]) [data-d="rubric"] { max-width: 46em; margin-top: 4px !important; font-size: 15px !important; word-break: auto-phrase; text-wrap: balance !important; }
   /* what is studied, a little larger */
   html.yk-desk [data-yk="MockRun"] [data-d="sentence"] { padding: 18px 22px !important; border-radius: 20px !important; font-size: 23px !important; text-wrap: pretty; }
   html.yk-desk [data-yk="MockRun"] [data-d="sentence"] > span:first-child { width: 28px !important; height: 28px !important; line-height: 28px !important; font-size: 13px !important; margin-right: 10px !important; vertical-align: 4px !important; }

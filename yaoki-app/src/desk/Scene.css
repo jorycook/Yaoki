@@ -7,14 +7,15 @@
      order and Next (Write.css sizes the panel's parts). On a pane under 960 px, where the width holds the pad down, the
      pad's buttons go under it and the pad takes the width they leave (about 380 px).
    - Study 本番, the exam question, as Drill: the yellow paper with its options on the left; on the right a panel that says
-     what will appear there, then the verdict and the explanation, Next under it.
+     what will appear there, then the verdict and the explanation, Next across the panel's foot.
    - N1 漢字: the title, the grid of kanji (five to a row from 13 kanji, six from 21) and Next on the left; on the right the
      kanji chosen (the phone's sheet) as a panel: its readings and words with the panel's Next under them on its left; the
      three times beside Close, the pad, what to do now and its buttons on its right (Back is the grid itself here, and the
      step's Next waits until the panel closes). Before a kanji is chosen the panel says what will appear there. On a pane
      under 1060 px, and in a window 760 px tall or more (where the panel's pad can then grow to 560 px), while a kanji is
      open the grid is a strip of kanji beside it.
-   - N1 語彙: the words as cards in two columns that scroll, Next under them. N1 確認, the quiz, as Drill: the question and
+   - N1 語彙: the words as cards in two columns that scroll (a chevron at their foot while there are more), Next under
+     them. N1 確認, the quiz, as Drill: the question and
      its options on the left, Check under them, the answer sheet beside them. The score beside the misses. A day with
      nothing to learn: its note and Back.
    Hooks: bar; Study scene (head, grid, card, note), write (head, card, done, writer), check (head, paper > label, side, q,
@@ -147,10 +148,12 @@
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] { grid-column: 1; grid-row: 4; padding: 0 20px 20px; gap: 10px !important; }
   /* the options as large as the paper's width lets a reading of nine kana keep to one line, two to a row */
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="opts"] > button { height: auto !important; min-height: 54px; padding: 6px 10px !important; font-size: clamp(15px, 1.6cqw, 17px) !important; }
-  /* the verdict and the explanation: a panel beside the paper, Next under it */
+  /* the verdict and the explanation: a panel beside the paper, Next across its foot as in Drill, Reading and Listening. The
+     panel keeps room at its foot (12 px, Next's 54 px and the panel's 20 px), and reaches down to the foot of the body
+     whatever the paper's height; Next, the screen's next row, is drawn up into that room */
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] {
-    grid-column: 2; grid-row: 2 / -1; align-self: start; display: flex !important; flex-direction: column; gap: 10px;
-    padding: 18px 20px 20px; border-radius: 20px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; background: #FDEBE6;
+    grid-column: 2; grid-row: 2 / -1; align-self: stretch; display: flex !important; flex-direction: column; gap: 10px;
+    padding: 18px 20px 86px; border-radius: 20px; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; background: #FDEBE6;
     animation: yk-scene-in 220ms ease-out;
     /* a Japanese word (the answer's reading, よじじゅうごふん) breaks at the spaces around it, not inside it */
     word-break: keep-all; overflow-wrap: anywhere;
@@ -159,6 +162,12 @@
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:first-child { font-size: 16px !important; gap: 10px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:first-child > svg { width: 22px; height: 22px; margin-top: 1px !important; }
   html.yk-desk [data-yk="Scene"] > [data-d="check"] [data-d="side"] > div:last-child { padding: 12px 14px; border-radius: 14px; background: #FFFFFF; font-size: 14px !important; line-height: 1.6 !important; }
+  /* Next: the body's foot is the panel's foot plus the body's 6 px, so Next rises by that, its 54 px and the panel's 22 px
+     (its border and padding), as wide as the panel's inside; it comes in with the panel, over it */
+  html.yk-desk [data-yk="Scene"]:has(> [data-d="check"]) > [data-d="act"] {
+    justify-self: stretch; min-width: 0; margin: -82px 22px 0 !important; position: relative; z-index: 1;
+    animation: yk-scene-in 220ms ease-out;
+  }
   /* before the answer, the panel says what will appear in it */
   html.yk-desk [data-yk="Scene"] > [data-d="check"]:not(:has([data-d="side"]))::after {
     content: '解説　Why\A \A Choose an answer: the verdict and its explanation appear here, and a wrong answer goes to your notebook.';
@@ -349,10 +358,26 @@
      word お疲れ様でした) keep to one line in that column */
   html.yk-desk [data-yk="Scene"] > [data-d="write"] ~ [data-d="act"] { padding: 0 16px !important; font-size: 16px !important; }
 }
+/* N1 語彙: while the list of words has more under it, a small chevron at its foot says so, as on the other cards that scroll
+   (Reading's passage, Listening's script and reasons), also when the list is cut between two rows of cards. The chevron is
+   held at the foot of the list's box (its frame, the list's wrapper, holds the phone's fade there too) and goes as the list
+   comes to its end; where the browser cannot follow the list's scroll, the fade alone */
+@container yk (min-width: 880px) {
+  @supports (animation-timeline: scroll()) {
+    html.yk-desk [data-yk="Scene"] > [data-d="list"] > [role="list"] { scroll-timeline: --yk-sc-words block; }
+    html.yk-desk [data-yk="Scene"] > [data-d="list"] > [role="list"]::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 18px; z-index: 1; pointer-events: none; opacity: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 16 10'%3E%3Cpath d='M2 2l6 6 6-6' fill='none' stroke='%235A6382' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center bottom 3px / 14px 9px no-repeat;
+      animation: yk-sc-more linear both; animation-timeline: --yk-sc-words; animation-range: calc(100% - 12px) 100%;
+    }
+  }
+}
 /* the panels come in without moving where motion is turned down */
 @media (prefers-reduced-motion: reduce) {
   @container yk (min-width: 880px) {
-    html.yk-desk [data-yk="Scene"] :is([data-d="panel"], [data-d="side"]) { animation: none !important; }
+    html.yk-desk [data-yk="Scene"] :is([data-d="panel"], [data-d="side"]),
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="check"]) > [data-d="act"] { animation: none !important; }
   }
 }
 @keyframes yk-scene-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes yk-sc-more { from { opacity: 1; } to { opacity: 0; } }

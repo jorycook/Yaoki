@@ -21,7 +21,7 @@ screen's file serves both apps (the Study app and the N1 course): their template
     add names of its own (`route`, `card`, `list`, …); keep them short, and use the same name for the same region in both apps.
   - `data-k` for the keyboard (handled in `yk-app.js`, desktop only): `data-k="choice"` on each answer, in order (the keys 1 to 9
     pick them), `data-k="go"` on the main action, Check, Next or Start (Enter; `_base.css` shows the key on it), `data-k="play"` on a
-    sound to play (Space), `data-k="close"` on what closes a screen's dialog or a panel it docks beside its content (the scrim, a Close or Cancel button:
+    sound to play (Space), `data-k="on"` on a way on that is the main action only when the screen has no `go` (Enter takes it then), `data-k="close"` on what closes a screen's dialog or a panel it docks beside its content (the scrim, a Close or Cancel button:
     Escape).
   - A screen's own dialog (`role="dialog" aria-modal="true"`: an answer sheet, a quit or open-early question) is a dialog on a
     desktop: focus goes into it when it opens, Tab stays in it, the keys look for `data-k` in it only, Escape takes its

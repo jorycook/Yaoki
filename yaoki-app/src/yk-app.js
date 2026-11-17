@@ -468,7 +468,9 @@
       return;
     }
     if (e.key === 'Enter' && (idle || onChoice)) {
+      /* the main action; on a screen without one, its way on (data-k="on": the week test's next week when every answer was right) */
       var go = marked('go');
+      if (!go.length) go = marked('on');
       if (go.length) {
         e.preventDefault();
         /* the answer gives up the focus as the screen goes on: the next question may reuse its button, and Space would press it */

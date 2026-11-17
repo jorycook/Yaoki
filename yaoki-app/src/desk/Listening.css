@@ -31,7 +31,8 @@
   /* ---------- the question */
   html.yk-desk [data-yk="Listening"] [data-d="head"] { grid-area: head; padding: 0 !important; margin-bottom: 14px; gap: 3px !important; }
   html.yk-desk [data-yk="Listening"] [data-d="head"] > div:first-child { font-size: 13px !important; }
-  html.yk-desk [data-yk="Listening"] [data-d="head"] > h1 { font-size: 23px !important; line-height: 1.4 !important; }
+  /* the question at a readable measure, about 40 characters a line */
+  html.yk-desk [data-yk="Listening"] [data-d="head"] > h1 { max-width: 40em; font-size: 23px !important; line-height: 1.4 !important; }
   html.yk-desk [data-yk="Listening"] [data-d="head"] > div:last-child { font-size: 14px !important; }
 
   /* ---------- the player, at the top of the left column */
@@ -111,6 +112,8 @@
   html.yk-desk [data-yk="Listening"] [data-d="why"] > [data-d="replies"]:first-child { flex-flow: row wrap; align-content: flex-start; gap: 6px 20px; }
   html.yk-desk [data-yk="Listening"] [data-d="why"] > [data-d="replies"]:first-child > div:first-child { flex-basis: 100%; }
   html.yk-desk [data-yk="Listening"] [data-d="why"] > [data-d="replies"]:first-child::after { flex-basis: calc(100% + 32px); margin-top: -6px; }
+  /* and that card keeps its whole height: where the column is short, the reason is the one card that scrolls */
+  html.yk-desk [data-yk="Listening"]:has([data-d="why"] > [data-d="replies"]:first-child) { grid-template-rows: auto auto auto auto max-content minmax(0, max-content) auto minmax(0, 1fr); }
   html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { grid-area: next; margin: 12px 20px 16px; animation: yk-ls-in 240ms ease-out; }
 
   /* ---------- N1, a day without listening: the note and Back to today at the top */
@@ -119,17 +122,20 @@
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Listening"] > [data-d="none"] > [data-d="act"] { margin-top: 16px; min-width: 260px; padding: 0 28px; box-sizing: border-box; }
 }
-/* a short window (a laptop's, 720 px or less): the screen a little tighter, and the marks and the panel lower once answered, so
-   that the reasons have the room */
+/* a short window (a laptop's, 720 px or less): the screen a little tighter, and the marks and the panel's spacing lower once
+   answered, so that the reasons have the room (N1's options and reason whole in a pane of about 600 px) */
 @media (max-height: 720px) {
   @container yk (min-width: 880px) {
     html.yk-desk [data-yk="Listening"] { padding-top: 16px !important; padding-bottom: 18px !important; }
     html.yk-desk [data-yk="Listening"] [data-d="bar"] { margin-bottom: 6px; }
-    html.yk-desk [data-yk="Listening"] [data-d="head"] { margin-bottom: 10px; }
-    html.yk-desk [data-yk="Listening"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"] { height: 48px !important; min-height: 48px !important; font-size: 22px !important; }
-    html.yk-desk [data-yk="Listening"]:has([data-d="side"])::before { margin-top: 12px; }
-    html.yk-desk [data-yk="Listening"] [data-d="verdict"] { margin-top: 22px; }
-    html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { margin: 10px 20px 14px; }
+    html.yk-desk [data-yk="Listening"] [data-d="head"] { margin-bottom: 8px; }
+    html.yk-desk [data-yk="Listening"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"] { height: 40px !important; min-height: 40px !important; font-size: 20px !important; }
+    html.yk-desk [data-yk="Listening"]:has([data-d="side"])::before { margin-top: 8px; }
+    html.yk-desk [data-yk="Listening"] [data-d="verdict"] { margin-top: 16px; }
+    html.yk-desk [data-yk="Listening"] [data-d="side"] :is([data-d="replies"], [data-d="reason"]) { padding-top: 10px; }
+    html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="replies"] { margin-top: 8px; }
+    html.yk-desk [data-yk="Listening"] [data-d="side"] [data-d="reason"] { margin-top: 8px; }
+    html.yk-desk [data-yk="Listening"] [data-d="side"] > [data-k="go"] { margin: 8px 20px 12px; }
   }
 }
 /* while a card has more under it, a small chevron at its foot says so, also when the card is cut between two lines (where the

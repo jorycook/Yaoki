@@ -48,25 +48,24 @@
   html.yk-desk [data-yk="Drill"] [data-d="sentence"] > [data-d="slot"] { height: 54px !important; min-width: 56px !important; padding: 0 12px !important; font-size: 18px !important; }
   /* before checking, the exercise's box gives way and its parts take their places: the head across the top, the sentence and
      Yaoki's hint on the left, the tiles on the right with Check right under them (in the tiles' area, under their fixed height:
-     the label, two rows of tiles and the gaps, 166 px) */
+     the label, two rows of tiles and the gaps, 166 px). The head and the sentence keep the places they have in the exercise's
+     box once checked (its padding and gaps), so that nothing moves on Check but the coach coming in. */
   html.yk-desk [data-yk="Drill"]:has([data-d="bank"]) {
-    grid-template-columns: minmax(0, 1.15fr) minmax(340px, 1fr);
     grid-template-rows: auto auto auto auto auto auto minmax(0, 1fr);
     grid-template-areas: "bar bar" "kind kind" "title title" "ask ask" "sentence bank" "hint bank" ". bank";
-    column-gap: 36px;
   }
   html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) { display: contents !important; }
-  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > div:first-child { grid-area: kind; }
-  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > h1 { grid-area: title; margin-top: 4px !important; }
-  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > h1 + div { grid-area: ask; margin: 4px 0 18px; }
-  html.yk-desk [data-yk="Drill"] > [data-d="main"] > [data-d="sentence"] { grid-area: sentence; align-self: start; min-width: 0; }
-  html.yk-desk [data-yk="Drill"] [data-d="hint"] { grid-area: hint; align-self: start; min-width: 0; margin: 16px 0 0 !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > div:first-child { grid-area: kind; margin: 4px 4px 0; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > h1 { grid-area: title; margin: 12px 4px 0 !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > h1 + div { grid-area: ask; margin: 12px 4px; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > [data-d="sentence"] { grid-area: sentence; align-self: start; min-width: 0; margin: 0 4px !important; }
+  html.yk-desk [data-yk="Drill"] [data-d="hint"] { grid-area: hint; align-self: start; min-width: 0; margin: 16px 4px 0 !important; }
   html.yk-desk [data-yk="Drill"] [data-d="hint"] > div > div:last-child { font-size: 14px !important; line-height: 1.5 !important; word-break: keep-all; overflow-wrap: anywhere; text-wrap: pretty; }
   html.yk-desk [data-yk="Drill"] [data-d="bank"] { grid-area: bank; align-self: start; min-width: 0; display: flex !important; flex-direction: column; gap: 12px; }
   html.yk-desk [data-yk="Drill"] [data-d="bank"] > div:first-child { margin: 0 !important; font-size: 13px !important; line-height: 18px; }
   html.yk-desk [data-yk="Drill"] [data-d="tiles"] { gap: 12px !important; counter-reset: yk-tile; }
   html.yk-desk [data-yk="Drill"] [data-d="tiles"] > [data-k="choice"] { counter-increment: yk-tile; position: relative; height: 62px !important; }
-  html.yk-desk [data-yk="Drill"] [data-d="tiles"] > button[data-k="choice"] { font-size: 20px !important; padding: 0 30px !important; }
+  html.yk-desk [data-yk="Drill"] [data-d="tiles"] > button[data-k="choice"] { font-size: 20px !important; line-height: 1.25; padding: 0 30px !important; }
   html.yk-desk [data-yk="Drill"]:has([data-d="bank"]) > [data-d="act"] { grid-area: bank; align-self: start; margin-top: 186px; padding: 0 !important; }
 
   /* ---------- N1, a day without a grammar lesson: the note and Back to today at the top, across the pane */
@@ -74,6 +73,10 @@
   html.yk-desk [data-yk="Drill"] [data-d="none"] { width: min(100%, 600px); box-sizing: border-box; margin-top: 4px !important; padding: 18px 20px !important; }
   html.yk-desk [data-yk="Drill"] > [data-d="main"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Drill"] > [data-d="main"] > [data-d="act"] { align-self: flex-start; min-width: 260px; margin-top: 6px; padding: 0 28px !important; box-sizing: border-box; }
+}
+/* a narrow landscape pane (880 to 999 px): the tiles' text a size smaller, so that a tile of seven characters keeps one line */
+@container yk (min-width: 880px) and (max-width: 999.98px) {
+  html.yk-desk [data-yk="Drill"] [data-d="tiles"] > button[data-k="choice"] { font-size: 18px !important; padding: 0 24px !important; }
 }
 /* where there is a pointer that hovers and a keyboard: each tile of a star question shows the key that places it */
 @media (hover: hover) and (pointer: fine) {

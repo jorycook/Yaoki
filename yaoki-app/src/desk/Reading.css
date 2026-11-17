@@ -1,7 +1,7 @@
 /* Reading (both apps): a reading paper. At rest the passage is on the left, like the page of the paper, its Japanese at 18 px and
    about 30 characters a line, as tall as its text (it scrolls in its column when longer); the question, its options, the
    strategy note (Study) and Check are on the right, Check right under them. The question's box scrolls if it must, its foot
-   fading out, and Check stays in view. Once checked, the paper takes the left column: the passage with its signposts lit, which
+   fading out with the passage's small chevron while there is more, and Check stays in view. Once checked, the paper takes the left column: the passage with its signposts lit, which
    gives way down to a few lines (and scrolls), with the question under it (in the Study app with its two marked options; N1
    lists every option in the panel); the verdict, the reasons and Next take the right column in a panel, as the Drill's coach
    does. A scrolled passage or reasons box fades at its edges, the Study app's with a small chevron at its foot while there is
@@ -112,6 +112,15 @@
     html.yk-desk [data-yk="Reading"] > [data-d="side"] > [data-d="why"]::after {
       animation: yk-rd-more linear both; animation-timeline: scroll(nearest block); animation-range: calc(100% - 12px) 100%;
     }
+    /* the question's box (both apps) says it the same way: in place of the mask, a veil in the page's ground held at its foot
+       with the chevron, while there is more under it (its strategy note, its last options); the veil is the box's bottom
+       spacing (the box has no padding at the bottom then), unseen once the box is at its end or does not scroll */
+    html.yk-desk [data-yk="Reading"] [data-d="q"] { padding-bottom: 0; -webkit-mask-image: none; mask-image: none; }
+    html.yk-desk [data-yk="Reading"] [data-d="q"]::after {
+      content: ''; order: 99; flex-shrink: 0; height: 22px; margin: 0 -6px; position: sticky; bottom: 0; z-index: 1; pointer-events: none; opacity: 0;
+      background: var(--yk-rd-more) center bottom 2px / 14px 9px no-repeat, linear-gradient(rgba(244, 245, 249, 0), #F4F5F9 18px);
+      animation: yk-rd-q-more linear both; animation-timeline: scroll(nearest block); animation-range: calc(100% - 12px) 100%;
+    }
   }
 }
 /* a narrow landscape pane (880 to 999 px): the two columns share the width evenly, so that the question and the options wrap
@@ -145,3 +154,4 @@
 }
 @keyframes yk-rd-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes yk-rd-more { from { background-position: center bottom 2px, 0 0; } to { background-position: center bottom -14px, 0 0; } }
+@keyframes yk-rd-q-more { from { opacity: 1; } to { opacity: 0; } }
