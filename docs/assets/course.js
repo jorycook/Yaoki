@@ -276,11 +276,11 @@
     return all.length ? all[0].id : null;
   };
   /* ---------- sound by unit ----------
-     N2's clips load with the page (sound-course.js). Other levels have one clip file per unit
-     (sound-course-n5-u03.js), fetched next to course.js when a unit is first in use, so the
-     phone never holds every unit's sound at once. */
+     Each level has one clip file per unit (sound-course-n5-u03.js), fetched next to course.js when a
+     unit is first in use, so the phone never holds every unit's sound at once. Unit 0 is the level's
+     mini mock; N2's mini mock clips are in sound-mock.js, which loads with the page. */
   var soundAsked = {};
-  C.soundFile = function (lv, unit) { return lv === 'N2' ? '' : 'sound-course-' + lv.toLowerCase() + '-u' + pad(unit) + '.js'; };
+  C.soundFile = function (lv, unit) { return lv === 'N2' && !unit ? '' : 'sound-course-' + lv.toLowerCase() + '-u' + pad(unit) + '.js'; };
   C.needSound = function (lv, unit) {
     var f = C.soundFile(lv, unit);
     if (!f || soundAsked[f] || typeof document === 'undefined') return;
@@ -301,11 +301,14 @@
     var session = null;
     status.plan.forEach(function (p) { if (p.id === sid) session = p; });
     var unitN = session ? session.unit : C.units().length ? C.units()[0].n : 1;
-    /* this unit's sound, and that of the units the notebook will ask about */
-    C.needSound(LEVEL, unitN);
-    /* the level's mini mock sound (unit 0) is small; fetch it with the first unit (the kana level has no mini mock) */
-    if (LEVEL !== 'KANA') C.needSound(LEVEL, 0);
-    (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
+    /* this unit's sound, and that of the units the notebook will ask about; nothing before the learner has started
+       or chosen a level (the goal screen shows N2 by default, and its sound is fetched only once it is chosen) */
+    if (state.started || state.level) {
+      C.needSound(LEVEL, unitN);
+      /* the level's mini mock sound (unit 0) is small; fetch it with the first unit (the kana level has no mini mock) */
+      if (LEVEL !== 'KANA') C.needSound(LEVEL, 0);
+      (state.mistakes || []).forEach(function (m) { if (C.levelOf(m.src) === LEVEL && unitOfId(m.src)) C.needSound(LEVEL, unitOfId(m.src)); });
+    }
     return {
       status: status,
       plan: state.plan,

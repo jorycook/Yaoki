@@ -19,6 +19,17 @@ const FILES = __FILES__;
    level in the background. Each file carries a hash of its content, so a new build keeps the ones that did not change. */
 /* #end */
 const LAZY = __LAZY__;
+/* #if !N1 */
+/* up to 0.9, N2's unit 3 sound was one file installed with the app (sound-course.js); it is now a unit file like the
+   others. A copy that kept the old file carries it over under its new name, when its content is the same */
+const RENAMED = { './assets/sound-course-n2-u03.js': './assets/sound-course.js' };
+/* #else */
+const RENAMED = {};
+/* #end */
+async function sameContent(res, f) {
+  const sum = new Uint8Array(await crypto.subtle.digest('SHA-256', await res.clone().arrayBuffer()));
+  return Array.from(sum, (b) => b.toString(16).padStart(2, '0')).join('').slice(0, 10) === LAZY[f];
+}
 const lazyKey = (f) => f + '?h=' + LAZY[f];
 const lazyOf = (url) => { const p = './' + new URL(url).pathname.slice(HOME.length); return LAZY[p] ? p : null; };
 async function keepLazy(cache, f) {
@@ -52,6 +63,10 @@ self.addEventListener('install', (event) => {
             for (const old of olds) {
               const res = await old.match(lazyKey(f));
               if (res) { await cache.put(lazyKey(f), res); return; }
+            }
+            if (RENAMED[f]) for (const old of olds) {
+              const res = await old.match(RENAMED[f], { ignoreSearch: true });
+              if (res && await sameContent(res, f)) { await cache.put(lazyKey(f), res); return; }
             }
           }));
         }

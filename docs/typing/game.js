@@ -63,17 +63,16 @@
   const INK_T = 0.25;          // its ink ring
   const DROP_T = 0.35;         // the ink drops of a clean card's stamp
   const POP_T = 0.12;          // the newest romaji letter's pop
-  const HOP_T = 0.4;           // Yaoki's hop
   const HAPPY_T = 0.6;         // his smile after a clean card
   const CHEER_T = 1.2;         // a cheer's bubble
   const BUBBLE_POP = 0.15;
   const VOICE_T = 0.9;          // no effect sound this long after a course word's clip starts (or its length, if longer)
   const DAY_TILTS = [-9, 6, -4, 8, -7, 5, -10];
   // Yaoki's tricks past a cleared card: length (s), the stretch of it in which the card goes by
-  // him (or, for a smash, when he hits it), and the trick's sound word
+  // him (or, for a smash, when he hits it), when he lands, and the trick's sound word
   const TRICKS = {
-    jump: { len: 0.8, pass: [0.14, 0.66], ja: 'ぴょん' },
-    spin: { len: 1.0, pass: [0.16, 0.7], ja: 'くるりん' },
+    jump: { len: 0.8, pass: [0.14, 0.66], land: 0.74, ja: 'ぴょん' },
+    spin: { len: 1.0, pass: [0.16, 0.7], land: 0.8, ja: 'くるりん' },
     duck: { len: 0.9, pass: [0.14, 0.72], ja: 'ひょい' },
     smash: { len: 0.8, hit: 0.3, ja: 'どーん！' },
   };
@@ -81,11 +80,42 @@
   const NODE_BACK = 40;        // where a passed card's node lands, behind him
   const SETTLE_T = 0.3;        // a card that just settles into its node
   const HURRY = 2.2;           // how much faster a trick goes when the next card is waiting
-  const NOD_T = 0.12;          // his nod for a right key
   const BLINK_T = 0.12;
   const FX_T = 0.6;            // a trick's sound word
   const TRAIL_T = 0.35;        // the stars a spin leaves
   const FINALE_MAX = 4;        // at most this long for the cleared cards to parade past him at the end
+  // Yaoki's own motion (none of it under reduced motion, where only his face changes)
+  const DEG = Math.PI / 180;
+  const STEPS = [1.6, 3];      // his trotting steps a second, from the slowest route to a dash
+  const STAND_T = 0.15;        // he comes to a stand this soon after the world stops
+  const PEP_T = 0.14;          // his pep for a right key (just a nod in the middle of a trick)
+  const PEP_TILT = 3.5 * DEG;  // ...and its tilt, which he follows on a spring:
+  const TILT_RATE = 30;        // the higher, the quicker
+  const WIGGLE_T = 0.5;        // the wiggle of a clean card's hop: two swings to each side
+  const OWED_T = 1.2;          // a card's hop that comes during a trick waits this long for him at most
+  const LAND_T = 0.16;         // the squash as he lands
+  const FLINCH_T = 0.25;       // his flinch at a miss: at most one every FLINCH_GAP
+  const FLINCH_GAP = 0.15;
+  const STARTLE_T = 0.4;       // his startled face after a miss
+  const MARK_T = 0.5;          // the ! over his head
+  const FIRM_T = 0.9;          // his determined face after getting up
+  const BRACE_AT = 1.6;        // seconds before a card would reach him that he braces and worries
+  const JITTER_AT = 0.45;      // ...and jitters
+  const IDLE_AFTER = 2.5;      // seconds without a key before he fidgets
+  const YAWN_AFTER = 6;        // ...and yawns (then not again for YAWN_GAP)
+  const YAWN_GAP = 8;
+  const FIDGETS = { look: 1.1, turn: 0.6, tap: 0.5, up: 1.0, yawn: 1.4 };   // their lengths (s)
+  const FIDGET_ORDER = ['look', 'turn', 'tap', 'up'];
+  const DUST_T = 0.35;         // a puff of dust at his feet, kicked out to the side of him
+  const SPARK_T = 0.6;         // a sparkle about him in a clean run of 10 or more
+  const PARTS = 16;            // dust puffs and sparkles at once, at most
+  // his lean, waddle and shakes together move his head at most this far to either side (outside a
+  // trick or a fall)
+  const SWAY_MAX = 6;
+  // his shape as drawn: half his width, how high up he is widest, and his height
+  const BODY_W = 40 * YAOKI;
+  const BODY_MID = 42 * YAOKI;
+  const BODY_H = 88 * YAOKI;
 
   // ---------- what is kept between visits ----------
 
@@ -295,7 +325,8 @@
   const soundLoads = {};
   function loadSound(level, n) {
     const lv = level.toLowerCase();
-    const files = level === 'N2' ? ['sound-course.js', 'sound-lessons.js'] : ['sound-course-' + lv + '-u' + String(n).padStart(2, '0') + '.js'];
+    // N2's unit 3 also says the prototype's own words (sound-lessons.js)
+    const files = ['sound-course-' + lv + '-u' + String(n).padStart(2, '0') + '.js'].concat(level === 'N2' ? ['sound-lessons.js'] : []);
     const need = window.ykSound ? [] : ['sound.js'];
     for (const f of need.concat(files)) {
       if (!soundLoads[f]) soundLoads[f] = loadScript('../assets/' + f).catch(() => {});
@@ -448,7 +479,7 @@
 
   let phase = 'menu';           // menu | play | paused | result
   let r = null;                 // the round being played
-  let view = { W: 960, s: 1, oy: 0, dpr: 1, yx: 100 };
+  let view = { W: 960, s: 1, oy: 0, dpr: 1, yx: 100, hint: 20 };
   let pal = palette();
   let startTicket = 0;
 
@@ -526,7 +557,17 @@
       dayStamp: 0,
       cardDone: null,
       seal: null,
-      yk: { happyT: 0, hopT: 0, hopH: 6, bubble: null, box: null, lift: 0, liftMax: 0, nodT: 0, blinkT: -1, blinkAt: 1.5, fx: null, trail: [], trick: null },
+      yk: {
+        happyT: 0, bubble: null, box: null, lift: 0, liftMax: 0, blinkT: -1, blinkAt: 1.5, fx: null, trail: [], trick: null,
+        // his own motion: what he is doing (act), his steps, a hop in the air (y, vy, under
+        // gravity g), his reactions and fidgets, and a pool of dust puffs and sparkles
+        act: 'stand', near: Infinity, trot: 0, gait: 0, stepAt: 0, steps: 0,
+        y: 0, vy: 0, g: 1, v0: 1, peak: 0, hops: 0, hopH: 0, hopAir: 0,
+        pepT: 0, pepSide: 1, nodT: 0, tilt: 0, tiltV: 0, wiggleT: 0, landT: 0, landK: 0, owed: 0, owedWiggle: false, owedAt: 0,
+        flinchT: 0, flinchAt: -1, flinches: 0, startleT: 0, markT: 0, firmT: 0, sway: 0,
+        idling: false, fidget: null, fidgetT: 0, fidgetAt: 0, fidgetN: 0, fidgets: 0, yawnAt: -YAWN_GAP, sparkAt: 0,
+        parts: Array.from({ length: PARTS }, () => ({ on: false, kind: '', x: 0, y: 0, vx: 0, vy: 0, age: 0, life: 1, size: 1 })),
+      },
       tricks: { jump: 0, spin: 0, duck: 0, smash: 0 },
       scroll: 0,
       finale: null,
@@ -542,6 +583,7 @@
       lastMissSfx: -1,
       voiceUntil: 0,
       fxDrawn: 0,
+      underBox: null,
     };
     markWeakCards();
     r.song = songFor(r.scene);
@@ -597,7 +639,7 @@
       entry, item: entry.item, x, w: cardWidth(entry.item), state: 'live', typed: '', step: 0,
       missedAt: new Set(), misses: 0, idle: 0, level: 0, hinted: false,
       shownAt: null, firstKeyAt: null, stampT: 0, flashT: 0, halted: false,
-      clean: false, comeback: false, star: false, popT: 0, ink: null, inkOn: 'badge', fill: null,
+      clean: false, comeback: false, star: false, popT: 0, ink: null, inkOn: 'badge', fill: null, widestKey: null,
     };
     r.cards.push(card);
     return card;
@@ -704,8 +746,6 @@
     }
     const yk = r.yk;
     yk.happyT = Math.max(0, yk.happyT - dt);
-    yk.hopT = Math.max(0, yk.hopT - dt);
-    yk.nodT = Math.max(0, yk.nodT - dt);
     if (yk.bubble && (yk.bubble.t += dt) >= yk.bubble.life) yk.bubble = null;
     // he blinks every few seconds
     if (yk.blinkT >= 0) {
@@ -723,6 +763,7 @@
       if (yk.trail[0].age >= TRAIL_T) yk.trail = yk.trail.filter((st) => st.age < TRAIL_T);
     }
     updateTrick(dt);
+    moveYaoki(dt);
 
     if (r.finale !== null && r.endIn === null) {
       const riding = r.cards.some((c) => c.state === 'done' && (c.phase === 'ride' || c.phase === 'trick'));
@@ -933,7 +974,9 @@
     r.fellEntries.add(card.entry);
     endTrick();
     r.yk.happyT = 0;
-    r.yk.hopT = 0;
+    r.yk.y = 0;
+    r.yk.vy = 0;
+    r.yk.hops = 0;
     r.yk.bubble = null;
     r.yk.fx = null;
     if (r.musicOn) music('cue', 'fall');
@@ -954,6 +997,9 @@
     r.cards = r.cards.filter((c) => c !== card);
     r.queue.splice(Math.min(r.fall.at, r.queue.length), 0, card.entry);
     r.fall = null;
+    // up again, he sets off with a determined double hop
+    r.yk.firmT = FIRM_T;
+    bounce(10, 0.32, 1);
     if (r.musicOn) music('setLevel', musicLevel());
     const live = r.cards.filter((c) => c.state === 'live');
     if (live.length) {
@@ -1068,17 +1114,18 @@
     if (card.comeback) r.comebacks++;
     if (card.star) r.weakClean++;
 
-    // Yaoki: a smile for a clean card, a hop and a cheer at a step of the run or a comeback;
-    // and the trick he will get past this card with when it reaches him.
+    // Yaoki: a little hop and a smile for each card done (a wiggle too, and a longer smile, for a
+    // clean one), a higher hop and a cheer at a step of the run or a comeback; and the trick he
+    // will get past this card with when it reaches him. In the middle of a trick, the hop comes
+    // as he lands from it.
     card.phase = 'ride';
     card.trick = card.comeback || card.star || card.halted ? 'smash' : !clean ? 'duck' : r.run >= 5 ? 'spin' : 'jump';
     const yk = r.yk;
-    if (clean || card.comeback) yk.happyT = HAPPY_T;
+    yk.happyT = Math.max(yk.happyT, clean || card.comeback ? HAPPY_T : 0.35);
+    hop(step >= 0 ? 16 : card.comeback ? 14 : clean ? 12 + joy() : 9, clean);
     if (step >= 0) {
-      hop(step >= 2 ? 8 : 6);
       cheer('step' + step, CHEER_T, { first: !r.said.has('step' + step) });
     } else if (card.comeback) {
-      hop(6);
       cheer('comeback', 1);
     } else if (card.star) {
       cheer('star', 1.2);
@@ -1129,7 +1176,7 @@
     if (passed >= r.total) {
       const tier = tierOf(r);
       cheer(['endGood', 'endOk', 'endTry'][tier], 1.2);
-      if (tier === 0) hop(10);
+      if (tier === 0) hop(18, true);
     } else if (r.total >= 10 && passed === Math.floor(r.total / 2)) {
       cheer('half', 1.3);
     }
@@ -1301,7 +1348,7 @@
       return;
     }
     if (e.isComposing || e.keyCode === 229 || e.key === 'Process') {
-      setStatus(ja('英数にしてください。') + '　Keys are not reaching the game: switch the input to ' + ja('英数') + ' (direct input).', 'warn', true);
+      setStatus(ja('英数にしてください。') + '　Switch the input to ' + ja('英数') + ' (direct input).', 'warn', true);
       say('英数', 'Keys are not reaching the game. Switch the input to direct input.');
       return;
     }
@@ -1338,7 +1385,9 @@
       miss(t, e.code, jaMarked(note), c);
       return;
     }
-    progress(t, e.code);
+    // a key that finishes a kana gets a bigger bounce from Yaoki
+    const unit = E.unitAt(t.item.tokens, typed);
+    progress(t, e.code, unit !== null && unit > E.unitAt(t.item.tokens, t.typed));
     t.typed = typed;
     if (E.isComplete(t.item.tokens, typed)) clearCard(t);
   }
@@ -1351,7 +1400,8 @@
       miss(t, e.code, '');
       return;
     }
-    progress(t, e.code);
+    // a key card done: a bigger bounce, like a kana
+    progress(t, e.code, true);
     clearCard(t);
   }
 
@@ -1366,7 +1416,7 @@
       miss(t, e.code, note);
       return;
     }
-    progress(t, e.code);
+    progress(t, e.code, t.item.kind !== 'kana' || t.item.keys.ends.includes(t.step + 1));
     if (t.item.kind !== 'kana') {
       clearCard(t);
       return;
@@ -1376,11 +1426,11 @@
     if (t.step >= t.item.steps.length) clearCard(t);
   }
 
-  function progress(card, code) {
+  function progress(card, code, kanaDone) {
     if (card.firstKeyAt === null) card.firstKeyAt = r.time;
     card.idle = 0;
     r.keysRight++;
-    r.yk.nodT = NOD_T;
+    pep(kanaDone);
     flashKey(code, 'ok');
     // a letter or kana of a word pops under the route and ticks; one-key cards have their stamp instead
     if (wordy(card.item)) {
@@ -1394,6 +1444,7 @@
     card.flashT = 0.3;
     noteMiss(card, pressed);
     raiseHint(card);
+    flinch();
     flashKey(code, 'miss');
     setStatus(note, 'bad', true);
     if (r.lastMissSfx < 0 || r.time - r.lastMissSfx >= 0.15) {
@@ -1410,13 +1461,14 @@
 
   // ---------- sound effects (sfx.js) ----------
   // "Quiet" plays a stamp for each card, a drum for a fall, a bounce for getting up and a sound
-  // for each trick; "All" also ticks for each right romaji key and knocks for a miss. The audio
-  // output is only ever made on a key press or a click.
+  // for each trick; "All" also ticks for each right romaji key and buzzes softly for a miss. The
+  // audio output is only ever made on a key press or a click.
 
   let sfxReady = false;
   const SFX_ALL_ONLY = new Set(['key', 'miss']);
-  // the loud mix: the effects about 11 dB and the music about 12 dB up, through a limiter
-  if (window.TypingSfx && window.TypingSfx.mix) window.TypingSfx.mix({ fx: 1, music: 3.5, limit: true });
+  // the loud mix, through the master chain (set by measurement): the songs at about -22 LUFS at
+  // あり On, a busy moment of a round at about -19, true peaks under -1 dBTP
+  if (window.TypingSfx && window.TypingSfx.mix) window.TypingSfx.mix({ fx: 1.25, music: 5.6, limit: true });
   const UNDER_VOICE = new Set(['key', 'miss', 'jump', 'duck', 'spin', 'smash']);
   function wakeAudio() {
     if (!window.TypingSfx || (saved.sfx === 'off' && saved.music === 'off')) return;
@@ -1446,6 +1498,19 @@
       return m[fn](...args);
     } catch (err) {
       return undefined;
+    }
+  }
+  // The beat of the music while it sounds, for Yaoki's steps: { bpm, phase (0..1 through the
+  // beat), beat }, or null (no music, or a music.js without a beat to give).
+  function musicBeat() {
+    const m = window.TypingMusic;
+    if (!r.musicOn || !m || typeof m.beat !== 'function') return null;
+    try {
+      const b = m.beat();
+      const sane = b && Number.isFinite(b.bpm) && b.bpm > 0 && b.bpm < 400 && Number.isFinite(b.phase) && b.phase >= 0 && b.phase <= 1;
+      return sane ? b : null;
+    } catch (err) {
+      return null;
     }
   }
   const musicLevel = () => (r.run >= 10 ? 3 : r.run >= 5 ? 2 : 1);
@@ -1553,6 +1618,26 @@
     if (html) s.innerHTML = text;
     else s.textContent = text;
     s.className = 'status' + (tone ? ' ' + tone : '');
+    fitRow(s);
+  }
+  // A line under the game too long for one row (the 英数 warning or a Shift key's two fingers in
+  // a narrow window) is set a little smaller to keep to one (--fit, down to 0.9 of its size);
+  // past that it wraps rather than shrink out of reach of a glance.
+  function fitRow(el) {
+    el.style.removeProperty('--fit');
+    if (el.hidden || !el.textContent || !el.clientWidth) return;
+    // its width on one row, against the room (with a little to spare: type does not scale exactly)
+    const room = el.clientWidth - 4;
+    el.style.width = 'max-content';
+    el.style.whiteSpace = 'nowrap';
+    el.style.flexWrap = 'nowrap';
+    for (let fit = 1; el.offsetWidth > room && fit > 0.9;) {
+      fit = Math.max(0.9, Math.min(fit - 0.02, fit * room / el.offsetWidth));
+      el.style.setProperty('--fit', fit.toFixed(3));
+    }
+    el.style.width = '';
+    el.style.whiteSpace = '';
+    el.style.flexWrap = '';
   }
 
   // The screen reader hears each card (word and reading only, at most one every 2 seconds:
@@ -1592,15 +1677,16 @@
 
   // The line under the game is as tall all round as the round's longest word, reading and
   // meaning need (a long kanji sentence takes two rows or three): measured as the round starts
-  // and when the window changes width, so it never jumps from card to card. The game window
-  // gives up the height it takes beyond one row.
-  let infoWidth = 0;
+  // and when the window changes size (its type grows with the window's height), so it never
+  // jumps from card to card. The game window gives up the height it takes beyond one row.
+  let infoSize = '';
   function fitInfo(fresh) {
     const box = $('info');
     if (!r || $('play').hidden) return;
     const w = box.clientWidth;
-    if (!w || (w === infoWidth && !fresh)) return;
-    infoWidth = w;
+    const size = w + 'x' + window.innerHeight;
+    if (!w || (size === infoSize && !fresh)) return;
+    infoSize = size;
     const root = document.documentElement.style;
     box.style.minHeight = '';
     root.removeProperty('--info-extra');
@@ -1616,7 +1702,8 @@
     }
     // back to the card it was showing (during a fall, the card that fell), at the new width
     showInfo(shown);
-    if (most > one) {
+    // (less than a pixel is only rounding)
+    if (most - one >= 1) {
       box.style.minHeight = most + 'px';
       root.setProperty('--info-extra', most - one + 'px');
     }
@@ -2282,9 +2369,12 @@
     if (!keys.length) return;
     const first = keys[0];
     const cap = (code) => (KEYDEF[code] ? KEYDEF[code].main : code);
+    // 次 NEXT a size under the key itself
     const kick = document.createElement('span');
     kick.className = 'kicker';
-    kick.textContent = '次　NEXT · ' + (first.shift ? 'Shift + ' : '') + cap(first.code) + (keys.length > 1 ? ' (or ' + keys.slice(1).map((x) => cap(x.code)).join(', ') + ')' : '');
+    const key = document.createElement('b');
+    key.textContent = (first.shift ? 'Shift + ' : '') + cap(first.code);
+    kick.append('次　NEXT · ', key, keys.length > 1 ? ' (or ' + keys.slice(1).map((x) => cap(x.code)).join(', ') + ')' : '');
     line.appendChild(kick);
     const f = E.fingerFor(first.code);
     if (f) {
@@ -2297,6 +2387,7 @@
       span.textContent = text;
       line.appendChild(span);
     }
+    fitRow(line);
   }
 
   function showDeviceNote() {
@@ -2359,6 +2450,8 @@
   const HAPPY_MOUTH = new Path2D('M41 54c5 5 13 5 18 0');
   // the gold star of the weak-spot chips, at unit size
   const STAR = new Path2D('M0 -9l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L0 4.9-5.4 7.8l1.1-6.1-4.5-4.3 6.1-.8z');
+  // a four-pointed twinkle, for the sparkles about Yaoki in a long clean run
+  const SPARK = new Path2D('M0 -7L1.7 -1.7 7 0 1.7 1.7 0 7-1.7 1.7-7 0-1.7-1.7z');
 
   // Yaoki, from the drawing the app uses (Main.dc.html): one eye painted, in every pose.
   const DARUMA = {
@@ -2369,12 +2462,15 @@
     mouth: new Path2D('M44 55c4 3 8 3 12 0'),
     gold: new Path2D('M38 74h24M42 82h16'),
   };
-  // his other faces: eyes shut (a blink), dazed after a fall, gritted teeth, a drop of sweat,
-  // and brows: normal, worried (a card is close), up (surprise, joy), firm (a smash)
+  // his other faces: eyes shut (a blink), dazed after a fall, smiling shut (a run of ten),
+  // gritted teeth, a grin, a drop of sweat, and brows: normal, worried (a card is close), up
+  // (surprise, joy), firm (a smash, setting off again)
   const FACE = {
     closed: new Path2D('M31 42c4 2 12 2 16 0M53 42c4 2 12 2 16 0'),
     dizzy: new Path2D('M33 37l10 5-10 5M67 37l-10 5 10 5'),
+    joy: new Path2D('M31 45c4-6 12-6 16 0M53 45c4-6 12-6 16 0'),
     grit: new Path2D('M43 56h14'),
+    grin: new Path2D('M41 53h18c-1.5 7-16.5 7-18 0z'),
     sweat: new Path2D('M84 18c3 5 5 8 5 11a5 5 0 0 1-10 0c0-3 2-6 5-11z'),
     brows: {
       normal: DARUMA.brows,
@@ -2394,7 +2490,8 @@
     const s = Math.max(0.5, Math.min(1.6, ch / H, cw / 520));
     const W = cw / s;
     const oldYx = view.yx;
-    view = { W, s, oy: (ch - H * s) / 2, dpr, yx: Math.max(100, W - 1000) };
+    const oy = (ch - H * s) / 2;
+    view = { W, s, oy, dpr, yx: Math.max(100, W - 1000), hint: hintSize(s, oy) };
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
     if (r) {
@@ -2414,6 +2511,18 @@
     }
   }
 
+  // The hint under the card is read at a glance while typing: drawn at 1.9 times the type of
+  // the lines under the game (a word's meaning, the notes; so it grows with the window as they
+  // do), or as large as the band under the route allows with a caption line under it.
+  const UNDER_TOP = GROUND + 12;   // clear of the route, the nodes' はなまる and the cards' shadows
+  const CAPTION = 0.6;             // a caption's size, of the hint's
+  function hintSize(s, oy) {
+    const px = 1.9 * (parseFloat(getComputedStyle($('info')).fontSize) || 23);
+    const room = H + oy / s - 4 - UNDER_TOP;
+    // never under 28 units (1.4 times the old 20) where the band has the room
+    return Math.max(12, 9 / s, Math.min(Math.max(px / s, 28), (room - 3) / (1.06 + 1.06 * CAPTION)));
+  }
+
   function draw() {
     const { W, s, oy, dpr } = view;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -2426,12 +2535,15 @@
     r.fxDrawn = 0;
     const target = targetCard();
     for (const c of r.cards) if (c.state === 'done') drawCard(c, false);
-    // his bubble under him: at the top of a jump he passes in front of it
+    // his bubble under him: at the top of a jump he passes in front of it; the sparkles of a long
+    // clean run go behind both
+    drawParts(r.yk.parts, 'spark');
     drawBubble();
     drawYaoki();
     drawFx();
     for (const c of r.cards) if (c.state !== 'done') drawCard(c, c === target);
     const under = r.fall ? r.fall.card : target;
+    r.underBox = null;
     if (under) drawUnder(under, W);
   }
 
@@ -2760,10 +2872,17 @@
     const kind = TRICKS[c.trick] ? c.trick : 'jump';
     const spec = TRICKS[kind];
     c.phase = 'trick';
-    yk.hopT = 0;
+    // a hop still in the air comes straight down (within 0.08 s), and a jump or a spin then goes
+    // up without its crouch
+    const air = yk.y > 1;
+    if (yk.y > 0) {
+      yk.vy = -Math.abs(yk.vy);
+      yk.g = Math.max(yk.g * 2, (2 * yk.y) / (0.08 * 0.08));
+    }
+    yk.hops = 0;
     const len = trickLength(c, spec);
     yk.trick = {
-      kind, card: c, t: 0, len,
+      kind, card: c, t: 0, len, air,
       // where the card goes as it passes him, and where its node lands behind him
       pass: view.yx - 22 - c.w - c.x,
       nodeOff: view.yx - NODE_BACK - (c.x + c.w / 2),
@@ -2803,6 +2922,15 @@
       tr.hit = true;
       tr.shards = shardsOf(tr.card);
       sfx('smash');
+      puff(2, view.yx + 30);
+    }
+    // he lands from a jump or a spin in a puff of dust, and bounces straight up again if a card
+    // was done while he was in the air
+    const land = TRICKS[tr.kind].land;
+    if (land && !tr.landed && tr.t >= land * tr.len) {
+      tr.landed = true;
+      puff(3);
+      payHop();
     }
     if (tr.shards) {
       for (const s of tr.shards) {
@@ -3026,18 +3154,300 @@
   //
   // Yaoki is drawn from a pose: where he stands (x, lift), how he leans (rot), his squash and
   // stretch (sx, sy), where he looks, and his face (eyes, brows, mouth). The pose is built each
-  // frame from what is going on: rocking along the route, breathing and blinking, a nod for each
-  // right key, a worried look when the card being typed is close, a fall and the dizzy stars,
-  // a hop, and a trick as a cleared card passes him. Under reduced motion only the face changes.
+  // frame from what is going on. While the world moves he trots in place, in springy steps with
+  // a waddle (on the music's beat while it plays), and he comes to a stand when it stops. He
+  // bounces at each right key, flinches at a miss, hops for each card done (higher at a step of
+  // the clean run), springs higher and smiles wider as the run grows, braces and jitters as a
+  // card gets close, and fidgets and yawns when nothing is typed. Every hop lands in a squash
+  // and a puff of dust. Then there are the fall and the dizzy stars, and a trick as a cleared
+  // card passes him. Under reduced motion only the face changes.
+
+  // How far into a clean run he is: 1, 2 and 3 at 5, 10 and 20 in a row.
+  const joy = () => (r.run >= 20 ? 3 : r.run >= 10 ? 2 : r.run >= 5 ? 1 : 0);
+
+  // Each frame: his steps, a hop in the air, his fidgets, and the dust and sparkles about him.
+  function moveYaoki(dt) {
+    const yk = r.yk;
+    const still = reducedMotion.matches;
+    yk.pepT = Math.max(0, yk.pepT - dt);
+    yk.nodT = Math.max(0, yk.nodT - dt);
+    yk.wiggleT = Math.max(0, yk.wiggleT - dt);
+    yk.landT = Math.max(0, yk.landT - dt);
+    yk.flinchT = Math.max(0, yk.flinchT - dt);
+    yk.startleT = Math.max(0, yk.startleT - dt);
+    yk.markT = Math.max(0, yk.markT - dt);
+    yk.firmT = Math.max(0, yk.firmT - dt);
+    // the dust is left behind on the route as the world moves; a sparkle stays about him
+    const drift = r.fall ? 0 : Math.min(r.speedNow || 0, 160);
+    for (const pt of yk.parts) {
+      if (!pt.on) continue;
+      pt.age += dt;
+      if (pt.age >= pt.life) pt.on = false;
+      pt.vx -= pt.vx * 3 * dt;
+      pt.vy -= pt.vy * 3 * dt;
+      pt.x += (pt.vx - (pt.kind === 'dust' ? drift : 0)) * dt;
+      pt.y += pt.vy * dt;
+    }
+    // how soon the card being typed would reach him (never, while it waits for him)
+    const t = targetCard();
+    yk.near = t && !t.halted ? (t.x - (view.yx + REACH)) / Math.max(1, r.speed) : Infinity;
+
+    // the tilt of a key's bounce goes over to its side and back on a spring (critically damped,
+    // so it never snaps across or overshoots)
+    const aim = yk.pepT > 0 && !yk.trick ? yk.pepSide * PEP_TILT : 0;
+    const off = yk.tilt - aim;
+    const c = yk.tiltV + TILT_RATE * off;
+    const e = Math.exp(-TILT_RATE * dt);
+    yk.tilt = aim + (off + c * dt) * e;
+    yk.tiltV = (yk.tiltV - TILT_RATE * c * dt) * e;
+
+    // down: a puff of dust where he lands on his side
+    if (r.fall) {
+      if (!still && !r.fall.thud && r.fall.t >= 0.22) {
+        r.fall.thud = true;
+        puff(3, view.yx - 36);
+      }
+      yk.trot = 0;
+      yk.idling = false;
+      yk.fidget = null;
+      yk.owed = 0;
+      yk.act = 'fall';
+      return;
+    }
+
+    // his steps: in place while the world moves, coming to a stand when it stops; on the
+    // music's beat while it sounds, else as fast as the route goes
+    const moving = !still && r.endIn === null && !(t && t.halted) && r.speedNow > 0 && !yk.trick;
+    yk.trot = Math.max(0, Math.min(1, yk.trot + (moving ? dt : -dt) / STAND_T));
+    const beat = musicBeat();
+    if (beat) {
+      // a step a beat (every other beat of a very fast song), drawn onto the beat
+      const per = beat.bpm > 170 ? 2 : 1;
+      yk.gait += (beat.bpm / 60 / per) * dt;
+      let d = (((beat.beat | 0) % per) + beat.phase) / per - (yk.gait - Math.floor(yk.gait));
+      d -= Math.round(d);
+      yk.gait += d * Math.min(1, 10 * dt);
+    } else {
+      const k = Math.min(1, Math.max(0, ((r.speedNow || 0) - 12) / 78));
+      yk.gait += (STEPS[0] + (STEPS[1] - STEPS[0]) * k) * dt;
+    }
+    if (!Number.isFinite(yk.gait)) yk.gait = yk.stepAt = 0;
+    const step = Math.floor(yk.gait);
+    if (step > yk.stepAt) {
+      yk.stepAt = step;
+      if (yk.trot >= 0.5) {
+        yk.steps++;
+        // a puff of dust kicked out behind him as his foot comes down (not while a bounce has him
+        // in the air): at every other step, and at each one in a run or a dash
+        if (yk.y <= 1 && (step % 2 === 0 || joy() > 0 || r.speedNow > 2 * r.speed)) {
+          spawn('dust', view.yx - 21 - 3 * Math.random(), GROUND, -30 - 15 * Math.random(), -8 - 6 * Math.random(), DUST_T, 2.3 + 0.6 * Math.random());
+        }
+      }
+    }
+
+    // a hop: up and down under its own gravity; a squash as he lands, and dust after a real hop
+    if (yk.y > 0 || yk.vy > 0) {
+      yk.vy -= yk.g * dt;
+      yk.y += yk.vy * dt;
+      if (yk.y <= 0) {
+        yk.y = 0;
+        yk.vy = 0;
+        yk.landT = LAND_T;
+        yk.landK = Math.min(1, yk.peak / 14);
+        if (yk.peak >= 8 && !yk.trick) puff(2);
+        if (yk.hops > 0) bounce(yk.hopH, yk.hopAir, yk.hops - 1);
+      }
+    }
+    // a card's hop that waited for his trick: now he is back on his feet, unless the next trick
+    // is upon him (then it waits for that one)
+    if (yk.owed && !yk.trick && yk.y === 0 && !trickDue()) payHop();
+
+    // nothing typed for a while in a round under way: he fidgets every couple of seconds, and
+    // yawns after a longer while; the next key brings him back with a bounce
+    const idleFor = r.time - r.lastKeyAt;
+    const calm = !still && r.started && r.finale === null && r.endIn === null && !yk.trick && !yk.firmT && yk.near >= BRACE_AT;
+    if (yk.idling && (idleFor < IDLE_AFTER || !calm)) {
+      yk.idling = false;
+      if (idleFor < IDLE_AFTER) {
+        yk.fidget = null;
+        yk.hops = 0;
+        bounce(8, 0.24);
+      }
+    } else if (!yk.idling && calm && idleFor >= IDLE_AFTER) {
+      yk.idling = true;
+      yk.fidgetAt = r.time;
+    }
+    if (yk.fidget && (yk.fidgetT += dt) >= FIDGETS[yk.fidget]) yk.fidget = null;
+    if (yk.idling && !yk.fidget && r.time >= yk.fidgetAt) {
+      const yawn = idleFor >= YAWN_AFTER && r.time - yk.yawnAt >= YAWN_GAP;
+      yk.fidget = yawn ? 'yawn' : FIDGET_ORDER[yk.fidgetN++ % FIDGET_ORDER.length];
+      if (yawn) yk.yawnAt = r.time;
+      yk.fidgetT = 0;
+      yk.fidgets++;
+      yk.fidgetAt = r.time + FIDGETS[yk.fidget] + 0.9 + 0.8 * Math.random();
+      if (yk.fidget === 'turn') bounce(7, 0.3);
+      else if (yk.fidget === 'tap') bounce(4, 0.16, 1);
+    }
+
+    // a sparkle about him now and then in a clean run of 10 or more (more often at 20), while he
+    // is not off in a trick
+    if (!still && r.run >= 10 && !yk.trick && r.time >= yk.sparkAt) {
+      yk.sparkAt = r.time + (r.run >= 20 ? 0.3 : 0.55) + 0.4 * Math.random();
+      sparkle(yk);
+    }
+
+    // what he is doing, for the checks
+    yk.act = still ? 'stand' : yk.trick ? 'trick' : yk.flinchT > 0 ? 'flinch' : yk.y > 0 ? (yk.peak >= 8 ? 'hop' : 'pep')
+      : yk.near < BRACE_AT ? 'brace' : yk.fidget === 'yawn' ? 'yawn' : yk.idling || yk.fidget ? 'idle' : yk.trot >= 0.5 ? 'trot' : 'stand';
+  }
+
+  // A hop h high (in the scene's units) that is over in `air` seconds, and `again` more like it
+  // as he lands. In the air already, he goes on up to the higher of the two. Not in a trick: the
+  // trick has him then.
+  function bounce(h, air, again = 0) {
+    if (!r.yk.trick) launch(h, air, again);
+  }
+  function launch(h, air, again = 0) {
+    const yk = r.yk;
+    if (reducedMotion.matches || r.fall) return;
+    const top = yk.vy > 0 ? yk.y + (yk.vy * yk.vy) / (2 * yk.g) : yk.y;
+    if (h <= top) return;
+    yk.g = (8 * h) / (air * air);
+    yk.vy = Math.sqrt(2 * yk.g * (h - yk.y));
+    yk.v0 = Math.sqrt(2 * yk.g * h);
+    yk.peak = h;
+    yk.hopH = h;
+    yk.hopAir = air;
+    yk.hops = again;
+  }
+  const hopAir = (h) => 0.26 + 0.012 * h;
+
+  // A right key: a quick bounce, tilting to each side in turn (only away from a card right in
+  // front of him), a bigger one as a kana or a key card is done. In a trick, just a nod.
+  function pep(big) {
+    const yk = r.yk;
+    if (yk.trick) {
+      yk.nodT = PEP_T;
+      return;
+    }
+    const t = targetCard();
+    yk.pepT = PEP_T;
+    yk.pepSide = t && t.x - view.yx < REACH + 8 ? -1 : -yk.pepSide;
+    bounce((big ? 8 : 5) * (1 + 0.12 * joy()), big ? 0.2 : PEP_T);
+  }
+
+  // A miss: he flinches (a quick shake, a lean back), startled, with a ! over his head; at most
+  // once every FLINCH_GAP. Under reduced motion only his face and the ! show it.
+  function flinch() {
+    const yk = r.yk;
+    if (yk.flinchAt >= 0 && r.time - yk.flinchAt < FLINCH_GAP) return;
+    yk.flinchAt = r.time;
+    yk.startleT = STARTLE_T;
+    yk.markT = MARK_T;
+    if (reducedMotion.matches) return;
+    yk.flinchT = FLINCH_T;
+    yk.flinches++;
+  }
+
+  // A hop for a card done, a step of the run, a comeback or a good end (with a wiggle for a
+  // clean card): not in a fall, nor while a card waits for him. In the middle of a trick it is
+  // owed: he bounces up again as he lands from a jump or a spin, or hops once a duck or a smash is
+  // over (if that is soon enough).
+  function hop(h, wiggle) {
+    const yk = r.yk;
+    if (r.fall || reducedMotion.matches) return;
+    const t = targetCard();
+    if (t && t.halted) return;
+    if (yk.trick) {
+      yk.owed = Math.max(yk.owed, h);
+      yk.owedWiggle = yk.owedWiggle || !!wiggle;
+      yk.owedAt = r.time;
+      return;
+    }
+    bounce(h, hopAir(h));
+    if (wiggle) yk.wiggleT = WIGGLE_T;
+  }
+  function payHop() {
+    const yk = r.yk;
+    const h = yk.owed;
+    const wiggle = yk.owedWiggle;
+    yk.owed = 0;
+    yk.owedWiggle = false;
+    if (!h || r.fall || r.time - yk.owedAt > OWED_T) return;
+    const t = targetCard();
+    if (t && t.halted) return;
+    launch(h, hopAir(h));
+    if (wiggle) yk.wiggleT = WIGGLE_T;
+  }
+  // Whether a cleared card is about to reach him for its trick.
+  function trickDue() {
+    const line = view.yx + REACH + TRICK_LEAD + 0.25 * Math.max(r.speedNow || 0, r.speed);
+    for (const c of r.cards) {
+      if (c.state === 'done' && c.phase === 'ride' && c.x <= line) return true;
+    }
+    return false;
+  }
+
+  // A puff of dust or a sparkle, from the pool (the one furthest gone makes way when all are out).
+  function spawn(kind, x, y, vx, vy, life, size) {
+    if (reducedMotion.matches) return;
+    const parts = r.yk.parts;
+    let pt = parts[0];
+    for (const q of parts) {
+      if (!q.on) {
+        pt = q;
+        break;
+      }
+      if (q.age / q.life > pt.age / pt.life) pt = q;
+    }
+    pt.on = true;
+    pt.kind = kind;
+    pt.x = x;
+    pt.y = y;
+    pt.vx = vx;
+    pt.vy = vy;
+    pt.age = 0;
+    pt.life = life;
+    pt.size = size;
+  }
+  // A puff of dust: n little clouds kicked out to both sides of his base (a smaller one in front,
+  // never as far as the cards), or to both sides of a spot on the route (`at`).
+  function puff(n, at) {
+    for (let i = 0; i < n; i++) {
+      const back = i % 2 === 0;
+      const x = at !== undefined ? at + (back ? -4 : 4) : view.yx + (back ? -21 - 2 * i : 17);
+      spawn('dust', x, GROUND, back ? -30 - 16 * Math.random() : 4 + 4 * Math.random(), -8 - 8 * Math.random(), DUST_T, back ? 2.4 + 0.8 * Math.random() : 2 + 0.4 * Math.random());
+    }
+  }
+  // A sparkle on a ring just outside him, over his head and behind him: never on him, out
+  // towards the cards, or on his bubble (it is drawn up to 20 higher as he hops: see drawParts).
+  function sparkle(yk) {
+    const up = Math.min(yk.lift, 20);
+    const box = yk.box;
+    for (let i = 0; i < 4; i++) {
+      const a = (75 + 140 * Math.random()) * DEG;
+      const rad = 35 + 5 * Math.random();
+      const x = view.yx + rad * Math.cos(a);
+      const y = GROUND - 28 - rad * Math.sin(a);
+      if (box && x > box.x - 8 && x < box.x + box.w + 8 && y - up > box.y - 8 && y - up < box.y + box.h + 18) continue;
+      spawn('spark', x, y, 0, -12, SPARK_T, 0.7 + 0.4 * Math.random());
+      return;
+    }
+  }
+
+  // His pose, made over each frame rather than anew.
+  const STANDING = { x: 0, lift: 0, rot: 0, sx: 1, sy: 1, lookX: 0, lookY: 0, eyes: 'open', brows: 'normal', mouth: 'normal', blush: false, sweat: false, dizzy: 0, pivot: 0, mark: -1 };
+  const pose = Object.assign({}, STANDING);
 
   function yaokiPose() {
     const still = reducedMotion.matches;
     const yk = r ? r.yk : null;
-    const p = { x: view.yx, lift: 0, rot: 0, sx: 1, sy: 1, lookX: 0, lookY: 0, eyes: 'open', brows: 'normal', mouth: 'normal', blush: false, sweat: false, dizzy: 0, pivot: 0 };
+    const p = Object.assign(pose, STANDING);
+    p.x = view.yx;
     if (!r) return p;
     const t = r.time;
 
-    // the fall: down, then up again with a wobble (the toy rights itself)
+    // the fall: down with a thud, then up again with a wobble (the toy rights itself)
     if (r.fall) {
       const ft = r.fall.t;
       const L = r.fall.length;
@@ -3050,6 +3460,11 @@
         const u = (ft - rise) / (L - rise);
         p.rot = down * Math.exp(-4.5 * u) * Math.cos(11 * u);
       }
+      if (!still && ft >= 0.22 && ft < 0.22 + LAND_T) {
+        const k = Math.sin((Math.PI * (ft - 0.22)) / LAND_T);
+        p.sy *= 1 - 0.16 * k;
+        p.sx *= 1 + 0.1 * k;
+      }
       if (ft >= 0.12 && ft < rise) {
         p.eyes = 'dizzy';
         p.mouth = 'o';
@@ -3060,50 +3475,192 @@
       return p;
     }
 
-    // rocking along the route, and breathing
-    if (!still && phase === 'play') {
-      p.rot = Math.sin(r.rock * Math.PI) * (5 * Math.PI / 180);
+    if (!still) {
+      // breathing
       const breath = Math.sin((t * 2 * Math.PI) / 2.2) * 0.022;
       p.sy *= 1 + breath;
       p.sx *= 1 - breath * 0.6;
+      // bracing as the card being typed gets close: a crouch and a lean back, and a nervous
+      // jitter just before it would reach him
+      const brace = yk.near < BRACE_AT ? smooth(BRACE_AT, 0.4, yk.near) : 0;
+      if (brace > 0) {
+        p.sy *= 1 - 0.08 * brace;
+        p.sx *= 1 + 0.05 * brace;
+        p.rot -= 3 * DEG * brace;
+        if (yk.near < JITTER_AT) {
+          const j = 1 - Math.max(0, yk.near) / JITTER_AT;
+          p.x += 1.4 * j * Math.sin(t * 2 * Math.PI * 23);
+          p.rot += 0.02 * j * Math.sin(t * 2 * Math.PI * 17);
+        }
+      }
+      // trotting: a squash as each step lands, a little stretch in the air, a waddle from side
+      // to side and a lean into the way he goes; springier in a clean run, shorter as he braces
+      if (yk.trot > 0) {
+        const T = yk.trot;
+        const amp = (3.5 + 0.8 * joy()) * (1 - 0.55 * brace) * (yk.fidget === 'yawn' ? 0.4 : 1);
+        const u = yk.gait - Math.floor(yk.gait);
+        if (u < 0.28) {
+          const k = Math.sin((Math.PI * u) / 0.28) * T;
+          p.sy *= 1 - (0.06 + 0.012 * joy()) * k;
+          p.sx *= 1 + (0.045 + 0.008 * joy()) * k;
+        } else {
+          const k = Math.sin((Math.PI * (u - 0.28)) / 0.72) * T;
+          p.lift += amp * k;
+          p.sy *= 1 + 0.035 * k;
+          p.sx *= 1 - 0.025 * k;
+        }
+        const dash = Math.min(1, (r.speedNow || 0) / 320);
+        p.rot += (3.5 * Math.sin(Math.PI * yk.gait) * (1 - 0.5 * brace) + (1.2 + 1.8 * dash) * (1 - brace)) * DEG * T;
+      }
+      // a hop or a pep: stretched as he goes up and comes down, a squash as he lands
+      if (yk.y > 0) {
+        p.lift += yk.y;
+        const k = Math.min(1, Math.abs(yk.vy) / yk.v0) * (0.05 + 0.004 * yk.peak);
+        p.sy *= 1 + k;
+        p.sx *= 1 - 0.6 * k;
+      }
+      if (yk.landT > 0 && !yk.trick) {
+        const k = Math.sin(Math.PI * (1 - yk.landT / LAND_T)) * (0.04 + 0.1 * yk.landK);
+        p.sy *= 1 - k;
+        p.sx *= 1 + 0.7 * k;
+      }
+      // a pep's tilt (on its spring), and a clean card's wiggle, eased in
+      p.rot += yk.tilt;
+      if (yk.wiggleT > 0) {
+        const s = WIGGLE_T - yk.wiggleT;
+        p.rot += 4 * DEG * Math.sin(2 * Math.PI * 4 * s) * smooth(0, 0.08, s) * (yk.wiggleT / WIGGLE_T);
+      }
+      // a flinch: a quick shake (not up in a jump or a spin), and a lean back away from the card
+      if (yk.flinchT > 0) {
+        const u = 1 - yk.flinchT / FLINCH_T;
+        if (!yk.trick || yk.trick.kind === 'duck' || yk.trick.kind === 'smash') p.x += 2.5 * Math.sin(2 * Math.PI * 4.5 * u) * (1 - u);
+        p.rot -= 0.1 * Math.sin(Math.PI * Math.min(1, u * 1.4));
+        p.sy *= 1 + 0.04 * (1 - u);
+      }
+      if (yk.fidget) fidgetPose(yk, p, false);
+      holdBack(p);
     }
-    // a little nod for each right key
-    if (!still && yk.nodT > 0) {
-      const k = Math.sin(Math.PI * (1 - yk.nodT / NOD_T));
+
+    // the face: looking at the card being typed, worried when it is close, happy after a card
+    // and in a run (a grin at 10), determined as he sets off again, and startled at a miss
+    if (targetCard()) p.lookX = 1;
+    if (yk.near < BRACE_AT) {
+      p.brows = 'worried';
+      p.sweat = yk.near < 0.9;
+      p.mouth = 'o';
+    }
+    if (isHappy()) {
+      p.mouth = p.brows === 'worried' ? 'o' : joy() >= 2 ? 'grin' : 'happy';
+      p.blush = true;
+    }
+    if (yk.firmT > 0 && p.brows === 'normal') {
+      p.brows = 'firm';
+      if (p.mouth === 'normal') p.mouth = 'grit';
+    }
+    if (!still) {
+      // eyes shut with joy at the top of a card's hop, in a run of ten or more
+      if (joy() >= 2 && yk.peak >= 12 && yk.y > 6) p.eyes = 'joy';
+      if (yk.blinkT >= 0 && yk.blinkT < BLINK_T) p.eyes = 'closed';
+      if (yk.fidget && p.brows !== 'worried') fidgetPose(yk, p, true);
+    }
+    if (yk.startleT > 0) {
+      p.eyes = 'wide';
+      p.brows = 'up';
+      p.mouth = 'o';
+    }
+    p.mark = yk.markT > 0 ? 1 - yk.markT / MARK_T : -1;
+
+    // a trick past a cleared card; a right key in the middle of one is just a nod, while his feet
+    // are down
+    const tr = yk.trick;
+    if (tr && !still) trickPose(tr, p);
+    if (!still && yk.nodT > 0 && p.lift < 2) {
+      const k = Math.sin(Math.PI * (1 - yk.nodT / PEP_T));
       p.sy *= 1 - 0.07 * k;
       p.sx *= 1 + 0.04 * k;
     }
-    // a hop (a step of the clean run, a comeback): stretch going up, squash on landing
-    if (!still && yk.hopT > 0) {
-      const u = 1 - yk.hopT / HOP_T;
-      p.lift = yk.hopH * Math.sin(Math.PI * u);
-      const s = u < 0.5 ? 0.08 : -0.1 * Math.sin(Math.PI * (u - 0.5) * 2);
-      p.sy *= 1 + s;
-      p.sx *= 1 - s * 0.6;
-    }
-
-    // the face: looking at the card being typed, worried when it is close, happy in a run
-    const target = targetCard();
-    if (target) {
-      p.lookX = 1;
-      const near = target.halted ? 0 : (target.x - (view.yx + REACH)) / Math.max(1, r.speed);
-      if (near < 1.6 && !target.halted) {
-        p.brows = 'worried';
-        p.sweat = near < 0.9;
-        p.mouth = 'o';
-      }
-    }
-    if (isHappy()) {
-      p.mouth = 'happy';
-      p.blush = true;
-      if (p.brows === 'worried') p.mouth = 'o';
-    }
-    if (!still && yk.blinkT >= 0 && yk.blinkT < BLINK_T) p.eyes = 'closed';
-
-    // a trick past a cleared card
-    const tr = yk.trick;
-    if (tr && !still) trickPose(tr, p);
     return p;
+  }
+
+  // However his lean, waddle and shakes add up, his head sways at most SWAY_MAX to either side
+  // (easing into the limit rather than stopping dead at it), and he never leans or squashes into
+  // the card in front of him.
+  function holdBack(p) {
+    const dx = p.x - view.yx;
+    const h = BODY_H * p.sy;
+    p.rot = softLimit(p.rot, Math.asin(Math.min(1, (SWAY_MAX - dx) / h)), Math.asin(Math.min(1, (SWAY_MAX + dx) / h)));
+    const t = targetCard();
+    if (!t) return;
+    // how far his right side reaches (at his widest, turned by his lean), against the card's left
+    // edge (less half his outline)
+    const room = t.x - view.yx - 1.5 - dx;
+    const a = BODY_W * p.sx;
+    const b = BODY_MID * p.sy;
+    if (p.rot > 0 && a * Math.cos(p.rot) + b * Math.sin(p.rot) > room) {
+      const m = Math.hypot(a, b);
+      p.rot = room >= a ? Math.min(p.rot, Math.atan2(b, a) - Math.acos(Math.min(1, room / m))) : 0;
+    }
+    const over = (p.rot > 0 ? a * Math.cos(p.rot) + b * Math.sin(p.rot) : a) - room;
+    if (over > 0) p.x -= over;
+  }
+  // v, eased into the limits -lo..hi: as it is up to 60% of the way, then on a soft shoulder
+  function softLimit(v, hi, lo) {
+    const m = Math.max(0.01, v >= 0 ? hi : lo);
+    const a = Math.abs(v);
+    const knee = 0.6 * m;
+    if (a <= knee) return v;
+    return Math.sign(v) * (knee + (m - knee) * Math.tanh((a - knee) / (m - knee)));
+  }
+
+  // His fidgets while nothing is typed: the body (face false), then the face (face true).
+  function fidgetPose(yk, p, face) {
+    const u = Math.min(1, yk.fidgetT / FIDGETS[yk.fidget]);
+    const k = Math.sin(Math.PI * u);
+    if (yk.fidget === 'look') {
+      // a look round behind him and back
+      if (face) {
+        p.lookX = Math.cos(2 * Math.PI * u);
+        p.lookY = -0.3 * k;
+      } else {
+        p.sx *= 1 - 0.05 * k;
+        p.rot -= 1.5 * DEG * Math.sin(2 * Math.PI * u);
+      }
+    } else if (yk.fidget === 'turn') {
+      // a little hop, turning to look behind him: narrower as he turns, leaning and stepping
+      // round that way
+      if (face) {
+        p.lookX = -k;
+        p.brows = 'up';
+      } else {
+        p.sx *= 1 - 0.14 * k;
+        p.x -= 2.5 * k;
+        p.rot -= 2 * DEG * k;
+      }
+    } else if (yk.fidget === 'tap') {
+      // a double tap, looking down at his feet
+      if (face) p.lookY = 0.9 * k;
+    } else if (yk.fidget === 'up') {
+      // a glance up at the sky
+      if (face) {
+        p.lookY = -k;
+        p.lookX = 0.3 * (1 - k);
+        p.brows = 'up';
+      } else {
+        p.rot -= 2.5 * DEG * k;
+        p.sy *= 1 + 0.03 * k;
+      }
+    } else if (face) {
+      // a yawn, with a stretch
+      if (k > 0.3) {
+        p.eyes = 'closed';
+        p.mouth = 'yawn';
+        p.brows = 'up';
+      }
+    } else {
+      p.sy *= 1 + 0.09 * k;
+      p.sx *= 1 - 0.05 * k;
+      p.rot += 2 * DEG * Math.sin(2 * Math.PI * u) * k;
+    }
   }
 
   // Each trick, as curves over u = 0..1 of its length.
@@ -3114,15 +3671,17 @@
   function trickPose(tr, p) {
     const u = Math.min(1, tr.t / tr.len);
     if (tr.kind === 'jump' || tr.kind === 'spin') {
-      const [a, b] = tr.kind === 'jump' ? [0.14, 0.74] : [0.16, 0.8];
+      const a = tr.kind === 'jump' ? 0.14 : 0.16;
+      const b = TRICKS[tr.kind].land;
       const H = tr.kind === 'jump' ? 92 : 102;
       if (u < a) {
-        const k = Math.sin(Math.PI * u / a);
+        // a crouch to spring from (none if the trick caught him in the air)
+        const k = tr.air ? 0 : Math.sin(Math.PI * u / a);
         p.sy *= 1 - 0.16 * k;
         p.sx *= 1 + 0.12 * k;
       } else if (u < b) {
         const k = (u - a) / (b - a);
-        p.lift = H * Math.sin(Math.PI * k);
+        p.lift = Math.max(p.lift, H * Math.sin(Math.PI * k));
         p.sy *= 1.08 - 0.08 * k;
         p.sx *= 0.94 + 0.06 * k;
         p.lookY = 1;
@@ -3131,7 +3690,8 @@
           p.rot = 2 * Math.PI * smooth(0.05, 0.95, k);
           p.pivot = 29;
         }
-      } else {
+      } else if (r.yk.y <= 0) {
+        // a squash as he lands (unless he bounces straight up again)
         const k = Math.sin(Math.PI * Math.min(1, (u - b) / 0.14));
         p.sy *= 1 - 0.14 * k;
         p.sx *= 1 + 0.1 * k;
@@ -3175,6 +3735,8 @@
     if (yk) {
       yk.lift = p.lift;
       yk.liftMax = Math.max(yk.liftMax, p.lift);
+      // the furthest he has moved from standing (lean, squash and stretch, shifts), outside a fall
+      if (!r.fall) yk.sway = Math.max(yk.sway, Math.abs(p.x - view.yx) + BODY_H * (Math.abs(Math.sin(p.rot)) + Math.abs(p.sy - 1)) + BODY_W * Math.abs(p.sx - 1));
     }
     // the shadow stays on the route and shrinks as he goes up
     const shade = Math.max(0.35, 1 - p.lift / 140);
@@ -3185,6 +3747,7 @@
     ctx.ellipse(p.x, GROUND + 2, 22 * shade, 4.5 * shade, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
+    if (yk) drawParts(yk.parts, 'dust');
     // a spin leaves a trail of little stars
     if (yk && yk.trick && yk.trick.kind === 'spin' && p.lift > 4 && phase === 'play' && yk.trail.length < 16) {
       const lastSt = yk.trail[yk.trail.length - 1];
@@ -3192,6 +3755,89 @@
     }
     if (yk && yk.trail.length) drawTrail(yk.trail);
     drawDaruma(p);
+    if (p.mark >= 0) drawMark(p);
+  }
+
+  // The dust puffs at his feet (little pale clouds of three puffs each, with a soft edge;
+  // moonlit at night) and the sparkles about him (which bob up with his hops, but stay behind
+  // when he jumps or spins).
+  const CLOUD = [-0.9, -0.8, 0.8, 0, -1.15, 1.05, 0.95, -0.75, 0.75];   // each puff: x, y, radius
+  function drawParts(parts, kind) {
+    ctx.save();
+    ctx.lineJoin = 'round';
+    if (kind === 'dust') {
+      ctx.fillStyle = pal.dark ? pal.outline : pal.card;
+      ctx.strokeStyle = pal.lineStrong;
+      ctx.lineWidth = 2;
+    } else {
+      ctx.fillStyle = pal.gold;
+      ctx.strokeStyle = pal.outline;
+      ctx.lineWidth = 1.6;
+    }
+    for (const pt of parts) {
+      if (!pt.on || pt.kind !== kind) continue;
+      const k = pt.age / pt.life;
+      if (kind === 'dust') {
+        // growing as it thins out; the edge is stroked first and filled over, so only its outer
+        // half shows, round the whole cloud
+        const s = pt.size * (0.7 + 0.6 * k);
+        ctx.globalAlpha = 0.9 * (1 - k * k);
+        ctx.beginPath();
+        for (let i = 0; i < 9; i += 3) {
+          const cx = pt.x + CLOUD[i] * s;
+          const cy = pt.y + CLOUD[i + 1] * s;
+          ctx.moveTo(cx + CLOUD[i + 2] * s, cy);
+          ctx.arc(cx, cy, CLOUD[i + 2] * s, 0, Math.PI * 2);
+        }
+        ctx.stroke();
+        ctx.fill();
+      } else {
+        // a twinkle that grows and shrinks again, its edge thinning with it
+        const sc = pt.size * Math.sin(Math.PI * k);
+        if (sc < 0.05) continue;
+        ctx.globalAlpha = Math.min(1, 3 * Math.sin(Math.PI * k));
+        ctx.save();
+        ctx.translate(pt.x, pt.y - Math.min(r.yk.lift, 20));
+        ctx.rotate(2 * k);
+        ctx.scale(sc, sc);
+        ctx.fill(SPARK);
+        ctx.stroke(SPARK);
+        ctx.restore();
+      }
+    }
+    ctx.restore();
+  }
+
+  // The ! that pops up over his head at a miss (still, under reduced motion): on the right, or
+  // beside his head on the left, under it, when his bubble is up over him.
+  function drawMark(p) {
+    const still = reducedMotion.matches;
+    const u = p.mark;
+    const sc = still ? 1 : u < 0.2 ? 0.4 + 0.8 * ease(u / 0.2) : 1.2 - 0.2 * Math.min(1, (u - 0.2) / 0.15);
+    const size = small(18);
+    const box = r.yk.box;
+    const left = !!box && box.x + box.w > view.yx + 6;
+    let y = GROUND - p.lift - (left ? 52 : 64) - (still ? 0 : 5 * u);
+    if (left) y = Math.max(y, box.y + box.h + 4 + 0.7 * size);
+    ctx.save();
+    ctx.globalAlpha = still || u < 0.7 ? 1 : 1 - (u - 0.7) / 0.3;
+    ctx.translate(p.x + (left ? -27 : 13), y);
+    ctx.rotate(left ? -0.18 : 0.18);
+    ctx.scale(sc, sc);
+    ctx.font = '800 ' + size + 'px ' + UI;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.lineJoin = 'round';
+    // lettered like a trick's sound word: an ink edge round a white one
+    ctx.lineWidth = Math.max(4, size / 3);
+    ctx.strokeStyle = pal.hard;
+    ctx.strokeText('!', 0, 0);
+    ctx.lineWidth = Math.max(2.5, size / 6);
+    ctx.strokeStyle = pal.card;
+    ctx.strokeText('!', 0, 0);
+    ctx.fillStyle = pal.stamp;
+    ctx.fillText('!', 0, 0);
+    ctx.restore();
   }
 
   // His lacquer: one gradient, made once, in his own drawing's units.
@@ -3253,11 +3899,13 @@
     ctx.lineJoin = 'round';
     ctx.strokeStyle = '#1B2440';
     ctx.fillStyle = '#1B2440';
-    if (p.eyes === 'open') {
+    if (p.eyes === 'open' || p.eyes === 'wide') {
+      // wide open, with a small pupil, when he is startled
+      const wide = p.eyes === 'wide';
       ctx.lineWidth = 2.5;
       for (const ex of [39, 61]) {
         ctx.beginPath();
-        ctx.arc(ex, 42, 8, 0, Math.PI * 2);
+        ctx.arc(ex, 42, wide ? 9.5 : 8, 0, Math.PI * 2);
         ctx.fillStyle = '#FFFFFF';
         ctx.fill();
         ctx.stroke();
@@ -3265,21 +3913,30 @@
       // only the right eye is painted: its pupil looks where he looks
       ctx.fillStyle = '#1B2440';
       ctx.beginPath();
-      ctx.arc(61 + 2.4 * p.lookX, 42 + 2.4 * p.lookY, 4, 0, Math.PI * 2);
+      ctx.arc(61 + 2.4 * p.lookX, 42 + 2.4 * p.lookY, wide ? 2.6 : 4, 0, Math.PI * 2);
       ctx.fill();
-    } else if (p.eyes === 'closed') {
+    } else if (p.eyes === 'closed' || p.eyes === 'joy') {
       ctx.lineWidth = 2.5;
-      ctx.stroke(FACE.closed);
+      ctx.stroke(FACE[p.eyes]);
     } else {
       ctx.lineWidth = 2.5;
       ctx.stroke(FACE.dizzy);
     }
     ctx.lineWidth = 3;
     ctx.stroke(FACE.brows[p.brows] || DARUMA.brows);
-    if (p.mouth === 'o') {
+    if (p.mouth === 'o' || p.mouth === 'yawn') {
       ctx.beginPath();
-      ctx.ellipse(50, 57, 3.2, 4.2, 0, 0, Math.PI * 2);
+      if (p.mouth === 'o') ctx.ellipse(50, 57, 3.2, 4.2, 0, 0, Math.PI * 2);
+      else ctx.ellipse(50, 58, 4.6, 6.4, 0, 0, Math.PI * 2);
       ctx.fill();
+    } else if (p.mouth === 'grin') {
+      // open wide, with a little tongue
+      ctx.fill(FACE.grin);
+      ctx.fillStyle = '#F07A6A';
+      ctx.beginPath();
+      ctx.ellipse(50, 57.4, 4, 1.6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#1B2440';
     } else {
       ctx.lineWidth = 2.5;
       ctx.stroke(p.mouth === 'happy' ? HAPPY_MOUTH : p.mouth === 'grit' ? FACE.grit : DARUMA.mouth);
@@ -3334,13 +3991,6 @@
   }
 
   const isHappy = () => !!(r && !r.fall && (r.yk.happyT > 0 || r.run >= 5));
-  function hop(h) {
-    if (r.fall || r.yk.trick) return;
-    const t = targetCard();
-    if (t && t.halted) return;
-    r.yk.hopT = HOP_T;
-    r.yk.hopH = h;
-  }
 
   // A word from Yaoki in a bubble, with a little item beside it. Lines come from items.js
   // (several for each occasion) or the few built in here; a newer line replaces the one
@@ -3498,18 +4148,22 @@
 
   // Under the route, for the card being typed: the romaji typed so far (green) and, while a
   // hint shows, the kana being typed or the whole rest of the spelling (grey); for keys, the
-  // row and finger, then the key. After a fall: the answer and when the card comes back.
+  // row and finger, then the key. After a fall: the answer, labelled, and under it when the card
+  // comes back. A line too long for the window is set smaller, by the widest the card's hint
+  // can come to at its present step, so it keeps its size while the card is typed.
   function drawUnder(c, W) {
     const it = c.item;
     const level = hintLevel(c);
     const cx = c.x + c.w / 2;
-    const y = GROUND + 36;
-    ctx.textBaseline = 'alphabetic';
+    const font = (size) => '800 ' + size + 'px ' + UI;
+    ctx.font = font(view.hint);
     let text = '';
     let done = '';
+    let full = '';
     if (it.kind === 'romaji') {
       done = c.typed;
-      if (level >= 2) text = E.spell(it.tokens, c.typed) || c.typed;
+      full = E.spell(it.tokens, c.typed) || c.typed;
+      if (level >= 2) text = full;
       // a kanji card's first hint is its reading, on the card: no romaji yet
       else if (level === 1 && !it.hidden) {
         const open = E.choices(it.tokens, c.typed);
@@ -3521,28 +4175,63 @@
       // card's first hint is its reading, on the card); after a fall, the whole reading
       done = c.state === 'fallen' ? '' : c.typed;
       const next = it.steps[c.step];
+      const keyShown = level >= 2 || (level === 1 && !it.hidden);
+      const keyText = level >= 2 ? keyName : keyArea;
       if (c.state === 'fallen') text = it.reading || it.text;
-      else if (next && (level >= 2 || (level === 1 && !it.hidden))) text = done + (done ? '　' : '') + (level >= 2 ? keyName(next) : keyArea(next));
+      else if (next && keyShown) text = done + (done ? '　' : '') + keyText(next);
       else text = done;
+      // (the widest it comes to: the whole reading and the widest of its keys' hints at this step)
+      full = c.state === 'fallen' ? text : (it.reading || it.text) + (keyShown ? '　' + widestKey(c, keyText) : '');
     } else if (level >= 2) text = keyName(it);
     else if (level === 1) text = keyArea(it);
     if (!text) return;
-    const below = c.state === 'fallen' ? 'あとでもう一度　' + backText(r.fall ? r.fall.back : 0)
+    const fallen = c.state === 'fallen';
+    const label = fallen ? '正解　answer' : '';
+    const below = fallen ? 'あとでもう一度　' + backText(r.fall ? r.fall.back : 0)
       : c.halted ? 'ゆっくりでいい　The world waits. Tab skips this card.' : '';
-    const captionFont = '800 ' + small(12) + 'px ' + UI;
-    ctx.font = captionFont;
-    const smallWidth = Math.max(ctx.measureText(below).width, c.state === 'fallen' ? ctx.measureText('正解　answer').width : 0);
-    ctx.font = '800 20px ' + UI;
-    const width = Math.max(ctx.measureText(text).width, smallWidth);
-    const x = Math.max(10, Math.min(W - 10 - width, cx - ctx.measureText(text).width / 2));
+    const room = W - 20;
+    // the captions, and the hint (after its label), each fitted to the room
+    let cap = view.hint * CAPTION;
+    ctx.font = font(cap);
+    cap = Math.max(small(9), Math.min(cap, cap * room / Math.max(1, ctx.measureText(below || label).width)));
+    ctx.font = font(cap);
+    const gap = label ? 0.6 * cap : 0;
+    const labelW = label ? ctx.measureText(label).width + gap : 0;
+    const belowW = ctx.measureText(below).width;
+    let size = view.hint;
+    ctx.font = font(size);
+    const widest = Math.max(full ? ctx.measureText(full).width : 0, ctx.measureText(text).width);
+    if (widest > room - labelW) {
+      size = Math.max(small(12), Math.floor(size * (room - labelW) / widest));
+      ctx.font = font(size);
+    }
+    const rowW = labelW + ctx.measureText(text).width;
+    // the hint centred under its card, and clear of Yaoki when he has fallen (he lies across the
+    // band then); its caption from the same left edge, or further left if it needs the room
+    const right = W - 10 - rowW;
+    const clear = c.state === 'fallen' ? view.yx + 34 : 10;
+    const x = Math.max(10, Math.min(right, Math.max(cx - rowW / 2, Math.min(clear, right))));
+    const x2 = Math.max(10, Math.min(x, W - 10 - belowW));
+    // the hint's baseline stays put, whatever its size; the caption sits under it
+    const y = UNDER_TOP + 0.86 * view.hint;
+    const y2 = y + 0.2 * view.hint + 3 + 0.86 * view.hint * CAPTION;
+    ctx.textBaseline = 'alphabetic';
     ctx.textAlign = 'left';
-    if (c.state === 'fallen') {
+    const left = below ? Math.min(x, x2) : x;
+    r.underBox = {
+      // its edges rounded (not its width, so that x + w is its right edge, rounded)
+      x: Math.round(left), y: Math.round(y - 0.86 * view.hint), w: Math.round(Math.max(x + rowW, below ? x2 + belowW : 0)) - Math.round(left),
+      h: Math.round((below ? y2 + 0.2 * cap : y + 0.2 * view.hint) - (y - 0.86 * view.hint)),
+      size: Math.round(size * 10) / 10, px: Math.round(size * view.s * 10) / 10, caption: Math.round(cap * view.s * 10) / 10,
+      foot: Math.round(H + view.oy / view.s),
+    };
+    if (fallen) {
       ctx.fillStyle = pal.bad;
-      ctx.fillText(text, x, y);
-      ctx.font = captionFont;
-      ctx.fillText('正解　answer', x, y - 22);
+      ctx.fillText(text, x + labelW, y);
+      ctx.font = font(cap);
+      ctx.fillText(label, x, y);
       ctx.fillStyle = pal.muted;
-      ctx.fillText(below, x, y + 22);
+      ctx.fillText(below, x2, y2);
       return;
     }
     // the newest letter pops: drawn a little larger for a moment, about its own centre (the
@@ -3557,21 +4246,41 @@
         const head = done.slice(0, -1);
         const w0 = ctx.measureText(head).width;
         const w1 = ctx.measureText(done.slice(-1)).width;
+        const mid = y - 0.35 * size;
         ctx.fillText(head, x, y);
         ctx.save();
-        ctx.translate(x + w0 + w1 / 2, y);
+        ctx.translate(x + w0 + w1 / 2, mid);
         ctx.scale(pop, pop);
-        ctx.fillText(done.slice(-1), -w1 / 2, 0);
+        ctx.fillText(done.slice(-1), -w1 / 2, y - mid);
         ctx.restore();
       } else {
         ctx.fillText(done, x, y);
       }
     }
     if (below) {
-      ctx.font = captionFont;
+      ctx.font = font(cap);
       ctx.fillStyle = pal.muted;
-      ctx.fillText(below, x, y + 22);
+      ctx.fillText(below, x2, y2);
     }
+  }
+
+  // The widest of the hints `hint` (keyArea, the row and finger, or keyName, the key) gives a
+  // word's keys, in the font set; kept on the card for that font.
+  function widestKey(c, hint) {
+    const key = hint.name + ' ' + ctx.font;
+    if (c.widestKey && c.widestKey.key === key) return c.widestKey.text;
+    let text = '';
+    let most = -1;
+    for (const x of c.item.steps) {
+      const t = hint(x);
+      const w = ctx.measureText(t).width;
+      if (w > most) {
+        most = w;
+        text = t;
+      }
+    }
+    c.widestKey = { key, text };
+    return text;
   }
 
   // ---------- the loop ----------
@@ -3619,6 +4328,8 @@
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('resize', () => {
     fitInfo(false);
+    fitRow($('status'));
+    fitRow($('next-line'));
     resize();
   });
   if (window.ResizeObserver) new ResizeObserver(() => resize()).observe(canvas.parentElement);
@@ -3750,7 +4461,13 @@
         day: { d: localDay(), s: todaySec(), goal: saved.goal, stamped: saved.stampCard.lastDay === localDay() },
         stampCard: { days: saved.stampCard.days.slice(), done: saved.stampCard.done },
         sfx: saved.sfx,
-        yaoki: yk ? { bubble: yk.bubble ? yk.bubble.ja : null, item: yk.bubble ? yk.bubble.item : null, happy: isHappy(), hop: yk.lift > 0, liftMax: yk.liftMax, box: yk.box, trick: yk.trick ? yk.trick.kind : null } : null,
+        yaoki: yk ? {
+          bubble: yk.bubble ? yk.bubble.ja : null, item: yk.bubble ? yk.bubble.item : null, happy: isHappy(), hop: yk.lift > 0, liftMax: yk.liftMax, box: yk.box, trick: yk.trick ? yk.trick.kind : null,
+          // what he is doing (stand, trot, pep, hop, flinch, brace, idle, yawn, trick or fall), whether
+          // he is idling (nothing typed for a while), the steps, flinches and fidgets so far, and the
+          // furthest he has moved from standing outside a fall (in the scene's units)
+          act: yk.act, idle: yk.idling, steps: yk.steps, flinches: yk.flinches, fidgets: yk.fidgets, sway: Math.round(yk.sway * 100) / 100,
+        } : null,
         tricks: r ? Object.assign({}, r.tricks) : null,
         scene: r ? r.scene : null,
         sceneFailed: !!(r && r.sceneFailed),
@@ -3764,6 +4481,9 @@
         falling: !!(r && r.fall),
         back: r && r.fall ? r.fall.back : null,
         answerShown: r && r.fall ? hintLevel(r.fall.card) >= 2 : null,
+        // the hint under the route as last drawn: its box in the scene's units (foot: the
+        // canvas's foot), its size there, and its size and its caption's on screen
+        under: r && r.underBox ? Object.assign({}, r.underBox) : null,
         W: view.W,
         cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state, clean: c.clean, comeback: c.comeback, star: c.star, phase: c.phase || null, trick: c.trick || null })) : [],
         clean: r ? r.clean : 0,

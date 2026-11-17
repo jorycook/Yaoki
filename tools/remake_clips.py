@@ -3,7 +3,8 @@
 usage: python3 tools/remake_clips.py <key> [<key> ...]      (from the repository root, with the N1 app's voice venv)
 A key such as x_n3u01d1_p1_1 is unit 1 day 1 point 1 example 1 of content/n3/u01.json; the text is read from there,
 said by the narrator with the same voice, speed and encoding as the course's other clips (yaoki-n1/make-sound.py), and
-the entry c['<key>'] = { ms, b } in the unit's sound file is replaced. Keys the course does not name are reported."""
+the entry c['<key>'] = { ms, b } in the unit's sound file is replaced. Keys the course does not name are reported.
+N2's units 1, 2 and 4 to 12 were made by tools/course_sound.py, which also remakes a clip: course_sound.py n2 1 --redo KEY."""
 import base64
 import json
 import os
@@ -39,8 +40,10 @@ def phonemes(sentence):
 
 def speak(text, voice, speed=1.0):
     pack = pipe.load_voice(voice)
-    audio = np.concatenate([KPipeline.infer(pipe.model, phonemes(s), pack, speed).audio.numpy()
-                            for s in re.findall(r'[^。？！]+[。？！]?', text) if s.strip()])
+    text = text.replace('「', '').replace('」', '、')
+    # a piece with no sounds (a lone 」 after a 。) would come out as a burst of noise
+    pieces = [phonemes(s.strip(' 、')) for s in re.findall(r'[^。？！]+[。？！]?', text) if s.strip(' 、')]
+    audio = np.concatenate([KPipeline.infer(pipe.model, p, pack, speed).audio.numpy() for p in pieces if p.strip(' ,.?!')])
     on = np.where(np.abs(audio) > 0.01)[0]
     return audio[max(0, on[0] - int(0.03 * SR)):on[-1] + int(0.08 * SR)]
 

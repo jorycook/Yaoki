@@ -34,7 +34,7 @@ const saved = async (page) => JSON.parse((await page.evaluate((k) => localStorag
 // second page leads to the comparison; an N1 lesson has three teach pages, one per pattern
 const throughTeach = async (page) => {
   if (LV.LEVEL !== 'N1') {
-    await click(page, 'a:has-text("Next: 〜につき")', 600);
+    await click(page, 'a:has-text("Next: ' + LV.teachNext + '")', 600);
     await click(page, 'a:has-text("Compare")', 700);
     return;
   }
@@ -103,7 +103,7 @@ const placed = (page) => page.evaluate(() => {
     ok((await text(page)).includes('Saved to your mistake notebook'), 'the drill should record the mistake');
     const s1 = await saved(page);
     // the main app also keeps its plan and the day's progress (the first drill done); the N1 app keeps its plan of days
-    const kept = LV.LEVEL === 'N1' ? !!(s1 && s1.plan && Array.isArray(s1.plan.days)) : !!(s1 && s1.plan && s1.plan.exam === '2026-12-06' && s1.done.u03d1 && s1.done.u03d1.g === 1);
+    const kept = LV.LEVEL === 'N1' ? !!(s1 && s1.plan && Array.isArray(s1.plan.days)) : !!(s1 && s1.plan && s1.plan.exam === '2026-12-06' && s1.done[LV.drillSrc.split('.')[0]] && s1.done[LV.drillSrc.split('.')[0]].g === 1);
     ok(s1 && s1.started === true && kept && s1.mistakes.length === 1 && s1.mistakes[0].src === LV.drillSrc, 'saved state should hold the goal and one mistake, got ' + JSON.stringify(s1).slice(0, 200));
     await page.reload();
     await ready(page);
