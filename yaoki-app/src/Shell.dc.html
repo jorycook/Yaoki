@@ -114,6 +114,10 @@ this.state = { ...window.ykApp.start(), menu: false, confirm: false, testing: fa
 /* the app's one memory (see course.js): the plan, the progress of every session, the mistakes and the last mini mock. ykApp.start() reads back what was saved on this device */
 this.state = { ...window.ykApp.start(), menu: false, confirm: false, testing: false, tested: false, heard: false };
 this.h = window.ykCourse.handlers(() => this.state, (fn) => this.setState(fn));
+/* a link from the site's home page may name a level (?level=KANA): a learner who has not started yet meets the goal screen at
+   that level (one who has is taken to it once the app is up, in componentDidMount) */
+const w0 = window.ykApp.wants || {};
+if (w0.level && !this.state.started && window.ykCourse.levels().some((x) => x.level === w0.level && x.ready)) { this.state.level = w0.level; w0.level = ''; }
 /* #end */
 }
 componentDidMount() {

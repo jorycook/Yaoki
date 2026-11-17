@@ -150,7 +150,7 @@ section { padding-top: 36px; }
 /* 1000 to 1199 px: a narrower pitch, the courses in two columns of wide cards (the level beside the words, as the study tools'
    tile) */
 @media (min-width: 1000px) and (max-width: 1199.98px) {
-  .fold { grid-template-columns: minmax(444px, 0.85fr) minmax(0, 1fr); column-gap: 28px; }
+  .fold { grid-template-columns: minmax(444px, 0.85fr) minmax(0, 1fr); column-gap: 28px; padding-top: 18px; }
   .hero h1 { font-size: 42px; }
   .hero .lede { margin-top: 16px; font-size: 17px; }
   .hero .actions { gap: 10px; margin-top: 22px; }
@@ -160,6 +160,13 @@ section { padding-top: 36px; }
   .courses .feature.level .lv { grid-row: span 3; }
   .courses .feature.level .lv small { display: block; margin: 6px 0 0; white-space: nowrap; }
   .courses .feature.level .lv [lang="ja"] { white-space: nowrap; font-size: 23px; letter-spacing: -0.04em; }
+  .courses .feature.level .meta { display: none; }
+  .hero { grid-template-rows: auto auto; }
+  .hero-art { align-self: start; }
+}
+/* a tablet's width (600 to 999 px): the six courses three to a row, so that none is left alone on a row */
+@media (min-width: 600px) and (max-width: 999.98px) {
+  .grid.levels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 /* up to 1339 px, reading above the games, each in a row of wide cards: five cards in one row would be too narrow for their words */
 @media (min-width: 1000px) and (max-width: 1339.98px) {
@@ -168,7 +175,7 @@ section { padding-top: 36px; }
 }
 /* from 1200 px: the pitch takes five twelfths, the courses three columns */
 @media (min-width: 1200px) {
-  .fold { grid-template-columns: minmax(500px, 5fr) minmax(0, 7fr); column-gap: clamp(36px, 3.6vw, 64px); padding-top: 32px; }
+  .fold { grid-template-columns: minmax(500px, 5fr) minmax(0, 7fr); column-gap: clamp(36px, 3.6vw, 64px); padding-top: 20px; }
   .hero { gap: 22px; }
   .hero h1 { font-size: clamp(34px, 3.3vw, 56px); }
   .courses { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto 1fr 1fr; }
