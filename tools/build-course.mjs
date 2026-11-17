@@ -14,6 +14,8 @@ const KANJI = {
   N5: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚']),  /* N4: the N5 kanji and the N4 list (the commonly used N4 list, about 170 kanji) */
   N4: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚同事自発者地業方場員開力問代明動京通理体田主題意不作用度強公持野以思家世正院心界教文元重近考画海売知集別物使品計死特私始朝運終台広住無真有町料工建急止送切転研究楽起着病質待試族銀早映親験英医仕去味写字答夜音注帰歌悪図室歩風紙黒春赤青館屋色走秋夏習洋旅服夕借曜肉貸堂鳥飯勉冬昼茶弟牛兄犬妹姉漢暗引遠回寒顔区軽県光好合菜産市弱首所暑乗森進声説洗村太短池低都頭働便民門薬林']),
   /* N3: the N4 set, the commonly used N3 list (about 340 kanji) and about 75 everyday kanji other lists also put at N3 (届, 健康, 練習, 階 …) */
+  /* the kana course: no kanji at all in what the learner reads (titles and labels may have them, as at every level) */
+  KANA: new Set(),
   N3: new Set([...'一二三四五六七八九十百千万円日月火水木金土年時分半午前後今先週毎何上下中外右左東西南北人男女子母父友名学校生会社本語国山川天気雨電車駅道店食飲見聞読書話言行来出入休買立長高安新古大小多少白花空手足目口耳間魚同事自発者地業方場員開力問代明動京通理体田主題意不作用度強公持野以思家世正院心界教文元重近考画海売知集別物使品計死特私始朝運終台広住無真有町料工建急止送切転研究楽起着病質待試族銀早映親験英医仕去味写字答夜音注帰歌悪図室歩風紙黒春赤青館屋色走秋夏習洋旅服夕借曜肉貸堂鳥飯勉冬昼茶弟牛兄犬妹姉漢暗引遠回寒顔区軽県光好合菜産市弱首所暑乗森進声説洗村太短池低都頭働便民門薬林', ...'政議民連対部合市内相定回選米実関決全表戦経最現調化当約首法性要制治務成期取都和機平加受続進数記初指権支産点報済活原共得解交資予向際勝面告反判認参利組信在件側任引求所次昨論官増係感情投示変打直両式確果容必演歳争談能位置流格疑過局放常状球職与供役構割費付由説難優夫収断石違消神番規術備宅害配警育席訪乗残想声念助労例然限追商葉伝働形景落好退頭負渡失差末守若種美命福望非観察段横深申様財港識呼達良候程満敗値突光路科積他処太客否師登易速存飛殺号単座破除完降責捕危給苦迎園具辞因馬愛富彼未舞亡冷適婦寄込顔類余王返妻背熱宿薬険頼覚船途許抜便留罪努精散静婚喜浮絶幸押倒等老曲払庭徒勤遅居雑招困欠更刻賛抱犯恐息遠戻願絵越欲痛笑互束似列探逃遊迷夢君閉緒折草暮酒悲晴掛到寝暗盗吸陽御歯忘雪吹娘誤洗慣礼窓昔貧怒泳祖杯疲皆鳴腹煙眠怖耳頂箱晩寒髪忙才靴恥偶偉猫幾久届暖健康興周仲荷皿片準授浴蔵庫停線練階寺卒課復温島橋符駐鉄袋菓濯掃踊卵涼汗汚濃薄預齢簡泊湯誕祭祝季節紹介絡換替普将減札布傘帯隣戸坂角混禁案咲泣捨並量券保証順冊械額結阪故章評価々歴史営筆比星級枚的管接賃']),
 
 };
@@ -56,7 +58,7 @@ function item(where, it, ctx) {
       if (it.short && it.short.length !== it.options.length) bad(it.id, 'short must have one entry per option');
       if (!it.why && !it.explain) bad(it.id, 'needs why (one line per option) or explain');
       if (it.why) it.why.forEach((w, k) => { if (k + 1 !== it.answer && !w && !it.explain) bad(it.id, `no reason for wrong option ${k + 1}`); });
-      if (typeof it.q === 'string' && !/（　　）|_[^_]+_|★/.test(it.q) && !/読解|内容理解|主張|情報検索|課題|概要|即時|ポイント|統合|用法|発話/.test(it.type)) bad(it.id, 'q has no （　　） blank and no _underlined_ word');
+      if (typeof it.q === 'string' && !/（　　）|_[^_]+_|★/.test(it.q) && !/読解|内容理解|主張|情報検索|課題|概要|即時|ポイント|統合|用法|発話|ぶん/.test(it.type)) bad(it.id, 'q has no （　　） blank and no _underlined_ word');
     }
   } else if (it.kind === 'star') {
     if (!Array.isArray(it.tiles) || it.tiles.length !== 4) bad(it.id, 'a star item has exactly four tiles, in the right order');
@@ -75,6 +77,34 @@ function item(where, it, ctx) {
   } else bad(it.id || where, 'kind must be choice or star');
   ['explain', 'hint'].forEach((k) => markup(`${it.id}.${k}`, it[k]));
   items[it.id] = { ...it, ...ctx };
+}
+
+/* a day of the kana course (content/kana, made by tools/make-kana.mjs): its cards, practice and check, the writing and the
+   words, each with what the screens need */
+const KANA_TYPES = /^(かな読み|かなを聞く|かな書き|ことば読み|ことばを聞く|ぶん読み|ぶん書き)$/;
+function kanaDay(where, day, ctx) {
+  const k = day.kana || {};
+  if (!['hiragana', 'katakana'].includes(k.script)) bad(where, 'kana.script must be hiragana or katakana');
+  if (!Array.isArray(k.cards) || !k.cards.length) bad(where, 'a kana day needs its cards (the learn step)');
+  (k.cards || []).forEach((c, n) => {
+    (c.kana || []).forEach((x) => { if (!Array.isArray(x) || x.length !== 3 || typeof x[0] !== 'string' || typeof x[1] !== 'string') bad(`${where}.card${n + 1}`, 'each kana is [kana, romaji, clip or null]'); });
+    (c.words || []).forEach((w) => { if (!w || !w.w || !w.gloss || !w.clip) bad(`${where}.card${n + 1}`, 'each word needs w, gloss and clip'); });
+    if (!(c.kana || []).length && !(c.words || []).length) bad(`${where}.card${n + 1}`, 'a card shows kana or words');
+  });
+  const typed = (it) => { if (it && !KANA_TYPES.test(it.type)) bad(it.id || where, 'a kana question\'s type must be one of the kana types, not ' + it.type); if (it && !['read', 'hear'].includes(it.mode)) bad(it.id || where, 'mode must be read or hear'); if (it && it.mode === 'hear' && !it.clip) bad(it.id, 'a question that is heard needs its clip'); };
+  (k.drill || []).forEach((it) => { typed(it); item(where + '.drill', it, { ...ctx, step: 'drill' }); });
+  (k.check || []).forEach((it) => { typed(it); item(where + '.check', it, { ...ctx, step: 'exam' }); });
+  if ((k.drill || []).length < 8) bad(where, 'the kana practice needs at least 8 questions');
+  if ((k.check || []).length !== 5) bad(where, 'the kana check has 5 questions');
+  const w = day.write || {};
+  if (typeof w.kana !== 'string' || !Array.isArray(w.words)) bad(where, 'write needs kana (a string) and words');
+  (w.words || []).forEach((x) => { if (!x.w || !x.r || !x.gloss || !x.clip) bad(where + '.write', 'each word written needs w, r, gloss and clip'); });
+  if (!(w.kana || '').length && !(w.words || []).length) bad(where, 'a kana day writes something');
+  const ws = day.words || {};
+  if (!Array.isArray(ws.list) || ws.list.length < 6) bad(where, 'a kana day reads at least 6 words');
+  (ws.list || []).forEach((x) => { if (!x.id || !x.w || !x.r || !x.gloss || !x.clip) bad(where + '.words', 'each word needs id, w, r, gloss and clip'); });
+  (ws.quiz || []).forEach((it) => { typed(it); item(where + '.quiz', it, { ...ctx, step: 'words' }); });
+  if ((ws.quiz || []).length !== 6) bad(where, 'the word quiz has 6 questions');
 }
 
 function kanjiCheck(where, v, key) {
@@ -103,13 +133,14 @@ const units = syllabus.units.map((u) => {
   const content = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : { days: {}, test: [] };
   const days = [];
   for (let d = 1; d <= 6; d++) {
-    const title = d <= 5 ? u.days[d - 1] : 'まとめ：似ている文法';
+    const title = d <= 5 ? u.days[d - 1] : LEVEL === 'KANA' ? 'まとめ：にている　かな' : 'まとめ：似ている文法';
     const day = (content.days || {})[d];
     if (!day) { days.push({ title }); continue; }
     const where = `${pre}u${u.n}d${d}`;
     kanjiCheck(where, day, '');
     const ctx = { unit: u.n, day: d };
     if (day.title !== title) bad(where, `title "${day.title}" differs from the syllabus "${title}"`);
+    if (LEVEL === 'KANA') { kanaDay(where, day, ctx); days.push({ ...day, title }); continue; }
     const g = day.grammar || {};
     (g.points || []).forEach((p, k) => {
       if (!p.form || !p.gloss) bad(`${where}.p${k + 1}`, 'a grammar point needs form and gloss');
@@ -145,6 +176,7 @@ const units = syllabus.units.map((u) => {
   }
   kanjiCheck(`${pre}u${u.n}.test`, content.test || [], '');
   (content.test || []).forEach((it) => item(`${pre}u${u.n}.test`, it, { unit: u.n, step: 'test' }));
+  if (LEVEL === 'KANA' && (content.test || []).length !== 20) bad(`${pre}u${u.n}.test`, 'a kana week test has 20 questions');
   return { n: u.n, ja: u.ja, en: u.en, days, test: content.test || [] };
 });
 
@@ -166,9 +198,10 @@ if (problems.length) {
   const held = fs.existsSync(strokesFile) ? fs.readFileSync(strokesFile, 'utf8') : '';
   const need = new Set();
   for (const b of built) for (const u of b.units) for (const d of u.days) for (const w of (d.scene && d.scene.words) || []) for (const c of w.word || '') if (/[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c)) need.add(c);
+  for (const b of built) for (const u of b.units) for (const d of u.days) if (d.write) for (const c of (d.write.kana || '') + (d.write.words || []).map((x) => x.w).join('')) if (/[\u3041-\u3096\u30a1-\u30fa\u30fc]/.test(c)) need.add(c);
   const missing = [...need].filter((c) => !held.includes(JSON.stringify(c) + ':'));
   if (missing.length) {
-    console.log(`${missing.length} kanji of the scenes have no strokes for the writing practice: ${missing.join('')}\n  run: python3 tools/make-strokes.py`);
+    console.log(`${missing.length} kanji and kana the learner writes have no strokes for the writing practice: ${missing.join('')}\n  run: python3 tools/make-strokes.py`);
     process.exit(1);
   }
 }
@@ -176,11 +209,11 @@ for (const b of built) {
   const OUT = path.join(ROOT, 'yaoki', 'project', `course-${b.dir}.js`);
   /* below: the kanji of the levels under this one, which a learner on this level is taken to write already (the writing
      practice asks only for the others) */
-  const BELOW = { N5: null, N4: KANJI.N5, N3: KANJI.N4, N2: KANJI.N3 };
+  const BELOW = { KANA: null, N5: null, N4: KANJI.N5, N3: KANJI.N4, N2: KANJI.N3 };
   const below = BELOW[b.level] ? [...BELOW[b.level]].join('') : '';
   const body = JSON.stringify({ level: b.level, units: b.units, items: b.items, below });
   const alias = b.level === 'N2' ? `window.__ykCourseData = window.__ykCourses.N2;\n` : '';
   fs.writeFileSync(OUT, `/* Generated by tools/build-course.mjs from content/${b.dir}/*.json. Do not edit: change the content and rebuild. */\nwindow.__ykCourses = window.__ykCourses || {};\nwindow.__ykCourses.${b.level} = ${body};\n${alias}`);
-  const ready = b.units.reduce((n, u) => n + u.days.filter((d) => d.grammar).length, 0);
+  const ready = b.units.reduce((n, u) => n + u.days.filter((d) => d.grammar || d.kana).length, 0);
   console.log(`course-${b.dir}.js: ${b.units.length} units, ${ready} study days written, ${Object.keys(b.items).length} items, ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
 }

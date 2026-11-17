@@ -1,0 +1,83 @@
+/* KanaWrite, the writing lesson of a day of the kana course (Study app). The writing panel (Write.dc.html: the three times, the
+   pad, the line under it, its buttons and the stroke order) is one block on the right, as the phone draws it; on the left what is
+   being written: the heading and the count, then a tall card with the kana large (its strokes and its sound, the sound to play),
+   or, for a word written from what is heard, the sound to play large with the word's sound in letters and its meaning; Next right
+   under the card. A day written before (nothing to write) stands in the middle. A tall window shows the card and the panel a size
+   larger (the panel scaled as a whole from this screen's own wrapper: its pad maps the pointer through the scale). Hooks: bar,
+   main (no box here), head, card (big, info, the play button), none, write (the panel's place), act; data-k="play" on the sound,
+   "go" on Next. */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="KanaWrite"] {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(max-content, 1fr);
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
+    grid-template-areas: "bar bar" "head write" "card write" "act write" ". write";
+    column-gap: 40px;
+    padding: 20px 28px 24px !important;
+    /* a pane shorter than the panel scrolls rather than cut it */
+    overflow-y: auto !important;
+  }
+  html.yk-desk [data-yk="KanaWrite"] > [data-d="bar"] { grid-area: bar; margin-bottom: 12px; }
+  html.yk-desk [data-yk="KanaWrite"] > [data-d="main"] { display: contents !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="head"] { grid-area: head; margin: 0 !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="head"] > h1 { font-size: 25px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="head"] > div { font-size: 13px !important; padding: 3px 10px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="none"] { grid-area: card; align-self: start; margin: 14px 0 0 !important; padding: 20px 22px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="none"] > div:first-child { font-size: 22px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="none"] > div:last-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="write"] { grid-area: write; align-self: start; margin: 0 !important; }
+  html.yk-desk [data-yk="KanaWrite"] > [data-d="act"] { grid-area: act; justify-self: start; min-width: 280px; padding: 0 28px; margin-top: 14px !important; }
+
+  /* the card of what is being written: the kind and the sound to play on top, the kana large in the middle, its sound in letters
+     (and what to know about it) under it */
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="card"] {
+    grid-area: card; min-height: 360px; box-sizing: border-box; margin: 14px 0 0 !important; padding: 18px 20px 24px !important; border-radius: 24px !important;
+    display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto auto;
+    grid-template-areas: "kind play" "big big" "read read" "mean mean"; align-items: center; gap: 6px 12px !important;
+  }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-d="info"] { display: contents !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="info"] > div:nth-child(1) { grid-area: kind; font-size: 13px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="info"] > div:nth-child(2) { grid-area: read; text-align: center; font-size: 30px !important; color: #C7361E !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="info"] > div:nth-child(3) { grid-area: mean; justify-self: center; max-width: 40ch; text-align: center; font-size: 14px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-d="big"] { grid-area: big; justify-self: center; font-size: 168px !important; line-height: 1.05 !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-k="play"] { grid-area: play; width: 56px !important; height: 56px !important; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-k="play"] > svg { width: 26px; height: 26px; }
+  /* a word written from what is heard: no kana to show, so the sound to play takes the middle, large, its letters and meaning under it */
+  html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="card"]:not(:has(> [data-d="big"])) { grid-template-areas: "kind kind" "play play" "read read" "mean mean"; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"]:not(:has(> [data-d="big"])) > [data-k="play"] { justify-self: center; width: 112px !important; height: 112px !important; border-width: 3px !important; box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"]:not(:has(> [data-d="big"])) > [data-k="play"] > svg { width: 46px; height: 46px; }
+  html.yk-desk [data-yk="KanaWrite"] [data-d="card"]:not(:has(> [data-d="big"])) [data-d="info"] > div:nth-child(2) { font-size: 34px !important; margin-top: 8px; }
+
+  /* all written already (a day whose kana and words were all written before): nothing to write, so the heading, the note and
+     Next stand in the middle */
+  html.yk-desk [data-yk="KanaWrite"]:has([data-d="none"]) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 560px) minmax(0, 1fr);
+    grid-template-areas: "bar bar bar" ". head ." ". card ." ". act ." ". . .";
+  }
+  /* the narrowest landscape panes: Next as wide as its column, its words a little smaller, so they keep to one line */
+  @container yk (max-width: 1039.98px) {
+    html.yk-desk [data-yk="KanaWrite"]:not(:has([data-d="none"])) > [data-d="act"] { justify-self: stretch; min-width: 0; padding: 0 14px; font-size: 15px !important; white-space: nowrap; }
+  }
+
+  /* a tall window: the card and the panel a size larger (the panel as a whole, from its top, with room kept under it) */
+  @media (min-height: 860px) {
+    html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="card"] { min-height: 470px; }
+    html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-d="big"] { font-size: 220px !important; }
+    html.yk-desk [data-yk="KanaWrite"] [data-d="info"] > div:nth-child(2) { font-size: 36px !important; }
+    @container yk (min-width: 1100px) {
+      html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="write"] { transform: scale(1.2); transform-origin: top center; margin-bottom: 110px !important; }
+    }
+  }
+  @media (min-height: 1200px) {
+    html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="card"] { min-height: 560px; }
+    html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-d="big"] { font-size: 260px !important; }
+    @container yk (min-width: 1100px) {
+      html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="write"] { transform: scale(1.4); margin-bottom: 210px !important; }
+    }
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="KanaWrite"] [data-k="go"][aria-disabled="true"]::after { opacity: 0.4; }
+  }
+}

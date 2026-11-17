@@ -14,7 +14,7 @@
   var TEST = LOCAL && query.has('yktest');
   /* a link from the site's home page may name a place to open (?open=Notebook: the tab bar's places) and a level to study
      (?level=N4). They are taken once, and the address is cleaned so a reload does not take them again */
-  var wants = { open: /^(Main|Notebook|Mock|Readiness)$/.test(query.get('open') || '') ? query.get('open') : '', level: /^N[2-5]$/.test(query.get('level') || '') ? query.get('level') : '' };
+  var wants = { open: /^(Main|Notebook|Mock|Readiness|Extras)$/.test(query.get('open') || '') ? query.get('open') : '', level: /^(N[2-5]|KANA)$/.test(query.get('level') || '') ? query.get('level') : '' };
   if ((wants.open || wants.level) && !TEST && window.history && history.replaceState) {
     try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
   }
@@ -54,7 +54,8 @@
 
   /* the writing practice's memory: the kanji written three times (one string of them) and the words written out */
   function wroteOk(x) {
-    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c) && all.indexOf(c) === i; }).join('') : '';
+    /* kanji (with 々) and, for the kana course, kana (with ー): what the learner has written, so nothing is asked twice */
+    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return /[\u3041-\u3096\u30a1-\u30fa\u30fc\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c) && all.indexOf(c) === i; }).join('') : '';
   }
   function wordsOk(x) {
     return Array.isArray(x) ? x.filter(function (w, i, all) { return typeof w === 'string' && w && w.length <= 16 && all.indexOf(w) === i; }) : [];
@@ -148,7 +149,8 @@
     }
     if (from) {
       s.started = !!from.started;
-      var planOk = function (p) { p = obj(p); return p && dateOk(p.start) && dateOk(p.exam) ? { start: p.start, exam: p.exam, pace: p.pace === 'steady' ? 'steady' : 'fit', minutes: p.minutes || 30 } : null; };
+      /* a plan has its start, and its exam date unless it has none (the kana level has no exam: one session a day) */
+      var planOk = function (p) { p = obj(p); return p && dateOk(p.start) && (dateOk(p.exam) || p.exam == null) ? { start: p.start, exam: p.exam || null, pace: p.pace === 'steady' || !p.exam ? 'steady' : 'fit', minutes: p.minutes || 30 } : null; };
       s.plan = planOk(from.plan);
       /* the level the learner is on (saves from before there were several levels are N2), and the plans of the others */
       var levels = {};
@@ -193,7 +195,7 @@
   var soundAsked = '';
   function keepLevelSound(level) {
     var lv = String(level || '').toLowerCase();
-    if (!/^n[345]$/.test(lv) || lv === soundAsked) return;
+    if (!/^(n[345]|kana)$/.test(lv) || lv === soundAsked) return;
     try {
       var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
       if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }

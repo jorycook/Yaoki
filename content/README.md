@@ -55,6 +55,27 @@ Every item has a unique `id` (`u03d4.d1` = unit 3, day 4, drill 1), a `kind`, th
 
 Unbalanced markup, an answer out of range, two identical options, a missing reason for a wrong option, a star item whose `full` sentence is not `before` + tiles + `after`, a bank that already shows the right order, a day without two grammar points, at least four drill items and exactly three exam items, a day title that differs from the syllabus, and duplicate ids.
 
+## The kana course
+
+`content/kana/` is the kana course (かな, the level before N5), and it is made, not written by hand: `node tools/make-kana.mjs`
+writes it from the tables at the top of that script (see the README, "The kana course"). Its days have no grammar,
+scene or skill. Instead:
+
+```
+"1": {
+  "title":  must match the syllabus title (day 6 is まとめ：にている　かな)
+  "kana":   script (hiragana | katakana), intro, cards [{kana [[kana, romaji, clip]], note, words [{w, r, gloss, clip}]}],
+            drill (the practice, 8 or more questions), check (5)
+  "write":  kana (each written three times), words [{w, r, gloss, clip}] (each written from what is heard)
+  "words":  list [{id, w, r, gloss, clip}] (6 or more), quiz (6 questions)
+}
+```
+
+Its questions are choice items with a `mode` (read: what is shown is read, heard: a clip is played and what was heard is
+picked), the thing shown large (`big`) and their clip; their types are かな読み, かなを聞く, かな書き, ことば読み,
+ことばを聞く, ぶん読み and ぶん書き. Each unit's `test` has 20. `clips.json` lists what each clip says, for
+`tools/kana_clips.py`.
+
 ## Before content goes to the reviewer
 
 1. `node tools/build-course.mjs` passes.
