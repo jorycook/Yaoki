@@ -29,9 +29,10 @@
   html.yk-desk [data-yk="KanaWrite"] > [data-d="act"] { grid-area: act; justify-self: start; min-width: 280px; padding: 0 28px; margin-top: 14px !important; }
 
   /* the card of what is being written: the kind and the sound to play on top, the kana large in the middle, its sound in letters
-     (and what to know about it) under it */
+     (and what to know about it) under it; drawn as the kana lesson's card is (the ink outline and the hard shadow) */
   html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="card"] {
-    grid-area: card; min-height: 360px; box-sizing: border-box; margin: 14px 0 0 !important; padding: 18px 20px 24px !important; border-radius: 24px !important;
+    grid-area: card; min-height: 360px; box-sizing: border-box; margin: 14px 0 0 !important; padding: 18px 20px 24px !important;
+    border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; border-radius: 26px !important;
     display: grid !important; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto auto;
     grid-template-areas: "kind play" "big big" "read read" "mean mean"; align-items: center; gap: 6px 12px !important;
   }

@@ -1,12 +1,12 @@
 /* Extras (おまけ, Study app) as a dashboard: the title and the intro above, Yaoki Speaking and Yaoki Reader side by side as two
    cards of one height, each with its button at its foot (a desktop button's width, the two buttons level, the card's note just
    above its button), and the note on how they open under them. The tab bar is the sidebar's on a desktop (app.css hides it).
+   The title, the type and the buttons keep the other tabs' sizes (Notebook, Mock, Readiness), on a tall window too.
    Hooks: head, main, intro, card (each of the two), foot; data-k="go" on Open Yaoki Speaking. */
 @container yk (min-width: 880px) {
   html.yk-desk [data-yk="Extras"] { padding: 20px 28px 24px !important; }
-  html.yk-desk [data-yk="Extras"] > [data-d="head"] { height: auto !important; padding: 0 !important; }
-  html.yk-desk [data-yk="Extras"] > [data-d="head"] > h1 { font-size: 28px !important; }
-  html.yk-desk [data-yk="Extras"] > [data-d="head"] > h1 > span:last-child { font-size: 16px !important; }
+  /* the title as the other tabs draw it (Notebook, Mock, Readiness): the phone's size, in the phone's 44 px row */
+  html.yk-desk [data-yk="Extras"] > [data-d="head"] { height: 44px !important; padding: 0 !important; }
   html.yk-desk [data-yk="Extras"] > [data-d="main"] {
     display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; gap: 20px 24px !important;
     margin: 0 -4px; padding: 6px 4px 12px !important;
@@ -26,23 +26,6 @@
   /* the button (or, offline, the line in its place) at the card's foot, a desktop button's width: the two cards' buttons level */
   html.yk-desk [data-yk="Extras"] [data-d="card"] > :is(a, [role="status"]) {
     order: 1; align-self: flex-start; min-width: 260px; box-sizing: border-box; margin-top: auto; padding: 0 28px;
-    height: 54px !important; border-radius: 16px !important; font-size: 17px !important;
-  }
-
-  /* a very tall window (a large monitor): a size larger */
-  @media (min-height: 1200px) {
-    html.yk-desk [data-yk="Extras"] > [data-d="head"] > h1 { font-size: 34px !important; }
-    html.yk-desk [data-yk="Extras"] > [data-d="head"] > h1 > span:last-child { font-size: 19px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="main"] > [data-d="intro"] { font-size: 17px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="main"] > [data-d="foot"] { font-size: 15px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="main"] > [data-d="card"] { padding: 30px 32px 32px !important; gap: 18px !important; border-radius: 28px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:first-child > div[aria-hidden] { width: 76px !important; height: 76px !important; border-radius: 22px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:first-child > div[aria-hidden] > svg { width: 38px; height: 38px; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:first-child > div:last-child > div { font-size: 15px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:first-child h2 { font-size: 27px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:not(:first-child) { font-size: 17px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:not(:first-child)[style*="border-radius: 10px"] { font-size: 15px !important; padding: 6px 14px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > div:last-child { font-size: 15px !important; }
-    html.yk-desk [data-yk="Extras"] [data-d="card"] > :is(a, [role="status"]) { height: 62px !important; font-size: 19px !important; }
+    height: 54px !important; border-radius: 16px !important;
   }
 }

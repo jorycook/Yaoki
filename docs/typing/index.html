@@ -325,6 +325,8 @@ label.switch > span { flex: 1; min-width: 0; }
   .res-main:has(#res-seal:not([hidden]) > #res-next:not([hidden])) > .actions { margin-top: 10px; }
   .res-main .actions .btn { padding-inline: 16px; white-space: nowrap; }
   #again { grid-column: 1 / -1; }
+  /* with no weak spots to practise, Close across the column too */
+  #again-weak[hidden] + #close { grid-column: 1 / -1; }
   /* a verdict column too narrow for text beside the hanko (a window under about 1090 px): the best and the ring under it */
   @container verdict (max-width: 459px) {
     #res-stamp { grid-row: 2; }

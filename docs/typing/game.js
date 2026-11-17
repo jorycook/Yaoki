@@ -1231,6 +1231,38 @@
 
   let sawKeyboard = false;
 
+  // Enter takes the page's main action (Start on the menu, Again on a result) unless the focus is on a control the player
+  // reached with the keyboard, which answers Enter itself. As in the Study app (yk-app.js), a control a mouse click left the
+  // focus on counts as no focus: the click focused it, but the player did not choose it with the keyboard (Tab clears it).
+  let clicked = null;
+  // whether the last thing done was with the mouse (then a dialog that closes gives the focus back to its opener as the mouse's)
+  let byPointer = false;
+  document.addEventListener('pointerdown', (e) => {
+    byPointer = true;
+    clicked = e.target.closest ? e.target.closest('button, a[href], summary, [tabindex]') : null;
+  }, true);
+  document.addEventListener('keydown', (e) => {
+    if (!/^(Shift|Control|Alt|Meta)$/.test(e.key)) byPointer = false;
+    if (e.key === 'Tab') clicked = null;
+  }, true);
+  const enterIsOurs = (t) => !t.closest('.scrim') && (t === clicked || !t.closest('button, a, input'));
+
+  // The page behind an open dialog waits: the game, and the site's header and footer around it.
+  function setBehind(on) {
+    for (const el of [$('app'), document.querySelector('.site-bar'), document.querySelector('.site-foot')]) if (el) el.inert = on;
+  }
+  // Tab stays in an open dialog: on from its last control to its first, and Shift+Tab back from its first to its last.
+  function keepTab(e, box) {
+    const f = [...box.querySelectorAll('button, a[href], input, select, textarea, [tabindex]')]
+      .filter((el) => el.tabIndex >= 0 && !el.disabled && el.getClientRects().length);
+    if (!f.length) return;
+    const at = f.indexOf(document.activeElement);
+    if (e.shiftKey ? at <= 0 : at < 0 || at === f.length - 1) {
+      e.preventDefault();
+      f[e.shiftKey ? f.length - 1 : 0].focus();
+    }
+  }
+
   function onKeyDown(e) {
     if (!sawKeyboard && e.key && e.key.length === 1) {
       sawKeyboard = true;
@@ -1243,17 +1275,17 @@
       e.preventDefault();
       return;
     }
-    // The settings sheet is modal: Escape closes it, and no key reaches the game behind it.
+    // The settings sheet is modal: Escape closes it, Tab stays in it, and no key reaches the game behind it.
     if (!$('settings-sheet').hidden) {
       if (e.key === 'Escape') {
         e.preventDefault();
         closeSettings();
-      }
+      } else if (e.key === 'Tab') keepTab(e, $('settings-sheet'));
       return;
     }
     if (window.ykSound && phase === 'play') window.ykSound.unlock();
     if (phase === 'menu') {
-      if (e.key === 'Enter' && !e.target.closest('button, a, input, .scrim')) {
+      if (e.key === 'Enter' && enterIsOurs(e.target)) {
         e.preventDefault();
         startRound(false);
       }
@@ -1263,13 +1295,17 @@
       if (e.key === 'Escape') {
         e.preventDefault();
         toMenu();
-      } else if (e.key === 'Enter' && !e.target.closest('button, a, input')) {
+      } else if (e.key === 'Enter' && enterIsOurs(e.target)) {
         e.preventDefault();
         again();
       }
       return;
     }
     if (phase === 'paused') {
+      if (e.key === 'Tab') {
+        keepTab(e, $('pause-sheet'));
+        return;
+      }
       if (e.key === 'Escape' || (e.key === 'Enter' && !e.target.closest('button'))) {
         e.preventDefault();
         setPhase('play');
@@ -1515,7 +1551,7 @@
     $('play').hidden = !(p === 'play' || p === 'paused');
     $('result').hidden = p !== 'result';
     $('pause-sheet').hidden = p !== 'paused' || !$('settings-sheet').hidden;
-    $('app').inert = p === 'paused' || !$('settings-sheet').hidden;
+    setBehind(p === 'paused' || !$('settings-sheet').hidden);
     document.body.classList.toggle('playing', p === 'play' || p === 'paused');
     if (p === 'menu') {
       music('stop', 0.3);
@@ -3693,16 +3729,19 @@
     renderSettings();
     $('settings-sheet').hidden = false;
     $('pause-sheet').hidden = true;
-    $('app').inert = true;
+    setBehind(true);
     const first = $('hint-seg').querySelector('[aria-pressed="true"]') || $('close-settings');
     first.focus();
   }
   function closeSettings() {
     $('settings-sheet').hidden = true;
     $('pause-sheet').hidden = phase !== 'paused';
-    $('app').inert = phase === 'paused';
-    if (phase === 'paused') $('resume').focus();
-    else if (settingsFrom && !settingsFrom.closest('[hidden]')) settingsFrom.focus();
+    setBehind(phase === 'paused');
+    const back = phase === 'paused' ? $('resume') : settingsFrom && !settingsFrom.closest('[hidden]') ? settingsFrom : null;
+    if (!back) return;
+    back.focus();
+    // closed with the mouse: the opener has the focus back as the mouse's, so Enter still takes the main action
+    if (byPointer) clicked = back;
   }
   $('open-settings').addEventListener('click', (e) => openSettings(e.currentTarget));
   $('pause-settings').addEventListener('click', (e) => openSettings(e.currentTarget));

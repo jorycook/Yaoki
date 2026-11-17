@@ -22,7 +22,8 @@
   html.yk-desk [data-yk="KanaWords"] > [data-d="act"] { grid-area: act; justify-self: start; min-width: 280px; padding: 0 28px; margin-top: 8px !important; }
 
   /* ---------- read ---------- */
-  html.yk-desk [data-yk="KanaWords"]:has(> [data-d="read"]) > [data-d="act"] { grid-column: 1; }
+  /* (Next lines up with the heading and the cards, inside the step's 4 px padding) */
+  html.yk-desk [data-yk="KanaWords"]:has(> [data-d="read"]) > [data-d="act"] { grid-column: 1; margin-left: 4px !important; }
   html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] { margin: 0 !important; gap: 4px !important; }
   html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > h1 { font-size: 25px !important; }
   html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="head"] > h1 > span:last-child { font-size: 15px !important; }
@@ -32,6 +33,12 @@
   }
   /* sentences (the day of は, を and へ) two a row */
   html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"]:has(span[style*="max-width: 62%"]) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* a word (not a sentence, which breaks at its space) stays whole: when its reading and meaning, once opened, leave it no room
+     beside them, they drop under it */
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"]:not(:has(span[style*="max-width: 62%"])) > button { flex-wrap: wrap; row-gap: 2px !important; }
+  html.yk-desk [data-yk="KanaWords"] [data-d="read"] > [data-d="list"]:not(:has(span[style*="max-width: 62%"])) > button > span[lang="ja"] {
+    flex-shrink: 0 !important; max-width: 100% !important; overflow-wrap: normal !important; white-space: nowrap;
+  }
   html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button { min-height: 72px !important; padding: 10px 16px !important; border-radius: 18px !important; }
   html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 28px"] { font-size: 32px !important; }
   html.yk-desk [data-yk="KanaWords"] [data-d="list"] > button > span[lang="ja"][style*="font-size: 23px"] { font-size: 27px !important; }

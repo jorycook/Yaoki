@@ -62,11 +62,13 @@
   /* (the row keeps the phone's gap: each kana's width is worked out from it) */
   html.yk-desk [data-yk="Kana"] [data-d="kana"] > div:first-child { min-height: 236px; align-content: center; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button { padding: 12px 6px 10px !important; border-radius: 22px !important; gap: 6px !important; }
-  /* the kana a size larger, as the card's width allows (the phone's sizes, by how many kana the card holds and how long each is) */
+  /* the kana a size larger, as the card's width allows (the phone's sizes, by how many kana the card holds and how long each is);
+     a sound of two kana (せい, きゃ) stays on one line, never stacked as if written downwards */
+  html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"] { white-space: nowrap; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 112px"] { font-size: min(176px, 46cqw) !important; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 84px"] { font-size: min(132px, 36cqw) !important; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 64px"] { font-size: min(100px, 27cqw) !important; }
-  html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 72px"] { font-size: min(112px, 22cqw) !important; }
+  html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 72px"] { font-size: min(112px, 21cqw) !important; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 60px"] { font-size: min(92px, 18cqw) !important; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 44px"] { font-size: min(68px, 13cqw) !important; }
   html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 40px"] { font-size: min(60px, 11.5cqw) !important; }
@@ -76,7 +78,8 @@
   html.yk-desk [data-yk="Kana"] [data-d="kana"] > div:last-child { font-size: 13px !important; }
   html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="note"] { grid-column: 2; grid-row: 4; margin-top: 14px; padding: 11px 14px !important; font-size: 14px !important; }
   html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="words"] { grid-column: 2; grid-row: 5; display: grid !important; grid-template-columns: minmax(0, 1fr); gap: 8px; margin-top: 10px; }
-  html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="words"]::before { content: 'ことば　Words'; grid-column: 1 / -1; padding: 0 4px; color: #5A6382; font-size: 13px; font-weight: 800; line-height: 1.3; }
+  /* (the heading only over words: a card may have none) */
+  html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="words"]:has(> button)::before { content: 'ことば　Words'; grid-column: 1 / -1; padding: 0 4px; color: #5A6382; font-size: 13px; font-weight: 800; line-height: 1.3; }
   html.yk-desk [data-yk="Kana"] [data-d="words"] > button { min-height: 60px; padding: 8px 16px !important; }
   /* two or three words: two a row, each a small card: the word, and under it its sound and meaning (the sound to play beside the
      word), so a long word or meaning keeps its room in a narrow half */
@@ -174,9 +177,16 @@
   html.yk-desk [data-yk="Kana"] [data-d="score"] > div:last-child { align-items: center; gap: 4px; }
   html.yk-desk [data-yk="Kana"] [data-d="score"] > div:last-child > div:first-child { font-size: 24px !important; }
   html.yk-desk [data-yk="Kana"] [data-d="score"] > div:last-child > div:last-child { font-size: 15px !important; }
-  html.yk-desk [data-yk="Kana"] [data-d="result"] > [data-d="list"] { grid-column: 2; grid-row: 1; margin: 0 !important; gap: 10px !important; }
+  /* the questions as one table: the mark, what was asked (as wide as the widest, or what the lines beside it leave), then what it
+     is and your answer, whole, in columns level from row to row (each row a subgrid of the list); a sentence too long for its
+     column breaks at its space */
+  html.yk-desk [data-yk="Kana"] [data-d="result"] > [data-d="list"] {
+    grid-column: 2; grid-row: 1; margin: 0 !important; display: grid !important; grid-template-columns: auto auto minmax(max-content, 1fr);
+    gap: 10px 12px !important;
+  }
+  html.yk-desk [data-yk="Kana"] [data-d="result"] > [data-d="list"] > div { grid-column: 1 / -1; display: grid !important; grid-template-columns: subgrid; align-items: center; }
   html.yk-desk [data-yk="Kana"] [data-d="list"] > div { padding: 11px 16px !important; }
-  html.yk-desk [data-yk="Kana"] [data-d="list"] > div > div[lang="ja"] { font-size: 28px !important; min-width: 64px !important; }
+  html.yk-desk [data-yk="Kana"] [data-d="list"] > div > div[lang="ja"] { font-size: 28px !important; min-width: 64px !important; word-break: keep-all; }
   html.yk-desk [data-yk="Kana"] [data-d="list"] > div > div:last-child > div:first-child { font-size: 15px !important; }
   html.yk-desk [data-yk="Kana"] [data-d="list"] > div > div:last-child > div:last-child { font-size: 13px !important; }
   html.yk-desk [data-yk="Kana"] [data-d="result"] > [data-d="note"] { grid-column: 2; grid-row: 2; margin: 12px 0 0 !important; font-size: 13px !important; }
@@ -206,7 +216,7 @@
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 112px"] { font-size: min(240px, 50cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 84px"] { font-size: min(170px, 40cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 64px"] { font-size: min(124px, 30cqw) !important; }
-    html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 72px"] { font-size: min(140px, 22cqw) !important; }
+    html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 72px"] { font-size: min(140px, 21cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 60px"] { font-size: min(112px, 18cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 44px"] { font-size: min(80px, 13cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 40px"] { font-size: min(72px, 11.5cqw) !important; }
@@ -241,9 +251,9 @@
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 112px"] { font-size: min(300px, 54cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 84px"] { font-size: min(210px, 44cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 64px"] { font-size: min(150px, 32cqw) !important; }
-    html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 72px"] { font-size: min(170px, 23cqw) !important; }
+    html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 72px"] { font-size: min(170px, 21.5cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 60px"] { font-size: min(136px, 19cqw) !important; }
-    html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 44px"] { font-size: min(96px, 13.5cqw) !important; }
+    html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 44px"] { font-size: min(96px, 13cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span[lang="ja"][style*="font-size: 40px"] { font-size: min(84px, 12cqw) !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span:not([lang])[style*="font-size: 26px"] { font-size: 46px !important; }
     html.yk-desk [data-yk="Kana"] [data-d="kana"] button > span:not([lang])[style*="font-size: 18px"] { font-size: 28px !important; }
@@ -254,7 +264,7 @@
     html.yk-desk [data-yk="Kana"] [data-d="tiles"] > button[style*="font-size: 18px"] { font-size: 27px !important; }
     html.yk-desk [data-yk="Kana"] [data-d="tiles"] > button[style*="font-size: 15px"] { font-size: 19px !important; }
     html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="note"] { font-size: 16px !important; padding: 14px 18px !important; }
-    html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="words"]::before { font-size: 15px; }
+    html.yk-desk [data-yk="Kana"] [data-d="card"] > [data-d="words"]:has(> button)::before { font-size: 15px; }
     html.yk-desk [data-yk="Kana"] [data-d="words"] > button { min-height: 84px; padding: 10px 20px !important; }
     html.yk-desk [data-yk="Kana"] [data-d="card"]:has(> [data-d="kana"]) > [data-d="words"]:has(> button + button) > button { padding: 10px 18px 11px !important; row-gap: 4px !important; }
     html.yk-desk [data-yk="Kana"] [data-d="card"]:not(:has(> [data-d="kana"])) > [data-d="words"] { min-height: 400px; }
