@@ -296,6 +296,7 @@
   var syncPending = false;
   function syncSide() {
     syncPending = false;
+    holdBack();
     /* the place a link asked for opens as soon as the tab bar offers it (its own guards apply: a place not open yet is left) */
     if (wants.open) {
       var tabs = stage.querySelector('nav[aria-label="Main"]');
@@ -547,11 +548,85 @@
   function onScreen(name) {
     var arrived = name !== screenNow;
     screenNow = name;
+    if (arrived) arrive(name);
     wantAwake = !!AWAKE[name];
     syncLock();
     if (theme && arrived) theme.setAttribute('content', name === 'MockRun' ? '#1B2440' : '#F4F5F9');
     if (arrived) restartIfUpdated(false);
   }
+
+  /* ---------- the browser's tab and its Back button ----------
+     The website's tab names the screen the learner is on. The browser's Back button goes back as the app's own controls do: it
+     closes the app's menu, a screen's dialog or a panel docked beside it (as Escape does), else it presses the screen's own close
+     or back button (Close lesson, Back to the week path, Leave the review, Quit the mock: a mock or a test asks first, as its
+     button does), else it goes back to the place the sidebar left (Path after Notebook). While there is such a way back the app
+     keeps one entry of its own on top of the page's history for Back to take, and takes it again if a way back is still there;
+     with none, Back leaves the app as on any page. Off in the checks' test mode (yktest), unless the address asks (ykback). */
+  var TITLES = { Goal: 'Your goal', Main: 'Path', Today: 'Today', Teach: 'Lesson', Compare: 'Compare', Drill: 'Drill', Star: 'Drill', Exam: 'Exam practice', Scene: 'Kanji', Reading: 'Reading', Listening: 'Listening', WeekTest: 'Week test', Notebook: 'Notebook', Review: 'Review', Mock: 'Mock exam', MockRun: 'Mock exam', MockFull: 'Mock exam', Readiness: 'Readiness', Kana: 'Kana', KanaWrite: 'Writing', KanaWords: 'Words', Extras: 'Extras', Install: 'Add to Home Screen' };
+  var baseTitle = document.title;
+  var BACK = !!(window.history && history.pushState) && (!TEST || query.has('ykback'));
+  var held = false;
+  var dropping = 0;
+  var backing = false;
+  var curTab = '';
+  var prevTab = '';
+  /* an entry of ours left from before a reload is the page's own entry now (the one under it cannot be taken back safely) */
+  try { if (BACK && history.state && history.state.yk) history.replaceState(null, ''); } catch (e) {}
+  function tabsShown() { return !!stage.querySelector('nav[aria-label="Main"]'); }
+  function exitOf(box) {
+    var b = box ? box.querySelectorAll('button[aria-label], a[aria-label]') : [];
+    for (var i = 0; i < b.length; i++) if (/^(Close|Back|Leave|Quit)\b/.test(b[i].getAttribute('aria-label') || '') && usable(b[i])) return b[i];
+    return null;
+  }
+  function wayBack() {
+    var menu = stage.querySelector('.yk-scrim-close');
+    if (menu) return menu;
+    var dlg = openDialog();
+    if (dlg) return dialogClose(dlg);
+    var docked = marked('close')[0];
+    if (docked) return docked;
+    var own = exitOf(screenRoot());
+    if (own) return own;
+    if (prevTab && prevTab !== curTab && tabsShown()) {
+      var t = paneTab(prevTab);
+      if (t && t.getAttribute('aria-disabled') !== 'true') return t;
+    }
+    return null;
+  }
+  function holdBack() {
+    if (!BACK) return;
+    var want = !!wayBack();
+    if (want && !held) {
+      try { history.pushState({ yk: 1 }, ''); held = true; } catch (e) {}
+    } else if (!want && held) {
+      held = false;
+      dropping++;
+      try { history.back(); } catch (e) { dropping--; }
+    }
+  }
+  function arrive(name) {
+    var t = TITLES[name];
+    document.title = t ? t + ' · ' + baseTitle : baseTitle;
+    if (tabsShown()) {
+      if (curTab && curTab !== name && !backing) prevTab = curTab;
+      curTab = name;
+    }
+    backing = false;
+    setTimeout(holdBack, 0);
+  }
+  window.addEventListener('popstate', function (e) {
+    if (!BACK) return;
+    if (dropping > 0) { dropping--; return; }
+    /* Forward, onto our own entry: it is ours again (and dropped if there is no way back now) */
+    if (e.state && e.state.yk) { held = true; holdBack(); return; }
+    held = false;
+    var b = wayBack();
+    if (b) {
+      if (prevTab && b === paneTab(prevTab)) { backing = true; prevTab = ''; }
+      b.click();
+    }
+    setTimeout(holdBack, 60);
+  });
 
   /* a link to another screen file means nothing here: if a screen did not handle the tap, swallow it */
   document.addEventListener('click', function (e) {

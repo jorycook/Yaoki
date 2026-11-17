@@ -381,3 +381,13 @@
 }
 @keyframes yk-scene-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes yk-sc-more { from { opacity: 1; } to { opacity: 0; } }
+/* a short window (640 px or less: a 1920 x 1080 laptop at 150 %, a pane of 520 to 560 px): the writing step a little tighter at
+   its top and above its action, so the action stays in view under the pad */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) { padding-top: 8px !important; padding-bottom: 12px !important; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) > [data-d="bar"] { height: 36px !important; }
+    html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] { margin-top: 4px !important; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) > [data-d="act"] { margin-top: 8px !important; }
+  }
+}

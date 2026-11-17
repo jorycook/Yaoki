@@ -112,3 +112,14 @@
 @container yk (min-width: 1000px) {
   html.yk-desk [data-yk="Today"] [data-d="row"] div[lang="ja"][style*="Klee One"] { font-size: 22px !important; line-height: 28px !important; }
 }
+/* a short window (640 px or less: a 1920 x 1080 laptop at 150 %, a pane of 520 to 560 px): the spread a little tighter at its
+   top and between its parts, so the stamp note and Back stay in view */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Today"] { padding-top: 10px !important; padding-bottom: 14px !important; }
+    html.yk-desk [data-yk="Today"] > [data-d="bar"] { height: 36px !important; }
+    html.yk-desk [data-yk="Today"] > [data-d="head"] { margin-top: 2px !important; }
+    html.yk-desk [data-yk="Today"] > [data-d="cards"] { margin-top: 12px; }
+    html.yk-desk [data-yk="Today"] > :is([data-d="note"], [data-d="act"]) { margin-top: 10px; }
+  }
+}
