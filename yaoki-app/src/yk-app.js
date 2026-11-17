@@ -594,7 +594,8 @@
     return null;
   }
   function holdBack() {
-    if (!BACK) return;
+    /* not while the app restarts into a newer copy: going back in the history would cancel the reload */
+    if (!BACK || restarting) return;
     var want = !!wayBack();
     if (want && !held) {
       try { history.pushState({ yk: 1 }, ''); held = true; } catch (e) {}
@@ -615,7 +616,7 @@
     setTimeout(holdBack, 0);
   }
   window.addEventListener('popstate', function (e) {
-    if (!BACK) return;
+    if (!BACK || restarting) return;
     if (dropping > 0) { dropping--; return; }
     /* Forward, onto our own entry: it is ours again (and dropped if there is no way back now) */
     if (e.state && e.state.yk) { held = true; holdBack(); return; }
