@@ -18,7 +18,8 @@
    (saved, row), all; fade; act; note, gap, act. The wrappers sum and list are display: contents on the phone; body and scroll
    are display: contents here, so that the summary, the list and the action are cells of the screen's own grid.
    data-k: go on Start, Next or Finish, Review mistakes, the way on (N1), Back and Continue; choice on every option; "on" on
-   Study's way on, the main action only when there is no Review mistakes (a fallback for Enter, once yk-app.js knows it). */
+   Study's way on, the main action only when there is no Review mistakes: Enter's fallback (yk-app.js takes it when the screen
+   has no go), and its key is drawn here then. */
 @container yk (min-width: 880px) {
   /* the screen spans the pane, so that the quit question's scrim covers all of it; --wt-x keeps the content to the 1184 px of
      the other screens, in the middle */
@@ -104,8 +105,9 @@
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] { grid-column: 2; grid-row: 4; margin-top: 16px !important; gap: 10px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] { min-height: 56px !important; padding: 6px 16px !important; gap: 12px !important; font-size: 17px !important; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="opts"] > [data-k="choice"] > span:first-child { font-size: 13px !important; }
-  /* Next right under the options, a desktop button's width, at the end of the column */
-  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) > [data-d="act"] { grid-column: 2; grid-row: 5; justify-self: end; min-width: 280px; margin-top: 18px; padding: 0 28px; }
+  /* Next right under the options, a desktop button's width, at the start of the column (as the day's Reading and the Scene
+     quiz put their Check) */
+  html.yk-desk [data-yk="WeekTest"]:has(> [data-d="opts"]) > [data-d="act"] { grid-column: 2; grid-row: 5; justify-self: start; min-width: 280px; margin-top: 18px; padding: 0 28px; }
   /* on the narrowest landscape panes (a window of 1120 to 1240 px) the question keeps a little more of the width, and the
      intro's title is a little smaller */
   @container yk (max-width: 999.98px) {
@@ -150,10 +152,17 @@
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]) > :is([data-d="act"], [data-d="onward"]) { justify-self: start; box-sizing: border-box; width: min(100%, 400px); padding: 0 12px; }
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]) > [data-d="act"] { grid-column: 2; grid-row: 3; margin-top: 16px; }
   html.yk-desk [data-yk="WeekTest"] > [data-d="onward"] { grid-column: 2; grid-row: 4; margin-top: 8px !important; }
-  /* no mistakes: the way on is the main button, in Review mistakes' place, as wide as its words (and at least 280 px) */
+  /* no mistakes: the way on is the main button, in Review mistakes' place and as wide, with Enter's key as every main action
+     has (_base.css draws it on data-k="go"; Study's way on carries data-k="on", which Enter takes when there is no go) */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]):not(:has(> [data-d="act"])) > [data-d="onward"] {
-    grid-row: 3; width: auto; min-width: 280px; max-width: 100%; padding: 0 28px; height: 54px !important; margin-top: 16px !important;
+    grid-row: 3; height: 54px !important; margin-top: 16px !important;
     border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF !important; font-size: 17px !important;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    html.yk-desk #yk-stage [data-yk="WeekTest"]:has(> [data-d="sum"]):not(:has(> [data-d="act"])) > [data-d="onward"]::after {
+      content: 'Enter'; flex-shrink: 0; margin-left: 12px; padding: 1px 7px; border: 1.5px solid currentColor; border-radius: 7px;
+      font: 800 11px/1.5 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; letter-spacing: 0.02em; opacity: 0.75;
+    }
   }
   /* no mistakes: the column says so */
   html.yk-desk [data-yk="WeekTest"]:has(> [data-d="sum"]):not(:has(> [data-d="saved"]))::before {

@@ -84,7 +84,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 11px; font-weight: 800; color: #C7361E; white-space: nowrap">{{ card.kicker }}</div>
 <div style="font-size: 16px; font-weight: 800">{{ card.title }}</div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ card.note }}</div>
-<sc-if value="{{ card.onward }}" hint-placeholder-val="{{ false }}"><button onClick="{{ card.go }}" style="margin-top: 6px; height: 44px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px">{{ card.button }}</button></sc-if>
+<sc-if value="{{ card.onward }}" hint-placeholder-val="{{ false }}"><button data-k="go" onClick="{{ card.go }}" style="margin-top: 6px; height: 44px; border-radius: 14px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 15px">{{ card.button }}</button></sc-if>
 </div>
 </sc-if>
 </div>

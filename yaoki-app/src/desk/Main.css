@@ -5,8 +5,9 @@
    labels it stands for (the logic leaves out today's label, and on the Study app the labels its card would cover on the phone). The
    card is as wide as its button's words and key need, at least. N1's open-early sheet is a dialog in the middle of the pane. On a
    tall window the route stops growing once the week has paper around it. Hooks: bar, week, head, slots, late (N1), route, node /
-   node-done / node-now / node-skip (each day's node, by state), label, card, ask (N1); data-k="go" on Start (and N1's other card
-   actions, the sheet's Open, and the Study app's week test node, which Enter takes when the card has no Start). */
+   node-done / node-now / node-skip (each day's node, by state), label, card, ask (N1); data-k="go" on the card's main action
+   (Start; the kana course's way on to N5 once it is done; N1's other card actions), on N1's sheet's Open, and on the Study app's
+   week test node, which Enter takes when the card has no main action (the card comes later in the page, and the last go wins). */
 @container yk (min-width: 880px) {
   /* static here: N1's open-early overlay then covers the whole pane, not only the screen's 1240 px */
   html.yk-desk [data-yk="Main"] { position: static !important; padding: 20px 28px 24px !important; }
@@ -87,11 +88,12 @@
   html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(5 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(5 of [data-d^="node"]) + [data-d="label"] { grid-column: 9 / span 2; }
   html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(6 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(6 of [data-d^="node"]) + [data-d="label"] { grid-column: 11 / span 2; }
   html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(7 of [data-d^="node"]), html.yk-desk [data-yk="Main"] > [data-d="route"] > :nth-child(7 of [data-d^="node"]) + [data-d="label"] { grid-column: 13 / span 2; }
-  /* the Study app's week test node takes Enter when the card has no Start (Start comes later in the page, and the last go wins):
-     the week test next, or passed (its results). Its key shows above it only when the week test is what comes next */
+  /* the Study app's week test node takes Enter when the card has no main action (Start, or the way on to N5: they come later in
+     the page, and the last go wins): the week test next, or passed (its results: the week done, or a level other than the kana
+     course done). Its key shows above it then; not while the test is still to be written (the node does nothing) */
   html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"] > [data-d="node"][data-k="go"]::after { content: none; }
   @media (hover: hover) and (pointer: fine) {
-    html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"]:not(:has(> [data-d="card"] [data-k="go"])) > [data-d="node"][data-k="go"][aria-label="Day 7, week test"]::after {
+    html.yk-desk #yk-stage [data-yk="Main"] > [data-d="route"]:not(:has(> [data-d="card"] [data-k="go"])) > [data-d="node"][data-k="go"]:is([aria-label="Day 7, week test"], [aria-label="Day 7, week test, done"])::after {
       content: 'Enter'; position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); margin: 0; background: #FFFFFF;
     }
   }

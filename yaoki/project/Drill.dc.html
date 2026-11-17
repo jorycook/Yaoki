@@ -45,10 +45,10 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ isStar }}" hint-placeholder-val="{{ false }}">
 <h1 style="margin: 0; font-size: 22px; font-weight: 800; line-height: 1.35">★に入るのはどれ？</h1>
 <div style="font-size: 13px; font-weight: 500; color: #5A6382">Put the four tiles in order. Your answer is the tile on the star.</div>
-<div lang="ja" style="margin-top: 6px; padding: 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">
+<div data-d="sentence" lang="ja" style="margin-top: 6px; padding: 16px 12px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 8px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">
 <div><sc-for list="{{ before }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <sc-for list="{{ slots }}" as="s" hint-placeholder-count="4">
-<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button onClick="{{ s.remove }}" aria-label="{{ s.aria }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; font-size: 16px; font-weight: 600; white-space: nowrap; background: {{ s.bg }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ s.filled }}" hint-placeholder-val="{{ false }}"><button data-d="slot" onClick="{{ s.remove }}" aria-label="{{ s.aria }}" style="height: 50px; min-width: 48px; padding: 0 10px; border-radius: 12px; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440; font-size: 16px; font-weight: 600; white-space: nowrap; background: {{ s.bg }}"><sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
 <sc-if value="{{ s.emptyStar }}" hint-placeholder-val="{{ false }}"><div role="img" aria-label="Empty star slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #1B2440; background: #FFF4D6; display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="#F2B43A" stroke="#1B2440" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.8-4.5 4.3 1.1 6.1L12 16.9 6.6 19.8l1.1-6.1L3.2 9.4l6.1-.8z"/></svg></div></sc-if>
 <sc-if value="{{ s.emptyPlain }}" hint-placeholder-val="{{ true }}"><div role="img" aria-label="Empty slot" style="width: 76px; height: 50px; box-sizing: border-box; border-radius: 12px; border: 2.5px dashed #C9D0E3; background: #F4F5F9"></div></sc-if>
 </sc-for>
@@ -56,7 +56,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 <sc-if value="{{ starAsking }}" hint-placeholder-val="{{ true }}">
 <sc-if value="{{ hasHint }}" hint-placeholder-val="{{ true }}">
-<div style="margin-top: 6px; display: flex; align-items: flex-end; gap: 10px">
+<div data-d="hint" style="margin-top: 6px; display: flex; align-items: flex-end; gap: 10px">
 <svg viewBox="0 0 100 100" width="48" height="48" role="img" aria-label="Yaoki" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 <div style="flex-grow: 1; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 11px; font-weight: 800; color: #C7361E">ヒント　HINT · drill only</div>
@@ -64,12 +64,14 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 </div>
 </sc-if>
+<div data-d="bank" style="display: contents">
 <div style="margin-top: 8px; font-size: 12px; font-weight: 800; color: #5A6382">タイル　Tiles</div>
-<div lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
+<div data-d="tiles" lang="ja" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-family: 'Klee One', 'Hiragino Mincho ProN', serif">
 <sc-for list="{{ bank }}" as="b" hint-placeholder-count="4">
-<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button onClick="{{ b.place }}" aria-label="{{ b.label }}" style="height: 54px; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
-<sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
+<sc-if value="{{ b.here }}" hint-placeholder-val="{{ true }}"><button data-k="choice" onClick="{{ b.place }}" aria-label="{{ b.label }}" style="height: 54px; border-radius: 14px; border: 2px solid #1B2440; background: #FFFFFF; box-shadow: 0 4px 0 #1B2440; font-size: 18px; font-weight: 600"><sc-for list="{{ b.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></button></sc-if>
+<sc-if value="{{ b.gone }}" hint-placeholder-val="{{ false }}"><div data-k="choice" aria-hidden="true" style="height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px dashed #C9D0E3"></div></sc-if>
 </sc-for>
+</div>
 </div>
 </sc-if>
 </sc-if>

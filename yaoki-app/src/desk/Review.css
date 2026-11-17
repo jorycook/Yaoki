@@ -5,7 +5,8 @@
    answered (Study) or checked (N1), the panel with the verdict, why the answer is right (and why the pick was not), the script
    where there is one, and what was chosen last time. On the phone that panel sits in the body under the options. Here it is lifted
    out beside the paper (positioned on the screen, under the spacing, whose height is fixed), so it stays in view, and it scrolls
-   itself when it is longer than the pane.
+   itself when it is longer than the pane. Next stays under the paper, where Check was (the drill ends its coach's panel with
+   Next instead: here the panel is lifted out under the spacing and holds no action).
    An item with a text (Study: a passage or a script; N1: a reading, a notice, two texts) is laid out as the reading paper is. At
    rest the text is on the left, as tall as the column, and scrolls in its own box (its foot fades while there is more); the
    question, its options and Check are on the right, under the spacing. Once answered or checked, the paper takes the left column:
@@ -55,6 +56,8 @@
   html.yk-desk [data-yk="Review"] [data-d="q"] { padding: 16px 20px !important; }
   html.yk-desk [data-yk="Review"] [data-d="q"][style*="font-size: 20px"], html.yk-desk [data-yk="Review"] [data-d="q"][style*="font-size: 19px"] { font-size: 22px !important; }
   html.yk-desk [data-yk="Review"] [data-d="q"][style*="font-size: 17px"] { font-size: 19px !important; }
+  /* Study: a star sentence (its four blanks and the star) is a sentence, sized as one (the phone draws it as large as a kana) */
+  html.yk-desk [data-yk="Review"] [data-d="q"][data-star="true"] { font-size: 22px !important; line-height: 2 !important; }
   html.yk-desk [data-yk="Review"] [data-d="word"] { padding: 22px 16px 16px !important; }
   html.yk-desk [data-yk="Review"] [data-d="word"] > div[lang="ja"] { font-size: 48px !important; }
   html.yk-desk [data-yk="Review"] [data-d="usage"] > div { font-size: 30px !important; }
@@ -93,7 +96,9 @@
   html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"] > * { flex-shrink: 0 !important; }
   /* Study: the panel is a card of the coach, as the drill's */
   html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"]:not([data-rv-panel]) { border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; }
-  html.yk-desk [data-yk="Review"] [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { font-size: 14px !important; }
+  /* N1: the panel keeps its edge in the verdict's colour, with the coach card's hard shadow */
+  html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"][data-rv-panel] { box-shadow: 0 4px 0 #1B2440; }
+  html.yk-desk [data-yk="Review"] [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { font-size: 14px !important; word-break: keep-all; overflow-wrap: anywhere; text-wrap: pretty; }
   /* the verdict, and the right answer after it, or under it when a long answer leaves no room on its line */
   html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child { flex-wrap: wrap; row-gap: 4px; }
   html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child > div[style*="font-size: 17px"] { font-size: 19px !important; }
@@ -216,5 +221,13 @@
     html.yk-desk [data-yk="Review"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"][style*="min-height"] { min-height: 40px !important; padding: 4px 12px !important; font-size: 15px !important; line-height: 1.35 !important; }
     html.yk-desk [data-yk="Review"]:has([data-d="side"]) [data-d="opts"] { row-gap: 8px !important; }
     html.yk-desk [data-yk="Review"]:not(:has([data-d="context"])):has([data-d="side"]) [data-d="q"] { padding: 12px 18px !important; }
+  }
+}
+/* a laptop's window (680 px or less: a pane of about 600 px): a listening item's options and its player a little tighter, so that
+   N1's four long options and the line under them (listen first) fit the paper */
+@media (max-height: 680px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Review"]:has([data-d="listen"]) [data-d="opts"] > [data-k="choice"] { min-height: 46px !important; }
+    html.yk-desk [data-yk="Review"] [data-d="listen"] { padding-top: 8px !important; padding-bottom: 8px !important; }
   }
 }

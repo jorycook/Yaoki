@@ -2,7 +2,8 @@
    the pane's height (a little above it): the bar (back, the Study app's steps), Yaoki and the title across the top, and under
    them the form in two columns that line up row by row: the level over the exam date on the left; the daily time over the plan
    card on the right, with the main action (Paint the first eye, then Start) at the foot of the right column, a desktop button
-   at its right edge. N1's re-plan has no level: what can change (the exam date over the daily time) is on the left, what it
+   at its right edge. The kana course has no exam date: the plan card under the level, the action beside it at the foot of the
+   right column. N1's re-plan has no level: what can change (the exam date over the daily time) is on the left, what it
    gives (the plan card) and Update the plan on the right. The date sheet, which rises from the bottom of the phone, is a dialog
    in the middle of the pane (a click outside it closes it, as the phone's backdrop does).
    Hooks: bar, head (Yaoki and the title), level, date, pace, plan, act (the main action), gap (the phone's spacer), sheet (the
@@ -27,6 +28,12 @@
   html.yk-desk [data-yk="Goal"]:not(:has(> [data-d="level"])) {
     grid-template-areas: ". ." "bar bar" "head head" "date plan" "pace plan" "pace act" ". .";
   }
+  /* the kana course (かな picked) has no exam date: the plan card under the level, and the main action beside it, its foot level
+     with the card's, so that the left column has no hole under the level */
+  html.yk-desk [data-yk="Goal"]:has(> [data-d="level"]):not(:has(> [data-d="date"])) {
+    grid-template-areas: ". ." "bar bar" "head head" "level pace" "plan act" ". ." ". .";
+  }
+  html.yk-desk [data-yk="Goal"]:has(> [data-d="level"]):not(:has(> [data-d="date"])) > [data-d="act"] { align-self: end; }
   html.yk-desk [data-yk="Goal"] > [data-d="bar"] { grid-area: bar; margin-bottom: 4px; }
   html.yk-desk [data-yk="Goal"] > [data-d="head"] { grid-area: head; margin: 0 !important; gap: 20px !important; }
   /* Yaoki and the title a size larger: the eye painted here is the screen's moment */

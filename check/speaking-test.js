@@ -198,7 +198,7 @@ const FAKE_VOICE_LOG = `(function () {
   check('brand is スピーキング · Yaoki Speaking', /スピーキング\s*Yaoki Speaking/.test(await page.textContent('.brand')));
   check('two ways to play: ふってくる Falling and のぼる Climb', (await page.$$eval('#ways .way', (b) => b.map((x) => x.textContent))).join('|').includes('のぼる'));
   check('five things to practise, the first steps first', (await page.$$('#modes button')).length === 5 && (await page.textContent('#modes button:nth-child(1)')).includes('あいうえお'));
-  check('links back to the app, Yaoki Typing and the reader', (await page.$$('.foot-links a[href="../"], .foot-links a[href="../typing/"], .foot-links a[href="../reader/"]')).length === 3);
+  check('links back to the app, Yaoki Typing and the reader', (await page.$$('.foot-links a[href="../study/"], .foot-links a[href="../typing/"], .foot-links a[href="../reader/"]')).length === 3);
   check('…and, opened on its own in a browser, no Yaoki button at the top', !(await page.isVisible('#to-app')));
   check('no browser note when speech recognition is there', !(await page.isVisible('#no-speech')));
   check('the start button stays in reach at the bottom of the screen', await page.evaluate(() => {

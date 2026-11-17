@@ -40,7 +40,7 @@
   html.yk-desk [data-yk="Star"] [data-d="tiles"] { gap: 12px !important; counter-reset: yk-tile; }
   html.yk-desk [data-yk="Star"] [data-d="tiles"] > [data-k="choice"] { counter-increment: yk-tile; position: relative; height: 62px !important; }
   html.yk-desk [data-yk="Star"] [data-d="tiles"] > button[data-k="choice"] { font-size: 20px !important; padding: 0 30px !important; }
-  html.yk-desk [data-yk="Star"] > [data-d="act"] { grid-area: act; justify-self: stretch; margin-top: 20px !important; display: flex !important; align-items: center; justify-content: center; }
+  html.yk-desk [data-yk="Star"] > [data-d="act"] { grid-area: act; justify-self: start; min-width: 260px; margin-top: 20px !important; padding: 0 28px !important; box-sizing: border-box; display: flex !important; align-items: center; justify-content: center; }
 
   /* ---------- checked: the answer sheet as the coach beside the sentence */
   html.yk-desk [data-yk="Star"]:has(> [data-d="side"]) { grid-template-rows: auto auto auto 1fr; grid-template-areas: "bar bar" "head head" "main side" ". side"; }

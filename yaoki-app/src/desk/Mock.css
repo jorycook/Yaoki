@@ -1,9 +1,10 @@
 /* Mock, the mock-exam tab (both apps). The phone stacks the papers under the title. Here the title and the line that says what
    the mocks are run across the top, and under them two columns: on the left the schedule of the papers, on the right the card
    of the one to take now, with its Start (or, once it is taken, its last result, Result and Again). The Study app: on the left
-   the full papers (N2's mock 1 with its two sections and their times, and mock 2), or, for a level that has none yet, a panel
-   that says what will appear there; on the right the mini mock. N1: on the left the other mini mocks, one row each (a click
-   opens one), on the right the one that is open. Nothing scrolls on a laptop's pane (about 600 px tall).
+   the full papers (N2's mock 1 with its two sections and their times, and mock 2), or, for a level that has none yet, a dashed
+   panel as tall as the card that says what will appear there; on the right the mini mock, its Start a desktop button's width at
+   the card's foot. N1: on the left the other mini mocks, one row each (a click opens one), on the right the one that is open.
+   Nothing scrolls on a laptop's pane (about 600 px tall).
    Hooks: bar, lede, card (the mock to take: its Start, or its result and Again), list (the Study app's full papers; display:
    contents on the phone), body (N1's list of mocks), row (an N1 mock that is not open), none (N1 without mocks), gap (the
    phone's spacer). data-k="go" on Start, or on Again once the mock is taken. */
@@ -29,11 +30,16 @@
   html.yk-desk [data-yk="Mock"] > [data-d="card"] { grid-area: card; align-self: start; margin: 18px 0 0 !important; }
   html.yk-desk [data-yk="Mock"] > [data-d="list"] { grid-area: list; align-self: start; display: flex !important; flex-direction: column; gap: 14px; margin-top: 18px; min-width: 0; }
   html.yk-desk [data-yk="Mock"] > [data-d="list"] > * { margin: 0 !important; }
-  /* a level with no full papers yet: their place says what will appear in it */
+  /* a level with no full papers yet: their place says what will appear in it, a dashed panel as tall as the mini mock's card with
+     its lines in the middle, as the Notebook draws its empty list */
   html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="list"]))::after {
-    content: '本番の模試　Full papers\A \A Each full paper will be listed here, with its sections and its time.';
-    white-space: pre-line; grid-area: list; align-self: start; margin-top: 18px; padding: 16px 20px 18px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+    content: '本番の模試　Full papers\A \A Each full paper will be listed here,\A with its sections and its time.';
+    white-space: pre-line; grid-area: list; align-self: stretch; display: grid; place-content: center; text-align: center; box-sizing: border-box;
+    margin-top: 18px; padding: 24px max(24px, calc(50% - 220px)); border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
   }
+  /* the mock's Start (not yet taken): a desktop button's width at the card's foot, as Extras draws its buttons (once the mock is
+     taken, Result and Again share the card's width) */
+  html.yk-desk [data-yk="Mock"] [data-d="card"] > a[data-k="go"] { align-self: flex-start; min-width: 260px; box-sizing: border-box; padding: 0 28px; }
 
   /* ---------- N1: the mocks not open on the left, one row each; the open one on the right, as tall as it needs */
   html.yk-desk [data-yk="Mock"]:has(> [data-d="body"]) {

@@ -1,6 +1,15 @@
 /* Drill (both apps): the exercise on the left, like a paper (the head, the sentence, its options, Check under them), and the coach
    on the right: before checking, a panel that says what will appear there; after, the verdict, the reason for every option and
-   Next. Hooks: bar, main, act, side, gap (N1's spacer); data-k on the options, Check and Next. */
+   Next. Next ends the coach's panel, where the reading ends (the review keeps its Next under the paper instead: its panel is
+   lifted out beside the paper, under the spacing, and holds no action).
+   The Study app's star question (文の文法2, Build the sentence) is laid out as N1's Star screen: the title and its instruction
+   across the top, the sentence with its four slots and Yaoki's hint on the left, the tiles on the right with Check right under
+   them. On a desktop each tile shows the key that places it (1 to 4); a placed tile's empty place keeps its number, so a key
+   always means the same tile. Once checked, the coach takes the right column, as for any question.
+   N1's day without a grammar lesson: the note and Back to today at the top, as on the Star and Exam screens.
+   Hooks: bar, main, act, side, gap (N1's spacer); the star question: sentence (> slot), hint, bank (a display: contents wrapper
+   of the Tiles label and the tiles) > tiles; N1's day without a lesson: none, gap and act inside main. data-k on the options,
+   the tiles (and a placed tile's empty place), Check, Next and Back to today. */
 @container yk (min-width: 880px) {
   html.yk-desk [data-yk="Drill"] {
     display: grid !important;
@@ -22,10 +31,59 @@
   html.yk-desk [data-yk="Drill"] > [data-d="main"] button[data-k="choice"] { min-height: 56px !important; font-size: 17px !important; }
   /* the coach: the answer sheet of the phone is a panel beside the exercise, as tall as its content, scrolling if it must */
   html.yk-desk [data-yk="Drill"] > [data-d="side"] { grid-area: 2 / 2 / -1 / 3; align-self: start; max-height: 100% !important; overflow-y: auto; margin: 0; padding: 18px 20px 20px !important; border-radius: 20px !important; border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; animation: yk-in 220ms ease-out !important; }
-  /* before checking, the panel says what will appear in it */
-  html.yk-desk [data-yk="Drill"]:not(:has(> [data-d="side"]))::after {
+  /* the reasons keep the Japanese words they quote whole */
+  html.yk-desk [data-yk="Drill"] > [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { word-break: keep-all; overflow-wrap: anywhere; text-wrap: pretty; }
+  /* before checking, the panel says what will appear in it (not beside the tiles of a star question, nor on a day without a lesson) */
+  html.yk-desk [data-yk="Drill"]:not(:has(> [data-d="side"], [data-d="bank"], [data-d="none"]))::after {
     content: '解説　Why each option\A \A Choose an answer and check it. The verdict and the reason for every option appear here, and each mistake goes to your notebook.';
     white-space: pre-line; grid-area: 2 / 2 / -1 / 3; align-self: start; padding: 18px 20px; border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
+  }
+
+  /* ---------- the Study app's star question: the title larger, the sentence a little larger (it is what is studied) and its slots
+     with room, in both states */
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] > h1 { font-size: 26px !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] > h1 + div { font-size: 14px !important; }
+  html.yk-desk [data-yk="Drill"] [data-d="sentence"] { margin: 0 !important; padding: 18px 20px !important; gap: 12px 10px !important; font-size: 20px !important; line-height: 1.6; }
+  html.yk-desk [data-yk="Drill"] [data-d="sentence"] > div[role="img"] { width: 84px !important; height: 54px !important; }
+  html.yk-desk [data-yk="Drill"] [data-d="sentence"] > [data-d="slot"] { height: 54px !important; min-width: 56px !important; padding: 0 12px !important; font-size: 18px !important; }
+  /* before checking, the exercise's box gives way and its parts take their places: the head across the top, the sentence and
+     Yaoki's hint on the left, the tiles on the right with Check right under them (in the tiles' area, under their fixed height:
+     the label, two rows of tiles and the gaps, 166 px) */
+  html.yk-desk [data-yk="Drill"]:has([data-d="bank"]) {
+    grid-template-columns: minmax(0, 1.15fr) minmax(340px, 1fr);
+    grid-template-rows: auto auto auto auto auto auto minmax(0, 1fr);
+    grid-template-areas: "bar bar" "kind kind" "title title" "ask ask" "sentence bank" "hint bank" ". bank";
+    column-gap: 36px;
+  }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) { display: contents !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > div:first-child { grid-area: kind; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > h1 { grid-area: title; margin-top: 4px !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="bank"]) > h1 + div { grid-area: ask; margin: 4px 0 18px; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] > [data-d="sentence"] { grid-area: sentence; align-self: start; min-width: 0; }
+  html.yk-desk [data-yk="Drill"] [data-d="hint"] { grid-area: hint; align-self: start; min-width: 0; margin: 16px 0 0 !important; }
+  html.yk-desk [data-yk="Drill"] [data-d="hint"] > div > div:last-child { font-size: 14px !important; line-height: 1.5 !important; word-break: keep-all; overflow-wrap: anywhere; text-wrap: pretty; }
+  html.yk-desk [data-yk="Drill"] [data-d="bank"] { grid-area: bank; align-self: start; min-width: 0; display: flex !important; flex-direction: column; gap: 12px; }
+  html.yk-desk [data-yk="Drill"] [data-d="bank"] > div:first-child { margin: 0 !important; font-size: 13px !important; line-height: 18px; }
+  html.yk-desk [data-yk="Drill"] [data-d="tiles"] { gap: 12px !important; counter-reset: yk-tile; }
+  html.yk-desk [data-yk="Drill"] [data-d="tiles"] > [data-k="choice"] { counter-increment: yk-tile; position: relative; height: 62px !important; }
+  html.yk-desk [data-yk="Drill"] [data-d="tiles"] > button[data-k="choice"] { font-size: 20px !important; padding: 0 30px !important; }
+  html.yk-desk [data-yk="Drill"]:has([data-d="bank"]) > [data-d="act"] { grid-area: bank; align-self: start; margin-top: 186px; padding: 0 !important; }
+
+  /* ---------- N1, a day without a grammar lesson: the note and Back to today at the top, across the pane */
+  html.yk-desk [data-yk="Drill"] > [data-d="main"]:has(> [data-d="none"]) { grid-column: 1 / -1; }
+  html.yk-desk [data-yk="Drill"] [data-d="none"] { width: min(100%, 600px); box-sizing: border-box; margin-top: 4px !important; padding: 18px 20px !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="Drill"] > [data-d="main"] > [data-d="act"] { align-self: flex-start; min-width: 260px; margin-top: 6px; padding: 0 28px !important; box-sizing: border-box; }
+}
+/* where there is a pointer that hovers and a keyboard: each tile of a star question shows the key that places it */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Drill"] [data-d="tiles"] > [data-k="choice"]::before {
+      content: counter(yk-tile); position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font: 800 12px/1 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #5A6382;
+    }
+    /* a placed tile's empty place keeps its number, faded */
+    html.yk-desk [data-yk="Drill"] [data-d="tiles"] > div[data-k="choice"]::before { color: #C9D0E3; }
   }
 }
 @keyframes yk-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

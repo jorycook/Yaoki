@@ -2,7 +2,8 @@
    title runs across the top and the notebook opens as summary and list: on the left a column as wide as the phone's card, with
    what is due today and its Review button (the Study app's schedule chips under it; N1's area filters under it, a list of rows
    with their counts); on the right the mistakes, which scroll in their own column, two cards side by side from a laptop's pane
-   (one a row on a narrower one), each question on one line. The title, the summary and the Review button never scroll away.
+   (one a row on a narrower one), each question on one line; the Study app's list fades at its foot while there is more, and its
+   line on what was cleared today comes first. The title, the summary and the Review button never scroll away.
    With nothing in the notebook (N1's empty state, or the Study app's empty list) the right column is a dashed panel as tall as
    the left one, saying what will appear there; so is N1's line for an area filter with nothing in it.
    Hooks: bar, side (the left column; display: contents on the phone), sum (the summary card), empty (N1's card for an empty
@@ -54,6 +55,13 @@
   }
   html.yk-desk [data-yk="Notebook"] [data-d="scroll"] { margin: -6px -6px 0; }
   html.yk-desk [data-yk="Notebook"] :is([data-d="cleared"], [data-d="none"], [data-d="note"]) { grid-column: 1 / -1; }
+  /* the Study app's list fades over its bottom padding, as N1's does: a card cut at the column's foot says that the column scrolls
+     (an overlay scrollbar says nothing at rest); at the end of the scroll the last card sits clear of the fade, and a list that
+     holds less than the column fades only empty space. Its line on what was cleared today comes first, as news, not under the fold */
+  html.yk-desk [data-yk="Notebook"] > [data-d="head"] ~ [data-d="list"] {
+    -webkit-mask-image: linear-gradient(#000000 calc(100% - 20px), transparent); mask-image: linear-gradient(#000000 calc(100% - 20px), transparent);
+  }
+  html.yk-desk [data-yk="Notebook"] > [data-d="list"] > [data-d="cleared"] { order: -1; }
   /* the question on one line, as large as its card lets the line fit that the app cuts to the phone's card (about 21
      characters): the phone's 15 px in a card of about the phone's width, up to 16 px in a wider one; a longer line ends in …
      (each card is a container, for its width). The taller line keeps the underline of the word asked about inside it. A cleared
