@@ -147,13 +147,54 @@
     for (var i = 0; i < us.length; i++) if (us[i].n === +m[1]) u = us[i];
     return u && u.days ? u.days[+m[2] - 1] || null : null;
   };
-  /* any question by its id, at any level: lesson items, week test items and the mini mock's */
+  /* any question by its id, at any level: lesson items, week test items, the mini mock's and the full mocks' */
   C.item = function (id) {
     var c = all();
     var own = (dataOf(C.levelOf(id)).items || {})[id];
     if (own) return own;
     for (var k in c) if (c[k].items && c[k].items[id]) return c[k].items[id];
     return null;
+  };
+
+  /* ---------- the full mocks ----------
+     N2 has two whole papers at real length (content/n2/mock1.json, mock2.json; their questions are f1.1 … f2.101).
+     Mock 1 opens halfway through the course (once the week test of the middle unit is done, or on the day the plan puts
+     it), mock 2 at its end, about a week before the exam. A result: state.full[n] = { a: answers, used, timeUp, done, at }. */
+  C.fulls = function () { return data().fulls || []; };
+  C.full = function (n) {
+    var f = null;
+    C.fulls().forEach(function (x) { if (x.n === n) f = x; });
+    return f ? { n: f.n, title: f.title, en: f.en, items: f.items.map(C.item) } : null;
+  };
+  /* the week test that opens a full mock, and whether it is open: { open, unit, date (the test's day in the plan), days (until it) } */
+  C.fullOpen = function (state, n, now) {
+    var us = C.units();
+    var unit = n === 1 ? Math.ceil(us.length / 2) : us.length;
+    var id = sid(unit, 't');
+    var plan = C.plan((state && state.plan) || {});
+    var date = null;
+    plan.forEach(function (p) { if (p.id === id) date = p.date; });
+    var today = C.today(now);
+    var done = C.complete(state || {}, C.session(id));
+    return { open: done || (date != null && date <= today), unit: unit, date: date, days: date ? Math.max(0, C.daysBetween(today, date)) : null };
+  };
+  /* the three scores out of 60 the paper reports, as the share of right answers in each scoring section (vocabulary and
+     grammar together), the total out of 180, and whether it passes: 90 in all and at least 19 in every section */
+  C.fullScore = function (n, answers) {
+    var f = C.full(n);
+    if (!f) return null;
+    var a = answers || {};
+    var sec = { lang: [0, 0], read: [0, 0], listen: [0, 0] };
+    f.items.forEach(function (it, k) {
+      var key = C.area(it.type).key === 'listening' ? 'listen' : /読解/.test(it.type) ? 'read' : 'lang';
+      sec[key][1] += 1;
+      if (a[k + 1] === it.answer) sec[key][0] += 1;
+    });
+    var s = function (x) { return x[1] ? Math.round((x[0] / x[1]) * 60) : 0; };
+    var out = { lang: s(sec.lang), read: s(sec.read), listen: s(sec.listen), right: sec.lang[0] + sec.read[0] + sec.listen[0], of: f.items.length };
+    out.total = out.lang + out.read + out.listen;
+    out.pass = out.total >= 90 && out.lang >= 19 && out.read >= 19 && out.listen >= 19;
+    return out;
   };
 
   /* ---------- progress ----------
@@ -281,8 +322,11 @@
      mini mock; N2's mini mock clips are in sound-mock.js, which loads with the page. */
   var soundAsked = {};
   C.soundFile = function (lv, unit) { return lv === 'N2' && !unit ? '' : 'sound-course-' + lv.toLowerCase() + '-u' + pad(unit) + '.js'; };
-  C.needSound = function (lv, unit) {
-    var f = C.soundFile(lv, unit);
+  /* a full mock's listening section is a file of its own (sound-course-n2-m1.js), fetched once the mock is open */
+  C.fullSoundFile = function (n) { return 'sound-course-n2-m' + n + '.js'; };
+  C.needFullSound = function (n) { load(C.fullSoundFile(n)); };
+  C.needSound = function (lv, unit) { load(C.soundFile(lv, unit)); };
+  function load(f) {
     if (!f || soundAsked[f] || typeof document === 'undefined') return;
     soundAsked[f] = true;
     var base = '';
@@ -292,7 +336,7 @@
     el.async = true;
     el.src = base + f;
     (document.head || document.body || document.documentElement).appendChild(el);
-  };
+  }
   function unitOfId(id) { var m = /^(?:n\d|kana)?u(\d+)/.exec(id || ''); return m ? +m[1] : 0; }
   C.view = function (state) {
     C.setLevel(state.level || 'N2');
@@ -324,6 +368,9 @@
       /* the notebook shows this level's mistakes; the others wait for a return to their level */
       mistakes: (state.mistakes || []).filter(function (m) { return C.levelOf(m.src) === LEVEL || (LEVEL === 'N2' && /^(mock|listening)/.test(m.src)); }),
       mock: state.mock || null,
+      /* the full mocks' results (N2 only), and the mock the run screen is on: 'mini', or a full mock's number */
+      full: state.full || {},
+      run: state.run || 'mini',
       wrote: state.wrote || '',
       wroteWords: state.wroteWords || [],
       level: LEVEL,
@@ -401,7 +448,8 @@
     if (/ことば|ぶん/.test(t)) return { key: 'words', ja: 'ことば', en: 'Words', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
     if (/漢字|表記|語形成|文脈|言い換え|用法|語彙/.test(t)) return { key: 'vocab', ja: '文字・語彙', en: 'Kanji, vocabulary', tagBg: '#FDEBE6', tagColor: '#C7361E' };
     if (/文法/.test(t)) return { key: 'grammar', ja: '文法', en: 'Grammar', tagBg: '#E8ECFB', tagColor: '#2F4FD0' };
-    if (/課題|ポイント|概要|即時|発話|聴/.test(t)) return { key: 'listening', ja: '聴解', en: 'Listening', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
+    /* 統合理解 alone is the listening section's; the reading section's is 読解・統合理解 */
+    if (/課題|ポイント|概要|即時|発話|聴|^統合理解$/.test(t)) return { key: 'listening', ja: '聴解', en: 'Listening', tagBg: '#E0F3EF', tagColor: '#0B7A6B' };
     return { key: 'reading', ja: '読解', en: 'Reading', tagBg: '#FFF4D6', tagColor: '#1B2440' };
   };
 })();
