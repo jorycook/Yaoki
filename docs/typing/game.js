@@ -1411,13 +1411,14 @@
 
   // ---------- sound effects (sfx.js) ----------
   // "Quiet" plays a stamp for each card, a drum for a fall, a bounce for getting up and a sound
-  // for each trick; "All" also ticks for each right romaji key and knocks for a miss. The audio
-  // output is only ever made on a key press or a click.
+  // for each trick; "All" also ticks for each right romaji key and buzzes softly for a miss. The
+  // audio output is only ever made on a key press or a click.
 
   let sfxReady = false;
   const SFX_ALL_ONLY = new Set(['key', 'miss']);
-  // the loud mix: the effects about 11 dB and the music about 12 dB up, through a limiter
-  if (window.TypingSfx && window.TypingSfx.mix) window.TypingSfx.mix({ fx: 1, music: 3.5, limit: true });
+  // the loud mix, through the master chain (set by measurement): the songs at about -22 LUFS at
+  // あり On, a busy moment of a round at about -19, true peaks under -1 dBTP
+  if (window.TypingSfx && window.TypingSfx.mix) window.TypingSfx.mix({ fx: 1.25, music: 5.6, limit: true });
   const UNDER_VOICE = new Set(['key', 'miss', 'jump', 'duck', 'spin', 'smash']);
   function wakeAudio() {
     if (!window.TypingSfx || (saved.sfx === 'off' && saved.music === 'off')) return;
