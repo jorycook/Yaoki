@@ -5,10 +5,14 @@ usage: python3 tools/course_sound.py n2 1 2 4 …          (from the repository 
        python3 tools/course_sound.py n2 1 --check heard.json   (and have a recogniser write down what it hears in each
                                                  new clip, with how closely its kana match what was meant (1 = all))
        python3 tools/course_sound.py n2 1 --redo x_u01d1_p1_1 s_u1d1_warehouse   (make these again; --redo all: the whole unit)
+       python3 tools/course_sound.py n2 --mock 1 2     (a full mock's listening section: sound-course-n2-m1.js, m2.js)
+       … --onnx DIR --asr DIR      (without Hugging Face: the ONNX build of the same voice model, and the two sherpa-onnx
+                                    recognisers of tools/asr_onnx.py in place of faster-whisper)
 Levels n5 to n2 (the kana course has its own clips: tools/kana_clips.py).
 
 What it says: every teach example (x_…), scene word (s_…) and listening lesson (l_…) that the unit's days name in
-yaoki/project/course-<level>.js.
+yaoki/project/course-<level>.js; with --mock, every listening part of a full mock (f1.72_q, f1.72_talk …), each part a
+clip that the mock's run plays in turn.
 - The readings come from the OpenJTalk dictionary (pyopenjtalk), spelled in the voice model's own phonemes with
   misaki's kana table. Kokoro's own Japanese front end (misaki's cutlet path) reads many words wrongly: it reads
   一辺 as いちへん and 何を as なんを, and in hiragana it splits a small ゃ ゅ ょ from its kana (しゅうしょく as
@@ -29,7 +33,8 @@ longer names are dropped.
 Needs Python 3.10 to 3.12 with kokoro 0.9.4, misaki[ja] (and its pyopenjtalk) and numpy, the UniDic dictionary
 (python3 -m unidic download) and ffmpeg on the path; --check also needs faster-whisper (its "small" model is fetched from
 Hugging Face on first use). Voices, speed and encoding are those of the course's other clips (yaoki-n1/make-sound.py):
-the narrator jf_gongitsune, the man jm_kumo and the woman jf_alpha (Kokoro-82M, Apache-2.0); MP3, 24 kHz mono,
+the narrator jf_gongitsune, the man jm_kumo and the woman jf_alpha, and for a second woman in a full mock jf_tebukuro
+(Kokoro-82M, Apache-2.0); MP3, 24 kHz mono,
 32 kbit/s, with each clip's length in milliseconds, which the screens use to keep time with it."""
 import argparse
 import base64
@@ -48,7 +53,8 @@ PROJECT = os.path.join(ROOT, 'yaoki', 'project')
 SR = 24000
 FRAME = 600  # samples per step of the voice model's predicted durations
 NARR, MAN, WOMAN = 'jf_gongitsune', 'jm_kumo', 'jf_alpha'
-VOICE = {'N': NARR, 'M': MAN, 'F': WOMAN}
+# G: a second woman, for a full mock's talk among three (a mother and her daughter, two colleagues)
+VOICE = {'N': NARR, 'M': MAN, 'F': WOMAN, 'G': 'jf_tebukuro'}
 NUM = {'1': 'いち', '2': 'に', '3': 'さん', '4': 'よん'}
 PAUSE = {'、': ',', '。': '.', '？': '?', '！': '!'}
 LEAD = 'それは、'
@@ -58,18 +64,54 @@ HEAD = ('/* Yaoki course sound: the teach examples, scene words and listening le
 
 ap = argparse.ArgumentParser()
 ap.add_argument('level', choices=['n5', 'n4', 'n3', 'n2'])
-ap.add_argument('units', nargs='+', type=int)
+ap.add_argument('units', nargs='*', type=int)
+ap.add_argument('--mock', nargs='*', type=int, default=[], help='a full mock\'s listening section (N2): sound-course-n2-m1.js …')
 ap.add_argument('--redo', nargs='*', default=[])
 ap.add_argument('--check', metavar='REPORT.json', help='write what a recogniser hears in each new clip to this file')
 ap.add_argument('--out', default=PROJECT, help='the folder the unit files are written to (default yaoki/project)')
+ap.add_argument('--onnx', metavar='DIR', help='use the ONNX build of the same voice model (kokoro-v1.0.onnx and '
+                'voices-v1.0.bin in DIR, from the kokoro-onnx releases on GitHub; needs kokoro-onnx in place of kokoro), '
+                'where Hugging Face cannot be reached')
+ap.add_argument('--asr', metavar='DIR', help='with --check: hear the clips with the two sherpa-onnx recognisers in DIR '
+                '(tools/asr_onnx.py) in place of faster-whisper')
 args = ap.parse_args()
 lv = args.level
 
 import jaconv  # noqa: E402
 import pyopenjtalk  # noqa: E402
-from kokoro import KPipeline  # noqa: E402  (slow to load: after the arguments are read)
-pipe = KPipeline(lang_code='j', repo_id='hexgrad/Kokoro-82M')
-KANA = pipe.g2p.cutlet  # misaki's table from kana to the voice model's phonemes
+if args.onnx:
+    import onnx  # noqa: E402
+    import onnxruntime  # noqa: E402
+    from kokoro_onnx import Kokoro  # noqa: E402
+    from misaki import ja  # noqa: E402
+    _onnx = Kokoro(os.path.join(args.onnx, 'kokoro-v1.0.onnx'), os.path.join(args.onnx, 'voices-v1.0.bin'))
+    # this build reports only the audio; the phonemes' predicted durations (KPipeline's pred_dur, rounded, at least 1)
+    # are a tensor inside it, made an output here so a word is cut out of its lead-in as with kokoro
+    _model = onnx.load(os.path.join(args.onnx, 'kokoro-v1.0.onnx'))
+    _model.graph.output.append(onnx.helper.make_tensor_value_info('/encoder/Clip_output_0', onnx.TensorProto.FLOAT, None))
+    _sess = onnxruntime.InferenceSession(_model.SerializeToString(), providers=['CPUExecutionProvider'])
+    del _model
+    _g2p = ja.JAG2P()
+    KANA = getattr(_g2p, 'cutlet', _g2p)  # misaki's table from kana to the voice model's phonemes (older misaki: itself)
+
+    def infer(ps, voice, speed):
+        """the model on one string of phonemes, as one piece (as KPipeline.infer runs it): (audio, durations)"""
+        tokens = _onnx.tokenizer.tokenize(ps)
+        style = _onnx.get_voice_style(voice)
+        audio, dur = _sess.run(['audio', '/encoder/Clip_output_0'], {
+            'tokens': np.array([[0, *tokens, 0]], dtype=np.int64),
+            'style': np.asarray(style[min(len(tokens), len(style)) - 1], dtype=np.float32),
+            'speed': np.array([speed], dtype=np.float32)})
+        return np.asarray(audio, np.float32).ravel(), np.asarray(dur).ravel()
+else:
+    from kokoro import KPipeline  # noqa: E402  (slow to load: after the arguments are read)
+    pipe = KPipeline(lang_code='j', repo_id='hexgrad/Kokoro-82M')
+    KANA = pipe.g2p.cutlet  # misaki's table from kana to the voice model's phonemes
+
+    def infer(ps, voice, speed):
+        """the model on one string of phonemes: (audio, the predicted duration of each phoneme, in model steps)"""
+        out = KPipeline.infer(pipe.model, ps, pipe.load_voice(voice), speed)
+        return out.audio.numpy(), np.asarray(out.pred_dur)
 
 
 def g2p(text):
@@ -134,10 +176,9 @@ def clean(text):
 
 
 def speak(text, voice, speed=1.0):
-    pack = pipe.load_voice(voice)
     pieces = [phonemes(s.strip(' 、')) for s in re.findall(r'[^。？！]+[。？！]?', clean(text)) if s.strip(' 、')]
     # a piece with no sounds (a lone 」) would come out as a burst of noise
-    return trim(np.concatenate([KPipeline.infer(pipe.model, p, pack, speed).audio.numpy() for p in pieces if p.strip(' ,.?!')]))
+    return trim(np.concatenate([infer(p, voice, speed)[0] for p in pieces if p.strip(' ,.?!')]))
 
 
 def trim(audio):
@@ -149,12 +190,11 @@ def trim(audio):
 def after_lead(text, voice):
     """a short word or a number, said as the second phrase of それは、… and cut out of it at the pause before it"""
     lead = phonemes(LEAD) + ' '
-    out = KPipeline.infer(pipe.model, lead + phonemes(clean(text)), pipe.load_voice(voice), 1.0)
-    audio = out.audio.numpy()
+    audio, dur = infer(lead + phonemes(clean(text)), voice, 1.0)
     # where the model's durations put the word's start (the start token, then one step per phoneme character of the
     # lead): the sound runs up to about 0.1 s ahead of it, so the cut is the end of the quietest stretch in the 0.25 s
     # before it, never after it (a っ or a stop inside the word is quiet too)
-    guess = int(np.asarray(out.pred_dur)[:1 + len(lead)].sum()) * FRAME // int(0.01 * SR)
+    guess = int(dur[:1 + len(lead)].sum()) * FRAME // int(0.01 * SR)
     fr = int(0.01 * SR)
     env = np.abs(audio[:len(audio) // fr * fr]).reshape(-1, fr).max(axis=1)
     lo, hi = max(0, guess - 25), max(1, min(len(env), guess + 1))
@@ -189,7 +229,7 @@ def listening(audio):
     numbered choice; a number and the narrator's own choice after it are one sentence"""
     parts, prev, i = [], None, 0
     while i < len(audio):
-        who, text, say = audio[i]
+        who, text, say = audio[i][:3]  # a fourth item, if any, is who it is in the script (母, 夫 …)
         line = line_text(text, say)
         num = who == 'N' and line in NUM
         alone = False
@@ -209,10 +249,21 @@ def listening(audio):
     return parts
 
 
-def course_units():
+def course_data():
     text = open(os.path.join(PROJECT, 'course-%s.js' % lv), encoding='utf-8').read()
-    data = json.loads(re.search(r'window\.__ykCourses\.\w+ = (\{.*\});\n', text).group(1))
-    return {u['n']: u for u in data['units']}
+    return json.loads(re.search(r'window\.__ykCourses\.\w+ = (\{.*\});\n', text).group(1))
+
+
+def jobs_of_mock(data, n):
+    """a full mock's listening parts: one clip for each part with lines, named by question and part (f1.72_talk)"""
+    out = []
+    full = next((f for f in data.get('fulls', []) if f['n'] == n), None)
+    for qid in (full or {}).get('items', []):
+        for p in data['items'][qid].get('parts') or []:
+            if p.get('lines'):
+                parts = listening(p['lines'])
+                out.append((qid + '_' + p['k'], parts, '／'.join(x[1] for x in parts if not isinstance(x, (int, float)))))
+    return out
 
 
 def jobs_of(unit):
@@ -266,8 +317,14 @@ recogniser = None
 
 
 def heard(data):
-    """what a recogniser hears in an MP3 clip"""
+    """what a recogniser hears in an MP3 clip (with --asr, what each of the two heard, the better one first)"""
     global recogniser
+    if args.asr:
+        if recogniser is None:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            from asr_onnx import Ears
+            recogniser = Ears(args.asr)
+        return ' / '.join(t for t in recogniser.heard(data).values())
     if recogniser is None:
         from faster_whisper import WhisperModel
         recogniser = WhisperModel('small', device='cpu', compute_type='int8')
@@ -282,23 +339,28 @@ def match(said, got):
     """how closely two texts read the same, from 0 to 1, compared as they sound in katakana"""
     import difflib
     kana = lambda t: sounds(pyopenjtalk.g2p(re.sub(r'[／。、？！「」]', ' ', t), kana=True))
-    a, b = kana(said), kana(got)
-    return round(difflib.SequenceMatcher(None, a, b, autojunk=False).ratio(), 2) if a and b else 0.0
+    ratio = lambda a, b: round(difflib.SequenceMatcher(None, a, b, autojunk=False).ratio(), 2) if a and b else 0.0
+    # two recognisers' texts (--asr): the closer one counts
+    return max(ratio(kana(said), kana(g)) for g in got.split(' / '))
 
 
-units = course_units()
+DATA = course_data()
+units = {u['n']: u for u in DATA['units']}
 report = json.load(open(args.check, encoding='utf-8')) if args.check and os.path.exists(args.check) else {}
 named = set()
+targets = []
 for n in args.units:
     if n not in units:
         print('no unit %d in course-%s.js' % (n, lv))
         continue
-    path = os.path.join(args.out, 'sound-course-%s-u%02d.js' % (lv, n))
+    targets.append(('unit %d' % n, os.path.join(args.out, 'sound-course-%s-u%02d.js' % (lv, n)), jobs_of(units[n])))
+for n in args.mock:
+    targets.append(('mock %d' % n, os.path.join(args.out, 'sound-course-%s-m%d.js' % (lv, n)), jobs_of_mock(DATA, n)))
+for what, path, jobs in targets:
     have = held(path)
-    jobs = jobs_of(units[n])
     named |= {k for k, _, _ in jobs}
     if not jobs:
-        print('unit %d has no written days: %s left as it is' % (n, os.path.relpath(path, ROOT)))
+        print('%s has nothing to say: %s left as it is' % (what, os.path.relpath(path, ROOT)))
         continue
     keep, made, old = {}, 0, 0
     for key, parts, said in jobs:
