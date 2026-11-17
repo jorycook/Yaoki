@@ -700,6 +700,12 @@ async function waitFor(fn, ms = 5000) {
   check('the round starts its music, quietly at first', ms.includes('start:' + s.song) && ms.includes('level:0') && !!s.song, ms.join(' '));
   check('the round is played in a scene', !!s.scene === !!(await page.evaluate(() => window.TypingScenes)), String(s.scene));
   check('Yaoki says something as the round starts', !!s.yaoki.bubble, JSON.stringify(s.yaoki));
+  // the stubbed music has no beat, so he keeps the route's pace
+  const steps0 = s.yaoki.steps;
+  check('he trots in place while the world moves', await waitFor(async () => {
+    const y = (await state(page)).yaoki;
+    return y.act === 'trot' && y.steps >= steps0 + 2;
+  }, 2500), JSON.stringify((await state(page)).yaoki));
   // each card is typed once Yaoki is free, so it gets its own trick when it reaches him
   const free = () => waitFor(async () => {
     const st = await state(page);
@@ -717,6 +723,8 @@ async function waitFor(fn, ms = 5000) {
   await free();
   const c6 = await target(page);
   await page.keyboard.press('1');
+  check('a miss makes him flinch', (await state(page)).yaoki.flinches === 1 && await waitFor(async () => (await state(page)).yaoki.act === 'flinch', 250),
+    JSON.stringify((await state(page)).yaoki));
   await page.keyboard.type(c6.key, { delay: 20 });
   check('cleared cards ride on to Yaoki and he gets past each with a trick', await waitFor(async () => {
     const tr = (await state(page)).tricks;
@@ -733,7 +741,13 @@ async function waitFor(fn, ms = 5000) {
   const fallCard = await target(page);
   await waitFor(async () => (await state(page)).falling, 25000);
   check('a fall drops the music back', (await musicLog(page)).includes('cue:fall'));
+  const down = (await state(page)).yaoki;
+  await sleep(500);
+  const lying = (await state(page)).yaoki;
+  check('while he is down the world waits, and he takes no steps', lying.act === 'fall' && lying.steps === down.steps, JSON.stringify({ down, lying }));
   await waitFor(async () => !(await state(page)).falling, 5000);
+  const upHop = await waitFor(async () => (await state(page)).yaoki.act === 'hop', 1000);
+  check('…he gets up with a hop and trots on', upHop && await waitFor(async () => (await state(page)).yaoki.steps > lying.steps, 3000), JSON.stringify((await state(page)).yaoki));
   check('…and the groove comes back after it', (await musicLog(page)).slice(-3).some((x) => x === 'level:1'), (await musicLog(page)).slice(-4).join(' '));
   await playOut(page, async () => {
     await free();
@@ -742,6 +756,7 @@ async function waitFor(fn, ms = 5000) {
   }, 150000);
   const done = (await state(page)).tricks;
   check('he does each trick: jump, spin in a run of five, duck after a slip, smash for a comeback', done.jump >= 1 && done.spin >= 1 && done.duck >= 1 && done.smash >= 1, JSON.stringify({ done, fell: fallCard.text }));
+  check('…and stands still as the world stops at the end', (await state(page)).yaoki.act === 'stand', JSON.stringify((await state(page)).yaoki));
   ms = await musicLog(page);
   check('the last card and the end have their music', ms.includes('cue:last') && ms.includes('cue:end'), ms.slice(-6).join(' '));
   check('the scene drew all round without failing', !(await state(page)).sceneFailed && !(await page.evaluate(() => !!(window.TypingScenes && window.TypingScenes.draw.warned))));
@@ -833,7 +848,11 @@ async function waitFor(fn, ms = 5000) {
   check('…its weak spots and best are kept', /\(1\)/.test(await page.textContent('#start-weak')) && (await stored(page)).best['symbol:plain'] === 55);
   await page.click('#start');
   await sleep(5000);
+  check('with no key for a while, Yaoki fidgets', (await state(page)).yaoki.fidgets >= 1, JSON.stringify((await state(page)).yaoki));
   await page.keyboard.press('1');
+  // a wrong key here: he flinches, then is back with the card, not fidgeting
+  await sleep(400);
+  check('…and the next key brings him back', !['idle', 'yawn'].includes((await state(page)).yaoki.act), JSON.stringify((await state(page)).yaoki));
   await page.keyboard.down('Shift');
   // a held key's repeats are not typing
   for (let i = 0; i < 100; i++) {
@@ -907,14 +926,16 @@ async function waitFor(fn, ms = 5000) {
     s = await state(page);
     check('Tab skips the waiting card', s.skipped === 1);
     check('the bar counts the skipped card', (await page.getAttribute('#progress', 'aria-label')) === 'Card ' + Math.min(s.cleared + 2, s.total) + ' of ' + s.total);
-    // without motion: no ink, no hop
+    // without motion: no ink, no hop, and Yaoki stays where he is
     let inked = 0;
     let rm = null;
+    const acts = new Set();
     await playOut(page, async (c) => {
       await page.keyboard.type(c.key, { delay: 20 });
       for (let i = 0; i < 4; i++) {
         rm = await state(page);
         inked = Math.max(inked, rm.fx);
+        acts.add(rm.yaoki.act);
         await sleep(50);
       }
     });
@@ -922,6 +943,8 @@ async function waitFor(fn, ms = 5000) {
     check('with reduced motion, stamps land without ink and Yaoki does not hop', inked === 0 && rm && rm.yaoki.liftMax === 0 && (rm.comebacks > 0 || rm.bestRun >= 5),
       JSON.stringify({ inked, lift: rm && rm.yaoki.liftMax, comebacks: rm && rm.comebacks, bestRun: rm && rm.bestRun }));
     check('…and does no tricks: cleared cards simply settle', rm && Object.values(rm.tricks).every((n) => n === 0), JSON.stringify(rm && rm.tricks));
+    check('…and takes no steps, does not flinch at a miss and does not fidget', rm && rm.yaoki.steps === 0 && rm.yaoki.flinches === 0 && rm.yaoki.fidgets === 0
+      && [...acts].every((a) => a === 'stand' || a === 'fall'), JSON.stringify({ yaoki: rm && rm.yaoki, acts: [...acts] }));
     check('the result says a card was skipped', /skipped/.test(await page.textContent('#res-falls-en')) && /skipped/.test(await page.textContent('#res-line')));
     const was = before.symbol && before.symbol[waitingKey] ? before.symbol[waitingKey].miss : 0;
     const now = ((await stored(page)).stats.symbol || {})[waitingKey];
