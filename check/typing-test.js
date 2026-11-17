@@ -859,12 +859,20 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('Escape');
   check('…its weak spots and best are kept', /\(1\)/.test(await page.textContent('#start-weak')) && (await stored(page)).best['symbol:plain'] === 55);
   await page.click('#start');
-  await sleep(5000);
-  check('with no key for a while, Yaoki fidgets', (await state(page)).yaoki.fidgets >= 1, JSON.stringify((await state(page)).yaoki));
+  const startedAt = Date.now();
+  // nothing typed: once a little while has passed with the card still far off, he idles and fidgets
+  await waitFor(async () => { const y = (await state(page)).yaoki; return y.idle && y.fidgets >= 1; }, 5000);
+  const waited = (await state(page)).yaoki;
+  check('with no key for a while, Yaoki fidgets', waited.idle && waited.fidgets >= 1, JSON.stringify(waited));
+  // a wrong key while he idles: he flinches, and is back with the card at once
   await page.keyboard.press('1');
-  // a wrong key here: he flinches, then is back with the card, not fidgeting
+  await sleep(150);
+  const roused = (await state(page)).yaoki;
+  check('…and the next key brings him back', !roused.idle && !['idle', 'yawn'].includes(roused.act) && roused.flinches > waited.flinches, JSON.stringify(roused));
+  // the last key 5 seconds into the round, for the typing time below
+  await sleep(Math.max(0, 5000 - (Date.now() - startedAt)));
+  await page.keyboard.press('1');
   await sleep(400);
-  check('…and the next key brings him back', !['idle', 'yawn'].includes((await state(page)).yaoki.act), JSON.stringify((await state(page)).yaoki));
   await page.keyboard.down('Shift');
   // a held key's repeats are not typing
   for (let i = 0; i < 100; i++) {

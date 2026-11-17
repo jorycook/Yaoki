@@ -1789,7 +1789,7 @@
 
   // ---------- sound effects (sfx.js) and music (music.js) ----------
   // Quiet plays a stamp for each card, a drum for a fall, a bounce for getting up and a sound for each trick; All
-  // also knocks when the phone heard another word, and ticks as it hears the word coming. The audio output is only
+  // also buzzes softly when the phone heard another word, and ticks as it hears the word coming. The audio output is only
   // ever made in a tap.
 
   let sfxReady = false;

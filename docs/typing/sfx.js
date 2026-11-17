@@ -29,7 +29,7 @@
   // How loud. A page that says nothing gets the quiet mix: Yaoki Speaking, which listens to the
   // microphone while its music plays, with no master chain. Yaoki Typing asks for the loud one
   // (mix()): the effects and the music turned up, through the master chain.
-  const QUIET = { fx: 0.4, music: 1, limit: false };
+  const QUIET = { fx: 0.46, music: 1, limit: false };   // as loud as before the new effects (measured)
   let level = QUIET;
 
   // The loud mix's master chain, set by measurement: the glue compressor (which adds about 6 dB
@@ -116,8 +116,9 @@
     return ir;
   }
   // The shared room on a context: its input, or null if the browser cannot make one. On a live
-  // output the convolver (whose setting up takes the browser some milliseconds) is put in on
-  // the next turn, so the key that made the output sounds at once.
+  // output the room is filled in two idle moments (the impulse, then the convolver, each some
+  // milliseconds of work), so that neither the key that made the output nor the music's first
+  // notes wait for it; till then the sounds are dry.
   function room(ctx, dest, live) {
     try {
       if (!ctx.createConvolver) return null;
@@ -145,17 +146,34 @@
           // no room: the sounds stay dry
         }
       };
-      if (live) setTimeout(fill, 0);
-      else fill();
+      if (live) {
+        idle(() => {
+          try {
+            if (ctx.state !== 'closed') impulse(ctx.sampleRate);
+          } catch (err) {
+            // made in fill() instead
+          }
+          idle(fill);
+        });
+      } else {
+        fill();
+      }
       return input;
     } catch (err) {
       return null;
     }
   }
+  // Run `fn` when the page has a moment to spare (soon in any case).
+  function idle(fn) {
+    if (window.requestIdleCallback) window.requestIdleCallback(fn, { timeout: 300 });
+    else setTimeout(fn, 150);
+  }
 
   // An output on a context, for the mix `lv`: the effects' gain (master) and the music's (bus),
-  // the places (stereo panners into master), the shared room and, in the loud mix, the master
-  // chain: high-pass -> glue compressor -> drive -> saturation -> limiter.
+  // the places (stereo panners into master), the shared room, fed through gains of its own
+  // that follow master and bus (so the room's share of each stays the same in any mix), and,
+  // in the loud mix, the master chain: high-pass -> glue compressor -> drive -> saturation ->
+  // limiter.
   function build(ctx, lv, live) {
     let dest = ctx.destination;
     if (lv.limit) {
@@ -178,7 +196,13 @@
     o.master.connect(dest);
     o.bus = gainOf(ctx, lv.music);
     o.bus.connect(dest);
-    o.verb = room(ctx, dest, live);
+    const verb = room(ctx, dest, live);
+    o.verbFx = verb && gainOf(ctx, lv.fx);
+    o.verbMusic = verb && gainOf(ctx, lv.music);
+    if (verb) {
+      o.verbFx.connect(verb);
+      o.verbMusic.connect(verb);
+    }
     if (ctx.createStereoPanner) {
       for (const k of Object.keys(PLACE)) {
         const p = PLACE[k];
@@ -334,9 +358,9 @@
     // pitch, level and tone vary a little), a little higher as the streak grows
     key(x, t, o) {
       const f = vary(0.03) * Math.pow(2, Math.min(o.streak || 0, 30) / 120), lv = varyDb(1.5), ff = vary(0.06);
-      hiss(x, 4600 * f * ff, 1.1, t, 0.01, 0.08 * lv, 'bandpass', { from: 0.5 });
-      tone(x, 'sine', 2350 * f * ff, 2250 * f * ff, t, 0.03, 0.026 * lv);
-      tone(x, 'triangle', 1800 * f, 1620 * f, t, 0.04, 0.044 * lv);
+      hiss(x, 4600 * f * ff, 1.1, t, 0.01, 0.086 * lv, 'bandpass', { from: 0.5 });
+      tone(x, 'sine', 2350 * f * ff, 2250 * f * ff, t, 0.03, 0.028 * lv);
+      tone(x, 'triangle', 1800 * f, 1620 * f, t, 0.04, 0.047 * lv);
     },
     // a wrong key: a short, soft "bu-bu", the second lower, its edges dulled
     miss(x, t) {
@@ -347,9 +371,9 @@
     // each a little different, then a bright "pon" in the song's key, higher as the run grows
     clear(x, t, o) {
       const f = vary(0.04), lv = varyDb(1);
-      hiss(x, 2400 * vary(0.08), 1, t, 0.03, 0.4 * lv);
+      hiss(x, 2400 * vary(0.08), 1, t, 0.03, 0.8 * lv);
       tone(x, 'triangle', 640 * f, 430 * f, t, 0.07, 0.38 * lv);
-      tone(x, 'sine', 165 * f, 90, t, 0.09, 0.32 * lv);
+      tone(x, 'sine', 165 * f, 90, t, 0.09, 0.24 * lv);
       const S = x.notes, i = Math.min(S.length - 1, 5 + Math.min(o.streak || 0, 9));
       tone(x, 'triangle', S[i], S[i], t + 0.03, 0.26, 0.24, { wet: 0.35 });
       tone(x, 'sine', S[i] * 2, S[i] * 2, t + 0.03, 0.18, 0.095, { wet: 0.35 });
@@ -358,26 +382,26 @@
     streak(x, t, o) {
       const S = x.notes, base = Math.min(S.length - 3, 5 + (o.step || 0) * 2);
       for (let k = 0; k < 3; k++) {
-        tone(x, 'triangle', S[base + k], S[base + k], t + k * 0.07, 0.22, 0.13, { wet: 0.4 });
-        tone(x, 'sine', S[base + k] * 2, S[base + k] * 2, t + k * 0.07, 0.14, 0.04, { wet: 0.4 });
+        tone(x, 'triangle', S[base + k], S[base + k], t + k * 0.07, 0.22, 0.13, { wet: 0.3 });
+        tone(x, 'sine', S[base + k] * 2, S[base + k] * 2, t + k * 0.07, 0.14, 0.04, { wet: 0.3 });
       }
     },
     // a golden card cleared: a koban's ring
     gold(x, t) {
       const S = x.notes;
       for (const [k, i] of [[0, 14], [0.06, 16], [0.12, 17]]) {
-        tone(x, 'sine', S[i], S[i], t + k, 0.4, 0.07, { wet: 0.5 });
-        tone(x, 'sine', S[i] * 1.5, S[i] * 1.5, t + k, 0.18, 0.02, { wet: 0.5 });
+        tone(x, 'sine', S[i], S[i], t + k, 0.4, 0.07, { wet: 0.32 });
+        tone(x, 'sine', S[i] * 1.5, S[i] * 1.5, t + k, 0.18, 0.02, { wet: 0.32 });
       }
     },
     // Yaoki falls: a taiko "don" (the stick's slap and click, the skin's tone sagging, a short
     // deep thump) and the knock of his wooden body
     fall(x, t) {
-      hiss(x, 1300, 0.8, t, 0.09, 0.55);
-      hiss(x, 3600, 1.4, t, 0.015, 0.3);
+      hiss(x, 1300, 0.8, t, 0.09, 1);
+      hiss(x, 3600, 1.4, t, 0.015, 0.6);
       tone(x, 'triangle', 300, 170, t, 0.25, 0.42);
       tone(x, 'triangle', 470, 330, t, 0.15, 0.28);
-      tone(x, 'sine', 125, 58, t, 0.2, 0.38);
+      tone(x, 'sine', 125, 58, t, 0.2, 0.28);
       tone(x, 'triangle', 880, 700, t + 0.12, 0.06, 0.12);
     },
     // he is up again: a little two-note bounce
@@ -389,26 +413,26 @@
     },
     // Yaoki jumps over a cleared card: a hop off the ground and a springy boing
     jump(x, t) {
-      hiss(x, 1500, 1.2, t, 0.03, 0.1);
-      tone(x, 'triangle', 280, 660, t, 0.17, 0.18, { wet: 0.15 });
-      tone(x, 'sine', 560, 1320, t, 0.13, 0.08, { wet: 0.15 });
+      hiss(x, 1500, 1.2, t, 0.03, 0.14);
+      tone(x, 'triangle', 280, 660, t, 0.17, 0.25, { wet: 0.2 });
+      tone(x, 'sine', 560, 1320, t, 0.13, 0.11, { wet: 0.2 });
     },
     // he spins over one: three bright notes of the scale, quickly, and the air swirling
     spin(x, t) {
       const S = x.notes;
-      for (let k = 0; k < 3; k++) tone(x, 'triangle', S[8 + k], S[8 + k], t + k * 0.05, 0.15, 0.085, { wet: 0.3 });
-      hiss(x, 3000, 2.5, t, 0.18, 0.04, 'bandpass', { to: 6000 });
+      for (let k = 0; k < 3; k++) tone(x, 'triangle', S[8 + k], S[8 + k], t + k * 0.05, 0.15, 0.12, { wet: 0.3 });
+      hiss(x, 3000, 2.5, t, 0.18, 0.055, 'bandpass', { to: 6000 });
     },
     // he ducks while it sails over: a paper whoosh going by
     duck(x, t) {
-      hiss(x, 2400, 1.4, t, 0.32, 0.13, 'bandpass', { to: 500, rise: 0.08 });
+      hiss(x, 2400, 1.4, t, 0.32, 0.18, 'bandpass', { to: 500, rise: 0.08 });
     },
     // he smashes through one: a short thump and the paper tearing in ragged bursts
     smash(x, t) {
-      tone(x, 'sine', 140, 55, t, 0.12, 0.3);
+      tone(x, 'sine', 140, 55, t, 0.12, 0.22);
       tone(x, 'triangle', 380, 220, t, 0.09, 0.3);
-      for (let k = 0; k < 5; k++) hiss(x, 1300 + 1500 * Math.random(), 1.4, t + 0.014 * k + 0.006 * Math.random(), 0.05, 0.3 * (1 - 0.13 * k));
-      hiss(x, 4200, 1.2, t + 0.02, 0.12, 0.13);
+      for (let k = 0; k < 5; k++) hiss(x, 1300 + 1500 * Math.random(), 1.4, t + 0.014 * k + 0.006 * Math.random(), 0.05, 0.42 * (1 - 0.13 * k));
+      hiss(x, 4200, 1.2, t + 0.02, 0.12, 0.2);
     },
     // a card skipped or a power used: a soft paper swish
     swish(x, t) {
@@ -417,14 +441,14 @@
     // the round's stamp lands on the result: paper, wood and a thump, then a short phrase in
     // the song's key that rises with the tier
     result(x, t, o) {
-      hiss(x, 2200, 1, t, 0.04, 0.32);
+      hiss(x, 2200, 1, t, 0.04, 0.64);
       tone(x, 'triangle', 540, 340, t, 0.09, 0.3);
-      tone(x, 'sine', 150, 75, t, 0.11, 0.26);
+      tone(x, 'sine', 150, 75, t, 0.11, 0.2);
       const S = x.notes, tier = o.tier || 0;
       const steps = tier === 0 ? [5, 7, 8, 10] : tier === 1 ? [5, 7, 8] : [5, 6];
       steps.forEach((n, k) => {
-        tone(x, 'triangle', S[n], S[n], t + 0.12 + k * 0.1, 0.32, 0.13, { wet: 0.4 });
-        tone(x, 'sine', S[n] * 2, S[n] * 2, t + 0.12 + k * 0.1, 0.2, 0.035, { wet: 0.4 });
+        tone(x, 'triangle', S[n], S[n], t + 0.12 + k * 0.1, 0.32, 0.13, { wet: 0.5 });
+        tone(x, 'sine', S[n] * 2, S[n] * 2, t + 0.12 + k * 0.1, 0.2, 0.035, { wet: 0.5 });
       });
     },
   };
@@ -432,7 +456,7 @@
   // Play `name` on an output at time `at`, from its place.
   function sound(o, name, at, opts) {
     const p = PLACE[name];
-    const x = { ctx: o.ctx, out: (p && o.place[p]) || o.master, verb: o.verb, noise: noise(o), notes: scale() };
+    const x = { ctx: o.ctx, out: (p && o.place[p]) || o.master, verb: o.verbFx, noise: noise(o), notes: scale() };
     SOUNDS[name](x, at, opts);
   }
 
@@ -467,6 +491,10 @@
       else if (out) {
         out.master.gain.value = level.fx;
         out.bus.gain.value = level.music;
+        if (out.verbFx) {
+          out.verbFx.gain.value = level.fx;
+          out.verbMusic.gain.value = level.music;
+        }
       }
     },
     // Wake the output; call it from a key press or a click.
@@ -475,11 +503,11 @@
     },
     sleep,
     // The output for the page's other sounds (the music): its context, a bus to play into and
-    // the shared room's input (verb, or null), or null while there is none (made only by
-    // unlock(), in a key press or click).
+    // the shared room's input for it (verb, or null; it follows the bus's gain), or null while
+    // there is none (made only by unlock(), in a key press or click).
     audio() {
       const c = out ? context() : null;
-      return c ? { ctx: c, out: out.bus, verb: out.verb } : null;
+      return c ? { ctx: c, out: out.bus, verb: out.verbMusic } : null;
     },
     // Plays on an output a key press or click has made: never makes one by itself.
     play(name, opts) {
@@ -503,7 +531,7 @@
     _output(ctx, o) {
       const p = build(ctx, o ? mixOf(o) : level);
       return {
-        ctx, out: p.bus, verb: p.verb,
+        ctx, out: p.bus, verb: p.verbMusic,
         play(name, opts, at) {
           if (SOUNDS[name]) sound(p, name, at, opts || {});
         },

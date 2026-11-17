@@ -126,11 +126,11 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 
 /* play */
 /* The lines under the game are read at a glance while typing, so they are set large, and
-   larger on taller windows: --u is a pixel at 768px tall, from 0.9 to 1.3 of one. The game
+   larger on taller windows: --u is a pixel at 768px tall, from 0.9 to 1.6 of one. The game
    window takes the height left by the bar over it, the lines (a row each, and --info-extra
    when the round's longest word needs more), the keyboard (--kb) and the gaps, and on taller
    windows grows a little too. */
-#play { display: flex; flex-direction: column; gap: 8px; --u: clamp(0.9px, calc(100svh / 768), 1.3px); --kb: 220px; }
+#play { display: flex; flex-direction: column; gap: 8px; --u: clamp(0.9px, calc(100svh / 768), 1.6px); --kb: 220px; }
 .hud { display: flex; align-items: center; gap: 8px; min-height: 48px; }
 .icon-btn { flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; margin-left: -10px; }
 .segs { flex: 1; min-width: 60px; display: flex; gap: 4px; }
@@ -147,13 +147,16 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .chip.zero { color: var(--muted); }
 .chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
 .chip.step .hm { stroke: #C7361E; }
-.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 118px - var(--kb) - 108 * var(--u) - var(--info-extra, 0px)), calc(200px + 160 * var(--u))); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
-body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 112px - 76 * var(--u) - var(--info-extra, 0px)), calc(240px + 160 * var(--u))); }
+.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 118px - var(--kb) - 108 * var(--u) - var(--info-extra, 0px)), calc(200px + 180 * var(--u))); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
+body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 112px - 76 * var(--u) - var(--info-extra, 0px)), calc(240px + 180 * var(--u))); }
 body.playing .bar, body.playing .foot-links { display: none; }
 body.playing #app { padding-top: 8px; padding-bottom: 12px; }
 #stage { display: block; width: 100%; height: 100%; }
-.info { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; min-height: calc(42 * var(--u)); margin: 0; font-size: calc(23 * var(--u)); font-weight: 700; color: var(--muted); }
+.info { display: flex; flex-wrap: wrap; align-items: baseline; align-content: flex-start; gap: 2px 16px; min-height: calc(42 * var(--u)); margin: 0; font-size: calc(23 * var(--u)); font-weight: 700; color: var(--muted); }
 .info .info-ja { font-family: var(--jp); font-size: calc(29 * var(--u)); font-weight: 600; color: var(--ink); }
+/* a kanji card's reading (shown, or its room kept) is set at the meaning's size: it is on the
+   card as furigana too, and so a long sentence's line stays on two rows */
+.info .info-ja + .info-ja { font-size: calc(23 * var(--u)); }
 .status { min-height: calc(34 * var(--u)); margin: 0; font-size: calc(23 * var(--u) * var(--fit, 1)); font-weight: 800; }
 .status.bad { color: var(--bad); }
 .status.warn { color: var(--stamp); }

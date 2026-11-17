@@ -27,7 +27,7 @@
  *   TypingMusic.stop(fade = 0.4)   fade out and stop
  *   TypingMusic.pause() / resume() keep the place / go on (from the bar's start on a new output)
  *   TypingMusic.setLevel(0..3)     0 sparse, 1 groove, 2 + tune, 3 + counter-melody; next beat
- *   TypingMusic.duck(seconds)      dip by about 14 dB meanwhile (a spoken word is heard first)
+ *   TypingMusic.duck(seconds)      dip by about 20 dB meanwhile (a spoken word is heard first)
  *   TypingMusic.cue(name)          'step', 'fall', 'last' or 'end', on the next beat
  *   TypingMusic.volume(v)          0..1 (0.6 at first; 0 mutes); returns the volume
  *   TypingMusic.state()            { playing, paused, song, level, bpm, heard, section, bar,
@@ -44,13 +44,13 @@
   const LOOKAHEAD = 0.12;   // seconds of notes placed ahead of the audio clock
   const TICK = 25;          // ms between scheduler runs
   const TRIM = 0.17;        // the bus's level after the compressor (set by measurement)
-  const WET = 2 * TRIM;     // the room sends' level: TRIM and about the compressor's make-up gain
-  const DUCK = 0.2;         // the music's level under a spoken word
+  const WET = 1.6 * TRIM;   // the room sends' level: TRIM and some of the compressor's make-up gain
+  const DUCK = 0.1;         // the music's level under a spoken word (-20 dB: the word comes first)
   const TOP = 1.2;          // a bass note's upper layer, beside the note
   const DEFAULT_VOLUME = 0.6;
   const BRIGHT = [0.8, 1, 1.08, 1.32];   // filter brightness by level
   const SHINE = [-3, 0, 0.5, 2.5];       // high-shelf gain (dB) by level
-  const LEVEL_GAIN = [0.85, 0.9, 1, 1.1]; // the whole mix grows a little with each level
+  const LEVEL_GAIN = [0.9, 1.15, 1, 1]; // the mix's gain by level (a song's `low` lifts levels 0-1)
   const VEL = { X: 1, x: 0.7, o: 0.38 };
   const IDX = '0123456789abcdefghij';
 
@@ -67,9 +67,9 @@
     {
       id: 'matsuri', ja: 'お祭り', en: 'Festival', bpm: 140, swing: 0,
       scale: [0, 2, 5, 7, 9],                       // yo scale on D: D E G A B
-      end: 'D5', roll: 'shime', gain: 0.93,
+      end: 'D5', roll: 'shime', gain: 0.93, low: 1.1,
       echo: [3, 0.26, 0.2],
-      mix: { drums: 1, perc: 1.02, bass: 0.85, comp: 0.99, lead: 0.97, counter: 0.54 },
+      mix: { drums: 1, perc: 1.02, bass: 0.72, comp: 0.99, lead: 0.97, counter: 0.54 },
       chords: {
         A: ['D5', 'D5', 'G', 'Asus4', 'D5', 'D5', 'Em7', 'Asus4'],
         B: ['G', 'Asus4', 'Em7', 'D5', 'G', 'Asus4', 'Em7', 'Asus4'],
@@ -155,9 +155,9 @@
     {
       id: 'take', ja: '竹', en: 'Bamboo', bpm: 108, swing: 0,
       scale: [0, 2, 3, 7, 8],                       // hirajoshi (a koto tuning) on A: A B C E F
-      end: 'Am', roll: 'shime', gain: 1.27,
+      end: 'Am', roll: 'shime', gain: 1.27, low: 1.41,
       echo: [3, 0.34, 0.28],
-      mix: { drums: 0.8, snare: 1.4, perc: 1.8, bass: 0.45, comp: 0.5, lead: 0.7, counter: 0.35 },
+      mix: { drums: 0.8, snare: 1.75, perc: 1.8, bass: 0.45, comp: 0.5, lead: 0.7, counter: 0.35 },
       chords: {
         A: ['Am', 'FM7', 'Am', 'Esus4'],
         B: ['FM7', 'Dm7', 'Am', 'Esus4', 'FM7', 'Dm7', 'Esus4', 'E5'],
@@ -183,9 +183,9 @@
     {
       id: 'uchu', ja: '宇宙', en: 'Space', bpm: 128, swing: 0,
       scale: [0, 3, 5, 7, 10],                      // min'yō scale on D: D F G A C
-      end: 'Dm', endVoice: 'bell', roll: 'snare', gain: 1.34,
+      end: 'Dm', endVoice: 'bell', roll: 'snare', gain: 1.34, low: 1.6,
       echo: [3, 0.4, 0.3],
-      mix: { drums: 1, perc: 0.54, bass: 0.61, comp: 0.64, lead: 1, counter: 0.27 },
+      mix: { drums: 0.8, perc: 0.54, bass: 0.32, comp: 0.8, lead: 1, counter: 0.27 },
       chords: {
         A: ['Dm', 'BbM7', 'C', 'Am'],
         B: ['Gm7', 'Am7', 'BbM7', 'C', 'Gm7', 'Am7', 'BbM7', 'C7sus4'],
@@ -865,7 +865,7 @@
   // reverb), so the room's share fades, dips and turns down with the rest.
   const MIX = { drums: 0.13, snare: 0.17, perc: 0.24, bass: 0.07, comp: 0.13, lead: 0.065, counter: 0.08, fx: 0.07 };
   const PAN = { drums: 0, snare: 0.06, perc: 0.3, bass: 0, comp: -0.38, lead: -0.16, counter: 0.42, fx: 0 };
-  const ROOM = { snare: 0.3, perc: 0.25, comp: 0.3, lead: 0.35, counter: 0.45, fx: 0.4 };
+  const ROOM = { snare: 0.3, perc: 0.25, comp: 0.22, lead: 0.28, counter: 0.3, fx: 0.35 };
   function makeBus(ctx, dest, def, volume, verb) {
     const nodes = [];
     const gain = (v) => {
@@ -875,7 +875,7 @@
       return g;
     };
     const x = { ctx, r: resources(ctx), bright: 1, seed: 0, nodes, part: {}, lv: {}, wet: null };
-    x.mix = gain((def.gain || 1) * LEVEL_GAIN[1]);
+    x.mix = gain(levelGain(def, 1));
     x.shine = ctx.createBiquadFilter();
     x.shine.type = 'highshelf';
     x.shine.frequency.value = 3200;
@@ -958,11 +958,18 @@
     pan(wet, -0.15);
     return x;
   }
+  // A song's gain at a level. There is no tune before level 2, and a song whose groove is thin
+  // without it has its own lift for levels 0 and 1 (`low`), so every song sounds about as loud
+  // while a run is young (about -24 LUFS at level 1 in Yaoki Typing, -20 at level 3; set by
+  // measurement).
+  function levelGain(def, level) {
+    return (def.gain || 1) * LEVEL_GAIN[level] * (level <= 1 ? def.low || 1 : 1);
+  }
   // The fader, the ducker or the volume of a bus: on its dry sound and on its room sends alike.
   const stage = (x, name) => (x.wet ? [x[name].gain, x.wet[name].gain] : [x[name].gain]);
   // The mix's level and brightness for a level of the song: now, or from time t.
   function levelBus(x, def, level, t) {
-    const g = (def.gain || 1) * LEVEL_GAIN[level];
+    const g = levelGain(def, level);
     const set = (prm, v) => {
       if (t === undefined) prm.value = v;
       else prm.setTargetAtTime(v, t, 0.08);
@@ -1432,7 +1439,7 @@
       }
     },
 
-    // Dip the music to a quarter for `seconds` (a spoken clip plays meanwhile).
+    // Dip the music by about 20 dB for `seconds` (a spoken clip plays meanwhile).
     duck(seconds) {
       try {
         const s = Math.min(Math.max(Number(seconds) || 0, 0), 30);
