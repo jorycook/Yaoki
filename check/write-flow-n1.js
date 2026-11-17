@@ -1,6 +1,7 @@
 // The N1 app's kanji and words lesson with its writing practice, end to end with a finger, on a day of the sample plan:
 // each kanji written three times in its sheet before the next one opens and before the words; the words of two kanji or
-// more written one kanji at a time before the quiz; then the lesson opened again with everything written.
+// more written one kanji at a time before the quiz; then the lesson opened again with everything written. On the first
+// kanji the stroke order is cut short (write-helpers.js replayCut).
 // usage: YK_LEVEL=N1 bash run.sh write-flow-n1.js        (the design canvas's runtime)
 //        YK_LEVEL=N1 bash run-app.sh write-flow-n1.js    (the app build)
 // DAY=n takes another day of the sample plan (17 by default, a day with kanji and words).
@@ -8,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const { openBoard, inspect, site } = require('./rt-check.js');
-const { padState, writeOut } = require('./write-helpers.js');
+const { padState, writeOut, replayCut } = require('./write-helpers.js');
 
 const DAY = +(process.env.DAY || 17);
 const fail = [];
@@ -46,6 +47,12 @@ const ok = (cond, what) => { if (!cond) { fail.push(what); console.log('  FAIL '
       const p = await padState(page);
       modes.push(p && p.mode);
       ok(p && p.c === c, `sheet ${n + 1}: the pad holds ${c} (has ${p && p.c})`);
+      if (n === 0 && rep === 0) {
+        /* the stroke order cut short (started over part-way, and the next time started while it plays): what is written
+           next is seen, and the panel does not stay lit. It writes this first time out */
+        for (const s of await replayCut(page, cdp)) ok(false, 'stroke order cut short: ' + s);
+        continue;
+      }
       await writeOut(page, cdp);
     }
     ok(modes.join(',') === 'trace,faint,memory', `sheet ${n + 1}: traced, faint, from memory (was ${modes.join(',')})`);

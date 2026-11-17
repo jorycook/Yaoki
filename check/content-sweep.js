@@ -1,6 +1,9 @@
 // Every written day, every answer: opens each lesson screen of each written day, gives every possible answer,
-// and checks that each explanation fits on the screen with nothing cut off and no runtime errors.
-// Then the notebook and its review with every item in it. This is the layout check new content must pass.
+// and checks that each explanation fits on the screen with nothing cut off, no runtime errors and no text markup
+// printed as it is ([base|reading], {…}, _…_, ^…^: rt-check.js, RAW), and that a reading question too long for the screen
+// scrolls without squeezing the Check button under it.
+// Then the notebook and its review with every item in it, each question drawn at a size its text can be read at.
+// This is the layout check new content must pass.
 // usage: bash run-app.sh content-sweep.js   or   bash run.sh content-sweep.js   (DAYS=u03d4,u03d5 to limit it)
 const fs = require('fs');
 const path = require('path');
@@ -35,6 +38,32 @@ const SCENE = process.env.ONLY === 'scene';
       console.log(`PROBLEMS ${label}: ` + JSON.stringify({ e: info.errors, i: info.issues.slice(0, 4), u: info.unresolved, c: logs.slice(0, 3) }));
       await page.screenshot({ path: path.join(out, 'cs-' + label.replace(/[^a-z0-9]+/gi, '-') + '.png') });
     }
+  };
+  const flag = async (page, label, what) => {
+    problems += 1;
+    console.log(`PROBLEMS ${label}: ${what}`);
+    await page.screenshot({ path: path.join(out, 'cs-' + label.replace(/[^a-z0-9]+/gi, '-') + '.png') });
+  };
+  /* a long question scrolls in its own box: what the design gives a height of its own (the Check button under it) keeps it */
+  const keepsHeights = async (page, label) => {
+    const short = await page.evaluate(() => [...(document.querySelector('#yk-stage, #dc-root') || document).querySelectorAll('button, a, div')].map((el) => {
+      const m = /(?:^|;)\s*height:\s*(\d+(?:\.\d+)?)px/.exec(el.getAttribute('style') || '');
+      const got = parseFloat(getComputedStyle(el).height);
+      return m && el.offsetHeight && got < +m[1] - 0.5 ? `${el.tagName.toLowerCase()} "${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 20)}" ${got}/${m[1]} px` : '';
+    }).filter(Boolean));
+    if (short.length) await flag(page, label, 'squeezed: ' + short.join('; '));
+  };
+  /* the review asks a question at a size its text can be read at: only a kana or a short word (the kana course) is drawn
+     large; a sentence, a ★ sentence with its blanks too, is drawn at a sentence's size */
+  const sizedToText = async (page, label) => {
+    const q = await page.evaluate(() => {
+      const card = [...document.querySelectorAll('div[lang="ja"]')].find((d) => /Klee One/.test(d.style.fontFamily) && d.style.lineHeight === '2');
+      if (!card) return null;
+      const c = card.cloneNode(true);
+      c.querySelectorAll('rt').forEach((r) => r.remove());
+      return { n: c.textContent.replace(/\s+/g, '').length, px: parseFloat(getComputedStyle(card).fontSize) };
+    });
+    if (q && q.n > 8 && q.px > 20) await flag(page, label, `a question of ${q.n} characters is drawn at ${q.px} px`);
   };
   const tap = (page, sel) => page.locator(sel).first().click({ timeout: 4000 }).then(() => page.waitForTimeout(250));
   /* a tile is found by its name: the tile's text without readings */
@@ -131,7 +160,7 @@ const SCENE = process.env.ONLY === 'scene';
     }
     for (let k = 0; k < day.scene.check.options.length; k++) {
       const { page, logs } = await open('Scene', cur + '&done=' + encodeURIComponent(JSON.stringify({ [id]: { ks: 1, kw: 1 } })));
-      await tap(page, `button:has-text("${k + 1} ${day.scene.check.options[k]}")`);
+      await tap(page, `button:has-text("${k + 1} ${plainOf(day.scene.check.options[k])}")`);
       await check(page, logs, `${id} scene check ${k + 1}`);
       await page.close();
     }
@@ -153,6 +182,7 @@ const SCENE = process.env.ONLY === 'scene';
       for (let k = 0; k < day.skill.item.options.length; k++) {
         const { page, logs } = await open('Reading', cur);
         await tap(page, `button[aria-pressed] >> nth=${k}`);
+        if (k === 0) await keepsHeights(page, `${id} reading picked`);
         await tap(page, 'button:has-text("Check")');
         await check(page, logs, `${id} reading option ${k + 1}`);
         await page.close();
@@ -176,7 +206,8 @@ const SCENE = process.env.ONLY === 'scene';
       if (lv === 'N2') for (let n = 1; n <= 12; n++) all.push(C.item('mock' + n));
       return all.map((it) => {
         let wrong = '';
-        if (it.kind === 'star') wrong = it.tiles.filter((_, k) => k !== it.star).sort((a, b) => b.length - a.length)[0];
+        /* as the screens keep it: a tile or an option without its readings */
+        if (it.kind === 'star') wrong = C.plain(it.tiles.filter((_, k) => k !== it.star).sort((a, b) => b.length - a.length)[0]);
         else wrong = it.options.map((o, k) => (it.short && it.short[k]) || C.plain(o)).filter((_, k) => k + 1 !== it.answer).sort((a, b) => b.length - a.length)[0];
         return { src: it.id, wrong };
       });
@@ -201,6 +232,7 @@ const SCENE = process.env.ONLY === 'scene';
       const { page, logs } = await open('Review', '&m=' + m);
       for (let k = 0; k < part.length; k++) {
         await check(page, logs, `review ${part[k].src} asked`);
+        await sizedToText(page, `review ${part[k].src} asked`);
         await tap(page, 'button[aria-pressed] >> nth=0');
         await check(page, logs, `review ${part[k].src} answered`);
         await tap(page, k === part.length - 1 ? 'button:has-text("Finish")' : 'button:has-text("Next")');

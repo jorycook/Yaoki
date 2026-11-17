@@ -5,8 +5,8 @@
 // wrong), every lesson's longer reading and listening of the banks answered wrong, every week test and some mixed
 // reviews question by question, the four mini mocks from their briefing to the last script, every day of the sample
 // plan on Today and every week of the path, and the first two weeks of new plans on Today.
-// Each state is checked for runtime errors, anything leaving the frame or too small to tap (problems), text cut off
-// by its own box (CUT, a problem too) and content in the bottom 34 px (PAD warnings).
+// Each state is checked for runtime errors, anything leaving the frame or too small to tap, 【marks】 or 漢字《よみ》 printed
+// as they are (problems), text cut off by its own box (CUT, a problem too) and content in the bottom 34 px (PAD warnings).
 // Screenshots: out/sw-n1-<job>-<state>.png for the sample jobs, and for any state with a problem.
 const fs = require('fs');
 const path = require('path');

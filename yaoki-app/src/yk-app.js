@@ -37,9 +37,12 @@
   } catch (e) { canSave = false; }
   var lastSaved = '';
 
-  /* the writing practice's memory: the kanji written three times (one string of them) and the words written out */
+  /* the writing practice's memory: the characters written three times (one string of them) and the words written out.
+     Whatever the pad can have written is kept, each character once: the kana of the kana course (with the long mark),
+     the kanji (with the repeat mark), and the kanji beyond the first plane, read whole (the N1 bank teaches one) */
+  var WRITTEN = /^[\u{3041}-\u{3096}\u{30a1}-\u{30fa}\u{30fc}\u{3005}\u{3400}-\u{4dbf}\u{4e00}-\u{9fff}\u{f900}-\u{faff}\u{20000}-\u{2fa1f}\u{30000}-\u{323af}]$/u;
   function wroteOk(x) {
-    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/.test(c) && all.indexOf(c) === i; }).join('') : '';
+    return typeof x === 'string' ? Array.from(x).filter(function (c, i, all) { return WRITTEN.test(c) && all.indexOf(c) === i; }).join('') : '';
   }
   function wordsOk(x) {
     return Array.isArray(x) ? x.filter(function (w, i, all) { return typeof w === 'string' && w && w.length <= 16 && all.indexOf(w) === i; }) : [];

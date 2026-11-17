@@ -38,29 +38,29 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 2px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800; color: #C7361E">似ている文法　COMPARE</div>
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.3">どれを使う？</h1>
-<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ intro }}</div>
+<div style="font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.45"><sc-for list="{{ intro }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 
 <sc-for list="{{ forms }}" as="f" hint-placeholder-count="3">
 <div style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
 <div style="display: flex; align-items: center; gap: 8px">
-<div style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600">{{ f.form }}</div>
-<div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; font-size: 12px; font-weight: 800; background: {{ f.tagBg }}"><sc-if value="{{ f.down }}" hint-placeholder-val="{{ true }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></sc-if><sc-if value="{{ f.up }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></sc-if><sc-if value="{{ f.dot }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2F4FD0" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg></sc-if>{{ f.tag }}</div>
+<div style="flex-grow: 1; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 20px; font-weight: 600"><sc-for list="{{ f.form }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
+<div style="display: flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 10px; font-size: 12px; font-weight: 800; background: {{ f.tagBg }}"><sc-if value="{{ f.down }}" hint-placeholder-val="{{ true }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></sc-if><sc-if value="{{ f.up }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></sc-if><sc-if value="{{ f.dot }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="#2F4FD0" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg></sc-if><span><sc-for list="{{ f.tag }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></span></div>
 </div>
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9"><sc-for list="{{ f.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
-<div style="font-size: 12px; font-weight: 500; color: #5A6382">{{ f.en }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382"><sc-for list="{{ f.en }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 </sc-for>
 
 <div style="margin-top: 14px; padding: 12px 14px 14px; border-radius: 18px; background: #E8ECFB; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">確認　QUICK CHECK{{ checkLabel }}</div>
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">確認　QUICK CHECK<sc-for list="{{ checkLabel }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </sc-if>
 <sc-if value="{{ answered }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 800">
 <sc-if value="{{ right }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="4" role="img" aria-label="Correct" style="flex-shrink: 0"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="4" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
-<div>{{ note }}</div>
+<div><sc-for list="{{ note }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 </sc-if>
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.9"><sc-for list="{{ q }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
@@ -99,14 +99,18 @@ if (i + 1 === it.answer) look = { border: '2.5px solid #0B7A6B', bg: '#E0F3EF', 
 else if (i === s.pick) look = { border: '2.5px solid #C7361E', bg: '#FDEBE6', shadow: 'none', color: '#1B2440' };
 else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color: '#5A6382' };
 }
-return { label, on: s.pick === i, pick: () => this.setState({ pick: i }), ...look };
+/* a fixed-height button: its label without readings, as every option button shows it (Drill, Review, Exam) */
+return { label: C.plain(label), on: s.pick === i, pick: () => this.setState({ pick: i }), ...look };
 });
 const right = answered && s.pick + 1 === it.answer;
-const why = answered ? ((it.why && it.why[s.pick]) || it.explain || '') : '';
+/* the reason for the option picked, with its readings (C.ruby: the notes carry readings only); an explanation is written in the course's markup */
+const why = !answered ? [] : it.why && it.why[s.pick] ? C.ruby(it.why[s.pick]) : C.rich(it.explain || '').map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain }));
+/* a few words before a note (the verdict, the dot): one run of text with what follows it, so plain notes are drawn as one */
+const lead = (t, segs) => (segs[0] && segs[0].plain ? [{ ...segs[0], t: t + segs[0].t }].concat(segs.slice(1)) : [{ t, r: '', ruby: false, plain: true }].concat(segs));
 return {
-intro: cmp.intro,
-forms: (cmp.forms || []).map((f) => ({ form: f.form, tag: f.tag, en: f.en, segs: C.rich(f.ja), tagBg: TAGS[f.mark] || '#E8ECFB', down: f.mark === 'down', up: f.mark === 'up', dot: f.mark === 'dot' })),
-checkLabel: it.label ? ' · ' + it.label : '',
+intro: C.ruby(cmp.intro),
+forms: (cmp.forms || []).map((f) => ({ form: C.ruby(f.form), tag: C.ruby(f.tag), en: C.ruby(f.en), segs: C.rich(f.ja), tagBg: TAGS[f.mark] || '#E8ECFB', down: f.mark === 'down', up: f.mark === 'up', dot: f.mark === 'dot' })),
+checkLabel: it.label ? lead(' · ', C.ruby(it.label)) : [],
 q: C.rich(it.q),
 cols: 'repeat(' + Math.max(1, it.options.length) + ', minmax(0, 1fr))',
 opts,
@@ -114,7 +118,7 @@ answered,
 asking: !answered,
 right,
 wrong: answered && !right,
-note: answered ? (right ? 'せいかい！ ' : 'おしい！ ') + why : '',
+note: answered ? lead(right ? 'せいかい！ ' : 'おしい！ ', why) : [],
 toToday: nav('Today'),
 toDrill: (e) => {
 if (this.props.save) this.props.save({ prog: { g: 1 } });

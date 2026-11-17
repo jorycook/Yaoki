@@ -60,7 +60,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <svg viewBox="0 0 100 100" width="48" height="48" role="img" aria-label="Yaoki" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
 <div style="flex-grow: 1; padding: 10px 14px; border-radius: 16px 16px 16px 4px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
 <div style="font-size: 11px; font-weight: 800; color: #C7361E">ヒント　HINT · drill only</div>
-<div style="font-size: 13px; font-weight: 700; line-height: 1.45">{{ hint }}</div>
+<div style="font-size: 13px; font-weight: 700; line-height: 1.45"><sc-for list="{{ hint }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 </div>
 </sc-if>
@@ -92,12 +92,12 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="padding: 12px 14px; border-radius: 16px; background: #FFFFFF; display: flex; flex-direction: column; gap: 8px">
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">{{ whyHead }}</div>
 <sc-if value="{{ isStar }}" hint-placeholder-val="{{ false }}"><div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 2"><sc-for list="{{ full }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div></sc-if>
-<sc-if value="{{ hasExplain }}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ explain }}</div></sc-if>
+<sc-if value="{{ hasExplain }}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 500; line-height: 1.45"><sc-for list="{{ explain }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div></sc-if>
 <sc-for list="{{ whys }}" as="w" hint-placeholder-count="4">
 <div style="display: flex; align-items: flex-start; gap: 8px">
 <sc-if value="{{ w.ok }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" role="img" aria-label="Right" style="flex-shrink: 0; margin-top: 2px"><circle cx="12" cy="12" r="8.5"/></svg></sc-if>
 <sc-if value="{{ w.no }}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0; margin-top: 2px"><path d="M6 6l12 12M18 6L6 18"/></svg></sc-if>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.4"><strong style="font-weight: 800">{{ w.label }}</strong><sc-if value="{{ w.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if>　{{ w.text }}</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.4"><strong style="font-weight: 800">{{ w.label }}</strong><sc-if value="{{ w.mine }}" hint-placeholder-val="{{ false }}"> <span style="padding: 1px 6px; border-radius: 6px; background: #FDEBE6; font-size: 11px; font-weight: 800">your pick</span></sc-if><sc-for list="{{ w.text }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 </div>
 </sc-for>
 </div>
@@ -183,14 +183,18 @@ else look = { border: '2px solid #DDE1EC', bg: '#FFFFFF', shadow: 'none', color:
 return { n, label: C.plain(label), on, right: s.checked && n === it.answer, bad: s.checked && on && n !== it.answer, pick: () => { if (!this.state.checked) this.setState({ pick: n }); }, ...look };
 });
 this.cols = long ? '1fr' : 'repeat(2, minmax(0, 1fr))';
-whys = (it.why || []).map((text, k) => ({ ok: k + 1 === it.answer, no: k + 1 !== it.answer, label: (k + 1) + ' ' + C.plain(it.options[k]), mine: s.checked && !correct && s.pick === k + 1, text })).filter((w) => w.text);
+/* each reason with its readings (C.ruby: the reasons carry readings only), after a full-width space (as text of its own, a
+   space between two tags is left out of the page) */
+whys = (it.why || []).map((text, k) => ({ ok: k + 1 === it.answer, no: k + 1 !== it.answer, label: (k + 1) + ' ' + C.plain(it.options[k]), mine: s.checked && !correct && s.pick === k + 1, text: text ? C.ruby('　' + text) : [] })).filter((w) => w.text.length);
 this.ready = s.pick !== null;
 mine = s.pick ? C.plain(it.options[s.pick - 1]) : '';
 }
 const wrong = s.checked && !correct;
 const last = s.i >= list.length - 1;
+/* the hint and the explanation are written in the course's markup: their readings shown, as in the sentence */
+const segs = (t) => C.rich(t, { hl: false }).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain }));
 return {
-head: it.type + '　' + (it.label || ''),
+head: it.type + '　' + C.plain(it.label || ''),
 isChoice: !star,
 isStar: star,
 q: C.rich(it.q, { clue: s.checked ? 'line' : null }),
@@ -202,7 +206,7 @@ slots,
 bank,
 starAsking: star && !s.checked,
 hasHint: !!it.hint,
-hint: it.hint || '',
+hint: segs(it.hint || ''),
 full: C.rich(it.full || ''),
 asking: !s.checked,
 checked: s.checked,
@@ -215,10 +219,10 @@ ck: this.ready
 verdictJa: wrong ? 'おしい！' : 'せいかい！',
 verdictEn: wrong ? 'Not quite' : 'Correct',
 showAnswer: wrong,
-answerLabel: star ? it.tiles[it.star] : it.answer + ' ' + C.plain(it.options[it.answer - 1] || ''),
+answerLabel: star ? C.plain(it.tiles[it.star]) : it.answer + ' ' + C.plain(it.options[it.answer - 1] || ''),
 whyHead: star ? '解説　The sentence' : '解説　Why each option',
 hasExplain: !!it.explain && (star || !whys.length),
-explain: it.explain || '',
+explain: segs(it.explain || ''),
 whys,
 sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',
 tone: wrong ? '#C7361E' : '#0B7A6B',

@@ -51,6 +51,8 @@ Every item has a unique `id` (`u03d4.d1` = unit 3, day 4, drill 1), a `kind`, th
 | `_補って_` | underlined: the word a question asks about |
 | `^大事な試験を^` | a clue: plain until the answer is shown, then underlined (drill) or highlighted (reading) |
 
+The notes around the Japanese (`why`, a comparison's `intro`, its forms' `form`, `tag` and `en`, the check's `label`, a point's `watch.note` and `connect.pos`) are read for readings only, `[泊|と]まる`: any other mark in them is shown as written.
+
 ## What the build refuses
 
 Unbalanced markup, an answer out of range, two identical options, a missing reason for a wrong option, a star item whose `full` sentence is not `before` + tiles + `after`, a bank that already shows the right order, a day without two grammar points, at least four drill items and exactly three exam items, a day title that differs from the syllabus, and duplicate ids.
