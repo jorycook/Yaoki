@@ -153,6 +153,16 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('1');
   check('a second miss shows the whole spelling (hint level 2)', (await state(page)).target.level === 2);
   if (shots) await page.screenshot({ path: `${shots}/romaji-miss.png` });
+  // the hints are read at a glance while typing: at 1366×768 the hint under the card is drawn at
+  // about 44 px (it was 30), and the lines under the game are large too
+  await sleep(100);
+  s = await state(page);
+  check('at 1366×768 the hint under the card is drawn large', s.under && s.under.px >= 41.5, JSON.stringify(s.under));
+  const lines = await page.evaluate(() => {
+    const fs = (sel) => parseFloat(getComputedStyle(document.querySelector(sel)).fontSize);
+    return { status: fs('#status'), next: fs('#next-line .kicker'), key: fs('#next-line .kicker b'), finger: fs('#next-line span:not(.kicker)') };
+  });
+  check('…and so are the status and next-key lines (次 NEXT a little smaller)', lines.status >= 22 && lines.key >= 22 && lines.finger >= 22 && lines.next >= 18, JSON.stringify(lines));
   if (t.spell.length > 1) {
     await page.keyboard.press(t.spell[0]);
     await page.keyboard.press('Backspace');
@@ -503,6 +513,8 @@ async function waitFor(fn, ms = 5000) {
   await sleep(100);
   const info = await page.textContent('#info');
   check('the word, its reading and meaning show under the game', info.includes(w.text) && info.includes(w.reading), info);
+  const infoSizes = await page.$$eval('#info > span', (els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)));
+  check('…in large type: the word at 28 px or more, its meaning at 22 or more', infoSizes.length === 2 && infoSizes[0] >= 28 && infoSizes[1] >= 22, JSON.stringify(infoSizes));
   await page.keyboard.type(w.spell, { delay: 25 });
   const played = await page.evaluate(() => window.__played);
   check('a cleared word is spoken with its clip', /^s_n4u3d\d_/.test(played || ''), played);
@@ -929,6 +941,46 @@ async function waitFor(fn, ms = 5000) {
   }
   await page.close();
 
+  // ---- a 1280×720 window: the large lines under the game fit, with the keyboard and without
+  // it, with the longest line under the game (a kanji sentence, its reading and meaning) and
+  // through a fall; the hint under the route stays in the canvas, under the route, clear of Yaoki
+  page = await open({ viewport: { width: 1280, height: 720 } });
+  const fits = () => page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight);
+  const underRoute = (st) => {
+    const u = st.under;
+    return !!u && u.x >= 10 && u.x + u.w <= st.W - 10 && u.y >= 168 + 10 && u.y + u.h <= u.foot;
+  };
+  await pick(page, 1, 'kanji:sentences');
+  await page.click('#len-seg button:nth-child(3)');
+  await page.click('#start');
+  await target(page);
+  await page.keyboard.press('1');
+  await page.keyboard.press('1');
+  await sleep(150);
+  s = await state(page);
+  check('1280×720: a round of kanji sentences does not scroll', await fits() && await page.evaluate(() => parseFloat(document.documentElement.style.getPropertyValue('--info-extra')) > 0),
+    await page.evaluate(() => document.documentElement.scrollHeight + ' ' + document.documentElement.style.getPropertyValue('--info-extra')));
+  check('…and a sentence\'s whole romaji fits under the route', underRoute(s), JSON.stringify({ under: s.under, W: s.W }));
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#opt-kb');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  await sleep(150);
+  check('…nor without the keyboard', await page.isHidden('#kb') && await fits());
+  await quit(page);
+  await page.click('#open-settings');
+  await page.click('#opt-kb');
+  await page.click('#close-settings');
+  await pick(page, 1, 'romaji:words');
+  await page.click('#start');
+  check('1280×720: a card left to fall knocks Yaoki over', await waitFor(async () => (await state(page)).falling, 30000));
+  await sleep(300);
+  s = await state(page);
+  check('…the page does not scroll, and the answer and its captions stay under the route, clear of him', await fits() && underRoute(s) && s.under.x >= Math.max(100, s.W - 1000) + 34,
+    JSON.stringify({ under: s.under, W: s.W }));
+  await page.close();
+
   // ---- the narrowest window the game is made for (700 px): the longest prompts, and kanji
   // sentences with the room for their furigana, can be played to the end
   page = await open({ viewport: { width: 700, height: 760 } });
@@ -946,6 +998,7 @@ async function waitFor(fn, ms = 5000) {
   await target(page);
   const widestTime = (await state(page)).widestTime;
   check('700px: the widest kanji sentence still has its time once in view', widestTime >= 12, 'seconds ' + widestTime);
+  check('…and nothing scrolls, with its reading and meaning under the game', await page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight));
   await quit(page);
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');
