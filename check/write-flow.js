@@ -1,14 +1,15 @@
 // The kanji lesson's writing practice, end to end with a finger: N5 week 1, day 1. The scene; then every new kanji
 // written three times (traced after its stroke order, over faint lines, from memory) and every word of two kanji or more
 // written one kanji at a time, with Next shut until each is written; then the exam question, Today's card, and the
-// lesson opened again with nothing left to write. Wrong strokes are tried on the way (the next stroke, a backwards one).
+// lesson opened again with nothing left to write. Wrong strokes are tried on the way (the next stroke, a backwards one),
+// and the stroke order is cut short (write-helpers.js replayCut).
 // usage: bash run.sh write-flow.js           (the design canvas's runtime)
 //        bash run-app.sh write-flow.js       (the app build)
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const { openBoard, inspect, site } = require('./rt-check.js');
-const { strokeOn, padState, writeOut } = require('./write-helpers.js');
+const { strokeOn, padState, writeOut, replayCut } = require('./write-helpers.js');
 
 const ROOT = path.join(__dirname, '..');
 const KANJI = /[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\u3005]/;
@@ -74,6 +75,10 @@ function expected(day) {
           await page.waitForTimeout(200);
           ok(/goes the other way|Follow the yellow line/.test(await text()), 'a backwards stroke is named as such');
           ok((await padState(page)).at === 0, 'neither wrong stroke went in');
+          /* the stroke order cut short (started over part-way, and the next time started while it plays): what is
+             written next is seen, and the panel does not stay lit. It writes this first time out */
+          for (const s of await replayCut(page, cdp)) ok(false, 'stroke order cut short: ' + s);
+          continue;
         }
         await writeOut(page, cdp);
       }

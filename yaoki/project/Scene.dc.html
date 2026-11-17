@@ -129,7 +129,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="font-size: 12px; font-weight: 500; line-height: 1.45">{{ explain }}</div>
 </div>
 </sc-if>
-<div data-d="q" lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600">{{ checkQ }}</div>
+<div data-d="q" lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 17px; font-weight: 600"><sc-for list="{{ checkQ }}" as="g" hint-placeholder-count="3"><span style="border-bottom: {{ g.line }}">{{ g.t }}</span></sc-for></div>
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
 <div data-d="opts" lang="ja" style="display: grid; gap: 6px; grid-template-columns: {{ choiceCols }}">
 <sc-for list="{{ choices }}" as="c" hint-placeholder-count="4">
@@ -365,24 +365,26 @@ goStep(at + 1);
 const it = scene.check || { options: [] };
 const answered = s.quiz !== null;
 const right = answered && s.quiz === it.answer;
-const answer = it.options[it.answer - 1] || '';
+const answer = C.plain(it.options[it.answer - 1] || '');
 Object.assign(base, {
 checkType: it.type,
-checkQ: C.plain(it.q || ''),
+/* exam conditions: no readings, and the word the question asks about underlined, as on the paper */
+checkQ: C.rich(it.q || '', { ruby: false }).map((g) => ({ t: g.t, line: g.line })),
 asking: !answered,
 answered,
 right,
 wrong: answered && !right,
 verdict: right ? 'せいかい！ ' + it.answer + ' ' + answer : 'おしい！ 正解は ' + it.answer + ' ' + answer + '。 Saved to your notebook.',
-explain: it.explain || (it.why ? it.why[(s.quiz || 1) - 1] : ''),
+/* exam conditions, as the question: the explanation without readings (C.ruby: a reason carries readings only) */
+explain: it.explain ? C.plain(it.explain) : C.ruby(it.why ? it.why[(s.quiz || 1) - 1] : '', { ruby: false }).map((g) => g.t).join(''),
 tone: right ? '#0B7A6B' : '#C7361E',
 /* four short readings sit in one row; longer options take two columns, sentences one */
 choiceCols: (() => { const w = Math.max(0, ...it.options.map((o) => C.plain(o).length)); const n = w <= 3 ? it.options.length : w <= 9 ? 2 : 1; return 'repeat(' + Math.max(1, n) + ', minmax(0, 1fr))'; })(),
 choices: it.options.map((o, k) => ({
-label: (k + 1) + ' ' + o,
+label: (k + 1) + ' ' + C.plain(o),
 pick: () => {
 if (this.state.quiz !== null) return;
-if (k + 1 !== it.answer && this.props.miss) this.props.miss({ src: it.id, wrong: o });
+if (k + 1 !== it.answer && this.props.miss) this.props.miss({ src: it.id, wrong: C.plain(o) });
 this.setState({ quiz: k + 1 });
 },
 })),

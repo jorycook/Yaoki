@@ -47,5 +47,62 @@ async function writeOut(page, cdp, opts = {}) {
   await page.waitForTimeout(opts.settle || 100);
   return p;
 }
+/* the strokes written on the pad (in ink) and how much of each can be seen; and whether the panel shows the stroke order
+   as playing (its button lit), with the line under the pad */
+async function inkState(page) {
+  return page.evaluate(() => {
+    const svg = document.querySelector('[data-yk-pad] svg');
+    const button = document.querySelector('[data-yk-write] button[aria-label="Play the stroke order"]');
+    const line = document.querySelector('[data-yk-write] [aria-live]');
+    if (!svg) return null;
+    const seen = (el) => { let o = 1; for (let e = el; e && e !== svg.parentNode; e = e.parentNode) o *= +getComputedStyle(e).opacity; return Math.round(o * 100) / 100; };
+    return { c: svg.getAttribute('data-char'), mode: svg.getAttribute('data-mode'), at: +svg.getAttribute('data-at'), n: +svg.getAttribute('data-n'), ink: [...svg.querySelectorAll('path[stroke="#1B2440"]')].map(seen), playing: !!button && button.getAttribute('aria-pressed') === 'true', line: line ? line.textContent.trim() : '' };
+  });
+}
+/* the stroke order cut short, both ways a learner can: played again and started over part-way (もう一度), and played in
+   the moment after a time is written, so that the next time starts while it plays. Either way the strokes written next
+   must be seen, and the panel must not be left showing the stroke order as playing (its button lit, and dead).
+   Run on a pad at its first time (traced, a character of two strokes or more) with no stroke in; it writes that time out
+   and the first stroke of the second, at the app's own speed. Returns what went wrong, one line each. */
+async function replayCut(page, cdp) {
+  const fast = await page.evaluate(() => { const was = !!window.__ykWriteFast; window.__ykWriteFast = false; return was; });
+  try { return await cutShort(page, cdp); } finally { await page.evaluate((f) => { window.__ykWriteFast = f; }, fast); }
+}
+async function cutShort(page, cdp) {
+  const bad = [];
+  const PLAY = '[data-yk-write] button[aria-label="Play the stroke order"]';
+  /* the stroke order that opens a first time has played out */
+  await page.waitForFunction(() => { const b = document.querySelector('[data-yk-write] button[aria-label="Play the stroke order"]'); return b && b.getAttribute('aria-pressed') === 'false'; }, null, { timeout: 8000 }).catch(() => {});
+  const p = await inkState(page);
+  if (!p || p.mode !== 'trace' || p.at !== 0 || p.n < 2) return ['the pad is not at a first time with no stroke in: ' + JSON.stringify(p)];
+  // started over part-way through the stroke order
+  await page.locator(PLAY).click();
+  await page.waitForTimeout(150);
+  if (!(await inkState(page)).playing) bad.push('the stroke order does not play');
+  await page.locator('[data-yk-write] button[aria-label="Start this one again"]').click();
+  await page.waitForTimeout(150);
+  await strokeOn(page, cdp, '[data-yk-pad]', p.c, 0);
+  await page.waitForTimeout(400);
+  let s = await inkState(page);
+  if (s.at !== 1 || s.ink.length !== 1 || s.ink[0] !== 1) bad.push(`started over part-way through the stroke order, the stroke written next is not seen (${s.at} in, seen ${JSON.stringify(s.ink)})`);
+  if (s.playing) bad.push('started over part-way through the stroke order, the panel still shows it playing');
+  // the stroke order played in the moment after the first time is written: the second time starts while it plays
+  for (let i = 1; i < p.n; i++) { await strokeOn(page, cdp, '[data-yk-pad]', p.c, i); if (i < p.n - 1) await page.waitForTimeout(250); }
+  await page.locator(PLAY).click();
+  await page.waitForTimeout(150);
+  if (!(await inkState(page)).playing) bad.push('the stroke order does not play once the time is written');
+  await page.waitForFunction(() => { const svg = document.querySelector('[data-yk-pad] svg'); return svg && svg.getAttribute('data-mode') === 'faint'; }, null, { timeout: 5000 }).catch(() => {});
+  await page.waitForTimeout(150);
+  s = await inkState(page);
+  if (s.mode !== 'faint') bad.push('the second time did not start (mode ' + s.mode + ')');
+  if (s.playing || /^書き順/.test(s.line)) bad.push(`the second time started while the stroke order played, and the panel still shows it playing ("${s.line}")`);
+  await strokeOn(page, cdp, '[data-yk-pad]', p.c, 0);
+  await page.waitForTimeout(400);
+  s = await inkState(page);
+  if (s.at !== 1 || s.ink.length !== 1 || s.ink[0] !== 1) bad.push(`the second time started while the stroke order played, and the stroke written is not seen (${s.at} in, seen ${JSON.stringify(s.ink)})`);
+  return bad;
+}
 module.exports.padState = padState;
 module.exports.writeOut = writeOut;
+module.exports.inkState = inkState;
+module.exports.replayCut = replayCut;

@@ -378,15 +378,17 @@
            onStroke(i, {misses, helped})   stroke i was written (or written for the learner: helped)
            onMiss(i, {misses, backwards})  a stroke that did not fit stroke i (backwards: it fits the other way round)
            onDone({misses, helped})        the last stroke is in
-           onPlay(playing)                 the stroke order started or stopped playing
-     The controller: set(opts) (a new kanji, mode or start), play(), hint(), restart(), destroy(), and state():
-     { i, n, misses, helped, playing, done } */
+           onPlay(playing)                 the stroke order started or stopped playing: each start is followed by one
+                                           stop, however it ends (played out, stopped, a new start, the pad going)
+     The controller: set(opts) (a new kanji, mode or start), play(), stopPlay(), hint(), restart(), destroy(), and
+     state(): { i, n, misses, helped, playing, done } */
   function Pad(host, opts) {
     var self = this;
     this.host = host;
     this.o = {};
     this.stops = [];
     this.timers = [];
+    this.playing = false;
     var svg = this.svg = make('svg', { viewBox: '0 0 ' + BOX + ' ' + BOX, width: '100%', height: '100%', role: 'img', focusable: 'false' });
     svg.style.cssText = 'display:block;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;cursor:crosshair';
     var grid = make('g', { stroke: GRID, 'stroke-width': 0.6, 'stroke-dasharray': '2.2 2.2' }, svg);
@@ -470,18 +472,21 @@
   Pad.prototype.set = function (opts, first) {
     var o = this.o;
     var fresh = first || opts.char !== undefined && opts.char !== o.char || opts.mode !== undefined && opts.mode !== o.mode || opts.restart;
+    if (fresh) {
+      this.stopAll();
+      /* a new start: anything the last one still had to say (its onDone) is not said, and a stroke order still playing
+         ends here (the strokes written from now on are seen, and the screen is told) */
+      this.token = (this.token || 0) + 1;
+      this.endPlay();
+    }
     for (var key in opts) if (key !== 'restart') o[key] = opts[key];
     if (!fresh) return this;
-    this.stopAll();
-    /* a new start: anything the last one still had to say (its onDone) is not said */
-    this.token = (this.token || 0) + 1;
     this.k = info(o.char || '');
     this.i = 0;
     this.misses = 0;
     this.strokeMisses = 0;
     this.helped = 0;
     this.finished = false;
-    this.playing = false;
     this.pointer = null;
     this.drawn = [];
     this.inkEl = null;
@@ -626,15 +631,16 @@
     this.inkEl = null;
     clear(this.gInk);
     clear(this.gHint);
+    /* the strokes written so far step aside while it plays: endPlay brings them back, however it ends */
     this.gDone.setAttribute('opacity', '0');
     this.model();
-    var layer = make('g', {}, this.gMarks);
+    var layer = this.playLayer = make('g', {}, this.gMarks);
     var gLines = make('g', {}, layer);
     var gNums = make('g', {}, layer);
     if (o.onPlay) o.onPlay(true);
     var n = 0;
     var next = function () {
-      if (n >= strokes.length) { self.later(450, finish); return; }
+      if (n >= strokes.length) { self.later(450, function () { self.endPlay(); }); return; }
       var s = strokes[n];
       var el = inkPath(s.d, INK, WIDTH, gLines);
       var p = s.pts[0];
@@ -648,21 +654,25 @@
       n++;
       self.stops.push(drawIn(el, s.len, 260 + s.len * 8, function () { self.later(110, next); }));
     };
-    var finish = function () {
-      self.playing = false;
-      if (layer.parentNode) layer.parentNode.removeChild(layer);
-      self.gDone.setAttribute('opacity', '1');
-      self.model();
-      if (o.onPlay) o.onPlay(false);
-    };
-    this.finishPlay = finish;
     next();
   };
-  /* stop the stroke order part-way (a new kanji, or the learner starts writing) */
+  /* the stroke order is over, played out or not: its numbered strokes go, the strokes written come back, the model is
+     drawn again, and the screen is told. Every way out comes here: played to the end, stopped (stopPlay), cut short by a
+     new start (set: restart, the next time, a new kanji) or by the pad going (destroy) */
+  Pad.prototype.endPlay = function () {
+    if (!this.playing) return;
+    this.playing = false;
+    if (this.playLayer && this.playLayer.parentNode) this.playLayer.parentNode.removeChild(this.playLayer);
+    this.playLayer = null;
+    this.gDone.removeAttribute('opacity');
+    this.model();
+    if (this.o.onPlay) this.o.onPlay(false);
+  };
+  /* stop the stroke order part-way (the learner starts writing, or taps it off) */
   Pad.prototype.stopPlay = function () {
     if (!this.playing) return;
     this.stopAll();
-    if (this.finishPlay) this.finishPlay();
+    this.endPlay();
   };
   Pad.prototype.restart = function () { return this.set({ restart: true, done: 0, played: false }); };
   /* the checks' sweep only: every stroke goes in at once */
@@ -672,6 +682,7 @@
   Pad.prototype.destroy = function () {
     this.stopAll();
     this.token = (this.token || 0) + 1;
+    this.endPlay();
     var svg = this.svg;
     svg.removeEventListener('pointerdown', this.onDown);
     svg.removeEventListener('pointermove', this.onMove);

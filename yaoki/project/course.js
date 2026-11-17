@@ -107,6 +107,19 @@
   C.plain = function (src) {
     return String(src == null ? '' : src).replace(/\[([^|\]]*)\|[^\]]*\]/g, '$1').replace(/[{}_^]/g, '');
   };
+  /* the notes around the Japanese (the reasons for each option, a comparison's intro, tags and labels, a watch-out note)
+     are English with readings in them, [泊|と]まる, and no other markup: any other mark in them is text as written (the
+     kana course says へ is "a roof, like ^"). Segments as C.rich makes them, readings only; ruby:false drops the readings */
+  C.ruby = function (src, opt) {
+    var out = [];
+    String(src == null ? '' : src).split(/(\[[^|\]]*\|[^\]]*\])/).forEach(function (part) {
+      var m = /^\[([^|\]]*)\|([^\]]*)\]$/.exec(part);
+      var r = m && (!opt || opt.ruby !== false) ? m[2] : '';
+      var t = m ? m[1] : part;
+      if (t) out.push({ t: t, r: r, ruby: !!r, plain: !r });
+    });
+    return out;
+  };
 
   /* ---------- the course ---------- */
   C.units = function () { return data().units || []; };
@@ -255,7 +268,7 @@
     return { screen: 'Goal', started: false, level: null, plans: {}, mocks: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null, wrote: '', wroteWords: [] };
   };
   /* ---------- writing practice ----------
-     wrote: every kanji the learner has written three times, as one string; wroteWords: every word written out kanji by
+     wrote: every kanji or kana the learner has written three times, as one string; wroteWords: every word written out kanji by
      kanji. Both are kept for all levels at once (a kanji written at N5 is not new at N4), and only ever grow. */
   C.addWrote = function (had, add) {
     var out = String(had || '');

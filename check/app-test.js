@@ -128,6 +128,15 @@ const placed = (page) => page.evaluate(() => {
     await click(page, 'nav a:has-text("Notebook")', 600);
     ok((await text(page)).includes(LV.drillLine) && (await text(page)).includes(LV.drillWrong), 'the saved mistake should be in the notebook after reopening');
     await page.screenshot({ path: path.join(out, 'app-notebook-restored.png') });
+    // the writing practice's memory: every character the pad can write (the kana course's kana, the kanji, and the N1
+    // bank's kanji beyond the first plane) is still written once the app is opened again, so none is asked for twice
+    const writable = await page.evaluate(() => Object.keys(window.__ykStrokes).join(''));
+    await page.evaluate(([k, w]) => { const s = JSON.parse(localStorage.getItem(k)); s.wrote = w; localStorage.setItem(k, JSON.stringify(s)); }, [KEY, writable]);
+    await page.reload();
+    await ready(page);
+    await click(page, 'nav a:has-text("Notebook")', 600);
+    const back = ((await saved(page)) || {}).wrote || '';
+    ok([...writable].length > 100 && back === writable, `every character written should be kept when the app is opened again (${[...writable].length} written), lost: ${JSON.stringify([...writable].filter((c) => !back.includes(c)).join('').slice(0, 40))}`);
 
     // ---------- 2. the menu ----------
     await click(page, 'nav a:has-text("Path")', 600);

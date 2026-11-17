@@ -1,7 +1,7 @@
 // The kana course, every day and every week test: each card of the learn step, every practice and check question
 // (answered right and wrong in turn, with its explanation), the writing (the pads write themselves), the words and their
-// quiz, and each week test with its result, checked for anything that leaves the frame, taps too small to hit and
-// runtime errors. The layout check the kana content must pass.
+// quiz, and each week test with its result, checked for anything that leaves the frame, taps too small to hit, text
+// markup printed as it is and runtime errors. The layout check the kana content must pass.
 // usage: bash run-app.sh kana-sweep.js   or   bash run.sh kana-sweep.js   (DAYS=kanau01d1,kanau02d5 to limit it)
 const fs = require('fs');
 const path = require('path');

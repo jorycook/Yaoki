@@ -1,16 +1,17 @@
 // The kana course end to end: かな picked on the goal screen (a plan with no exam date), the week path, and day 1 of
 // week 1 lesson by lesson: the new kana card by card, the practice (a miss goes to the notebook), the check and its
 // result; every new kana written three times with a finger and the words written from what is heard (a stroke drawn
-// backwards on the way, Next shut until each is written, the word's kana never shown before it is written); the words
-// read and their quiz; the day stamped. Then the notebook and a review of a kana question, a sentence day (は, を, へ
-// read and written right), week 1's test and its result by area, and the end of the course leading on to N5.
+// backwards on the way, the stroke order cut short, Next shut until each is written, the word's kana never shown before
+// it is written); the words read and their quiz; the day stamped. In the app build, a kana written is kept once the app
+// is opened again. Then the notebook and a review of a kana question, a sentence day (は, を, へ read and written
+// right), week 1's test and its result by area, and the end of the course leading on to N5.
 // usage: bash run.sh kana-flow.js           (the design canvas's runtime)
 //        bash run-app.sh kana-flow.js       (the app build)
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
-const { openBoard, inspect, site, APP } = require('./rt-check.js');
-const { strokeOn, padState, writeOut } = require('./write-helpers.js');
+const { openBoard, inspect, site, APP, BASE } = require('./rt-check.js');
+const { strokeOn, padState, writeOut, replayCut } = require('./write-helpers.js');
 
 const ROOT = path.join(__dirname, '..');
 const NOW = Date.UTC(2026, 10, 11, 15);
@@ -104,6 +105,10 @@ const unit = (n) => JSON.parse(fs.readFileSync(path.join(ROOT, 'content/kana/u0'
           await strokeOn(page, cdp, '[data-yk-pad]', c, 0, 'backwards');
           await page.waitForTimeout(200);
           ok(/goes the other way/.test(await text()) && (await padState(page)).at === 0, 'write: a backwards stroke is named and does not count');
+          /* the stroke order cut short (started over part-way, and the next time started while it plays): what is
+             written next is seen, and the panel does not stay lit. It writes this first time out */
+          for (const s of await replayCut(page, cdp)) ok(false, 'write: stroke order cut short: ' + s);
+          continue;
         }
         await writeOut(page, cdp);
       }
@@ -138,6 +143,43 @@ const unit = (n) => JSON.parse(fs.readFileSync(path.join(ROOT, 'content/kana/u0'
   for (const l of logs.filter((x) => !/Failed to load resource/.test(x))) console.log('  console: ' + l);
   ok(!logs.filter((x) => !/Failed to load resource/.test(x)).length, 'day 1: no console problems');
   await page.close();
+
+  // ---------- a kana written is kept: the app opened again does not ask for it again ----------
+  // (the app build only: its test mode keeps nothing, so this part opens the app as a learner does, on a new device, and
+  // the checks' pad writes itself out)
+  if (APP) {
+    const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
+    await ctx.addInitScript(() => { window.__ykWriteFast = true; window.__ykWriteAuto = true; });
+    const p = await ctx.newPage();
+    const plogs = [];
+    p.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') plogs.push(m.type() + ': ' + m.text().slice(0, 300)); });
+    p.on('pageerror', (e) => plogs.push('pageerror: ' + String(e).slice(0, 300)));
+    const ptext = async () => ((await p.locator('#yk-stage').textContent()) || '').replace(/\s+/g, ' ');
+    const ptap = async (sel, wait = 400) => { await p.locator(sel).first().click({ timeout: 5000 }); await p.waitForTimeout(wait); };
+    const onPad = () => p.evaluate(() => { const svg = document.querySelector('[data-yk-pad] svg'); return svg ? svg.getAttribute('data-char') : ''; });
+    const [k1, k2] = Array.from(day1.write.kana);
+    await p.goto(BASE);
+    await p.waitForSelector('#yk-stage > .sc-host', { timeout: 10000 });
+    await p.waitForTimeout(400);
+    await ptap('button[aria-label^="Kana"]');
+    await ptap('button:has-text("Paint the first eye")');
+    await ptap('a:has-text("Start")', 700);
+    await ptap('a:has-text("はじめる")', 700);
+    await ptap('a:has-text("Each new kana three times")', 600);
+    ok((await ptext()).includes('1 / ' + total) && (await onPad()) === k1, `kept: the writing lesson starts at ${k1}, 1 / ${total}`);
+    await p.waitForFunction(() => /Written three times/.test((document.querySelector('[data-yk-write] [aria-live]') || {}).textContent || ''), null, { timeout: 8000 }).catch(() => {});
+    const kept = await p.evaluate(() => JSON.parse(localStorage.getItem('yaoki.v1:/') || 'null'));
+    ok(!!kept && kept.wrote === k1, `kept: ${k1} written three times is saved at once (wrote: ${JSON.stringify(kept && kept.wrote)})`);
+    await p.reload();
+    await p.waitForSelector('#yk-stage > .sc-host', { timeout: 10000 });
+    await p.waitForTimeout(600);
+    await ptap('a:has-text("はじめる")', 700);
+    await ptap('a:has-text("Each new kana three times")', 600);
+    ok((await ptext()).includes('1 / ' + (total - 1)) && (await onPad()) === k2, `kept: opened again, ${k1} is not asked again (the lesson starts at ${k2}, 1 / ${total - 1}; it shows ${(await ptext()).match(/\d+ \/ \d+/)} at ${await onPad()})`);
+    for (const l of plogs) console.log('  console: ' + l);
+    ok(!plogs.length, 'kept: no console problems');
+    await ctx.close();
+  }
 
   // ---------- the notebook and a review of a kana question ----------
   const plan = '&level=KANA&plan=' + encodeURIComponent(JSON.stringify(PLAN));

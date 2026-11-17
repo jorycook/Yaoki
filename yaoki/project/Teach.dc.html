@@ -52,7 +52,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div style="font-size: 12px; font-weight: 800; color: #5A6382">接続　How it connects</div>
 <sc-for list="{{ connect }}" as="c" hint-placeholder-count="3">
 <div style="display: flex; align-items: center; gap: 10px">
-<div style="width: 72px; padding: 4px 0; border-radius: 8px; background: #F4F5F9; font-size: 12px; font-weight: 800; text-align: center; flex-shrink: 0">{{ c.pos }}</div>
+<div style="width: 72px; padding: 4px 0; border-radius: 8px; background: #F4F5F9; font-size: 12px; font-weight: 800; text-align: center; flex-shrink: 0"><sc-for list="{{ c.pos }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <div style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600"><sc-for list="{{ c.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ g.bg }}; border-radius: 4px">{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ g.bg }}; border-radius: 4px; padding: {{ g.pad }}; white-space: {{ g.ws }}; border-bottom: {{ g.line }}">{{ g.t }}</span></sc-if></sc-for></div>
 </div>
 </sc-for>
@@ -75,7 +75,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 
 <div data-d="watch" style="margin-top: 12px; padding: 12px 14px; border-radius: 18px; background: #FFF4D6; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0">
 <div style="font-size: 12px; font-weight: 800">注意　Watch out</div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ pt.watch.note }}</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45"><sc-for list="{{ watchNote }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <div style="display: flex; align-items: center; gap: 8px">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" role="img" aria-label="Wrong" style="flex-shrink: 0"><path d="M6 6l12 12M18 6L6 18"/></svg>
 <div lang="ja" style="font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600">{{ pt.watch.bad }}</div>
@@ -141,7 +141,9 @@ pt: { ...pt, watch: pt.watch || {} },
 unitJa: app.unit ? app.unit.ja : '',
 dots: [0, 1, 2].map((i) => ({ bg: i <= tp ? '#2F4FD0' : '#DDE1EC' })),
 pageLabel: 'Teach page ' + (tp + 1) + ' of 3',
-connect: (pt.connect || []).map((c) => ({ pos: c.pos, segs: C.rich(c.rule) })),
+/* the notes carry readings ([運転|うんてん]): shown as ruby, as in the examples */
+connect: (pt.connect || []).map((c) => ({ pos: C.ruby(c.pos), segs: C.rich(c.rule) })),
+watchNote: C.ruby((pt.watch || {}).note),
 examples: (pt.examples || []).map((x, n) => ({
 segs: C.rich(x.ja),
 en: x.en,

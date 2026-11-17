@@ -138,6 +138,21 @@ const DAY1 = Date.UTC(2026, 9, 12, 15);   // Monday 12 October 2026, noon in Asu
   ok((await page.locator('a[aria-label^="Day 4, done"]').count()) === 1, 'main: day 4 should be stamped');
   ok(await has('18') || await has('1'), 'main: stamp count');
 
+  // the Mock and Readiness tabs count the days to the exam as the path does, on the exam day and after it too
+  await click('nav a:has-text("Mock exam")', 700);
+  await at('23-mock', 'あと55日');
+  await click('nav a:has-text("Readiness")', 700);
+  await at('23-readiness', 'あと55日');
+  for (const [d, left] of [[55, '今日が試験'], [56, '試験後']]) {
+    await page.evaluate((t) => { window.__ykNow = t; }, DAY1 + d * 864e5);
+    for (const tab of ['Path', 'Mock exam', 'Readiness']) {
+      await click(`nav a:has-text("${tab}")`, 500);
+      ok(await has(left), `${tab}, ${d} days on: the days-left chip should say ${left}`);
+    }
+  }
+  await page.evaluate((t) => { window.__ykNow = t; }, DAY1);
+  await click('nav a:has-text("Path")', 500);
+
   // ---------- notebook today and tomorrow ----------
   await click('nav a:has-text("Notebook")', 700);
   await at('24-notebook', '間違いノート');

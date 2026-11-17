@@ -79,11 +79,11 @@ async function openBoard(browser, name, fontsCss, prep, opts = {}) {
   return { page, logs };
 }
 
-/* what is wrong with the screen as it stands. issues: runtime errors aside, what leaves the frame (OUT) and taps too
-   small to hit (SMALL); these fail a check. pad: a warning class of its own, so it never hides a failure: on a screen
-   with a fixed footer the bottom 34 px of the frame (below 810) are kept clear for the phone's home indicator, and
-   anything a learner can see there (text, a control, an icon) has run into that padding. The tab bar is the one thing
-   designed to reach into it */
+/* what is wrong with the screen as it stands. issues: runtime errors aside, what leaves the frame (OUT), taps too
+   small to hit (SMALL) and text markup printed as it is (RAW); these fail a check. pad: a warning class of its own, so
+   it never hides a failure: on a screen with a fixed footer the bottom 34 px of the frame (below 810) are kept clear
+   for the phone's home indicator, and anything a learner can see there (text, a control, an icon) has run into that
+   padding. The tab bar is the one thing designed to reach into it */
 async function inspect(page) {
   return page.evaluate((HOST) => {
     const host = document.querySelector(HOST);
@@ -122,6 +122,22 @@ async function inspect(page) {
       if (!gone && bottom > 810.5 && bottom <= 844.5 && !el.closest('nav') && getComputedStyle(el).visibility !== 'hidden') res.pad.push(`PAD ${tag} "${txt}" b=${Math.round(bottom)}`);
     }
     res.unresolved = document.querySelectorAll('.sc-interp.sc-missing,.sc-interp.sc-unresolved').length;
+    /* RAW: text markup left in what the learner sees or hears. The course's [base|reading], {highlight}, _underline_ and
+       ^clue^, and in the N1 app the bank's 【mark】 and 漢字《よみ》, are for the screens to turn into ruby, highlights and
+       lines: one on screen, or in a label read aloud, means a field was printed as it is. In the main app 【】 are only
+       brackets (a notice's 【お知らせ】 in a reading passage), and a ^ standing alone in English is text (the kana course says
+       へ is "a roof, like ^"), so a caret counts only in a pair or against Japanese */
+    const JA = '[\\u3040-\\u30ff\\u3400-\\u9fff\\uff00-\\uffef]';
+    const RAW = new RegExp('\\[[^\\]|]*\\|[^\\]]*\\]|[{}_]|\\^[^^]*\\^|' + JA + '\\^|\\^' + JA + (window.ykN1 ? '|[【】《》]' : ''));
+    const raw = (where, v) => { if (v && RAW.test(v)) res.issues.push(`RAW ${where} "${v.trim().replace(/\s+/g, ' ').slice(0, 60)}"`); };
+    const walk = document.createTreeWalker(rootEl, NodeFilter.SHOW_TEXT);
+    for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+      const el = n.parentElement;
+      if (!el || el.closest('style,script') || !n.nodeValue.trim()) continue;
+      const r = el.getBoundingClientRect();
+      if (r.width && r.height && getComputedStyle(el).visibility !== 'hidden') raw('text', n.nodeValue);
+    }
+    for (const el of rootEl.querySelectorAll('[aria-label]')) raw('label', el.getAttribute('aria-label'));
     return res;
   }, HOST);
 }

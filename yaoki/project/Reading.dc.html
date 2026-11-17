@@ -58,7 +58,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </div>
 
 <sc-if value="{{ asking }}" hint-placeholder-val="{{ true }}">
-<button data-d="act" data-k="go" disabled="{{ noPick }}" onClick="{{ check }}" style="height: 54px; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">こたえる　Check</button>
+<button data-d="act" data-k="go" disabled="{{ noPick }}" onClick="{{ check }}" style="height: 54px; flex-shrink: 0; border-radius: 16px; font-weight: 800; font-size: 17px; border: {{ ck.border }}; background: {{ ck.bg }}; color: {{ ck.color }}; box-shadow: {{ ck.shadow }}">こたえる　Check</button>
 </sc-if>
 
 <sc-if value="{{ checked }}" hint-placeholder-val="{{ false }}">

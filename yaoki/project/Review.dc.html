@@ -66,7 +66,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div style="flex-grow: 1; font-size: 17px; font-weight: 800">{{ verdictJa }} <span style="font-size: 13px; font-weight: 700">{{ verdictEn }}</span></div>
 <div lang="ja" style="font-size: 13px; font-weight: 800">正解　{{ it.rightLabel }}</div>
 </div>
-<div style="font-size: 13px; font-weight: 500; line-height: 1.45">{{ it.why }}</div>
+<div style="font-size: 13px; font-weight: 500; line-height: 1.45"><sc-for list="{{ it.why }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}">{{ g.t }}</sc-if></sc-for></div>
 <div lang="ja" style="font-size: 12px; font-weight: 700; color: #5A6382">前回　Last time you chose: {{ it.last }}</div>
 </div>
 </sc-if>
@@ -167,6 +167,8 @@ let segs;
 if (q.starQ) segs = [{ t: C.plain(q.before) + ' ' + ['＿', '＿', '＿', '＿'].map((b, k) => (k === q.star ? '★' : b)).join(' ') + ' ' + C.plain(q.after), plain: true, line: 'none' }];
 /* a question on one kana of a sentence (ぶん読み, the kana course) keeps that kana marked */
 else segs = C.rich(q.q, { hl: q.type === 'ぶん読み' });
+/* the card is sized by the text it shows: a star question has no q, its sentence and blanks are what is read */
+const shown = segs.map((g) => g.t).join('').length;
 const context = q.passage || q.script || '';
 const streak = answered ? (correct ? (entry.step || 0) + 1 : 0) : entry.step || 0;
 const target = !answered ? Math.min(entry.step || 0, 2) : correct ? Math.min(streak, 3) : 0;
@@ -188,7 +190,10 @@ return p === it.answer ? ((m.step || 0) + 1 >= 3 ? 'cleared' : 'step') : 'back';
 });
 const count = (x) => results.filter((r) => r === x).length;
 const stat = (n, ja, en, first) => ({ n, ja, en, rule: first ? 'none' : '2px solid #EEF0F6' });
-const why = q.explain || (q.why ? q.why[q.answer - 1] || q.why.find((w) => w) : '') || '';
+/* the explanation, with its readings as the question shows them: an explanation is written in the course's markup, a reason
+   carries readings only (C.ruby) */
+const reason = q.why ? q.why[q.answer - 1] || q.why.find((w) => w) || '' : '';
+const why = q.explain ? C.rich(q.explain).map((g) => ({ t: g.t, r: g.r, ruby: g.ruby, plain: g.plain })) : C.ruby(reason);
 return {
 it: {
 tag: q.type,
@@ -198,7 +203,7 @@ segs,
 /* a star sentence (the desktop's layout sizes it by this hook) */
 star: !!q.starQ,
 /* a kana, a word or its sound in letters (the kana course) is shown large */
-size: C.plain(q.q).length <= 2 ? '56px' : C.plain(q.q).length <= 8 && /かな|ことば/.test(q.type) ? '34px' : C.plain(q.q).length > 30 ? '17px' : '20px',
+size: shown <= 2 ? '56px' : shown <= 8 && /かな|ことば/.test(q.type) ? '34px' : shown > 30 ? '17px' : '20px',
 hasContext: !!context,
 contextHead: q.script ? 'スクリプト　The script (read it this time)' : '本文　The text',
 context,

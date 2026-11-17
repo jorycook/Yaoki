@@ -20,10 +20,10 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 
 <div data-d="bar" style="display: flex; align-items: center; gap: 8px; padding: 0 16px; height: 44px">
 <h1 style="margin: 0; flex-grow: 1; font-size: 22px; font-weight: 800">模擬試験 <span style="font-size: 14px; font-weight: 700; color: #5A6382">Mock exam · {{ level }}</span></h1>
-<div style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC">
+<sc-if value="{{ hasLeft }}" hint-placeholder-val="{{ true }}"><div style="display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #DDE1EC">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F4FD0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-<div style="font-weight: 800; font-size: 14px">あと39日</div>
-</div>
+<div style="font-weight: 800; font-size: 14px">{{ left }}</div>
+</div></sc-if>
 </div>
 
 <div data-d="lede" style="margin: 8px 16px 0; font-size: 13px; font-weight: 500; color: #5A6382; line-height: 1.5">{{ lede }}</div>
@@ -141,8 +141,13 @@ const mock = this.props.app && this.props.app.mock;
 const taken = !!(mock && mock.done);
 const lv = (this.props.app && this.props.app.level) || (window.ykCourse && window.ykCourse.level()) || 'N2';
 const n2 = lv === 'N2';
+/* the days to the exam, counted as the path counts them (the plan's status); no chip for a plan with no exam date.
+   On its own the artboard shows the designed moment */
+const daysLeft = this.props.app ? (this.props.app.status || {}).daysLeft : 39;
 return {
 level: lv,
+left: daysLeft != null ? (daysLeft > 0 ? 'あと' + daysLeft + '日' : daysLeft === 0 ? '今日が試験' : '試験後') : '',
+hasLeft: daysLeft != null,
 lede: n2 ? 'Two full papers at real length: one halfway through the plan, one about a week before the exam.' : 'The mini mock shows the ' + lv + ' paper in miniature. Full ' + lv + ' papers come later.',
 fullMocks: n2,
 readyOff: !n2,
