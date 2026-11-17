@@ -10,6 +10,12 @@
  * new step of the run, a falling fill when Yaoki falls, a drum roll for the last card and a
  * short cadence at the end.
  *
+ * The parts are spread across the stereo field (the tune doubled by a light chorus on the
+ * other side) and the tune, the chords, the counter-melody and the lighter drums ring a little
+ * in the room the effects share. The kick and the taiko have a click or the stick's slap over a
+ * short body, and each bass note an upper layer, so they are heard through a laptop's small
+ * speakers.
+ *
  * It plays into the effects' output (sfx.js, TypingSfx.audio()), through its own bus and a
  * gentle compressor, under the effects. A short look-ahead scheduler (a timer every 25 ms,
  * notes placed up to 0.12 s ahead on the audio clock) keeps the beat tight. When the output is
@@ -21,18 +27,26 @@
  *   TypingMusic.stop(fade = 0.4)   fade out and stop
  *   TypingMusic.pause() / resume() keep the place / go on (from the bar's start on a new output)
  *   TypingMusic.setLevel(0..3)     0 sparse, 1 groove, 2 + tune, 3 + counter-melody; next beat
- *   TypingMusic.duck(seconds)      dip to a quarter meanwhile
+ *   TypingMusic.duck(seconds)      dip by about 14 dB meanwhile (a spoken word is heard first)
  *   TypingMusic.cue(name)          'step', 'fall', 'last' or 'end', on the next beat
  *   TypingMusic.volume(v)          0..1 (0.6 at first; 0 mutes); returns the volume
  *   TypingMusic.state()            { playing, paused, song, level, bpm, heard, section, bar,
  *                                    tension, ending, volume }
+ *   TypingMusic.key()              the song's key, { root (pitch class, 0 C), scale (semitones
+ *                                    above it) }, or null with no song or no volume (for the
+ *                                    effects' notes)
+ *   TypingMusic.beat()             null when no song is sounding, else { bpm, phase (0..1 through
+ *                                    the beat, as heard), beat (beats since the song started) }
  */
 (function () {
   'use strict';
 
   const LOOKAHEAD = 0.12;   // seconds of notes placed ahead of the audio clock
   const TICK = 25;          // ms between scheduler runs
-  const TRIM = 0.2;         // the bus's level after the compressor (set by measurement)
+  const TRIM = 0.17;        // the bus's level after the compressor (set by measurement)
+  const WET = 2 * TRIM;     // the room sends' level: TRIM and about the compressor's make-up gain
+  const DUCK = 0.2;         // the music's level under a spoken word
+  const TOP = 1.2;          // a bass note's upper layer, beside the note
   const DEFAULT_VOLUME = 0.6;
   const BRIGHT = [0.8, 1, 1.08, 1.32];   // filter brightness by level
   const SHINE = [-3, 0, 0.5, 2.5];       // high-shelf gain (dB) by level
@@ -53,7 +67,7 @@
     {
       id: 'matsuri', ja: 'お祭り', en: 'Festival', bpm: 140, swing: 0,
       scale: [0, 2, 5, 7, 9],                       // yo scale on D: D E G A B
-      end: 'D5', roll: 'shime', gain: 0.89,
+      end: 'D5', roll: 'shime', gain: 0.93,
       echo: [3, 0.26, 0.2],
       mix: { drums: 1, perc: 1.02, bass: 0.85, comp: 0.99, lead: 0.97, counter: 0.54 },
       chords: {
@@ -82,7 +96,7 @@
     {
       id: 'umi', ja: '海', en: 'Surf', bpm: 148, swing: 0,
       scale: [0, 4, 5, 7, 11],                      // Ryukyu (Okinawan) scale on C: C E F G B
-      end: 'C', roll: 'snare', gain: 1.06,
+      end: 'C', roll: 'snare', gain: 0.99,
       echo: [3, 0.36, 0.28],
       mix: { drums: 1, perc: 1.16, bass: 1.29, comp: 1.01, lead: 1.14, counter: 0.49 },
       chords: {
@@ -111,7 +125,7 @@
     {
       id: 'yoru', ja: '夜', en: 'City night', bpm: 116, swing: 0.1,
       scale: [0, 2, 4, 7, 9],                       // yonanuki major on F: F G A C D
-      end: 'FM7', roll: 'snare', gain: 1.19,
+      end: 'FM7', roll: 'snare', gain: 1.15,
       echo: [3, 0.3, 0.22],
       mix: { drums: 1, perc: 0.98, bass: 1.28, comp: 0.27, lead: 0.96, counter: 0.38 },
       chords: {
@@ -141,9 +155,9 @@
     {
       id: 'take', ja: '竹', en: 'Bamboo', bpm: 108, swing: 0,
       scale: [0, 2, 3, 7, 8],                       // hirajoshi (a koto tuning) on A: A B C E F
-      end: 'Am', roll: 'shime', gain: 1.29,
+      end: 'Am', roll: 'shime', gain: 1.27,
       echo: [3, 0.34, 0.28],
-      mix: { drums: 1, perc: 0.45, bass: 0.55, comp: 0.52, lead: 0.62, counter: 0.25 },
+      mix: { drums: 0.8, snare: 1.4, perc: 1.8, bass: 0.45, comp: 0.5, lead: 0.7, counter: 0.35 },
       chords: {
         A: ['Am', 'FM7', 'Am', 'Esus4'],
         B: ['FM7', 'Dm7', 'Am', 'Esus4', 'FM7', 'Dm7', 'Esus4', 'E5'],
@@ -169,7 +183,7 @@
     {
       id: 'uchu', ja: '宇宙', en: 'Space', bpm: 128, swing: 0,
       scale: [0, 3, 5, 7, 10],                      // min'yō scale on D: D F G A C
-      end: 'Dm', endVoice: 'bell', roll: 'snare', gain: 1.27,
+      end: 'Dm', endVoice: 'bell', roll: 'snare', gain: 1.34,
       echo: [3, 0.4, 0.3],
       mix: { drums: 1, perc: 0.54, bass: 0.61, comp: 0.64, lead: 1, counter: 0.27 },
       chords: {
@@ -199,9 +213,9 @@
     {
       id: 'yuki', ja: '雪', en: 'Snow', bpm: 124, swing: 0.12,
       scale: [0, 2, 3, 7, 9],                       // kumoi scale on E: E F# G B C#
-      end: 'Em', roll: 'snare', gain: 1.33,
+      end: 'Em', roll: 'snare', gain: 1.36,
       echo: [3, 0.32, 0.26],
-      mix: { drums: 1, perc: 0.99, bass: 0.73, comp: 0.46, lead: 1.17, counter: 0.42 },
+      mix: { drums: 1, perc: 0.99, bass: 0.62, comp: 0.46, lead: 1.17, counter: 0.42 },
       chords: {
         A: ['Em', 'A', 'G', 'D'],
         B: ['G', 'A', 'F#m7', 'Bm7'],
@@ -356,6 +370,8 @@
       shami: wave(40, (k) => [0, (1 / k) * (1 + 1.6 * Math.exp(-((k - 6) * (k - 6)) / 6))]),
       // a bamboo flute: mostly the fundamental with a little 2nd and 3rd
       fue: wave(6, (k) => [0, [1, 0.12, 0.2, 0.05, 0.03, 0.01][k - 1]]),
+      // a shakuhachi: reedier, its upper harmonics stronger
+      shaku: wave(8, (k) => [0, [1, 0.38, 0.32, 0.18, 0.12, 0.07, 0.04, 0.02][k - 1]]),
     };
     RES.set(ctx, r);
     return r;
@@ -446,20 +462,24 @@
 
   // Drums and percussion: (x, t, velocity, out, arg)
   const DRUM = {
-    // a taiko "don": a deep skin that drops in pitch, with the slap of the stick
+    // a taiko "don": the stick's slap and click, the skin's own tone and a deep, short body
+    // that drops in pitch
     don(x, t, v, out, pitch) {
       const p = pitch || 1;
-      tone(x, out, t, 'sine', 165 * p, 60 * p, 0.11, 0.004, 0.42, v);
-      hiss(x, out, t, 'lowpass', 1100 * p, 0.7, 0.003, 0.07, v * 0.4);
+      tone(x, out, t, 'sine', 160 * p, 62 * p, 0.09, 0.004, 0.26, v * 0.72);
+      tone(x, out, t, 'triangle', 250 * p, 150 * p, 0.06, 0.002, 0.12, v * 0.45);
+      hiss(x, out, t, 'bandpass', 1300 * p, 0.8, 0.002, 0.045, v * 0.6);
+      hiss(x, out, t, 'bandpass', 3600, 1.5, 0.001, 0.012, v * 0.3);
     },
     // a fill's taiko, higher at the start of the fill and lower at the end
     tom(x, t, v, out, pitch) {
       DRUM.don(x, t, v * 0.85, out, pitch || 1.4);
     },
-    // a chip kick
+    // a chip kick: a short drop, its knock and the beater's click
     kick(x, t, v, out) {
-      tone(x, out, t, 'sine', 190, 46, 0.07, 0.003, 0.3, v);
-      tone(x, out, t, 'triangle', 640, 120, 0.015, 0.001, 0.02, v * 0.3);
+      tone(x, out, t, 'sine', 180, 48, 0.06, 0.003, 0.2, v * 0.85);
+      tone(x, out, t, 'triangle', 640, 120, 0.015, 0.001, 0.035, v * 0.45);
+      hiss(x, out, t, 'bandpass', 3200, 1.2, 0.001, 0.012, v * 0.45);
     },
     // "ka": the stick on the taiko's wooden rim
     ka(x, t, v, out) {
@@ -517,7 +537,13 @@
       tone(x, out, t, 'triangle', 2400, 200, 0.22, 0.002, 0.25, v * 0.12);
     },
   };
-  const PERC_BUS = { hat: 1, ohat: 1, shaker: 1, chanchiki: 1, jingle: 1, crash: 1, whistle: 1, zap: 1 };
+  // The part each drum plays into: the deep drums in the middle, the snares, claps and small
+  // drums (which ring in the room) and the light percussion off to one side.
+  const DRUM_PART = {
+    hat: 'perc', ohat: 'perc', shaker: 'perc', chanchiki: 'perc', jingle: 'perc', crash: 'perc', whistle: 'perc', zap: 'perc',
+    snare: 'snare', clap: 'snare', ka: 'snare', shime: 'snare',
+  };
+  const partOf = (x, v) => x.part[DRUM_PART[v] || 'drums'];
 
   // A rising whoosh of noise for the last card's tension.
   function riser(x, t, len, out) {
@@ -534,17 +560,30 @@
     done(s, fl, g);
   }
 
+  // A bass note's upper layer: its octave as a pulse, through a band-pass around 600-1400 Hz,
+  // so that the note is heard through a laptop's small speakers too.
+  function bassTop(x, out, t, f, end, v) {
+    const a = osc(x, x.r.pulse25, f * 2, t), fl = filter(x, 'bandpass', Math.min(Math.max(f * 8, 600), 1400), 0.8), g = x.ctx.createGain();
+    held(g, t, v * TOP, 0.004, 0.55, 0.12, end, 0.03);
+    a.connect(fl);
+    fl.connect(g);
+    g.connect(out);
+    a.start(t);
+    a.stop(end + 0.15);
+    done(a, fl, g);
+  }
+
   // Pitched instruments: (x, out, t, frequency, duration, velocity, options) -> { g, end }
   // options: from (a frequency to glide from), slide (scoop up into the note), send (the
   // echo), trem (tremolo rate), cut (filter cutoff), dead (a muted bass note), pop.
   const VOICE = {
     // a fue, the festival's bamboo flute: soft attack, breath, scoops and a late vibrato
     fue(x, out, t, f, dur, v, o) {
-      return flute(x, out, t, f, dur, v, o, 0.15, 5.3, 0.007);
+      return flute(x, out, t, f, dur, v, o, x.r.fue, 0.15, 5.3, 0.007);
     },
-    // a shakuhachi-like flute: more breath, a slower, wider vibrato
+    // a shakuhachi-like flute: a reedier tone, more breath, a slower, wider vibrato
     shaku(x, out, t, f, dur, v, o) {
-      return flute(x, out, t, f, dur, v, o, 0.3, 4.6, 0.011);
+      return flute(x, out, t, f, dur, v * 1.2, o, x.r.shaku, 2.5, 4.6, 0.011);
     },
     square(x, out, t, f, dur, v, o) {
       return chip(x, out, t, f, dur, v * 0.62, o, 'square', 3600);
@@ -591,7 +630,18 @@
       done(a, fl, g);
       tone(x, out, t, 'sine', f * 2, f * 2, 0, 0.002, 0.3, v * 0.28);
       tone(x, out, t, 'sine', f * 3, f * 3, 0, 0.002, 0.12, v * 0.1);
-      hiss(x, out, t, 'bandpass', 2400, 1.5, 0.001, 0.01, v * 0.18);
+      // the plectrum's bright twang, gone in a moment
+      const b = osc(x, 'sawtooth', f, t), bf = filter(x, 'lowpass', 5000, 1), bg = x.ctx.createGain();
+      bf.frequency.setValueAtTime(Math.min(5000 * x.bright, 9000), t);
+      bf.frequency.exponentialRampToValueAtTime(900, t + 0.14);
+      perc(bg, t, v * 0.22, 0.001, 0.14);
+      b.connect(bf);
+      bf.connect(bg);
+      bg.connect(out);
+      b.start(t);
+      b.stop(t + 0.17);
+      done(b, bf, bg);
+      hiss(x, out, t, 'bandpass', 2400, 1.5, 0.001, 0.012, v * 0.25);
       return { g, end: t + len };
     },
     // an electric piano (city pop): a soft FM tine
@@ -672,6 +722,7 @@
       b.stop(end + 0.15);
       done(a, fl, g);
       done(b, bg);
+      bassTop(x, out, t, f, end, v);
       return { g, end: end + 0.15 };
     },
     pick(x, out, t, f, dur, v, o) {
@@ -686,6 +737,7 @@
       a.start(t);
       a.stop(t + len + 0.03);
       done(a, fl, g);
+      bassTop(x, out, t, f, t + len, v);
       return { g, end: t + len };
     },
     slap(x, out, t, f, dur, v, o) {
@@ -701,13 +753,14 @@
       a.start(t);
       a.stop(end + 0.15);
       done(a, fl, g);
+      bassTop(x, out, t, f, end, v);
       return { g, end: end + 0.15 };
     },
     sub(x, out, t, f, dur, v, o) {
-      const c = x.ctx, a = osc(x, 'sine', f, t), b = osc(x, 'sawtooth', f, t), fl = filter(x, 'lowpass', 520, 1), bg = c.createGain(), g = c.createGain();
-      bg.gain.value = 0.4;
+      const c = x.ctx, a = osc(x, 'sine', f, t), b = osc(x, 'sawtooth', f, t), fl = filter(x, 'lowpass', 800, 1), bg = c.createGain(), g = c.createGain();
+      bg.gain.value = 0.55;
       const end = t + (o.dead ? 0.04 : dur);
-      held(g, t, v, 0.012, 0.85, 0.3, end, 0.04);
+      held(g, t, v * 0.8, 0.012, 0.85, 0.3, end, 0.04);
       a.connect(g);
       b.connect(fl);
       fl.connect(bg);
@@ -719,6 +772,7 @@
       b.stop(end + 0.2);
       done(a, g);
       done(b, fl, bg);
+      bassTop(x, out, t, f, end, v);
       return { g, end: end + 0.2 };
     },
     round(x, out, t, f, dur, v, o) {
@@ -738,12 +792,13 @@
       b.stop(end + 0.25);
       done(a, fl, g);
       done(b, bg);
+      bassTop(x, out, t, f, end, v);
       return { g, end: end + 0.25 };
     },
   };
 
-  function flute(x, out, t, f, dur, v, o, breath, rate, depth) {
-    const c = x.ctx, a = osc(x, x.r.fue, f, t), g = c.createGain();
+  function flute(x, out, t, f, dur, v, o, wave, breath, rate, depth) {
+    const c = x.ctx, a = osc(x, wave, f, t), g = c.createGain();
     const end = t + dur, stop = end + 0.3;
     if (o.from) {
       a.frequency.setValueAtTime(o.from, t);
@@ -805,8 +860,13 @@
   }
 
   // ---------- the bus ----------
-  // parts -> mix -> high shelf ("shine") -> compressor -> trim -> fade -> duck -> volume -> out
-  function makeBus(ctx, dest, def, volume) {
+  // parts -> mix -> high shelf ("shine") -> compressor -> trim -> fade -> duck -> volume -> out,
+  // and from the lighter parts, sends -> wet -> fade -> duck -> volume -> the room (sfx.js's
+  // reverb), so the room's share fades, dips and turns down with the rest.
+  const MIX = { drums: 0.13, snare: 0.17, perc: 0.24, bass: 0.07, comp: 0.13, lead: 0.065, counter: 0.08, fx: 0.07 };
+  const PAN = { drums: 0, snare: 0.06, perc: 0.3, bass: 0, comp: -0.38, lead: -0.16, counter: 0.42, fx: 0 };
+  const ROOM = { snare: 0.3, perc: 0.25, comp: 0.3, lead: 0.35, counter: 0.45, fx: 0.4 };
+  function makeBus(ctx, dest, def, volume, verb) {
     const nodes = [];
     const gain = (v) => {
       const g = ctx.createGain();
@@ -814,7 +874,7 @@
       nodes.push(g);
       return g;
     };
-    const x = { ctx, r: resources(ctx), bright: 1, seed: 0, nodes, part: {}, lv: {} };
+    const x = { ctx, r: resources(ctx), bright: 1, seed: 0, nodes, part: {}, lv: {}, wet: null };
     x.mix = gain((def.gain || 1) * LEVEL_GAIN[1]);
     x.shine = ctx.createBiquadFilter();
     x.shine.type = 'highshelf';
@@ -849,14 +909,34 @@
       node.connect(sp);
       sp.connect(x.mix);
     };
-    const MIX = { drums: 0.15, perc: 0.2, bass: 0.08, comp: 0.1, lead: 0.065, counter: 0.08, fx: 0.07 };
-    const PAN = { drums: 0, perc: 0.22, bass: 0, comp: -0.28, lead: 0, counter: 0.32, fx: 0 };
+    if (verb) {
+      x.wet = { sum: gain(x.mix.gain.value * WET), fade: gain(1), duck: gain(1), vol: gain(volume) };
+      x.wet.sum.connect(x.wet.fade);
+      x.wet.fade.connect(x.wet.duck);
+      x.wet.duck.connect(x.wet.vol);
+      x.wet.vol.connect(verb);
+    }
     for (const name of Object.keys(MIX)) {
-      const v = MIX[name] * ((def.mix && def.mix[name]) || 1);
+      const v = MIX[name] * ((def.mix && (def.mix[name] || (name === 'snare' && def.mix.drums))) || 1);
       x.lv[name] = v;
       x.part[name] = gain(v);
       pan(x.part[name], PAN[name]);
+      if (x.wet && ROOM[name]) {
+        const s = gain(ROOM[name]);
+        x.part[name].connect(s);
+        s.connect(x.wet.sum);
+      }
     }
+    // the tune's double: a light chorus (a short delay that sways) on the other side
+    const cho = ctx.createDelay(0.05), lfo = ctx.createOscillator(), depth = gain(0.0022);
+    cho.delayTime.value = 0.014;
+    lfo.frequency.value = 0.8;
+    lfo.connect(depth);
+    depth.connect(cho.delayTime);
+    lfo.start();
+    nodes.push(cho, lfo);
+    x.part.lead.connect(cho);
+    pan(cho, 0.34);
     // the echo: a dotted-eighth delay for the tune and the counter-melody, fed at each part's
     // own level
     const e = def.echo;
@@ -878,13 +958,28 @@
     pan(wet, -0.15);
     return x;
   }
+  // The fader, the ducker or the volume of a bus: on its dry sound and on its room sends alike.
+  const stage = (x, name) => (x.wet ? [x[name].gain, x.wet[name].gain] : [x[name].gain]);
+  // The mix's level and brightness for a level of the song: now, or from time t.
+  function levelBus(x, def, level, t) {
+    const g = (def.gain || 1) * LEVEL_GAIN[level];
+    const set = (prm, v) => {
+      if (t === undefined) prm.value = v;
+      else prm.setTargetAtTime(v, t, 0.08);
+    };
+    set(x.shine.gain, SHINE[level]);
+    set(x.mix.gain, g);
+    if (x.wet) set(x.wet.sum.gain, g * WET);
+  }
   function dropBus(x, fade) {
     if (!x) return;
     try {
-      const now = x.ctx.currentTime, g = x.fade.gain;
-      g.cancelScheduledValues(now);
-      g.setValueAtTime(g.value, now);
-      g.linearRampToValueAtTime(0, now + Math.max(fade, 0.005));
+      const now = x.ctx.currentTime;
+      for (const g of stage(x, 'fade')) {
+        g.cancelScheduledValues(now);
+        g.setValueAtTime(g.value, now);
+        g.linearRampToValueAtTime(0, now + Math.max(fade, 0.005));
+      }
     } catch (err) {
       // the context is closed
     }
@@ -892,6 +987,7 @@
       for (const n of x.nodes) {
         try {
           n.disconnect();
+          if (n.stop) n.stop();
         } catch (err) {
           // already gone
         }
@@ -900,19 +996,21 @@
   }
   function duckBus(x, secs) {
     try {
-      const now = x.ctx.currentTime, g = x.duck.gain, hold = Math.max(secs, 0.08);
-      g.cancelScheduledValues(now);
-      g.setValueAtTime(g.value, now);
-      g.linearRampToValueAtTime(0.25, now + 0.08);
-      g.setValueAtTime(0.25, now + hold);
-      g.linearRampToValueAtTime(1, now + hold + 0.35);
+      const now = x.ctx.currentTime, hold = Math.max(secs, 0.08);
+      for (const g of stage(x, 'duck')) {
+        g.cancelScheduledValues(now);
+        g.setValueAtTime(g.value, now);
+        g.linearRampToValueAtTime(DUCK, now + 0.05);
+        g.setValueAtTime(DUCK, now + hold);
+        g.linearRampToValueAtTime(1, now + hold + 0.35);
+      }
     } catch (err) {
       // the context is closed
     }
   }
 
   // ---------- a player: one song on one output ----------
-  function makePlayer(ctx, dest, def, level, volume) {
+  function makePlayer(ctx, dest, def, level, volume, verb) {
     return {
       ctx, def, sd: def.sd, t0: 0, abs: 0,
       level, target: level,
@@ -920,7 +1018,7 @@
       tension: -1, endStep: -1, done: false, finalAt: 0, stopAt: 0,
       held: { comp: [], lead: [], counter: [] },
       prev: null, silent: false, events: 0, trace: null,
-      x: makeBus(ctx, dest, def, volume),
+      x: makeBus(ctx, dest, def, volume, verb),
     };
   }
 
@@ -978,8 +1076,7 @@
       if (p.target < p.level) kill(p, t, p.target);
       p.level = p.target;
       try {
-        x.shine.gain.setTargetAtTime(SHINE[p.level], t, 0.08);
-        x.mix.gain.setTargetAtTime((p.def.gain || 1) * LEVEL_GAIN[p.level], t, 0.08);
+        levelBus(x, p.def, p.level, t);
       } catch (err) {
         // gone
       }
@@ -1063,7 +1160,7 @@
       const c = pat ? pat[s] : '.';
       const v = VEL[c];
       if (!v) continue;
-      DRUM[d.v](x, tt, v * d.g * (L === 0 ? 0.8 : 1), PERC_BUS[d.v] ? x.part.perc : x.part.drums, d.pitch, c);
+      DRUM[d.v](x, tt, v * d.g * (L === 0 ? 0.8 : 1), partOf(x, d.v), d.pitch, c);
       p.events++;
     }
     if (fill) {
@@ -1071,7 +1168,7 @@
         const c = fill.parts[name][s], v = VEL[c];
         if (!v) continue;
         const pitch = name === 'tom' ? 1.75 - 0.75 * (s - fill.from) / (16 - fill.from) : undefined;
-        DRUM[name](x, tt, v, PERC_BUS[name] ? x.part.perc : x.part.drums, pitch, c);
+        DRUM[name](x, tt, v, partOf(x, name), pitch, c);
         p.events++;
       }
     }
@@ -1079,7 +1176,7 @@
       const k = n - p.tension, ph = k % 32;
       if (ph === 0) riser(x, t, 32 * p.sd, x.part.fx);
       if (k >= 16 || (s & 1) === 0) {
-        DRUM[def.roll](x, tt, 0.2 + 0.5 * ph / 31, x.part.drums);
+        DRUM[def.roll](x, tt, 0.2 + 0.5 * ph / 31, partOf(x, def.roll));
         p.events++;
       }
     }
@@ -1198,9 +1295,8 @@
   }
   function bringBus(p, a) {
     p.ctx = a.ctx;
-    p.x = makeBus(a.ctx, a.out, p.def, VOL);
-    p.x.shine.gain.value = SHINE[p.level];
-    p.x.mix.gain.value = (p.def.gain || 1) * LEVEL_GAIN[p.level];
+    p.x = makeBus(a.ctx, a.out, p.def, VOL, a.verb);
+    levelBus(p.x, p.def, p.level);
     p.silent = VOL === 0;
     const left = (duckUntil - performance.now()) / 1000;
     if (left > 0) duckBus(p.x, left);
@@ -1253,7 +1349,7 @@
         const a = output();
         halt(0.15);
         if (!a) return false;
-        P = makePlayer(a.ctx, a.out, def, 1, VOL);
+        P = makePlayer(a.ctx, a.out, def, 1, VOL, a.verb);
         P.silent = VOL === 0;
         if (tracing) P.trace = [];
         const left = (duckUntil - performance.now()) / 1000;
@@ -1370,7 +1466,9 @@
           if (isFinite(n)) VOL = Math.min(Math.max(n, 0), 1);
           if (P) {
             P.silent = VOL === 0;
-            if (mode === 'playing') P.x.vol.gain.setTargetAtTime(VOL, P.ctx.currentTime, 0.04);
+            if (mode === 'playing') {
+              for (const g of stage(P.x, 'vol')) g.setTargetAtTime(VOL, P.ctx.currentTime, 0.04);
+            }
           }
         }
       } catch (err) {
@@ -1408,17 +1506,48 @@
       return out;
     },
 
+    // The song's key, for the effects' notes: { root, scale }, the tonic's pitch class (0 C,
+    // 2 D ...) and the scale's steps in semitones above it; null with no song or no volume.
+    key() {
+      try {
+        if (!P || P.silent) return null;
+        return { root: P.def.lead.home % 12, scale: P.def.scale.slice() };
+      } catch (err) {
+        return null;
+      }
+    },
+
+    // The beat as heard, for animation (cheap enough for every frame): null when no song is
+    // sounding (stopped, paused, no output, no volume, or once its last chord has sounded),
+    // else { bpm, phase, beat }: phase from 0 to 1 through the current beat (a quarter note),
+    // beat the whole beats since the song started. The audio clock is read less the output's
+    // latency, where the browser gives it.
+    beat() {
+      try {
+        if (!P || mode !== 'playing' || P.silent || P.ctx.state !== 'running') return null;
+        const c = P.ctx, late = (c.outputLatency > 0 ? c.outputLatency : 0) + (c.baseLatency > 0 ? c.baseLatency : 0);
+        const heard = c.currentTime - Math.min(late, 0.5);
+        if (heard < P.t0 || (P.done && heard >= P.finalAt)) return null;
+        const b = (heard - P.t0) / (4 * P.sd), whole = Math.floor(b);
+        return { bpm: P.def.bpm, phase: b - whole, beat: whole };
+      } catch (err) {
+        return null;
+      }
+    },
+
     // For tests: render `seconds` of a song at a level into an OfflineAudioContext, scheduled
     // in slices with suspend() as the live scheduler would. `opts.events` is a list of
     // { step, level } or { step, cue } to apply at those steps; `opts.solo` lists the parts to
-    // keep (drums, perc, bass, comp, lead, counter, fx). Resolves to { buffer, events }.
+    // keep (drums, snare, perc, bass, comp, lead, counter, fx); `opts.out` and `opts.verb` an
+    // output to play into and its room (TypingSfx._output()), else the context's destination
+    // and no room. Resolves to { buffer, events }.
     _renderTo(octx, song, level, seconds, opts) {
       const o = opts || {};
       const def = find(song);
       if (!def || !octx) return Promise.reject(new Error('no song or context'));
-      const p = makePlayer(octx, octx.destination, def, level === undefined ? 1 : level, o.volume === undefined ? DEFAULT_VOLUME : o.volume);
-      p.x.shine.gain.value = SHINE[p.level];
-      p.x.mix.gain.value = (def.gain || 1) * LEVEL_GAIN[p.level];
+      const vol = o.volume === undefined ? DEFAULT_VOLUME : o.volume;
+      const p = makePlayer(octx, o.out || octx.destination, def, level === undefined ? 1 : level, vol, o.verb || null);
+      levelBus(p.x, def, p.level);
       if (o.solo) for (const k of Object.keys(p.x.part)) if (o.solo.indexOf(k) < 0) p.x.part[k].gain.value = 0;
       p.t0 = 0.05;
       const ev = (o.events || []).slice().sort((a, b) => a.step - b.step);
