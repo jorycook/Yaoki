@@ -1057,6 +1057,18 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
     html.yk-desk [data-yk="KanaWrite"] [data-k="go"][aria-disabled="true"]::after { opacity: 0.4; }
   }
 }
+/* a short window (640 px or less: a 1920 x 1080 laptop at 150 %, a pane of 520 to 560 px): the page a little tighter at its top,
+   the kana a size smaller and the writing panel a little smaller (as a tall window makes it larger), so the action stays in view */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="KanaWrite"] { padding-top: 8px !important; padding-bottom: 12px !important; }
+    html.yk-desk [data-yk="KanaWrite"] > [data-d="bar"] { height: 36px !important; }
+    html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="card"] { margin-top: 10px !important; min-height: 320px; }
+    html.yk-desk [data-yk="KanaWrite"] [data-d="card"] > [data-d="big"] { font-size: 140px !important; }
+    html.yk-desk [data-yk="KanaWrite"] [data-d="main"] > [data-d="write"] { transform: scale(0.86); transform-origin: top center; margin-bottom: -68px !important; }
+    html.yk-desk [data-yk="KanaWrite"] > [data-d="act"] { margin-top: 10px !important; }
+  }
+}
 
 /* ---------- Listening.css ---------- */
 /* Listening (both apps): the sound on the left, the answer on the right. The question and its note head the screen; under them
@@ -2705,6 +2717,16 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
 }
 @keyframes yk-scene-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 @keyframes yk-sc-more { from { opacity: 1; } to { opacity: 0; } }
+/* a short window (640 px or less: a 1920 x 1080 laptop at 150 %, a pane of 520 to 560 px): the writing step a little tighter at
+   its top and above its action, so the action stays in view under the pad */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) { padding-top: 8px !important; padding-bottom: 12px !important; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) > [data-d="bar"] { height: 36px !important; }
+    html.yk-desk [data-yk="Scene"] > [data-d="write"] > [data-d="card"] { margin-top: 4px !important; }
+    html.yk-desk [data-yk="Scene"]:has(> [data-d="write"]) > [data-d="act"] { margin-top: 8px !important; }
+  }
+}
 
 /* ---------- Star.css ---------- */
 /* Star (N1): the star sentence, the drill's last question. The title and its instruction run across the top. The sentence with its
@@ -3005,6 +3027,17 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
 /* the day's kanji, written by hand there, a little larger where the pane has room for seven of them on a line */
 @container yk (min-width: 1000px) {
   html.yk-desk [data-yk="Today"] [data-d="row"] div[lang="ja"][style*="Klee One"] { font-size: 22px !important; line-height: 28px !important; }
+}
+/* a short window (640 px or less: a 1920 x 1080 laptop at 150 %, a pane of 520 to 560 px): the spread a little tighter at its
+   top and between its parts, so the stamp note and Back stay in view */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Today"] { padding-top: 10px !important; padding-bottom: 14px !important; }
+    html.yk-desk [data-yk="Today"] > [data-d="bar"] { height: 36px !important; }
+    html.yk-desk [data-yk="Today"] > [data-d="head"] { margin-top: 2px !important; }
+    html.yk-desk [data-yk="Today"] > [data-d="cards"] { margin-top: 12px; }
+    html.yk-desk [data-yk="Today"] > :is([data-d="note"], [data-d="act"]) { margin-top: 10px; }
+  }
 }
 
 /* ---------- WeekTest.css ---------- */

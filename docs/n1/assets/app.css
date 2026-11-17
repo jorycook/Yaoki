@@ -135,7 +135,8 @@ html.yk-desk .yk-sheet > * { flex-shrink: 0; }
   html.yk-desk #yk-stage nav[aria-label="Main"] { display: none !important; }   /* the tab bar is drawn inline; the sidebar takes its place */
 }
 /* a pane of 880 px or more shows the landscape layouts (the window from 1120 px, less the sidebar, or from 880 to 999 px, where
-   there is no sidebar): they fit a window's height down to a 560 px pane, and below that the column scrolls */
+   there is no sidebar): they fit a window's height down to a 520 px pane (a 1920 x 1080 laptop at 150 % leaves about 540 under
+   the header, 520 with a bookmarks bar), and below that the column scrolls */
 @media (min-width: 1120px), (min-width: 880px) and (max-width: 999.98px) {
-  html.yk-desk #yk-view { min-height: 560px; }
+  html.yk-desk #yk-view { min-height: 520px; }
 }
