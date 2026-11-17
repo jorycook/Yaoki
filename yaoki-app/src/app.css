@@ -95,7 +95,8 @@ html.yk-desk .app-shell { flex: 1; min-height: 0; display: grid; grid-template-c
 /* the sidebar: the app's own navigation, a mirror of the tab bar in the pane (yk-app.js keeps them alike), and the site's footer */
 html.yk-desk .app-side { display: none; flex-direction: column; gap: 10px; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 20px 14px 16px; border-right: 2px solid var(--line); }
 html.yk-desk .app-side-head { display: flex; flex-direction: column; gap: 2px; padding: 0 14px 8px; }
-html.yk-desk .app-side-head h1 { margin: 0; font-size: 20px; font-weight: 800; line-height: 1.2; }
+/* the app's name: not a heading, as the screen in the pane carries the page's own (its h1) */
+html.yk-desk .app-side-head .app-side-name { margin: 0; font-size: 20px; font-weight: 800; line-height: 1.2; }
 html.yk-desk .app-nav { display: flex; flex-direction: column; gap: 4px; }
 html.yk-desk .app-nav button { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px; border-radius: 14px; border: 2px solid transparent; background: none; color: var(--muted); font: inherit; font-size: 15px; font-weight: 800; text-align: left; text-decoration: none; cursor: pointer; }
 @media (hover: hover) { html.yk-desk .app-nav button:hover { background: var(--card); color: var(--ink); } }
