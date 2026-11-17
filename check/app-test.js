@@ -308,7 +308,7 @@ const placed = (page) => page.evaluate(() => {
     // pane under the site header, as wide and as tall as the window leaves; from 1000 px wide the app's sidebar replaces the tab
     // bar inside the pane, and from a pane of 880 px each screen has its landscape layout. A window too wide for a phone but
     // smaller than that keeps the plain grey frame with the design centred
-    for (const [name, w, h] of [['laptop', 1280, 800], ['wide window', 844, 390], ['tablet upright', 810, 1080], ['narrow laptop window', 640, 800], ['short window', 1024, 600], ['wide desktop', 1600, 1000], ['laptop with a browser', 1366, 657], ['full HD', 1920, 1080], ['small window', 960, 600]]) {
+    for (const [name, w, h] of [['laptop', 1280, 800], ['wide window', 844, 390], ['tablet upright', 810, 1080], ['narrow laptop window', 640, 800], ['short window', 1024, 600], ['wide desktop', 1600, 1000], ['laptop with a browser', 1366, 657], ['full HD', 1920, 1080], ['small window', 960, 600], ['1080p laptop at 150 %', 1280, 600], ['the same with a bookmarks bar', 1280, 578]]) {
       const desk = w >= 700 && h >= 560;
       const ctx = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
       const page = await ctx.newPage();
@@ -334,9 +334,9 @@ const placed = (page) => page.evaluate(() => {
         const rootWant = paneW >= 880 ? Math.min(paneW, 1240) : paneW;
         ok(Math.abs(r.rootW - rootWant) < 2, `${name}: the screen should be laid out ${rootWant} px wide, not at the phone's 390 px, got ${r.rootW}`);
         ok(r.bar.bottom <= r.y + 0.5, `${name}: the header should sit above the pane, got ${JSON.stringify(r.bar)} against y=${r.y}`);
-        // a landscape layout (a pane of 880 px or more) fits the window down to a pane of 560 px; the single column keeps the 792 px
+        // a landscape layout (a pane of 880 px or more) fits the window down to a pane of 520 px; the single column keeps the 792 px
         // it was drawn for
-        const floor = paneW >= 880 ? 560 : 792;
+        const floor = paneW >= 880 ? 520 : 792;
         ok(Math.abs(r.h - Math.max(floor, h - r.bar.bottom)) < 1, `${name}: the pane should be as tall as the window under the header (never under ${floor}), got ${r.h}`);
         ok(r.lastBottom <= r.y + r.h + 0.5, `${name}: the whole screen should fit its pane, got its last part at ${r.lastBottom} against the pane's ${r.y + r.h}`);
         ok(r.footShown, `${name}: the site's footer should be on the page (in the sidebar, or under the pane without one)`);
