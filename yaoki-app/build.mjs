@@ -25,7 +25,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
    The few lines of the shared files that belong to one app only are marked (see forLevel below). */
 const LEVELS = {
   N2: { project: '../yaoki/project', out: 'dist', name: 'Yaoki', full: 'Yaoki JLPT', tile: '#F2B43A', about: 'Prototype: the kana, then N5 to N2, planned to your exam date.', credits: '',
-    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write', 'Kana', 'KanaWrite', 'KanaWords', 'Extras'],
+    screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write', 'Kana', 'KanaWrite', 'KanaWords', 'Extras', 'MockFull'],
     /* run first: the course content, checked and turned into course-kana.js, course-n2.js, course-n5.js, course-n4.js and course-n3.js next to the screens */
     prepare: '../tools/build-course.mjs',
     /* loaded after the sound player and before the screens; words: the ones whose text the typefaces must hold.
@@ -36,8 +36,8 @@ const LEVELS = {
        sound-course-n2-u12.js) is fetched by course.js when the unit is in use, and stored by the offline worker when used,
        not at install (lazy) */
     sounds: ['sound-mock.js', 'sound-lessons.js'],
-    unitSound: /^sound-course-(?:n\d|kana)-u\d+\.js$/,
-    lazy: /^\.\/assets\/sound-course-(?:n\d|kana)-u\d+\.js$/ },
+    unitSound: /^sound-course-(?:n\d|kana)-(?:u\d+|m\d)\.js$/,
+    lazy: /^\.\/assets\/sound-course-(?:n\d|kana)-(?:u\d+|m\d)\.js$/ },
   N1: { project: '../yaoki-n1/project', out: 'dist-n1', name: 'Yaoki N1', full: 'Yaoki JLPT N1', tile: '#2F4FD0', about: 'Prototype N1 course, planned to your exam date.', credits: 'Kanji data: KANJIDIC2 and JMdict, by the EDRDG (CC BY-SA 4.0). ',
     screens: ['Goal', 'Main', 'Today', 'Teach', 'Compare', 'Drill', 'Star', 'Exam', 'Scene', 'Reading', 'WeekTest', 'Notebook', 'Review', 'Mock', 'MockRun', 'Readiness', 'Listening', 'Write'],
     /* the content bank and the plan that lays it out (tools/build-content.mjs makes n1-content.js), and the list of the spoken clips;

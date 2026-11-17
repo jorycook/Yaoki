@@ -58,7 +58,7 @@ function item(where, it, ctx) {
       if (it.short && it.short.length !== it.options.length) bad(it.id, 'short must have one entry per option');
       if (!it.why && !it.explain) bad(it.id, 'needs why (one line per option) or explain');
       if (it.why) it.why.forEach((w, k) => { if (k + 1 !== it.answer && !w && !it.explain) bad(it.id, `no reason for wrong option ${k + 1}`); });
-      if (typeof it.q === 'string' && !/（　　）|_[^_]+_|★/.test(it.q) && !/読解|内容理解|主張|情報検索|課題|概要|即時|ポイント|統合|用法|発話|ぶん/.test(it.type)) bad(it.id, 'q has no （　　） blank and no _underlined_ word');
+      if (typeof it.q === 'string' && !/（　　）|_[^_]+_|★/.test(it.q) && !/読解|内容理解|主張|情報検索|課題|概要|即時|ポイント|統合|用法|発話|ぶん|文章の文法/.test(it.type)) bad(it.id, 'q has no （　　） blank and no _underlined_ word');
     }
   } else if (it.kind === 'star') {
     if (!Array.isArray(it.tiles) || it.tiles.length !== 4) bad(it.id, 'a star item has exactly four tiles, in the right order');
@@ -183,7 +183,53 @@ const units = syllabus.units.map((u) => {
 // the mini mock's questions, so the notebook can show and re-ask the ones that were missed
 const miniFile = path.join(SRC, 'mini.json');
 if (fs.existsSync(miniFile)) JSON.parse(fs.readFileSync(miniFile, 'utf8')).items.forEach((it) => item('mini', it, { step: 'mock' }));
-return { dir, level: LEVEL, about: syllabus.about, units, items };
+// the full mocks (mock1.json, mock2.json): whole papers at real length, run by MockRun and marked on MockFull
+const fulls = fs.readdirSync(SRC).filter((f) => /^mock\d+\.json$/.test(f)).sort().map((f) => fullMock(f, JSON.parse(fs.readFileSync(path.join(SRC, f), 'utf8'))));
+return { dir, level: LEVEL, about: syllabus.about, units, items, fulls };
+}
+
+/* a full mock: its questions in the order and number of the real paper (FULL_PAPER), each a choice item; a question on a
+   passage names it (text), and the build puts the passage in place (passage, or texts for an A and B pair); a listening
+   question has its kind (listen: task, the choices printed; gist and quick, spoken), its parts and its script */
+const FULL_PAPER = [['漢字読み', 5], ['表記', 5], ['語形成', 3], ['文脈規定', 7], ['言い換え類義', 5], ['用法', 5], ['文の文法1', 12], ['文の文法2', 5], ['文章の文法', 4],
+  ['読解・内容理解（短文）', 5], ['読解・内容理解（中文）', 8], ['読解・統合理解', 2], ['読解・主張理解（長文）', 3], ['読解・情報検索', 2],
+  ['課題理解', 5], ['ポイント理解', 6], ['概要理解', 5], ['即時応答', 11], ['統合理解', 3]];
+const LISTEN_TYPES = new Set(['課題理解', 'ポイント理解', '概要理解', '即時応答', '統合理解']);
+function fullMock(file, doc) {
+  const where = file.replace(/\.json$/, '');
+  if (!(doc.n >= 1) || !doc.title || !doc.en) bad(where, 'a full mock needs n, title and en');
+  const its = doc.items || [];
+  const want = FULL_PAPER.flatMap(([type, k]) => Array(k).fill(type));
+  if (its.length !== want.length) bad(where, `a full mock has ${want.length} questions, not ${its.length}`);
+  its.forEach((it, k) => {
+    if (it.type !== want[k]) bad(it.id || where, `question ${k + 1} should be ${want[k]}, not ${it.type}`);
+    if (it.id !== `f${doc.n}.${k + 1}`) bad(it.id || where, `question ${k + 1} of mock ${doc.n} should be f${doc.n}.${k + 1}`);
+    if (it.kind !== 'choice' || !it.label || !it.rubric) bad(it.id, 'a full mock question is a choice item with its label (問題…) and rubric');
+    if (it.text) {
+      const t = (doc.texts || {})[it.text];
+      if (typeof t === 'string') it.passage = t;
+      else if (t && t.A && t.B) it.texts = [{ tag: 'A', t: t.A }, { tag: 'B', t: t.B }];
+      else bad(it.id, `names a text (${it.text}) the mock does not have`);
+    } else if (/読解|文章の文法/.test(it.type)) bad(it.id, 'a reading question needs its text');
+    if (it.order) {
+      const ok = it.order.length === 4 && [...it.order].sort().join() === '1,2,3,4' && it.star >= 0 && it.star <= 3 && it.order[it.star] === it.answer && it.order.some((o, j) => o !== j + 1);
+      if (!ok) bad(it.id, 'a star question needs order (the options in the right order), star (0 to 3) and answer = order[star], shown out of order');
+      if (!it.q.includes('★')) bad(it.id, 'a star question shows ★ in q');
+    }
+    if (LISTEN_TYPES.has(it.type)) {
+      if (!['task', 'gist', 'quick'].includes(it.listen)) bad(it.id, 'a listening question needs listen: task, gist or quick');
+      if (it.listen === 'quick' && it.options.length !== 3) bad(it.id, 'a quick response has three replies');
+      if (!it.script) bad(it.id, 'a listening question needs its script');
+      if (!Array.isArray(it.parts) || !it.parts.some((p) => p.k === 'ans')) bad(it.id, 'a listening question needs its parts, the answer time last');
+      (it.parts || []).forEach((p) => {
+        if (!p.k || !p.ja || !p.en || !(p.sim > 0)) bad(it.id, `part ${p.k}: needs k, ja, en and sim`);
+        if (p.lines) p.lines.forEach((l) => { if (!Array.isArray(l) || !['N', 'M', 'F', 'G'].includes(l[0]) || !l[1]) bad(it.id, `part ${p.k}: each line is [N|M|F|G, text, respelling or null]`); });
+        else if (!(p.wait > 0)) bad(it.id, `part ${p.k}: a part with nothing said needs wait (milliseconds)`);
+      });
+    }
+    item(where, it, { step: 'full', full: doc.n });
+  });
+  return { n: doc.n, title: doc.title, en: doc.en, items: its.map((it) => it.id) };
 }
 
 const built = fs.readdirSync(path.join(ROOT, 'content')).filter((d) => fs.existsSync(path.join(ROOT, 'content', d, 'units.json'))).sort().map(buildLevel);
@@ -211,9 +257,9 @@ for (const b of built) {
      practice asks only for the others) */
   const BELOW = { KANA: null, N5: null, N4: KANJI.N5, N3: KANJI.N4, N2: KANJI.N3 };
   const below = BELOW[b.level] ? [...BELOW[b.level]].join('') : '';
-  const body = JSON.stringify({ level: b.level, units: b.units, items: b.items, below });
+  const body = JSON.stringify({ level: b.level, units: b.units, items: b.items, below, ...(b.fulls.length ? { fulls: b.fulls } : {}) });
   const alias = b.level === 'N2' ? `window.__ykCourseData = window.__ykCourses.N2;\n` : '';
   fs.writeFileSync(OUT, `/* Generated by tools/build-course.mjs from content/${b.dir}/*.json. Do not edit: change the content and rebuild. */\nwindow.__ykCourses = window.__ykCourses || {};\nwindow.__ykCourses.${b.level} = ${body};\n${alias}`);
   const ready = b.units.reduce((n, u) => n + u.days.filter((d) => d.grammar || d.kana).length, 0);
-  console.log(`course-${b.dir}.js: ${b.units.length} units, ${ready} study days written, ${Object.keys(b.items).length} items, ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
+  console.log(`course-${b.dir}.js: ${b.units.length} units, ${ready} study days written, ${Object.keys(b.items).length} items${b.fulls.length ? `, ${b.fulls.length} full mocks` : ''}, ${(fs.statSync(OUT).size / 1024).toFixed(0)} KB`);
 }

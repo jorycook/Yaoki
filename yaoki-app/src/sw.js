@@ -140,7 +140,8 @@ self.addEventListener('message', (event) => {
   /* the N1 app is one level: its lazy files are the course's clips (assets/audio/*.mp3), asked for once there is a plan */
   const mine = lv === 'n1' ? Object.keys(LAZY) : [];
   /* #else */
-  const mine = Object.keys(LAZY).filter((f) => f.indexOf('sound-course-' + lv + '-') >= 0);
+  /* the units' sound; a full mock's (sound-course-n2-m1.js) is stored when the mock opens, as it is fetched then */
+  const mine = Object.keys(LAZY).filter((f) => f.indexOf('sound-course-' + lv + '-u') >= 0);
   /* #end */
   event.waitUntil(caches.open(CACHE).then(async (cache) => { for (const f of mine) { try { await keepLazy(cache, f); } catch (e) { /* offline: try again next time */ } } }));
 });

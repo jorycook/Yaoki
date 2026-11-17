@@ -31,15 +31,15 @@ a = "this.state = window.ykCourse.fresh();"
 b = ("const q = new URLSearchParams(location.search); const j = (k, d) => { try { return JSON.parse(q.get(k) || 'null') || d; } catch (e) { return d; } }; "
      "if (q.get('now')) window.__ykNow = +q.get('now'); "
      "const screen = q.get('screen') || 'Goal'; "
-     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day', wrote: q.get('wrote') || '', wroteWords: j('words', []) };")
+     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), full: j('full', {}), run: q.get('run') && /^[12]$/.test(q.get('run')) ? +q.get('run') : 'mini', level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day', wrote: q.get('wrote') || '', wroteWords: j('words', []) };")
 if a not in s: sys.exit('TShell patch did not apply')
 open(dst, 'w', encoding='utf-8').write(s.replace(a, b))
 PY
 fi
 # FAST_MOCK=1 shortens the mini mock section clocks to 3 seconds in the test copy only, to reach the time-up path:
-# the main app's mock gives its first section 600 seconds; the N1 mock runs its clocks at the rate CLOCK
+# the main app's mock gives its first section 600 seconds (a full mock's, 105 minutes: total1); the N1 mock runs its clocks at the rate CLOCK
 if [ -n "$FAST_MOCK" ] && [ "$LEVEL" = "N1" ]; then sed -i "s/const CLOCK = 1;/const CLOCK = 0.005;/" "$SITE/MockRun.dc.html"; grep -q "const CLOCK = 0.005;" "$SITE/MockRun.dc.html" || echo "WARNING: FAST_MOCK patch did not apply"
-elif [ -n "$FAST_MOCK" ]; then sed -i "s/en: 'Vocabulary, grammar, reading', total: 600/en: 'Vocabulary, grammar, reading', total: 3/" "$SITE/MockRun.dc.html"; grep -q "total: 3," "$SITE/MockRun.dc.html" || echo "WARNING: FAST_MOCK patch did not apply"; fi
+elif [ -n "$FAST_MOCK" ]; then sed -i "s/en: 'Vocabulary, grammar, reading', total: 600/en: 'Vocabulary, grammar, reading', total: 3/; s/total1: 105 \* 60,/total1: 3,/" "$SITE/MockRun.dc.html"; grep -q "total: 3," "$SITE/MockRun.dc.html" && grep -q "total1: 3," "$SITE/MockRun.dc.html" || echo "WARNING: FAST_MOCK patch did not apply"; fi
 # FAST_EXAM=1 shortens the exam-style clock to 4 seconds in the test copy only, to reach the time-up state:
 # the main app sets it in the day settings of Exam.dc.html, the N1 Exam screen in TOTAL
 if [ -n "$FAST_EXAM" ] && [ "$LEVEL" = "N1" ]; then sed -i "s/const TOTAL = 150;/const TOTAL = 4;/" "$SITE/Exam.dc.html"; grep -q "const TOTAL = 4;" "$SITE/Exam.dc.html" || echo "WARNING: FAST_EXAM patch did not apply"

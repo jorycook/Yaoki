@@ -4,7 +4,10 @@ Two recognisers, both run by sherpa-onnx (pip install sherpa-onnx) from models i
 (github.com/k2-fsa/sherpa-onnx/releases, tag asr-models), unpacked into one folder (--asr DIR, or YK_ASR):
   sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2025-09-09   SenseVoice, several languages, set to Japanese
   sherpa-onnx-zipformer-ja-reazonspeech-2024-08-01          ReazonSpeech, Japanese only
-A short word heard alone is often misheard by one of them; a clip both mishear is the one to listen to.
+A short word heard alone is often misheard by one of them; a clip both mishear is the one to listen to. SenseVoice
+(this build) writes kanji and leaves out much of the kana, so its scores run low: ReazonSpeech's are the ones to go by.
+A clip is heard sentence by sentence (cut at its pauses), with silence after each piece: heard whole, both can drop a
+sentence that follows a long pause, or the end of the last one.
 
     from asr_onnx import Ears
     ears = Ears(folder)
@@ -49,18 +52,39 @@ def pcm16k(data):
         raw = subprocess.run(['ffmpeg', '-v', 'error', '-f', 'f32le', '-ar', '24000', '-ac', '1', '-i', 'pipe:0',
                               '-f', 'f32le', '-ac', '1', '-ar', '16000', 'pipe:1'],
                              input=np.asarray(data, np.float32).tobytes(), capture_output=True, check=True).stdout
-    pad = np.zeros(4800, np.float32)
-    return np.concatenate([pad, np.frombuffer(raw, np.float32), pad])
+    # a second of silence after the clip: without it ReazonSpeech can leave out the end of the last sentence
+    return np.concatenate([np.zeros(4800, np.float32), np.frombuffer(raw, np.float32), np.zeros(16000, np.float32)])
 
 
-def pieces(a, sr=16000, most=20.0, look=6.0):
-    """16 kHz samples cut into pieces of at most `most` seconds, each cut at the quietest 20 ms in the last `look`
-    seconds before the limit (a pause between sentences), with a little silence around each piece"""
-    if len(a) <= (most + 5) * sr:
-        return [a]
+def pieces(a, sr=16000, most=20.0, look=6.0, gap=0.35):
+    """16 kHz samples cut into what is said between pauses (a silence of `gap` seconds or more: between sentences,
+    speakers or numbered choices), as both recognisers can drop a whole sentence that follows a long pause; a piece
+    still longer than `most` seconds is cut at the quietest 20 ms in the last `look` seconds before the limit. Each
+    piece has a little silence around it."""
     hop = int(0.02 * sr)
-    out, start = [], 0
+    n = len(a) // hop
+    if n:
+        rms = np.sqrt(np.mean(a[:n * hop].reshape(n, hop) ** 2, axis=1))
+        quiet = rms < max(rms.max() * 0.02, 1e-4)
+        cuts, run = [], 0
+        for i, q in enumerate(quiet):
+            run = run + 1 if q else 0
+            if q and run == int(gap / 0.02):
+                cuts.append(i)
+        bounds = [0] + [c * hop for c in cuts] + [len(a)]
+        parts = [a[x:y] for x, y in zip(bounds, bounds[1:]) if y - x > int(0.12 * sr) and np.abs(a[x:y]).max() > 1e-3]
+        if len(parts) > 1:
+            return [p for part in parts for p in pieces_long(part, sr, most, look)]
+    return pieces_long(a, sr, most, look)
+
+
+def pieces_long(a, sr=16000, most=20.0, look=6.0):
+    hop = int(0.02 * sr)
     pad = np.zeros(int(0.15 * sr), np.float32)
+    tail = np.zeros(int(0.8 * sr), np.float32)
+    if len(a) <= (most + 5) * sr:
+        return [np.concatenate([pad, a, tail])]
+    out, start = [], 0
     while len(a) - start > most * sr:
         lo, hi = start + int((most - look) * sr), start + int(most * sr)
         seg = a[lo:hi]

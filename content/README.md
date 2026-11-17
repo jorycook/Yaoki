@@ -9,6 +9,7 @@ The lessons are data. `tools/build-course.mjs` checks every file here and turns 
 | `n2/units.json` | The syllabus: 12 units, the function each one covers and the title of each study day. |
 | `n2/uNN.json` | One unit's lessons: `days` (keyed `"1"` to `"6"`, day 6 is まとめ) and `test` (the week test's questions). Days not written yet are simply left out; the app shows them as 準備中. |
 | `n2/mini.json` | The mini mock's questions and the sample listening drill, so the notebook can show them. |
+| `n2/mock1.json`, `n2/mock2.json` | The two full mocks: 101 questions each in the real paper's order (`f1.1` … `f1.101`), the passages they share (`texts`, named by each question's `text`), and each listening question's `listen` (task: choices printed; gist, quick: heard only), `parts` (the lines each clip says, or a silent `wait`) and `script`. See the main README, "The full mocks". |
 
 ## A study day
 
@@ -53,7 +54,7 @@ Every item has a unique `id` (`u03d4.d1` = unit 3, day 4, drill 1), a `kind`, th
 
 ## What the build refuses
 
-Unbalanced markup, an answer out of range, two identical options, a missing reason for a wrong option, a star item whose `full` sentence is not `before` + tiles + `after`, a bank that already shows the right order, a day without two grammar points, at least four drill items and exactly three exam items, a day title that differs from the syllabus, and duplicate ids.
+In a full mock: a question out of the paper's order or count, an id out of turn, a passage it names that is not there, a star question whose order and answer disagree, and a listening question without its kind, parts or script. Everywhere: unbalanced markup, an answer out of range, two identical options, a missing reason for a wrong option, a star item whose `full` sentence is not `before` + tiles + `after`, a bank that already shows the right order, a day without two grammar points, at least four drill items and exactly three exam items, a day title that differs from the syllabus, and duplicate ids.
 
 ## The kana course
 

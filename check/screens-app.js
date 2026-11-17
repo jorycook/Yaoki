@@ -52,6 +52,16 @@ SCREENS.push(
   ['Extras', ''],
   ['Extras', kana(), 'kana'],
 );
+/* the N2 full mocks: the Mock tab with mock 1 open (the plan started in September, so its week 6 test is past) and with
+   both taken, a full mock's briefing, and its result */
+const fullPlan = '&level=N2&plan=' + enc({ start: '2026-09-01', exam: '2027-07-04', pace: 'fit' });
+const fullDone = { a: { 1: 1, 2: 2, 3: 3, 72: 1, 88: 2 }, used: [6300, null], timeUp: [true], done: true, at: '2026-11-10' };
+SCREENS.push(
+  ['Mock', fullPlan, 'full-open'],
+  ['Mock', fullPlan + '&full=' + enc({ 1: fullDone, 2: fullDone }), 'full-taken'],
+  ['MockRun', fullPlan + '&run=1', 'full-briefing'],
+  ['MockFull', fullPlan + '&run=1&full=' + enc({ 1: fullDone }), 'full-result'],
+);
 
 if (LEVEL === 'N1') {
   const { course } = require('./level.js');
