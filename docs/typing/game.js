@@ -470,7 +470,7 @@
 
   let phase = 'menu';           // menu | play | paused | result
   let r = null;                 // the round being played
-  let view = { W: 960, s: 1, oy: 0, dpr: 1, yx: 100 };
+  let view = { W: 960, s: 1, oy: 0, dpr: 1, yx: 100, hint: 20 };
   let pal = palette();
   let startTicket = 0;
 
@@ -573,6 +573,7 @@
       lastMissSfx: -1,
       voiceUntil: 0,
       fxDrawn: 0,
+      underBox: null,
     };
     markWeakCards();
     r.song = songFor(r.scene);
@@ -628,7 +629,7 @@
       entry, item: entry.item, x, w: cardWidth(entry.item), state: 'live', typed: '', step: 0,
       missedAt: new Set(), misses: 0, idle: 0, level: 0, hinted: false,
       shownAt: null, firstKeyAt: null, stampT: 0, flashT: 0, halted: false,
-      clean: false, comeback: false, star: false, popT: 0, ink: null, inkOn: 'badge', fill: null,
+      clean: false, comeback: false, star: false, popT: 0, ink: null, inkOn: 'badge', fill: null, widestKey: null,
     };
     r.cards.push(card);
     return card;
@@ -1604,6 +1605,26 @@
     if (html) s.innerHTML = text;
     else s.textContent = text;
     s.className = 'status' + (tone ? ' ' + tone : '');
+    fitRow(s);
+  }
+  // A line under the game too long for one row (the 英数 warning; a Shift key's two fingers in a
+  // narrow window) is set smaller to keep to one (--fit, down to 0.6 of its size), so the page
+  // never grows past the foot of the window.
+  function fitRow(el) {
+    el.style.removeProperty('--fit');
+    if (el.hidden || !el.textContent || !el.clientWidth) return;
+    // its width on one row, against the room (with a little to spare: type does not scale exactly)
+    const room = el.clientWidth - 4;
+    el.style.width = 'max-content';
+    el.style.whiteSpace = 'nowrap';
+    el.style.flexWrap = 'nowrap';
+    for (let fit = 1; el.offsetWidth > room && fit > 0.6;) {
+      fit = Math.max(0.6, Math.min(fit - 0.02, fit * room / el.offsetWidth));
+      el.style.setProperty('--fit', fit.toFixed(3));
+    }
+    el.style.width = '';
+    el.style.whiteSpace = '';
+    el.style.flexWrap = '';
   }
 
   // The screen reader hears each card (word and reading only, at most one every 2 seconds:
@@ -1643,15 +1664,16 @@
 
   // The line under the game is as tall all round as the round's longest word, reading and
   // meaning need (a long kanji sentence takes two rows or three): measured as the round starts
-  // and when the window changes width, so it never jumps from card to card. The game window
-  // gives up the height it takes beyond one row.
-  let infoWidth = 0;
+  // and when the window changes size (its type grows with the window's height), so it never
+  // jumps from card to card. The game window gives up the height it takes beyond one row.
+  let infoSize = '';
   function fitInfo(fresh) {
     const box = $('info');
     if (!r || $('play').hidden) return;
     const w = box.clientWidth;
-    if (!w || (w === infoWidth && !fresh)) return;
-    infoWidth = w;
+    const size = w + 'x' + window.innerHeight;
+    if (!w || (size === infoSize && !fresh)) return;
+    infoSize = size;
     const root = document.documentElement.style;
     box.style.minHeight = '';
     root.removeProperty('--info-extra');
@@ -1667,7 +1689,8 @@
     }
     // back to the card it was showing (during a fall, the card that fell), at the new width
     showInfo(shown);
-    if (most > one) {
+    // (less than a pixel is only rounding)
+    if (most - one >= 1) {
       box.style.minHeight = most + 'px';
       root.setProperty('--info-extra', most - one + 'px');
     }
@@ -2333,9 +2356,12 @@
     if (!keys.length) return;
     const first = keys[0];
     const cap = (code) => (KEYDEF[code] ? KEYDEF[code].main : code);
+    // 次 NEXT a size under the key itself
     const kick = document.createElement('span');
     kick.className = 'kicker';
-    kick.textContent = '次　NEXT · ' + (first.shift ? 'Shift + ' : '') + cap(first.code) + (keys.length > 1 ? ' (or ' + keys.slice(1).map((x) => cap(x.code)).join(', ') + ')' : '');
+    const key = document.createElement('b');
+    key.textContent = (first.shift ? 'Shift + ' : '') + cap(first.code);
+    kick.append('次　NEXT · ', key, keys.length > 1 ? ' (or ' + keys.slice(1).map((x) => cap(x.code)).join(', ') + ')' : '');
     line.appendChild(kick);
     const f = E.fingerFor(first.code);
     if (f) {
@@ -2348,6 +2374,7 @@
       span.textContent = text;
       line.appendChild(span);
     }
+    fitRow(line);
   }
 
   function showDeviceNote() {
@@ -2450,7 +2477,8 @@
     const s = Math.max(0.5, Math.min(1.6, ch / H, cw / 520));
     const W = cw / s;
     const oldYx = view.yx;
-    view = { W, s, oy: (ch - H * s) / 2, dpr, yx: Math.max(100, W - 1000) };
+    const oy = (ch - H * s) / 2;
+    view = { W, s, oy, dpr, yx: Math.max(100, W - 1000), hint: hintSize(s, oy) };
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
     if (r) {
@@ -2468,6 +2496,17 @@
         prev = c;
       }
     }
+  }
+
+  // The hint under the card is read at a glance while typing: drawn at 1.9 times the type of
+  // the lines under the game (a word's meaning, the notes; so it grows with the window as they
+  // do), or as large as the band under the route allows with a caption line under it.
+  const UNDER_TOP = GROUND + 12;   // clear of the route, the nodes' はなまる and the cards' shadows
+  const CAPTION = 0.6;             // a caption's size, of the hint's
+  function hintSize(s, oy) {
+    const px = 1.9 * (parseFloat(getComputedStyle($('info')).fontSize) || 23);
+    const room = H + oy / s - 4 - UNDER_TOP;
+    return Math.max(12, 9 / s, Math.min(px / s, (room - 3) / (1.06 + 1.06 * CAPTION)));
   }
 
   function draw() {
@@ -2488,6 +2527,7 @@
     drawFx();
     for (const c of r.cards) if (c.state !== 'done') drawCard(c, c === target);
     const under = r.fall ? r.fall.card : target;
+    r.underBox = null;
     if (under) drawUnder(under, W);
   }
 
@@ -3955,18 +3995,22 @@
 
   // Under the route, for the card being typed: the romaji typed so far (green) and, while a
   // hint shows, the kana being typed or the whole rest of the spelling (grey); for keys, the
-  // row and finger, then the key. After a fall: the answer and when the card comes back.
+  // row and finger, then the key. After a fall: the answer, labelled, and under it when the card
+  // comes back. A line too long for the window is set smaller, by the widest the card's hint
+  // can come to at its present step, so it keeps its size while the card is typed.
   function drawUnder(c, W) {
     const it = c.item;
     const level = hintLevel(c);
     const cx = c.x + c.w / 2;
-    const y = GROUND + 36;
-    ctx.textBaseline = 'alphabetic';
+    const font = (size) => '800 ' + size + 'px ' + UI;
+    ctx.font = font(view.hint);
     let text = '';
     let done = '';
+    let full = '';
     if (it.kind === 'romaji') {
       done = c.typed;
-      if (level >= 2) text = E.spell(it.tokens, c.typed) || c.typed;
+      full = E.spell(it.tokens, c.typed) || c.typed;
+      if (level >= 2) text = full;
       // a kanji card's first hint is its reading, on the card: no romaji yet
       else if (level === 1 && !it.hidden) {
         const open = E.choices(it.tokens, c.typed);
@@ -3978,28 +4022,61 @@
       // card's first hint is its reading, on the card); after a fall, the whole reading
       done = c.state === 'fallen' ? '' : c.typed;
       const next = it.steps[c.step];
+      const keyShown = level >= 2 || (level === 1 && !it.hidden);
+      const keyText = level >= 2 ? keyName : keyArea;
       if (c.state === 'fallen') text = it.reading || it.text;
-      else if (next && (level >= 2 || (level === 1 && !it.hidden))) text = done + (done ? '　' : '') + (level >= 2 ? keyName(next) : keyArea(next));
+      else if (next && keyShown) text = done + (done ? '　' : '') + keyText(next);
       else text = done;
+      // (the widest it comes to: the whole reading and the widest of its keys' hints at this step)
+      full = c.state === 'fallen' ? text : (it.reading || it.text) + (keyShown ? '　' + widestKey(c, keyText) : '');
     } else if (level >= 2) text = keyName(it);
     else if (level === 1) text = keyArea(it);
     if (!text) return;
-    const below = c.state === 'fallen' ? 'あとでもう一度　' + backText(r.fall ? r.fall.back : 0)
+    const fallen = c.state === 'fallen';
+    const label = fallen ? '正解　answer' : '';
+    const below = fallen ? 'あとでもう一度　' + backText(r.fall ? r.fall.back : 0)
       : c.halted ? 'ゆっくりでいい　The world waits. Tab skips this card.' : '';
-    const captionFont = '800 ' + small(12) + 'px ' + UI;
-    ctx.font = captionFont;
-    const smallWidth = Math.max(ctx.measureText(below).width, c.state === 'fallen' ? ctx.measureText('正解　answer').width : 0);
-    ctx.font = '800 20px ' + UI;
-    const width = Math.max(ctx.measureText(text).width, smallWidth);
-    const x = Math.max(10, Math.min(W - 10 - width, cx - ctx.measureText(text).width / 2));
+    const room = W - 20;
+    // the captions, and the hint (after its label), each fitted to the room
+    let cap = view.hint * CAPTION;
+    ctx.font = font(cap);
+    cap = Math.max(small(9), Math.min(cap, cap * room / Math.max(1, ctx.measureText(below || label).width)));
+    ctx.font = font(cap);
+    const gap = label ? 0.6 * cap : 0;
+    const labelW = label ? ctx.measureText(label).width + gap : 0;
+    const belowW = ctx.measureText(below).width;
+    let size = view.hint;
+    ctx.font = font(size);
+    const widest = Math.max(full ? ctx.measureText(full).width : 0, ctx.measureText(text).width);
+    if (widest > room - labelW) {
+      size = Math.max(small(12), Math.floor(size * (room - labelW) / widest));
+      ctx.font = font(size);
+    }
+    const rowW = labelW + ctx.measureText(text).width;
+    // the hint centred under its card, and clear of Yaoki where it fits (fallen, he lies across
+    // the band); its caption from the same left edge, or further left if it needs the room
+    const right = W - 10 - rowW;
+    const x = Math.max(10, Math.min(right, Math.max(cx - rowW / 2, Math.min(view.yx + 34, right))));
+    const x2 = Math.max(10, Math.min(x, W - 10 - belowW));
+    // the hint's baseline stays put, whatever its size; the caption sits under it
+    const y = UNDER_TOP + 0.86 * view.hint;
+    const y2 = y + 0.2 * view.hint + 3 + 0.86 * view.hint * CAPTION;
+    ctx.textBaseline = 'alphabetic';
     ctx.textAlign = 'left';
-    if (c.state === 'fallen') {
+    const left = below ? Math.min(x, x2) : x;
+    r.underBox = {
+      x: Math.round(left), y: Math.round(y - 0.86 * view.hint), w: Math.round(Math.max(x + rowW, below ? x2 + belowW : 0) - left),
+      h: Math.round((below ? y2 + 0.2 * cap : y + 0.2 * view.hint) - (y - 0.86 * view.hint)),
+      size: Math.round(size * 10) / 10, px: Math.round(size * view.s * 10) / 10, caption: Math.round(cap * view.s * 10) / 10,
+      foot: Math.round(H + view.oy / view.s),
+    };
+    if (fallen) {
       ctx.fillStyle = pal.bad;
-      ctx.fillText(text, x, y);
-      ctx.font = captionFont;
-      ctx.fillText('正解　answer', x, y - 22);
+      ctx.fillText(text, x + labelW, y);
+      ctx.font = font(cap);
+      ctx.fillText(label, x, y);
       ctx.fillStyle = pal.muted;
-      ctx.fillText(below, x, y + 22);
+      ctx.fillText(below, x2, y2);
       return;
     }
     // the newest letter pops: drawn a little larger for a moment, about its own centre (the
@@ -4014,21 +4091,41 @@
         const head = done.slice(0, -1);
         const w0 = ctx.measureText(head).width;
         const w1 = ctx.measureText(done.slice(-1)).width;
+        const mid = y - 0.35 * size;
         ctx.fillText(head, x, y);
         ctx.save();
-        ctx.translate(x + w0 + w1 / 2, y);
+        ctx.translate(x + w0 + w1 / 2, mid);
         ctx.scale(pop, pop);
-        ctx.fillText(done.slice(-1), -w1 / 2, 0);
+        ctx.fillText(done.slice(-1), -w1 / 2, y - mid);
         ctx.restore();
       } else {
         ctx.fillText(done, x, y);
       }
     }
     if (below) {
-      ctx.font = captionFont;
+      ctx.font = font(cap);
       ctx.fillStyle = pal.muted;
-      ctx.fillText(below, x, y + 22);
+      ctx.fillText(below, x2, y2);
     }
+  }
+
+  // The widest of the hints `hint` (keyArea, the row and finger, or keyName, the key) gives a
+  // word's keys, in the font set; kept on the card for that font.
+  function widestKey(c, hint) {
+    const key = hint.name + ' ' + ctx.font;
+    if (c.widestKey && c.widestKey.key === key) return c.widestKey.text;
+    let text = '';
+    let most = -1;
+    for (const x of c.item.steps) {
+      const t = hint(x);
+      const w = ctx.measureText(t).width;
+      if (w > most) {
+        most = w;
+        text = t;
+      }
+    }
+    c.widestKey = { key, text };
+    return text;
   }
 
   // ---------- the loop ----------
@@ -4076,6 +4173,8 @@
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('resize', () => {
     fitInfo(false);
+    fitRow($('status'));
+    fitRow($('next-line'));
     resize();
   });
   if (window.ResizeObserver) new ResizeObserver(() => resize()).observe(canvas.parentElement);
@@ -4226,6 +4325,9 @@
         falling: !!(r && r.fall),
         back: r && r.fall ? r.fall.back : null,
         answerShown: r && r.fall ? hintLevel(r.fall.card) >= 2 : null,
+        // the hint under the route as last drawn: its box in the scene's units (foot: the
+        // canvas's foot), its size there, and its size and its caption's on screen
+        under: r && r.underBox ? Object.assign({}, r.underBox) : null,
         W: view.W,
         cards: r ? r.cards.map((c) => ({ text: c.item.text, x: Math.round(c.x), w: Math.round(c.w), state: c.state, clean: c.clean, comeback: c.comeback, star: c.star, phase: c.phase || null, trick: c.trick || null })) : [],
         clean: r ? r.clean : 0,
