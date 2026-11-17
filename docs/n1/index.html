@@ -20,14 +20,14 @@
 <link rel="stylesheet" href="./assets/app.css">
 <link rel="stylesheet" href="./assets/screens.css">
 <link rel="stylesheet" href="./site/site.css">
+<link rel="stylesheet" href="./assets/desk.css">
 <script src="./site/site.js" data-root="../" data-page="n1" data-licences="licenses.txt" data-app></script>
 </head>
 <body>
 <!-- In a browser window of at least 700 by 560 this page is a page of the Yaoki website, with the app laid out for a desktop: the
-     site's header, then the app shell: a sidebar with the app's own navigation (from 1000 px wide), the app's pane, as wide as a
-     readable column and as tall as the window, and a rail with a few words about the app (from 1280 px). The sidebar mirrors the
-     tab bar inside the pane, which it replaces (yk-app.js, syncSide); under 1000 px the site's footer moves from the sidebar to
-     under the pane. On a phone, from the Home Screen and as the preview inside Claude, only #yk-view is laid out: the design owns
+     site's header, then the app shell: a sidebar with the app's own navigation (from 1000 px wide) and the app's pane, as wide and
+     as tall as the window leaves, where each screen has its landscape layout (src/desk/). The sidebar mirrors the tab bar inside
+     the pane, which it replaces (yk-app.js, syncSide); under 1000 px the site's footer moves from the sidebar to under the pane. On a phone, from the Home Screen and as the preview inside Claude, only #yk-view is laid out: the design owns
      the whole screen and none of the rest exists (app.css). -->
 <header class="site-bar" data-site-bar></header>
 <div class="app-shell">
@@ -45,23 +45,10 @@
 <button type="button" data-app-menu><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>Menu</span></button>
 </nav>
 <p class="hint app-side-note" data-app-note hidden></p>
+<a class="app-side-link" href="../#phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg><span>Use it on your phone</span></a>
 <footer class="site-foot" data-site-foot></footer>
 </aside>
 <main class="app-main" tabindex="-1"><div id="yk-view"><div id="yk-stage"></div></div></main>
-<aside class="app-rail" aria-label="About Yaoki">
-<section class="card">
-<div class="kicker"><span lang="ja">ホーム画面に追加</span> · ON YOUR PHONE</div>
-<ol class="home-steps">
-<li>iPhone or iPad: open this address in Safari, tap Share, then Add to Home Screen.</li>
-<li>Android: open it in Chrome, open the browser menu, then Add to Home screen.</li>
-<li>Open it from its icon once while online. It works offline after that.</li>
-</ol>
-<p class="hint">Here and on the phone the app is the same; each keeps its own progress.</p>
-</section>
-<h2 class="kicker"><span lang="ja">ほかのアプリ</span> · MORE FROM YAOKI</h2>
-<div class="home-cards" data-site-cards></div>
-<p class="hint">Your progress stays in this browser. Nothing is sent anywhere.</p>
-</aside>
 </div>
 <div id="yk-sideways" role="status"><div lang="ja">縦向きでお使いください</div><div>Turn the phone upright</div></div>
 <noscript>Yaoki needs JavaScript to run.</noscript>

@@ -76,12 +76,12 @@ html.yk-sideways #yk-sideways [lang="ja"] { font-size: 20px; font-weight: 800; }
 
 /* ---------- the website: the app as a desktop page ----------
    In a browser window of at least 700 by 560 (yk-app.js, wantDesk; site.js decides the same before the first paint) the page is a
-   page of the Yaoki website and the design is laid out for a desktop: no scaling, the screens fluid in a pane as wide as a readable
-   column and as tall as the window under the header, the phone's empty zones gone, the tab bar inside the pane replaced by the
-   sidebar from 1000 px wide, a rail with the words about the app from 1280. Anywhere else (a phone, the installed app, the
-   preview inside Claude) the shell does not exist: it is hidden, and its wrappers are laid out as if they were not there, so
-   #yk-view is body's child and fills the screen exactly as before. */
-html:not(.yk-desk) :is(.site-bar, .site-foot, .app-side, .app-rail) { display: none; }
+   page of the Yaoki website and the design is laid out for a desktop: no scaling, the screens fluid in a pane as wide and as tall as
+   the window leaves under the header, the phone's empty zones gone, the tab bar inside the pane replaced by the sidebar from
+   1000 px wide, and from a pane of 880 px each screen in its landscape layout (src/desk/). Anywhere else (a phone, the installed
+   app, the preview inside Claude) the shell does not exist: it is hidden, and its wrappers are laid out as if they were not there,
+   so #yk-view is body's child and fills the screen exactly as before. */
+html:not(.yk-desk) :is(.site-bar, .site-foot, .app-side) { display: none; }
 /* the wrappers have no box of their own, and hand the design nothing of their own either (site.css gives them a font and a colour,
    which their children would inherit even without a box): the design inherits from body exactly as it always did */
 html:not(.yk-desk) :is(.app-shell, .app-main) { display: contents; font: inherit; color: inherit; }
@@ -104,54 +104,37 @@ html.yk-desk .app-nav [data-tab][aria-disabled="true"], html.yk-desk .app-nav [d
 html.yk-desk .app-nav svg { width: 22px; height: 22px; flex-shrink: 0; }
 html.yk-desk .app-nav [data-app-menu] { margin-top: 6px; border-top: 2px solid var(--line); border-radius: 0; padding-top: 6px; min-height: 54px; }
 html.yk-desk .app-side-note { padding: 0 14px; }
+html.yk-desk .app-side-link { display: flex; align-items: center; gap: 10px; margin-top: 4px; padding: 6px 14px; color: var(--accent-ink); font-size: 13px; font-weight: 800; text-decoration: none; }
+html.yk-desk .app-side-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+@media (hover: hover) { html.yk-desk .app-side-link:hover span { text-decoration: underline; text-underline-offset: 3px; } }
 html.yk-desk .app-side .site-foot { margin-top: auto; padding: 14px 0 0; border-top: 2px solid var(--line); font-size: 11px; }
 html.yk-desk .app-side .site-wrap { padding: 0 14px; }
 html.yk-desk .app-side .site-legal { max-width: none; }
-/* the pane: the design, fluid, in a readable column; it keeps its own light look in every theme and inherits body's defaults */
-/* the column scrolls when the window is shorter than the screens need (they are drawn for a tall phone, 760 px of content: the
-   pane is never shorter than that plus its zones, so a screen is never squeezed); the page itself never scrolls. Under 1000 px,
-   where there is no sidebar, the site's footer sits under the pane (yk-app.js moves it) */
-html.yk-desk .app-main { min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; overflow-y: auto; }
+/* the pane: the design, fluid, as wide as the window leaves beside the sidebar. It keeps its own light look in every theme and
+   inherits body's defaults. It is a size container (named yk): each screen has a landscape layout for a pane at least 880 px wide,
+   in src/desk/ (built into assets/desk.css); a narrower pane keeps the single column, which is never squeezed below the 760 px of
+   content it was drawn for (the column scrolls instead). The page itself never scrolls. Under 1000 px, where there is no
+   sidebar, the site's footer sits under the pane (yk-app.js moves it) */
+html.yk-desk .app-main { min-width: 0; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
 html.yk-desk .app-main:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: -3px; }
-html.yk-desk .app-main .site-foot { width: 100%; max-width: 760px; box-sizing: border-box; padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px)); border-top: 0; }
-html.yk-desk #yk-view { flex-shrink: 0; width: 100%; max-width: 760px; height: 100%; min-height: 792px; box-sizing: border-box; border-left: 2px solid var(--line); border-right: 2px solid var(--line); background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; --yk-nav-bottom: 8px; }
+html.yk-desk .app-main .site-foot { width: 100%; box-sizing: border-box; padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px)); }
+html.yk-desk #yk-view { flex-shrink: 0; width: 100%; height: 100%; min-height: 792px; box-sizing: border-box; container: yk / inline-size; background: #F4F5F9; color-scheme: light; font: 400 16px/normal 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #1B2440; --yk-top: 16px; --yk-bottom: 16px; --yk-nav-bottom: 8px; }
 html.yk-desk #yk-stage { width: 100%; height: 100%; }
 html.yk-desk #yk-stage > .sc-host { width: 100%; }
 html.yk-desk #yk-sideways { display: none; }
-/* the week path: its route is drawn 390 px wide at phone coordinates; in the wider pane it sits in the middle, and scrolls if the
-   pane is short (the third child of the screen's root is the route's region, see Main.dc.html) */
-html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] { overflow-y: auto !important; overflow-x: hidden !important; }
-html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > * { margin-left: calc(50% - 195px); }
-/* the day labels beside the route may run on: there is room to their right here */
-html.yk-desk [data-yk="Main"] > div[style*="background-size: 26px 26px"] > div[style*="max-width"] { max-width: 320px !important; }
-/* a button pinned to the bottom follows its content on a desktop: the phone templates push it down with a growing spacer or a
-   growing scroll body, which stop growing here (a body taller than the pane still scrolls: it keeps min-height 0 and overflow auto) */
-/* (the screens' styles are inline, and the browser keeps them in its own spelling: 0px, rgb(); these rules match that spelling and
-   are marked important where the inline style sets the same property) */
-html.yk-desk [data-yk] > div[style="flex-grow: 1;"], html.yk-desk [data-yk] > div[style="flex-grow: 2;"], html.yk-desk [data-yk] > div[style^="flex-grow: 1; min-height: "][style$="px;"]:not([style*="padding"]):not([style*="display"]) { flex-grow: 0 !important; height: 24px !important; min-height: 0 !important; }
-html.yk-desk [data-yk] > div[style*="overflow-y: auto"][style*="min-height: 0px"] { flex-grow: 0 !important; }
-html.yk-desk [data-yk] > div[style^="flex: 1 1 auto"] { flex: 0 1 auto !important; }
-/* a full-width button at the foot of a screen is a desktop button's width here, in the middle */
-html.yk-desk [data-yk] > :is(a, button)[style*="height: 54px"] { width: 100%; max-width: 480px; align-self: center; flex-shrink: 0; }
-/* the answer sheet that rises from the bottom of the phone's screen is a card under the question here */
-html.yk-desk [data-yk] > div[style*="border-radius: 26px 26px 0px 0px"] { border-radius: 20px !important; border: 2px solid #1B2440 !important; margin: 12px 16px var(--yk-bottom) !important; max-height: none !important; }
-/* exam-style questions: the four options in two columns, as the drill's are */
-html.yk-desk [data-yk="Exam"] > div[style^="margin-top: 14px; display: flex; flex-direction: column; gap: 10px"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 /* the app's menu, a sheet from the bottom on the phone, is a dialog in the middle of the pane here */
 html.yk-desk .yk-scrim { display: grid !important; place-items: center; box-sizing: border-box; padding: 24px; }
 html.yk-desk .yk-scrim-close { position: absolute; inset: 0; }
 html.yk-desk .yk-sheet { position: relative; width: 100%; max-width: 460px; max-height: 100%; overflow-y: auto; box-sizing: border-box; border-radius: 26px !important; border: 2px solid #1B2440 !important; box-shadow: 0 8px 0 #1B2440; padding-bottom: 20px !important; }
-/* the rail: the words about the app and the other apps */
-html.yk-desk .app-rail { display: none; flex-direction: column; gap: 14px; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 20px 16px; border-left: 2px solid var(--line); }
-html.yk-desk .app-rail h2 { margin: 6px 0 0; }
-html.yk-desk .app-rail .card { display: flex; flex-direction: column; gap: 8px; }
-html.yk-desk .app-rail .home-cards { grid-template-columns: minmax(0, 1fr); }
+/* a short pane scrolls the menu rather than squeezing its buttons (the sheet is a flex column on the phone) */
+html.yk-desk .yk-sheet > * { flex-shrink: 0; }
 @media (min-width: 1000px) {
   html.yk-desk .app-shell { grid-template-columns: 240px minmax(0, 1fr); }
   html.yk-desk .app-side { display: flex; }
   html.yk-desk #yk-stage nav[aria-label="Main"] { display: none !important; }   /* the tab bar is drawn inline; the sidebar takes its place */
 }
-@media (min-width: 1280px) {
-  html.yk-desk .app-shell { grid-template-columns: 240px minmax(0, 1fr) 300px; }
-  html.yk-desk .app-rail { display: flex; }
+/* a pane of 880 px or more shows the landscape layouts (the window from 1120 px, less the sidebar, or from 880 to 999 px, where
+   there is no sidebar): they fit a window's height down to a 560 px pane, and below that the column scrolls */
+@media (min-width: 1120px), (min-width: 880px) and (max-width: 999.98px) {
+  html.yk-desk #yk-view { min-height: 560px; }
 }
