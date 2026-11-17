@@ -222,7 +222,7 @@
   var footBox = document.querySelector('.app-side .site-foot');
   /* what the note under the sidebar's places says on a screen without the tab bar */
   var NOTES = { Install: 'Choose Continue in the browser, below, to use these.', Goal: 'Set your goal first: these open once the plan is made.' };
-  var NOTE = 'Close what is open (the arrow at its top) to use these.';
+  var NOTE = 'Close what is open (at its top) to use these.';
   function screenRoot() { return stage.querySelector('.yk-screen [data-yk]') || stage.querySelector('.sc-host > [data-yk]:not([data-yk="Shell"])'); }
   function paneTab(name) {
     var tabs = stage.querySelector('nav[aria-label="Main"]');
@@ -276,7 +276,7 @@
   var opener = null;
   function setInert(on) {
     var screen = stage.querySelector('.yk-screen');
-    [screen, sideBox, document.querySelector('.site-bar')].forEach(function (el) { if (el) { if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert'); } });
+    [screen, sideBox, document.querySelector('.site-bar'), footBox].forEach(function (el) { if (el) { if (on) el.setAttribute('inert', ''); else el.removeAttribute('inert'); } });
   }
   function watchSheet() {
     var sheet = stage.querySelector('.yk-sheet');
@@ -289,7 +289,7 @@
     } else if (!sheet && sheetOpen) {
       sheetOpen = null;
       setInert(false);
-      if (opener && document.contains(opener) && !opener.disabled) { try { opener.focus({ preventScroll: true }); } catch (e) {} }
+      if (opener && document.contains(opener) && !opener.disabled) { try { opener.focus({ preventScroll: true }); } catch (e) {} if (byPointer) clicked = opener; }
       opener = null;
     }
     watchDialog();
@@ -325,7 +325,7 @@
       if (!dlg.contains(document.activeElement)) { try { dlg.focus({ preventScroll: true }); } catch (e) { dlg.focus(); } }
     } else if (!dlg && dlgOpen) {
       dlgOpen = null;
-      if (dlgOpener && document.contains(dlgOpener) && !dlgOpener.disabled && usable(dlgOpener)) { try { dlgOpener.focus({ preventScroll: true }); } catch (e) {} }
+      if (dlgOpener && document.contains(dlgOpener) && !dlgOpener.disabled && usable(dlgOpener)) { try { dlgOpener.focus({ preventScroll: true }); } catch (e) {} if (byPointer) clicked = dlgOpener; }
       dlgOpener = null;
     }
   }
@@ -385,8 +385,11 @@
   /* the control a mouse or a finger last pressed: it keeps the focus after the click, but was not chosen with the keyboard (Tab
      clears it) */
   var clicked = null;
-  document.addEventListener('pointerdown', function (e) { clicked = e.target && e.target.closest ? e.target.closest('button, a[href], [tabindex], summary, [role="button"]') : null; }, true);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Tab') clicked = null; }, true);
+  /* whether the last thing the learner did was with the mouse or a finger (then a dialog that closes gives the focus back to its
+     opener as the mouse's, so Enter still takes the main action) or with the keyboard */
+  var byPointer = false;
+  document.addEventListener('pointerdown', function (e) { byPointer = true; clicked = e.target && e.target.closest ? e.target.closest('button, a[href], [tabindex], summary, [role="button"]') : null; }, true);
+  document.addEventListener('keydown', function (e) { if (!/^(Shift|Control|Alt|Meta)$/.test(e.key)) byPointer = false; if (e.key === 'Tab') clicked = null; }, true);
   document.addEventListener('keydown', function (e) {
     if (!root.classList.contains('yk-desk') || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.repeat) return;
     if (stage.querySelector('.yk-sheet')) return;
@@ -398,11 +401,13 @@
     var onChoice = !!(t && t.getAttribute && t.getAttribute('data-k') === 'choice');
     if (/^[1-9]$/.test(e.key) && !e.shiftKey) {
       var c = marked('choice')[+e.key - 1];
-      if (c) { e.preventDefault(); c.click(); try { c.focus({ preventScroll: true }); } catch (x) {} }
+      if (c) { e.preventDefault(); c.click(); }
       return;
     }
     if (e.key === 'Enter' && (idle || onChoice)) {
+      /* the main action; on a screen without one, its way on (data-k="on": the week test's next week when every answer was right) */
       var go = marked('go');
+      if (!go.length) go = marked('on');
       if (go.length) {
         e.preventDefault();
         /* the answer gives up the focus as the screen goes on: the next question may reuse its button, and Space would press it */
@@ -411,7 +416,7 @@
       }
       return;
     }
-    if (e.key === ' ' && idle) {
+    if (e.key === ' ' && (idle || onChoice)) {
       var play = marked('play')[0];
       if (play) { e.preventDefault(); play.click(); }
     }
