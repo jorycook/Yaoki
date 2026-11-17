@@ -1,19 +1,25 @@
 /* Review (both apps): the notebook's review of mistakes, laid out as the drill is: the paper on the left, the coach on the right.
-   The paper: the item's tag, its place and its streak; the question (a word, a sentence, a star sentence, a passage, two texts, a
-   notice, a recording), a little larger, and its options; Check / Next right under them. A long paper scrolls in its column, with a
-   fade at its foot. That column is the phone's own scrolling body, so the N1 course still brings each new item back to its top.
-   The coach: at its head, where the item stands on its spacing (1 day, 3 days, 7 days, cleared) and where it goes next. Under it,
-   before the answer, a dashed panel saying what will appear there; once answered (Study) or checked (N1), the panel with the
-   verdict, why the answer is right (and why the pick was not), the script where there is one, and what was chosen last time.
-   On the phone that panel sits in the body under the options. Here it is lifted out beside the paper (positioned on the screen,
-   under the spacing, whose height is fixed), so it stays in view while a long passage scrolls, and it scrolls itself when it is
-   longer than the pane.
+   The paper: the item's tag, its place and its streak; the question (a word, a sentence, a star sentence, a recording), a little
+   larger, and its options; Check / Next right under them. The coach: at its head, where the item stands on its spacing (1 day,
+   3 days, 7 days, cleared) and where it goes next. Under it, before the answer, a dashed panel saying what will appear there; once
+   answered (Study) or checked (N1), the panel with the verdict, why the answer is right (and why the pick was not), the script
+   where there is one, and what was chosen last time. On the phone that panel sits in the body under the options. Here it is lifted
+   out beside the paper (positioned on the screen, under the spacing, whose height is fixed), so it stays in view, and it scrolls
+   itself when it is longer than the pane.
+   An item with a text (Study: a passage or a script; N1: a reading, a notice, two texts) is laid out as the reading paper is. At
+   rest the text is on the left, as tall as the column, and scrolls in its own box (its foot fades while there is more); the
+   question, its options and Check are on the right, under the spacing. Once answered or checked, the paper takes the left column:
+   the text, which gives way down to a few lines and scrolls, the question and the marked options under it, two to a row, and Next
+   under them; the panel is on the right. Each new item opens at the top of its text: the box that scrolls at rest (inside the
+   text's box) is as tall as its text once answered, and the text's box, which scrolls once answered, holds no more than it shows
+   at rest, so the browser takes each back to its top in between.
    The end: the stamp and its line beside the counts, with Back to the notebook right under them. N1's day with nothing due:
    Yaoki and its line, with Back to the notebook right under them.
    Hooks: bar; meta (N1: above the paper; Study: in it); paper (N1: the phone's box around the body and its fade, display: contents
-   here); main (the scrolling body) holding ask, rubric, word, usage, q, reading, lead, passage, pair, question, listen, opts, wait
-   (N1), context (Study) and side (the panel); fade (N1); track; act; head, stats and gap at the end. data-k: choice on the options;
-   go on Check, Next, Finish and Back to the notebook; play on the recording's play button. */
+   here); main (the body) holding ask, rubric, word, usage, q, reading, lead, passage, pair, question, listen, opts, wait (N1),
+   context (Study) and side (the panel); text (N1: a display: contents wrapper of the text inside reading, passage and pair, the
+   box that scrolls at rest); fade (N1); track; act; head, stats and gap at the end. data-k: choice on the options; go on Check,
+   Next, Finish and Back to the notebook; play on the recording's play button. */
 @container yk (min-width: 880px) {
   /* ---------- the session */
   html.yk-desk [data-yk="Review"]:has([data-d="track"]) {
@@ -32,9 +38,10 @@
   html.yk-desk [data-yk="Review"] > [data-d="bar"] { grid-area: bar; margin-bottom: 12px; }
   html.yk-desk [data-yk="Review"] > [data-d="meta"] { grid-area: meta; margin: 0 0 10px !important; }
   html.yk-desk [data-yk="Review"] > [data-d="paper"] { display: contents !important; }
-  /* the paper: room inside the scrolling box for the options' shadows and the focus ring */
+  /* the paper: room inside the scrolling box for the options' shadows and the focus ring (and as tall as the row, which holds it
+     without them: it scrolls only when its content is taller than the pane) */
   html.yk-desk [data-yk="Review"] [data-d="main"] {
-    grid-area: main; align-self: start; min-height: 0; max-height: 100%; box-sizing: border-box; position: static !important;
+    grid-area: main; align-self: start; min-height: 0; max-height: calc(100% + 4px); box-sizing: border-box; position: static !important;
     margin: -4px -6px 0 !important; padding: 4px 6px 0 !important;
   }
   /* a fade at the foot of the paper says there is more (the phone's fade is drawn for its own box) */
@@ -53,7 +60,7 @@
   html.yk-desk [data-yk="Review"] [data-d="usage"] > div { font-size: 30px !important; }
   html.yk-desk [data-yk="Review"] [data-d="reading"] { font-size: 17px !important; padding: 14px 18px !important; }
   html.yk-desk [data-yk="Review"] [data-d="passage"] { font-size: 16.5px !important; padding: 14px 18px !important; }
-  html.yk-desk [data-yk="Review"] [data-d="pair"] > div > div:last-child { font-size: 15.5px !important; }
+  html.yk-desk [data-yk="Review"] [data-d="pair"] [data-d="text"] > div > div:last-child { font-size: 15.5px !important; }
   html.yk-desk [data-yk="Review"] [data-d="question"] { font-size: 16px !important; }
   html.yk-desk [data-yk="Review"] [data-d="context"] { padding: 12px 18px !important; }
   html.yk-desk [data-yk="Review"] [data-d="context"] > div[lang="ja"] { font-size: 16px !important; }
@@ -76,18 +83,92 @@
     content: '解説　Why\A \A Choose an answer and check it. The verdict, the right answer and why it is right appear here, with what you chose last time.';
   }
   html.yk-desk [data-yk="Review"]:has([data-d="side"]) > [data-d="track"]::after { content: none; }
-  /* then the panel, lifted out of the paper: as tall as its content, scrolling when longer than the pane */
+  /* then the panel, lifted out of the paper: as tall as its content, scrolling as a whole when longer than the pane (its rows keep
+     their heights) */
   html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"] {
     position: absolute !important; top: var(--rv-panel); right: var(--rv-pad); width: calc((100% - 2 * var(--rv-pad)) * var(--rv-side));
     max-height: calc(100% - var(--rv-panel) - 24px); box-sizing: border-box; overflow-y: auto; margin: 0 !important;
     padding: 18px 20px 20px !important; border-radius: 20px !important; gap: 8px !important; animation: yk-in 220ms ease-out !important;
   }
+  html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"] > * { flex-shrink: 0 !important; }
   /* Study: the panel is a card of the coach, as the drill's */
   html.yk-desk [data-yk="Review"] [data-d="main"] > [data-d="side"]:not([data-rv-panel]) { border: 2px solid #1B2440 !important; box-shadow: 0 4px 0 #1B2440; }
   html.yk-desk [data-yk="Review"] [data-d="side"] div[style*="font-size: 13px; font-weight: 500"] { font-size: 14px !important; }
   /* the verdict, and the right answer after it, or under it when a long answer leaves no room on its line */
   html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child { flex-wrap: wrap; row-gap: 4px; }
   html.yk-desk [data-yk="Review"] [data-d="side"] > div:first-child > div[style*="font-size: 17px"] { font-size: 19px !important; }
+
+  /* ---------- an item with a text, at rest: the text on the left, the question, its options and Check on the right. The rows: the
+     bar; the head of the paper (the tag; N1: what to do, the rubric, the line that leads into the text), each as tall as its
+     content; an empty row that lets the spacing end below a short head; the question, the options (they scroll in their box if
+     the column is too short for them) and Check; the rest. The text starts under the head (Study: under the tag), the question
+     under the spacing. */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) {
+    grid-template-rows: auto minmax(min-content, 0px) minmax(min-content, 0px) minmax(min-content, 0px) minmax(min-content, 0px) auto auto minmax(0, max-content) auto minmax(0, 1fr);
+    grid-template-areas: "bar bar" "meta track" "ask track" "rubric track" "lead track" "text track" "text q" "text opts" "text act" "text .";
+  }
+  /* the body is no box here: its parts take their places on the screen */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="main"] { display: contents !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="main"]::after { content: none; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="meta"] { grid-area: meta; margin: 0 0 8px !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="ask"] { grid-area: ask; margin: 0 0 2px !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="rubric"] { grid-area: rubric; margin: 0 0 2px !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="lead"] { grid-area: lead; margin: 2px 0 0 !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) > [data-d="track"] { grid-area: track; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) > [data-d="track"]::after { content: none; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) :is([data-d="q"], [data-d="question"]) { grid-area: q; margin: 16px 0 0 !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="q"] { padding: 12px 18px !important; }
+  /* Study's options a little tighter in the coach's column, so that a question of two lines and four options fit a laptop's pane */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="opts"] { row-gap: 8px !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="opts"] > [data-k="choice"][style*="min-height: 54px"] { min-height: 48px !important; padding: 6px 14px !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="opts"] { grid-area: opts; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) > [data-d="act"] { grid-area: act; margin-top: 4px !important; }
+  /* the text: as tall as the column, its box holding its head (Study) and the text, which scrolls; its foot fades while there is
+     more, and is clear at the end (the fade is in its spacing) */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="context"] { grid-area: 3 / 1 / -1 / 2; padding-bottom: 0 !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) :is([data-d="reading"], [data-d="passage"], [data-d="pair"]) { grid-area: text; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) :is([data-d="reading"], [data-d="passage"]) { padding-bottom: 0 !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) :is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"]) {
+    align-self: start; max-height: 100%; margin: 0 !important;
+  }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) :is([data-d="context"] > div[lang="ja"], [data-d="text"]) {
+    flex: 0 1 auto; min-height: 0; padding-bottom: 18px;
+    -webkit-mask-image: linear-gradient(#000000 calc(100% - 18px), transparent); mask-image: linear-gradient(#000000 calc(100% - 18px), transparent);
+  }
+
+  /* ---------- an item with a text, answered or checked: the paper in the left column (the text gives way, down to a few lines,
+     and scrolls; the question and the marked options keep their heights, two options to a row), the panel on the right */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):has([data-d="side"]) :is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"]) {
+    flex: 0 1 auto !important; min-height: 120px; min-height: calc-size(max-content, min(size, 120px)); padding-bottom: 0 !important;
+  }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):has([data-d="side"]) :is([data-d="context"] > div[lang="ja"], [data-d="text"]) { flex-shrink: 0; }
+  /* while the box has more under it, its foot fades (a veil held at the foot, the box's bottom spacing at the end); two texts fade
+     into the pane */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"])):has([data-d="side"]) :is([data-d="context"], [data-d="reading"], [data-d="passage"])::after {
+    content: ''; display: block; flex-shrink: 0; position: sticky; bottom: 0; height: 16px; margin: 0 -18px; pointer-events: none;
+    background: linear-gradient(rgba(255, 255, 255, 0), #FFFFFF 14px);
+  }
+  html.yk-desk [data-yk="Review"]:has([data-d="pair"]):has([data-d="side"]) [data-d="pair"] {
+    padding-bottom: 14px !important; -webkit-mask-image: linear-gradient(#000000 calc(100% - 14px), transparent); mask-image: linear-gradient(#000000 calc(100% - 14px), transparent);
+  }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):has([data-d="side"]) [data-d="opts"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):has([data-d="side"]) [data-d="opts"] > [data-k="choice"] { min-height: 44px !important; padding: 4px 12px !important; font-size: 15px !important; line-height: 1.35 !important; }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):has([data-d="side"]) [data-d="q"] { padding: 10px 18px !important; }
+  /* Study's question box a size smaller beside or under a text, which is what is studied here */
+  html.yk-desk [data-yk="Review"]:has([data-d="context"]) [data-d="q"] { font-size: 19px !important; line-height: 1.85 !important; }
+  html.yk-desk [data-yk="Review"]:has([data-d="context"]) [data-d="q"][style*="font-size: 17px"] { font-size: 17px !important; }
+  /* the boxes that scroll, in both states (each is as tall as its content in the state where the other scrolls); the options, with
+     room inside their box for the shadows and the focus ring, scroll at rest when the column is too short for them */
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])) [data-d="opts"] {
+    min-height: 0; overflow-y: auto; margin: 8px -6px 0 !important; padding: 4px 6px 6px;
+  }
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="opts"] {
+    padding-bottom: 12px; -webkit-mask-image: linear-gradient(#000000 calc(100% - 10px), transparent); mask-image: linear-gradient(#000000 calc(100% - 10px), transparent);
+  }
+  html.yk-desk [data-yk="Review"] :is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"]) { display: flex !important; flex-direction: column; min-height: 0; box-sizing: border-box; overflow-y: auto; }
+  html.yk-desk [data-yk="Review"] [data-d="context"] > div[lang="ja"] { overflow-y: auto; }
+  html.yk-desk [data-yk="Review"] [data-d="text"] { display: block !important; overflow-y: auto; }
+  html.yk-desk [data-yk="Review"] :is([data-d="passage"], [data-d="pair"]) > [data-d="text"] { display: flex !important; flex-direction: column; gap: inherit; }
 
   /* ---------- the end: the stamp and its line beside the counts, Back to the notebook right under them */
   html.yk-desk [data-yk="Review"]:has([data-d="stats"]) {
@@ -113,4 +194,27 @@
     padding: 20px 28px 24px !important;
   }
   html.yk-desk [data-yk="Review"]:has(> [data-d="head"]):not(:has([data-d="stats"])) > [data-d="act"] { grid-area: act; justify-self: center; min-width: 320px; margin-top: 26px !important; padding: 0 28px !important; }
+}
+/* a narrow landscape pane (880 to 999 px): beside a text, at rest, the text and the coach share the width evenly, so that the
+   question and the options wrap less (once answered, the paper takes its wider column back for the text, the question and the
+   options, two to a row) */
+@container yk (min-width: 880px) and (max-width: 999.98px) {
+  html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) { --rv-side: 0.5; column-gap: 28px; }
+}
+/* a short window (640 px or less: a pane of about 560 px): the options and the question box a little tighter, so that a question
+   of two lines and four options fit beside a text, and an item's paper fits beside the coach */
+@media (max-height: 640px) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="Review"] [data-d="opts"] > [data-k="choice"][style*="min-height: 54px"] { min-height: 46px !important; }
+    html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="opts"] > [data-k="choice"] { min-height: 44px !important; }
+    html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) [data-d="opts"] { row-gap: 6px !important; }
+    html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):not(:has([data-d="side"])) :is([data-d="q"], [data-d="question"]) { margin-top: 12px !important; }
+    html.yk-desk [data-yk="Review"]:has([data-d="context"]) [data-d="q"] { padding: 8px 16px !important; font-size: 17px !important; line-height: 1.75 !important; }
+    html.yk-desk [data-yk="Review"]:has(:is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"])):has([data-d="side"]) :is([data-d="context"], [data-d="reading"], [data-d="passage"], [data-d="pair"]) { min-height: 100px; min-height: calc-size(max-content, min(size, 100px)); }
+    /* once answered, the marked options a size smaller, so that the paper fits beside the panel (the browser then takes it back
+       to its top for the next item, which opens at its start) */
+    html.yk-desk [data-yk="Review"]:has([data-d="side"]) [data-d="opts"] > [data-k="choice"][style*="min-height"] { min-height: 40px !important; padding: 4px 12px !important; font-size: 15px !important; line-height: 1.35 !important; }
+    html.yk-desk [data-yk="Review"]:has([data-d="side"]) [data-d="opts"] { row-gap: 8px !important; }
+    html.yk-desk [data-yk="Review"]:not(:has([data-d="context"])):has([data-d="side"]) [data-d="q"] { padding: 12px 18px !important; }
+  }
 }

@@ -68,7 +68,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 </sc-if>
 
 <sc-if value="{{ it.isReading }}" hint-placeholder-val="{{ false }}">
-<div data-d="reading" lang="ja" style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; flex-shrink: 0"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div>
+<div data-d="reading" lang="ja" style="margin-top: 10px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 16px; font-weight: 600; line-height: 1.7; flex-shrink: 0"><div data-d="text" style="display: contents"><sc-for list="{{ it.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}">{{ g.t }}</span></sc-if></sc-for></div></div>
 </sc-if>
 
 <sc-if value="{{ it.isPassage }}" hint-placeholder-val="{{ false }}">
@@ -76,18 +76,18 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <div data-d="lead" lang="ja" style="margin-top: 8px; font-size: 12px; font-weight: 700; color: #5A6382; line-height: 1.5; flex-shrink: 0">{{ it.lead }}</div>
 </sc-if>
 <div data-d="passage" lang="ja" style="margin-top: 8px; padding: 12px 14px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 15px; font-weight: 600; line-height: 1.75; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0">
-<sc-for list="{{ it.paras }}" as="p" hint-placeholder-count="2"><div><sc-for list="{{ p.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if></sc-for></div></sc-for>
+<div data-d="text" style="display: contents"><sc-for list="{{ it.paras }}" as="p" hint-placeholder-count="2"><div><sc-for list="{{ p.segs }}" as="g" hint-placeholder-count="3"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if></sc-for></div></sc-for></div>
 </div>
 </sc-if>
 
 <sc-if value="{{ it.isPair }}" hint-placeholder-val="{{ false }}">
 <div data-d="pair" lang="ja" style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px; flex-shrink: 0">
-<sc-for list="{{ it.pair }}" as="x" hint-placeholder-count="2">
+<div data-d="text" style="display: contents"><sc-for list="{{ it.pair }}" as="x" hint-placeholder-count="2">
 <div style="padding: 9px 14px 10px 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; align-items: flex-start; gap: 10px">
 <div role="img" aria-label="{{ x.aria }}" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; border: 2px solid #1B2440; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px">{{ x.tag }}</div>
 <div style="min-width: 0; font-family: 'Klee One', 'Hiragino Mincho ProN', serif; font-size: 14px; font-weight: 600; line-height: 1.65"><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.text }}" hint-placeholder-val="{{ true }}"><span style="border-radius: 4px; border-bottom: {{ g.line }}; background: {{ g.bg }}; padding: {{ g.pad }}; white-space: {{ g.ws }}">{{ g.t }}</span></sc-if><sc-if value="{{ g.blank }}" hint-placeholder-val="{{ false }}"><span role="img" aria-label="Blank" style="white-space: nowrap">（　　）</span></sc-if></sc-for></div>
 </div>
-</sc-for>
+</sc-for></div>
 </div>
 </sc-if>
 

@@ -5,6 +5,7 @@
    back until the end, so there is no feedback panel. The end of the run is a dashboard: the score, the time, the notebook line and
    Next on the left; the answers and their reasons on the right, scrolling in their column. N1's day without a lesson: the note and
    Back to today at the top.
+   The list's foot fades while there is more under it (N1's box has its own fade).
    Hooks: bar > clock, band, kind, passage (Study), main (the sentence), opts, gap, act; score, list (> fade, N1), saved; none (N1).
    data-k: choice on the options; go on Next / Finish, on the result's Next and on Back to today. */
 @container yk (min-width: 880px) {
@@ -59,7 +60,15 @@
   html.yk-desk [data-yk="Exam"] > [data-d="score"] > div:last-child { font-size: 13px !important; white-space: nowrap; }
   html.yk-desk [data-yk="Exam"] > [data-d="saved"] { grid-area: saved; margin: 18px 0 0 !important; font-size: 13px !important; line-height: 1.45; }
   html.yk-desk [data-yk="Exam"]:has(> [data-d="score"]) > [data-d="act"] { grid-area: act; justify-self: stretch; margin-top: 18px !important; }
-  html.yk-desk [data-yk="Exam"] > [data-d="list"] { grid-area: list; align-self: start; min-height: 0; max-height: 100% !important; box-sizing: border-box; margin: 22px 0 0 !important; padding: 0 4px 8px !important; gap: 10px !important; }
+  /* the list as tall as its cards, or as the column under its top margin (then it scrolls, above the screen's bottom spacing) */
+  html.yk-desk [data-yk="Exam"] > [data-d="list"] { grid-area: list; align-self: start; min-height: 0; max-height: calc(100% - 22px) !important; box-sizing: border-box; margin: 22px 0 0 !important; padding: 0 4px 8px !important; gap: 10px !important; }
+  /* Study: the list scrolls itself; while there is more under it, its foot fades (a veil held at the foot, which is the list's
+     bottom spacing at the end) */
+  html.yk-desk [data-yk="Exam"] > [data-d="list"][style*="overflow-y: auto"] { padding-bottom: 0 !important; }
+  html.yk-desk [data-yk="Exam"] > [data-d="list"][style*="overflow-y: auto"]::after {
+    content: ''; flex-shrink: 0; position: sticky; bottom: 0; height: 18px; margin: -4px -4px 0; pointer-events: none;
+    background: linear-gradient(rgba(244, 245, 249, 0), #F4F5F9 16px);
+  }
   /* N1: the list is a box with its scrolling cards and the fade that says there is more */
   html.yk-desk [data-yk="Exam"] > [data-d="list"] > div[style*="overflow-y: auto"] { padding: 0 4px 16px !important; gap: 10px !important; }
   html.yk-desk [data-yk="Exam"] > [data-d="list"] div[style*="border-radius: 16px"] { padding: 12px 16px !important; gap: 6px !important; }
