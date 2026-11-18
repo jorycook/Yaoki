@@ -153,6 +153,16 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('1');
   check('a second miss shows the whole spelling (hint level 2)', (await state(page)).target.level === 2);
   if (shots) await page.screenshot({ path: `${shots}/romaji-miss.png` });
+  // the hints are read at a glance while typing: at 1366×768 the hint under the card is drawn at
+  // about 44 px (it was 30), and the lines under the game are large too
+  await sleep(100);
+  s = await state(page);
+  check('at 1366×768 the hint under the card is drawn large', s.under && s.under.px >= 41.5, JSON.stringify(s.under));
+  const lines = await page.evaluate(() => {
+    const fs = (sel) => parseFloat(getComputedStyle(document.querySelector(sel)).fontSize);
+    return { status: fs('#status'), next: fs('#next-line .kicker'), key: fs('#next-line .kicker b'), finger: fs('#next-line span:not(.kicker)') };
+  });
+  check('…and so are the status and next-key lines (次 NEXT a little smaller)', lines.status >= 22 && lines.key >= 22 && lines.finger >= 22 && lines.next >= 18, JSON.stringify(lines));
   if (t.spell.length > 1) {
     await page.keyboard.press(t.spell[0]);
     await page.keyboard.press('Backspace');
@@ -503,6 +513,8 @@ async function waitFor(fn, ms = 5000) {
   await sleep(100);
   const info = await page.textContent('#info');
   check('the word, its reading and meaning show under the game', info.includes(w.text) && info.includes(w.reading), info);
+  const infoSizes = await page.$$eval('#info > span', (els) => els.map((e) => parseFloat(getComputedStyle(e).fontSize)));
+  check('…in large type: the word at 28 px or more, its meaning at 22 or more', infoSizes.length === 2 && infoSizes[0] >= 28 && infoSizes[1] >= 22, JSON.stringify(infoSizes));
   await page.keyboard.type(w.spell, { delay: 25 });
   const played = await page.evaluate(() => window.__played);
   check('a cleared word is spoken with its clip', /^s_n4u3d\d_/.test(played || ''), played);
@@ -700,6 +712,12 @@ async function waitFor(fn, ms = 5000) {
   check('the round starts its music, quietly at first', ms.includes('start:' + s.song) && ms.includes('level:0') && !!s.song, ms.join(' '));
   check('the round is played in a scene', !!s.scene === !!(await page.evaluate(() => window.TypingScenes)), String(s.scene));
   check('Yaoki says something as the round starts', !!s.yaoki.bubble, JSON.stringify(s.yaoki));
+  // the stubbed music has no beat, so he keeps the route's pace
+  const steps0 = s.yaoki.steps;
+  check('he trots in place while the world moves', await waitFor(async () => {
+    const y = (await state(page)).yaoki;
+    return y.act === 'trot' && y.steps >= steps0 + 2;
+  }, 2500), JSON.stringify((await state(page)).yaoki));
   // each card is typed once Yaoki is free, so it gets its own trick when it reaches him
   const free = () => waitFor(async () => {
     const st = await state(page);
@@ -717,6 +735,8 @@ async function waitFor(fn, ms = 5000) {
   await free();
   const c6 = await target(page);
   await page.keyboard.press('1');
+  check('a miss makes him flinch', (await state(page)).yaoki.flinches === 1 && await waitFor(async () => (await state(page)).yaoki.act === 'flinch', 250),
+    JSON.stringify((await state(page)).yaoki));
   await page.keyboard.type(c6.key, { delay: 20 });
   check('cleared cards ride on to Yaoki and he gets past each with a trick', await waitFor(async () => {
     const tr = (await state(page)).tricks;
@@ -733,7 +753,13 @@ async function waitFor(fn, ms = 5000) {
   const fallCard = await target(page);
   await waitFor(async () => (await state(page)).falling, 25000);
   check('a fall drops the music back', (await musicLog(page)).includes('cue:fall'));
+  const down = (await state(page)).yaoki;
+  await sleep(500);
+  const lying = (await state(page)).yaoki;
+  check('while he is down the world waits, and he takes no steps', lying.act === 'fall' && lying.steps === down.steps, JSON.stringify({ down, lying }));
   await waitFor(async () => !(await state(page)).falling, 5000);
+  const upHop = await waitFor(async () => (await state(page)).yaoki.act === 'hop', 1000);
+  check('…he gets up with a hop and trots on', upHop && await waitFor(async () => (await state(page)).yaoki.steps > lying.steps, 3000), JSON.stringify((await state(page)).yaoki));
   check('…and the groove comes back after it', (await musicLog(page)).slice(-3).some((x) => x === 'level:1'), (await musicLog(page)).slice(-4).join(' '));
   await playOut(page, async () => {
     await free();
@@ -742,6 +768,7 @@ async function waitFor(fn, ms = 5000) {
   }, 150000);
   const done = (await state(page)).tricks;
   check('he does each trick: jump, spin in a run of five, duck after a slip, smash for a comeback', done.jump >= 1 && done.spin >= 1 && done.duck >= 1 && done.smash >= 1, JSON.stringify({ done, fell: fallCard.text }));
+  check('…and stands still as the world stops at the end', (await state(page)).yaoki.act === 'stand', JSON.stringify((await state(page)).yaoki));
   ms = await musicLog(page);
   check('the last card and the end have their music', ms.includes('cue:last') && ms.includes('cue:end'), ms.slice(-6).join(' '));
   check('the scene drew all round without failing', !(await state(page)).sceneFailed && !(await page.evaluate(() => !!(window.TypingScenes && window.TypingScenes.draw.warned))));
@@ -832,8 +859,20 @@ async function waitFor(fn, ms = 5000) {
   await page.keyboard.press('Escape');
   check('…its weak spots and best are kept', /\(1\)/.test(await page.textContent('#start-weak')) && (await stored(page)).best['symbol:plain'] === 55);
   await page.click('#start');
-  await sleep(5000);
+  const startedAt = Date.now();
+  // nothing typed: once a little while has passed with the card still far off, he idles and fidgets
+  await waitFor(async () => { const y = (await state(page)).yaoki; return y.idle && y.fidgets >= 1; }, 5000);
+  const waited = (await state(page)).yaoki;
+  check('with no key for a while, Yaoki fidgets', waited.idle && waited.fidgets >= 1, JSON.stringify(waited));
+  // a wrong key while he idles: he flinches, and is back with the card at once
   await page.keyboard.press('1');
+  await sleep(150);
+  const roused = (await state(page)).yaoki;
+  check('…and the next key brings him back', !roused.idle && !['idle', 'yawn'].includes(roused.act) && roused.flinches > waited.flinches, JSON.stringify(roused));
+  // the last key 5 seconds into the round, for the typing time below
+  await sleep(Math.max(0, 5000 - (Date.now() - startedAt)));
+  await page.keyboard.press('1');
+  await sleep(400);
   await page.keyboard.down('Shift');
   // a held key's repeats are not typing
   for (let i = 0; i < 100; i++) {
@@ -907,14 +946,16 @@ async function waitFor(fn, ms = 5000) {
     s = await state(page);
     check('Tab skips the waiting card', s.skipped === 1);
     check('the bar counts the skipped card', (await page.getAttribute('#progress', 'aria-label')) === 'Card ' + Math.min(s.cleared + 2, s.total) + ' of ' + s.total);
-    // without motion: no ink, no hop
+    // without motion: no ink, no hop, and Yaoki stays where he is
     let inked = 0;
     let rm = null;
+    const acts = new Set();
     await playOut(page, async (c) => {
       await page.keyboard.type(c.key, { delay: 20 });
       for (let i = 0; i < 4; i++) {
         rm = await state(page);
         inked = Math.max(inked, rm.fx);
+        acts.add(rm.yaoki.act);
         await sleep(50);
       }
     });
@@ -922,11 +963,53 @@ async function waitFor(fn, ms = 5000) {
     check('with reduced motion, stamps land without ink and Yaoki does not hop', inked === 0 && rm && rm.yaoki.liftMax === 0 && (rm.comebacks > 0 || rm.bestRun >= 5),
       JSON.stringify({ inked, lift: rm && rm.yaoki.liftMax, comebacks: rm && rm.comebacks, bestRun: rm && rm.bestRun }));
     check('…and does no tricks: cleared cards simply settle', rm && Object.values(rm.tricks).every((n) => n === 0), JSON.stringify(rm && rm.tricks));
+    check('…and takes no steps, does not flinch at a miss and does not fidget', rm && rm.yaoki.steps === 0 && rm.yaoki.flinches === 0 && rm.yaoki.fidgets === 0
+      && [...acts].every((a) => a === 'stand' || a === 'fall'), JSON.stringify({ yaoki: rm && rm.yaoki, acts: [...acts] }));
     check('the result says a card was skipped', /skipped/.test(await page.textContent('#res-falls-en')) && /skipped/.test(await page.textContent('#res-line')));
     const was = before.symbol && before.symbol[waitingKey] ? before.symbol[waitingKey].miss : 0;
     const now = ((await stored(page)).stats.symbol || {})[waitingKey];
     check('a skipped card\'s misses are kept: two falls and the miss before Tab', now && now.miss === was + 3, JSON.stringify({ waitingKey, was, now }));
   }
+  await page.close();
+
+  // ---- a 1280×720 window: the large lines under the game fit, with the keyboard and without
+  // it, with the longest line under the game (a kanji sentence, its reading and meaning) and
+  // through a fall; the hint under the route stays in the canvas, under the route, clear of Yaoki
+  page = await open({ viewport: { width: 1280, height: 720 } });
+  const fits = () => page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight);
+  const underRoute = (st) => {
+    const u = st.under;
+    return !!u && u.x >= 10 && u.x + u.w <= st.W - 10 && u.y >= 168 + 10 && u.y + u.h <= u.foot;
+  };
+  await pick(page, 1, 'kanji:sentences');
+  await page.click('#len-seg button:nth-child(3)');
+  await page.click('#start');
+  await target(page);
+  await page.keyboard.press('1');
+  await page.keyboard.press('1');
+  await sleep(150);
+  s = await state(page);
+  check('1280×720: a round of kanji sentences does not scroll', await fits() && await page.evaluate(() => parseFloat(document.documentElement.style.getPropertyValue('--info-extra')) > 0),
+    await page.evaluate(() => document.documentElement.scrollHeight + ' ' + document.documentElement.style.getPropertyValue('--info-extra')));
+  check('…and a sentence\'s whole romaji fits under the route', underRoute(s), JSON.stringify({ under: s.under, W: s.W }));
+  await page.keyboard.press('Escape');
+  await page.click('#pause-settings');
+  await page.click('#opt-kb');
+  await page.click('#close-settings');
+  await page.click('#resume');
+  await sleep(150);
+  check('…nor without the keyboard', await page.isHidden('#kb') && await fits());
+  await quit(page);
+  await page.click('#open-settings');
+  await page.click('#opt-kb');
+  await page.click('#close-settings');
+  await pick(page, 1, 'romaji:words');
+  await page.click('#start');
+  check('1280×720: a card left to fall knocks Yaoki over', await waitFor(async () => (await state(page)).falling, 30000));
+  await sleep(300);
+  s = await state(page);
+  check('…the page does not scroll, and the answer and its captions stay under the route, clear of him', await fits() && underRoute(s) && s.under.x >= Math.max(100, s.W - 1000) + 34,
+    JSON.stringify({ under: s.under, W: s.W }));
   await page.close();
 
   // ---- the narrowest window the game is made for (700 px): the longest prompts, and kanji
@@ -946,6 +1029,7 @@ async function waitFor(fn, ms = 5000) {
   await target(page);
   const widestTime = (await state(page)).widestTime;
   check('700px: the widest kanji sentence still has its time once in view', widestTime >= 12, 'seconds ' + widestTime);
+  check('…and nothing scrolls, with its reading and meaning under the game', await page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight));
   await quit(page);
   await page.click('#len-seg button:nth-child(1)');
   await page.click('#start');

@@ -9,9 +9,9 @@ const { openBoard, inspect, out } = require('./rt-check.js');
 
 const LEVEL = process.env.YK_LEVEL || 'N2';
 const enc = (o) => encodeURIComponent(JSON.stringify(o));
-// the main app: each screen in the state a learner meets it in on day 1 of a new plan (u03d1), plus the later states
+// the main app: each screen in the state a learner meets it in on day 1 of a new plan (u01d1), plus the later states
 // the click-throughs pass quickly (content-sweep.js takes every day of the course through its states)
-const day1 = (p) => '&done=' + enc({ u03d1: p });
+const day1 = (p) => '&done=' + enc({ u01d1: p });
 let SCREENS = [
   ['Goal', ''],
   ['Main', ''],
@@ -51,6 +51,16 @@ SCREENS.push(
   /* the extras (おまけ): Yaoki Speaking and Yaoki Reader beside the course, for an N2 learner and a kana learner */
   ['Extras', ''],
   ['Extras', kana(), 'kana'],
+);
+/* the N2 full mocks: the Mock tab with mock 1 open (the plan started in September, so its week 6 test is past) and with
+   both taken, a full mock's briefing, and its result */
+const fullPlan = '&level=N2&plan=' + enc({ start: '2026-09-01', exam: '2027-07-04', pace: 'fit' });
+const fullDone = { a: { 1: 1, 2: 2, 3: 3, 72: 1, 88: 2 }, used: [6300, null], timeUp: [true], done: true, at: '2026-11-10' };
+SCREENS.push(
+  ['Mock', fullPlan, 'full-open'],
+  ['Mock', fullPlan + '&full=' + enc({ 1: fullDone, 2: fullDone }), 'full-taken'],
+  ['MockRun', fullPlan + '&run=1', 'full-briefing'],
+  ['MockFull', fullPlan + '&run=1&full=' + enc({ 1: fullDone }), 'full-result'],
 );
 
 if (LEVEL === 'N1') {
