@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Listening catch</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
+<script src="./yk-game.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-fall-a{from{transform:translateY(-90px)}to{transform:translateY(366px)}}
+@keyframes yk-fall-b{from{transform:translateY(-90px)}to{transform:translateY(366px)}}
+@keyframes yk-burst{0%{transform:scale(1);opacity:1}45%{transform:scale(1.18);opacity:1}100%{transform:scale(1.35);opacity:0}}
+@keyframes yk-shake{0%,100%{transform:none}20%{transform:translateX(-7px) rotate(-3deg)}40%{transform:translateX(6px) rotate(2deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes yk-ring{0%{opacity:0;transform:scale(.4)}40%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.6)}}
+@keyframes yk-wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;transition-duration:1ms !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; gap: 10px; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 4px; height: 44px; flex-shrink: 0">
+<a href="{{ backHref }}" onClick="{{ close }}" aria-label="Close the game" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div style="flex-grow: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; line-height: 1.2">
+<div lang="ja" style="font-size: 16px; font-weight: 800">{{ titleJa }}</div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+<button onClick="{{ toggleSound }}" aria-pressed="{{ soundOn }}" aria-label="Sound" style="width: 44px; height: 44px; margin-right: -6px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center"><sc-if value="{{ soundOn }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></sc-if><sc-if value="{{ soundOff }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA1B5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg></sc-if></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<div style="flex-grow: 1; display: grid; grid-template-columns: repeat({{ size }}, minmax(0, 1fr)); gap: 5px" role="img" aria-label="{{ trackAria }}">
+<sc-for list="{{ track }}" as="t" hint-placeholder-count="6">
+<div style="height: 8px; border-radius: 4px; transition: background 300ms; background: {{ t.bg }}"></div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; white-space: nowrap; font-variant-numeric: tabular-nums">{{ countLine }}</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; height: 56px; flex-shrink: 0; padding: 0 6px 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440">
+<sc-if value="{{ hearMode }}" hint-placeholder-val="{{ true }}">
+<div aria-hidden="true" style="display: flex; align-items: center; gap: 3px; height: 24px">
+<sc-for list="{{ bars }}" as="b" hint-placeholder-count="5"><div style="width: 4px; height: 24px; border-radius: 2px; background: #2F4FD0; transform-origin: 50% 50%; animation: {{ b.anim }}; transform: scaleY({{ b.h }})"></div></sc-for>
+</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25">
+<div lang="ja" style="font-size: 15px; font-weight: 800; white-space: nowrap">聞いて さがす</div>
+<div style="font-size: 12px; font-weight: 600; color: #5A6382; white-space: nowrap">Listen, then catch</div>
+</div>
+<button onClick="{{ replay }}" disabled="{{ noReplay }}" aria-label="Hear the word again" style="flex-shrink: 0; height: 44px; padding: 0 10px; border-radius: 14px; background: #E8ECFB; border: 2px solid #2F4FD0; color: #2F4FD0; font-weight: 800; font-size: 13px; white-space: nowrap; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>もう一度</button>
+</sc-if>
+<sc-if value="{{ readMode }}" hint-placeholder-val="{{ false }}">
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25">
+<div style="font-size: 12px; font-weight: 700; color: #5A6382">{{ readNote }}</div>
+<div lang="{{ promptLang }}" style="font-size: 22px; font-weight: 800; color: #2F4FD0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ prompt }}</div>
+</div>
+</sc-if>
+<sc-if value="{{ canRead }}" hint-placeholder-val="{{ false }}"><button onClick="{{ toRead }}" aria-label="Show the word in letters instead" style="flex-shrink: 0; height: 44px; padding: 0 10px; border-radius: 14px; background: #FFFFFF; border: 2px solid #DDE1EC; color: #5A6382; font-weight: 800; font-size: 12px; white-space: nowrap">文字で</button></sc-if>
+</div>
+
+<div style="position: relative; flex-grow: 1; min-height: 0; border-radius: 22px; overflow: hidden; background: #FFFFFF; border: 2px solid #DDE1EC; background-image: linear-gradient(#EEF0F6 1px, transparent 1px), linear-gradient(90deg, #EEF0F6 1px, transparent 1px); background-size: 26px 26px">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #E6E9F3; border-top: 2px dashed #C9D0E3"></div>
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="3">
+<div style="position: absolute; top: 0; width: 104px; height: 64px; left: {{ c.left }}; animation: {{ c.fall }}; animation-play-state: {{ c.play }}">
+<button onClick="{{ c.tap }}" disabled="{{ c.off }}" aria-label="{{ c.aria }}" style="position: relative; width: 104px; height: 64px; padding: 0 4px; box-sizing: border-box; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ c.border }}; background: {{ c.bg }}; box-shadow: {{ c.shadow }}; opacity: {{ c.dim }}; animation: {{ c.hit }}">
+<span lang="ja" style="font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-weight: 600; font-size: {{ c.size }}; color: #1B2440; white-space: nowrap">{{ c.text }}</span>
+<sc-if value="{{ c.showReading }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="font-size: 11px; font-weight: 800; color: #0B7A6B; white-space: nowrap">{{ c.reading }}</span></sc-if>
+</button>
+<sc-if value="{{ c.ring }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position: absolute; left: 22px; top: -8px; width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; border: 4px solid #0B7A6B; animation: yk-ring 520ms ease-out both"></div></sc-if>
+</div>
+</sc-for>
+<div style="position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; pointer-events: none">
+<dc-import name="Yaoki" mood="{{ mood }}" beat="{{ beat }}" size="{{ 92 }}" look="{{ look }}" hint-size="92px,92px"></dc-import>
+</div>
+</div>
+
+<div role="status" style="flex-shrink: 0; min-height: 52px; box-sizing: border-box; padding: 8px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; justify-content: center; gap: 1px">
+<div lang="ja" style="font-size: 15px; font-weight: 800; color: {{ sayInk }}">{{ sayJa }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.35">{{ sayEn }}</div>
+</div>
+
+<sc-if value="{{ intro }}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 200ms ease-out">
+<div style="padding: 22px 20px 34px; border-radius: 28px 28px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 280ms ease-out">
+<div style="display: flex; align-items: center; gap: 14px">
+<dc-import name="Yaoki" mood="happy" beat="{{ 1 }}" size="{{ 74 }}" hint-size="74px,74px"></dc-import>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ fromLine }}</div>
+<h1 lang="ja" style="margin: 0; font-size: 24px; font-weight: 800">{{ titleJa }}</h1>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+</div>
+<div style="font-size: 14px; font-weight: 500; line-height: 1.55">{{ howTo }}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ chipCount }}</div>
+<div style="padding: 4px 10px; border-radius: 10px; background: #FFF4D6; color: #1B2440; font-size: 12px; font-weight: 800">はなまる: every word caught first try</div>
+</div>
+<button onClick="{{ start }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">はじめる</span>　Start</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 220ms ease-out">
+<div style="animation: yk-up 320ms ease-out">
+<dc-import name="GameEnd" mark="{{ mark }}" kind="catch" level="{{ level }}" stats="{{ endStats }}" slips="{{ slips }}" note="{{ endNote }}" again="{{ again }}" back="{{ close }}" back-label="{{ backLabel }}" hint-size="390px,470px"></dc-import>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* 聞き取りキャッチ Listening catch: a word is said, three cards fall towards Yaoki, and the learner taps the one that
+   was said before they land. A wrong card shakes and greys; if no card is caught, they land on Yaoki, who topples and
+   gets up again, and the right one is shown with its reading. No lives and no speed score: the cards fall at one gentle
+   pace all round. Without sound (the speaker off, or no clip), the reading is shown in place of the word heard. Under
+   reduced motion nothing falls: the cards wait in place until the right one is found.
+   The round comes from app.game ({ kind, level, unit, day, from }); on its own the artboard plays N2 week 3, day 4. */
+const FALL = 6800;
+const AFTER_CATCH = 1000;
+const AFTER_LAND = 2200;
+const LANES = ['10px', '125px', '240px'];
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* the round the launcher picked (its seed), or a new one */
+const g = props.app && props.app.game;
+this.state = this.fresh(g && g.seed ? g.seed : window.ykGame ? window.ykGame.seed() : 1);
+}
+fresh(seed) {
+const G = window.ykGame;
+const round = G ? G.round('catch', this.source(), seed) : null;
+return { seed, round, phase: 'intro', at: 0, drop: 0, hit: -1, wrong: {}, landed: false, caught: 0, firsts: 0, slips: 0, read: false, mood: 'idle', beat: 0, say: null, saved: false };
+}
+source() {
+const g = (this.props.app && this.props.app.game) || null;
+return g && g.kind === 'catch' ? g : { kind: 'catch', level: 'N2', unit: 3, day: 4, from: 'Extras' };
+}
+componentDidMount() {
+const C = window.ykCourse;
+const src = this.source();
+if (C && C.needSound) C.needSound(src.level, src.unit);
+/* the page put aside mid-drop: the drop starts again when it comes back */
+this.onVis = () => {
+if (document.hidden) { clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); this.away = true; }
+else if (this.away) { this.away = false; if (this.state.phase === 'play' && this.state.hit < 0 && !this.state.landed) this.begin(this.state.at); }
+};
+document.addEventListener('visibilitychange', this.onVis);
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+document.removeEventListener('visibilitychange', this.onVis);
+}
+sound() {
+const app = this.props.app;
+return !app || app.fx !== false;
+}
+fx(kind) {
+if (window.ykGame && this.sound()) window.ykGame.fx(kind);
+}
+/* can this drop's word be heard? */
+hearable(drop) {
+return this.sound() && !this.state.read && !!(window.ykSound && drop && drop.target.clip && window.ykSound.has(drop.target.clip));
+}
+start() {
+if (window.ykSound) window.ykSound.unlock();
+this.begin(0);
+}
+begin(at) {
+const s = this.state;
+const r = s.round;
+clearTimeout(this.timer);
+if (at >= r.drops.length) { this.finish(); return; }
+const drop = r.drops[at];
+this.setState({ phase: 'play', at, drop: s.drop + 1, hit: -1, wrong: {}, landed: false, mood: 'idle', say: { ja: '聞いて！', en: this.hearable(drop) ? 'Tap the word you hear before it lands.' : 'Tap the word with this reading before it lands.' } });
+if (this.hearable(drop)) window.ykSound.play(drop.target.clip, 0, 0.12);
+/* under reduced motion nothing falls, so nothing lands: the cards wait */
+if (window.ykGame && window.ykGame.motion()) this.timer = setTimeout(() => this.land(), FALL);
+}
+tap(k) {
+const s = this.state;
+const drop = s.round.drops[s.at];
+if (s.phase !== 'play' || s.hit >= 0 || s.landed || s.wrong[k]) return;
+if (k === drop.answer) {
+const first = !Object.keys(s.wrong).length;
+clearTimeout(this.timer);
+this.fx('right');
+this.setState({ hit: k, caught: s.caught + 1, firsts: s.firsts + (first ? 1 : 0), mood: 'happy', beat: s.beat + 1, say: { ja: first ? 'キャッチ！' : 'とれた！', en: drop.target.word + ' · ' + drop.target.reading + (drop.target.gloss && drop.target.gloss !== drop.target.reading ? ' · ' + drop.target.gloss : '') } });
+this.timer = setTimeout(() => this.begin(s.at + 1), AFTER_CATCH);
+return;
+}
+this.fx('wrong');
+this.setState({ wrong: { ...s.wrong, [k]: 1 }, slips: s.slips + (Object.keys(s.wrong).length ? 0 : 1), mood: 'oops', beat: s.beat + 1, say: { ja: 'ちがう！', en: 'Not that one. Listen again and try another card.' } });
+}
+land() {
+const s = this.state;
+const drop = s.round.drops[s.at];
+this.fx('fall');
+this.setState({ landed: true, slips: s.slips + (Object.keys(s.wrong).length ? 0 : 1), mood: 'fall', beat: s.beat + 1, say: { ja: 'ころんだ！　でも、おきる', en: 'It was ' + drop.target.word + ' · ' + drop.target.reading + '. Yaoki gets up: on to the next one.' } });
+this.timer = setTimeout(() => this.begin(s.at + 1), AFTER_LAND);
+}
+finish() {
+const s = this.state;
+const G = window.ykGame;
+const C = window.ykCourse;
+const mark = G.mark(s.slips);
+if (window.ykSound) window.ykSound.stop();
+this.fx(mark === 'hanamaru' ? 'win' : 'stamp');
+this.setState({ phase: 'end', mood: 'cheer', beat: s.beat + 1 });
+if (!s.saved && this.props.save && this.props.app) {
+this.props.save({ play: G.record(this.props.app.play, this.source(), mark, C.today(C.now())) });
+this.setState({ saved: true });
+}
+}
+renderVals() {
+const s = this.state;
+const G = window.ykGame;
+const src = this.source();
+const r = s.round || { drops: [] };
+const info = G ? G.info('catch', src.level) : { ja: '聞き取りキャッチ', en: 'Listening catch', line: '' };
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); go(to); } };
+const from = src.from || 'Extras';
+const drop = r.drops[s.at] || null;
+const playing = s.phase === 'play' && !!drop;
+const moving = !G || G.motion();
+const side = s.drop % 2 ? 'a' : 'b';
+const hear = playing ? this.hearable(drop) : this.sound() && !s.read;
+const kana = src.level === 'KANA';
+const cards = playing ? drop.cards.map((w, k) => {
+const right = k === drop.answer;
+const caught = s.hit === k;
+const wrong = !!s.wrong[k];
+const shown = s.landed && right;
+const len = Array.from(w.word).length;
+return {
+text: w.word,
+reading: w.reading,
+showReading: shown || caught,
+size: len <= 2 ? '26px' : len <= 3 ? '23px' : len <= 4 ? '19px' : '16px',
+left: LANES[k],
+fall: moving ? 'yk-fall-' + side + ' ' + FALL + 'ms linear both' : 'none',
+play: s.hit >= 0 ? 'paused' : 'running',
+hit: caught ? 'yk-burst 520ms 160ms ease-out both' : wrong && s.wrong[k] ? 'yk-shake 380ms ease-out' : 'none',
+ring: caught,
+border: shown || caught ? '2px solid #0B7A6B' : wrong ? '2px solid #C7361E' : '2px solid #1B2440',
+bg: shown || caught ? '#E0F3EF' : wrong ? '#FDEBE6' : '#FFFFFF',
+shadow: wrong ? 'none' : shown || caught ? '0 4px 0 #0B7A6B' : '0 4px 0 #1B2440',
+dim: wrong ? '0.5' : s.landed && !right ? '0.3' : '1',
+off: s.hit >= 0 || s.landed || wrong,
+aria: w.word + (shown ? ', the word that was said' : wrong ? ', not this one' : ''),
+tap: () => this.tap(k),
+};
+}) : [];
+const say = s.say || { ja: '聞いて、つかまえる', en: info.line };
+const mark = G ? G.mark(s.slips) : 'hanamaru';
+const day = src.day ? 'Day ' + src.day + '’s words' : 'Week ' + src.unit + '’s words';
+const firstTry = s.firsts;
+return {
+titleJa: info.ja,
+titleEn: info.en,
+level: src.level,
+size: r.drops.length || 6,
+track: r.drops.map((d, i) => ({ bg: i < s.at || (i === s.at && (s.hit >= 0 || s.landed)) ? (i === s.at && s.landed ? '#E2452B' : '#0B7A6B') : i === s.at && playing ? '#2F4FD0' : '#DDE1EC' })),
+trackAria: 'Word ' + Math.min(r.drops.length, s.at + 1) + ' of ' + r.drops.length,
+countLine: Math.min(r.drops.length, s.at + (playing ? 1 : 0)) + ' / ' + r.drops.length,
+hearMode: hear,
+readMode: !hear,
+canRead: playing && hear,
+bars: [0.5, 0.9, 0.6, 1, 0.7].map((h, i) => ({ h, anim: playing && s.hit < 0 && !s.landed && moving ? 'yk-wave ' + (700 + i * 90) + 'ms ease-in-out infinite' : 'none' })),
+noReplay: !playing || s.hit >= 0 || s.landed,
+replay: () => { if (drop && window.ykSound) window.ykSound.tap(drop.target.clip); },
+toRead: () => this.setState({ read: true }),
+readNote: kana ? 'Find the one read as' : 'Find the word read as',
+prompt: drop ? (kana ? drop.target.reading : drop.target.reading) : '…',
+promptLang: kana ? 'en' : 'ja',
+cards,
+mood: s.mood,
+beat: s.beat,
+look: 0,
+sayJa: say.ja,
+sayEn: say.en,
+sayInk: s.mood === 'oops' || s.mood === 'fall' ? '#C7361E' : s.mood === 'happy' || s.mood === 'cheer' ? '#0B7A6B' : '#1B2440',
+intro: s.phase === 'intro',
+ended: s.phase === 'end',
+fromLine: (src.day ? '今日のゲーム · ' : 'あそぶ · ') + src.level.replace('KANA', 'かな') + ' · ' + day,
+howTo: kana ? 'A kana or a word is said, and three cards fall towards Yaoki. Tap the one you heard before they land. With the sound off, its sound is written instead.' : 'A word is said, and three cards fall towards Yaoki. Tap the word you heard before they land. With the sound off, its reading is shown instead.',
+chipCount: r.drops.length + ' words',
+start: () => this.start(),
+mark,
+slips: s.slips,
+endStats: [
+{ value: String(r.drops.length), label: 'words', ink: '#1B2440' },
+{ value: String(firstTry), label: 'first try', ink: '#0B7A6B' },
+{ value: String(s.slips), label: s.slips === 1 ? 'slip' : 'slips', ink: s.slips ? '#C7361E' : '#0B7A6B' },
+],
+endNote: 'A slip is a word missed or a wrong card tapped first. Games are practice: nothing here counts toward your stamps.',
+again: () => { clearTimeout(this.timer); this.setState(this.fresh(window.ykGame.seed())); },
+backHref: from + '.dc.html',
+close: nav(from),
+backLabel: from === 'Today' ? 'もどる　Today' : 'もどる　Games',
+soundOn: this.sound(),
+soundOff: !this.sound(),
+toggleSound: () => { if (this.props.save) this.props.save({ fx: !this.sound() }); },
+};
+}
+}
+</script>
+</body>
+</html>

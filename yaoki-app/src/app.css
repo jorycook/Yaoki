@@ -70,3 +70,5 @@ html.yk-sideways #yk-sideways {
   background: #F4F5F9; color: #1B2440; font-size: 15px; font-weight: 700;
 }
 html.yk-sideways #yk-sideways [lang="ja"] { font-size: 20px; font-weight: 800; }
+/* motion is left out for those who ask for none: every screen and Yaoki, at once */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: 1ms !important; } }

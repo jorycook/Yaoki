@@ -31,7 +31,7 @@ a = "this.state = window.ykCourse.fresh();"
 b = ("const q = new URLSearchParams(location.search); const j = (k, d) => { try { return JSON.parse(q.get(k) || 'null') || d; } catch (e) { return d; } }; "
      "if (q.get('now')) window.__ykNow = +q.get('now'); "
      "const screen = q.get('screen') || 'Goal'; "
-     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), full: j('full', {}), run: q.get('run') && /^[12]$/.test(q.get('run')) ? +q.get('run') : 'mini', level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day', wrote: q.get('wrote') || '', wroteWords: j('words', []) };")
+     "this.state = { ...window.ykCourse.fresh(), screen, started: screen !== 'Goal', plan: j('plan', screen !== 'Goal' ? { start: window.ykCourse.today(window.ykCourse.now()), exam: '2026-12-06', pace: 'fit' } : null), done: j('done', {}), tests: j('tests', {}), mistakes: j('m', []), mock: j('mock', null), full: j('full', {}), run: q.get('run') && /^[12]$/.test(q.get('run')) ? +q.get('run') : 'mini', level: q.get('level'), plans: j('plans', {}), cur: q.get('cur'), tp: +(q.get('tp') || 0), set: q.get('set') || 'day', wrote: q.get('wrote') || '', wroteWords: j('words', []), play: j('play', {}), game: j('game', null), fx: q.get('fx') !== '0' }; if (q.get('seed')) window.__ykSeed = +q.get('seed');")
 if a not in s: sys.exit('TShell patch did not apply')
 open(dst, 'w', encoding='utf-8').write(s.replace(a, b))
 PY

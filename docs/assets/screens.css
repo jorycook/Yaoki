@@ -7,6 +7,59 @@ button:disabled{cursor:default}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @keyframes yk-fade{from{opacity:0}to{opacity:1}}
 @keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+@keyframes yk-land{0%{opacity:0;transform:scale(2) rotate(-26deg)}55%{opacity:1;transform:scale(.9)}75%{transform:scale(1.06)}100%{opacity:1;transform:none}}
+@keyframes yk-pulse{0%{box-shadow:0 5px 0 #1B2440,0 0 0 0 rgba(47,79,208,.4)}70%{box-shadow:0 5px 0 #1B2440,0 0 0 14px rgba(47,79,208,0)}100%{box-shadow:0 5px 0 #1B2440,0 0 0 0 rgba(47,79,208,0)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;animation-iteration-count:1 !important;transition-duration:1ms !important}}
+@keyframes yk-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes yk-nudge{0%,100%{transform:none}50%{transform:scale(1.04)}}
+@keyframes yk-shake{0%,100%{transform:none}20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@keyframes yk-pop{0%{transform:none}45%{transform:scale(1.05)}100%{transform:none}}
 @keyframes yk-pop{0%{transform:scale(1)}45%{transform:scale(1.04)}100%{transform:scale(1)}}
 @keyframes yk-pop{0%{transform:scale(1)}45%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes yk-deal{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes yk-tilt{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+@keyframes yk-y-sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes yk-y-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+@keyframes yk-y-hop-a{0%{transform:none}18%{transform:scale(1.07,.9)}45%{transform:translateY(-14px) scale(.96,1.05)}70%{transform:translateY(0) scale(1.06,.93)}86%{transform:scale(.98,1.02)}100%{transform:none}}
+@keyframes yk-y-hop-b{0%{transform:none}18%{transform:scale(1.07,.9)}45%{transform:translateY(-14px) scale(.96,1.05)}70%{transform:translateY(0) scale(1.06,.93)}86%{transform:scale(.98,1.02)}100%{transform:none}}
+@keyframes yk-y-cheer-a{0%{transform:none}10%{transform:scale(1.08,.88)}28%{transform:translateY(-18px) rotate(-8deg)}44%{transform:translateY(0) scale(1.05,.94)}56%{transform:scale(1.08,.9)}72%{transform:translateY(-14px) rotate(8deg)}88%{transform:translateY(0) scale(1.04,.96)}100%{transform:none}}
+@keyframes yk-y-cheer-b{0%{transform:none}10%{transform:scale(1.08,.88)}28%{transform:translateY(-18px) rotate(-8deg)}44%{transform:translateY(0) scale(1.05,.94)}56%{transform:scale(1.08,.9)}72%{transform:translateY(-14px) rotate(8deg)}88%{transform:translateY(0) scale(1.04,.96)}100%{transform:none}}
+@keyframes yk-y-oops-a{0%{transform:none}14%{transform:rotate(-17deg)}31%{transform:rotate(12deg)}47%{transform:rotate(-8deg)}62%{transform:rotate(5deg)}77%{transform:rotate(-2.5deg)}90%{transform:rotate(1deg)}100%{transform:none}}
+@keyframes yk-y-oops-b{0%{transform:none}14%{transform:rotate(-17deg)}31%{transform:rotate(12deg)}47%{transform:rotate(-8deg)}62%{transform:rotate(5deg)}77%{transform:rotate(-2.5deg)}90%{transform:rotate(1deg)}100%{transform:none}}
+@keyframes yk-y-fall-a{0%{transform:none}16%{transform:rotate(-80deg)}42%{transform:rotate(-80deg)}55%{transform:rotate(14deg)}67%{transform:rotate(-9deg)}78%{transform:rotate(5deg)}89%{transform:rotate(-2deg)}100%{transform:none}}
+@keyframes yk-y-fall-b{0%{transform:none}16%{transform:rotate(-80deg)}42%{transform:rotate(-80deg)}55%{transform:rotate(14deg)}67%{transform:rotate(-9deg)}78%{transform:rotate(5deg)}89%{transform:rotate(-2deg)}100%{transform:none}}
+@keyframes yk-y-dizzy-a{0%,12%{opacity:0}18%,43%{opacity:1}47%,100%{opacity:0}}
+@keyframes yk-y-dizzy-b{0%,12%{opacity:0}18%,43%{opacity:1}47%,100%{opacity:0}}
+@keyframes yk-y-awake-a{0%,12%{opacity:1}18%,43%{opacity:0}47%,100%{opacity:1}}
+@keyframes yk-y-awake-b{0%,12%{opacity:1}18%,43%{opacity:0}47%,100%{opacity:1}}
+@keyframes yk-y-shadow-a{0%,100%{transform:scaleX(1);opacity:1}45%{transform:scaleX(.7);opacity:.55}72%{transform:scaleX(.66);opacity:.5}}
+@keyframes yk-y-shadow-b{0%,100%{transform:scaleX(1);opacity:1}45%{transform:scaleX(.7);opacity:.55}72%{transform:scaleX(.66);opacity:.5}}
+@keyframes yk-y-spark-a{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1.15)}70%{opacity:1;transform:scale(.9)}100%{opacity:0;transform:scale(1.2) translateY(-5px)}}
+@keyframes yk-y-spark-b{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1.15)}70%{opacity:1;transform:scale(.9)}100%{opacity:0;transform:scale(1.2) translateY(-5px)}}
+@keyframes yk-y-drip-a{0%{opacity:0;transform:translateY(-4px)}25%{opacity:1;transform:none}80%{opacity:1;transform:translateY(5px)}100%{opacity:0;transform:translateY(8px)}}
+@keyframes yk-y-drip-b{0%{opacity:0;transform:translateY(-4px)}25%{opacity:1;transform:none}80%{opacity:1;transform:translateY(5px)}100%{opacity:0;transform:translateY(8px)}}
+@keyframes yk-y-paint{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.yk-y *{animation:none !important}}
+@keyframes yk-ink{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){.yk-end *{animation:none !important}}
+@keyframes yk-deal{from{opacity:0;transform:translateY(-18px) rotate(-6deg) scale(.9)}to{opacity:1;transform:none}}
+@keyframes yk-bump{0%,100%{transform:none}40%{transform:scale(1.07)}70%{transform:scale(.98)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;transition-duration:1ms !important}}
+@keyframes yk-fall-a{from{transform:translateY(-90px)}to{transform:translateY(366px)}}
+@keyframes yk-fall-b{from{transform:translateY(-90px)}to{transform:translateY(366px)}}
+@keyframes yk-burst{0%{transform:scale(1);opacity:1}45%{transform:scale(1.18);opacity:1}100%{transform:scale(1.35);opacity:0}}
+@keyframes yk-shake{0%,100%{transform:none}20%{transform:translateX(-7px) rotate(-3deg)}40%{transform:translateX(6px) rotate(2deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes yk-ring{0%{opacity:0;transform:scale(.4)}40%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.6)}}
+@keyframes yk-wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes yk-plank{from{opacity:0;transform:translateY(-34px) rotate(-10deg)}to{opacity:1;transform:none}}
+@keyframes yk-sink{0%{transform:none;opacity:1}30%{transform:translateY(-6px) rotate(-6deg)}100%{transform:translateY(70px) rotate(34deg);opacity:0}}
+@keyframes yk-cross{0%{transform:translate(0,0)}12%{transform:translate(38px,-16px)}24%{transform:translate(76px,0)}38%{transform:translate(118px,-16px)}52%{transform:translate(160px,0)}66%{transform:translate(202px,-16px)}80%{transform:translate(244px,0)}100%{transform:translate(286px,0)}}
+@keyframes yk-flag{0%,100%{transform:skewY(0)}50%{transform:skewY(-9deg)}}
+@keyframes yk-ripple{from{background-position:0 0}to{background-position:-40px 0}}
+@keyframes yk-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:none;opacity:1}}
+@keyframes yk-fly{0%{transform:translateY(60px) scale(.7);opacity:0}70%{transform:translateY(-4px) scale(1.04);opacity:1}100%{transform:none;opacity:1}}
+@keyframes yk-glow{0%{box-shadow:0 0 0 0 rgba(11,122,107,.55)}100%{box-shadow:0 0 0 18px rgba(11,122,107,0)}}
+@keyframes yk-gone{from{opacity:1}to{opacity:0}}
 @keyframes yk-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes yk-fwd{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+@keyframes yk-back{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:none}}

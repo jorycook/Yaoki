@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kanji match</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
+<script src="./yk-game.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-deal{from{opacity:0;transform:translateY(-18px) rotate(-6deg) scale(.9)}to{opacity:1;transform:none}}
+@keyframes yk-stamp{0%{opacity:0;transform:scale(1.8) rotate(-20deg)}55%{opacity:1;transform:scale(.92) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+@keyframes yk-bump{0%,100%{transform:none}40%{transform:scale(1.07)}70%{transform:scale(.98)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;transition-duration:1ms !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; gap: 10px; overflow: hidden; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
+
+<div style="display: flex; align-items: center; gap: 4px; height: 44px; flex-shrink: 0">
+<a href="{{ backHref }}" onClick="{{ close }}" aria-label="Close the game" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div style="flex-grow: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; line-height: 1.2">
+<div lang="ja" style="font-size: 16px; font-weight: 800">{{ titleJa }}</div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+<button onClick="{{ toggleSound }}" aria-pressed="{{ soundOn }}" aria-label="Sound" style="width: 44px; height: 44px; margin-right: -6px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center"><sc-if value="{{ soundOn }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></sc-if><sc-if value="{{ soundOff }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA1B5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg></sc-if></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<div style="flex-grow: 1; display: grid; grid-template-columns: repeat({{ size }}, minmax(0, 1fr)); gap: 5px" role="img" aria-label="{{ pairsAria }}">
+<sc-for list="{{ track }}" as="t" hint-placeholder-count="6">
+<div style="height: 8px; border-radius: 4px; transition: background 300ms; background: {{ t.bg }}"></div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; white-space: nowrap; font-variant-numeric: tabular-nums">{{ pairsLine }}</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; flex-shrink: 0">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="12">
+<button onClick="{{ c.tap }}" aria-label="{{ c.aria }}" disabled="{{ c.off }}" style="position: relative; height: 104px; padding: 0; border: 0; background: transparent; perspective: 700px; animation: yk-deal 380ms ease-out both; animation-delay: {{ c.delay }}">
+<div style="position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 340ms cubic-bezier(.3,.7,.3,1); transform: {{ c.turn }}">
+<div style="position: absolute; inset: 0; box-sizing: border-box; border-radius: 16px; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px; border: {{ c.border }}; background: {{ c.bg }}; box-shadow: {{ c.shadow }}; animation: {{ c.bump }}">
+<sc-if value="{{ c.hasTag }}" hint-placeholder-val="{{ false }}"><div style="position: absolute; left: 8px; top: 6px; font-size: 10px; font-weight: 800; color: {{ c.tagInk }}">{{ c.tag }}</div></sc-if>
+<div lang="{{ c.lang }}" style="text-align: center; line-height: 1.15; overflow-wrap: anywhere; font-family: {{ c.font }}; font-size: {{ c.fontSize }}; font-weight: {{ c.weight }}; color: {{ c.ink }}">{{ c.text }}</div>
+<sc-if value="{{ c.matched }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position: absolute; right: 6px; bottom: 6px; width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; border: 2.5px solid #0B7A6B; animation: yk-stamp 420ms ease-out both"></div></sc-if>
+</div>
+<div style="position: absolute; inset: 0; box-sizing: border-box; border-radius: 16px; backface-visibility: hidden; -webkit-backface-visibility: hidden; transform: rotateY(180deg); background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; justify-content: center; background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.14) 0 2px, transparent 2.5px); background-size: 14px 14px">
+<svg width="40" height="42" viewBox="0 0 100 104" aria-hidden="true"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B" stroke="#1B2440" stroke-width="5"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#FFFFFF" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="8" fill="#FFFFFF" stroke="#1B2440" stroke-width="4"/><circle cx="61" cy="42" r="4.5" fill="#1B2440"/></svg>
+</div>
+</div>
+</button>
+</sc-for>
+</div>
+
+<div style="flex-grow: 1"></div>
+
+<div style="display: flex; align-items: flex-end; gap: 10px; flex-shrink: 0; min-height: 76px">
+<dc-import name="Yaoki" mood="{{ mood }}" beat="{{ beat }}" size="{{ 70 }}" look="{{ look }}" hint-size="70px,70px"></dc-import>
+<div role="status" style="position: relative; flex-grow: 1; min-width: 0; margin-bottom: 8px; padding: 10px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
+<div lang="ja" style="font-size: 15px; font-weight: 800; color: {{ sayInk }}">{{ sayJa }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ sayEn }}</div>
+</div>
+</div>
+
+<sc-if value="{{ intro }}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 200ms ease-out">
+<div style="padding: 22px 20px 34px; border-radius: 28px 28px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 280ms ease-out">
+<div style="display: flex; align-items: center; gap: 14px">
+<dc-import name="Yaoki" mood="happy" beat="{{ 1 }}" size="{{ 74 }}" hint-size="74px,74px"></dc-import>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ fromLine }}</div>
+<h1 lang="ja" style="margin: 0; font-size: 24px; font-weight: 800">{{ titleJa }}</h1>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+</div>
+<div style="font-size: 14px; font-weight: 500; line-height: 1.55">{{ howTo }}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ chipPairs }}</div>
+<div style="padding: 4px 10px; border-radius: 10px; background: #FFF4D6; color: #1B2440; font-size: 12px; font-weight: 800">はなまる: no slips</div>
+</div>
+<button onClick="{{ start }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">はじめる</span>　Start</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 220ms ease-out">
+<div style="animation: yk-up 320ms ease-out">
+<dc-import name="GameEnd" mark="{{ mark }}" kind="match" level="{{ level }}" stats="{{ endStats }}" slips="{{ slips }}" note="{{ endNote }}" again="{{ again }}" back="{{ close }}" back-label="{{ backLabel }}" hint-size="390px,470px"></dc-import>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* 漢字マッチ Kanji match: twelve cards, six pairs. Each word pairs with its reading or with its meaning (at the kana
+   level, a kana with its sound in letters, a word with its meaning). All the cards are shown for three seconds, then
+   turned over; two are turned at a time. A pair found stays up, and its word is said. A slip is a wrong card turned
+   when the right one had been seen before: a round with none gets a はなまる. No lives, no clock score.
+   The round comes from app.game ({ kind, level, unit, day, from }); on its own the artboard plays N2 week 3, day 4. */
+const PEEK = 3000;
+const BACK = 1000;
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* the round the launcher picked (its seed), or a new one */
+const g = props.app && props.app.game;
+this.state = this.fresh(g && g.seed ? g.seed : window.ykGame ? window.ykGame.seed() : 1);
+}
+fresh(seed) {
+const G = window.ykGame;
+const src = this.source();
+const round = G ? G.round('match', src, seed) : null;
+return { seed, round, phase: 'intro', up: [], done: {}, seen: {}, turns: 0, slips: 0, lock: false, mood: 'idle', beat: 0, say: null, saved: false, bump: '' };
+}
+source() {
+const g = (this.props.app && this.props.app.game) || null;
+return g && g.kind === 'match' ? g : { kind: 'match', level: 'N2', unit: 3, day: 4, from: 'Extras' };
+}
+componentDidMount() {
+const C = window.ykCourse;
+const src = this.source();
+if (C && C.needSound) C.needSound(src.level, src.unit);
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+}
+sound() {
+const app = this.props.app;
+return !app || app.fx !== false;
+}
+fx(kind) {
+if (window.ykGame && this.sound()) window.ykGame.fx(kind);
+}
+start() {
+if (window.ykSound) window.ykSound.unlock();
+this.fx('flip');
+this.setState({ phase: 'peek', say: { ja: 'おぼえて！', en: 'Remember where they are: the cards turn over in three seconds.' } });
+clearTimeout(this.timer);
+this.timer = setTimeout(() => {
+this.fx('flip');
+this.setState({ phase: 'play', say: { ja: 'さがして！', en: 'Turn two cards. A word goes with its reading or its meaning.' } });
+}, PEEK);
+}
+turn(card) {
+const s = this.state;
+const r = s.round;
+if (s.phase !== 'play' || s.lock || s.done[card.pair] || s.up.indexOf(card.key) >= 0) return;
+this.fx('flip');
+if (!s.up.length) {
+this.setState({ up: [card.key], seen: { ...s.seen, [card.key]: 1 } });
+return;
+}
+const first = r.cards.find((c) => c.key === s.up[0]);
+const partner = r.cards.find((c) => c.pair === first.pair && c.key !== first.key);
+const knew = !!s.seen[partner.key];
+const seen = { ...s.seen, [card.key]: 1 };
+const turns = s.turns + 1;
+if (card.pair === first.pair) {
+const done = { ...s.done, [card.pair]: 1 };
+const pair = r.pairs[card.pair];
+if (this.sound() && window.ykSound && pair.clip) window.ykSound.tap(pair.clip);
+const left = r.pairs.length - Object.keys(done).length;
+this.setState({ up: [], done, seen, turns, mood: 'happy', beat: s.beat + 1, bump: card.pair + ':' + turns, say: { ja: left ? 'いいね！' : 'ぜんぶ見つけた！', en: pair.word + ' · ' + (pair.reading || '') + (pair.gloss ? ' · ' + pair.gloss : '') } });
+setTimeout(() => this.fx('right'), 120);
+if (!left) {
+clearTimeout(this.timer);
+this.timer = setTimeout(() => this.finish(), 1100);
+}
+return;
+}
+const slips = s.slips + (knew ? 1 : 0);
+this.setState({ up: [first.key, card.key], seen, turns, slips, lock: true, mood: knew ? 'oops' : 'idle', beat: knew ? s.beat + 1 : s.beat, say: knew ? { ja: 'おしい！', en: 'You had seen its partner before. Look again.' } : { ja: 'ちがうね', en: 'Not a pair. Remember them for later.' } });
+if (knew) this.fx('wrong');
+clearTimeout(this.timer);
+this.timer = setTimeout(() => { this.fx('flip'); this.setState({ up: [], lock: false }); }, BACK);
+}
+finish() {
+const s = this.state;
+const G = window.ykGame;
+const C = window.ykCourse;
+const mark = G.mark(s.slips);
+this.fx(mark === 'hanamaru' ? 'win' : 'stamp');
+this.setState({ phase: 'end', mood: 'cheer', beat: s.beat + 1 });
+if (!s.saved && this.props.save && this.props.app) {
+this.props.save({ play: G.record(this.props.app.play, this.source(), mark, C.today(C.now())) });
+this.setState({ saved: true });
+}
+}
+renderVals() {
+const s = this.state;
+const G = window.ykGame;
+const src = this.source();
+const r = s.round || { cards: [], pairs: [] };
+const info = G ? G.info('match', src.level) : { ja: '漢字マッチ', en: 'Kanji match', line: '' };
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); go(to); } };
+const from = src.from || 'Extras';
+const found = Object.keys(s.done).length;
+const showAll = s.phase === 'peek' || s.phase === 'end';
+const TAG = { reading: ['読み', '#2F4FD0'], meaning: ['意味', '#0B7A6B'], sound: ['音', '#C7361E'] };
+const cards = r.cards.map((c, k) => {
+const matched = !!s.done[c.pair];
+const up = showAll || matched || s.up.indexOf(c.key) >= 0;
+const word = c.face === 'word';
+const len = Array.from(c.text || '').length;
+const jaText = word || c.face === 'reading';
+const tag = TAG[c.face];
+const wrongPair = s.lock && s.up.length === 2 && s.up.indexOf(c.key) >= 0;
+return {
+key: c.key,
+text: c.text,
+lang: jaText ? 'ja' : 'en',
+font: word ? "'Klee One', 'M PLUS Rounded 1c', serif" : "'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif",
+fontSize: word ? (len <= 2 ? '30px' : len <= 3 ? '26px' : len <= 4 ? '22px' : '18px') : jaText ? (len <= 4 ? '19px' : len <= 6 ? '16px' : '14px') : (len <= 10 ? '15px' : '13px'),
+weight: word ? 600 : 800,
+ink: word ? '#1B2440' : c.face === 'reading' ? '#2F4FD0' : c.face === 'sound' ? '#C7361E' : '#0B7A6B',
+hasTag: !!tag,
+tag: tag ? tag[0] : '',
+tagInk: tag ? tag[1] : '#5A6382',
+matched,
+turn: up ? 'none' : 'rotateY(180deg)',
+border: matched ? '2px solid #0B7A6B' : wrongPair ? '2px solid #C7361E' : '2px solid #1B2440',
+bg: matched ? '#E0F3EF' : '#FFFFFF',
+shadow: matched ? '0 4px 0 #0B7A6B' : '0 4px 0 #1B2440',
+bump: matched && s.bump && s.bump.split(':')[0] === String(c.pair) ? 'yk-bump 420ms ease-out' : 'none',
+delay: (k * 40) + 'ms',
+off: s.phase !== 'play' || matched,
+aria: up ? 'Card ' + (k + 1) + ': ' + c.text + (matched ? ', paired' : '') : 'Card ' + (k + 1) + ', face down',
+tap: () => this.turn(c),
+};
+});
+const say = s.say || (s.phase === 'intro' ? { ja: 'ペアをさがそう', en: info.line } : { ja: '', en: '' });
+const mark = G ? G.mark(s.slips) : 'hanamaru';
+const day = src.day ? 'Day ' + src.day + '’s words' : 'Week ' + src.unit + '’s words';
+return {
+titleJa: info.ja,
+titleEn: info.en,
+level: src.level,
+size: r.pairs.length || 6,
+track: r.pairs.map((p, i) => ({ bg: s.done[i] ? '#0B7A6B' : '#DDE1EC' })),
+pairsLine: found + ' / ' + r.pairs.length + ' pairs',
+pairsAria: found + ' of ' + r.pairs.length + ' pairs found',
+cards,
+mood: s.mood,
+beat: s.beat,
+look: s.up.length === 1 ? 1 : 0,
+sayJa: say.ja,
+sayEn: say.en,
+sayInk: s.mood === 'oops' ? '#C7361E' : s.mood === 'happy' || s.mood === 'cheer' ? '#0B7A6B' : '#1B2440',
+intro: s.phase === 'intro',
+ended: s.phase === 'end',
+fromLine: (src.day ? '今日のゲーム · ' : 'あそぶ · ') + src.level.replace('KANA', 'かな') + ' · ' + day,
+howTo: 'All the cards show for three seconds, then turn over. Turn two at a time: a word goes with its reading or its meaning. A pair you find stays up and is said aloud.',
+chipPairs: r.pairs.length + ' pairs',
+start: () => this.start(),
+mark,
+slips: s.slips,
+endStats: [
+{ value: String(r.pairs.length), label: 'pairs', ink: '#1B2440' },
+{ value: String(s.turns), label: 'turns', ink: '#1B2440' },
+{ value: String(s.slips), label: s.slips === 1 ? 'slip' : 'slips', ink: s.slips ? '#C7361E' : '#0B7A6B' },
+],
+endNote: 'A slip is turning a wrong card when you had already seen the right one. Games are practice: nothing here counts toward your stamps.',
+again: () => { clearTimeout(this.timer); this.setState(this.fresh(window.ykGame.seed())); },
+backHref: from + '.dc.html',
+close: nav(from),
+backLabel: from === 'Today' ? 'もどる　Today' : 'もどる　Games',
+soundOn: this.sound(),
+soundOff: !this.sound(),
+toggleSound: () => { if (this.props.save) this.props.save({ fx: !this.sound() }); },
+};
+}
+}
+</script>
+</body>
+</html>

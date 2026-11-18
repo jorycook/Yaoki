@@ -185,6 +185,41 @@
       setTimeout(function () { if (mine === turn && ctx) self.on(); }, 950);
       return true;
     },
+    /* a short sound made here, for the games: a card turned (flip), a right answer, a slip (wrong), a stamp, a pop,
+       Yaoki falling over and getting up (fall), a round won (win). It never stops a clip, and stays silent while the
+       output is not running (no tap yet, or the page in the background) */
+    fx: function (kind) {
+      if (!ctx || ctx.state !== 'running') return false;
+      try {
+        var t = ctx.currentTime + 0.01;
+        var out = ctx.createGain();
+        out.gain.value = 0.16;
+        out.connect(ctx.destination);
+        var tone = function (f1, f2, at, len, type, vol) {
+          var o = ctx.createOscillator();
+          var g = ctx.createGain();
+          o.type = type || 'sine';
+          o.frequency.setValueAtTime(f1, t + at);
+          if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + at + len);
+          g.gain.setValueAtTime(0.0001, t + at);
+          g.gain.exponentialRampToValueAtTime(vol || 1, t + at + 0.012);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + at + len);
+          o.connect(g);
+          g.connect(out);
+          o.start(t + at);
+          o.stop(t + at + len + 0.03);
+        };
+        if (kind === 'flip') tone(1300, 820, 0, 0.06, 'triangle', 0.45);
+        else if (kind === 'right') { tone(784, 0, 0, 0.13, 'sine', 0.8); tone(1175, 0, 0.09, 0.22, 'sine', 0.75); }
+        else if (kind === 'wrong') tone(230, 150, 0, 0.2, 'triangle', 0.65);
+        else if (kind === 'stamp') { tone(150, 70, 0, 0.18, 'sine', 1); tone(700, 260, 0, 0.05, 'square', 0.12); }
+        else if (kind === 'pop') tone(620, 1000, 0, 0.09, 'sine', 0.55);
+        else if (kind === 'fall') { tone(440, 170, 0, 0.36, 'triangle', 0.55); tone(300, 560, 0.45, 0.24, 'sine', 0.5); }
+        else if (kind === 'win') { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, 0, i * 0.09, 0.24, 'sine', 0.65); }); }
+        else return false;
+        return true;
+      } catch (e) { return false; }
+    },
     halt: function () {
       if (!current) return;
       try { current.onended = null; current.stop(); } catch (e) {}

@@ -37,7 +37,7 @@ button:disabled{cursor:default}
 </div>
 
 <div style="display: flex; align-items: center; gap: 16px; margin-top: 8px">
-<svg viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="{{ darumaLabel }}" style="flex-shrink: 0"><path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B"/><ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/><circle cx="39" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="8" fill="#fff" stroke="#1B2440" stroke-width="2.5"/><circle cx="61" cy="42" r="4" fill="#1B2440" style="opacity: {{ pupil }}; transition: opacity 300ms ease-out"/><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/></svg>
+<div style="flex-shrink: 0"><dc-import name="Yaoki" eyes="{{ eyes }}" paint="{{ painted }}" mood="{{ goalMood }}" beat="{{ goalBeat }}" size="{{ 104 }}" label="{{ darumaLabel }}" hint-size="104px,104px"></dc-import></div>
 <div style="display: flex; flex-direction: column; gap: 4px">
 <h1 style="margin: 0; font-size: 26px; font-weight: 800; line-height: 1.25">目標を決めよう</h1>
 <sc-if value="{{ blank }}" hint-placeholder-val="{{ true }}">
@@ -200,9 +200,12 @@ levels,
 paces,
 painted: s.painted,
 blank: !s.painted,
-pupil: s.painted ? 1 : 0,
 darumaLabel: s.painted ? 'Yaoki, a daruma with one eye painted' : 'Yaoki, a daruma with both eyes still blank',
-paint: () => this.setState({ painted: true }),
+/* the first eye is brushed in, and Yaoki hops: the goal is set */
+eyes: s.painted ? 1 : 0,
+goalMood: s.painted ? 'cheer' : 'idle',
+goalBeat: s.painted ? 1 : 0,
+paint: () => { if (window.ykSound) window.ykSound.unlock(); if (window.ykSound && window.ykSound.fx) window.ykSound.fx('stamp'); this.setState({ painted: true }); },
 sheet: s.sheet,
 yes: true,
 openSheet: () => this.setState({ sheet: true }),
