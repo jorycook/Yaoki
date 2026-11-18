@@ -9,6 +9,13 @@ desktop monitor, wider than it is tall, should show. The phone never sees any of
 shares; `_single.css`, the tidy-ups for a pane too narrow for a landscape layout), then one file per screen (`Drill.css`, …). Each
 screen's file serves both apps (the Study app and the N1 course): their templates differ, but they carry the same hooks.
 
+A screen with no file here yet (one the app gains before the website lays it out) is not stretched across the pane: the build adds a
+rule at the end of `desk.css` that draws every screen without a file of its own as the phone draws it, in a column 560 px wide in
+the middle of the pane. Adding the screen's file takes it out of that rule. Likewise a place the app's tab bar gains is in the
+sidebar without a change to `index.html` (`yk-app.js`, `mirrorTabs`: an item made from the tab, its icon and label, in the tab
+bar's order), and the browser's tab is named after it; list the place in `index.html` and in `TITLES` (`yk-app.js`) to give it the
+sidebar's own icon and name. `check/new-places-test.js` checks all three.
+
 ## How a layout is written
 
 - **Only on a wide pane.** Every rule sits inside `@container yk (min-width: 880px) { … }` and starts with `html.yk-desk`. The pane

@@ -131,6 +131,7 @@ NOSOUND=1 bash run-app.sh kana-sweep.js   # every kana day and week test, every 
 bash run-app.sh kana-sound.js    # every kana sound of every day: tapped, heard and started (about ten minutes)
 bash run-app.sh extras-test.js   # the Extras tab: Yaoki Speaking and Yaoki Reader opened from the app, the way back, offline
 bash run-app.sh back-test.js     # the website: the browser's Back button goes back as the app's controls do, the tab names the screen (YK_LEVEL=N1 too)
+bash run-app.sh new-places-test.js   # the website: a tab or a screen the app gains before the website is written for it (YK_LEVEL=N1 too)
 NOSOUND=1 bash run.sh full-mock.js   # a whole N2 full mock on the canvas, briefing to result (about nine minutes; MOCK=2)
 YK_LEVEL=N1 bash run-app.sh write-flow-n1.js   # the same for a day of the N1 sample plan (DAY=n for another)
 ```
