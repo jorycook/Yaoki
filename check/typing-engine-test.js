@@ -231,7 +231,7 @@ test('every course word (N5 to N2) types out by its hint, and with kana input', 
   global.window = {};
   let n = 0;
   for (const lv of ['n5', 'n4', 'n3', 'n2']) {
-    require(path.join(__dirname, '..', 'docs', 'assets', 'course-' + lv + '.js'));
+    require(path.join(__dirname, '..', 'docs', 'study', 'assets', 'course-' + lv + '.js'));
     for (const u of window.__ykCourses[lv.toUpperCase()].units) {
       for (const d of u.days || []) {
         for (const w of (d.scene && d.scene.words) || []) {

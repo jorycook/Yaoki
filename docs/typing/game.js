@@ -1664,6 +1664,10 @@
   function fitRow(el) {
     el.style.removeProperty('--fit');
     if (el.hidden || !el.textContent || !el.clientWidth) return;
+    // on the website's wide layout the line sits in the hints panel beside the keyboard, a column where it may take more
+    // than one row: it keeps its size there
+    const box = el.parentNode;
+    if (box && box.classList && box.classList.contains('coach') && getComputedStyle(box).display !== 'contents') return;
     // its width on one row, against the room (with a little to spare: type does not scale exactly)
     const room = el.clientWidth - 4;
     el.style.width = 'max-content';

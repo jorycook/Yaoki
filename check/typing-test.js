@@ -981,7 +981,9 @@ async function waitFor(fn, ms = 5000) {
   const fits = () => page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight);
   const underRoute = (st) => {
     const u = st.under;
-    return !!u && u.x >= 10 && u.x + u.w <= st.W - 10 && u.y >= 168 + 10 && u.y + u.h <= u.foot;
+    // its edges are rounded (the game's underBox), so its right edge is held to the room's edge rounded too: on the website the
+    // round's scene is scaled to the window and its width W is not a whole number
+    return !!u && u.x >= 10 && u.x + u.w <= Math.round(st.W - 10) && u.y >= 168 + 10 && u.y + u.h <= u.foot;
   };
   await pick(page, 1, 'kanji:sentences');
   await page.click('#len-seg button:nth-child(3)');

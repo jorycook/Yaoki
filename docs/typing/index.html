@@ -286,8 +286,9 @@ label.switch > span { flex: 1; min-width: 0; }
     --kh: clamp(28px, min(4.4svh + 4px, (var(--kbw) - 14 * var(--kg)) / 15.6 * 0.92), 50px);
     --kbh: calc(5 * var(--kh) + 4 * var(--kg));
     --gap: 10px;
-    --info-h: 36px;
-    --line-h: 26px;
+    /* the line about the card and the two lines under it at the game's own sizes, which grow with the window (--u) */
+    --info-h: calc(42 * var(--u));
+    --line-h: calc(34 * var(--u));
     /* the height the scene leaves to the rest: the padding, the bar, the gaps, the lines and the keyboard */
     --rest: calc(26px + 48px + 5 * var(--gap) + var(--info-h) + 2 * var(--line-h) + var(--kbh));
     width: var(--rw); margin: 0 auto; padding: 12px 0 14px;
@@ -297,8 +298,7 @@ label.switch > span { flex: 1; min-width: 0; }
   }
   #play > .hud { grid-area: hud; }
   #play > .stage-wrap { grid-area: stage; height: clamp(200px, calc(100svh - var(--rest) - var(--info-extra, 0px)), 480px); }
-  #info { grid-area: info; min-height: var(--info-h); font-size: 18px; }
-  #info .info-ja { font-size: 23px; }
+  #info { grid-area: info; min-height: var(--info-h); }
   #status { grid-area: status; min-height: var(--line-h); }
   #kb { grid-area: kb; align-self: start; }
   #next-line { grid-area: next; min-height: var(--line-h); margin: 0; }
@@ -311,7 +311,7 @@ label.switch > span { flex: 1; min-width: 0; }
   /* with the keyboard hidden: the scene, the line about the card and the note */
   body.no-kb #play { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hud" "stage" "info" "status"; --rest: calc(26px + 48px + 3 * var(--gap) + var(--info-h) + var(--line-h)); }
   body.no-kb .coach { display: contents; }
-  body.no-kb #status { min-height: var(--line-h); font-size: 17px; }
+  body.no-kb #status { min-height: var(--line-h); }
 
   /* the result */
   #result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); column-gap: 40px; align-items: start; max-width: none; padding-top: 8px; }
@@ -384,9 +384,8 @@ label.switch > span { flex: 1; min-width: 0; }
     content: 'ヒント　Hints\A When a hint shows (設定 Settings says when), the key to press lights up on the keyboard and this names the finger that presses it. A note on a slip shows here too.';
   }
   .coach > #next-line { order: 0; flex: none; flex-flow: column nowrap; align-items: flex-start; gap: 2px; min-height: 0; }
-  .coach > #next-line .kicker { font-size: 17px; }
-  .coach > #next-line span:not(.kicker) { font-size: 16px; line-height: 1.4; }
-  .coach > #status { order: 1; flex: none; min-height: 0; font-size: 15px; line-height: 1.4; }
+  .coach > #next-line span:not(.kicker) { line-height: 1.4; }
+  .coach > #status { order: 1; flex: none; min-height: 0; line-height: 1.4; }
 }
 /* a very large window: the round grows on, up to 2000 px wide, with a taller scene, larger keys and larger lines (the scene's
    world grows with it, game.js resize(), so the route keeps its length and the cards their time on it) */
@@ -394,19 +393,13 @@ label.switch > span { flex: 1; min-width: 0; }
   #play {
     --rw: min(100cqw, 2000px);
     --kh: clamp(28px, min(4.4svh + 4px, (var(--kbw) - 14 * var(--kg)) / 15.6 * 0.92), 62px);
-    --info-h: 42px;
   }
   #play > .stage-wrap { height: clamp(200px, calc(100svh - var(--rest) - var(--info-extra, 0px)), 600px); }
-  #info { font-size: 20px; }
-  #info .info-ja { font-size: 27px; }
   .key { font-size: clamp(13px, calc(var(--kh) * 0.4), 22px); }
   .key .sub { font-size: clamp(10px, calc(var(--kh) * 0.27), 15px); }
   .key .main[lang="ja"] { font-size: clamp(15px, calc(var(--kh) * 0.44), 26px); }
   .key .sub[lang="ja"] { font-size: clamp(11px, calc(var(--kh) * 0.3), 17px); }
   .key.mod .main { font-size: clamp(11px, calc(var(--kh) * 0.29), 16px); }
-  .coach > #next-line .kicker { font-size: 20px; }
-  .coach > #next-line span:not(.kicker) { font-size: 18px; }
-  .coach > #status { font-size: 17px; }
 }
 </style>
 </head>
