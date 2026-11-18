@@ -1,0 +1,530 @@
+{
+ "title": "まとめ：似ている文法",
+ "grammar": {
+  "points": [],
+  "compare": {
+   "intro": "Ask two questions: what comes before the form (a fact, a supposition with たとえ or 仮に, a た form, a ます stem, or two choices), and what comes after it (a result that falls short, a surprise, \"no use\", what still holds, or \"that doesn't mean\"). にしろ and にせよ mean the same; にせよ is a little more formal.",
+   "forms": [
+    {
+     "form": "〜ものの",
+     "tag": "事実だが · true, but it falls short",
+     "mark": "dot",
+     "ja": "目覚ましを三つもかけた{ものの}、結局起きられなかった。",
+     "en": "I set three alarms, but I still couldn't get up."
+    },
+    {
+     "form": "〜とはいえ",
+     "tag": "認めるが · granted, but still",
+     "mark": "dot",
+     "ja": "大会で優勝した{とはいえ}、チームにはまだ課題が多い。",
+     "en": "We may have won the tournament, but the team still has a lot to work on."
+    },
+    {
+     "form": "〜にもかかわらず",
+     "tag": "予想外の事実 · despite (formal)",
+     "mark": "dot",
+     "ja": "祖母は九十歳を過ぎている{にもかかわらず}、毎日一時間散歩している。",
+     "en": "My grandmother is over ninety, yet she walks for an hour every day."
+    },
+    {
+     "form": "〜つつ（も）",
+     "tag": "同じ人の逆接 · although (doing)",
+     "mark": "dot",
+     "ja": "失礼だと思い{つつも}、メールの返事をまだ出せずにいる。",
+     "en": "I know it's rude, but I still haven't answered the email."
+    },
+    {
+     "form": "〜たところで",
+     "tag": "むだ · no use, even if",
+     "mark": "down",
+     "ja": "傘を差した{ところで}、この風ではすぐにぬれてしまう。",
+     "en": "Even with an umbrella, you'd be soaked in no time in this wind."
+    },
+    {
+     "form": "〜としても",
+     "tag": "仮定の逆接 · even supposing",
+     "mark": "dot",
+     "ja": "たとえ相手が社長だ{としても}、言うべきことは言うつもりだ。",
+     "en": "Even if it were the company president, I'd still say what needs saying."
+    },
+    {
+     "form": "〜からといって",
+     "tag": "理由にならない · just because … doesn't mean",
+     "mark": "dot",
+     "ja": "一度失敗した{からといって}、あきらめる必要はない。",
+     "en": "Failing once doesn't mean you have to give up."
+    },
+    {
+     "form": "〜わけではない",
+     "tag": "部分否定 · it's not that",
+     "mark": "dot",
+     "ja": "料理が嫌いな{わけではない}が、毎日作る時間がない。",
+     "en": "It's not that I dislike cooking; I just don't have time every day."
+    },
+    {
+     "form": "〜にしろ",
+     "tag": "どちらでも · whether … or …",
+     "mark": "dot",
+     "ja": "合格する{にしろ}しない{にしろ}、結果は来週メールで届く。",
+     "en": "Pass or fail, the results will come by email next week."
+    },
+    {
+     "form": "〜にせよ",
+     "tag": "かたい言い方 · even if (a little formal)",
+     "mark": "dot",
+     "ja": "一時的{にせよ}、駅前の図書館が使えなくなるのは不便だ。",
+     "en": "Even if it's only for a while, losing the library by the station is a nuisance."
+    }
+   ],
+   "check": {
+    "id": "u05d6.c1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "かばん売り場で",
+    "q": "このかばんは軽くて丈夫だ。（　　）、ポケットが少なくて少し使いにくい。",
+    "options": [
+     "ものの",
+     "からといって",
+     "とはいえ"
+    ],
+    "answer": 3,
+    "why": [
+     "ものの joins two clauses inside one sentence. It cannot start a new sentence (とはいうものの can).",
+     "からといって cannot start a sentence either (だからといって can), and the second half here denies nothing: it only adds a drawback.",
+     "とはいえ can start a sentence: it grants what was just said, then gives what still stands against it."
+    ]
+   }
+  },
+  "drill": [
+   {
+    "id": "u05d6.d1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^資格は取った^（　　）、それを生かせる仕事は^まだ見つかっていない^。",
+    "options": [
+     "としても",
+     "つつも",
+     "ものの",
+     "からといって"
+    ],
+    "answer": 3,
+    "why": [
+     "としても supposes something. 資格は取った is a fact here, and まだ見つかっていない reports how things are now.",
+     "つつも follows the ます stem (取りつつも), never the た form 取った.",
+     "A fact (the qualification), and a result that falls short of what it promised: ものの.",
+     "からといって needs a second half that denies what you might conclude, as in 資格を取ったからといって仕事が見つかるとは限らない. まだ見つかっていない only reports how things are."
+    ]
+   },
+   {
+    "id": "u05d6.d2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^説明会は無料だった^（　　）、^参加者は十人もいなかった^。",
+    "options": [
+     "にもかかわらず",
+     "くせに",
+     "としても",
+     "からといって"
+    ],
+    "answer": 1,
+    "why": [
+     "A fact, and a result against what you would expect (free, yet few came), in the formal style of a report.",
+     "くせに, met at N3, is a spoken complaint about a person, and the same person is the subject of both halves, as in 知っているくせに教えない. Here the session and the people who came are different subjects.",
+     "としても supposes. That the session was free is a fact, and the second half reports what happened.",
+     "からといって needs a \"that doesn't mean\" after it, as in 無料だからといって人が集まるとは限らない. Here the second half reports what happened."
+    ]
+   },
+   {
+    "id": "u05d6.d3",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "母の体調が^気になり^（　　）、仕事が忙しくてなかなか実家に帰れない。",
+    "options": [
+     "ものの",
+     "ところで",
+     "からといって",
+     "つつも"
+    ],
+    "answer": 4,
+    "why": [
+     "ものの follows the plain form (気になったものの), not the ます stem 気になり.",
+     "ところで as \"no use\" follows the た form, not the ます stem.",
+     "からといって follows the plain form, and it needs a \"that doesn't mean\" after it.",
+     "The ます stem 気になり + つつも: the same person worries, yet does not go home."
+    ]
+   },
+   {
+    "id": "u05d6.d4",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "済んだことを",
+    "after": "変わらない。",
+    "tiles": [
+     "いくら",
+     "後悔した",
+     "ところで",
+     "結果は"
+    ],
+    "star": 1,
+    "bank": [
+     3,
+     1,
+     0,
+     2
+    ],
+    "hint": "ところで follows the た form. Which word means \"however much\", and where does it go?",
+    "full": "済んだことをいくら後悔した{ところで}結果は変わらない。",
+    "explain": "いくら goes before the verb, 後悔した, and ところで follows the た form. 結果は is the subject of 変わらない."
+   },
+   {
+    "id": "u05d6.d5",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^新人だ^（　　）、締め切りを守らなくていい^ことにはならない^。",
+    "options": [
+     "ものの",
+     "からといって",
+     "にもかかわらず",
+     "ところで"
+    ],
+    "answer": 2,
+    "why": [
+     "ものの cannot follow だ: after a noun it needs である.",
+     "A reason that does not justify the conclusion: からといって … ことにはならない.",
+     "にもかかわらず cannot follow だ either, and it states a fact that goes against what you expect. Here the second half says the first is no excuse.",
+     "ところで as \"no use\" follows the た form of a verb, not だ."
+    ]
+   },
+   {
+    "id": "u05d6.d6",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^仮に^電車が少し遅れた（　　）、九時の会議には^間に合うだろう^。",
+    "options": [
+     "ものの",
+     "にもかかわらず",
+     "とはいえ",
+     "としても"
+    ],
+    "answer": 4,
+    "why": [
+     "ものの follows a fact. 仮に marks a supposition.",
+     "にもかかわらず also follows a fact, so it cannot go with 仮に.",
+     "とはいえ grants something already true, so it cannot go with 仮に either.",
+     "仮に + としても: even supposing the train is late, the guess (間に合うだろう) still holds."
+    ]
+   },
+   {
+    "id": "u05d6.d7",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "^一人旅^（　　）^ツアー^にしろ、海外に行くなら保険には^入っておいたほうがいい^。",
+    "options": [
+     "にしろ",
+     "ものの",
+     "とはいえ",
+     "にもかかわらず"
+    ],
+    "answer": 1,
+    "why": [
+     "Two choices, both with にしろ: whichever it is, the advice holds.",
+     "ものの follows one fact (after a noun, である). It cannot pair two choices.",
+     "とはいえ grants one fact. It cannot pair two choices with 〜にしろ.",
+     "にもかかわらず follows one fact. It cannot pair two choices, and it does not lead to advice."
+    ]
+   },
+   {
+    "id": "u05d6.d8",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "日本語の",
+    "after": "使うときは今でも緊張する。",
+    "tiles": [
+     "勉強を始めて",
+     "十年になる",
+     "とはいえ",
+     "敬語を"
+    ],
+    "star": 2,
+    "bank": [
+     3,
+     2,
+     0,
+     1
+    ],
+    "hint": "とはいえ follows the plain form. What has gone on for ten years?",
+    "full": "日本語の勉強を始めて十年になる{とはいえ}敬語を使うときは今でも緊張する。",
+    "explain": "日本語の goes with 勉強, and 勉強を始めて十年になる is the fact granted, in the plain form before とはいえ. 敬語を is the object of 使う."
+   }
+  ],
+  "exam": [
+   {
+    "id": "u05d6.e1",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "この映画は話題になっているが、話の内容がそれほど新しい（　　）。",
+    "options": [
+     "わけだ",
+     "ものの",
+     "わけではない",
+     "とはいえ"
+    ],
+    "answer": 3,
+    "explain": "が sets up a contrast: people are talking about the film, but the story is not that new. わけではない gives the negative that それほど needs here. わけだ, met at N3, draws a conclusion (\"so that's why\"), which does not fit after が and それほど. ものの and とはいえ need a second clause; they cannot end a sentence."
+   },
+   {
+    "id": "u05d6.e2",
+    "kind": "choice",
+    "type": "文の文法1",
+    "label": "Choose the form",
+    "q": "多少の費用がかかる（　　）、古いエアコンは早めに買い替えましょう。",
+    "options": [
+     "ものの",
+     "にせよ",
+     "にもかかわらず",
+     "ところで"
+    ],
+    "answer": 2,
+    "explain": "にせよ: even if it costs something, the advice (〜ましょう) still stands. ものの and にもかかわらず cannot lead to a suggestion such as 〜ましょう, and ところで as \"no use\" follows the た form."
+   },
+   {
+    "id": "u05d6.e3",
+    "kind": "star",
+    "type": "文の文法2",
+    "label": "Build the sentence",
+    "before": "ネットの評価が",
+    "after": "合うとは限らない。",
+    "tiles": [
+     "高い",
+     "からといって",
+     "自分の",
+     "口に"
+    ],
+    "star": 2,
+    "bank": [
+     2,
+     0,
+     3,
+     1
+    ],
+    "full": "ネットの評価が高いからといって{自分の}口に合うとは限らない。",
+    "explain": "高い, からといって, 自分の, 口に. からといって follows the plain form 高い, and 自分の口に合う is the conclusion that does not always follow."
+   }
+  ]
+ },
+ "scene": {
+  "ja": "美術館で",
+  "en": "At an art museum",
+  "intro": "Tap every word you would read on the posters, labels and signs in the galleries.",
+  "words": [
+   {
+    "id": "display",
+    "word": "展示",
+    "reading": "てんじ",
+    "gloss": "display, exhibition",
+    "parts": [
+     [
+      "展",
+      "テン",
+      "spread out, show"
+     ],
+     [
+      "示",
+      "ジ",
+      "show: 指示"
+     ]
+    ]
+   },
+   {
+    "id": "special",
+    "word": "企画展",
+    "reading": "きかくてん",
+    "gloss": "special exhibition",
+    "parts": [
+     [
+      "企",
+      "キ",
+      "plan: 企業"
+     ],
+     [
+      "画",
+      "カク",
+      "plan: 計画"
+     ],
+     [
+      "展",
+      "テン",
+      "exhibition"
+     ]
+    ]
+   },
+   {
+    "id": "permanent",
+    "word": "常設展",
+    "reading": "じょうせつてん",
+    "gloss": "permanent collection",
+    "parts": [
+     [
+      "常",
+      "ジョウ",
+      "always: 日常"
+     ],
+     [
+      "設",
+      "セツ",
+      "set up: 設備"
+     ],
+     [
+      "展",
+      "テン",
+      "exhibition"
+     ]
+    ]
+   },
+   {
+    "id": "photo",
+    "word": "撮影",
+    "reading": "さつえい",
+    "gloss": "taking photos",
+    "parts": [
+     [
+      "撮",
+      "サツ",
+      "take (a photo)"
+     ],
+     [
+      "影",
+      "エイ",
+      "image, shadow"
+     ]
+    ]
+   },
+   {
+    "id": "route",
+    "word": "順路",
+    "reading": "じゅんろ",
+    "gloss": "route (this way)",
+    "parts": [
+     [
+      "順",
+      "ジュン",
+      "order: 順番"
+     ],
+     [
+      "路",
+      "ロ",
+      "path: 道路"
+     ]
+    ]
+   },
+   {
+    "id": "owned",
+    "word": "所蔵",
+    "reading": "しょぞう",
+    "gloss": "in the collection",
+    "parts": [
+     [
+      "所",
+      "ショ",
+      "place: 住所"
+     ],
+     [
+      "蔵",
+      "ゾウ",
+      "storehouse: 冷蔵庫"
+     ]
+    ]
+   },
+   {
+    "id": "touch",
+    "word": "触れる",
+    "reading": "ふれる",
+    "gloss": "to touch",
+    "parts": [
+     [
+      "触",
+      "ふ",
+      "touch"
+     ]
+    ]
+   },
+   {
+    "id": "guide",
+    "word": "解説",
+    "reading": "かいせつ",
+    "gloss": "commentary, explanation",
+    "parts": [
+     [
+      "解",
+      "カイ",
+      "untie, explain: 理解"
+     ],
+     [
+      "説",
+      "セツ",
+      "explain: 説明"
+     ]
+    ]
+   }
+  ],
+  "check": {
+   "id": "u05d6.k1",
+   "kind": "choice",
+   "type": "漢字読み",
+   "label": "How the exam asks it",
+   "q": "この絵は、市の美術館が_所蔵_している。",
+   "options": [
+    "しょぞん",
+    "しょうぞう",
+    "しょそう",
+    "しょぞう"
+   ],
+   "answer": 4,
+   "explain": "所 is ショ, as in 住所, and 蔵 is ゾウ, as in 冷蔵庫: しょぞう. しょぞん is 所存 (one's intention, very formal), しょうぞう is 肖像 (a portrait), and しょそう would be 諸相 (various aspects)."
+  }
+ },
+ "skill": {
+  "kind": "reading",
+  "ja": "情報検索",
+  "en": "Finding information",
+  "ask": "Which gallery talk can Kimura join on a Friday after work, and with which ticket?",
+  "seconds": 110,
+  "passage": "みどり市立美術館　ギャラリートークのご案内（11月）\n担当者が展示室で作品を解説します。予約は不要です。\nＡ　企画展「海をえがいた画家たち」\n毎週土曜日　14:00〜14:40　企画展示室\nＢ　企画展「海をえがいた画家たち」\n^毎週金曜日　18:00〜18:40^　企画展示室\nＣ　常設展「所蔵品で見る町の百年」\n^毎週金曜日　19:00〜19:30^　第2展示室\nＤ　常設展「所蔵品で見る町の百年」\n^毎週水曜日^　19:00〜19:30　第2展示室\n・水曜日と金曜日は^20時まで開館^しています（入館は19時30分まで）。\n・参加には、その日のチケットが必要です。企画展と常設展のチケットは別々に販売しています。^企画展のトークには企画展のチケット、常設展のトークには常設展のチケット^をお求めください。\n・どのトークも、開始10分前までに展示室の入り口にお集まりください。\n・展示室内での撮影はご遠慮ください。",
+  "strategy": "Note Kimura's conditions first (a Friday, free from about 18:30), then find the one talk that meets them all and the ticket it needs.",
+  "item": {
+   "id": "u05d6.r1",
+   "kind": "choice",
+   "type": "読解・情報検索",
+   "q": "会社員の木村さんは、平日は18時まで働いていて、会社から美術館までは30分かかる。金曜日の仕事の後で、ギャラリートークに参加したい。木村さんはどうすればよいか。",
+   "options": [
+    "Ｂに、企画展のチケットで参加する。",
+    "Ｃに、企画展のチケットで参加する。",
+    "Ｃに、常設展のチケットで参加する。",
+    "Ｄに、常設展のチケットで参加する。"
+   ],
+   "short": [
+    "Ｂ・企画展のチケット",
+    "Ｃ・企画展のチケット",
+    "Ｃ・常設展のチケット",
+    "Ｄ・常設展のチケット"
+   ],
+   "answer": 3,
+   "explain": "Kimura can reach the museum at about 18:30 on a Friday, when it is open until 20:00. The only Friday talk after that is C at 19:00, in the permanent collection (常設展), and each talk needs the ticket for its own exhibition.",
+   "why": [
+    "B starts at 18:00 on Friday. Kimura finishes work at 18:00 and needs 30 minutes to get there.",
+    "C is a 常設展 talk, so it needs a 常設展 ticket. The two tickets are sold separately.",
+    "",
+    "D is on Wednesdays. Kimura wants to go on a Friday."
+   ]
+  }
+ }
+}

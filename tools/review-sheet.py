@@ -1,6 +1,7 @@
 """Build a unit's review sheet for the native-speaking reviewer.
 usage: python3 tools/review-sheet.py 3        ->  content/n2/review/u03-review.html
        python3 tools/review-sheet.py n5 1     ->  content/n5/review/u01-review.html
+       python3 tools/review-sheet.py mock1    ->  content/n2/review/mock1-review.html (a full mock: its 101 questions)
 Reads content/<level>/uNN.json, units.json and review/uNN-flags.json; the page template is tools/review-sheet.html.
 Every row is one thing to judge: a teach page, a comparison, an item, a scene's words, a reading or listening lesson.
 Flagged rows (red, then amber) come first; the rest follow day by day in a compact form."""
@@ -8,12 +9,20 @@ import html, json, re, sys, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 args = sys.argv[1:]
-lvdir = args.pop(0) if args and not args[0].isdigit() else 'n2'
-MINI = args[0] == 'mini'          # python3 tools/review-sheet.py n5 mini: the level's mini mock
+lvdir = args.pop(0) if args and re.match(r'^(n\d|kana)$', args[0]) else 'n2'
+FULL = re.match(r'^mock(\d)$', args[0])   # python3 tools/review-sheet.py mock1: a full N2 mock
+MINI = args[0] == 'mini' or bool(FULL)  # python3 tools/review-sheet.py n5 mini: the level's mini mock
 n = 0 if MINI else int(args[0])
 pre = '' if lvdir == 'n2' else lvdir
-name = 'mini' if MINI else f'u{n:02d}'
-if MINI:
+name = args[0] if MINI else f'u{n:02d}'
+if FULL:
+    # a full mock's questions, each with the passage it names (an A and B pair as two paragraphs)
+    DOC = json.load(open(f'{ROOT}/content/{lvdir}/{name}.json', encoding='utf-8'))
+    def with_text(it):
+        t = DOC.get('texts', {}).get(it.get('text'))
+        return {**it, 'passage': t if isinstance(t, str) else 'A　' + t['A'].strip() + '\nB　' + t['B'].strip()} if t else it
+    U = {'days': {}, 'test': [with_text(it) for it in DOC['items']]}
+elif MINI:
     U = {'days': {}, 'test': json.load(open(f'{ROOT}/content/{lvdir}/mini.json', encoding='utf-8'))['items']}
 else:
     U = json.load(open(f'{ROOT}/content/{lvdir}/u{n:02d}.json', encoding='utf-8'))
@@ -21,7 +30,7 @@ SYL = json.load(open(f'{ROOT}/content/{lvdir}/units.json', encoding='utf-8'))
 FL = json.load(open(f'{ROOT}/content/{lvdir}/review/{name}-flags.json', encoding='utf-8'))
 LEVEL = SYL['level']
 flags = FL['flags']
-syl = {'n': 0, 'ja': 'ミニ模試', 'en': 'Mini mock', 'days': []} if MINI else next(x for x in (SYL['units'] if isinstance(SYL, dict) else SYL) if x.get('n', x.get('unit')) == n)
+syl = {'n': 0, 'ja': DOC['title'] if FULL else 'ミニ模試', 'en': DOC['en'] if FULL else 'Mini mock', 'days': []} if MINI else next(x for x in (SYL['units'] if isinstance(SYL, dict) else SYL) if x.get('n', x.get('unit')) == n)
 
 e = lambda s: html.escape(s or '', quote=False)
 
@@ -128,7 +137,7 @@ for it in U['test']:
         body = '<div class="passage" lang="ja">' + ''.join(f'<p>{e(l)}</p>' for l in str(it.get('script', '')).split(chr(10))) + '</div>' + body
     if it.get('order'):
         it = {**it, 'kind': 'star', 'before': it.get('before', ''), 'after': it.get('after', ''), 'tiles': [it['options'][o - 1] for o in it['order']], 'star': it['star'], 'bank': [it['order'].index(k + 1) for k in range(4)], 'hint': ''}
-    add(it['id'], 'Mini mock' if MINI else 'Week test', ('Mock · ' if MINI else 'Test · ') + it.get('type', ''), f'<span lang="ja">{filled(it)}</span>', body + options(it))
+    add(it['id'], (syl['en'] + ' · ' + it.get('label', '')) if FULL else 'Mini mock' if MINI else 'Week test', ('Mock · ' if MINI else 'Test · ') + it.get('type', ''), f'<span lang="ja">{filled(it)}</span>', body + options(it))
 
 for k, v in flags.items():
     if k.startswith('sound.'):
@@ -141,7 +150,7 @@ if missing:
     sys.exit('flags for unknown rows: ' + ', '.join(missing))
 
 tpl = open(f'{ROOT}/tools/review-sheet.html', encoding='utf-8').read()
-page = tpl.replace('__HEAD__', 'Mini Mock' if MINI else 'Unit ' + str(n)).replace('__LEVEL__', LEVEL).replace('__LSKEY__', ('' if lvdir == 'n2' else lvdir + '-') + ('mini' if MINI else 'u' + str(n))).replace('__UNIT__', 'mini mock' if MINI else str(n)).replace('__FN__', 'the 12 questions' if MINI else '<span lang="ja" style="white-space:nowrap">' + e(syl['ja']) + '</span> ' + e(syl['en'])).replace(
+page = tpl.replace('__HEAD__', syl['en'] if FULL else 'Mini Mock' if MINI else 'Unit ' + str(n)).replace('__LEVEL__', LEVEL).replace('__LSKEY__', ('' if lvdir == 'n2' else lvdir + '-') + (name if MINI else 'u' + str(n))).replace('__UNIT__', syl['en'].lower() if FULL else 'mini mock' if MINI else str(n)).replace('__FN__', 'the %d questions' % len(U['test']) if MINI else '<span lang="ja" style="white-space:nowrap">' + e(syl['ja']) + '</span> ' + e(syl['en'])).replace(
     '__ROWS__', json.dumps(rows, ensure_ascii=False).replace('</', '<\\/'))
 out = f'{ROOT}/content/{lvdir}/review/{name}-review.html'
 open(out, 'w', encoding='utf-8').write(page)

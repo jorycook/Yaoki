@@ -5,9 +5,9 @@
 // usage: const states = require('./screen-states.js')(LEVEL)        (LEVEL 'N2' for the main app, 'N1' for the N1 app)
 module.exports = function screenStates(LEVEL) {
   const enc = (o) => encodeURIComponent(JSON.stringify(o));
-  // the main app: each screen in the state a learner meets it in on day 1 of a new plan (u03d1), plus the later states
+  // the main app: each screen in the state a learner meets it in on day 1 of a new plan (u01d1: the N2 course starts at its unit 1), plus the later states
   // the click-throughs pass quickly (content-sweep.js takes every day of the course through its states)
-  const day1 = (p) => '&done=' + enc({ u03d1: p });
+  const day1 = (p) => '&done=' + enc({ u01d1: p });
   let SCREENS = [
     ['Goal', ''],
     ['Main', ''],
@@ -15,10 +15,10 @@ module.exports = function screenStates(LEVEL) {
     ['Today', day1({ g: 1 }), 'taught'],
     ['Today', day1({ g: 3, k: 1, r: 1 }), 'day-done'],
     /* the day's spread part way: grammar taught but its exam-style questions next; grammar done and the kanji next; and the
-       whole of day 1 done, stamped, opened as the current day (cur=u03d1, as marking it done would move on to day 2) */
-    ['Today', day1({ g: 2 }) + '&cur=u03d1', 'exam-next'],
-    ['Today', day1({ g: 3, ks: 1 }) + '&cur=u03d1', 'kanji-next'],
-    ['Today', day1({ g: 3, k: 1, r: 1 }) + '&cur=u03d1', 'all-done'],
+       whole of day 1 done, stamped, opened as the current day (cur=u01d1, as marking it done would move on to day 2) */
+    ['Today', day1({ g: 2 }) + '&cur=u01d1', 'exam-next'],
+    ['Today', day1({ g: 3, ks: 1 }) + '&cur=u01d1', 'kanji-next'],
+    ['Today', day1({ g: 3, k: 1, r: 1 }) + '&cur=u01d1', 'all-done'],
     ['Teach', ''],
     ['Compare', ''],
     ['Drill', ''],
@@ -70,6 +70,16 @@ module.exports = function screenStates(LEVEL) {
     /* the extras (おまけ): Yaoki Speaking and Yaoki Reader beside the course, for an N2 learner and a kana learner */
     ['Extras', ''],
     ['Extras', kana(), 'kana'],
+  );
+  /* the N2 full mocks: the Mock tab with mock 1 open (the plan started in September, so its week 6 test is past) and with
+     both taken, a full mock's briefing, and its result (as main's screens-app.js has them) */
+  const fullPlan = '&level=N2&plan=' + enc({ start: '2026-09-01', exam: '2027-07-04', pace: 'fit' });
+  const fullDone = { a: { 1: 1, 2: 2, 3: 3, 72: 1, 88: 2 }, used: [6300, null], timeUp: [true], done: true, at: '2026-11-10' };
+  SCREENS.push(
+    ['Mock', fullPlan, 'full-open'],
+    ['Mock', fullPlan + '&full=' + enc({ 1: fullDone, 2: fullDone }), 'full-taken'],
+    ['MockRun', fullPlan + '&run=1', 'full-briefing'],
+    ['MockFull', fullPlan + '&run=1&full=' + enc({ 1: fullDone }), 'full-result'],
   );
 
   if (LEVEL === 'N1') {

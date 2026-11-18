@@ -9,6 +9,7 @@ The lessons are data. `tools/build-course.mjs` checks every file here and turns 
 | `n2/units.json` | The syllabus: 12 units, the function each one covers and the title of each study day. |
 | `n2/uNN.json` | One unit's lessons: `days` (keyed `"1"` to `"6"`, day 6 is まとめ) and `test` (the week test's questions). Days not written yet are simply left out; the app shows them as 準備中. |
 | `n2/mini.json` | The mini mock's questions and the sample listening drill, so the notebook can show them. |
+| `n2/mock1.json`, `n2/mock2.json` | The two full mocks: 101 questions each in the real paper's order (`f1.1` … `f1.101`), the passages they share (`texts`, named by each question's `text`), and each listening question's `listen` (task: choices printed; gist, quick: heard only), `parts` (the lines each clip says, or a silent `wait`) and `script`. See the main README, "The full mocks". |
 
 ## A study day
 
@@ -55,7 +56,7 @@ The notes around the Japanese (`why`, a comparison's `intro`, its forms' `form`,
 
 ## What the build refuses
 
-Unbalanced markup, an answer out of range, two identical options, a missing reason for a wrong option, a star item whose `full` sentence is not `before` + tiles + `after`, a bank that already shows the right order, a day without two grammar points, at least four drill items and exactly three exam items, a day title that differs from the syllabus, and duplicate ids.
+In a full mock: a question out of the paper's order or count, an id out of turn, a passage it names that is not there, a star question whose order and answer disagree, and a listening question without its kind, parts or script. Everywhere: unbalanced markup, an answer out of range, two identical options, a missing reason for a wrong option, a star item whose `full` sentence is not `before` + tiles + `after`, a bank that already shows the right order, a day without two grammar points, at least four drill items and exactly three exam items, a day title that differs from the syllabus, and duplicate ids.
 
 ## The kana course
 
@@ -80,7 +81,13 @@ picked), the thing shown large (`big`) and their clip; their types are かな読
 
 ## Before content goes to the reviewer
 
-1. `node tools/build-course.mjs` passes.
-2. `bash check/run-app.sh content-sweep.js` passes: every answer of every written day shown on screen, with nothing cut off.
-3. A blind check: a checker that has not seen the answers solves every item; any disagreement or second defensible answer is fixed or flagged.
-4. The unit's review sheet is generated and sent (see `claude/course-plan.md` in the project).
+1. Each drafted N2 day or week test passes `python3 tools/check-day.py content/n2/drafts/u01d1.json` (the shape, ids, counts, markup and star items; `--words PLAN.json` also checks the scene's words against a plan) before it joins its unit.
+2. `node tools/build-course.mjs` passes.
+3. `bash check/run-app.sh content-sweep.js` passes: every answer of every written day shown on screen, with nothing cut off.
+4. A blind check: a checker that has not seen the answers solves every item; any disagreement or second defensible answer is fixed or flagged.
+5. The unit's review sheet is generated and sent (see `claude/course-plan.md` in the project).
+6. The unit's clips are made: `python3 tools/course_sound.py n2 1` (the teach examples, the scene words and the listening lessons, in `yaoki/project/sound-course-n2-u01.js`; `--check heard.json` has a recogniser write down what it hears, and a clip it hears differently is flagged for the reviewer to listen to). Run it again after a change: each clip keeps a hash of what it says, so a clip whose text changed is made again; `--redo KEY` remakes one clip by its name.
+
+## How N2 units 1, 2 and 4 to 12 were written (November 2026)
+
+`n2/drafts/PLAN.json` set each day's scene, its eight words (none already in the course) and its reading or listening lesson. Each day and each week test was written by one writer to `n2/drafts/BRIEF.md` (with `BRIEF-MATOME.md` for day 6 and `BRIEF-TEST.md` for the test) and examined by a second, who fixed what failed and flagged what was a judgement call. The seven parts were then joined into `uNN.json`, the right answers spread over 1 to 4 (each day's drill items and each test section on different positions) and the star items' tile orders varied, and the unit was blind solved by a solver who saw no answers: in all eleven units the solver's answers agreed with every key, and a settler rewrote the five items where the solver thought a second answer possible and the other doubts it noted (repeated scenarios, keys copied from a passage). What every step found and changed is in `n2/drafts/uNN-notes.md`; what the native reviewer should look at is in `n2/review/uNN-flags.json` and the unit's review sheet, including the clips a speech recogniser heard differently.

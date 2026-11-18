@@ -70,7 +70,12 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .option .o-meta { font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 /* play */
-#play { display: flex; flex-direction: column; gap: 8px; }
+/* The lines under the game are read at a glance while typing, so they are set large, and
+   larger on taller windows: --u is a pixel at 768px tall, from 0.9 to 1.6 of one. The game
+   window takes the height left by the bar over it, the lines (a row each, and --info-extra
+   when the round's longest word needs more), the keyboard (--kb) and the gaps, and on taller
+   windows grows a little too. */
+#play { display: flex; flex-direction: column; gap: 8px; --u: clamp(0.9px, calc(100svh / 768), 1.6px); --kb: 220px; }
 .hud { display: flex; align-items: center; gap: 8px; min-height: 48px; }
 .hud .icon-btn { margin-left: -10px; }
 .segs { flex: 1; min-width: 60px; display: flex; gap: 4px; }
@@ -87,14 +92,17 @@ h2 { margin: 0; font-size: 12px; font-weight: 800; color: var(--muted); }
 .chip.zero { color: var(--muted); }
 .chip.step { background: var(--gold); border-color: var(--outline); color: #1B2440; box-shadow: 0 2px 0 var(--hard); transition: background 250ms; }
 .chip.step .hm { stroke: #C7361E; }
-.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 392px - var(--info-extra, 0px)), 360px); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
-body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 202px - var(--info-extra, 0px)), 400px); }
+.stage-wrap { position: relative; height: clamp(204px, calc(100svh - 118px - var(--kb) - 108 * var(--u) - var(--info-extra, 0px)), calc(200px + 180 * var(--u))); border-radius: 20px; border: 2px solid var(--outline); background: var(--ground); overflow: hidden; }
+body.no-kb .stage-wrap { height: clamp(204px, calc(100svh - 112px - 76 * var(--u) - var(--info-extra, 0px)), calc(240px + 180 * var(--u))); }
 body.playing .bar { display: none; }
-body.playing #app { padding-top: 8px; }
+body.playing #app { padding-top: 8px; padding-bottom: 12px; }
 #stage { display: block; width: 100%; height: 100%; }
-.info { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; min-height: 31px; margin: 0; font-size: 17px; font-weight: 700; color: var(--muted); }
-.info .info-ja { font-family: var(--jp); font-size: 21px; font-weight: 600; color: var(--ink); }
-.status { min-height: 26px; margin: 0; font-size: 17px; font-weight: 800; }
+.info { display: flex; flex-wrap: wrap; align-items: baseline; align-content: flex-start; gap: 2px 16px; min-height: calc(42 * var(--u)); margin: 0; font-size: calc(23 * var(--u)); font-weight: 700; color: var(--muted); }
+.info .info-ja { font-family: var(--jp); font-size: calc(29 * var(--u)); font-weight: 600; color: var(--ink); }
+/* a kanji card's reading (shown, or its room kept) is set at the meaning's size: it is on the
+   card as furigana too, and so a long sentence's line stays on two rows */
+.info .info-ja + .info-ja { font-size: calc(23 * var(--u)); }
+.status { min-height: calc(34 * var(--u)); margin: 0; font-size: calc(23 * var(--u) * var(--fit, 1)); font-weight: 800; }
 .status.bad { color: var(--bad); }
 .status.warn { color: var(--stamp); }
 
@@ -113,9 +121,10 @@ body.playing #app { padding-top: 8px; }
 .key.ok, .key.miss { transform: translateY(2px); box-shadow: none; }
 .key.ok { background: var(--good-soft); border-color: var(--good); color: var(--ink); }
 .key.miss { background: var(--bad-soft); border-color: var(--bad); color: var(--ink); }
-.next-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; min-height: 26px; margin: 2px 0 0; }
-.next-line .kicker { font-size: 15px; font-variant-numeric: tabular-nums; }
-.next-line span:not(.kicker) { font-size: 16px; font-weight: 700; color: var(--muted); }
+.next-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; min-height: calc(32 * var(--u)); margin: 2px 0 0; }
+.next-line .kicker { font-size: calc(19 * var(--u) * var(--fit, 1)); font-variant-numeric: tabular-nums; }
+.next-line .kicker b { font-size: calc(22 * var(--u) * var(--fit, 1)); font-weight: 800; }
+.next-line span:not(.kicker) { font-size: calc(22 * var(--u) * var(--fit, 1)); font-weight: 700; color: var(--muted); }
 
 /* sheets: settings, pause */
 .scrim { position: fixed; inset: 0; z-index: 20; background: var(--scrim); animation: yk-fade 160ms ease-out; display: flex; align-items: flex-end; justify-content: center; }
@@ -202,7 +211,8 @@ label.switch > span { flex: 1; min-width: 0; }
 .view { animation: yk-in 220ms ease-out; }
 
 @media (max-height: 820px) {
-  .key { height: 32px; font-size: 13px; }
+  #play { --kb: 166px; }
+  .key { height: 30px; font-size: 13px; }
   .kb, .kb-row { gap: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -598,7 +608,7 @@ label.switch > span { flex: 1; min-width: 0; }
     <div class="block">
       <h2 id="sfx-h"><span lang="ja">効果音</span>　Sound effects</h2>
       <div id="sfx-seg" class="seg" role="group" aria-labelledby="sfx-h"></div>
-      <p class="hint"><span lang="ja">しずか</span> Quiet: a stamp for each card, a drum when Yaoki falls, a bounce when he gets up, and a sound for each of his tricks. <span lang="ja">ぜんぶ</span> All: also a tick for each right key and a knock for a miss. A course word's own voice is never covered.</p>
+      <p class="hint"><span lang="ja">しずか</span> Quiet: a stamp for each card, a drum when Yaoki falls, a bounce when he gets up, and a sound for each of his tricks. <span lang="ja">ぜんぶ</span> All: also a tick for each right key and a soft buzz for a miss. A course word's own voice is never covered.</p>
     </div>
     <div class="block">
       <h2 id="music-h"><span lang="ja">音楽</span>　Music</h2>
