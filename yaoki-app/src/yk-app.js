@@ -326,6 +326,24 @@
   }
   /* a place the tab bar has and the sidebar was not written with (a tab the app gains later) gets an item of its own, with the
      tab's own icon and label, where the tab bar has it: after the item of the tab before it */
+  /* a copied icon gets ids of its own: the copy comes first in the page, so a gradient, clip or mask the tab's icon names by its id
+     (url(#…), href="#…") would otherwise be looked up in the copy, which is hidden whenever the sidebar is, and the tab's own icon
+     would lose it */
+  function ownIds(icon) {
+    var all = [icon].concat(Array.prototype.slice.call(icon.querySelectorAll('*')));
+    all.forEach(function (el) {
+      if (!el.id) return;
+      var o = el.id, n = o + '-yk-side';
+      el.id = n;
+      all.forEach(function (x) {
+        Array.prototype.forEach.call(x.attributes, function (a) {
+          var v = a.value;
+          var w = v === '#' + o ? '#' + n : [['url(#', ')'], ['url("#', '")'], ["url('#", "')"]].reduce(function (t, q) { return t.split(q[0] + o + q[1]).join(q[0] + n + q[1]); }, v);
+          if (w !== v) a.value = w;
+        });
+      });
+    });
+  }
   function mirrorTabs(tabs) {
     var prev = null;
     /* the items as the page has them now */
@@ -343,6 +361,7 @@
           icon = icon.cloneNode(true);
           ['width', 'height', 'style', 'class'].forEach(function (k) { icon.removeAttribute(k); });
           icon.setAttribute('aria-hidden', 'true');
+          ownIds(icon);
           item.appendChild(icon);
         }
         var label = document.createElement('span');
@@ -354,6 +373,12 @@
       prev = item;
     });
   }
+  /* the tab bar's labels change by their text alone at times (a count on a tab): the stage's observer below watches the screens'
+     structure only, so the tab bar shown is watched for its text, and only a real change of it asks for a sync */
+  var watchedBar = null;
+  var barWatch = window.MutationObserver ? new MutationObserver(function (list) {
+    for (var i = 0; i < list.length; i++) if (list[i].oldValue !== list[i].target.data) { askSync(); return; }
+  }) : null;
   var syncPending = false;
   function syncSide() {
     syncPending = false;
@@ -370,6 +395,7 @@
     if (!sideNav || !root.classList.contains('yk-desk')) return;
     var bar = stage.querySelector('nav[aria-label="Main"]');
     if (bar) mirrorTabs(bar);
+    if (barWatch && bar !== watchedBar) { barWatch.disconnect(); watchedBar = bar; if (bar) barWatch.observe(bar, { subtree: true, characterData: true, characterDataOldValue: true }); }
     var any = false;
     sideItems.forEach(function (a) {
       var src = paneTab(a.getAttribute('data-tab'));
