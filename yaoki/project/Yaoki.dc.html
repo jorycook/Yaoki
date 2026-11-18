@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yaoki</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0}
+@keyframes yk-y-sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes yk-y-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.12)}}
+@keyframes yk-y-hop-a{0%{transform:none}18%{transform:scale(1.07,.9)}45%{transform:translateY(-14px) scale(.96,1.05)}70%{transform:translateY(0) scale(1.06,.93)}86%{transform:scale(.98,1.02)}100%{transform:none}}
+@keyframes yk-y-hop-b{0%{transform:none}18%{transform:scale(1.07,.9)}45%{transform:translateY(-14px) scale(.96,1.05)}70%{transform:translateY(0) scale(1.06,.93)}86%{transform:scale(.98,1.02)}100%{transform:none}}
+@keyframes yk-y-cheer-a{0%{transform:none}10%{transform:scale(1.08,.88)}28%{transform:translateY(-18px) rotate(-8deg)}44%{transform:translateY(0) scale(1.05,.94)}56%{transform:scale(1.08,.9)}72%{transform:translateY(-14px) rotate(8deg)}88%{transform:translateY(0) scale(1.04,.96)}100%{transform:none}}
+@keyframes yk-y-cheer-b{0%{transform:none}10%{transform:scale(1.08,.88)}28%{transform:translateY(-18px) rotate(-8deg)}44%{transform:translateY(0) scale(1.05,.94)}56%{transform:scale(1.08,.9)}72%{transform:translateY(-14px) rotate(8deg)}88%{transform:translateY(0) scale(1.04,.96)}100%{transform:none}}
+@keyframes yk-y-oops-a{0%{transform:none}14%{transform:rotate(-17deg)}31%{transform:rotate(12deg)}47%{transform:rotate(-8deg)}62%{transform:rotate(5deg)}77%{transform:rotate(-2.5deg)}90%{transform:rotate(1deg)}100%{transform:none}}
+@keyframes yk-y-oops-b{0%{transform:none}14%{transform:rotate(-17deg)}31%{transform:rotate(12deg)}47%{transform:rotate(-8deg)}62%{transform:rotate(5deg)}77%{transform:rotate(-2.5deg)}90%{transform:rotate(1deg)}100%{transform:none}}
+@keyframes yk-y-fall-a{0%{transform:none}16%{transform:rotate(-80deg)}42%{transform:rotate(-80deg)}55%{transform:rotate(14deg)}67%{transform:rotate(-9deg)}78%{transform:rotate(5deg)}89%{transform:rotate(-2deg)}100%{transform:none}}
+@keyframes yk-y-fall-b{0%{transform:none}16%{transform:rotate(-80deg)}42%{transform:rotate(-80deg)}55%{transform:rotate(14deg)}67%{transform:rotate(-9deg)}78%{transform:rotate(5deg)}89%{transform:rotate(-2deg)}100%{transform:none}}
+@keyframes yk-y-dizzy-a{0%,12%{opacity:0}18%,43%{opacity:1}47%,100%{opacity:0}}
+@keyframes yk-y-dizzy-b{0%,12%{opacity:0}18%,43%{opacity:1}47%,100%{opacity:0}}
+@keyframes yk-y-awake-a{0%,12%{opacity:1}18%,43%{opacity:0}47%,100%{opacity:1}}
+@keyframes yk-y-awake-b{0%,12%{opacity:1}18%,43%{opacity:0}47%,100%{opacity:1}}
+@keyframes yk-y-shadow-a{0%,100%{transform:scaleX(1);opacity:1}45%{transform:scaleX(.7);opacity:.55}72%{transform:scaleX(.66);opacity:.5}}
+@keyframes yk-y-shadow-b{0%,100%{transform:scaleX(1);opacity:1}45%{transform:scaleX(.7);opacity:.55}72%{transform:scaleX(.66);opacity:.5}}
+@keyframes yk-y-spark-a{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1.15)}70%{opacity:1;transform:scale(.9)}100%{opacity:0;transform:scale(1.2) translateY(-5px)}}
+@keyframes yk-y-spark-b{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1.15)}70%{opacity:1;transform:scale(.9)}100%{opacity:0;transform:scale(1.2) translateY(-5px)}}
+@keyframes yk-y-drip-a{0%{opacity:0;transform:translateY(-4px)}25%{opacity:1;transform:none}80%{opacity:1;transform:translateY(5px)}100%{opacity:0;transform:translateY(8px)}}
+@keyframes yk-y-drip-b{0%{opacity:0;transform:translateY(-4px)}25%{opacity:1;transform:none}80%{opacity:1;transform:translateY(5px)}100%{opacity:0;transform:translateY(8px)}}
+@keyframes yk-y-paint{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion: reduce){.yk-y *{animation:none !important}}
+</style>
+</helmet>
+<div class="yk-y" style="position: relative; width: {{ px }}; height: {{ px }}; flex-shrink: 0">
+<svg viewBox="0 0 100 104" width="100%" height="100%" role="img" aria-label="{{ label }}" style="display: block; overflow: visible">
+<ellipse cx="50" cy="97" rx="27" ry="3.6" fill="rgba(27, 36, 64, 0.14)" style="transform-origin: 50px 97px; animation: {{ shadowAnim }}"/>
+<g style="transform-origin: 50px 95px; animation: {{ moveAnim }}">
+<g style="transform-origin: 50px 95px; animation: {{ idleAnim }}">
+<path d="M50 6c26 0 40 20 40 46 0 24-16 42-40 42S10 76 10 52C10 26 24 6 50 6z" fill="#E2452B" stroke="#1B2440" style="stroke-width: {{ ink }}"/>
+<ellipse cx="50" cy="42" rx="27" ry="23" fill="#FFF6EA"/>
+<sc-if value="{{ blush }}" hint-placeholder-val="{{ false }}"><ellipse cx="30.5" cy="51" rx="4.4" ry="2.6" fill="#F59A86" opacity="0.85"/><ellipse cx="69.5" cy="51" rx="4.4" ry="2.6" fill="#F59A86" opacity="0.85"/></sc-if>
+<g style="animation: {{ awakeAnim }}">
+<g style="transform-origin: 50px 42px; animation: {{ blinkAnim }}">
+<circle cx="39" cy="42" r="8" fill="#FFFFFF" stroke="#1B2440" stroke-width="2.5"/>
+<circle cx="61" cy="42" r="8" fill="#FFFFFF" stroke="#1B2440" stroke-width="2.5"/>
+<g style="transform: {{ pupilMove }}">
+<sc-if value="{{ eye1 }}" hint-placeholder-val="{{ true }}"><circle cx="61" cy="42" r="4.2" fill="#1B2440" style="transform-origin: 61px 42px; animation: {{ paint1 }}"/></sc-if>
+<sc-if value="{{ eye2 }}" hint-placeholder-val="{{ false }}"><circle cx="39" cy="42" r="4.2" fill="#1B2440" style="transform-origin: 39px 42px; animation: {{ paint2 }}"/></sc-if>
+</g>
+</g>
+</g>
+<g opacity="0" style="animation: {{ dizzyAnim }}"><path d="M35 38l8 8M43 38l-8 8M57 38l8 8M65 38l-8 8" stroke="#1B2440" stroke-width="2.6" stroke-linecap="round" fill="none"/></g>
+<sc-if value="{{ browsCalm }}" hint-placeholder-val="{{ true }}"><path d="M28 30c6-5 14-5 19 0M53 30c5-5 13-5 19 0" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/></sc-if>
+<sc-if value="{{ browsWorried }}" hint-placeholder-val="{{ false }}"><path d="M29 30q9-2 18-7M53 23q9 5 18 7" stroke="#1B2440" stroke-width="3" fill="none" stroke-linecap="round"/></sc-if>
+<sc-if value="{{ mouthSmile }}" hint-placeholder-val="{{ true }}"><path d="M44 55c4 3 8 3 12 0" stroke="#1B2440" stroke-width="2.5" fill="none" stroke-linecap="round"/></sc-if>
+<sc-if value="{{ mouthGrin }}" hint-placeholder-val="{{ false }}"><path d="M42.5 53.5q7.5 9 15 0z" fill="#1B2440" stroke="#1B2440" stroke-width="1.6" stroke-linejoin="round"/><path d="M46.5 58.4q3.5-2.4 7 0" stroke="#E2452B" stroke-width="2" fill="none" stroke-linecap="round"/></sc-if>
+<sc-if value="{{ mouthO }}" hint-placeholder-val="{{ false }}"><ellipse cx="50" cy="56.5" rx="3.3" ry="4.2" fill="#1B2440"/></sc-if>
+<path d="M38 74h24M42 82h16" stroke="#F2B43A" stroke-width="3.5" stroke-linecap="round"/>
+</g>
+</g>
+<sc-if value="{{ sweat }}" hint-placeholder-val="{{ false }}"><path d="M81 16c3 4 5 7 5 9.5a5 5 0 0 1-10 0c0-2.5 2-5.5 5-9.5z" fill="#9CC2FF" stroke="#1B2440" stroke-width="1.4" style="animation: {{ dripAnim }}"/></sc-if>
+<sc-if value="{{ sparks }}" hint-placeholder-val="{{ false }}">
+<path d="M12 22l2.2 5.6 5.6 2.2-5.6 2.2-2.2 5.6-2.2-5.6-5.6-2.2 5.6-2.2z" fill="#F2B43A" stroke="#1B2440" stroke-width="1.2" stroke-linejoin="round" opacity="0" style="transform-origin: 12px 29px; animation: {{ spark1 }}"/>
+<path d="M88 8l1.8 4.6 4.6 1.8-4.6 1.8-1.8 4.6-1.8-4.6-4.6-1.8 4.6-1.8z" fill="#F2B43A" stroke="#1B2440" stroke-width="1.2" stroke-linejoin="round" opacity="0" style="transform-origin: 88px 14px; animation: {{ spark2 }}"/>
+<path d="M93 50l1.5 3.8 3.8 1.5-3.8 1.5-1.5 3.8-1.5-3.8-3.8-1.5 3.8-1.5z" fill="#FFFFFF" stroke="#1B2440" stroke-width="1.2" stroke-linejoin="round" opacity="0" style="transform-origin: 93px 55px; animation: {{ spark3 }}"/>
+</sc-if>
+</svg>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mood":{"editor":"enum","options":["idle","happy","cheer","oops","fall"],"default":"idle"},"size":{"editor":"int","default":200,"min":32,"max":400},"eyes":{"editor":"int","default":1,"min":0,"max":2},"beat":{"editor":null},"look":{"editor":null},"paint":{"editor":null},"still":{"editor":null},"label":{"editor":null},"$preview":{"width":200,"height":200}}'>
+/* Yaoki, the daruma: 起き上がり小法師, a tumbler who always rights himself (七転び八起き).
+   mood: idle (sways and blinks), happy (a hop), cheer (two hops and sparkles), oops (rocks and rights himself),
+   fall (topples over and springs back up). beat: a number the screen raises to play the mood's move again.
+   eyes: how many eyes are painted (0, 1, or 2 once the learner passes); paint: brush the last of them in;
+   look: -1, 0 or 1 moves the pupils left or right.
+   still: no idle sway (a small Yaoki in a busy row). Under reduced motion every move is left out. */
+const MOVES = {
+  happy: { anim: 'hop', ms: 650, ease: 'cubic-bezier(.3,.7,.4,1)' },
+  cheer: { anim: 'cheer', ms: 1100, ease: 'ease-out' },
+  oops: { anim: 'oops', ms: 1300, ease: 'ease-out' },
+  fall: { anim: 'fall', ms: 1700, ease: 'ease-in-out' },
+};
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { demo: 0 };
+/* each Yaoki blinks in his own time */
+this.blinkAt = -(Math.random() * 4).toFixed(2) + 's';
+}
+componentDidMount() {
+/* on its own (an artboard of the canvas) a one-off move plays again every few seconds, so it can be seen */
+if (this.props.beat == null && !this.props.still) this.loop = setInterval(() => this.setState((s) => ({ demo: s.demo + 1 })), 2600);
+}
+componentWillUnmount() {
+clearInterval(this.loop);
+}
+renderVals() {
+const p = this.props;
+const mood = MOVES[p.mood] ? p.mood : 'idle';
+const beat = p.beat == null ? this.state.demo : p.beat;
+const side = beat % 2 ? 'b' : 'a';
+const move = MOVES[mood];
+const size = Math.max(24, +p.size || 200);
+const eyes = p.eyes == null ? 1 : +p.eyes;
+const look = Math.max(-1, Math.min(1, +p.look || 0));
+/* paint: the last eye painted is brushed in (the goal screen paints the first) */
+const paint = (n) => (p.paint && eyes === n ? 'yk-y-paint 600ms cubic-bezier(.3,1.5,.5,1) both' : 'none');
+return {
+px: size + 'px',
+label: p.label || (eyes >= 2 ? 'Yaoki, a daruma with both eyes painted' : eyes === 1 ? 'Yaoki, a daruma with one eye painted' : 'Yaoki, a daruma with no eyes painted yet'),
+ink: size >= 90 ? 2.2 : size >= 50 ? 2.6 : 3.2,
+moveAnim: move ? 'yk-y-' + move.anim + '-' + side + ' ' + move.ms + 'ms ' + move.ease + ' both' : 'none',
+idleAnim: p.still || move ? 'none' : 'yk-y-sway 3.4s ease-in-out infinite',
+blinkAnim: mood === 'fall' ? 'none' : 'yk-y-blink 4.2s linear ' + this.blinkAt + ' infinite',
+shadowAnim: mood === 'happy' || mood === 'cheer' ? 'yk-y-shadow-' + side + ' ' + move.ms + 'ms ease-out both' : 'none',
+awakeAnim: mood === 'fall' ? 'yk-y-awake-' + side + ' ' + move.ms + 'ms linear both' : 'none',
+dizzyAnim: mood === 'fall' ? 'yk-y-dizzy-' + side + ' ' + move.ms + 'ms linear both' : 'none',
+dripAnim: 'yk-y-drip-' + side + ' 1300ms ease-in both',
+spark1: 'yk-y-spark-' + side + ' 900ms 100ms ease-out both',
+spark2: 'yk-y-spark-' + side + ' 900ms 300ms ease-out both',
+spark3: 'yk-y-spark-' + side + ' 900ms 500ms ease-out both',
+eye1: eyes >= 1,
+eye2: eyes >= 2,
+paint1: paint(1),
+paint2: paint(2),
+pupilMove: 'translate(' + look * 2.6 + 'px, ' + (mood === 'cheer' || mood === 'happy' ? -1 : 0) + 'px)',
+blush: mood === 'happy' || mood === 'cheer',
+browsCalm: mood !== 'oops',
+browsWorried: mood === 'oops',
+mouthSmile: mood === 'idle' || mood === 'fall',
+mouthGrin: mood === 'happy' || mood === 'cheer',
+mouthO: mood === 'oops',
+sweat: mood === 'oops',
+sparks: mood === 'cheer',
+};
+}
+}
+</script>
+</body>
+</html>

@@ -20,6 +20,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 rt{font-size:9px;font-weight:400;color:#5A6382}
 @keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-shake{0%,100%{transform:none}20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@keyframes yk-pop{0%{transform:none}45%{transform:scale(1.05)}100%{transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;animation-iteration-count:1 !important;transition-duration:1ms !important}}
 </style>
 </helmet>
 <div style="width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; overflow: hidden">
@@ -64,8 +67,7 @@ rt{font-size:9px;font-weight:400;color:#5A6382}
 <sc-if value="{{ checked }}" hint-placeholder-val="{{ false }}">
 <div data-d="side" style="flex-shrink: 0; max-height: 520px; margin: 0 -16px -34px; padding: 16px 16px 34px; border-radius: 26px 26px 0 0; border-top: 2px solid #1B2440; display: flex; flex-direction: column; gap: 10px; animation: yk-up 240ms ease-out; background: {{ sheetBg }}">
 <div style="display: flex; align-items: center; gap: 10px">
-<sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="3.5" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if>
-<sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="3.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg></sc-if>
+<div style="position: relative; width: 40px; height: 40px; flex-shrink: 0"><dc-import name="Yaoki" mood="{{ yaokiMood }}" beat="{{ 1 }}" size="{{ 40 }}" still="{{ true }}" hint-size="40px,40px"></dc-import><div style="position: absolute; right: -4px; bottom: -3px; width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; background: #FFFFFF; border: 2px solid {{ markInk }}; display: flex; align-items: center; justify-content: center"><sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C7361E" stroke-width="5" stroke-linecap="round" role="img" aria-label="Wrong"><path d="M5 5l14 14M19 5L5 19"/></svg></sc-if><sc-if value="{{ correct }}" hint-placeholder-val="{{ true }}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0B7A6B" stroke-width="5" role="img" aria-label="Right"><circle cx="12" cy="12" r="8"/></svg></sc-if></div></div>
 <div style="flex-grow: 1; font-size: 20px; font-weight: 800">{{ verdictJa }} <span style="font-size: 14px; font-weight: 700">{{ verdictEn }}</span></div>
 <sc-if value="{{ wrong }}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 800">正解　{{ answerN }}</div></sc-if>
 </div>
@@ -175,6 +177,9 @@ ck: s.pick === null
 ? { border: '2px solid #C9D0E3', bg: '#DDE1EC', color: '#5A6382', shadow: 'none' }
 : { border: '2px solid #1B2440', bg: '#2F4FD0', color: '#FFFFFF', shadow: '0 4px 0 #1B2440' },
 verdictJa: wrong ? 'おしい！' : 'せいかい！',
+/* Yaoki reacts to the answer: rocks and rights himself at a slip, hops at a right one */
+yaokiMood: wrong ? 'oops' : 'happy',
+markInk: wrong ? '#C7361E' : '#0B7A6B',
 verdictEn: wrong ? 'Not quite' : 'Correct',
 whyNot: wrong ? WHY_NOT[s.pick] : '',
 sheetBg: wrong ? '#FDEBE6' : '#E0F3EF',

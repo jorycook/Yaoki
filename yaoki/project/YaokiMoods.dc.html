@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Yaoki's moves</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1040px; height: 400px; box-sizing: border-box; padding: 32px 36px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; display: flex; flex-direction: column; gap: 20px; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<div lang="ja" style="font-size: 26px; font-weight: 800">ヤオキの動き</div>
+<div style="font-size: 15px; font-weight: 700; color: #5A6382">Yaoki's moves · a tumbler always rights himself (七転び八起き)</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; flex-grow: 1">
+<sc-for list="{{ moves }}" as="m" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 10px; padding: 14px 8px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440">
+<dc-import name="Yaoki" mood="{{ m.mood }}" size="{{ 116 }}" eyes="{{ m.eyes }}" hint-size="116px,116px"></dc-import>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+<div lang="ja" style="font-size: 15px; font-weight: 800">{{ m.ja }}</div>
+<div style="font-size: 12px; font-weight: 700; color: #5A6382; text-align: center">{{ m.en }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1040,"height":400}}'>
+class Component extends DCLogic {
+renderVals() {
+return {
+moves: [
+{ mood: 'idle', eyes: 1, ja: 'ふだん', en: 'Idle: sways and blinks' },
+{ mood: 'happy', eyes: 1, ja: 'せいかい', en: 'Right: a hop' },
+{ mood: 'cheer', eyes: 1, ja: 'やったね', en: 'Done well: two hops' },
+{ mood: 'oops', eyes: 1, ja: 'おしい', en: 'A slip: rocks, rights himself' },
+{ mood: 'fall', eyes: 1, ja: 'ころんだ', en: 'Hit: falls, springs back up' },
+{ mood: 'cheer', eyes: 2, ja: '合格', en: 'Passing: both eyes painted' },
+],
+};
+}
+}
+</script>
+</body>
+</html>

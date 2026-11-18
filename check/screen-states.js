@@ -67,7 +67,7 @@ module.exports = function screenStates(LEVEL) {
     ['KanaWords', kana(), 'read'],
     ['KanaWords', kana({ rs: 1 }), 'quiz'],
     ['Notebook', kana(), 'kana'],
-    /* the extras (おまけ): Yaoki Speaking and Yaoki Reader beside the course, for an N2 learner and a kana learner */
+    /* the Games tab (あそぶ), with Yaoki Speaking and Yaoki Reader below its games, for an N2 learner and a kana learner */
     ['Extras', ''],
     ['Extras', kana(), 'kana'],
   );
@@ -80,6 +80,20 @@ module.exports = function screenStates(LEVEL) {
     ['Mock', fullPlan + '&full=' + enc({ 1: fullDone, 2: fullDone }), 'full-taken'],
     ['MockRun', fullPlan + '&run=1', 'full-briefing'],
     ['MockFull', fullPlan + '&run=1&full=' + enc({ 1: fullDone }), 'full-result'],
+  );
+  /* the games: each at its start (N2 week 1, day 1, opened from Today), the kana match, the games tab with a week's marks,
+     and the Readiness tab from week tests only (no listening yet) and from a full mock (as main's screens-app.js has them) */
+  const game = (kind, lv, extra) => '&game=' + enc({ kind, level: lv || 'N2', unit: 1, day: 1, from: 'Today', seed: 5 }) + (extra || '');
+  SCREENS.push(
+    ['GameMatch', game('match'), ''],
+    ['GameCatch', game('catch'), ''],
+    ['GameBuild', game('build'), ''],
+    ['GameParts', game('parts'), ''],
+    ['GameMatch', kana() + game('match', 'KANA'), 'kana'],
+    ['GameBuild', kana() + game('build', 'KANA'), 'kana'],
+    ['Extras', '&play=' + enc({ u01: { match: { h: 1, n: 2 }, catch: { h: 0, n: 1 } } }), 'marks'],
+    ['Readiness', '&tests=' + enc({ u01t: { id: 'u01t', score: 18, of: 24, areas: { vocab: { right: 8, of: 10 }, grammar: { right: 6, of: 8 }, reading: { right: 4, of: 6 } } } }), 'week-tests'],
+    ['Readiness', fullPlan + '&full=' + enc({ 1: fullDone }), 'full-mock'],
   );
 
   if (LEVEL === 'N1') {

@@ -1,7 +1,7 @@
-// The app's extras (おまけ): Yaoki Speaking and Yaoki Reader opened from the installed app, as optional practice.
+// The app's extras on the Games tab (あそぶ): Yaoki Speaking and Yaoki Reader opened from the installed app, as optional practice.
 // The app's test build is served at /Yaoki/study/, as on the website, with the site's other pages beside it (the home page and
 // docs/site, docs/speaking, docs/reader and docs/typing, which the speaking game uses), as GitHub Pages serves them. Checks: the
-// Extras tab on the week path; the two links, found from the site's root, with the learner's place in the speaking game's
+// Games tab on the week path; the two links, found from the site's root, with the learner's place in the speaking game's
 // address; the game opening at that place (an N5 week's words, the kana of a kana learner's day) with a Yaoki button that
 // leads back to the app; the reader likewise; and, with no connection, the links giving way to a note that they need one (the
 // app's offline worker keeps study/ only: the other pages of the site are not its to serve).
@@ -57,14 +57,14 @@ const stop = async () => { if (server) server.kill(); server = null; await new P
   // an N5 learner: the tab, the screen, the links
   let page = await fresh();
   await begin(page, 'N5');
-  ok(await page.locator('nav[aria-label="Main"] a').count() === 5 && await page.locator('nav[aria-label="Main"] a:has-text("Extras")').count() === 1, 'the week path has five tabs, the last Extras');
-  await click(page, 'nav[aria-label="Main"] a:has-text("Extras")', 600);
+  ok(await page.locator('nav[aria-label="Main"] a').count() === 5 && await page.locator('nav[aria-label="Main"] a:has-text("Games")').count() === 1, 'the week path has five tabs, the last Games');
+  await click(page, 'nav[aria-label="Main"] a:has-text("Games")', 600);
   let t = await text(page);
-  ok(t.includes('おまけ') && t.includes('Nothing here counts toward your stamps'), 'the Extras tab opens おまけ, which says it is outside the course');
+  ok(t.includes('あそぶ') && t.includes('Nothing here counts toward your stamps') && t.includes('Open Yaoki Speaking'), 'the Games tab opens あそぶ, with Speaking and Reader below the games, outside the course');
   ok(t.includes('Opens at N5 · week 1') , 'the speaking card says where it opens: N5, week 1, got ' + t.slice(0, 400));
   const hrefs = await page.$$eval('#yk-stage a', (as) => as.map((a) => a.getAttribute('href')).filter((h) => /speaking|reader/.test(h || '')));
   ok(JSON.stringify(hrefs) === JSON.stringify(['../speaking/?from=app&level=N5&unit=1', '../reader/?from=app']), 'the links carry the place, got ' + JSON.stringify(hrefs));
-  ok(await page.locator('nav[aria-label="Main"] a[aria-current="page"]:has-text("Extras")').count() === 1, 'its tab is marked as the page you are on');
+  ok(await page.locator('nav[aria-label="Main"] a[aria-current="page"]:has-text("Games")').count() === 1, 'its tab is marked as the page you are on');
 
   // the speaking game, opened in the app's own window at the learner's week
   await click(page, 'a:has-text("Open Yaoki Speaking")', 300);
@@ -81,7 +81,7 @@ const stop = async () => { if (server) server.kill(); server = null; await new P
   ok(page.url() === APP && (await text(page)).includes('名詞の文'), 'the Yaoki button brings the app back, at its week path, got ' + page.url());
 
   // the reader likewise
-  await click(page, 'nav[aria-label="Main"] a:has-text("Extras")', 600);
+  await click(page, 'nav[aria-label="Main"] a:has-text("Games")', 600);
   await click(page, 'a:has-text("Open Yaoki Reader")', 300);
   await page.waitForURL(/\/Yaoki\/reader\/\?from=app$/, { timeout: 10000 }).catch(() => {});
   await page.waitForSelector('#texts .text-card', { timeout: 15000 }).catch(() => {});
@@ -95,7 +95,7 @@ const stop = async () => { if (server) server.kill(); server = null; await new P
   // a learner of the kana course: the game opens at the lesson of the day's kana
   page = await fresh();
   await begin(page, 'かな');
-  await click(page, 'nav[aria-label="Main"] a:has-text("Extras")', 600);
+  await click(page, 'nav[aria-label="Main"] a:has-text("Games")', 600);
   t = await text(page);
   ok(t.includes('Say the kana out loud') && t.includes('Opens at the kana あ'), 'for the kana course the speaking card offers the kana of the day, あ');
   await click(page, 'a:has-text("Open Yaoki Speaking")', 300);
@@ -108,10 +108,10 @@ const stop = async () => { if (server) server.kill(); server = null; await new P
   page = await fresh();
   await begin(page, 'N5');
   await page.context().setOffline(true);
-  await click(page, 'nav[aria-label="Main"] a:has-text("Extras")', 600);
+  await click(page, 'nav[aria-label="Main"] a:has-text("Games")', 600);
   t = await text(page);
   const offHrefs = await page.$$eval('#yk-stage a', (as) => as.map((a) => a.getAttribute('href')).filter((h) => /speaking|reader/.test(h || '')));
-  ok(offHrefs.length === 0 && (t.match(/Needs a connection/g) || []).length === 2, 'offline, the Extras tab says each page needs a connection instead of linking to it, got ' + JSON.stringify(offHrefs) + ' ' + t.slice(0, 200));
+  ok(offHrefs.length === 0 && (t.match(/Needs a connection/g) || []).length === 2, 'offline, the Games tab says each page needs a connection instead of linking to it, got ' + JSON.stringify(offHrefs) + ' ' + t.slice(0, 200));
   await page.context().setOffline(false);
   await page.context().close();
 

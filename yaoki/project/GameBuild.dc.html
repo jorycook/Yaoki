@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sentence builder</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
+<script src="./yk-game.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+rt{font-size:9px;font-weight:400;color:#5A6382}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-plank{from{opacity:0;transform:translateY(-34px) rotate(-10deg)}to{opacity:1;transform:none}}
+@keyframes yk-sink{0%{transform:none;opacity:1}30%{transform:translateY(-6px) rotate(-6deg)}100%{transform:translateY(70px) rotate(34deg);opacity:0}}
+@keyframes yk-cross{0%{transform:translate(0,0)}12%{transform:translate(38px,-16px)}24%{transform:translate(76px,0)}38%{transform:translate(118px,-16px)}52%{transform:translate(160px,0)}66%{transform:translate(202px,-16px)}80%{transform:translate(244px,0)}100%{transform:translate(286px,0)}}
+@keyframes yk-flag{0%,100%{transform:skewY(0)}50%{transform:skewY(-9deg)}}
+@keyframes yk-ripple{from{background-position:0 0}to{background-position:-40px 0}}
+@keyframes yk-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:none;opacity:1}}
+@keyframes yk-shake{0%,100%{transform:none}20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;transition-duration:1ms !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; gap: 10px; overflow: hidden">
+
+<div style="display: flex; align-items: center; gap: 4px; height: 44px; flex-shrink: 0">
+<a href="{{ backHref }}" onClick="{{ close }}" aria-label="Close the game" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div style="flex-grow: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; line-height: 1.2">
+<div lang="ja" style="font-size: 16px; font-weight: 800">{{ titleJa }}</div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+<button onClick="{{ toggleSound }}" aria-pressed="{{ soundOn }}" aria-label="Sound" style="width: 44px; height: 44px; margin-right: -6px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center"><sc-if value="{{ soundOn }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></sc-if><sc-if value="{{ soundOff }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA1B5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg></sc-if></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<div style="flex-grow: 1; display: grid; grid-template-columns: repeat({{ size }}, minmax(0, 1fr)); gap: 5px" role="img" aria-label="{{ trackAria }}">
+<sc-for list="{{ track }}" as="t" hint-placeholder-count="4">
+<div style="height: 8px; border-radius: 4px; transition: background 300ms; background: {{ t.bg }}"></div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; white-space: nowrap; font-variant-numeric: tabular-nums">{{ countLine }}</div>
+</div>
+
+<div style="flex-shrink: 0; padding: 14px 14px 16px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; flex-direction: column; gap: 10px; min-height: 120px; box-sizing: border-box">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex-grow: 1; font-size: 12px; font-weight: 800; color: #2F4FD0">{{ ask }}</div>
+<sc-if value="{{ hasClip }}" hint-placeholder-val="{{ false }}"><button onClick="{{ hear }}" aria-label="Hear the word" style="flex-shrink: 0; white-space: nowrap; height: 44px; padding: 0 12px; border-radius: 12px; background: #E8ECFB; border: 2px solid #2F4FD0; color: #2F4FD0; font-weight: 800; font-size: 12px; display: flex; align-items: center; gap: 5px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/></svg>聞く</button></sc-if>
+</div>
+<sc-if value="{{ building }}" hint-placeholder-val="{{ true }}">
+<div lang="ja" style="font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-size: 19px; font-weight: 600; line-height: 2.1">
+<sc-for list="{{ before }}" as="b" hint-placeholder-count="1"><sc-if value="{{ b.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ b.t }}<rt>{{ b.r }}</rt></ruby></sc-if><sc-if value="{{ b.plain }}" hint-placeholder-val="{{ true }}"><span>{{ b.t }}</span></sc-if></sc-for>
+<sc-for list="{{ slots }}" as="x" hint-placeholder-count="4"><button onClick="{{ x.tap }}" disabled="{{ x.off }}" aria-label="{{ x.aria }}" style="display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; min-width: 56px; height: 44px; margin: 2px 3px; padding: 0 8px; box-sizing: border-box; border-radius: 12px; font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-size: 17px; font-weight: 600; line-height: 1.1; border: {{ x.border }}; background: {{ x.bg }}; color: {{ x.ink }}; animation: {{ x.anim }}"><sc-if value="{{ x.star }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="color: #F2B43A; font-size: 18px">★</span></sc-if><sc-for list="{{ x.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span>{{ g.t }}</span></sc-if></sc-for></button></sc-for>
+<sc-for list="{{ after }}" as="b" hint-placeholder-count="1"><sc-if value="{{ b.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ b.t }}<rt>{{ b.r }}</rt></ruby></sc-if><sc-if value="{{ b.plain }}" hint-placeholder-val="{{ true }}"><span>{{ b.t }}</span></sc-if></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ built }}" hint-placeholder-val="{{ false }}">
+<div lang="ja" style="font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-size: 19px; font-weight: 600; line-height: 1.9; animation: yk-pop 360ms ease-out both">
+<sc-for list="{{ full }}" as="f" hint-placeholder-count="3"><sc-if value="{{ f.ruby }}" hint-placeholder-val="{{ false }}"><ruby style="background: {{ f.bg }}; padding: {{ f.pad }}; border-radius: 4px">{{ f.t }}<rt>{{ f.r }}</rt></ruby></sc-if><sc-if value="{{ f.plain }}" hint-placeholder-val="{{ true }}"><span style="background: {{ f.bg }}; padding: {{ f.pad }}; border-radius: 4px">{{ f.t }}</span></sc-if></sc-for>
+</div>
+</sc-if>
+</div>
+
+<div aria-hidden="true" style="position: relative; flex-shrink: 0; height: 128px; border-radius: 20px; overflow: hidden; background: #E8ECFB; border: 2px solid #DDE1EC">
+<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 44px; background-color: #7FA6F2; animation: yk-ripple 3.2s linear infinite; background-image: radial-gradient(ellipse at 20px 0, #9CBDF7 0 9px, transparent 10px); background-size: 40px 14px; background-repeat: repeat-x"></div>
+<div style="position: absolute; left: 0; bottom: 0; width: 64px; height: 64px; background: #F4E3C1; border-top: 3px solid #1B2440; border-right: 3px solid #1B2440; border-radius: 0 12px 0 0"></div>
+<div style="position: absolute; right: 0; bottom: 0; width: 64px; height: 64px; background: #F4E3C1; border-top: 3px solid #1B2440; border-left: 3px solid #1B2440; border-radius: 12px 0 0 0"></div>
+<div style="position: absolute; right: 24px; bottom: 64px; width: 3px; height: 36px; background: #1B2440"></div>
+<div style="position: absolute; right: 2px; bottom: 84px; width: 22px; height: 15px; background: #E2452B; border: 2px solid #1B2440; box-sizing: border-box; clip-path: polygon(0 0, 100% 50%, 0 100%); transform-origin: 100% 50%; animation: yk-flag 1.6s ease-in-out infinite"></div>
+<div style="position: absolute; left: 64px; right: 64px; bottom: 54px; height: 14px; display: grid; grid-template-columns: repeat({{ planks }}, minmax(0, 1fr)); gap: 3px">
+<sc-for list="{{ boards }}" as="p" hint-placeholder-count="4">
+<div style="height: 14px; box-sizing: border-box; border-radius: 3px; border: 2px solid #1B2440; background: {{ p.bg }}; opacity: {{ p.show }}; animation: {{ p.anim }}"></div>
+</sc-for>
+</div>
+<div style="position: absolute; left: 6px; bottom: 62px; animation: {{ crossAnim }}">
+<dc-import name="Yaoki" mood="{{ mood }}" beat="{{ beat }}" size="{{ 54 }}" still="{{ true }}" hint-size="54px,54px"></dc-import>
+</div>
+</div>
+
+<sc-if value="{{ building }}" hint-placeholder-val="{{ true }}">
+<div style="flex-shrink: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 108px; align-content: flex-start">
+<sc-for list="{{ tray }}" as="t" hint-placeholder-count="4">
+<button onClick="{{ t.tap }}" disabled="{{ t.off }}" aria-label="{{ t.aria }}" style="min-width: 76px; height: 48px; padding: 0 14px; box-sizing: border-box; border-radius: 14px; font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-size: 18px; font-weight: 600; line-height: 1.1; display: flex; align-items: center; justify-content: center; border: {{ t.border }}; background: {{ t.bg }}; box-shadow: {{ t.shadow }}; color: {{ t.ink }}"><sc-for list="{{ t.segs }}" as="g" hint-placeholder-count="1"><sc-if value="{{ g.ruby }}" hint-placeholder-val="{{ false }}"><ruby>{{ g.t }}<rt>{{ g.r }}</rt></ruby></sc-if><sc-if value="{{ g.plain }}" hint-placeholder-val="{{ true }}"><span>{{ g.t }}</span></sc-if></sc-for></button>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+
+<div role="status" style="flex-shrink: 0; max-height: 104px; overflow-y: auto; box-sizing: border-box; padding: 9px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; gap: 2px">
+<div lang="ja" style="font-size: 15px; font-weight: 800; color: {{ sayInk }}">{{ sayJa }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.45">{{ sayEn }}</div>
+</div>
+<sc-if value="{{ canNext }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ next }}" style="flex-shrink: 0; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; animation: yk-pop 300ms ease-out both">{{ nextLabel }}</button>
+</sc-if>
+
+<sc-if value="{{ intro }}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 200ms ease-out">
+<div style="padding: 22px 20px 34px; border-radius: 28px 28px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 280ms ease-out">
+<div style="display: flex; align-items: center; gap: 14px">
+<dc-import name="Yaoki" mood="happy" beat="{{ 1 }}" size="{{ 74 }}" hint-size="74px,74px"></dc-import>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ fromLine }}</div>
+<h1 lang="ja" style="margin: 0; font-size: 24px; font-weight: 800">{{ titleJa }}</h1>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+</div>
+<div style="font-size: 14px; font-weight: 500; line-height: 1.55">{{ howTo }}</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ chipCount }}</div>
+<div style="padding: 4px 10px; border-radius: 10px; background: #FFF4D6; color: #1B2440; font-size: 12px; font-weight: 800">はなまる: every bridge right first time</div>
+</div>
+<button onClick="{{ start }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">はじめる</span>　Start</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 220ms ease-out">
+<div style="animation: yk-up 320ms ease-out">
+<dc-import name="GameEnd" mark="{{ mark }}" kind="build" level="{{ level }}" stats="{{ endStats }}" slips="{{ slips }}" note="{{ endNote }}" again="{{ again }}" back="{{ close }}" back-label="{{ backLabel }}" hint-size="390px,470px"></dc-import>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* 文づくり Sentence builder: the ★ sentences of the day (then of the week), their pieces in a muddle. Each piece put in
+   order lays a plank of a bridge; when the sentence is complete it is checked: right, and Yaoki crosses; wrong, and
+   the planks in the wrong places fall into the river while the right ones stay, and the pieces come back to be tried
+   again (a slip). At the kana level, ことばづくり Word builder: a word is heard and built from its kana, with one kana
+   too many. A round with no slips gets a はなまる.
+   The round comes from app.game ({ kind, level, unit, day, from }); on its own the artboard plays N2 week 3, day 4. */
+const SINK = 650;
+const CROSS = 1500;
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* the round the launcher picked (its seed), or a new one */
+const g = props.app && props.app.game;
+this.state = this.fresh(g && g.seed ? g.seed : window.ykGame ? window.ykGame.seed() : 1);
+}
+fresh(seed) {
+const G = window.ykGame;
+const round = G ? G.round('build', this.source(), seed) : null;
+return { seed, round, phase: 'intro', at: 0, put: [], locked: {}, sinking: {}, tries: 0, slips: 0, firsts: 0, crossed: false, mood: 'idle', beat: 0, say: null, saved: false, laid: -1 };
+}
+source() {
+const g = (this.props.app && this.props.app.game) || null;
+return g && g.kind === 'build' ? g : { kind: 'build', level: 'N2', unit: 3, day: 4, from: 'Extras' };
+}
+componentDidMount() {
+const C = window.ykCourse;
+const src = this.source();
+if (C && C.needSound && src.level === 'KANA') C.needSound(src.level, src.unit);
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+}
+sound() {
+const app = this.props.app;
+return !app || app.fx !== false;
+}
+fx(kind) {
+if (window.ykGame && this.sound()) window.ykGame.fx(kind);
+}
+line() {
+const r = this.state.round;
+return r ? r.lines[this.state.at] : null;
+}
+hearLine(line) {
+if (line && line.clip && this.sound() && window.ykSound) window.ykSound.tap(line.clip);
+}
+start() {
+if (window.ykSound) window.ykSound.unlock();
+this.setState({ phase: 'play', say: { ja: 'はしをかけよう', en: 'Tap the pieces in order. Each one lays a plank for Yaoki.' } });
+this.hearLine(this.line());
+}
+/* a piece from the tray goes to the first empty place */
+place(b) {
+const s = this.state;
+const line = this.line();
+if (s.phase !== 'play' || s.crossed || Object.keys(s.sinking).length) return;
+const put = s.put.slice();
+const free = line.tiles.findIndex((t, i) => put[i] == null);
+if (free < 0) return;
+put[free] = b;
+this.fx('pop');
+this.setState({ put, laid: free });
+if (put.filter((x) => x != null).length === line.tiles.length) {
+clearTimeout(this.timer);
+this.timer = setTimeout(() => this.check(), 350);
+}
+}
+/* a piece put down by mistake goes back to the tray (the right ones of a check stay) */
+lift(i) {
+const s = this.state;
+if (s.phase !== 'play' || s.crossed || s.locked[i] || s.put[i] == null || Object.keys(s.sinking).length) return;
+const put = s.put.slice();
+put[i] = null;
+this.setState({ put, laid: -1 });
+}
+check() {
+const s = this.state;
+const line = this.line();
+const wrong = {};
+line.tiles.forEach((t, i) => { if (!s.put[i] || s.put[i].text !== t) wrong[i] = 1; });
+const first = s.tries === 0;
+if (!Object.keys(wrong).length) {
+this.fx('right');
+const kana = this.source().level === 'KANA';
+this.setState({ crossed: true, firsts: s.firsts + (first ? 1 : 0), mood: 'happy', beat: s.beat + 1, say: { ja: first ? 'わたれた！' : 'できた！', en: kana ? line.full + ' · ' + line.reading + (line.explain ? ' · ' + line.explain : '') : line.explain } });
+if (kana) setTimeout(() => this.hearLine(line), 500);
+setTimeout(() => this.fx('win'), CROSS - 200);
+return;
+}
+const locked = { ...s.locked };
+line.tiles.forEach((t, i) => { if (!wrong[i]) locked[i] = 1; });
+this.fx('wrong');
+this.setState({ sinking: wrong, locked, tries: s.tries + 1, slips: s.slips + (first ? 1 : 0), mood: 'oops', beat: s.beat + 1, say: { ja: 'おっと！', en: 'The planks in the wrong places fell in. The right ones stay: put the others back in order.' } });
+clearTimeout(this.timer);
+this.timer = setTimeout(() => {
+const put = this.state.put.slice();
+Object.keys(wrong).forEach((i) => { put[i] = null; });
+this.setState({ put, sinking: {}, mood: 'idle', laid: -1 });
+}, SINK);
+}
+next() {
+const s = this.state;
+const r = s.round;
+if (s.at + 1 >= r.lines.length) { this.finish(); return; }
+const line = r.lines[s.at + 1];
+this.setState({ at: s.at + 1, put: [], locked: {}, sinking: {}, tries: 0, crossed: false, mood: 'idle', laid: -1, say: { ja: 'つぎの はし', en: 'The next sentence.' } });
+this.hearLine(line);
+}
+finish() {
+const s = this.state;
+const G = window.ykGame;
+const C = window.ykCourse;
+const mark = G.mark(s.slips);
+this.fx(mark === 'hanamaru' ? 'win' : 'stamp');
+this.setState({ phase: 'end', mood: 'cheer', beat: s.beat + 1 });
+if (!s.saved && this.props.save && this.props.app) {
+this.props.save({ play: G.record(this.props.app.play, this.source(), mark, C.today(C.now())) });
+this.setState({ saved: true });
+}
+}
+renderVals() {
+const s = this.state;
+const G = window.ykGame;
+const C = window.ykCourse;
+const src = this.source();
+const kana = src.level === 'KANA';
+const r = s.round || { lines: [] };
+const line = r.lines[s.at] || { tiles: [], bank: [], before: '', after: '', full: '', star: -1 };
+const info = G ? G.info('build', src.level) : { ja: '文づくり', en: 'Sentence builder', line: '' };
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); go(to); } };
+const from = src.from || 'Extras';
+const rich = (t, opt) => (C ? C.rich(t, opt) : [{ t: t, plain: true, ruby: false, r: '', bg: 'transparent', pad: '0' }]);
+const ruby = !/N2|N3/.test(src.level);
+const used = s.put.filter((x) => x != null);
+const playing = s.phase === 'play';
+const slots = line.tiles.map((t, i) => {
+const b = s.put[i];
+const locked = !!s.locked[i];
+const sinking = !!s.sinking[i];
+const done = s.crossed;
+return {
+segs: b ? rich(b.text, { ruby: ruby, hl: false }) : [],
+star: !b && i === line.star,
+border: done || locked ? '2px solid #0B7A6B' : sinking ? '2px solid #C7361E' : b ? '2px solid #1B2440' : '2px dashed #9AA1B5',
+bg: done || locked ? '#E0F3EF' : sinking ? '#FDEBE6' : b ? '#FFFFFF' : '#F4F5F9',
+ink: '#1B2440',
+anim: sinking ? 'yk-shake 380ms ease-out' : b && s.laid === i ? 'yk-pop 260ms ease-out both' : 'none',
+off: !playing || !b || locked || done,
+aria: b ? 'Place ' + (i + 1) + ': ' + C.plain(b.text) + (locked || done ? ', right' : ', tap to take it back') : 'Place ' + (i + 1) + ', empty' + (i === line.star ? ', the star' : ''),
+tap: () => this.lift(i),
+};
+});
+const tray = line.bank.map((b) => {
+const placed = used.indexOf(b) >= 0;
+return {
+segs: rich(b.text, { ruby: ruby, hl: false }),
+off: !playing || placed || s.crossed,
+border: placed ? '2px dashed #DDE1EC' : '2px solid #1B2440',
+bg: placed ? 'transparent' : '#FFFFFF',
+shadow: placed ? 'none' : '0 3px 0 #1B2440',
+ink: placed ? 'transparent' : '#1B2440',
+aria: placed ? 'Used' : 'Piece: ' + C.plain(b.text),
+tap: () => this.place(b),
+};
+});
+const boards = line.tiles.map((t, i) => {
+const b = s.put[i];
+return {
+show: b ? '1' : '0',
+bg: s.crossed || s.locked[i] ? '#7FD3C3' : '#F2B43A',
+anim: s.sinking[i] ? 'yk-sink ' + SINK + 'ms ease-in both' : b && s.laid === i ? 'yk-plank 300ms ease-out both' : 'none',
+};
+});
+const say = s.say || { ja: kana ? 'ことばのはし' : '文のはし', en: info.line };
+const mark = G ? G.mark(s.slips) : 'hanamaru';
+const day = src.day ? 'Day ' + src.day : 'Week ' + src.unit;
+const last = s.at + 1 >= r.lines.length;
+return {
+titleJa: info.ja,
+titleEn: info.en,
+level: src.level,
+size: r.lines.length || 4,
+track: r.lines.map((x, i) => ({ bg: i < s.at || (i === s.at && s.crossed) ? '#0B7A6B' : i === s.at && playing ? '#2F4FD0' : '#DDE1EC' })),
+trackAria: (kana ? 'Word ' : 'Sentence ') + Math.min(r.lines.length, s.at + 1) + ' of ' + r.lines.length,
+countLine: Math.min(r.lines.length, s.at + 1) + ' / ' + r.lines.length,
+ask: kana ? 'ことばをつくろう · Build the word you hear: ' + (line.explain || '') : '正しい順に · Put the pieces in order',
+hasClip: kana && !!line.clip,
+hear: () => this.hearLine(line),
+building: !s.crossed,
+built: s.crossed,
+before: line.before ? rich(line.before, { ruby: ruby, hl: false }) : [],
+after: line.after ? rich(line.after, { ruby: ruby, hl: false }) : [],
+slots,
+full: rich(line.full, { ruby: ruby }),
+tray,
+planks: line.tiles.length || 4,
+boards,
+crossAnim: s.crossed ? 'yk-cross ' + CROSS + 'ms ease-in-out both' : 'none',
+mood: s.mood,
+beat: s.beat,
+sayJa: say.ja,
+sayEn: say.en,
+sayInk: s.mood === 'oops' ? '#C7361E' : s.mood === 'happy' || s.mood === 'cheer' ? '#0B7A6B' : '#1B2440',
+canNext: playing && s.crossed,
+nextLabel: last ? 'おわり　Finish' : 'つぎへ　Next',
+next: () => this.next(),
+intro: s.phase === 'intro',
+ended: s.phase === 'end',
+fromLine: (src.day ? '今日のゲーム · ' : 'あそぶ · ') + src.level.replace('KANA', 'かな') + ' · ' + day,
+howTo: kana ? 'Hear a word, then tap its kana in order: each lays a plank of a bridge for Yaoki. One kana is too many. Get it right and Yaoki crosses.' : 'Tap the pieces in order: each lays a plank of a bridge for Yaoki. Complete the sentence right and he crosses; planks in the wrong place fall in, and you try again.',
+chipCount: r.lines.length + (kana ? ' words' : ' sentences'),
+start: () => this.start(),
+mark,
+slips: s.slips,
+endStats: [
+{ value: String(r.lines.length), label: kana ? 'words' : 'sentences', ink: '#1B2440' },
+{ value: String(s.firsts), label: 'first try', ink: '#0B7A6B' },
+{ value: String(s.slips), label: s.slips === 1 ? 'slip' : 'slips', ink: s.slips ? '#C7361E' : '#0B7A6B' },
+],
+endNote: kana ? 'A slip is a word that needed more than one try. Games are practice: nothing here counts toward your stamps.' : 'A slip is a sentence that needed more than one try. Games are practice: nothing here counts toward your stamps.',
+again: () => { clearTimeout(this.timer); this.setState(this.fresh(window.ykGame.seed())); },
+backHref: from + '.dc.html',
+close: nav(from),
+backLabel: from === 'Today' ? 'もどる　Today' : 'もどる　Games',
+soundOn: this.sound(),
+soundOff: !this.sound(),
+toggleSound: () => { if (this.props.save) this.props.save({ fx: !this.sound() }); },
+};
+}
+}
+</script>
+</body>
+</html>

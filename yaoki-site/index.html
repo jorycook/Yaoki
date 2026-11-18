@@ -95,8 +95,8 @@ section { padding-top: 36px; }
    lined up with it; the header spans the window, as on every page) that puts side by side what belongs together. The first
    screen is the pitch beside the courses, both columns ending on one line (the daruma's card at the foot of the pitch, the
    course cards sharing the height that is left), so a laptop's window (1366 by 657), a narrow one (1120 by 700) and a
-   1024 by 768 one show the whole of both. Below it: the study tools in three columns of wide cards, reading beside the games
-   (above them under 1340 px), the steps to the phone in a row, the footer's two parts in a row. The wrappers this needs
+   1024 by 768 one show the whole of both. Below it: the study tools in three columns of wide cards, reading above the games,
+   three wide cards to a row each, the steps to the phone in a row, the footer's two parts in a row. The wrappers this needs
    (.fold, .pair) are plain boxes under 1000 px, so the column draws exactly what it drew before. */
 @media (min-width: 1000px) {
   :root { --home-max: 1600px; --home-pad: 28px; --site-max: calc(var(--home-max) + 2 * var(--home-pad)); }
@@ -135,9 +135,9 @@ section { padding-top: 36px; }
   .tools .feature { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 14px; row-gap: 6px; align-content: start; }
   .tools .feature .tile { grid-row: span 2; }
 
-  /* the reading cards three to a row, the games two */
+  /* the reading cards three to a row, the games three */
   .read .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .play .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .play .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
   /* the steps to the phone, in a row */
   .install .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -168,8 +168,8 @@ section { padding-top: 36px; }
 @media (min-width: 600px) and (max-width: 999.98px) {
   .grid.levels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-/* up to 1339 px, reading above the games, each in a row of wide cards: five cards in one row would be too narrow for their words */
-@media (min-width: 1000px) and (max-width: 1339.98px) {
+/* reading above the games, each in a row of three wide cards (six cards in one row would be too narrow for their words) */
+@media (min-width: 1000px) {
   .read .feature, .play .feature { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto 1fr auto; column-gap: 14px; row-gap: 6px; align-content: start; }
   .read .feature .tile, .play .feature .tile { grid-row: span 3; }
 }
@@ -179,13 +179,6 @@ section { padding-top: 36px; }
   .hero { gap: 22px; }
   .hero h1 { font-size: clamp(34px, 3.3vw, 56px); }
   .courses { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto 1fr 1fr; }
-}
-/* from 1340 px: reading beside the games, one row of five cards under their two headings */
-@media (min-width: 1340px) {
-  .pair { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); grid-template-rows: auto auto; column-gap: 40px; }
-  .pair > section { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
-  .pair .sec-head { flex-direction: column; align-items: flex-start; }
-  .pair .sec-head p { flex-basis: auto; }
 }
 @media (min-width: 1440px) {
   .hero .actions .btn { padding: 8px 18px; font-size: 17px; }
@@ -252,8 +245,9 @@ section { padding-top: 36px; }
 </section>
 
 <section class="play" aria-labelledby="play-h">
-<div class="sec-head"><h2 id="play-h"><span lang="ja">遊んで覚える</span> Games</h2><p>Two games on the same cards as the courses, with the same rewards: a はなまる for a clean answer, a stamp for each day you show up, and Yaoki getting up again every time he falls.</p></div>
+<div class="sec-head"><h2 id="play-h"><span lang="ja">遊んで覚える</span> Games</h2><p>Games on the same cards as the courses, with the same rewards: a はなまる for a clean answer, a stamp for each day you show up, and Yaoki getting up again every time he falls.</p></div>
 <div class="grid">
+<a class="feature" href="study/?open=Extras"><span class="tile gold"><span lang="ja">遊</span></span><b><span lang="ja">あそぶ</span>The study games</b><p class="what">Four short games on each week's own words, kanji, ★ sentences and clips: Kanji match, Listening catch, Sentence builder and Kanji parts. No clock and no lives: a clean round gets a はなまる.</p><p class="meta">Open the Games tab →</p></a>
 <a class="feature" href="typing/"><span class="tile red"><span lang="ja">打</span></span><b><span lang="ja">タイピング</span>Yaoki Typing</b><p class="what">For a computer with a Japanese keyboard. Type the card before it reaches Yaoki: romaji, the symbol keys, kana input, your course's words and five kanji stages.</p><p class="meta">Play on this computer →</p></a>
 <a class="feature phone" href="speaking/"><span class="tile teal"><span lang="ja">話</span></span><b><span lang="ja">スピーキング</span>Yaoki Speaking</b><p class="what">For a phone held upright. Say the word on each card out loud and the phone hears it: kana lessons from zero, your course's words, kanji and phrases.</p><p class="meta">Open on a phone →</p></a>
 </div>

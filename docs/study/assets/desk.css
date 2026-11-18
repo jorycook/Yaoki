@@ -3310,3 +3310,9 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
     html.yk-desk [data-yk="Scene"] [data-yk-write] [data-d="strip"] [data-yk-strip] { padding-right: 36px; }
   }
 }
+
+/* ---------- generated: the screens with no file here ---------- */
+@container yk (min-width: 880px) {
+  html.yk-desk .yk-screen > .sc-host > [data-yk]:where(:not([data-yk="Compare"]):not([data-yk="Drill"]):not([data-yk="Exam"]):not([data-yk="Extras"]):not([data-yk="Goal"]):not([data-yk="Kana"]):not([data-yk="KanaWords"]):not([data-yk="KanaWrite"]):not([data-yk="Listening"]):not([data-yk="Main"]):not([data-yk="Mock"]):not([data-yk="MockFull"]):not([data-yk="MockRun"]):not([data-yk="Notebook"]):not([data-yk="Readiness"]):not([data-yk="Reading"]):not([data-yk="Review"]):not([data-yk="Scene"]):not([data-yk="Star"]):not([data-yk="Teach"]):not([data-yk="Today"]):not([data-yk="WeekTest"]):not([data-yk="Write"])) { max-width: 390px; max-height: 844px; }
+}
+html.yk-desk #yk-view:has(> #yk-stage .yk-screen > .sc-host > [data-yk]:where(:not([data-yk="Compare"]):not([data-yk="Drill"]):not([data-yk="Exam"]):not([data-yk="Extras"]):not([data-yk="Goal"]):not([data-yk="Kana"]):not([data-yk="KanaWords"]):not([data-yk="KanaWrite"]):not([data-yk="Listening"]):not([data-yk="Main"]):not([data-yk="Mock"]):not([data-yk="MockFull"]):not([data-yk="MockRun"]):not([data-yk="Notebook"]):not([data-yk="Readiness"]):not([data-yk="Reading"]):not([data-yk="Review"]):not([data-yk="Scene"]):not([data-yk="Star"]):not([data-yk="Teach"]):not([data-yk="Today"]):not([data-yk="WeekTest"]):not([data-yk="Write"]))) { min-height: 792px; }

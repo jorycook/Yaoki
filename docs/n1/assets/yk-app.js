@@ -199,9 +199,10 @@
     root.classList.toggle('yk-sideways', !!sideways);
   }
   /* ---------- the desktop's sidebar ---------- */
-  /* The sidebar (index.html) is a mirror of the tab bar inside the pane: the same four places, with the labels, the one that is
+  /* The sidebar (index.html) is a mirror of the tab bar inside the pane: the same places, with the labels, the one that is
      current and the ones that are not open yet read off the pane's own tab bar, and a click on a sidebar item clicks the pane's
-     one, so the screens' own handlers run. On a screen without the tab bar (a lesson, a mock, the goal) the items wait, as they do
+     one, so the screens' own handlers run. A place the tab bar gains that index.html does not list gets an item made from the
+     tab itself (mirrorTabs). On a screen without the tab bar (a lesson, a mock, the goal) the items wait, as they do
      on the phone, and the note under them says how to come back. The Menu item opens the app's menu (Shell.dc.html) */
   var sideNav = document.querySelector('[data-app-nav]');
   var sideNote = document.querySelector('[data-app-note]');
@@ -218,6 +219,36 @@
     var tabs = stage.querySelector('nav[aria-label="Main"]');
     return tabs ? tabs.querySelector('a[href="' + name + '.dc.html"]') : null;
   }
+  /* a place the tab bar has and the sidebar was not written with (a tab the app gains later) gets an item of its own, with the
+     tab's own icon and label, where the tab bar has it: after the item of the tab before it */
+  function mirrorTabs(tabs) {
+    var prev = null;
+    /* the items as the page has them now */
+    sideItems = Array.prototype.slice.call(sideNav.querySelectorAll('[data-tab]'));
+    Array.prototype.forEach.call(tabs.querySelectorAll('a[href$=".dc.html"]'), function (src) {
+      var name = src.getAttribute('href').replace(/\.dc\.html$/, '');
+      var item = null;
+      for (var i = 0; i < sideItems.length; i++) if (sideItems[i].getAttribute('data-tab') === name) item = sideItems[i];
+      if (!item) {
+        item = document.createElement('button');
+        item.type = 'button';
+        item.setAttribute('data-tab', name);
+        var icon = src.querySelector('svg');
+        if (icon) {
+          icon = icon.cloneNode(true);
+          ['width', 'height', 'style', 'class'].forEach(function (k) { icon.removeAttribute(k); });
+          icon.setAttribute('aria-hidden', 'true');
+          item.appendChild(icon);
+        }
+        var label = document.createElement('span');
+        label.textContent = (src.textContent || '').trim() || name;
+        item.appendChild(label);
+        sideNav.insertBefore(item, prev ? prev.nextSibling : sideNav.firstChild);
+        sideItems.push(item);
+      }
+      prev = item;
+    });
+  }
   var syncPending = false;
   function syncSide() {
     syncPending = false;
@@ -232,6 +263,8 @@
       }
     }
     if (!sideNav || !root.classList.contains('yk-desk')) return;
+    var bar = stage.querySelector('nav[aria-label="Main"]');
+    if (bar) mirrorTabs(bar);
     var any = false;
     sideItems.forEach(function (a) {
       var src = paneTab(a.getAttribute('data-tab'));
@@ -487,7 +520,7 @@
      button does), else it goes back to the place the sidebar left (Path after Notebook). While there is such a way back the app
      keeps one entry of its own on top of the page's history for Back to take, and takes it again if a way back is still there;
      with none, Back leaves the app as on any page. Off in the checks' test mode (yktest), unless the address asks (ykback). */
-  var TITLES = { Goal: 'Your goal', Main: 'Path', Today: 'Today', Teach: 'Lesson', Compare: 'Compare', Drill: 'Drill', Star: 'Drill', Exam: 'Exam practice', Scene: 'Kanji', Reading: 'Reading', Listening: 'Listening', WeekTest: 'Week test', Notebook: 'Notebook', Review: 'Review', Mock: 'Mock exam', MockRun: 'Mock exam', MockFull: 'Mock exam', Readiness: 'Readiness', Kana: 'Kana', KanaWrite: 'Writing', KanaWords: 'Words', Extras: 'Extras', Install: 'Add to Home Screen' };
+  var TITLES = { Goal: 'Your goal', Main: 'Path', Today: 'Today', Teach: 'Lesson', Compare: 'Compare', Drill: 'Drill', Star: 'Drill', Exam: 'Exam practice', Scene: 'Kanji', Reading: 'Reading', Listening: 'Listening', WeekTest: 'Week test', Notebook: 'Notebook', Review: 'Review', Mock: 'Mock exam', MockRun: 'Mock exam', MockFull: 'Mock exam', Readiness: 'Readiness', Kana: 'Kana', KanaWrite: 'Writing', KanaWords: 'Words', Extras: 'Games', GameMatch: 'Kanji match', GameCatch: 'Listening catch', GameBuild: 'Sentence builder', GameParts: 'Kanji parts', Install: 'Add to Home Screen' };
   var baseTitle = document.title;
   var BACK = !!(window.history && history.pushState) && (!TEST || query.has('ykback'));
   var held = false;
@@ -532,6 +565,11 @@
   }
   function arrive(name) {
     var t = TITLES[name];
+    /* a place of the tab bar not named above (a tab the app gains later) is called what its tab says */
+    if (!t && tabsShown()) {
+      var here = stage.querySelector('nav[aria-label="Main"] a[aria-current="page"]');
+      if (here && here.getAttribute('href') === name + '.dc.html') t = (here.textContent || '').trim();
+    }
     document.title = t ? t + ' · ' + baseTitle : baseTitle;
     if (tabsShown()) {
       if (curTab && curTab !== name && !backing) prevTab = curTab;

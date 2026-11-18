@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kanji parts</title>
+<script src="./support.js"></script>
+<script src="./sound.js"></script>
+<script src="./course-n2.js"></script>
+<script src="./course-kana.js"></script>
+<script src="./course-n5.js"></script>
+<script src="./course-n4.js"></script>
+<script src="./course-n3.js"></script>
+<script src="./course.js"></script>
+<script src="./strokes.js"></script>
+<script src="./kanji-parts.js"></script>
+<script src="./yk-game.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
+@keyframes yk-fade{from{opacity:0}to{opacity:1}}
+@keyframes yk-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes yk-pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:none;opacity:1}}
+@keyframes yk-fly{0%{transform:translateY(60px) scale(.7);opacity:0}70%{transform:translateY(-4px) scale(1.04);opacity:1}100%{transform:none;opacity:1}}
+@keyframes yk-shake{0%,100%{transform:none}20%{transform:translateX(-7px) rotate(-3deg)}40%{transform:translateX(6px) rotate(2deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@keyframes yk-glow{0%{box-shadow:0 0 0 0 rgba(11,122,107,.55)}100%{box-shadow:0 0 0 18px rgba(11,122,107,0)}}
+@keyframes yk-gone{from{opacity:1}to{opacity:0}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:1ms !important;animation-delay:0ms !important;transition-duration:1ms !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; gap: 10px; overflow: hidden; background-image: linear-gradient(#E6E9F3 1px, transparent 1px), linear-gradient(90deg, #E6E9F3 1px, transparent 1px); background-size: 26px 26px">
+
+<div style="display: flex; align-items: center; gap: 4px; height: 44px; flex-shrink: 0">
+<a href="{{ backHref }}" onClick="{{ close }}" aria-label="Close the game" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
+<div style="flex-grow: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; line-height: 1.2">
+<div lang="ja" style="font-size: 16px; font-weight: 800">{{ titleJa }}</div>
+<div style="font-size: 11px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+<button onClick="{{ toggleSound }}" aria-pressed="{{ soundOn }}" aria-label="Sound" style="width: 44px; height: 44px; margin-right: -6px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center"><sc-if value="{{ soundOn }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></sc-if><sc-if value="{{ soundOff }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA1B5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg></sc-if></button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<div style="flex-grow: 1; display: grid; grid-template-columns: repeat({{ size }}, minmax(0, 1fr)); gap: 5px" role="img" aria-label="{{ trackAria }}">
+<sc-for list="{{ track }}" as="t" hint-placeholder-count="4">
+<div style="height: 8px; border-radius: 4px; transition: background 300ms; background: {{ t.bg }}"></div>
+</sc-for>
+</div>
+<div style="font-size: 12px; font-weight: 800; color: #5A6382; white-space: nowrap; font-variant-numeric: tabular-nums">{{ countLine }}</div>
+</div>
+
+<div style="flex-shrink: 0; padding: 12px 14px; border-radius: 20px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; display: flex; align-items: center; gap: 12px">
+<div lang="ja" style="display: flex; align-items: center; gap: 2px; font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-size: 34px; font-weight: 600; line-height: 1">
+<sc-for list="{{ wordSegs }}" as="w" hint-placeholder-count="2">
+<sc-if value="{{ w.plain }}" hint-placeholder-val="{{ true }}"><span>{{ w.t }}</span></sc-if>
+<sc-if value="{{ w.gap }}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; box-sizing: border-box; border-radius: 10px; border: {{ w.border }}; background: {{ w.bg }}; color: {{ w.ink }}; font-size: {{ w.size }}">{{ w.t }}</span></sc-if>
+</sc-for>
+</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<div lang="ja" style="font-size: 15px; font-weight: 800; color: #2F4FD0">{{ wordReading }}</div>
+<div style="font-size: 12px; font-weight: 600; color: #5A6382; line-height: 1.35">{{ wordGloss }}</div>
+</div>
+</div>
+
+<div style="flex-shrink: 0; display: flex; align-items: center; gap: 14px; padding: 4px 6px">
+<div style="position: relative; width: 168px; height: 168px; flex-shrink: 0; box-sizing: border-box; border-radius: 20px; background: #FFFFFF; border: 2px solid {{ boxInk }}; animation: {{ boxAnim }}; background-image: linear-gradient(90deg, transparent calc(50% - 1px), #EEF0F6 calc(50% - 1px), #EEF0F6 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(transparent calc(50% - 1px), #EEF0F6 calc(50% - 1px), #EEF0F6 calc(50% + 1px), transparent calc(50% + 1px))" role="img" aria-label="{{ boxAria }}">
+<sc-for list="{{ layers }}" as="l" hint-placeholder-count="2">
+<div ref="{{ l.ref }}" style="position: absolute; left: 8px; top: 8px; width: 148px; height: 148px; animation: {{ l.anim }}"></div>
+</sc-for>
+<sc-if value="{{ whole }}" hint-placeholder-val="{{ false }}"><div ref="{{ wholeRef }}" style="position: absolute; left: 8px; top: 8px; width: 148px; height: 148px"></div></sc-if>
+<sc-if value="{{ empty }}" hint-placeholder-val="{{ true }}"><div aria-hidden="true" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 54px; font-weight: 800; color: #DDE1EC">?</div></sc-if>
+</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 6px">
+<dc-import name="Yaoki" mood="{{ mood }}" beat="{{ beat }}" size="{{ 86 }}" hint-size="86px,86px"></dc-import>
+<div lang="ja" style="font-size: 13px; font-weight: 800; color: #5A6382; text-align: center">{{ partsLine }}</div>
+</div>
+</div>
+
+<sc-if value="{{ building }}" hint-placeholder-val="{{ true }}">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0"><span lang="ja">部品をえらぶ</span>　Tap the two parts that make it</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ tray }}" as="t" hint-placeholder-count="4">
+<button onClick="{{ t.tap }}" disabled="{{ t.off }}" aria-label="{{ t.aria }}" style="height: 80px; padding: 8px; box-sizing: border-box; border-radius: 16px; border: {{ t.border }}; background: {{ t.bg }}; box-shadow: {{ t.shadow }}; opacity: {{ t.dim }}; animation: {{ t.anim }}"><div ref="{{ t.ref }}" style="width: 100%; height: 100%; pointer-events: none"></div></button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ reading }}" hint-placeholder-val="{{ false }}">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; animation: yk-pop 300ms ease-out both">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ readAsk }}</div>
+<div style="display: grid; grid-template-columns: repeat({{ optionCount }}, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ options }}" as="o" hint-placeholder-count="3">
+<button onClick="{{ o.tap }}" disabled="{{ o.off }}" aria-label="{{ o.aria }}" lang="ja" style="height: 56px; border-radius: 16px; font-size: 20px; font-weight: 800; border: {{ o.border }}; background: {{ o.bg }}; box-shadow: {{ o.shadow }}; color: {{ o.ink }}; animation: {{ o.anim }}">{{ o.text }}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<div style="flex-grow: 1"></div>
+
+<div role="status" style="flex-shrink: 0; min-height: 52px; box-sizing: border-box; padding: 9px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; justify-content: center; gap: 2px">
+<div lang="ja" style="font-size: 15px; font-weight: 800; color: {{ sayInk }}">{{ sayJa }}</div>
+<div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.4">{{ sayEn }}</div>
+</div>
+<sc-if value="{{ canNext }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ next }}" style="flex-shrink: 0; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px; animation: yk-pop 300ms ease-out both">{{ nextLabel }}</button>
+</sc-if>
+
+<sc-if value="{{ intro }}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 200ms ease-out">
+<div style="padding: 22px 20px 34px; border-radius: 28px 28px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 280ms ease-out">
+<div style="display: flex; align-items: center; gap: 14px">
+<dc-import name="Yaoki" mood="happy" beat="{{ 1 }}" size="{{ 74 }}" hint-size="74px,74px"></dc-import>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ fromLine }}</div>
+<h1 lang="ja" style="margin: 0; font-size: 24px; font-weight: 800">{{ titleJa }}</h1>
+<div style="font-size: 13px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
+</div>
+</div>
+<div style="font-size: 14px; font-weight: 500; line-height: 1.55">Each kanji of a word is missing. Tap the two parts it is made of; two of the four belong to other kanji. Then pick how it is read in its word.</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ chipCount }}</div>
+<div style="padding: 4px 10px; border-radius: 10px; background: #FFF4D6; color: #1B2440; font-size: 12px; font-weight: 800">はなまる: no wrong part, no wrong reading</div>
+</div>
+<button onClick="{{ start }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">はじめる</span>　Start</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 220ms ease-out">
+<div style="animation: yk-up 320ms ease-out">
+<dc-import name="GameEnd" mark="{{ mark }}" kind="parts" level="{{ level }}" stats="{{ endStats }}" slips="{{ slips }}" note="{{ endNote }}" again="{{ again }}" back="{{ close }}" back-label="{{ backLabel }}" hint-size="390px,470px"></dc-import>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"go":{"editor":null},"app":{"editor":null},"save":{"editor":null},"miss":{"editor":null},"$preview":{"width":390,"height":844}}'>
+/* 漢字パズル Kanji parts: a kanji of the day's words is missing from its word. Four parts are offered, drawn from the
+   strokes as each sits in its kanji: the two that make it and two from other kanji of the week. A right part flies into
+   the box and takes its place; a wrong one shakes (a slip). With both in, the kanji is written over them stroke by
+   stroke, and the learner picks how it is read in this word (a wrong reading is a slip too); then the word is said.
+   No lives, no clock score; a round with no slips gets a はなまる. Not at the kana level.
+   The round comes from app.game ({ kind, level, unit, day, from }); on its own the artboard plays N2 week 3, day 4. */
+const BUILT = 1300;
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+/* the round the launcher picked (its seed), or a new one */
+const g = props.app && props.app.game;
+this.state = this.fresh(g && g.seed ? g.seed : window.ykGame ? window.ykGame.seed() : 1);
+}
+fresh(seed) {
+const G = window.ykGame;
+const round = G ? G.round('parts', this.source(), seed) : null;
+return { seed, round, phase: 'intro', at: 0, step: 'build', placed: {}, order: [], wrongs: {}, picked: -1, wrongReads: {}, slips: 0, firsts: 0, mood: 'idle', beat: 0, say: null, saved: false, last: -1 };
+}
+source() {
+const g = (this.props.app && this.props.app.game) || null;
+return g && g.kind === 'parts' ? g : { kind: 'parts', level: 'N2', unit: 3, day: 4, from: 'Extras' };
+}
+componentDidMount() {
+const C = window.ykCourse;
+const src = this.source();
+if (C && C.needSound) C.needSound(src.level, src.unit);
+}
+componentWillUnmount() {
+clearTimeout(this.timer);
+}
+sound() {
+const app = this.props.app;
+return !app || app.fx !== false;
+}
+fx(kind) {
+if (window.ykGame && this.sound()) window.ykGame.fx(kind);
+}
+puzzle() {
+const r = this.state.round;
+return r ? r.puzzles[this.state.at] : null;
+}
+start() {
+if (window.ykSound) window.ykSound.unlock();
+this.setState({ phase: 'play', say: { ja: '部品をさがそう', en: 'Which two parts make the missing kanji?' } });
+}
+pick(k) {
+const s = this.state;
+const p = this.puzzle();
+const part = p.tray[k];
+if (s.phase !== 'play' || s.step !== 'build' || s.placed[k] || s.wrongs[k]) return;
+if (!part.right) {
+this.fx('wrong');
+const first = !Object.keys(s.wrongs).length;
+this.setState({ wrongs: { ...s.wrongs, [k]: 1 }, slips: s.slips + (first ? 1 : 0), mood: 'oops', beat: s.beat + 1, say: { ja: 'それは ちがう部品', en: 'That part belongs to ' + part.src + '. Try another.' } });
+return;
+}
+const placed = { ...s.placed, [k]: 1 };
+this.fx('pop');
+const both = Object.keys(placed).length === 2;
+this.setState({ placed, order: s.order.concat([k]), last: k, mood: both ? 'happy' : 'idle', beat: both ? s.beat + 1 : s.beat, say: both ? { ja: p.kanji + '！', en: p.kanji + ': ' + (p.meaning || '') } : { ja: 'いいね、あと一つ', en: 'One more part.' } });
+if (both) {
+clearTimeout(this.timer);
+setTimeout(() => this.fx('right'), 200);
+this.timer = setTimeout(() => this.setState({ step: 'read', mood: 'idle', say: { ja: '読み方は？', en: 'How is ' + p.kanji + ' read in ' + p.word.word + '?' } }), BUILT);
+}
+}
+read(k) {
+const s = this.state;
+const p = this.puzzle();
+if (s.step !== 'read' || s.wrongReads[k]) return;
+if (k !== p.answer) {
+this.fx('wrong');
+const first = !Object.keys(s.wrongReads).length;
+this.setState({ wrongReads: { ...s.wrongReads, [k]: 1 }, slips: s.slips + (first ? 1 : 0), mood: 'oops', beat: s.beat + 1, say: { ja: 'おしい！', en: p.options[k] + ' is not how it is read here. Try again.' } });
+return;
+}
+const clean = !Object.keys(s.wrongs).length && !Object.keys(s.wrongReads).length;
+if (this.sound() && window.ykSound && p.word.clip) window.ykSound.tap(p.word.clip);
+this.setState({ step: 'done', picked: k, firsts: s.firsts + (clean ? 1 : 0), mood: 'cheer', beat: s.beat + 1, say: { ja: p.word.word + '（' + p.word.reading + '）', en: p.kanji + ' is read ' + p.reading + ' here. ' + p.word.word + ': ' + p.word.gloss + '.' } });
+}
+next() {
+const s = this.state;
+if (s.at + 1 >= s.round.puzzles.length) { this.finish(); return; }
+this.setState({ at: s.at + 1, step: 'build', placed: {}, order: [], wrongs: {}, picked: -1, wrongReads: {}, mood: 'idle', last: -1, say: { ja: 'つぎの漢字', en: 'The next kanji: which two parts make it?' } });
+}
+finish() {
+const s = this.state;
+const G = window.ykGame;
+const C = window.ykCourse;
+const mark = G.mark(s.slips);
+this.fx(mark === 'hanamaru' ? 'win' : 'stamp');
+this.setState({ phase: 'end', mood: 'cheer', beat: s.beat + 1 });
+if (!s.saved && this.props.save && this.props.app) {
+this.props.save({ play: G.record(this.props.app.play, this.source(), mark, C.today(C.now())) });
+this.setState({ saved: true });
+}
+}
+renderVals() {
+const s = this.state;
+const G = window.ykGame;
+const src = this.source();
+const r = s.round || { puzzles: [] };
+const p = r.puzzles[s.at] || null;
+const info = G ? G.info('parts', src.level) : { ja: '漢字パズル', en: 'Kanji parts', line: '' };
+const nav = (to) => (e) => { const go = this.props.go; if (go) { e.preventDefault(); clearTimeout(this.timer); if (window.ykSound) window.ykSound.stop(); go(to); } };
+const from = src.from || 'Extras';
+const playing = s.phase === 'play' && !!p;
+const built = !!p && Object.keys(s.placed).length === 2;
+const known = s.step === 'read' || s.step === 'done';
+const draw = (el, ch, o) => { if (G && el) G.draw(el, ch, o); };
+const tray = p ? p.tray.map((t, k) => {
+const placed = !!s.placed[k];
+const wrong = !!s.wrongs[k];
+return {
+ref: (el) => draw(el, t.src, { only: t.strokes, box: t.box, pad: 10, color: wrong ? '#C7361E' : '#1B2440', width: 5 }),
+off: !playing || s.step !== 'build' || placed || wrong,
+border: placed ? '2px dashed #DDE1EC' : wrong ? '2px solid #C7361E' : '2px solid #1B2440',
+bg: placed ? 'transparent' : wrong ? '#FDEBE6' : '#FFFFFF',
+shadow: placed || wrong ? 'none' : '0 3px 0 #1B2440',
+dim: placed ? '0.25' : wrong ? '0.55' : '1',
+anim: wrong ? 'yk-shake 380ms ease-out' : 'none',
+aria: placed ? 'Part placed' : wrong ? 'Part from another kanji' : 'Part ' + (k + 1),
+tap: () => this.pick(k),
+};
+}) : [];
+/* the parts in the box, each where it sits in the kanji; the kanji written over them once both are in */
+const layers = p ? s.order.map((k) => ({ k, t: p.tray[k] })).map((x) => ({
+ref: (el) => draw(el, p.kanji, { only: x.t.strokes, color: '#2F4FD0', width: 4.6 }),
+anim: built ? 'yk-gone 500ms ' + (BUILT - 600) + 'ms ease-out both' : s.last === x.k ? 'yk-fly 420ms ease-out both' : 'none',
+})) : [];
+const segs = p ? Array.from(p.word.word).map((ch) => ch === p.kanji ? {
+gap: true, plain: false, t: known ? ch : built ? ch : '?',
+border: known || built ? '2px solid #0B7A6B' : '2px dashed #2F4FD0', bg: known || built ? '#E0F3EF' : '#E8ECFB', ink: known || built ? '#1B2440' : '#2F4FD0', size: known || built ? '30px' : '22px',
+} : { gap: false, plain: true, t: ch }) : [];
+const options = p ? p.options.map((o, k) => {
+const right = s.step === 'done' && k === p.answer;
+const wrong = !!s.wrongReads[k];
+return {
+text: o,
+off: s.step !== 'read' || wrong,
+border: right ? '2px solid #0B7A6B' : wrong ? '2px solid #C7361E' : '2px solid #1B2440',
+bg: right ? '#E0F3EF' : wrong ? '#FDEBE6' : '#FFFFFF',
+shadow: wrong ? 'none' : right ? '0 3px 0 #0B7A6B' : '0 3px 0 #1B2440',
+ink: wrong ? '#C7361E' : '#1B2440',
+anim: wrong ? 'yk-shake 380ms ease-out' : right ? 'yk-pop 300ms ease-out both' : 'none',
+aria: o + (right ? ', right' : wrong ? ', not this one' : ''),
+tap: () => this.read(k),
+};
+}) : [];
+const say = s.say || { ja: '漢字を組み立てる', en: info.line };
+const mark = G ? G.mark(s.slips) : 'hanamaru';
+const day = src.day ? 'Day ' + src.day + '’s kanji' : 'Week ' + src.unit + '’s kanji';
+const last = !!p && s.at + 1 >= r.puzzles.length;
+return {
+titleJa: info.ja,
+titleEn: info.en,
+level: src.level,
+size: r.puzzles.length || 4,
+track: r.puzzles.map((x, i) => ({ bg: i < s.at || (i === s.at && s.step === 'done') ? '#0B7A6B' : i === s.at && playing ? '#2F4FD0' : '#DDE1EC' })),
+trackAria: 'Kanji ' + Math.min(r.puzzles.length, s.at + 1) + ' of ' + r.puzzles.length,
+countLine: Math.min(r.puzzles.length, s.at + 1) + ' / ' + r.puzzles.length,
+wordSegs: segs,
+wordReading: p ? (s.step === 'read' ? '？' : p.word.reading) : '',
+wordGloss: p ? p.word.gloss : '',
+tray,
+layers,
+whole: built,
+wholeRef: (el) => draw(el, p ? p.kanji : '', { color: '#1B2440', width: 4.6, anim: 70 }),
+empty: !Object.keys(s.placed).length,
+boxInk: built ? '#0B7A6B' : '#1B2440',
+boxAnim: built ? 'yk-glow 700ms ease-out' : 'none',
+boxAria: built && p ? 'The kanji ' + p.kanji : Object.keys(s.placed).length + ' of 2 parts in place',
+partsLine: built ? '完成！' : Object.keys(s.placed).length + ' / 2',
+building: s.step === 'build',
+reading: known,
+readAsk: p ? '「' + p.word.word + '」の ' + p.kanji + ' の読み方は？ · How is it read in this word?' : '',
+optionCount: p ? p.options.length : 3,
+options,
+mood: s.mood,
+beat: s.beat,
+sayJa: say.ja,
+sayEn: say.en,
+sayInk: s.mood === 'oops' ? '#C7361E' : s.mood === 'happy' || s.mood === 'cheer' ? '#0B7A6B' : '#1B2440',
+canNext: playing && s.step === 'done',
+nextLabel: last ? 'おわり　Finish' : 'つぎへ　Next',
+next: () => this.next(),
+intro: s.phase === 'intro',
+ended: s.phase === 'end',
+fromLine: (src.day ? '今日のゲーム · ' : 'あそぶ · ') + src.level + ' · ' + day,
+chipCount: r.puzzles.length + ' kanji',
+start: () => this.start(),
+mark,
+slips: s.slips,
+endStats: [
+{ value: String(r.puzzles.length), label: 'kanji', ink: '#1B2440' },
+{ value: String(s.firsts), label: 'clean', ink: '#0B7A6B' },
+{ value: String(s.slips), label: s.slips === 1 ? 'slip' : 'slips', ink: s.slips ? '#C7361E' : '#0B7A6B' },
+],
+endNote: 'A slip is a wrong part or a wrong reading tapped first. Games are practice: nothing here counts toward your stamps.',
+again: () => { clearTimeout(this.timer); this.setState(this.fresh(window.ykGame.seed())); },
+backHref: from + '.dc.html',
+close: nav(from),
+backLabel: from === 'Today' ? 'もどる　Today' : 'もどる　Games',
+soundOn: this.sound(),
+soundOff: !this.sound(),
+toggleSound: () => { if (this.props.save) this.props.save({ fx: !this.sound() }); },
+};
+}
+}
+</script>
+</body>
+</html>
