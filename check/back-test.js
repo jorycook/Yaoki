@@ -57,6 +57,25 @@ const ok = (c, m) => { console.log((c ? 'ok   ' : 'FAIL ') + m); if (!c) bad++; 
     ok(await screen() === 'MockRun' && !(await dialog()), 'Back again: the question closes and the mock goes on');
   }
 
+  // the games (the Study app): Back closes a game, to where it was opened from (today's spread or the Games tab), and the tab
+  // names the game; under way, Back is the game's own Close too
+  if (!N1) {
+    const enc = (o) => encodeURIComponent(JSON.stringify(o));
+    for (const [kind, scr, title] of [['match', 'GameMatch', 'Kanji match'], ['catch', 'GameCatch', 'Listening catch'], ['build', 'GameBuild', 'Sentence builder'], ['parts', 'GameParts', 'Kanji parts']]) {
+      for (const from of ['Today', 'Extras']) {
+        await open('&screen=' + scr + '&game=' + enc({ kind, level: 'N2', unit: 1, day: 1, from, seed: 5 }));
+        const t = await page.title();
+        await back();
+        ok(await screen() === from && t === `${title} · ${APP}`, `Back from ${title} ("${t}") opened from ${from}: ${from === 'Extras' ? 'the Games tab' : 'its day'} (${await screen()})`);
+      }
+    }
+    await open('&screen=GameMatch&game=' + enc({ kind: 'match', level: 'N2', unit: 1, day: 1, from: 'Extras', seed: 5 }));
+    await page.click('button:has-text("Start")');
+    await page.waitForTimeout(900);
+    await back();
+    ok(await screen() === 'Extras', `Back in a round under way: the game closes, to the Games tab (${await screen()})`);
+  }
+
   // the menu closes on Back, and the page stays
   await open('&screen=Main');
   await page.click('.app-nav [data-app-menu]');
