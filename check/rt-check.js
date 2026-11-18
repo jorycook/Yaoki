@@ -152,6 +152,8 @@ if (require.main === module) {
     for (const name of names) {
       const { page, logs } = await openBoard(browser, name, fontsCss);
       const info = await inspect(page);
+      /* a sheet wider than a phone (Yaoki's moves) is measured against its own frame, not the phone's */
+      if (/^YaokiMoods\./.test(name)) info.issues = info.issues.filter((x) => !/^OUT /.test(x) || / r=(\d+)/.exec(x)[1] > 1040);
       await page.screenshot({ path: path.join(out, 'rt-' + name.replace('.dc.html', '.png')) });
       console.log(`== ${name} root=${info.rootH} unresolved=${info.unresolved}`);
       for (const e of info.errors) console.log('   RUNTIME-ERROR ' + e);

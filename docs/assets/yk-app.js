@@ -62,7 +62,8 @@
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
       s.screen = query.get('screen') || 'Goal';
-      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), full: json('full', {}), run: query.get('run'), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day', wrote: query.get('wrote') || '', wroteWords: json('words', []) };
+      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), full: json('full', {}), run: query.get('run'), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day', wrote: query.get('wrote') || '', wroteWords: json('words', []), play: json('play', {}), game: json('game', null), fx: query.get('fx') !== '0' };
+      if (query.get('seed')) window.__ykSeed = +query.get('seed');
       if (from.started && !from.plan) from.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit' };
       if (query.get('now')) window.__ykNow = +query.get('now');
     } else {
@@ -101,6 +102,12 @@
       s.set = from.set === 'test' ? 'test' : 'day';
       s.wrote = wroteOk(from.wrote);
       s.wroteWords = wordsOk(from.wroteWords);
+      /* the games: the record of rounds played (each week's marks, each day's game), whether they make sounds, and in
+         test mode the round to open */
+      s.play = playOk(from.play);
+      s.fx = from.fx !== false;
+      var g = obj(from.game);
+      if (g && /^(match|catch|build|parts)$/.test(g.kind) && levels[g.level] && +g.unit > 0) s.game = { kind: g.kind, level: g.level, unit: +g.unit, day: +g.day || 0, from: g.from === 'Today' ? 'Today' : 'Extras', seed: +g.seed || 0 };
       /* version 0.1 kept one sample day as g, k, r and had no plan */
       if (s.started && !s.plan) s.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit', minutes: 30 };
       if (from.g != null && !obj(from.done)) s.done = { u03d4: { g: +from.g || 0, k: +from.k || 0, r: +from.r || 0 } };
@@ -111,11 +118,24 @@
   function remember(s) {
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
-    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock, full: fullKept(s.full), run: s.run || 'mini', wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
+    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock, full: fullKept(s.full), run: s.run || 'mini', wrote: s.wrote || '', wroteWords: s.wroteWords || [], play: s.play || {}, fx: s.fx !== false };
     var text = JSON.stringify(keep);
     keepLevelSound(s.level);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
+  }
+  /* the games' record: { u03: { match: { h, n, at } … }, u03d4: { k, h, at } … }, by week and by day of each level */
+  function playOk(p) {
+    var out = {};
+    Object.keys(obj(p) || {}).forEach(function (k) {
+      var v = obj(p[k]);
+      if (!v || !/^(n\d|kana)?u\d\d(d\d)?$/.test(k)) return;
+      if (/d\d$/.test(k)) { if (/^(match|catch|build|parts)$/.test(v.k)) out[k] = { k: v.k, h: v.h ? 1 : 0, at: dateOk(v.at) ? v.at : '' }; return; }
+      var w = {};
+      ['match', 'catch', 'build', 'parts'].forEach(function (g) { var x = obj(v[g]); if (x) w[g] = { h: x.h ? 1 : 0, n: Math.max(1, +x.n || 1), at: dateOk(x.at) ? x.at : '' }; });
+      out[k] = w;
+    });
+    return out;
   }
   /* a full mock taken again and not handed in yet keeps its last result */
   function fullKept(full) {

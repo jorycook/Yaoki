@@ -197,6 +197,46 @@
     return out;
   };
 
+  /* ---------- readiness (N2) ----------
+     An estimate of the three scores out of 60 the paper reports, from what the learner has done: the latest full mock
+     when there is one (the whole paper in the real format), else the week tests (each saves its right answers by exam
+     area) and the mini mock together. A section with nothing to go on yet is null. Pass: 90 in all and 19 in each. */
+  C.readiness = function (v) {
+    v = v || {};
+    var best = null;
+    Object.keys(v.full || {}).forEach(function (n) {
+      var r = v.full[n];
+      if (r && r.done && r.a && (!best || (r.at || '') >= (best.r.at || ''))) best = { n: +n, r: r };
+    });
+    if (best && C.fullScore) {
+      var f = C.fullScore(best.n, best.r.a);
+      if (f) return { lang: f.lang, read: f.read, listen: f.listen, total: f.total, pass: f.pass, whole: true, from: 'full', mock: best.n, tests: 0, mini: false };
+    }
+    var sec = { lang: [0, 0], read: [0, 0], listen: [0, 0] };
+    var key = function (area) { return area === 'listening' ? 'listen' : area === 'reading' ? 'read' : area === 'vocab' || area === 'grammar' ? 'lang' : null; };
+    var tests = 0;
+    Object.keys(v.tests || {}).forEach(function (id) {
+      var t = v.tests[id];
+      if (C.levelOf(id) !== 'N2' || !t || !t.areas) return;
+      tests += 1;
+      Object.keys(t.areas).forEach(function (a) { var k = key(a); if (k && t.areas[a]) { sec[k][0] += +t.areas[a].right || 0; sec[k][1] += +t.areas[a].of || 0; } });
+    });
+    var mini = v.level === 'N2' && v.mock && v.mock.done && v.mock.a ? v.mock : null;
+    if (mini) for (var n = 1; n <= 12; n++) {
+      var it = C.item('mock' + n);
+      var k = it ? key(C.area(it.type).key) : null;
+      if (!k) continue;
+      sec[k][1] += 1;
+      if (mini.a[n] === it.answer) sec[k][0] += 1;
+    }
+    var of60 = function (x) { return x[1] ? Math.round((x[0] / x[1]) * 60) : null; };
+    var out = { lang: of60(sec.lang), read: of60(sec.read), listen: of60(sec.listen), tests: tests, mini: !!mini, from: tests || mini ? 'work' : 'none', whole: false };
+    out.whole = out.lang != null && out.read != null && out.listen != null;
+    out.total = out.whole ? out.lang + out.read + out.listen : null;
+    out.pass = out.whole && out.total >= 90 && out.lang >= 19 && out.read >= 19 && out.listen >= 19;
+    return out;
+  };
+
   /* ---------- progress ----------
      done[sessionId] = { g: grammar step 0-3 (teach read, drill done, exam-style done), k: scene 0/1, r: reading or listening 0/1 }
      a week test is done when tests[unitId] holds its result */
@@ -293,7 +333,7 @@
      the screens: app (what to show), go (change screen), save (record progress), miss (a wrong answer). */
   C.now = function () { return window.__ykNow || Date.now(); };
   C.fresh = function () {
-    return { screen: 'Goal', started: false, level: null, plans: {}, mocks: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null, wrote: '', wroteWords: [] };
+    return { screen: 'Goal', started: false, level: null, plans: {}, mocks: {}, plan: null, cur: null, done: {}, tests: {}, mistakes: [], tp: 0, set: 'day', mock: null, wrote: '', wroteWords: [], play: {}, game: null, fx: true, stamped: null };
   };
   /* ---------- writing practice ----------
      wrote: every kanji the learner has written three times, as one string; wroteWords: every word written out kanji by
@@ -373,15 +413,30 @@
       run: state.run || 'mini',
       wrote: state.wrote || '',
       wroteWords: state.wroteWords || [],
+      /* the games (yk-game.js): the round to play ({ kind, level, unit, day, from }), the record of rounds played, and
+         whether the games make sounds; stamped: the session stamped last ({ id, at }), for the week path to stamp it in */
+      game: state.game || null,
+      play: state.play || {},
+      fx: state.fx !== false,
+      stamped: state.stamped || null,
       level: LEVEL,
       levelName: C.levelName(LEVEL),
       kana: LEVEL === 'KANA',
       levels: C.levels()
     };
   };
+  /* how a screen comes in: deeper into a day or a game slides in from the right (fwd), back out from the left (back),
+     between the tabs it fades (swap). Depth: the tabs and the goal 0, a day, a week test, a mock's result 1, a lesson, a
+     game or a mock run 2 */
+  var DEPTH = { Goal: 0, Main: 0, Notebook: 0, Mock: 0, Readiness: 0, Extras: 0, Today: 1, WeekTest: 1, MockFull: 1, Review: 1 };
+  C.enter = function (from, to) {
+    var a = from in DEPTH ? DEPTH[from] : 2;
+    var b = to in DEPTH ? DEPTH[to] : 2;
+    return b > a ? 'fwd' : b < a ? 'back' : 'swap';
+  };
   C.handlers = function (get, set) {
     return {
-      go: function (to) { set(function (st) { return { screen: to, started: st.started || to !== 'Goal' }; }); },
+      go: function (to) { set(function (st) { return { screen: to, started: st.started || to !== 'Goal', enter: C.enter(st.screen, to) }; }); },
       /* change level: this level's plan is put aside and the other level's comes back (or its goal screen, the first time) */
       level: function (lv) {
         set(function (st) {
@@ -424,9 +479,13 @@
             Object.keys(patch.prog).forEach(function (k) { next[k] = Math.max(had[k] || 0, patch.prog[k]); });
             done[sid] = next;
             out.done = done;
+            /* the day just stamped: the week path stamps it in when it next shows */
+            var ses = C.session(sid);
+            if (ses && !C.complete(st, ses) && C.complete(Object.assign({}, st, { done: done }), ses)) out.stamped = { id: sid, at: C.now() };
           }
           if (patch.result) {
             var tests = Object.assign({}, st.tests || {});
+            if (!tests[patch.result.id]) out.stamped = { id: patch.result.id, at: C.now() };
             tests[patch.result.id] = patch.result;
             out.tests = tests;
           }
