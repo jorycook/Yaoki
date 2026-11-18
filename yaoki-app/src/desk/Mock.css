@@ -18,7 +18,10 @@
     overflow-y: auto !important;
   }
   html.yk-desk [data-yk="Mock"] > [data-d="bar"] { grid-area: bar; padding: 0 !important; }
-  html.yk-desk [data-yk="Mock"] > [data-d="lede"] { grid-area: lede; margin: 2px 0 0 !important; max-width: 720px; font-size: 14px !important; }
+  /* the Study app's scrolling box under the bar (on the phone the papers scroll under it): here its parts join the grid, and
+     the tab itself scrolls */
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] { display: contents !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="lede"], html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="lede"] { grid-area: lede; margin: 2px 0 0 !important; max-width: 720px; font-size: 14px !important; }
   html.yk-desk [data-yk="Mock"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Mock"] > nav { grid-area: nav; margin: 16px -28px -24px; }
 
@@ -27,12 +30,12 @@
     grid-template-rows: auto auto auto minmax(0, 1fr) auto;
     grid-template-areas: "bar bar" "lede lede" "list card" ". ." "nav nav";
   }
-  html.yk-desk [data-yk="Mock"] > [data-d="card"] { grid-area: card; align-self: start; margin: 18px 0 0 !important; }
-  html.yk-desk [data-yk="Mock"] > [data-d="list"] { grid-area: list; align-self: start; display: flex !important; flex-direction: column; gap: 14px; margin-top: 18px; min-width: 0; }
-  html.yk-desk [data-yk="Mock"] > [data-d="list"] > * { margin: 0 !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="card"] { grid-area: card; align-self: start; margin: 18px 0 0 !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="list"] { grid-area: list; align-self: start; display: flex !important; flex-direction: column; gap: 14px; margin-top: 18px; min-width: 0; }
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="list"] > * { margin: 0 !important; }
   /* a level with no full papers yet: their place says what will appear in it, a dashed panel as tall as the mini mock's card with
      its lines in the middle, as the Notebook draws its empty list */
-  html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="list"]))::after {
+  html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="scroll"] > [data-d="list"]))::after {
     content: '本番の模試　Full papers\A \A Each full paper will be listed here,\A with its sections and its time.';
     white-space: pre-line; grid-area: list; align-self: stretch; display: grid; place-content: center; text-align: center; box-sizing: border-box;
     margin-top: 18px; padding: 24px max(24px, calc(50% - 220px)); border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;

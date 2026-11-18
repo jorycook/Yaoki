@@ -1,0 +1,11 @@
+/* MockFull, a full mock's result (the Study app's N2 papers). The phone: a dark band with the paper's name, then the estimated
+   total, the scoring sections, the questions by type and the two actions (Answers, Notebook), the middle scrolling. Here the band
+   runs across the pane, its back arrow and title lined up with the page under it, and the rest is one column as wide as a result
+   reads well (at most 1000 px) in the middle of the pane, so the bars and the two lists of question types keep a readable width.
+   Hooks: head (the band), main (the page under it). */
+@container yk (min-width: 880px) {
+  /* the band runs the whole width of the pane (not the 1240 px a screen keeps to), as the mock's own band does */
+  html.yk-desk #yk-stage .yk-screen > .sc-host > [data-yk="MockFull"] { max-width: none; }
+  html.yk-desk [data-yk="MockFull"] > [data-d="head"] { padding-left: max(28px, calc((100% - 1000px) / 2 + 18px)) !important; padding-right: 28px !important; }
+  html.yk-desk [data-yk="MockFull"] > [data-d="main"] { width: 100%; max-width: 1000px; margin: 0 auto; box-sizing: border-box; padding: 16px 28px 24px !important; }
+}
