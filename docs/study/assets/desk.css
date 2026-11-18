@@ -1435,7 +1435,10 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
     overflow-y: auto !important;
   }
   html.yk-desk [data-yk="Mock"] > [data-d="bar"] { grid-area: bar; padding: 0 !important; }
-  html.yk-desk [data-yk="Mock"] > [data-d="lede"] { grid-area: lede; margin: 2px 0 0 !important; max-width: 720px; font-size: 14px !important; }
+  /* the Study app's scrolling box under the bar (on the phone the papers scroll under it): here its parts join the grid, and
+     the tab itself scrolls */
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] { display: contents !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="lede"], html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="lede"] { grid-area: lede; margin: 2px 0 0 !important; max-width: 720px; font-size: 14px !important; }
   html.yk-desk [data-yk="Mock"] > [data-d="gap"] { display: none !important; }
   html.yk-desk [data-yk="Mock"] > nav { grid-area: nav; margin: 16px -28px -24px; }
 
@@ -1444,12 +1447,12 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
     grid-template-rows: auto auto auto minmax(0, 1fr) auto;
     grid-template-areas: "bar bar" "lede lede" "list card" ". ." "nav nav";
   }
-  html.yk-desk [data-yk="Mock"] > [data-d="card"] { grid-area: card; align-self: start; margin: 18px 0 0 !important; }
-  html.yk-desk [data-yk="Mock"] > [data-d="list"] { grid-area: list; align-self: start; display: flex !important; flex-direction: column; gap: 14px; margin-top: 18px; min-width: 0; }
-  html.yk-desk [data-yk="Mock"] > [data-d="list"] > * { margin: 0 !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="card"] { grid-area: card; align-self: start; margin: 18px 0 0 !important; }
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="list"] { grid-area: list; align-self: start; display: flex !important; flex-direction: column; gap: 14px; margin-top: 18px; min-width: 0; }
+  html.yk-desk [data-yk="Mock"] > [data-d="scroll"] > [data-d="list"] > * { margin: 0 !important; }
   /* a level with no full papers yet: their place says what will appear in it, a dashed panel as tall as the mini mock's card with
      its lines in the middle, as the Notebook draws its empty list */
-  html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="list"]))::after {
+  html.yk-desk [data-yk="Mock"]:not(:has(> [data-d="body"])):not(:has(> [data-d="scroll"] > [data-d="list"]))::after {
     content: '本番の模試　Full papers\A \A Each full paper will be listed here,\A with its sections and its time.';
     white-space: pre-line; grid-area: list; align-self: stretch; display: grid; place-content: center; text-align: center; box-sizing: border-box;
     margin-top: 18px; padding: 24px max(24px, calc(50% - 220px)); border-radius: 20px; border: 2px dashed #C9D0E3; color: #5A6382; font-size: 14px; font-weight: 700; line-height: 1.55;
@@ -1475,6 +1478,19 @@ html.yk-desk #yk-stage :is([role="dialog"], .yk-sheet)[tabindex="-1"]:focus-visi
   html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="row"] { grid-column: 1; align-self: start; }
   html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="card"] { grid-column: 2; grid-row: 1 / -1; align-self: start; }
   html.yk-desk [data-yk="Mock"] > [data-d="body"] > [data-d="none"] { grid-column: 1 / -1; max-width: 640px; }
+}
+
+/* ---------- MockFull.css ---------- */
+/* MockFull, a full mock's result (the Study app's N2 papers). The phone: a dark band with the paper's name, then the estimated
+   total, the scoring sections, the questions by type and the two actions (Answers, Notebook), the middle scrolling. Here the band
+   runs across the pane, its back arrow and title lined up with the page under it, and the rest is one column as wide as a result
+   reads well (at most 1000 px) in the middle of the pane, so the bars and the two lists of question types keep a readable width.
+   Hooks: head (the band), main (the page under it). */
+@container yk (min-width: 880px) {
+  /* the band runs the whole width of the pane (not the 1240 px a screen keeps to), as the mock's own band does */
+  html.yk-desk #yk-stage .yk-screen > .sc-host > [data-yk="MockFull"] { max-width: none; }
+  html.yk-desk [data-yk="MockFull"] > [data-d="head"] { padding-left: max(28px, calc((100% - 1000px) / 2 + 18px)) !important; padding-right: 28px !important; }
+  html.yk-desk [data-yk="MockFull"] > [data-d="main"] { width: 100%; max-width: 1000px; margin: 0 auto; box-sizing: border-box; padding: 16px 28px 24px !important; }
 }
 
 /* ---------- MockRun.css ---------- */

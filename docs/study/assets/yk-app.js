@@ -80,7 +80,7 @@
     if (TEST) {
       var json = function (name, fallback) { try { return JSON.parse(query.get(name) || 'null') || fallback; } catch (e) { return fallback; } };
       s.screen = query.get('screen') || 'Goal';
-      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day', wrote: query.get('wrote') || '', wroteWords: json('words', []) };
+      from = { started: s.screen !== 'Goal', plan: json('plan', null), done: json('done', {}), tests: json('tests', {}), mistakes: json('m', []), mock: json('mock', null), full: json('full', {}), run: query.get('run'), level: query.get('level'), plans: json('plans', {}), cur: query.get('cur'), tp: +(query.get('tp') || 0), set: query.get('set') || 'day', wrote: query.get('wrote') || '', wroteWords: json('words', []) };
       if (from.started && !from.plan) from.plan = { start: C.today(C.now()), exam: '2026-12-06', pace: 'fit' };
       if (query.get('now')) window.__ykNow = +query.get('now');
     } else {
@@ -110,6 +110,10 @@
       s.mock = obj(from.mock) && from.mock.done ? from.mock : null;
       s.mocks = {};
       Object.keys(obj(from.mocks) || {}).forEach(function (k) { var m = from.mocks[k]; if (levels[k] && obj(m) && m.done) s.mocks[k] = m; });
+      /* the full mocks' results (N2), by number, and the mock the run screen was last on */
+      s.full = {};
+      Object.keys(obj(from.full) || {}).forEach(function (k) { var r = from.full[k]; if (/^[12]$/.test(k) && obj(r) && r.done && obj(r.a)) s.full[k] = { a: r.a, used: Array.isArray(r.used) ? r.used : [null], timeUp: Array.isArray(r.timeUp) ? r.timeUp : [], done: true, at: dateOk(r.at) ? r.at : '' }; });
+      s.run = from.run === 1 || from.run === '1' ? 1 : from.run === 2 || from.run === '2' ? 2 : 'mini';
       if (typeof from.cur === 'string' && C.session(from.cur)) s.cur = from.cur;
       s.tp = from.tp === 1 ? 1 : 0;
       s.set = from.set === 'test' ? 'test' : 'day';
@@ -125,17 +129,23 @@
   function remember(s) {
     if (TEST || !canSave) return;
     /* a second attempt at the mini mock that is still open is not a result yet */
-    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock, wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
+    var keep = { v: 2, started: !!s.started, level: s.level || null, plans: s.plans || {}, mocks: s.mocks || {}, plan: s.plan, cur: s.cur, done: s.done, tests: s.tests, mistakes: s.mistakes, mock: s.mock && s.mock.again ? Object.assign({}, s.mock, { again: false }) : s.mock, full: fullKept(s.full), run: s.run || 'mini', wrote: s.wrote || '', wroteWords: s.wroteWords || [] };
     var text = JSON.stringify(keep);
     keepLevelSound(s.level);
     if (text === lastSaved) return;
     try { localStorage.setItem(KEY, text); lastSaved = text; } catch (e) { canSave = false; }
   }
+  /* a full mock taken again and not handed in yet keeps its last result */
+  function fullKept(full) {
+    var out = {};
+    Object.keys(full || {}).forEach(function (k) { var r = full[k]; if (r && r.done) out[k] = r.again ? Object.assign({}, r, { again: false }) : r; });
+    return out;
+  }
   /* the offline copy stores each level's sound only once that level is chosen (see sw.js) */
   var soundAsked = '';
   function keepLevelSound(level) {
     var lv = String(level || '').toLowerCase();
-    if (!/^(n[345]|kana)$/.test(lv) || lv === soundAsked) return;
+    if (!/^(n[2345]|kana)$/.test(lv) || lv === soundAsked) return;
     try {
       var sw = navigator.serviceWorker && navigator.serviceWorker.controller;
       if (sw) { sw.postMessage({ keepLevel: lv }); soundAsked = lv; }
