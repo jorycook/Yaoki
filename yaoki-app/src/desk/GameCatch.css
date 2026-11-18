@@ -1,0 +1,110 @@
+/* Listening catch (聞き取りキャッチ) on a desktop, in the games' frame (_games.css: the top, the board's box, the intro and the
+   result as dialogs). The board in three columns: on the left what is heard (the wave, もう一度 and 文字で; without sound, the
+   reading to find, large), in the middle the field the three cards fall in, as tall as the board, onto Yaoki at its foot, and on
+   the right Yaoki's words, at his height. The field is the phone's, larger: the cards, their words, Yaoki, the ground and the
+   squares grow by one factor (--ct-z, in steps by the board's box), the three lanes share the field's width evenly, and the cards
+   fall the field's height (own keyframes: from above the field to Yaoki's head, in the phone's time), so a card still lands on
+   Yaoki when it is missed. The outlines and the shadows keep the app's 2 px and 4 px.
+   Hooks: the frame's (top, bar, track, board, intro, end); listen (the strip of what is heard), field, ground, drop (a falling
+   card's box), yaoki (his place at the foot of the field), say (his words: the frame's bubble).
+   The keyboard: 1, 2 and 3 catch the cards, left to right (data-k="choice" on each card's word, which is never disabled: a card
+   turned away keeps the others' numbers); Space plays the word again (data-k="play" on もう一度); Enter starts and, at the result,
+   goes back (the frame's). Where there is a keyboard, the cards show their keys and もう一度 shows Space. */
+@container yk (min-width: 880px) {
+  /* the board: what is heard | the field | Yaoki's words; the field takes the width the two sides leave */
+  html.yk-desk [data-yk="GameCatch"] > [data-d="board"] {
+    --ct-side: clamp(200px, 21cqw, 270px);
+    display: grid !important; grid-template-columns: var(--ct-side) minmax(0, 1fr) var(--ct-side); grid-template-rows: minmax(0, 1fr);
+    gap: 0 clamp(24px, 3cqw, 36px); padding: 0; overflow: visible;
+  }
+
+  /* ---------- what is heard: a card at the top of the left column */
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] {
+    grid-column: 1; grid-row: 1; align-self: start; min-width: 0;
+    height: auto !important; flex-wrap: wrap; gap: 14px 12px !important; padding: 18px !important;
+    border-radius: 22px !important; box-shadow: 0 4px 0 #1B2440 !important;
+  }
+  /* the wave, larger */
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div[aria-hidden] { height: 34px !important; gap: 4px !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div[aria-hidden] > div { width: 5px !important; height: 34px !important; border-radius: 3px !important; }
+  /* the label beside it */
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div:not([aria-hidden]) { flex: 1 1 0; gap: 2px; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div:not([aria-hidden]) > div:first-child { font-size: 18px !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div:not([aria-hidden]) > div:last-child { font-size: 13px !important; }
+  /* もう一度 and 文字で, a row each, the card's width */
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > button { flex: 1 1 100%; height: 46px !important; display: flex !important; align-items: center; justify-content: center; font-size: 15px !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > button > svg { width: 18px; height: 18px; }
+  /* without sound: the reading to find, large (it may wrap rather than be cut) */
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div:only-child { gap: 6px; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div:only-child > div:first-child { font-size: 14px !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > div:only-child > div:last-child { font-size: 32px !important; line-height: 1.2; white-space: normal !important; overflow-wrap: anywhere; }
+
+  /* ---------- the field: as tall as the board; the factor its parts grow by (--ct-z), in steps by the board's box */
+  html.yk-desk [data-yk="GameCatch"] > [data-d="board"] > * { --ct-z: 1; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="field"] {
+    grid-column: 2; grid-row: 1; min-width: 0; min-height: 0; container: ct-field / size; counter-reset: ct-lane;
+    border-radius: 24px !important; background-size: calc(26px * var(--ct-z)) calc(26px * var(--ct-z)) !important;
+  }
+  @container gm-board (min-width: 800px) and (min-height: 500px) { html.yk-desk [data-yk="GameCatch"] > [data-d="board"] > * { --ct-z: 1.05; } }
+  @container gm-board (min-width: 860px) and (min-height: 420px) { html.yk-desk [data-yk="GameCatch"] > [data-d="board"] > * { --ct-z: 1.2; } }
+  @container gm-board (min-width: 1040px) and (min-height: 500px) { html.yk-desk [data-yk="GameCatch"] > [data-d="board"] > * { --ct-z: 1.32; } }
+  @container gm-board (min-width: 1150px) and (min-height: 570px) { html.yk-desk [data-yk="GameCatch"] > [data-d="board"] > * { --ct-z: 1.45; } }
+  @container gm-board (min-width: 1150px) and (min-height: 680px) { html.yk-desk [data-yk="GameCatch"] > [data-d="board"] > * { --ct-z: 1.55; } }
+  html.yk-desk [data-yk="GameCatch"] [data-d="ground"] { height: calc(22px * var(--ct-z)) !important; }
+  /* Yaoki at the foot of the field */
+  html.yk-desk [data-yk="GameCatch"] [data-d="yaoki"] { bottom: calc(14px * var(--ct-z)) !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="yaoki"] .yk-y { width: calc(92px * var(--ct-z)) !important; height: calc(92px * var(--ct-z)) !important; }
+
+  /* ---------- a falling card: the phone's card at the field's factor, in its lane (the three share the width evenly); it falls
+     from above the field to Yaoki's head (the phone's 366 px is the same place on its 535 px field) */
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"] {
+    --ct-cw: calc(104px * var(--ct-z)); --ct-ch: calc(64px * var(--ct-z));
+    --ct-from: calc(-90px * var(--ct-z)); --ct-to: calc(100cqh - 170px * var(--ct-z) + 1px);
+    width: var(--ct-cw) !important; height: var(--ct-ch) !important; counter-increment: ct-lane;
+  }
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"]:nth-child(1 of [data-d="drop"]) { left: calc((100% - 3 * var(--ct-cw)) / 4) !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"]:nth-child(2 of [data-d="drop"]) { left: calc((100% - 3 * var(--ct-cw)) / 2 + var(--ct-cw)) !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"]:nth-child(3 of [data-d="drop"]) { left: calc((100% - 3 * var(--ct-cw)) * 3 / 4 + 2 * var(--ct-cw)) !important; }
+  /* the fall (the phone alternates two names to start it again for each word; under reduced motion nothing falls) */
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"][style*="yk-fall-a"] { animation-name: ct-fall-a !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"][style*="yk-fall-b"] { animation-name: ct-fall-b !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"] > button { width: 100% !important; height: 100% !important; border-radius: calc(16px * var(--ct-z)) !important; }
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"] > button > span { zoom: var(--ct-z); }
+  /* the ring of a catch, at the card's factor */
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"] > div { zoom: var(--ct-z); }
+  /* the keyboard's focus on a card: the ring clear of its outline and its shadow (#yk-stage: over _base.css's offset) */
+  html.yk-desk #yk-stage [data-yk="GameCatch"] [data-d="drop"] > button:focus-visible { outline-offset: 4px; }
+
+  /* ---------- Yaoki's words: the frame's bubble, at the foot of the right column, its tail towards him */
+  html.yk-desk [data-yk="GameCatch"] [data-d="say"] {
+    grid-column: 3; grid-row: 1; align-self: end; position: relative; min-width: 0; margin-bottom: calc(22px * var(--ct-z));
+  }
+  html.yk-desk [data-yk="GameCatch"] [data-d="say"]::before {
+    content: ''; position: absolute; left: -10px; bottom: 26px; width: 16px; height: 16px; box-sizing: border-box;
+    background: #FFFFFF; border-left: 2px solid #1B2440; border-bottom: 2px solid #1B2440; border-bottom-left-radius: 4px; transform: rotate(45deg);
+  }
+}
+/* the fall on a desktop: from above the field to Yaoki's head, whatever the field's height (the drop's --ct-from and --ct-to) */
+@keyframes ct-fall-a { from { transform: translateY(var(--ct-from)); } to { transform: translateY(var(--ct-to)); } }
+@keyframes ct-fall-b { from { transform: translateY(var(--ct-from)); } to { transform: translateY(var(--ct-to)); } }
+
+/* where there is a keyboard: each card that can be caught shows its key (1, 2, 3, left to right), and もう一度 shows Space */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="GameCatch"] [data-d="drop"] > button:not(:disabled)::before {
+      content: counter(ct-lane); position: absolute; left: 8px; top: 6px; padding: 0 5px; border: 1.5px solid currentColor; border-radius: 6px;
+      color: #5A6382; font: 800 11px/1.45 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; opacity: 0.85; pointer-events: none;
+    }
+    html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > [data-k="play"]::after {
+      content: 'Space'; flex-shrink: 0; margin-left: 4px; padding: 1px 7px; border: 1.5px solid currentColor; border-radius: 7px;
+      font: 800 11px/1.5 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; letter-spacing: 0.02em; opacity: 0.75;
+    }
+    html.yk-desk [data-yk="GameCatch"] [data-d="listen"] > [data-k="play"]:disabled::after { opacity: 0.4; }
+  }
+}
+
+/* the phone's column (a pane under 880 px): the three lanes are drawn at the phone's coordinates; in a wider field they sit in its
+   middle, over Yaoki, so a card missed still lands on him */
+@container yk (max-width: 879.98px) {
+  html.yk-desk [data-yk="GameCatch"] [data-d="drop"] { margin-left: max(0px, calc(50% - 177px)); }
+}

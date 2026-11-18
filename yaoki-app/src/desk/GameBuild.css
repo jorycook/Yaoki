@@ -1,0 +1,90 @@
+/* Sentence builder (文づくり, and the kana level's ことばづくり) on a desktop, in the games' frame (_games.css). */
+@container yk (min-width: 880px) {
+  html.yk-desk [data-yk="GameBuild"] { --gm-h: 480px; }
+  /* the board: the sentence and the bridge on the left (main), the pieces, Yaoki's words and Next on the right, one after the
+     other (auto-placed in the second column: once the sentence is built the pieces are gone, and the words and Next take
+     their place beside it) */
+  html.yk-desk [data-yk="GameBuild"] > [data-d="board"] {
+    --bd-side: clamp(290px, 29cqw, 380px);
+    display: grid !important; grid-template-columns: minmax(0, 1fr) var(--bd-side); grid-template-rows: auto auto auto minmax(0, 1fr);
+    gap: 16px 32px; padding: 0; overflow: visible;
+  }
+  html.yk-desk [data-yk="GameBuild"] > [data-d="board"] > * { --bd-card: 188px; --bd-row: 16px; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="main"] {
+    grid-column: 1; grid-row: 1 / -1; align-self: start; min-width: 0;
+    display: flex !important; flex-direction: column; gap: var(--bd-row); container: bd-main / inline-size;
+  }
+
+  /* ---------- the sentence: as tall as two lines of places, whatever the sentence (nothing moves when it is built) */
+  html.yk-desk [data-yk="GameBuild"] [data-d="sentence"] { min-height: var(--bd-card) !important; padding: 18px 22px 20px !important; gap: 12px !important; border-radius: 22px !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="sentence"] > div:first-child > div { font-size: 13px !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="sentence"] > div[lang] { margin-block: auto; font-size: clamp(22px, 3.1cqw, 25px) !important; text-wrap: balance; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="sentence"] > div[lang]:has(> button) { line-height: 58px !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="sentence"] > div[lang] > button { height: 50px !important; min-width: 68px !important; margin: 4px 3px !important; padding: 0 11px !important; border-radius: 14px !important; font-size: 21px !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="sentence"] > div[lang] > button > span[aria-hidden] { font-size: 22px !important; }
+
+  /* ---------- the bridge: the phone's picture drawn at the size of the scene (its parts in cqh of the scene, the outlines kept) */
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] {
+    box-sizing: border-box; height: min(calc(100cqw / 2.8), calc(100cqh - var(--bd-card) - var(--bd-row))) !important;
+    container: bd-scene / size; border-radius: 22px !important;
+  }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(1) { height: 34cqh !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:is(:nth-child(2), :nth-child(3)) { width: 50cqh !important; height: 50cqh !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(4) { right: 19cqh !important; bottom: 50cqh !important; height: 29cqh !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(5) { right: 2cqh !important; bottom: 66cqh !important; width: 17cqh !important; height: 12cqh !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(6) { left: 50cqh !important; right: 50cqh !important; bottom: 43cqh !important; height: 9cqh !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(6) > div { height: 100% !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(7) { --bd-run: calc(100cqw - 50cqh); left: 3cqh !important; bottom: 48.5cqh !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] > div:nth-child(7)[style*="yk-cross"] { animation-name: bd-cross !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="bridge"] .yk-y { width: 44cqh !important; height: 44cqh !important; }
+
+  /* ---------- the pieces, beside the sentence: a tray as tall as the sentence's card */
+  html.yk-desk [data-yk="GameBuild"] [data-d="tray"] {
+    grid-column: 2; min-height: var(--bd-card) !important; box-sizing: border-box; padding: 16px;
+    align-content: center !important; justify-content: center !important; gap: 12px !important;
+    border-radius: 22px; background: #E8ECFB; border: 2px solid #DDE1EC; counter-reset: bd-piece;
+  }
+  html.yk-desk [data-yk="GameBuild"] [data-d="tray"] > button {
+    position: relative; height: 58px !important; min-width: 96px !important; padding: 0 20px 0 34px !important;
+    border-radius: 16px !important; font-size: 21px !important;
+  }
+  html.yk-desk [data-yk="GameBuild"] [data-d="tray"] > button:not(:disabled) { counter-increment: bd-piece; }
+
+  /* ---------- Yaoki's words and Next */
+  /* ---------- the kana level (ことばづくり): the word being built, large, in the middle of its card; the tray's kana larger */
+  html.yk-desk [data-yk="GameBuild"]:has([data-d="track"] > [aria-label^="Word"]) [data-d="sentence"] > div[lang] { text-align: center; font-size: 40px !important; }
+  html.yk-desk [data-yk="GameBuild"]:has([data-d="track"] > [aria-label^="Word"]) [data-d="sentence"] > div[lang]:has(> button) { line-height: 82px !important; }
+  html.yk-desk [data-yk="GameBuild"]:has([data-d="track"] > [aria-label^="Word"]) [data-d="sentence"] > div[lang] > button { width: 74px; height: 74px !important; margin: 4px 5px !important; border-radius: 18px !important; font-size: 34px !important; }
+  html.yk-desk [data-yk="GameBuild"]:has([data-d="track"] > [aria-label^="Word"]) [data-d="tray"] > button { height: 66px !important; min-width: 92px !important; font-size: 30px !important; }
+
+  html.yk-desk [data-yk="GameBuild"] > [data-d="board"] > [data-d="gap"] { display: none !important; }
+  html.yk-desk [data-yk="GameBuild"] [data-d="say"] { grid-column: 2; max-height: calc(100cqh - var(--bd-card) - 2 * var(--bd-row)) !important; }
+  html.yk-desk [data-yk="GameBuild"] > [data-d="board"] > [data-k="go"] { grid-column: 2; display: flex !important; align-items: center; justify-content: center; }
+
+  /* a narrow board (an 880 to 960 px pane): the sentence's column holds about 20 characters a line, so its card is as tall as
+     three lines of places */
+  @container gm-board (max-width: 959.98px) {
+    html.yk-desk [data-yk="GameBuild"] > [data-d="board"] > * { --bd-card: 246px; }
+  }
+}
+/* where there is a keyboard: each piece that can be placed shows the key that places it (the keys count the pieces still in the
+   tray, in order, as yk-app.js does: a placed piece has no number, and the ones after it move up) */
+@media (hover: hover) and (pointer: fine) {
+  @container yk (min-width: 880px) {
+    html.yk-desk [data-yk="GameBuild"] [data-d="tray"] > button:not(:disabled)::before {
+      content: counter(bd-piece); position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      font: 800 12px/1 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; color: #5A6382;
+    }
+  }
+}
+/* Yaoki's crossing at the scene's width (the phone's is a fixed 286 px): the same hops, to the far bank */
+@keyframes bd-cross {
+  0% { transform: translate(0, 0); }
+  12% { transform: translate(calc(var(--bd-run) * 0.133), -13cqh); }
+  24% { transform: translate(calc(var(--bd-run) * 0.266), 0); }
+  38% { transform: translate(calc(var(--bd-run) * 0.413), -13cqh); }
+  52% { transform: translate(calc(var(--bd-run) * 0.559), 0); }
+  66% { transform: translate(calc(var(--bd-run) * 0.706), -13cqh); }
+  80% { transform: translate(calc(var(--bd-run) * 0.853), 0); }
+  100% { transform: translate(var(--bd-run), 0); }
+}

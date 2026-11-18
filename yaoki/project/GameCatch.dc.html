@@ -34,7 +34,8 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </helmet>
 <div style="position: relative; width: 390px; height: 844px; box-sizing: border-box; padding: 50px 16px 34px; background: #F4F5F9; color: #1B2440; font-family: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif; line-break: strict; display: flex; flex-direction: column; gap: 10px; overflow: hidden">
 
-<div style="display: flex; align-items: center; gap: 4px; height: 44px; flex-shrink: 0">
+<div data-d="top" style="display: contents">
+<div data-d="bar" style="display: flex; align-items: center; gap: 4px; height: 44px; flex-shrink: 0">
 <a href="{{ backHref }}" onClick="{{ close }}" aria-label="Close the game" style="width: 44px; height: 44px; margin-left: -8px; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></a>
 <div style="flex-grow: 1; min-width: 0; text-align: center; display: flex; flex-direction: column; line-height: 1.2">
 <div lang="ja" style="font-size: 16px; font-weight: 800">{{ titleJa }}</div>
@@ -43,7 +44,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <button onClick="{{ toggleSound }}" aria-pressed="{{ soundOn }}" aria-label="Sound" style="width: 44px; height: 44px; margin-right: -6px; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center"><sc-if value="{{ soundOn }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1B2440" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg></sc-if><sc-if value="{{ soundOff }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9AA1B5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg></sc-if></button>
 </div>
 
-<div style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
+<div data-d="track" style="display: flex; align-items: center; gap: 10px; flex-shrink: 0">
 <div style="flex-grow: 1; display: grid; grid-template-columns: repeat({{ size }}, minmax(0, 1fr)); gap: 5px" role="img" aria-label="{{ trackAria }}">
 <sc-for list="{{ track }}" as="t" hint-placeholder-count="6">
 <div style="height: 8px; border-radius: 4px; transition: background 300ms; background: {{ t.bg }}"></div>
@@ -51,8 +52,10 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 </div>
 <div style="font-size: 12px; font-weight: 800; color: #5A6382; white-space: nowrap; font-variant-numeric: tabular-nums">{{ countLine }}</div>
 </div>
+</div>
 
-<div style="display: flex; align-items: center; gap: 10px; height: 56px; flex-shrink: 0; padding: 0 6px 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440">
+<div data-d="board" style="display: contents">
+<div data-d="listen" style="display: flex; align-items: center; gap: 10px; height: 56px; flex-shrink: 0; padding: 0 6px 0 12px; border-radius: 18px; background: #FFFFFF; border: 2px solid #1B2440; box-shadow: 0 3px 0 #1B2440">
 <sc-if value="{{ hearMode }}" hint-placeholder-val="{{ true }}">
 <div aria-hidden="true" style="display: flex; align-items: center; gap: 3px; height: 24px">
 <sc-for list="{{ bars }}" as="b" hint-placeholder-count="5"><div style="width: 4px; height: 24px; border-radius: 2px; background: #2F4FD0; transform-origin: 50% 50%; animation: {{ b.anim }}; transform: scaleY({{ b.h }})"></div></sc-for>
@@ -61,7 +64,7 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <div lang="ja" style="font-size: 15px; font-weight: 800; white-space: nowrap">聞いて さがす</div>
 <div style="font-size: 12px; font-weight: 600; color: #5A6382; white-space: nowrap">Listen, then catch</div>
 </div>
-<button onClick="{{ replay }}" disabled="{{ noReplay }}" aria-label="Hear the word again" style="flex-shrink: 0; height: 44px; padding: 0 10px; border-radius: 14px; background: #E8ECFB; border: 2px solid #2F4FD0; color: #2F4FD0; font-weight: 800; font-size: 13px; white-space: nowrap; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>もう一度</button>
+<button data-k="play" onClick="{{ replay }}" disabled="{{ noReplay }}" aria-label="Hear the word again" style="flex-shrink: 0; height: 44px; padding: 0 10px; border-radius: 14px; background: #E8ECFB; border: 2px solid #2F4FD0; color: #2F4FD0; font-weight: 800; font-size: 13px; white-space: nowrap; display: flex; align-items: center; gap: 6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>もう一度</button>
 </sc-if>
 <sc-if value="{{ readMode }}" hint-placeholder-val="{{ false }}">
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25">
@@ -72,51 +75,52 @@ a{color:#2F4FD0;text-decoration:none}a:hover{color:#1B2440}
 <sc-if value="{{ canRead }}" hint-placeholder-val="{{ false }}"><button onClick="{{ toRead }}" aria-label="Show the word in letters instead" style="flex-shrink: 0; height: 44px; padding: 0 10px; border-radius: 14px; background: #FFFFFF; border: 2px solid #DDE1EC; color: #5A6382; font-weight: 800; font-size: 12px; white-space: nowrap">文字で</button></sc-if>
 </div>
 
-<div style="position: relative; flex-grow: 1; min-height: 0; border-radius: 22px; overflow: hidden; background: #FFFFFF; border: 2px solid #DDE1EC; background-image: linear-gradient(#EEF0F6 1px, transparent 1px), linear-gradient(90deg, #EEF0F6 1px, transparent 1px); background-size: 26px 26px">
-<div style="position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #E6E9F3; border-top: 2px dashed #C9D0E3"></div>
+<div data-d="field" style="position: relative; flex-grow: 1; min-height: 0; border-radius: 22px; overflow: hidden; background: #FFFFFF; border: 2px solid #DDE1EC; background-image: linear-gradient(#EEF0F6 1px, transparent 1px), linear-gradient(90deg, #EEF0F6 1px, transparent 1px); background-size: 26px 26px">
+<div data-d="ground" style="position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: #E6E9F3; border-top: 2px dashed #C9D0E3"></div>
 <sc-for list="{{ cards }}" as="c" hint-placeholder-count="3">
-<div style="position: absolute; top: 0; width: 104px; height: 64px; left: {{ c.left }}; animation: {{ c.fall }}; animation-play-state: {{ c.play }}">
+<div data-d="drop" style="position: absolute; top: 0; width: 104px; height: 64px; left: {{ c.left }}; animation: {{ c.fall }}; animation-play-state: {{ c.play }}">
 <button onClick="{{ c.tap }}" disabled="{{ c.off }}" aria-label="{{ c.aria }}" style="position: relative; width: 104px; height: 64px; padding: 0 4px; box-sizing: border-box; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.1; border: {{ c.border }}; background: {{ c.bg }}; box-shadow: {{ c.shadow }}; opacity: {{ c.dim }}; animation: {{ c.hit }}">
-<span lang="ja" style="font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-weight: 600; font-size: {{ c.size }}; color: #1B2440; white-space: nowrap">{{ c.text }}</span>
+<span data-k="choice" lang="ja" style="font-family: 'Klee One', 'M PLUS Rounded 1c', serif; font-weight: 600; font-size: {{ c.size }}; color: #1B2440; white-space: nowrap">{{ c.text }}</span>
 <sc-if value="{{ c.showReading }}" hint-placeholder-val="{{ false }}"><span lang="ja" style="font-size: 11px; font-weight: 800; color: #0B7A6B; white-space: nowrap">{{ c.reading }}</span></sc-if>
 </button>
 <sc-if value="{{ c.ring }}" hint-placeholder-val="{{ false }}"><div aria-hidden="true" style="position: absolute; left: 22px; top: -8px; width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; border: 4px solid #0B7A6B; animation: yk-ring 520ms ease-out both"></div></sc-if>
 </div>
 </sc-for>
-<div style="position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; pointer-events: none">
+<div data-d="yaoki" style="position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; pointer-events: none">
 <dc-import name="Yaoki" mood="{{ mood }}" beat="{{ beat }}" size="{{ 92 }}" look="{{ look }}" hint-size="92px,92px"></dc-import>
 </div>
 </div>
 
-<div role="status" style="flex-shrink: 0; min-height: 52px; box-sizing: border-box; padding: 8px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; justify-content: center; gap: 1px">
+<div data-d="say" role="status" style="flex-shrink: 0; min-height: 52px; box-sizing: border-box; padding: 8px 14px; border-radius: 16px; background: #FFFFFF; border: 2px solid #1B2440; display: flex; flex-direction: column; justify-content: center; gap: 1px">
 <div lang="ja" style="font-size: 15px; font-weight: 800; color: {{ sayInk }}">{{ sayJa }}</div>
 <div style="font-size: 12px; font-weight: 500; color: #5A6382; line-height: 1.35">{{ sayEn }}</div>
 </div>
+</div>
 
 <sc-if value="{{ intro }}" hint-placeholder-val="{{ true }}">
-<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 200ms ease-out">
-<div style="padding: 22px 20px 34px; border-radius: 28px 28px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 280ms ease-out">
-<div style="display: flex; align-items: center; gap: 14px">
+<div data-d="intro" style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 200ms ease-out">
+<div data-d="sheet" style="padding: 22px 20px 34px; border-radius: 28px 28px 0 0; border-top: 2px solid #1B2440; background: #FFFFFF; display: flex; flex-direction: column; gap: 12px; animation: yk-up 280ms ease-out">
+<div data-d="head" style="display: flex; align-items: center; gap: 14px">
 <dc-import name="Yaoki" mood="happy" beat="{{ 1 }}" size="{{ 74 }}" hint-size="74px,74px"></dc-import>
-<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<div data-d="title" style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
 <div style="font-size: 12px; font-weight: 800; color: #2F4FD0">{{ fromLine }}</div>
 <h1 lang="ja" style="margin: 0; font-size: 24px; font-weight: 800">{{ titleJa }}</h1>
 <div style="font-size: 13px; font-weight: 700; color: #5A6382">{{ titleEn }}</div>
 </div>
 </div>
-<div style="font-size: 14px; font-weight: 500; line-height: 1.55">{{ howTo }}</div>
-<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<div data-d="rules" style="font-size: 14px; font-weight: 500; line-height: 1.55">{{ howTo }}</div>
+<div data-d="chips" style="display: flex; flex-wrap: wrap; gap: 6px">
 <div style="padding: 4px 10px; border-radius: 10px; background: #E8ECFB; color: #2F4FD0; font-size: 12px; font-weight: 800">{{ chipCount }}</div>
 <div style="padding: 4px 10px; border-radius: 10px; background: #FFF4D6; color: #1B2440; font-size: 12px; font-weight: 800">はなまる: every word caught first try</div>
 </div>
-<button onClick="{{ start }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">はじめる</span>　Start</button>
+<button data-k="go" onClick="{{ start }}" style="margin-top: 4px; height: 54px; border-radius: 16px; background: #2F4FD0; border: 2px solid #1B2440; box-shadow: 0 4px 0 #1B2440; color: #FFFFFF; font-weight: 800; font-size: 17px"><span lang="ja">はじめる</span>　Start</button>
 </div>
 </div>
 </sc-if>
 
 <sc-if value="{{ ended }}" hint-placeholder-val="{{ false }}">
-<div style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 220ms ease-out">
-<div style="animation: yk-up 320ms ease-out">
+<div data-d="end" style="position: absolute; inset: 0; background: rgba(27, 36, 64, 0.42); display: flex; flex-direction: column; justify-content: flex-end; animation: yk-fade 220ms ease-out">
+<div data-d="sheet" style="animation: yk-up 320ms ease-out">
 <dc-import name="GameEnd" mark="{{ mark }}" kind="catch" level="{{ level }}" stats="{{ endStats }}" slips="{{ slips }}" note="{{ endNote }}" again="{{ again }}" back="{{ close }}" back-label="{{ backLabel }}" hint-size="390px,470px"></dc-import>
 </div>
 </div>
